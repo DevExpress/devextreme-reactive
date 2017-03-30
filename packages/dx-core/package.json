@@ -12,6 +12,9 @@
     "lint": "eslint src/**/*",
     "lint:fix": "eslint --fix src/**/*"
   },
+  "jest": {
+    "setupTestFrameworkScriptFile": "../../scripts/setup-jasmine-env.js"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {

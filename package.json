@@ -15,6 +15,7 @@
     "watch:react-demos": "lerna run watch --scope @devexpress/dx-react-demos --stream",
     "watch": "concurrently --kill-others \"npm run watch:core\" \"npm run watch:datagrid-core\" \"npm run watch:react-core\" \"npm run watch:react-datagrid\" \"npm run watch:react-datagrid-bootstrap3\" \"npm run watch:react-demos\"",
     "lint": "lerna run lint",
+    "lint:ci": "lerna run lint:ci",
     "test": "lerna run test"
   }
 }

@@ -10,7 +10,8 @@
     "build": "webpack",
     "build:watch": "webpack --watch",
     "lint": "eslint src/**/*",
-    "lint:fix": "eslint --fix src/**/*"
+    "lint:fix": "npm run -s lint -- --fix",
+    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-datatgrid-bootstrap3-lint.xml -f junit"
   },
   "jest": {
     "testResultsProcessor": "./node_modules/jest-junit"

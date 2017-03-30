@@ -2,7 +2,7 @@ import React from 'react';
 import {
     DataGrid,
     SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-    LocalFiltering,
+    LocalFiltering, LocalGrouping,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
@@ -54,6 +54,7 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
           />
 
           <LocalFiltering />
+          <LocalGrouping />
 
           <TableView />
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Getter, Action } from '@devexpress/dx-react-core';
-import { groupByColumn, groupedRows, expandedGroupRows } from '@devexpress/dx-datagrid-core';
+import { groupByColumn } from '@devexpress/dx-datagrid-core';
 
 export class GroupingState extends React.PureComponent {
   constructor(props) {
@@ -52,24 +52,6 @@ export class GroupingState extends React.PureComponent {
           action={({ columnName, groupIndex }) => {
             this._groupByColumn(grouping, { columnName, groupIndex });
           }}
-        />
-
-        <Getter
-          name="rows"
-          pureComputed={groupedRows}
-          connectArgs={getter => [
-            getter('rows')(),
-            grouping,
-          ]}
-        />
-
-        <Getter
-          name="rows"
-          pureComputed={expandedGroupRows}
-          connectArgs={getter => [
-            getter('rows')(),
-            expandedGroups,
-          ]}
         />
 
         <Getter name="grouping" value={grouping} />

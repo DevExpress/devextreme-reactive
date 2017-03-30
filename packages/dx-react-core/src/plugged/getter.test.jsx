@@ -198,7 +198,7 @@ describe('Getter', () => {
     tree.setProps({ text: 'new' });
 
     expect(onChange.mock.calls).toHaveLength(2);
-    expect(onChange.mock.calls[0][0]).toBe('text_extended');
+    expect(onChange.mock.calls[0][0]).toBe('text_extended_error');
     expect(onChange.mock.calls[1][0]).toBe('new_extended');
   });
 

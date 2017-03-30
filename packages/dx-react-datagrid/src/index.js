@@ -3,6 +3,7 @@ export { DataGrid } from './datagrid';
 export { FilteringState } from './plugins/filtering-state';
 export { LocalFiltering } from './plugins/filtering-local';
 export { PagingState } from './plugins/paging-state';
+export { LocalPaging } from './plugins/paging-local';
 export { GroupingState } from './plugins/grouping-state';
 export { LocalGrouping } from './plugins/grouping-local';
 export { SelectionState } from './plugins/selection-state';

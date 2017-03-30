@@ -1,6 +1,6 @@
 import React from 'react';
 import { Getter, Action } from '@devexpress/dx-react-core';
-import { paginate, ensurePageHeaders, setCurrentPage } from '@devexpress/dx-datagrid-core';
+import { setCurrentPage } from '@devexpress/dx-datagrid-core';
 
 export class PagingState extends React.PureComponent {
   constructor(props) {
@@ -30,6 +30,7 @@ export class PagingState extends React.PureComponent {
         <Action name="setCurrentPage" action={({ page }) => this._setCurrentPage({ page })} />
 
         <Getter name="currentPage" value={currentPage} />
+        <Getter name="pageSize" value={pageSize} />
         <Getter
           name="totalPages"
           pureComputed={this._totalPages}
@@ -42,25 +43,6 @@ export class PagingState extends React.PureComponent {
               this._setCurrentPage({ page: Math.max(totalPages - 1, 0) });
             }
           }}
-        />
-
-        <Getter
-          name="rows"
-          pureComputed={ensurePageHeaders}
-          connectArgs={getter => [
-            getter('rows')(),
-            pageSize,
-          ]}
-        />
-
-        <Getter
-          name="rows"
-          pureComputed={paginate}
-          connectArgs={getter => [
-            getter('rows')(),
-            pageSize,
-            currentPage,
-          ]}
         />
       </div>
     );

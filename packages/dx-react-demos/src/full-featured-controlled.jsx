@@ -2,7 +2,7 @@ import React from 'react';
 import {
     DataGrid,
     SortingState, SelectionState, FilteringState, PagingState,
-    LocalFiltering,
+    LocalFiltering, LocalPaging,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
@@ -49,21 +49,24 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
             filters={filters}
             filtersChange={this.changeFilters}
           />
+          <LocalFiltering />
+
           <SortingState
             sortings={sortings}
             sortingsChange={this.changeSortings}
           />
+
           <PagingState
             currectPage={page}
             onCurrentPageChange={this.changePage}
             pageSize={10}
           />
+          <LocalPaging />
+
           <SelectionState
             selection={selection}
             selectionChange={this.changeSelection}
           />
-
-          <LocalFiltering />
 
           <TableView />
 

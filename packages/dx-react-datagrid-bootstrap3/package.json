@@ -13,7 +13,11 @@
     "lint:fix": "eslint --fix src/**/*"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./setup-jasmine-env.js"
+    "testResultsProcessor": "./node_modules/jest-junit"
+  },
+  "jest-junit": {
+    "suiteName": "React Datatgrid Bootstrap3",
+    "output": "../../shippable/testresults/dx-react-datagrid-bootstrap3.xml"
   },
   "author": "",
   "license": "ISC",
@@ -36,6 +40,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
+    "jest-junit": "^1.4.0",
     "webpack": "^2.2.1"
   },
   "dependencies": {

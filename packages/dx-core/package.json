@@ -13,7 +13,11 @@
     "lint:fix": "eslint --fix src/**/*"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./setup-jasmine-env.js"
+    "testResultsProcessor": "./node_modules/jest-junit"
+  },
+  "jest-junit": {
+    "suiteName": "Core",
+    "output": "../../shippable/testresults/dx-core.xml"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +36,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jest": "^19.0.1",
     "jest": "^19.0.2",
+    "jest-junit": "^1.4.0",
     "webpack": "^2.2.1"
   }
 }

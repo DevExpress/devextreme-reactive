@@ -8,6 +8,7 @@ build:
     pull: true
   ci:
     - shippable_retry npm install --unsafe-perm
+    - npm run build
     - npm test
   cache: true
   cache_dir_list:

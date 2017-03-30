@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^3.4.0",
+    "lerna": "2.0.0-beta.38"
+  },
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "build": "lerna run build",
+    "watch:core": "lerna run build:watch --scope @devexpress/dx-core --stream",
+    "watch:datagrid-core": "lerna run build:watch --scope @devexpress/dx-datagrid-core --stream",
+    "watch:react-core": "lerna run build:watch --scope @devexpress/dx-react-core --stream",
+    "watch:react-datagrid": "lerna run build:watch --scope @devexpress/dx-react-datagrid --stream",
+    "watch:react-datagrid-bootstrap3": "lerna run build:watch --scope @devexpress/dx-react-datagrid-bootstrap3 --stream",
+    "watch:react-demos": "lerna run watch --scope @devexpress/dx-react-demos --stream",
+    "watch": "concurrently --kill-others \"npm run watch:core\" \"npm run watch:datagrid-core\" \"npm run watch:react-core\" \"npm run watch:react-datagrid\" \"npm run watch:react-datagrid-bootstrap3\" \"npm run watch:react-demos\"",
+    "lint": "lerna run lint",
+    "test": "lerna run test"
+  }
+}

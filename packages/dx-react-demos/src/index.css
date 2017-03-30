@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 20px;
+}
+
+.virtual-table {
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+}
+.virtual-cell {
+    border-right: 1px solid gray; 
+    border-bottom: 1px solid gray;
+    display: flex;
+    align-items: center;
+}

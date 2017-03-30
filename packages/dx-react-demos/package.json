@@ -1,0 +1,45 @@
+{
+  "name": "@devexpress/dx-react-demos",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack-dev-server",
+    "test": "",
+    "lint": "eslint src/**/*.{js,jsx}",
+    "lint:fix": "eslint --fix src/**/*.{js,jsx}"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@devexpress/dx-react-datagrid": "^0.0.0",
+    "@devexpress/dx-react-datagrid-bootstrap3": "^0.0.0",
+    "core-js": "^2.4.1",
+    "react": "^15.4.1",
+    "react-bootstrap": "^0.30.8",
+    "react-dom": "^15.4.1",
+    "reselect": "^2.5.4"
+  },
+  "devDependencies": {
+    "babel-jest": "^19.0.0",
+    "jest": "^19.0.2",
+    "css-loader": "^0.26.1",
+    "node-static": "^0.7.9",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-runtime": "^6.20.0",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "webpack-dev-server": "^2.3.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.1"
+  }
+}

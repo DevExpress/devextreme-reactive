@@ -1,0 +1,17 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+        "react",
+        "jest",
+        "jsx-a11y",
+        "import"
+    ],
+    "rules": {
+        "import/prefer-default-export": "off",
+        "no-underscore-dangle": "off",
+        "react/forbid-prop-types": "off"
+    },
+    "env": {
+      "jest/globals": true
+    }
+}

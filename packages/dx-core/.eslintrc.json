@@ -1,0 +1,13 @@
+{
+    "extends": "airbnb-base",
+    "plugins": [
+        "import",
+        "jest"
+    ],
+    "rules": {
+        "import/prefer-default-export": "off"
+    },
+    "env": {
+      "jest/globals": true
+    }
+}

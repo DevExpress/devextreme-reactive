@@ -10,7 +10,7 @@ build:
     - shippable_retry npm install --unsafe-perm
     - npm run build
     - npm test
-    - npm lint:ci
+    - npm run lint:ci
   cache: true
   cache_dir_list:
     - $SHIPPABLE_BUILD_DIR/node_modules

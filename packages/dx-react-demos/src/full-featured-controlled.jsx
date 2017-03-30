@@ -2,6 +2,7 @@ import React from 'react';
 import {
     DataGrid,
     SortingState, SelectionState, FilteringState, PagingState,
+    LocalFiltering,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
@@ -57,11 +58,12 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
             onCurrentPageChange={this.changePage}
             pageSize={10}
           />
-
           <SelectionState
             selection={selection}
             selectionChange={this.changeSelection}
           />
+
+          <LocalFiltering />
 
           <TableView />
 

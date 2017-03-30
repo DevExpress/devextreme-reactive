@@ -2,6 +2,7 @@ import React from 'react';
 import {
     DataGrid,
     SortingState, SelectionState, FilteringState, GroupingState,
+    LocalFiltering,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
@@ -44,10 +45,11 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
             defaultGrouping={[{ column: 'sex' }]}
             defaultExpandedGroups={{ Female: true }}
           />
-
           <SelectionState
             defaultSelection={[1, 3, 18]}
           />
+
+          <LocalFiltering />
 
           <VirtualTableView />
 

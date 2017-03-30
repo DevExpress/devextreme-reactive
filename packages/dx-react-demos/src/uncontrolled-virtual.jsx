@@ -2,6 +2,7 @@ import React from 'react';
 import {
     DataGrid,
     SortingState, SelectionState, FilteringState,
+    LocalFiltering,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
@@ -45,10 +46,11 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
           <SortingState
             defaultSortings={[{ column: 'name', direction: 'asc' }]}
           />
-
           <SelectionState
             defaultSelection={[1, 3, 18]}
           />
+
+          <LocalFiltering />
 
           <VirtualTableView />
 

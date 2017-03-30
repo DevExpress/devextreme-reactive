@@ -2,6 +2,7 @@ import React from 'react';
 import {
     DataGrid,
     SortingState, SelectionState, FilteringState, PagingState, GroupingState,
+    LocalFiltering,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
@@ -37,25 +38,22 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
           <SortingState
             defaultSortings={[{ column: 'name', direction: 'asc' }]}
           />
-
           <FilteringState
             defaultFilters={[{ column: 'name', value: 'j' }]}
           />
-
-
           <GroupingState
             defaultGrouping={[{ column: 'sex' }]}
             defaultExpandedGroups={{ Female: true }}
           />
-
           <PagingState
             defaultCurrentPage={0}
             pageSize={10}
           />
-
           <SelectionState
             defaultSelection={[1, 3, 18]}
           />
+
+          <LocalFiltering />
 
           <TableView />
 

@@ -5,13 +5,8 @@ export const CellContentTemplate = ({ row, column }) =>
   <TemplatePlaceholder name="tableViewCell" params={{ row, column }} />;
 
 CellContentTemplate.propTypes = {
-  row: React.PropTypes.object,
-  column: React.PropTypes.object,
-};
-
-CellContentTemplate.defaultProps = {
-  row: undefined,
-  column: undefined,
+  row: React.PropTypes.object.isRequired,
+  column: React.PropTypes.object.isRequired,
 };
 
 export class TableView extends React.PureComponent {
@@ -57,19 +52,24 @@ export class TableView extends React.PureComponent {
             columns: getter('tableColumns'),
           })}
         >
-          {({ headerRows, bodyRows, columns }) => <Table
-            headerRows={headerRows}
-            bodyRows={bodyRows}
-            columns={columns}
-            getCellInfo={this._getCellInfo}
-            cellContentTemplate={CellContentTemplate}
-            cellTemplate={cellTemplate}
-            rowTemplate={rowTemplate}
-          />}
+          {({ headerRows, bodyRows, columns }) => (
+            <Table
+              headerRows={headerRows}
+              bodyRows={bodyRows}
+              columns={columns}
+              getCellInfo={this._getCellInfo}
+              cellContentTemplate={CellContentTemplate}
+              cellTemplate={cellTemplate}
+              rowTemplate={rowTemplate}
+            />
+          )}
         </Template>
-        <Template name="tableViewCell">
+        <Template
+          name="tableViewCell"
+          predicate={({ row, column }) => row[column.name] !== undefined}
+        >
           {({ row, column }) => (
-            row[column.name] !== undefined ? <span>{row[column.name]}</span> : null
+            <span>{row[column.name]}</span>
           )}
         </Template>
       </div>

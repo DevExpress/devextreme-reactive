@@ -1,6 +1,6 @@
 # DevExtreme Reactive
 
-Cross-platform component suite for on modern frameworks.
+Cross-platform component suite for modern frameworks.
 
 ## DevExtreme for React
 

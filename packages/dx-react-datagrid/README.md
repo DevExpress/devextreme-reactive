@@ -2,6 +2,10 @@
 
 Component suite to build your own DataGrid.
 
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Reference](#reference)
+
 ## Installation
 
 Install package:
@@ -56,10 +60,11 @@ Or feel free to write your own templates.
 ### Plugins
 
 The are following plugin types:
-- State Managment. These plugins handle state and change it in respond to actions defined by them. [FilteringState, SortingState, GroupingState, SelectionState]
-- Data Processing. These plugins modyfies data passed into widget. [LocalFiltering, LocalSorting, LocalGrouping]
-- UI Representation. These plugins vizualize data and states. Also they can emit actions provides by state managment plugins. [TableView, TableHeaderRow, TableHeaderRowSorting, TableHeaderRowGrouping, TableFilterRow, TableColumnSelection, TableGroupRow, TableColumnSelection, PagingPanel, GroupingPanel]
+- State Managment. These plugins handle state and change it in respond to actions defined by them.
+- Data Processing. These plugins modyfies data passed into widget.
+- UI Representation. These plugins vizualize data and states. Also they can emit actions provides by state managment plugins.
 
+Follow the link to see full plugin list: [Reference](#reference)
 
 ### Plugin Order
 
@@ -81,7 +86,7 @@ export const CustomDataGrid = () => (
 );
 ```
 
-The same rule is applied for visualization plugins. See the following example:
+As you may notice, that in previous example, the TableView plugin specified after data processing one. The same rule is applied for visualization plugins. See the following example:
 
 ```js
 import { DataGrid, TableView, TableFilterRow, FilteringState, LocalFiltering } from '@devexpress/dx-react-datagrid'
@@ -98,21 +103,52 @@ export const CustomDataGrid = () => (
 
 NOTE: Refer to the plugin documentation if you have questions about requirements for specific plugin.
 
-## Documentation
+## Reference
 
-### FilteringState
+State Managment Plugins:
+- [FilteringState](#filteringstate-reference)
+- [SortingState](#sortingstate-reference)
+- GroupingState
+- SelectionState
+
+Data Processing Plugins:
+- [LocalFiltering](#localfiltering-reference)
+- [LocalSorting](#localsorting-reference)
+- LocalPaging
+- LocalGrouping
+
+Visualization Plugins:
+- [TableView](#tableview-reference)
+- TableHeaderRow
+- TableHeaderRowSorting (REMOVE?)
+- TableHeaderRowGrouping (REMOVE?)
+- TableFilterRow
+- TableColumnSelection
+- TableGroupRow
+- TableColumnSelection
+- PagingPanel
+- GroupingPanel
+
+### FilteringState Reference
 
 Plugin that manages filtering state.
+
+Filter data structure:
+
+Field  | Type   | Description
+-------|--------|------------------------------------------------
+column | string | Specifies column name to apply filter
+value  | string | Specifies value with that rows will be filtered
 
 Dependencies: none
 
 Properties:
 
-Property        | Type                            | Default Value | Description
-----------------|---------------------------------|---------------|-----------------------------------------------------
-`filters`       | `array<int>`                    | `undefined`   | Specifies filters applied
-`filtersChange` | `(filters: array<int>) => void` | `undefined`   | Handles filters change
-`defaultFilter` | `array<int>`                    | `undefined`   | Specifies starting filters for uncontrolled scenario
+Property      | Type                                   | Default Value | Description
+--------------|----------------------------------------|---------------|-----------------------------------------------------
+filters       | array&lt;Filter&gt;                    | undefined     | Specifies filters applied
+defaultFilter | array&lt;Filter&gt;                    | undefined     | Specifies starting filters for uncontrolled scenario
+filtersChange | (filters: array&lt;Filter&gt;) => void | undefined     | Handles filters change
 
 Import: none
 
@@ -123,7 +159,37 @@ Name            | Type   | Description
 filters         | Getter | Applied column filters
 setColumnFilter | Action | Change filter for column
 
-### LocalFiltering
+### SortingState Reference
+
+Plugin that manages sortings state.
+
+Sorting data structure:
+
+Field     | Type              | Description
+----------|-------------------|----------------------------------------------
+column    | string            | Specifies column name to apply sorting
+direction | 'asc'&#124;'desc' | Specifies value with that rows will be sorted
+
+Dependencies: none
+
+Properties:
+
+Property        | Type                                     | Default Value | Description
+----------------|------------------------------------------|---------------|------------------------------------------------------
+sortings        | array&lt;Sorting&gt;                     | undefined     | Specifies sortings applied
+defaultSortings | array&lt;Sorting&gt;                     | undefined     | Specifies starting sortings for uncontrolled scenario
+sortingsChange  | (sortings: array&lt;Sorting&gt;) => void | undefined     | Handles sortings change
+
+Import: none
+
+Exports:
+
+Name             | Type   | Description
+-----------------|--------|--------------------------
+sortings         | Getter | Applied column sortings
+setColumnSorting | Action | Change sorting for column
+
+### LocalFiltering Reference
 
 Plugin that performs local data filtering.
 
@@ -144,3 +210,37 @@ Exports:
 Name | Type   | Description
 -----|--------|----------------------------------
 rows | Getter | Rows with applied local filtering
+
+### LocalSorting Reference
+
+Plugin that performs local data sorting.
+
+Dependencies:
+- SortingState
+
+Properties: none
+
+Imports:
+
+Name     | Type   | Description
+---------|--------|------------------------------
+rows     | Getter | Rows to be sorted
+sortings | Getter | Column sortings to be applied
+
+Exports:
+
+Name | Type   | Description
+-----|--------|--------------------------------
+rows | Getter | Rows with applied local sorting
+
+### TableView Reference
+
+Plugin that implements basic table layout rendering.
+
+Dependencies: none
+
+Properties:
+
+Property      | Type                        | Description
+--------------|-----------------------------|----------------------------------------------------------
+tableTemplate | Component&lt;TableProps&gt; | Component that renders table based on supplied parameters

@@ -43,19 +43,18 @@ const groupRows = (originalRows, grouping, parentGroup) => {
 
 export const groupedRows = (rows, grouping) => groupRows(rows, grouping);
 
-const expandGroups = (rows, expandedGroups) => {
-  const result = rows.slice().map((row) => {
+const expandGroups = (rows, expandedGroups, result) => {
+  for (let i = 0; i < rows.length; i += 1) {
+    const row = rows[i];
+    result.push(row);
     if (row.type === 'groupRow' && expandedGroups[row.key]) {
-      return [
-        row,
-        ...expandGroups(row.rows, expandedGroups),
-      ];
+      expandGroups(row.rows, expandedGroups, result);
     }
-    return [row];
-  }).reduce((acc, val) => acc.concat(val), []);
-
-  return result;
+  }
 };
 
-export const expandedGroupRows = (rows, expandedGroups) => expandGroups(rows, expandedGroups);
-
+export const expandedGroupRows = (rows, expandedGroups) => {
+  const result = [];
+  expandGroups(rows, expandedGroups, result);
+  return result;
+};

@@ -12,8 +12,8 @@ export const PagingPanel = props => (
     <Template
       name="pager"
       connectGetters={getter => ({
-        currentPage: getter('currentPage')(),
-        totalPages: getter('totalPages')(),
+        currentPage: getter('currentPage'),
+        totalPages: getter('totalPages'),
       })}
       connectActions={action => ({
         onCurrentPageChange: page => action('setCurrentPage')({ page }),

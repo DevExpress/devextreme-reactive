@@ -19,8 +19,8 @@ export class TableGroupRow extends React.PureComponent {
           name="tableColumns"
           pureComputed={this._tableColumns}
           connectArgs={getter => [
-            getter('tableColumns')(),
-            getter('grouping')(),
+            getter('tableColumns'),
+            getter('grouping'),
           ]}
         />
 
@@ -34,7 +34,7 @@ export class TableGroupRow extends React.PureComponent {
           predicate={({ column, row }) => row.type === 'groupRow'
             && column.type === 'groupColumn'
             && row.column === column.group.column}
-          connectGetters={getter => ({ expandedGroups: getter('expandedGroups')() })}
+          connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
           {({ row, expandedGroups, toggleGroupExpanded }) => (

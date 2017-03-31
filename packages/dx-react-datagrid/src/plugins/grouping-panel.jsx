@@ -16,8 +16,8 @@ export class GroupingPanel extends React.PureComponent {
           name="tableColumns"
           pureComputed={this._tableColumns}
           connectArgs={getter => [
-            getter('tableColumns')(),
-            getter('grouping')(),
+            getter('tableColumns'),
+            getter('grouping'),
           ]}
         />
 
@@ -31,7 +31,7 @@ export class GroupingPanel extends React.PureComponent {
         <Template
           name="group-panel"
           connectGetters={getter => ({
-            grouping: getter('grouping')(),
+            grouping: getter('grouping'),
           })}
           connectActions={action => ({
             groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),

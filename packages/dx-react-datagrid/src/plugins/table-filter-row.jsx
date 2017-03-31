@@ -15,7 +15,7 @@ export class TableFilterRow extends React.PureComponent {
           name="tableHeaderRows"
           pureComputed={this._tableHeaderRows}
           connectArgs={getter => [
-            getter('tableHeaderRows')(),
+            getter('tableHeaderRows'),
           ]}
         />
 
@@ -23,7 +23,7 @@ export class TableFilterRow extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'filter' && !column.type}
           connectGetters={(getter, { column }) => ({
-            filter: getColumnFilterValue(getter('filters')(), column.name),
+            filter: getColumnFilterValue(getter('filters'), column.name),
           })}
           connectActions={(action, { column }) => ({
             changeFilter: value => action('setColumnFilter')({ columnName: column.name, value }),

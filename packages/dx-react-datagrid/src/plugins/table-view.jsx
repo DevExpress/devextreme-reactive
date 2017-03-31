@@ -35,14 +35,14 @@ export class TableView extends React.PureComponent {
           name="tableBodyRows"
           pureComputed={rows => rows}
           connectArgs={getter => [
-            getter('rows')(),
+            getter('rows'),
           ]}
         />
         <Getter
           name="tableColumns"
           pureComputed={columns => columns}
           connectArgs={getter => [
-            getter('columns')(),
+            getter('columns'),
           ]}
         />
 
@@ -52,9 +52,9 @@ export class TableView extends React.PureComponent {
         <Template
           name="tableView"
           connectGetters={getter => ({
-            headerRows: getter('tableHeaderRows')(),
-            bodyRows: getter('tableBodyRows')(),
-            columns: getter('tableColumns')(),
+            headerRows: getter('tableHeaderRows'),
+            bodyRows: getter('tableBodyRows'),
+            columns: getter('tableColumns'),
           })}
         >
           {({ headerRows, bodyRows, columns }) => <Table

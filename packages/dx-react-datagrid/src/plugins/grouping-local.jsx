@@ -8,16 +8,16 @@ export const LocalGrouping = () => (
       name="rows"
       pureComputed={groupedRows}
       connectArgs={getter => [
-        getter('rows')(),
-        getter('grouping')(),
+        getter('rows'),
+        getter('grouping'),
       ]}
     />
     <Getter
       name="rows"
       pureComputed={expandedGroupRows}
       connectArgs={getter => [
-        getter('rows')(),
-        getter('expandedGroups')(),
+        getter('rows'),
+        getter('expandedGroups'),
       ]}
     />
   </div>

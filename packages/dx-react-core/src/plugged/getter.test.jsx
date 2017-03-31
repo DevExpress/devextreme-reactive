@@ -14,7 +14,7 @@ describe('Getter', () => {
         <Template
           name="root"
           connectGetters={getter => ({
-            prop: getter('test')(),
+            prop: getter('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -33,14 +33,14 @@ describe('Getter', () => {
           name="test"
           pureComputed={dep => dep}
           connectArgs={getter => [
-            getter('dep')(),
+            getter('dep'),
           ]}
         />
 
         <Template
           name="root"
           connectGetters={getter => ({
-            prop: getter('test')(),
+            prop: getter('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -59,7 +59,7 @@ describe('Getter', () => {
           name="test"
           pureComputed={dep => dep}
           connectArgs={getter => [
-            getter('dep')(),
+            getter('dep'),
           ]}
         />
 
@@ -68,7 +68,7 @@ describe('Getter', () => {
         <Template
           name="root"
           connectGetters={getter => ({
-            prop: getter('test')(),
+            prop: getter('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -87,7 +87,7 @@ describe('Getter', () => {
         <Template
           name="root"
           connectGetters={getter => ({
-            prop: getter('dep')(),
+            prop: getter('dep'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -108,14 +108,14 @@ describe('Getter', () => {
           name="test"
           pureComputed={original => `${original}_extended`}
           connectArgs={getter => [
-            getter('test')(),
+            getter('test'),
           ]}
         />
 
         <Template
           name="root"
           connectGetters={getter => ({
-            prop: getter('test')(),
+            prop: getter('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -134,7 +134,7 @@ describe('Getter', () => {
           <Template
             name="root"
             connectGetters={getter => ({
-              prop: getter('test')(),
+              prop: getter('test'),
             })}
           >
             {({ prop }) => <h1>{prop}</h1>}
@@ -170,7 +170,7 @@ describe('Getter', () => {
           name="test"
           pureComputed={original => `${original}_extended`}
           connectArgs={getter => [
-            getter('test')(),
+            getter('test'),
           ]}
           onChange={onChange}
         />
@@ -178,7 +178,7 @@ describe('Getter', () => {
         <Template
           name="root"
           connectGetters={getter => ({
-            prop: getter('test')(),
+            prop: getter('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -216,14 +216,14 @@ describe('Getter', () => {
               name="test"
               pureComputed={() => ({})}
               connectArgs={getter => [
-                getter('test')(),
+                getter('test'),
               ]}
             />
 
             <Template
               name="root"
               connectGetters={(getter) => {
-                log.push(getter('test')());
+                log.push(getter('test'));
               }}
             />
           </div>

@@ -32,7 +32,7 @@ export class TableRowDetail extends React.PureComponent {
           name="tableColumns"
           pureComputed={this._tableColumns}
           connectArgs={getter => [
-            getter('tableColumns')(),
+            getter('tableColumns'),
           ]}
         />
         <Template name="tableViewCell" predicate={({ column, row }) => column.type === 'detail' && row.type === 'heading'} />
@@ -47,7 +47,7 @@ export class TableRowDetail extends React.PureComponent {
           name="tableBodyRows"
           pureComputed={expandedDetailRows}
           connectArgs={getter => [
-            getter('tableBodyRows')(),
+            getter('tableBodyRows'),
             expandedDetails,
           ]}
         />

@@ -35,7 +35,7 @@ export class PagingState extends React.PureComponent {
           name="totalPages"
           pureComputed={this._totalPages}
           connectArgs={getter => [
-            getter('rows')(),
+            getter('rows'),
             pageSize,
           ]}
           onChange={(totalPages) => {

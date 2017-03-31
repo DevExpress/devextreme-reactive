@@ -28,7 +28,7 @@ export class Getter extends React.PureComponent {
     const pureComputedMemoized = getterMemoize(pureComputed, result => onChange(result));
 
     this.plugin = {
-      [`${name}Getter`]: original => () => {
+      [`${name}Getter`]: (original) => {
         const { value, connectArgs } = this.props;
         if (value !== null) return value;
 

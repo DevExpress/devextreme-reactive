@@ -11,7 +11,7 @@ export const TableHeaderRowSorting = (props) => {
         name="tableViewCell"
         predicate={({ column, row }) => row.type === 'heading' && !column.type}
         connectGetters={(getter, { column }) => ({
-          direction: getColumnSortingDirection(getter('sortings')(), column.name),
+          direction: getColumnSortingDirection(getter('sortings'), column.name),
         })}
         connectActions={(action, { column }) => ({
           changeDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),

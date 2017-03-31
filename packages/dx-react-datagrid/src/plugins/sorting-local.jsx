@@ -7,8 +7,8 @@ export const LocalSorting = () => (
     name="rows"
     pureComputed={sortedRows}
     connectArgs={getter => [
-      getter('rows')(),
-      getter('sortings')(),
+      getter('rows'),
+      getter('sortings'),
     ]}
   />
 );

@@ -8,17 +8,17 @@ export const LocalPaging = () => (
       name="rows"
       pureComputed={ensurePageHeaders}
       connectArgs={getter => [
-        getter('rows')(),
-        getter('pageSize')(),
+        getter('rows'),
+        getter('pageSize'),
       ]}
     />
     <Getter
       name="rows"
       pureComputed={paginate}
       connectArgs={getter => [
-        getter('rows')(),
-        getter('pageSize')(),
-        getter('currentPage')(),
+        getter('rows'),
+        getter('pageSize'),
+        getter('currentPage'),
       ]}
     />
   </div>

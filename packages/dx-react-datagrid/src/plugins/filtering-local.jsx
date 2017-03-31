@@ -7,8 +7,8 @@ export const LocalFiltering = () => (
     name="rows"
     pureComputed={filteredRows}
     connectArgs={getter => [
-      getter('rows')(),
-      getter('filters')(),
+      getter('rows'),
+      getter('filters'),
     ]}
   />
 );

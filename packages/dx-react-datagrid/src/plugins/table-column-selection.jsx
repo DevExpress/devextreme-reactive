@@ -17,7 +17,7 @@ export class TableColumnSelection extends React.PureComponent {
           name="tableColumns"
           pureComputed={this._tableColumns}
           connectArgs={getter => [
-            getter('tableColumns')(),
+            getter('tableColumns'),
           ]}
         />
 
@@ -25,8 +25,8 @@ export class TableColumnSelection extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => column.type === 'select' && row.type === 'heading'}
           connectGetters={(getter) => {
-            const rows = getter('rows')();
-            const selection = getter('selection')();
+            const rows = getter('rows');
+            const selection = getter('selection');
             return {
               rows,
               allSelected: selection.length === rows.length,
@@ -48,7 +48,7 @@ export class TableColumnSelection extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => column.type === 'select' && !row.type}
           connectGetters={(getter, { row }) => ({
-            selected: getter('selection')().indexOf(row.id) > -1,
+            selected: getter('selection').indexOf(row.id) > -1,
           })}
           connectActions={(action, { row }) => ({
             toggleSelected: () => action('setRowSelection')({ row }),

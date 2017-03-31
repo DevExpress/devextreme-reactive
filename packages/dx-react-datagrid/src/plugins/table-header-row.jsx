@@ -18,8 +18,8 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableHeaderRows"
           pureComputed={this._tableHeaderRows}
           connectArgs={getter => [
-            getter('tableHeaderRows')(),
-            getter('columns')(),
+            getter('tableHeaderRows'),
+            getter('columns'),
           ]}
         />
       </div>

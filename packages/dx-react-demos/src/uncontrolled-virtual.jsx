@@ -43,16 +43,17 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
           <FilteringState
             defaultFilters={[{ column: 'sex', value: 'fe' }]}
           />
-          <LocalFiltering />
 
           <SortingState
             defaultSortings={[{ column: 'name', direction: 'asc' }]}
           />
-          <LocalSorting />
 
           <SelectionState
             defaultSelection={[1, 3, 18]}
           />
+
+          <LocalFiltering />
+          <LocalSorting />
 
           <VirtualTableView />
 

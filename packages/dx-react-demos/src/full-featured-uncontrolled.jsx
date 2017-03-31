@@ -38,23 +38,21 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
           <FilteringState
             defaultFilters={[{ column: 'name', value: 'j' }]}
           />
-          <LocalFiltering />
-
           <SortingState
             defaultSortings={[{ column: 'name', direction: 'asc' }]}
           />
-          <LocalSorting />
-
           <GroupingState
             defaultGrouping={[{ column: 'sex' }]}
             defaultExpandedGroups={{ Female: true }}
           />
-          <LocalGrouping />
-
           <PagingState
             defaultCurrentPage={0}
             pageSize={10}
           />
+
+          <LocalFiltering />
+          <LocalSorting />
+          <LocalGrouping />
           <LocalPaging />
 
           <SelectionState

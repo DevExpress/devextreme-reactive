@@ -18,8 +18,6 @@ export class PagingState extends React.PureComponent {
         currentPageChange(currentPage);
       }
     };
-
-    this._totalPages = (rows, pageSize) => Math.ceil(rows.length / pageSize);
   }
   render() {
     const { pageSize } = this.props;
@@ -31,19 +29,6 @@ export class PagingState extends React.PureComponent {
 
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
-        <Getter
-          name="totalPages"
-          pureComputed={this._totalPages}
-          connectArgs={getter => [
-            getter('rows'),
-            pageSize,
-          ]}
-          onChange={(totalPages) => {
-            if (totalPages - 1 < currentPage) {
-              this._setCurrentPage({ page: Math.max(totalPages - 1, 0) });
-            }
-          }}
-        />
       </div>
     );
   }

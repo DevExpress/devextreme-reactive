@@ -42,7 +42,6 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
           <SortingState
             defaultSortings={[{ column: 'name', direction: 'asc' }]}
           />
-          <LocalSorting />
 
           <GroupingState
             defaultGrouping={[{ column: 'sex' }]}
@@ -54,6 +53,7 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
           />
 
           <LocalFiltering />
+          <LocalSorting />
           <LocalGrouping />
 
           <VirtualTableView />

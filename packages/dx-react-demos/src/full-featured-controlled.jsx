@@ -49,25 +49,23 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
             filters={filters}
             filtersChange={this.changeFilters}
           />
-          <LocalFiltering />
-
           <SortingState
             sortings={sortings}
             sortingsChange={this.changeSortings}
           />
-          <LocalSorting />
-
           <PagingState
             currectPage={page}
             onCurrentPageChange={this.changePage}
             pageSize={10}
           />
-          <LocalPaging />
-
           <SelectionState
             selection={selection}
             selectionChange={this.changeSelection}
           />
+
+          <LocalFiltering />
+          <LocalSorting />
+          <LocalPaging />
 
           <TableView />
 

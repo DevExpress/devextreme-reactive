@@ -53,11 +53,10 @@ export class TemplatePlaceholder extends React.PureComponent {
   render() {
     this.teardownSubscription();
     this.prepareTemplates();
-    this.setupSubscription();
 
-    if (!this.template) {
-      return null;
-    }
+    if (!this.template) return null;
+
+    this.setupSubscription();
 
     const { children: templateChildren, connectGetters, connectActions } = this.template;
     const { children } = this.props;

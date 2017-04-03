@@ -25,24 +25,25 @@ export class TableColumnSelection extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => column.type === 'select' && row.type === 'heading'}
           connectGetters={(getter) => {
-            const rows = getter('rows');
+            const avaliableToSelect = getter('avaliableToSelect');
             const selection = getter('selection');
             return {
-              rows,
-              allSelected: selection.length === rows.length,
-              someSelected: selection.length !== rows.length && selection.length !== 0,
+              avaliableToSelect,
+              allSelected: selection.length === avaliableToSelect.length && selection.length !== 0,
+              someSelected: selection.length !== avaliableToSelect.length && selection.length !== 0,
             };
           }}
           connectActions={action => ({
-            toggleAll: rows => action('toggleAllSelection')({ rows }),
+            toggleAll: avaliableToSelect => action('toggleAllSelection')({ rowIds: avaliableToSelect }),
           })}
         >
-          {({ allSelected, someSelected, toggleAll, rows }) =>
+          {({ allSelected, someSelected, toggleAll, avaliableToSelect }) => (
             <SelectAllCell
               allSelected={allSelected}
               someSelected={someSelected}
-              toggleAll={() => toggleAll(rows)}
-            />}
+              toggleAll={() => toggleAll(avaliableToSelect)}
+            />
+          )}
         </Template>
         <Template
           name="tableViewCell"
@@ -51,7 +52,7 @@ export class TableColumnSelection extends React.PureComponent {
             selected: getter('selection').indexOf(row.id) > -1,
           })}
           connectActions={(action, { row }) => ({
-            toggleSelected: () => action('setRowSelection')({ row }),
+            toggleSelected: () => action('setRowSelection')({ rowId: row.id }),
           })}
         >
           {({ selected, toggleSelected }) => (

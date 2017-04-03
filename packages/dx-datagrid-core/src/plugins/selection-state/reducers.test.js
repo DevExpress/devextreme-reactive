@@ -1,6 +1,6 @@
 import {
     setRowSelection,
-    toggleSelectAll,
+    setRowsSelection,
 } from './reducers';
 
 describe('SelectionState reducers', () => {
@@ -44,12 +44,52 @@ describe('SelectionState reducers', () => {
     });
   });
 
-  describe('#toggleSelectAll', () => {
+  describe('#setRowsSelection', () => {
     test('can select all', () => {
       const selection = [];
-      const payload = { rows: [1, 2], getRowId: row => row };
+      const payload = { rowIds: [1, 2] };
 
-      const nextSelection = toggleSelectAll(selection, payload);
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1, 2]);
+    });
+
+    test('should add to selection if there are no selection rows', () => {
+      const selection = [1, 2];
+      const payload = { rowIds: [3, 4] };
+
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1, 2, 3, 4]);
+    });
+
+    test('should add to selection if there are some selection rows', () => {
+      const selection = [1, 2, 3];
+      const payload = { rowIds: [3, 4] };
+
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1, 2, 3, 4]);
+    });
+
+    test('should remove from selection all rows is selected', () => {
+      const selection = [1, 2, 3, 4];
+      const payload = { rowIds: [3, 4] };
+
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1, 2]);
+    });
+
+    test('should add to selection if isSelected is true', () => {
+      const selection = [1, 2, 3, 4];
+      const payload = { rowIds: [3, 4], isSelected: true };
+
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1, 2, 3, 4]);
+    });
+
+    test('should remove from selection if isSelected is false', () => {
+      const selection = [1, 2, 3];
+      const payload = { rowIds: [3, 4], isSelected: false };
+
+      const nextSelection = setRowsSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2]);
     });
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Getter, Action } from '@devexpress/dx-react-core';
-import { setRowSelection, toggleSelectAll } from '@devexpress/dx-datagrid-core';
+import { setRowSelection, setRowsSelection, getAvaliableSelection, getAvaliableToSelect } from '@devexpress/dx-datagrid-core';
 
 export class SelectionState extends React.PureComponent {
   constructor(props) {
@@ -24,18 +24,32 @@ export class SelectionState extends React.PureComponent {
     return (
       <div>
         <Action
-          name="setRowSelection" action={({ row }) => {
-            this.changeSelection(setRowSelection(selection, { rowId: row.id }));
+          name="setRowSelection" action={({ rowId }) => {
+            this.changeSelection(setRowSelection(selection, { rowId }));
           }}
         />
         <Action
           name="toggleAllSelection"
-          action={({ rows }) => {
-            this.changeSelection(toggleSelectAll(selection, { rows, getRowId: row => row.id }));
+          action={({ rowIds }) => {
+            this.changeSelection(setRowsSelection(selection, { rowIds }));
           }}
         />
 
-        <Getter name="selection" value={selection} />
+        <Getter
+          name="avaliableToSelect"
+          pureComputed={getAvaliableToSelect}
+          connectArgs={getter => [
+            getter('rows'),
+          ]}
+        />
+        <Getter
+          name="selection"
+          pureComputed={getAvaliableSelection}
+          connectArgs={getter => [
+            selection,
+            getter('avaliableToSelect'),
+          ]}
+        />
       </div>
     );
   }

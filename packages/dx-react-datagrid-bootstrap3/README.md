@@ -15,10 +15,10 @@ Add into your project:
 
 ```js
 import {
-    DataGrid
+  DataGrid
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableView
+  TableView
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 export const DataGridBootstrap3Theme = ({ children }) => (
@@ -27,3 +27,23 @@ export const DataGridBootstrap3Theme = ({ children }) => (
   </DataGrid>
 );
 ```
+
+## Getting started
+
+This repository contains templates and plugin wrappers with injected templates. These wrapper can be used instead the same ones from original React DataGrid repository for your convenience.
+
+See [demos](../dx-react-demos/README.md) for more information.
+
+## Reference
+
+Plugin wrappers:
+- TableView
+- TableHeaderRow
+- TableHeaderRowSorting (REMOVE?)
+- TableHeaderRowGrouping (REMOVE?)
+- TableFilterRow
+- TableColumnSelection
+- TableGroupRow
+- TableColumnSelection
+- PagingPanel
+- GroupingPanel

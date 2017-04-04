@@ -30,39 +30,36 @@ export const CustomDataGrid = () => (
 
 ### Minimal Setup
 
-By default DataGrid renders nothing. So, the minimal widget setup is not enough:
+By default DataGrid renders nothing. This is because functionality is contained in plugins. So we should specify at least one plugin that visualize supplied data:
 
 ```js
-import { DataGrid } from '@devexpress/dx-react-datagrid'
+import {
+  DataGrid
+} from '@devexpress/dx-react-datagrid';
+import {
+  TableView
+} from '@devexpress/dx-react-datagrid-bootstrap3';
 
-export const CustomDataGrid = () => (
-  <DataGrid rows={[...]} columns={[...]}></DataGrid>
-);
-```
-
-This is because functionality is contained in plugins. So we should specify at least one plugin that visualize supplied data:
-
-```js
-import { DataGrid, TableView } from '@devexpress/dx-react-datagrid'
-
-export const CustomDataGrid = () => (
-  <DataGrid rows={[...]} columns={[...]}>
-    <TableView tableTemplate={...}/>
+export const DataGridBootstrap3Theme = ({ children }) => (
+  <DataGrid
+    rows={[{ id: 0, ... }, ...]}
+    columns={[{ name: 'id', ... }, ...]}>
+    <TableView />
   </DataGrid>
 );
 ```
 
-Please note, that all plugins in this package does not contain visual components. For your convenience it is better to use one of the predefined templates:
-- [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md)
+Please note, that all plugins in this package does not contain visual components. For your convenience it is better to use one of the plugins packages with predefined visual components:
+- [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) (used in example)
 
 Or feel free to write your own templates.
 
 ### Plugins
 
 The are following plugin types:
-- State Managment. These plugins handle state and change it in respond to actions defined by them.
-- Data Processing. These plugins modyfies data passed into widget.
-- UI Representation. These plugins vizualize data and states. Also they can emit actions provides by state managment plugins.
+- State Management. These plugins handle state and change it in respond to actions defined by them.
+- Data Processing. These plugins modifies data passed into widget.
+- UI Representation. These plugins visualize data and states. Also they can emit actions provides by state management plugins.
 
 Follow the link to see full plugin list: [Reference](#reference)
 
@@ -70,18 +67,23 @@ Follow the link to see full plugin list: [Reference](#reference)
 
 All DataGrid plugins consists of core plugins.
 
-Each core plugin component has some unique behavior. <TODO: link to basic plugins descriptions (getter, template, template-placeholder, action)>
+Each core plugin component has some unique behavior. See details: [DevExtreme React Core](../dx-react-core/README.md)
 
 This is the reason why we should specify plugins in correct order. So, if data processing is based on some state, it should be inserted after appropriate state plugin. See the following example:
 
 ```js
-import { DataGrid, TableView, FilteringState, LocalFiltering } from '@devexpress/dx-react-datagrid'
+import {
+  DataGrid, FilteringState, LocalFiltering
+} from '@devexpress/dx-react-datagrid'
+import {
+  TableView
+} from '@devexpress/dx-react-datagrid-bootstrap3';
 
 export const CustomDataGrid = () => (
   <DataGrid rows={[...]} columns={[...]}>
     <FilteringState defaultFilters={[...]}/>
     <LocalFiltering/>
-    <TableView tableTemplate={...}/>
+    <TableView/>
   </DataGrid>
 );
 ```
@@ -89,13 +91,18 @@ export const CustomDataGrid = () => (
 As you may notice, that in previous example, the TableView plugin specified after data processing one. The same rule is applied for visualization plugins. See the following example:
 
 ```js
-import { DataGrid, TableView, TableFilterRow, FilteringState, LocalFiltering } from '@devexpress/dx-react-datagrid'
+import {
+  DataGrid, FilteringState, LocalFiltering
+} from '@devexpress/dx-react-datagrid'
+import {
+  TableView, TableFilterRow
+} from '@devexpress/dx-react-datagrid-bootstrap3';
 
 export const CustomDataGrid = () => (
   <DataGrid rows={[...]} columns={[...]}>
     <FilteringState defaultFilters={[...]}/>
     <LocalFiltering/>
-    <TableView tableTemplate={...}/>
+    <TableView/>
     <TableFilterRow filterCellTemplate={...}/>
   </DataGrid>
 );
@@ -110,6 +117,7 @@ State Managment Plugins:
 - [SortingState](#sortingstate-reference)
 - GroupingState
 - SelectionState
+- PagingState
 
 Data Processing Plugins:
 - [LocalFiltering](#localfiltering-reference)

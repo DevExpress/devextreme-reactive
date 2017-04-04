@@ -10,15 +10,19 @@ To run demos locally, follow next steps:
 
   `git clone https://github.com/DevExpress/devextreme-reactive.git`
 
-2. Install project dependencies
+2. Clone repository
+
+  `cd devextreme-reactive`
+
+3. Install project dependencies
 
   `npm install`
 
-3. Run demos
+4. Run demos
 
   `npm run watch`
 
-4. Open the following link in your browser: http://localhost:3002/
+5. Open the following link in your browser: http://localhost:3002/
 
 ## References
 

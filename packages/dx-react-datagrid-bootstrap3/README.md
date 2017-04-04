@@ -21,7 +21,7 @@ import {
   TableView
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
-export const DataGridBootstrap3Theme = ({ children }) => (
+export const App = () => (
   <DataGrid
     rows={[{ id: 0, ... }, ...]}
     columns={[{ name: 'id', ... }, ...]}>

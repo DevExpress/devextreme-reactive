@@ -14,18 +14,15 @@ Install package:
 npm i @devexpress/dx-react-datagrid --save
 ```
 
-Add to your project:
+This package does not contain any visual components. Due to this thing, all examples provided above use [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) package with predefined templates.
 
-```js
-import { DataGrid } from '@devexpress/dx-react-datagrid'
+Install DataGrid Bootstrap3 components package:
+
+```
+npm i @devexpress/dx-react-datagrid-bootstrap3 --save
 ```
 
-## Getting Started
-
-### Minimal Setup
-
-By default DataGrid renders nothing. This is because functionality is contained in plugins. So we should specify at least one plugin that visualize supplied data. Also, this package does not contain any visual components required for specific plugins. Due to this thing, we are recommend you to use one of the predefined template packages:
-- [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) (used in examples below)
+Add to your project:
 
 ```js
 import {
@@ -35,7 +32,7 @@ import {
   TableView
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
-export const DataGridBootstrap3Theme = ({ children }) => (
+const App = () => (
   <DataGrid
     rows={[{ id: 0, ... }, ...]}
     columns={[{ name: 'id', ... }, ...]}>
@@ -44,7 +41,13 @@ export const DataGridBootstrap3Theme = ({ children }) => (
 );
 ```
 
-NOTE: You can write your own templates based on plugins specification.
+## Getting Started
+
+### Minimal Setup
+
+By default DataGrid renders nothing. This is because functionality is contained in plugins. So we should specify at least one plugin that visualize supplied data.
+
+As you have seen in the example above, TableView plugin is specified.
 
 ### Plugins
 
@@ -71,7 +74,7 @@ import {
   TableView
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
-export const CustomDataGrid = () => (
+const App = () => (
   <DataGrid rows={[...]} columns={[...]}>
     <FilteringState defaultFilters={[...]}/>
     <LocalFiltering/>
@@ -90,7 +93,7 @@ import {
   TableView, TableFilterRow
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
-export const CustomDataGrid = () => (
+const App = () => (
   <DataGrid rows={[...]} columns={[...]}>
     <FilteringState defaultFilters={[...]}/>
     <LocalFiltering/>
@@ -101,6 +104,11 @@ export const CustomDataGrid = () => (
 ```
 
 NOTE: Refer to the plugin documentation if you have questions about requirements for specific plugin.
+
+### UI Representation Plugins
+
+It is required to specify visual component for this type of plugins. They are not included by default. You can write your own templates based on plugins specification or use one of the predefined:
+- [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) (used in examples)
 
 ## Reference
 

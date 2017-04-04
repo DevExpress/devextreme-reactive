@@ -38,6 +38,8 @@ export class WindowedScroller extends React.Component {
   }
 
   _updateViewport() {
+    if (!this.root) return;
+
     const oldViewport = this.state.viewport;
     const viewport = {
       top: this.root.scrollTop,

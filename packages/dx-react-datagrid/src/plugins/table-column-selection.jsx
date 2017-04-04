@@ -25,23 +25,23 @@ export class TableColumnSelection extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => column.type === 'select' && row.type === 'heading'}
           connectGetters={(getter) => {
-            const avaliableToSelect = getter('avaliableToSelect');
+            const availableToSelect = getter('availableToSelect');
             const selection = getter('selection');
             return {
-              avaliableToSelect,
-              allSelected: selection.length === avaliableToSelect.length && selection.length !== 0,
-              someSelected: selection.length !== avaliableToSelect.length && selection.length !== 0,
+              availableToSelect,
+              allSelected: selection.length === availableToSelect.length && selection.length !== 0,
+              someSelected: selection.length !== availableToSelect.length && selection.length !== 0,
             };
           }}
           connectActions={action => ({
-            toggleAll: avaliableToSelect => action('toggleAllSelection')({ rowIds: avaliableToSelect }),
+            toggleAll: availableToSelect => action('toggleAllSelection')({ rowIds: availableToSelect }),
           })}
         >
-          {({ allSelected, someSelected, toggleAll, avaliableToSelect }) => (
+          {({ allSelected, someSelected, toggleAll, availableToSelect }) => (
             <SelectAllCell
               allSelected={allSelected}
               someSelected={someSelected}
-              toggleAll={() => toggleAll(avaliableToSelect)}
+              toggleAll={() => toggleAll(availableToSelect)}
             />
           )}
         </Template>

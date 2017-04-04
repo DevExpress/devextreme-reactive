@@ -1,7 +1,7 @@
-export const getAvaliableToSelect = rows =>
+export const getAvailableToSelect = rows =>
   rows.filter(row => !row.type).map(row => row.id);
 
-export const getAvaliableSelection = (selection, avaliableToSelect) => {
-  const avaliableToSelectSet = new Set(avaliableToSelect);
-  return selection.filter(selected => avaliableToSelectSet.has(selected));
+export const getAvailableSelection = (selection, availableToSelect) => {
+  const availableToSelectSet = new Set(availableToSelect);
+  return selection.filter(selected => availableToSelectSet.has(selected));
 };

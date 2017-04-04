@@ -1,6 +1,6 @@
 import React from 'react';
 import { Getter, Action } from '@devexpress/dx-react-core';
-import { setRowSelection, setRowsSelection, getAvaliableSelection, getAvaliableToSelect } from '@devexpress/dx-datagrid-core';
+import { setRowSelection, setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-datagrid-core';
 
 export class SelectionState extends React.PureComponent {
   constructor(props) {
@@ -36,18 +36,18 @@ export class SelectionState extends React.PureComponent {
         />
 
         <Getter
-          name="avaliableToSelect"
-          pureComputed={getAvaliableToSelect}
+          name="availableToSelect"
+          pureComputed={getAvailableToSelect}
           connectArgs={getter => [
             getter('rows'),
           ]}
         />
         <Getter
           name="selection"
-          pureComputed={getAvaliableSelection}
+          pureComputed={getAvailableSelection}
           connectArgs={getter => [
             selection,
-            getter('avaliableToSelect'),
+            getter('availableToSelect'),
           ]}
         />
       </div>

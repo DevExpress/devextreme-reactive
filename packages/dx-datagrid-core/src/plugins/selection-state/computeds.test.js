@@ -1,22 +1,22 @@
 import {
-    getAvaliableToSelect,
-    getAvaliableSelection,
+    getAvailableToSelect,
+    getAvailableSelection,
 } from './computeds';
 
 describe('PagingState computeds', () => {
-  describe('#getAvaliableToSelect', () => {
+  describe('#getAvailableToSelect', () => {
     test('should work', () => {
       const rows = [{ id: 1 }, { id: 2, type: 'group' }, { id: 3 }];
 
-      expect(getAvaliableToSelect(rows)).toEqual([1, 3]);
+      expect(getAvailableToSelect(rows)).toEqual([1, 3]);
     });
   });
-  describe('#getAvaliableSelection', () => {
+  describe('#getAvailableSelection', () => {
     test('should work', () => {
       const selection = [1, 2, 3];
-      const avaliableToSelect = [2, 3, 4];
+      const availableToSelect = [2, 3, 4];
 
-      expect(getAvaliableSelection(selection, avaliableToSelect)).toEqual([2, 3]);
+      expect(getAvailableSelection(selection, availableToSelect)).toEqual([2, 3]);
     });
   });
 });

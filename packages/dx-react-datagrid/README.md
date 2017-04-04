@@ -17,20 +17,15 @@ npm i @devexpress/dx-react-datagrid --save
 Add to your project:
 
 ```js
-import { DataGrid, ... } from '@devexpress/dx-react-datagrid'
-
-export const CustomDataGrid = () => (
-  <DataGrid>
-    {/* Plugins */}
-  </DataGrid>
-);
+import { DataGrid } from '@devexpress/dx-react-datagrid'
 ```
 
 ## Getting Started
 
 ### Minimal Setup
 
-By default DataGrid renders nothing. This is because functionality is contained in plugins. So we should specify at least one plugin that visualize supplied data:
+By default DataGrid renders nothing. This is because functionality is contained in plugins. So we should specify at least one plugin that visualize supplied data. Also, this package does not contain any visual components required for specific plugins. Due to this thing, we are recommend you to use one of the predefined template packages:
+- [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) (used in examples below)
 
 ```js
 import {
@@ -49,10 +44,7 @@ export const DataGridBootstrap3Theme = ({ children }) => (
 );
 ```
 
-Please note, that all plugins in this package does not contain visual components. For your convenience it is better to use one of the plugins packages with predefined visual components:
-- [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) (used in example)
-
-Or feel free to write your own templates.
+NOTE: You can write your own templates based on plugins specification.
 
 ### Plugins
 

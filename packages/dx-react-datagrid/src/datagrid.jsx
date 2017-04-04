@@ -23,5 +23,8 @@ export const DataGrid = ({ rows, columns, children }) => (
 DataGrid.propTypes = {
   rows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,
-  children: React.PropTypes.array.isRequired,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.node,
+  ]).isRequired,
 };

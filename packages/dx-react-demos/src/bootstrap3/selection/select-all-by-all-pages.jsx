@@ -15,9 +15,9 @@ import {
 import {
   generateColumns,
   generateRows,
-} from '../demoData';
+} from '../../demoData';
 
-export class WithoutSelectAllDemo extends React.PureComponent {
+export class SelectAllByAllPagesDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -34,7 +34,7 @@ export class WithoutSelectAllDemo extends React.PureComponent {
 
     return (
       <div>
-        <h3>Selection w/o Select All Demo</h3>
+        <h3>Select All by All Pages Demo</h3>
 
         <span>Total rows selected: {selection.length} ({JSON.stringify(selection)})</span>
 
@@ -53,9 +53,7 @@ export class WithoutSelectAllDemo extends React.PureComponent {
           <LocalPaging />
           <TableView />
           <TableHeaderRow />
-          <TableColumnSelection
-            showSelectAll={false}
-          />
+          <TableColumnSelection />
           <PagingPanel />
         </DataGrid>
       </div>

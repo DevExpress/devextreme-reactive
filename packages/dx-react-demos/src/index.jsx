@@ -2,24 +2,41 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  HashRouter as Router,
+  Route,
+  Link,
+  Redirect,
+} from 'react-router-dom';
 
-import { FullFeaturedControlledDemo } from './full-featured-controlled';
-import { FullFeaturedUncontrolledDemo } from './full-featured-uncontrolled';
-import { UncontrolledVirtualDemo } from './uncontrolled-virtual';
-import { UncontrolledGroupedVirtualDemo } from './uncontrolled-grouped-virtual';
-import { SelectionDemos } from './selection';
+import { BasicDemos } from './bootstrap3/basic';
+import { SelectionDemos } from './bootstrap3/selection';
+import { FullFeaturedDemos } from './bootstrap3/full-featured';
+
 import './index.css';
 
 const App = () => (
-  <div>
-    <h1>Demo Index</h1>
+  <Router>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-3">
+          <ul className="list-unstyled">
+            <li><Link to="/basic">Basic</Link></li>
+            <li><Link to="/selection">Selection</Link></li>
+            <li><Link to="/full-featured">Full Featured</Link></li>
+          </ul>
+        </div>
 
-    <SelectionDemos />
-    <FullFeaturedControlledDemo />
-    <FullFeaturedUncontrolledDemo />
-    <UncontrolledVirtualDemo />
-    <UncontrolledGroupedVirtualDemo />
-  </div>
+        <div className="col-md-9">
+          <Route exact path="/" render={() => <Redirect push from="/" to="/basic" />} />
+
+          <Route path="/basic" component={BasicDemos} />
+          <Route path="/selection" component={SelectionDemos} />
+          <Route path="/full-featured" component={FullFeaturedDemos} />
+        </div>
+      </div>
+    </div>
+  </Router>
 );
 
 ReactDOM.render(

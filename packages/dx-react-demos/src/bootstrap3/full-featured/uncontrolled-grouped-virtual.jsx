@@ -1,39 +1,37 @@
 import React from 'react';
 import {
     DataGrid,
-    SortingState, SelectionState, FilteringState,
-    LocalFiltering, LocalSorting,
+    SortingState, SelectionState, FilteringState, GroupingState,
+    LocalFiltering, LocalGrouping, LocalSorting,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
-    VirtualTableView, TableFilterRow, TableColumnSelection, TableRowDetail, TableHeaderRowSorting,
+    TableColumnSelection, TableRowDetail, TableHeaderRowSorting, TableHeaderRowGrouping,
+    VirtualTableView, TableFilterRow, GroupingPanel, TableGroupRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
-import { generateColumns, generateRows } from './demoData';
+import {
+  generateColumns,
+  generateRows,
+} from '../../demoData';
 
-export class UncontrolledVirtualDemo extends React.PureComponent {
+export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       columns: generateColumns(),
-      rows: generateRows(200000),
+      rows: generateRows(20000),
     };
 
-    this.rowTemplate = ({ row }) => (
-      <div>
-        Detail for {row.name}
-        <br />
-        from {row.city}
-      </div>
-    );
+    this.rowTemplate = ({ row }) => <div>Detail for {row.name} from {row.city}</div>;
   }
   render() {
     const { rows, columns } = this.state;
 
     return (
       <div>
-        <h2>Uncontrolled Virtual Demo (200K rows)</h2>
+        <h3>Uncontrolled Grouped Virtual Demo (20K rows)</h3>
 
         <DataGrid
           rows={rows}
@@ -41,11 +39,16 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
         >
 
           <FilteringState
-            defaultFilters={[{ column: 'sex', value: 'fe' }]}
+            defaultFilters={[{ column: 'car', value: 'au' }]}
           />
 
           <SortingState
             defaultSortings={[{ column: 'name', direction: 'asc' }]}
+          />
+
+          <GroupingState
+            defaultGrouping={[{ column: 'sex' }]}
+            defaultExpandedGroups={{ Female: true }}
           />
 
           <SelectionState
@@ -54,11 +57,13 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
 
           <LocalFiltering />
           <LocalSorting />
+          <LocalGrouping />
 
           <VirtualTableView />
 
           <TableHeaderRow />
           <TableHeaderRowSorting />
+          <TableHeaderRowGrouping />
 
           <TableFilterRow />
 
@@ -68,6 +73,9 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
             defaultExpandedDetails={[3]}
             template={this.rowTemplate}
           />
+
+          <TableGroupRow />
+          <GroupingPanel />
 
         </DataGrid>
       </div>

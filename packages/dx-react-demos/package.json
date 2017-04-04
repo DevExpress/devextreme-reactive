@@ -19,6 +19,7 @@
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.1",
+    "react-router-dom": "^4.0.0",
     "reselect": "^2.5.4"
   },
   "devDependencies": {

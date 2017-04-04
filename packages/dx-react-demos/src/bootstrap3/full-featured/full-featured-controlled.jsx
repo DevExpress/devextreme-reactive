@@ -10,7 +10,10 @@ import {
     TableFilterRow, TableColumnSelection, PagingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
-import { generateColumns, generateRows } from './demoData';
+import {
+  generateColumns,
+  generateRows,
+} from '../../demoData';
 
 export class FullFeaturedControlledDemo extends React.PureComponent {
   constructor(props) {
@@ -38,7 +41,7 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
 
     return (
       <div style={{ width: '100%' }}>
-        <h2>Full Featured Controlled Demo</h2>
+        <h3>Full Featured Controlled Demo</h3>
 
         <DataGrid
           rows={rows}

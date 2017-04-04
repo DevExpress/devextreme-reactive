@@ -8,6 +8,7 @@ export class TableColumnSelection extends React.PureComponent {
     this._tableColumns = tableColumns => [{ type: 'select', name: 'select', width: 20 }, ...tableColumns];
   }
   render() {
+    const { showSelectAll } = this.props;
     const SelectAllCell = this.props.selectAllCellTemplate;
     const SelectCell = this.props.selectCellTemplate;
 
@@ -23,7 +24,7 @@ export class TableColumnSelection extends React.PureComponent {
 
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => column.type === 'select' && row.type === 'heading'}
+          predicate={({ column, row }) => showSelectAll && column.type === 'select' && row.type === 'heading'}
           connectGetters={(getter) => {
             const availableToSelect = getter('availableToSelect');
             const selection = getter('selection');
@@ -63,8 +64,11 @@ export class TableColumnSelection extends React.PureComponent {
     );
   }
 }
-
+TableColumnSelection.defaultProps = {
+  showSelectAll: true,
+};
 TableColumnSelection.propTypes = {
   selectAllCellTemplate: React.PropTypes.func.isRequired,
   selectCellTemplate: React.PropTypes.func.isRequired,
+  showSelectAll: React.PropTypes.bool,
 };

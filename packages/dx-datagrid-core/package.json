@@ -26,7 +26,7 @@
     "output": "../../shippable/testresults/dx-datagrid-core.xml"
   },
   "dependencies": {
-    "@devexpress/dx-core": "^0.0.0"
+    "@devexpress/dx-core": "^1.0.0-alpha.1"
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",

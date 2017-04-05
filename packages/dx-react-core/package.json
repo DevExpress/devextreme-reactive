@@ -49,7 +49,7 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "@devexpress/dx-core": "^0.0.0",
+    "@devexpress/dx-core": "^1.0.0-alpha.1",
     "react": "^15.4.2"
   }
 }

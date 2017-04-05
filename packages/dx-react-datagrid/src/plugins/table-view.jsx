@@ -20,7 +20,7 @@ export class TableView extends React.PureComponent {
     };
   }
   render() {
-    const { tableTemplate, rowTemplate, cellTemplate } = this.props;
+    const { tableTemplate } = this.props;
     const Table = tableTemplate;
 
     return (
@@ -51,16 +51,18 @@ export class TableView extends React.PureComponent {
             bodyRows: getter('tableBodyRows'),
             columns: getter('tableColumns'),
           })}
+          connectActions={action => ({
+            onClick: action('tableClick'),
+          })}
         >
-          {({ headerRows, bodyRows, columns }) => (
+          {({ headerRows, bodyRows, columns, onClick }) => (
             <Table
               headerRows={headerRows}
               bodyRows={bodyRows}
               columns={columns}
               getCellInfo={this._getCellInfo}
               cellContentTemplate={CellContentTemplate}
-              cellTemplate={cellTemplate}
-              rowTemplate={rowTemplate}
+              onClick={onClick}
             />
           )}
         </Template>
@@ -79,11 +81,4 @@ export class TableView extends React.PureComponent {
 
 TableView.propTypes = {
   tableTemplate: React.PropTypes.func.isRequired,
-  rowTemplate: React.PropTypes.func,
-  cellTemplate: React.PropTypes.func,
-};
-
-TableView.defaultProps = {
-  rowTemplate: undefined,
-  cellTemplate: undefined,
 };

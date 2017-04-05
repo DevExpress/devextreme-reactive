@@ -1,14 +1,19 @@
 import React from 'react';
 
+const getAction = (pluginHost, actionName) => {
+  const actions = pluginHost.collect(`${actionName}Action`).reverse();
+  return params => actions.forEach(action => action(params));
+};
+
 export class Action extends React.PureComponent {
   componentWillMount() {
     const { pluginHost } = this.context;
     const { name } = this.props;
 
     this.plugin = {
-      [`${name}Action`]: () => (params) => {
+      [`${name}Action`]: (params) => {
         const { action } = this.props;
-        action(params);
+        action(params, actionName => getAction(pluginHost, actionName));
       },
     };
 

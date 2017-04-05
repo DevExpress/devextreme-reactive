@@ -82,25 +82,34 @@ const closest = (el, s) => {
   return el;
 };
 /* eslint-enable */
+const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 export const Table = (props) => {
   const { headerRows, bodyRows, columns, cellContentTemplate,
-        getCellInfo, onClick, highlightSelected } = props;
+        getCellInfo, eventListeners, highlightSelected } = props;
 
-  const onTableClick = (e) => {
-    const { target } = e;
-    const cell = closest(target, 'th') || closest(target, 'td');
-    if (!cell) return;
+  const normalizedEventListeners = eventListeners
+    .map(({ name, handler }) => ({
+      name: `on${capitalize(name)}`,
+      handler: (e) => {
+        const { target } = e;
+        const cell = closest(target, 'th') || closest(target, 'td');
+        if (!cell) return;
 
-    const { rowId, columnName } = JSON.parse(cell.getAttribute('data-cell'));
-    onClick({ rowId, columnName, e });
-  };
+        const { rowId, columnName } = JSON.parse(cell.getAttribute('data-cell'));
+        handler({ rowId, columnName, e });
+      },
+    }))
+    .reduce((accum, { name, handler }) => {
+      accum[name] = handler; // eslint-disable-line no-param-reassign
+      return accum;
+    }, {});
 
   return (
     <div className="table-responsive">
       <table
         className="table"
-        onClick={onTableClick}
+        {...normalizedEventListeners}
       >
         <thead>
           {headerRows.map(row => (
@@ -141,5 +150,5 @@ Table.propTypes = {
   columns: React.PropTypes.array.isRequired,
   getCellInfo: React.PropTypes.func.isRequired,
   cellContentTemplate: React.PropTypes.func.isRequired,
-  onClick: React.PropTypes.func.isRequired,
+  eventListeners: React.PropTypes.array.isRequired,
 };

@@ -18,6 +18,21 @@ export class TableSelection extends React.PureComponent {
           return Object.assign({ selected: true }, row);
         });
     };
+
+    this._tableEventListeners = (selectByRowClick, tableEventListeners,
+        availableToSelect, setRowSelection) => {
+      if (!selectByRowClick) return tableEventListeners;
+      return [
+        ...tableEventListeners,
+        {
+          name: 'click',
+          handler: ({ rowId }) => {
+            if (availableToSelect.indexOf(rowId) === -1) return;
+            setRowSelection({ rowId });
+          },
+        },
+      ];
+    };
   }
   render() {
     const { selectByRowClick, showCheckboxes, showSelectAll } = this.props;
@@ -42,12 +57,15 @@ export class TableSelection extends React.PureComponent {
             getter('selection'),
           ]}
         />
-        <Action
-          name="tableClick"
-          action={({ rowId, columnName }, action) => {
-            if (!selectByRowClick) return;
-            action('setRowSelection')({ rowId });
-          }}
+        <Getter
+          name="tableEventListeners"
+          pureComputed={this._tableEventListeners}
+          connectArgs={(getter, action) => [
+            selectByRowClick,
+            getter('tableEventListeners'),
+            getter('availableToSelect'),
+            action('setRowSelection'),
+          ]}
         />
 
         <Template

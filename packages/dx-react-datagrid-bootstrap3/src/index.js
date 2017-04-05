@@ -4,7 +4,7 @@ export { TableRowDetail } from './plugins/table-row-detail';
 export { TableHeaderRowSorting } from './plugins/table-header-row-sorting';
 export { TableHeaderRowGrouping } from './plugins/table-header-row-grouping';
 export { TableGroupRow } from './plugins/table-group-row';
-export { TableColumnSelection } from './plugins/table-column-selection';
+export { TableSelection } from './plugins/table-selection';
 export { TableView } from './plugins/table-view';
 export { VirtualTableView } from './plugins/virtual-table-view';
 export { TableFilterRow } from './plugins/table-filter-row';

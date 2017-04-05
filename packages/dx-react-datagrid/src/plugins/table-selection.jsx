@@ -1,7 +1,7 @@
 import React from 'react';
 import { Getter, Action, Template } from '@devexpress/dx-react-core';
 
-export class TableColumnSelection extends React.PureComponent {
+export class TableSelection extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -92,12 +92,12 @@ export class TableColumnSelection extends React.PureComponent {
     );
   }
 }
-TableColumnSelection.defaultProps = {
+TableSelection.defaultProps = {
   selectByRowClick: false,
   showSelectAll: true,
   showCheckboxes: true,
 };
-TableColumnSelection.propTypes = {
+TableSelection.propTypes = {
   selectAllCellTemplate: React.PropTypes.func.isRequired,
   selectCellTemplate: React.PropTypes.func.isRequired,
   selectByRowClick: React.PropTypes.bool,

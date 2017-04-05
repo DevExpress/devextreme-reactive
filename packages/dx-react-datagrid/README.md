@@ -131,9 +131,8 @@ Visualization Plugins:
 - TableHeaderRowSorting (REMOVE?)
 - TableHeaderRowGrouping (REMOVE?)
 - TableFilterRow
-- TableColumnSelection
+- TableSelection
 - TableGroupRow
-- TableColumnSelection
 - PagingPanel
 - GroupingPanel
 

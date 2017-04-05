@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-datagrid';
 import {
     TableView,
-    TableColumnSelection,
+    TableSelection,
     PagingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
@@ -53,7 +53,7 @@ export class SelectAllByAllPagesDemo extends React.PureComponent {
           <LocalPaging />
           <TableView />
           <TableHeaderRow />
-          <TableColumnSelection />
+          <TableSelection />
           <PagingPanel />
         </DataGrid>
       </div>

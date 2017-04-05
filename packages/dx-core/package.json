@@ -1,7 +1,12 @@
 {
   "name": "@devexpress/dx-core",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0-alpha.1",
+  "description": "Core library for DevExtreme reactive component suite",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
   "main": "dist/index",
   "scripts": {
     "test": "jest",
@@ -20,8 +25,6 @@
     "suiteName": "Core",
     "output": "../../shippable/testresults/dx-core.xml"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",

@@ -1,5 +1,11 @@
 {
   "private": true,
+  "name": "devextreme-reactive",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
   "devDependencies": {
     "concurrently": "^3.4.0",
     "lerna": "2.0.0-beta.38"

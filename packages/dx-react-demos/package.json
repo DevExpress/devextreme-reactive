@@ -1,7 +1,13 @@
 {
+  "private": true,
   "name": "@devexpress/dx-react-demos",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0-alpha.1",
+  "description": "DevExtreme for React component suite Demos",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
   "main": "index.js",
   "scripts": {
     "watch": "webpack-dev-server",
@@ -10,11 +16,9 @@
     "lint:fix": "npm run -s lint -- --fix",
     "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-demos-lint.xml -f junit"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@devexpress/dx-react-datagrid": "^0.0.0",
-    "@devexpress/dx-react-datagrid-bootstrap3": "^0.0.0",
+    "@devexpress/dx-react-datagrid": "^1.0.0-alpha.1",
+    "@devexpress/dx-react-datagrid-bootstrap3": "^1.0.0-alpha.1",
     "core-js": "^2.4.1",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.8",

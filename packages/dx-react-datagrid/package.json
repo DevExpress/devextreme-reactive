@@ -1,7 +1,12 @@
 {
   "name": "@devexpress/dx-react-datagrid",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0-alpha.1",
+  "description": "Composable plugin-based DataGrid component for React",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
@@ -20,8 +25,6 @@
     "suiteName": "React Datagrid",
     "output": "../../shippable/testresults/dx-react-datagrid.xml"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
@@ -45,8 +48,8 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "^0.0.0",
-    "@devexpress/dx-datagrid-core": "^0.0.0",
+    "@devexpress/dx-react-core": "^1.0.0-alpha.1",
+    "@devexpress/dx-datagrid-core": "^1.0.0-alpha.1",
     "react": "^15.4.2"
   }
 }

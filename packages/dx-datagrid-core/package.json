@@ -1,7 +1,12 @@
 {
   "name": "@devexpress/dx-datagrid-core",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0-alpha.1",
+  "description": "Core library for DevExtreme reactive DataGrid component",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
@@ -20,8 +25,6 @@
     "suiteName": "Datagrid Core",
     "output": "../../shippable/testresults/dx-datagrid-core.xml"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@devexpress/dx-core": "^0.0.0"
   },

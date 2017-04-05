@@ -66,7 +66,7 @@ export class TableView extends React.PureComponent {
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ row, column }) => row[column.name] !== undefined}
+          predicate={({ row, column }) => !row.type && !column.type}
         >
           {({ row, column }) => (
             <span>{row[column.name]}</span>

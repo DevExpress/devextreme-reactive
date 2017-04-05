@@ -11,7 +11,6 @@ export const SelectAllCell = ({ allSelected, someSelected, toggleAll }) => (
       }
     }}
     onChange={toggleAll}
-    style={{ margin: '0' }}
   />
 );
 

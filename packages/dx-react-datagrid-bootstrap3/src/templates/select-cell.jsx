@@ -5,7 +5,6 @@ export const SelectCell = ({ selected, changeSelected }) => (
     type="checkbox"
     checked={selected}
     onChange={changeSelected}
-    style={{ margin: '0' }}
   />
 );
 

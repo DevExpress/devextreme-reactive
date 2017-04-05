@@ -5,7 +5,7 @@
     "lerna": "2.0.0-beta.38"
   },
   "scripts": {
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap --concurrency=1",
     "build": "lerna run build",
     "watch:core": "lerna run build:watch --scope @devexpress/dx-core --stream",
     "watch:datagrid-core": "lerna run build:watch --scope @devexpress/dx-datagrid-core --stream",

@@ -112,7 +112,7 @@ It is required to specify visual component for this type of plugins. They are no
 
 ## Reference
 
-State Managment Plugins:
+State Management Plugins:
 - [FilteringState](#filteringstate-reference)
 - [SortingState](#sortingstate-reference)
 - [SelectionState](#selectionstate-reference)

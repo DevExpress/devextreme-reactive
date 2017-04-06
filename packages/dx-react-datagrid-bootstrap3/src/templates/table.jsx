@@ -82,7 +82,6 @@ const closest = (el, s) => {
   return el;
 };
 /* eslint-enable */
-const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 export const Table = (props) => {
   const { headerRows, bodyRows, columns, cellContentTemplate,
@@ -90,7 +89,7 @@ export const Table = (props) => {
 
   const normalizedEventListeners = eventListeners
     .map(({ name, handler }) => ({
-      name: `on${capitalize(name)}`,
+      name,
       handler: (e) => {
         const { target } = e;
         const cell = closest(target, 'th') || closest(target, 'td');

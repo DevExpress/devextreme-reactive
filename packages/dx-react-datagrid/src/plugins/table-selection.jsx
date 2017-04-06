@@ -25,7 +25,7 @@ export class TableSelection extends React.PureComponent {
       return [
         ...tableEventListeners,
         {
-          name: 'click',
+          name: 'onClick',
           handler: ({ rowId }) => {
             if (availableToSelect.indexOf(rowId) === -1) return;
             setRowSelection({ rowId });

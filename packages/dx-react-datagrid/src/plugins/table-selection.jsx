@@ -80,7 +80,7 @@ export class TableSelection extends React.PureComponent {
             };
           }}
           connectActions={action => ({
-            toggleAll: availableToSelect => action('toggleAllSelection')({ rowIds: availableToSelect }),
+            toggleAll: availableToSelect => action('setRowsSelection')({ rowIds: availableToSelect }),
           })}
         >
           {({ allSelected, someSelected, toggleAll, availableToSelect }) => (

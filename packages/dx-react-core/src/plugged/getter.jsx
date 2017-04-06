@@ -1,10 +1,6 @@
 import React from 'react';
 import { argumentsShallowEqual } from '../utils/shallowEqual';
-
-const getAction = (pluginHost, actionName) => {
-  const actions = pluginHost.collect(`${actionName}Action`).reverse();
-  return params => actions.forEach(action => action(params));
-};
+import { getAction } from '../utils/pluginHelpers';
 
 function getterMemoize(func, onChange) {
   let lastArg = null;

@@ -40,7 +40,7 @@ export class TableView extends React.PureComponent {
             getter('columns'),
           ]}
         />
-        <Getter name="tableEventListeners" value={[]} />
+        <Getter name="tableExtraProps" value={{}} />
 
         <Template name="gridBody">
           <TemplatePlaceholder name="tableView" />
@@ -51,18 +51,17 @@ export class TableView extends React.PureComponent {
             headerRows: getter('tableHeaderRows'),
             bodyRows: getter('tableBodyRows'),
             columns: getter('tableColumns'),
-            eventListeners: getter('tableEventListeners'),
+            eventListeners: getter('tableExtraProps'),
           })}
         >
-          {({ headerRows, bodyRows, columns, eventListeners, onClick }) => (
+          {({ headerRows, bodyRows, columns, eventListeners }) => (
             <Table
               headerRows={headerRows}
               bodyRows={bodyRows}
               columns={columns}
-              eventListeners={eventListeners}
               getCellInfo={this._getCellInfo}
               cellContentTemplate={CellContentTemplate}
-              onClick={onClick}
+              {...eventListeners}
             />
           )}
         </Template>

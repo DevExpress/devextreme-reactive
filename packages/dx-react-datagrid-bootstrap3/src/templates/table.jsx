@@ -85,30 +85,20 @@ const closest = (el, s) => {
 
 export const Table = (props) => {
   const { headerRows, bodyRows, columns, cellContentTemplate,
-        getCellInfo, eventListeners, highlightSelected } = props;
-
-  const normalizedEventListeners = eventListeners
-    .map(({ name, handler }) => ({
-      name,
-      handler: (e) => {
-        const { target } = e;
-        const cell = closest(target, 'th') || closest(target, 'td');
-        if (!cell) return;
-
-        const { rowId, columnName } = JSON.parse(cell.getAttribute('data-cell'));
-        handler({ rowId, columnName, e });
-      },
-    }))
-    .reduce((accum, { name, handler }) => {
-      accum[name] = handler; // eslint-disable-line no-param-reassign
-      return accum;
-    }, {});
+        getCellInfo, highlightSelected, onClick } = props;
 
   return (
     <div className="table-responsive">
       <table
         className="table"
-        {...normalizedEventListeners}
+        onClick={(e) => {
+          const { target } = e;
+          const cell = closest(target, 'th') || closest(target, 'td');
+          if (!cell) return;
+
+          const { rowId, columnName } = JSON.parse(cell.getAttribute('data-cell'));
+          onClick({ rowId, columnName, e });
+        }}
       >
         <thead>
           {headerRows.map(row => (
@@ -141,6 +131,7 @@ export const Table = (props) => {
 };
 Table.defaultProps = {
   highlightSelected: false,
+  onClick: () => {},
 };
 Table.propTypes = {
   highlightSelected: React.PropTypes.bool,
@@ -149,5 +140,5 @@ Table.propTypes = {
   columns: React.PropTypes.array.isRequired,
   getCellInfo: React.PropTypes.func.isRequired,
   cellContentTemplate: React.PropTypes.func.isRequired,
-  eventListeners: React.PropTypes.array.isRequired,
+  onClick: React.PropTypes.func,
 };

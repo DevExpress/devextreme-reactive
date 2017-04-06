@@ -1,11 +1,7 @@
 import React from 'react';
 import { shallowEqual } from '../utils/shallowEqual';
 import { UPDATE_CONNECTION } from './getter';
-
-const getAction = (pluginHost, actionName) => {
-  const actions = pluginHost.collect(`${actionName}Action`).reverse();
-  return params => actions.forEach(action => action(params));
-};
+import { getAction } from '../utils/pluginHelpers';
 
 export class TemplateConnector extends React.PureComponent {
   constructor(props, context) {

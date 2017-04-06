@@ -2,6 +2,11 @@ import React from 'react';
 import { argumentsShallowEqual } from '../utils/shallowEqual';
 import { UPDATE_CONNECTION } from './getter';
 
+const getAction = (pluginHost, actionName) => {
+  const actions = pluginHost.collect(`${actionName}Action`).reverse();
+  return params => actions.forEach(action => action(params));
+};
+
 function changeDetector(watch, onChange) {
   let lastArg = null;
   return () => {
@@ -21,7 +26,7 @@ export class Watcher extends React.PureComponent {
     super(props, context);
     const { pluginHost } = context;
     const getter = getterName => pluginHost.get(`${getterName}Getter`);
-    const action = actionName => pluginHost.get(`${actionName}Action`);
+    const action = actionName => getAction(pluginHost, actionName);
     const { watch, onChange } = this.props;
 
     this.detectChanges = changeDetector(

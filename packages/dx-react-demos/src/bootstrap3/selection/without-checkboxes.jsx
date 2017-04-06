@@ -17,14 +17,14 @@ import {
   generateRows,
 } from '../../demoData';
 
-export class WithoutSelectAllDemo extends React.PureComponent {
+export class WithoutCheckboxesDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       columns: generateColumns(),
       rows: generateRows(14),
-      selection: [],
+      selection: [1],
     };
 
     this.changeSelection = selection => this.setState({ selection });
@@ -34,7 +34,7 @@ export class WithoutSelectAllDemo extends React.PureComponent {
 
     return (
       <div>
-        <h3>Selection w/o Select All Demo</h3>
+        <h3>Selection w/o Checkboxes Demo</h3>
 
         <span>Total rows selected: {selection.length} ({JSON.stringify(selection)})</span>
 
@@ -51,10 +51,13 @@ export class WithoutSelectAllDemo extends React.PureComponent {
             pageSize={6}
           />
           <LocalPaging />
-          <TableView />
+          <TableView
+            highlightSelected
+          />
           <TableHeaderRow />
           <TableSelection
-            showSelectAll={false}
+            selectByRowClick
+            showCheckboxes={false}
           />
           <PagingPanel />
         </DataGrid>

@@ -29,7 +29,7 @@ export class SelectionState extends React.PureComponent {
           }}
         />
         <Action
-          name="toggleAllSelection"
+          name="setRowsSelection"
           action={({ rowIds }) => {
             this.changeSelection(setRowsSelection(selection, { rowIds }));
           }}

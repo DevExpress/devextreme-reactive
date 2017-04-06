@@ -112,11 +112,11 @@ It is required to specify visual component for this type of plugins. They are no
 
 ## Reference
 
-State Managment Plugins:
+State Management Plugins:
 - [FilteringState](#filteringstate-reference)
 - [SortingState](#sortingstate-reference)
+- [SelectionState](#selectionstate-reference)
 - GroupingState
-- SelectionState
 - PagingState
 
 Data Processing Plugins:
@@ -127,13 +127,12 @@ Data Processing Plugins:
 
 Visualization Plugins:
 - [TableView](#tableview-reference)
+- [TableSelection](#tableselection-reference)
 - TableHeaderRow
 - TableHeaderRowSorting (REMOVE?)
 - TableHeaderRowGrouping (REMOVE?)
 - TableFilterRow
-- TableColumnSelection
 - TableGroupRow
-- TableColumnSelection
 - PagingPanel
 - GroupingPanel
 
@@ -197,12 +196,26 @@ Name             | Type   | Description
 sortings         | Getter | Applied column sortings
 setColumnSorting | Action | Change sorting for column
 
+### SelectionState Reference
+
+Plugin that manages selection state.
+
+Dependencies: none
+
+Properties:
+
+Property         | Type                                            | Default Value | Description
+-----------------|-------------------------------------------------|---------------|-----------------------------------------------------------
+selection        | array&lt;int&#124;string&gt;                    | []            | Specifies selected rows
+defaultSelection | array&lt;int&#124;string&gt;                    | []            | Specifies starting selected rows for uncontrolled scenario
+selectionChange  | (filters: array&lt;int&#124;string&gt;) => void | undefined     | Handles selection change
+
 ### LocalFiltering Reference
 
 Plugin that performs local data filtering.
 
 Dependencies:
-- FilteringState
+- [FilteringState](#filteringstate-reference)
 
 Properties: none
 
@@ -224,7 +237,7 @@ rows | Getter | Rows with applied local filtering
 Plugin that performs local data sorting.
 
 Dependencies:
-- SortingState
+- [SortingState](#sortingstate-reference)
 
 Properties: none
 
@@ -252,3 +265,21 @@ Properties:
 Property      | Type                        | Description
 --------------|-----------------------------|----------------------------------------------------------
 tableTemplate | Component&lt;TableProps&gt; | Component that renders table based on supplied parameters
+
+### TableSelection Reference
+
+Plugin that manages selection state.
+
+Dependencies:
+- [SelectionState](#selectionstate-reference)
+- [TableView](#tableview-reference)
+
+Properties:
+
+Property              | Type                                | Default Value | Description
+----------------------|-------------------------------------|---------------|------------------------------------------------------------
+selectByRowClick      | boolean                             | false         | Specifies whether or not row can be selected by click
+showSelectAll         | boolean                             | true          | Specifies whether or not show checkbox inside header row
+showCheckboxes        | boolean                             | false         | Specifies whether or not show checkbox inside each data row
+selectCellTemplate    | Component&lt;SelectCellProps&gt;    | undefined     | Component that renders toggle that selects data row
+selectAllCellTemplate | Component&lt;SelectAllCellProps&gt; | undefined     | Component that renders toggle that selects all rows

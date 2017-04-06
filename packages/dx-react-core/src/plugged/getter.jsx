@@ -1,5 +1,6 @@
 import React from 'react';
 import { argumentsShallowEqual } from '../utils/shallowEqual';
+import { getAction } from '../utils/pluginHelpers';
 
 function getterMemoize(func, onChange) {
   let lastArg = null;
@@ -39,7 +40,7 @@ export class Getter extends React.PureComponent {
 
             return pluginHost.get(`${getterName}Getter`, this.plugin);
           };
-          args = connectArgs(getter);
+          args = connectArgs(getter, actionName => getAction(pluginHost, actionName));
         }
         return pureComputedMemoized(...args);
       },

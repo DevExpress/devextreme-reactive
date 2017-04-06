@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-react-datagrid';
 import {
     TableView, TableRowDetail, TableHeaderRowSorting, TableHeaderRowGrouping,
-    TableFilterRow, TableColumnSelection, PagingPanel, GroupingPanel, TableGroupRow,
+    TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -73,7 +73,7 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
 
           <PagingPanel />
 
-          <TableColumnSelection />
+          <TableSelection />
 
           <TableRowDetail
             defaultExpandedDetails={[3]}

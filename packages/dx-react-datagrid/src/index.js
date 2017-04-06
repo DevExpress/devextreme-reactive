@@ -15,7 +15,7 @@ export { SortingState } from './plugins/sorting-state';
 export { LocalSorting } from './plugins/sorting-local';
 
 export { TableView } from './plugins/table-view';
-export { TableColumnSelection } from './plugins/table-column-selection';
+export { TableSelection } from './plugins/table-selection';
 export { TableRowDetail } from './plugins/table-row-detail';
 export { TableGroupRow } from './plugins/table-group-row';
 export { TableHeaderRow } from './plugins/table-header-row';

@@ -44,8 +44,8 @@ Plugin wrappers:
 - TableHeaderRowSorting (REMOVE?)
 - TableHeaderRowGrouping (REMOVE?)
 - TableFilterRow
-- TableColumnSelection
+- TableSelection
 - TableGroupRow
-- TableColumnSelection
+- TableSelection
 - PagingPanel
 - GroupingPanel

@@ -6,7 +6,7 @@ export class Action extends React.PureComponent {
     const { name } = this.props;
 
     this.plugin = {
-      [`${name}Action`]: () => (params) => {
+      [`${name}Action`]: (params) => {
         const { action } = this.props;
         action(params);
       },

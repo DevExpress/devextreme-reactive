@@ -6,7 +6,7 @@ import {
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
-    VirtualTableView, TableFilterRow, TableColumnSelection, TableRowDetail, TableHeaderRowSorting,
+    VirtualTableView, TableFilterRow, TableSelection, TableRowDetail, TableHeaderRowSorting,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -65,7 +65,7 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
 
           <TableFilterRow />
 
-          <TableColumnSelection />
+          <TableSelection />
 
           <TableRowDetail
             defaultExpandedDetails={[3]}

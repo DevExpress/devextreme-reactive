@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallowEqual } from '../utils/shallowEqual';
 import { UPDATE_CONNECTION } from './getter';
+import { getAction } from '../utils/pluginHelpers';
 
 export class TemplateConnector extends React.PureComponent {
   constructor(props, context) {
@@ -49,7 +50,7 @@ export class TemplateConnector extends React.PureComponent {
 
     let mappedActions = {};
     if (mapActions) {
-      mappedActions = mapActions(name => pluginHost.get(`${name}Action`), params);
+      mappedActions = mapActions(name => getAction(pluginHost, name), params);
     }
 
     return {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Action, Template } from '@devexpress/dx-react-core';
+import { Getter, Template } from '@devexpress/dx-react-core';
 
 export class TableSelection extends React.PureComponent {
   constructor(props) {
@@ -17,6 +17,20 @@ export class TableSelection extends React.PureComponent {
           if (!selectionSet.has(row.id)) return row;
           return Object.assign({ selected: true }, row);
         });
+    };
+
+    this._tableExtraProps = (selectByRowClick, tableExtraProps,
+        availableToSelect, setRowSelection) => {
+      if (!selectByRowClick) return tableExtraProps;
+      return Object.assign(
+        {
+          onClick: ({ rowId }) => {
+            if (availableToSelect.indexOf(rowId) === -1) return;
+            setRowSelection({ rowId });
+          },
+        },
+        tableExtraProps,
+      );
     };
   }
   render() {
@@ -42,12 +56,15 @@ export class TableSelection extends React.PureComponent {
             getter('selection'),
           ]}
         />
-        <Action
-          name="tableClick"
-          action={({ rowId, columnName }, action) => {
-            if (!selectByRowClick) return;
-            action('setRowSelection')({ rowId });
-          }}
+        <Getter
+          name="tableExtraProps"
+          pureComputed={this._tableExtraProps}
+          connectArgs={(getter, action) => [
+            selectByRowClick,
+            getter('tableExtraProps'),
+            getter('availableToSelect'),
+            action('setRowSelection'),
+          ]}
         />
 
         <Template

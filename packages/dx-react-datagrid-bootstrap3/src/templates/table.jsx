@@ -85,22 +85,20 @@ const closest = (el, s) => {
 
 export const Table = (props) => {
   const { headerRows, bodyRows, columns, cellContentTemplate,
-        getCellInfo, onClick, highlightSelected } = props;
-
-  const onTableClick = (e) => {
-    const { target } = e;
-    const cell = closest(target, 'th') || closest(target, 'td');
-    if (!cell) return;
-
-    const { rowId, columnName } = JSON.parse(cell.getAttribute('data-cell'));
-    onClick({ rowId, columnName, e });
-  };
+        getCellInfo, highlightSelected, onClick } = props;
 
   return (
     <div className="table-responsive">
       <table
         className="table"
-        onClick={onTableClick}
+        onClick={(e) => {
+          const { target } = e;
+          const cell = closest(target, 'th') || closest(target, 'td');
+          if (!cell) return;
+
+          const { rowId, columnName } = JSON.parse(cell.getAttribute('data-cell'));
+          onClick({ rowId, columnName, e });
+        }}
       >
         <thead>
           {headerRows.map(row => (
@@ -133,6 +131,7 @@ export const Table = (props) => {
 };
 Table.defaultProps = {
   highlightSelected: false,
+  onClick: () => {},
 };
 Table.propTypes = {
   highlightSelected: React.PropTypes.bool,
@@ -141,5 +140,5 @@ Table.propTypes = {
   columns: React.PropTypes.array.isRequired,
   getCellInfo: React.PropTypes.func.isRequired,
   cellContentTemplate: React.PropTypes.func.isRequired,
-  onClick: React.PropTypes.func.isRequired,
+  onClick: React.PropTypes.func,
 };

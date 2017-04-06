@@ -1,11 +1,7 @@
 import React from 'react';
 import { argumentsShallowEqual } from '../utils/shallowEqual';
 import { UPDATE_CONNECTION } from './getter';
-
-const getAction = (pluginHost, actionName) => {
-  const actions = pluginHost.collect(`${actionName}Action`).reverse();
-  return params => actions.forEach(action => action(params));
-};
+import { getAction } from '../utils/pluginHelpers';
 
 function changeDetector(watch, onChange) {
   let lastArg = null;

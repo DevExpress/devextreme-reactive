@@ -1,0 +1,3 @@
+# DataGrid Detail Row
+
+To be described...

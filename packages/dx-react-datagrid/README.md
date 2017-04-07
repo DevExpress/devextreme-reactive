@@ -1,10 +1,15 @@
-# DevExtreme React DataGrid
+# Data Grid for React
 
-Component suite to build your own DataGrid.
+Project status: **CTP**
 
+- [Overview](#overview)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
-- [Reference](#reference)
+- [Reference](docs/reference)
+
+## Overview
+
+DevExtreme React DataGrid component allows to display table data with a set of different transformations such as paging, sorting, filtering, grouping and others. It also allows provides row selection and data editing. It has composable and extensible plugin-based architecture. It supports controlled and uncontrolled state modes and can be easily used in either a regular or a Redux-based application. It's provided with the Twitter Bootstrap rendering and theming out-of-the-box.
 
 ## Installation
 
@@ -14,7 +19,7 @@ Install package:
 npm i @devexpress/dx-react-datagrid --save
 ```
 
-This package does not contain any visual components. Due to this thing, all examples provided above use [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) package with predefined templates.
+This package does not contain any visual components, so all examples provided below use [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) package to use Bootstrap rendering for the DataGrid visual components.
 
 Install DataGrid Bootstrap3 components package:
 
@@ -22,7 +27,13 @@ Install DataGrid Bootstrap3 components package:
 npm i @devexpress/dx-react-datagrid-bootstrap3 --save
 ```
 
-Add to your project:
+## Getting Started
+
+### Minimal Setup
+
+By default DataGrid renders nothing. All its functionality is implemented via plugin components that are nested into the root DataGrid component. So we should specify at least one plugin that visualize the data provided to the grid.
+
+To display the data as a simple table you can use the TableView plugin as follows:
 
 ```js
 import {
@@ -41,20 +52,16 @@ const App = () => (
 );
 ```
 
-## Getting Started
+### Plugins Overview
 
-### Minimal Setup
+All the DataGrid functionality is provided by plugins. We can devide all the plugins into the four logical groups:
 
-By default DataGrid renders nothing. This is because functionality is contained in plugins. So we should specify at least one plugin that visualize supplied data.
+- **State Management plugins**. These plugins can contain a piece of the DataGrid state or obtain it from the outside. Also they can change the state in respond to the actions defined by them.
+- **Data Processing plugins**. These plugins transform data passed into the DataGrid component befor the data is rendered.
+- **UI Plugins**. These plugins render transformed data taking current state and configuration into account. Also they can emit actions provides by state management plugins to change the DataGrid state.
+- **Core Plugins**. These plugins are the base building blocks for the previous three groups of plugins. They also can be used separately in some customization scenarious.
 
-As you have seen in the example above, TableView plugin is specified.
-
-### Plugins
-
-The are following plugin types:
-- State Management. These plugins handle state and change it in respond to actions defined by them.
-- Data Processing. These plugins modifies data passed into widget.
-- UI Representation. These plugins visualize data and states. Also they can emit actions provides by state management plugins.
+Note, that plugins are composable and technically can be nested to each other.
 
 Follow the link to see full plugin list: [Reference](#reference)
 
@@ -105,181 +112,18 @@ const App = () => (
 
 NOTE: Refer to the plugin documentation if you have questions about requirements for specific plugin.
 
-### UI Representation Plugins
+### UI Plugins
 
 It is required to specify visual component for this type of plugins. They are not included by default. You can write your own templates based on plugins specification or use one of the predefined:
-- [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) (used in examples)
+- [DevExtreme React DataGrid for Bootstrap 3](../dx-react-datagrid-bootstrap3/README.md) (used in examples)
+- DevExtreme React DataGrid for [Material UI](http://www.material-ui.com) (coming soon...)
 
-## Reference
+### Controlled and Uncontrolled state modes
 
-State Management Plugins:
-- [FilteringState](#filteringstate-reference)
-- [SortingState](#sortingstate-reference)
-- [SelectionState](#selectionstate-reference)
-- GroupingState
-- PagingState
+To be described...
 
-Data Processing Plugins:
-- [LocalFiltering](#localfiltering-reference)
-- [LocalSorting](#localsorting-reference)
-- LocalPaging
-- LocalGrouping
+### Documentation
 
-Visualization Plugins:
-- [TableView](#tableview-reference)
-- [TableSelection](#tableselection-reference)
-- TableHeaderRow
-- TableHeaderRowSorting (REMOVE?)
-- TableHeaderRowGrouping (REMOVE?)
-- TableFilterRow
-- TableGroupRow
-- PagingPanel
-- GroupingPanel
+- [Guides by Features](docs/guides)
+- [Plugin Reference](docs/reference)
 
-### FilteringState Reference
-
-Plugin that manages filtering state.
-
-Filter data structure:
-
-Field  | Type   | Description
--------|--------|------------------------------------------------
-column | string | Specifies column name to apply filter
-value  | string | Specifies value with that rows will be filtered
-
-Dependencies: none
-
-Properties:
-
-Property      | Type                                   | Default Value | Description
---------------|----------------------------------------|---------------|-----------------------------------------------------
-filters       | array&lt;Filter&gt;                    | undefined     | Specifies filters applied
-defaultFilter | array&lt;Filter&gt;                    | undefined     | Specifies starting filters for uncontrolled scenario
-filtersChange | (filters: array&lt;Filter&gt;) => void | undefined     | Handles filters change
-
-Import: none
-
-Exports:
-
-Name            | Type   | Description
-----------------|--------|-------------------------
-filters         | Getter | Applied column filters
-setColumnFilter | Action | Change filter for column
-
-### SortingState Reference
-
-Plugin that manages sortings state.
-
-Sorting data structure:
-
-Field     | Type              | Description
-----------|-------------------|----------------------------------------------
-column    | string            | Specifies column name to apply sorting
-direction | 'asc'&#124;'desc' | Specifies value with that rows will be sorted
-
-Dependencies: none
-
-Properties:
-
-Property        | Type                                     | Default Value | Description
-----------------|------------------------------------------|---------------|------------------------------------------------------
-sortings        | array&lt;Sorting&gt;                     | undefined     | Specifies sortings applied
-defaultSortings | array&lt;Sorting&gt;                     | undefined     | Specifies starting sortings for uncontrolled scenario
-sortingsChange  | (sortings: array&lt;Sorting&gt;) => void | undefined     | Handles sortings change
-
-Import: none
-
-Exports:
-
-Name             | Type   | Description
------------------|--------|--------------------------
-sortings         | Getter | Applied column sortings
-setColumnSorting | Action | Change sorting for column
-
-### SelectionState Reference
-
-Plugin that manages selection state.
-
-Dependencies: none
-
-Properties:
-
-Property         | Type                                            | Default Value | Description
------------------|-------------------------------------------------|---------------|-----------------------------------------------------------
-selection        | array&lt;int&#124;string&gt;                    | []            | Specifies selected rows
-defaultSelection | array&lt;int&#124;string&gt;                    | []            | Specifies starting selected rows for uncontrolled scenario
-selectionChange  | (filters: array&lt;int&#124;string&gt;) => void | undefined     | Handles selection change
-
-### LocalFiltering Reference
-
-Plugin that performs local data filtering.
-
-Dependencies:
-- [FilteringState](#filteringstate-reference)
-
-Properties: none
-
-Imports:
-
-Name    | Type   | Description
---------|--------|-----------------------------
-rows    | Getter | Rows to be filtered
-filters | Getter | Column filters to be applied
-
-Exports:
-
-Name | Type   | Description
------|--------|----------------------------------
-rows | Getter | Rows with applied local filtering
-
-### LocalSorting Reference
-
-Plugin that performs local data sorting.
-
-Dependencies:
-- [SortingState](#sortingstate-reference)
-
-Properties: none
-
-Imports:
-
-Name     | Type   | Description
----------|--------|------------------------------
-rows     | Getter | Rows to be sorted
-sortings | Getter | Column sortings to be applied
-
-Exports:
-
-Name | Type   | Description
------|--------|--------------------------------
-rows | Getter | Rows with applied local sorting
-
-### TableView Reference
-
-Plugin that implements basic table layout rendering.
-
-Dependencies: none
-
-Properties:
-
-Property      | Type                        | Description
---------------|-----------------------------|----------------------------------------------------------
-tableTemplate | Component&lt;TableProps&gt; | Component that renders table based on supplied parameters
-
-### TableSelection Reference
-
-Plugin that manages selection state.
-
-Dependencies:
-- [SelectionState](#selectionstate-reference)
-- [TableView](#tableview-reference)
-
-Properties:
-
-Property              | Type                                | Default Value | Description
-----------------------|-------------------------------------|---------------|------------------------------------------------------------
-selectByRowClick      | boolean                             | false         | Specifies whether or not row can be selected by click
-showSelectAll         | boolean                             | true          | Specifies whether or not show checkbox inside header row
-showCheckboxes        | boolean                             | false         | Specifies whether or not show checkbox inside each data row
-selectCellTemplate    | Component&lt;SelectCellProps&gt;    | undefined     | Component that renders toggle that selects data row
-selectAllCellTemplate | Component&lt;SelectAllCellProps&gt; | undefined     | Component that renders toggle that selects all rows

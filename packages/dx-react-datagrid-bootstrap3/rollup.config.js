@@ -1,13 +1,22 @@
+import * as fs from 'fs';
 import babel from 'rollup-plugin-babel';
 import license from 'rollup-plugin-license';
 import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 
 const banner =
 `Bundle of <%= pkg.name %>
 Generated: <%= moment().format('YYYY-MM-DD') %>
 Version: <%= pkg.version %>
 License: https://js.devexpress.com/Licensing`;
+
+const external = (() => {
+  const pkg = JSON.parse(fs.readFileSync('./package.json'));
+  const dependencies = Object.keys(pkg.dependencies || {});
+
+  return moduleId => dependencies
+      .filter(dependency => moduleId.startsWith(dependency))
+      .length > 0;
+})();
 
 export default {
   entry: 'src/index.js',
@@ -22,19 +31,12 @@ export default {
       dest: 'dist/dx-react-datagrid-bootstrap3.es.js',
     },
   ],
-  external: [
-    'react',
-    'react-bootstrap',
-    '@devexpress/dx-react-core',
-    '@devexpress/dx-react-datagrid',
-  ],
+  external,
   plugins: [
     resolve({
-      jsnext: true,
-      main: true,
+      main: false,
       extensions: ['.js', '.jsx'],
     }),
-    commonjs(),
     babel({
       runtimeHelpers: true,
       exclude: 'node_modules/**',
@@ -44,14 +46,5 @@ export default {
       banner,
     }),
   ],
-  onwarn: ({ code, message, loc, frame }) => {
-    if (code === 'MISSING_EXPORT' && message.indexOf('es6.object.to-string.js') > -1)
-      return;
-    if (loc) {
-      console.warn(`${loc.file} (${loc.line}:${loc.column}) ${message}`);
-      if (frame) console.warn(frame);
-    } else {
-      console.warn(message);
-    }
-  }
 };
+

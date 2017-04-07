@@ -10,8 +10,9 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "main": "index.js",
   "scripts": {
-    "watch": "webpack-dev-server",
-    "test": "",
+    "watch": "webpack-dev-server --env",
+    "build": "webpack --env",
+    "build:prod": "webpack --env.production",
     "lint": "eslint src/**/*.{js,jsx}",
     "lint:fix": "npm run -s lint -- --fix",
     "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-demos-lint.xml -f junit"

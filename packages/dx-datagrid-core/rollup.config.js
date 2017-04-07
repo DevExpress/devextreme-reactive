@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { readFileSync } from 'fs';
 import babel from 'rollup-plugin-babel';
 import license from 'rollup-plugin-license';
 
@@ -9,12 +9,20 @@ Version: <%= pkg.version %>
 License: https://js.devexpress.com/Licensing`;
 
 const external = (() => {
-  const pkg = JSON.parse(fs.readFileSync('./package.json'));
+  const pkg = JSON.parse(readFileSync('./package.json'));
   const dependencies = Object.keys(pkg.dependencies || {});
 
   return moduleId => dependencies
       .filter(dependency => moduleId.startsWith(dependency))
       .length > 0;
+})();
+
+const babelrc = (() => {
+  const config = JSON.parse(readFileSync('./.babelrc'));
+  const { presets } = config;
+  const index = presets.findIndex(preset => preset === 'es2015');
+  presets[index] = ['es2015', { modules: false }];
+  return config;
 })();
 
 export default {
@@ -32,10 +40,11 @@ export default {
   ],
   external,
   plugins: [
-    babel({
+    babel(Object.assign({
+      babelrc: false,
       runtimeHelpers: true,
       exclude: 'node_modules/**',
-    }),
+    }, babelrc)),
     license({
       sourceMap: true,
       banner,

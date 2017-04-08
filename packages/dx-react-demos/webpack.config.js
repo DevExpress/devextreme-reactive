@@ -3,7 +3,7 @@
 var path = require('path');
 var webpack = require('webpack');
 
-module.exports = {
+module.exports = ({ production }) => ({
   context: path.join(__dirname, 'src'),
   entry: {
     index: path.join(__dirname, 'src', 'index')
@@ -16,39 +16,46 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        use: ["source-map-loader"],
+        enforce: "pre"
+      },
+      {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components|public\/)/,
         use: ["babel-loader"]
       },
-      { 
-        test: /\.css$/, 
+      {
+        test: /\.css$/,
         use: ["style-loader", "css-loader"]
       }
     ]
   },
   resolve: {
     alias: {
-      // Strange hack for lerna
-      '@devexpress/dx-react-datagrid-bootstrap3': path.resolve('./node_modules/@devexpress/dx-react-datagrid-bootstrap3'),
-      '@devexpress/dx-react-datagrid': path.resolve('./node_modules/@devexpress/dx-react-datagrid'),
-      '@devexpress/dx-datagrid-core': path.resolve('./node_modules/@devexpress/dx-react-datagrid/node_modules/@devexpress/dx-datagrid-core'),
-      '@devexpress/dx-react-core': path.resolve('./node_modules/@devexpress/dx-react-datagrid/node_modules/@devexpress/dx-react-core'),
-      '@devexpress/dx-core': path.resolve('./node_modules/@devexpress/dx-react-datagrid/node_modules/@devexpress/dx-react-core/node_modules/@devexpress/dx-core'),
+      // Strange hack for react-bootstrap
       'react-dom': path.resolve('./node_modules/react-dom'),
     },
     extensions: [".webpack.js", ".web.js", ".js", ".jsx"]
   },
   plugins: [
+    ...(!production ? [] :
+      [
+        new webpack.optimize.UglifyJsPlugin({
+          sourceMap: true
+        })
+      ]
+    ),
     new webpack.DefinePlugin({
-      "process.env": { 
-        //NODE_ENV: JSON.stringify("production") 
+      "process.env": {
+        NODE_ENV: JSON.stringify(production ? "production" : "development")
       }
     })
   ],
-  devtool: 'eval-source-map',
+  devtool: production ? 'source-map' : 'eval-source-map',
   devServer: {
     host: '0.0.0.0',
     port: 3002,
     historyApiFallback: true,
   }
-}
+})

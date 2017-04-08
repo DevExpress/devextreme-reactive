@@ -10,6 +10,7 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "watch": "webpack-dev-server",
     "test": "",
     "lint": "eslint src/**/*.{js,jsx}",

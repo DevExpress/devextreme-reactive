@@ -8,11 +8,17 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "devDependencies": {
     "concurrently": "^3.4.0",
-    "lerna": "2.0.0-beta.38"
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-intercept": "^0.1.0",
+    "gulp-rename": "^1.2.2",
+    "lerna": "2.0.0-beta.38",
+    "run-sequence": "^1.2.2"
   },
   "scripts": {
     "postinstall": "lerna bootstrap --concurrency=1",
     "build": "lerna run build",
+    "build:gh-pages": "npm run build && gulp gh-pages",
     "watch:core": "lerna run build:watch --scope @devexpress/dx-core --stream",
     "watch:datagrid-core": "lerna run build:watch --scope @devexpress/dx-datagrid-core --stream",
     "watch:react-core": "lerna run build:watch --scope @devexpress/dx-react-core --stream",

@@ -11,6 +11,26 @@ gulp.task('gh-pages:clean', function() {
     .pipe(clean());
 });
 
+var splitNameToPath = function(path) {
+  // dx-react-datagrid-bs3\... ==> react\datagrid\bs3\...
+  return path
+    .replace(/dx-/, '')
+    .replace(/-/g, '\\');
+};
+
+var extractMDTitle = function(content) {
+  var matches = /^\s*#\s*([^#]+?)\s*$/m.exec(content);
+  return matches ? matches[1] : undefined;
+};
+
+var formatFrontMatter = function(title) {
+  return `---${title ? '\ntitle: ' + title: ''}\n---\n\n`;
+};
+
+var patchMDLinks = function(content) {
+  return content.replace(/\.md\)/g, '/)');
+};
+
 gulp.task('gh-pages:docs', function() {
   return gulp.src([
       'packages/**/*.md',
@@ -18,21 +38,17 @@ gulp.task('gh-pages:docs', function() {
       '!/**/node_modules/**/*'
     ])
     .pipe(rename(function(path) {
-      path.dirname = path.dirname
-        .replace(/dx-/, '')
-        .replace(/-/g, '\\');
-
+      path.dirname = splitNameToPath(path.dirname);
       path.basename = path.basename
         .replace(/readme/i, 'index');
     }))
     .pipe(intercept(function(file){
-      var contents = file.contents.toString(),
-          matches = /^\s*#\s*([^#]+?)\s*$/m.exec(contents),
-          title = matches ? matches[1] : undefined,
-          frontMatter = `---${title ? '\ntitle: ' + title: ''}\n---\n\n`;
+      var content = file.contents.toString(),
+          title = extractMDTitle(content),
+          frontMatter = formatFrontMatter(title);
 
-      contents = contents.replace(/\.md\)/g, '/)');
-      file.contents = new Buffer(frontMatter + contents, 'utf-8');
+      content = frontMatter + patchMDLinks(content);
+      file.contents = new Buffer(content);
 
       return file;
     }))

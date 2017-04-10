@@ -28,7 +28,24 @@ var formatFrontMatter = function(title) {
 };
 
 var patchMDLinks = function(content) {
-  return content.replace(/\.md\)/g, '/)');
+  return content.replace(/\.md(#[^\s]*)?\)/g, '/$1)');
+};
+
+var patchMDTables = function(content) {
+  var lines = content.split('\n');
+
+  var withinTable = false;
+  var index = 0;
+  while(index < lines.length) {
+    if (!withinTable && lines[index].indexOf('-|-') > -1) withinTable = true;
+    if (withinTable && lines[index].indexOf('|') === -1) {
+      withinTable = false;
+      lines.splice(index, 0, '{: .table.table-bordered.table-striped }');
+    }
+    index = index + 1;
+  }
+
+  return lines.join('\n');
 };
 
 gulp.task('gh-pages:docs', function() {
@@ -47,7 +64,7 @@ gulp.task('gh-pages:docs', function() {
           title = extractMDTitle(content),
           frontMatter = formatFrontMatter(title);
 
-      content = frontMatter + patchMDLinks(content);
+      content = frontMatter + patchMDTables(patchMDLinks(content));
       file.contents = new Buffer(content);
 
       return file;

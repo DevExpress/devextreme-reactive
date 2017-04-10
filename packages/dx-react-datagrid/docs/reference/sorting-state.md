@@ -1,30 +1,42 @@
 # SortingState Plugin Reference
 
-Plugin that manages sortings state.
+Plugin that manages sorting state.
 
-Sorting data structure:
+## User Reference
 
-Field     | Type              | Description
-----------|-------------------|----------------------------------------------
-column    | string            | Specifies column name to apply sorting
+### Dependencies
+
+none
+
+### Properties
+
+Name | Type | Default | Description
+-----|------|---------|------------
+sortings | array&lt;[Sorting](#sorting)&gt; | | Specifies sortings applied
+defaultSortings | array&lt;[Sorting](#sorting)&gt; | | Specifies starting sortings for uncontrolled scenario
+sortingsChange | (sortings: array&lt;[Sorting](#sorting)&gt;) => void | | Handles sortings change
+
+## Data Structures
+
+### Sorting
+
+Describes applied sorting to column
+
+Field | Type | Description
+------|------|------------
+column | string | Specifies column name to apply sorting
 direction | 'asc'&#124;'desc' | Specifies value with that rows will be sorted
 
-Dependencies: none
+## Plugin Developer Reference
 
-Properties:
+### Imports
 
-Property        | Type                                     | Default Value | Description
-----------------|------------------------------------------|---------------|------------------------------------------------------
-sortings        | array&lt;Sorting&gt;                     | undefined     | Specifies sortings applied
-defaultSortings | array&lt;Sorting&gt;                     | undefined     | Specifies starting sortings for uncontrolled scenario
-sortingsChange  | (sortings: array&lt;Sorting&gt;) => void | undefined     | Handles sortings change
+none
 
-Import: none
+### Exports
 
-Exports:
-
-Name             | Type   | Description
------------------|--------|--------------------------
-sortings         | Getter | Applied column sortings
-setColumnSorting | Action | Change sorting for column
+Name | Plugin | Type | Description
+-----|--------|------|------------
+sortings | Getter | () => array&lt;[Sorting](#sorting)&gt; | Applied column sortings
+setColumnSorting | Action | ({ columnName: string, direction: 'asc'&#124;'desc', keepOther: boolean }) => void | Change sorting for column
 

@@ -1,12 +1,16 @@
 # TableView Plugin Reference
 
-Plugin that implements basic table layout rendering.
+Plugin that implements table layout rendering.
 
-Dependencies: none
+## User Reference
 
-Properties:
+### Dependencies
 
-Property      | Type                        | Description
---------------|-----------------------------|----------------------------------------------------------
-tableTemplate | Component&lt;TableProps&gt; | Component that renders table based on supplied parameters
+none
+
+### Properties
+
+Name | Type | Default | Description
+-----|------|---------|------------
+tableTemplate | Component&lt;TableProps&gt; | | Component that renders table based on supplied parameters
 

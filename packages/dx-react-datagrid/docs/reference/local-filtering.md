@@ -2,21 +2,28 @@
 
 Plugin that performs local data filtering.
 
-Dependencies:
-- [FilteringState](#filteringstate-reference)
+## User Reference
 
-Properties: none
+### Dependencies
 
-Imports:
+- [FilteringState](./filtering-state.md)
 
-Name    | Type   | Description
---------|--------|-----------------------------
-rows    | Getter | Rows to be filtered
-filters | Getter | Column filters to be applied
+### Properties
 
-Exports:
+none
 
-Name | Type   | Description
------|--------|----------------------------------
-rows | Getter | Rows with applied local filtering
+## Plugin Developer Reference
+
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+rows | Getter | array&lt;any&gt; | Rows to be filtered
+filters | Getter | array&lt;[Filter](./filtering-state.md#filter)&gt; | Column filters to be applied
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+rows | Getter | array&lt;any&gt; | Rows with applied local filtering
 

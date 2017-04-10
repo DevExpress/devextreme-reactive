@@ -2,21 +2,28 @@
 
 Plugin that performs local data sorting.
 
-Dependencies:
-- [SortingState](#sortingstate-reference)
+## User Reference
 
-Properties: none
+### Dependencies
 
-Imports:
+- [SortingState](./sorting-state.md)
 
-Name     | Type   | Description
----------|--------|------------------------------
-rows     | Getter | Rows to be sorted
-sortings | Getter | Column sortings to be applied
+### Properties
 
-Exports:
+none
 
-Name | Type   | Description
------|--------|--------------------------------
-rows | Getter | Rows with applied local sorting
+## Plugin Developer Reference
+
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+rows | Getter | array&lt;any&gt; | Rows to be sorted
+sortings | Getter | array&lt;[Sorting](./sorting-state.md#sorting)&gt; | array Column sortings to be applied
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+rows | Getter | array&lt;any&gt; | Rows with applied local sorting
 

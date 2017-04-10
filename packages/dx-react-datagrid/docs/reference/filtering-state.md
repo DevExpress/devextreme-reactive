@@ -2,29 +2,40 @@
 
 Plugin that manages filtering state.
 
-Filter data structure:
+## User Reference
 
-Field  | Type   | Description
--------|--------|------------------------------------------------
+### Dependencies
+
+none
+
+### Properties
+
+Name | Type | Default | Description
+-----|------|---------|------------
+filters | array&lt;[Filter](#filter)&gt; | | Specifies filters applied
+defaultFilters | array&lt;[Filter](#filter)&gt; | | Specifies starting filters for uncontrolled scenario
+filtersChange | (filters: array&lt;[Filter](#filter)&gt;) => void | | Handles filters change
+
+## Data Structures
+
+### Filter
+
+Describes applied filter to column
+
+Field | Type | Description
+------|------|------------
 column | string | Specifies column name to apply filter
-value  | string | Specifies value with that rows will be filtered
+value | string | Specifies value with that rows will be filtered
 
-Dependencies: none
+## Plugin Developer Reference
 
-Properties:
+### Imports
 
-Property      | Type                                   | Default Value | Description
---------------|----------------------------------------|---------------|-----------------------------------------------------
-filters       | array&lt;Filter&gt;                    | undefined     | Specifies filters applied
-defaultFilter | array&lt;Filter&gt;                    | undefined     | Specifies starting filters for uncontrolled scenario
-filtersChange | (filters: array&lt;Filter&gt;) => void | undefined     | Handles filters change
+none
 
-Import: none
+### Exports
 
-Exports:
-
-Name            | Type   | Description
-----------------|--------|-------------------------
-filters         | Getter | Applied column filters
-setColumnFilter | Action | Change filter for column
-
+Name | Plugin | Type | Description
+-----|--------|------|------------
+filters | Getter | () => array&lt;[Filter](#filter)&gt; | Applied column filters
+setColumnFilter | Action | ({ columnName: string, value: string }) => void | Change filter for column

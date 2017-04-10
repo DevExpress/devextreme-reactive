@@ -3,3 +3,4 @@
 **/coverage
 *.log
 /shippable
+/gh-pages-dist

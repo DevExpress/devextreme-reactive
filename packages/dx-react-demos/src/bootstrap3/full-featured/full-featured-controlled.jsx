@@ -58,7 +58,7 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
           />
           <PagingState
             currectPage={page}
-            onCurrentPageChange={this.changePage}
+            currentPageChange={this.changePage}
             pageSize={10}
           />
           <SelectionState

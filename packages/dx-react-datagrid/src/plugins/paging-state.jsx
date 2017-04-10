@@ -20,8 +20,8 @@ export class PagingState extends React.PureComponent {
     };
   }
   render() {
-    const { pageSize } = this.props;
-    const currentPage = this.props.currentPage || this.state.currentPage;
+    const { pageSize, currentPage: propsCurrentPage } = this.props;
+    const currentPage = propsCurrentPage === undefined ? this.state.currentPage : propsCurrentPage;
 
     return (
       <div>

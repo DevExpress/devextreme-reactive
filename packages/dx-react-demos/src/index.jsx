@@ -13,6 +13,7 @@ import { BasicDemos } from './bootstrap3/basic';
 import { SortingDemos } from './bootstrap3/sorting';
 import { SelectionDemos } from './bootstrap3/selection';
 import { FullFeaturedDemos } from './bootstrap3/full-featured';
+import { ReduxDemos } from './bootstrap3/redux';
 
 import './index.css';
 
@@ -27,6 +28,7 @@ const App = () => (
             <li><Link to="/sorting">Sorting</Link></li>
             <li><Link to="/selection">Selection</Link></li>
             <li><Link to="/full-featured">Full Featured</Link></li>
+            <li><Link to="/redux">Redux</Link></li>
           </ul>
         </div>
 
@@ -37,6 +39,7 @@ const App = () => (
           <Route path="/selection" component={SelectionDemos} />
           <Route path="/sorting" component={SortingDemos} />
           <Route path="/full-featured" component={FullFeaturedDemos} />
+          <Route path="/redux" component={ReduxDemos} />
         </div>
       </div>
     </div>

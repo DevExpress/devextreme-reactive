@@ -23,7 +23,8 @@ export class TableSelection extends React.PureComponent {
     this._tableExtraProps = (selectByRowClick, tableExtraProps,
         availableToSelect, setRowSelection) => {
       if (!selectByRowClick) return tableExtraProps;
-      return extendWithEventListener(tableExtraProps, 'onClick', ({ rowId }) => {
+      return extendWithEventListener(tableExtraProps, 'onClick', ({ row }) => {
+        const rowId = row.id;
         if (availableToSelect.indexOf(rowId) === -1) return;
         setRowSelection({ rowId });
       });

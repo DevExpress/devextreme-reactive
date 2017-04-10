@@ -7,12 +7,10 @@ export class TableHeaderRowSorting extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._tableExtraProps = (tableExtraProps, tableHeaderRows, tableColumns, setColumnSorting) =>
-      extendWithEventListener(tableExtraProps, 'onClick', ({ rowId, columnName, e }) => {
-        const clickedRow = tableHeaderRows.find(row => row.id === rowId);
-        const clickedColumn = tableColumns.find(column => column.name === columnName);
-        if (!clickedRow || clickedRow.type !== 'heading' || !clickedColumn || clickedColumn.type) return;
-        setColumnSorting({ columnName, keepOther: e.shiftKey });
+    this._tableExtraProps = (tableExtraProps, setColumnSorting) =>
+      extendWithEventListener(tableExtraProps, 'onClick', ({ row, column, e }) => {
+        if (row.type !== 'heading' || column.type) return;
+        setColumnSorting({ columnName: column.name, keepOther: e.shiftKey });
       });
   }
   render() {
@@ -25,8 +23,6 @@ export class TableHeaderRowSorting extends React.PureComponent {
           pureComputed={this._tableExtraProps}
           connectArgs={(getter, action) => [
             getter('tableExtraProps'),
-            getter('tableHeaderRows'),
-            getter('tableColumns'),
             action('setColumnSorting'),
           ]}
         />

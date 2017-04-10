@@ -93,11 +93,13 @@ export const Table = (props) => {
         className="table"
         onClick={(e) => {
           const { target } = e;
-          const cell = closest(target, 'th') || closest(target, 'td');
-          if (!cell) return;
+          const cellEl = closest(target, 'th') || closest(target, 'td');
+          if (!cellEl) return;
 
-          const { rowId, columnName } = JSON.parse(cell.getAttribute('data-cell'));
-          onClick({ rowId, columnName, e });
+          const { rowId, columnName } = JSON.parse(cellEl.getAttribute('data-cell'));
+          const row = [...headerRows, ...bodyRows].find(r => r.id === rowId);
+          const column = columns.find(c => c.name === columnName);
+          onClick({ row, column, e });
         }}
       >
         <thead>

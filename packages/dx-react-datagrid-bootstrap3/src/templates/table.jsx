@@ -1,4 +1,5 @@
 import React from 'react';
+import { closest } from './utils/table';
 
 export const TableCell = (props) => {
   const { row, column, colspan, cellContentTemplate, isHeader } = props;
@@ -70,18 +71,6 @@ TableRow.propTypes = {
 TableRow.defaultProps = {
   isHeader: false,
 };
-
-/* eslint-disable */
-const closest = (el, s) => {
-  const matches = (el.document || el.ownerDocument).querySelectorAll(s);
-  let i;
-  do {
-    i = matches.length;
-    while (--i >= 0 && matches.item(i) !== el) {};
-  } while ((i < 0) && (el = el.parentElement));
-  return el;
-};
-/* eslint-enable */
 
 export const Table = (props) => {
   const { headerRows, bodyRows, columns, cellContentTemplate,

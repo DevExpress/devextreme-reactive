@@ -1,33 +1,22 @@
 import React from 'react';
 
-export const SortableCell = ({ direction, changeDirection, children }) => {
-  let iconName = '';
-  if (direction) {
-    iconName = `glyphicon glyphicon-arrow-${direction === 'asc' ? 'down' : 'up'}`;
-  }
+export const SortableCell = ({ direction, children }) => {
+  const iconName = `glyphicon-arrow-${direction === 'asc' ? 'down' : 'up'}`;
   return (
-    <div
-      onClick={e => changeDirection({ keepOther: e.shiftKey })}
-      style={{ width: '100%', height: '100%' }}
-    >
-      <div
+    <span>
+      {children}
+      <i
+        className={`glyphicon ${iconName}`}
         style={{
-          float: 'right',
-          width: '30px',
-          textAlign: 'right',
+          margin: '0 5px',
+          visibility: direction ? 'visible' : 'hidden',
         }}
-      ><i className={`glyphicon ${iconName}`} style={{ float: 'right' }} /></div>
-      <div
-        style={{
-          paddingRight: '30px',
-        }}
-      >{children}</div>
-    </div>
+      />
+    </span>
   );
 };
 
 SortableCell.propTypes = {
   direction: React.PropTypes.any.isRequired,
-  changeDirection: React.PropTypes.func.isRequired,
   children: React.PropTypes.any.isRequired,
 };

@@ -16,6 +16,7 @@ import {
 } from 'react-bootstrap';
 
 import { BasicDemos } from './bootstrap3/basic';
+import { SortingDemos } from './bootstrap3/sorting';
 import { SelectionDemos } from './bootstrap3/selection';
 import { FullFeaturedDemos } from './bootstrap3/full-featured';
 
@@ -52,6 +53,7 @@ const Demos = ({ match }) => (
       <div className="col-md-3">
         <ul className="list-unstyled">
           <li><Link to={`${match.url}/basic`} >Basic</Link></li>
+          <li><Link to={`${match.url}/sorting`}>Sorting</Link></li>
           <li><Link to={`${match.url}/selection`}>Selection</Link></li>
           <li><Link to={`${match.url}/full-featured`}>Full Featured</Link></li>
         </ul>
@@ -61,6 +63,7 @@ const Demos = ({ match }) => (
         <Route exact path={`${match.url}/`} render={() => <Redirect to={`${match.url}/basic`} />} />
 
         <Route path={`${match.url}/basic`} component={BasicDemos} />
+        <Route path={`${match.url}/sorting`} component={SortingDemos} />
         <Route path={`${match.url}/selection`} component={SelectionDemos} />
         <Route path={`${match.url}/full-featured`} component={FullFeaturedDemos} />
       </div>

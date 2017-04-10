@@ -13,82 +13,80 @@ import {
 
 import { createGridAction } from './grid-reducer';
 
-class GridContainer extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const DetailRow = ({ row }) => <div>Detail for {row.name} from {row.city}</div>;
+DetailRow.propTypes = {
+  row: React.PropTypes.object.isRequired,
+};
 
-    this.rowTemplate = ({ row }) => <div>Detail for {row.name} from {row.city}</div>;
-  }
-  render() {
-    const {
-      rows,
-      columns,
+const GridContainer = (props) => {
+  const {
+    rows,
+    columns,
 
-      sortings,
-      sortingsChange,
-      selection,
-      selectionChange,
-      expandedRows,
-      expandedRowsChange,
-      filters,
-      filtersChange,
-      currentPage,
-      currentPageChange,
-    } = this.props;
+    sortings,
+    sortingsChange,
+    selection,
+    selectionChange,
+    expandedRows,
+    expandedRowsChange,
+    filters,
+    filtersChange,
+    currentPage,
+    currentPageChange,
+  } = props;
 
-    return (
-      <div style={{ width: '100%' }}>
-        <h3>Grid State in the Redux Store</h3>
+  return (
+    <div style={{ width: '100%' }}>
+      <h3>Grid State in the Redux Store</h3>
 
-        <DataGrid
-          rows={rows}
-          columns={columns}
-        >
+      <DataGrid
+        rows={rows}
+        columns={columns}
+      >
 
-          <FilteringState
-            filters={filters}
-            filtersChange={filtersChange}
-          />
-          <SortingState
-            sortings={sortings}
-            sortingsChange={sortingsChange}
-          />
-          <PagingState
-            currentPage={currentPage}
-            currentPageChange={currentPageChange}
-            pageSize={10}
-          />
-          <SelectionState
-            selection={selection}
-            selectionChange={selectionChange}
-          />
+        <FilteringState
+          filters={filters}
+          filtersChange={filtersChange}
+        />
+        <SortingState
+          sortings={sortings}
+          sortingsChange={sortingsChange}
+        />
+        <PagingState
+          currentPage={currentPage}
+          currentPageChange={currentPageChange}
+          pageSize={10}
+        />
+        <SelectionState
+          selection={selection}
+          selectionChange={selectionChange}
+        />
 
-          <LocalFiltering />
-          <LocalSorting />
-          <LocalPaging />
+        <LocalFiltering />
+        <LocalSorting />
+        <LocalPaging />
 
-          <TableView />
+        <TableView />
 
-          <TableHeaderRow />
-          <TableHeaderRowSorting />
+        <TableHeaderRow />
+        <TableHeaderRowSorting />
 
-          <TableFilterRow />
+        <TableFilterRow />
 
-          <TableSelection selectByRowClick />
+        <TableSelection selectByRowClick />
 
-          <TableRowDetail
-            expanded={expandedRows}
-            expandedChange={expandedRowsChange}
-            template={this.rowTemplate}
-          />
+        <TableRowDetail
+          expanded={expandedRows}
+          expandedChange={expandedRowsChange}
+          template={DetailRow}
+        />
 
-          <PagingPanel />
+        <PagingPanel />
 
-        </DataGrid>
-      </div>
-    );
-  }
-}
+      </DataGrid>
+    </div>
+  );
+};
 GridContainer.propTypes = {
   rows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,

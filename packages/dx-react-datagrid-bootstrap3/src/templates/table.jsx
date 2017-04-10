@@ -1,4 +1,5 @@
 import React from 'react';
+import { closest } from './utils/table';
 
 export const TableCell = (props) => {
   const { row, column, colspan, cellContentTemplate, isHeader } = props;
@@ -71,18 +72,6 @@ TableRow.defaultProps = {
   isHeader: false,
 };
 
-/* eslint-disable */
-const closest = (el, s) => {
-  const matches = (el.document || el.ownerDocument).querySelectorAll(s);
-  let i;
-  do {
-    i = matches.length;
-    while (--i >= 0 && matches.item(i) !== el) {};
-  } while ((i < 0) && (el = el.parentElement));
-  return el;
-};
-/* eslint-enable */
-
 export const Table = (props) => {
   const { headerRows, bodyRows, columns, cellContentTemplate,
         getCellInfo, highlightSelected, onClick } = props;
@@ -93,11 +82,13 @@ export const Table = (props) => {
         className="table"
         onClick={(e) => {
           const { target } = e;
-          const cell = closest(target, 'th') || closest(target, 'td');
-          if (!cell) return;
+          const cellEl = closest(target, 'th') || closest(target, 'td');
+          if (!cellEl) return;
 
-          const { rowId, columnName } = JSON.parse(cell.getAttribute('data-cell'));
-          onClick({ rowId, columnName, e });
+          const { rowId, columnName } = JSON.parse(cellEl.getAttribute('data-cell'));
+          const row = [...headerRows, ...bodyRows].find(r => r.id === rowId);
+          const column = columns.find(c => c.name === columnName);
+          onClick({ row, column, e });
         }}
       >
         <thead>

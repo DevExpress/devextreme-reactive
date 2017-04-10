@@ -4,6 +4,7 @@ import React from 'react';
 import { Sizer } from './virtual-table/sizer';
 import { WindowedScroller } from './virtual-table/windowed-scroller';
 import { VirtualBox } from './virtual-table/virtual-box';
+import { closest } from './utils/table';
 
 const DEFAULT_HEIGHT = 38;
 const DEFAULT_WIDTH = 200;
@@ -26,12 +27,14 @@ export class VirtualTable extends React.Component {
     this.columnWidth = column => column.width || DEFAULT_WIDTH;
   }
   render() {
-    const { headerRows, bodyRows, columns, cellContentTemplate } = this.props;
+    const { headerRows, bodyRows, columns, cellContentTemplate, onClick } = this.props;
 
     const tableHeaderCell = ({ row, column }) => {
       const template = cellContentTemplate({ row, column });
       return (
-        <th>
+        <th
+          data-cell={JSON.stringify({ rowId: row.id, columnName: column.name })}
+        >
           {template}
         </th>
       );
@@ -54,7 +57,9 @@ export class VirtualTable extends React.Component {
         );
       }
       return (
-        <td>
+        <td
+          data-cell={JSON.stringify({ rowId: row.id, columnName: column.name })}
+        >
           {template}
         </td>
       );
@@ -131,7 +136,19 @@ export class VirtualTable extends React.Component {
     );
 
     return (
-      <div style={{ height: '500px' }}>
+      <div
+        style={{ height: '500px' }}
+        onClick={(e) => {
+          const { target } = e;
+          const cellEl = closest(target, 'th') || closest(target, 'td');
+          if (!cellEl) return;
+
+          const { rowId, columnName } = JSON.parse(cellEl.getAttribute('data-cell'));
+          const row = [...headerRows, ...bodyRows].find(r => r.id === rowId);
+          const column = columns.find(c => c.name === columnName);
+          onClick({ row, column, e });
+        }}
+      >
         <WindowedScroller>
           <VirtualBox
             rootTag="table"
@@ -157,10 +174,13 @@ export class VirtualTable extends React.Component {
     );
   }
 }
-
+VirtualTable.defaultProps = {
+  onClick: () => {},
+};
 VirtualTable.propTypes = {
   headerRows: React.PropTypes.array.isRequired,
   bodyRows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,
   cellContentTemplate: React.PropTypes.func.isRequired,
+  onClick: React.PropTypes.func,
 };

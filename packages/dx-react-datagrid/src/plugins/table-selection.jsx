@@ -1,5 +1,6 @@
 import React from 'react';
 import { Getter, Template } from '@devexpress/dx-react-core';
+import extendWithEventListener from '../utils/extendWithEventListener';
 
 export class TableSelection extends React.PureComponent {
   constructor(props) {
@@ -22,15 +23,11 @@ export class TableSelection extends React.PureComponent {
     this._tableExtraProps = (selectByRowClick, tableExtraProps,
         availableToSelect, setRowSelection) => {
       if (!selectByRowClick) return tableExtraProps;
-      return Object.assign(
-        {
-          onClick: ({ rowId }) => {
-            if (availableToSelect.indexOf(rowId) === -1) return;
-            setRowSelection({ rowId });
-          },
-        },
-        tableExtraProps,
-      );
+      return extendWithEventListener(tableExtraProps, 'onClick', ({ row }) => {
+        const rowId = row.id;
+        if (availableToSelect.indexOf(rowId) === -1) return;
+        setRowSelection({ rowId });
+      });
     };
   }
   render() {

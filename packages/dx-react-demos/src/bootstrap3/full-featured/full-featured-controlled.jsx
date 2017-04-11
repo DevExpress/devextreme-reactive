@@ -24,12 +24,12 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
       rows: generateRows(105),
       sortings: [{ column: 'id', direction: 'asc' }],
       selection: [1, 3, 18],
-      expandedRows: [3],
+      expandedDetails: [3],
       filters: [],
       page: 0,
     };
 
-    this.changeExpandedRows = expandedRows => this.setState({ expandedRows });
+    this.changeExpandedDetails = expandedDetails => this.setState({ expandedDetails });
     this.changeSelection = selection => this.setState({ selection });
     this.changeSortings = sortings => this.setState({ sortings });
     this.changeFilters = filters => this.setState({ filters });
@@ -37,7 +37,7 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
     this.rowTemplate = ({ row }) => <div>Detail for {row.name} from {row.city}</div>;
   }
   render() {
-    const { rows, columns, sortings, selection, expandedRows, filters, page } = this.state;
+    const { rows, columns, sortings, selection, expandedDetails, filters, page } = this.state;
 
     return (
       <div style={{ width: '100%' }}>
@@ -58,7 +58,7 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
           />
           <PagingState
             currectPage={page}
-            onCurrentPageChange={this.changePage}
+            currentPageChange={this.changePage}
             pageSize={10}
           />
           <SelectionState
@@ -80,8 +80,8 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
           <TableSelection selectByRowClick highlightSelected />
 
           <TableRowDetail
-            expanded={expandedRows}
-            expandedChange={this.changeExpandedRows}
+            expandedDetails={expandedDetails}
+            expandedDetailsChange={this.changeExpandedDetails}
             template={this.rowTemplate}
           />
 

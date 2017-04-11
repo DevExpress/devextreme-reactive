@@ -8,10 +8,10 @@ const creatMultipleHandler = () => {
 };
 
 export default function extendWithEventListener(extraProps, name, handler) {
-  const extendedExtraProps = extraProps;
-  if (!extraProps[name]) {
+  const extendedExtraProps = Object.assign({}, extraProps);
+  if (!extendedExtraProps[name]) {
     extendedExtraProps[name] = creatMultipleHandler();
   }
-  extraProps[name].addHandler(handler);
+  extendedExtraProps[name].addHandler(handler);
   return extendedExtraProps;
 }

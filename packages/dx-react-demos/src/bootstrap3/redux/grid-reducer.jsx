@@ -10,7 +10,7 @@ const gridInitialState = {
   rows: generateRows(105),
   sortings: [{ column: 'id', direction: 'asc' }],
   selection: [1, 3, 18],
-  expandedRows: [3],
+  expandedDetails: [3],
   filters: [],
   currentPage: 0,
 };

@@ -11,7 +11,8 @@ export class TableSelection extends React.PureComponent {
       return [{ type: 'select', name: 'select', width: 20 }, ...tableColumns];
     };
 
-    this._tableBodyRows = (tableBodyRows, selection) => {
+    this._tableBodyRows = (highlightSelected, tableBodyRows, selection) => {
+      if (!highlightSelected) return tableBodyRows;
       const selectionSet = new Set(selection);
       return tableBodyRows
         .map((row) => {
@@ -31,7 +32,7 @@ export class TableSelection extends React.PureComponent {
     };
   }
   render() {
-    const { selectByRowClick, showCheckboxes, showSelectAll } = this.props;
+    const { highlightSelected, selectByRowClick, showCheckboxes, showSelectAll } = this.props;
     const SelectAllCell = this.props.selectAllCellTemplate;
     const SelectCell = this.props.selectCellTemplate;
 
@@ -49,6 +50,7 @@ export class TableSelection extends React.PureComponent {
           name="tableBodyRows"
           pureComputed={this._tableBodyRows}
           connectArgs={getter => [
+            highlightSelected,
             getter('tableBodyRows'),
             getter('selection'),
           ]}
@@ -107,6 +109,7 @@ export class TableSelection extends React.PureComponent {
   }
 }
 TableSelection.defaultProps = {
+  highlightSelected: false,
   selectByRowClick: false,
   showSelectAll: true,
   showCheckboxes: true,
@@ -114,6 +117,7 @@ TableSelection.defaultProps = {
 TableSelection.propTypes = {
   selectAllCellTemplate: React.PropTypes.func.isRequired,
   selectCellTemplate: React.PropTypes.func.isRequired,
+  highlightSelected: React.PropTypes.bool,
   selectByRowClick: React.PropTypes.bool,
   showSelectAll: React.PropTypes.bool,
   showCheckboxes: React.PropTypes.bool,

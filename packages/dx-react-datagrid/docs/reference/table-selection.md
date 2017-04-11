@@ -13,6 +13,7 @@ Plugin that visualize selection state inside table.
 
 Name | Type | Default | Description
 -----|------|---------|------------
+highlightSelected | boolean | false | Specifies whether or not row is highlighted when selected
 selectByRowClick | boolean | false | Specifies whether or not row can be selected by click
 showSelectAll | boolean | true | Specifies whether or not show checkbox inside header row
 showCheckboxes | boolean | false | Specifies whether or not show checkbox inside each data row

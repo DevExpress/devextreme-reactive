@@ -3,11 +3,11 @@ import { TableView as TableViewBase } from '@devexpress/dx-react-datagrid';
 import { Table } from '../templates/table';
 import { Layout } from '../templates/layout';
 
-export const TableView = ({ getCellInfo, cellContentTemplate, highlightSelected }) => (
+export const TableView = ({ getCellInfo, cellContentTemplate }) => (
   <div>
     <TableViewBase
       getCellInfo={getCellInfo}
-      tableTemplate={props => <Table highlightSelected={highlightSelected} {...props} />}
+      tableTemplate={Table}
       cellContentTemplate={cellContentTemplate}
     />
     <Layout />
@@ -15,13 +15,11 @@ export const TableView = ({ getCellInfo, cellContentTemplate, highlightSelected 
 );
 
 TableView.propTypes = {
-  highlightSelected: React.PropTypes.bool,
   getCellInfo: React.PropTypes.func,
   cellContentTemplate: React.PropTypes.func,
 };
 
 TableView.defaultProps = {
-  highlightSelected: false,
   getCellInfo: undefined,
   cellContentTemplate: undefined,
 };

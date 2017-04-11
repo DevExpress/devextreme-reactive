@@ -77,7 +77,7 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
 
           <TableFilterRow />
 
-          <TableSelection selectByRowClick />
+          <TableSelection selectByRowClick highlightSelected />
 
           <TableRowDetail
             expanded={expandedRows}

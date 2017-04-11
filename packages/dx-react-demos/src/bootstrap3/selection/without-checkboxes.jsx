@@ -51,12 +51,11 @@ export class WithoutCheckboxesDemo extends React.PureComponent {
             pageSize={6}
           />
           <LocalPaging />
-          <TableView
-            highlightSelected
-          />
+          <TableView />
           <TableHeaderRow />
           <TableSelection
             selectByRowClick
+            highlightSelected
             showCheckboxes={false}
           />
           <PagingPanel />

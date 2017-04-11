@@ -51,17 +51,17 @@ export class TableView extends React.PureComponent {
             headerRows: getter('tableHeaderRows'),
             bodyRows: getter('tableBodyRows'),
             columns: getter('tableColumns'),
-            eventListeners: getter('tableExtraProps'),
+            extraProps: getter('tableExtraProps'),
           })}
         >
-          {({ headerRows, bodyRows, columns, eventListeners }) => (
+          {({ headerRows, bodyRows, columns, extraProps }) => (
             <Table
               headerRows={headerRows}
               bodyRows={bodyRows}
               columns={columns}
               getCellInfo={this._getCellInfo}
               cellContentTemplate={CellContentTemplate}
-              {...eventListeners}
+              {...extraProps}
             />
           )}
         </Template>

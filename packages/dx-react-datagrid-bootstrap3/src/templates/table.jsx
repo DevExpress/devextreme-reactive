@@ -31,14 +31,12 @@ TableCell.defaultProps = {
 };
 
 export const TableRow = (props) => {
-  const { row, columns, getCellInfo, cellContentTemplate,
-    isHeader, highlightSelected } = props;
+  const { row, columns, getCellInfo, cellContentTemplate, isHeader } = props;
 
   const height = (!row.height || row.height === 'auto') ? 'auto' : `${row.height}px`;
-
   return (
     <tr
-      className={highlightSelected && row.selected ? 'active' : ''}
+      className={row.selected ? 'active' : ''}
       style={{ height }}
     >
       {columns.map((column, columnIndex) => {
@@ -60,7 +58,6 @@ export const TableRow = (props) => {
 };
 
 TableRow.propTypes = {
-  highlightSelected: React.PropTypes.bool.isRequired,
   row: React.PropTypes.object.isRequired,
   columns: React.PropTypes.array.isRequired,
   getCellInfo: React.PropTypes.func.isRequired,
@@ -73,8 +70,7 @@ TableRow.defaultProps = {
 };
 
 export const Table = (props) => {
-  const { headerRows, bodyRows, columns, cellContentTemplate,
-        getCellInfo, highlightSelected, onClick } = props;
+  const { headerRows, bodyRows, columns, cellContentTemplate, getCellInfo, onClick } = props;
 
   return (
     <div className="table-responsive">
@@ -99,7 +95,6 @@ export const Table = (props) => {
               columns={columns}
               cellContentTemplate={cellContentTemplate}
               getCellInfo={getCellInfo}
-              highlightSelected={highlightSelected}
               isHeader
             />
           ))}
@@ -112,7 +107,6 @@ export const Table = (props) => {
               columns={columns}
               cellContentTemplate={cellContentTemplate}
               getCellInfo={getCellInfo}
-              highlightSelected={highlightSelected}
             />
           ))}
         </tbody>
@@ -121,11 +115,9 @@ export const Table = (props) => {
   );
 };
 Table.defaultProps = {
-  highlightSelected: false,
   onClick: () => {},
 };
 Table.propTypes = {
-  highlightSelected: React.PropTypes.bool,
   headerRows: React.PropTypes.array.isRequired,
   bodyRows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,

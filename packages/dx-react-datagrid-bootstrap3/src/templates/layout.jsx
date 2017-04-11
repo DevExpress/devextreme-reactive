@@ -3,7 +3,6 @@ import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 export const Layout = () => (
   <div>
-
     <Template name="gridHeading" />
     <Template name="gridFooter" />
 

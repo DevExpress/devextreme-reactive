@@ -1,6 +1,7 @@
 /* global navigator requestAnimationFrame */
 
 import React from 'react';
+import { Sizer } from './sizer';
 
 const isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
 
@@ -10,6 +11,7 @@ export class WindowedScroller extends React.Component {
 
     this.state = {
       viewport: { top: 0, left: 0, width: 0, height: 0 },
+      offsetWidth: 0,
     };
 
     this.updateViewport = this.updateViewport.bind(this);
@@ -63,28 +65,42 @@ export class WindowedScroller extends React.Component {
       oldViewport.width !== viewport.width ||
       oldViewport.height !== viewport.height) {
       this.setState({ viewport });
+      this.props.onViewportChange(viewport);
     }
   }
 
   render() {
     return (
-      <div
-        ref={(ref) => { this.root = ref; }}
-        onScroll={this.updateViewport}
-        style={{
-          overflow: 'auto',
-          width: '100%',
-          height: '100%',
-          WebkitOverflowScrolling: 'touch',
-          willChange: 'scroll-position',
+      <Sizer
+        style={{ width: '100%', height: '100%' }}
+        width={this.state.offsetWidth}
+        onWidthChange={(width) => {
+          this.setState({ offsetWidth: width });
+          this.updateViewport();
         }}
       >
-        {this.props.children}
-      </div>
+        <div
+          ref={(ref) => { this.root = ref; }}
+          onScroll={this.updateViewport}
+          style={{
+            overflow: 'auto',
+            width: '100%',
+            height: '100%',
+            WebkitOverflowScrolling: 'touch',
+            willChange: 'scroll-position',
+          }}
+        >
+          {this.props.children}
+        </div>
+      </Sizer>
     );
   }
 }
+WindowedScroller.defaultProps = {
+  onViewportChange: () => {},
+};
 WindowedScroller.propTypes = {
+  onViewportChange: React.PropTypes.func,
   children: React.PropTypes.oneOfType([
     React.PropTypes.node,
     React.PropTypes.arrayOf(React.PropTypes.node),

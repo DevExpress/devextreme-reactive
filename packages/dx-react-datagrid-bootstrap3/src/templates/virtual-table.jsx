@@ -7,13 +7,31 @@ import { VirtualBox } from './virtual-table/virtual-box';
 import { closest } from './utils/table';
 
 const DEFAULT_HEIGHT = 38;
-const DEFAULT_WIDTH = 200;
+const MINIMAL_COLUMN_WIDTH = 100;
+
+const calculateColumnWidths = (columns, tableWidth) => {
+  const occupiedWidth = columns
+    .map(column => column.width)
+    .filter(width => !!width)
+    .reduce((accum, width) => accum + width, 0);
+  const restWidthSpread = columns
+    .map(column => column.width)
+    .filter(width => !width)
+    .length;
+  const calculatedWidth = (tableWidth - occupiedWidth) / restWidthSpread;
+  const widthForAutoColumn = Math.max(calculatedWidth, MINIMAL_COLUMN_WIDTH);
+
+  return columns
+    .map(column => column.width)
+    .map(width => (!!width && width !== 'auto' ? width : widthForAutoColumn));
+};
 
 export class VirtualTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      viewportWidth: 0,
       autoHeights: new WeakMap(),
     };
 
@@ -24,10 +42,11 @@ export class VirtualTable extends React.Component {
       }
       return height;
     };
-    this.columnWidth = column => column.width || DEFAULT_WIDTH;
   }
   render() {
     const { headerRows, bodyRows, columns, cellContentTemplate, onClick } = this.props;
+
+    const columnWidths = calculateColumnWidths(columns, this.state.viewportWidth);
 
     const tableHeaderCell = ({ row, column }) => {
       const template = cellContentTemplate({ row, column });
@@ -78,9 +97,9 @@ export class VirtualTable extends React.Component {
           itemCount={columnLength}
           itemInfo={(columnIndex) => {
             const size = columnIndex !== colspan
-              ? this.columnWidth(columns[columnIndex])
+              ? columnWidths[columnIndex]
               : columns.slice(colspan).reduce(
-                (accum, column) => accum + this.columnWidth(column),
+                (accum, column) => accum + columnWidths[columns.indexOf(column)],
                 0,
               );
 
@@ -149,7 +168,9 @@ export class VirtualTable extends React.Component {
           onClick({ row, column, e });
         }}
       >
-        <WindowedScroller>
+        <WindowedScroller
+          onViewportChange={viewport => this.setState({ viewportWidth: viewport.width })}
+        >
           <VirtualBox
             rootTag="table"
             className="table"

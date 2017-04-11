@@ -15,25 +15,36 @@ export class Sizer extends React.Component {
     cancelAnimationFrame(this._raf);
   }
   sizeUpdated(newWidth, newHeight) {
-    const { height, onHeightChange } = this.props;
+    const { height, onHeightChange, width, onWidthChange } = this.props;
 
-    if (newHeight !== height) {
+    if (height !== undefined && newHeight !== height) {
       onHeightChange(newHeight);
+    }
+    if (width !== undefined && newWidth !== width) {
+      onWidthChange(newWidth);
     }
   }
   render() {
-    const { children } = this.props;
+    const { children, height, onHeightChange, width, onWidthChange, ...restProps } = this.props;
 
     return (
-      <div ref={(ref) => { this.root = ref; }}>
+      <div ref={(ref) => { this.root = ref; }} {...restProps}>
         {children}
       </div>
     );
   }
 }
+Sizer.defaultProps = {
+  height: undefined,
+  onHeightChange: () => {},
+  width: undefined,
+  onWidthChange: () => {},
+};
 Sizer.propTypes = {
-  height: React.PropTypes.number.isRequired,
-  onHeightChange: React.PropTypes.func.isRequired,
+  height: React.PropTypes.number,
+  onHeightChange: React.PropTypes.func,
+  width: React.PropTypes.number,
+  onWidthChange: React.PropTypes.func,
   children: React.PropTypes.oneOfType([
     React.PropTypes.node,
     React.PropTypes.arrayOf(React.PropTypes.node),

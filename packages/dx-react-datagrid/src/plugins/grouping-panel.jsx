@@ -10,6 +10,8 @@ export class GroupingPanel extends React.PureComponent {
     ];
   }
   render() {
+    const GroupPanel = this.props.groupPanelTemplate;
+
     return (
       <div>
         <Getter
@@ -31,13 +33,18 @@ export class GroupingPanel extends React.PureComponent {
         <Template
           name="group-panel"
           connectGetters={getter => ({
-            grouping: getter('grouping'),
+            groupedColumns: getter('groupedColumns'),
           })}
           connectActions={action => ({
             groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
           })}
         >
-          {this.props.groupPanelTemplate}
+          {({ groupedColumns, groupByColumn }) => (
+            <GroupPanel
+              groupedColumns={groupedColumns}
+              groupByColumn={groupByColumn}
+            />
+          )}
         </Template>
       </div>
     );

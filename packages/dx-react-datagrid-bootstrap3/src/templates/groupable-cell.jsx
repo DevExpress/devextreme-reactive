@@ -9,7 +9,7 @@ export const GroupableCell = ({ groupByColumn, children }) => (
         width: '30px',
         textAlign: 'right',
       }}
-    >[G]</div>
+    ><i className="glyphicon glyphicon-th-list" /></div>
     <div
       style={{
         paddingRight: '30px',

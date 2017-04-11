@@ -36,6 +36,8 @@ export class GroupingState extends React.PureComponent {
         groupingChange(grouping);
       }
     };
+    this._groupedColumns = (columns, grouping) =>
+      grouping.map(group => columns.find(c => c.name === group.column));
   }
   render() {
     const grouping = this.props.grouping || this.state.grouping;
@@ -56,6 +58,14 @@ export class GroupingState extends React.PureComponent {
 
         <Getter name="grouping" value={grouping} />
         <Getter name="expandedGroups" value={expandedGroups} />
+        <Getter
+          name="groupedColumns"
+          pureComputed={this._groupedColumns}
+          connectArgs={getter => [
+            getter('columns'),
+            getter('grouping'),
+          ]}
+        />
       </div>
     );
   }

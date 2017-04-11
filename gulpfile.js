@@ -15,7 +15,7 @@ var splitNameToPath = function(path) {
   // dx-react-datagrid-bs3\... ==> react\datagrid\bs3\...
   return path
     .replace(/dx-/, '')
-    .replace(/-/g, '\\');
+    .replace(/-/g, '/');
 };
 
 var extractMDTitle = function(content) {
@@ -31,8 +31,7 @@ var patchMDLinks = function(content) {
   return content.replace(/(?:(?:\.\.)\/)+(dx-.+?\.md)/g, function(match, path) {
     return '{{site.baseurl}}/'+
       splitNameToPath(path)
-      .replace(/readme\.md/i, '')
-      .replace(/\\/g, '/');
+      .replace(/readme\.md/i, '');
   });
 };
 

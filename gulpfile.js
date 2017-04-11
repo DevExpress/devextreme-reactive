@@ -28,7 +28,12 @@ var formatFrontMatter = function(title) {
 };
 
 var patchMDLinks = function(content) {
-  return content.replace(/\.md(#[^\s]*)?\)/g, '/$1)');
+  return content.replace(/(?:(?:\.\.)\/)+(dx-.+?\.md)/g, function(match, path) {
+    return '{{site.baseurl}}/'+
+      splitNameToPath(path)
+      .replace(/readme\.md/i, '')
+      .replace(/\\/g, '/');
+  });
 };
 
 var patchMDTables = function(content) {

@@ -6,7 +6,7 @@ Plugin that performs local data sorting.
 
 ### Dependencies
 
-- [SortingState](./sorting-state.md)
+- [SortingState](sorting-state.md)
 
 ### Properties
 
@@ -19,7 +19,7 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | array&lt;any&gt; | Rows to be sorted
-sortings | Getter | array&lt;[Sorting](./sorting-state.md#sorting)&gt; | array Column sortings to be applied
+sortings | Getter | array&lt;[Sorting](sorting-state.md#sorting)&gt; | array Column sortings to be applied
 
 ### Exports
 

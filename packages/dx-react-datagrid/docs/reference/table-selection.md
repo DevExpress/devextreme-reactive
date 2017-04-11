@@ -6,8 +6,8 @@ Plugin that visualize selection state inside table.
 
 ### Dependencies
 
-- [SelectionState](./selection-state.md)
-- [TableView](./table-view.md)
+- [SelectionState](selection-state.md)
+- [TableView](table-view.md)
 
 ### Properties
 

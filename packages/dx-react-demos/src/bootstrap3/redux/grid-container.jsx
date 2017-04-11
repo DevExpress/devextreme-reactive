@@ -13,7 +13,7 @@ import {
 
 import { createGridAction } from './grid-reducer';
 
-const DetailRow = ({ row }) => <div>Detail for {row.name} from {row.city}</div>;
+const DetailRow = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
 DetailRow.propTypes = {
   row: React.PropTypes.object.isRequired,
 };
@@ -37,7 +37,7 @@ const GridContainer = (props) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <h3>Grid State in the Redux Store</h3>
+      <h3>Managing Grid State in a Redux Store</h3>
 
       <DataGrid
         rows={rows}

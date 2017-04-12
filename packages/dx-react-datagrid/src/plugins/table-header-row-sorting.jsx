@@ -33,12 +33,9 @@ export class TableHeaderRowSorting extends React.PureComponent {
           connectGetters={(getter, { column }) => ({
             direction: getColumnSortingDirection(getter('sortings'), column.name),
           })}
-          connectActions={(action, { column }) => ({
-            changeDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
-          })}
         >
-          {({ direction, changeDirection }) => (
-            <SortableCell direction={direction} changeDirection={changeDirection}>
+          {({ direction }) => (
+            <SortableCell direction={direction}>
               <TemplatePlaceholder />
             </SortableCell>
           )}

@@ -34,9 +34,7 @@ export class SelectAllByAllPagesDemo extends React.PureComponent {
 
     return (
       <div>
-        <h3>Select All by All Pages Demo</h3>
-
-        <span>Total rows selected: {selection.length} ({JSON.stringify(selection)})</span>
+        <span>Total rows selected: {selection.length}</span>
 
         <DataGrid
           rows={rows}

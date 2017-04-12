@@ -17,7 +17,7 @@ import {
   generateRows,
 } from '../../demoData';
 
-export class SelectAllByPageDemo extends React.PureComponent {
+export class SelectionWithHiddenSelectAllDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -33,28 +33,26 @@ export class SelectAllByPageDemo extends React.PureComponent {
     const { rows, columns, selection } = this.state;
 
     return (
-      <div>
-        <span>Total rows selected: {selection.length}</span>
-
-        <DataGrid
-          rows={rows}
-          columns={columns}
-        >
-          <PagingState
-            defaultCurrentPage={0}
-            pageSize={6}
-          />
-          <LocalPaging />
-          <SelectionState
-            selection={selection}
-            selectionChange={this.changeSelection}
-          />
-          <TableView />
-          <TableHeaderRow />
-          <TableSelection />
-          <PagingPanel />
-        </DataGrid>
-      </div>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+      >
+        <SelectionState
+          selection={selection}
+          selectionChange={this.changeSelection}
+        />
+        <PagingState
+          defaultCurrentPage={0}
+          pageSize={6}
+        />
+        <LocalPaging />
+        <TableView />
+        <TableHeaderRow />
+        <TableSelection
+          showSelectAll={false}
+        />
+        <PagingPanel />
+      </DataGrid>
     );
   }
 }

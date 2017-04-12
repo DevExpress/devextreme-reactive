@@ -8,7 +8,7 @@ export class TableSelection extends React.PureComponent {
 
     this._tableColumns = (tableColumns, showCheckboxes) => {
       if (!showCheckboxes) return tableColumns;
-      return [{ type: 'select', name: 'select', width: 20 }, ...tableColumns];
+      return [{ type: 'select', name: 'select', width: 30 }, ...tableColumns];
     };
 
     this._tableBodyRows = (highlightSelected, tableBodyRows, selection) => {

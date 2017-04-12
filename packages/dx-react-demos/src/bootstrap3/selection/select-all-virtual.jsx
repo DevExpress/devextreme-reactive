@@ -2,14 +2,11 @@ import React from 'react';
 import {
     DataGrid,
     SelectionState,
-    PagingState,
-    LocalPaging,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableView,
+    VirtualTableView,
     TableSelection,
-    PagingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -17,13 +14,13 @@ import {
   generateRows,
 } from '../../demoData';
 
-export class WithoutSelectAllDemo extends React.PureComponent {
+export class SelectAllVirtualDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       columns: generateColumns(),
-      rows: generateRows(14),
+      rows: generateRows(1000),
       selection: [],
     };
 
@@ -34,9 +31,7 @@ export class WithoutSelectAllDemo extends React.PureComponent {
 
     return (
       <div>
-        <h3>Selection w/o Select All Demo</h3>
-
-        <span>Total rows selected: {selection.length} ({JSON.stringify(selection)})</span>
+        <span>Total rows selected: {selection.length}</span>
 
         <DataGrid
           rows={rows}
@@ -46,17 +41,9 @@ export class WithoutSelectAllDemo extends React.PureComponent {
             selection={selection}
             selectionChange={this.changeSelection}
           />
-          <PagingState
-            defaultCurrentPage={0}
-            pageSize={6}
-          />
-          <LocalPaging />
-          <TableView />
+          <VirtualTableView />
           <TableHeaderRow />
-          <TableSelection
-            showSelectAll={false}
-          />
-          <PagingPanel />
+          <TableSelection />
         </DataGrid>
       </div>
     );

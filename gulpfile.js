@@ -28,11 +28,13 @@ var formatFrontMatter = function(title) {
 };
 
 var patchMDLinks = function(content) {
-  return content.replace(/(?:(?:\.\.)\/)+(dx-.+?\.md)/g, function(match, path) {
-    return '{{site.baseurl}}/'+
-      splitNameToPath(path)
-      .replace(/readme\.md/i, '');
-  });
+  return content
+    .replace(/http\:\/\/devexpress\.github\.io/g, '')
+    .replace(/(?:(?:\.\.)\/)+(dx-.+?\.md)/g, function(match, path) {
+      return '{{site.baseurl}}/'+
+        splitNameToPath(path)
+        .replace(/readme\.md/i, '');
+    });
 };
 
 var patchMDTables = function(content) {
@@ -77,7 +79,7 @@ gulp.task('gh-pages:docs', function() {
 });
 
 gulp.task('gh-pages:demos', function() {
-  return gulp.src([ 'packages/dx-react-demos/dist/index.js' ])
+  return gulp.src(['packages/dx-react-demos/dist/*'])
     .pipe(gulp.dest(distPath + 'react/datagrid/demos/dist/'));
 });
 

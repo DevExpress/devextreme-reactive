@@ -18,12 +18,12 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;any&gt; | Rows to be filtered
+rows | Getter | array&lt;[Row](datagrid.md#row)&gt; | Rows to be filtered
 filters | Getter | array&lt;[Filter](filtering-state.md#filter)&gt; | Column filters to be applied
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;any&gt; | Rows with applied local filtering
+rows | Getter | array&lt;[Row](datagrid.md#row)&gt; | Rows with applied filtering
 

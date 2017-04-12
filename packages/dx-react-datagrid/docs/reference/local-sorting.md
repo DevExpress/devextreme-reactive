@@ -1,6 +1,6 @@
 # LocalSorting Plugin Reference
 
-Plugin that performs local data sorting.
+Plugin that performs local sorting.
 
 ## User Reference
 
@@ -18,12 +18,12 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;any&gt; | Rows to be sorted
+rows | Getter | array&lt;[Row](datagrid.md#row)&gt; | Rows to be sorted
 sortings | Getter | array&lt;[Sorting](sorting-state.md#sorting)&gt; | array Column sortings to be applied
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;any&gt; | Rows with applied local sorting
+rows | Getter | array&lt;[Row](datagrid.md#row)&gt; | Rows with applied sorting
 

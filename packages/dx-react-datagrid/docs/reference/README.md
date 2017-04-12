@@ -14,8 +14,8 @@
 
 - [LocalFiltering](local-filtering.md)
 - [LocalSorting](local-sorting.md)
-- LocalGrouping
-- LocalPaging
+- [LocalGrouping](local-grouping.md)
+- [LocalPaging](local-paging.md)
 
 ## UI Plugins
 
@@ -26,7 +26,7 @@
 - [TableSelection](table-selection.md)
 - TableFilterRow
 - TableGroupRow
-- PagingPanel
 - GroupingPanel
 - GroupingPanelSorting
+- PagingPanel
 

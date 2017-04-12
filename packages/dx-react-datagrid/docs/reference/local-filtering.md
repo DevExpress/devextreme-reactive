@@ -6,7 +6,7 @@ Plugin that performs local data filtering.
 
 ### Dependencies
 
-- [FilteringState](./filtering-state.md)
+- [FilteringState](filtering-state.md)
 
 ### Properties
 
@@ -19,7 +19,7 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | array&lt;any&gt; | Rows to be filtered
-filters | Getter | array&lt;[Filter](./filtering-state.md#filter)&gt; | Column filters to be applied
+filters | Getter | array&lt;[Filter](filtering-state.md#filter)&gt; | Column filters to be applied
 
 ### Exports
 

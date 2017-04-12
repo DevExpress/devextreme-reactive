@@ -58,7 +58,7 @@ In the following example, we have implemented the Select All behavior within a v
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/selection/select-all-by-page.jsx)
 
-If you place the `SelectionState` plugin before `LocalPaging`, it will be possible to select raws on all pages:
+If you place the `SelectionState` plugin before `LocalPaging`, it will be possible to select rows on all pages:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/selection/select-all-by-all-pages)
 

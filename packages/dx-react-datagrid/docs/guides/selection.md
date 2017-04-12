@@ -66,7 +66,7 @@ If you place the `SelectionState` plugin before `LocalPaging`, it will be possib
 
 ### Hidden Select All
 
-It is also possible to hide the Select All checkbox:
+It is also possible to hide the Select All check box:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/selection/hidden-select-all)
 

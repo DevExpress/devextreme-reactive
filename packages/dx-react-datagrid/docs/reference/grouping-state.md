@@ -35,7 +35,7 @@ Describes an group that can be nested in another one
 
 string
 
-String consists of values by which rows are grouped. Values are merged by `_` symbol. For example, expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male_Audi` and do on.
+String consists of values by which rows are grouped. Values are merged by `_` symbol. For example, expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male_Audi` and so on.
 
 ## Plugin Developer Reference
 

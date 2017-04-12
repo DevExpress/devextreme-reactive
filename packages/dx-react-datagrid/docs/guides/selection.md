@@ -6,7 +6,7 @@ DataGrid allows users to select/deselect rows. It seamlessly integrates with pag
 
 ## Plugin List
 
-There are several plugins that implements selection. Here the list:
+There are several plugins that implement selection. Here is the list:
 - [SelectionState](../reference/selection-state.md)
 - [TableSelection](../reference/table-selection.md)
 
@@ -20,17 +20,17 @@ The following example demonstrates the basic DataGrid selection setup:
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/selection/basic.jsx)
 
-As you can see, in this example we use controlled mode by specifying `selection` and `selectionChange` options for `SelectionState` plugin.
+As you can see, in this example we use controlled mode by specifying the `selection` and `selectionChange` options for the `SelectionState` plugin.
 
 ## Select by Row Click
 
-By default, rows can be selected by clicking inside checkbox. In some cases it may be convenient to allow users to select rows by clicking on whole item. The following example demonstrates such scenario:
+By default, rows can be selected by ticking a check box. In some cases, it may be convenient to allow users to select rows by clicking on the whole item. The following example demonstrates this scenario:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/selection/select-by-row-click)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/selection/select-by-row-click.jsx)
 
-In some scenarios it is useful to hide checkboxes completely and highlight selected rows. Here the demo:
+In some scenarios, it is useful to hide check boxes completely and highlight selected rows. Here is a demo:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/selection/hidden-checkboxes)
 
@@ -38,11 +38,11 @@ In some scenarios it is useful to hide checkboxes completely and highlight selec
 
 ## Select All
 
-If your DataGrid configuration has `TableHeaderRow` plugin you will see checkbox inside header row. This checkbox will provide an ability to select/deselect all rows.
+If your DataGrid configuration has the `TableHeaderRow` plugin, you can see a check box inside a header row. This check box provides a capability to select/deselect all rows.
 
 ### Without Paging
 
-In the following example we are using TableView with virtual mode. It allow us to demonstrate select all behavior with multiple rows:
+In the following example, we are using TableView with virtual mode. It allow us to demonstrate the Select All behavior with multiple rows:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/selection/select-all-virtual)
 
@@ -50,15 +50,15 @@ In the following example we are using TableView with virtual mode. It allow us t
 
 ### With Paging
 
-If you are using `LocalPaging` plugin it is very easy to integrate select all behavior with `PagingState` plugin.
+If you are using the `LocalPaging` plugin, it is easy to integrate the Select All behavior with the `PagingState` plugin.
 
-In the following example we have implemented select all behavior within visible page. You can achieve such result by placing `SelectionState` plugin after `LocalPaging`:
+In the following example, we have implemented the Select All behavior within a visible page. You can achieve this result by placing the `SelectionState` plugin after `LocalPaging`:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/selection/select-all-by-page)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/selection/select-all-by-page.jsx)
 
-If you place `SelectionState` plugin before `LocalPaging` it will be possible to select through all pages:
+If you place the `SelectionState` plugin before `LocalPaging`, it will be possible to select raws on all pages:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/selection/select-all-by-all-pages)
 
@@ -66,7 +66,7 @@ If you place `SelectionState` plugin before `LocalPaging` it will be possible to
 
 ### Hidden Select All
 
-It is also possible to hide select all checkbox:
+It is also possible to hide the Select All checkbox:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/selection/hidden-select-all)
 

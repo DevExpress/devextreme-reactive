@@ -3,7 +3,10 @@ import React from 'react';
 export const GroupableCell = ({ groupByColumn, children }) => (
   <div style={{ width: '100%', height: '100%' }}>
     <div
-      onClick={groupByColumn}
+      onClick={(e) => {
+        groupByColumn(e);
+        e.stopPropagation();
+      }}
       style={{
         float: 'right',
         width: '30px',

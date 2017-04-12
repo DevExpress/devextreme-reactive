@@ -3,7 +3,6 @@ import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-datagri
 import {
   GroupPanel,
   GroupPanelCellTemplate,
-  GroupPanelCellContentTemplate,
 } from '../templates/group-panel';
 
 export const GroupingPanel = ({ groupByColumnText }) => (
@@ -12,7 +11,6 @@ export const GroupingPanel = ({ groupByColumnText }) => (
       props => (
         <GroupPanel
           cellTemplate={GroupPanelCellTemplate}
-          cellContentTemplate={GroupPanelCellContentTemplate}
           groupByColumnText={groupByColumnText}
           {...props}
         />

@@ -1,6 +1,13 @@
 import React from 'react';
 import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
+export const GroupPanelCellContentTemplate = ({ column }) =>
+  <TemplatePlaceholder name="groupingPanelCellContent" params={{ column }} />;
+
+GroupPanelCellContentTemplate.propTypes = {
+  column: React.PropTypes.object.isRequired,
+};
+
 export class GroupingPanel extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -29,7 +36,6 @@ export class GroupingPanel extends React.PureComponent {
             <TemplatePlaceholder />
           </div>
         </Template>
-
         <Template
           name="group-panel"
           connectGetters={getter => ({
@@ -43,7 +49,13 @@ export class GroupingPanel extends React.PureComponent {
             <GroupPanel
               groupedColumns={groupedColumns}
               groupByColumn={groupByColumn}
+              cellContentTemplate={GroupPanelCellContentTemplate}
             />
+          )}
+        </Template>
+        <Template name="groupingPanelCellContent">
+          {({ column }) => (
+            <span>{column.title}</span>
           )}
         </Template>
       </div>

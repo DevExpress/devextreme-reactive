@@ -8,6 +8,7 @@ import {
 import {
     TableView, TableRowDetail, TableHeaderRowSorting, TableHeaderRowGrouping,
     TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
+    GroupingPanelSorting,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -83,6 +84,7 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
           <TableGroupRow />
 
           <GroupingPanel />
+          <GroupingPanelSorting />
 
         </DataGrid>
       </div>

@@ -1,10 +1,5 @@
 import React from 'react';
 
-export const GroupPanelCellContentTemplate = ({ column }) => <span>{column.title}</span>;
-GroupPanelCellContentTemplate.propTypes = {
-  column: React.PropTypes.object.isRequired,
-};
-
 export const GroupPanelCellTemplate = ({ column, groupByColumn, children }) => (
   <button
     type="button"
@@ -13,23 +8,14 @@ export const GroupPanelCellTemplate = ({ column, groupByColumn, children }) => (
       marginRight: '5px',
     }}
   >
-    <div
+    {children}
+    <i
+      className="glyphicon glyphicon-remove"
       style={{
-        float: 'right',
-        width: '30px',
-        textAlign: 'right',
+        marginLeft: '8px',
       }}
-    >
-      <i
-        className="glyphicon glyphicon-remove"
-        onClick={() => groupByColumn({ columnName: column.name })}
-      />
-    </div>
-    <div
-      style={{
-        paddingRight: '30px',
-      }}
-    >{children}</div>
+      onClick={() => groupByColumn({ columnName: column.name })}
+    />
   </button>
 );
 GroupPanelCellTemplate.propTypes = {

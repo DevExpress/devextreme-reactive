@@ -1,6 +1,6 @@
-# DataGrid Plugin Reference
+# DataGrid Reference
 
-DataGrid
+[DataGrid](datagrid.md)
 
 ## State Management Plugins
 

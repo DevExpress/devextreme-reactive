@@ -25,7 +25,7 @@ In this example, we use the uncontrolled mode by specifying just a starting acti
 
 ## Controlled Paging State
 
-To control the paging state from the outside you need to set the `currentPage` and `pageSize` properties of the `PagingState` plugin and to handle the `currentPageChange` event of the same plugin.
+To control the paging state from the outside you need to set the `currentPage` and `pageSize` properties of the `PagingState` plugin and  handle the `currentPageChange` event of the same plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/paging/local-paging-controlled)
 
@@ -33,7 +33,7 @@ To control the paging state from the outside you need to set the `currentPage` a
 
 ## Remote Paging
 
-If your data service supports paging operations, you can handle the DataGrid paging state changes in order to request a page from the server according to the active page number and size.
+If your data service supports paging operations, you can handle the DataGrid's paging state changes in order to request a page from the server according to the active page number and size.
 
 Plese note that you shouldn't use the `LocalPaging` plugin to set up remote paging. You should handle the `currentPageChange` event of the `PagingState` plugin in order to recieve updates on the current page number changes. Having recieved a data page from the server, just pass it to the `DataGrid` component's `rows` property.
 

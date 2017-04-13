@@ -24,7 +24,7 @@ UI Plugins:
 - [TableHeaderRowSorting](table-header-row-sorting.md)
 - [TableHeaderRowGrouping](table-header-row-grouping.md)
 - [TableSelection](table-selection.md)
-- TableFilterRow
+- [TableFilterRow](table-filter-row.md)
 - TableRowDetail
 - TableGroupRow
 - GroupingPanel

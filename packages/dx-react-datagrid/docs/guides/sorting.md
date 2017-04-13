@@ -26,7 +26,7 @@ In this example we use the uncontrolled mode by specifying just a starting sorti
 
 ## Using Sorting with Grouping
 
-If you have enabled the DataGrid grouping features you might want to use them with sorting. The sorting and grouping plugins can work together and don't require any additional configuration. You should just keep the proper order of those plugins in the DataGrid container component. If you also want to allow an end-user to change sorting of grouped columns by clicking the items of the group panel, you need to add the `GroupingPanelSorting` plugin.
+If you have enabled the DataGrid grouping features you might want to use them with sorting. The sorting and grouping plugins can work together and don't require any additional configuration. You should just keep the proper order of those plugins in the DataGrid container component. If you also want to allow end-users to change the sorting of grouped columns by clicking the items of the group panel, you need to add the `GroupingPanelSorting` plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-group-sorting)
 
@@ -44,5 +44,5 @@ To control the sorting state from the outside you need to pass an array of colum
 
 If your data service supports sorting operations, you can handle the DataGrid sorting state changes in order to request data from the server with the corresponding sorting applied.
 
-To setup remote sorting, you shouldn't use the `LocalSorting` plugin. You should handle the `sortingsChange` event of the `SortingState` plugin in order to recieve updates on sorting changes. They happen once an end-user changes sortings interacting with the grid. Having the sorted data recieved from the server just pass it to the `DataGrid` component `rows` property.
+Please note that you shouldn't use the `LocalSorting` plugin to set up remote sorting. You should handle the `sortingsChange` event of the `SortingState` plugin in order to recieve updates on sorting changes. These updates take place once an end-user changes sortings interacting with the grid. Having the sorted data recieved from the server, just pass it to the `DataGrid` component's `rows` property.
 

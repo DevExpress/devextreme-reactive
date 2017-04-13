@@ -72,6 +72,6 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | () => array&lt;[TableRow](#table-row)&gt; | Rows that will be placed inside table heading
 tableBodyRows | Getter | () => array&lt;[TableRow](#table-row)&gt; | Rows that will be placed inside table body
 tableColumns | Getter | () => array&lt;[TableColumn](#table-column)&gt; | Specifies columns that will be rendered inside table
-tableExtraProps | Getter | () => ??? | Specifies additional table properties that can be added by plugins
+tableExtraProps | Getter | () => { [key: string]: any } | Specifies additional table properties that can be added by plugins
 tableView | Template | none | Template that renders table
 tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | Template that renders table cell content

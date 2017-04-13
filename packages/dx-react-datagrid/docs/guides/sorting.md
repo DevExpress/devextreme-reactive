@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DataGrid component supports sorting by any number of columns. We also provide a set of plugins that allow an end-user to sort the grid by clicking the header of a column (or a group item in case of groupable grid) by which the grid should be sorted. The sort order is indicated by an arrow glyph within the sorted column. The grid can be sorted against multiple columns by clicking the required column headers while holding down the `shift` key.
+The DataGrid component supports sorting by any number of columns. We also provide a set of plugins that allow end-users to sort the grid by clicking the header of the column (or a group item in case of a groupable grid) by which the grid should be sorted. The sort order is indicated by an arrow glyph within the sorted column. You can sort the grid against multiple columns by clicking the required column headers with the `shift` key pressed.
 
 ## Plugin List
 
@@ -12,11 +12,11 @@ There are several plugins that implement sorting features:
 - [TableHeaderRowSorting](../reference/table-header-row-sorting.md)
 - [GroupingPanelSorting](../reference/grouping-panel-sorting.md)
 
-Note that [plugin order](../README.md#plugin-order) is very important.
+Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic Local Sorting Setup
 
-Despite the fact that it's possible to configure DataGrid sorting without allowing an end-user to change it, it's usually needed to show a grid with interactive sorting features. To achieve this you need to use the `SortingState`, `LocalSorting` and `TableHeaderRowSorting` plugins.
+Despite the fact that it's possible to configure DataGrid sorting without allowing the end-user to change it, it's usually needed to show a grid with interactive sorting features. To achieve this you need to use the `SortingState`, `LocalSorting` and `TableHeaderRowSorting` plugins.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-header-sorting)
 

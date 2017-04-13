@@ -15,35 +15,35 @@ import {
   generateRows,
 } from '../../demoData';
 
-export class HeaderSortingDemo extends React.PureComponent {
+export class LocalSortingControlledDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       columns: generateColumns(),
       rows: generateRows(14),
+      sortings: [{ column: 'city', direction: 'asc' }],
     };
 
-    this.changeSelection = selection => this.setState({ selection });
+    this.changeSortings = sortings => this.setState({ sortings });
   }
   render() {
     const { rows, columns } = this.state;
 
     return (
-      <div>
-        <h3>Header Sorting</h3>
-
-        <DataGrid
-          rows={rows}
-          columns={columns}
-        >
-          <SortingState defaultSortings={[{ column: 'id', direction: 'asc' }]} />
-          <LocalSorting />
-          <TableView />
-          <TableHeaderRow />
-          <TableHeaderRowSorting />
-        </DataGrid>
-      </div>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+      >
+        <SortingState
+          sortings={this.state.sortings}
+          sortingsChange={this.changeSortings}
+        />
+        <LocalSorting />
+        <TableView />
+        <TableHeaderRow />
+        <TableHeaderRowSorting />
+      </DataGrid>
     );
   }
 }

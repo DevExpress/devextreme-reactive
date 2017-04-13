@@ -17,12 +17,11 @@ Note that [plugin order](../README.md#plugin-order) is very important.
 
 To setup a basic filtering you need to use the `FilteringState` plugin that manages currently applied filters, the `LocalFiltering` plugin that filters the data `rows` provided to the DataGrid and the `TableFilterRow` plugin that renders a row with editors to allow an end-user to change filters applied to different columns.
 
+In this example we use the uncontrolled mode and specify only the initial filters via the `defaultFilters` property of the `FilteringState` plugin. After that the grid will manage filters changes internally.
+
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/filtering/local-filter-row)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filter-row.jsx)
-
-In this example we use uncontrolled mode by specifying just a starting filters via the `defaultFilters` property of the `FilteringState` plugin. After that the grid will manage filters changes internally.
-
 
 ## Controlled Filtering State
 

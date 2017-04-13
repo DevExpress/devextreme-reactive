@@ -52,7 +52,7 @@ export class TableRowDetail extends React.PureComponent {
           ]}
         />
         <Template name="tableViewCell" predicate={({ row }) => row.type === 'detailRow'}>
-          {({ column, row }) => template({ column, row: row.for })}
+          {({ row }) => template({ row: row.for })}
         </Template>
       </div>
     );

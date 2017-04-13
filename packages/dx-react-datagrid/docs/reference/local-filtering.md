@@ -25,5 +25,5 @@ filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Column fil
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows with applied filtering
+rows | Getter | () => Array&lt;[Row](datagrid.md#row)&gt; | Rows with applied filtering
 

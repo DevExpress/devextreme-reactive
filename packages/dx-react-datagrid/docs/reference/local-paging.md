@@ -27,5 +27,5 @@ setCurrentPage | Action | ({ page: number }) => void | Changes current page
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows with applied paging
-totalPages | Getter | number | Total pages count
+rows | Getter | () => Array&lt;[Row](datagrid.md#row)&gt; | Rows with applied paging
+totalPages | Getter | () => number | Total pages count

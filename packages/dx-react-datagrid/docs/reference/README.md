@@ -2,7 +2,7 @@
 
 [DataGrid](datagrid.md)
 
-## State Management Plugins
+State Management Plugins:
 
 - [FilteringState](filtering-state.md)
 - [SortingState](sorting-state.md)
@@ -10,21 +10,22 @@
 - [PagingState](paging-state.md)
 - [SelectionState](selection-state.md)
 
-##  Data Processing Plugins
+Data Processing Plugins:
 
 - [LocalFiltering](local-filtering.md)
 - [LocalSorting](local-sorting.md)
 - [LocalGrouping](local-grouping.md)
 - [LocalPaging](local-paging.md)
 
-## UI Plugins
+UI Plugins:
 
 - [TableView](table-view.md)
-- TableHeaderRow
-- TableHeaderRowSorting
-- TableHeaderRowGrouping
+- [TableHeaderRow](table-header-row.md)
+- [TableHeaderRowSorting](table-header-row-sorting.md)
+- [TableHeaderRowGrouping](table-header-row-grouping.md)
 - [TableSelection](table-selection.md)
 - TableFilterRow
+- TableRowDetail
 - TableGroupRow
 - GroupingPanel
 - GroupingPanelSorting

@@ -23,7 +23,7 @@ Describes properties passed to group panel template when rendered
 
 Field | Type | Description
 ------|------|------------
-direction | 'asc'&#124;'desc' | Specifies sorting direction if applied
+direction | 'asc' &#124; 'desc' | Specifies sorting direction if applied
 toggleSorting | ({ keepOther: boolean }) => void | Changes sorting for column. Keep other sortings if `keepOther` is set to `true`
 
 ## Plugin Developer Reference

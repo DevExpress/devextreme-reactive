@@ -39,5 +39,5 @@ To setup remote paging, you shouldn't use the `LocalPaging` plugin. You should h
 
 ## Using Paging with Other Data Processing Plugins
 
-It's higly likely, that you will use paging features side by side with other features such as sorting, grouping, etc. In this case you should be carryful about the order in which the plugins appear inside the DataGrid container. The reason for that is quite obvious. Plugins are applied one by one in the order they appear. Let's imaging you are using paging and sorting alltother. If you put the `LocalSorting` plugin befor the `LocalPaging` one, the data will be sorted first and paginated after that. Once you change the order, the unsorted rows will be paginated and only the current page will be sorted after that.
+It's high likely, that you will use paging features side by side with other features such as sorting, grouping, etc. In this case you should be carryful about the order in which the plugins appear inside the DataGrid container. The reason for that is quite obvious. Plugins are applied one by one in the order they appear. Let's imagine you are using paging and sorting alltother. If you put the `LocalSorting` plugin befor the `LocalPaging` one, the data will be sorted first and paginated after that. Once you change the order, the unsorted rows will be paginated and only the current page will be sorted after that.
 

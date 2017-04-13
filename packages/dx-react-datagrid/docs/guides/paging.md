@@ -17,11 +17,11 @@ Note that the [plugin order](../README.md#plugin-order) is very important.
 
 To set up a common paging configuration use the `PagingState`, `LocalPaging` and `PagingPanel` plugins.
 
+In the following example, we use the uncontrolled mode and specify only the initial active page number via the `defaultCurrentPage` property of the `PagingState` plugin. After that the grid will manage paging state changes internally.
+
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/paging/local-paging)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/local-paging.jsx)
-
-In this example, we use the uncontrolled mode and specify only the initial active page number via the `defaultCurrentPage` property of the `PagingState` plugin. After that the grid will manage paging state changes internally.
 
 ## Controlled Paging State
 

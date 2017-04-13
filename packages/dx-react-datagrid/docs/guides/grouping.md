@@ -21,11 +21,11 @@ Note that [plugin order](../README.md#plugin-order) is very important.
 
 To set up a simple static DataGrid grouping, use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins.
 
+In the following example, we use the controlled mode by specifying the `grouping` property of the `GroupingState` plugin. Since there is no UI and the end-user can't change grouping, it's not necessary to handle the `groupingChange` event of the same plugin.
+
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/grouping/local-grouping-static)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/grouping/local-grouping-static.jsx)
-
-In this example, we use the controlled mode by specifying the `grouping` property of the `GroupingState` plugin. Since there is no UI and the end-user can't change grouping, it's not necessary to handle the `groupingChange` event of the same plugin.
 
 ## Grouping UI for an end-user
 

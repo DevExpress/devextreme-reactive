@@ -18,7 +18,7 @@ Note that the [plugin order](../README.md#plugin-order) is very important.
 
 To show a grid with interactive sorting features, use the `SortingState`, `LocalSorting` and `TableHeaderRowSorting` plugins.
 
-In this example we use the uncontrolled mode and specify only the initial sorting configuration via the `defaultSortings` property of the `SortingState` plugin. After that the grid will manage sorting changes internally.
+In this example, we use the uncontrolled mode and specify only the initial sorting configuration via the `defaultSortings` property of the `SortingState` plugin. After that the grid will manage sorting changes internally.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-header-sorting)
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DataGrid paging features allow to perform data paging on the client side. If your data service supports server-side paging, you can handle the DataGrid paging state changes (current page, page size) and pass this data to your server in order to obtain a corresponding page data. The paging plugin set also contains plugins that display paging controls to enable end-user interactions, for instance, page switching.
+The DataGrid's paging features are used to perform data paging on the client side. If your data service however supports server-side paging, you can handle the DataGrid's paging state changes (the current page, the page size) and pass this data to your server. The paging plugin set also contains plugins that display paging controls for enabling end-user interactions, for instance, page switching.
 
 ## Plugin List
 

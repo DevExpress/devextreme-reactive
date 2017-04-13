@@ -22,7 +22,7 @@ Despite the fact that it's possible to configure DataGrid sorting without allowi
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-header-sorting.jsx)
 
-In this example we use uncontrolled mode by specifying just a starting sorting via the `defaultSortings` property of the `SortingState` plugin. After that the grid will manage sorting changes internally.
+In this example we use the uncontrolled mode by specifying just a starting sorting via the `defaultSortings` property of the `SortingState` plugin. After that the grid will manage sorting changes internally.
 
 ## Using Sorting with Grouping
 

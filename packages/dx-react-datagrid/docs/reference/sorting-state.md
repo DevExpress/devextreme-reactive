@@ -25,7 +25,7 @@ Describes applied sorting to column
 Field | Type | Description
 ------|------|------------
 column | string | Specifies column name to apply sorting
-direction | 'asc'&#124;'desc' | Specifies value with that rows will be sorted
+direction | 'asc' &#124; 'desc' | Specifies value with that rows will be sorted
 
 ## Plugin Developer Reference
 
@@ -38,5 +38,5 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 sortings | Getter | () => Array&lt;[Sorting](#sorting)&gt; | Applied column sortings
-setColumnSorting | Action | ({ columnName: string, direction: 'asc'&#124;'desc', keepOther: boolean }) => void | Change sorting for column
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean }) => void | Change sorting for column
 

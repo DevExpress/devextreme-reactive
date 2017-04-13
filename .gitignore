@@ -3,4 +3,7 @@
 **/coverage
 *.log
 /shippable
-/gh-pages-dist
+
+# Site
+/site/_site
+/site/react

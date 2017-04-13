@@ -18,7 +18,9 @@
   "scripts": {
     "postinstall": "lerna bootstrap --concurrency=1",
     "build": "lerna run build",
-    "build:gh-pages": "lerna run build --ignore @devexpress/dx-react-demos && lerna run build:prod --scope @devexpress/dx-react-demos && gulp gh-pages",
+    "build:gh-pages": "npm run -s build:gh-pages:demos && npm run -s build:gh-pages:docs",
+    "build:gh-pages:demos": "lerna run build --ignore @devexpress/dx-react-demos && lerna run build:prod --scope @devexpress/dx-react-demos",
+    "build:gh-pages:docs": "gulp gh-pages",
     "watch:core": "lerna run build:watch --scope @devexpress/dx-core --stream",
     "watch:datagrid-core": "lerna run build:watch --scope @devexpress/dx-datagrid-core --stream",
     "watch:react-core": "lerna run build:watch --scope @devexpress/dx-react-core --stream",

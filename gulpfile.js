@@ -4,10 +4,13 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     intercept = require('gulp-intercept');
 
-var distPath = 'gh-pages-dist/';
+var distPath = 'site/';
 
 gulp.task('gh-pages:clean', function() {
-  return gulp.src(distPath, { read: false })
+  return gulp.src(
+      ['react'].map(function(dir) { return distPath + dir; }),
+      { read: false }
+    )
     .pipe(clean());
 });
 

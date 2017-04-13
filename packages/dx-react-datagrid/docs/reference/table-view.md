@@ -1,6 +1,6 @@
 # TableView Plugin Reference
 
-Plugin that implements table layout rendering. It define basics like table view, table view cell that can be extended by other plugins. There ara also defined customization points like columns span, height and width specification for rows and columns and etc.
+Plugin that renders table. It contains visualization components like table view, table view cell that can be extended by other plugins. There ara also defined customization points like columns span, height and width specification for rows and columns and etc.
 
 ## User Reference
 

@@ -16,7 +16,7 @@ filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters applied
 defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies starting filters for uncontrolled scenario
 filtersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filters change
 
-## Data Structures
+## Interfaces
 
 ### Filter
 

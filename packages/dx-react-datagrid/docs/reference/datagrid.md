@@ -11,7 +11,7 @@ Name | Type | Default | Description
 rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
 columns | Array&lt;[Column](#column)&gt; | | Specifies a row fields to be rendered as columns
 
-## Data Structures
+## Interfaces
 
 ### Row
 

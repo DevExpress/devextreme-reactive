@@ -16,7 +16,7 @@ sortings | Array&lt;[Sorting](#sorting)&gt; | | Specifies sortings applied
 defaultSortings | Array&lt;[Sorting](#sorting)&gt; | | Specifies starting sortings for uncontrolled scenario
 sortingsChange | (sortings: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sortings change
 
-## Data Structures
+## Interfaces
 
 ### Sorting
 

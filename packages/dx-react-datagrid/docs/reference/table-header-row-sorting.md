@@ -16,7 +16,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 sortableCellTemplate | Component&lt;[SortableCellProps](#sortable-cell-props)&gt; | | Component that renders cell with sort direction indicator
 
-## Data Structures
+## Interfaces
 
 ### <a name="sortable-cell-props"></a>SortableCellProps
 

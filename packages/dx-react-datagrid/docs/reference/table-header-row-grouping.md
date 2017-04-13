@@ -16,7 +16,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 groupableCellTemplate | Component&lt;[GroupableCellProps](#groupable-cell-props)&gt; | | Component that renders cell with ability to group data by column
 
-## Data Structures
+## Interfaces
 
 ### <a name="groupable-cell-props"></a>GroupableCellProps
 

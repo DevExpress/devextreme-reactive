@@ -20,7 +20,7 @@ showCheckboxes | boolean | false | Specifies whether or not show checkbox inside
 selectCellTemplate | Component&lt;[SelectCellProps](#select-cell-props)&gt; | | Component that renders toggle that selects data row
 selectAllCellTemplate | Component&lt;[SelectAllCellProps](#select-all-cell-props)&gt; | | Component that renders toggle that selects all rows
 
-## Data Structures
+## Interfaces
 
 ### <a name="select-cell-props"></a>SelectCellProps
 

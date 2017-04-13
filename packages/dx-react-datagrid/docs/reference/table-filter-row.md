@@ -16,7 +16,7 @@ Name | Type | Default | Description
 rowHeight | number | | Specifies height for filter row
 filterCellTemplate | Component&lt;[FilterCellProps](#filter-cell-props)&gt; | | Component that renders cell with ability to change column filter
 
-## Data Structures
+## Interfaces
 
 ### <a name="filter-cell-props"></a>FilterCellProps
 

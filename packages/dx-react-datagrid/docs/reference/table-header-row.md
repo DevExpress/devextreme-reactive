@@ -14,7 +14,7 @@ It renders title based on provided `title` field in column. See extended data st
 
 none
 
-## Data Structures
+## Interfaces
 
 ### Column
 

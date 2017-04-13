@@ -19,7 +19,7 @@ expandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies expanded 
 defaultExpandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies starting expanded groups for uncontrolled scenario
 expandedGroupsChange | (expandedGroups: { [key: [GroupKey](#group-key)]: true }) => void | | Handles expanded groups change
 
-## Data Structures
+## Interfaces
 
 ### Grouping
 

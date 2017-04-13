@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tableTemplate | Component&lt;[TableProps](#table-props)&gt; | | Component that renders table based on supplied parameters
 
-## Data Structures
+## Interfaces
 
 ### <a name="table-props"></a>TableProps
 

@@ -18,7 +18,7 @@ expandedDetailsChange | (expandedDetails: Array&lt;number&#124;string&gt;) => vo
 template | Component&lt;[DetailRowProps](#detail-row-props)&gt; | | Component that renders detail for row
 detailToggleTemplate | Component&lt;[DetailToggleProps](#detail-toggle-props)&gt; | | Component that renders detail for row
 
-## Data Structures
+## Interfaces
 
 ### <a name="detail-row-props"></a>DetailRowProps
 

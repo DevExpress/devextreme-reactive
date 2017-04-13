@@ -1,6 +1,8 @@
 # DataGrid Reference
 
-[DataGrid](datagrid.md)
+Components:
+
+- [DataGrid](datagrid.md)
 
 State Management Plugins:
 
@@ -29,5 +31,5 @@ UI Plugins:
 - [TableGroupRow](table-group-row.md)
 - GroupingPanel
 - GroupingPanelSorting
-- PagingPanel
+- [PagingPanel](paging-panel.md)
 

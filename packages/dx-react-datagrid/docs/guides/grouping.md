@@ -2,8 +2,8 @@
 
 ## Overview
 
-The grouping feature allows to display data grouped by one or several
-columns values. We also provide a number of plugins that allow an end-user to group data within the grid interacting with the DataGrid grouping UI such as group panel and column headers.
+The grouping feature allows you to display data grouped by one or several
+column values. We also provide a number of plugins that allow  end-users to group data within the grid interacting with the DataGrid grouping UI such as group panel and column headers.
 
 ## Plugin List
 
@@ -19,19 +19,19 @@ Note that [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic setup
 
-To setup a simple static DataGrid grouping you need to use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins.
+To set up a simple static DataGrid grouping use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/grouping/local-grouping-static)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/grouping/local-grouping-static.jsx)
 
-In this example we use controlled mode by specifying the `grouping` property of the `GroupingState` plugin. Sine there is no UI and an end-user can't change grouping it's not necessary to handle the `groupingChange` event of the same plugin.
+In this example, we use the controlled mode by specifying the `grouping` property of the `GroupingState` plugin. Since there is no UI and the end-user can't change grouping, it's not necessary to handle the `groupingChange` event of the same plugin.
 
 ## Grouping UI for an end-user
 
-Sometimes it's necessary to allow an end-user manage which columns should be used to group by. It can be handy for different analysis or data search scenarios.
+Sometimes it's necessary to allow end-users to manage which columns should be used to group by. It can be handy for different analysis or data search scenarios.
 
-This functionality can be added by the `GroupingPanel` and `TableHeaderRowGrouping` plugins. In case you are using the DataGrid sorting features, you also might need the `GroupingPanelSorting` plugin to allow an end-user to change sorting by grouped columns.
+This functionality can be added by the `GroupingPanel` and `TableHeaderRowGrouping` plugins. In case you are using the DataGrid sorting features, you also might need the `GroupingPanelSorting` plugin to allow the end-user to change sorting by grouped columns.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/grouping/local-grouping-with-ui)
 
@@ -39,7 +39,7 @@ This functionality can be added by the `GroupingPanel` and `TableHeaderRowGroupi
 
 ## Grouping Controlled Mode
 
-To control the grouping state from the outside you need to pass grouping array to the `grouping` property of the `GroupingState` plugin and to handle the `groupingChange` event of the same plugin.
+To control the grouping state from the outside, pass the grouping array to the `grouping` property of the `GroupingState` plugin and handle the `groupingChange` event of the same plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/grouping/local-grouping-controlled)
 

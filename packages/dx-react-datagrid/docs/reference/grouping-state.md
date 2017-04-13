@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-grouping | array&lt;[Grouping](#grouping)&gt; | | Specifies applied grouping
-defaultGrouping | array&lt;[Grouping](#grouping)&gt; | | Specifies starting grouping for uncontrolled scenario
-groupingChange | (grouping: array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping change
+grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies applied grouping
+defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies starting grouping for uncontrolled scenario
+groupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping change
 expandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies expanded groups
 defaultExpandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies starting expanded groups for uncontrolled scenario
 expandedGroupsChange | (expandedGroups: { [key: [GroupKey](#group-key)]: true }) => void | | Handles expanded groups change
@@ -47,8 +47,8 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-grouping | Getter | () => array&lt;[Grouping](#grouping)&gt; | Applied grouping
+grouping | Getter | () => Array&lt;[Grouping](#grouping)&gt; | Applied grouping
 expandedGroups | Getter | () => { [key: [GroupKey](#group-key)]: true } | Expanded groups
-groupedColumns | Getter | () => array&lt;Column&gt; | Columns with applied grouping on them
+groupedColumns | Getter | () => Array&lt;Column&gt; | Columns with applied grouping on them
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Group by specified column name or cancel grouping for. If `groupIndex` is omitted, group will be added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles expanded group state

@@ -22,9 +22,9 @@ Describes properties passed to table template when rendered
 
 Field | Type | Description
 ------|------|------------
-headerRows | array&lt;[TableRow](#table-row)&gt; | Specifies rows that will be placed inside table heading
-bodyRows | array&lt;[TableRow](#table-row)&gt; | Specifies rows that will be placed inside table body
-columns | array&lt;[TableColumn](#table-column)&gt; | Specifies columns that will be rendered inside table
+headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that will be placed inside table heading
+bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that will be placed inside table body
+columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies columns that will be rendered inside table
 cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; | Cell content template provided by plugin that should be rendered inside table
 
 ### <a name="cell-content-props"></a>CellContentProps
@@ -62,16 +62,16 @@ type? | string | Specifies table column type. Used to identify cell template for
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => array&lt;[Row](datagrid.md#row)&gt; | Rows to be rendered by table view
-columns | Getter | () => array&lt;[Column](datagrid.md#column)&gt; | Rows to be rendered by table view
+rows | Getter | () => Array&lt;[Row](datagrid.md#row)&gt; | Rows to be rendered by table view
+columns | Getter | () => Array&lt;[Column](datagrid.md#column)&gt; | Rows to be rendered by table view
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | () => array&lt;[TableRow](#table-row)&gt; | Rows that will be placed inside table heading
-tableBodyRows | Getter | () => array&lt;[TableRow](#table-row)&gt; | Rows that will be placed inside table body
-tableColumns | Getter | () => array&lt;[TableColumn](#table-column)&gt; | Specifies columns that will be rendered inside table
+tableHeaderRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows that will be placed inside table heading
+tableBodyRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows that will be placed inside table body
+tableColumns | Getter | () => Array&lt;[TableColumn](#table-column)&gt; | Specifies columns that will be rendered inside table
 tableExtraProps | Getter | () => { [key: string]: any } | Specifies additional table properties that can be added by plugins
 tableView | Template | none | Template that renders table
 tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | Template that renders table cell content

@@ -8,8 +8,8 @@ Component that represents data passed to it with help of provided plugins. Does 
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rows | array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
-columns | array&lt;[Column](#column)&gt; | | Specifies a row fields to be rendered as columns
+rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
+columns | Array&lt;[Column](#column)&gt; | | Specifies a row fields to be rendered as columns
 
 ## Data Structures
 
@@ -37,5 +37,5 @@ name | string | Used by plugins to consistently identify column and represent da
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => array&lt;[Row](#row)&gt; | Specified rows
-columns | Getter | () => array&lt;[Column](#column)&gt; | Specified columns
+rows | Getter | () => Array&lt;[Row](#row)&gt; | Specified rows
+columns | Getter | () => Array&lt;[Column](#column)&gt; | Specified columns

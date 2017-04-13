@@ -18,12 +18,12 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;[Row](datagrid.md#row)&gt; | Rows to be filtered
-grouping | Getter | array&lt;[Grouping](grouping-state.md#grouping)&gt; | Grouping to be applied
+rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows to be filtered
+grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Grouping to be applied
 expandedGroups | Getter | { [key: [GroupKey](grouping-state.md#group-key)]: true } | Groups to be expanded
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;[Row](datagrid.md#row)&gt; | Rows with applied grouping and expanded groups
+rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows with applied grouping and expanded groups

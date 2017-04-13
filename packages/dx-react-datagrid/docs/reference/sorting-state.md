@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-sortings | array&lt;[Sorting](#sorting)&gt; | | Specifies sortings applied
-defaultSortings | array&lt;[Sorting](#sorting)&gt; | | Specifies starting sortings for uncontrolled scenario
-sortingsChange | (sortings: array&lt;[Sorting](#sorting)&gt;) => void | | Handles sortings change
+sortings | Array&lt;[Sorting](#sorting)&gt; | | Specifies sortings applied
+defaultSortings | Array&lt;[Sorting](#sorting)&gt; | | Specifies starting sortings for uncontrolled scenario
+sortingsChange | (sortings: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sortings change
 
 ## Data Structures
 
@@ -37,6 +37,6 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-sortings | Getter | () => array&lt;[Sorting](#sorting)&gt; | Applied column sortings
+sortings | Getter | () => Array&lt;[Sorting](#sorting)&gt; | Applied column sortings
 setColumnSorting | Action | ({ columnName: string, direction: 'asc'&#124;'desc', keepOther: boolean }) => void | Change sorting for column
 

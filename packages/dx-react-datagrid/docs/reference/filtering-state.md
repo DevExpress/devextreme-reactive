@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-filters | array&lt;[Filter](#filter)&gt; | | Specifies filters applied
-defaultFilters | array&lt;[Filter](#filter)&gt; | | Specifies starting filters for uncontrolled scenario
-filtersChange | (filters: array&lt;[Filter](#filter)&gt;) => void | | Handles filters change
+filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters applied
+defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies starting filters for uncontrolled scenario
+filtersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filters change
 
 ## Data Structures
 
@@ -37,5 +37,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filters | Getter | () => array&lt;[Filter](#filter)&gt; | Applied column filters
+filters | Getter | () => Array&lt;[Filter](#filter)&gt; | Applied column filters
 setColumnFilter | Action | ({ columnName: string, value: string }) => void | Change filter for column

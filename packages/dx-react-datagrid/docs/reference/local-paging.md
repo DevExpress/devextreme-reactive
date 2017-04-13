@@ -18,7 +18,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;[Row](datagrid.md#row)&gt; | Rows to be filtered
+rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows to be filtered
 pageSize | Getter | number | Provided page size
 currentPage | Getter | number | Provided current page
 setCurrentPage | Action | ({ page: number }) => void | Changes current page
@@ -27,5 +27,5 @@ setCurrentPage | Action | ({ page: number }) => void | Changes current page
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;[Row](datagrid.md#row)&gt; | Rows with applied paging
+rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows with applied paging
 totalPages | Getter | number | Total pages count

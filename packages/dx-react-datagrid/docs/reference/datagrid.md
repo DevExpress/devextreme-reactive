@@ -19,7 +19,7 @@ Describes the row interface
 
 Field | Type | Description
 ------|------|------------
-id | number&#124;string | Specifies row id. Used by plugins to consistently identify row
+id | number &#124; string | Specifies row id. Used by plugins to consistently identify row
 
 Note that any other fields can and should be defined. They are used as data that will be represented.
 

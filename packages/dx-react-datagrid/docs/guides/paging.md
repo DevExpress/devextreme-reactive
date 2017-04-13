@@ -11,7 +11,7 @@ There are several plugins that implement sorting features:
 - [LocalPaging](../reference/local-paging.md)
 - [PagingPanel](../reference/paging-panel.md)
 
-Note that [plugin order](../README.md#plugin-order) is very important.
+Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic Local Paging Setup
 

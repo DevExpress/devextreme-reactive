@@ -29,7 +29,7 @@ UI Plugins:
 - [TableFilterRow](table-filter-row.md)
 - [TableRowDetail](table-row-detail.md)
 - [TableGroupRow](table-group-row.md)
-- GroupingPanel
-- GroupingPanelSorting
+- [GroupingPanel](grouping-panel.md)
+- [GroupingPanelSorting](grouping-panel-sorting.md)
 - [PagingPanel](paging-panel.md)
 

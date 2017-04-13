@@ -24,7 +24,7 @@ Describes properties used to render cell with sort indicator.
 
 Field | Type | Description
 ------|------|------------
-direction? | 'asc'&#124;'desc' | Specifies sorting direction if applied.
+direction? | 'asc'&#124;'desc' | Specifies sorting direction if applied
 
 ## Plugin Developer Reference
 

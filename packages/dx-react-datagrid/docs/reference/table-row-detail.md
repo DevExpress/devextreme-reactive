@@ -26,7 +26,7 @@ Describes properties passed to template that renders cell with selection control
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md) | Row used to display detail
+row | [TableRow](table-view.md#table-row) | Row used to display detail
 
 ### <a name="detail-toggle-props"></a>DetailToggleProps
 

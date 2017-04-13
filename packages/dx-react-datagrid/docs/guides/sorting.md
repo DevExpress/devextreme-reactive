@@ -16,13 +16,13 @@ Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic Local Sorting Setup
 
-Despite the fact that it's possible to configure DataGrid sorting without allowing the end-user to change it, it's usually needed to show a grid with interactive sorting features. To achieve this you need to use the `SortingState`, `LocalSorting` and `TableHeaderRowSorting` plugins.
+To show a grid with interactive sorting features, use the `SortingState`, `LocalSorting` and `TableHeaderRowSorting` plugins.
+
+In this example we use the uncontrolled mode and specify only the initial sorting configuration via the `defaultSortings` property of the `SortingState` plugin. After that the grid will manage sorting changes internally.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-header-sorting)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-header-sorting.jsx)
-
-In this example we use the uncontrolled mode by specifying just a starting sorting via the `defaultSortings` property of the `SortingState` plugin. After that the grid will manage sorting changes internally.
 
 ## Using Sorting with Grouping
 

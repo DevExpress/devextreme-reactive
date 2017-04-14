@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+<div class="row">
+  <div class="col-md-3">
+    {% for group in site.data.docs.navigation.react.datagrid %}
+      <h3>{{ group.title }}</h3>
+
+      <ul class="list-unstyled">
+      {% for item in group.items %}
+        {% assign url1 = item.path | append: '.html' %}
+        {% assign url2 = item.path | append: '/' %}
+
+        {% if page.url == url1 or page.url == url2 %}
+        <li>{{ item.title }}</li>
+        {% else %}
+        <li><a href="{{ site.baseurl}}{{item.path}}/">{{ item.title }}</a></li>
+        {% endif %}
+
+      {% endfor %}
+      </ul>
+
+    {% endfor %}
+  </div>
+
+  <div class="col-md-9">
+      {{ content }}
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
+<script>iFrameResize({ warningTimeout: 0 }, '.embedded-demo')</script>

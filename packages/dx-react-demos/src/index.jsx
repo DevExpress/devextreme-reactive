@@ -12,6 +12,7 @@ import {
 
 import { BasicDemos } from './bootstrap3/basic';
 import { SortingDemos } from './bootstrap3/sorting';
+import { FilteringDemos } from './bootstrap3/filtering';
 import { PagingDemos } from './bootstrap3/paging';
 import { GroupingDemos } from './bootstrap3/grouping';
 import { SelectionDemos } from './bootstrap3/selection';
@@ -27,6 +28,7 @@ const Demos = () => (
     <Route path="/basic" component={BasicDemos} />
     <Route path="/selection" component={SelectionDemos} />
     <Route path="/sorting" component={SortingDemos} />
+    <Route path="/filtering" component={FilteringDemos} />
     <Route path="/paging" component={PagingDemos} />
     <Route path="/grouping" component={GroupingDemos} />
     <Route path="/full-featured" component={FullFeaturedDemos} />
@@ -45,6 +47,7 @@ const Container = withRouter(({ location }) => (
             <ul className="list-unstyled">
               <li><Link to="/basic">Basic</Link></li>
               <li><Link to="/sorting">Sorting</Link></li>
+              <li><Link to="/filtering">Filtering</Link></li>
               <li><Link to="/paging">Paging</Link></li>
               <li><Link to="/grouping">Grouping</Link></li>
               <li><Link to="/selection">Selection</Link></li>

@@ -31,6 +31,8 @@ cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; |
 
 Describes properties passed to cell content template when rendered
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies table row
@@ -42,6 +44,8 @@ Describes properties used to define table row
 
 Extends [Row](datagrid.md#row)
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 type? | string | Specifies table row type. Used to identify cell template for rendered row. For rows passed by user into the widget type is not defined
@@ -51,6 +55,8 @@ type? | string | Specifies table row type. Used to identify cell template for re
 Describes properties used to define table column
 
 Extends [Column](datagrid.md#column)
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

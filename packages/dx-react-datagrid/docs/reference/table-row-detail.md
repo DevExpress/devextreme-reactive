@@ -24,6 +24,8 @@ detailToggleTemplate | Component&lt;[DetailToggleProps](#detail-toggle-props)&gt
 
 Describes properties passed to template that renders cell with selection control.
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 row | [TableRow](table-view.md#table-row) | Row used to display detail
@@ -31,6 +33,8 @@ row | [TableRow](table-view.md#table-row) | Row used to display detail
 ### <a name="detail-toggle-props"></a>DetailToggleProps
 
 Describes properties passed to template that renders cell with selection control.
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

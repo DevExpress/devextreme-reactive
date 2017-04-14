@@ -21,6 +21,8 @@ groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&g
 
 Describes properties passed to template that renders group row.
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | Row used to display group row
@@ -32,6 +34,8 @@ toggleGroupExpanded | () => void | Toggles expanded state for row
 Describes group row data structure.
 
 Extends [Row](datagrid.md#row)
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

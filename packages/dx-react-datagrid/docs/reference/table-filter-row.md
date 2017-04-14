@@ -20,7 +20,9 @@ filterCellTemplate | Component&lt;[FilterCellProps](#filter-cell-props)&gt; | | 
 
 ### <a name="filter-cell-props"></a>FilterCellProps
 
-Describes properties passed to template that renders cell with selection control.
+Describes properties passed to template that renders cell with selection control
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

@@ -26,6 +26,8 @@ selectAllCellTemplate | Component&lt;[SelectAllCellProps](#select-all-cell-props
 
 Describes properties passed to template that renders cell with selection control.
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 allSelected | boolean | Specifies whether or not all possible to select rows is selected
@@ -35,6 +37,8 @@ toggleAll | () => void | Selects or deselects all rows
 ### <a name="select-all-cell-props"></a>SelectCellProps
 
 Describes properties passed to template that renders cell with selection control inside header row.
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

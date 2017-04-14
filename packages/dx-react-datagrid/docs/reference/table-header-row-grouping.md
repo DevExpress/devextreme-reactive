@@ -22,6 +22,8 @@ groupableCellTemplate | Component&lt;[GroupableCellProps](#groupable-cell-props)
 
 Describes properties used to render cell with sort indicator.
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 groupByColumn | () => void | Toggles grouping for column.

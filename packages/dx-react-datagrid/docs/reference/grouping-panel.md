@@ -20,6 +20,8 @@ groupPanelTemplate | Component&lt;[GroupPanelProps](#group-panel-props)&gt; | Re
 
 Describes properties passed to group panel template when rendered
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 groupedColumns | Array&lt;[Column](datagrid.md#column)&gt; | Columns on that grouping was applied
@@ -29,6 +31,8 @@ cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; |
 ### <a name="cell-content-props"></a>CellContentProps
 
 Describes properties passed to cell content template when rendered
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

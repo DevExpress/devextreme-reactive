@@ -22,6 +22,8 @@ filtersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles fi
 
 Describes applied filter to column
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 column | string | Specifies column name to apply filter

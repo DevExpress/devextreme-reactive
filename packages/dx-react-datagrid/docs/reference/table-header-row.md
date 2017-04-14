@@ -18,9 +18,11 @@ none
 
 ### Column
 
-Describes properties used to render table header.
+Describes properties used to render table header
 
 Extends [Column](datagrid.md#column)
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

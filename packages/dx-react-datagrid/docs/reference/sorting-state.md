@@ -22,6 +22,8 @@ sortingsChange | (sortings: Array&lt;[Sorting](#sorting)&gt;) => void | | Handle
 
 Describes applied sorting to column
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 column | string | Specifies column name to apply sorting

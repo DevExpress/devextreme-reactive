@@ -20,6 +20,8 @@ pagerTemplate | Component&lt;[PagerProps](#pager-props)&gt; | | Component that r
 
 Describes properties passed to table template when rendered
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 currentPage | number | Specifies current page

@@ -21,6 +21,8 @@ columns | Array&lt;[Column](#column)&gt; | | Specifies a row fields to be render
 
 Describes the row interface
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 id | number &#124; string | Specifies row id. Used by plugins to consistently identify row
@@ -30,6 +32,8 @@ Note that any other fields can and should be defined. They are used as data that
 ### Column
 
 Describes the column interface
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

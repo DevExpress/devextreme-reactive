@@ -22,6 +22,8 @@ sortableCellTemplate | Component&lt;[SortableCellProps](#sortable-cell-props)&gt
 
 Describes properties used to render cell with sort indicator.
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 direction? | 'asc' &#124; 'desc' | Specifies sorting direction if applied

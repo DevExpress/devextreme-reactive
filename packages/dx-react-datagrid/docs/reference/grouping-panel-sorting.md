@@ -21,10 +21,12 @@ sortableGroupCellTemplate | Component&lt;[SortableGroupCellProps](#sortable-grou
 
 Describes properties passed to group panel template when rendered
 
+A value with the following shape:
+
 Field | Type | Description
 ------|------|------------
 direction | 'asc' &#124; 'desc' | Specifies sorting direction if applied
-toggleSorting | ({ keepOther: boolean }) => void | Changes sorting for column. Keep other sortings if `keepOther` is set to `true`
+toggleSorting | ({ keepOther: boolean }) => void | Changes sorting for column. Keeps existing sorting if `keepOther` is set to `true`
 
 ## Plugin Developer Reference
 

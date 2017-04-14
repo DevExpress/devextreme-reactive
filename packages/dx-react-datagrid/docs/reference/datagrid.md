@@ -1,10 +1,8 @@
 # DataGrid Reference
 
-Component that presents a tabular view of data.
+DataGrid is a root container component that accepts data via the `rows` property. It provides this data to the hosted plugins specified as child components to preprocess and display it as a table representation. Also it accepts the table columns description via the `columns` property.
 
-DataGrid is an plugin host. This means that data passed to it is displayed with help of provided plugins.
-
-At starting point it does not contain any plugins to present data. So you should specify them depending on your needs. See more information about plugins: [Plugins Overview](../README.md#plugins-overview).
+Initially it does not contain any plugins to display data. So you should specify them depending on your needs. See more details about the [plugins concept](../README.md#plugins-overview).
 
 ## User reference
 
@@ -25,9 +23,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-id | number &#124; string | Specifies row id. Used by plugins to consistently identify row
+id | number &#124; string | Specifies a row unique key. Used by plugins to identify the row
 
-Note that any other fields can and should be defined. They are used as data that will be represented.
+Note that any number of other fields can be specified. They are used as data to be represented within the DataGrid.
 
 ### Column
 
@@ -37,7 +35,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-name | string | Specifies key by which cell data is accessed from rows. Used by plugins to consistently identify column
+name | string | Specifies the name of a data row field to obtain the data from. It is also a unique key that can be used to identify a particular column
 
 ## Plugin Developer Reference
 

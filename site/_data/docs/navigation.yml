@@ -1,0 +1,36 @@
+react:
+  datagrid:
+    - title: Guides
+      items:
+        - title: Getting Started
+          path: /react/datagrid/docs
+        - title: Sorting
+          path: /react/datagrid/docs/guides/sorting
+        - title: Paging
+          path: /react/datagrid/docs/guides/paging
+        - title: Filtering
+          path: /react/datagrid/docs/guides/filtering
+        - title: Grouping
+          path: /react/datagrid/docs/guides/grouping
+        - title: Selection
+          path: /react/datagrid/docs/guides/selection
+        - title: Detail Row
+          path: /react/datagrid/docs/guides/detail-row
+        - title: Virtual Scrolling
+          path: /react/datagrid/docs/guides/virtual-scrolling
+    - title: API Reference
+      items:
+        - title: FilteringState
+          path: /react/datagrid/docs/reference/filtering-state
+        - title: SortingState
+          path: /react/datagrid/docs/reference/sorting-state
+        - title: SelectionState
+          path: /react/datagrid/docs/reference/selection-state
+        - title: LocalFiltering
+          path: /react/datagrid/docs/reference/local-filtering
+        - title: LocalSorting
+          path: /react/datagrid/docs/reference/local-sorting
+        - title: TableView
+          path: /react/datagrid/docs/reference/table-view
+        - title: TableSelection
+          path: /react/datagrid/docs/reference/table-selection

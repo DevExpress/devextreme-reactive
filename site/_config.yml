@@ -1,0 +1,35 @@
+title: DataGrid for React
+baseurl: "/devextreme-reactive"
+
+markdown: kramdown
+gems:
+  - jekyll-feed
+  - jekyll-relative-links
+  - jekyll-redirect-from
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+permalink: pretty
+
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+  - scope:
+      path: react/datagrid/demos
+      type: pages
+    values:
+      layout: demos
+  - scope:
+      path: react/datagrid/embedded-demo
+      type: pages
+    values:
+      layout: embedded-demo
+  - scope:
+      path: react/datagrid/docs
+      type: pages
+    values:
+      layout: docs

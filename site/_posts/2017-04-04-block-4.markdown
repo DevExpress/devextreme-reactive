@@ -1,0 +1,16 @@
+---
+layout: default
+img: perf.png
+category: Landing
+title: Built Natively in React for<br/>Outstanding Performance
+description: |
+---
+
+**React best practises inside**
+
+We have utilized all the performance tricks and best practises provided by the React team.
+
+**Based on functional approach**
+
+Utilizing immutability and pure functions we can apply memoization and built-in React
+optimizations to achieve the outstanding performance.

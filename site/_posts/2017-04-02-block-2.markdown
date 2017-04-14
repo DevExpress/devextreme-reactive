@@ -1,0 +1,17 @@
+---
+layout: default
+img: themes.gif
+category: Landing
+title: Twitter Bootstrap and Material UI<br/>with Seamless Theming
+description: |
+---
+
+**Native rendering**
+
+Using native Twitter Bootstrap and Material UI renderings allows to apply
+their themes automatically with no extra configuration.
+
+**Separate UI templates**
+
+UI templates are implemented and shipped as separate packages.
+It's easy to customize them or to implement a brand-new one.

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DataGrid component supports filtering by one or several columns. There are also a number of plugins that allow an end-user to filter rows by entering text within the filter editors.
+The DataGrid component supports filtering by columns. It is also shipped with a number of plugins that allow end-users to filter rows by entering text within filter editors.
 
 ## Plugin List
 
@@ -15,7 +15,7 @@ Note that [plugin order](../README.md#plugin-order) is very important.
 
 ## Set up Local Filtering with Filter Row
 
-To setup a basic filtering you need to use the `FilteringState` plugin that manages currently applied filters, the `LocalFiltering` plugin that filters the data `rows` provided to the DataGrid and the `TableFilterRow` plugin that renders a row with editors to allow an end-user to change filters applied to different columns.
+To set up basic filtering, use the `FilteringState`,`LocalFiltering` and `TableFilterRow` plugins.
 
 In this example, we use the uncontrolled mode and specify only the initial filters via the `defaultFilters` property of the `FilteringState` plugin. After that, the grid will manage filter changes internally.
 
@@ -35,7 +35,7 @@ To control the filtering state, you need to pass an array of column filters to t
 
 If your data service supports filtering operations, you can handle the DataGrid filtering state changes in order to request data from the server with the corresponding filters applied.
 
-To set up remote filtering, don't t use the `LocalFiltering` plugin. You need to handle the `filtersChange` event of the `FilteringState` plugin in order to recieve updates on filter changes. They happen once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is recieved from the server, pass it to the `DataGrid` component's `rows` property.
+In the case of remote filtering, don't use the `LocalFiltering` plugin. You need to handle the `filtersChange` event of the `FilteringState` plugin in order to recieve updates on filter changes. They happen once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is recieved from the server, pass it to the `DataGrid` component's `rows` property.
 
 ## Using Filtering with Other Data Processing Plugins
 

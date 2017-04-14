@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">  
+    <meta charset="utf-8">
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
     {% if page.description %}
     <meta name="description" content="{{ page.description }}" />
@@ -10,12 +10,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+    <link rel="prefetch" href="{{site.baseurl}}/fonts/OpenSansCondensedBold.woff">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ site.baseurl}}/css/syntax.css">
-    <link rel="stylesheet" href="{{ site.baseurl}}/css/embedded_demos.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/syntax.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/landing-page.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/embedded_demos.css">
+
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -24,21 +28,44 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ site.baseurl}}/react/datagrid/">{{ site.title }}</a>
+          <a class="navbar-brand" href="{{site.baseurl}}/react/datagrid/">{{ site.title }}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{ site.baseurl}}/react/datagrid/demos/">Demos</a></li>
-            <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{ site.baseurl}}/react/datagrid/docs/">Docs</a></li>
+            <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/datagrid/demos/">Demos</a></li>
+            <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/datagrid/docs/">Docs</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="container">
-      {{ content }}
-    </div>
+    {{ content }}
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{{site.baseurl}}/react/datagrid/demos/">Demos</a>
+                        </li>
+                        <li>
+                            <a href="{{site.baseurl}}/react/datagrid/docs/">Docs</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">{{ site.copyright }}</p>
+                </div>
+                <div class="col-md-4">
+                    DevExtreme DataGrid for React<br/>
+                    Copyright © 1998-2017 Developer Express Inc.
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   </body>

@@ -13,11 +13,11 @@ There are several plugins that implement filtering features:
 
 Note that [plugin order](../README.md#plugin-order) is very important.
 
-## Setup Local Filtering with Filter Row
+## Set up Local Filtering with Filter Row
 
 To setup a basic filtering you need to use the `FilteringState` plugin that manages currently applied filters, the `LocalFiltering` plugin that filters the data `rows` provided to the DataGrid and the `TableFilterRow` plugin that renders a row with editors to allow an end-user to change filters applied to different columns.
 
-In this example we use the uncontrolled mode and specify only the initial filters via the `defaultFilters` property of the `FilteringState` plugin. After that the grid will manage filters changes internally.
+In this example, we use the uncontrolled mode and specify only the initial filters via the `defaultFilters` property of the `FilteringState` plugin. After that, the grid will manage filter changes internally.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/filtering/local-filter-row)
 
@@ -25,7 +25,7 @@ In this example we use the uncontrolled mode and specify only the initial filter
 
 ## Controlled Filtering State
 
-To control the filtering state from the outside you need to pass an array of column filters to the `filters` property of the `FilteringState` plugin and handle the `filtersChange` event of the same plugin.
+To control the filtering state, you need to pass an array of column filters to the `filters` property of the `FilteringState` plugin and handle the `filtersChange` event of the same plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/filtering/local-filtering-controlled)
 
@@ -35,9 +35,9 @@ To control the filtering state from the outside you need to pass an array of col
 
 If your data service supports filtering operations, you can handle the DataGrid filtering state changes in order to request data from the server with the corresponding filters applied.
 
-To setup remote filtering, you shouldn't use the `LocalFiltering` plugin. You should handle the `filtersChange` event of the `FilteringState` plugin in order to recieve updates on filters changes. They happen once an end-user modifies text within the Filter Row editors or other filtering controls. Having the filtered data recieved from the server just pass it to the `DataGrid` component `rows` property.
+To set up remote filtering, don't t use the `LocalFiltering` plugin. You need to handle the `filtersChange` event of the `FilteringState` plugin in order to recieve updates on filter changes. They happen once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is recieved from the server, pass it to the `DataGrid` component's `rows` property.
 
 ## Using Filtering with Other Data Processing Plugins
 
-When using filtering features side by side with other features such as paging and grouping you should be carryful about the order in which the plugins appear inside the DataGrid container. You should decide if you need to paginate filtered rows or to filter the current page. In the first case put the `LocalFiltering` plugin before the `LocalPaging` one. In the second case just inverse the plugins order.
+When filtering features are used with other features such as paging and grouping, take note of the order in which the plugins appear in the DataGrid container. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `LocalFiltering` plugin before the `LocalPaging` one. In the second one, inverse the plugins' order.
 

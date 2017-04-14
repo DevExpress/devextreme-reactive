@@ -32,4 +32,3 @@ UI Plugins:
 - [GroupingPanel](grouping-panel.md)
 - [GroupingPanelSorting](grouping-panel-sorting.md)
 - [PagingPanel](paging-panel.md)
-

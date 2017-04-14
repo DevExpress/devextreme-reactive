@@ -1,6 +1,10 @@
 # DataGrid Reference
 
-Component that represents data passed to it with help of provided plugins. Does not contain any visual components within. Provides required environment to process passed `rows` and `columns`.
+Component that presents a tabular view of data.
+
+DataGrid is an plugin host. This means that data passed to it is displayed with help of provided plugins.
+
+At starting point it does not contain any plugins to present data. So you should specify them depending on your needs. See more information about plugins: [Plugins Overview](../README.md#plugins-overview).
 
 ## User reference
 
@@ -29,7 +33,7 @@ Describes the column interface
 
 Field | Type | Description
 ------|------|------------
-name | string | Used by plugins to consistently identify column and represent data defined in rows as key.
+name | string | Specifies key by which cell data is accessed from rows. Used by plugins to consistently identify column
 
 ## Plugin Developer Reference
 

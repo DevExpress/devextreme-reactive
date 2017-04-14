@@ -16,7 +16,7 @@ layout: default
           {% if page.url == url1 or page.url == url2 %}
           <li>{{ item.title }}</li>
           {% else %}
-          <li><a href="{{ site.baseurl}}{{item.path}}/">{{ item.title }}</a></li>
+          <li><a href="{{site.baseurl}}{{item.path}}/">{{ item.title }}</a></li>
           {% endif %}
 
         {% endfor %}

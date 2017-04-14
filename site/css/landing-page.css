@@ -10,7 +10,7 @@ html {
 
 @font-face {
     font-family: OpenSansCondensedBold;
-    src: url({{ site.baseurl}}/fonts/OpenSansCondensedBold.woff);
+    src: url({{site.baseurl}}/fonts/OpenSansCondensedBold.woff);
 }
 
 h1,
@@ -55,7 +55,7 @@ h4 {
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: #173952 url({{ site.baseurl}}/img/banner-bg.jpg) no-repeat center center;
+    background: #173952 url({{site.baseurl}}/img/banner-bg.jpg) no-repeat center center;
     background-size: cover;
 }
 
@@ -154,7 +154,7 @@ ul.banner-action-buttons .btn.demos {
 .banner {
     padding: 100px 0;
     color: #f8f8f8;
-    background: #173952 url({{ site.baseurl}}/img/bottom-bg.jpg) no-repeat center center;
+    background: #173952 url({{site.baseurl}}/img/bottom-bg.jpg) no-repeat center center;
     background-size: cover;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     margin-bottom: -60px;

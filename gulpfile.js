@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 
 var distPath = 'site/';
 
-gulp.task('gh-pages:clean', function() {
+gulp.task('site:clean', function() {
   return gulp.src(
       ['react'].map(function(dir) { return distPath + dir; }),
       { read: false }
@@ -57,7 +57,7 @@ var patchMDTables = function(content) {
   return lines.join('\n');
 };
 
-gulp.task('gh-pages:docs', function() {
+gulp.task('site:docs', function() {
   return gulp.src([
       'packages/**/*.md',
       '!packages/dx-react-demos/**/*',
@@ -81,16 +81,16 @@ gulp.task('gh-pages:docs', function() {
     .pipe(gulp.dest(distPath));
 });
 
-gulp.task('gh-pages:demos', function() {
+gulp.task('site:demos', function() {
   return gulp.src(['packages/dx-react-demos/dist/*'])
     .pipe(gulp.dest(distPath + 'react/datagrid/demos/dist/'));
 });
 
-gulp.task('gh-pages', function(done) {
+gulp.task('site', function(done) {
   runSequence(
-    'gh-pages:clean',
-    'gh-pages:docs',
-    'gh-pages:demos',
+    'site:clean',
+    'site:docs',
+    'site:demos',
     done
   );
 });

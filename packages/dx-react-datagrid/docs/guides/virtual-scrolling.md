@@ -6,7 +6,11 @@ The DataGrid component can handle a large amount of data passed to it. In some c
 
 ## Plugin List
 
-There are no plugins that implement virtual scrolling. It is designed as an alternative to the ordinary table template for the [TableView](table-view.md) plugin.
+There is the `VirtualTableView` plugin available for Bootstrap 3 theme. It can be used as an alternative to the `TableView` plugin.
+
+There are no base plugins that implement virtual scrolling. It is designed as an alternative to the ordinary table template for the [TableView](table-view.md) plugin.
+
+Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic Setup
 

@@ -8,7 +8,6 @@ import {
   TableView,
   TableHeaderRow,
   TableGroupRow,
-  TableHeaderRowGrouping,
   GroupingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
@@ -38,7 +37,6 @@ export class LocalGroupingWithUIDemo extends React.PureComponent {
         <LocalGrouping />
         <TableView />
         <TableHeaderRow />
-        <TableHeaderRowGrouping />
         <TableGroupRow />
         <GroupingPanel />
       </DataGrid>

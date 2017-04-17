@@ -41,8 +41,6 @@ See [demos](../dx-react-demos/README.md) for more information.
 Plugin wrappers:
 - TableView
 - TableHeaderRow
-- TableHeaderRowSorting (REMOVE?)
-- TableHeaderRowGrouping (REMOVE?)
 - TableFilterRow
 - TableSelection
 - TableGroupRow

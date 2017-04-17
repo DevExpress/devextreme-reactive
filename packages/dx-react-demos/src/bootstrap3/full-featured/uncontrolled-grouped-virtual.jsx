@@ -5,7 +5,7 @@ import {
     LocalFiltering, LocalGrouping, LocalSorting,
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableSelection, TableRowDetail, TableHeaderRowSorting, TableHeaderRowGrouping,
+    TableSelection, TableRowDetail,
     VirtualTableView, TableFilterRow, GroupingPanel, TableGroupRow,
     GroupingPanelSorting,
     TableHeaderRow,
@@ -63,9 +63,6 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
           <VirtualTableView />
 
           <TableHeaderRow />
-          <TableHeaderRowSorting />
-          <TableHeaderRowGrouping />
-
           <TableFilterRow />
 
           <TableSelection />

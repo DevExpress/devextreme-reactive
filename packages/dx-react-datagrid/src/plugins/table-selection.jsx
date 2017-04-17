@@ -96,7 +96,7 @@ export class TableSelection extends React.PureComponent {
             selected: getter('selection').indexOf(row.id) > -1,
           })}
           connectActions={(action, { row }) => ({
-            toggleSelected: () => action('setRowSelection')({ rowId: row.id }),
+            changeSelected: () => action('setRowSelection')({ rowId: row.id }),
           })}
         >
           {params => (

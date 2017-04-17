@@ -19,8 +19,6 @@ export { TableSelection } from './plugins/table-selection';
 export { TableRowDetail } from './plugins/table-row-detail';
 export { TableGroupRow } from './plugins/table-group-row';
 export { TableHeaderRow } from './plugins/table-header-row';
-export { TableHeaderRowSorting } from './plugins/table-header-row-sorting';
-export { TableHeaderRowGrouping } from './plugins/table-header-row-grouping';
 export { TableFilterRow } from './plugins/table-filter-row';
 
 export { PagingPanel } from './plugins/paging-panel';

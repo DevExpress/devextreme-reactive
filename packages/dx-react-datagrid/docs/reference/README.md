@@ -20,8 +20,6 @@
 - [TableView](table-view.md)
 - [TableSelection](table-selection.md)
 - TableHeaderRow
-- TableHeaderRowSorting (REMOVE?)
-- TableHeaderRowGrouping (REMOVE?)
 - TableFilterRow
 - TableGroupRow
 - PagingPanel

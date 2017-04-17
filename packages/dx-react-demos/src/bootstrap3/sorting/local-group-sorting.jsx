@@ -10,8 +10,6 @@ import {
   TableView,
   TableHeaderRow,
   TableGroupRow,
-  TableHeaderRowSorting,
-  TableHeaderRowGrouping,
   GroupingPanel,
   GroupingPanelSorting,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
@@ -52,8 +50,6 @@ export class LocalGroupSortingDemo extends React.PureComponent {
         <TableView />
         <TableHeaderRow />
         <TableGroupRow />
-        <TableHeaderRowSorting />
-        <TableHeaderRowGrouping />
         <GroupingPanel />
         <GroupingPanelSorting />
       </DataGrid>

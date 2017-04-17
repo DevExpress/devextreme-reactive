@@ -1,7 +1,9 @@
 import React from 'react';
 
-export const FilterCell = ({ filter, changeFilter }) => (
-  <td>
+export const FilterCell = ({ style, filter, changeFilter }) => (
+  <td
+    style={style}
+  >
     <input
       type="text"
       className="form-control input-sm"

@@ -5,7 +5,7 @@ import {
     LocalFiltering, LocalSorting,
 } from '@devexpress/dx-react-datagrid';
 import {
-    VirtualTableView, TableFilterRow, TableSelection, TableRowDetail, TableHeaderRowSorting,
+    VirtualTableView, TableFilterRow, TableSelection, TableRowDetail,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
@@ -61,7 +61,6 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
           <VirtualTableView />
 
           <TableHeaderRow />
-          <TableHeaderRowSorting />
 
           <TableFilterRow />
 

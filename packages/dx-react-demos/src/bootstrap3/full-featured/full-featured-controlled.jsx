@@ -5,7 +5,7 @@ import {
     LocalFiltering, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableView, TableRowDetail, TableHeaderRowSorting,
+    TableView, TableRowDetail,
     TableFilterRow, TableSelection, PagingPanel,
     TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
@@ -73,7 +73,6 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
           <TableView />
 
           <TableHeaderRow />
-          <TableHeaderRowSorting />
 
           <TableFilterRow />
 

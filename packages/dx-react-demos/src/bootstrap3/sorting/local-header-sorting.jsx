@@ -7,7 +7,6 @@ import {
 import {
   TableView,
   TableHeaderRow,
-  TableHeaderRowSorting,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -36,7 +35,6 @@ export class HeaderSortingDemo extends React.PureComponent {
         <LocalSorting />
         <TableView />
         <TableHeaderRow />
-        <TableHeaderRowSorting />
       </DataGrid>
     );
   }

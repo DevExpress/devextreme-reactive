@@ -30,6 +30,8 @@ export class PluginHost {
   get(key, upTo) {
     const plugins = this.collect(key, upTo);
 
+    if (!plugins.length) return undefined;
+
     let result = plugins[0]();
     plugins.slice(1).forEach((plugin) => {
       result = plugin(result);

@@ -12,8 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies applied grouping
-defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies starting grouping for uncontrolled scenario
+grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies the columns to group by
+defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping for the uncontrolled scenario
 groupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping change
 expandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies expanded groups
 defaultExpandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies starting expanded groups for uncontrolled scenario

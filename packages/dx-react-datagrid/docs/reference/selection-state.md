@@ -13,5 +13,5 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 selection | Array&lt;int&#124;string&gt; | [] | Specifies selected rows
-defaultSelection | Array&lt;int&#124;string&gt; | [] | Specifies starting selected rows for uncontrolled scenario
+defaultSelection | Array&lt;int&#124;string&gt; | [] | Specifies initially selected rows for the uncontrolled scenario
 selectionChange | (selection: Array&lt;int&#124;string&gt;) => void | | Handles selection change

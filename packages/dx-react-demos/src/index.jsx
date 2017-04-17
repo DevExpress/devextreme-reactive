@@ -16,6 +16,7 @@ import { FilteringDemos } from './bootstrap3/filtering';
 import { PagingDemos } from './bootstrap3/paging';
 import { GroupingDemos } from './bootstrap3/grouping';
 import { SelectionDemos } from './bootstrap3/selection';
+import { DetailRowDemos } from './bootstrap3/detail-row';
 import { FullFeaturedDemos } from './bootstrap3/full-featured';
 import { ReduxDemos } from './bootstrap3/redux';
 
@@ -31,6 +32,7 @@ const Demos = () => (
     <Route path="/filtering" component={FilteringDemos} />
     <Route path="/paging" component={PagingDemos} />
     <Route path="/grouping" component={GroupingDemos} />
+    <Route path="/detail-row" component={DetailRowDemos} />
     <Route path="/full-featured" component={FullFeaturedDemos} />
     <Route path="/redux" component={ReduxDemos} />
   </div>
@@ -51,6 +53,7 @@ const Container = withRouter(({ location }) => (
               <li><Link to="/paging">Paging</Link></li>
               <li><Link to="/grouping">Grouping</Link></li>
               <li><Link to="/selection">Selection</Link></li>
+              <li><Link to="/detail-row">Detail Row</Link></li>
               <li><Link to="/full-featured">Full Featured</Link></li>
               <li><Link to="/redux">Redux</Link></li>
             </ul>

@@ -1,6 +1,6 @@
 # TableGroupRow Plugin Reference
 
-Plugin that renders group rows and allows to expand/collapse it.
+Plugin that renders group rows with the capability to expand and collapse them.
 
 ## User Reference
 
@@ -13,25 +13,25 @@ Plugin that renders group rows and allows to expand/collapse it.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | Component that renders detail for row
+groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | Component that renders content of a group row
 
 ## Interfaces
 
 ### <a name="group-row-cell-props"></a>GroupRowCellProps
 
-Describes properties passed to template that renders group row.
+Describes properties passed to the template that renders a group row content.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | Row used to display group row
+row | [GroupRow](#group-row) | A group row data object
 isExpanded | boolean | Specifies whether or not row is expanded
-toggleGroupExpanded | () => void | Toggles expanded state for row
+toggleGroupExpanded | () => void | Toggles the expanded state of a group row
 
 ### <a name="group-row"></a>GroupRow
 
-Describes group row data structure.
+Describes a group row data structure.
 
 Extends [Row](datagrid.md#row)
 
@@ -39,8 +39,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | string | Column name by that group was formed
-value | any | Value that unites all rows inside group
+column | string | The name of the column associated with the group
+value | any | Value that unites all the rows inside a group
 
 ## Plugin Developer Reference
 

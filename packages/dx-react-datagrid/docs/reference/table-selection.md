@@ -18,7 +18,7 @@ selectByRowClick | boolean | false | If true, a row selected is toggled by click
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row
 showCheckboxes | boolean | false | If ture, selection checkboxes are rendered inside each data row
 selectCellTemplate | Component&lt;[SelectCellProps](#select-cell-props)&gt; | | A component that renders a data row selection checkbox
-selectAllCellTemplate | Component&lt;[SelectAllCellProps](#select-all-cell-props)&gt; | | A component that renders the 'select all' checkbox
+selectAllCellTemplate | Component&lt;[SelectAllCellProps](#select-all-cell-props)&gt; | | A component that renders the Select All checkbox
 
 ## Interfaces
 

@@ -1,6 +1,6 @@
 # LocalGrouping Plugin Reference
 
-Plugin that performs local grouping and group expanding.
+Plugin that performs local grouping and group expanding/collapsing.
 
 ## User Reference
 
@@ -18,7 +18,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows to be filtered
+rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows to be grouped
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Grouping to be applied
 expandedGroups | Getter | { [key: [GroupKey](grouping-state.md#group-key)]: true } | Groups to be expanded
 

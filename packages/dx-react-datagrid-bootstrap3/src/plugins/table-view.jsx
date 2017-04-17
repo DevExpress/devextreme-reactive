@@ -1,25 +1,14 @@
 import React from 'react';
 import { TableView as TableViewBase } from '@devexpress/dx-react-datagrid';
-import { Table } from '../templates/table';
+import { Table, DefaultTableCell } from '../templates/table';
 import { Layout } from '../templates/layout';
 
-export const TableView = ({ getCellInfo, cellContentTemplate }) => (
+export const TableView = () => (
   <div>
     <TableViewBase
-      getCellInfo={getCellInfo}
       tableTemplate={Table}
-      cellContentTemplate={cellContentTemplate}
+      cellTemplate={DefaultTableCell}
     />
     <Layout />
   </div>
 );
-
-TableView.propTypes = {
-  getCellInfo: React.PropTypes.func,
-  cellContentTemplate: React.PropTypes.func,
-};
-
-TableView.defaultProps = {
-  getCellInfo: undefined,
-  cellContentTemplate: undefined,
-};

@@ -4,11 +4,11 @@ import {
     DataGrid,
     SortingState, SelectionState, FilteringState, PagingState,
     LocalFiltering, LocalPaging, LocalSorting,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
     TableView, TableRowDetail, TableHeaderRowSorting,
     TableFilterRow, TableSelection, PagingPanel,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import { createGridAction } from './grid-reducer';

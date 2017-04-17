@@ -4,6 +4,7 @@ import {
 } from '@devexpress/dx-react-datagrid';
 import {
     TableView,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -32,6 +33,7 @@ export class BasicDemos extends React.PureComponent {
           columns={columns}
         >
           <TableView />
+          <TableHeaderRow />
         </DataGrid>
       </div>
     );

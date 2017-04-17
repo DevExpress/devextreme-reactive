@@ -9,3 +9,4 @@ export { TableSelection } from './plugins/table-selection';
 export { TableView } from './plugins/table-view';
 export { VirtualTableView } from './plugins/virtual-table-view';
 export { TableFilterRow } from './plugins/table-filter-row';
+export { TableHeaderRow } from './plugins/table-header-row';

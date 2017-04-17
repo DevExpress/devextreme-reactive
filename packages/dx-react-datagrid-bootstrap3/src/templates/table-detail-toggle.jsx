@@ -1,12 +1,12 @@
 import React from 'react';
 
-export const TableDetailToggle = ({ expanded, toggleExpanded }) => (
-  <div
-    style={{ width: '100%', height: '100%' }}
+export const TableDetailToggle = ({ style, expanded, toggleExpanded }) => (
+  <td
+    style={style}
     onClick={toggleExpanded}
   >
     <i className={`glyphicon glyphicon-triangle-${expanded ? 'bottom' : 'right'}`} />
-  </div>
+  </td>
 );
 
 TableDetailToggle.propTypes = {

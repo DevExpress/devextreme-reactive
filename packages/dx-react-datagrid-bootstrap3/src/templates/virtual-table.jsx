@@ -44,47 +44,11 @@ export class VirtualTable extends React.Component {
     };
   }
   render() {
-    const { headerRows, bodyRows, columns, cellContentTemplate, onClick } = this.props;
+    const { headerRows, bodyRows, columns, cellTemplate, onClick } = this.props;
 
     const columnWidths = calculateColumnWidths(columns, this.state.viewportWidth);
 
-    const tableHeaderCell = ({ row, column }) => {
-      const template = cellContentTemplate({ row, column });
-      return (
-        <th
-          data-cell={JSON.stringify({ rowId: row.id, columnName: column.name })}
-        >
-          {template}
-        </th>
-      );
-    };
-
-    const tableCell = ({ row, column }) => {
-      let template = cellContentTemplate({ row, column });
-      if (row.height === 'auto') {
-        template = (
-          <Sizer
-            height={this.rowHeight(row) - 17} // TODO: paddings
-            onHeightChange={(height) => {
-              const { autoHeights } = this.state;
-              autoHeights.set(row, height + 17); // TODO: paddings
-              this.setState({ autoHeights });
-            }}
-          >
-            {template}
-          </Sizer>
-        );
-      }
-      return (
-        <td
-          data-cell={JSON.stringify({ rowId: row.id, columnName: column.name })}
-        >
-          {template}
-        </td>
-      );
-    };
-
-    const tableRow = (row, cellTemplate, position) => {
+    const tableRow = (row, position) => {
       const colspan = row.colspan;
       const columnLength = colspan !== undefined ? colspan + 1 : columns.length;
       return (
@@ -108,7 +72,8 @@ export class VirtualTable extends React.Component {
               stick: false,
             };
           }}
-          itemTemplate={columnIndex => cellTemplate({ row, column: columns[columnIndex] })}
+          itemTemplate={(columnIndex, _, style) =>
+            cellTemplate({ row, column: columns[columnIndex], style })}
         />
       );
     };
@@ -133,7 +98,7 @@ export class VirtualTable extends React.Component {
           stick: false,
         })}
         itemTemplate={(rowIndex, rowPosition) =>
-          tableRow(headerRows[rowIndex], tableHeaderCell, rowPosition)}
+          tableRow(headerRows[rowIndex], rowPosition)}
       />
     );
 
@@ -150,7 +115,7 @@ export class VirtualTable extends React.Component {
           stick: false,
         })}
         itemTemplate={(rowIndex, rowPosition) =>
-          tableRow(bodyRows[rowIndex], tableCell, rowPosition)}
+          tableRow(bodyRows[rowIndex], rowPosition)}
       />
     );
 
@@ -202,6 +167,6 @@ VirtualTable.propTypes = {
   headerRows: React.PropTypes.array.isRequired,
   bodyRows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
+  cellTemplate: React.PropTypes.func.isRequired,
   onClick: React.PropTypes.func,
 };

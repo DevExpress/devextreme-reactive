@@ -26,22 +26,17 @@ export class TableGroupRow extends React.PureComponent {
 
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => column.type === 'groupColumn' && !row.type}
-        />
-
-        <Template
-          name="tableViewCell"
           predicate={({ column, row }) => row.type === 'groupRow'
             && column.type === 'groupColumn'
             && row.column === column.group.column}
           connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
-          {({ row, expandedGroups, toggleGroupExpanded }) => (
+          {({ expandedGroups, toggleGroupExpanded, ...params }) => (
             <GroupRowCell
-              row={row}
-              isExpanded={expandedGroups[row.key]}
-              toggleGroupExpanded={() => toggleGroupExpanded({ groupKey: row.key })}
+              {...params}
+              isExpanded={expandedGroups[params.row.key]}
+              toggleGroupExpanded={() => toggleGroupExpanded({ groupKey: params.row.key })}
             />
           )}
         </Template>

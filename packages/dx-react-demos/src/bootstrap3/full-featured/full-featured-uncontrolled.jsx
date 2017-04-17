@@ -3,11 +3,11 @@ import {
     DataGrid,
     SortingState, SelectionState, FilteringState, PagingState, GroupingState,
     LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
     TableView, TableRowDetail, TableHeaderRowSorting, TableHeaderRowGrouping,
     TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
+    TableHeaderRow,
     GroupingPanelSorting,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 

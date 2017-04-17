@@ -3,5 +3,5 @@ import { TableFilterRow as TableFilterRowBase } from '@devexpress/dx-react-datag
 import { FilterCell } from '../templates/filter-cell';
 
 export const TableFilterRow = () => (
-  <TableFilterRowBase filterCellTemplate={FilterCell} rowHeight={51} />
+  <TableFilterRowBase filterCellTemplate={FilterCell} rowHeight={47} />
 );

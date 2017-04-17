@@ -3,10 +3,10 @@ import {
     DataGrid,
     SortingState, SelectionState, FilteringState,
     LocalFiltering, LocalSorting,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
     VirtualTableView, TableFilterRow, TableSelection, TableRowDetail, TableHeaderRowSorting,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {

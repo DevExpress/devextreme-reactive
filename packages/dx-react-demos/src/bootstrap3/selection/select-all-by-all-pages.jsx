@@ -4,10 +4,10 @@ import {
     SelectionState,
     PagingState,
     LocalPaging,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
     TableView,
+    TableHeaderRow,
     TableSelection,
     PagingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';

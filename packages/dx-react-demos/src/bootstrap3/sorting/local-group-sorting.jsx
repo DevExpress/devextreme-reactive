@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   SortingState,
   GroupingState,
   LocalSorting,
@@ -9,6 +8,7 @@ import {
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
+  TableHeaderRow,
   TableGroupRow,
   TableHeaderRowSorting,
   TableHeaderRowGrouping,

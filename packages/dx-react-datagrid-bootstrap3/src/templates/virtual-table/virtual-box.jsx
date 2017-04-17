@@ -154,12 +154,12 @@ export class VirtualBox extends React.Component {
       });
 
       return React.cloneElement(
-                this.props.itemTemplate(visibleItemMeta.index, visibleItemMeta.offset),
+        this.props.itemTemplate(visibleItemMeta.index, visibleItemMeta.offset, styles),
         {
           key: `${visibleItemMeta.index}`,
           style: styles,
         },
-            );
+      );
     });
 
     const RootTag = this.props.rootTag;

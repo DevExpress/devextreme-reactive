@@ -1,10 +1,14 @@
 import React from 'react';
 
-export const SortableCell = ({ direction, children }) => {
+export const SortableCell = ({ style, direction, children }) => {
   const iconName = `glyphicon-arrow-${direction === 'asc' ? 'down' : 'up'}`;
   return (
-    <span>
-      {children}
+    <th
+      style={style}
+    >
+      <span>
+        {children}
+      </span>
       <i
         className={`glyphicon ${iconName}`}
         style={{
@@ -12,7 +16,7 @@ export const SortableCell = ({ direction, children }) => {
           visibility: direction ? 'visible' : 'hidden',
         }}
       />
-    </span>
+    </th>
   );
 };
 

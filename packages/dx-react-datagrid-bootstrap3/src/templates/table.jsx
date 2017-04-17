@@ -1,37 +1,24 @@
 import React from 'react';
-import { closest } from './utils/table';
 
-export const TableCell = (props) => {
-  const { row, column, colspan, cellContentTemplate, isHeader } = props;
-  const TagName = isHeader ? 'th' : 'td';
+export const DefaultTableCell = ({ style, row, column }) => (
+  <td style={style}>{row[column.name]}</td>
+);
 
-  return (
-    <TagName
-      style={{
-        width: column.width ? `${column.width}px` : 'auto',
-      }}
-      colSpan={colspan}
-      data-cell={JSON.stringify({ rowId: row.id, columnName: column.name })}
-    >
-      {cellContentTemplate({ row, column })}
-    </TagName>
-  );
-};
-
-TableCell.propTypes = {
+DefaultTableCell.propTypes = {
   row: React.PropTypes.object.isRequired,
   column: React.PropTypes.object.isRequired,
-  colspan: React.PropTypes.number.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  isHeader: React.PropTypes.bool,
 };
 
-TableCell.defaultProps = {
-  isHeader: false,
+const getCellInfo = ({ row, columnIndex, columns }) => {
+  if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
+  const colspan = row.colspan === columnIndex ? columns.length - row.colspan : 1;
+  return { colspan };
 };
 
-export const TableRow = (props) => {
-  const { row, columns, getCellInfo, cellContentTemplate, isHeader } = props;
+const TableRow = (props) => {
+  const { row, columns, cellTemplate } = props;
+
+  const TableCell = cellTemplate;
 
   const height = (!row.height || row.height === 'auto') ? 'auto' : `${row.height}px`;
   return (
@@ -45,11 +32,9 @@ export const TableRow = (props) => {
         return (
           <TableCell
             key={column.name}
-            isHeader={isHeader}
             row={row}
             column={column}
             colspan={info.colspan}
-            cellContentTemplate={cellContentTemplate}
           />
         );
       })}
@@ -60,9 +45,7 @@ export const TableRow = (props) => {
 TableRow.propTypes = {
   row: React.PropTypes.object.isRequired,
   columns: React.PropTypes.array.isRequired,
-  getCellInfo: React.PropTypes.func.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  isHeader: React.PropTypes.bool,
+  cellTemplate: React.PropTypes.func.isRequired,
 };
 
 TableRow.defaultProps = {
@@ -70,20 +53,24 @@ TableRow.defaultProps = {
 };
 
 export const Table = (props) => {
-  const { headerRows, bodyRows, columns, cellContentTemplate, getCellInfo, onClick } = props;
+  const { headerRows, bodyRows, columns, cellTemplate, onClick } = props;
 
   return (
     <div className="table-responsive">
       <table
         className="table"
         onClick={(e) => {
-          const { target } = e;
-          const cellEl = closest(target, 'th') || closest(target, 'td');
-          if (!cellEl) return;
+          const { target, currentTarget } = e;
 
-          const { rowId, columnName } = JSON.parse(cellEl.getAttribute('data-cell'));
-          const row = [...headerRows, ...bodyRows].find(r => r.id === rowId);
-          const column = columns.find(c => c.name === columnName);
+          const rowsEls = currentTarget.querySelectorAll(':scope > thead > tr, :scope > tbody > tr');
+          const rowIndex = [...rowsEls].findIndex(rowEl => rowEl.contains(target));
+          if (rowIndex === -1) return;
+          const cellEls = rowsEls[rowIndex].querySelectorAll(':scope > th, :scope > td');
+          const columnIndex = [...cellEls].findIndex(cellEl => cellEl.contains(target));
+          if (columnIndex === -1) return;
+
+          const row = [...headerRows, ...bodyRows][rowIndex];
+          const column = columns[columnIndex];
           onClick({ row, column, e });
         }}
       >
@@ -93,9 +80,7 @@ export const Table = (props) => {
               key={row.id}
               row={row}
               columns={columns}
-              cellContentTemplate={cellContentTemplate}
-              getCellInfo={getCellInfo}
-              isHeader
+              cellTemplate={cellTemplate}
             />
           ))}
         </thead>
@@ -105,8 +90,7 @@ export const Table = (props) => {
               key={row.id}
               row={row}
               columns={columns}
-              cellContentTemplate={cellContentTemplate}
-              getCellInfo={getCellInfo}
+              cellTemplate={cellTemplate}
             />
           ))}
         </tbody>
@@ -121,7 +105,6 @@ Table.propTypes = {
   headerRows: React.PropTypes.array.isRequired,
   bodyRows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,
-  getCellInfo: React.PropTypes.func.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
+  cellTemplate: React.PropTypes.func.isRequired,
   onClick: React.PropTypes.func,
 };

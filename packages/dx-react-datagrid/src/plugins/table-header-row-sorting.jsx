@@ -34,8 +34,8 @@ export class TableHeaderRowSorting extends React.PureComponent {
             direction: getColumnSortingDirection(getter('sortings'), column.name),
           })}
         >
-          {({ direction }) => (
-            <SortableCell direction={direction}>
+          {params => (
+            <SortableCell {...params}>
               <TemplatePlaceholder />
             </SortableCell>
           )}

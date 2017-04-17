@@ -9,6 +9,9 @@ export class TableHeaderRow extends React.PureComponent {
       [{ type: 'heading', id: 'heading' }, ...tableHeaderRows];
   }
   render() {
+    const { headerCellTemplate } = this.props;
+    const HeaderCell = headerCellTemplate;
+
     return (
       <div>
         <Getter
@@ -22,11 +25,15 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableViewCell"
           predicate={({ row }) => row.type === 'heading'}
         >
-          {({ column }) => (
-            <span>{column.title}</span>
+          {params => (
+            <HeaderCell {...params} />
           )}
         </Template>
       </div>
     );
   }
 }
+
+TableHeaderRow.propTypes = {
+  headerCellTemplate: React.PropTypes.func.isRequired,
+};

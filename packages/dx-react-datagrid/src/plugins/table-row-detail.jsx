@@ -35,9 +35,9 @@ export class TableRowDetail extends React.PureComponent {
             getter('tableColumns'),
           ]}
         />
-        <Template name="tableViewCell" predicate={({ column, row }) => column.type === 'detail' && row.type === 'heading'} />
         <Template name="tableViewCell" predicate={({ column, row }) => column.type === 'detail' && !row.type}>
-          {({ row }) => detailToggleTemplate({
+          {({ row, ...params }) => detailToggleTemplate({
+            ...params,
             expanded: isDetailRowExpanded(expandedDetails, row.id),
             toggleExpanded: () => this._setDetailRowExpanded({ rowId: row.id }),
           })}
@@ -52,7 +52,7 @@ export class TableRowDetail extends React.PureComponent {
           ]}
         />
         <Template name="tableViewCell" predicate={({ row }) => row.type === 'detailRow'}>
-          {({ column, row }) => template({ column, row: row.for })}
+          {({ row, ...params }) => template({ ...params, row: row.for })}
         </Template>
       </div>
     );

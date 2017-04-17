@@ -1,7 +1,9 @@
 import React from 'react';
 
-export const GroupableCell = ({ groupByColumn, children }) => (
-  <div style={{ width: '100%', height: '100%' }}>
+export const GroupableCell = ({ style, groupByColumn, children }) => (
+  <th
+    style={style}
+  >
     <div
       onClick={(e) => {
         groupByColumn(e);
@@ -18,7 +20,7 @@ export const GroupableCell = ({ groupByColumn, children }) => (
         paddingRight: '30px',
       }}
     >{children}</div>
-  </div>
+  </th>
 );
 
 GroupableCell.propTypes = {

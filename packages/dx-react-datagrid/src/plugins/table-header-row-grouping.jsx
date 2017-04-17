@@ -13,8 +13,8 @@ export const TableHeaderRowGrouping = (props) => {
           groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
         })}
       >
-        {({ groupByColumn }) => (
-          <GroupableCell groupByColumn={groupByColumn}>
+        {params => (
+          <GroupableCell {...params}>
             <TemplatePlaceholder />
           </GroupableCell>
         )}

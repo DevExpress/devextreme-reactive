@@ -10,7 +10,8 @@ export const TableRowDetail = (props) => {
       expandedDetails={expandedDetails}
       defaultExpandedDetails={defaultExpandedDetails}
       expandedDetailsChange={expandedDetailsChange}
-      template={template}
+      template={({ colspan, style, ...params }) =>
+        <td style={style} colSpan={colspan}>{template(params)}</td>}
     />
   );
 };

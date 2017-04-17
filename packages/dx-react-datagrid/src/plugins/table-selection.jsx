@@ -82,10 +82,9 @@ export class TableSelection extends React.PureComponent {
             toggleAll: availableToSelect => action('setRowsSelection')({ rowIds: availableToSelect }),
           })}
         >
-          {({ allSelected, someSelected, toggleAll, availableToSelect }) => (
+          {({ toggleAll, availableToSelect, ...params }) => (
             <SelectAllCell
-              allSelected={allSelected}
-              someSelected={someSelected}
+              {...params}
               toggleAll={() => toggleAll(availableToSelect)}
             />
           )}
@@ -100,8 +99,8 @@ export class TableSelection extends React.PureComponent {
             toggleSelected: () => action('setRowSelection')({ rowId: row.id }),
           })}
         >
-          {({ selected, toggleSelected }) => (
-            <SelectCell selected={selected} changeSelected={toggleSelected} />
+          {params => (
+            <SelectCell {...params} />
           )}
         </Template>
       </div>

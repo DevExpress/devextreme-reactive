@@ -1,6 +1,6 @@
 # TableHeaderRowSorting Plugin Reference
 
-Plugin that extends table header row. Adds sort direction indicator and allows to change sort direction for column.
+Plugin that extends the table view header row with the sort order indicator and allows an end-user to change sorting by a column.
 
 ## User Reference
 
@@ -14,7 +14,7 @@ Plugin that extends table header row. Adds sort direction indicator and allows t
 
 Name | Type | Default | Description
 -----|------|---------|------------
-sortableCellTemplate | Component&lt;[SortableCellProps](#sortable-cell-props)&gt; | | Component that renders cell with sort direction indicator
+sortableCellTemplate | Component&lt;[SortableCellProps](#sortable-cell-props)&gt; | | A component that renders a cell with  the current sort order indicator
 
 ## Interfaces
 
@@ -26,7 +26,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-direction? | 'asc' &#124; 'desc' | Specifies sorting direction if applied
+direction? | 'asc' &#124; 'desc' | Specifies a column sort order if applied
 
 ## Plugin Developer Reference
 

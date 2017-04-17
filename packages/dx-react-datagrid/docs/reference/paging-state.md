@@ -1,6 +1,6 @@
-# GroupingState Plugin Reference
+# PagingState Plugin Reference
 
-Plugin that manages grouping state.
+Plugin that manages paging state. It controls the total page count depending on the total row count and the specified page size. It also controls the currently selected page number and can change it in response to the corresponding actions.
 
 ## User Reference
 
@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-pageSize | number | | Specifies page size
-currentPage | number | | Specifies current page
-defaultCurrentPage | number | | Specifies starting current page for uncontrolled scenario
+pageSize | number | | Specifies a page size
+currentPage | number | | Specifies the current page number
+defaultCurrentPage | number | | Specifies initial current page number for the uncontrolled scenario
 currentPageChange | (currentPage: number) => void | | Handles current page change
 
 ## Plugin Developer Reference
@@ -27,6 +27,6 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-pageSize | Getter | () => number | Specified page size
-currentPage | Getter | () => number | Current page
-setCurrentPage | Action | ({ page: number }) => void | Change current page
+pageSize | Getter | () => number | The page size specified via properties
+currentPage | Getter | () => number | Current page number
+setCurrentPage | Action | ({ page: number }) => void | Change the current page number

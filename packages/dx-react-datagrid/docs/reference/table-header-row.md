@@ -1,8 +1,6 @@
 # TableHeaderRow Plugin Reference
 
-Plugin that renders the simplest table header.
-
-It renders title based on provided `title` field in column. See extended data structure for [Column](#column).
+Plugin that renders a simple table header that shows only column titles. A column title is provided via the `title` field in a column definition. See extended data structure for a [Column](#column).
 
 ## User Reference
 
@@ -18,7 +16,7 @@ none
 
 ### Column
 
-Describes properties used to render table header
+Describes properties used to render the table header row
 
 Extends [Column](datagrid.md#column)
 
@@ -26,7 +24,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-title? | string | Specifies table column title.
+title? | string | Specifies a table column title.
 
 ## Plugin Developer Reference
 

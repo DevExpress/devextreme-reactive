@@ -1,6 +1,6 @@
 # TableHeaderRowGrouping Plugin Reference
 
-Plugin that extends table header row. Renders component that toggles grouping state for column.
+Plugin that extends the table view heading row. Renders component that toggles grouping state for a column.
 
 ## User Reference
 
@@ -14,19 +14,19 @@ Plugin that extends table header row. Renders component that toggles grouping st
 
 Name | Type | Default | Description
 -----|------|---------|------------
-groupableCellTemplate | Component&lt;[GroupableCellProps](#groupable-cell-props)&gt; | | Component that renders cell with ability to group data by column
+groupableCellTemplate | Component&lt;[GroupableCellProps](#groupable-cell-props)&gt; | | A component that renders a cell with a capability to group data by a column
 
 ## Interfaces
 
 ### <a name="groupable-cell-props"></a>GroupableCellProps
 
-Describes properties used to render cell with sort indicator.
+Describes the properties that are used to render a groupable header cell.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-groupByColumn | () => void | Toggles grouping for column.
+groupByColumn | () => void | Toggles grouping for a column
 
 ## Plugin Developer Reference
 

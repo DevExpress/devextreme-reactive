@@ -1,8 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/dist": true,
-        "shippable": true
-    }
-}

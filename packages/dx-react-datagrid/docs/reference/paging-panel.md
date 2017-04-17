@@ -1,6 +1,6 @@
 # PagingPanel Plugin Reference
 
-Plugin that renders pager.
+Plugin that renders a panel that allows an end-user to navigate through data pages if the Paging feature is enabled.
 
 ## User Reference
 
@@ -12,13 +12,13 @@ Plugin that renders pager.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-pagerTemplate | Component&lt;[PagerProps](#pager-props)&gt; | | Component that renders pager based on supplied parameters
+pagerTemplate | Component&lt;[PagerProps](#pager-props)&gt; | | Component that renders a pager based on the supplied parameters
 
 ## Interfaces
 
 ### <a name="pager-props"></a>PagerProps
 
-Describes properties passed to table template when rendered
+Describes properties passed to the table template when rendered
 
 A value with the following shape:
 

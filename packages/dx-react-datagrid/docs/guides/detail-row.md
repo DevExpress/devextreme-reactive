@@ -2,18 +2,18 @@
 
 ## Overview
 
-The 'Detail Row' feature allows you to display an extended representation of a data row that can be expanded/collapsed either programmatically or via an end-user interaction with the DataGrid UI.
+The 'Detail Row' feature allows you to display extended representation of a data row that can be expanded/collapsed either programmatically or via an end-user interaction with the DataGrid UI.
 
 ## Plugin List
 
-There is only one plugin required to enable this feature:
+Only one plugin is required to enable this feature:
 - [TableRowDetail](../reference/table-row-detail.md)
 
-Note that [plugin order](../README.md#plugin-order) is very important.
+Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Detail Row Setup
 
-To setup a simple DataGrid with detail rows you need to use the `TableRowDetail` plugin. You should specify the detail row template via the `template` property of the plugin. In the uncontrolled state mode you can also pass the IDs of the rows that should be initially expanded into the `defaultExpandedDetails` property of the same plugin and the expanded state will be managed by the plugin internally.
+To set up a simple DataGrid with detail rows, you need to use the `TableRowDetail` plugin. Specify the detail row template via the `template` property of the plugin. In uncontrolled state mode, you can also pass IDs of rows that should be initially expanded into the `defaultExpandedDetails` property of the same plugin, and the expanded state will be managed by the plugin internally.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/detail-row/simple-detail-row)
 
@@ -21,7 +21,7 @@ To setup a simple DataGrid with detail rows you need to use the `TableRowDetail`
 
 ## Controlled Expanded State Mode
 
-To control the expanded state of the detail rows from the outside, pass the  array of the expanded rows IDs to the `expandedDetails` property of the `TableRowDetail` plugin and handle the `expandedDetailsChange` event of the same plugin.
+To control the expanded state of the detail rows from the outside, pass an  array of the expanded row IDs to the `expandedDetails` property of the `TableRowDetail` plugin and handle the `expandedDetailsChange` event of the same plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/detail-row/detail-row-controlled)
 

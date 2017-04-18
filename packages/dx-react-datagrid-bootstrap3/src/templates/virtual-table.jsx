@@ -42,7 +42,7 @@ export class VirtualTable extends React.Component {
     };
   }
   render() {
-    const { headerRows, bodyRows, columns, cellTemplate, onClick } = this.props;
+    const { headerRows, bodyRows, columns, cellTemplate } = this.props;
 
     const columnWidths = calculateColumnWidths(columns, this.state.viewportWidth);
 
@@ -148,13 +148,10 @@ export class VirtualTable extends React.Component {
     );
   }
 }
-VirtualTable.defaultProps = {
-  onClick: () => {},
-};
+
 VirtualTable.propTypes = {
   headerRows: React.PropTypes.array.isRequired,
   bodyRows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,
   cellTemplate: React.PropTypes.func.isRequired,
-  onClick: React.PropTypes.func,
 };

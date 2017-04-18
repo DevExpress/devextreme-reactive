@@ -5,6 +5,13 @@ export const TableCell = ({ style, row, column }) => (
 );
 
 TableCell.propTypes = {
-  row: React.PropTypes.object.isRequired,
-  column: React.PropTypes.object.isRequired,
+  style: React.PropTypes.shape(),
+  row: React.PropTypes.shape(),
+  column: React.PropTypes.shape(),
+};
+
+TableCell.defaultProps = {
+  style: null,
+  row: {},
+  column: {},
 };

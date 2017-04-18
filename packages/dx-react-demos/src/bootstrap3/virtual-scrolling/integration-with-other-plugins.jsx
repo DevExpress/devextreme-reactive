@@ -10,7 +10,6 @@ import {
     VirtualTableView,
     TableHeaderRow,
     TableFilterRow,
-    TableHeaderRowSorting,
     TableRowDetail,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 

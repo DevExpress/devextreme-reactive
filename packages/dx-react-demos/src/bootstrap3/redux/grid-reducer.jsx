@@ -7,8 +7,8 @@ export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 const gridInitialState = {
   columns: [
     { name: 'id', title: 'ID' },
-    { name: 'sex', title: 'Sex' },
     { name: 'name', title: 'Name' },
+    { name: 'sex', title: 'Sex' },
     { name: 'city', title: 'City' },
     { name: 'car', title: 'Car' },
   ],

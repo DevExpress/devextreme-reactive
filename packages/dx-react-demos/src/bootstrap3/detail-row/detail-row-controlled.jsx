@@ -9,7 +9,6 @@ import {
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
-  generateColumns,
   generateRows,
 } from '../../demoData';
 
@@ -18,8 +17,14 @@ export class DetailRowControlledDemo extends React.PureComponent {
     super(props);
 
     this.state = {
-      columns: generateColumns(),
-      rows: generateRows(7),
+      columns: [
+        { name: 'id', title: 'ID' },
+        { name: 'name', title: 'Name' },
+        { name: 'sex', title: 'Sex' },
+        { name: 'city', title: 'City' },
+        { name: 'car', title: 'Car' },
+      ],
+      rows: generateRows({ length: 7 }),
       expandedDetails: [2, 5],
     };
 

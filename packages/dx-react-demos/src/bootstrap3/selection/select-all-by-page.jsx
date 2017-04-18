@@ -13,7 +13,6 @@ import {
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
-  generateColumns,
   generateRows,
 } from '../../demoData';
 
@@ -22,8 +21,14 @@ export class SelectAllByPageDemo extends React.PureComponent {
     super(props);
 
     this.state = {
-      columns: generateColumns(),
-      rows: generateRows(14),
+      columns: [
+        { name: 'id', title: 'ID' },
+        { name: 'sex', title: 'Sex' },
+        { name: 'name', title: 'Name' },
+        { name: 'city', title: 'City' },
+        { name: 'car', title: 'Car' },
+      ],
+      rows: generateRows({ length: 14 }),
       selection: [],
     };
 

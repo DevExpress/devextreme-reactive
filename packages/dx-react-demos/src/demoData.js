@@ -1,6 +1,6 @@
 import randomSeed from './random';
 
-const defaultColumnValues = {
+export const defaultColumnValues = {
   sex: ['Male', 'Female'],
   name: [
     'sex',
@@ -32,19 +32,6 @@ export const globalSalesValues = {
   },
 };
 
-export function generateColumns({ columnValues = defaultColumnValues } = {}) {
-  const columns = [{ name: 'id', title: 'ID', width: 120, resize: false }];
-
-  Object.keys(columnValues).forEach((column) => {
-    columns.push({
-      name: column,
-      title: column[0].toUpperCase() + column.slice(1),
-    });
-  });
-
-  return columns;
-}
-
 export function generateRows({ columnValues = defaultColumnValues, length } = {}) {
   const random = randomSeed(329972281);
 
@@ -55,18 +42,18 @@ export function generateRows({ columnValues = defaultColumnValues, length } = {}
     const record = { id: i };
 
     columns.forEach((column) => {
-      let items = columnValues[column];
+      let values = columnValues[column];
 
-      if (typeof items === 'function') {
-        record[column] = items(random);
+      if (typeof values === 'function') {
+        record[column] = values(random);
         return;
       }
 
-      while (items.length === 2 && typeof items[1] === 'object') {
-        items = items[1][record[items[0]]];
+      while (values.length === 2 && typeof values[1] === 'object') {
+        values = values[1][record[values[0]]];
       }
 
-      record[column] = items[Math.floor(random() * items.length)];
+      record[column] = values[Math.floor(random() * values.length)];
     });
 
     data.push(record);

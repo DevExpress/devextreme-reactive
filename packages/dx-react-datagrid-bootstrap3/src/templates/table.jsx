@@ -26,6 +26,7 @@ const TableRow = (props) => {
             row={row}
             column={column}
             colspan={info.colspan}
+            style={column.width ? { width: column.width } : null}
           />
         );
       })}

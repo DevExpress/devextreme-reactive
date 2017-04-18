@@ -3,7 +3,10 @@ import React from 'react';
 export const TableSelectCell = ({ style, selected, changeSelected }) => (
   <td
     style={style}
-    onClick={changeSelected}
+    onClick={(e) => {
+      e.stopPropagation();
+      changeSelected();
+    }}
   >
     <input
       type="checkbox"

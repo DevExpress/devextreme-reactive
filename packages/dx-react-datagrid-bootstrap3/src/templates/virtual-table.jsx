@@ -1,10 +1,8 @@
 /* global window document */
 
 import React from 'react';
-import { Sizer } from './virtual-table/sizer';
 import { WindowedScroller } from './virtual-table/windowed-scroller';
 import { VirtualBox } from './virtual-table/virtual-box';
-import { closest } from './utils/table';
 
 const DEFAULT_HEIGHT = 38;
 const MINIMAL_COLUMN_WIDTH = 100;
@@ -122,16 +120,6 @@ export class VirtualTable extends React.Component {
     return (
       <div
         style={{ height: '360px' }}
-        onClick={(e) => {
-          const { target } = e;
-          const cellEl = closest(target, 'th') || closest(target, 'td');
-          if (!cellEl) return;
-
-          const { rowId, columnName } = JSON.parse(cellEl.getAttribute('data-cell'));
-          const row = [...headerRows, ...bodyRows].find(r => r.id === rowId);
-          const column = columns.find(c => c.name === columnName);
-          onClick({ row, column, e });
-        }}
       >
         <WindowedScroller
           onViewportChange={viewport => this.setState({ viewportWidth: viewport.width })}

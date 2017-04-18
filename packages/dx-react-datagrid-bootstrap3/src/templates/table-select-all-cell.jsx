@@ -1,7 +1,13 @@
 import React from 'react';
 
 export const TableSelectAllCell = ({ style, allSelected, someSelected, toggleAll }) => (
-  <th style={style}>
+  <th
+    style={style}
+    onClick={(e) => {
+      e.stopPropagation();
+      toggleAll();
+    }}
+  >
     <input
       type="checkbox"
       checked={allSelected}
@@ -12,6 +18,7 @@ export const TableSelectAllCell = ({ style, allSelected, someSelected, toggleAll
         }
       }}
       onChange={toggleAll}
+      onClick={e => e.stopPropagation()}
     />
   </th>
 );

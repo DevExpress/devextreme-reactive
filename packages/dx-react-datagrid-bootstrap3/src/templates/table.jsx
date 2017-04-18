@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { querySelectorAll } from './utils/dom';
+
 const getCellInfo = ({ row, columnIndex, columns }) => {
   if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
   const colspan = row.colspan === columnIndex ? columns.length - row.colspan : 1;
@@ -54,10 +56,10 @@ export const Table = (props) => {
         onClick={(e) => {
           const { target, currentTarget } = e;
 
-          const rowsEls = currentTarget.querySelectorAll(':scope > thead > tr, :scope > tbody > tr');
+          const rowsEls = querySelectorAll(currentTarget, ':scope > thead > tr, :scope > tbody > tr');
           const rowIndex = [...rowsEls].findIndex(rowEl => rowEl.contains(target));
           if (rowIndex === -1) return;
-          const cellEls = rowsEls[rowIndex].querySelectorAll(':scope > th, :scope > td');
+          const cellEls = querySelectorAll(rowsEls[rowIndex], ':scope > th, :scope > td');
           const columnIndex = [...cellEls].findIndex(cellEl => cellEl.contains(target));
           if (columnIndex === -1) return;
 

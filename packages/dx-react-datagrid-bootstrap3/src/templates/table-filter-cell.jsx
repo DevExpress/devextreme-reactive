@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const FilterCell = ({ style, filter, changeFilter }) => (
+export const TableFilterCell = ({ style, filter, changeFilter }) => (
   <td
     style={style}
   >
@@ -14,12 +14,14 @@ export const FilterCell = ({ style, filter, changeFilter }) => (
   </td>
 );
 
-FilterCell.propTypes = {
+TableFilterCell.propTypes = {
+  style: React.PropTypes.shape(),
   filter: React.PropTypes.string,
-  changeFilter: React.PropTypes.func.isRequired,
+  changeFilter: React.PropTypes.func,
 };
 
-FilterCell.defaultProps = {
-  filter: undefined,
-  changeFilter: undefined,
+TableFilterCell.defaultProps = {
+  style: null,
+  filter: '',
+  changeFilter: () => {},
 };

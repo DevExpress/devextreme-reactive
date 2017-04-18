@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const HeaderCell = ({
+export const TableHeaderCell = ({
   style, column,
   sortingEnabled, sortDirection, changeSortDirection,
   groupingEnabled, groupByColumn,
@@ -42,7 +42,7 @@ export const HeaderCell = ({
     </th>
   );
 };
-HeaderCell.defaultProps = {
+TableHeaderCell.defaultProps = {
   style: null,
   sortingEnabled: false,
   sortDirection: undefined,
@@ -50,7 +50,7 @@ HeaderCell.defaultProps = {
   groupingEnabled: false,
   groupByColumn: undefined,
 };
-HeaderCell.propTypes = {
+TableHeaderCell.propTypes = {
   column: React.PropTypes.shape({
     title: React.PropTypes.string,
   }).isRequired,

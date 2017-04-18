@@ -1,14 +1,5 @@
 import React from 'react';
 
-export const DefaultTableCell = ({ style, row, column }) => (
-  <td style={style}>{row[column.name]}</td>
-);
-
-DefaultTableCell.propTypes = {
-  row: React.PropTypes.object.isRequired,
-  column: React.PropTypes.object.isRequired,
-};
-
 const getCellInfo = ({ row, columnIndex, columns }) => {
   if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
   const colspan = row.colspan === columnIndex ? columns.length - row.colspan : 1;

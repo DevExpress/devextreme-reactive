@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SelectAllCell = ({ style, allSelected, someSelected, toggleAll }) => (
+export const TableSelectAllCell = ({ style, allSelected, someSelected, toggleAll }) => (
   <th style={style}>
     <input
       type="checkbox"
@@ -15,12 +15,15 @@ export const SelectAllCell = ({ style, allSelected, someSelected, toggleAll }) =
     />
   </th>
 );
-SelectAllCell.defaultProps = {
+TableSelectAllCell.defaultProps = {
   style: null,
+  allSelected: false,
+  someSelected: false,
+  toggleAll: () => {},
 };
-SelectAllCell.propTypes = {
-  allSelected: React.PropTypes.bool.isRequired,
-  someSelected: React.PropTypes.bool.isRequired,
-  toggleAll: React.PropTypes.func.isRequired,
+TableSelectAllCell.propTypes = {
   style: React.PropTypes.shape(),
+  allSelected: React.PropTypes.bool,
+  someSelected: React.PropTypes.bool,
+  toggleAll: React.PropTypes.func,
 };

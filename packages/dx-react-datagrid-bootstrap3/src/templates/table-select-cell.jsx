@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SelectCell = ({ style, selected, changeSelected }) => (
+export const TableSelectCell = ({ style, selected, changeSelected }) => (
   <td
     style={style}
     onClick={changeSelected}
@@ -13,11 +13,13 @@ export const SelectCell = ({ style, selected, changeSelected }) => (
     />
   </td>
 );
-SelectCell.defaultProps = {
+TableSelectCell.defaultProps = {
   style: null,
+  selected: false,
+  changeSelected: () => {},
 };
-SelectCell.propTypes = {
-  selected: React.PropTypes.bool.isRequired,
-  changeSelected: React.PropTypes.func.isRequired,
+TableSelectCell.propTypes = {
   style: React.PropTypes.shape(),
+  selected: React.PropTypes.bool,
+  changeSelected: React.PropTypes.func,
 };

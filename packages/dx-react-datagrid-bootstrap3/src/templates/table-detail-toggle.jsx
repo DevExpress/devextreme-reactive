@@ -10,6 +10,13 @@ export const TableDetailToggle = ({ style, expanded, toggleExpanded }) => (
 );
 
 TableDetailToggle.propTypes = {
-  expanded: React.PropTypes.bool.isRequired,
-  toggleExpanded: React.PropTypes.func.isRequired,
+  style: React.PropTypes.shape(),
+  expanded: React.PropTypes.bool,
+  toggleExpanded: React.PropTypes.func,
+};
+
+TableDetailToggle.defaultProps = {
+  style: null,
+  expanded: false,
+  toggleExpanded: () => {},
 };

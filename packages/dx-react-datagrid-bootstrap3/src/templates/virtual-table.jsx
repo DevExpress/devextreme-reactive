@@ -156,7 +156,7 @@ export class VirtualTable extends React.Component {
 
     return (
       <div
-        style={{ height: '500px' }}
+        style={{ height: '360px' }}
         onClick={(e) => {
           const { target } = e;
           const cellEl = closest(target, 'th') || closest(target, 'td');

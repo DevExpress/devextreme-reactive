@@ -19,7 +19,7 @@ export class BasicSelectionDemo extends React.PureComponent {
 
     this.state = {
       columns: generateColumns(),
-      rows: generateRows(6),
+      rows: generateRows({ length: 6 }),
       selection: [1],
     };
 

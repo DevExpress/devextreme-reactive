@@ -22,7 +22,7 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
 
     this.state = {
       columns: generateColumns(),
-      rows: generateRows(20000),
+      rows: generateRows({ length: 20000 }),
     };
 
     this.rowTemplate = ({ row }) => <div>Detail for {row.name} from {row.city}</div>;

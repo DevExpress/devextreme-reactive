@@ -21,7 +21,7 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
 
     this.state = {
       columns: generateColumns(),
-      rows: generateRows(105),
+      rows: generateRows({ length: 105 }),
       sortings: [{ column: 'id', direction: 'asc' }],
       selection: [1, 3, 18],
       expandedDetails: [3],

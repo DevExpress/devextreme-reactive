@@ -20,7 +20,7 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
 
     this.state = {
       columns: generateColumns(),
-      rows: generateRows(200000),
+      rows: generateRows({ length: 200000 }),
     };
 
     this.rowTemplate = ({ row }) => (

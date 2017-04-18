@@ -27,7 +27,7 @@ export class LocalGroupSortingDemo extends React.PureComponent {
 
     this.state = {
       columns: generateColumns(),
-      rows: generateRows(14),
+      rows: generateRows({ length: 14 }),
     };
   }
   render() {

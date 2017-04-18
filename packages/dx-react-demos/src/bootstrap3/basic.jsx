@@ -9,6 +9,7 @@ import {
 import {
   generateColumns,
   generateRows,
+  globalSalesValues,
 } from '../demoData';
 
 export class BasicDemos extends React.PureComponent {
@@ -16,8 +17,8 @@ export class BasicDemos extends React.PureComponent {
     super(props);
 
     this.state = {
-      columns: generateColumns(),
-      rows: generateRows(14),
+      columns: generateColumns({ columnValues: globalSalesValues }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {

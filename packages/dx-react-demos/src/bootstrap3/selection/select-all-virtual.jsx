@@ -20,7 +20,7 @@ export class SelectAllVirtualDemo extends React.PureComponent {
 
     this.state = {
       columns: generateColumns(),
-      rows: generateRows(1000),
+      rows: generateRows({ length: 1000 }),
       selection: [],
     };
 

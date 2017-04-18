@@ -1,32 +1,29 @@
 import React from 'react';
 import {
   DataGrid,
-  SortingState,
-  LocalSorting,
+  TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
-  TableHeaderRow,
+  TableRowDetail,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
+  generateColumns,
   generateRows,
 } from '../../demoData';
 
-export class HeaderSortingDemo extends React.PureComponent {
+export class SimpleDetailRowDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      columns: [
-        { name: 'id', title: 'ID' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'name', title: 'Name' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 14 }),
+      columns: generateColumns(),
+      rows: generateRows(7),
     };
+
+    this.changeExpandedDetails = expandedDetails => this.setState({ expandedDetails });
+    this.rowTemplate = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
   }
   render() {
     const { rows, columns } = this.state;
@@ -36,10 +33,12 @@ export class HeaderSortingDemo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <SortingState />
-        <LocalSorting />
         <TableView />
         <TableHeaderRow />
+        <TableRowDetail
+          defaultExpandedDetails={[2, 5]}
+          template={this.rowTemplate}
+        />
       </DataGrid>
     );
   }

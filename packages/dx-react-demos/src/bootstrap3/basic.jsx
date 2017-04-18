@@ -8,8 +8,8 @@ import {
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
-  generateColumns,
   generateRows,
+  globalSalesValues,
 } from '../demoData';
 
 export class BasicDemos extends React.PureComponent {
@@ -17,8 +17,15 @@ export class BasicDemos extends React.PureComponent {
     super(props);
 
     this.state = {
-      columns: generateColumns(),
-      rows: generateRows(14),
+      columns: [
+        { name: 'region', title: 'Region' },
+        { name: 'sector', title: 'Sector' },
+        { name: 'channel', title: 'Channel' },
+        { name: 'customer', title: 'Customer' },
+        { name: 'product', title: 'Product' },
+        { name: 'amount', title: 'Sale Amount' },
+      ],
+      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {

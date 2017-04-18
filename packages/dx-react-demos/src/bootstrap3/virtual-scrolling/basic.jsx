@@ -1,20 +1,17 @@
 import React from 'react';
 import {
-  DataGrid,
-  PagingState,
-  LocalPaging,
+    DataGrid,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
-  TableView,
-  TableHeaderRow,
-  PagingPanel,
+    VirtualTableView,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
   generateRows,
 } from '../../demoData';
 
-export class LocalPagingControlledDemo extends React.PureComponent {
+export class BasicDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -26,11 +23,8 @@ export class LocalPagingControlledDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
-      currentPage: 0,
+      rows: generateRows(100000),
     };
-
-    this.changeCurrentPage = currentPage => this.setState({ currentPage });
   }
   render() {
     const { rows, columns } = this.state;
@@ -40,15 +34,8 @@ export class LocalPagingControlledDemo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <PagingState
-          currentPage={this.state.currentPage}
-          currentPageChange={this.changeCurrentPage}
-          pageSize={5}
-        />
-        <LocalPaging />
-        <TableView />
+        <VirtualTableView />
         <TableHeaderRow />
-        <PagingPanel />
       </DataGrid>
     );
   }

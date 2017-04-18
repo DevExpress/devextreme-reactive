@@ -1,13 +1,18 @@
 import {
-  generateColumns,
   generateRows,
 } from '../../demoData';
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
 const gridInitialState = {
-  columns: generateColumns(),
-  rows: generateRows(105),
+  columns: [
+    { name: 'id', title: 'ID' },
+    { name: 'sex', title: 'Sex' },
+    { name: 'name', title: 'Name' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ],
+  rows: generateRows({ length: 105 }),
   sortings: [{ column: 'id', direction: 'asc' }],
   selection: [1, 3, 18],
   expandedDetails: [3],

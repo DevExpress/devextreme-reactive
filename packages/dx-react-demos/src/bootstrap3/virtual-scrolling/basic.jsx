@@ -1,10 +1,10 @@
 import React from 'react';
 import {
     DataGrid,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
     VirtualTableView,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -18,12 +18,12 @@ export class BasicDemo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'id', title: 'ID' },
-        { name: 'sex', title: 'Sex' },
         { name: 'name', title: 'Name' },
+        { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows(100000),
+      rows: generateRows({ length: 100000 }),
     };
   }
   render() {

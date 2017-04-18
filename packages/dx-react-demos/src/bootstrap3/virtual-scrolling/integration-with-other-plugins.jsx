@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     DataGrid,
-    TableHeaderRow,
     FilteringState,
     SortingState,
     LocalFiltering,
@@ -9,6 +8,7 @@ import {
 } from '@devexpress/dx-react-datagrid';
 import {
     VirtualTableView,
+    TableHeaderRow,
     TableFilterRow,
     TableHeaderRowSorting,
     TableRowDetail,
@@ -25,12 +25,12 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'id', title: 'ID' },
-        { name: 'sex', title: 'Sex' },
         { name: 'name', title: 'Name' },
+        { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows(100000),
+      rows: generateRows({ length: 100000 }),
     };
 
     this.rowTemplate = ({ row }) => (
@@ -58,7 +58,6 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
         <VirtualTableView />
 
         <TableHeaderRow />
-        <TableHeaderRowSorting />
 
         <TableFilterRow />
 

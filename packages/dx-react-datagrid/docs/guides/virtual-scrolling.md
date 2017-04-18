@@ -2,19 +2,19 @@
 
 ## Overview
 
-The DataGrid component can handle a large amount of data passed to it. In some cases it may be required to show 10 000 rows or even 1 000 000 ones. As an alternative to paging with hundreds or thousands or pages there is virtual mode for data presentation.
+The DataGrid component can handle a large amount of data passed to it. In some cases, it may be required to show 10 000 rows or even 1 000 000 ones. As an alternative to paging with hundreds or thousands of pages, we porivide the virtual mode for data presentation.
 
 ## Plugin List
 
-There is the `VirtualTableView` plugin available for Bootstrap 3 theme. It can be used as an alternative to the `TableView` plugin.
+The `VirtualTableView` plugin is available for the Bootstrap 3 theme. It can be used as an alternative to the `TableView` plugin.
 
-There are no base plugins that implement virtual scrolling. It is designed as an alternative to the ordinary table template for the [TableView](table-view.md) plugin.
+There are no base plugins that implement virtual scrolling. It is designed as an alternative to an ordinary table template for the [TableView](table-view.md) plugin.
 
 Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic Setup
 
-The following example demonstrates the basic DataGrid with virtual scrolling setup:
+The following example demonstrates the basic DataGrid with the virtual scrolling setup:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/virtual-scrolling/basic)
 
@@ -22,7 +22,7 @@ The following example demonstrates the basic DataGrid with virtual scrolling set
 
 ## Integration with Other Plugins
 
-Virtual table is also capable to work with other DataGrid features like filtering, sorting and so on. Here is an example:
+A virtual table also operates with other DataGrid features like filtering, sorting, etc. Here is an example:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/virtual-scrolling/integration-with-other-plugins)
 

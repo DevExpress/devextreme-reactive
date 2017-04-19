@@ -6,7 +6,7 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
     style={style}
     onClick={toggleGroupExpanded}
   >
-    <i className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`} /> {row.column}: {row.value}
+    <i className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`} /> <strong>{row.column.title}: {row.value}</strong>
   </td>
 );
 

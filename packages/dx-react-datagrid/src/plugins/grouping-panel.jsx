@@ -1,12 +1,9 @@
 import React from 'react';
 import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { getColumnSortingDirection } from '@devexpress/dx-datagrid-core';
 
-export const GroupPanelCellContentTemplate = ({ column }) =>
-  <TemplatePlaceholder name="groupingPanelCellContent" params={{ column }} />;
-
-GroupPanelCellContentTemplate.propTypes = {
-  column: React.PropTypes.object.isRequired,
-};
+export const GroupPanelCellTemplate = props =>
+  <TemplatePlaceholder name="groupingPanelCell" params={props} />;
 
 export class GroupingPanel extends React.PureComponent {
   constructor(props) {
@@ -18,6 +15,7 @@ export class GroupingPanel extends React.PureComponent {
   }
   render() {
     const GroupPanel = this.props.groupPanelTemplate;
+    const GroupPanelCell = this.props.groupPanelCellTemplate;
 
     return (
       <div>
@@ -41,21 +39,38 @@ export class GroupingPanel extends React.PureComponent {
           connectGetters={getter => ({
             groupedColumns: getter('groupedColumns'),
           })}
-          connectActions={action => ({
-            groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
-          })}
         >
-          {({ groupedColumns, groupByColumn }) => (
+          {({ groupedColumns }) => (
             <GroupPanel
               groupedColumns={groupedColumns}
-              groupByColumn={groupByColumn}
-              cellContentTemplate={GroupPanelCellContentTemplate}
+              cellTemplate={GroupPanelCellTemplate}
             />
           )}
         </Template>
-        <Template name="groupingPanelCellContent">
-          {({ column }) => (
-            <span>{column.title}</span>
+        <Template
+          name="groupingPanelCell"
+          connectGetters={(getter, { column }) => {
+            const sortings = getter('sortings');
+
+            const result = {
+              sortingEnabled: !column.type && sortings !== undefined,
+            };
+
+            if (result.sortingEnabled) {
+              result.sortDirection = getColumnSortingDirection(sortings, column.name);
+            }
+
+            return result;
+          }}
+          connectActions={(action, { column }) => ({
+            groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
+            changeSortDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
+          })}
+        >
+          {({ setColumnSorting, ...restParams }) => (
+            <GroupPanelCell
+              {...restParams}
+            />
           )}
         </Template>
       </div>
@@ -65,4 +80,5 @@ export class GroupingPanel extends React.PureComponent {
 
 GroupingPanel.propTypes = {
   groupPanelTemplate: React.PropTypes.func.isRequired,
+  groupPanelCellTemplate: React.PropTypes.func.isRequired,
 };

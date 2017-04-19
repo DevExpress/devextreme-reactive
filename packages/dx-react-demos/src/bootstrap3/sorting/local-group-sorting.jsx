@@ -11,7 +11,6 @@ import {
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
-  GroupingPanelSorting,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -56,7 +55,6 @@ export class LocalGroupSortingDemo extends React.PureComponent {
         <TableHeaderRow />
         <TableGroupRow />
         <GroupingPanel />
-        <GroupingPanelSorting />
       </DataGrid>
     );
   }

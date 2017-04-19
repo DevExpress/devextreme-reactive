@@ -23,4 +23,3 @@ export { TableFilterRow } from './plugins/table-filter-row';
 
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
-export { GroupingPanelSorting } from './plugins/grouping-panel-sorting';

@@ -1,21 +1,19 @@
 import React from 'react';
 import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-datagrid';
-import {
-  GroupPanel,
-  GroupPanelCellTemplate,
-} from '../templates/group-panel';
+import { GroupPanel } from '../templates/group-panel';
+import { GroupPanelCell } from '../templates/group-panel-cell';
 
 export const GroupingPanel = ({ groupByColumnText }) => (
   <GroupingPanelBase
     groupPanelTemplate={
       props => (
         <GroupPanel
-          cellTemplate={GroupPanelCellTemplate}
           groupByColumnText={groupByColumnText}
           {...props}
         />
       )
     }
+    groupPanelCellTemplate={GroupPanelCell}
   />
 );
 

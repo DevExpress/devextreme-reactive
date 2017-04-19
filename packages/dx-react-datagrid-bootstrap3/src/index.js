@@ -1,7 +1,6 @@
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 export { TableRowDetail } from './plugins/table-row-detail';
-export { GroupingPanelSorting } from './plugins/grouping-panel-sorting';
 export { TableGroupRow } from './plugins/table-group-row';
 export { TableSelection } from './plugins/table-selection';
 export { TableView } from './plugins/table-view';

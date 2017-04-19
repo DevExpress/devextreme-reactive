@@ -6,6 +6,8 @@ export const TableHeaderCell = ({
   groupingEnabled, groupByColumn,
 }) => {
   const iconName = `glyphicon-arrow-${sortDirection === 'asc' ? 'down' : 'up'}`;
+  const groupingFloat = column.align === 'right' ? 'left' : 'right';
+  const titleFloat = column.align === 'right' ? 'right' : 'none';
   return (
     <th
       style={style}
@@ -22,20 +24,28 @@ export const TableHeaderCell = ({
             groupByColumn(e);
           }}
           style={{
-            float: 'right',
-            textAlign: 'right',
+            float: groupingFloat,
+            textAlign: groupingFloat,
           }}
         >
           <i className="glyphicon glyphicon-th-list" />
         </div>
       )}
-      {column.title}
+      <span
+        style={{
+          float: titleFloat,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {column.title}
+      </span>
       {sortingEnabled && (
         <i
           className={`glyphicon ${iconName}`}
           style={{
             margin: '0 5px',
             visibility: sortDirection ? 'visible' : 'hidden',
+            float: titleFloat,
           }}
         />
       )}

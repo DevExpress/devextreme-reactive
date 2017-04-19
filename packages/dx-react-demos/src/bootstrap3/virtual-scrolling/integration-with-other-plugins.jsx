@@ -49,14 +49,14 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
         columns={columns}
       >
         <FilteringState defaultFilters={[]} />
-        <SortingState defaultSorting={[]} />
+        <SortingState defaultSortings={[{ column: 'city', direction: 'asc' }]} />
 
         <LocalFiltering />
         <LocalSorting />
 
         <VirtualTableView />
 
-        <TableHeaderRow />
+        <TableHeaderRow sortingEnabled />
 
         <TableFilterRow />
 

@@ -39,7 +39,7 @@ export class HeaderSortingDemo extends React.PureComponent {
         <SortingState />
         <LocalSorting />
         <TableView />
-        <TableHeaderRow />
+        <TableHeaderRow sortingEnabled />
       </DataGrid>
     );
   }

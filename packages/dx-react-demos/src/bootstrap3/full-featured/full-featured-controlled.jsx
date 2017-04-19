@@ -77,7 +77,7 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
 
           <TableView />
 
-          <TableHeaderRow />
+          <TableHeaderRow sortingEnabled />
 
           <TableFilterRow />
 

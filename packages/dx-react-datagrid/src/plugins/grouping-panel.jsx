@@ -14,8 +14,9 @@ export class GroupingPanel extends React.PureComponent {
     ];
   }
   render() {
-    const GroupPanel = this.props.groupPanelTemplate;
-    const GroupPanelCell = this.props.groupPanelCellTemplate;
+    const { sortingEnabled, groupPanelTemplate, groupPanelCellTemplate } = this.props;
+    const GroupPanel = groupPanelTemplate;
+    const GroupPanelCell = groupPanelCellTemplate;
 
     return (
       <div>
@@ -53,10 +54,10 @@ export class GroupingPanel extends React.PureComponent {
             const sortings = getter('sortings');
 
             const result = {
-              sortingEnabled: !column.type && sortings !== undefined,
+              sortingSupported: !column.type && sortings !== undefined,
             };
 
-            if (result.sortingEnabled) {
+            if (result.sortingSupported) {
               result.sortDirection = getColumnSortingDirection(sortings, column.name);
             }
 
@@ -67,9 +68,10 @@ export class GroupingPanel extends React.PureComponent {
             changeSortDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
           })}
         >
-          {({ setColumnSorting, ...restParams }) => (
+          {({ sortingSupported, ...restParams }) => (
             <GroupPanelCell
               {...restParams}
+              sortingEnabled={sortingEnabled && sortingSupported}
             />
           )}
         </Template>
@@ -79,6 +81,11 @@ export class GroupingPanel extends React.PureComponent {
 }
 
 GroupingPanel.propTypes = {
+  sortingEnabled: React.PropTypes.bool,
   groupPanelTemplate: React.PropTypes.func.isRequired,
   groupPanelCellTemplate: React.PropTypes.func.isRequired,
+};
+
+GroupingPanel.defaultProps = {
+  sortingEnabled: false,
 };

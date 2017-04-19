@@ -66,7 +66,7 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
 
           <VirtualTableView />
 
-          <TableHeaderRow />
+          <TableHeaderRow sortingEnabled groupingEnabled />
           <TableFilterRow />
 
           <TableSelection />
@@ -78,7 +78,7 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
           />
 
           <TableGroupRow />
-          <GroupingPanel />
+          <GroupingPanel sortingEnabled />
         </DataGrid>
       </div>
     );

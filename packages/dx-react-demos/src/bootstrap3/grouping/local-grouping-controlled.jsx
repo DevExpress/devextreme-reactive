@@ -47,7 +47,7 @@ export class LocalGroupingControlledDemo extends React.PureComponent {
         />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow />
+        <TableHeaderRow groupingEnabled />
         <TableGroupRow />
         <GroupingPanel />
       </DataGrid>

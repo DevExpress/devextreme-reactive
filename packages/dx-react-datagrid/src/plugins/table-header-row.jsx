@@ -30,11 +30,11 @@ export class TableHeaderRow extends React.PureComponent {
             const grouping = getter('grouping');
 
             const result = {
-              sortingEnabled: !column.type && sortings !== undefined,
-              groupingEnabled: !column.type && grouping !== undefined,
+              sortingSupported: !column.type && sortings !== undefined,
+              groupingSupported: !column.type && grouping !== undefined,
             };
 
-            if (result.sortingEnabled) {
+            if (result.sortingSupported) {
               result.sortDirection = getColumnSortingDirection(sortings, column.name);
             }
 
@@ -45,11 +45,11 @@ export class TableHeaderRow extends React.PureComponent {
             groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
           })}
         >
-          {params => (
+          {({ sortingSupported, groupingSupported, ...restParams }) => (
             <HeaderCell
-              {...params}
-              sortingEnabled={params.sortingEnabled && sortingEnabled}
-              groupingEnabled={params.groupingEnabled && groupingEnabled}
+              {...restParams}
+              sortingEnabled={sortingEnabled && sortingSupported}
+              groupingEnabled={groupingEnabled && groupingSupported}
             />
           )}
         </Template>
@@ -59,8 +59,8 @@ export class TableHeaderRow extends React.PureComponent {
 }
 
 TableHeaderRow.defaultProps = {
-  sortingEnabled: true,
-  groupingEnabled: true,
+  sortingEnabled: false,
+  groupingEnabled: false,
 };
 
 TableHeaderRow.propTypes = {

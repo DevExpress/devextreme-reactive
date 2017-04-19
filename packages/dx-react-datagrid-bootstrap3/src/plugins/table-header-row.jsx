@@ -11,8 +11,8 @@ export const TableHeaderRow = ({ sortingEnabled, groupingEnabled }) => (
 );
 
 TableHeaderRow.defaultProps = {
-  sortingEnabled: true,
-  groupingEnabled: true,
+  sortingEnabled: false,
+  groupingEnabled: false,
 };
 
 TableHeaderRow.propTypes = {

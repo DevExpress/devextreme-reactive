@@ -52,9 +52,9 @@ export class LocalGroupSortingDemo extends React.PureComponent {
         <LocalSorting />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow />
+        <TableHeaderRow sortingEnabled />
         <TableGroupRow />
-        <GroupingPanel />
+        <GroupingPanel sortingEnabled />
       </DataGrid>
     );
   }

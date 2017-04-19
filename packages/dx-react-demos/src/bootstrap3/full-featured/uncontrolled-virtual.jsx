@@ -65,7 +65,7 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
 
           <VirtualTableView />
 
-          <TableHeaderRow />
+          <TableHeaderRow sortingEnabled />
 
           <TableFilterRow />
 

@@ -70,7 +70,7 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
 
           <TableView />
 
-          <TableHeaderRow />
+          <TableHeaderRow sortingEnabled groupingEnabled />
 
           <TableFilterRow />
 
@@ -85,7 +85,7 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
 
           <TableGroupRow />
 
-          <GroupingPanel />
+          <GroupingPanel sortingEnabled />
         </DataGrid>
       </div>
     );

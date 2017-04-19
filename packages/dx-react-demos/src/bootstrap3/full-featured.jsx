@@ -4,6 +4,7 @@ import { FullFeaturedControlledDemo } from './full-featured/full-featured-contro
 import { FullFeaturedUncontrolledDemo } from './full-featured/full-featured-uncontrolled';
 import { UncontrolledVirtualDemo } from './full-featured/uncontrolled-virtual';
 import { UncontrolledGroupedVirtualDemo } from './full-featured/uncontrolled-grouped-virtual';
+import { FullFeaturedCustomizedDemo } from './full-featured/full-featured-customized';
 
 export const FullFeaturedDemos = () => (
   <div>
@@ -12,5 +13,6 @@ export const FullFeaturedDemos = () => (
     <FullFeaturedUncontrolledDemo />
     <UncontrolledVirtualDemo />
     <UncontrolledGroupedVirtualDemo />
+    <FullFeaturedCustomizedDemo />
   </div>
 );

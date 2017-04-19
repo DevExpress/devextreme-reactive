@@ -13,10 +13,10 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by
-defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping for uncontrolled scenario
+defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping for the uncontrolled mode
 groupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping change
 expandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies expanded groups
-defaultExpandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies starting expanded groups for uncontrolled scenario
+defaultExpandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies starting expanded groups for the uncontrolled mode
 expandedGroupsChange | (expandedGroups: { [key: [GroupKey](#group-key)]: true }) => void | | Handles expanded groups change
 
 ## Interfaces

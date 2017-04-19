@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 pageSize | number | | Specifies a page size
 currentPage | number | | Specifies the current page number
-defaultCurrentPage | number | | Specifies initial current page number for the uncontrolled scenario
+defaultCurrentPage | number | | Specifies initial current page number for the the uncontrolled mode
 currentPageChange | (currentPage: number) => void | | Handles current page change
 
 ## Plugin Developer Reference

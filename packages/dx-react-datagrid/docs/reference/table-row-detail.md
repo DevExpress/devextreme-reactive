@@ -13,7 +13,7 @@ Plugin that manages expanded state for a table row details and renders detail ro
 Name | Type | Default | Description
 -----|------|---------|------------
 expandedDetails | Array&lt;number&#124;string&gt; | | Specifies expanded rows
-defaultExpandedDetails | Array&lt;number&#124;string&gt; | | Specifies initially expanded rows for the uncontrolled scenario
+defaultExpandedDetails | Array&lt;number&#124;string&gt; | | Specifies initially expanded rows for the the uncontrolled mode
 expandedDetailsChange | (expandedDetails: Array&lt;number&#124;string&gt;) => void | | Handles expanded rows change
 template | Component&lt;[DetailRowProps](#detail-row-props)&gt; | | Component that renders details for a row
 detailToggleTemplate | Component&lt;[DetailToggleProps](#detail-toggle-props)&gt; | | Component that renders a details toggle control

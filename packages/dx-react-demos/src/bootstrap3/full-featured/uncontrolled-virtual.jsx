@@ -74,6 +74,7 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
           <TableRowDetail
             defaultExpandedDetails={[3]}
             template={this.rowTemplate}
+            rowHeight={60}
           />
 
         </DataGrid>

@@ -1,4 +1,4 @@
-export const expandedDetailRows = (sourceRows, expandedRows) => {
+export const expandedDetailRows = (sourceRows, expandedRows, rowHeight) => {
   let rows = sourceRows;
   expandedRows.filter((value, index, self) => self.indexOf(value) === index).forEach((rowId) => {
     const index = rows.findIndex(row => row.id === rowId);
@@ -8,7 +8,7 @@ export const expandedDetailRows = (sourceRows, expandedRows) => {
       const row = rows[rowIndex];
       rows = [
         ...rows.slice(0, insertIndex),
-        { type: 'detailRow', id: `detailRow_${row.id}`, for: row, colspan: 0, height: 'auto' },
+        { type: 'detailRow', id: `detailRow_${row.id}`, for: row, colspan: 0, height: rowHeight },
         ...rows.slice(insertIndex),
       ];
     }

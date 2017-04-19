@@ -60,7 +60,10 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
 
         <TableFilterRow />
 
-        <TableRowDetail template={this.rowTemplate} />
+        <TableRowDetail
+          template={this.rowTemplate}
+          rowHeight={80}
+        />
       </DataGrid>
     );
   }

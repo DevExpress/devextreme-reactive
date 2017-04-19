@@ -74,6 +74,7 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
           <TableRowDetail
             defaultExpandedDetails={[3]}
             template={this.rowTemplate}
+            rowHeight={37}
           />
 
           <TableGroupRow />

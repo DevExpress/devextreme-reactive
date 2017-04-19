@@ -4,7 +4,7 @@ import React from 'react';
 import { WindowedScroller } from './virtual-table/windowed-scroller';
 import { VirtualBox } from './virtual-table/virtual-box';
 
-const DEFAULT_HEIGHT = 38;
+const DEFAULT_HEIGHT = 37;
 const MINIMAL_COLUMN_WIDTH = 100;
 
 const calculateColumnWidths = (columns, tableWidth) => {

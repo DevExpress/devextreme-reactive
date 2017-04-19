@@ -1,6 +1,6 @@
 # GroupingPanel Plugin Reference
 
-Plugin that renders a panel in the DataGrid header indicating the current column grouping. Interacting with this panel an end-user can also change the grouping configuration in real-time.
+A plugin that renders a panel in the DataGrid header shows grouped columns. An end-user can change the grouping in real time by interacting with this panel.
 
 ## User Reference
 
@@ -24,8 +24,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-groupedColumns | Array&lt;[Column](datagrid.md#column)&gt; | Columns that the DataGrid is currently grouped by
-groupByColumn | ({ columnName: string }) | Toggles grouping state of a column
+groupedColumns | Array&lt;[Column](datagrid.md#column)&gt; | Columns by which the DataGrid is currently grouped
+groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; | A template that should be used to render content of the group panel cells
 
 ### <a name="cell-content-props"></a>CellContentProps

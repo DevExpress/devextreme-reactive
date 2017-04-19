@@ -1,14 +1,43 @@
 import React from 'react';
-import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import {
+  Getter,
+  Template,
+  TemplatePlaceholder,
+  extractTemplates,
+  combineTemplates,
+} from '@devexpress/dx-react-core';
 
 const CellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
 
+export const TableViewCellTemplate = (props) => {
+  const { children } = props;
+  const template = React.Children.only(children);
+  return template(props);
+};
+TableViewCellTemplate.propTypes = {
+  predicate: React.PropTypes.func,
+};
+TableViewCellTemplate.defaultProps = {
+  predicate: undefined,
+};
+
 export class TableView extends React.PureComponent {
+  componentWillMount() {
+    const { children, cellTemplate } = this.props;
+    this.updateTemplates(children, cellTemplate);
+  }
+  componentWillReceiveProps(nextProps) {
+    const { children, cellTemplate } = nextProps;
+    this.updateTemplates(children, cellTemplate);
+  }
+  updateTemplates(children, cellTemplate) {
+    const dataCellTemplates = extractTemplates(children, TableViewCellTemplate);
+    this._dataCellTemplate = combineTemplates(dataCellTemplates, cellTemplate);
+  }
   render() {
-    const { tableTemplate, cellTemplate } = this.props;
+    const { tableTemplate } = this.props;
     const Table = tableTemplate;
-    const TableCell = cellTemplate;
 
     return (
       <div>
@@ -54,7 +83,7 @@ export class TableView extends React.PureComponent {
         <Template
           name="tableViewCell"
         >
-          {props => <TableCell {...props} />}
+          {this._dataCellTemplate}
         </Template>
       </div>
     );
@@ -64,4 +93,5 @@ export class TableView extends React.PureComponent {
 TableView.propTypes = {
   tableTemplate: React.PropTypes.func.isRequired,
   cellTemplate: React.PropTypes.func.isRequired,
+  children: React.PropTypes.array,
 };

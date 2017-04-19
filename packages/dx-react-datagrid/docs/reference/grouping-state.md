@@ -1,6 +1,6 @@
 # GroupingState Plugin Reference
 
-Plugin that manages grouping state. It controls by which column rows are grouped. It also stores information about expanded/collapsed groups.
+Plugin that manages the grouping state. It controls by which column rows are grouped. It also stores information about expanded/collapsed groups.
 
 ## User Reference
 
@@ -33,13 +33,13 @@ column | string | Specifies a column name to group by
 
 ### <a name="group-key"></a>GroupKey
 
-Describes an group that can be nested in another one
+Describes a group that can be nested in another one
 
 A primitive value with the following type:
 
 string
 
-This string consists of values by which rows are grouped. Values are merged by `_` symbol. For example, expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male_Audi` and so on.
+This string consists of values by which rows are grouped. Values are merged by the `_` symbol. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male_Audi` and so on.
 
 ## Plugin Developer Reference
 
@@ -54,5 +54,5 @@ Name | Plugin | Type | Description
 grouping | Getter | () => Array&lt;[Grouping](#grouping)&gt; | Applied grouping
 expandedGroups | Getter | () => { [key: [GroupKey](#group-key)]: true } | Expanded groups
 groupedColumns | Getter | () => Array&lt;Column&gt; | Columns with applied grouping on them
-groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Group by specified column name or cancel grouping for. If `groupIndex` is omitted, group will be added to the last position.
-toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles expanded group state
+groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column name or cancels grouping. If `groupIndex` is omitted, the group will be added to the last position.
+toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state

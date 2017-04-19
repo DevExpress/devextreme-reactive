@@ -1,6 +1,6 @@
 # DataGrid Reference
 
-DataGrid is a root container component that accepts data via the `rows` property. It provides this data to the hosted plugins specified as child components to preprocess and display it as a table representation. Also it accepts the table columns description via the `columns` property.
+DataGrid is a root container component that accepts data via the `rows` property. It provides this data to the hosted plugins specified as child components to preprocess and display it as a table representation. It also accepts the table columns description via the `columns` property.
 
 Initially it does not contain any plugins to display data. So you should specify them depending on your needs. See more details about the [plugins concept](../README.md#plugins-overview).
 

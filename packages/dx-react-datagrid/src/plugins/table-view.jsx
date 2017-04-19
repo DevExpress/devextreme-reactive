@@ -10,13 +10,10 @@ import {
 const CellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
 
-export const TableViewCellTemplate = (props) => {
-  const { children } = props;
-  const template = React.Children.only(children);
-  return template(props);
-};
+export const TableViewCellTemplate = () => null;
 TableViewCellTemplate.propTypes = {
   predicate: React.PropTypes.func,
+  children: React.PropTypes.func.isRequired,
 };
 TableViewCellTemplate.defaultProps = {
   predicate: undefined,

@@ -1,6 +1,6 @@
 # TableView Plugin Reference
 
-This plugin renders the DataGrid data as a table. It contains visualization components such as table view, table view cell that can be extended by other plugins. It also exposes some customization points to manage column span, height of rows, width of columns, etc.
+This plugin renders the DataGrid data as a table. It contains visualization components such as a table view, table view cell that can be extended by other plugins. It also exposes some customization points to manage column span, height of rows, width of columns, etc.
 
 ## User Reference
 
@@ -24,8 +24,8 @@ Field | Type | Description
 ------|------|------------
 headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies the rows that should be rendered within the table heading
 bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies the rows that should be rendered within the table body
-columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendering table columns
-cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; | A template that should be used to render a table cell content
+columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns
+cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; | A template that should be used to render table cell content
 
 ### <a name="cell-content-props"></a>CellContentProps
 
@@ -35,8 +35,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](#table-row) | Specifies table row
-column | [TableColumn](#table-column) | Specifies table column
+row | [TableRow](#table-row) | Specifies a table row
+column | [TableColumn](#table-column) | Specifies a table column
 
 ### <a name="table-row"></a>TableRow
 
@@ -48,7 +48,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-type? | string | Specifies table row type. Used to identify cell template for rendered row. For rows passed by user into the widget type is not defined
+type? | string | Specifies the table row type. Used to identify a cell template for a rendered row. Type is not defined for rows passed by a user into the widget
 
 ### <a name="table-column"></a>TableColumn
 
@@ -60,7 +60,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-type? | string | Specifies table column type. Used to identify a cell template to render a column cell. For data rows the type property is not defined
+type? | string | Specifies the table column type. Used to identify a cell template to render a column cell. The type property is not defined for data rows
 
 ## Plugin Developer Reference
 

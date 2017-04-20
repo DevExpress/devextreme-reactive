@@ -1,6 +1,6 @@
 # TableSelection Plugin Reference
 
-This plugin visualizes selection state within a table by rendering selection checkboxes and highlighting the selected rows.
+This plugin visualizes the selection state within a table by rendering selection checkboxes and highlighting selected rows.
 
 ## User Reference
 
@@ -14,7 +14,7 @@ This plugin visualizes selection state within a table by rendering selection che
 Name | Type | Default | Description
 -----|------|---------|------------
 highlightSelected | boolean | false | If true, selected rows are highlighted
-selectByRowClick | boolean | false | If true, a row selected is toggled by click
+selectByRowClick | boolean | false | If true, a selected row is toggled by click
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row
 showCheckboxes | boolean | false | If ture, selection checkboxes are rendered inside each data row
 selectCellTemplate | Component&lt;[SelectCellProps](#select-cell-props)&gt; | | A component that renders a data row selection checkbox
@@ -36,13 +36,13 @@ toggleAll | () => void | Selects or deselects all rows
 
 ### <a name="select-cell-props"></a>SelectCellProps
 
-Describes properties passed to template that renders cell with selection control inside the heading row.
+Describes properties passed to a template that renders a cell with the selection control inside the heading row.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-selected | boolean | Specifies whether or not row is selected
+selected | boolean | Specifies whether or not a row is selected
 changeSelected | () => void | Selects or deselects a row
 
 ## Plugin Developer Reference

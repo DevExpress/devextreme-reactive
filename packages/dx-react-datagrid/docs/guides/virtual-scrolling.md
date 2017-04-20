@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DataGrid component can handle a large amount of data passed to it. In some cases, it may be required to show 10 000 rows or even 1 000 000 ones. As an alternative to paging with hundreds or thousands of pages, we porivide the virtual mode for data presentation.
+The DataGrid component can handle a large amount of data passed to it. In some cases, it may be required to show thousands of records. As an alternative to paging with hundreds of pages, we porivide the virtual mode for data presentation.
 
 ## Plugin List
 

@@ -1,6 +1,6 @@
 # FilteringState Plugin Reference
 
-Plugin that manages filtering state.
+Plugin that manages the filtering state.
 
 ## User Reference
 
@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters to be applied to 
+filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters to be applied 
 defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies initial filters for the uncontrolled mode
-filtersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Filters change handler
+filtersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filter changes 
 
 ## Interfaces
 
@@ -26,8 +26,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | string | Specifies a column name to apply a filter to
-value | string | Specifies a value to filter rows by
+column | string | Specifies a column name to which a filter is applied
+value | string | Specifies a value by which rows are filtered
 
 ## Plugin Developer Reference
 

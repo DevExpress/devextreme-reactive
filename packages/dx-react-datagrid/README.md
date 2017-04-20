@@ -22,6 +22,8 @@ Install DataGrid Bootstrap3 components package:
 npm i @devexpress/dx-react-datagrid-bootstrap3 --save
 ```
 
+Make sure that Bootstrap styles are linked to a page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
+
 #### Add a DataGrid to your app:
 
 By default DataGrid renders nothing. All its functionality is implemented via plugin components that are nested into the root DataGrid component. So we should specify at least one plugin that visualize the data provided to the grid.

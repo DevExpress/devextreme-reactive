@@ -25,5 +25,5 @@ sortings | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column so
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => Array&lt;[Row](datagrid.md#row)&gt; | Rows with applied sorting
+rows | Getter | () => Array&lt;[Row](datagrid.md#row)&gt; | Rows with the applied sorting
 

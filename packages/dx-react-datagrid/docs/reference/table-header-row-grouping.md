@@ -1,6 +1,6 @@
 # TableHeaderRowGrouping Plugin Reference
 
-Plugin that extends the table view heading row. Renders component that toggles grouping state for a column.
+Plugin that extends the table view heading row. Renders a component that toggles the grouping state for a column.
 
 ## User Reference
 

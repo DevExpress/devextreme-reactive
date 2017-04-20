@@ -46,7 +46,7 @@ const Container = withRouter(({ location }) => (
     : (
       <div className="container">
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-3 main-menu">
             <h3>Simple Demos</h3>
             <ul className="list-unstyled">
               <li><Link to="/basic">Basic</Link></li>
@@ -62,7 +62,7 @@ const Container = withRouter(({ location }) => (
             </ul>
           </div>
 
-          <div className="col-md-9">
+          <div className="col-md-9 demo-content">
             <Demos />
           </div>
         </div>

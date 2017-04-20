@@ -32,16 +32,45 @@ h4 {
     color: #627789;
 }
 
-
 .navbar.navbar-main {
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
+    height: 78px;
 }
 
 .navbar-default.navbar-main a.navbar-brand {
     color: #f05b41;
 }
+
+.navbar-default.navbar-main .navbar-nav {
+  margin-top: 13px;
+}
+
 .navbar-default.navbar-main .navbar-nav > li > a {
-    color: #296794;
+    color: #0e4c77;
+    font-size: 16px;
+}
+
+.navbar-default.navbar-main .navbar-nav > li > a:hover {
+    color: #f05b41;
+}
+
+.navbar-default.navbar-main .navbar-nav > li.active > a {
+    color: #f05b41;
+    background: transparent;
+}
+
+.demos-container .main-menu,
+.docs-container,
+section {
+    font-family: "Segoe UI","Helvetica Neue",Helvetica,Verdana,"san-serif";
+}
+
+.docs-container .docs-content {
+    font-size: 16px;
+}
+
+.main-menu ul li {
+    margin-bottom: 2px;
 }
 
 .lead {
@@ -71,11 +100,22 @@ h4 {
     color: #f05b41;
     margin: 0;
     font-size: 5em;
+    position: relative;
+    display: inline-block;
+}
+
+.intro-message > h1 > sup {
+    font-size: 0.3em;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: -40px;
 }
 
 .intro-message > h3 {
     font-size: 1.5em;
     color: #fff;
+    margin: 5px 0 35px;
 }
 
 .intro-divider {
@@ -87,6 +127,9 @@ ul.intro-action-buttons .btn,
 ul.banner-action-buttons .btn {
     color: #f05b41;
     width: 210px;
+    background-color: #fff;
+    border-color: #fff;
+    border-width: 2px;
 }
 
 ul.intro-action-buttons .btn.demos,
@@ -94,7 +137,17 @@ ul.banner-action-buttons .btn.demos {
     color: #fff;
     background-color: #f05b41;
     border-color: #f05b41;
+    border-width: 2px;
 }
+
+ul.intro-action-buttons .btn:hover,
+ul.banner-action-buttons .btn:hover,
+ul.intro-action-buttons .btn.demos:hover,
+ul.banner-action-buttons .btn.demos:hover {
+    color: #fff;
+    background-color: transparent;
+}
+
 
 @media(max-width:767px) {
     .intro-message {
@@ -137,12 +190,13 @@ ul.banner-action-buttons .btn.demos {
 }
 
 .block-image {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .section-heading {
     margin-bottom: 30px;
     color: #296794;
+    font-size: 34px;
 }
 
 .section-heading-spacer {
@@ -157,7 +211,7 @@ ul.banner-action-buttons .btn.demos {
     background: #173952 url({{site.baseurl}}/img/bottom-bg.jpg) no-repeat center center;
     background-size: cover;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
-    margin-bottom: -60px;
+    margin-bottom: -40px;
 }
 
 .banner h2 {
@@ -199,18 +253,33 @@ ul.banner-action-buttons .btn.demos {
 }
 
 footer {
-    margin-top: 60px;
+    margin-top: 40px;
     padding: 50px 0;
     background-color: #f8f8f8;
+}
+
+footer ul {
+  margin-top: 30px;
 }
 
 footer ul > li > a {
     color: #296794;
-    padding: 50px 0;
+    padding: 50px 15px 50px 0;
     background-color: #f8f8f8;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
+    font-size: 16px;
 }
 
-p.copyright {
-    margin: 15px 0 0;
+footer ul > li > a:hover {
+  text-decoration: none;
+  color: #f05b41;
+}
+
+footer ul > li.active > a {
+  color: #f05b41;
+}
+
+.copyright {
+    color: #888;
+    font-size: 12px;
 }

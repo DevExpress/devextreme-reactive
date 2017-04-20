@@ -90,5 +90,8 @@ export class TableView extends React.PureComponent {
 TableView.propTypes = {
   tableTemplate: React.PropTypes.func.isRequired,
   cellTemplate: React.PropTypes.func.isRequired,
-  children: React.PropTypes.array,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.node,
+  ]),
 };

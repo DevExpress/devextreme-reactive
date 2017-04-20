@@ -26,7 +26,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 direction | 'asc' &#124; 'desc' | Specifies sorting direction if applied
-toggleSorting | ({ keepOther: boolean }) => void | Changes sort order of a column. Keeps existing sorting if `keepOther` is set to `true`
+toggleSorting | ({ keepOther: boolean }) => void | Changes the sort order of a column. Keeps existing sorting if `keepOther` is set to `true`
 
 ## Plugin Developer Reference
 

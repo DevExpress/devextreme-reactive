@@ -52,7 +52,7 @@ function getVisibleItems(options) {
   }
 
   return {
-    visibleItemMetas: [...visibleItemMetas, ...stickyItemsMetas],
+    visibleItemMetas: [...stickyItemsMetas, ...visibleItemMetas],
     fullSize: offset,
     stickyBeforeSize: stickyItemsMetas.reduce((accumulator, meta) => accumulator + meta.size, 0),
   };
@@ -101,11 +101,13 @@ export class VirtualBox extends React.Component {
         styles = {
           ...styles,
 
+          zIndex: 1,
           position: stickyProp,
           [positionProp]: `${position + (viewport[`${positionProp}Stick`] || 0)}px`,
         };
       } else if (direction === 'vertical') {
         styles = {
+          zIndex: 1,
           position: 'fixed',
           [crossSizeProp]: `${viewport[crossSizeProp]}px`,
           overflow: 'hidden',

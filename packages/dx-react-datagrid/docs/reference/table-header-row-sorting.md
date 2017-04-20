@@ -14,13 +14,13 @@ Plugin that extends the table view header row with the sort order indicator and 
 
 Name | Type | Default | Description
 -----|------|---------|------------
-sortableCellTemplate | Component&lt;[SortableCellProps](#sortable-cell-props)&gt; | | A component that renders a cell with  the current sort order indicator
+sortableCellTemplate | Component&lt;[SortableCellProps](#sortable-cell-props)&gt; | | A component that renders a cell with the current sort order indicator
 
 ## Interfaces
 
 ### <a name="sortable-cell-props"></a>SortableCellProps
 
-Describes properties used to render cell with sort indicator.
+Describes properties used to render a cell with a sort indicator.
 
 A value with the following shape:
 

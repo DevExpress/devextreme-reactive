@@ -37,7 +37,6 @@ export class VirtualTable extends React.Component {
       let height = row.height || DEFAULT_HEIGHT;
       if (height === 'auto') {
         height = DEFAULT_HEIGHT;
-        console.warn('\'auto\' height is not supported by the virtual table');
       }
       return height;
     };

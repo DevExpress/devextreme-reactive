@@ -12,7 +12,7 @@ Plugin that renders a panel that allows an end-user to navigate through data pag
 
 Name | Type | Default | Description
 -----|------|---------|------------
-pagerTemplate | Component&lt;[PagerProps](#pager-props)&gt; | | Component that renders a pager based on the supplied parameters
+pagerTemplate | Component&lt;[PagerProps](#pager-props)&gt; | | A component that renders a pager based on the supplied parameters
 
 ## Interfaces
 
@@ -24,9 +24,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-currentPage | number | Specifies current page
-totalPages | number | Specifies total pages count
-onCurrentPageChange | (page: number) => void | Changes current page
+currentPage | number | Specifies the current page
+totalPages | number | Specifies the total pages count
+onCurrentPageChange | (page: number) => void | Changes the current page
 
 ## Plugin Developer Reference
 

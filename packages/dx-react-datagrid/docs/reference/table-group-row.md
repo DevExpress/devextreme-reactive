@@ -13,7 +13,7 @@ Plugin that renders group rows with the capability to expand and collapse them.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | Component that renders content of a group row
+groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | A component that renders the content of a group row
 
 ## Interfaces
 
@@ -26,7 +26,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | A group row data object
-isExpanded | boolean | Specifies whether or not row is expanded
+isExpanded | boolean | Specifies whether or not a row is expanded
 toggleGroupExpanded | () => void | Toggles the expanded state of a group row
 
 ### <a name="group-row"></a>GroupRow
@@ -40,7 +40,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 column | string | The name of the column associated with the group
-value | any | Value that unites all the rows inside a group
+value | any | A value that unites all the rows inside a group
 
 ## Plugin Developer Reference
 

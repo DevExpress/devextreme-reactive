@@ -14,7 +14,7 @@ Plugin that renders a row with filtering controls right under the DataGrid headi
 Name | Type | Default | Description
 -----|------|---------|------------
 rowHeight | number | | Specifies the height for the filter row
-filterCellTemplate | Component&lt;[FilterCellProps](#filter-cell-props)&gt; | | Component that renders a cell with a capability to change a column filter
+filterCellTemplate | Component&lt;[FilterCellProps](#filter-cell-props)&gt; | | A component that renders a cell with a capability to change a column filter
 
 ## Interfaces
 

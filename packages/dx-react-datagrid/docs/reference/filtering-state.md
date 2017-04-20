@@ -1,6 +1,6 @@
 # FilteringState Plugin Reference
 
-Plugin that manages the filtering state.
+A plugin that manages the filtering state.
 
 ## User Reference
 

@@ -1,6 +1,6 @@
 # LocalPaging Plugin Reference
 
-Plugin that performs local data paging. It also changes current page if the provided one can not be applied due to smaller amount of available pages.
+Plugin that performs local data paging. It also changes the current page if the provided one cannot be applied due to a smaller amount of available pages.
 
 ## User Reference
 
@@ -19,13 +19,13 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows to be paged
-pageSize | Getter | number | Provided page size
-currentPage | Getter | number | Provided current page
-setCurrentPage | Action | ({ page: number }) => void | Changes current page
+pageSize | Getter | number | Provides the page size
+currentPage | Getter | number | Provides the current page
+setCurrentPage | Action | ({ page: number }) => void | Changes the current page
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => Array&lt;[Row](datagrid.md#row)&gt; | Rows with applied paging
-totalPages | Getter | () => number | Total pages count
+rows | Getter | () => Array&lt;[Row](datagrid.md#row)&gt; | Rows with the applied paging
+totalPages | Getter | () => number | The total pages count

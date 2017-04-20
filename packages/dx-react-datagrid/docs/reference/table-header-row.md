@@ -24,7 +24,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-title? | string | Specifies a table column title.
+title? | string | Specifies a table column title
 
 ## Plugin Developer Reference
 

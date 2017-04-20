@@ -46,17 +46,8 @@ export class FullFeaturedCustomizedDemo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 100000 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 10000 }),
     };
-
-    this.rowTemplate = ({ row }) => (
-      <Panel header={row.product} bsStyle="danger">
-        <p>Panel content </p>
-        <Button type="submit" bsStyle="danger" className="pull-right">
-          Take Action
-        </Button>
-      </Panel>
-      );
   }
   render() {
     const { rows, columns } = this.state;
@@ -134,11 +125,6 @@ export class FullFeaturedCustomizedDemo extends React.PureComponent {
           <PagingPanel />
 
           <TableSelection />
-
-          <TableRowDetail
-            defaultExpandedDetails={[3]}
-            template={this.rowTemplate}
-          />
 
           <TableGroupRow />
 

@@ -11,7 +11,7 @@ Initially it does not contain any plugins to display data. So you should specify
 Name | Type | Default | Description
 -----|------|---------|------------
 rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
-columns | Array&lt;[Column](#column)&gt; | | Specifies a row fields to be rendered as columns
+columns | Array&lt;[Column](#column)&gt; | | Specifies row fields to be rendered as columns
 
 ## Interfaces
 
@@ -35,7 +35,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-name | string | Specifies the name of a data row field to obtain the data from. It is also a unique key that can be used to identify a particular column
+name | string | Specifies the field name in the data row to obtain a column value. It is also a unique key that can be used to identify a particular column
 
 ## Plugin Developer Reference
 

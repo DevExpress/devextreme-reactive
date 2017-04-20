@@ -16,7 +16,10 @@ export const TableView = ({ children }) => (
   </div>
 );
 TableView.propTypes = {
-  children: React.PropTypes.array,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.node,
+  ]),
 };
 TableView.defaultProps = {
   children: undefined,

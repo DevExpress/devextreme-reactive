@@ -35,9 +35,13 @@ To control the paging state from the outside you need to set the `currentPage` a
 
 If your data service supports paging operations, you can handle the DataGrid's paging state changes in order to request a page from the server according to the active page number and size.
 
-Plese note that you shouldn't use the `LocalPaging` plugin to set up remote paging. You should handle the `currentPageChange` event of the `PagingState` plugin in order to recieve updates on the current page number changes. Having recieved a data page from the server, just pass it to the `DataGrid` component's `rows` property.
+Please note that you shouldn't use the `LocalPaging` plugin to set up remote paging. You should handle the `currentPageChange` event of the `PagingState` plugin in order to receive updates on the current page number changes. Having received a data page from the server, just pass it to the `DataGrid` component's `rows` property.
+
+[DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/paging/remote-paging)
+
+[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/remote-paging.jsx)
 
 ## Using Paging with Other Data Processing Plugins
 
-It's high likely that you will use paging features side by side with other features such as sorting, grouping, etc. In this case you should be carryful about the order in which the plugins appear inside the DataGrid container. The reason for that is quite obvious. Plugins are applied one by one in the order they appear. Let's imagine you are using paging and sorting together. If you put the `LocalSorting` plugin befor the `LocalPaging` one,  data will be sorted and then paginated. Once you change the order, the unsorted rows will be paginated and only the current page will be sorted after that.
+It's high likely that you will use paging features side by side with other features such as sorting, grouping, etc. In this case you should be careful about the order in which the plugins appear inside the DataGrid container. The reason for that is quite obvious. Plugins are applied one by one in the order they appear. Let's imagine you are using paging and sorting together. If you put the `LocalSorting` plugin before the `LocalPaging` one,  data will be sorted and then paginated. Once you change the order, the unsorted rows will be paginated and only the current page will be sorted after that.
 

@@ -26,7 +26,7 @@ Field | Type | Description
 ------|------|------------
 groupedColumns | Array&lt;[Column](datagrid.md#column)&gt; | Columns by which the DataGrid is currently grouped
 groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
-cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; | A template that should be used to render content of the group panel cells
+cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; | A template that should be used to render the content of the group panel cells
 
 ### <a name="cell-content-props"></a>CellContentProps
 

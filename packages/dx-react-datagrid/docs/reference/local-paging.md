@@ -1,6 +1,6 @@
 # LocalPaging Plugin Reference
 
-Plugin that performs local data paging. It also changes the current page if the provided one cannot be applied due to a smaller amount of available pages.
+A plugin that performs local data paging. It also changes the current page if the provided one cannot be applied due to a smaller amount of available pages.
 
 ## User Reference
 

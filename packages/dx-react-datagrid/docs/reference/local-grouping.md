@@ -1,6 +1,6 @@
 # LocalGrouping Plugin Reference
 
-Plugin that performs local grouping and group expanding/collapsing.
+A plugin that performs local grouping and group expanding/collapsing.
 
 ## User Reference
 

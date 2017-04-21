@@ -20,7 +20,7 @@ filterCellTemplate | Component&lt;[FilterCellProps](#filter-cell-props)&gt; | | 
 
 ### <a name="filter-cell-props"></a>FilterCellProps
 
-Describes the properties passed to the filter row cell template.
+Describes properties passed to the filter row cell template.
 
 A value with the following shape:
 

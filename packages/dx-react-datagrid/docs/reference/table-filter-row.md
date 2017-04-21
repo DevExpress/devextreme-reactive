@@ -1,6 +1,6 @@
 # TableFilterRow Plugin Reference
 
-Plugin that renders a row with filtering controls right under the DataGrid heading row.
+A plugin that renders a row with filtering controls right under the DataGrid heading row.
 
 ## User Reference
 
@@ -14,7 +14,7 @@ Plugin that renders a row with filtering controls right under the DataGrid headi
 Name | Type | Default | Description
 -----|------|---------|------------
 rowHeight | number | | Specifies the height for the filter row
-filterCellTemplate | Component&lt;[FilterCellProps](#filter-cell-props)&gt; | | A component that renders a cell with a capability to change a column filter
+filterCellTemplate | Component&lt;[FilterCellProps](#filter-cell-props)&gt; | | A component that renders a cell with the capability to change a column filter
 
 ## Interfaces
 

@@ -80,4 +80,4 @@ tableBodyRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be 
 tableColumns | Getter | () => Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered inside the table
 tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that can be provided by other plugins
 tableView | Template | none | A template that renders a table
-tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders a table cell content
+tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders the table cell content

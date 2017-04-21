@@ -1,6 +1,6 @@
 # TableGroupRow Plugin Reference
 
-Plugin that renders group rows with the capability to expand and collapse them.
+A plugin that renders group rows with the capability to expand and collapse them.
 
 ## User Reference
 
@@ -19,7 +19,7 @@ groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&g
 
 ### <a name="group-row-cell-props"></a>GroupRowCellProps
 
-Describes properties passed to the template that renders a group row content.
+Describes properties passed to the template that renders the group row content.
 
 A value with the following shape:
 

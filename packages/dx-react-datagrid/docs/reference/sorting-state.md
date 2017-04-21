@@ -20,7 +20,7 @@ sortingsChange | (sortings: Array&lt;[Sorting](#sorting)&gt;) => void | | Handle
 
 ### Sorting
 
-Describes a sorting apllied to a column
+Describes a sorting applied to a column
 
 A value with the following shape:
 

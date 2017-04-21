@@ -1,6 +1,6 @@
 # TableHeaderRow Plugin Reference
 
-Plugin that renders a simple table header that shows only column titles. A column title is provided via the `title` field in a column definition. See extended data structure for a [Column](#column).
+A plugin that renders a simple table header that shows only column titles. A column title is provided via the `title` field in a column definition. See the extended data structure for a [Column](#column).
 
 ## User Reference
 

@@ -14,7 +14,7 @@ A plugin that extends a table view with a heading row and renders a component th
 
 Name | Type | Default | Description
 -----|------|---------|------------
-groupableCellTemplate | Component&lt;[GroupableCellProps](#groupable-cell-props)&gt; | | A component that renders a cell with a capability to group data by a column
+groupableCellTemplate | Component&lt;[GroupableCellProps](#groupable-cell-props)&gt; | | A component that renders a cell with the capability to group data by a column
 
 ## Interfaces
 

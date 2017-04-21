@@ -1,6 +1,6 @@
 # GroupingState Plugin Reference
 
-Plugin that manages the grouping state. It controls by which column rows are grouped. It also stores information about expanded/collapsed groups.
+A plugin that manages the grouping state. It controls by which column rows are grouped. It also stores information about expanded/collapsed groups.
 
 ## User Reference
 
@@ -14,10 +14,10 @@ Name | Type | Default | Description
 -----|------|---------|------------
 grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by
 defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping for the uncontrolled mode
-groupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping change
+groupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping changes
 expandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies expanded groups
-defaultExpandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies starting expanded groups for the uncontrolled mode
-expandedGroupsChange | (expandedGroups: { [key: [GroupKey](#group-key)]: true }) => void | | Handles expanded groups change
+defaultExpandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies initially expanded groups for the uncontrolled mode
+expandedGroupsChange | (expandedGroups: { [key: [GroupKey](#group-key)]: true }) => void | | Handles expanded group changes
 
 ## Interfaces
 

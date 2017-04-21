@@ -35,7 +35,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-name | string | Specifies the field name in the data row to obtain a column value. It is also a unique key that can be used to identify a particular column
+name | string | Specifies the field name in the data row to obtain a column value. A unique key can be also used to identify a particular column
 
 ## Plugin Developer Reference
 

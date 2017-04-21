@@ -62,7 +62,7 @@ export class RemotePagingDemo extends React.PureComponent {
     fetch(queryString)
       .then(response => response.json())
       .then(data => this.setState({
-        rows: data.items.map(item => Object.assign({ id: item.OrderNumber }, item)),
+        rows: data.items,
         totalCount: data.totalCount,
         loading: false,
       }));

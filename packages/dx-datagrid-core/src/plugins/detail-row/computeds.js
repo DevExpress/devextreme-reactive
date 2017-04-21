@@ -8,7 +8,7 @@ export const expandedDetailRows = (sourceRows, expandedRows) => {
       const row = rows[rowIndex];
       rows = [
         ...rows.slice(0, insertIndex),
-        { type: 'detailRow', id: `detailRow_${row.id}`, for: row, colspan: 0, height: 'auto' },
+        { type: 'detailRow', id: row.id, for: row, colspan: 0, height: 'auto' },
         ...rows.slice(insertIndex),
       ];
     }

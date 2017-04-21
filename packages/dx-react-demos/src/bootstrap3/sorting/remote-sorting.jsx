@@ -65,7 +65,7 @@ export class RemoteSortingDemo extends React.PureComponent {
     fetch(queryString)
       .then(response => response.json())
       .then(data => this.setState({
-        rows: data.items.map(item => Object.assign({ id: item.OrderNumber }, item)),
+        rows: data.items,
         loading: false,
       }));
     this.lastQuery = queryString;

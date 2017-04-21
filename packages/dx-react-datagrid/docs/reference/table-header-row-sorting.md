@@ -1,6 +1,6 @@
 # TableHeaderRowSorting Plugin Reference
 
-Plugin that extends the table view header row with the sort order indicator and allows an end-user to change sorting by a column.
+A plugin that extends the table view header row with the sort order indicator and allows an end-user to change sorting by a column.
 
 ## User Reference
 
@@ -26,7 +26,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-direction? | 'asc' &#124; 'desc' | Specifies a column sort order if applied
+direction? | 'asc' &#124; 'desc' | Specifies the column sort order if applied
 
 ## Plugin Developer Reference
 

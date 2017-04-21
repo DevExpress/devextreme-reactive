@@ -29,7 +29,7 @@ cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; |
 
 ### <a name="cell-content-props"></a>CellContentProps
 
-Describes the properties passed to a cell content template when rendering
+Describes properties passed to a cell content template when rendering
 
 A value with the following shape:
 

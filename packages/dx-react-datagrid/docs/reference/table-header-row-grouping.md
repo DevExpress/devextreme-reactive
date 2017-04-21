@@ -20,7 +20,7 @@ groupableCellTemplate | Component&lt;[GroupableCellProps](#groupable-cell-props)
 
 ### <a name="groupable-cell-props"></a>GroupableCellProps
 
-Describes the properties that are used to render a groupable header cell.
+Describes properties that are used to render a groupable header cell.
 
 A value with the following shape:
 

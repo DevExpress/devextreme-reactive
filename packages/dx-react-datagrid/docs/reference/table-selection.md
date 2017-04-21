@@ -24,7 +24,7 @@ selectAllCellTemplate | Component&lt;[SelectAllCellProps](#select-all-cell-props
 
 ### <a name="select-all-cell-props"></a>SelectAllCellProps
 
-Describes the properties passed to the template that renders a cell with a selection control.
+Describes properties passed to the template that renders a cell with a selection control.
 
 A value with the following shape:
 

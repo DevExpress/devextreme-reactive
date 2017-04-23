@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 export const CellContentTemplate = ({ row, column }) =>
   <TemplatePlaceholder name="tableViewCell" params={{ row, column }} />;
 
 CellContentTemplate.propTypes = {
-  row: React.PropTypes.object.isRequired,
-  column: React.PropTypes.object.isRequired,
+  row: PropTypes.object.isRequired,
+  column: PropTypes.object.isRequired,
 };
 
 export class TableView extends React.PureComponent {
@@ -79,5 +80,5 @@ export class TableView extends React.PureComponent {
 }
 
 TableView.propTypes = {
-  tableTemplate: React.PropTypes.func.isRequired,
+  tableTemplate: PropTypes.func.isRequired,
 };

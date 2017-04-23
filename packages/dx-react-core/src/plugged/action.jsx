@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class Action extends React.PureComponent {
   componentWillMount() {
@@ -24,9 +25,9 @@ export class Action extends React.PureComponent {
   }
 }
 Action.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  action: React.PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
 };
 Action.contextTypes = {
-  pluginHost: React.PropTypes.object.isRequired,
+  pluginHost: PropTypes.object.isRequired,
 };

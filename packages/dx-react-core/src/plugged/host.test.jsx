@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './host';
@@ -12,7 +13,7 @@ describe('PluginHost', () => {
       return null;
     };
     Plugin.contextTypes = {
-      pluginHost: React.PropTypes.object.isRequired,
+      pluginHost: PropTypes.object.isRequired,
     };
 
     mount(

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const GroupPanelCellTemplate = ({ column, groupByColumn, children }) => (
   <button
@@ -19,11 +20,11 @@ export const GroupPanelCellTemplate = ({ column, groupByColumn, children }) => (
   </button>
 );
 GroupPanelCellTemplate.propTypes = {
-  column: React.PropTypes.object.isRequired,
-  groupByColumn: React.PropTypes.func.isRequired,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.arrayOf(React.PropTypes.node),
+  column: PropTypes.object.isRequired,
+  groupByColumn: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
 };
 
@@ -54,11 +55,11 @@ export const GroupPanel = (props) => {
 };
 
 GroupPanel.propTypes = {
-  groupedColumns: React.PropTypes.array.isRequired,
-  groupByColumn: React.PropTypes.func.isRequired,
-  groupByColumnText: React.PropTypes.string,
-  cellTemplate: React.PropTypes.func.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
+  groupedColumns: PropTypes.array.isRequired,
+  groupByColumn: PropTypes.func.isRequired,
+  groupByColumnText: PropTypes.string,
+  cellTemplate: PropTypes.func.isRequired,
+  cellContentTemplate: PropTypes.func.isRequired,
 };
 
 GroupPanel.defaultProps = {

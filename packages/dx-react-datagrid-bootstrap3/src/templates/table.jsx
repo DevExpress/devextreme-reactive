@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { closest } from './utils/table';
 
 export const TableCell = (props) => {
@@ -19,11 +20,11 @@ export const TableCell = (props) => {
 };
 
 TableCell.propTypes = {
-  row: React.PropTypes.object.isRequired,
-  column: React.PropTypes.object.isRequired,
-  colspan: React.PropTypes.number.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  isHeader: React.PropTypes.bool,
+  row: PropTypes.object.isRequired,
+  column: PropTypes.object.isRequired,
+  colspan: PropTypes.number.isRequired,
+  cellContentTemplate: PropTypes.func.isRequired,
+  isHeader: PropTypes.bool,
 };
 
 TableCell.defaultProps = {
@@ -58,11 +59,11 @@ export const TableRow = (props) => {
 };
 
 TableRow.propTypes = {
-  row: React.PropTypes.object.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  getCellInfo: React.PropTypes.func.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  isHeader: React.PropTypes.bool,
+  row: PropTypes.object.isRequired,
+  columns: PropTypes.array.isRequired,
+  getCellInfo: PropTypes.func.isRequired,
+  cellContentTemplate: PropTypes.func.isRequired,
+  isHeader: PropTypes.bool,
 };
 
 TableRow.defaultProps = {
@@ -118,10 +119,10 @@ Table.defaultProps = {
   onClick: () => {},
 };
 Table.propTypes = {
-  headerRows: React.PropTypes.array.isRequired,
-  bodyRows: React.PropTypes.array.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  getCellInfo: React.PropTypes.func.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  onClick: React.PropTypes.func,
+  headerRows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  getCellInfo: PropTypes.func.isRequired,
+  cellContentTemplate: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TableSelection as TableSelectionBase } from '@devexpress/dx-react-datagrid';
 import { SelectAllCell } from '../templates/select-all-cell';
 import { SelectCell } from '../templates/select-cell';
@@ -22,8 +23,8 @@ TableSelection.defaultProps = {
   showCheckboxes: true,
 };
 TableSelection.propTypes = {
-  highlightSelected: React.PropTypes.bool,
-  selectByRowClick: React.PropTypes.bool,
-  showSelectAll: React.PropTypes.bool,
-  showCheckboxes: React.PropTypes.bool,
+  highlightSelected: PropTypes.bool,
+  selectByRowClick: PropTypes.bool,
+  showSelectAll: PropTypes.bool,
+  showCheckboxes: PropTypes.bool,
 };

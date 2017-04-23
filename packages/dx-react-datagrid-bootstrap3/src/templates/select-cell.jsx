@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const SelectCell = ({ selected, changeSelected }) => (
   <input
@@ -9,6 +10,6 @@ export const SelectCell = ({ selected, changeSelected }) => (
 );
 
 SelectCell.propTypes = {
-  selected: React.PropTypes.bool.isRequired,
-  changeSelected: React.PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
+  changeSelected: PropTypes.func.isRequired,
 };

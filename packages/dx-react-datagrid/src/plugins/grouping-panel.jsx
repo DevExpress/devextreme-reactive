@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 export const GroupPanelCellContentTemplate = ({ column }) =>
   <TemplatePlaceholder name="groupingPanelCellContent" params={{ column }} />;
 
 GroupPanelCellContentTemplate.propTypes = {
-  column: React.PropTypes.object.isRequired,
+  column: PropTypes.object.isRequired,
 };
 
 export class GroupingPanel extends React.PureComponent {
@@ -64,5 +65,5 @@ export class GroupingPanel extends React.PureComponent {
 }
 
 GroupingPanel.propTypes = {
-  groupPanelTemplate: React.PropTypes.func.isRequired,
+  groupPanelTemplate: PropTypes.func.isRequired,
 };

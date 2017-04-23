@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const GroupableCell = ({ groupByColumn, children }) => (
   <div style={{ width: '100%', height: '100%' }}>
@@ -22,6 +23,6 @@ export const GroupableCell = ({ groupByColumn, children }) => (
 );
 
 GroupableCell.propTypes = {
-  children: React.PropTypes.any.isRequired,
-  groupByColumn: React.PropTypes.func.isRequired,
+  children: PropTypes.any.isRequired,
+  groupByColumn: PropTypes.func.isRequired,
 };

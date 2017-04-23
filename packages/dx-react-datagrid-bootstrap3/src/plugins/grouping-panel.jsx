@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-datagrid';
 import {
   GroupPanel,
@@ -20,7 +21,7 @@ export const GroupingPanel = ({ groupByColumnText }) => (
 );
 
 GroupingPanel.propTypes = {
-  groupByColumnText: React.PropTypes.string,
+  groupByColumnText: PropTypes.string,
 };
 GroupingPanel.defaultProps = {
   groupByColumnText: undefined,

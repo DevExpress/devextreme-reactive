@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Action } from '@devexpress/dx-react-core';
 import { setCurrentPage } from '@devexpress/dx-datagrid-core';
 
@@ -35,10 +36,10 @@ export class PagingState extends React.PureComponent {
 }
 
 PagingState.propTypes = {
-  pageSize: React.PropTypes.number,
-  currentPage: React.PropTypes.number,
-  defaultCurrentPage: React.PropTypes.number,
-  currentPageChange: React.PropTypes.func,
+  pageSize: PropTypes.number,
+  currentPage: PropTypes.number,
+  defaultCurrentPage: PropTypes.number,
+  currentPageChange: PropTypes.func,
 };
 
 PagingState.defaultProps = {

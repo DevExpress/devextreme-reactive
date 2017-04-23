@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { getColumnSortingDirection } from '@devexpress/dx-datagrid-core';
 
@@ -33,5 +34,5 @@ export const GroupingPanelSorting = (props) => {
 };
 
 GroupingPanelSorting.propTypes = {
-  sortableGroupCellTemplate: React.PropTypes.func.isRequired,
+  sortableGroupCellTemplate: PropTypes.func.isRequired,
 };

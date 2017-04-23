@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-react-datagrid';
 import { TableDetailToggle } from '../templates/table-detail-toggle';
 
@@ -16,10 +17,10 @@ export const TableRowDetail = (props) => {
 };
 
 TableRowDetail.propTypes = {
-  expandedDetails: React.PropTypes.array,
-  defaultExpandedDetails: React.PropTypes.array,
-  expandedDetailsChange: React.PropTypes.func,
-  template: React.PropTypes.func.isRequired,
+  expandedDetails: PropTypes.array,
+  defaultExpandedDetails: PropTypes.array,
+  expandedDetailsChange: PropTypes.func,
+  template: PropTypes.func.isRequired,
 };
 
 TableRowDetail.defaultProps = {

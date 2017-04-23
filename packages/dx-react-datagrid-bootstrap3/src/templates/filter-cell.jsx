@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const FilterCell = ({ filter, changeFilter }) => (
   <input
@@ -11,8 +12,8 @@ export const FilterCell = ({ filter, changeFilter }) => (
 );
 
 FilterCell.propTypes = {
-  filter: React.PropTypes.string,
-  changeFilter: React.PropTypes.func.isRequired,
+  filter: PropTypes.string,
+  changeFilter: PropTypes.func.isRequired,
 };
 
 FilterCell.defaultProps = {

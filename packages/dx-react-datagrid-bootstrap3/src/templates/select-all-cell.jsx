@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const SelectAllCell = ({ allSelected, someSelected, toggleAll }) => (
   <input
@@ -15,7 +16,7 @@ export const SelectAllCell = ({ allSelected, someSelected, toggleAll }) => (
 );
 
 SelectAllCell.propTypes = {
-  allSelected: React.PropTypes.bool.isRequired,
-  someSelected: React.PropTypes.bool.isRequired,
-  toggleAll: React.PropTypes.func.isRequired,
+  allSelected: PropTypes.bool.isRequired,
+  someSelected: PropTypes.bool.isRequired,
+  toggleAll: PropTypes.func.isRequired,
 };

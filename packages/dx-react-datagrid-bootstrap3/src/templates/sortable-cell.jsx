@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const SortableCell = ({ direction, children }) => {
   const iconName = `glyphicon-arrow-${direction === 'asc' ? 'down' : 'up'}`;
@@ -17,6 +18,6 @@ export const SortableCell = ({ direction, children }) => {
 };
 
 SortableCell.propTypes = {
-  direction: React.PropTypes.any.isRequired,
-  children: React.PropTypes.any.isRequired,
+  direction: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired,
 };

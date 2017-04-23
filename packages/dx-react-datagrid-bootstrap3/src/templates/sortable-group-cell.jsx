@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const SortableGroupCell = ({ direction, children, toggleSorting }) => {
   const iconName = `glyphicon-arrow-${direction === 'asc' ? 'down' : 'up'}`;
@@ -22,7 +23,7 @@ export const SortableGroupCell = ({ direction, children, toggleSorting }) => {
 };
 
 SortableGroupCell.propTypes = {
-  direction: React.PropTypes.any.isRequired,
-  children: React.PropTypes.any.isRequired,
-  toggleSorting: React.PropTypes.func.isRequired,
+  direction: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired,
+  toggleSorting: PropTypes.func.isRequired,
 };

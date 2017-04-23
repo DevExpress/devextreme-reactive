@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 export const TableHeaderRowGrouping = (props) => {
@@ -24,5 +25,5 @@ export const TableHeaderRowGrouping = (props) => {
 };
 
 TableHeaderRowGrouping.propTypes = {
-  groupableCellTemplate: React.PropTypes.func.isRequired,
+  groupableCellTemplate: PropTypes.func.isRequired,
 };

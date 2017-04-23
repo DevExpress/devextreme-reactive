@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { shallowEqual } from '../utils/shallowEqual';
 import { RERENDER_TEMPLATE } from './template';
 import { TemplateConnector } from './template-connector';
@@ -79,14 +80,14 @@ TemplatePlaceholder.defaultProps = {
   children: null,
 };
 TemplatePlaceholder.propTypes = {
-  name: React.PropTypes.string,
-  params: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  children: React.PropTypes.func,
+  name: PropTypes.string,
+  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  children: PropTypes.func,
 };
 TemplatePlaceholder.childContextTypes = {
-  templateHost: React.PropTypes.object.isRequired,
+  templateHost: PropTypes.object.isRequired,
 };
 TemplatePlaceholder.contextTypes = {
-  templateHost: React.PropTypes.object,
-  pluginHost: React.PropTypes.object.isRequired,
+  templateHost: PropTypes.object,
+  pluginHost: PropTypes.object.isRequired,
 };

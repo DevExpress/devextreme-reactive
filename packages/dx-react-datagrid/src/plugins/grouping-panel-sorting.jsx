@@ -1,12 +1,12 @@
 import React from 'react';
-import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { getColumnSortingDirection } from '@devexpress/dx-datagrid-core';
 
 export const GroupingPanelSorting = (props) => {
   const SortableGroupCell = props.sortableGroupCellTemplate;
 
   return (
-    <div>
+    <PluginContainer>
       <Template
         name="groupingPanelCellContent"
         connectGetters={(getter, { column }) => ({
@@ -28,7 +28,7 @@ export const GroupingPanelSorting = (props) => {
           </SortableGroupCell>
         )}
       </Template>
-    </div>
+    </PluginContainer>
   );
 };
 

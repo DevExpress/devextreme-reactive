@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Action } from '@devexpress/dx-react-core';
+import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setCurrentPage } from '@devexpress/dx-datagrid-core';
 
 export class PagingState extends React.PureComponent {
@@ -24,12 +24,12 @@ export class PagingState extends React.PureComponent {
     const currentPage = propsCurrentPage === undefined ? this.state.currentPage : propsCurrentPage;
 
     return (
-      <div>
+      <PluginContainer>
         <Action name="setCurrentPage" action={({ page }) => this._setCurrentPage({ page })} />
 
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
-      </div>
+      </PluginContainer>
     );
   }
 }

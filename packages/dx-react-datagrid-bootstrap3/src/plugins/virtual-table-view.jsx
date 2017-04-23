@@ -1,25 +1,15 @@
 import React from 'react';
+import { PluginContainer } from '@devexpress/dx-react-core';
 import { TableView as TableViewBase } from '@devexpress/dx-react-datagrid';
 import { VirtualTable } from '../templates/virtual-table';
 import { Layout } from '../templates/layout';
 
-export const VirtualTableView = ({ getCellInfo, cellContentTemplate }) => (
-  <div>
+export const VirtualTableView = props => (
+  <PluginContainer>
     <TableViewBase
-      getCellInfo={getCellInfo}
       tableTemplate={VirtualTable}
-      cellContentTemplate={cellContentTemplate}
+      {...props}
     />
     <Layout />
-  </div>
+  </PluginContainer>
 );
-
-VirtualTableView.propTypes = {
-  getCellInfo: React.PropTypes.func,
-  cellContentTemplate: React.PropTypes.func,
-};
-
-VirtualTableView.defaultProps = {
-  getCellInfo: undefined,
-  cellContentTemplate: undefined,
-};

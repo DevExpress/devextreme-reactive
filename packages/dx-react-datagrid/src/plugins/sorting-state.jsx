@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Action } from '@devexpress/dx-react-core';
+import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnSorting } from '@devexpress/dx-datagrid-core';
 
 export class SortingState extends React.PureComponent {
@@ -23,7 +23,7 @@ export class SortingState extends React.PureComponent {
     const sortings = this.props.sortings || this.state.sortings;
 
     return (
-      <div>
+      <PluginContainer>
         <Action
           name="setColumnSorting"
           action={({ columnName, direction, keepOther }) => {
@@ -32,7 +32,7 @@ export class SortingState extends React.PureComponent {
         />
 
         <Getter name="sortings" value={sortings} />
-      </div>
+      </PluginContainer>
     );
   }
 }

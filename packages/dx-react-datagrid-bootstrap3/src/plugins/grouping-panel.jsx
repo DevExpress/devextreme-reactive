@@ -5,7 +5,7 @@ import {
   GroupPanelCellTemplate,
 } from '../templates/group-panel';
 
-export const GroupingPanel = ({ groupByColumnText }) => (
+export const GroupingPanel = ({ groupByColumnText, ...restProps }) => (
   <GroupingPanelBase
     groupPanelTemplate={
       props => (
@@ -16,6 +16,7 @@ export const GroupingPanel = ({ groupByColumnText }) => (
         />
       )
     }
+    {...restProps}
   />
 );
 

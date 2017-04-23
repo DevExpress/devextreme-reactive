@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
 export const GroupPanelCellContentTemplate = ({ column }) =>
   <TemplatePlaceholder name="groupingPanelCellContent" params={{ column }} />;
@@ -20,7 +20,7 @@ export class GroupingPanel extends React.PureComponent {
     const GroupPanel = this.props.groupPanelTemplate;
 
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="tableColumns"
           pureComputed={this._tableColumns}
@@ -58,7 +58,7 @@ export class GroupingPanel extends React.PureComponent {
             <span>{column.title}</span>
           )}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

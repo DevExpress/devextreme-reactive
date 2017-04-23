@@ -26,29 +26,37 @@ export class SelectionWithHiddenCheckboxesDemo extends React.PureComponent {
       ],
       rows: generateRows({ length: 6 }),
       selection: [1],
+      selectByRowClick: true,
     };
 
     this.changeSelection = selection => this.setState({ selection });
   }
   render() {
-    const { rows, columns, selection } = this.state;
+    const { rows, columns, selection, selectByRowClick } = this.state;
 
     return (
-      <DataGrid
-        rows={rows}
-        columns={columns}
-      >
-        <SelectionState
-          selection={selection}
-          selectionChange={this.changeSelection}
+      <div>
+        <input
+          type="checkbox"
+          checked={selectByRowClick}
+          onChange={() => this.setState({ selectByRowClick: !selectByRowClick })}
         />
-        <TableView />
-        <TableSelection
-          selectByRowClick
-          highlightSelected
-          showCheckboxes={false}
-        />
-      </DataGrid>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+        >
+          <SelectionState
+            selection={selection}
+            selectionChange={this.changeSelection}
+          />
+          <TableView />
+          <TableSelection
+            selectByRowClick={selectByRowClick}
+            highlightSelected
+            showCheckboxes={false}
+          />
+        </DataGrid>
+      </div>
     );
   }
 }

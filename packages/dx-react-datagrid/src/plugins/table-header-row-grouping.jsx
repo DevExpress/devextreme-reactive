@@ -1,11 +1,11 @@
 import React from 'react';
-import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
 export const TableHeaderRowGrouping = (props) => {
   const GroupableCell = props.groupableCellTemplate;
 
   return (
-    <div>
+    <PluginContainer>
       <Template
         name="tableViewCell"
         predicate={({ column, row }) => row.type === 'heading' && !column.type}
@@ -19,7 +19,7 @@ export const TableHeaderRowGrouping = (props) => {
           </GroupableCell>
         )}
       </Template>
-    </div>
+    </PluginContainer>
   );
 };
 

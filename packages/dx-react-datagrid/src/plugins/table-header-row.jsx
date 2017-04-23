@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Template } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 
 export class TableHeaderRow extends React.PureComponent {
   constructor(props) {
@@ -10,7 +10,7 @@ export class TableHeaderRow extends React.PureComponent {
   }
   render() {
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="tableHeaderRows"
           pureComputed={this._tableHeaderRows}
@@ -26,7 +26,7 @@ export class TableHeaderRow extends React.PureComponent {
             <span>{column.title}</span>
           )}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Template } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import { setDetailRowExpanded, expandedDetailRows, isDetailRowExpanded } from '@devexpress/dx-datagrid-core';
 
 export class TableRowDetail extends React.PureComponent {
@@ -27,7 +27,7 @@ export class TableRowDetail extends React.PureComponent {
     const { template, detailToggleTemplate } = this.props;
 
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="tableColumns"
           pureComputed={this._tableColumns}
@@ -54,7 +54,7 @@ export class TableRowDetail extends React.PureComponent {
         <Template name="tableViewCell" predicate={({ row }) => row.type === 'detailRow'}>
           {({ column, row }) => template({ column, row: row.for })}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Getter } from '@devexpress/dx-react-core';
+import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { groupedRows, expandedGroupRows } from '@devexpress/dx-datagrid-core';
 
 export const LocalGrouping = () => (
-  <div>
+  <PluginContainer>
     <Getter
       name="rows"
       pureComputed={groupedRows}
@@ -20,5 +20,5 @@ export const LocalGrouping = () => (
         getter('expandedGroups'),
       ]}
     />
-  </div>
+  </PluginContainer>
 );

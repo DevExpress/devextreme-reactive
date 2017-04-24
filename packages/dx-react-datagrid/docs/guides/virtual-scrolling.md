@@ -14,6 +14,8 @@ Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic Setup
 
+The main difference between the virtual mode and the ordinary one is that cell dimensions should be defined. Virtual table has predefined default row height. It is adapted for typical Bootstrap table.
+
 The following example demonstrates the basic DataGrid with the virtual scrolling setup:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/virtual-scrolling/basic)
@@ -22,7 +24,11 @@ The following example demonstrates the basic DataGrid with the virtual scrolling
 
 ## Integration with Other Plugins
 
-A virtual table also operates with other DataGrid features like filtering, sorting, etc. Here is an example:
+A virtual table also operates with other DataGrid features like filtering, sorting, etc.
+
+The `TableRowDetail` plugin renders rows with auto height. It is not possible to handle row height change dynamically. So you should specify row height by the `rowHeight` property.
+
+Here is an example:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/virtual-scrolling/integration-with-other-plugins)
 

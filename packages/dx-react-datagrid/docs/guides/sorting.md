@@ -20,7 +20,7 @@ To show a grid with interactive sorting features, use the `SortingState`, `Local
 
 In this example, we use the uncontrolled mode and specify only the initial sorting configuration via the `defaultSortings` property of the `SortingState` plugin. After that the grid will manage sorting changes internally.
 
-By default, the `TableHeaderRow` is not configured to allow the end-user to change sorting. This feature should be enabled by setting `sortingEnabled` property to true.
+By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change sorting. To enable this feature set the `sortingEnabled` property to true.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-header-sorting)
 
@@ -28,7 +28,7 @@ By default, the `TableHeaderRow` is not configured to allow the end-user to chan
 
 ## Using Sorting with Grouping
 
-If you have enabled the DataGrid grouping features you might want to use them with sorting. The sorting and grouping plugins can work together and don't require any additional configuration. You should just keep the proper order of those plugins in the DataGrid container component. If you also want to allow end-users to change the sorting of grouped columns by clicking the items of the group panel, you need to set the `sortingEnabled` property to true in the `GroupingPanel` plugin.
+If you have enabled the DataGrid grouping features you might want to use them with sorting. The sorting and grouping plugins can work together and don't require any additional configuration. You should just keep the proper order of those plugins in the DataGrid container component. If you also want to allow end-users to change the sorting of grouped columns by clicking the items of the group panel, you need to set the `sortingEnabled` property of the `GroupingPanel` plugin to true.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-group-sorting)
 

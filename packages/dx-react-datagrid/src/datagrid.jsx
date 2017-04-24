@@ -6,7 +6,6 @@ const rowIdGetter = (getRowId, rows) => {
   return (row) => {
     const originalRow = row._originalRow || row;
     if (getRowId) return getRowId(originalRow);
-    if (originalRow.id !== undefined) return originalRow.id;
     if (!rowsMap) rowsMap = new Map(rows.map((r, rowIndex) => [r, rowIndex]));
     return rowsMap.get(originalRow);
   };

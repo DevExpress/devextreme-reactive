@@ -12,18 +12,13 @@ Name | Type | Default | Description
 -----|------|---------|------------
 rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
 columns | Array&lt;[Column](#column)&gt; | | Specifies row fields to be rendered as columns
+getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies function used to get unique row identifier
 
 ## Interfaces
 
 ### Row
 
-Describes the row interface
-
-A value with the following shape:
-
-Field | Type | Description
-------|------|------------
-id | number &#124; string | Specifies a row unique key. Used by plugins to identify the row
+A data object to be represented as a DataGrid row
 
 Note that any number of other fields can be specified. They are used as data to be represented within the DataGrid.
 

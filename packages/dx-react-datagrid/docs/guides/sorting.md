@@ -44,7 +44,7 @@ To control the sorting state from the outside you need to pass an array of colum
 
 If your data service supports sorting operations, you can handle the DataGrid's sorting state changes in order to request data from the server with the corresponding sorting applied.
 
-Please note that you shouldn't use the `LocalSorting` plugin to set up remote sorting. You should handle the `sortingsChange` event of the `SortingState` plugin in order to receive updates on sorting changes. These updates take place once an end-user changes sortings interacting with the grid. Having the sorted data received from the server, just pass it to the `DataGrid` component's `rows` property.`sortingsChange` event of the same plugin.
+Please note that you shouldn't use the `LocalSorting` plugin to set up remote sorting. You should handle the `sortingsChange` event of the `SortingState` plugin in order to receive updates on sorting changes. These updates take place once an end-user changes sortings interacting with the grid. Having the sorted data received from the server, just pass it to the `DataGrid` component's `rows` property.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/remote-sorting)
 

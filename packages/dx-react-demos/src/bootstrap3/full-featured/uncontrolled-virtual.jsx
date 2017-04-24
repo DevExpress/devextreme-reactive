@@ -11,6 +11,7 @@ import {
 
 import {
   generateRows,
+  defaultColumnValues,
 } from '../../demoData';
 
 export class UncontrolledVirtualDemo extends React.PureComponent {
@@ -24,7 +25,10 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 200000 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 200000,
+      }),
     };
 
     this.rowTemplate = ({ row }) => (
@@ -45,6 +49,7 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
         <DataGrid
           rows={rows}
           columns={columns}
+          getRowId={row => row.id}
         >
 
           <FilteringState

@@ -1,6 +1,6 @@
 # FilteringState Plugin Reference
 
-Plugin that manages filtering state.
+A plugin that manages the filtering state.
 
 ## User Reference
 
@@ -12,20 +12,22 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-filters | array&lt;[Filter](#filter)&gt; | | Specifies filters applied
-defaultFilters | array&lt;[Filter](#filter)&gt; | | Specifies starting filters for uncontrolled scenario
-filtersChange | (filters: array&lt;[Filter](#filter)&gt;) => void | | Handles filters change
+filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters to be applied 
+defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies initial filters for the uncontrolled mode
+filtersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filter changes 
 
-## Data Structures
+## Interfaces
 
 ### Filter
 
-Describes applied filter to column
+Describes the filter applied to a column
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | string | Specifies column name to apply filter
-value | string | Specifies value with that rows will be filtered
+column | string | Specifies a column name to which a filter is applied
+value | string | Specifies a value by which rows are filtered
 
 ## Plugin Developer Reference
 
@@ -37,5 +39,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filters | Getter | () => array&lt;[Filter](#filter)&gt; | Applied column filters
-setColumnFilter | Action | ({ columnName: string, value: string }) => void | Change filter for column
+filters | Getter | () => Array&lt;[Filter](#filter)&gt; | Applied column filters
+setColumnFilter | Action | ({ columnName: string, value: string }) => void | Changes a column filter

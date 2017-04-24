@@ -64,7 +64,7 @@ export class GroupingState extends React.PureComponent {
           pureComputed={this._groupedColumns}
           connectArgs={getter => [
             getter('columns'),
-            getter('grouping'),
+            grouping,
           ]}
         />
       </div>

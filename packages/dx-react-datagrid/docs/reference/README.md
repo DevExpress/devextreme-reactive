@@ -1,29 +1,34 @@
-# DataGrid Plugin Reference
+# DataGrid Reference
 
-## State Management Plugins
+Components:
+
+- [DataGrid](datagrid.md)
+
+State Management Plugins:
 
 - [FilteringState](filtering-state.md)
 - [SortingState](sorting-state.md)
+- [GroupingState](grouping-state.md)
+- [PagingState](paging-state.md)
 - [SelectionState](selection-state.md)
-- GroupingState
-- PagingState
 
-##  Data Processing Plugins
+Data Processing Plugins:
 
 - [LocalFiltering](local-filtering.md)
 - [LocalSorting](local-sorting.md)
-- LocalPaging
-- LocalGrouping
+- [LocalGrouping](local-grouping.md)
+- [LocalPaging](local-paging.md)
 
-## UI Plugins
+UI Plugins:
 
 - [TableView](table-view.md)
+- [TableHeaderRow](table-header-row.md)
+- [TableHeaderRowSorting](table-header-row-sorting.md)
+- [TableHeaderRowGrouping](table-header-row-grouping.md)
 - [TableSelection](table-selection.md)
-- TableHeaderRow
-- TableHeaderRowSorting (REMOVE?)
-- TableHeaderRowGrouping (REMOVE?)
-- TableFilterRow
-- TableGroupRow
-- PagingPanel
-- GroupingPanel
-
+- [TableFilterRow](table-filter-row.md)
+- [TableRowDetail](table-row-detail.md)
+- [TableGroupRow](table-group-row.md)
+- [GroupingPanel](grouping-panel.md)
+- [GroupingPanelSorting](grouping-panel-sorting.md)
+- [PagingPanel](paging-panel.md)

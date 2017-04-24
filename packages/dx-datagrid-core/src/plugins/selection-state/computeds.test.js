@@ -8,7 +8,7 @@ describe('PagingState computeds', () => {
     test('should work', () => {
       const rows = [{ id: 1 }, { id: 2, type: 'group' }, { id: 3 }];
 
-      expect(getAvailableToSelect(rows)).toEqual([1, 3]);
+      expect(getAvailableToSelect(rows, row => row.id)).toEqual([1, 3]);
     });
   });
   describe('#getAvailableSelection', () => {

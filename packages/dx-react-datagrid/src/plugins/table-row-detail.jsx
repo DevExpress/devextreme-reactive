@@ -36,10 +36,16 @@ export class TableRowDetail extends React.PureComponent {
           ]}
         />
         <Template name="tableViewCell" predicate={({ column, row }) => column.type === 'detail' && row.type === 'heading'} />
-        <Template name="tableViewCell" predicate={({ column, row }) => column.type === 'detail' && !row.type}>
-          {({ row }) => detailToggleTemplate({
-            expanded: isDetailRowExpanded(expandedDetails, row.id),
-            toggleExpanded: () => this._setDetailRowExpanded({ rowId: row.id }),
+        <Template
+          name="tableViewCell"
+          predicate={({ column, row }) => column.type === 'detail' && !row.type}
+          connectGetters={getter => ({
+            getRowId: getter('getRowId'),
+          })}
+        >
+          {({ row, getRowId }) => detailToggleTemplate({
+            expanded: isDetailRowExpanded(expandedDetails, getRowId(row)),
+            toggleExpanded: () => this._setDetailRowExpanded({ rowId: getRowId(row) }),
           })}
         </Template>
 
@@ -49,6 +55,7 @@ export class TableRowDetail extends React.PureComponent {
           connectArgs={getter => [
             getter('tableBodyRows'),
             expandedDetails,
+            getter('getRowId'),
           ]}
         />
         <Template name="tableViewCell" predicate={({ row }) => row.type === 'detailRow'}>

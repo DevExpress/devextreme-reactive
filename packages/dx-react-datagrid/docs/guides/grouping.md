@@ -32,9 +32,9 @@ Sometimes it's necessary to allow end-users to manage which columns should be us
 
 To add this functionality, use the `GroupingPanel` and `TableHeaderRow` plugins.
 
-By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change grouping. To enable this feature set the `groupingEnabled` property to `true`.
+By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change grouping. To enable this feature set the `groupingEnabled` property to true.
 
-If you are using the DataGrid's sorting features, you might also need a cability to allow an end-user to change sorting by grouped columns. To enable this feature set the `sortingEnabled` property of the `GroupingPanel` plugin to `true`.
+If you are using the DataGrid's sorting features, you might also need a cability to allow an end-user to change sorting by grouped columns. To enable this feature set the `sortingEnabled` property of the `GroupingPanel` plugin to true.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/grouping/local-grouping-with-ui)
 

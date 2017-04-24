@@ -45,6 +45,7 @@ export class VirtualTable extends React.Component {
     const { headerRows, bodyRows, columns, cellTemplate } = this.props;
 
     const columnWidths = calculateColumnWidths(columns, this.state.viewportWidth);
+    const scrollWidth = columnWidths.reduce((accum, width) => accum + width, 0);
 
     const tableRow = (row, position) => {
       const colspan = row.colspan;
@@ -128,6 +129,7 @@ export class VirtualTable extends React.Component {
             rootTag="table"
             className="table"
 
+            crossSize={scrollWidth}
             direction="vertical"
             itemCount={2}
             itemInfo={(rowIndex) => {

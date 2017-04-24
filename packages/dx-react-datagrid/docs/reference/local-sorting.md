@@ -18,12 +18,12 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;any&gt; | Rows to be sorted
-sortings | Getter | array&lt;[Sorting](sorting-state.md#sorting)&gt; | array Column sortings to be applied
+rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows to be sorted
+sortings | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sortings to be applied
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | array&lt;any&gt; | Rows with applied local sorting
+rows | Getter | () => Array&lt;[Row](datagrid.md#row)&gt; | Rows with the applied sorting
 

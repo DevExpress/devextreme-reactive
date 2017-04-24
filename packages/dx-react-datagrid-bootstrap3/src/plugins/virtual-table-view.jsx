@@ -8,7 +8,7 @@ export const VirtualTableView = () => (
   <div>
     <TableViewBase
       tableTemplate={VirtualTable}
-      cellTemplate={TableCell}
+      tableCellTemplate={TableCell}
     />
     <Layout />
   </div>

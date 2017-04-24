@@ -6,9 +6,9 @@ const CellTemplate = params =>
 
 export class TableView extends React.PureComponent {
   render() {
-    const { tableTemplate, cellTemplate } = this.props;
+    const { tableTemplate, tableCellTemplate } = this.props;
     const Table = tableTemplate;
-    const TableCell = cellTemplate;
+    const TableCell = tableCellTemplate;
 
     return (
       <div>
@@ -63,5 +63,5 @@ export class TableView extends React.PureComponent {
 
 TableView.propTypes = {
   tableTemplate: React.PropTypes.func.isRequired,
-  cellTemplate: React.PropTypes.func.isRequired,
+  tableCellTemplate: React.PropTypes.func.isRequired,
 };

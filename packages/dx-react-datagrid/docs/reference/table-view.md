@@ -13,6 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 tableTemplate | Component&lt;[TableProps](#table-props)&gt; | | A component that renders a table based on the supplied parameters
+tableCellTemplate | Component&lt;[TableCellProps](#table-cell-props)&gt; | | A component that renders a table cell based on the supplied parameters
 
 ## Interfaces
 
@@ -25,13 +26,22 @@ Field | Type | Description
 headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies the rows that should be rendered within the table heading
 bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies the rows that should be rendered within the table body
 columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns
-cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; | A template that should be used to render table cell content
+cellTemplate | Component&lt;[CellProps](#cell-props)&gt; | A template that should be used to render table cell
 
-### <a name="cell-content-props"></a>CellContentProps
+### <a name="cell-props"></a>CellProps
 
-Describes properties passed to a cell content template when rendering
+Describes properties passed to a cell template when rendering
 
 A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+row | [TableRow](#table-row) | Specifies a table row
+column | [TableColumn](#table-column) | Specifies a table column
+
+### <a name="table-cell-props"></a>TableCellProps
+
+Describes properties passed to the table cell template when rendering
 
 Field | Type | Description
 ------|------|------------
@@ -80,4 +90,4 @@ tableBodyRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be 
 tableColumns | Getter | () => Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered inside the table
 tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that can be provided by other plugins
 tableView | Template | none | A template that renders a table
-tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders the table cell content
+tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders the table cell

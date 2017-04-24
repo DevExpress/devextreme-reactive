@@ -8,7 +8,7 @@ export const TableView = () => (
   <div>
     <TableViewBase
       tableTemplate={Table}
-      cellTemplate={TableCell}
+      tableCellTemplate={TableCell}
     />
     <Layout />
   </div>

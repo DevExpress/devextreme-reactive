@@ -13,13 +13,13 @@ A plugin that renders group rows with the capability to expand and collapse them
 
 Name | Type | Default | Description
 -----|------|---------|------------
-groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | A component that renders the content of a group row
+groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | A component that renders the group row
 
 ## Interfaces
 
 ### <a name="group-row-cell-props"></a>GroupRowCellProps
 
-Describes properties passed to the template that renders the group row content.
+Describes properties passed to the template that renders the group row.
 
 A value with the following shape:
 

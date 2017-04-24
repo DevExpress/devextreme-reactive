@@ -1,6 +1,7 @@
 /* global navigator requestAnimationFrame */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Sizer } from './sizer';
 
 const isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
@@ -100,12 +101,12 @@ WindowedScroller.defaultProps = {
   onViewportChange: () => {},
 };
 WindowedScroller.propTypes = {
-  onViewportChange: React.PropTypes.func,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.arrayOf(React.PropTypes.node),
+  onViewportChange: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
 };
 WindowedScroller.childContextTypes = {
-  virtualHost: React.PropTypes.object.isRequired,
+  virtualHost: PropTypes.object.isRequired,
 };

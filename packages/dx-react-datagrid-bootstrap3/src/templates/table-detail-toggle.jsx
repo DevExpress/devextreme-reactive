@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableDetailToggle = ({ expanded, toggleExpanded }) => (
   <div
@@ -10,6 +11,6 @@ export const TableDetailToggle = ({ expanded, toggleExpanded }) => (
 );
 
 TableDetailToggle.propTypes = {
-  expanded: React.PropTypes.bool.isRequired,
-  toggleExpanded: React.PropTypes.func.isRequired,
+  expanded: PropTypes.bool.isRequired,
+  toggleExpanded: PropTypes.func.isRequired,
 };

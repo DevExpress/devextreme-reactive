@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import { LocalFilterRowDemo } from './filtering/local-filter-row';
@@ -22,7 +23,7 @@ export const FilteringDemos = ({ match }) => (
   </div>
 );
 FilteringDemos.propTypes = {
-  match: React.PropTypes.shape({
-    url: React.PropTypes.string,
+  match: PropTypes.shape({
+    url: PropTypes.string,
   }).isRequired,
 };

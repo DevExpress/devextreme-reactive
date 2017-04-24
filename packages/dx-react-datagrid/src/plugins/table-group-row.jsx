@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template } from '@devexpress/dx-react-core';
 
 export class TableGroupRow extends React.PureComponent {
@@ -51,5 +52,5 @@ export class TableGroupRow extends React.PureComponent {
 }
 
 TableGroupRow.propTypes = {
-  groupRowCellTemplate: React.PropTypes.func.isRequired,
+  groupRowCellTemplate: PropTypes.func.isRequired,
 };

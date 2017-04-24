@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { argumentsShallowEqual } from '../utils/shallowEqual';
 import { getAction } from '../utils/pluginHelpers';
 
@@ -69,12 +70,12 @@ Getter.defaultProps = {
   connectArgs: null,
 };
 Getter.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
-  pureComputed: React.PropTypes.func,
-  connectArgs: React.PropTypes.func,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  pureComputed: PropTypes.func,
+  connectArgs: PropTypes.func,
 };
 Getter.contextTypes = {
-  pluginHost: React.PropTypes.object.isRequired,
+  pluginHost: PropTypes.object.isRequired,
 };

@@ -1,6 +1,7 @@
 /* global window document */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Sizer } from './virtual-table/sizer';
 import { WindowedScroller } from './virtual-table/windowed-scroller';
 import { VirtualBox } from './virtual-table/virtual-box';
@@ -201,9 +202,9 @@ VirtualTable.defaultProps = {
   onClick: () => {},
 };
 VirtualTable.propTypes = {
-  headerRows: React.PropTypes.array.isRequired,
-  bodyRows: React.PropTypes.array.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  onClick: React.PropTypes.func,
+  headerRows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  cellContentTemplate: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };

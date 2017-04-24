@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Action } from '@devexpress/dx-react-core';
 import { groupByColumn } from '@devexpress/dx-datagrid-core';
 
@@ -72,12 +73,12 @@ export class GroupingState extends React.PureComponent {
 }
 
 GroupingState.propTypes = {
-  grouping: React.PropTypes.array,
-  defaultGrouping: React.PropTypes.array,
-  groupingChange: React.PropTypes.func,
-  expandedGroups: React.PropTypes.array,
-  defaultExpandedGroups: React.PropTypes.object,
-  expandedGroupsChange: React.PropTypes.func,
+  grouping: PropTypes.array,
+  defaultGrouping: PropTypes.array,
+  groupingChange: PropTypes.func,
+  expandedGroups: PropTypes.array,
+  defaultExpandedGroups: PropTypes.object,
+  expandedGroupsChange: PropTypes.func,
 };
 
 GroupingState.defaultProps = {

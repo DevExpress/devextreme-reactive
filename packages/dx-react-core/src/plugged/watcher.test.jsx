@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './host';
@@ -42,7 +43,7 @@ describe('Watcher', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      forceUpdate: React.PropTypes.string.isRequired,
+      forceUpdate: PropTypes.string.isRequired,
     };
 
     const tree = mount(

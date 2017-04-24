@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { PluginHost, Getter } from '@devexpress/dx-react-core';
 
 export const DataGrid = ({ rows, columns, children }) => (
@@ -10,10 +11,10 @@ export const DataGrid = ({ rows, columns, children }) => (
 );
 
 DataGrid.propTypes = {
-  rows: React.PropTypes.array.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  rows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]).isRequired,
 };

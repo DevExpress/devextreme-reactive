@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { getColumnSortingDirection } from '@devexpress/dx-datagrid-core';
 import extendWithEventListener from '../utils/extendWithEventListener';
@@ -46,5 +47,5 @@ export class TableHeaderRowSorting extends React.PureComponent {
 }
 
 TableHeaderRowSorting.propTypes = {
-  sortableCellTemplate: React.PropTypes.func.isRequired,
+  sortableCellTemplate: PropTypes.func.isRequired,
 };

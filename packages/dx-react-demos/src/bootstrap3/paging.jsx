@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import { LocalPagingDemo } from './paging/local-paging';
@@ -22,7 +23,7 @@ export const PagingDemos = ({ match }) => (
   </div>
 );
 PagingDemos.propTypes = {
-  match: React.PropTypes.shape({
-    url: React.PropTypes.string,
+  match: PropTypes.shape({
+    url: PropTypes.string,
   }).isRequired,
 };

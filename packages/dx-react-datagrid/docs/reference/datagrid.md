@@ -1,0 +1,47 @@
+# DataGrid Reference
+
+DataGrid is a root container component that accepts data via the `rows` property. It provides this data to the hosted plugins specified as child components to preprocess and display it as a table representation. It also accepts the table columns description via the `columns` property.
+
+Initially it does not contain any plugins to display data. So you should specify them depending on your needs. See more details about the [plugins concept](../README.md#plugins-overview).
+
+## User reference
+
+### Properties
+
+Name | Type | Default | Description
+-----|------|---------|------------
+rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
+columns | Array&lt;[Column](#column)&gt; | | Specifies row fields to be rendered as columns
+
+## Interfaces
+
+### Row
+
+Describes the row interface
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+id | number &#124; string | Specifies a row unique key. Used by plugins to identify the row
+
+Note that any number of other fields can be specified. They are used as data to be represented within the DataGrid.
+
+### Column
+
+Describes the column interface
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+name | string | Specifies the field name in the data row to obtain a column value. A unique key can be also used to identify a particular column
+
+## Plugin Developer Reference
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+rows | Getter | () => Array&lt;[Row](#row)&gt; | Specified rows
+columns | Getter | () => Array&lt;[Column](#column)&gt; | Specified columns

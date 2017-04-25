@@ -2,16 +2,23 @@ import React from 'react';
 
 import { querySelectorAll } from './utils/dom';
 
+const getKeyGetter = getIntrinsicKey => (object, index) => {
+  const intrinsicKey = getIntrinsicKey(object);
+  const type = object.type || 'data';
+  const key = intrinsicKey === undefined ? `$${index}` : intrinsicKey;
+  return `${type}_${key}`;
+};
+
 const getCellInfo = ({ row, columnIndex, columns }) => {
   if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
   const colspan = row.colspan === columnIndex ? columns.length - row.colspan : 1;
   return { colspan };
 };
 
-const TableRow = (props) => {
+export const TableRow = (props) => {
   const { row, columns, cellTemplate } = props;
-
   const TableCell = cellTemplate;
+  const columnKeyGetter = getKeyGetter(column => column.name);
 
   const height = (!row.height || row.height === 'auto') ? 'auto' : `${row.height}px`;
   return (
@@ -24,7 +31,7 @@ const TableRow = (props) => {
         if (info.skip) return null;
         return (
           <TableCell
-            key={column.name}
+            key={columnKeyGetter(column, columnIndex)}
             row={row}
             column={column}
             colspan={info.colspan}
@@ -46,8 +53,10 @@ TableRow.defaultProps = {
   isHeader: false,
 };
 
-export const Table = (props) => {
-  const { headerRows, bodyRows, columns, cellTemplate, onClick } = props;
+export const Table = ({
+  headerRows, bodyRows, columns, cellTemplate, onClick,
+}) => {
+  const rowKeyGetter = getKeyGetter(row => row.id);
 
   return (
     <div className="table-responsive">
@@ -72,9 +81,9 @@ export const Table = (props) => {
         }}
       >
         <thead>
-          {headerRows.map(row => (
+          {headerRows.map((row, rowIndex) => (
             <TableRow
-              key={row.id}
+              key={rowKeyGetter(row, rowIndex)}
               row={row}
               columns={columns}
               cellTemplate={cellTemplate}
@@ -82,9 +91,9 @@ export const Table = (props) => {
           ))}
         </thead>
         <tbody>
-          {bodyRows.map(row => (
+          {bodyRows.map((row, rowIndex) => (
             <TableRow
-              key={row.id}
+              key={rowKeyGetter(row, rowIndex)}
               row={row}
               columns={columns}
               cellTemplate={cellTemplate}

@@ -20,7 +20,7 @@ export class PagingState extends React.PureComponent {
     };
   }
   render() {
-    const { pageSize, currentPage: propsCurrentPage } = this.props;
+    const { pageSize, totalCount, currentPage: propsCurrentPage } = this.props;
     const currentPage = propsCurrentPage === undefined ? this.state.currentPage : propsCurrentPage;
 
     return (
@@ -29,6 +29,7 @@ export class PagingState extends React.PureComponent {
 
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
+        <Getter name="totalPages" value={Math.max(1, Math.ceil(totalCount / pageSize))} />
       </div>
     );
   }
@@ -36,6 +37,7 @@ export class PagingState extends React.PureComponent {
 
 PagingState.propTypes = {
   pageSize: React.PropTypes.number,
+  totalCount: React.PropTypes.number,
   currentPage: React.PropTypes.number,
   defaultCurrentPage: React.PropTypes.number,
   currentPageChange: React.PropTypes.func,
@@ -43,6 +45,7 @@ PagingState.propTypes = {
 
 PagingState.defaultProps = {
   pageSize: undefined,
+  totalCount: undefined,
   currentPage: undefined,
   defaultCurrentPage: undefined,
   currentPageChange: undefined,

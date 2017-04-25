@@ -21,13 +21,14 @@ export class TableEditColumn extends React.PureComponent {
             addNewRow: () => action('addNewRow')(),
           })}
         >
-          {({ row, column, addNewRow }) =>
+          {({ row, column, addNewRow, style }) =>
             headingCellTemplate({
               row,
               column,
               onAddNewRow: () => addNewRow(),
               commandTemplate,
               allowCreating,
+              style,
             })}
         </Template>
         <Template
@@ -47,7 +48,7 @@ export class TableEditColumn extends React.PureComponent {
             commitChangedRows: ({ rowIds }) => action('commitChangedRows')({ rowIds }),
           })}
         >
-          {({ row, column, change, stopEditRows, cancelChangedRows, commitChangedRows }) =>
+          {({ row, column, change, stopEditRows, cancelChangedRows, commitChangedRows, style }) =>
             cellTemplate({
               row,
               column,
@@ -62,6 +63,7 @@ export class TableEditColumn extends React.PureComponent {
               },
               isEditing: true,
               commandTemplate,
+              style,
             })}
         </Template>
         <Template
@@ -76,7 +78,7 @@ export class TableEditColumn extends React.PureComponent {
             commitNewRows: ({ rowIds }) => action('commitNewRows')({ rowIds }),
           })}
         >
-          {({ row, rowId, column, cancelNewRows, commitNewRows }) =>
+          {({ row, rowId, column, cancelNewRows, commitNewRows, style }) =>
             cellTemplate({
               row,
               column,
@@ -89,6 +91,7 @@ export class TableEditColumn extends React.PureComponent {
               isEditing: true,
               isNew: true,
               commandTemplate,
+              style,
             })}
         </Template>
         <Template
@@ -102,7 +105,7 @@ export class TableEditColumn extends React.PureComponent {
             },
           })}
         >
-          {({ row, column, startEditRows, deleteRows }) =>
+          {({ row, column, startEditRows, deleteRows, style }) =>
             cellTemplate({
               row,
               column,
@@ -111,6 +114,7 @@ export class TableEditColumn extends React.PureComponent {
               commandTemplate,
               allowEditing,
               allowDeleting,
+              style,
             })}
         </Template>
       </div>

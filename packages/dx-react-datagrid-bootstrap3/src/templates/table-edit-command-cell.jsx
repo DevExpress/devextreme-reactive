@@ -20,13 +20,15 @@ export const EditCommandHeadingCell = ({
     onAddNewRow,
     commandTemplate,
     allowCreating,
+    style = {},
     createCommandText = 'New',
   }) => (
-    <td
+    <th
       style={{
         whiteSpace: 'nowrap',
         textAlign: 'center',
         padding: 0,
+        ...style,
       }}
     >
       {allowCreating && commandTemplate({
@@ -34,13 +36,17 @@ export const EditCommandHeadingCell = ({
         onCommand: onAddNewRow,
         text: createCommandText,
       })}
-    </td>
+    </th>
 );
 EditCommandHeadingCell.propTypes = {
   onAddNewRow: React.PropTypes.func.isRequired,
   commandTemplate: React.PropTypes.func.isRequired,
   createCommandText: React.PropTypes.string.isRequired,
   allowCreating: React.PropTypes.bool.isRequired,
+  style: React.PropTypes.object,
+};
+EditCommandHeadingCell.defaultProps = {
+  style: undefined,
 };
 
 export const EditCommandCell = ({
@@ -52,6 +58,7 @@ export const EditCommandCell = ({
     commandTemplate,
     allowEditing,
     allowDeleting,
+    style = {},
     editCommandText = 'Edit',
     deleteCommandText = 'Delete',
     commitCommandText = 'Save',
@@ -93,6 +100,7 @@ export const EditCommandCell = ({
         whiteSpace: 'nowrap',
         textAlign: 'center',
         padding: 0,
+        ...style,
       }}
     >
       {commands.map(command => (<span key={command.id}>{commandTemplate(command)}</span>))}
@@ -112,4 +120,8 @@ EditCommandCell.propTypes = {
   deleteCommandText: React.PropTypes.string.isRequired,
   commitCommandText: React.PropTypes.string.isRequired,
   cancelCommandText: React.PropTypes.string.isRequired,
+  style: React.PropTypes.object,
+};
+EditCommandCell.defaultProps = {
+  style: undefined,
 };

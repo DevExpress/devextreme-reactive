@@ -5,6 +5,7 @@
         "jsx-a11y",
         "import"
     ],
+    "env": { "browser": true },
     "rules": {
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",

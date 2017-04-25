@@ -48,3 +48,6 @@ If your data service supports sorting operations, you can handle the DataGrid's 
 
 Don't use the `LocalSorting` plugin to configure remote sorting. Handle the `sortingChange` event of the `SortingState` plugin to process sorting criteria updates. These updates are applied when an end-user changes sorting options via the UI. When sorted data has been recieved from the server, pass it to `DataGrid` component's `rows` property.
 
+[DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/remote-sorting)
+
+[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/remote-sorting.jsx)

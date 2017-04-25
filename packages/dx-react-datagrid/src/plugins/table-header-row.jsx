@@ -7,7 +7,7 @@ export class TableHeaderRow extends React.PureComponent {
     super(props);
 
     this._tableHeaderRows = tableHeaderRows =>
-      [{ type: 'heading', id: 'heading' }, ...tableHeaderRows];
+      [{ type: 'heading' }, ...tableHeaderRows];
   }
   render() {
     const { sortingEnabled, groupingEnabled, headerCellTemplate } = this.props;

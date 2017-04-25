@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   PagingState,
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
+  TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 

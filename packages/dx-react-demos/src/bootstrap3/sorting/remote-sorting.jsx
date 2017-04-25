@@ -1,12 +1,11 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   SortingState,
 } from '@devexpress/dx-react-datagrid';
 import {
   VirtualTableView,
-  TableHeaderRowSorting,
+  TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import { Loading } from '../components/loading';
@@ -84,8 +83,7 @@ export class RemoteSortingDemo extends React.PureComponent {
             sortingsChange={this.sortingsChange}
           />
           <VirtualTableView />
-          <TableHeaderRow />
-          <TableHeaderRowSorting />
+          <TableHeaderRow sortingEnabled />
         </DataGrid>
         {loading && <Loading />}
       </div>

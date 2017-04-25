@@ -10,6 +10,8 @@ export const TableHeaderCell = ({
     <th
       style={{
         userSelect: 'none',
+        MozUserSelect: 'none',
+        WebkitUserSelect: 'none',
         cursor: !column.type && 'pointer',
         ...style,
       }}

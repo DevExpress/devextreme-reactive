@@ -2,13 +2,19 @@ import React from 'react';
 
 export const TableSelectCell = ({ style, selected, changeSelected }) => (
   <td
-    style={style}
+    style={{
+      cursor: 'pointer',
+      ...style,
+    }}
     onClick={(e) => {
       e.stopPropagation();
       changeSelected();
     }}
   >
     <input
+      style={{
+        cursor: 'pointer',
+      }}
       type="checkbox"
       checked={selected}
       onChange={changeSelected}

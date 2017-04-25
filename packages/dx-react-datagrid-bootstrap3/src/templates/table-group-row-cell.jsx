@@ -3,10 +3,21 @@ import React from 'react';
 export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroupExpanded }) => (
   <td
     colSpan={colspan}
-    style={style}
+    style={{
+      cursor: 'pointer',
+      ...style,
+    }}
     onClick={toggleGroupExpanded}
   >
-    <i className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`} /> {row.column}: {row.value}
+    <i
+      className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`}
+      style={{
+        fontSize: '9px',
+        top: '0',
+        marginRight: '8px',
+      }}
+    />
+    {row.column}: {row.value}
   </td>
 );
 

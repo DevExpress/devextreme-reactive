@@ -20,8 +20,8 @@ export class EditRowDemo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'edit', type: 'edit' },
-        { name: 'id', title: 'ID' },
+        { name: 'edit', type: 'edit', width: 140 },
+        { name: 'id', title: 'ID', width: 50 },
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
@@ -37,30 +37,27 @@ export class EditRowDemo extends React.PureComponent {
     this.changeChangedRows = changedRows => this.setState({ changedRows });
     this.changeNewRows = newRows => this.setState({ newRows });
     this.commitChanges = (changeSet) => {
+      let rows = this.state.rows.slice();
       changeSet.forEach((change) => {
         if (change.type === 'create') {
-          const { rows } = this.state;
           const newRow = {
             id: rows.length,
             ...change.row,
           };
-          this.setState({ rows: [...rows, newRow] });
+          rows = [...rows, newRow];
         } else if (change.type === 'update') {
-          const index = this.state.rows.findIndex(row => String(row.id) === change.rowId);
+          const index = rows.findIndex(row => String(row.id) === change.rowId);
           if (index > -1) {
-            const rows = this.state.rows.slice();
             rows[index] = Object.assign({}, rows[index], change.change);
-            this.setState({ rows });
           }
         } else if (change.type === 'delete') {
-          const index = this.state.rows.findIndex(row => row.id === change.rowId);
+          const index = rows.findIndex(row => row.id === change.rowId);
           if (index > -1) {
-            const newRows = this.state.rows.slice();
-            newRows.splice(index, 1);
-            this.setState({ rows: newRows });
+            rows.splice(index, 1);
           }
         }
       });
+      this.setState({ rows });
     };
   }
   render() {
@@ -82,9 +79,7 @@ export class EditRowDemo extends React.PureComponent {
           createNewRow={() => ({ city: 'Tokio' })}
         />
         <TableView />
-        <TableHeaderRow
-          sortingEnabled
-        />
+        <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn
           allowCreating={!this.state.newRows.length}

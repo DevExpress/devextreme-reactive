@@ -1,5 +1,5 @@
-export const getAvailableToSelect = rows =>
-  rows.filter(row => !row.type).map(row => row.id);
+export const getAvailableToSelect = (rows, getRowId) =>
+  rows.filter(row => !row.type).map(row => getRowId(row));
 
 export const getAvailableSelection = (selection, availableToSelect) => {
   const availableToSelectSet = new Set(availableToSelect);

@@ -17,15 +17,15 @@ export const globalSalesValues = {
   region: ['Asia', 'Europe', 'North America', 'South America', 'Australia', 'Africa'],
   sector: ['Energy', 'Health', 'Manufacturing', 'Insurance', 'Banking', 'Telecom'],
   channel: ['Resellers', 'Retail', 'VARs', 'Consultants', 'Direct', 'Telecom'],
-  units: random => Math.floor(random() * 4) + 1,
+  units: ({ random }) => Math.floor(random() * 4) + 1,
   customer: [
     'Renewable Supplies', 'Energy Systems', 'Environment Solar', 'Beacon Systems', 'Apollo Inc',
     'Gemini Stores', 'McCord Builders', 'Building M Inc', 'Beacon Systems', 'Global Services',
     'Market Eco', 'Johnson & Assoc', 'Get Solar Inc', 'Supply Warehouse', 'Discovery Systems', 'Mercury Solar'],
   product: ['SolarMax', 'SolarMax', 'SolarOne', 'EnviroCare', 'EnviroCare Max'],
-  amount: random => Math.floor(random() * 10000) + 1000,
-  discount: random => Math.round(random() * 0.5 * 1000) / 1000,
-  saleDate: (random) => {
+  amount: ({ random }) => Math.floor(random() * 10000) + 1000,
+  discount: ({ random }) => Math.round(random() * 0.5 * 1000) / 1000,
+  saleDate: ({ random }) => {
     const dateValue = Date.UTC(2016, Math.floor(random() * 3) + 1, Math.floor(random() * 30) + 1);
     const date = new Date(dateValue);
     return date.toDateString();
@@ -39,13 +39,13 @@ export function generateRows({ columnValues = defaultColumnValues, length } = {}
   const columns = Object.keys(columnValues);
 
   for (let i = 0; i < length; i += 1) {
-    const record = { id: i };
+    const record = {};
 
     columns.forEach((column) => {
       let values = columnValues[column];
 
       if (typeof values === 'function') {
-        record[column] = values(random);
+        record[column] = values({ random, index: i });
         return;
       }
 

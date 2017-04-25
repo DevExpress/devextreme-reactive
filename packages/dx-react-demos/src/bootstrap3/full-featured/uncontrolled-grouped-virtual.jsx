@@ -13,6 +13,7 @@ import {
 
 import {
   generateRows,
+  defaultColumnValues,
 } from '../../demoData';
 
 export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
@@ -27,7 +28,10 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 20000 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 20000,
+      }),
     };
 
     this.rowTemplate = ({ row }) => <div>Detail for {row.name} from {row.city}</div>;
@@ -42,6 +46,7 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
         <DataGrid
           rows={rows}
           columns={columns}
+          getRowId={row => row.id}
         >
 
           <FilteringState

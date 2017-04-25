@@ -8,13 +8,13 @@ describe('DetailRow computeds', () => {
       const rows = [{ id: 1 }, { id: 2 }];
       const expandedDetails = [2];
 
-      const expandedRows = expandedDetailRows(rows, expandedDetails);
+      const expandedRows = expandedDetailRows(rows, expandedDetails, row => row.id);
       expect(expandedRows).toEqual([
         { id: 1 },
         { id: 2 },
         {
           type: 'detailRow',
-          id: 'detailRow_2',
+          id: 2,
           for: { id: 2 },
           colspan: 0,
           height: 'auto',
@@ -26,12 +26,12 @@ describe('DetailRow computeds', () => {
       const rows = [{ id: 1 }, { id: 2 }];
       const expandedDetails = [1, 2];
 
-      const expandedRows = expandedDetailRows(rows, expandedDetails);
+      const expandedRows = expandedDetailRows(rows, expandedDetails, row => row.id);
       expect(expandedRows).toEqual([
         { id: 1 },
         {
           type: 'detailRow',
-          id: 'detailRow_1',
+          id: 1,
           for: { id: 1 },
           colspan: 0,
           height: 'auto',
@@ -39,7 +39,7 @@ describe('DetailRow computeds', () => {
         { id: 2 },
         {
           type: 'detailRow',
-          id: 'detailRow_2',
+          id: 2,
           for: { id: 2 },
           colspan: 0,
           height: 'auto',

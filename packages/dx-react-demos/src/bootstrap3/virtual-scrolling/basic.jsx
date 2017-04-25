@@ -9,6 +9,7 @@ import {
 
 import {
   generateRows,
+  defaultColumnValues,
 } from '../../demoData';
 
 export class BasicDemo extends React.PureComponent {
@@ -23,7 +24,10 @@ export class BasicDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 100000 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 100000,
+      }),
     };
   }
   render() {
@@ -33,6 +37,7 @@ export class BasicDemo extends React.PureComponent {
       <DataGrid
         rows={rows}
         columns={columns}
+        getRowId={row => row.id}
       >
         <VirtualTableView />
         <TableHeaderRow />

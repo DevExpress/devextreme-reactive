@@ -26,7 +26,6 @@ export class LocalGroupSortingDemo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'id', title: 'ID' },
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },

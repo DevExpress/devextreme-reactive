@@ -6,7 +6,7 @@ export class TableFilterRow extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._tableHeaderRows = tableHeaderRows => [...tableHeaderRows, { type: 'filter', id: 'filter', height: props.rowHeight }];
+    this._tableHeaderRows = tableHeaderRows => [...tableHeaderRows, { type: 'filter', height: props.rowHeight }];
   }
   render() {
     return (

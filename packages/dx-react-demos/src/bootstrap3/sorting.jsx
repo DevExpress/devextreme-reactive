@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import { HeaderSortingDemo } from './sorting/local-header-sorting';
 import { LocalSortingControlledDemo } from './sorting/local-sorting-controlled';
 import { LocalGroupSortingDemo } from './sorting/local-group-sorting';
+import { RemoteSortingDemo } from './sorting/remote-sorting';
 
 const AllDemos = () => (
   <div>
@@ -14,6 +15,8 @@ const AllDemos = () => (
     <LocalGroupSortingDemo />
     <h3>Controlled mode</h3>
     <LocalSortingControlledDemo />
+    <h3>Remote sorting</h3>
+    <RemoteSortingDemo />
   </div>
 );
 
@@ -23,6 +26,7 @@ export const SortingDemos = ({ match }) => (
     <Route path={`${match.url}/local-header-sorting`} component={HeaderSortingDemo} />
     <Route path={`${match.url}/local-group-sorting`} component={LocalGroupSortingDemo} />
     <Route path={`${match.url}/local-sorting-controlled`} component={LocalSortingControlledDemo} />
+    <Route path={`${match.url}/remote-sorting`} component={RemoteSortingDemo} />
   </div>
 );
 SortingDemos.propTypes = {

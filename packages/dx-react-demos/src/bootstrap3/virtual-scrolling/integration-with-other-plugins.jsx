@@ -16,6 +16,7 @@ import {
 
 import {
   generateRows,
+  defaultColumnValues,
 } from '../../demoData';
 
 export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
@@ -30,7 +31,10 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 100000 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 100000,
+      }),
     };
 
     this.rowTemplate = ({ row }) => (
@@ -48,6 +52,7 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
       <DataGrid
         rows={rows}
         columns={columns}
+        getRowId={row => row.id}
       >
         <FilteringState defaultFilters={[]} />
         <SortingState defaultSorting={[]} />

@@ -53,6 +53,9 @@ export const Table = (props) => {
     <div className="table-responsive">
       <table
         className="table"
+        style={{
+          tableLayout: 'fixed',
+        }}
         onClick={(e) => {
           const { target, currentTarget } = e;
 

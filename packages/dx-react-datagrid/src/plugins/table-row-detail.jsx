@@ -20,7 +20,7 @@ export class TableRowDetail extends React.PureComponent {
       }
     };
 
-    this._tableColumns = tableColumns => [{ type: 'detail', width: 29 }, ...tableColumns];
+    this._tableColumns = tableColumns => [{ type: 'detail', width: 25 }, ...tableColumns];
   }
   render() {
     const expandedDetails = this.props.expandedDetails || this.state.expandedDetails;

@@ -2,13 +2,19 @@ import React from 'react';
 
 export const TableSelectAllCell = ({ style, allSelected, someSelected, toggleAll }) => (
   <th
-    style={style}
+    style={{
+      cursor: 'pointer',
+      ...style,
+    }}
     onClick={(e) => {
       e.stopPropagation();
       toggleAll();
     }}
   >
     <input
+      style={{
+        cursor: 'pointer',
+      }}
       type="checkbox"
       checked={allSelected}
       ref={(ref) => {

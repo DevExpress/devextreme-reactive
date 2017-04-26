@@ -11,11 +11,11 @@ describe('SortingState helpers', () => {
       expect(direction).toBe('testDirection');
     });
 
-    test('returns false if a column is not sorted', () => {
+    test('returns null if a column is not sorted', () => {
       const sortings = [];
 
       const direction = getColumnSortingDirection(sortings, 'test');
-      expect(direction).toBe(false);
+      expect(direction).toBe(null);
     });
   });
 });

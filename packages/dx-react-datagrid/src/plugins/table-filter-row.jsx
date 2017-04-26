@@ -6,7 +6,7 @@ export class TableFilterRow extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._tableHeaderRows = tableHeaderRows => [...tableHeaderRows, { type: 'filter', id: 'filter', height: props.rowHeight }];
+    this._tableHeaderRows = tableHeaderRows => [...tableHeaderRows, { type: 'filter', height: props.rowHeight }];
   }
   render() {
     return (
@@ -21,7 +21,7 @@ export class TableFilterRow extends React.PureComponent {
 
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'filter' && !column.type}
+          predicate={({ row }) => row.type === 'filter'}
           connectGetters={(getter, { column }) => ({
             filter: getColumnFilterValue(getter('filters'), column.name),
           })}
@@ -29,7 +29,7 @@ export class TableFilterRow extends React.PureComponent {
             changeFilter: value => action('setColumnFilter')({ columnName: column.name, value }),
           })}
         >
-          {({ filter, changeFilter }) => this.props.filterCellTemplate({ filter, changeFilter })}
+          {params => this.props.filterCellTemplate(params)}
         </Template>
       </PluginContainer>
     );

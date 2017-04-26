@@ -1,12 +1,10 @@
 /* global window document */
 
 import React from 'react';
-import { Sizer } from './virtual-table/sizer';
 import { WindowedScroller } from './virtual-table/windowed-scroller';
 import { VirtualBox } from './virtual-table/virtual-box';
-import { closest } from './utils/table';
 
-const DEFAULT_HEIGHT = 38;
+const DEFAULT_HEIGHT = 37;
 const MINIMAL_COLUMN_WIDTH = 100;
 
 const calculateColumnWidths = (columns, tableWidth) => {
@@ -36,56 +34,20 @@ export class VirtualTable extends React.Component {
     };
 
     this.rowHeight = (row) => {
-      let height = DEFAULT_HEIGHT;
-      if (row.height) {
-        height = row.height === 'auto' ? this.state.autoHeights.get(row) || DEFAULT_HEIGHT : row.height;
+      let height = row.height || DEFAULT_HEIGHT;
+      if (height === 'auto') {
+        height = DEFAULT_HEIGHT;
       }
       return height;
     };
   }
   render() {
-    const { headerRows, bodyRows, columns, cellContentTemplate, onClick } = this.props;
+    const { headerRows, bodyRows, columns, cellTemplate } = this.props;
 
     const columnWidths = calculateColumnWidths(columns, this.state.viewportWidth);
     const scrollWidth = columnWidths.reduce((accum, width) => accum + width, 0);
 
-    const tableHeaderCell = ({ row, column }) => {
-      const template = cellContentTemplate({ row, column });
-      return (
-        <th
-          data-cell={JSON.stringify({ rowId: row.id, columnName: column.name })}
-        >
-          {template}
-        </th>
-      );
-    };
-
-    const tableCell = ({ row, column }) => {
-      let template = cellContentTemplate({ row, column });
-      if (row.height === 'auto') {
-        template = (
-          <Sizer
-            height={this.rowHeight(row) - 17} // TODO: paddings
-            onHeightChange={(height) => {
-              const { autoHeights } = this.state;
-              autoHeights.set(row, height + 17); // TODO: paddings
-              this.setState({ autoHeights });
-            }}
-          >
-            {template}
-          </Sizer>
-        );
-      }
-      return (
-        <td
-          data-cell={JSON.stringify({ rowId: row.id, columnName: column.name })}
-        >
-          {template}
-        </td>
-      );
-    };
-
-    const tableRow = (row, cellTemplate, position) => {
+    const tableRow = (row, position) => {
       const colspan = row.colspan;
       const columnLength = colspan !== undefined ? colspan + 1 : columns.length;
       return (
@@ -109,7 +71,8 @@ export class VirtualTable extends React.Component {
               stick: false,
             };
           }}
-          itemTemplate={columnIndex => cellTemplate({ row, column: columns[columnIndex] })}
+          itemTemplate={(columnIndex, _, style) =>
+            cellTemplate({ row, column: columns[columnIndex], style })}
         />
       );
     };
@@ -134,7 +97,7 @@ export class VirtualTable extends React.Component {
           stick: false,
         })}
         itemTemplate={(rowIndex, rowPosition) =>
-          tableRow(headerRows[rowIndex], tableHeaderCell, rowPosition)}
+          tableRow(headerRows[rowIndex], rowPosition)}
       />
     );
 
@@ -151,23 +114,13 @@ export class VirtualTable extends React.Component {
           stick: false,
         })}
         itemTemplate={(rowIndex, rowPosition) =>
-          tableRow(bodyRows[rowIndex], tableCell, rowPosition)}
+          tableRow(bodyRows[rowIndex], rowPosition)}
       />
     );
 
     return (
       <div
         style={{ height: '360px' }}
-        onClick={(e) => {
-          const { target } = e;
-          const cellEl = closest(target, 'th') || closest(target, 'td');
-          if (!cellEl) return;
-
-          const { rowId, columnName } = JSON.parse(cellEl.getAttribute('data-cell'));
-          const row = [...headerRows, ...bodyRows].find(r => r.id === rowId);
-          const column = columns.find(c => c.name === columnName);
-          onClick({ row, column, e });
-        }}
       >
         <WindowedScroller
           onViewportChange={viewport => this.setState({ viewportWidth: viewport.width })}
@@ -197,13 +150,10 @@ export class VirtualTable extends React.Component {
     );
   }
 }
-VirtualTable.defaultProps = {
-  onClick: () => {},
-};
+
 VirtualTable.propTypes = {
   headerRows: React.PropTypes.array.isRequired,
   bodyRows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  onClick: React.PropTypes.func,
+  cellTemplate: React.PropTypes.func.isRequired,
 };

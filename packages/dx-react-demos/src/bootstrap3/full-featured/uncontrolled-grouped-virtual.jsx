@@ -3,16 +3,16 @@ import {
     DataGrid,
     SortingState, SelectionState, FilteringState, GroupingState,
     LocalFiltering, LocalGrouping, LocalSorting,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableSelection, TableRowDetail, TableHeaderRowSorting, TableHeaderRowGrouping,
+    TableSelection, TableRowDetail,
     VirtualTableView, TableFilterRow, GroupingPanel, TableGroupRow,
-    GroupingPanelSorting,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
   generateRows,
+  defaultColumnValues,
 } from '../../demoData';
 
 export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
@@ -27,7 +27,10 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 20000 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 20000,
+      }),
     };
 
     this.rowTemplate = ({ row }) => <div>Detail for {row.name} from {row.city}</div>;
@@ -42,10 +45,11 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
         <DataGrid
           rows={rows}
           columns={columns}
+          getRowId={row => row.id}
         >
 
           <FilteringState
-            defaultFilters={[{ column: 'car', value: 'au' }]}
+            defaultFilters={[{ column: 'car', value: 'audi' }]}
           />
 
           <SortingState
@@ -67,10 +71,7 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
 
           <VirtualTableView />
 
-          <TableHeaderRow />
-          <TableHeaderRowSorting />
-          <TableHeaderRowGrouping />
-
+          <TableHeaderRow sortingEnabled groupingEnabled />
           <TableFilterRow />
 
           <TableSelection />
@@ -78,12 +79,11 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
           <TableRowDetail
             defaultExpandedDetails={[3]}
             template={this.rowTemplate}
+            rowHeight={37}
           />
 
           <TableGroupRow />
-          <GroupingPanel />
-          <GroupingPanelSorting />
-
+          <GroupingPanel sortingEnabled />
         </DataGrid>
       </div>
     );

@@ -2,9 +2,9 @@
 layout: default
 ---
 
-<div class="container">
+<div class="container docs-container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 main-menu">
       {% for group in site.data.docs.navigation.react.datagrid %}
         <h3>{{ group.title }}</h3>
 
@@ -25,7 +25,7 @@ layout: default
       {% endfor %}
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-9 docs-content">
         {{ content }}
     </div>
   </div>

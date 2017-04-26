@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   FilteringState,
   LocalFiltering,
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
+  TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
@@ -20,14 +20,13 @@ export class LocalFilteringControlledDemo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'id', title: 'ID' },
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 14 }),
-      filters: [{ column: 'car', value: 'r' }],
+      filters: [{ column: 'car', value: 'cruze' }],
     };
 
     this.changeFilters = filters => this.setState({ filters });

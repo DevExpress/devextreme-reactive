@@ -1,13 +1,13 @@
-const groupRows = (originalRows, grouping, parentGroup) => {
-  if (!grouping.length) return originalRows;
+const groupRows = (originalRows, groupedColumns, parentGroup) => {
+  if (!groupedColumns.length) return originalRows;
 
-  const groupColumn = grouping[0].column;
-  const nextGrouping = grouping.slice(1);
+  const groupColumn = groupedColumns[0];
+  const nextGroupedColumns = groupedColumns.slice(1);
   const groups = [];
   const groupHash = {};
 
   originalRows.forEach((r) => {
-    const groupKey = r[groupColumn].toString();
+    const groupKey = r[groupColumn.name].toString();
     let group;
 
     if (groupKey in groupHash) {
@@ -31,10 +31,10 @@ const groupRows = (originalRows, grouping, parentGroup) => {
     group.rows.push(Object.assign({}, r, { _parentRow: group }));
   });
 
-  if (nextGrouping.length) {
+  if (nextGroupedColumns.length) {
     for (let i = 0; i < groups.length; i += 1) {
       const group = groups[i];
-      group.rows = groupRows(group.rows, nextGrouping, group);
+      group.rows = groupRows(group.rows, nextGroupedColumns, group);
     }
   }
 

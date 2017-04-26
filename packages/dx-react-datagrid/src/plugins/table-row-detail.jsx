@@ -20,11 +20,11 @@ export class TableRowDetail extends React.PureComponent {
       }
     };
 
-    this._tableColumns = tableColumns => [{ type: 'detail', name: 'detail', width: 20 }, ...tableColumns];
+    this._tableColumns = tableColumns => [{ type: 'detail', width: 25 }, ...tableColumns];
   }
   render() {
     const expandedDetails = this.props.expandedDetails || this.state.expandedDetails;
-    const { template, detailToggleTemplate } = this.props;
+    const { rowHeight, template, detailToggleTemplate } = this.props;
 
     return (
       <PluginContainer>
@@ -35,11 +35,17 @@ export class TableRowDetail extends React.PureComponent {
             getter('tableColumns'),
           ]}
         />
-        <Template name="tableViewCell" predicate={({ column, row }) => column.type === 'detail' && row.type === 'heading'} />
-        <Template name="tableViewCell" predicate={({ column, row }) => column.type === 'detail' && !row.type}>
-          {({ row }) => detailToggleTemplate({
-            expanded: isDetailRowExpanded(expandedDetails, row.id),
-            toggleExpanded: () => this._setDetailRowExpanded({ rowId: row.id }),
+        <Template
+          name="tableViewCell"
+          predicate={({ column, row }) => column.type === 'detail' && !row.type}
+          connectGetters={getter => ({
+            getRowId: getter('getRowId'),
+          })}
+        >
+          {({ row, getRowId, ...restParams }) => detailToggleTemplate({
+            ...restParams,
+            expanded: isDetailRowExpanded(expandedDetails, getRowId(row)),
+            toggleExpanded: () => this._setDetailRowExpanded({ rowId: getRowId(row) }),
           })}
         </Template>
 
@@ -49,10 +55,12 @@ export class TableRowDetail extends React.PureComponent {
           connectArgs={getter => [
             getter('tableBodyRows'),
             expandedDetails,
+            getter('getRowId'),
+            rowHeight,
           ]}
         />
         <Template name="tableViewCell" predicate={({ row }) => row.type === 'detailRow'}>
-          {({ column, row }) => template({ column, row: row.for })}
+          {({ row, ...params }) => template({ ...params, row: row.for })}
         </Template>
       </PluginContainer>
     );
@@ -65,10 +73,15 @@ TableRowDetail.propTypes = {
   expandedDetailsChange: React.PropTypes.func,
   template: React.PropTypes.func.isRequired,
   detailToggleTemplate: React.PropTypes.func.isRequired,
+  rowHeight: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.oneOf(['auto']),
+  ]),
 };
 
 TableRowDetail.defaultProps = {
   expandedDetails: undefined,
   defaultExpandedDetails: undefined,
   expandedDetailsChange: undefined,
+  rowHeight: 'auto',
 };

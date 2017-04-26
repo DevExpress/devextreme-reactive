@@ -40,6 +40,7 @@ export class SelectionState extends React.PureComponent {
           pureComputed={getAvailableToSelect}
           connectArgs={getter => [
             getter('rows'),
+            getter('getRowId'),
           ]}
         />
         <Getter

@@ -3,14 +3,15 @@ import {
     DataGrid,
     SortingState, SelectionState, FilteringState,
     LocalFiltering, LocalSorting,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
-    VirtualTableView, TableFilterRow, TableSelection, TableRowDetail, TableHeaderRowSorting,
+    VirtualTableView, TableFilterRow, TableSelection, TableRowDetail,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
   generateRows,
+  defaultColumnValues,
 } from '../../demoData';
 
 export class UncontrolledVirtualDemo extends React.PureComponent {
@@ -25,7 +26,10 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 200000 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 200000,
+      }),
     };
 
     this.rowTemplate = ({ row }) => (
@@ -46,10 +50,11 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
         <DataGrid
           rows={rows}
           columns={columns}
+          getRowId={row => row.id}
         >
 
           <FilteringState
-            defaultFilters={[{ column: 'sex', value: 'fe' }]}
+            defaultFilters={[{ column: 'sex', value: 'female' }]}
           />
 
           <SortingState
@@ -65,8 +70,7 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
 
           <VirtualTableView />
 
-          <TableHeaderRow />
-          <TableHeaderRowSorting />
+          <TableHeaderRow sortingEnabled />
 
           <TableFilterRow />
 
@@ -75,6 +79,7 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
           <TableRowDetail
             defaultExpandedDetails={[3]}
             template={this.rowTemplate}
+            rowHeight={60}
           />
 
         </DataGrid>

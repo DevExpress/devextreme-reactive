@@ -8,11 +8,11 @@ import { LocalGroupingControlledDemo } from './grouping/local-grouping-controlle
 const AllDemos = () => (
   <div>
     <h2>Grouping Demos</h2>
-    <h3>Controlled Grouping Mode</h3>
-    <LocalGroupingStaticDemo />
     <h3>Static Local Grouping</h3>
-    <LocalGroupingWithUIDemo />
+    <LocalGroupingStaticDemo />
     <h3>Local Grouping with UI</h3>
+    <LocalGroupingWithUIDemo />
+    <h3>Controlled Grouping Mode</h3>
     <LocalGroupingControlledDemo />
   </div>
 );

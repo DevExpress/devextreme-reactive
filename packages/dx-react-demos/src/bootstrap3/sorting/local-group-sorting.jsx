@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   SortingState,
   GroupingState,
   LocalSorting,
@@ -9,11 +8,9 @@ import {
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
+  TableHeaderRow,
   TableGroupRow,
-  TableHeaderRowSorting,
-  TableHeaderRowGrouping,
   GroupingPanel,
-  GroupingPanelSorting,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -26,7 +23,6 @@ export class LocalGroupSortingDemo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'id', title: 'ID' },
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
@@ -55,12 +51,9 @@ export class LocalGroupSortingDemo extends React.PureComponent {
         <LocalSorting />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow />
+        <TableHeaderRow sortingEnabled />
         <TableGroupRow />
-        <TableHeaderRowSorting />
-        <TableHeaderRowGrouping />
-        <GroupingPanel />
-        <GroupingPanelSorting />
+        <GroupingPanel sortingEnabled />
       </DataGrid>
     );
   }

@@ -37,12 +37,28 @@ h4 {
     height: 78px;
 }
 
+.navbar.navbar-main .navbar-header {
+    height: 78px;
+}
+
+.navbar.navbar-main .navbar-collapse {
+    background: #f8f8f8;
+}
+
+.navbar.navbar-main .navbar-toggle {
+    margin-top: 20px;
+}
+
+.navbar.navbar-main .navbar-toggle .icon-bar {
+    height: 3px;
+}
+
 .navbar-default.navbar-main a.navbar-brand {
     color: #f05b41;
 }
 
 .navbar-default.navbar-main .navbar-nav {
-  margin-top: 13px;
+    margin-top: 13px;
 }
 
 .navbar-default.navbar-main .navbar-nav > li > a {
@@ -80,8 +96,8 @@ section {
 }
 
 .lead p > strong {
-  display: block;
-  margin: 15px 0 -5px;
+    display: block;
+    margin: 15px 0 -5px;
 }
 
 .intro-header {
@@ -155,7 +171,7 @@ ul.banner-action-buttons .btn.demos:hover {
 }
 
 
-@media(max-width:767px) {
+@media(max-width: 767px) {
     .intro-message {
         padding-bottom: 15%;
     }
@@ -164,10 +180,12 @@ ul.banner-action-buttons .btn.demos:hover {
         font-size: 3em;
     }
 
+    .intro-message > h1 > sup {
+      right: -20px;
+    }
+
     ul.intro-action-buttons > li {
-        display: block;
         margin-bottom: 20px;
-        padding: 0;
     }
 
     ul.intro-action-buttons > li:last-child {
@@ -239,21 +257,37 @@ ul.banner-action-buttons .btn.demos:hover {
     }
 }
 
-@media(max-width:767px) {
+@media(max-width: 767px) {
+    .banner {
+      text-align: center;
+    }
     .banner h2 {
         margin: 0;
         font-size: 3em;
     }
 
+    ul.banner-action-buttons {
+        float: none;
+    }
+
     ul.banner-action-buttons > li {
-        display: block;
         margin-bottom: 20px;
-        padding: 0;
     }
 
     ul.banner-action-buttons > li:last-child {
         margin-bottom: 0;
     }
+    
+    .section-heading {
+        margin-bottom: 30px;
+        font-size: 26px;
+    }
+
+    .content-section-a,
+    .content-section-b {
+        padding: 10px 0;
+    }
+    
 }
 
 footer {
@@ -263,24 +297,24 @@ footer {
 }
 
 footer ul {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 footer ul > li > a {
     color: #296794;
-    padding: 50px 15px 50px 0;
+    margin-right: 15px;
     background-color: #f0f2f4;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     font-size: 16px;
 }
 
 footer ul > li > a:hover {
-  text-decoration: none;
-  color: #f05b41;
+    text-decoration: none;
+    color: #f05b41;
 }
 
 footer ul > li.active > a {
-  color: #f05b41;
+    color: #f05b41;
 }
 
 .copyright {

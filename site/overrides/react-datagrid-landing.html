@@ -13,9 +13,8 @@ redirect_from: "/"
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="intro-message">
-						<h1>React Data Grid</h1>
+						<h1>React Data Grid<sup>CTP</sup></h1>
 						<h3>for Bootstrap and Material UI with no compromises</h3>
-						<hr class="intro-divider">
 						<ul class="list-inline intro-action-buttons">
 							<li>
 								<a href="demos/" class="btn btn-default btn-lg demos"><span class="action-button">Demos</span></a>
@@ -50,7 +49,13 @@ redirect_from: "/"
                       <div class="lead">{{ post.content }}</div>
                   </div>
                   <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                      <img class="img-responsive block-image" src="{{site.baseurl}}/img/blocks/{{ post.img }}" alt="">
+                    <img
+                      class="img-responsive block-image"
+                      data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                      data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
+                      src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                      alt=""
+                    />
                   </div>
               </div>
 
@@ -71,7 +76,13 @@ redirect_from: "/"
                       <div class="lead">{{ post.content }}</div>
                   </div>
                   <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive block-image" src="{{site.baseurl}}/img/blocks/{{ post.img }}" alt="">
+                    <img
+                      class="img-responsive block-image"
+                      data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                      data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
+                      src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                      alt=""
+                    />
                   </div>
               </div>
 
@@ -88,10 +99,10 @@ redirect_from: "/"
 		<div class="container">
 
 			<div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-7">
 					<h2>Ready to check it out?</h2>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-5">
 					<ul class="list-inline banner-action-buttons">
 						<li>
 							<a href="demos/" class="btn btn-default btn-lg demos"><span class="action-button">Demos</span></a>
@@ -108,3 +119,21 @@ redirect_from: "/"
 	</div>
 </section>
 
+<script>
+  window.addEventListener('scroll', function() {
+    var images = document.getElementsByClassName('block-image');
+    for (var i = 0; i < images.length; i++) {
+        var img = images[i];
+        var animatedSrc = img.getAttribute('data-animated-src');
+        if (animatedSrc) {
+          var staticSrc = img.getAttribute('data-static-src');
+          var rect = img.getBoundingClientRect();
+          var onScreen = window.innerHeight - rect.bottom >= 0 && rect.top >= 0;
+          var src = onScreen ? animatedSrc : staticSrc;
+          if (img.src.indexOf(src) === -1) {
+            img.src = src;
+          }
+        }
+    }
+  });
+</script>

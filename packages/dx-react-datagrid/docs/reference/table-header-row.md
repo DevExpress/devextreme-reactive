@@ -1,6 +1,6 @@
 # TableHeaderRow Plugin Reference
 
-A plugin that renders a simple table header that shows column titles. A column title is provided via the `title` field in a column definition. See the extended data structure for a [Column](#column).
+A plugin that renders a simple table header that shows column titles. A column title is specified by the `title` field in a column definition. See the extended data structure for a [Column](#column).
 
 Optionally, the plugin allows an end-user to manage a column sorting and grouping state.
 
@@ -42,9 +42,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-sortingEnabled | boolean | True if allows an end-user to change sorting by a column
-groupingEnabled | boolean | True if renders a component that toggles a column's grouping state
-direction? | 'asc' &#124; 'desc' | Specifies the column sort order if applied
+sortingEnabled | boolean | If true, an end-user can change sorting by a column
+groupingEnabled | boolean | If true, a component that toggles a column's grouping state is rendered
+direction? | 'asc' &#124; 'desc' | Specifies the column sort order
 changeSortDirection | ({ keepOther: boolean }) | Changes column sort direction. Keeps existing sorting if `keepOther` is set to `true`
 groupByColumn | () => void | Toggles grouping for a column
 

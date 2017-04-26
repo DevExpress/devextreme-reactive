@@ -49,7 +49,7 @@ export class UncontrolledVirtualDemo extends React.PureComponent {
         >
 
           <FilteringState
-            defaultFilters={[{ column: 'sex', value: 'fe' }]}
+            defaultFilters={[{ column: 'sex', value: 'female' }]}
           />
 
           <SortingState

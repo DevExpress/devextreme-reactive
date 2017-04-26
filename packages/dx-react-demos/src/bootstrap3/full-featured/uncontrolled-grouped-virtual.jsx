@@ -45,7 +45,7 @@ export class UncontrolledGroupedVirtualDemo extends React.PureComponent {
         >
 
           <FilteringState
-            defaultFilters={[{ column: 'car', value: 'au' }]}
+            defaultFilters={[{ column: 'car', value: 'audi' }]}
           />
 
           <SortingState

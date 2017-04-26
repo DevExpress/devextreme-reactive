@@ -1,11 +1,11 @@
-export const rowsWithEditing = (rows, editingRows, newRows) => {
+export const rowsWithEditing = (rows, editingRows, newRows, getRowId) => {
   const rowIds = new Set(editingRows);
-  const tableRows = rows.map(row => (rowIds.has(row.id) ? { type: 'edit', dataRow: row } : row));
+  const tableRows = rows.map(row => (rowIds.has(getRowId(row)) ? { type: 'edit', _originalRow: row } : row));
   const newTableRows = newRows.map((row, index) => ({
     type: 'edit',
     isNew: true,
-    id: index,
-    dataRow: row,
+    index,
+    _originalRow: row,
   }));
   return [
     ...newTableRows,

@@ -16,18 +16,21 @@ export class TableEditRow extends React.PureComponent {
             getter('tableBodyRows'),
             getter('editingRows'),
             getter('newRows'),
+            getter('getRowId'),
           ]}
         />
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'edit' && !row.isNew && !column.type}
           connectGetters={(getter, { column, row }) => {
-            const dataRow = row.dataRow;
-            const change = getRowChange(getter('changedRows'), dataRow.id);
-            const changedRow = Object.assign({}, dataRow, change);
+            const originalRow = row._originalRow;
+            const rowId = getter('getRowId')(row);
+            const change = getRowChange(getter('changedRows'), rowId);
+            const changedRow = Object.assign({}, originalRow, change);
             return {
+              rowId,
               row: changedRow,
-              originalRow: dataRow,
+              originalRow,
               value: changedRow[column.name],
               change,
             };
@@ -36,7 +39,7 @@ export class TableEditRow extends React.PureComponent {
             changeRow: ({ rowId, change }) => action('changeRow')({ rowId, change }),
           })}
         >
-          {({ row, column, value, originalRow, change, changeRow }) =>
+          {({ rowId, row, column, value, originalRow, change, changeRow }) =>
             this.props.editCellTemplate({
               row,
               originalRow,
@@ -44,7 +47,7 @@ export class TableEditRow extends React.PureComponent {
               value,
               change,
               onValueChange: newValue => changeRow({
-                rowId: row.id,
+                rowId,
                 change: {
                   [column.name]: newValue,
                 },
@@ -54,12 +57,12 @@ export class TableEditRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'edit' && row.isNew && !column.type}
-          connectGetters={(getter, { column, row }) => {
-            const dataRow = row.dataRow;
+          connectGetters={(_, { column, row }) => {
+            const originalRow = row._originalRow;
             return {
-              row: dataRow,
-              rowId: row.id,
-              value: dataRow[column.name],
+              row: originalRow,
+              rowId: row.index,
+              value: originalRow[column.name],
             };
           }}
           connectActions={action => ({

@@ -9,18 +9,18 @@ describe('EditRow computeds', () => {
       const editingRows = [2];
       const newRows = [{ id: 3 }];
 
-      const computed = rowsWithEditing(rows, editingRows, newRows);
+      const computed = rowsWithEditing(rows, editingRows, newRows, row => row.id);
       expect(computed).toEqual([
         {
-          id: 0,
+          index: 0,
           type: 'edit',
-          dataRow: { id: 3 },
+          _originalRow: { id: 3 },
           isNew: true,
         },
         { id: 1 },
         {
           type: 'edit',
-          dataRow: { id: 2 },
+          _originalRow: { id: 2 },
         },
       ]);
     });

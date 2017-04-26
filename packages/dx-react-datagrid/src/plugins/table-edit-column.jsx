@@ -35,11 +35,13 @@ export class TableEditColumn extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'edit' && !row.isNew && column.type === 'edit'}
           connectGetters={(getter, { row }) => {
-            const dataRow = row.dataRow;
-            const change = getRowChange(getter('changedRows'), dataRow.id);
+            const originalRow = row._originalRow;
+            const rowId = getter('getRowId')(row);
+            const change = getRowChange(getter('changedRows'), rowId);
             return {
               change,
-              row: dataRow,
+              row: originalRow,
+              rowId,
             };
           }}
           connectActions={action => ({
@@ -48,18 +50,27 @@ export class TableEditColumn extends React.PureComponent {
             commitChangedRows: ({ rowIds }) => action('commitChangedRows')({ rowIds }),
           })}
         >
-          {({ row, column, change, stopEditRows, cancelChangedRows, commitChangedRows, style }) =>
+          {({
+              row,
+              column,
+              change,
+              stopEditRows,
+              cancelChangedRows,
+              commitChangedRows,
+              style,
+              rowId,
+            }) =>
             cellTemplate({
               row,
               column,
               change,
               onCancelEditing: () => {
-                stopEditRows({ rowIds: [row.id] });
-                cancelChangedRows({ rowIds: [row.id] });
+                stopEditRows({ rowIds: [rowId] });
+                cancelChangedRows({ rowIds: [rowId] });
               },
               onCommitChanges: () => {
-                stopEditRows({ rowIds: [row.id] });
-                commitChangedRows({ rowIds: [row.id] });
+                stopEditRows({ rowIds: [rowId] });
+                commitChangedRows({ rowIds: [rowId] });
               },
               isEditing: true,
               commandTemplate,
@@ -70,8 +81,8 @@ export class TableEditColumn extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'edit' && row.isNew && column.type === 'edit'}
           connectGetters={(_, { row }) => ({
-            row: row.dataRow,
-            rowId: row.id,
+            row: row._originalRow,
+            rowId: row.index,
           })}
           connectActions={action => ({
             cancelNewRows: ({ rowIds }) => action('cancelNewRows')({ rowIds }),
@@ -97,6 +108,9 @@ export class TableEditColumn extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => !row.type && column.type === 'edit'}
+          connectGetters={(getter, { row }) => ({
+            rowId: getter('getRowId')(row),
+          })}
           connectActions={action => ({
             startEditRows: ({ rowIds }) => action('startEditRows')({ rowIds }),
             deleteRows: ({ rowIds }) => {
@@ -105,12 +119,12 @@ export class TableEditColumn extends React.PureComponent {
             },
           })}
         >
-          {({ row, column, startEditRows, deleteRows, style }) =>
+          {({ rowId, row, column, startEditRows, deleteRows, style }) =>
             cellTemplate({
               row,
               column,
-              onStartEditing: () => startEditRows({ rowIds: [row.id] }),
-              onDelete: () => deleteRows({ rowIds: [row.id] }),
+              onStartEditing: () => startEditRows({ rowIds: [rowId] }),
+              onDelete: () => deleteRows({ rowIds: [rowId] }),
               commandTemplate,
               allowEditing,
               allowDeleting,

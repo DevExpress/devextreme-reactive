@@ -13,7 +13,7 @@ describe('GroupingPlugin computeds', () => {
     ];
 
     test('can group by one column', () => {
-      const groupings = [{ column: 'a' }];
+      const groupings = [{ name: 'a' }];
 
       const grouped = groupedRows(rows, groupings);
       expect(grouped).toHaveLength(2);
@@ -21,7 +21,7 @@ describe('GroupingPlugin computeds', () => {
         key: '1',
         value: '1',
         type: 'groupRow',
-        column: 'a',
+        column: { name: 'a' },
         colspan: 0,
       });
       expect(grouped[0].rows).toHaveLength(2);
@@ -32,7 +32,7 @@ describe('GroupingPlugin computeds', () => {
         key: '2',
         value: '2',
         type: 'groupRow',
-        column: 'a',
+        column: { name: 'a' },
         colspan: 0,
       });
       expect(grouped[1].rows).toHaveLength(2);
@@ -41,7 +41,7 @@ describe('GroupingPlugin computeds', () => {
     });
 
     test('can group by several columns', () => {
-      const groupings = [{ column: 'a' }, { column: 'b' }];
+      const groupings = [{ name: 'a' }, { name: 'b' }];
 
       const grouped = groupedRows(rows, groupings);
       expect(grouped).toHaveLength(2);
@@ -49,7 +49,7 @@ describe('GroupingPlugin computeds', () => {
         key: '1',
         value: '1',
         type: 'groupRow',
-        column: 'a',
+        column: { name: 'a' },
         colspan: 0,
       });
       expect(grouped[0].rows).toHaveLength(2);
@@ -57,14 +57,14 @@ describe('GroupingPlugin computeds', () => {
         key: '1_1',
         value: '1',
         type: 'groupRow',
-        column: 'b',
+        column: { name: 'b' },
         colspan: 1,
       });
       expect(grouped[0].rows[1]).toMatchObject({
         key: '1_2',
         value: '2',
         type: 'groupRow',
-        column: 'b',
+        column: { name: 'b' },
         colspan: 1,
       });
       expect(grouped[0].rows[0].rows).toHaveLength(1);

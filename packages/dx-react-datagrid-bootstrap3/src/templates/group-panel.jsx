@@ -3,7 +3,16 @@ import React from 'react';
 export const GroupPanel = ({ groupedColumns, groupByColumnText, cellTemplate }) => {
   const text = () => groupByColumnText ||
     <span>
-      Click <i className="glyphicon glyphicon-th-list" style={{ margin: '0 8px 0 5px' }} />
+      Click
+      &nbsp;
+      <i
+        className="glyphicon glyphicon-th-list"
+        style={{
+          top: '0',
+          fontSize: '9px',
+        }}
+      />
+      &nbsp;
       icon in the column header to group by that column
     </span>;
 

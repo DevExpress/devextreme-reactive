@@ -10,7 +10,13 @@ export const TableHeaderCell = ({
   const titleFloat = column.align === 'right' ? 'right' : 'none';
   return (
     <th
-      style={style}
+      style={{
+        userSelect: 'none',
+        MozUserSelect: 'none',
+        WebkitUserSelect: 'none',
+        cursor: !column.type && 'pointer',
+        ...style,
+      }}
       onClick={(e) => {
         if (!sortingEnabled) return;
         e.stopPropagation();
@@ -28,26 +34,39 @@ export const TableHeaderCell = ({
             textAlign: groupingFloat,
           }}
         >
-          <i className="glyphicon glyphicon-th-list" />
+          <i
+            className="glyphicon glyphicon-th-list"
+            style={{
+              top: '0',
+              fontSize: '9px',
+              margin: '-5px',
+              padding: '5px',
+            }}
+          />
         </div>
       )}
-      <span
-        style={{
-          float: titleFloat,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {column.title}
-      </span>
-      {sortingEnabled && (
-        <i
-          className={`glyphicon ${iconName}`}
+      {sortingEnabled ? (
+        <span
+          className={sortDirection ? 'text-primary' : ''}
           style={{
-            margin: '0 5px',
-            visibility: sortDirection ? 'visible' : 'hidden',
             float: titleFloat,
+            whiteSpace: 'nowrap',
           }}
-        />
+        >
+          {column.title}
+          &nbsp;
+          <i
+            className={`glyphicon ${iconName}`}
+            style={{
+              visibility: sortDirection ? 'visible' : 'hidden',
+              top: '0',
+              float: titleFloat,
+              fontSize: '9px',
+            }}
+          />
+        </span>
+      ) : (
+        column.title
       )}
     </th>
   );

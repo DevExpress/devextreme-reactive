@@ -87,8 +87,8 @@ export class FullFeaturedCustomizedDemo extends React.PureComponent {
 
           <TableView>
             <TableViewCellTemplate predicate={({ column }) => column.name === 'discount'}>
-              {({ row }) => (
-                <td>
+              {({ row, style }) => (
+                <td style={style}>
                   <ProgressBar
                     style={{
                       backgroundColor: 'transparent',
@@ -103,11 +103,12 @@ export class FullFeaturedCustomizedDemo extends React.PureComponent {
               )}
             </TableViewCellTemplate>
             <TableViewCellTemplate predicate={({ column }) => column.name === 'amount'}>
-              {({ row, column }) => (
+              {({ row, column, style }) => (
                 <td
                   style={{
                     backgroundColor: getColor(row.amount),
                     textAlign: column.align || 'left',
+                    ...style,
                   }}
                 >
                   ${row.amount}

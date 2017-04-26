@@ -21,12 +21,12 @@ TableViewCellTemplate.defaultProps = {
 
 export class TableView extends React.PureComponent {
   componentWillMount() {
-    const { children, cellTemplate } = this.props;
-    this.updateTemplates(children, cellTemplate);
+    const { children, tableCellTemplate } = this.props;
+    this.updateTemplates(children, tableCellTemplate);
   }
   componentWillReceiveProps(nextProps) {
-    const { children, cellTemplate } = nextProps;
-    this.updateTemplates(children, cellTemplate);
+    const { children, tableCellTemplate } = nextProps;
+    this.updateTemplates(children, tableCellTemplate);
   }
   updateTemplates(children, cellTemplate) {
     const dataCellTemplates = extractTemplates(children, TableViewCellTemplate);

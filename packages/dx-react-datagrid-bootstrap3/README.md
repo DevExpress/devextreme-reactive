@@ -30,11 +30,11 @@ export const App = () => (
 );
 ```
 
-Make sure that Bootstrap styles are linked to a page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
+Make sure that Bootstrap styles are linked to a page. If you have not yet configured a Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
 
 ## Getting started
 
-This repository contains templates and plugin wrappers with injected templates. These wrapper can be used instead the same ones from original React DataGrid repository for your convenience.
+This repository contains templates and plugin wrappers with injected templates. These wrappers can be used instead of the ones from the original React DataGrid repository for your convenience.
 
 See [demos](../dx-react-demos/README.md) for more information.
 

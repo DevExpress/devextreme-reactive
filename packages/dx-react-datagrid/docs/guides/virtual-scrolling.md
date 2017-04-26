@@ -14,9 +14,9 @@ Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Setup
 
-Unlike the ordinary mode, the virtual mode requires cell size to be defined. By default, row height adapted for typical Bootstrap table.
+Unlike the ordinary mode, the virtual mode requires cell size to be defined. By default, row height is adapted for a typical Bootstrap table.
 
-The following example demonstrates the basic DataGrid with the virtual scrolling:
+The following example demonstrates the basic DataGrid with virtual scrolling:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/virtual-scrolling/basic)
 
@@ -26,7 +26,7 @@ The following example demonstrates the basic DataGrid with the virtual scrolling
 
 A virtual table also operates with other DataGrid features like filtering, sorting, etc.
 
-The `TableRowDetail` plugin renders rows with auto height. It is impossible to handle row height change at runtime. So you should specify row height using the `rowHeight` property.
+The `TableRowDetail` plugin renders rows with auto height. It is impossible to handle row height changes at runtime. So you need to  specify the row height using the `rowHeight` property.
 
 Here is an example:
 

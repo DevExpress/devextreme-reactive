@@ -26,7 +26,7 @@ export class LocalFilteringControlledDemo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 14 }),
-      filters: [{ column: 'car', value: 'r' }],
+      filters: [{ column: 'car', value: 'cruze' }],
     };
 
     this.changeFilters = filters => this.setState({ filters });

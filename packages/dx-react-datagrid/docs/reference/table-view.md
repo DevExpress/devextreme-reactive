@@ -23,7 +23,7 @@ Describes properties passed to the table template when it is being rendered
 
 Field | Type | Description
 ------|------|------------
-headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies the rows that should be rendered within the table header
+headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table header
 bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table body
 columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns
 cellTemplate | Component&lt;[CellProps](#cell-props)&gt; | A template that should be used to render table cells

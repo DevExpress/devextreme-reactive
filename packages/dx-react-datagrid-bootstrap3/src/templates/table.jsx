@@ -1,5 +1,6 @@
 import React from 'react';
-import { closest } from './utils/table';
+
+import { querySelectorAll } from './utils/dom';
 
 const getKeyGetter = getIntrinsicKey => (object, index) => {
   const intrinsicKey = getIntrinsicKey(object);
@@ -8,37 +9,15 @@ const getKeyGetter = getIntrinsicKey => (object, index) => {
   return `${type}_${key}`;
 };
 
-export const TableCell = (props) => {
-  const { row, column, colspan, cellContentTemplate, isHeader } = props;
-  const TagName = isHeader ? 'th' : 'td';
-
-  return (
-    <TagName
-      style={{
-        width: column.width ? `${column.width}px` : 'auto',
-      }}
-      colSpan={colspan}
-      data-cell={JSON.stringify({ rowId: row.id, columnName: column.name })}
-    >
-      {cellContentTemplate({ row, column })}
-    </TagName>
-  );
-};
-
-TableCell.propTypes = {
-  row: React.PropTypes.object.isRequired,
-  column: React.PropTypes.object.isRequired,
-  colspan: React.PropTypes.number.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  isHeader: React.PropTypes.bool,
-};
-
-TableCell.defaultProps = {
-  isHeader: false,
+const getCellInfo = ({ row, columnIndex, columns }) => {
+  if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
+  const colspan = row.colspan === columnIndex ? columns.length - row.colspan : 1;
+  return { colspan };
 };
 
 export const TableRow = (props) => {
-  const { row, columns, getCellInfo, cellContentTemplate, isHeader } = props;
+  const { row, columns, cellTemplate } = props;
+  const TableCell = cellTemplate;
   const columnKeyGetter = getKeyGetter(column => column.name);
 
   const height = (!row.height || row.height === 'auto') ? 'auto' : `${row.height}px`;
@@ -53,11 +32,10 @@ export const TableRow = (props) => {
         return (
           <TableCell
             key={columnKeyGetter(column, columnIndex)}
-            isHeader={isHeader}
             row={row}
             column={column}
             colspan={info.colspan}
-            cellContentTemplate={cellContentTemplate}
+            style={column.width ? { width: column.width } : null}
           />
         );
       })}
@@ -68,9 +46,7 @@ export const TableRow = (props) => {
 TableRow.propTypes = {
   row: React.PropTypes.object.isRequired,
   columns: React.PropTypes.array.isRequired,
-  getCellInfo: React.PropTypes.func.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
-  isHeader: React.PropTypes.bool,
+  cellTemplate: React.PropTypes.func.isRequired,
 };
 
 TableRow.defaultProps = {
@@ -78,7 +54,7 @@ TableRow.defaultProps = {
 };
 
 export const Table = ({
-  headerRows, bodyRows, columns, cellContentTemplate, getCellInfo, onClick,
+  headerRows, bodyRows, columns, cellTemplate, onClick,
 }) => {
   const rowKeyGetter = getKeyGetter(row => row.id);
 
@@ -87,13 +63,17 @@ export const Table = ({
       <table
         className="table"
         onClick={(e) => {
-          const { target } = e;
-          const cellEl = closest(target, 'th') || closest(target, 'td');
-          if (!cellEl) return;
+          const { target, currentTarget } = e;
 
-          const { rowId, columnName } = JSON.parse(cellEl.getAttribute('data-cell'));
-          const row = [...headerRows, ...bodyRows].find(r => r.id === rowId);
-          const column = columns.find(c => c.name === columnName);
+          const rowsEls = querySelectorAll(currentTarget, ':scope > thead > tr, :scope > tbody > tr');
+          const rowIndex = [...rowsEls].findIndex(rowEl => rowEl.contains(target));
+          if (rowIndex === -1) return;
+          const cellEls = querySelectorAll(rowsEls[rowIndex], ':scope > th, :scope > td');
+          const columnIndex = [...cellEls].findIndex(cellEl => cellEl.contains(target));
+          if (columnIndex === -1) return;
+
+          const row = [...headerRows, ...bodyRows][rowIndex];
+          const column = columns[columnIndex];
           onClick({ row, column, e });
         }}
       >
@@ -103,9 +83,7 @@ export const Table = ({
               key={rowKeyGetter(row, rowIndex)}
               row={row}
               columns={columns}
-              cellContentTemplate={cellContentTemplate}
-              getCellInfo={getCellInfo}
-              isHeader
+              cellTemplate={cellTemplate}
             />
           ))}
         </thead>
@@ -115,8 +93,7 @@ export const Table = ({
               key={rowKeyGetter(row, rowIndex)}
               row={row}
               columns={columns}
-              cellContentTemplate={cellContentTemplate}
-              getCellInfo={getCellInfo}
+              cellTemplate={cellTemplate}
             />
           ))}
         </tbody>
@@ -131,7 +108,6 @@ Table.propTypes = {
   headerRows: React.PropTypes.array.isRequired,
   bodyRows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,
-  getCellInfo: React.PropTypes.func.isRequired,
-  cellContentTemplate: React.PropTypes.func.isRequired,
+  cellTemplate: React.PropTypes.func.isRequired,
   onClick: React.PropTypes.func,
 };

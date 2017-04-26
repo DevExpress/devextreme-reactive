@@ -23,12 +23,9 @@ UI Plugins:
 
 - [TableView](table-view.md)
 - [TableHeaderRow](table-header-row.md)
-- [TableHeaderRowSorting](table-header-row-sorting.md)
-- [TableHeaderRowGrouping](table-header-row-grouping.md)
 - [TableSelection](table-selection.md)
 - [TableFilterRow](table-filter-row.md)
 - [TableRowDetail](table-row-detail.md)
 - [TableGroupRow](table-group-row.md)
 - [GroupingPanel](grouping-panel.md)
-- [GroupingPanelSorting](grouping-panel-sorting.md)
 - [PagingPanel](paging-panel.md)

@@ -2,19 +2,21 @@
 
 ## Overview
 
-The DataGrid component can handle a large amount of data passed to it. In some cases, it may be required to show thousands of records. As an alternative to paging with hundreds of pages, we porivide the virtual mode for data presentation.
+The DataGrid component can process a large amount of data. In some cases, it may be required to show thousands of records. As an alternative to dividing data by hundreds of pages, we provide the virtual mode for single-page data presentation.
 
 ## Plugin List
 
-The `VirtualTableView` plugin is available for the Bootstrap 3 theme. It can be used as an alternative to the `TableView` plugin.
+The `VirtualTableView` plugin is available for the Bootstrap 3 theme. It can be used instead of the `TableView` plugin.
 
 There are no base plugins that implement virtual scrolling. It is designed as an alternative to an ordinary table template for the [TableView](table-view.md) plugin.
 
-Note that the [plugin order](../README.md#plugin-order) is very important.
+Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Setup
 
-The following example demonstrates the basic DataGrid with the virtual scrolling setup:
+Unlike the ordinary mode, the virtual mode requires cell size to be defined. By default, row height is adapted for a typical Bootstrap table.
+
+The following example demonstrates the basic DataGrid with virtual scrolling:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/virtual-scrolling/basic)
 
@@ -22,7 +24,11 @@ The following example demonstrates the basic DataGrid with the virtual scrolling
 
 ## Integration with Other Plugins
 
-A virtual table also operates with other DataGrid features like filtering, sorting, etc. Here is an example:
+A virtual table also operates with other DataGrid features like filtering, sorting, etc.
+
+The `TableRowDetail` plugin renders rows with auto height. It is impossible to handle row height changes at runtime. So you need to  specify the row height using the `rowHeight` property.
+
+Here is an example:
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/virtual-scrolling/integration-with-other-plugins)
 

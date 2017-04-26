@@ -3,12 +3,11 @@ import {
     DataGrid,
     SortingState, SelectionState, FilteringState, PagingState, GroupingState,
     LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableView, TableRowDetail, TableHeaderRowSorting, TableHeaderRowGrouping,
+    TableView, TableRowDetail,
     TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
-    GroupingPanelSorting,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -70,9 +69,7 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
 
           <TableView />
 
-          <TableHeaderRow />
-          <TableHeaderRowSorting />
-          <TableHeaderRowGrouping />
+          <TableHeaderRow sortingEnabled groupingEnabled />
 
           <TableFilterRow />
 
@@ -87,9 +84,7 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
 
           <TableGroupRow />
 
-          <GroupingPanel />
-          <GroupingPanelSorting />
-
+          <GroupingPanel sortingEnabled />
         </DataGrid>
       </div>
     );

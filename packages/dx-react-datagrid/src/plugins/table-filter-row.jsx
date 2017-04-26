@@ -29,7 +29,7 @@ export class TableFilterRow extends React.PureComponent {
             changeFilter: value => action('setColumnFilter')({ columnName: column.name, value }),
           })}
         >
-          {({ filter, changeFilter }) => this.props.filterCellTemplate({ filter, changeFilter })}
+          {params => this.props.filterCellTemplate(params)}
         </Template>
       </div>
     );

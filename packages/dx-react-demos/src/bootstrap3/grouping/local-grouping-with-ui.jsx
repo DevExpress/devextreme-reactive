@@ -1,14 +1,13 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   GroupingState,
   LocalGrouping,
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
+  TableHeaderRow,
   TableGroupRow,
-  TableHeaderRowGrouping,
   GroupingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
@@ -41,8 +40,7 @@ export class LocalGroupingWithUIDemo extends React.PureComponent {
         <GroupingState defaultGrouping={[{ column: 'city' }]} />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow />
-        <TableHeaderRowGrouping />
+        <TableHeaderRow groupingEnabled />
         <TableGroupRow />
         <GroupingPanel />
       </DataGrid>

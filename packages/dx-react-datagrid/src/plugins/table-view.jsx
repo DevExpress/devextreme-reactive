@@ -1,27 +1,14 @@
 import React from 'react';
 import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
-export const CellContentTemplate = ({ row, column }) =>
-  <TemplatePlaceholder name="tableViewCell" params={{ row, column }} />;
-
-CellContentTemplate.propTypes = {
-  row: React.PropTypes.object.isRequired,
-  column: React.PropTypes.object.isRequired,
-};
+const CellTemplate = params =>
+  <TemplatePlaceholder name="tableViewCell" params={params} />;
 
 export class TableView extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._getCellInfo = ({ row, columnIndex, columns }) => {
-      if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
-      const colspan = row.colspan === columnIndex ? columns.length - row.colspan : 1;
-      return { colspan };
-    };
-  }
   render() {
-    const { tableTemplate } = this.props;
+    const { tableTemplate, tableCellTemplate } = this.props;
     const Table = tableTemplate;
+    const TableCell = tableCellTemplate;
 
     return (
       <div>
@@ -59,19 +46,15 @@ export class TableView extends React.PureComponent {
               headerRows={headerRows}
               bodyRows={bodyRows}
               columns={columns}
-              getCellInfo={this._getCellInfo}
-              cellContentTemplate={CellContentTemplate}
+              cellTemplate={CellTemplate}
               {...extraProps}
             />
           )}
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ row, column }) => !row.type && !column.type}
         >
-          {({ row, column }) => (
-            <span>{row[column.name]}</span>
-          )}
+          {props => <TableCell {...props} />}
         </Template>
       </div>
     );
@@ -80,4 +63,5 @@ export class TableView extends React.PureComponent {
 
 TableView.propTypes = {
   tableTemplate: React.PropTypes.func.isRequired,
+  tableCellTemplate: React.PropTypes.func.isRequired,
 };

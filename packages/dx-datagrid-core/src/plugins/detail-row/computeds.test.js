@@ -8,7 +8,7 @@ describe('DetailRow computeds', () => {
       const rows = [{ id: 1 }, { id: 2 }];
       const expandedDetails = [2];
 
-      const expandedRows = expandedDetailRows(rows, expandedDetails, row => row.id);
+      const expandedRows = expandedDetailRows(rows, expandedDetails, row => row.id, 'auto');
       expect(expandedRows).toEqual([
         { id: 1 },
         { id: 2 },
@@ -26,7 +26,7 @@ describe('DetailRow computeds', () => {
       const rows = [{ id: 1 }, { id: 2 }];
       const expandedDetails = [1, 2];
 
-      const expandedRows = expandedDetailRows(rows, expandedDetails, row => row.id);
+      const expandedRows = expandedDetailRows(rows, expandedDetails, row => row.id, 'auto');
       expect(expandedRows).toEqual([
         { id: 1 },
         {

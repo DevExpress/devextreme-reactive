@@ -3,11 +3,11 @@ import {
     DataGrid,
     SortingState, SelectionState, FilteringState, PagingState,
     LocalFiltering, LocalPaging, LocalSorting,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableView, TableRowDetail, TableHeaderRowSorting,
+    TableView, TableRowDetail,
     TableFilterRow, TableSelection, PagingPanel,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -76,8 +76,7 @@ export class FullFeaturedControlledDemo extends React.PureComponent {
 
           <TableView />
 
-          <TableHeaderRow />
-          <TableHeaderRowSorting />
+          <TableHeaderRow sortingEnabled />
 
           <TableFilterRow />
 

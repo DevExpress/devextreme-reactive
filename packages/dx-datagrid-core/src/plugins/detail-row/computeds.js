@@ -1,4 +1,4 @@
-export const expandedDetailRows = (sourceRows, expandedRows, getRowId) => {
+export const expandedDetailRows = (sourceRows, expandedRows, getRowId, rowHeight) => {
   let rows = sourceRows;
   expandedRows
     .forEach((expandedRowId) => {
@@ -9,7 +9,7 @@ export const expandedDetailRows = (sourceRows, expandedRows, getRowId) => {
         const row = rows[rowIndex];
         rows = [
           ...rows.slice(0, insertIndex),
-          { type: 'detailRow', id: getRowId(row), for: row, colspan: 0, height: 'auto' },
+          { type: 'detailRow', id: getRowId(row), for: row, colspan: 0, height: rowHeight },
           ...rows.slice(insertIndex),
         ];
       }

@@ -2,10 +2,10 @@ import React from 'react';
 import {
     DataGrid,
     SelectionState,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
     VirtualTableView,
+    TableHeaderRow,
     TableSelection,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 

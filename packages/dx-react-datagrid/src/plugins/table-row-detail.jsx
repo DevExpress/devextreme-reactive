@@ -20,11 +20,11 @@ export class TableRowDetail extends React.PureComponent {
       }
     };
 
-    this._tableColumns = tableColumns => [{ type: 'detail', width: 20 }, ...tableColumns];
+    this._tableColumns = tableColumns => [{ type: 'detail', width: 29 }, ...tableColumns];
   }
   render() {
     const expandedDetails = this.props.expandedDetails || this.state.expandedDetails;
-    const { template, detailToggleTemplate } = this.props;
+    const { rowHeight, template, detailToggleTemplate } = this.props;
 
     return (
       <div>
@@ -35,7 +35,6 @@ export class TableRowDetail extends React.PureComponent {
             getter('tableColumns'),
           ]}
         />
-        <Template name="tableViewCell" predicate={({ column, row }) => column.type === 'detail' && row.type === 'heading'} />
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => column.type === 'detail' && !row.type}
@@ -43,7 +42,8 @@ export class TableRowDetail extends React.PureComponent {
             getRowId: getter('getRowId'),
           })}
         >
-          {({ row, getRowId }) => detailToggleTemplate({
+          {({ row, getRowId, ...restParams }) => detailToggleTemplate({
+            ...restParams,
             expanded: isDetailRowExpanded(expandedDetails, getRowId(row)),
             toggleExpanded: () => this._setDetailRowExpanded({ rowId: getRowId(row) }),
           })}
@@ -56,10 +56,11 @@ export class TableRowDetail extends React.PureComponent {
             getter('tableBodyRows'),
             expandedDetails,
             getter('getRowId'),
+            rowHeight,
           ]}
         />
         <Template name="tableViewCell" predicate={({ row }) => row.type === 'detailRow'}>
-          {({ row }) => template({ row: row.for })}
+          {({ row, ...params }) => template({ ...params, row: row.for })}
         </Template>
       </div>
     );
@@ -72,10 +73,15 @@ TableRowDetail.propTypes = {
   expandedDetailsChange: React.PropTypes.func,
   template: React.PropTypes.func.isRequired,
   detailToggleTemplate: React.PropTypes.func.isRequired,
+  rowHeight: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.oneOf(['auto']),
+  ]),
 };
 
 TableRowDetail.defaultProps = {
   expandedDetails: undefined,
   defaultExpandedDetails: undefined,
   expandedDetailsChange: undefined,
+  rowHeight: 'auto',
 };

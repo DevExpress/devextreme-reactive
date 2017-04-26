@@ -1,13 +1,12 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   SortingState,
   LocalSorting,
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
-  TableHeaderRowSorting,
+  TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {
@@ -45,8 +44,7 @@ export class LocalSortingControlledDemo extends React.PureComponent {
         />
         <LocalSorting />
         <TableView />
-        <TableHeaderRow />
-        <TableHeaderRowSorting />
+        <TableHeaderRow sortingEnabled />
       </DataGrid>
     );
   }

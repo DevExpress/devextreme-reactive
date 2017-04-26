@@ -1,10 +1,10 @@
 import React from 'react';
 import {
     DataGrid,
-    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid';
 import {
     VirtualTableView,
+    TableHeaderRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
 import {

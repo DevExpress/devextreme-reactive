@@ -2,23 +2,25 @@
 
 ## Overview
 
-The DataGrid component supports sorting by any number of columns. We also provide a set of plugins that allow end-users to sort the grid by clicking the header of the column (or a group item in case of a groupable grid) by which the grid should be sorted. The sort order is indicated by an arrow glyph within the sorted column. You can sort the grid against multiple columns by clicking required column headers with the `shift` key held down.
+The DataGrid component supports sorting data by any number of columns. It also includes plugins that enable an end-user to specify sorting criteria via the UI (by clicking column headers). The selected sort order is indicated by an arrow glyph in the header of a column. Additionaly, the grid supports multiple column sorting. Click column headers with the `Shift` key held down to select several columns for sorting.
 
 ## Plugin List
 
 There are several plugins that implement sorting features:
 - [SortingState](../reference/sorting-state.md)
 - [LocalSorting](../reference/local-sorting.md)
-- [TableHeaderRowSorting](../reference/table-header-row-sorting.md)
-- [GroupingPanelSorting](../reference/grouping-panel-sorting.md)
+- [TableHeaderRow](../reference/table-header-row.md)
+- [GroupingPanel](../reference/grouping-panel.md)
 
 Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic Local Sorting Setup
 
-To show a grid with interactive sorting features, use the `SortingState`, `LocalSorting`, and `TableHeaderRowSorting` plugins.
+To show a grid with interactive sorting features, use the `SortingState`, `LocalSorting` and `TableHeaderRow` plugins.
 
-In this example, we use the uncontrolled mode and specify only the initial sorting configuration via the `defaultSortings` property of the `SortingState` plugin. After that, the grid will manage sorting changes internally.
+In this example, we use the uncontrolled mode and specify only the initial sorting configuration via the `defaultSortings` property of the `SortingState` plugin.
+
+By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change sorting criteria. To enable this feature, set the `sortingEnabled` property to true.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-header-sorting)
 
@@ -26,7 +28,7 @@ In this example, we use the uncontrolled mode and specify only the initial sorti
 
 ## Using Sorting with Grouping
 
-If you have enabled the DataGrid grouping features, you might want to use them with sorting. The sorting and grouping plugins can work together and don't require any additional configuration.Just keep the proper order of those plugins in the DataGrid container component. If you also want to allow end-users to change the sorting of grouped columns by clicking the items of the group panel, add the `GroupingPanelSorting` plugin.
+You can use the DataGrid's sorting and grouping features simultaneously. When using sorting and grouping plugins togehther, pay your attention to the order of plugins in the DataGrid container component. To allow an end-user to change sorting options of grouped columns by clicking the items of the group panel, set the `sortingEnabled` property of the `GroupingPanel` plugin to true.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-group-sorting)
 
@@ -34,7 +36,7 @@ If you have enabled the DataGrid grouping features, you might want to use them w
 
 ## Controlled Sorting State
 
-To control the sorting state from the outside, pass an array of column sortings to the `sortings` property of the `SortingState` plugin and handle the `sortingsChange` event of the same plugin.
+To control the sorting state, pass the appropriate array to the `sortings` property of the `SortingState` plugin and handle the `sortingsChange` event of the same plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-sorting-controlled)
 
@@ -44,7 +46,7 @@ To control the sorting state from the outside, pass an array of column sortings 
 
 If your data service supports sorting operations, you can handle the DataGrid's sorting state changes in order to request data from the server with the corresponding sorting applied.
 
-Don't use the `LocalSorting` plugin to set up remote sorting. Instead, handle the `sortingsChange` event of the `SortingState` plugin in order to receive updates on sorting changes. These updates take place once an end-user changes sortings that interact with the grid. Having the sorted data received from the server, just pass it to the `DataGrid` component's `rows` property.
+Don't use the `LocalSorting` plugin to configure remote sorting. Handle the `sortingChange` event of the `SortingState` plugin to process sorting criteria updates. These updates are applied when an end-user changes sorting options via the UI. When sorted data was  recieved from the server, pass it to the `DataGrid` component's `rows` property.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/remote-sorting)
 

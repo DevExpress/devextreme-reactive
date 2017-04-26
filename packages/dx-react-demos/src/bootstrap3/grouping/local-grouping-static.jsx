@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   GroupingState,
   LocalGrouping,
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
+  TableHeaderRow,
   TableGroupRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 

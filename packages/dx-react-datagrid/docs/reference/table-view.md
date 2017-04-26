@@ -1,6 +1,6 @@
 # TableView Plugin Reference
 
-This plugin renders the DataGrid data as a table. It contains visualization components such as a table view, table view cell that can be extended by other plugins. It also exposes some customization points to manage column span, height of rows, width of columns, etc.
+This plugin renders the DataGrid data as a table. It contains visualization components such as a table view, table view cell that can be extended by other plugins. It also exposes some customization points to manage column span, row height, column width, etc.
 
 ## User Reference
 
@@ -12,26 +12,36 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tableTemplate | Component&lt;[TableProps](#table-props)&gt; | | A component that renders a table based on the supplied parameters
+tableTemplate | Component&lt;[TableProps](#table-props)&gt; | | A component that renders a table based on the specified parameters
+tableCellTemplate | Component&lt;[TableCellProps](#table-cell-props)&gt; | | A component that renders a table cell based on the specified parameters
 
 ## Interfaces
 
 ### <a name="table-props"></a>TableProps
 
-Describes properties passed to the table template when rendering
+Describes properties passed to the table template when it is being rendered
 
 Field | Type | Description
 ------|------|------------
-headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies the rows that should be rendered within the table heading
-bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies the rows that should be rendered within the table body
+headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table header
+bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table body
 columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns
-cellContentTemplate | Component&lt;[CellContentProps](#cell-content-props)&gt; | A template that should be used to render table cell content
+cellTemplate | Component&lt;[CellProps](#cell-props)&gt; | A template that should be used to render table cells
 
-### <a name="cell-content-props"></a>CellContentProps
+### <a name="cell-props"></a>CellProps
 
-Describes properties passed to a cell content template when rendering
+Describes properties passed to a cell template when it is being rendered
 
 A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+row | [TableRow](#table-row) | Specifies a table row
+column | [TableColumn](#table-column) | Specifies a table column
+
+### <a name="table-cell-props"></a>TableCellProps
+
+Describes properties passed to the table cell template when it is being rendered
 
 Field | Type | Description
 ------|------|------------
@@ -48,11 +58,11 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-type? | string | Specifies the table row type. Used to identify a cell template for a rendered row. Type is not defined for rows passed by a user into the widget
+type? | string | Specifies the table row type. Used to identify a cell template for a rendered row. The type is not defined for rows passed by a user.
 
 ### <a name="table-column"></a>TableColumn
 
-Describes properties of a table column that are taken into account by the TableView plugin
+Describes table column properties taken into account by the TableView plugin
 
 Extends [Column](datagrid.md#column)
 
@@ -75,9 +85,9 @@ columns | Getter | () => Array&lt;[Column](datagrid.md#column)&gt; | Columns to 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table heading
+tableHeaderRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table header
 tableBodyRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table body
 tableColumns | Getter | () => Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered inside the table
 tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that can be provided by other plugins
 tableView | Template | none | A template that renders a table
-tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders the table cell content
+tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders a table cell

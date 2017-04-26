@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   DataGrid,
-  TableHeaderRow,
   PagingState,
   LocalPaging,
 } from '@devexpress/dx-react-datagrid';
 import {
   TableView,
+  TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
@@ -40,7 +40,7 @@ export class LocalPagingControlledDemo extends React.PureComponent {
         columns={columns}
       >
         <PagingState
-          currectPage={this.state.currentPage}
+          currentPage={this.state.currentPage}
           currentPageChange={this.changeCurrentPage}
           pageSize={5}
         />

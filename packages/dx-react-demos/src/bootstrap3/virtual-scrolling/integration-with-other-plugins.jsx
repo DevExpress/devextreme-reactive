@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     DataGrid,
-    TableHeaderRow,
     FilteringState,
     SortingState,
     LocalFiltering,
@@ -9,8 +8,8 @@ import {
 } from '@devexpress/dx-react-datagrid';
 import {
     VirtualTableView,
+    TableHeaderRow,
     TableFilterRow,
-    TableHeaderRowSorting,
     TableRowDetail,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 
@@ -55,19 +54,21 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
         getRowId={row => row.id}
       >
         <FilteringState defaultFilters={[]} />
-        <SortingState defaultSorting={[]} />
+        <SortingState defaultSortings={[{ column: 'city', direction: 'asc' }]} />
 
         <LocalFiltering />
         <LocalSorting />
 
         <VirtualTableView />
 
-        <TableHeaderRow />
-        <TableHeaderRowSorting />
+        <TableHeaderRow sortingEnabled />
 
         <TableFilterRow />
 
-        <TableRowDetail template={this.rowTemplate} />
+        <TableRowDetail
+          template={this.rowTemplate}
+          rowHeight={80}
+        />
       </DataGrid>
     );
   }

@@ -44,10 +44,6 @@ react:
           path: /react/datagrid/docs/reference/table-view
         - title: TableHeaderRow
           path: /react/datagrid/docs/reference/table-header-row
-        - title: TableHeaderRowSorting
-          path: /react/datagrid/docs/reference/table-header-row-sorting
-        - title: TableHeaderRowGrouping
-          path: /react/datagrid/docs/reference/table-header-row-grouping
         - title: TableSelection
           path: /react/datagrid/docs/reference/table-selection
         - title: TableFilterRow
@@ -60,5 +56,3 @@ react:
           path: /react/datagrid/docs/reference/paging-panel
         - title: GroupingPanel
           path: /react/datagrid/docs/reference/grouping-panel
-        - title: GroupingPanelSorting
-          path: /react/datagrid/docs/reference/grouping-panel-sorting

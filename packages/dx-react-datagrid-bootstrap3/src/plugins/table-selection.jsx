@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableSelection as TableSelectionBase } from '@devexpress/dx-react-datagrid';
-import { SelectAllCell } from '../templates/select-all-cell';
-import { SelectCell } from '../templates/select-cell';
+import { TableSelectAllCell } from '../templates/table-select-all-cell';
+import { TableSelectCell } from '../templates/table-select-cell';
 
 export const TableSelection = ({
   highlightSelected, selectByRowClick, showSelectAll, showCheckboxes,
@@ -11,8 +11,8 @@ export const TableSelection = ({
     showSelectAll={showSelectAll}
     highlightSelected={highlightSelected}
     showCheckboxes={showCheckboxes}
-    selectCellTemplate={SelectCell}
-    selectAllCellTemplate={SelectAllCell}
+    selectCellTemplate={TableSelectCell}
+    selectAllCellTemplate={TableSelectAllCell}
   />
 );
 TableSelection.defaultProps = {

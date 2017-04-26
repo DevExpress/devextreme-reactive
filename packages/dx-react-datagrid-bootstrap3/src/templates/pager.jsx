@@ -3,7 +3,10 @@ import { Pagination } from 'react-bootstrap';
 
 export const Pager = ({ currentPage, onCurrentPageChange, totalPages }) => (
   <Pagination
-    style={{ margin: 0 }}
+    style={{
+      margin: 0,
+      verticalAlign: 'bottom',
+    }}
     items={totalPages}
     activePage={currentPage + 1}
     boundaryLinks

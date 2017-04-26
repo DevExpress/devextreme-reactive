@@ -8,7 +8,13 @@ export const TableHeaderCell = ({
   const iconName = `glyphicon-arrow-${sortDirection === 'asc' ? 'down' : 'up'}`;
   return (
     <th
-      style={style}
+      style={{
+        userSelect: 'none',
+        MozUserSelect: 'none',
+        WebkitUserSelect: 'none',
+        cursor: !column.type && 'pointer',
+        ...style,
+      }}
       onClick={(e) => {
         if (!sortingEnabled) return;
         e.stopPropagation();
@@ -26,18 +32,32 @@ export const TableHeaderCell = ({
             textAlign: 'right',
           }}
         >
-          <i className="glyphicon glyphicon-th-list" />
+          <i
+            className="glyphicon glyphicon-th-list"
+            style={{
+              top: '0',
+              fontSize: '9px',
+              margin: '-5px',
+              padding: '5px',
+            }}
+          />
         </div>
       )}
-      {column.title}
-      {sortingEnabled && (
-        <i
-          className={`glyphicon ${iconName}`}
-          style={{
-            margin: '0 5px',
-            visibility: sortDirection ? 'visible' : 'hidden',
-          }}
-        />
+      {sortingEnabled ? (
+        <span className={sortDirection ? 'text-primary' : ''}>
+          {column.title}
+          &nbsp;
+          <i
+            className={`glyphicon ${iconName}`}
+            style={{
+              visibility: sortDirection ? 'visible' : 'hidden',
+              top: '0',
+              fontSize: '9px',
+            }}
+          />
+        </span>
+      ) : (
+        column.title
       )}
     </th>
   );

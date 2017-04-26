@@ -22,18 +22,26 @@ export const GroupPanelCell = ({
       >
         {column.title}
         {sortingEnabled && sortDirection && (
-          <i
-            className={`glyphicon ${iconName}`}
-            style={{
-              marginLeft: '8px',
-            }}
-          />
+          <span>
+            &nbsp;
+            <i
+              className={`glyphicon ${iconName}`}
+              style={{
+                top: '0',
+                fontSize: '9px',
+              }}
+            />
+          </span>
         )}
       </span>
+      &nbsp;
       <i
         className="glyphicon glyphicon-remove"
         style={{
-          marginLeft: '8px',
+          top: '0',
+          fontSize: '9px',
+          margin: '-5px',
+          padding: '5px',
         }}
         onClick={() => groupByColumn({ columnName: column.name })}
       />

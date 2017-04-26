@@ -9,6 +9,9 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "main": "dist/dx-datagrid-core.cjs.js",
   "module": "dist/dx-datagrid-core.es.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

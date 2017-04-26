@@ -36,7 +36,7 @@ export class LocalFilterRowDemo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <FilteringState defaultFilters={[{ column: 'car', value: 'r' }]} />
+        <FilteringState defaultFilters={[]} />
         <LocalFiltering />
         <TableView />
         <TableHeaderRow />

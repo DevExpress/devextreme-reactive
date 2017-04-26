@@ -44,7 +44,7 @@ export class FullFeaturedUncontrolledDemo extends React.PureComponent {
         >
 
           <FilteringState
-            defaultFilters={[{ column: 'name', value: 'j' }]}
+            defaultFilters={[{ column: 'name', value: 'mary' }]}
           />
           <SortingState
             defaultSortings={[{ column: 'name', direction: 'asc' }]}

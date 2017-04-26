@@ -6,13 +6,11 @@ import {
     LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableView, TableRowDetail, TableHeaderRow,
+    TableView, TableHeaderRow,
     TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 import {
     ProgressBar,
-    Panel,
-    Button,
 } from 'react-bootstrap';
 
 import {
@@ -22,15 +20,15 @@ import {
 
 const getColor = (amount) => {
   if (amount < 3000) {
-    return '#ffc2c2';
+    return '#fc7a76';
   }
   if (amount < 5000) {
-    return '#ffdbb1';
+    return '#ffb294';
   }
   if (amount < 8000) {
-    return '#ddffdd';
+    return '#ffd59f';
   }
-  return '#b6f8b6';
+  return '#c3e2b7';
 };
 
 export class FullFeaturedCustomizedDemo extends React.PureComponent {

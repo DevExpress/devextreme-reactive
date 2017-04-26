@@ -74,8 +74,14 @@ section {
 }
 
 .lead {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
+    color: #435c6f;
+}
+
+.lead p > strong {
+  display: block;
+  margin: 15px 0 -5px;
 }
 
 .intro-header {
@@ -83,7 +89,7 @@ section {
     padding-top: 50px;
     padding-bottom: 50px;
     text-align: center;
-    color: #f8f8f8;
+    color: #f0f2f4;
     background: #173952 url({{site.baseurl}}/img/banner-bg.jpg) no-repeat center center;
     background-size: cover;
 }
@@ -120,7 +126,7 @@ section {
 
 .intro-divider {
     width: 400px;
-    border-top: 1px solid #f8f8f8;
+    border-top: 1px solid #f0f2f4;
 }
 
 ul.intro-action-buttons .btn,
@@ -180,13 +186,11 @@ ul.banner-action-buttons .btn.demos:hover {
 
 .content-section-a {
     padding: 50px 0;
-    background-color: #f8f8f8;
+    background-color: #f0f2f4;
 }
 
 .content-section-b {
     padding: 50px 0;
-    border-top: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
 }
 
 .block-image {
@@ -207,7 +211,7 @@ ul.banner-action-buttons .btn.demos:hover {
 
 .banner {
     padding: 100px 0;
-    color: #f8f8f8;
+    color: #f0f2f4;
     background: #173952 url({{site.baseurl}}/img/bottom-bg.jpg) no-repeat center center;
     background-size: cover;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
@@ -255,7 +259,7 @@ ul.banner-action-buttons .btn.demos:hover {
 footer {
     margin-top: 40px;
     padding: 50px 0;
-    background-color: #f8f8f8;
+    background-color: #f0f2f4;
 }
 
 footer ul {
@@ -265,7 +269,7 @@ footer ul {
 footer ul > li > a {
     color: #296794;
     padding: 50px 15px 50px 0;
-    background-color: #f8f8f8;
+    background-color: #f0f2f4;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     font-size: 16px;
 }

@@ -49,7 +49,13 @@ redirect_from: "/"
                       <div class="lead">{{ post.content }}</div>
                   </div>
                   <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                      <img class="img-responsive block-image" src="{{site.baseurl}}/img/blocks/{{ post.img }}" alt="">
+                    <img
+                      class="img-responsive block-image"
+                      data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                      data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
+                      src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                      alt=""
+                    />
                   </div>
               </div>
 
@@ -70,7 +76,13 @@ redirect_from: "/"
                       <div class="lead">{{ post.content }}</div>
                   </div>
                   <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive block-image" src="{{site.baseurl}}/img/blocks/{{ post.img }}" alt="">
+                    <img
+                      class="img-responsive block-image"
+                      data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                      data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
+                      src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                      alt=""
+                    />
                   </div>
               </div>
 
@@ -107,3 +119,21 @@ redirect_from: "/"
 	</div>
 </section>
 
+<script>
+  window.addEventListener('scroll', function() {
+    var images = document.getElementsByClassName('block-image');
+    for (var i = 0; i < images.length; i++) {
+        var img = images[i];
+        var animatedSrc = img.getAttribute('data-animated-src');
+        if (animatedSrc) {
+          var staticSrc = img.getAttribute('data-static-src');
+          var rect = img.getBoundingClientRect();
+          var onScreen = window.innerHeight - rect.bottom >= 0 && rect.top >= 0;
+          var src = onScreen ? animatedSrc : staticSrc;
+          if (img.src.indexOf(src) === -1) {
+            img.src = src;
+          }
+        }
+    }
+  });
+</script>

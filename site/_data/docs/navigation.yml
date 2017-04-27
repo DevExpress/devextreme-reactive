@@ -14,6 +14,8 @@ react:
           path: /react/datagrid/docs/guides/grouping
         - title: Selection
           path: /react/datagrid/docs/guides/selection
+        - title: Editing
+          path: /react/datagrid/docs/guides/editing
         - title: Detail Row
           path: /react/datagrid/docs/guides/detail-row
         - title: Virtual Scrolling

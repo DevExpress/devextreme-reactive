@@ -96,7 +96,7 @@ export class EditRowControlledDemo extends React.PureComponent {
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn
-          allowCreating
+          allowCreating={!this.state.newRows.length}
           allowEditing
           allowDeleting
         />

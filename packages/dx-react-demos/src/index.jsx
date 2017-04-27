@@ -55,11 +55,11 @@ const Container = withRouter(({ location }) => (
             <ul className="list-unstyled">
               <li><Link to="/basic">Basic</Link></li>
               <li><Link to="/sorting">Sorting</Link></li>
-              <li><Link to="/editing">Editing</Link></li>
               <li><Link to="/filtering">Filtering</Link></li>
               <li><Link to="/paging">Paging</Link></li>
               <li><Link to="/grouping">Grouping</Link></li>
               <li><Link to="/selection">Selection</Link></li>
+              <li><Link to="/editing">Editing</Link></li>
               <li><Link to="/detail-row">Detail Row</Link></li>
               <li><Link to="/virtual-scrolling">Virtual Scrolling</Link></li>
               <li><Link to="/full-featured">Full Featured</Link></li>

@@ -26,8 +26,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](#table-row) | Specifies an editing table row with applied changes
-originalRow | [TableRow](#table-row)? | Specifies a source non-modified row
+row | [TableRow](#table-row) | Specifies a source non-modified row
 column | [TableColumn](#table-column) | Specifies a table column
 value | any | Specifies a value to be edited
 onValueChange | (newValue: any) => void | Handles the value change

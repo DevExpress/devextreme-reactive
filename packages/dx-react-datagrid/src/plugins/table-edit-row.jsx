@@ -31,8 +31,7 @@ export class TableEditRow extends React.PureComponent {
             const changedRow = Object.assign({}, originalRow, change);
             return {
               rowId,
-              row: changedRow,
-              originalRow,
+              row: originalRow,
               value: changedRow[column.name],
             };
           }}
@@ -40,10 +39,9 @@ export class TableEditRow extends React.PureComponent {
             changeRow: ({ rowId, change }) => action('changeRow')({ rowId, change }),
           })}
         >
-          {({ rowId, row, column, value, originalRow, changeRow }) =>
+          {({ rowId, row, column, value, changeRow }) =>
             editCellTemplate({
               row,
-              originalRow,
               column,
               value,
               onValueChange: newValue => changeRow({
@@ -80,7 +78,6 @@ export class TableEditRow extends React.PureComponent {
                   [column.name]: newValue,
                 },
               }),
-              isNew: true,
             })}
         </Template>
       </div>

@@ -37,11 +37,9 @@ export class TableEditColumn extends React.PureComponent {
           connectGetters={(getter, { row }) => {
             const originalRow = row._originalRow;
             const rowId = getter('getRowId')(row);
-            const change = getRowChange(getter('changedRows'), rowId);
             return {
               rowId,
               row: originalRow,
-              change,
             };
           }}
           connectActions={action => ({
@@ -54,7 +52,6 @@ export class TableEditColumn extends React.PureComponent {
               rowId,
               row,
               column,
-              change,
               stopEditRows,
               cancelChangedRows,
               commitChangedRows,
@@ -63,7 +60,6 @@ export class TableEditColumn extends React.PureComponent {
             cellTemplate({
               row,
               column,
-              change,
               onCancelEditing: () => {
                 stopEditRows({ rowIds: [rowId] });
                 cancelChangedRows({ rowIds: [rowId] });
@@ -73,7 +69,6 @@ export class TableEditColumn extends React.PureComponent {
                 commitChangedRows({ rowIds: [rowId] });
               },
               isEditing: true,
-              isNew: false,
               commandTemplate,
               style,
             })}
@@ -101,7 +96,6 @@ export class TableEditColumn extends React.PureComponent {
                 commitNewRows({ rowIds: [rowId] });
               },
               isEditing: true,
-              isNew: true,
               commandTemplate,
               style,
             })}
@@ -130,7 +124,6 @@ export class TableEditColumn extends React.PureComponent {
               allowEditing,
               allowDeleting,
               isEditing: false,
-              isNew: false,
               style,
             })}
         </Template>

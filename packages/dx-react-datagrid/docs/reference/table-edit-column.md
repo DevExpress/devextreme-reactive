@@ -32,13 +32,10 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies an editing table row with applied changes
 column | [TableColumn](#table-column) | Specifies a table column
-change | Object? | Specifies the changed properties of a row
 onStartEditing | () => void | Switches a row into the editing mode
 onCancelEditing | () => void | Switches a row into the readonly mode
 onCommitChanges | () => void | Initiates a row changes committing
 onDelete | () => void | Initiates a row deleting
-isEditing | bool | True if a row is being edited
-isNew | bool | True if a row is newlly created
 allowEditing | bool | Specifies if a row can be edited
 allowDeleting | bool | Specifies if a row can be deleted
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
@@ -58,7 +55,6 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies an editing table row with applied changes
 column | [TableColumn](#table-column) | Specifies a table column
-change | Object? | Specifies the changed properties of a row
 onAddNewRow | () => void | Creates a new row for editing
 allowCreating | bool | Specifies if a new row can be created
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell

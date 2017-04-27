@@ -8,16 +8,13 @@ import {
   changeNewRow,
   cancelNewRows,
   newRowsByIds,
-  newRowsAsChangeSet,
 
   changeRow,
   cancelChanges,
   changedRowsByIds,
-  changedRowsAsChangeSet,
 
   deleteRows,
   cancelDeletedRows,
-  deletedRowsAsChangeSet,
 } from '@devexpress/dx-datagrid-core';
 
 export class EditingState extends React.PureComponent {
@@ -79,18 +76,18 @@ export class EditingState extends React.PureComponent {
 
     this._commitNewRows = (newRows, { rowIds }) => {
       const toCommit = newRowsByIds(newRows, rowIds);
-      const changeSet = newRowsAsChangeSet(toCommit);
+      const changeSet = { created: toCommit };
       this._commitChanges(changeSet);
       this._cancelNewRows(newRows, { rowIds });
     };
     this._commitChangedRows = (changedRows, { rowIds }) => {
       const toCommit = changedRowsByIds(changedRows, rowIds);
-      const changeSet = changedRowsAsChangeSet(toCommit);
+      const changeSet = { updated: toCommit };
       this._commitChanges(changeSet);
       this._cancelChangedRows(changedRows, { rowIds });
     };
     this._commitDeletedRows = (deletedRows, { rowIds }) => {
-      const changeSet = deletedRowsAsChangeSet(rowIds);
+      const changeSet = { deleted: rowIds };
       this._commitChanges(changeSet);
       this._cancelDeletedRows(deletedRows, { rowIds });
     };
@@ -107,7 +104,6 @@ export class EditingState extends React.PureComponent {
     const changedRows = this.props.changedRows || this.state.changedRows;
     const newRows = this.props.newRows || this.state.newRows;
     const deletedRows = this.props.deletedRows || this.state.deletedRows;
-    const createNewRow = this.props.createNewRow || (() => ({}));
 
     return (
       <div>
@@ -122,7 +118,7 @@ export class EditingState extends React.PureComponent {
 
         <Action
           name="addNewRow"
-          action={() => this._addNewRow(newRows, { row: createNewRow() })}
+          action={() => this._addNewRow(newRows, { row: {} })}
         />
         <Action
           name="changeNewRow"
@@ -163,15 +159,6 @@ export class EditingState extends React.PureComponent {
           action={({ rowIds }) => this._commitDeletedRows(deletedRows, { rowIds })}
         />
 
-        <Action
-          name="cancelAllChanges"
-          action={() => this._cancelAllChanges()}
-        />
-        <Action
-          name="commitAllChanges"
-          action={() => this._commitAllChanges()}
-        />
-
         <Getter name="editingRows" value={editingRows} />
         <Getter name="changedRows" value={changedRows} />
         <Getter name="newRows" value={newRows} />
@@ -198,7 +185,6 @@ EditingState.propTypes = {
   defaultDeletedRows: React.PropTypes.array,
   deletedRowsChange: React.PropTypes.func,
 
-  createNewRow: React.PropTypes.func,
   onCommitChanges: React.PropTypes.func.isRequired,
 };
 
@@ -218,6 +204,4 @@ EditingState.defaultProps = {
   changedRows: undefined,
   defaultChangedRows: undefined,
   changedRowsChange: undefined,
-
-  createNewRow: undefined,
 };

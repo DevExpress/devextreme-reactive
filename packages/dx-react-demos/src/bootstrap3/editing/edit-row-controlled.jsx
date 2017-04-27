@@ -39,28 +39,38 @@ export class EditRowControlledDemo extends React.PureComponent {
 
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeChangedRows = changedRows => this.setState({ changedRows });
-    this.changeNewRows = newRows => this.setState({ newRows });
-    this.commitChanges = (changeSet) => {
+    this.changeNewRows = (newRows) => {
+      const initialized = newRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
+      this.setState({ newRows: initialized });
+    };
+    this.commitChanges = ({ created, updated, deleted }) => {
       let rows = this.state.rows.slice();
-      changeSet.forEach((change) => {
-        if (change.type === 'create') {
-          const newRow = {
-            id: rows.length,
-            ...change.row,
-          };
-          rows = [newRow, ...rows];
-        } else if (change.type === 'update') {
-          const index = rows.findIndex(row => String(row.id) === change.rowId);
+      if (created) {
+        rows = [
+          ...created.map((row, index) => ({
+            id: rows.length + index,
+            ...row,
+          })),
+          ...rows,
+        ];
+      }
+      if (updated) {
+        Object.keys(updated).forEach((key) => {
+          const index = rows.findIndex(row => String(row.id) === key);
+          const change = updated[index];
           if (index > -1) {
-            rows[index] = Object.assign({}, rows[index], change.change);
+            rows[index] = Object.assign({}, rows[index], change);
           }
-        } else if (change.type === 'delete') {
-          const index = rows.findIndex(row => row.id === change.rowId);
+        });
+      }
+      if (deleted) {
+        deleted.forEach((rowId) => {
+          const index = rows.findIndex(row => row.id === rowId);
           if (index > -1) {
             rows.splice(index, 1);
           }
-        }
-      });
+        });
+      }
       this.setState({ rows });
     };
   }
@@ -81,13 +91,12 @@ export class EditRowControlledDemo extends React.PureComponent {
           newRows={this.state.newRows}
           newRowsChange={this.changeNewRows}
           onCommitChanges={this.commitChanges}
-          createNewRow={() => ({ city: 'Tokio' })}
         />
         <TableView />
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn
-          allowCreating={!this.state.newRows.length}
+          allowCreating
           allowEditing
           allowDeleting
         />

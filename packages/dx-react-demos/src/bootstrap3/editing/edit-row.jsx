@@ -29,23 +29,23 @@ export class EditRowDemo extends React.PureComponent {
       rows: generateRows({ length: 14 }),
     };
 
-    this.commitChanges = (changeSet) => {
+    this.commitChanges = ({ created, updated, deleted }) => {
       let rows = this.state.rows.slice();
-      changeSet.forEach((change) => {
-        if (change.type === 'create') {
-          rows = [change.row, ...rows];
-        } else if (change.type === 'update') {
-          const index = change.rowId;
-          if (index > -1) {
-            rows[index] = Object.assign({}, rows[index], change.change);
-          }
-        } else if (change.type === 'delete') {
-          const index = change.rowId;
-          if (index > -1) {
-            rows.splice(index, 1);
-          }
-        }
-      });
+      if (created) {
+        rows = [...created, ...rows];
+      }
+      if (updated) {
+        Object.keys(updated).forEach((key) => {
+          const index = Number(key);
+          const change = updated[index];
+          rows[index] = Object.assign({}, rows[index], change);
+        });
+      }
+      if (deleted) {
+        deleted.forEach((index) => {
+          rows.splice(index, 1);
+        });
+      }
       this.setState({ rows });
     };
   }
@@ -59,7 +59,6 @@ export class EditRowDemo extends React.PureComponent {
       >
         <EditingState
           onCommitChanges={this.commitChanges}
-          createNewRow={() => ({ city: 'Tokio' })}
         />
         <TableView />
         <TableHeaderRow />

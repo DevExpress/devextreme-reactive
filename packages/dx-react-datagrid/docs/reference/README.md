@@ -11,6 +11,7 @@ State Management Plugins:
 - [GroupingState](grouping-state.md)
 - [PagingState](paging-state.md)
 - [SelectionState](selection-state.md)
+- [EditingState](editing-state.md)
 
 Data Processing Plugins:
 

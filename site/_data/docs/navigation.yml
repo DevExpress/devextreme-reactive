@@ -32,6 +32,8 @@ react:
           path: /react/datagrid/docs/reference/paging-state
         - title: SelectionState
           path: /react/datagrid/docs/reference/selection-state
+        - title: EditingState
+          path: /react/datagrid/docs/reference/editing-state
         - title: LocalFiltering
           path: /react/datagrid/docs/reference/local-filtering
         - title: LocalSorting

@@ -28,5 +28,7 @@ UI Plugins:
 - [TableFilterRow](table-filter-row.md)
 - [TableRowDetail](table-row-detail.md)
 - [TableGroupRow](table-group-row.md)
+- [TableEditRow](table-edit-row.md)
+- [TableEditColumn](table-edit-column.md)
 - [GroupingPanel](grouping-panel.md)
 - [PagingPanel](paging-panel.md)

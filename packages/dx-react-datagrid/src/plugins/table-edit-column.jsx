@@ -39,9 +39,9 @@ export class TableEditColumn extends React.PureComponent {
             const rowId = getter('getRowId')(row);
             const change = getRowChange(getter('changedRows'), rowId);
             return {
-              change,
-              row: originalRow,
               rowId,
+              row: originalRow,
+              change,
             };
           }}
           connectActions={action => ({
@@ -51,6 +51,7 @@ export class TableEditColumn extends React.PureComponent {
           })}
         >
           {({
+              rowId,
               row,
               column,
               change,
@@ -58,7 +59,6 @@ export class TableEditColumn extends React.PureComponent {
               cancelChangedRows,
               commitChangedRows,
               style,
-              rowId,
             }) =>
             cellTemplate({
               row,
@@ -73,6 +73,7 @@ export class TableEditColumn extends React.PureComponent {
                 commitChangedRows({ rowIds: [rowId] });
               },
               isEditing: true,
+              isNew: false,
               commandTemplate,
               style,
             })}
@@ -81,15 +82,15 @@ export class TableEditColumn extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'edit' && row.isNew && column.type === 'edit'}
           connectGetters={(_, { row }) => ({
-            row: row._originalRow,
             rowId: row.index,
+            row: row._originalRow,
           })}
           connectActions={action => ({
             cancelNewRows: ({ rowIds }) => action('cancelNewRows')({ rowIds }),
             commitNewRows: ({ rowIds }) => action('commitNewRows')({ rowIds }),
           })}
         >
-          {({ row, rowId, column, cancelNewRows, commitNewRows, style }) =>
+          {({ rowId, row, column, cancelNewRows, commitNewRows, style }) =>
             cellTemplate({
               row,
               column,
@@ -128,6 +129,8 @@ export class TableEditColumn extends React.PureComponent {
               commandTemplate,
               allowEditing,
               allowDeleting,
+              isEditing: false,
+              isNew: false,
               style,
             })}
         </Template>

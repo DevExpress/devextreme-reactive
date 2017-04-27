@@ -32,7 +32,7 @@ export const EditCommandHeadingCell = ({
       }}
     >
       {allowCreating && commandTemplate({
-        id: 'new',
+        id: 'create',
         onCommand: onAddNewRow,
         text: createCommandText,
       })}

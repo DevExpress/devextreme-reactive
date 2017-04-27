@@ -7,6 +7,7 @@ import {
 
 export class TableEditRow extends React.PureComponent {
   render() {
+    const { editCellTemplate, rowHeight } = this.props;
     return (
       <div>
         <Getter
@@ -17,6 +18,7 @@ export class TableEditRow extends React.PureComponent {
             getter('editingRows'),
             getter('newRows'),
             getter('getRowId'),
+            rowHeight,
           ]}
         />
         <Template
@@ -32,20 +34,18 @@ export class TableEditRow extends React.PureComponent {
               row: changedRow,
               originalRow,
               value: changedRow[column.name],
-              change,
             };
           }}
           connectActions={action => ({
             changeRow: ({ rowId, change }) => action('changeRow')({ rowId, change }),
           })}
         >
-          {({ rowId, row, column, value, originalRow, change, changeRow }) =>
-            this.props.editCellTemplate({
+          {({ rowId, row, column, value, originalRow, changeRow }) =>
+            editCellTemplate({
               row,
               originalRow,
               column,
               value,
-              change,
               onValueChange: newValue => changeRow({
                 rowId,
                 change: {
@@ -70,7 +70,7 @@ export class TableEditRow extends React.PureComponent {
           })}
         >
           {({ row, rowId, column, value, changeNewRow }) =>
-            this.props.editCellTemplate({
+            editCellTemplate({
               row,
               column,
               value,
@@ -88,6 +88,9 @@ export class TableEditRow extends React.PureComponent {
   }
 }
 TableEditRow.propTypes = {
+  rowHeight: React.PropTypes.any,
   editCellTemplate: React.PropTypes.func.isRequired,
 };
-
+TableEditRow.defaultProps = {
+  rowHeight: undefined,
+};

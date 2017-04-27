@@ -54,6 +54,10 @@ react:
           path: /react/datagrid/docs/reference/table-row-detail
         - title: TableGroupRow
           path: /react/datagrid/docs/reference/table-group-row
+        - title: TableEditRow
+          path: /react/datagrid/docs/reference/table-edit-row
+        - title: TableEditColumn
+          path: /react/datagrid/docs/reference/table-edit-column
         - title: PagingPanel
           path: /react/datagrid/docs/reference/paging-panel
         - title: GroupingPanel

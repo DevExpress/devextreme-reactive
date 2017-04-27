@@ -3,22 +3,25 @@ export const paginate = (rows, pageSize, page) =>
 
 export const ensurePageHeaders = (rows, pageSize) => {
   const result = rows.slice();
-  let currentIndex = pageSize;
 
+  const headers = [];
+  let currentIndex = 0;
   while (result.length > currentIndex) {
-    const parentRows = [];
-    let row = result[currentIndex];
-
-    while (row._parentRow) {
-      parentRows.unshift(row._parentRow);
-      row = row._parentRow;
+    const row = result[currentIndex];
+    const headerKey = row._headerKey;
+    if (headerKey) {
+      const headerIndex = headers.findIndex(header => header._headerKey === headerKey);
+      if (headerIndex === -1) {
+        headers.push(row);
+      } else {
+        headers.splice(headerIndex, headers.length - headerIndex, row);
+      }
     }
-
-    if (parentRows.length) {
-      result.splice(currentIndex, 0, ...parentRows);
+    const pagePosition = currentIndex % pageSize;
+    if (pagePosition < headers.length && row !== headers[pagePosition]) {
+      result.splice(currentIndex, 0, headers[pagePosition]);
     }
-
-    currentIndex += pageSize;
+    currentIndex += 1;
   }
 
   return result;

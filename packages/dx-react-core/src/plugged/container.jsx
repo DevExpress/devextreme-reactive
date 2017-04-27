@@ -9,7 +9,7 @@ export const PluginContainer = (
   { children },
   { [CONTAINER_CONTEXT]: containerContext },
 ) => (
-  <div>
+  <div style={{ display: 'none' }}>
     {
       React.Children.map(children, (child, index) => {
         if (!child || !child.type) return child;

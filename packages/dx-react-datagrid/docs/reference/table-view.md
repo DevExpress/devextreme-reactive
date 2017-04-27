@@ -14,7 +14,6 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tableTemplate | Component&lt;[TableProps](#table-props)&gt; | | A component that renders a table based on the specified parameters
 tableCellTemplate | Component&lt;[TableCellProps](#table-cell-props)&gt; | | A component that renders a table cell based on the specified parameters
-children | [TableViewCellTemplate](#table-view-cell-template) &#124; `null` | | Possible children of the TableView plugin
 
 ## Interfaces
 
@@ -72,18 +71,6 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 type? | string | Specifies the table column type. Used to identify a cell template to render a column cell. The type property is not defined for data rows
-
-## Children
-
-### <a name="table-view-cell-template"></a>TableViewCellTemplate
-
-Declares a template for a cell that meets the passed predicate.
-
-Property | Type | Default | Description
----------|------|---------|------------
-predicate | ([TableCellProps](#table-cell-props)) => bool | | Specifies a function that should return *true* to render the template on a cell. The template is used unconditionally if no predicate is specified. If the preducate returns *false* then the cell default template is used to render a cell
-children | ([TableCellProps](#table-cell-props)) => Component | | Specifies a cell template
-
 
 ## Plugin Developer Reference
 

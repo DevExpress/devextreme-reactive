@@ -1,26 +1,22 @@
 import React from 'react';
 import { TableView as TableViewBase } from '@devexpress/dx-react-datagrid';
+import { combineTemplates } from '@devexpress/dx-react-core';
 import { Table } from '../templates/table';
 import { TableCell } from '../templates/table-cell';
 import { Layout } from '../templates/layout';
 
-export const TableView = ({ children }) => (
+export const TableView = ({ tableCellTemplate }) => (
   <div>
     <TableViewBase
       tableTemplate={Table}
-      tableCellTemplate={TableCell}
-    >
-      {children}
-    </TableViewBase>
+      tableCellTemplate={combineTemplates(tableCellTemplate, TableCell)}
+    />
     <Layout />
   </div>
 );
 TableView.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
-  ]),
+  tableCellTemplate: React.PropTypes.func,
 };
 TableView.defaultProps = {
-  children: undefined,
+  tableCellTemplate: undefined,
 };

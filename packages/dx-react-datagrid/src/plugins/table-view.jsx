@@ -3,37 +3,14 @@ import {
   Getter,
   Template,
   TemplatePlaceholder,
-  extractTemplates,
-  combineTemplates,
 } from '@devexpress/dx-react-core';
 
 const CellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
 
-export const TableViewCellTemplate = () => null;
-TableViewCellTemplate.propTypes = {
-  predicate: React.PropTypes.func,
-  children: React.PropTypes.func.isRequired,
-};
-TableViewCellTemplate.defaultProps = {
-  predicate: undefined,
-};
-
 export class TableView extends React.PureComponent {
-  componentWillMount() {
-    const { children, tableCellTemplate } = this.props;
-    this.updateTemplates(children, tableCellTemplate);
-  }
-  componentWillReceiveProps(nextProps) {
-    const { children, tableCellTemplate } = nextProps;
-    this.updateTemplates(children, tableCellTemplate);
-  }
-  updateTemplates(children, cellTemplate) {
-    const dataCellTemplates = extractTemplates(children, TableViewCellTemplate);
-    this._dataCellTemplate = combineTemplates(dataCellTemplates, cellTemplate);
-  }
   render() {
-    const { tableTemplate } = this.props;
+    const { tableTemplate, tableCellTemplate } = this.props;
     const Table = tableTemplate;
 
     return (
@@ -80,7 +57,7 @@ export class TableView extends React.PureComponent {
         <Template
           name="tableViewCell"
         >
-          {this._dataCellTemplate}
+          {tableCellTemplate}
         </Template>
       </div>
     );
@@ -90,8 +67,4 @@ export class TableView extends React.PureComponent {
 TableView.propTypes = {
   tableTemplate: React.PropTypes.func.isRequired,
   tableCellTemplate: React.PropTypes.func.isRequired,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
-  ]),
 };

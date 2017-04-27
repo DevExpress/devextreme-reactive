@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     DataGrid,
-    TableViewCellTemplate,
     SortingState, SelectionState, FilteringState, PagingState, GroupingState,
     LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-datagrid';
@@ -52,7 +51,7 @@ export class FullFeaturedCustomizedDemo extends React.PureComponent {
 
     return (
       <div>
-        <h3>Full Featured Controlled Demo</h3>
+        <h3>Cell Customization Demo</h3>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -85,37 +84,40 @@ export class FullFeaturedCustomizedDemo extends React.PureComponent {
             defaultSelection={[1, 3, 18]}
           />
 
-          <TableView>
-            <TableViewCellTemplate predicate={({ column }) => column.name === 'discount'}>
-              {({ row, style }) => (
-                <td style={style}>
-                  <ProgressBar
+          <TableView
+            tableCellTemplate={({ row, column, style }) => {
+              if (column.name === 'discount') {
+                return (
+                  <td style={style}>
+                    <ProgressBar
+                      style={{
+                        backgroundColor: 'transparent',
+                        boxShadow: 'none',
+                        margin: 0,
+                        borderRadius: 0,
+                      }}
+                      now={row.discount * 100}
+                      label={`${row.discount * 100}%`}
+                      srOnly
+                    />
+                  </td>
+                );
+              } else if (column.name === 'amount') {
+                return (
+                  <td
                     style={{
-                      backgroundColor: 'transparent',
-                      boxShadow: 'none',
-                      margin: 0,
+                      backgroundColor: getColor(row.amount),
+                      textAlign: column.align || 'left',
+                      ...style,
                     }}
-                    now={row.discount * 100}
-                    label={`${row.discount * 100}%`}
-                    srOnly
-                  />
-                </td>
-              )}
-            </TableViewCellTemplate>
-            <TableViewCellTemplate predicate={({ column }) => column.name === 'amount'}>
-              {({ row, column, style }) => (
-                <td
-                  style={{
-                    backgroundColor: getColor(row.amount),
-                    textAlign: column.align || 'left',
-                    ...style,
-                  }}
-                >
-                  ${row.amount}
-                </td>
-              )}
-            </TableViewCellTemplate>
-          </TableView>
+                  >
+                    ${row.amount}
+                  </td>
+                );
+              }
+              return undefined;
+            }}
+          />
 
           <TableHeaderRow />
 

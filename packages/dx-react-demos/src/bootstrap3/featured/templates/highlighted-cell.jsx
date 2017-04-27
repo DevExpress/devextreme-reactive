@@ -25,7 +25,7 @@ export const HighlightedCell = ({ align, value, style }) => (
   </td>
 );
 HighlightedCell.propTypes = {
-  align: React.PropTypes.number.isRequired,
+  align: React.PropTypes.string.isRequired,
   value: React.PropTypes.number.isRequired,
   style: React.PropTypes.object,
 };

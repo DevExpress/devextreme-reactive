@@ -15,5 +15,8 @@ export const FeaturedUncontrolledDemos = () => (
       uncontrolled state mode.
     </p>
     <UncontrolledModeDemo />
+    <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/bootstrap3/featured/uncontrolled-mode.jsx">
+      SOURCE CODE
+    </a>
   </div>
 );

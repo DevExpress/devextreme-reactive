@@ -12,6 +12,16 @@ import {
   withRouter,
 } from 'react-router-dom';
 
+import { BasicDemos } from './bootstrap3/basic';
+import { SortingDemos } from './bootstrap3/sorting';
+import { FilteringDemos } from './bootstrap3/filtering';
+import { PagingDemos } from './bootstrap3/paging';
+import { GroupingDemos } from './bootstrap3/grouping';
+import { SelectionDemos } from './bootstrap3/selection';
+import { DetailRowDemos } from './bootstrap3/detail-row';
+import { VirtualScrollingDemos } from './bootstrap3/virtual-scrolling';
+import { ReduxDemos } from './bootstrap3/redux';
+
 import { FeaturedUncontrolledDemos } from './bootstrap3/featured-uncontrolled';
 import { FeaturedControlledDemos } from './bootstrap3/featured-controlled';
 import { FeaturedVirtualScrollingDemos } from './bootstrap3/featured-virtual-scrolling';
@@ -22,6 +32,17 @@ import './index.css';
 const Demos = () => (
   <div>
     <Route exact path="/" render={() => <Redirect push from="/" to="/featured-uncontrolled" />} />
+
+    <Route path="/basic" component={BasicDemos} />
+    <Route path="/selection" component={SelectionDemos} />
+    <Route path="/sorting" component={SortingDemos} />
+    <Route path="/filtering" component={FilteringDemos} />
+    <Route path="/paging" component={PagingDemos} />
+    <Route path="/grouping" component={GroupingDemos} />
+    <Route path="/detail-row" component={DetailRowDemos} />
+    <Route path="/virtual-scrolling" component={VirtualScrollingDemos} />
+    <Route path="/redux" component={ReduxDemos} />
+
     <Route path="/featured-uncontrolled" component={FeaturedUncontrolledDemos} />
     <Route path="/featured-controlled" component={FeaturedControlledDemos} />
     <Route path="/featured-virtual-scrolling" component={FeaturedVirtualScrollingDemos} />
@@ -36,12 +57,12 @@ const Container = withRouter(({ location }) => (
       <div className="container">
         <div className="row">
           <div className="col-md-3 main-menu">
-            <h3>Featured Demos</h3>
+            <h3>Demos</h3>
             <ul className="list-unstyled">
               <li><Link to="/featured-uncontrolled">Uncontrolled Mode</Link></li>
               <li><Link to="/featured-controlled">Controlled Mode</Link></li>
               <li><Link to="/featured-virtual-scrolling">Virtual Scrolling</Link></li>
-              <li><Link to="/featured-redux-store">Redux Integration</Link></li>
+              <li><Link to="/featured-redux">Redux Integration</Link></li>
             </ul>
           </div>
 

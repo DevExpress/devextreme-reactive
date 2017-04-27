@@ -1,17 +1,23 @@
 import React from 'react';
 import {
     DataGrid,
-    SortingState, SelectionState, FilteringState,
-    LocalFiltering, LocalSorting,
+    SortingState, SelectionState, FilteringState, GroupingState,
+    LocalFiltering, LocalGrouping, LocalSorting,
 } from '@devexpress/dx-react-datagrid';
 import {
-    VirtualTableView, TableFilterRow, TableSelection, TableRowDetail,
-    TableHeaderRow,
+    VirtualTableView, TableHeaderRow,
+    TableFilterRow, TableSelection, GroupingPanel, TableGroupRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
+import {
+    ProgressBarCell,
+} from './templates/progress-bar-cell';
+import {
+    HighlightedCell,
+} from './templates/highlighted-cell';
 
 import {
   generateRows,
-  defaultColumnValues,
+  globalSalesValues,
 } from '../../demoData';
 
 export class VirtualScrollingDemo extends React.PureComponent {
@@ -20,70 +26,71 @@ export class VirtualScrollingDemo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'id', title: 'ID' },
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
+        { name: 'product', title: 'Product' },
+        { name: 'region', title: 'Region' },
+        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'discount', title: 'Discount' },
+        { name: 'saleDate', title: 'Sale Date' },
+        { name: 'customer', title: 'Customer' },
       ],
       rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200000,
       }),
     };
-
-    this.rowTemplate = ({ row }) => (
-      <div>
-        Detail for {row.name}
-        <br />
-        from {row.city}
-      </div>
-    );
   }
   render() {
     const { rows, columns } = this.state;
 
     return (
-      <div>
-        <h3>Uncontrolled Virtual Demo (200K rows)</h3>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        getRowId={row => row.id}
+      >
 
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          getRowId={row => row.id}
-        >
+        <FilteringState
+          defaultFilters={[{ column: 'saleDate', value: 'Feb' }]}
+        />
+        <SortingState
+          defaultSortings={[
+            { column: 'product', direction: 'asc' },
+            { column: 'saleDate', direction: 'asc' },
+          ]}
+        />
+        <GroupingState
+          defaultGrouping={[{ column: 'product' }]}
+          defaultExpandedGroups={{ 'EnviroCare Max': true }}
+        />
 
-          <FilteringState
-            defaultFilters={[{ column: 'sex', value: 'female' }]}
-          />
+        <LocalFiltering />
+        <LocalSorting />
+        <LocalGrouping />
 
-          <SortingState
-            defaultSortings={[{ column: 'name', direction: 'asc' }]}
-          />
+        <SelectionState />
 
-          <SelectionState
-            defaultSelection={[1, 3, 18]}
-          />
+        <VirtualTableView
+          tableCellTemplate={({ row, column, style }) => {
+            if (column.name === 'discount') {
+              return (
+                <ProgressBarCell value={row.discount * 100} style={style} />
+              );
+            } else if (column.name === 'amount') {
+              return (
+                <HighlightedCell align={column.align} value={row.amount} style={style} />
+              );
+            }
+            return undefined;
+          }}
+        />
 
-          <LocalFiltering />
-          <LocalSorting />
+        <TableHeaderRow />
+        <TableFilterRow />
+        <TableSelection />
+        <TableGroupRow />
+        <GroupingPanel />
 
-          <VirtualTableView />
-
-          <TableHeaderRow sortingEnabled />
-
-          <TableFilterRow />
-
-          <TableSelection />
-
-          <TableRowDetail
-            defaultExpandedDetails={[3]}
-            template={this.rowTemplate}
-            rowHeight={60}
-          />
-
-        </DataGrid>
-      </div>
+      </DataGrid>
     );
   }
 }

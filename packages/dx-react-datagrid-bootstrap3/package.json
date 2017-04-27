@@ -9,6 +9,9 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "main": "dist/dx-react-datagrid-bootstrap3.cjs.js",
   "module": "dist/dx-react-datagrid-bootstrap3.es.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

@@ -9,6 +9,7 @@ describe('PluginHost', () => {
 
   test('#get', () => {
     const plugin = {
+      position: () => [0],
       something: () => 123,
     };
 
@@ -18,12 +19,15 @@ describe('PluginHost', () => {
 
   test('#get with extender', () => {
     const plugin1 = {
+      position: () => [0],
       something: () => '1',
     };
     const plugin2 = {
+      position: () => [1],
       something: original => `${original}2`,
     };
     const plugin3 = {
+      position: () => [2],
       something: original => `${original}3`,
     };
 
@@ -35,9 +39,11 @@ describe('PluginHost', () => {
 
   test('#get clean cache', () => {
     const plugin1 = {
+      position: () => [0],
       something: () => '1',
     };
     const plugin2 = {
+      position: () => [1],
       something: original => `${original}2`,
     };
 
@@ -54,12 +60,15 @@ describe('PluginHost', () => {
 
   test('#collect', () => {
     const plugin1 = {
+      position: () => [0],
       something: 1,
     };
     const plugin2 = {
+      position: () => [1],
       something: 2,
     };
     const plugin3 = {
+      position: () => [2],
       something: 3,
     };
 

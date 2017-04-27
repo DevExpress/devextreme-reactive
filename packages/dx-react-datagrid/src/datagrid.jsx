@@ -1,6 +1,7 @@
 import React from 'react';
 import { PluginHost, Getter } from '@devexpress/dx-react-core';
 
+
 const rowIdGetter = (getRowId, rows) => {
   let rowsMap;
   return (row) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Template } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import { getColumnSortingDirection } from '@devexpress/dx-datagrid-core';
 
 export class TableHeaderRow extends React.PureComponent {
@@ -14,7 +14,7 @@ export class TableHeaderRow extends React.PureComponent {
     const HeaderCell = headerCellTemplate;
 
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="tableHeaderRows"
           pureComputed={this._tableHeaderRows}
@@ -53,7 +53,7 @@ export class TableHeaderRow extends React.PureComponent {
             />
           )}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

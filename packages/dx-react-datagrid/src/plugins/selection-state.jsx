@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Action } from '@devexpress/dx-react-core';
+import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setRowSelection, setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-datagrid-core';
 
 export class SelectionState extends React.PureComponent {
@@ -22,7 +22,7 @@ export class SelectionState extends React.PureComponent {
     const selection = this.props.selection || this.state.selection;
 
     return (
-      <div>
+      <PluginContainer>
         <Action
           name="setRowSelection" action={({ rowId }) => {
             this.changeSelection(setRowSelection(selection, { rowId }));
@@ -51,7 +51,7 @@ export class SelectionState extends React.PureComponent {
             getter('availableToSelect'),
           ]}
         />
-      </div>
+      </PluginContainer>
     );
   }
 }

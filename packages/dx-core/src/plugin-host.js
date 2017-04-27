@@ -1,3 +1,5 @@
+import { sortPlugins } from './utils';
+
 export class PluginHost {
   constructor() {
     this.plugins = [];
@@ -5,7 +7,7 @@ export class PluginHost {
     this.gettersCache = {};
   }
   registerPlugin(plugin) {
-    this.plugins.push(plugin);
+    this.plugins = sortPlugins([...this.plugins, plugin]);
     this.cleanPluginsCache();
   }
   unregisterPlugin(plugin) {

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Getter } from '@devexpress/dx-react-core';
+import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { groupedRows, expandedGroupRows } from '@devexpress/dx-datagrid-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalGrouping extends React.PureComponent {
   render() {
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="rows"
           pureComputed={groupedRows}
@@ -23,7 +23,7 @@ export class LocalGrouping extends React.PureComponent {
             getter('expandedGroups'),
           ]}
         />
-      </div>
+      </PluginContainer>
     );
   }
 }

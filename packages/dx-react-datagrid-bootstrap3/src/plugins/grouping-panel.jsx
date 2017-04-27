@@ -3,9 +3,8 @@ import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-datagri
 import { GroupPanel } from '../templates/group-panel';
 import { GroupPanelCell } from '../templates/group-panel-cell';
 
-export const GroupingPanel = ({ sortingEnabled, groupByColumnText }) => (
+export const GroupingPanel = ({ groupByColumnText, ...restProps }) => (
   <GroupingPanelBase
-    sortingEnabled={sortingEnabled}
     groupPanelTemplate={
       props => (
         <GroupPanel
@@ -15,6 +14,7 @@ export const GroupingPanel = ({ sortingEnabled, groupByColumnText }) => (
       )
     }
     groupPanelCellTemplate={GroupPanelCell}
+    {...restProps}
   />
 );
 

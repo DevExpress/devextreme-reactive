@@ -1,8 +1,8 @@
 import React from 'react';
-import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
 export const Layout = () => (
-  <div>
+  <PluginContainer>
     <Template name="gridHeading" />
     <Template name="gridFooter" />
 
@@ -17,5 +17,5 @@ export const Layout = () => (
         </TemplatePlaceholder>
       </div>
     </Template>
-  </div>
+  </PluginContainer>
 );

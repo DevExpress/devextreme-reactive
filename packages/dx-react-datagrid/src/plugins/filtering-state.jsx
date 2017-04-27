@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Action } from '@devexpress/dx-react-core';
+import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnFilter } from '@devexpress/dx-datagrid-core';
 
 export class FilteringState extends React.PureComponent {
@@ -23,14 +23,14 @@ export class FilteringState extends React.PureComponent {
     const filters = this.props.filters || this.state.filters;
 
     return (
-      <div>
+      <PluginContainer>
         <Action
           name="setColumnFilter"
           action={({ columnName, value }) => this._setColumnFilter(filters, { columnName, value })}
         />
 
         <Getter name="filters" value={filters} />
-      </div>
+      </PluginContainer>
     );
   }
 }

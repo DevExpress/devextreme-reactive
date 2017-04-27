@@ -1,5 +1,6 @@
 import React from 'react';
 import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
+import { PluginContainer } from './container';
 import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
 
@@ -19,8 +20,10 @@ export class PluginHost extends React.PureComponent {
 
     return (
       <div>
-        <Template name="root" />
-        {children}
+        <PluginContainer>
+          <Template name="root" />
+          {children}
+        </PluginContainer>
         <TemplatePlaceholder name="root" />
       </div>
     );

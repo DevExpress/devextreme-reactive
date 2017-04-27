@@ -17,9 +17,9 @@ export const ensurePageHeaders = (rows, pageSize) => {
         headers.splice(headerIndex, headers.length - headerIndex, row);
       }
     }
-    const pagePosition = currentIndex % pageSize;
-    if (pagePosition < headers.length && row !== headers[pagePosition]) {
-      result.splice(currentIndex, 0, headers[pagePosition]);
+    const indexInPage = currentIndex % pageSize;
+    if (indexInPage < headers.length && row !== headers[indexInPage]) {
+      result.splice(currentIndex, 0, headers[indexInPage]);
     }
     currentIndex += 1;
   }

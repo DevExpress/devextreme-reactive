@@ -75,7 +75,7 @@ GroupingState.propTypes = {
   grouping: React.PropTypes.array,
   defaultGrouping: React.PropTypes.array,
   groupingChange: React.PropTypes.func,
-  expandedGroups: React.PropTypes.array,
+  expandedGroups: React.PropTypes.object,
   defaultExpandedGroups: React.PropTypes.object,
   expandedGroupsChange: React.PropTypes.func,
 };

@@ -6,6 +6,7 @@ export const TableCell = ({ style, row, column }) => (
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+      textAlign: column.align || 'left',
       ...style,
     }}
   >

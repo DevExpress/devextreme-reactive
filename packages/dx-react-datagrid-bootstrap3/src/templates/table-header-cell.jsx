@@ -6,8 +6,46 @@ export const TableHeaderCell = ({
   groupingEnabled, groupByColumn,
 }) => {
   const iconName = `glyphicon-arrow-${sortDirection === 'asc' ? 'down' : 'up'}`;
-  const groupingFloat = column.align === 'right' ? 'left' : 'right';
-  const titleFloat = column.align === 'right' ? 'right' : 'none';
+  const align = column.align || 'left';
+  const invertedAlign = align === 'left' ? 'right' : 'left';
+
+  const gropingControl = groupingEnabled && (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        groupByColumn(e);
+      }}
+      style={{
+        float: invertedAlign,
+        textAlign: invertedAlign,
+        width: '14px',
+      }}
+    >
+      <i
+        className="glyphicon glyphicon-th-list"
+        style={{
+          top: '0',
+          fontSize: '9px',
+          margin: '-5px',
+          padding: '5px',
+        }}
+      />
+    </div>
+  );
+
+  const sortingControls = [
+    <i
+      className={`glyphicon ${iconName}`}
+      style={{
+        visibility: sortDirection ? 'visible' : 'hidden',
+        top: '0',
+        fontSize: '9px',
+      }}
+    />,
+    <span>&nbsp;</span>,
+    column.title,
+  ];
+
   return (
     <th
       style={{
@@ -15,9 +53,6 @@ export const TableHeaderCell = ({
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
         cursor: sortingEnabled && !column.type && 'pointer',
-        whiteSpace: 'no-wrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
         ...style,
       }}
       onClick={(e) => {
@@ -26,51 +61,25 @@ export const TableHeaderCell = ({
         changeSortDirection({ keepOther: e.shiftKey });
       }}
     >
-      {groupingEnabled && (
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-            groupByColumn(e);
-          }}
-          style={{
-            float: groupingFloat,
-            textAlign: groupingFloat,
-          }}
-        >
-          <i
-            className="glyphicon glyphicon-th-list"
-            style={{
-              top: '0',
-              fontSize: '9px',
-              margin: '-5px',
-              padding: '5px',
-            }}
-          />
-        </div>
-      )}
-      {sortingEnabled ? (
-        <span
-          className={sortDirection ? 'text-primary' : ''}
-          style={{
-            float: titleFloat,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {column.title}
-          &nbsp;
-          <i
-            className={`glyphicon ${iconName}`}
-            style={{
-              visibility: sortDirection ? 'visible' : 'hidden',
-              top: '0',
-              float: titleFloat,
-              fontSize: '9px',
-            }}
-          />
-        </span>
-      ) : (
-        column.title
-      )}
+      {gropingControl}
+      <div
+        style={{
+          [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',
+          textAlign: align,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {sortingEnabled ? (
+          <span
+            className={sortDirection ? 'text-primary' : ''}
+          >
+            {align === 'right' ? sortingControls : sortingControls.reverse()}
+          </span>
+        ) : (
+          column.title
+        )}
+      </div>
     </th>
   );
 };

@@ -14,6 +14,7 @@ export const TableSelectAllCell = ({ style, allSelected, someSelected, toggleAll
     <input
       style={{
         cursor: 'pointer',
+        margin: 0,
       }}
       type="checkbox"
       checked={allSelected}

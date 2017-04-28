@@ -14,6 +14,8 @@ react:
           path: /react/datagrid/docs/guides/grouping
         - title: Selection
           path: /react/datagrid/docs/guides/selection
+        - title: Editing
+          path: /react/datagrid/docs/guides/editing
         - title: Detail Row
           path: /react/datagrid/docs/guides/detail-row
         - title: Virtual Scrolling
@@ -32,6 +34,8 @@ react:
           path: /react/datagrid/docs/reference/paging-state
         - title: SelectionState
           path: /react/datagrid/docs/reference/selection-state
+        - title: EditingState
+          path: /react/datagrid/docs/reference/editing-state
         - title: LocalFiltering
           path: /react/datagrid/docs/reference/local-filtering
         - title: LocalSorting
@@ -52,6 +56,10 @@ react:
           path: /react/datagrid/docs/reference/table-row-detail
         - title: TableGroupRow
           path: /react/datagrid/docs/reference/table-group-row
+        - title: TableEditRow
+          path: /react/datagrid/docs/reference/table-edit-row
+        - title: TableEditColumn
+          path: /react/datagrid/docs/reference/table-edit-column
         - title: PagingPanel
           path: /react/datagrid/docs/reference/paging-panel
         - title: GroupingPanel

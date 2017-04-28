@@ -1,7 +1,6 @@
 import React from 'react';
-import { PluginContainer } from '@devexpress/dx-react-core';
+import { PluginContainer, combineTemplates } from '@devexpress/dx-react-core';
 import { TableView as TableViewBase } from '@devexpress/dx-react-datagrid';
-import { combineTemplates } from '@devexpress/dx-react-core';
 import { Table } from '../templates/table';
 import { TableCell } from '../templates/table-cell';
 import { Layout } from '../templates/layout';

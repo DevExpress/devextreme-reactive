@@ -1,7 +1,12 @@
-**/node_modules
-**/dist
-**/coverage
 *.log
+**/dist
+
+# Node & npm
+**/node_modules
+/packages/*/*.tgz
+
+# Shippable
+**/coverage
 /shippable
 
 # Site

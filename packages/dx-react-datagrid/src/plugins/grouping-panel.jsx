@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { getColumnSortingDirection } from '@devexpress/dx-datagrid-core';
 
 export const GroupPanelCellTemplate = props =>
@@ -19,7 +19,7 @@ export class GroupingPanel extends React.PureComponent {
     const GroupPanelCell = groupPanelCellTemplate;
 
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="tableColumns"
           pureComputed={this._tableColumns}
@@ -75,7 +75,7 @@ export class GroupingPanel extends React.PureComponent {
             />
           )}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

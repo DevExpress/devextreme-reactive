@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-} from '@devexpress/dx-react-core';
+import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
 const CellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
@@ -14,7 +10,7 @@ export class TableView extends React.PureComponent {
     const Table = tableTemplate;
 
     return (
-      <div>
+      <PluginContainer>
         <Getter name="tableHeaderRows" value={[]} />
         <Getter
           name="tableBodyRows"
@@ -59,7 +55,7 @@ export class TableView extends React.PureComponent {
         >
           {tableCellTemplate}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

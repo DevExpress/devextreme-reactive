@@ -1,6 +1,6 @@
 # TableEditRow Plugin Reference
 
-A plugin that renders a row with data editors if the row is in editing state.
+A plugin that renders a row being edited.
 
 ## User Reference
 
@@ -13,8 +13,8 @@ A plugin that renders a row with data editors if the row is in editing state.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rowHeight | number | | Specifies the height for the edit row
-editCellTemplate | Component&lt;[EditCellProps](#edit-cell-props)&gt; | | A component that renders a cell with the capability to change a row field value
+rowHeight | number | | Specifies the height of the edit row
+editCellTemplate | Component&lt;[EditCellProps](#edit-cell-props)&gt; | | A component that renders an editable cell
 
 ## Interfaces
 
@@ -26,7 +26,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](#table-row) | Specifies a source non-modified row
+row | [TableRow](#table-row) | Specifies an initial row
 column | [TableColumn](#table-column) | Specifies a table column
 value | any | Specifies a value to be edited
 onValueChange | (newValue: any) => void | Handles the value change

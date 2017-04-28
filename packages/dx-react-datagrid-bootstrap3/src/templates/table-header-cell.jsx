@@ -6,13 +6,18 @@ export const TableHeaderCell = ({
   groupingEnabled, groupByColumn,
 }) => {
   const iconName = `glyphicon-arrow-${sortDirection === 'asc' ? 'down' : 'up'}`;
+  const groupingFloat = column.align === 'right' ? 'left' : 'right';
+  const titleFloat = column.align === 'right' ? 'right' : 'none';
   return (
     <th
       style={{
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
-        cursor: !column.type && 'pointer',
+        cursor: sortingEnabled && !column.type && 'pointer',
+        whiteSpace: 'no-wrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
         ...style,
       }}
       onClick={(e) => {
@@ -28,8 +33,8 @@ export const TableHeaderCell = ({
             groupByColumn(e);
           }}
           style={{
-            float: 'right',
-            textAlign: 'right',
+            float: groupingFloat,
+            textAlign: groupingFloat,
           }}
         >
           <i
@@ -44,7 +49,13 @@ export const TableHeaderCell = ({
         </div>
       )}
       {sortingEnabled ? (
-        <span className={sortDirection ? 'text-primary' : ''}>
+        <span
+          className={sortDirection ? 'text-primary' : ''}
+          style={{
+            float: titleFloat,
+            whiteSpace: 'nowrap',
+          }}
+        >
           {column.title}
           &nbsp;
           <i
@@ -52,6 +63,7 @@ export const TableHeaderCell = ({
             style={{
               visibility: sortDirection ? 'visible' : 'hidden',
               top: '0',
+              float: titleFloat,
               fontSize: '9px',
             }}
           />

@@ -1,7 +1,16 @@
 import React from 'react';
 
 export const TableCell = ({ style, row, column }) => (
-  <td style={style}>{row[column.name]}</td>
+  <td
+    style={{
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      ...style,
+    }}
+  >
+    {row[column.name]}
+  </td>
 );
 
 TableCell.propTypes = {

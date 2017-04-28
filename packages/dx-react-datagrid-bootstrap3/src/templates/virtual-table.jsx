@@ -5,7 +5,7 @@ import { WindowedScroller } from './virtual-table/windowed-scroller';
 import { VirtualBox } from './virtual-table/virtual-box';
 
 const DEFAULT_HEIGHT = 37;
-const MINIMAL_COLUMN_WIDTH = 100;
+const MINIMAL_COLUMN_WIDTH = 120;
 
 const calculateColumnWidths = (columns, tableWidth) => {
   const occupiedWidth = columns
@@ -128,6 +128,7 @@ export class VirtualTable extends React.Component {
           <VirtualBox
             rootTag="table"
             className="table"
+            style={{ zIndex: 0 }}
 
             crossSize={scrollWidth}
             direction="vertical"

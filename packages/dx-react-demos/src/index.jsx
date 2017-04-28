@@ -79,7 +79,7 @@ const Container = withRouter(({ location }) => {
                     <li><Link to="/paging">Paging</Link></li>
                     <li><Link to="/grouping">Grouping</Link></li>
                     <li><Link to="/selection">Selection</Link></li>
-              <li><Link to="/editing">Editing</Link></li>
+                    <li><Link to="/editing">Editing</Link></li>
                     <li><Link to="/detail-row">Detail Row</Link></li>
                     <li><Link to="/virtual-scrolling">Virtual Scrolling</Link></li>
                     <li><Link to="/redux">Redux</Link></li>

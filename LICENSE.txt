@@ -1,4 +1,0 @@
-This repository is a part of DevExtreme.
-
-Read about DevExtreme licensing here:
-https://js.devexpress.com/Licensing

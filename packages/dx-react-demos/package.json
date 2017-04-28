@@ -7,7 +7,7 @@
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "https://js.devexpress.com/Licensing/",
   "main": "index.js",
   "scripts": {
     "watch": "webpack-dev-server --env",

@@ -3,6 +3,8 @@ export { DataGrid } from './datagrid';
 export { FilteringState } from './plugins/filtering-state';
 export { LocalFiltering } from './plugins/filtering-local';
 
+export { EditingState } from './plugins/editing-state';
+
 export { PagingState } from './plugins/paging-state';
 export { LocalPaging } from './plugins/paging-local';
 
@@ -20,6 +22,8 @@ export { TableRowDetail } from './plugins/table-row-detail';
 export { TableGroupRow } from './plugins/table-group-row';
 export { TableHeaderRow } from './plugins/table-header-row';
 export { TableFilterRow } from './plugins/table-filter-row';
+export { TableEditRow } from './plugins/table-edit-row';
+export { TableEditColumn } from './plugins/table-edit-column';
 
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';

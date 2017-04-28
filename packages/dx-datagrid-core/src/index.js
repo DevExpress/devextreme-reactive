@@ -18,3 +18,9 @@ export * from './plugins/selection-state/computeds';
 export * from './plugins/detail-row/reducers';
 export * from './plugins/detail-row/computeds';
 export * from './plugins/detail-row/helpers';
+
+export * from './plugins/editing-state/reducers';
+export * from './plugins/editing-state/computeds';
+export * from './plugins/editing-state/helpers';
+
+export * from './plugins/edit-row/computeds';

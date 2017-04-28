@@ -38,14 +38,16 @@ export class TableView extends React.PureComponent {
             bodyRows: getter('tableBodyRows'),
             columns: getter('tableColumns'),
             extraProps: getter('tableExtraProps'),
+            getRowId: getter('getRowId'),
           })}
         >
-          {({ headerRows, bodyRows, columns, extraProps }) => (
+          {({ headerRows, bodyRows, columns, getRowId, extraProps }) => (
             <Table
               headerRows={headerRows}
               bodyRows={bodyRows}
               columns={columns}
               cellTemplate={CellTemplate}
+              getRowId={getRowId}
               {...extraProps}
             />
           )}

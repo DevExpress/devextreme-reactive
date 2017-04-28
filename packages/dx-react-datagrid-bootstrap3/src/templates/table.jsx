@@ -56,9 +56,9 @@ TableRow.defaultProps = {
 };
 
 export const Table = ({
-  headerRows, bodyRows, columns, cellTemplate, onClick,
+  headerRows, bodyRows, columns, cellTemplate, onClick, getRowId,
 }) => {
-  const rowKeyGetter = getKeyGetter(row => row.id);
+  const rowKeyGetter = getKeyGetter(row => (!row.type ? getRowId(row) : row.id));
   const minWidth = columns
     .map(column => column.width || MINIMAL_COLUMN_WIDTH)
     .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);
@@ -118,5 +118,6 @@ Table.propTypes = {
   bodyRows: React.PropTypes.array.isRequired,
   columns: React.PropTypes.array.isRequired,
   cellTemplate: React.PropTypes.func.isRequired,
+  getRowId: React.PropTypes.func.isRequired,
   onClick: React.PropTypes.func,
 };

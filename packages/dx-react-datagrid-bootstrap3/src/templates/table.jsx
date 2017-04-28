@@ -2,6 +2,8 @@ import React from 'react';
 
 import { querySelectorAll } from './utils/dom';
 
+const MINIMAL_COLUMN_WIDTH = 120;
+
 const getKeyGetter = getIntrinsicKey => (object, index) => {
   const intrinsicKey = getIntrinsicKey(object);
   const type = object.type || 'data';
@@ -57,6 +59,9 @@ export const Table = ({
   headerRows, bodyRows, columns, cellTemplate, onClick,
 }) => {
   const rowKeyGetter = getKeyGetter(row => row.id);
+  const minWidth = columns
+    .map(column => column.width || MINIMAL_COLUMN_WIDTH)
+    .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);
 
   return (
     <div className="table-responsive">
@@ -64,6 +69,7 @@ export const Table = ({
         className="table"
         style={{
           tableLayout: 'fixed',
+          minWidth: `${minWidth}px`,
         }}
         onClick={(e) => {
           const { target, currentTarget } = e;

@@ -12,7 +12,10 @@ export const TableHeaderCell = ({
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
-        cursor: !column.type && 'pointer',
+        cursor: sortingEnabled && !column.type && 'pointer',
+        whiteSpace: 'no-wrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
         ...style,
       }}
       onClick={(e) => {

@@ -1,18 +1,15 @@
 import React from 'react';
-import { Getter, Template } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import extendWithEventListener from '../utils/extendWithEventListener';
 
 export class TableSelection extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._tableColumns = (tableColumns, showCheckboxes) => {
-      if (!showCheckboxes) return tableColumns;
-      return [{ type: 'select', width: 30 }, ...tableColumns];
-    };
+    this._tableColumns = tableColumns =>
+      [{ type: 'select', name: 'select', width: 30 }, ...tableColumns];
 
-    this._tableBodyRows = (highlightSelected, tableBodyRows, selection, getRowId) => {
-      if (!highlightSelected) return tableBodyRows;
+    this._tableBodyRows = (tableBodyRows, selection, getRowId) => {
       const selectionSet = new Set(selection);
       return tableBodyRows
         .map((row) => {
@@ -21,15 +18,12 @@ export class TableSelection extends React.PureComponent {
         });
     };
 
-    this._tableExtraProps = (selectByRowClick, tableExtraProps,
-        availableToSelect, setRowSelection, getRowId) => {
-      if (!selectByRowClick) return tableExtraProps;
-      return extendWithEventListener(tableExtraProps, 'onClick', ({ row }) => {
+    this._tableExtraProps = (tableExtraProps, availableToSelect, setRowSelection, getRowId) =>
+      extendWithEventListener(tableExtraProps, 'onClick', ({ row }) => {
         const rowId = getRowId(row);
         if (availableToSelect.indexOf(rowId) === -1) return;
         setRowSelection({ rowId });
       });
-    };
   }
   render() {
     const { highlightSelected, selectByRowClick, showCheckboxes, showSelectAll } = this.props;
@@ -37,80 +31,88 @@ export class TableSelection extends React.PureComponent {
     const SelectCell = this.props.selectCellTemplate;
 
     return (
-      <div>
-        <Getter
-          name="tableColumns"
-          pureComputed={this._tableColumns}
-          connectArgs={getter => [
-            getter('tableColumns'),
-            showCheckboxes,
-          ]}
-        />
-        <Getter
-          name="tableBodyRows"
-          pureComputed={this._tableBodyRows}
-          connectArgs={getter => [
-            highlightSelected,
-            getter('tableBodyRows'),
-            getter('selection'),
-            getter('getRowId'),
-          ]}
-        />
-        <Getter
-          name="tableExtraProps"
-          pureComputed={this._tableExtraProps}
-          connectArgs={(getter, action) => [
-            selectByRowClick,
-            getter('tableExtraProps'),
-            getter('availableToSelect'),
-            action('setRowSelection'),
-            getter('getRowId'),
-          ]}
-        />
+      <PluginContainer>
+        {showCheckboxes && (
+          <Getter
+            name="tableColumns"
+            pureComputed={this._tableColumns}
+            connectArgs={getter => [
+              getter('tableColumns'),
+            ]}
+          />
+        )}
+        {highlightSelected && (
+          <Getter
+            name="tableBodyRows"
+            pureComputed={this._tableBodyRows}
+            connectArgs={getter => [
+              getter('tableBodyRows'),
+              getter('selection'),
+              getter('getRowId'),
+            ]}
+          />
+        )}
+        {selectByRowClick && (
+          <Getter
+            name="tableExtraProps"
+            pureComputed={this._tableExtraProps}
+            connectArgs={(getter, action) => [
+              getter('tableExtraProps'),
+              getter('availableToSelect'),
+              action('setRowSelection'),
+              getter('getRowId'),
+            ]}
+          />
+        )}
 
-        <Template
-          name="tableViewCell"
-          predicate={({ column, row }) => showCheckboxes && showSelectAll && column.type === 'select' && row.type === 'heading'}
-          connectGetters={(getter) => {
-            const availableToSelect = getter('availableToSelect');
-            const selection = getter('selection');
-            return {
-              availableToSelect,
-              allSelected: selection.length === availableToSelect.length && selection.length !== 0,
-              someSelected: selection.length !== availableToSelect.length && selection.length !== 0,
-            };
-          }}
-          connectActions={action => ({
-            toggleAll: availableToSelect => action('setRowsSelection')({ rowIds: availableToSelect }),
-          })}
-        >
-          {({ toggleAll, availableToSelect, ...params }) => (
-            <SelectAllCell
-              {...params}
-              toggleAll={() => toggleAll(availableToSelect)}
-            />
-          )}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ column, row }) => showCheckboxes && column.type === 'select' && !row.type}
-          connectGetters={(getter, { row }) => ({
-            rowId: getter('getRowId')(row),
-            selection: getter('selection'),
-          })}
-          connectActions={action => ({
-            toggleSelected: ({ rowId }) => action('setRowSelection')({ rowId }),
-          })}
-        >
-          {({ rowId, selection, toggleSelected, ...restParams }) => (
-            <SelectCell
-              {...restParams}
-              selected={selection.indexOf(rowId) > -1}
-              changeSelected={() => toggleSelected({ rowId })}
-            />
-          )}
-        </Template>
-      </div>
+        {(showCheckboxes && showSelectAll) && (
+          <Template
+            name="tableViewCell"
+            predicate={({ column, row }) => column.type === 'select' && row.type === 'heading'}
+            connectGetters={(getter) => {
+              const availableToSelect = getter('availableToSelect');
+              const selection = getter('selection');
+              const selectionExists = selection.length !== 0;
+              return {
+                availableToSelect,
+                allSelected: selection.length === availableToSelect.length && selectionExists,
+                someSelected: selection.length !== availableToSelect.length && selectionExists,
+              };
+            }}
+            connectActions={action => ({
+              toggleAll: availableToSelect => action('setRowsSelection')({ rowIds: availableToSelect }),
+            })}
+          >
+            {({ toggleAll, availableToSelect, ...params }) => (
+              <SelectAllCell
+                {...params}
+                toggleAll={() => toggleAll(availableToSelect)}
+              />
+            )}
+          </Template>
+        )}
+        {showCheckboxes && (
+          <Template
+            name="tableViewCell"
+            predicate={({ column, row }) => showCheckboxes && column.type === 'select' && !row.type}
+            connectGetters={(getter, { row }) => ({
+              rowId: getter('getRowId')(row),
+              selection: getter('selection'),
+            })}
+            connectActions={action => ({
+              toggleSelected: ({ rowId }) => action('setRowSelection')({ rowId }),
+            })}
+          >
+            {({ rowId, selection, toggleSelected, ...restParams }) => (
+              <SelectCell
+                {...restParams}
+                selected={selection.indexOf(rowId) > -1}
+                changeSelected={() => toggleSelected({ rowId })}
+              />
+            )}
+          </Template>
+        )}
+      </PluginContainer>
     );
   }
 }

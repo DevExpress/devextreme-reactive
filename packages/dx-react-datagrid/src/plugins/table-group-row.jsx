@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Template } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 
 export class TableGroupRow extends React.PureComponent {
   constructor(props) {
@@ -14,7 +14,7 @@ export class TableGroupRow extends React.PureComponent {
     const GroupRowCell = this.props.groupRowCellTemplate;
 
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="tableColumns"
           pureComputed={this._tableColumns}
@@ -40,7 +40,7 @@ export class TableGroupRow extends React.PureComponent {
             />
           )}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Action } from '@devexpress/dx-react-core';
+import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { groupByColumn } from '@devexpress/dx-datagrid-core';
 
 export class GroupingState extends React.PureComponent {
@@ -44,7 +44,7 @@ export class GroupingState extends React.PureComponent {
     const expandedGroups = this.props.expandedGroups || this.state.expandedGroups;
 
     return (
-      <div>
+      <PluginContainer>
         <Action
           name="toggleGroupExpanded"
           action={({ groupKey }) => { this.toggleGroupExpanded(groupKey); }}
@@ -66,7 +66,7 @@ export class GroupingState extends React.PureComponent {
             grouping,
           ]}
         />
-      </div>
+      </PluginContainer>
     );
   }
 }

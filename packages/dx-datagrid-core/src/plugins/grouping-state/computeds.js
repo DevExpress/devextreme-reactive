@@ -6,14 +6,15 @@ const groupRows = (originalRows, groupedColumns, parentGroup) => {
   const groups = [];
   const groupHash = {};
 
-  originalRows.forEach((r) => {
-    const groupKey = r[groupColumn.name].toString();
+  originalRows.forEach((row) => {
+    const groupKey = row[groupColumn.name].toString();
     let group;
 
     if (groupKey in groupHash) {
       group = groupHash[groupKey];
     } else {
       group = {
+        _headerKey: `groupRow_${groupColumn.name}`,
         key: (parentGroup ? `${parentGroup.key}_` : '') + groupKey,
         colspan: (parentGroup ? parentGroup.colspan + 1 : 0),
         value: groupKey,
@@ -22,13 +23,10 @@ const groupRows = (originalRows, groupedColumns, parentGroup) => {
         rows: [],
       };
       groupHash[groupKey] = group;
-      if (parentGroup) {
-        group._parentRow = parentGroup;
-      }
       groups.push(group);
     }
 
-    group.rows.push(Object.assign({}, r, { _parentRow: group }));
+    group.rows.push(row);
   });
 
   if (nextGroupedColumns.length) {

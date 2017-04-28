@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Template } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import { getColumnFilterValue } from '@devexpress/dx-datagrid-core';
 
 export class TableFilterRow extends React.PureComponent {
@@ -10,7 +10,7 @@ export class TableFilterRow extends React.PureComponent {
   }
   render() {
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="tableHeaderRows"
           pureComputed={this._tableHeaderRows}
@@ -31,7 +31,7 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => this.props.filterCellTemplate(params)}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

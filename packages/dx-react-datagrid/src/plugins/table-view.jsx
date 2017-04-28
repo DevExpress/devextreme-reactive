@@ -8,7 +8,6 @@ export class TableView extends React.PureComponent {
   render() {
     const { tableTemplate, tableCellTemplate } = this.props;
     const Table = tableTemplate;
-    const TableCell = tableCellTemplate;
 
     return (
       <PluginContainer>
@@ -54,7 +53,7 @@ export class TableView extends React.PureComponent {
         <Template
           name="tableViewCell"
         >
-          {props => <TableCell {...props} />}
+          {tableCellTemplate}
         </Template>
       </PluginContainer>
     );

@@ -87,12 +87,12 @@ export class UncontrolledModeDemo extends React.PureComponent {
           }}
         />
 
-        <TableHeaderRow />
+        <TableHeaderRow sortingEnabled groupingEnabled />
         <TableFilterRow />
         <PagingPanel />
         <TableSelection />
         <TableGroupRow />
-        <GroupingPanel />
+        <GroupingPanel sortingEnabled />
 
       </DataGrid>
     );

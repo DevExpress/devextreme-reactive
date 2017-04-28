@@ -1,6 +1,5 @@
 import React from 'react';
-import { Template } from '@devexpress/dx-react-core';
-import { getRowChange } from '@devexpress/dx-datagrid-core';
+import { Template, PluginContainer } from '@devexpress/dx-react-core';
 
 export class TableEditColumn extends React.PureComponent {
   render() {
@@ -13,7 +12,7 @@ export class TableEditColumn extends React.PureComponent {
       allowDeleting,
     } = this.props;
     return (
-      <div>
+      <PluginContainer>
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'heading' && column.type === 'edit'}
@@ -127,7 +126,7 @@ export class TableEditColumn extends React.PureComponent {
               style,
             })}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

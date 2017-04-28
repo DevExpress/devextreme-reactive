@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Action } from '@devexpress/dx-react-core';
+import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   startEditRows,
   stopEditRows,
@@ -106,7 +106,7 @@ export class EditingState extends React.PureComponent {
     const deletedRows = this.props.deletedRows || this.state.deletedRows;
 
     return (
-      <div>
+      <PluginContainer>
         <Action
           name="startEditRows"
           action={({ rowIds }) => this._startEditRows(editingRows, { rowIds })}
@@ -163,7 +163,7 @@ export class EditingState extends React.PureComponent {
         <Getter name="changedRows" value={changedRows} />
         <Getter name="newRows" value={newRows} />
         <Getter name="deletedRows" value={deletedRows} />
-      </div>
+      </PluginContainer>
     );
   }
 }

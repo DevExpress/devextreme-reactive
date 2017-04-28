@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Template } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getRowChange,
   rowsWithEditing,
@@ -9,7 +9,7 @@ export class TableEditRow extends React.PureComponent {
   render() {
     const { editCellTemplate, rowHeight } = this.props;
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="tableBodyRows"
           pureComputed={rowsWithEditing}
@@ -80,7 +80,7 @@ export class TableEditRow extends React.PureComponent {
               }),
             })}
         </Template>
-      </div>
+      </PluginContainer>
     );
   }
 }

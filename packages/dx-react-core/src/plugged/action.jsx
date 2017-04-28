@@ -6,6 +6,7 @@ export class Action extends React.PureComponent {
     const { name } = this.props;
 
     this.plugin = {
+      position: () => this.props.position(),
       [`${name}Action`]: (params) => {
         const { action } = this.props;
         action(params);
@@ -24,8 +25,12 @@ export class Action extends React.PureComponent {
   }
 }
 Action.propTypes = {
+  position: React.PropTypes.func,
   name: React.PropTypes.string.isRequired,
   action: React.PropTypes.func.isRequired,
+};
+Action.defaultProps = {
+  position: () => NaN,
 };
 Action.contextTypes = {
   pluginHost: React.PropTypes.object.isRequired,

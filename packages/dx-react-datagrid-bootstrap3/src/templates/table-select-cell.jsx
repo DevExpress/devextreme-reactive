@@ -14,6 +14,7 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
     <input
       style={{
         cursor: 'pointer',
+        margin: 0,
       }}
       type="checkbox"
       checked={selected}

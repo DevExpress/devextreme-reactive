@@ -1,8 +1,8 @@
 import React from 'react';
-import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
 export const PagingPanel = props => (
-  <div>
+  <PluginContainer>
     <Template name="gridFooter">
       <div>
         <TemplatePlaceholder name="pager" />
@@ -21,7 +21,7 @@ export const PagingPanel = props => (
     >
       {props.pagerTemplate}
     </Template>
-  </div>
+  </PluginContainer>
 );
 
 PagingPanel.propTypes = {

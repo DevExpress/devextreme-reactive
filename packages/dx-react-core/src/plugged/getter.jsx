@@ -29,6 +29,7 @@ export class Getter extends React.PureComponent {
     const pureComputedMemoized = getterMemoize(pureComputed, result => onChange(result));
 
     this.plugin = {
+      position: () => this.props.position(),
       [`${name}Getter`]: (original) => {
         const { value, connectArgs } = this.props;
         if (value !== null) return value;
@@ -67,8 +68,10 @@ Getter.defaultProps = {
   value: null,
   pureComputed: null,
   connectArgs: null,
+  position: () => NaN,
 };
 Getter.propTypes = {
+  position: React.PropTypes.func,
   name: React.PropTypes.string.isRequired,
   onChange: React.PropTypes.func,
   value: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types

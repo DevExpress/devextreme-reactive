@@ -1,18 +1,19 @@
 import React from 'react';
+import { PluginContainer, combineTemplates } from '@devexpress/dx-react-core';
 import { TableView as TableViewBase } from '@devexpress/dx-react-datagrid';
-import { combineTemplates } from '@devexpress/dx-react-core';
 import { VirtualTable } from '../templates/virtual-table';
 import { TableCell } from '../templates/table-cell';
 import { Layout } from '../templates/layout';
 
-export const VirtualTableView = ({ tableCellTemplate }) => (
-  <div>
+export const VirtualTableView = ({ tableCellTemplate, ...props }) => (
+  <PluginContainer>
     <TableViewBase
       tableTemplate={VirtualTable}
       tableCellTemplate={combineTemplates(tableCellTemplate, TableCell)}
+      {...props}
     />
     <Layout />
-  </div>
+  </PluginContainer>
 );
 VirtualTableView.propTypes = {
   tableCellTemplate: React.PropTypes.func,

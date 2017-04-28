@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Watcher } from '@devexpress/dx-react-core';
+import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
 import { paginate, ensurePageHeaders } from '@devexpress/dx-datagrid-core';
 
 export class LocalPaging extends React.PureComponent {
@@ -10,7 +10,7 @@ export class LocalPaging extends React.PureComponent {
   }
   render() {
     return (
-      <div>
+      <PluginContainer>
         <Getter
           name="rows"
           pureComputed={ensurePageHeaders}
@@ -47,7 +47,7 @@ export class LocalPaging extends React.PureComponent {
             getter('currentPage'),
           ]}
         />
-      </div>
+      </PluginContainer>
     );
   }
 }

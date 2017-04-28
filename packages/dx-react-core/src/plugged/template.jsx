@@ -15,6 +15,7 @@ export class Template extends React.PureComponent {
     const { name, predicate, connectGetters, connectActions } = this.props;
 
     this.plugin = {
+      position: () => this.props.position(),
       [`${name}Template`]: {
         predicate,
         connectGetters,
@@ -42,8 +43,10 @@ Template.defaultProps = {
   connectGetters: null,
   connectActions: null,
   children: null,
+  position: () => NaN,
 };
 Template.propTypes = {
+  position: React.PropTypes.func,
   name: React.PropTypes.string.isRequired,
   predicate: React.PropTypes.func,
   connectGetters: React.PropTypes.func,

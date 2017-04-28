@@ -50,20 +50,40 @@ const Demos = () => (
   </div>
 );
 
-const Container = withRouter(({ location }) => (
-  location.pathname.split('/').length === 3
+const Container = withRouter(({ location }) => {
+  const parts = location.pathname.split('/');
+  return parts.length === 3
     ? <Demos />
     : (
       <div className="container">
         <div className="row">
           <div className="col-md-3 main-menu">
             <h3>Demos</h3>
-            <ul className="list-unstyled">
-              <li><Link to="/featured-uncontrolled">Uncontrolled Mode</Link></li>
-              <li><Link to="/featured-controlled">Controlled Mode</Link></li>
-              <li><Link to="/featured-virtual-scrolling">Virtual Scrolling</Link></li>
-              <li><Link to="/featured-redux">Redux Integration</Link></li>
-            </ul>
+            {
+              (parts[1].indexOf('featured-') > -1)
+                ? (
+                  <ul className="list-unstyled">
+                    <li><Link to="/featured-uncontrolled">Uncontrolled Mode</Link></li>
+                    <li><Link to="/featured-controlled">Controlled Mode</Link></li>
+                    <li><Link to="/featured-virtual-scrolling">Virtual Scrolling</Link></li>
+                    <li><Link to="/featured-redux">Redux Integration</Link></li>
+                  </ul>
+                  )
+                : (
+                  <ul className="list-unstyled">
+                    <li><Link to="/basic">Basic</Link></li>
+                    <li><Link to="/sorting">Sorting</Link></li>
+                    <li><Link to="/filtering">Filtering</Link></li>
+                    <li><Link to="/paging">Paging</Link></li>
+                    <li><Link to="/grouping">Grouping</Link></li>
+                    <li><Link to="/selection">Selection</Link></li>
+                    <li><Link to="/detail-row">Detail Row</Link></li>
+                    <li><Link to="/virtual-scrolling">Virtual Scrolling</Link></li>
+                    <li><Link to="/redux">Redux</Link></li>
+                    <li><Link to="/">Featured</Link></li>
+                  </ul>
+                )
+            }
           </div>
 
           <div className="col-md-9 demo-content">
@@ -71,8 +91,8 @@ const Container = withRouter(({ location }) => (
           </div>
         </div>
       </div>
-    )
-));
+    );
+});
 
 const App = () => (
   <Router>

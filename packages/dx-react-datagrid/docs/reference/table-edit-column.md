@@ -1,6 +1,6 @@
 # TableEditColumn Plugin Reference
 
-A plugin that renders a column with controls to perform actions in order to switch DataGrid rows between the readonly and editing modes, to initiate a new row creation or deleting of an existing row, to commit and cancel the introduced changes.
+A plugin that renders a command column (a column containing controls used for row editing/creating/deleting and commiting/canceling changes).
 
 ## User Reference
 
@@ -30,7 +30,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](#table-row) | Specifies an editing table row with applied changes
+row | [TableRow](#table-row) | Specifies an edited table row with applied changes
 column | [TableColumn](#table-column) | Specifies a table column
 onStartEditing | () => void | Switches a row into the editing mode
 onCancelEditing | () => void | Switches a row into the readonly mode
@@ -55,7 +55,7 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies an editing table row with applied changes
 column | [TableColumn](#table-column) | Specifies a table column
-onAddNewRow | () => void | Creates a new row for editing
+onAddNewRow | () => void | Creates a new row
 allowCreating | bool | Specifies if a new row can be created
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
 createCommandText | string | Specifies the 'create' command text

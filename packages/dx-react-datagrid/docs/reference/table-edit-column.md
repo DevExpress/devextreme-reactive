@@ -13,12 +13,12 @@ A plugin that renders a command column (a column containing controls used for ro
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellTemplate | Component&lt;[CommandCellProps](#command-cell-props)&gt; | | A component that renders a cell within the command column and a data row
+cellTemplate | Component&lt;[CommandCellProps](#command-cell-props)&gt; | | A component that renders a cell within the command column and the data row
 headingCellTemplate | Component&lt;[CommandHeadingCellProps](#command-heading-cell-props)&gt; | | A component that renders a cell within the command column and the heading row
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | | A component that renders command controls within the command column cell
-allowCreating | bool | false | If set to true, the 'New' command is rendered within the heading row command cell
-allowEditing | bool | false | If set to true, the 'Edit' command is rendered within a data row command cell
-allowDeleting | bool | false | If set to true, the 'Delete' command is rendered within a data row command cell
+allowCreating | bool | false | If set to true, the 'New' command is rendered within the heading row's command cell
+allowEditing | bool | false | If set to true, the 'Edit' command is rendered within the data row's command cell
+allowDeleting | bool | false | If set to true, the 'Delete' command is rendered within the data row's command cell
 
 ## Interfaces
 
@@ -32,10 +32,10 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies an edited table row with applied changes
 column | [TableColumn](#table-column) | Specifies a table column
-onStartEditing | () => void | Switches a row into the editing mode
-onCancelEditing | () => void | Switches a row into the readonly mode
-onCommitChanges | () => void | Initiates a row changes committing
-onDelete | () => void | Initiates a row deleting
+onStartEditing | () => void | Switches a row to the editing mode
+onCancelEditing | () => void | Switches a row to the read-only mode
+onCommitChanges | () => void | Initiates committing of row changes
+onDelete | () => void | Initiates row deletion
 allowEditing | bool | Specifies if a row can be edited
 allowDeleting | bool | Specifies if a row can be deleted
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { querySelectorAll } from './utils/dom';
 
@@ -46,9 +47,9 @@ export const TableRow = (props) => {
 };
 
 TableRow.propTypes = {
-  row: React.PropTypes.object.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  cellTemplate: React.PropTypes.func.isRequired,
+  row: PropTypes.object.isRequired,
+  columns: PropTypes.array.isRequired,
+  cellTemplate: PropTypes.func.isRequired,
 };
 
 TableRow.defaultProps = {
@@ -56,9 +57,9 @@ TableRow.defaultProps = {
 };
 
 export const Table = ({
-  headerRows, bodyRows, columns, cellTemplate, onClick,
+  headerRows, bodyRows, columns, cellTemplate, onClick, getRowId,
 }) => {
-  const rowKeyGetter = getKeyGetter(row => row.id);
+  const rowKeyGetter = getKeyGetter(row => (!row.type ? getRowId(row) : row.id));
   const minWidth = columns
     .map(column => column.width || MINIMAL_COLUMN_WIDTH)
     .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);
@@ -114,9 +115,10 @@ Table.defaultProps = {
   onClick: () => {},
 };
 Table.propTypes = {
-  headerRows: React.PropTypes.array.isRequired,
-  bodyRows: React.PropTypes.array.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  cellTemplate: React.PropTypes.func.isRequired,
-  onClick: React.PropTypes.func,
+  headerRows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  cellTemplate: PropTypes.func.isRequired,
+  getRowId: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };

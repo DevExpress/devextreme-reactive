@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { PluginContainer, combineTemplates } from '@devexpress/dx-react-core';
 import { TableView as TableViewBase } from '@devexpress/dx-react-datagrid';
 import { Table } from '../templates/table';
@@ -16,7 +17,7 @@ export const TableView = ({ tableCellTemplate, ...props }) => (
   </PluginContainer>
 );
 TableView.propTypes = {
-  tableCellTemplate: React.PropTypes.func,
+  tableCellTemplate: PropTypes.func,
 };
 TableView.defaultProps = {
   tableCellTemplate: undefined,

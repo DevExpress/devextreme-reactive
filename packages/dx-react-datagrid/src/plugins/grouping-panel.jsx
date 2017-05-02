@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { getColumnSortingDirection } from '@devexpress/dx-datagrid-core';
 
@@ -81,9 +82,9 @@ export class GroupingPanel extends React.PureComponent {
 }
 
 GroupingPanel.propTypes = {
-  sortingEnabled: React.PropTypes.bool,
-  groupPanelTemplate: React.PropTypes.func.isRequired,
-  groupPanelCellTemplate: React.PropTypes.func.isRequired,
+  sortingEnabled: PropTypes.bool,
+  groupPanelTemplate: PropTypes.func.isRequired,
+  groupPanelCellTemplate: PropTypes.func.isRequired,
 };
 
 GroupingPanel.defaultProps = {

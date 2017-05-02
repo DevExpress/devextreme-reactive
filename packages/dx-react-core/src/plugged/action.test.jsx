@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './host';
@@ -22,7 +23,7 @@ describe('Action', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      onAction: React.PropTypes.func.isRequired,
+      onAction: PropTypes.func.isRequired,
     };
 
     const onAction = jest.fn();

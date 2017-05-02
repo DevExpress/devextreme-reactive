@@ -1,6 +1,7 @@
 /* global window document */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { WindowedScroller } from './virtual-table/windowed-scroller';
 import { VirtualBox } from './virtual-table/virtual-box';
 
@@ -153,8 +154,8 @@ export class VirtualTable extends React.Component {
 }
 
 VirtualTable.propTypes = {
-  headerRows: React.PropTypes.array.isRequired,
-  bodyRows: React.PropTypes.array.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  cellTemplate: React.PropTypes.func.isRequired,
+  headerRows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  cellTemplate: PropTypes.func.isRequired,
 };

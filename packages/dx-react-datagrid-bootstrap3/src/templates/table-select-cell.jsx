@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableSelectCell = ({ style, selected, changeSelected }) => (
   <td
@@ -14,6 +15,7 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
     <input
       style={{
         cursor: 'pointer',
+        margin: 0,
       }}
       type="checkbox"
       checked={selected}
@@ -28,7 +30,7 @@ TableSelectCell.defaultProps = {
   changeSelected: () => {},
 };
 TableSelectCell.propTypes = {
-  style: React.PropTypes.shape(),
-  selected: React.PropTypes.bool,
-  changeSelected: React.PropTypes.func,
+  style: PropTypes.shape(),
+  selected: PropTypes.bool,
+  changeSelected: PropTypes.func,
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const GroupPanel = ({ groupedColumns, groupByColumnText, cellTemplate }) => {
   const text = () => groupByColumnText ||
@@ -35,9 +36,9 @@ export const GroupPanel = ({ groupedColumns, groupByColumnText, cellTemplate }) 
 };
 
 GroupPanel.propTypes = {
-  groupedColumns: React.PropTypes.array.isRequired,
-  groupByColumnText: React.PropTypes.string,
-  cellTemplate: React.PropTypes.func.isRequired,
+  groupedColumns: PropTypes.array.isRequired,
+  groupByColumnText: PropTypes.string,
+  cellTemplate: PropTypes.func.isRequired,
 };
 
 GroupPanel.defaultProps = {

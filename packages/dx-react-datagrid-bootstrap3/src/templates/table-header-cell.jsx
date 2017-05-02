@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableHeaderCell = ({
   style, column,
@@ -6,8 +7,67 @@ export const TableHeaderCell = ({
   groupingEnabled, groupByColumn,
 }) => {
   const iconName = `glyphicon-arrow-${sortDirection === 'asc' ? 'down' : 'up'}`;
-  const groupingFloat = column.align === 'right' ? 'left' : 'right';
-  const titleFloat = column.align === 'right' ? 'right' : 'none';
+  const align = column.align || 'left';
+  const invertedAlign = align === 'left' ? 'right' : 'left';
+
+  const gropingControl = groupingEnabled && (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        groupByColumn(e);
+      }}
+      style={{
+        float: invertedAlign,
+        textAlign: invertedAlign,
+        width: '14px',
+      }}
+    >
+      <i
+        className="glyphicon glyphicon-th-list"
+        style={{
+          top: '0',
+          fontSize: '9px',
+          margin: '-5px',
+          padding: '5px',
+        }}
+      />
+    </div>
+  );
+
+  const sortingControl = sortingEnabled && (
+    align === 'right' ? (
+      <span
+        className={sortDirection ? 'text-primary' : ''}
+      >
+        <i
+          className={`glyphicon ${iconName}`}
+          style={{
+            visibility: sortDirection ? 'visible' : 'hidden',
+            top: '0',
+            fontSize: '9px',
+          }}
+        />
+        &nbsp;
+        {column.title}
+      </span>
+    ) : (
+      <span
+        className={sortDirection ? 'text-primary' : ''}
+      >
+        {column.title}
+        &nbsp;
+        <i
+          className={`glyphicon ${iconName}`}
+          style={{
+            visibility: sortDirection ? 'visible' : 'hidden',
+            top: '0',
+            fontSize: '9px',
+          }}
+        />
+      </span>
+    )
+  );
+
   return (
     <th
       style={{
@@ -15,9 +75,6 @@ export const TableHeaderCell = ({
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
         cursor: sortingEnabled && !column.type && 'pointer',
-        whiteSpace: 'no-wrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
         ...style,
       }}
       onClick={(e) => {
@@ -26,51 +83,19 @@ export const TableHeaderCell = ({
         changeSortDirection({ keepOther: e.shiftKey });
       }}
     >
-      {groupingEnabled && (
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-            groupByColumn(e);
-          }}
-          style={{
-            float: groupingFloat,
-            textAlign: groupingFloat,
-          }}
-        >
-          <i
-            className="glyphicon glyphicon-th-list"
-            style={{
-              top: '0',
-              fontSize: '9px',
-              margin: '-5px',
-              padding: '5px',
-            }}
-          />
-        </div>
-      )}
-      {sortingEnabled ? (
-        <span
-          className={sortDirection ? 'text-primary' : ''}
-          style={{
-            float: titleFloat,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {column.title}
-          &nbsp;
-          <i
-            className={`glyphicon ${iconName}`}
-            style={{
-              visibility: sortDirection ? 'visible' : 'hidden',
-              top: '0',
-              float: titleFloat,
-              fontSize: '9px',
-            }}
-          />
-        </span>
-      ) : (
-        column.title
-      )}
+      {gropingControl}
+      <div
+        style={{
+          [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',
+          textAlign: align,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {sortingEnabled ? sortingControl : (
+          column.title
+        )}
+      </div>
     </th>
   );
 };
@@ -83,13 +108,13 @@ TableHeaderCell.defaultProps = {
   groupByColumn: undefined,
 };
 TableHeaderCell.propTypes = {
-  column: React.PropTypes.shape({
-    title: React.PropTypes.string,
+  column: PropTypes.shape({
+    title: PropTypes.string,
   }).isRequired,
-  style: React.PropTypes.shape(),
-  sortingEnabled: React.PropTypes.bool,
-  sortDirection: React.PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortDirection: React.PropTypes.func,
-  groupingEnabled: React.PropTypes.bool,
-  groupByColumn: React.PropTypes.func,
+  style: PropTypes.shape(),
+  sortingEnabled: PropTypes.bool,
+  sortDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  changeSortDirection: PropTypes.func,
+  groupingEnabled: PropTypes.bool,
+  groupByColumn: PropTypes.func,
 };

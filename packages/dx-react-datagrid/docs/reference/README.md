@@ -11,6 +11,7 @@ State Management Plugins:
 - [GroupingState](grouping-state.md)
 - [PagingState](paging-state.md)
 - [SelectionState](selection-state.md)
+- [EditingState](editing-state.md)
 
 Data Processing Plugins:
 
@@ -27,5 +28,7 @@ UI Plugins:
 - [TableFilterRow](table-filter-row.md)
 - [TableRowDetail](table-row-detail.md)
 - [TableGroupRow](table-group-row.md)
+- [TableEditRow](table-edit-row.md)
+- [TableEditColumn](table-edit-column.md)
 - [GroupingPanel](grouping-panel.md)
 - [PagingPanel](paging-panel.md)

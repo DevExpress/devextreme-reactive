@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
 export const PagingPanel = props => (
@@ -25,5 +26,5 @@ export const PagingPanel = props => (
 );
 
 PagingPanel.propTypes = {
-  pagerTemplate: React.PropTypes.func.isRequired,
+  pagerTemplate: PropTypes.func.isRequired,
 };

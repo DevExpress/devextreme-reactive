@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
 import { PluginContainer } from './container';
 import { Template } from './template';
@@ -33,11 +34,11 @@ PluginHost.defaultProps = {
   children: null,
 };
 PluginHost.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]),
 };
 PluginHost.childContextTypes = {
-  pluginHost: React.PropTypes.object.isRequired,
+  pluginHost: PropTypes.object.isRequired,
 };

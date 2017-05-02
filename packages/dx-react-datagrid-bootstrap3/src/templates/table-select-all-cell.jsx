@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableSelectAllCell = ({ style, allSelected, someSelected, toggleAll }) => (
   <th
@@ -14,6 +15,7 @@ export const TableSelectAllCell = ({ style, allSelected, someSelected, toggleAll
     <input
       style={{
         cursor: 'pointer',
+        margin: 0,
       }}
       type="checkbox"
       checked={allSelected}
@@ -35,8 +37,8 @@ TableSelectAllCell.defaultProps = {
   toggleAll: () => {},
 };
 TableSelectAllCell.propTypes = {
-  style: React.PropTypes.shape(),
-  allSelected: React.PropTypes.bool,
-  someSelected: React.PropTypes.bool,
-  toggleAll: React.PropTypes.func,
+  style: PropTypes.shape(),
+  allSelected: PropTypes.bool,
+  someSelected: PropTypes.bool,
+  toggleAll: PropTypes.func,
 };

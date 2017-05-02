@@ -13,23 +13,44 @@ html {
     src: url({{site.baseurl}}/fonts/OpenSansCondensedBold.woff);
 }
 
-h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
 }
 
+h1,
+h4,
+h5,
+h6 {
+    font-family: "Segoe UI","Helvetica Neue",Helvetica,Verdana,"san-serif";
+}
+
 h1 {
+    font-size: 45px;
+    font-weight: 400;
     color: #375870;
 }
 
-h2,
-h3,
+h2 {
+    font-size: 32px;
+    color: #375870;
+}
+
+h3 {
+    font-size: 24px;
+    color: #5b7f98;
+}
+
 h4 {
-    color: #627789;
+    font-size: 16px;
+    font-weight: 600;
+    color: #5b7f98;
+}
+
+h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
 }
 
 .navbar.navbar-main {
@@ -85,8 +106,25 @@ section {
     font-size: 16px;
 }
 
+.main-menu {
+  padding-top: 10px;
+}
+
+.main-menu h3 {
+    font-family: "Segoe UI","Helvetica Neue",Helvetica,Verdana,"san-serif";    
+    text-transform: uppercase;
+    color: #5b7f98;
+    font-size: 16px;
+    font-weight: 700;
+}
+
 .main-menu ul li {
-    margin-bottom: 2px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.main-menu ul li > a {
+    color: #337ab7;
 }
 
 .lead {
@@ -119,6 +157,7 @@ section {
 }
 
 .intro-message > h1 {
+    font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     color: #f05b41;
     margin: 0;
     font-size: 5em;
@@ -328,11 +367,10 @@ footer ul > li.active > a {
         float: left;
         margin-top: 15px;
     }
-    
+}
+
+@media(max-width:991px) {
     .block-item .section-heading {
-        margin-top: 20px;
-    }
-    .block-item .block-image {
         margin-top: 20px;
     }
 }

@@ -2,7 +2,9 @@
 
 [![Shippable](https://api.shippable.com/projects/58cf6adb35d7240600ba9bbb/badge?branch=master)](https://app.shippable.com/github/DevExpress/devextreme-reactive/)
 
-Cross-platform component suite for React.
+Project status: **CTP**
+
+Component suite for React.
 
 [Website](https://devexpress.github.io/devextreme-reactive/)
 

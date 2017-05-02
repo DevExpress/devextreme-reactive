@@ -1,7 +1,5 @@
 # Data Grid for React
 
-Project status: **CTP**
-
 ## Overview
 
 DevExtreme React DataGrid component allows you to display table data with a set of different transformations such as paging, sorting, filtering, grouping and others. It also allows provides row selection and data editing. It has composable and extensible plugin-based architecture. It supports controlled and uncontrolled state modes and can be easily used in either a regular or a Redux-based application. It's provided with the Twitter Bootstrap rendering and theming out-of-the-box.

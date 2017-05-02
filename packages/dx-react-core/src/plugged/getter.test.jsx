@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './host';
@@ -151,7 +152,7 @@ describe('Getter', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      text: React.PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
     };
 
     const tree = mount(
@@ -186,8 +187,8 @@ describe('Getter', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      text: React.PropTypes.string.isRequired,
-      onChange: React.PropTypes.func.isRequired,
+      text: PropTypes.string.isRequired,
+      onChange: PropTypes.func.isRequired,
     };
 
     const onChange = jest.fn();
@@ -237,7 +238,7 @@ describe('Getter', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      value: React.PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
+      value: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
     };
 
     const tree = mount(

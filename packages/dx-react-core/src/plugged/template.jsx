@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const RERENDER_TEMPLATE = 'rerenderTemplate';
 
@@ -46,17 +47,17 @@ Template.defaultProps = {
   position: () => NaN,
 };
 Template.propTypes = {
-  position: React.PropTypes.func,
-  name: React.PropTypes.string.isRequired,
-  predicate: React.PropTypes.func,
-  connectGetters: React.PropTypes.func,
-  connectActions: React.PropTypes.func,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  position: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  predicate: PropTypes.func,
+  connectGetters: PropTypes.func,
+  connectActions: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]),
 };
 Template.contextTypes = {
-  pluginHost: React.PropTypes.object.isRequired,
+  pluginHost: PropTypes.object.isRequired,
 };

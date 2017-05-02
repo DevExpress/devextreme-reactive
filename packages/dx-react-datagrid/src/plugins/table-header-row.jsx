@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import { getColumnSortingDirection } from '@devexpress/dx-datagrid-core';
 
@@ -64,7 +65,7 @@ TableHeaderRow.defaultProps = {
 };
 
 TableHeaderRow.propTypes = {
-  sortingEnabled: React.PropTypes.bool,
-  groupingEnabled: React.PropTypes.bool,
-  headerCellTemplate: React.PropTypes.func.isRequired,
+  sortingEnabled: PropTypes.bool,
+  groupingEnabled: PropTypes.bool,
+  headerCellTemplate: PropTypes.func.isRequired,
 };

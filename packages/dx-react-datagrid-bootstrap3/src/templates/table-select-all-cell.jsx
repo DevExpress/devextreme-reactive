@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableSelectAllCell = ({ style, allSelected, someSelected, toggleAll }) => (
   <th
@@ -36,8 +37,8 @@ TableSelectAllCell.defaultProps = {
   toggleAll: () => {},
 };
 TableSelectAllCell.propTypes = {
-  style: React.PropTypes.shape(),
-  allSelected: React.PropTypes.bool,
-  someSelected: React.PropTypes.bool,
-  toggleAll: React.PropTypes.func,
+  style: PropTypes.shape(),
+  allSelected: PropTypes.bool,
+  someSelected: PropTypes.bool,
+  toggleAll: PropTypes.func,
 };

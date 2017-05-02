@@ -30,24 +30,23 @@
     "output": "../../shippable/testresults/dx-react-datagrid-bootstrap3.xml"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.21.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
-    "babel-loader": "^6.2.10",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "core-js": "^2.4.1",
-    "eslint": "^3.18.0",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
-    "eslint-config-airbnb-base": "^11.1.2",
+    "eslint-config-airbnb-base": "^11.1.3",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jest": "^19.0.1",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
-    "jest-junit": "^1.4.0",
+    "jest-junit": "^1.5.1",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-license": "^0.3.0",
@@ -57,8 +56,9 @@
   "dependencies": {
     "@devexpress/dx-react-core": "^1.0.0-alpha.1",
     "@devexpress/dx-react-datagrid": "^1.0.0-alpha.1",
-    "babel-runtime": "^6.20.0",
-    "react": "^15.4.2",
-    "react-bootstrap": "^0.30.8"
+    "babel-runtime": "^6.23.0",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0"
   }
 }

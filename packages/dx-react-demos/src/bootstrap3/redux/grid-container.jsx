@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
     DataGrid,
@@ -15,7 +16,7 @@ import { createGridAction } from './grid-reducer';
 
 const DetailRow = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
 DetailRow.propTypes = {
-  row: React.PropTypes.object.isRequired,
+  row: PropTypes.object.isRequired,
 };
 
 const GridContainer = (props) => {
@@ -87,18 +88,18 @@ const GridContainer = (props) => {
   );
 };
 GridContainer.propTypes = {
-  rows: React.PropTypes.array.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  sortings: React.PropTypes.array.isRequired,
-  sortingsChange: React.PropTypes.func.isRequired,
-  selection: React.PropTypes.array.isRequired,
-  selectionChange: React.PropTypes.func.isRequired,
-  expandedDetails: React.PropTypes.array.isRequired,
-  expandedDetailsChange: React.PropTypes.func.isRequired,
-  filters: React.PropTypes.array.isRequired,
-  filtersChange: React.PropTypes.func.isRequired,
-  currentPage: React.PropTypes.number.isRequired,
-  currentPageChange: React.PropTypes.func.isRequired,
+  rows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  sortings: PropTypes.array.isRequired,
+  sortingsChange: PropTypes.func.isRequired,
+  selection: PropTypes.array.isRequired,
+  selectionChange: PropTypes.func.isRequired,
+  expandedDetails: PropTypes.array.isRequired,
+  expandedDetailsChange: PropTypes.func.isRequired,
+  filters: PropTypes.array.isRequired,
+  filtersChange: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  currentPageChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => state;

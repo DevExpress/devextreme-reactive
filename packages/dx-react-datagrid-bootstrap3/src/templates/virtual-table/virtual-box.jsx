@@ -1,6 +1,7 @@
 /* global document */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function testCSSProp(property, value, noPrefixes) {
   const prop = `${property}:`;
@@ -192,21 +193,21 @@ VirtualBox.defaultProps = {
   iref: undefined,
 };
 VirtualBox.propTypes = {
-  rootTag: React.PropTypes.string,
-  className: React.PropTypes.string,
-  style: React.PropTypes.object,
-  position: React.PropTypes.number,
-  stick: React.PropTypes.bool,
-  iref: React.PropTypes.func,
-  crossSize: React.PropTypes.number,
-  direction: React.PropTypes.oneOf(['vertical', 'horizontal']).isRequired,
-  itemCount: React.PropTypes.number.isRequired,
-  itemInfo: React.PropTypes.func.isRequired,
-  itemTemplate: React.PropTypes.func.isRequired,
+  rootTag: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  position: PropTypes.number,
+  stick: PropTypes.bool,
+  iref: PropTypes.func,
+  crossSize: PropTypes.number,
+  direction: PropTypes.oneOf(['vertical', 'horizontal']).isRequired,
+  itemCount: PropTypes.number.isRequired,
+  itemInfo: PropTypes.func.isRequired,
+  itemTemplate: PropTypes.func.isRequired,
 };
 VirtualBox.contextTypes = {
-  virtualHost: React.PropTypes.object,
+  virtualHost: PropTypes.object,
 };
 VirtualBox.childContextTypes = {
-  virtualHost: React.PropTypes.object.isRequired,
+  virtualHost: PropTypes.object.isRequired,
 };

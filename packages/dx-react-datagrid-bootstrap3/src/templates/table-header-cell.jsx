@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableHeaderCell = ({
   style, column,
@@ -33,18 +34,39 @@ export const TableHeaderCell = ({
     </div>
   );
 
-  const sortingControls = [
-    <i
-      className={`glyphicon ${iconName}`}
-      style={{
-        visibility: sortDirection ? 'visible' : 'hidden',
-        top: '0',
-        fontSize: '9px',
-      }}
-    />,
-    <span>&nbsp;</span>,
-    column.title,
-  ];
+  const sortingControl = sortingEnabled && (
+    align === 'right' ? (
+      <span
+        className={sortDirection ? 'text-primary' : ''}
+      >
+        <i
+          className={`glyphicon ${iconName}`}
+          style={{
+            visibility: sortDirection ? 'visible' : 'hidden',
+            top: '0',
+            fontSize: '9px',
+          }}
+        />
+        &nbsp;
+        {column.title}
+      </span>
+    ) : (
+      <span
+        className={sortDirection ? 'text-primary' : ''}
+      >
+        {column.title}
+        &nbsp;
+        <i
+          className={`glyphicon ${iconName}`}
+          style={{
+            visibility: sortDirection ? 'visible' : 'hidden',
+            top: '0',
+            fontSize: '9px',
+          }}
+        />
+      </span>
+    )
+  );
 
   return (
     <th
@@ -70,13 +92,7 @@ export const TableHeaderCell = ({
           textOverflow: 'ellipsis',
         }}
       >
-        {sortingEnabled ? (
-          <span
-            className={sortDirection ? 'text-primary' : ''}
-          >
-            {align === 'right' ? sortingControls : sortingControls.reverse()}
-          </span>
-        ) : (
+        {sortingEnabled ? sortingControl : (
           column.title
         )}
       </div>
@@ -92,13 +108,13 @@ TableHeaderCell.defaultProps = {
   groupByColumn: undefined,
 };
 TableHeaderCell.propTypes = {
-  column: React.PropTypes.shape({
-    title: React.PropTypes.string,
+  column: PropTypes.shape({
+    title: PropTypes.string,
   }).isRequired,
-  style: React.PropTypes.shape(),
-  sortingEnabled: React.PropTypes.bool,
-  sortDirection: React.PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortDirection: React.PropTypes.func,
-  groupingEnabled: React.PropTypes.bool,
-  groupByColumn: React.PropTypes.func,
+  style: PropTypes.shape(),
+  sortingEnabled: PropTypes.bool,
+  sortDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  changeSortDirection: PropTypes.func,
+  groupingEnabled: PropTypes.bool,
+  groupByColumn: PropTypes.func,
 };

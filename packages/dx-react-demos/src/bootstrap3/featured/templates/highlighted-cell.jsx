@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const getColor = (amount) => {
   if (amount < 3000) {
@@ -25,9 +26,9 @@ export const HighlightedCell = ({ align, value, style }) => (
   </td>
 );
 HighlightedCell.propTypes = {
-  align: React.PropTypes.string.isRequired,
-  value: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object,
+  align: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  style: PropTypes.object,
 };
 HighlightedCell.defaultProps = {
   style: {},

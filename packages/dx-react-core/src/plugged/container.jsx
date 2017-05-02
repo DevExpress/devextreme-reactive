@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter } from './getter';
 import { Action } from './action';
 import { Template } from './template';
@@ -41,14 +42,14 @@ PluginContainer.defaultProps = {
 };
 
 PluginContainer.propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]),
 };
 
 PluginContainer.contextTypes = {
-  [CONTAINER_CONTEXT]: React.PropTypes.func,
+  [CONTAINER_CONTEXT]: PropTypes.func,
 };
 
 class PluginContainerContext extends React.Component {
@@ -63,10 +64,10 @@ class PluginContainerContext extends React.Component {
 }
 
 PluginContainerContext.propTypes = {
-  position: React.PropTypes.func.isRequired,
-  children: React.PropTypes.node.isRequired,
+  position: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 PluginContainerContext.childContextTypes = {
-  [CONTAINER_CONTEXT]: React.PropTypes.func,
+  [CONTAINER_CONTEXT]: PropTypes.func,
 };

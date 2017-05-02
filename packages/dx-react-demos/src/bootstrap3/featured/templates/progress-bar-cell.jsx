@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
     ProgressBar,
@@ -20,8 +21,8 @@ export const ProgressBarCell = ({ value, style }) => (
   </td>
 );
 ProgressBarCell.propTypes = {
-  value: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object,
+  value: PropTypes.number.isRequired,
+  style: PropTypes.object,
 };
 ProgressBarCell.defaultProps = {
   style: {},

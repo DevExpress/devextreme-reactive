@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const CommandButton = ({ onCommand, text }) => (
   <button
@@ -12,8 +13,8 @@ export const CommandButton = ({ onCommand, text }) => (
   </button>
 );
 CommandButton.propTypes = {
-  onCommand: React.PropTypes.func.isRequired,
-  text: React.PropTypes.func.isRequired,
+  onCommand: PropTypes.func.isRequired,
+  text: PropTypes.func.isRequired,
 };
 
 export const EditCommandHeadingCell = ({
@@ -39,11 +40,11 @@ export const EditCommandHeadingCell = ({
     </th>
 );
 EditCommandHeadingCell.propTypes = {
-  onAddNewRow: React.PropTypes.func.isRequired,
-  commandTemplate: React.PropTypes.func.isRequired,
-  createCommandText: React.PropTypes.string.isRequired,
-  allowCreating: React.PropTypes.bool.isRequired,
-  style: React.PropTypes.object,
+  onAddNewRow: PropTypes.func.isRequired,
+  commandTemplate: PropTypes.func.isRequired,
+  createCommandText: PropTypes.string.isRequired,
+  allowCreating: PropTypes.bool.isRequired,
+  style: PropTypes.object,
 };
 EditCommandHeadingCell.defaultProps = {
   style: undefined,
@@ -108,19 +109,19 @@ export const EditCommandCell = ({
   );
 };
 EditCommandCell.propTypes = {
-  onStartEditing: React.PropTypes.func.isRequired,
-  onDelete: React.PropTypes.func.isRequired,
-  onCancelEditing: React.PropTypes.func.isRequired,
-  onCommitChanges: React.PropTypes.func.isRequired,
-  isEditing: React.PropTypes.bool.isRequired,
-  allowEditing: React.PropTypes.bool.isRequired,
-  allowDeleting: React.PropTypes.bool.isRequired,
-  commandTemplate: React.PropTypes.func.isRequired,
-  editCommandText: React.PropTypes.string.isRequired,
-  deleteCommandText: React.PropTypes.string.isRequired,
-  commitCommandText: React.PropTypes.string.isRequired,
-  cancelCommandText: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object,
+  onStartEditing: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onCancelEditing: PropTypes.func.isRequired,
+  onCommitChanges: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired,
+  allowEditing: PropTypes.bool.isRequired,
+  allowDeleting: PropTypes.bool.isRequired,
+  commandTemplate: PropTypes.func.isRequired,
+  editCommandText: PropTypes.string.isRequired,
+  deleteCommandText: PropTypes.string.isRequired,
+  commitCommandText: PropTypes.string.isRequired,
+  cancelCommandText: PropTypes.string.isRequired,
+  style: PropTypes.object,
 };
 EditCommandCell.defaultProps = {
   style: undefined,

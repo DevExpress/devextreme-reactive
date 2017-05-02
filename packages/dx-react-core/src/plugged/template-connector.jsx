@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { shallowEqual } from '../utils/shallowEqual';
 import { UPDATE_CONNECTION } from './getter';
 import { getAction } from '../utils/pluginHelpers';
@@ -77,11 +78,11 @@ TemplateConnector.defaultProps = {
   content: null,
 };
 TemplateConnector.propTypes = {
-  params: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  mapProps: React.PropTypes.func,
-  mapActions: React.PropTypes.func, // eslint-disable-line react/no-unused-prop-types
-  content: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  mapProps: PropTypes.func,
+  mapActions: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+  content: PropTypes.any, // eslint-disable-line react/forbid-prop-types
 };
 TemplateConnector.contextTypes = {
-  pluginHost: React.PropTypes.object.isRequired,
+  pluginHost: PropTypes.object.isRequired,
 };

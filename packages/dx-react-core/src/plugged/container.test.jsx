@@ -25,7 +25,7 @@ describe('PluginContainer', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      enableGetter: React.PropTypes.bool.isRequired,
+      enableGetter: PropTypes.bool.isRequired,
     };
 
     const tree = mount(
@@ -58,7 +58,7 @@ describe('PluginContainer', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      enableGetter: React.PropTypes.bool.isRequired,
+      enableGetter: PropTypes.bool.isRequired,
     };
 
     const tree = mount(

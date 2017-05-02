@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import extendWithEventListener from '../utils/extendWithEventListener';
 
@@ -123,10 +124,10 @@ TableSelection.defaultProps = {
   showCheckboxes: true,
 };
 TableSelection.propTypes = {
-  selectAllCellTemplate: React.PropTypes.func.isRequired,
-  selectCellTemplate: React.PropTypes.func.isRequired,
-  highlightSelected: React.PropTypes.bool,
-  selectByRowClick: React.PropTypes.bool,
-  showSelectAll: React.PropTypes.bool,
-  showCheckboxes: React.PropTypes.bool,
+  selectAllCellTemplate: PropTypes.func.isRequired,
+  selectCellTemplate: PropTypes.func.isRequired,
+  highlightSelected: PropTypes.bool,
+  selectByRowClick: PropTypes.bool,
+  showSelectAll: PropTypes.bool,
+  showCheckboxes: PropTypes.bool,
 };

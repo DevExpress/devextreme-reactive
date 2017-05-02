@@ -12,7 +12,7 @@
     "gulp-clean": "^0.3.2",
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.2.2",
-    "lerna": "2.0.0-beta.38",
+    "lerna": "2.0.0-rc.4",
     "run-sequence": "^1.2.2"
   },
   "scripts": {

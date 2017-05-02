@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableDetailToggle = ({ style, expanded, toggleExpanded }) => (
   <td
@@ -22,9 +23,9 @@ export const TableDetailToggle = ({ style, expanded, toggleExpanded }) => (
 );
 
 TableDetailToggle.propTypes = {
-  style: React.PropTypes.shape(),
-  expanded: React.PropTypes.bool,
-  toggleExpanded: React.PropTypes.func,
+  style: PropTypes.shape(),
+  expanded: PropTypes.bool,
+  toggleExpanded: PropTypes.func,
 };
 
 TableDetailToggle.defaultProps = {

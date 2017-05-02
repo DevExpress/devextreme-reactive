@@ -130,8 +130,8 @@ section {
     font-size: 0.3em;
     color: #fff;
     position: absolute;
-    top: 0;
-    right: -40px;
+    top: 5px;
+    right: -30px;
 }
 
 .intro-message > h3 {
@@ -212,7 +212,8 @@ ul.banner-action-buttons .btn.demos:hover {
 }
 
 .block-image {
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .section-heading {
@@ -221,10 +222,46 @@ ul.banner-action-buttons .btn.demos:hover {
     font-size: 34px;
 }
 
-.section-heading-spacer {
-    float: left;
-    width: 200px;
-    border-top: 3px solid #e7e7e7;
+.block-composable .section-heading {
+    margin-top: 35px;
+}
+.block-composable .block-image {
+    margin-top: 20px;
+}
+
+.block-theming .section-heading {
+    margin-top: 20px;
+}
+.block-theming .block-image {
+    margin-top: 35px;
+}
+
+.block-redux .section-heading {
+    margin-top: 45px;
+}
+.block-redux .block-image {
+    margin-top: 30px;
+}
+
+.block-performance .section-heading {
+    margin-top: 20px;
+}
+.block-performance .block-image {
+    margin-top: 25px;
+}
+
+.block-features .section-heading {
+    margin-top: 20px;
+}
+.block-features .block-image {
+    margin-top: 25px;
+}
+
+.block-feedback .section-heading {
+    margin-top: 55px;
+}
+.block-feedback .block-image {
+    margin-top: 20px;
 }
 
 .banner {
@@ -248,46 +285,10 @@ ul.banner-action-buttons .btn.demos:hover {
 
 .banner-action-buttons {
     margin-top: 0;
+    float: right;
 }
-
-@media(max-width:1199px) {
-    ul.banner-action-buttons {
-        float: left;
-        margin-top: 15px;
-    }
-}
-
-@media(max-width: 767px) {
-    .banner {
-      text-align: center;
-    }
-    .banner h2 {
-        margin: 0;
-        font-size: 3em;
-    }
-
-    ul.banner-action-buttons {
-        float: none;
-    }
-
-    ul.banner-action-buttons > li {
-        margin-bottom: 20px;
-    }
-
-    ul.banner-action-buttons > li:last-child {
-        margin-bottom: 0;
-    }
-    
-    .section-heading {
-        margin-bottom: 30px;
-        font-size: 26px;
-    }
-
-    .content-section-a,
-    .content-section-b {
-        padding: 10px 0;
-    }
-    
+.banner-action-buttons > li:last-child {
+    padding-right: 0;
 }
 
 footer {
@@ -320,4 +321,66 @@ footer ul > li.active > a {
 .copyright {
     color: #888;
     font-size: 12px;
+}
+
+@media(max-width:1199px) {
+    ul.banner-action-buttons {
+        float: left;
+        margin-top: 15px;
+    }
+    
+    .block-item .section-heading {
+        margin-top: 20px;
+    }
+    .block-item .block-image {
+        margin-top: 20px;
+    }
+}
+
+@media(max-width: 767px) {
+    .banner {
+        text-align: center;
+        padding: 60px 0;
+    }
+    .banner h2 {
+        margin: 0;
+        font-size: 3em;
+    }
+
+    ul.banner-action-buttons {
+        float: none;
+    }
+
+    ul.banner-action-buttons > li {
+        margin-bottom: 10px;
+    }
+
+    ul.banner-action-buttons > li:last-child {
+        margin-bottom: 0;
+    }
+
+    .section-heading {
+        margin-bottom: 30px;
+        font-size: 26px;
+    }
+
+    .content-section-a,
+    .content-section-b {
+        padding: 10px 0;
+    }
+
+    .block-item .section-heading {
+        margin-top: 20px;
+    }
+    .block-item .block-image {
+        margin: 30px auto;
+    }
+
+    .intro-header {
+        background-image: none;
+    }
+
+    footer {
+        padding: 30px 0;
+    }
 }

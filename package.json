@@ -5,7 +5,7 @@
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "https://js.devexpress.com/Licensing/",
   "devDependencies": {
     "concurrently": "^3.4.0",
     "gulp": "^3.9.1",

@@ -6,7 +6,7 @@
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "https://js.devexpress.com/Licensing/",
   "main": "dist/dx-react-datagrid-bootstrap3.cjs.js",
   "module": "dist/dx-react-datagrid-bootstrap3.es.js",
   "files": [

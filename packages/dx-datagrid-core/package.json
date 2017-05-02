@@ -6,7 +6,7 @@
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "https://js.devexpress.com/Licensing/",
   "main": "dist/dx-datagrid-core.cjs.js",
   "module": "dist/dx-datagrid-core.es.js",
   "files": [

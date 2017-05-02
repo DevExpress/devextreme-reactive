@@ -14,6 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tableTemplate | Component&lt;[TableProps](#table-props)&gt; | | A component that renders a table based on the specified parameters
 tableCellTemplate | Component&lt;[TableCellProps](#table-cell-props)&gt; | | A component that renders a table cell based on the specified parameters
+tableNoDataCellTemplate | Component&lt;object&gt; | | A component that renders a table cell for an empty state based on the specified parameters
 
 ## Interfaces
 

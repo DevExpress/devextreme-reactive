@@ -66,7 +66,8 @@ export class RemoteSortingDemo extends React.PureComponent {
       .then(data => this.setState({
         rows: data.items,
         loading: false,
-      }));
+      }))
+      .catch(() => this.setState({ loading: false }));
     this.lastQuery = queryString;
   }
   render() {

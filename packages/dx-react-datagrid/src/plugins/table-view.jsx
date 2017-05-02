@@ -7,7 +7,7 @@ const CellTemplate = params =>
 
 export class TableView extends React.PureComponent {
   render() {
-    const { tableTemplate, tableCellTemplate } = this.props;
+    const { tableTemplate, tableCellTemplate, tableNoDataCellTemplate } = this.props;
     const Table = tableTemplate;
 
     return (
@@ -15,7 +15,7 @@ export class TableView extends React.PureComponent {
         <Getter name="tableHeaderRows" value={[]} />
         <Getter
           name="tableBodyRows"
-          pureComputed={rows => rows}
+          pureComputed={rows => (rows.length ? rows : [{ type: 'nodata', colspan: 0 }])}
           connectArgs={getter => [
             getter('rows'),
           ]}
@@ -58,6 +58,12 @@ export class TableView extends React.PureComponent {
         >
           {tableCellTemplate}
         </Template>
+        <Template
+          name="tableViewCell"
+          predicate={({ row }) => row.type === 'nodata'}
+        >
+          {({ row, column, ...restParams }) => tableNoDataCellTemplate(restParams)}
+        </Template>
       </PluginContainer>
     );
   }
@@ -66,4 +72,5 @@ export class TableView extends React.PureComponent {
 TableView.propTypes = {
   tableTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
+  tableNoDataCellTemplate: PropTypes.func.isRequired,
 };

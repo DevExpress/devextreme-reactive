@@ -4,7 +4,7 @@ import { RemoteDataDemo } from './featured/remote-data';
 
 export const FeaturedRemoteDataDemos = () => (
   <div>
-    <h2>DataGrid Remote Data</h2>
+    <h1>DataGrid Remote Data</h1>
     <p>
       This demo shows the DataGrid capability to request specific data from the server.
       Properties that received from the server and used in query construction

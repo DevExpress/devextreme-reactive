@@ -120,7 +120,57 @@ It is required to specify visual component for this type of plugins. They are no
 - [DevExtreme React DataGrid for Bootstrap 3](../dx-react-datagrid-bootstrap3/README.md) (used in examples)
 - DevExtreme React DataGrid for [Material UI](http://www.material-ui.com) (coming soon...)
 
-## Controlled and Uncontrolled modes
+## Controlled (stateless) and Uncontrolled (stateful) modes
 
-To be described...
+Depending on a particular use-case you might need to control the DataGrid state by yourself or to delegate state management to the component. For instance,
+if you need to persist the DataGrid sorting configured by an end-user and restore it withing the next app usage session, you'll need to switch the sorting
+state into the controlled mode. In this case, DataGrid will accept sorting configuration via the SortingState plugin properties, and notify you once an
+end-user has changed sorting configuration. It's very similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
 
+In your code it will look as follows:
+
+```js
+  <DataGrid rows={[...]} columns={[...]}>
+    <SortingState sortings={sortings} sortingsChange={onSortingsChange} />
+    ...
+  </DataGrid>
+```
+
+So, the `sortings` represents the DataGrid sorting configuration. And the `onSortingsChange` function is a handler that is invoked every time the sorting configuration changes.
+Note that all state management plugins work with serializable state. It means you can persist and restore it into `localstorage` or any other storage that can store string
+values. Controlled state mode can also be helpful if you need to indicate the current state in your UI or to bind some controls that live outside the DataGrid. For inctance,
+it's easy to put a ComboBox with available sort orders and let end-users to use it to sort data withing DataGrid.
+
+In the uncontrolled state mode the DataGrid component manages its UI state internally. You do not have to specify the state value and state change handler properties. But you can
+provide DataGrid with the initial state value using the property with the `default` prefix. For instance, we can convert the previous example into the uncontrolled mode:
+
+```js
+  <DataGrid rows={[...]} columns={[...]}>
+    <SortingState />
+    ...
+  </DataGrid>
+```
+
+If you want to specify default sorting configuration, it will look as follows:
+
+```js
+  <DataGrid rows={[...]} columns={[...]}>
+    <SortingState defaultSortings={[ column: 'data', direction: 'desc' ]} />
+    ...
+  </DataGrid>
+```
+
+Sometimes you might want to controll the DataGrid state partially. For inctance, you want to manage filters but do not care about sorting and grouping. You can configure it as 
+follows:
+
+```js
+  <DataGrid rows={[...]} columns={[...]}>
+    <FilteringState filters={filters} filtersChange={onFiltersChange}/>
+    <SortingState />
+    <GroupingState />
+    ...
+  </DataGrid>
+```
+
+Note: If you are using Redux and perform time traveling, partially controlled state might cause side-effects. So, we recommend using fully-controlled state so the DataGrid
+behaves as a stateless component without side-effects.

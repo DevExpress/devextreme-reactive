@@ -34,13 +34,13 @@ Make sure that Bootstrap styles are linked to a page. If you have not yet config
 
 ## Getting started
 
-This repository contains standalone templates and templates integrated into plugins. For your convenience, these templates can be used instead of the ones contained in the original React DataGrid repository.
+This package provides templates implementing Bootstrap 3 rendering for the React DataGrid UI plugins and the UI Plugins with the injected templates as well. For your convenience, these templates can be used instead of the ones contained in the original React DataGrid repository.
 
 See [demos](../dx-react-demos/README.md) for more information.
 
 ## Reference
 
-The package exposes plugins with integrated templates. Here the list of plugins:
+The package exposes plugins with injected templates. Here the list of plugins:
 
 - [TableView](../dx-react-datagrid/docs/reference/table-view.md)
 - [TableHeaderRow](../dx-react-datagrid/docs/reference/table-header-row.md)

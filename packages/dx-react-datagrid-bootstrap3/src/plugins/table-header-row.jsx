@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-datagrid';
 import { TableHeaderCell } from '../templates/table-header-cell';
 
@@ -16,6 +17,6 @@ TableHeaderRow.defaultProps = {
 };
 
 TableHeaderRow.propTypes = {
-  sortingEnabled: React.PropTypes.bool,
-  groupingEnabled: React.PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
+  groupingEnabled: PropTypes.bool,
 };

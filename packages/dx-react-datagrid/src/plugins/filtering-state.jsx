@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnFilter } from '@devexpress/dx-datagrid-core';
 
@@ -36,9 +37,9 @@ export class FilteringState extends React.PureComponent {
 }
 
 FilteringState.propTypes = {
-  filters: React.PropTypes.array,
-  defaultFilters: React.PropTypes.array,
-  filtersChange: React.PropTypes.func,
+  filters: PropTypes.array,
+  defaultFilters: PropTypes.array,
+  filtersChange: PropTypes.func,
 };
 
 FilteringState.defaultProps = {

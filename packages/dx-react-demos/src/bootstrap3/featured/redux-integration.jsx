@@ -1,6 +1,7 @@
 /* global window */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
@@ -107,20 +108,20 @@ const GridContainer = (props) => {
   );
 };
 GridContainer.propTypes = {
-  rows: React.PropTypes.array.isRequired,
-  columns: React.PropTypes.array.isRequired,
-  sortings: React.PropTypes.array.isRequired,
-  sortingsChange: React.PropTypes.func.isRequired,
-  selection: React.PropTypes.array.isRequired,
-  selectionChange: React.PropTypes.func.isRequired,
-  grouping: React.PropTypes.array.isRequired,
-  groupingChange: React.PropTypes.func.isRequired,
-  expandedGroups: React.PropTypes.object.isRequired,
-  expandedGroupsChange: React.PropTypes.func.isRequired,
-  filters: React.PropTypes.array.isRequired,
-  filtersChange: React.PropTypes.func.isRequired,
-  currentPage: React.PropTypes.number.isRequired,
-  currentPageChange: React.PropTypes.func.isRequired,
+  rows: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  sortings: PropTypes.array.isRequired,
+  sortingsChange: PropTypes.func.isRequired,
+  selection: PropTypes.array.isRequired,
+  selectionChange: PropTypes.func.isRequired,
+  grouping: PropTypes.array.isRequired,
+  groupingChange: PropTypes.func.isRequired,
+  expandedGroups: PropTypes.object.isRequired,
+  expandedGroupsChange: PropTypes.func.isRequired,
+  filters: PropTypes.array.isRequired,
+  filtersChange: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  currentPageChange: PropTypes.func.isRequired,
 };
 
 const gridInitialState = {

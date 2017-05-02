@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import { SimpleDetailRowDemo } from './detail-row/simple-detail-row';
@@ -22,7 +23,7 @@ export const DetailRowDemos = ({ match }) => (
   </div>
 );
 DetailRowDemos.propTypes = {
-  match: React.PropTypes.shape({
-    url: React.PropTypes.string,
+  match: PropTypes.shape({
+    url: PropTypes.string,
   }).isRequired,
 };

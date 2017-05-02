@@ -1,6 +1,7 @@
 /* global requestAnimationFrame cancelAnimationFrame */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class Sizer extends React.Component {
   componentDidMount() {
@@ -41,12 +42,12 @@ Sizer.defaultProps = {
   onWidthChange: () => {},
 };
 Sizer.propTypes = {
-  height: React.PropTypes.number,
-  onHeightChange: React.PropTypes.func,
-  width: React.PropTypes.number,
-  onWidthChange: React.PropTypes.func,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.node,
-    React.PropTypes.arrayOf(React.PropTypes.node),
+  height: PropTypes.number,
+  onHeightChange: PropTypes.func,
+  width: PropTypes.number,
+  onWidthChange: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
 };

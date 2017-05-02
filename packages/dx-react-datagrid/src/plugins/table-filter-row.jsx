@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import { getColumnFilterValue } from '@devexpress/dx-datagrid-core';
 
@@ -37,8 +38,8 @@ export class TableFilterRow extends React.PureComponent {
 }
 
 TableFilterRow.propTypes = {
-  rowHeight: React.PropTypes.any,
-  filterCellTemplate: React.PropTypes.func.isRequired,
+  rowHeight: PropTypes.any,
+  filterCellTemplate: PropTypes.func.isRequired,
 };
 
 TableFilterRow.defaultProps = {

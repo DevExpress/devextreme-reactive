@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setRowSelection, setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-datagrid-core';
 
@@ -57,9 +58,9 @@ export class SelectionState extends React.PureComponent {
 }
 
 SelectionState.propTypes = {
-  selection: React.PropTypes.array,
-  defaultSelection: React.PropTypes.array,
-  selectionChange: React.PropTypes.func,
+  selection: PropTypes.array,
+  defaultSelection: PropTypes.array,
+  selectionChange: PropTypes.func,
 };
 
 SelectionState.defaultProps = {

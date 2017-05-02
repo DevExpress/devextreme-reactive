@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Template, PluginContainer } from '@devexpress/dx-react-core';
 
 export class TableEditColumn extends React.PureComponent {
@@ -131,12 +132,12 @@ export class TableEditColumn extends React.PureComponent {
   }
 }
 TableEditColumn.propTypes = {
-  cellTemplate: React.PropTypes.func.isRequired,
-  headingCellTemplate: React.PropTypes.func.isRequired,
-  commandTemplate: React.PropTypes.func.isRequired,
-  allowCreating: React.PropTypes.bool,
-  allowEditing: React.PropTypes.bool,
-  allowDeleting: React.PropTypes.bool,
+  cellTemplate: PropTypes.func.isRequired,
+  headingCellTemplate: PropTypes.func.isRequired,
+  commandTemplate: PropTypes.func.isRequired,
+  allowCreating: PropTypes.bool,
+  allowEditing: PropTypes.bool,
+  allowDeleting: PropTypes.bool,
 };
 TableEditColumn.defaultProps = {
   allowCreating: false,

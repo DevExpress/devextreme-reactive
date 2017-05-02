@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import { LocalGroupingStaticDemo } from './grouping/local-grouping-static';
@@ -26,7 +27,7 @@ export const GroupingDemos = ({ match }) => (
   </div>
 );
 GroupingDemos.propTypes = {
-  match: React.PropTypes.shape({
-    url: React.PropTypes.string,
+  match: PropTypes.shape({
+    url: PropTypes.string,
   }).isRequired,
 };

@@ -27,6 +27,7 @@ import { FeaturedUncontrolledDemos } from './bootstrap3/featured-uncontrolled';
 import { FeaturedControlledDemos } from './bootstrap3/featured-controlled';
 import { FeaturedVirtualScrollingDemos } from './bootstrap3/featured-virtual-scrolling';
 import { FeaturedReduxDemos } from './bootstrap3/featured-redux';
+import { FeaturedRemoteDataDemos } from './bootstrap3/featured-remote-data';
 
 import './index.css';
 
@@ -49,6 +50,7 @@ const Demos = () => (
     <Route path="/featured-controlled" component={FeaturedControlledDemos} />
     <Route path="/featured-virtual-scrolling" component={FeaturedVirtualScrollingDemos} />
     <Route path="/featured-redux" component={FeaturedReduxDemos} />
+    <Route path="/featured-remote-data" component={FeaturedRemoteDataDemos} />
   </div>
 );
 
@@ -69,6 +71,7 @@ const Container = withRouter(({ location }) => {
                     <li><Link to="/featured-controlled">Controlled Mode</Link></li>
                     <li><Link to="/featured-virtual-scrolling">Virtual Scrolling</Link></li>
                     <li><Link to="/featured-redux">Redux Integration</Link></li>
+                    <li><Link to="/featured-remote-data">Remote Data</Link></li>
                   </ul>
                   )
                 : (

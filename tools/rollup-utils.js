@@ -9,17 +9,24 @@ License: https://js.devexpress.com/Licensing`;
 
 export const external = (packageDirectory) => {
   const pkg = JSON.parse(readFileSync(join(packageDirectory, 'package.json')));
-  const dependencies = Object.keys(pkg.dependencies || {});
+  const externalDependencies = [
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {})
+  ];
 
-  return moduleId => dependencies
-      .filter(dependency => moduleId.startsWith(dependency))
-      .length > 0;
+  return moduleId => externalDependencies
+    .filter(dependency => moduleId.startsWith(dependency))
+    .length > 0;
 };
 
 export const babelrc = (packageDirectory) => {
   const config = JSON.parse(readFileSync(join(packageDirectory, '.babelrc')));
-  const { presets } = config;
+  const { presets, plugins } = config;
+
   const index = presets.findIndex(preset => preset === 'es2015');
   presets[index] = ['es2015', { modules: false }];
+
+  plugins.push('external-helpers');
+
   return config;
 };

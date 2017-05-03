@@ -27,13 +27,21 @@ Install DataGrid Bootstrap3 components package:
 npm i @devexpress/dx-react-datagrid-bootstrap3 --save
 ```
 
-Make sure that Bootstrap styles are linked to a page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
+Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
 
-### Using DataGrid component:
+### Polyfills
 
-By default DataGrid renders nothing. All its functionality is implemented via plugin components that are nested into the root DataGrid component. So we should specify at least one plugin that visualize the data provided to the grid.
+React DataGrid uses the latest standards of the web platform. This means that some old browsers do not support all features of modern ones.
 
-To display the data as a simple table you can use the TableView plugin as follows:
+You may need to include ES2015 (ES6) polyfill to support some old browsers like IE11, Android 4.
+
+We recommend to use [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/). Feel free to use any other alternative.
+
+### Using DataGrid component
+
+By default DataGrid renders nothing. All its functionality is implemented via plugin components that are nested into the root DataGrid component. So, we should specify at least one plugin that visualizes the data provided for the grid.
+
+To display the data as a simple table, you can use the TableView plugin as follows:
 
 ```js
 import {

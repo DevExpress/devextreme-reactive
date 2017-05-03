@@ -15,7 +15,7 @@ const groupRows = (originalRows, groupedColumns, parentGroup) => {
     } else {
       group = {
         _headerKey: `groupRow_${groupColumn.name}`,
-        key: (parentGroup ? `${parentGroup.key}_` : '') + groupKey,
+        key: (parentGroup ? `${parentGroup.key}|` : '') + groupKey,
         colspan: (parentGroup ? parentGroup.colspan + 1 : 0),
         value: groupKey,
         type: 'groupRow',
@@ -45,7 +45,7 @@ const expandGroups = (rows, expandedGroups, result) => {
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i];
     result.push(row);
-    if (row.type === 'groupRow' && expandedGroups[row.key]) {
+    if (row.type === 'groupRow' && expandedGroups.has(row.key)) {
       expandGroups(row.rows, expandedGroups, result);
     }
   }

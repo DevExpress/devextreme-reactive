@@ -68,7 +68,7 @@ export class FullFeaturedCustomizedDemo extends React.PureComponent {
           />
           <GroupingState
             defaultGrouping={[{ column: 'product' }]}
-            defaultExpandedGroups={{ 'EnviroCare Max': true }}
+            defaultExpandedGroups={['EnviroCare Max']}
           />
           <PagingState
             defaultCurrentPage={0}

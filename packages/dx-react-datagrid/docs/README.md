@@ -2,7 +2,7 @@
 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
-- [Plugins Overview](#plugins-overview)
+- [Plugins Overview](#plugin-overview)
 - [Controlled and Uncontrolled modes](#controlled-and-uncontrolled-modes)
 - [Guides by Features](guides)
 - [Plugin Reference](reference)
@@ -18,7 +18,7 @@ DevExtreme DataGrid for React is a component that displays data from a local or 
 ```
 npm i @devexpress/dx-react-datagrid --save
 ```
-This package does not contain visual components. In the examples below, the [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) package is used to render visual components.
+This package does not contain visual components. In the examples below, the DevExtreme React DataGrid Bootstrap3 package is used to render visual components.
 
 Install the DataGrid Bootstrap3 components package:
 
@@ -26,7 +26,7 @@ Install the DataGrid Bootstrap3 components package:
 npm i @devexpress/dx-react-datagrid-bootstrap3 --save
 ```
 
-Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
+Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the [following link](http://getbootstrap.com/getting-started/#download).
 
 ### Polyfills
 
@@ -74,11 +74,7 @@ Refer to the [Reference](#reference) to see the complete plugin list.
 
 ### Plugin Order
 
-All DataGrid plugins consist of core plugins.
-
-Each core plugin component has unique behavior. See details here: [DevExtreme React Core](../dx-react-core/README.md)
-
-That is why the order of the plugins is important. For example, if data processing is based on some state, it should be linked after an appropriate state plugin. See the following example:
+All DataGrid plugins consist of core plugins. Each core plugin component has unique behavior. That is why the order of the plugins is important. For example, if data processing is based on some state, it should be linked after an appropriate state plugin. See the following example:
 
 
 ```js
@@ -123,7 +119,7 @@ NOTE: Refer to the plugin documentation for information on its requirements.
 ### UI Plugins
 
 It is required to specify a visual component for this type of plugins. They are not included by default. You can create your own templates based on the plugin specification or use one of the predefined ones:
-- [DevExtreme React DataGrid for Bootstrap 3](../dx-react-datagrid-bootstrap3/README.md) (used in examples)
+- DevExtreme React DataGrid for [Bootstrap 3](http://getbootstrap.com/) (used in examples)
 - DevExtreme React DataGrid for [Material UI](http://www.material-ui.com) (coming soon...)
 
 ## <a name="controlled-and-uncontrolled-modes"></a>Controlled (stateless) and Uncontrolled (stateful) modes

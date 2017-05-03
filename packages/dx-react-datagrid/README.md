@@ -12,7 +12,7 @@ The DevExtreme React DataGrid component allows you to display table data with a 
 npm i @devexpress/dx-react-datagrid --save
 ```
 
-This package does not contain any visual components, so all examples provided below use the [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) package to use Bootstrap rendering for the DataGrid visual components.
+This package does not contain any visual components, so all examples provided below use the DevExtreme React DataGrid Bootstrap3 package to use Bootstrap rendering for the DataGrid visual components.
 
 Install the DataGrid Bootstrap3 components package:
 
@@ -20,7 +20,7 @@ Install the DataGrid Bootstrap3 components package:
 npm i @devexpress/dx-react-datagrid-bootstrap3 --save
 ```
 
-Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
+Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the [following link](http://getbootstrap.com/getting-started/#download).
 
 #### Add a DataGrid to your app:
 

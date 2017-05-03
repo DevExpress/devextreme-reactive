@@ -54,14 +54,14 @@ describe('GroupingPlugin computeds', () => {
       });
       expect(grouped[0].rows).toHaveLength(2);
       expect(grouped[0].rows[0]).toMatchObject({
-        key: '1_1',
+        key: '1|1',
         value: '1',
         type: 'groupRow',
         column: { name: 'b' },
         colspan: 1,
       });
       expect(grouped[0].rows[1]).toMatchObject({
-        key: '1_2',
+        key: '1|2',
         value: '2',
         type: 'groupRow',
         column: { name: 'b' },
@@ -97,7 +97,7 @@ describe('GroupingPlugin computeds', () => {
     ];
 
     test('can expand groups', () => {
-      const expandedGroups = { toExpand: true };
+      const expandedGroups = new Set(['toExpand']);
 
       const expanded = expandedGroupRows(rows, expandedGroups);
       expect(expanded).toEqual([

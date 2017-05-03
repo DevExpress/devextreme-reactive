@@ -36,7 +36,7 @@ export class TableGroupRow extends React.PureComponent {
           {({ expandedGroups, toggleGroupExpanded, ...params }) => (
             <GroupRowCell
               {...params}
-              isExpanded={expandedGroups[params.row.key]}
+              isExpanded={expandedGroups.has(params.row.key)}
               toggleGroupExpanded={() => toggleGroupExpanded({ groupKey: params.row.key })}
             />
           )}

@@ -3,24 +3,27 @@ import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { groupByColumn } from '@devexpress/dx-datagrid-core';
 
+const arrayToSet = array => new Set(array);
+
 export class GroupingState extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       grouping: props.defaultGrouping || [],
-      expandedGroups: props.defaultExpandedGroups || {},
+      expandedGroups: props.defaultExpandedGroups || [],
     };
 
     this.toggleGroupExpanded = (groupKey) => {
       const prevExpandedGroups = this.props.expandedGroups || this.state.expandedGroups;
       const { expandedGroupsChange } = this.props;
 
-      const expandedGroups = Object.assign({}, prevExpandedGroups);
-      if (expandedGroups[groupKey]) {
-        delete expandedGroups[groupKey];
+      const expandedGroups = prevExpandedGroups.slice();
+      const groupKeyIndex = expandedGroups.indexOf(groupKey);
+      if (groupKeyIndex > -1) {
+        expandedGroups.splice(groupKeyIndex, 1);
       } else {
-        expandedGroups[groupKey] = true;
+        expandedGroups.push(groupKey);
       }
 
       this.setState({ expandedGroups });
@@ -58,7 +61,11 @@ export class GroupingState extends React.PureComponent {
         />
 
         <Getter name="grouping" value={grouping} />
-        <Getter name="expandedGroups" value={expandedGroups} />
+        <Getter
+          name="expandedGroups"
+          pureComputed={arrayToSet}
+          connectArgs={() => [expandedGroups]}
+        />
         <Getter
           name="groupedColumns"
           pureComputed={this._groupedColumns}
@@ -76,8 +83,8 @@ GroupingState.propTypes = {
   grouping: PropTypes.array,
   defaultGrouping: PropTypes.array,
   groupingChange: PropTypes.func,
-  expandedGroups: PropTypes.object,
-  defaultExpandedGroups: PropTypes.object,
+  expandedGroups: PropTypes.array,
+  defaultExpandedGroups: PropTypes.array,
   expandedGroupsChange: PropTypes.func,
 };
 

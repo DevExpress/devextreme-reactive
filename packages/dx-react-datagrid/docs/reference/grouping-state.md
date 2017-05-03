@@ -15,9 +15,9 @@ Name | Type | Default | Description
 grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by
 defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping for the uncontrolled mode
 groupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping changes
-expandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies expanded groups
-defaultExpandedGroups | { [key: [GroupKey](#group-key)]: true } | | Specifies initially expanded groups for the uncontrolled mode
-expandedGroupsChange | (expandedGroups: { [key: [GroupKey](#group-key)]: true }) => void | | Handles expanded group changes
+expandedGroups | { Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups
+defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; } | | Specifies initially expanded groups for the uncontrolled mode
+expandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt; }) => void | | Handles expanded group changes
 
 ## Interfaces
 
@@ -39,7 +39,7 @@ A primitive value with the following type:
 
 string
 
-This string consists of values by which rows are grouped. Values are merged by the `_` symbol. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male_Audi` and so on.
+This string consists of values by which rows are grouped. Values are merged by the `|` symbol. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male|Audi` and so on.
 
 ## Plugin Developer Reference
 
@@ -52,7 +52,7 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | Getter | () => Array&lt;[Grouping](#grouping)&gt; | Applied grouping
-expandedGroups | Getter | () => { [key: [GroupKey](#group-key)]: true } | Expanded groups
+expandedGroups | Getter | () => Set&lt[GroupKey](#group-key)&gt; | Expanded groups
 groupedColumns | Getter | () => Array&lt;Column&gt; | Columns with applied grouping on them
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column name or cancels grouping. If `groupIndex` is omitted, the group will be added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state

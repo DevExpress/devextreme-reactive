@@ -39,7 +39,7 @@ export class ControlledModeDemo extends React.PureComponent {
         { column: 'saleDate', direction: 'asc' },
       ],
       grouping: [{ column: 'product' }],
-      expandedGroups: { 'EnviroCare Max': true },
+      expandedGroups: ['EnviroCare Max'],
       selection: [],
       filters: [{ column: 'saleDate', value: 'Feb' }],
       currentPage: 0,

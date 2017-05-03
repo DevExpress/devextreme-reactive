@@ -130,10 +130,29 @@ and notify you once an end-user has changed sorting configuration. It's very sim
 In your code it will look as follows:
 
 ```js
-  <DataGrid rows={[...]} columns={[...]}>
-    <SortingState sortings={sortings} sortingsChange={onSortingsChange} />
-    ...
-  </DataGrid>
+export class MyApp extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      columns: [...],
+      rows: [...],
+      sortings: [{ column: 'date', direction: 'desc' }],
+    };
+
+    this.changeSortings = sortings => this.setState({ sortings });
+  }
+  render() {
+    const { rows, columns, sortings } = this.state;
+
+    return (
+      <DataGrid rows={rows} columns={columns}>
+        <SortingState sortings={sortings} sortingsChange={this.changeSortings} />
+        ...
+      </DataGrid>
+    );
+  }
+}
 ```
 
 So, the `sortings` represents the DataGrid sorting configuration. And the `onSortingsChange` function is a handler that is invoked every time the sorting configuration changes.
@@ -155,7 +174,7 @@ If you want to specify default sorting configuration, it will look as follows:
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>
-    <SortingState defaultSortings={[ column: 'data', direction: 'desc' ]} />
+    <SortingState defaultSortings={[ column: 'date', direction: 'desc' ]} />
     ...
   </DataGrid>
 ```
@@ -165,7 +184,7 @@ follows:
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>
-    <FilteringState filters={filters} filtersChange={onFiltersChange}/>
+    <FilteringState filters={filters} filtersChange={this.changeFilters}/>
     <SortingState />
     <GroupingState />
     ...

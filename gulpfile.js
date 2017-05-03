@@ -60,6 +60,7 @@ var patchMDTables = function(content) {
 gulp.task('site:docs', function() {
   return gulp.src([
       'packages/**/*.md',
+      '!packages/**/LICENSE.md',
       '!packages/dx-react-demos/**/*',
       '!/**/node_modules/**/*'
     ])

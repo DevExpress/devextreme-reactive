@@ -6,8 +6,8 @@ export const FeaturedVirtualScrollingDemos = () => (
   <div>
     <h2>DataGrid Virtual Scrolling (200K rows)</h2>
     <p>
-      Virtual scrolling mode is an alternative to data paging. It allows end users to navigate
-      the data rows using the vertical scrollbar. In this demo, the DataGrid is bound to 200,000
+      The virtual scrolling mode is an alternative to data paging. It allows end users to navigate
+      data rows using the vertical scrollbar. In this demo, the DataGrid is bound to 200,000
       records and virtual scrolling is enabled using the VirtualTableView plugin.
     </p>
     <VirtualScrollingDemo />

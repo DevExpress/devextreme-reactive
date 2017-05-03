@@ -41,9 +41,9 @@ We recommend to use [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/). F
 
 ### Using DataGrid component
 
-By default DataGrid renders nothing. All its functionality is implemented via plugin components that are nested into the root DataGrid component. So we should specify at least one plugin that visualize the data provided to the grid.
+By default DataGrid renders nothing. All its functionality is implemented via plugin components that are nested into the root DataGrid component. So, we should specify at least one plugin that visualizes the data provided for the grid.
 
-To display the data as a simple table you can use the TableView plugin as follows:
+To display the data as a simple table, you can use the TableView plugin as follows:
 
 ```js
 import {

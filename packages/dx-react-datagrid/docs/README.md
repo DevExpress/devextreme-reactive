@@ -120,12 +120,12 @@ It is required to specify visual component for this type of plugins. They are no
 - [DevExtreme React DataGrid for Bootstrap 3](../dx-react-datagrid-bootstrap3/README.md) (used in examples)
 - DevExtreme React DataGrid for [Material UI](http://www.material-ui.com) (coming soon...)
 
-## Controlled (stateless) and Uncontrolled (stateful) modes
+## <a name="controlled-and-uncontrolled-modes"></a>Controlled (stateless) and Uncontrolled (stateful) modes
 
 Depending on a particular use-case you might need to control the DataGrid state by yourself or to delegate state management to the component. For instance,
 if you need to persist the DataGrid sorting configured by an end-user and restore it withing the next app usage session, you'll need to switch the sorting
-state into the controlled mode. In this case, DataGrid will accept sorting configuration via the SortingState plugin properties, and notify you once an
-end-user has changed sorting configuration. It's very similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
+state into the controlled mode. In this case, DataGrid will accept sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties,
+and notify you once an end-user has changed sorting configuration. It's very similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
 
 In your code it will look as follows:
 
@@ -172,5 +172,4 @@ follows:
   </DataGrid>
 ```
 
-Note: If you are using Redux and perform time traveling, partially controlled state might cause side-effects. So, we recommend using fully-controlled state so the DataGrid
-behaves as a stateless component without side-effects.
+Note: If you are using Redux and performing time traveling then partially controlled state might cause side-effects. In this case, we recommend using fully-controlled state so the DataGrid behaves as a stateless component without side-effects.

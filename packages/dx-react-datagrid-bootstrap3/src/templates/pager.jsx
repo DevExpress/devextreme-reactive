@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Pagination } from 'react-bootstrap';
 
 export const Pager = ({ currentPage, onCurrentPageChange, totalPages }) => (
@@ -16,7 +17,7 @@ export const Pager = ({ currentPage, onCurrentPageChange, totalPages }) => (
 );
 
 Pager.propTypes = {
-  currentPage: React.PropTypes.number.isRequired,
-  totalPages: React.PropTypes.number.isRequired,
-  onCurrentPageChange: React.PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  onCurrentPageChange: PropTypes.func.isRequired,
 };

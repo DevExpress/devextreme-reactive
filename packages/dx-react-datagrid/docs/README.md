@@ -1,7 +1,5 @@
 # Data Grid for React
 
-Project status: **CTP**
-
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Plugins Overview](#plugins-overview)

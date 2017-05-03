@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getRowChange,
@@ -85,8 +86,8 @@ export class TableEditRow extends React.PureComponent {
   }
 }
 TableEditRow.propTypes = {
-  rowHeight: React.PropTypes.any,
-  editCellTemplate: React.PropTypes.func.isRequired,
+  rowHeight: PropTypes.any,
+  editCellTemplate: PropTypes.func.isRequired,
 };
 TableEditRow.defaultProps = {
   rowHeight: undefined,

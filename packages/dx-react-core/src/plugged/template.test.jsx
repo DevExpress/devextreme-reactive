@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './host';
@@ -38,7 +39,7 @@ describe('Template', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      text: React.PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
     };
 
     const tree = mount(

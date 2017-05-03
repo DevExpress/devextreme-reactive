@@ -4,7 +4,7 @@ import { UncontrolledModeDemo } from './featured/uncontrolled-mode';
 
 export const FeaturedUncontrolledDemos = () => (
   <div>
-    <h2>DataGrid Uncontrolled State Mode</h2>
+    <h1>DataGrid Uncontrolled State Mode</h1>
     <p>
       This demo shows the DataGrid capability to manage its UI state internally. This mode is
       usefull if you do not need to use the DataGrid state in other parts of your application.

@@ -7,7 +7,7 @@ export class PluginHost {
     this.gettersCache = {};
   }
   registerPlugin(plugin) {
-    this.plugins = sortPlugins([...this.plugins, plugin]);
+    this.plugins.push(plugin);
     this.cleanPluginsCache();
   }
   unregisterPlugin(plugin) {
@@ -15,9 +15,14 @@ export class PluginHost {
     this.cleanPluginsCache();
   }
   cleanPluginsCache() {
+    this.unordered = true;
     this.gettersCache = {};
   }
   collect(key, upTo) {
+    if (this.unordered) {
+      this.plugins = sortPlugins(this.plugins);
+      this.unordered = false;
+    }
     if (!this.gettersCache[key]) {
       this.gettersCache[key] = this.plugins.map(plugin => plugin[key]).filter(plugin => !!plugin);
     }

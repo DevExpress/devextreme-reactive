@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   startEditRows,
@@ -169,23 +170,23 @@ export class EditingState extends React.PureComponent {
 }
 
 EditingState.propTypes = {
-  editingRows: React.PropTypes.array,
-  defaultEditingRows: React.PropTypes.array,
-  editingRowsChange: React.PropTypes.func,
+  editingRows: PropTypes.array,
+  defaultEditingRows: PropTypes.array,
+  editingRowsChange: PropTypes.func,
 
-  newRows: React.PropTypes.array,
-  defaultNewRows: React.PropTypes.array,
-  newRowsChange: React.PropTypes.func,
+  newRows: PropTypes.array,
+  defaultNewRows: PropTypes.array,
+  newRowsChange: PropTypes.func,
 
-  changedRows: React.PropTypes.object,
-  defaultChangedRows: React.PropTypes.object,
-  changedRowsChange: React.PropTypes.func,
+  changedRows: PropTypes.object,
+  defaultChangedRows: PropTypes.object,
+  changedRowsChange: PropTypes.func,
 
-  deletedRows: React.PropTypes.array,
-  defaultDeletedRows: React.PropTypes.array,
-  deletedRowsChange: React.PropTypes.func,
+  deletedRows: PropTypes.array,
+  defaultDeletedRows: PropTypes.array,
+  deletedRowsChange: PropTypes.func,
 
-  onCommitChanges: React.PropTypes.func.isRequired,
+  onCommitChanges: PropTypes.func.isRequired,
 };
 
 EditingState.defaultProps = {

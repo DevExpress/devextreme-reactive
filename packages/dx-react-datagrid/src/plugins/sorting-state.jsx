@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnSorting } from '@devexpress/dx-datagrid-core';
 
@@ -38,9 +39,9 @@ export class SortingState extends React.PureComponent {
 }
 
 SortingState.propTypes = {
-  sortings: React.PropTypes.array,
-  defaultSortings: React.PropTypes.array,
-  sortingsChange: React.PropTypes.func,
+  sortings: PropTypes.array,
+  defaultSortings: PropTypes.array,
+  sortingsChange: PropTypes.func,
 };
 
 SortingState.defaultProps = {

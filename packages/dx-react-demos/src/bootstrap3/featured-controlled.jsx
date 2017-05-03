@@ -4,7 +4,7 @@ import { ControlledModeDemo } from './featured/controlled-mode';
 
 export const FeaturedControlledDemos = () => (
   <div>
-    <h2>DataGrid Controlled State Mode</h2>
+    <h1>DataGrid Controlled State Mode</h1>
     <p>
       This demo shows the DataGrid capability to delegate its UI state management to the parent
       component. You can contol either the whole DataGrid state or just a part of it. In the

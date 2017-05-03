@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableCell = ({ style, row, column }) => (
   <td
@@ -15,9 +16,9 @@ export const TableCell = ({ style, row, column }) => (
 );
 
 TableCell.propTypes = {
-  style: React.PropTypes.shape(),
-  row: React.PropTypes.shape(),
-  column: React.PropTypes.shape(),
+  style: PropTypes.shape(),
+  row: PropTypes.shape(),
+  column: PropTypes.shape(),
 };
 
 TableCell.defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TableFilterCell = ({ style, column, filter, changeFilter }) => (
   <th
@@ -20,10 +21,10 @@ export const TableFilterCell = ({ style, column, filter, changeFilter }) => (
 );
 
 TableFilterCell.propTypes = {
-  column: React.PropTypes.shape(),
-  style: React.PropTypes.shape(),
-  filter: React.PropTypes.string,
-  changeFilter: React.PropTypes.func,
+  column: PropTypes.shape(),
+  style: PropTypes.shape(),
+  filter: PropTypes.string,
+  changeFilter: PropTypes.func,
 };
 
 TableFilterCell.defaultProps = {

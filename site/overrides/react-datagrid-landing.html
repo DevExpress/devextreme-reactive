@@ -42,20 +42,20 @@ redirect_from: "/"
 
           <div class="container">
 
-              <div class="row">
+              <div class="row block-item {{ post.cssClass }}">
                   <div class="col-lg-5 col-sm-6">
                       <div class="clearfix"></div>
                       <h2 class="section-heading">{{ post.title }}</h2>
                       <div class="lead">{{ post.content }}</div>
                   </div>
                   <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img
-                      class="img-responsive block-image"
-                      data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
-                      data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
-                      src="{{site.baseurl}}/img/blocks/{{ post.img }}"
-                      alt=""
-                    />
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                        data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
+                        src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                        alt=""
+                      />
                   </div>
               </div>
 
@@ -69,20 +69,20 @@ redirect_from: "/"
 
           <div class="container">
 
-              <div class="row">
-                  <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+              <div class="row block-item {{ post.cssClass }}">
+                  <div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
                       <div class="clearfix"></div>
                       <h2 class="section-heading">{{ post.title }}</h2>
                       <div class="lead">{{ post.content }}</div>
                   </div>
-                  <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img
-                      class="img-responsive block-image"
-                      data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
-                      data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
-                      src="{{site.baseurl}}/img/blocks/{{ post.img }}"
-                      alt=""
-                    />
+                  <div class="col-lg-5 col-sm-pull-6 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                        data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
+                        src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                        alt=""
+                      />
                   </div>
               </div>
 

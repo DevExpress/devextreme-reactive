@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const GroupPanelCell = ({
   column,
@@ -58,11 +59,11 @@ GroupPanelCell.defaultProps = {
 };
 
 GroupPanelCell.propTypes = {
-  column: React.PropTypes.shape({
-    title: React.PropTypes.string,
+  column: PropTypes.shape({
+    title: PropTypes.string,
   }).isRequired,
-  sortingEnabled: React.PropTypes.bool,
-  sortDirection: React.PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortDirection: React.PropTypes.func,
-  groupByColumn: React.PropTypes.func,
+  sortingEnabled: PropTypes.bool,
+  sortDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  changeSortDirection: PropTypes.func,
+  groupByColumn: PropTypes.func,
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { argumentsShallowEqual } from '../utils/shallowEqual';
 import { UPDATE_CONNECTION } from './getter';
 import { getAction } from '../utils/pluginHelpers';
@@ -50,9 +51,9 @@ export class Watcher extends React.PureComponent {
   }
 }
 Watcher.propTypes = {
-  watch: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  watch: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 Watcher.contextTypes = {
-  pluginHost: React.PropTypes.object.isRequired,
+  pluginHost: PropTypes.object.isRequired,
 };

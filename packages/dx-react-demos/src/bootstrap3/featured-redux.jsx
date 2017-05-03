@@ -4,7 +4,7 @@ import { ReduxIntegrationDemo } from './featured/redux-integration';
 
 export const FeaturedReduxDemos = () => (
   <div>
-    <h2>DataGrid Redux Integration</h2>
+    <h1>DataGrid Redux Integration</h1>
     <p>
       In this demo the DataGrid state is managed by the Redux store. DataGrid works as a
       stateless component. All end-user actions that modifiy the component state produce corresponding

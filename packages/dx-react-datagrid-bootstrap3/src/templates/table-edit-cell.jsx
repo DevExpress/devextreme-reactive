@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const EditCell = ({ value, onValueChange }) => (
   <td
@@ -17,8 +18,8 @@ export const EditCell = ({ value, onValueChange }) => (
   </td>
 );
 EditCell.propTypes = {
-  value: React.PropTypes.any,
-  onValueChange: React.PropTypes.func.isRequired,
+  value: PropTypes.any,
+  onValueChange: PropTypes.func.isRequired,
 };
 EditCell.defaultProps = {
   value: undefined,

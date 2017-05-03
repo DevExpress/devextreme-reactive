@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import { setDetailRowExpanded, expandedDetailRows, isDetailRowExpanded } from '@devexpress/dx-datagrid-core';
 
@@ -68,14 +69,14 @@ export class TableRowDetail extends React.PureComponent {
 }
 
 TableRowDetail.propTypes = {
-  expandedDetails: React.PropTypes.array,
-  defaultExpandedDetails: React.PropTypes.array,
-  expandedDetailsChange: React.PropTypes.func,
-  template: React.PropTypes.func.isRequired,
-  detailToggleTemplate: React.PropTypes.func.isRequired,
-  rowHeight: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.oneOf(['auto']),
+  expandedDetails: PropTypes.array,
+  defaultExpandedDetails: PropTypes.array,
+  expandedDetailsChange: PropTypes.func,
+  template: PropTypes.func.isRequired,
+  detailToggleTemplate: PropTypes.func.isRequired,
+  rowHeight: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.oneOf(['auto']),
   ]),
 };
 

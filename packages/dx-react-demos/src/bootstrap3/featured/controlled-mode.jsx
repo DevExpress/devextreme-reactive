@@ -1,12 +1,12 @@
 import React from 'react';
 import {
     DataGrid,
-    SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-    LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+    SortingState, EditingState, PagingState, GroupingState,
+    LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-datagrid';
 import {
-    TableView, TableHeaderRow,
-    TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
+    TableView, TableHeaderRow, TableEditRow, TableEditColumn,
+    PagingPanel, GroupingPanel, TableGroupRow,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 import {
     ProgressBarCell,
@@ -33,24 +33,60 @@ export class ControlledModeDemo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 10000 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...globalSalesValues },
+        length: 10000,
+      }),
       sortings: [
         { column: 'product', direction: 'asc' },
         { column: 'saleDate', direction: 'asc' },
       ],
       grouping: [{ column: 'product' }],
       expandedGroups: ['EnviroCare Max'],
-      selection: [],
-      filters: [{ column: 'saleDate', value: 'Feb' }],
+      editingRows: [],
+      newRows: [],
+      changedRows: {},
       currentPage: 0,
     };
 
     this.changeSortings = sortings => this.setState({ sortings });
     this.changeGrouping = grouping => this.setState({ grouping });
     this.changeExpandedGroups = expandedGroups => this.setState({ expandedGroups });
-    this.changeSelection = selection => this.setState({ selection });
+    this.changeEditingRows = editingRows => this.setState({ editingRows });
+    this.changeNewRows = newRows => this.setState({ newRows });
+    this.changeChangedRows = changedRows => this.setState({ changedRows });
     this.changeFilters = filters => this.setState({ filters });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
+    this.commitChanges = ({ created, updated, deleted }) => {
+      let rows = this.state.rows.slice();
+      if (created) {
+        rows = [
+          ...created.map((row, index) => ({
+            id: rows.length + index,
+            ...row,
+          })),
+          ...rows,
+        ];
+      }
+      if (updated) {
+        Object.keys(updated).forEach((key) => {
+          const index = rows.findIndex(row => String(row.id) === key);
+          if (index > -1) {
+            const change = updated[index];
+            rows[index] = Object.assign({}, rows[index], change);
+          }
+        });
+      }
+      if (deleted) {
+        deleted.forEach((rowId) => {
+          const index = rows.findIndex(row => row.id === rowId);
+          if (index > -1) {
+            rows.splice(index, 1);
+          }
+        });
+      }
+      this.setState({ rows });
+    };
   }
   render() {
     const {
@@ -59,8 +95,9 @@ export class ControlledModeDemo extends React.PureComponent {
       sortings,
       grouping,
       expandedGroups,
-      selection,
-      filters,
+      editingRows,
+      newRows,
+      changedRows,
       currentPage,
     } = this.state;
 
@@ -68,12 +105,9 @@ export class ControlledModeDemo extends React.PureComponent {
       <DataGrid
         rows={rows}
         columns={columns}
+        getRowId={row => row.id}
       >
 
-        <FilteringState
-          filters={filters}
-          filtersChange={this.changeFilters}
-        />
         <SortingState
           sortings={sortings}
           sortingsChange={this.changeSortings}
@@ -90,14 +124,18 @@ export class ControlledModeDemo extends React.PureComponent {
           pageSize={10}
         />
 
-        <LocalFiltering />
         <LocalSorting />
         <LocalGrouping />
         <LocalPaging />
 
-        <SelectionState
-          selection={selection}
-          selectionChange={this.changeSelection}
+        <EditingState
+          editingRows={editingRows}
+          editingRowsChange={this.changeEditingRows}
+          changedRows={changedRows}
+          changedRowsChange={this.changeChangedRows}
+          newRows={newRows}
+          newRowsChange={this.changeNewRows}
+          onCommitChanges={this.commitChanges}
         />
 
         <TableView
@@ -116,9 +154,13 @@ export class ControlledModeDemo extends React.PureComponent {
         />
 
         <TableHeaderRow sortingEnabled groupingEnabled />
-        <TableFilterRow />
+        <TableEditRow />
+        <TableEditColumn
+          allowCreating={!this.state.newRows.length}
+          allowEditing
+          allowDeleting
+        />
         <PagingPanel />
-        <TableSelection />
         <TableGroupRow />
         <GroupingPanel sortingEnabled />
 

@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+
+const withEditColumn = tableColumns => (
+    tableColumns.find(c => c.type === 'edit')
+    ? tableColumns
+    : [{ type: 'edit', width: 140 }, ...tableColumns]
+);
 
 export class TableEditColumn extends React.PureComponent {
   render() {
@@ -14,6 +20,13 @@ export class TableEditColumn extends React.PureComponent {
     } = this.props;
     return (
       <PluginContainer>
+        <Getter
+          name="tableColumns"
+          pureComputed={withEditColumn}
+          connectArgs={getter => [
+            getter('tableColumns'),
+          ]}
+        />
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'heading' && column.type === 'edit'}

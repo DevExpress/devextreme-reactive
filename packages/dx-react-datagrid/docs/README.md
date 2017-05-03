@@ -1,7 +1,5 @@
 # Data Grid for React
 
-Project status: **CTP**
-
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Plugins Overview](#plugins-overview)
@@ -30,7 +28,15 @@ npm i @devexpress/dx-react-datagrid-bootstrap3 --save
 
 Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
 
-### Using the DataGrid component:
+### Polyfills
+
+React DataGrid uses the latest standards of the web platform. This means that some old browsers do not support all features of modern ones.
+
+You may need to include ES2015 (ES6) polyfill to support some old browsers like IE11, Android 4.
+
+We recommend to use [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/). Feel free to use any other alternative.
+
+### Using DataGrid component
 
 By default, DataGrid renders nothing. All its functionality is implemented in nested plugin components of the root DataGrid component. Thus, it is required to specify at least one plugin that visualizes the grid data.
 

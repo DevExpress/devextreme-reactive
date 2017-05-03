@@ -6,6 +6,18 @@
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  },
+  "homepage": "https://devexpress.github.io/devextreme-reactive/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+  },
+  "keywords": [
+    "js",
+    "javascript"
+  ],
   "license": "https://js.devexpress.com/Licensing/",
   "main": "dist/dx-core.cjs.js",
   "module": "dist/dx-core.es.js",
@@ -33,6 +45,7 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
@@ -47,8 +60,5 @@
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-license": "^0.3.0",
     "rollup-watch": "^3.2.2"
-  },
-  "dependencies": {
-    "babel-runtime": "^6.23.0"
   }
 }

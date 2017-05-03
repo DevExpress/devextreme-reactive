@@ -6,7 +6,7 @@ var webpack = require('webpack');
 module.exports = ({ production }) => ({
   context: path.join(__dirname, 'src'),
   entry: {
-    index: path.join(__dirname, 'src', 'index')
+    index: ['babel-polyfill', path.join(__dirname, 'src', 'index')]
   },
   output: {
     publicPath: '/dist',
@@ -33,8 +33,8 @@ module.exports = ({ production }) => ({
   },
   resolve: {
     alias: {
-      // Strange hack for react-bootstrap
-      'react-dom': path.resolve('./node_modules/react-dom'),
+      // Strange hack for react-bootstrap and lerna
+      'react-bootstrap': path.resolve('./node_modules/react-bootstrap'),
     },
     extensions: [".webpack.js", ".web.js", ".js", ".jsx"]
   },

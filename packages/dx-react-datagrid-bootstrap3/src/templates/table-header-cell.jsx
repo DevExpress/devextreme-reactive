@@ -88,6 +88,7 @@ export const TableHeaderCell = ({
         style={{
           [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',
           textAlign: align,
+          whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         }}

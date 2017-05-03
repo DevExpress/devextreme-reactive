@@ -3,7 +3,6 @@
     "es2015"
   ],
   "plugins": [
-    "transform-runtime",
     "transform-object-rest-spread"
   ]
 }

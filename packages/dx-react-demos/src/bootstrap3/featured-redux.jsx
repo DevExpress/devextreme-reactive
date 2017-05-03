@@ -7,8 +7,8 @@ export const FeaturedReduxDemos = () => (
     <h1>DataGrid Redux Integration</h1>
     <p>
       In this demo the DataGrid state is managed by the Redux store. DataGrid works as a
-      stateless component. All end-user actions that modifiy the component state produce corresponding
-      Redux actions that are dispatched by the DataGrid reducer.
+      stateless component. All end-user actions that modifiy the component state produce
+      corresponding Redux actions that are dispatched by the DataGrid reducer.
       The Redux DevTool Extenstion is activated in the code of this demo. You can open it
       and perform time-traveling and observe DataGrid state mutations.
     </p>

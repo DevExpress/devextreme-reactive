@@ -5,6 +5,7 @@
 *.jpg   binary
 *.png   binary
 *.svg   binary
+*.ico   binary
 
 # fonts
 *.eot   binary

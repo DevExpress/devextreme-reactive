@@ -11,7 +11,7 @@ Project status: **CTP**
 
 ## Overview
 
-DevExtreme DataGrid for React is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection and data editing. The support of controlled and uncontrolled state modes allows you to use DataGrid in a regular or Redux-based application. The DevExtreme DataGrid component has a composable and extensible plugin-based architecture and is provided with the Twitter Bootstrap rendering and theming out-of-the-box.
+DevExtreme DataGrid for React is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection and data editing. Support for controlled and uncontrolled state modes allows you to use DataGrid in a regular or Redux-based application. The DevExtreme DataGrid component has a composable and extensible plugin-based architecture and is provided with the Twitter Bootstrap rendering and theming out-of-the-box.
 
 ## Getting Started
 
@@ -22,19 +22,19 @@ npm i @devexpress/dx-react-datagrid --save
 ```
 This package does not contain visual components. In the examples below, the [DevExtreme React DataGrid Bootstrap3](../dx-react-datagrid-bootstrap3/README.md) package is used to render visual components.
 
-Install DataGrid Bootstrap3 components package:
+Install the DataGrid Bootstrap3 components package:
 
 ```
 npm i @devexpress/dx-react-datagrid-bootstrap3 --save
 ```
 
-Make sure that Bootstrap styles are linked to a page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
+Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.
 
-### Using DataGrid component:
+### Using the DataGrid component:
 
 By default, DataGrid renders nothing. All its functionality is implemented in nested plugin components of the root DataGrid component. Thus, it is required to specify at least one plugin that visualizes the grid data.
 
-To display the data as a simple table you can use the TableView plugin as follows:
+To display the data as a simple table, you can use the TableView plugin as follows:
 
 ```js
 import {
@@ -53,16 +53,16 @@ const App = () => (
 );
 ```
 
-## Plugins Overview
+## Plugin Overview
 
-All the DataGrid functionality is provided by plugins. We can divide all the plugins onto four logical groups:
+All the DataGrid functionality is provided by plugins. We can divide all the plugins into four logical groups:
 
-- **State Management plugins**. Contain a part of DataGrid state or obtain it from outside and can change the state in a response to the specified user actions.
-- **Data Processing plugins**. Transform data passed to the DataGrid component before rendering.
-- **UI Plugins**. Render transformed data using the current state and configuration. Also these plugins can invoke actions provided by state management plugins to change the DataGrid state.
-- **Core Plugins**. These plugins are the base building blocks for the previous three pluing groups. They can also be used separately in some customization scenarious.
+- **State Management plugins**. Contain a part of the DataGrid state or obtain it from outside and can change the state in a response to  specified user actions.
+- **Data Processing plugins**. Transform data passed to the DataGrid component before rendering it.
+- **UI Plugins**. Render transformed data using the current state and configuration. Also, these plugins can invoke actions provided by the state management plugins to change the DataGrid state.
+- **Core Plugins**. These plugins are the base building blocks for the previous three plugin groups. They can also be used separately in certain customization scenarios.
 
-Note, that plugins are composable and technically can be nested to each other.
+Note that the plugins are composable and can technically be nested into each other.
 
 Refer to the [Reference](#reference) to see the complete plugin list.
 
@@ -70,9 +70,9 @@ Refer to the [Reference](#reference) to see the complete plugin list.
 
 All DataGrid plugins consist of core plugins.
 
-Each core plugin component has some unique behavior. See details: [DevExtreme React Core](../dx-react-core/README.md)
+Each core plugin component has unique behavior. See details here: [DevExtreme React Core](../dx-react-core/README.md)
 
-That is why the order of plugins is important. For example, if data processing is based on some state, it should be linked after the appropriate state plugin. See the following example:
+That is why the order of the plugins is important. For example, if data processing is based on some state, it should be linked after an appropriate state plugin. See the following example:
 
 
 ```js
@@ -92,7 +92,7 @@ const App = () => (
 );
 ```
 
-Note that in the previous example, the TableView plugin is linked after the data processing one. The same rule is applied for visualization plugins. See the following example:
+Note that in the previous example, the TableView plugin is linked after the data processing one. The same rule is applied to visualization plugins. See the following example:
 
 ```js
 import {
@@ -112,17 +112,17 @@ const App = () => (
 );
 ```
 
-NOTE: Refer to the plugin documentation for the information on its requirements.
+NOTE: Refer to the plugin documentation for information on its requirements.
 
 ### UI Plugins
 
-It is required to specify visual component for this type of plugins. They are not included by default. You can create your own templates based on plugin specification or use one of the predefined ones:
+It is required to specify a visual component for this type of plugins. They are not included by default. You can create your own templates based on the plugin specification or use one of the predefined ones:
 - [DevExtreme React DataGrid for Bootstrap 3](../dx-react-datagrid-bootstrap3/README.md) (used in examples)
 - DevExtreme React DataGrid for [Material UI](http://www.material-ui.com) (coming soon...)
 
 ## <a name="controlled-and-uncontrolled-modes"></a>Controlled (stateless) and Uncontrolled (stateful) modes
 
-Depending on a particular use-case you may need to control the DataGrid state by yourself or to delegate state management to the component. For instance, to persist the DataGrid sorting configured by an end-user and restore it withing the next app usage session, you need to switch the sorting state into the controlled mode. In this case, DataGrid will accept sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties, and notify you once an end-user has changed sorting configuration. It's very similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
+Depending on a particular use-case, you may need to control the DataGrid state yourself or delegate state management to the component. For instance, to persist the DataGrid sorting configured by an end-user and restore it withing the next app usage session, you need to switch the sorting state to controlled mode. In this case, DataGrid will accept the sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties and notify you once an end-user has changed the sorting configuration. It's very similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
 
 In your code it will look as follows:
 
@@ -152,9 +152,9 @@ export class MyApp extends React.PureComponent {
 }
 ```
 
-So, `sortings` represents the DataGrid sorting configuration. And the `changeSortings` function is a handler that is invoked every time the sorting configuration changes. Note that all state management plugins work with serializable state. It means you can persist and restore it into [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values. Controlled state mode can also be helpful if you need to indicate the current state in your UI or to bind some controls existing outside of the DataGrid. For inctance, it's easy to put a ComboBox with available sort orders and let end-users to use it for sorting DataGrid data.
+So, `sortings` represents the DataGrid sorting configuration. In turn, the `changeSortings` function is a handler that is invoked every time the sorting configuration changes. Note that all state management plugins work with the serializable state. It means that you can persist and restore it in [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values. The controlled state mode can also be helpful if you need to indicate the current state in your UI or bind some controls existing outside the DataGrid. For inctance, it's easy to put a ComboBox with available sort orders and let end-users use it for sorting DataGrid data.
 
-In the uncontrolled state mode, the DataGrid component manages its UI state internally. You do not need to specify the state value and state change handler properties. But you can provide DataGrid with the initial state value using the property with the `default` prefix. For instance, we can convert the previous example into the uncontrolled mode:
+In uncontrolled state mode, the DataGrid component manages its UI state internally. You do not need to specify the state value and state change handler properties. Yet, you can provide DataGrid with the initial state value using the property with the `default` prefix. For instance, we can convert the previous example into uncontrolled mode:
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>
@@ -172,7 +172,7 @@ If you want to specify the default sorting configuration, it will look as follow
   </DataGrid>
 ```
 
-Sometimes you may need to controll the DataGrid state partially. For inctance, you want to manage filters but do not care about sorting and grouping. You can configure DataGrid as follows:
+Sometimes you may need to controll the DataGrid state partially. For inctance, you want to manage filters, but do not wish to change sorting and grouping. You can configure DataGrid as follows:
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>
@@ -183,4 +183,4 @@ Sometimes you may need to controll the DataGrid state partially. For inctance, y
   </DataGrid>
 ```
 
-Note: If you are using Redux and performing time traveling, partially controlled state can cause side-effects. In this case, we recommend using fully-controlled state so the DataGrid behaves as a stateless component without side-effects.
+Note: If you are using Redux and performing time traveling, the partially controlled state can cause side-effects. In this case, we recommend using the fully-controlled state so the DataGrid behaves as a stateless component without side-effects.

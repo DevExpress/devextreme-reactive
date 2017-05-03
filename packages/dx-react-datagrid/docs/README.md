@@ -33,7 +33,7 @@ Make sure that Bootstrap styles are linked to a page. If you have not yet config
 
 ### Polyfills
 
-React DataGrid is built on the latest standards of the web platform. This means that some old browsers do not support all features of modern ones.
+React DataGrid uses the latest standards of the web platform. This means that some old browsers do not support all features of modern ones.
 
 You may need to include ES2015 (ES6) polyfill to support some old browsers like IE11, Android 4.
 

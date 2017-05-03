@@ -119,12 +119,15 @@ section {
 }
 
 .main-menu ul li {
-    color: #000;
+    color: #f05b41;
     margin-bottom: 5px;
 }
 
 .main-menu ul li > a {
-    color: #337ab7;
+    color: #1b4461;
+}
+.main-menu ul li > a.active {
+    color: #f05b41;
 }
 
 .lead {

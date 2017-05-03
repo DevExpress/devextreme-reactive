@@ -5,7 +5,6 @@ import { TableFilterCell } from '../templates/table-filter-cell';
 export const TableFilterRow = props => (
   <TableFilterRowBase
     filterCellTemplate={TableFilterCell}
-    rowHeight={51}
     {...props}
   />
 );

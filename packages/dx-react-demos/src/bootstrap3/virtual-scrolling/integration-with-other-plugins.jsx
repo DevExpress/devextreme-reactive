@@ -63,7 +63,7 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
 
         <TableHeaderRow sortingEnabled />
 
-        <TableFilterRow />
+        <TableFilterRow rowHeight={51} />
 
         <TableRowDetail
           template={this.rowTemplate}

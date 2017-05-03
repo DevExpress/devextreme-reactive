@@ -178,7 +178,7 @@ If you want to specify the default sorting configuration, it will look as follow
   </DataGrid>
 ```
 
-Sometimes you may need to controll the DataGrid state partially. For inctance, you want to manage filters, but do not wish to change sorting and grouping. You can configure DataGrid as follows:
+Sometimes you may need to controll the DataGrid state partially. For instance, you want to manage filters, but do not wish to change sorting and grouping. You can configure DataGrid as follows:
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>

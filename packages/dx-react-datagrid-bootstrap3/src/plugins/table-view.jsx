@@ -4,6 +4,7 @@ import { PluginContainer, combineTemplates } from '@devexpress/dx-react-core';
 import { TableView as TableViewBase } from '@devexpress/dx-react-datagrid';
 import { Table } from '../templates/table';
 import { TableCell } from '../templates/table-cell';
+import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { Layout } from '../templates/layout';
 
 export const TableView = ({ tableCellTemplate, ...props }) => (
@@ -11,6 +12,7 @@ export const TableView = ({ tableCellTemplate, ...props }) => (
     <TableViewBase
       tableTemplate={Table}
       tableCellTemplate={combineTemplates(tableCellTemplate, TableCell)}
+      tableNoDataCellTemplate={TableNoDataCell}
       {...props}
     />
     <Layout />

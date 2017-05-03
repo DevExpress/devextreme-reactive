@@ -65,7 +65,8 @@ export class RemotePagingDemo extends React.PureComponent {
         rows: data.items,
         totalCount: data.totalCount,
         loading: false,
-      }));
+      }))
+      .catch(() => this.setState({ loading: false }));
     this.lastQuery = queryString;
   }
   render() {

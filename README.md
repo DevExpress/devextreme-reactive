@@ -1,20 +1,21 @@
 # DevExtreme Reactive
 
-Cross-platform component suite for React.
+[![Shippable](https://api.shippable.com/projects/58cf6adb35d7240600ba9bbb/badge?branch=master)](https://app.shippable.com/github/DevExpress/devextreme-reactive/)
 
-<TODO: link to the landing page>
+Project status: **CTP**
 
-See our [online demos](<TODO: link to online demos>) or [run them locally](packages/dx-react-demos/README.md#run-locally).
+Component suite for React.
 
-### DataGrid
+[Website](https://devexpress.github.io/devextreme-reactive/)
 
-[DevExtreme React DataGrid](packages/dx-react-datagrid/README.md)
+### React DataGrid
 
-Officially supported themes for React DataGrid:
-- [DevExtreme React DataGrid Bootstrap3](packages/dx-react-datagrid-bootstrap3/README.md)
+[Website](https://devexpress.github.io/devextreme-reactive/react/datagrid/)
+|
+[Demos](https://devexpress.github.io/devextreme-reactive/react/datagrid/demos/)
+|
+[Docs](https://devexpress.github.io/devextreme-reactive/react/datagrid/docs/)
 
-### Package Index
-
-- [DevExtreme React Core](packages/dx-react-core/README.md)
+Packages:
 - [DevExtreme React DataGrid](packages/dx-react-datagrid/README.md)
 - [DevExtreme React DataGrid Bootstrap3](packages/dx-react-datagrid-bootstrap3/README.md)

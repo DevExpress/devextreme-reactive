@@ -6,6 +6,21 @@
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  },
+  "homepage": "https://devexpress.github.io/devextreme-reactive/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "widget",
+    "component",
+    "react"
+  ],
   "license": "https://js.devexpress.com/Licensing/",
   "main": "dist/dx-react-core.cjs.js",
   "module": "dist/dx-react-core.es.js",

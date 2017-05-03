@@ -152,7 +152,7 @@ export class MyApp extends React.PureComponent {
 }
 ```
 
-So, the `sortings` represents the DataGrid sorting configuration. And the `changeSortings` function is a handler that is invoked every time the sorting configuration changes. Note that all state management plugins work with serializable state. It means you can persist and restore it into `localStorage` or any other storage that can store string values. Controlled state mode can also be helpful if you need to indicate the current state in your UI or to bind some controls that live outside the DataGrid. For inctance, it's easy to put a ComboBox with available sort orders and let end-users to use it to sort data withing DataGrid.
+So, the `sortings` represents the DataGrid sorting configuration. And the `changeSortings` function is a handler that is invoked every time the sorting configuration changes. Note that all state management plugins work with serializable state. It means you can persist and restore it into [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values. Controlled state mode can also be helpful if you need to indicate the current state in your UI or to bind some controls that live outside the DataGrid. For inctance, it's easy to put a ComboBox with available sort orders and let end-users to use it to sort data withing DataGrid.
 
 In the uncontrolled state mode the DataGrid component manages its UI state internally. You do not have to specify the state value and state change handler properties. But you can provide DataGrid with the initial state value using the property with the `default` prefix. For instance, we can convert the previous example into the uncontrolled mode:
 

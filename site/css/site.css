@@ -119,12 +119,15 @@ section {
 }
 
 .main-menu ul li {
-    color: #000;
+    color: #f05b41;
     margin-bottom: 5px;
 }
 
 .main-menu ul li > a {
-    color: #337ab7;
+    color: #1b4461;
+}
+.main-menu ul li > a.active {
+    color: #f05b41;
 }
 
 .lead {
@@ -212,7 +215,7 @@ ul.banner-action-buttons .btn.demos:hover {
 
 @media(max-width: 767px) {
     .intro-message {
-        padding-bottom: 15%;
+        padding-bottom: 0;
     }
 
     .intro-message > h1 {
@@ -415,7 +418,7 @@ footer ul > li.active > a {
     }
 
     .intro-header {
-        background-image: none;
+        background: #173952 url({{site.baseurl}}/img/banner-bg-mobile.jpg) no-repeat center center;
     }
 
     footer {

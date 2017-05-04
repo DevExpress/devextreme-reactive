@@ -23,6 +23,18 @@ In this example, we use the uncontrolled mode and specify only the initial filte
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filter-row.jsx)
 
+## Customizing Filter Row
+
+There is an option to replace built-in filter row editors with your own ones. Specify your custom editor by defining template in the `filterCellTemplate` property of the `TableFilterRow` plugin.
+
+It is required to handle filter changes in the custom template. In this example, filter configuration is received from the `filter` parameter and changes are processed by the `setColumnFilter` action. This means that the `FilteringState` plugin handles changes internally. So the DataGrid is able to run in both controlled and uncontrolled modes.
+
+To process your custom filter locally, specify custom filtering predicate in the `filterFn` property of the `LocalFiltering` plugin.
+
+[DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/filtering/custom-filter-row)
+
+[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/custom-filter-row.jsx)
+
 ## Controlled Filtering State
 
 To control the filtering state, you need to pass an array of column filters to the `filters` property of the `FilteringState` plugin and handle the `filtersChange` event of the same plugin.

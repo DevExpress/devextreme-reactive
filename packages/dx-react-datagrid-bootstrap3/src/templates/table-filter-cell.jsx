@@ -14,7 +14,6 @@ export const TableFilterCell = ({ style, column, filter, changeFilter }) => (
         className="form-control"
         value={filter ? filter.value : ''}
         onChange={e => changeFilter({ value: e.target.value })}
-        style={{ width: '100%' }}
       />
     )}
   </th>

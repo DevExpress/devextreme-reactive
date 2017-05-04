@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   DataGrid,
   FilteringState,
@@ -13,6 +14,42 @@ import {
 import {
   generateRows,
 } from '../../demoData';
+
+const filterFn = (row, filter) => {
+  const toLowerCase = value => String(value).toLowerCase();
+
+  if (filter.column === 'sex') {
+    return toLowerCase(row[filter.column]) === toLowerCase(filter.value);
+  }
+  return toLowerCase(row[filter.column]).indexOf(toLowerCase(filter.value)) > -1;
+};
+
+const SexFilterCell = ({ filter, changeFilter }) => (
+  <th style={{ fontWeight: 'normal' }}>
+    <div>
+      <select
+        className="form-control"
+        value={filter ? filter.value : ''}
+        onChange={e => changeFilter(e.target.value ? { value: e.target.value } : null)}
+      >
+        <option value="" />
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+  </th>
+);
+
+SexFilterCell.propTypes = {
+  filter: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+  }),
+  changeFilter: PropTypes.func.isRequired,
+};
+
+SexFilterCell.defaultProps = {
+  filter: null,
+};
 
 export class CustomFilterRowDemo extends React.PureComponent {
   constructor(props) {
@@ -37,34 +74,13 @@ export class CustomFilterRowDemo extends React.PureComponent {
         columns={columns}
       >
         <FilteringState defaultFilters={[]} />
-        <LocalFiltering
-          filterFn={(row, filter) => {
-            const toLowerCase = value => String(value).toLowerCase();
-
-            if (filter.column === 'sex') {
-              return toLowerCase(row[filter.column]) === toLowerCase(filter.value);
-            }
-            return toLowerCase(row[filter.column]).indexOf(toLowerCase(filter.value)) > -1;
-          }}
-        />
+        <LocalFiltering filterFn={filterFn} />
         <TableView />
         <TableHeaderRow />
         <TableFilterRow
           filterCellTemplate={({ column, filter, changeFilter }) => {
             if (column.name === 'sex') {
-              return (
-                <td>
-                  <select
-                    className="form-control"
-                    value={filter ? filter.value : ''}
-                    onChange={e => changeFilter(e.target.value ? { value: e.target.value } : null)}
-                  >
-                    <option value="" />
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                  </select>
-                </td>
-              );
+              return <SexFilterCell filter={filter} changeFilter={changeFilter} />;
             }
 
             return undefined;

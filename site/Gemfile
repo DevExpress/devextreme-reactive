@@ -22,7 +22,7 @@ gem "minima", "~> 2.0"
 group :jekyll_plugins do
    gem "jekyll-feed", "~> 0.6"
    gem "jekyll-redirect-from", "~> 0.12.1"
-   gem "jekyll-relative-links", "~> 0.4.0"
+   gem "jekyll-relative-links", :git => 'git://github.com/benbalter/jekyll-relative-links.git'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

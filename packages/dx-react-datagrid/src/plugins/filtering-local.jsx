@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { filteredRows } from '@devexpress/dx-datagrid-core';
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class LocalFiltering extends React.PureComponent {
   render() {
+    const { filterFn } = this.props;
+
     return (
       <PluginContainer>
         <Getter
@@ -13,9 +15,19 @@ export class LocalFiltering extends React.PureComponent {
           connectArgs={getter => [
             getter('rows'),
             getter('filters'),
+            filterFn,
           ]}
         />
       </PluginContainer>
     );
   }
 }
+
+LocalFiltering.propTypes = {
+  filterFn: PropTypes.func,
+};
+
+LocalFiltering.defaultProps = {
+  filterFn: undefined,
+};
+

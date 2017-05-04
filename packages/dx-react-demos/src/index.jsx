@@ -54,6 +54,12 @@ const Demos = () => (
   </div>
 );
 
+const NavLink = withRouter(({ location, to, children }) => (
+  location.pathname !== to
+    ? <Link to={to}>{children}</Link>
+    : <span>{children}</span>
+));
+
 const Container = withRouter(({ location }) => {
   const parts = location.pathname.split('/');
   return parts.length === 3
@@ -67,26 +73,26 @@ const Container = withRouter(({ location }) => {
               (parts[1].indexOf('featured-') > -1)
                 ? (
                   <ul className="list-unstyled">
-                    <li><Link to="/featured-uncontrolled">Uncontrolled Mode</Link></li>
-                    <li><Link to="/featured-controlled">Controlled Mode</Link></li>
-                    <li><Link to="/featured-virtual-scrolling">Virtual Scrolling</Link></li>
-                    <li><Link to="/featured-redux">Redux Integration</Link></li>
-                    <li><Link to="/featured-remote-data">Remote Data</Link></li>
+                    <li><NavLink to="/featured-uncontrolled">Uncontrolled Mode</NavLink></li>
+                    <li><NavLink to="/featured-controlled">Controlled Mode</NavLink></li>
+                    <li><NavLink to="/featured-virtual-scrolling">Virtual Scrolling</NavLink></li>
+                    <li><NavLink to="/featured-redux">Redux Integration</NavLink></li>
+                    <li><NavLink to="/featured-remote-data">Remote Data</NavLink></li>
                   </ul>
                   )
                 : (
                   <ul className="list-unstyled">
-                    <li><Link to="/basic">Basic</Link></li>
-                    <li><Link to="/sorting">Sorting</Link></li>
-                    <li><Link to="/filtering">Filtering</Link></li>
-                    <li><Link to="/paging">Paging</Link></li>
-                    <li><Link to="/grouping">Grouping</Link></li>
-                    <li><Link to="/selection">Selection</Link></li>
-                    <li><Link to="/editing">Editing</Link></li>
-                    <li><Link to="/detail-row">Detail Row</Link></li>
-                    <li><Link to="/virtual-scrolling">Virtual Scrolling</Link></li>
-                    <li><Link to="/redux">Redux</Link></li>
-                    <li><Link to="/">Featured</Link></li>
+                    <li><NavLink to="/basic">Basic</NavLink></li>
+                    <li><NavLink to="/sorting">Sorting</NavLink></li>
+                    <li><NavLink to="/filtering">Filtering</NavLink></li>
+                    <li><NavLink to="/paging">Paging</NavLink></li>
+                    <li><NavLink to="/grouping">Grouping</NavLink></li>
+                    <li><NavLink to="/selection">Selection</NavLink></li>
+                    <li><NavLink to="/editing">Editing</NavLink></li>
+                    <li><NavLink to="/detail-row">Detail Row</NavLink></li>
+                    <li><NavLink to="/virtual-scrolling">Virtual Scrolling</NavLink></li>
+                    <li><NavLink to="/redux">Redux</NavLink></li>
+                    <li><NavLink to="/">Featured</NavLink></li>
                   </ul>
                 )
             }

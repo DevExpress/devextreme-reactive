@@ -30,3 +30,24 @@ export const babelrc = (packageDirectory) => {
 
   return config;
 };
+
+export const moduleName = (packageDirectory) => {
+  const pkg = JSON.parse(readFileSync(join(packageDirectory, 'package.json')));
+
+  return pkg.globalName;
+};
+
+const knownGlobals = {
+  react: 'React',
+  'prop-types': 'PropTypes',
+  'react-bootstrap': 'ReactBootstrap',
+};
+
+export const globals = (packageDirectory) => {
+  return (moduleId) => {
+      if (knownGlobals[moduleId]) return knownGlobals[moduleId];
+
+      const modulePkg = JSON.parse(readFileSync(join(packageDirectory, 'node_modules', moduleId, 'package.json')));
+      return modulePkg.globalName;
+    }
+};

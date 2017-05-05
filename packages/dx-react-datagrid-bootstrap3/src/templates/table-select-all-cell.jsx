@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const TableSelectAllCell = (
-  { style, allSelected, someSelected, selectionExists, toggleAll },
+  { style, allSelected, someSelected, selectionAvailable, toggleAll },
 ) => (
   <th
     style={{
-      cursor: selectionExists && 'pointer',
+      cursor: selectionAvailable && 'pointer',
       ...style,
     }}
     onClick={(e) => {
-      if (!selectionExists) return;
+      if (!selectionAvailable) return;
 
       e.stopPropagation();
       toggleAll();
@@ -18,11 +18,11 @@ export const TableSelectAllCell = (
   >
     <input
       style={{
-        cursor: selectionExists && 'pointer',
+        cursor: selectionAvailable && 'pointer',
         margin: 0,
       }}
       type="checkbox"
-      disabled={!selectionExists}
+      disabled={!selectionAvailable}
       checked={allSelected}
       ref={(ref) => {
         if (ref) {
@@ -39,13 +39,13 @@ TableSelectAllCell.defaultProps = {
   style: null,
   allSelected: false,
   someSelected: false,
-  selectionExists: false,
+  selectionAvailable: false,
   toggleAll: () => {},
 };
 TableSelectAllCell.propTypes = {
   style: PropTypes.shape(),
   allSelected: PropTypes.bool,
   someSelected: PropTypes.bool,
-  selectionExists: PropTypes.bool,
+  selectionAvailable: PropTypes.bool,
   toggleAll: PropTypes.func,
 };

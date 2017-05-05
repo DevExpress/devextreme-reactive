@@ -76,6 +76,7 @@ export class TableSelection extends React.PureComponent {
               const selectionExists = selection.length !== 0;
               return {
                 availableToSelect,
+                selectionExists: !!availableToSelect.length,
                 allSelected: selection.length === availableToSelect.length && selectionExists,
                 someSelected: selection.length !== availableToSelect.length && selectionExists,
               };

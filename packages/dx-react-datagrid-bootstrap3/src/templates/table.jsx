@@ -65,7 +65,12 @@ export const Table = ({
     .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);
 
   return (
-    <div className="table-responsive">
+    <div
+      className="table-responsive"
+      style={{
+        WebkitOverflowScrolling: 'touch',
+      }}
+    >
       <table
         className="table"
         style={{

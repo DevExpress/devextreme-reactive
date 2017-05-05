@@ -28,11 +28,15 @@ export class TableHeaderRow extends React.PureComponent {
           predicate={({ row }) => row.type === 'heading'}
           connectGetters={(getter, { column }) => {
             const sortings = getter('sortings');
+            const columns = getter('columns');
             const grouping = getter('grouping');
 
             const result = {
-              sortingSupported: !column.type && sortings !== undefined,
-              groupingSupported: !column.type && grouping !== undefined,
+              sortingSupported: !column.type &&
+                sortings !== undefined,
+              groupingSupported: !column.type &&
+                grouping !== undefined &&
+                grouping.length < columns.length - 1,
             };
 
             if (result.sortingSupported) {

@@ -25,9 +25,9 @@ In this example, we use the uncontrolled mode and specify only the initial filte
 
 ## Customizing Filter Row
 
-There is an option to replace built-in filter row editors with your own ones. Specify your custom editor by defining template in the `filterCellTemplate` property of the `TableFilterRow` plugin.
+There is an option to replace built-in filter row editors with custom ones. To specify a custom editor, define a template using the `filterCellTemplate` property of the `TableFilterRow` plugin.
 
-It is required to handle filter changes in the custom template. In this example, filter configuration is received from the `filter` parameter and changes are processed by the `setColumnFilter` action. This means that the `FilteringState` plugin handles changes internally. So the DataGrid is able to run in both controlled and uncontrolled modes.
+It is required to handle filter changes in the custom template. In this example, filter configuration is specified by the `filter` parameter and configuration changes are processed by the `setColumnFilter` action. This means that the `FilteringState` plugin handles changes internally. So the DataGrid is able to run in both controlled and uncontrolled modes.
 
 To process your custom filter locally, specify custom filtering predicate in the `filterFn` property of the `LocalFiltering` plugin.
 
@@ -37,7 +37,7 @@ To process your custom filter locally, specify custom filtering predicate in the
 
 ## Controlled Filtering State
 
-To control the filtering state, you need to pass an array of column filters to the `filters` property of the `FilteringState` plugin and handle the `filtersChange` event of the same plugin.
+To control the filtering state, pass an array of column filters to the `filters` property of the `FilteringState` plugin and handle the `filtersChange` event.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/filtering/local-filtering-controlled)
 

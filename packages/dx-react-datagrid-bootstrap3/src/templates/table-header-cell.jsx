@@ -6,7 +6,7 @@ export const TableHeaderCell = ({
   sortingEnabled, sortDirection, changeSortDirection,
   groupingEnabled, groupByColumn,
 }) => {
-  const iconName = `glyphicon-arrow-${sortDirection === 'asc' ? 'down' : 'up'}`;
+  const iconName = `glyphicon-arrow-${sortDirection === 'desc' ? 'down' : 'up'}`;
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
 

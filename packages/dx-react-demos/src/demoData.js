@@ -20,9 +20,9 @@ export const globalSalesValues = {
   units: ({ random }) => Math.floor(random() * 4) + 1,
   customer: [
     'Renewable Supplies', 'Energy Systems', 'Environment Solar', 'Beacon Systems', 'Apollo Inc',
-    'Gemini Stores', 'McCord Builders', 'Building M Inc', 'Beacon Systems', 'Global Services',
+    'Gemini Stores', 'McCord Builders', 'Building M Inc', 'Global Services',
     'Market Eco', 'Johnson & Assoc', 'Get Solar Inc', 'Supply Warehouse', 'Discovery Systems', 'Mercury Solar'],
-  product: ['SolarMax', 'SolarMax', 'SolarOne', 'EnviroCare', 'EnviroCare Max'],
+  product: ['SolarMax', 'SolarOne', 'EnviroCare', 'EnviroCare Max'],
   amount: ({ random }) => Math.floor(random() * 10000) + 1000,
   discount: ({ random }) => Math.round(random() * 0.5 * 1000) / 1000,
   saleDate: ({ random }) => {

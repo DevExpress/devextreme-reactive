@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     DataGrid,
-    SortingState, EditingState, PagingState, GroupingState,
-    LocalGrouping, LocalPaging, LocalSorting,
+    SortingState, EditingState, PagingState,
+    LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-datagrid';
 import {
     TableView, TableHeaderRow, TableEditRow, TableEditColumn,
-    PagingPanel, GroupingPanel, TableGroupRow,
+    PagingPanel,
 } from '@devexpress/dx-react-datagrid-bootstrap3';
 import {
     ProgressBarCell,
@@ -19,6 +20,95 @@ import {
   generateRows,
   globalSalesValues,
 } from '../../demoData';
+
+const CommandButton = ({ onCommand, icon, text, hint, isDanger }) => (
+  <button
+    className="btn btn-link"
+    onClick={(e) => {
+      onCommand();
+      e.stopPropagation();
+    }}
+    title={hint}
+  >
+    <span className={isDanger ? 'text-danger' : undefined}>
+      {icon ? <i className={`glyphicon glyphicon-${icon}`} style={{ marginRight: text ? 5 : 0 }} /> : null}
+      {text}
+    </span>
+  </button>
+);
+CommandButton.propTypes = {
+  onCommand: PropTypes.func.isRequired,
+  icon: PropTypes.string,
+  text: PropTypes.string,
+  hint: PropTypes.string,
+  isDanger: PropTypes.bool,
+};
+CommandButton.defaultProps = {
+  icon: undefined,
+  text: undefined,
+  hint: undefined,
+  isDanger: false,
+};
+
+const commands = {
+  create: {
+    text: 'New',
+    hint: 'Create new row',
+    icon: 'plus',
+  },
+  edit: {
+    text: 'Edit',
+    hint: 'Edit row',
+  },
+  delete: {
+    icon: 'trash',
+    hint: 'Delete row',
+    isDanger: true,
+  },
+  commit: {
+    text: 'Save',
+    hint: 'Save changes',
+  },
+  cancel: {
+    icon: 'remove',
+    hint: 'Cancel changes',
+    isDanger: true,
+  },
+};
+
+export const LookupEditCell = ({ column, value, onValueChange, availableValues }) => (
+  <td
+    style={{
+      verticalAlign: 'middle',
+      padding: 1,
+    }}
+  >
+    <select
+      className="form-control"
+      style={{ width: '100%', textAlign: column.align }}
+      value={value}
+      onChange={e => onValueChange(e.target.value)}
+    >
+      <option value="">&lt;empty&gt;</option>
+      {availableValues.map(val => <option key={val} value={val}>{val}</option>)}
+    </select>
+  </td>
+);
+LookupEditCell.propTypes = {
+  column: PropTypes.object.isRequired,
+  value: PropTypes.any,
+  onValueChange: PropTypes.func.isRequired,
+  availableValues: PropTypes.array.isRequired,
+};
+LookupEditCell.defaultProps = {
+  value: undefined,
+};
+
+const availableValues = {
+  product: globalSalesValues.product,
+  region: globalSalesValues.region,
+  customer: globalSalesValues.customer,
+};
 
 export class ControlledModeDemo extends React.PureComponent {
   constructor(props) {
@@ -40,20 +130,25 @@ export class ControlledModeDemo extends React.PureComponent {
       sortings: [
         { column: 'product', direction: 'asc' },
         { column: 'saleDate', direction: 'asc' },
+        { column: 'id', direction: 'asc' },
       ],
-      grouping: [{ column: 'product' }],
-      expandedGroups: ['EnviroCare Max'],
       editingRows: [],
       newRows: [],
       changedRows: {},
       currentPage: 0,
     };
 
-    this.changeSortings = sortings => this.setState({ sortings });
-    this.changeGrouping = grouping => this.setState({ grouping });
-    this.changeExpandedGroups = expandedGroups => this.setState({ expandedGroups });
+    this.changeSortings = sortings => this.setState({
+      sortings: [...sortings.filter(s => s.column !== 'id'), { column: 'id', direction: 'asc' }],
+    });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
-    this.changeNewRows = newRows => this.setState({ newRows });
+    this.changeNewRows = newRows => this.setState({
+      newRows: newRows.map(row => (Object.keys(row).length ? row : {
+        amount: 0,
+        discount: 0.1,
+        saleDate: new Date().toDateString(),
+      })),
+    });
     this.changeChangedRows = changedRows => this.setState({ changedRows });
     this.changeFilters = filters => this.setState({ filters });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
@@ -93,8 +188,6 @@ export class ControlledModeDemo extends React.PureComponent {
       rows,
       columns,
       sortings,
-      grouping,
-      expandedGroups,
       editingRows,
       newRows,
       changedRows,
@@ -112,12 +205,6 @@ export class ControlledModeDemo extends React.PureComponent {
           sortings={sortings}
           sortingsChange={this.changeSortings}
         />
-        <GroupingState
-          grouping={grouping}
-          groupingChange={this.changeGrouping}
-          expandedGroups={expandedGroups}
-          expandedGroupsChange={this.changeExpandedGroups}
-        />
         <PagingState
           currentPage={currentPage}
           currentPageChange={this.changeCurrentPage}
@@ -125,7 +212,6 @@ export class ControlledModeDemo extends React.PureComponent {
         />
 
         <LocalSorting />
-        <LocalGrouping />
         <LocalPaging />
 
         <EditingState
@@ -153,16 +239,29 @@ export class ControlledModeDemo extends React.PureComponent {
           }}
         />
 
-        <TableHeaderRow sortingEnabled groupingEnabled />
-        <TableEditRow />
+        <TableHeaderRow sortingEnabled />
+        <TableEditRow
+          editCellTemplate={(props) => {
+            const { column } = props;
+            const columnValues = availableValues[column.name];
+            if (columnValues) {
+              return <LookupEditCell {...props} availableValues={columnValues} />;
+            }
+            return undefined;
+          }}
+        />
         <TableEditColumn
+          width={100}
           allowCreating={!this.state.newRows.length}
           allowEditing
           allowDeleting
+          commandTemplate={({ onCommand, id }) => (
+            commands[id]
+            ? <CommandButton onCommand={onCommand} {...commands[id]} />
+            : undefined
+          )}
         />
         <PagingPanel />
-        <TableGroupRow />
-        <GroupingPanel sortingEnabled />
 
       </DataGrid>
     );

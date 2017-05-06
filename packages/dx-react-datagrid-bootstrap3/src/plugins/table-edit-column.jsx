@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableEditColumn as TableEditColumnBase } from '@devexpress/dx-react-datagrid';
 import {
   EditCommandHeadingCell,
@@ -15,9 +16,9 @@ export const TableEditColumn = ({
 }) => (
   <TableEditColumnBase
     {...restProps}
-    cellTemplate={cellTemplate || EditCommandCell}
-    headingCellTemplate={headingCellTemplate || EditCommandHeadingCell}
-    commandTemplate={commandTemplate || CommandButton}
+    cellTemplate={combineTemplates(cellTemplate, EditCommandCell)}
+    headingCellTemplate={combineTemplates(headingCellTemplate, EditCommandHeadingCell)}
+    commandTemplate={combineTemplates(commandTemplate, CommandButton)}
   />
 );
 TableEditColumn.propTypes = {

@@ -125,7 +125,7 @@ export class ControlledModeDemo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
-        length: 10000,
+        length: 200,
       }),
       sortings: [
         { column: 'product', direction: 'asc' },

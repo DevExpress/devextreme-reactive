@@ -126,9 +126,7 @@ export class ControlledModeDemo extends React.PureComponent {
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200,
       }),
-      sortings: [
-        { column: 'saleDate', direction: 'desc' },
-      ],
+      sortings: [],
       editingRows: [],
       newRows: [],
       changedRows: {},

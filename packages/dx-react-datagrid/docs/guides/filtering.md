@@ -27,7 +27,7 @@ In this example, we use the uncontrolled mode and specify only the initial filte
 
 You can replace built-in filter row editors with custom ones. To specify a custom editor, define a template using the `TableFilterRow` plugin's `filterCellTemplate` property.
 
-In a custom template, you need to handle filter changes. In this example, filter configuration is specified by the `filter` parameter and configuration changes are processed by the `setColumnFilter` action. This means that the `FilteringState` plugin handles changes internally. So, the DataGrid can run in both controlled and uncontrolled modes.
+In a custom template, you need to handle filter changes. In this example, filter configuration is specified by the `filter` parameter and configuration changes are processed by the `setFilter` action. This means that the `FilteringState` plugin handles changes internally. So, the DataGrid can run in both controlled and uncontrolled modes.
 
 To process your custom filter locally, specify custom filtering predicate in the `LocalFiltering` plugin's `filterFn` property.
 

@@ -24,13 +24,13 @@ const filterFn = (row, filter) => {
   return toLowerCase(row[filter.column]).indexOf(toLowerCase(filter.value)) > -1;
 };
 
-const SexFilterCell = ({ filter, changeFilter }) => (
+const SexFilterCell = ({ filter, setFilter }) => (
   <th style={{ fontWeight: 'normal' }}>
     <div>
       <select
         className="form-control"
         value={filter ? filter.value : ''}
-        onChange={e => changeFilter(e.target.value ? { value: e.target.value } : null)}
+        onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
       >
         <option value="" />
         <option value="male">Male</option>
@@ -44,7 +44,7 @@ SexFilterCell.propTypes = {
   filter: PropTypes.shape({
     value: PropTypes.string.isRequired,
   }),
-  changeFilter: PropTypes.func.isRequired,
+  setFilter: PropTypes.func.isRequired,
 };
 
 SexFilterCell.defaultProps = {
@@ -78,9 +78,9 @@ export class CustomFilterRowDemo extends React.PureComponent {
         <TableView />
         <TableHeaderRow />
         <TableFilterRow
-          filterCellTemplate={({ column, filter, changeFilter }) => {
+          filterCellTemplate={({ column, filter, setFilter }) => {
             if (column.name === 'sex') {
-              return <SexFilterCell filter={filter} changeFilter={changeFilter} />;
+              return <SexFilterCell filter={filter} setFilter={setFilter} />;
             }
 
             return undefined;

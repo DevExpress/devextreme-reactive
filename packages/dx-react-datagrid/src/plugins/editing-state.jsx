@@ -77,13 +77,13 @@ export class EditingState extends React.PureComponent {
 
     this._commitAddedRows = (addedRows, { rowIds }) => {
       const toCommit = addedRowsByIds(addedRows, rowIds);
-      const changeSet = { created: toCommit };
+      const changeSet = { added: toCommit };
       this._commitChanges(changeSet);
       this._cancelAddedRows(addedRows, { rowIds });
     };
     this._commitChangedRows = (changedRows, { rowIds }) => {
       const toCommit = changedRowsByIds(changedRows, rowIds);
-      const changeSet = { updated: toCommit };
+      const changeSet = { changed: toCommit };
       this._commitChanges(changeSet);
       this._cancelChangedRows(changedRows, { rowIds });
     };

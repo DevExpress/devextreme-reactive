@@ -36,8 +36,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-created? | Array&lt;Object&gt; | Rows to be created as an array of data objects
-updated? | { [key: number &#124; string]: Object } | Rows to be updated as a map of their IDs and changes
+added? | Array&lt;Object&gt; | Rows to be created as an array of data objects
+changed? | { [key: number &#124; string]: Object } | Rows to be updated as a map of their IDs and changes
 deleted? | Array&lt;number &#124; string&gt; | Rows to be deleted as an array of their IDs
 
 ## Plugin Developer Reference

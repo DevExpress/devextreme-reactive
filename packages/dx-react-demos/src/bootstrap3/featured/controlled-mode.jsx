@@ -148,22 +148,22 @@ export class ControlledModeDemo extends React.PureComponent {
     this.changeChangedRows = changedRows => this.setState({ changedRows });
     this.changeFilters = filters => this.setState({ filters });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
-    this.commitChanges = ({ created, updated, deleted }) => {
+    this.commitChanges = ({ added, changed, deleted }) => {
       let rows = this.state.rows.slice();
-      if (created) {
+      if (added) {
         rows = [
-          ...created.map((row, index) => ({
+          ...added.map((row, index) => ({
             id: rows.length + index,
             ...row,
           })),
           ...rows,
         ];
       }
-      if (updated) {
-        Object.keys(updated).forEach((key) => {
+      if (changed) {
+        Object.keys(changed).forEach((key) => {
           const index = rows.findIndex(row => String(row.id) === key);
           if (index > -1) {
-            const change = updated[key];
+            const change = changed[key];
             rows[index] = Object.assign({}, rows[index], change);
           }
         });

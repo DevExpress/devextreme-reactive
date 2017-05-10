@@ -42,21 +42,21 @@ export class EditRowControlledDemo extends React.PureComponent {
       const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
       this.setState({ addedRows: initialized });
     };
-    this.commitChanges = ({ created, updated, deleted }) => {
+    this.commitChanges = ({ added, changed, deleted }) => {
       let rows = this.state.rows.slice();
-      if (created) {
+      if (added) {
         rows = [
-          ...created.map((row, index) => ({
+          ...added.map((row, index) => ({
             id: rows.length + index,
             ...row,
           })),
           ...rows,
         ];
       }
-      if (updated) {
-        Object.keys(updated).forEach((key) => {
+      if (changed) {
+        Object.keys(changed).forEach((key) => {
           const index = rows.findIndex(row => String(row.id) === key);
-          const change = updated[index];
+          const change = changed[index];
           if (index > -1) {
             rows[index] = Object.assign({}, rows[index], change);
           }

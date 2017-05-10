@@ -6,7 +6,7 @@ export const stopEditRows = (prevEditingRows, { rowIds }) => {
   return prevEditingRows.filter(id => !rowIdSet.has(id));
 };
 
-export const addNewRow = (newRows, { row }) => [row, ...newRows];
+export const addRow = (newRows, { row }) => [row, ...newRows];
 
 export const changeNewRow = (newRows, { rowId, change }) => {
   const result = newRows.slice();

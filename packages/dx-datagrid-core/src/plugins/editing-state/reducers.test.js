@@ -1,7 +1,7 @@
 import {
     startEditRows,
     stopEditRows,
-    addNewRow,
+    addRow,
     changeNewRow,
     cancelNewRows,
     changeRow,
@@ -29,12 +29,12 @@ describe('EditingState reducers', () => {
       expect(nextEditingRows).toEqual([1, 3]);
     });
   });
-  describe('#addNewRow', () => {
+  describe('#addRow', () => {
     test('should work', () => {
       const newRows = [{ a: 1 }];
       const payload = { row: { a: 2 } };
 
-      const nextNewRows = addNewRow(newRows, payload);
+      const nextNewRows = addRow(newRows, payload);
       expect(nextNewRows).toEqual([{ a: 2 }, { a: 1 }]);
     });
   });

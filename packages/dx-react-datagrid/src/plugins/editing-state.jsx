@@ -5,7 +5,7 @@ import {
   startEditRows,
   stopEditRows,
 
-  addNewRow,
+  addRow,
   changeNewRow,
   cancelNewRows,
   newRowsByIds,
@@ -68,7 +68,7 @@ export class EditingState extends React.PureComponent {
     this._changeRow = this._reduceChangedRows(changeRow);
     this._cancelChangedRows = this._reduceChangedRows(cancelChanges);
 
-    this._addNewRow = this._reduceNewRows(addNewRow);
+    this._addRow = this._reduceNewRows(addRow);
     this._changeNewRow = this._reduceNewRows(changeNewRow);
     this._cancelNewRows = this._reduceNewRows(cancelNewRows);
 
@@ -118,8 +118,8 @@ export class EditingState extends React.PureComponent {
         />
 
         <Action
-          name="addNewRow"
-          action={() => this._addNewRow(newRows, { row: {} })}
+          name="addRow"
+          action={() => this._addRow(newRows, { row: {} })}
         />
         <Action
           name="changeNewRow"

@@ -55,7 +55,7 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies an editing table row with applied changes
 column | [TableColumn](#table-column) | Specifies a table column
-onAddNewRow | () => void | Creates a new row
+addRow | () => void | Creates a new row
 allowCreating | bool | Specifies if a new row can be created
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
 createCommandText | string | Specifies the 'create' command text

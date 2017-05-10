@@ -18,14 +18,14 @@ export class TableEditColumn extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'heading' && column.type === 'edit'}
           connectActions={action => ({
-            addNewRow: () => action('addNewRow')(),
+            addRow: () => action('addRow')(),
           })}
         >
-          {({ row, column, addNewRow, style }) =>
+          {({ row, column, addRow, style }) =>
             headingCellTemplate({
               row,
               column,
-              onAddNewRow: () => addNewRow(),
+              addRow: () => addRow(),
               commandTemplate,
               allowCreating,
               style,

@@ -25,11 +25,11 @@ In this example, we use the uncontrolled mode and specify only the initial filte
 
 ## Customizing Filter Row
 
-There is an option to replace built-in filter row editors with custom ones. To specify a custom editor, define a template using the `filterCellTemplate` property of the `TableFilterRow` plugin.
+You can replace built-in filter row editors with custom ones. To specify a custom editor, define a template using the `TableFilterRow` plugin's `filterCellTemplate` property.
 
-It is required to handle filter changes in the custom template. In this example, filter configuration is specified by the `filter` parameter and configuration changes are processed by the `setColumnFilter` action. This means that the `FilteringState` plugin handles changes internally. So the DataGrid is able to run in both controlled and uncontrolled modes.
+In a custom template, you need to handle filter changes. In this example, filter configuration is specified by the `filter` parameter and configuration changes are processed by the `setColumnFilter` action. This means that the `FilteringState` plugin handles changes internally. So, the DataGrid can run in both controlled and uncontrolled modes.
 
-To process your custom filter locally, specify custom filtering predicate in the `filterFn` property of the `LocalFiltering` plugin.
+To process your custom filter locally, specify custom filtering predicate in the `LocalFiltering` plugin's `filterFn` property.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/filtering/custom-filter-row)
 
@@ -37,7 +37,7 @@ To process your custom filter locally, specify custom filtering predicate in the
 
 ## Controlled Filtering State
 
-To control the filtering state, pass an array of column filters to the `filters` property of the `FilteringState` plugin and handle the `filtersChange` event.
+To control the filtering state, pass an array of column filters to the `FilteringState` plugin's  `filters` property  and handle the `filtersChange` event.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/filtering/local-filtering-controlled)
 
@@ -47,7 +47,7 @@ To control the filtering state, pass an array of column filters to the `filters`
 
 If your data service supports filtering operations, you can handle the DataGrid filtering state changes in order to request data from the server with the corresponding filters applied.
 
-In the case of remote filtering, don't use the `LocalFiltering` plugin. You need to handle the `filtersChange` event of the `FilteringState` plugin in order to recieve updates on filter changes. They happen once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is recieved from the server, pass it to the `DataGrid` component's `rows` property.
+In  case of remote filtering, you don't need to use the `LocalFiltering` plugin. Handle the `FilteringState` plugin's `filtersChange` event to recieve filter changes' updates. Filter changes are updated once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is recieved from the server, pass it to the `DataGrid` component's `rows` property.
 
 ## Using Filtering with Other Data Processing Plugins
 

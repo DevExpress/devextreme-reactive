@@ -21,7 +21,7 @@ To set up a simple DataGrid with detail rows, you need to use the `TableRowDetai
 
 ## Controlled Expanded State Mode
 
-To control the expanded state of the detail rows from the outside, pass an  array of the expanded row IDs to the `expandedDetails` property of the `TableRowDetail` plugin and handle the `expandedDetailsChange` event of the same plugin.
+To control the expanded state of the detail rows from the outside, pass an array of the expanded row IDs to the `expandedDetails` property of the `TableRowDetail` plugin and handle the `onExpandedDetailsChange` event of the same plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/detail-row/detail-row-controlled)
 

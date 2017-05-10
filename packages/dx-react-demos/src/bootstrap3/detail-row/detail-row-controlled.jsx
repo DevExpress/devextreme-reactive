@@ -42,7 +42,7 @@ export class DetailRowControlledDemo extends React.PureComponent {
         <TableHeaderRow />
         <TableRowDetail
           expandedDetails={expandedDetails}
-          expandedDetailsChange={this.changeExpandedDetails}
+          onExpandedDetailsChange={this.changeExpandedDetails}
           template={this.rowTemplate}
         />
       </DataGrid>

@@ -20,7 +20,7 @@ Note that [plugin order](../README.md#plugin-order) is very important.
 
 To set up simple static DataGrid grouping, use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins.
 
-In the following example, we enable the controlled mode by defining the `grouping` property of the `GroupingState` plugin. Handling the `groupingChange` event is not required because there is no UI allowing a user to change grouing options.
+In the following example, we enable the controlled mode by defining the `grouping` property of the `GroupingState` plugin. Handling the `onGroupingChange` event is not required because there is no UI allowing a user to change grouping options.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/grouping/local-grouping-static)
 
@@ -28,7 +28,7 @@ In the following example, we enable the controlled mode by defining the `groupin
 
 ## Grouping UI for an end-user
 
-To enable an end-user to group data by a certain column, use the `GrpoupPanel` and `TableHeaderRow` plugins.
+To enable an end-user to group data by a certain column, use the `GroupPanel` and `TableHeaderRow` plugins.
 
 By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change grouping. To enable this feature, set the `groupingEnabled` property to true.
 
@@ -40,7 +40,7 @@ You can also enable an end-user to sort data by grouped columns. Define the `sor
 
 ## Grouping Controlled Mode
 
-To control the grouping state, pass the appropriate array to the `grouping` property of the `GroupingState` plugin and handle the `groupingChange` event.
+To control the grouping state, pass the appropriate array to the `grouping` property of the `GroupingState` plugin and handle the `onGroupingChange` event.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/grouping/local-grouping-controlled)
 

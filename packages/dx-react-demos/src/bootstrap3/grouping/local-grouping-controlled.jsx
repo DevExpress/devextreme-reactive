@@ -42,7 +42,7 @@ export class LocalGroupingControlledDemo extends React.PureComponent {
       >
         <GroupingState
           grouping={this.state.grouping}
-          groupingChange={this.changeGrouping}
+          onGroupingChange={this.changeGrouping}
         />
         <LocalGrouping />
         <TableView />

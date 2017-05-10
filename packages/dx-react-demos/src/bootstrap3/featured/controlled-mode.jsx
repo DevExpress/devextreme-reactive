@@ -72,21 +72,21 @@ export class ControlledModeDemo extends React.PureComponent {
 
         <FilteringState
           filters={filters}
-          filtersChange={this.changeFilters}
+          onFiltersChange={this.changeFilters}
         />
         <SortingState
           sortings={sortings}
-          sortingsChange={this.changeSortings}
+          onSortingsChange={this.changeSortings}
         />
         <GroupingState
           grouping={grouping}
-          groupingChange={this.changeGrouping}
+          onGroupingChange={this.changeGrouping}
           expandedGroups={expandedGroups}
-          expandedGroupsChange={this.changeExpandedGroups}
+          onExpandedGroupsChange={this.changeExpandedGroups}
         />
         <PagingState
           currentPage={currentPage}
-          currentPageChange={this.changeCurrentPage}
+          onCurrentPageChange={this.changeCurrentPage}
           pageSize={10}
         />
 
@@ -97,7 +97,7 @@ export class ControlledModeDemo extends React.PureComponent {
 
         <SelectionState
           selection={selection}
-          selectionChange={this.changeSelection}
+          onSelectionChange={this.changeSelection}
         />
 
         <TableView

@@ -33,7 +33,7 @@ export class RemotePagingDemo extends React.PureComponent {
       loading: true,
     };
 
-    this.currentPageChange = this.currentPageChange.bind(this);
+    this.changeCurrentPage = this.changeCurrentPage.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -41,7 +41,7 @@ export class RemotePagingDemo extends React.PureComponent {
   componentDidUpdate() {
     this.loadData();
   }
-  currentPageChange(currentPage) {
+  changeCurrentPage(currentPage) {
     this.setState({
       loading: true,
       currentPage,
@@ -80,7 +80,7 @@ export class RemotePagingDemo extends React.PureComponent {
         >
           <PagingState
             currentPage={currentPage}
-            currentPageChange={this.currentPageChange}
+            onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
             totalCount={totalCount}
           />

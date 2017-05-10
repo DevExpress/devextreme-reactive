@@ -146,7 +146,7 @@ export class MyApp extends React.PureComponent {
 
     return (
       <DataGrid rows={rows} columns={columns}>
-        <SortingState sortings={sortings} sortingsChange={this.changeSortings} />
+        <SortingState sortings={sortings} onSortingsChange={this.changeSortings} />
         ...
       </DataGrid>
     );
@@ -178,7 +178,7 @@ Sometimes you may need to controll the DataGrid state partially. For instance, y
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>
-    <FilteringState filters={filters} filtersChange={this.changeFilters}/>
+    <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
     <SortingState />
     <GroupingState />
     ...

@@ -25,7 +25,7 @@ In this example, we use the uncontrolled mode and specify only the initial filte
 
 ## Controlled Filtering State
 
-To control the filtering state, you need to pass an array of column filters to the `filters` property of the `FilteringState` plugin and handle the `filtersChange` event of the same plugin.
+To control the filtering state, you need to pass an array of column filters to the `filters` property of the `FilteringState` plugin and handle the `onFiltersChange` event of the same plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/filtering/local-filtering-controlled)
 
@@ -35,7 +35,7 @@ To control the filtering state, you need to pass an array of column filters to t
 
 If your data service supports filtering operations, you can handle the DataGrid filtering state changes in order to request data from the server with the corresponding filters applied.
 
-In the case of remote filtering, don't use the `LocalFiltering` plugin. You need to handle the `filtersChange` event of the `FilteringState` plugin in order to recieve updates on filter changes. They happen once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is recieved from the server, pass it to the `DataGrid` component's `rows` property.
+In the case of remote filtering, don't use the `LocalFiltering` plugin. You need to handle the `onFiltersChange` event of the `FilteringState` plugin in order to recieve updates on filter changes. They happen once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is recieved from the server, pass it to the `DataGrid` component's `rows` property.
 
 ## Using Filtering with Other Data Processing Plugins
 

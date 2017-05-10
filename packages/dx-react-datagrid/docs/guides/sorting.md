@@ -36,7 +36,7 @@ You can use the DataGrid's sorting and grouping features simultaneously. When us
 
 ## Controlled Sorting State
 
-To control the sorting state, pass the appropriate array to the `sortings` property of the `SortingState` plugin and handle the `sortingsChange` event of the same plugin.
+To control the sorting state, pass the appropriate array to the `sortings` property of the `SortingState` plugin and handle the `onSortingsChange` event of the same plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/sorting/local-sorting-controlled)
 

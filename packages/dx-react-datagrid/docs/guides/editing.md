@@ -29,9 +29,9 @@ To apply the changes introduced by an end-user to your data source (no matter lo
 
 ## Controlled Editing State
 
-To fully control the editing state, you need to specify three pairs of the `EditingState` plugin properties. These are `editingState` and `editingStateChange`, `changedRows` and `changedRowsChange`, `newRows` and `newRowsChange`.
+To fully control the editing state, you need to specify three pairs of the `EditingState` plugin properties. These are `editingState` and `editingStateChange`, `changedRows` and `onChangedRowsChange`, `newRows` and `onNewRowsChange`.
 
-Note, the `newRowsChange` event can also be used to initialize a newly created row with some default property values.
+Note, the `onNewRowsChange` event can also be used to initialize a newly created row with some default property values.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/editing/edit-row-controlled)
 

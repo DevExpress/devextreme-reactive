@@ -43,7 +43,7 @@ export class SelectAllVirtualDemo extends React.PureComponent {
         >
           <SelectionState
             selection={selection}
-            selectionChange={this.changeSelection}
+            onSelectionChange={this.changeSelection}
           />
           <VirtualTableView />
           <TableHeaderRow />

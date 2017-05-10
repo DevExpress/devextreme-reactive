@@ -30,35 +30,35 @@ export class EditingState extends React.PureComponent {
     };
 
     this._reduceEditingRows = reducer => (editingRows, payload) => {
-      const { editingRowsChange } = this.props;
+      const { onEditingRowsChange } = this.props;
       const nextEditingRows = reducer(editingRows, payload);
       this.setState({ editingRows: nextEditingRows });
-      if (editingRowsChange) {
-        editingRowsChange(nextEditingRows);
+      if (onEditingRowsChange) {
+        onEditingRowsChange(nextEditingRows);
       }
     };
     this._reduceChangedRows = reducer => (changedRows, payload) => {
-      const { changedRowsChange } = this.props;
+      const { onChangedRowsChange } = this.props;
       const nextChangedRows = reducer(changedRows, payload);
       this.setState({ changedRows: nextChangedRows });
-      if (changedRowsChange) {
-        changedRowsChange(nextChangedRows);
+      if (onChangedRowsChange) {
+        onChangedRowsChange(nextChangedRows);
       }
     };
     this._reduceNewRows = reducer => (newRows, payload) => {
-      const { newRowsChange } = this.props;
+      const { onNewRowsChange } = this.props;
       const nextNewRows = reducer(newRows, payload);
       this.setState({ newRows: nextNewRows });
-      if (newRowsChange) {
-        newRowsChange(nextNewRows);
+      if (onNewRowsChange) {
+        onNewRowsChange(nextNewRows);
       }
     };
     this._reduceDeletedRows = reducer => (deletedRows, payload) => {
-      const { deletedRowsChange } = this.props;
+      const { onDeletedRowsChange } = this.props;
       const nextDeletedRows = reducer(deletedRows, payload);
       this.setState({ deletedRows: nextDeletedRows });
-      if (deletedRowsChange) {
-        deletedRowsChange(nextDeletedRows);
+      if (onDeletedRowsChange) {
+        onDeletedRowsChange(nextDeletedRows);
       }
     };
 
@@ -172,19 +172,19 @@ export class EditingState extends React.PureComponent {
 EditingState.propTypes = {
   editingRows: PropTypes.array,
   defaultEditingRows: PropTypes.array,
-  editingRowsChange: PropTypes.func,
+  onEditingRowsChange: PropTypes.func,
 
   newRows: PropTypes.array,
   defaultNewRows: PropTypes.array,
-  newRowsChange: PropTypes.func,
+  onNewRowsChange: PropTypes.func,
 
   changedRows: PropTypes.object,
   defaultChangedRows: PropTypes.object,
-  changedRowsChange: PropTypes.func,
+  onChangedRowsChange: PropTypes.func,
 
   deletedRows: PropTypes.array,
   defaultDeletedRows: PropTypes.array,
-  deletedRowsChange: PropTypes.func,
+  onDeletedRowsChange: PropTypes.func,
 
   onCommitChanges: PropTypes.func.isRequired,
 };
@@ -192,17 +192,17 @@ EditingState.propTypes = {
 EditingState.defaultProps = {
   editingRows: undefined,
   defaultEditingRows: undefined,
-  editingRowsChange: undefined,
+  onEditingRowsChange: undefined,
 
   newRows: undefined,
   defaultNewRows: undefined,
-  newRowsChange: undefined,
+  onNewRowsChange: undefined,
 
   deletedRows: undefined,
   defaultDeletedRows: undefined,
-  deletedRowsChange: undefined,
+  onDeletedRowsChange: undefined,
 
   changedRows: undefined,
   defaultChangedRows: undefined,
-  changedRowsChange: undefined,
+  onChangedRowsChange: undefined,
 };

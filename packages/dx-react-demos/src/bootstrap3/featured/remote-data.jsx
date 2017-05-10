@@ -34,8 +34,8 @@ export class RemoteDataDemo extends React.PureComponent {
       loading: true,
     };
 
-    this.sortingsChange = this.sortingsChange.bind(this);
-    this.currentPageChange = this.currentPageChange.bind(this);
+    this.changeSortings = this.changeSortings.bind(this);
+    this.changeCurrentPage = this.changeCurrentPage.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -43,13 +43,13 @@ export class RemoteDataDemo extends React.PureComponent {
   componentDidUpdate() {
     this.loadData();
   }
-  sortingsChange(sortings) {
+  changeSortings(sortings) {
     this.setState({
       loading: true,
       sortings,
     });
   }
-  currentPageChange(currentPage) {
+  changeCurrentPage(currentPage) {
     this.setState({
       loading: true,
       currentPage,
@@ -96,11 +96,11 @@ export class RemoteDataDemo extends React.PureComponent {
         >
           <SortingState
             sortings={sortings}
-            sortingsChange={this.sortingsChange}
+            onSortingsChange={this.changeSortings}
           />
           <PagingState
             currentPage={currentPage}
-            currentPageChange={this.currentPageChange}
+            onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
             totalCount={totalCount}
           />

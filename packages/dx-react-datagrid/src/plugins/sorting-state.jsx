@@ -12,11 +12,11 @@ export class SortingState extends React.PureComponent {
     };
 
     this._setColumnSorting = (sortings, { columnName, direction, keepOther }) => {
-      const { sortingsChange } = this.props;
+      const { onSortingsChange } = this.props;
       const nextSortings = setColumnSorting(sortings, { columnName, direction, keepOther });
       this.setState({ sortings: nextSortings });
-      if (sortingsChange) {
-        sortingsChange(nextSortings);
+      if (onSortingsChange) {
+        onSortingsChange(nextSortings);
       }
     };
   }
@@ -41,11 +41,11 @@ export class SortingState extends React.PureComponent {
 SortingState.propTypes = {
   sortings: PropTypes.array,
   defaultSortings: PropTypes.array,
-  sortingsChange: PropTypes.func,
+  onSortingsChange: PropTypes.func,
 };
 
 SortingState.defaultProps = {
   sortings: undefined,
   defaultSortings: undefined,
-  sortingsChange: undefined,
+  onSortingsChange: undefined,
 };

@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters to be applied 
+filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters to be applied
 defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies initial filters for the uncontrolled mode
-filtersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filter changes 
+onFiltersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filter changes
 
 ## Interfaces
 

@@ -12,11 +12,11 @@ export class FilteringState extends React.PureComponent {
     };
 
     this._setColumnFilter = (filters, { columnName, value }) => {
-      const { filtersChange } = this.props;
+      const { onFiltersChange } = this.props;
       const nextFilters = setColumnFilter(filters, { columnName, value });
       this.setState({ filters: nextFilters });
-      if (filtersChange) {
-        filtersChange(nextFilters);
+      if (onFiltersChange) {
+        onFiltersChange(nextFilters);
       }
     };
   }
@@ -39,11 +39,11 @@ export class FilteringState extends React.PureComponent {
 FilteringState.propTypes = {
   filters: PropTypes.array,
   defaultFilters: PropTypes.array,
-  filtersChange: PropTypes.func,
+  onFiltersChange: PropTypes.func,
 };
 
 FilteringState.defaultProps = {
   filters: undefined,
   defaultFilters: undefined,
-  filtersChange: undefined,
+  onFiltersChange: undefined,
 };

@@ -14,16 +14,16 @@ Name | Type | Default | Description
 -----|------|---------|------------
 editingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows that are currently being edited
 defaultEditingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows that should be switched to the edit mode initially for the uncontrolled state mode
-editingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void | | Handles editing row changes
+onEditingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void | | Handles editing row changes
 newRows | Array&lt;Object&gt; | | Specifies the newlly created rows that are not yet committed
 defaultNewRows | Array&lt;Object&gt; | | Specifies the initial set of new rows for the uncontrolled mode
-newRowsChange | (newRows: Array&lt;Object&gt;) => void | | Handles new row changes
+onNewRowsChange | (newRows: Array&lt;Object&gt;) => void | | Handles new row changes
 changedRows | { [key: string]: Object } | | Specifies the rows that have been changed but not yet committed
 defaultChangedRows | { [key: string]: Object } | | Specifies the initial set of changed rows for the uncontrolled mode
-changedRowsChange | (changedRows: { [key: string]: Object }) => void | | Handles changed rows' changes
+onChangedRowsChange | (changedRows: { [key: string]: Object }) => void | | Handles changed rows' changes
 deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows that have been deleted but not yet committed
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies the initial set of deleted rows for the uncontrolled mode
-deletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles deleted rows' changes
+onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles deleted rows' changes
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles the request to commit the changes introduced to the data rows
 
 ## Interfaces
@@ -37,7 +37,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 create? | Array&lt;Object&gt; | Rows to be created as an array of data objects
-update? | { [key: string]: Object } | Rows to be updated as a map of their IDs and changes
+update? | { [key: number &#124; string]: Object } | Rows to be updated as a map of their IDs and changes
 delete? | Array&lt;number &#124; string&gt; | Rows to be deleted as an array of their IDs
 
 ## Plugin Developer Reference

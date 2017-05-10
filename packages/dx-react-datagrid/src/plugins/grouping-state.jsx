@@ -16,7 +16,7 @@ export class GroupingState extends React.PureComponent {
 
     this.toggleGroupExpanded = (groupKey) => {
       const prevExpandedGroups = this.props.expandedGroups || this.state.expandedGroups;
-      const { expandedGroupsChange } = this.props;
+      const { onExpandedGroupsChange } = this.props;
 
       const expandedGroups = prevExpandedGroups.slice();
       const groupKeyIndex = expandedGroups.indexOf(groupKey);
@@ -27,17 +27,17 @@ export class GroupingState extends React.PureComponent {
       }
 
       this.setState({ expandedGroups });
-      if (expandedGroupsChange) {
-        expandedGroupsChange(expandedGroups);
+      if (onExpandedGroupsChange) {
+        onExpandedGroupsChange(expandedGroups);
       }
     };
 
     this._groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
-      const { groupingChange } = this.props;
+      const { onGroupingChange } = this.props;
       const grouping = groupByColumn(prevGrouping, { columnName, groupIndex });
       this.setState({ grouping });
-      if (groupingChange) {
-        groupingChange(grouping);
+      if (onGroupingChange) {
+        onGroupingChange(grouping);
       }
     };
     this._groupedColumns = (columns, grouping) =>
@@ -82,18 +82,18 @@ export class GroupingState extends React.PureComponent {
 GroupingState.propTypes = {
   grouping: PropTypes.array,
   defaultGrouping: PropTypes.array,
-  groupingChange: PropTypes.func,
+  onGroupingChange: PropTypes.func,
   expandedGroups: PropTypes.array,
   defaultExpandedGroups: PropTypes.array,
-  expandedGroupsChange: PropTypes.func,
+  onExpandedGroupsChange: PropTypes.func,
 };
 
 GroupingState.defaultProps = {
   grouping: undefined,
   defaultGrouping: undefined,
-  groupingChange: undefined,
+  onGroupingChange: undefined,
   expandedGroups: undefined,
   defaultExpandedGroups: undefined,
-  expandedGroupsChange: undefined,
+  onExpandedGroupsChange: undefined,
 };
 

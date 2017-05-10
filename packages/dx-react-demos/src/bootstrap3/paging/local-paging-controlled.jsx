@@ -41,7 +41,7 @@ export class LocalPagingControlledDemo extends React.PureComponent {
       >
         <PagingState
           currentPage={this.state.currentPage}
-          currentPageChange={this.changeCurrentPage}
+          onCurrentPageChange={this.changeCurrentPage}
           pageSize={5}
         />
         <LocalPaging />

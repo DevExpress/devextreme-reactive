@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 sortings | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sortings
 defaultSortings | Array&lt;[Sorting](#sorting)&gt; | | Specifies the initial sortings for the uncontrolled mode
-sortingsChange | (sortings: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes
+onSortingsChange | (sortings: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes
 
 ## Interfaces
 

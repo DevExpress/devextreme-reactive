@@ -30,7 +30,7 @@ export class RemoteSortingDemo extends React.PureComponent {
       loading: true,
     };
 
-    this.sortingsChange = this.sortingsChange.bind(this);
+    this.changeSortings = this.changeSortings.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -38,7 +38,7 @@ export class RemoteSortingDemo extends React.PureComponent {
   componentDidUpdate() {
     this.loadData();
   }
-  sortingsChange(sortings) {
+  changeSortings(sortings) {
     this.setState({
       loading: true,
       sortings,
@@ -81,7 +81,7 @@ export class RemoteSortingDemo extends React.PureComponent {
         >
           <SortingState
             sortings={sortings}
-            sortingsChange={this.sortingsChange}
+            onSortingsChange={this.changeSortings}
           />
           <VirtualTableView />
           <TableHeaderRow sortingEnabled />

@@ -25,15 +25,15 @@ const GridContainer = (props) => {
     columns,
 
     sortings,
-    sortingsChange,
+    onSortingsChange,
     selection,
-    selectionChange,
+    onSelectionChange,
     expandedDetails,
-    expandedDetailsChange,
+    onExpandedDetailsChange,
     filters,
-    filtersChange,
+    onFiltersChange,
     currentPage,
-    currentPageChange,
+    onCurrentPageChange,
   } = props;
 
   return (
@@ -47,20 +47,20 @@ const GridContainer = (props) => {
 
         <FilteringState
           filters={filters}
-          filtersChange={filtersChange}
+          onFiltersChange={onFiltersChange}
         />
         <SortingState
           sortings={sortings}
-          sortingsChange={sortingsChange}
+          onSortingsChange={onSortingsChange}
         />
         <PagingState
           currentPage={currentPage}
-          currentPageChange={currentPageChange}
+          onCurrentPageChange={onCurrentPageChange}
           pageSize={10}
         />
         <SelectionState
           selection={selection}
-          selectionChange={selectionChange}
+          onSelectionChange={onSelectionChange}
         />
 
         <LocalFiltering />
@@ -77,7 +77,7 @@ const GridContainer = (props) => {
 
         <TableRowDetail
           expandedDetails={expandedDetails}
-          expandedDetailsChange={expandedDetailsChange}
+          onExpandedDetailsChange={onExpandedDetailsChange}
           template={DetailRow}
         />
 
@@ -91,25 +91,25 @@ GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   sortings: PropTypes.array.isRequired,
-  sortingsChange: PropTypes.func.isRequired,
+  onSortingsChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
-  selectionChange: PropTypes.func.isRequired,
+  onSelectionChange: PropTypes.func.isRequired,
   expandedDetails: PropTypes.array.isRequired,
-  expandedDetailsChange: PropTypes.func.isRequired,
+  onExpandedDetailsChange: PropTypes.func.isRequired,
   filters: PropTypes.array.isRequired,
-  filtersChange: PropTypes.func.isRequired,
+  onFiltersChange: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
-  currentPageChange: PropTypes.func.isRequired,
+  onCurrentPageChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
-  expandedDetailsChange: expandedDetails => dispatch(createGridAction('expandedDetails', expandedDetails)),
-  selectionChange: selection => dispatch(createGridAction('selection', selection)),
-  sortingsChange: sortings => dispatch(createGridAction('sortings', sortings)),
-  filtersChange: filters => dispatch(createGridAction('filters', filters)),
-  currentPageChange: currentPage => dispatch(createGridAction('currentPage', currentPage)),
+  onExpandedDetailsChange: expandedDetails => dispatch(createGridAction('expandedDetails', expandedDetails)),
+  onSelectionChange: selection => dispatch(createGridAction('selection', selection)),
+  onSortingsChange: sortings => dispatch(createGridAction('sortings', sortings)),
+  onFiltersChange: filters => dispatch(createGridAction('filters', filters)),
+  onCurrentPageChange: currentPage => dispatch(createGridAction('currentPage', currentPage)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GridContainer);

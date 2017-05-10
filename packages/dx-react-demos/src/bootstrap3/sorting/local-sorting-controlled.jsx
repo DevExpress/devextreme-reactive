@@ -40,7 +40,7 @@ export class LocalSortingControlledDemo extends React.PureComponent {
       >
         <SortingState
           sortings={this.state.sortings}
-          sortingsChange={this.changeSortings}
+          onSortingsChange={this.changeSortings}
         />
         <LocalSorting />
         <TableView />

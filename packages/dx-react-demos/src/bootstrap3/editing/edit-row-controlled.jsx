@@ -85,11 +85,11 @@ export class EditRowControlledDemo extends React.PureComponent {
       >
         <EditingState
           editingRows={this.state.editingRows}
-          editingRowsChange={this.changeEditingRows}
+          onEditingRowsChange={this.changeEditingRows}
           changedRows={this.state.changedRows}
-          changedRowsChange={this.changeChangedRows}
+          onChangedRowsChange={this.changeChangedRows}
           newRows={this.state.newRows}
-          newRowsChange={this.changeNewRows}
+          onNewRowsChange={this.changeNewRows}
           onCommitChanges={this.commitChanges}
         />
         <TableView />

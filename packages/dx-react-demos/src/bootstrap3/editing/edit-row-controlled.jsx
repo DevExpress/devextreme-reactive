@@ -21,7 +21,6 @@ export class EditRowControlledDemo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'edit', type: 'edit', width: 140 },
         { name: 'id', title: 'ID', width: 50 },
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },

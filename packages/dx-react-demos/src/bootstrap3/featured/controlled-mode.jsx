@@ -51,7 +51,7 @@ CommandButton.defaultProps = {
 };
 
 const commands = {
-  create: {
+  add: {
     text: 'New',
     hint: 'Create new row',
     icon: 'plus',

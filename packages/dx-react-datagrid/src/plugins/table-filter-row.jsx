@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnFilterValue } from '@devexpress/dx-datagrid-core';
+import { getColumnFilterConfig } from '@devexpress/dx-datagrid-core';
 
 export class TableFilterRow extends React.PureComponent {
   constructor(props) {
@@ -24,10 +24,10 @@ export class TableFilterRow extends React.PureComponent {
           name="tableViewCell"
           predicate={({ row }) => row.type === 'filter'}
           connectGetters={(getter, { column }) => ({
-            filter: getColumnFilterValue(getter('filters'), column.name),
+            filter: getColumnFilterConfig(getter('filters'), column.name),
           })}
           connectActions={(action, { column }) => ({
-            changeFilter: value => action('setColumnFilter')({ columnName: column.name, value }),
+            changeFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
           })}
         >
           {params => this.props.filterCellTemplate(params)}

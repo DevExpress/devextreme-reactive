@@ -49,7 +49,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
           defaultFilters={[{ column: 'saleDate', value: 'Feb' }]}
         />
         <SortingState
-          defaultSortings={[
+          defaultSorting={[
             { column: 'product', direction: 'asc' },
             { column: 'saleDate', direction: 'asc' },
           ]}

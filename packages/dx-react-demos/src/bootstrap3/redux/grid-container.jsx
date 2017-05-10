@@ -24,8 +24,8 @@ const GridContainer = (props) => {
     rows,
     columns,
 
-    sortings,
-    onSortingsChange,
+    sorting,
+    onSortingChange,
     selection,
     onSelectionChange,
     expandedRows,
@@ -50,8 +50,8 @@ const GridContainer = (props) => {
           onFiltersChange={onFiltersChange}
         />
         <SortingState
-          sortings={sortings}
-          onSortingsChange={onSortingsChange}
+          sorting={sorting}
+          onSortingChange={onSortingChange}
         />
         <PagingState
           currentPage={currentPage}
@@ -90,8 +90,8 @@ const GridContainer = (props) => {
 GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  sortings: PropTypes.array.isRequired,
-  onSortingsChange: PropTypes.func.isRequired,
+  sorting: PropTypes.array.isRequired,
+  onSortingChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
   onSelectionChange: PropTypes.func.isRequired,
   expandedRows: PropTypes.array.isRequired,
@@ -107,7 +107,7 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   onExpandedRowsChange: expandedRows => dispatch(createGridAction('expandedRows', expandedRows)),
   onSelectionChange: selection => dispatch(createGridAction('selection', selection)),
-  onSortingsChange: sortings => dispatch(createGridAction('sortings', sortings)),
+  onSortingChange: sorting => dispatch(createGridAction('sorting', sorting)),
   onFiltersChange: filters => dispatch(createGridAction('filters', filters)),
   onCurrentPageChange: currentPage => dispatch(createGridAction('currentPage', currentPage)),
 });

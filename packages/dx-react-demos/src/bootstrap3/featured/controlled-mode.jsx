@@ -34,7 +34,7 @@ export class ControlledModeDemo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 10000 }),
-      sortings: [
+      sorting: [
         { column: 'product', direction: 'asc' },
         { column: 'saleDate', direction: 'asc' },
       ],
@@ -45,7 +45,7 @@ export class ControlledModeDemo extends React.PureComponent {
       currentPage: 0,
     };
 
-    this.changeSortings = sortings => this.setState({ sortings });
+    this.changeSorting = sorting => this.setState({ sorting });
     this.changeGrouping = grouping => this.setState({ grouping });
     this.changeExpandedGroups = expandedGroups => this.setState({ expandedGroups });
     this.changeSelection = selection => this.setState({ selection });
@@ -56,7 +56,7 @@ export class ControlledModeDemo extends React.PureComponent {
     const {
       rows,
       columns,
-      sortings,
+      sorting,
       grouping,
       expandedGroups,
       selection,
@@ -75,8 +75,8 @@ export class ControlledModeDemo extends React.PureComponent {
           onFiltersChange={this.changeFilters}
         />
         <SortingState
-          sortings={sortings}
-          onSortingsChange={this.changeSortings}
+          sorting={sorting}
+          onSortingChange={this.changeSorting}
         />
         <GroupingState
           grouping={grouping}

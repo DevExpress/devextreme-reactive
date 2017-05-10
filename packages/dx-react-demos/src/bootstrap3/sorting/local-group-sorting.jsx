@@ -40,7 +40,7 @@ export class LocalGroupSortingDemo extends React.PureComponent {
         columns={columns}
       >
         <SortingState
-          defaultSortings={[
+          defaultSorting={[
             { column: 'city', direction: 'asc' },
             { column: 'name', direction: 'desc' },
           ]}

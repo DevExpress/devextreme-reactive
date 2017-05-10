@@ -27,20 +27,20 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableViewCell"
           predicate={({ row }) => row.type === 'heading'}
           connectGetters={(getter, { column }) => {
-            const sortings = getter('sortings');
+            const sorting = getter('sorting');
             const columns = getter('columns');
             const grouping = getter('grouping');
 
             const result = {
               sortingSupported: !column.type &&
-                sortings !== undefined,
+                sorting !== undefined,
               groupingSupported: !column.type &&
                 grouping !== undefined &&
                 grouping.length < columns.length - 1,
             };
 
             if (result.sortingSupported) {
-              result.sortingDirection = getColumnSortingDirection(sortings, column.name);
+              result.sortingDirection = getColumnSortingDirection(sorting, column.name);
             }
 
             return result;

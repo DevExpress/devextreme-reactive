@@ -9,12 +9,13 @@ const createSortingCompare = (sorting, compareEqual) => (a, b) => {
   return (a[sortColumn] < b[sortColumn]) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
 };
 
-export const sortedRows = (rows, sortings) => {
-  if (!sortings.length) { return rows; }
+export const sortedRows = (rows, sorting) => {
+  if (!sorting.length) { return rows; }
 
-  const compare = sortings.slice()
-        .reverse()
-        .reduce((prevCompare, sorting) => createSortingCompare(sorting, prevCompare), () => 0);
+  const compare = sorting.slice()
+    .reverse()
+    .reduce((prevCompare, columnSorting) =>
+      createSortingCompare(columnSorting, prevCompare), () => 0);
 
   return rows.slice().sort(compare);
 };

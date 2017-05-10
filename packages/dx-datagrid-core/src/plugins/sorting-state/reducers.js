@@ -1,21 +1,24 @@
-export const setColumnSorting = (sortings, { columnName, direction, keepOther }) => {
-  const sortingIndex = sortings.findIndex(s => s.column === columnName);
-  const sorting = sortings[sortingIndex];
-  const nextSortings = keepOther ? sortings.slice() : [];
+export const setColumnSorting = (sorting, { columnName, direction, keepOther }) => {
+  const sortingIndex = sorting.findIndex(s => s.column === columnName);
+  const columnSorting = sorting[sortingIndex];
+  const nextSorting = keepOther ? sorting.slice() : [];
 
-  if (sorting) {
-    const nextSorting = Object.assign({}, sorting, { direction: sorting.direction === 'asc' ? 'desc' : 'asc' });
+  if (columnSorting) {
+    const updatedSorting = {
+      ...columnSorting,
+      direction: columnSorting.direction === 'asc' ? 'desc' : 'asc',
+    };
     if (keepOther) {
-      nextSortings.splice(sortingIndex, 1, nextSorting);
+      nextSorting.splice(sortingIndex, 1, updatedSorting);
     } else {
-      nextSortings.push(nextSorting);
+      nextSorting.push(updatedSorting);
     }
   } else {
-    nextSortings.push({
+    nextSorting.push({
       column: columnName,
       direction: direction || 'asc',
     });
   }
 
-  return nextSortings;
+  return nextSorting;
 };

@@ -32,8 +32,8 @@ const GridContainer = (props) => {
     rows,
     columns,
 
-    sortings,
-    onSortingsChange,
+    sorting,
+    onSortingChange,
     selection,
     onSelectionChange,
     grouping,
@@ -57,8 +57,8 @@ const GridContainer = (props) => {
         onFiltersChange={onFiltersChange}
       />
       <SortingState
-        sortings={sortings}
-        onSortingsChange={onSortingsChange}
+        sorting={sorting}
+        onSortingChange={onSortingChange}
       />
       <GroupingState
         grouping={grouping}
@@ -110,8 +110,8 @@ const GridContainer = (props) => {
 GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  sortings: PropTypes.array.isRequired,
-  onSortingsChange: PropTypes.func.isRequired,
+  sorting: PropTypes.array.isRequired,
+  onSortingChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
   onSelectionChange: PropTypes.func.isRequired,
   grouping: PropTypes.array.isRequired,
@@ -134,7 +134,7 @@ const gridInitialState = {
     { name: 'customer', title: 'Customer' },
   ],
   rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
-  sortings: [
+  sorting: [
     { column: 'product', direction: 'asc' },
     { column: 'saleDate', direction: 'asc' },
   ],
@@ -168,7 +168,7 @@ export const createGridAction = (partialStateName, partialStateValue) => ({
 const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
-  onSortingsChange: sortings => dispatch(createGridAction('sortings', sortings)),
+  onSortingChange: sorting => dispatch(createGridAction('sorting', sorting)),
   onSelectionChange: selection => dispatch(createGridAction('selection', selection)),
   onGroupingChange: grouping => dispatch(createGridAction('grouping', grouping)),
   onExpandedGroupsChange: expandedGroups => dispatch(createGridAction('expandedGroups', expandedGroups)),

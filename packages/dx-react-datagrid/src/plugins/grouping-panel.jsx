@@ -52,14 +52,14 @@ export class GroupingPanel extends React.PureComponent {
         <Template
           name="groupingPanelCell"
           connectGetters={(getter, { column }) => {
-            const sortings = getter('sortings');
+            const sorting = getter('sorting');
 
             const result = {
-              sortingSupported: !column.type && sortings !== undefined,
+              sortingSupported: !column.type && sorting !== undefined,
             };
 
             if (result.sortingSupported) {
-              result.sortingDirection = getColumnSortingDirection(sortings, column.name);
+              result.sortingDirection = getColumnSortingDirection(sorting, column.name);
             }
 
             return result;

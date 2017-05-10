@@ -5,16 +5,16 @@ import {
 describe('SortingState helpers', () => {
   describe('#getColumnSortingDirection', () => {
     test('returns sorting direction', () => {
-      const sortings = [{ column: 'test', direction: 'testDirection' }];
+      const sorting = [{ column: 'test', direction: 'testDirection' }];
 
-      const direction = getColumnSortingDirection(sortings, 'test');
+      const direction = getColumnSortingDirection(sorting, 'test');
       expect(direction).toBe('testDirection');
     });
 
     test('returns null if a column is not sorted', () => {
-      const sortings = [];
+      const sorting = [];
 
-      const direction = getColumnSortingDirection(sortings, 'test');
+      const direction = getColumnSortingDirection(sorting, 'test');
       expect(direction).toBe(null);
     });
   });

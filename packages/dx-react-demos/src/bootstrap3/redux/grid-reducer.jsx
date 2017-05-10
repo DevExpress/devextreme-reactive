@@ -12,7 +12,7 @@ const gridInitialState = {
     { name: 'car', title: 'Car' },
   ],
   rows: generateRows({ length: 105 }),
-  sortings: [{ column: 'id', direction: 'asc' }],
+  sorting: [{ column: 'id', direction: 'asc' }],
   selection: [1, 3, 18],
   expandedRows: [3],
   filters: [],

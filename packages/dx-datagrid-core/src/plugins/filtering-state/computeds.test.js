@@ -19,7 +19,7 @@ describe('FilteringState computeds', () => {
     });
 
     test('can filter by one field', () => {
-      const filters = [{ column: 'a', value: 1 }];
+      const filters = [{ columnName: 'a', value: 1 }];
 
       const filtered = filteredRows(rows, filters);
       expect(filtered).toEqual([
@@ -29,7 +29,7 @@ describe('FilteringState computeds', () => {
     });
 
     test('can filter by several fields', () => {
-      const filters = [{ column: 'a', value: 1 }, { column: 'b', value: 2 }];
+      const filters = [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }];
 
       const filtered = filteredRows(rows, filters);
       expect(filtered).toEqual([

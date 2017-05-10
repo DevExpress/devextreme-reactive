@@ -1,6 +1,6 @@
 export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   const grouping = prevGrouping.slice();
-  const index = grouping.findIndex(g => g.column === columnName);
+  const index = grouping.findIndex(g => g.columnName === columnName);
   let targetIndex = groupIndex;
 
   if (index > -1) {
@@ -11,7 +11,7 @@ export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
 
   if (targetIndex > -1) {
     grouping.splice(targetIndex, 0, {
-      column: columnName,
+      columnName,
     });
   }
 

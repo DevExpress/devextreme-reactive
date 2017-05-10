@@ -35,13 +35,13 @@ export class ControlledModeDemo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 10000 }),
       sorting: [
-        { column: 'product', direction: 'asc' },
-        { column: 'saleDate', direction: 'asc' },
+        { columnName: 'product', direction: 'asc' },
+        { columnName: 'saleDate', direction: 'asc' },
       ],
-      grouping: [{ column: 'product' }],
+      grouping: [{ columnName: 'product' }],
       expandedGroups: ['EnviroCare Max'],
       selection: [],
-      filters: [{ column: 'saleDate', value: 'Feb' }],
+      filters: [{ columnName: 'saleDate', value: 'Feb' }],
       currentPage: 0,
     };
 

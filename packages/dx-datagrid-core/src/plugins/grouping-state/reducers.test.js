@@ -10,12 +10,12 @@ describe('GroupingState reducers', () => {
 
       const nextGrouping = groupByColumn(grouping, payload);
       expect(nextGrouping).toEqual([
-        { column: 'test' },
+        { columnName: 'test' },
       ]);
     });
 
     test('can ungroup by column', () => {
-      const grouping = [{ column: 'test' }];
+      const grouping = [{ columnName: 'test' }];
       const payload = { columnName: 'test' };
 
       const nextGrouping = groupByColumn(grouping, payload);
@@ -23,24 +23,24 @@ describe('GroupingState reducers', () => {
     });
 
     test('can group by several columns', () => {
-      const grouping = [{ column: 'column1' }];
+      const grouping = [{ columnName: 'column1' }];
       const payload = { columnName: 'column2' };
 
       const nextGrouping = groupByColumn(grouping, payload);
       expect(nextGrouping).toEqual([
-        { column: 'column1' },
-        { column: 'column2' },
+        { columnName: 'column1' },
+        { columnName: 'column2' },
       ]);
     });
 
     test('can group by column with a group index', () => {
-      const grouping = [{ column: 'column1' }];
+      const grouping = [{ columnName: 'column1' }];
       const payload = { columnName: 'column2', groupIndex: 0 };
 
       const nextGrouping = groupByColumn(grouping, payload);
       expect(nextGrouping).toEqual([
-        { column: 'column2' },
-        { column: 'column1' },
+        { columnName: 'column2' },
+        { columnName: 'column1' },
       ]);
     });
   });

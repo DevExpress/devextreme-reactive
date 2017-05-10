@@ -26,7 +26,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | string | Specifies a column name to which a filter is applied
+columnName | string | Specifies a column name to which a filter is applied
 value? | string | Specifies a value by which rows are filtered
 
 ## Plugin Developer Reference

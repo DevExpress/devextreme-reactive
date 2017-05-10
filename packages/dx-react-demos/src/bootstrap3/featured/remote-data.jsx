@@ -27,7 +27,7 @@ export class RemoteDataDemo extends React.PureComponent {
         { name: 'SaleAmount', title: 'Sale Amount', align: 'right' },
       ],
       rows: [],
-      sorting: [{ column: 'StoreCity', direction: 'asc' }],
+      sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
       pageSize: 12,
       currentPage: 0,
@@ -63,7 +63,7 @@ export class RemoteDataDemo extends React.PureComponent {
     const columnSorting = sorting[0];
     if (columnSorting) {
       const sortingDirectionString = columnSorting.direction === 'desc' ? ' desc' : '';
-      queryString = `${queryString}&orderby=${columnSorting.column}${sortingDirectionString}`;
+      queryString = `${queryString}&orderby=${columnSorting.columnName}${sortingDirectionString}`;
     }
 
     return queryString;

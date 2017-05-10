@@ -1,5 +1,5 @@
 const createSortingCompare = (sorting, compareEqual) => (a, b) => {
-  const sortColumn = sorting.column;
+  const sortColumn = sorting.columnName;
   const inverse = sorting.direction === 'desc';
 
   if (a[sortColumn] === b[sortColumn]) {

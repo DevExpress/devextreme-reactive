@@ -46,16 +46,16 @@ export class UncontrolledModeDemo extends React.PureComponent {
       >
 
         <FilteringState
-          defaultFilters={[{ column: 'saleDate', value: 'Feb' }]}
+          defaultFilters={[{ columnName: 'saleDate', value: 'Feb' }]}
         />
         <SortingState
           defaultSorting={[
-            { column: 'product', direction: 'asc' },
-            { column: 'saleDate', direction: 'asc' },
+            { columnName: 'product', direction: 'asc' },
+            { columnName: 'saleDate', direction: 'asc' },
           ]}
         />
         <GroupingState
-          defaultGrouping={[{ column: 'product' }]}
+          defaultGrouping={[{ columnName: 'product' }]}
           defaultExpandedGroups={['EnviroCare Max']}
         />
         <PagingState

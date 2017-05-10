@@ -19,7 +19,7 @@ describe('SortingState computeds', () => {
     });
 
     test('can sort ascending by one column', () => {
-      const sorting = [{ column: 'a', direction: 'asc' }];
+      const sorting = [{ columnName: 'a', direction: 'asc' }];
 
       const sorted = sortedRows(rows, sorting);
       expect(sorted).toEqual([
@@ -31,7 +31,7 @@ describe('SortingState computeds', () => {
     });
 
     test('can sort descending by one column', () => {
-      const sorting = [{ column: 'a', direction: 'desc' }];
+      const sorting = [{ columnName: 'a', direction: 'desc' }];
 
       const sorted = sortedRows(rows, sorting);
       expect(sorted).toEqual([
@@ -43,7 +43,7 @@ describe('SortingState computeds', () => {
     });
 
     test('can sort by several columns', () => {
-      const sorting = [{ column: 'a', direction: 'asc' }, { column: 'b', direction: 'asc' }];
+      const sorting = [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'asc' }];
 
       const sorted = sortedRows(rows, sorting);
       expect(sorted).toEqual([
@@ -55,7 +55,7 @@ describe('SortingState computeds', () => {
     });
 
     test('can sort by several columns with different directions', () => {
-      const sorting = [{ column: 'a', direction: 'asc' }, { column: 'b', direction: 'desc' }];
+      const sorting = [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'desc' }];
 
       const sorted = sortedRows(rows, sorting);
       expect(sorted).toEqual([

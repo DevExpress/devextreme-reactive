@@ -41,7 +41,7 @@ export class GroupingState extends React.PureComponent {
       }
     };
     this._groupedColumns = (columns, grouping) =>
-      grouping.map(group => columns.find(c => c.name === group.column));
+      grouping.map(group => columns.find(c => c.name === group.columnName));
   }
   render() {
     const grouping = this.props.grouping || this.state.grouping;

@@ -18,14 +18,14 @@ export class TableEditColumn extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'heading' && column.type === 'edit'}
           connectActions={action => ({
-            addNewRow: () => action('addNewRow')(),
+            addRow: () => action('addRow')(),
           })}
         >
-          {({ row, column, addNewRow, style }) =>
+          {({ row, column, addRow, style }) =>
             headingCellTemplate({
               row,
               column,
-              onAddNewRow: () => addNewRow(),
+              addRow: () => addRow(),
               commandTemplate,
               allowCreating,
               style,
@@ -60,11 +60,11 @@ export class TableEditColumn extends React.PureComponent {
             cellTemplate({
               row,
               column,
-              onCancelEditing: () => {
+              cancelEditing: () => {
                 stopEditRows({ rowIds: [rowId] });
                 cancelChangedRows({ rowIds: [rowId] });
               },
-              onCommitChanges: () => {
+              commitChanges: () => {
                 stopEditRows({ rowIds: [rowId] });
                 commitChangedRows({ rowIds: [rowId] });
               },
@@ -81,19 +81,19 @@ export class TableEditColumn extends React.PureComponent {
             row: row._originalRow,
           })}
           connectActions={action => ({
-            cancelNewRows: ({ rowIds }) => action('cancelNewRows')({ rowIds }),
-            commitNewRows: ({ rowIds }) => action('commitNewRows')({ rowIds }),
+            cancelAddedRows: ({ rowIds }) => action('cancelAddedRows')({ rowIds }),
+            commitAddedRows: ({ rowIds }) => action('commitAddedRows')({ rowIds }),
           })}
         >
-          {({ rowId, row, column, cancelNewRows, commitNewRows, style }) =>
+          {({ rowId, row, column, cancelAddedRows, commitAddedRows, style }) =>
             cellTemplate({
               row,
               column,
-              onCancelEditing: () => {
-                cancelNewRows({ rowIds: [rowId] });
+              cancelEditing: () => {
+                cancelAddedRows({ rowIds: [rowId] });
               },
-              onCommitChanges: () => {
-                commitNewRows({ rowIds: [rowId] });
+              commitChanges: () => {
+                commitAddedRows({ rowIds: [rowId] });
               },
               isEditing: true,
               commandTemplate,
@@ -118,8 +118,8 @@ export class TableEditColumn extends React.PureComponent {
             cellTemplate({
               row,
               column,
-              onStartEditing: () => startEditRows({ rowIds: [rowId] }),
-              onDelete: () => deleteRows({ rowIds: [rowId] }),
+              startEditing: () => startEditRows({ rowIds: [rowId] }),
+              deleteRow: () => deleteRows({ rowIds: [rowId] }),
               commandTemplate,
               allowEditing,
               allowDeleting,

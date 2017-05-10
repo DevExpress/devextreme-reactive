@@ -40,7 +40,7 @@ export class LocalGroupingWithUIDemo extends React.PureComponent {
         <GroupingState defaultGrouping={[{ column: 'city' }]} />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow groupingEnabled />
+        <TableHeaderRow allowGrouping />
         <TableGroupRow />
         <GroupingPanel />
       </DataGrid>

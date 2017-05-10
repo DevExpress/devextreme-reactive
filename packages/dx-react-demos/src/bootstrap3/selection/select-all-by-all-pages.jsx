@@ -46,7 +46,7 @@ export class SelectAllByAllPagesDemo extends React.PureComponent {
         >
           <SelectionState
             selection={selection}
-            selectionChange={this.changeSelection}
+            onSelectionChange={this.changeSelection}
           />
           <PagingState
             defaultCurrentPage={0}

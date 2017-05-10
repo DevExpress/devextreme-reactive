@@ -14,10 +14,10 @@ Name | Type | Default | Description
 -----|------|---------|------------
 grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by
 defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping for the uncontrolled mode
-groupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping changes
-expandedGroups | { Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups
+onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping changes
+expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups
 defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; } | | Specifies initially expanded groups for the uncontrolled mode
-expandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt; }) => void | | Handles expanded group changes
+onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt; }) => void | | Handles expanded group changes
 
 ## Interfaces
 

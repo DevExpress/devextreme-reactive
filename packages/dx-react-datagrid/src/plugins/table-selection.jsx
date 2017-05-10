@@ -27,13 +27,13 @@ export class TableSelection extends React.PureComponent {
       });
   }
   render() {
-    const { highlightSelected, selectByRowClick, showCheckboxes, showSelectAll } = this.props;
+    const { highlightSelected, selectByRowClick, showSelectionColumn, showSelectAll } = this.props;
     const SelectAllCell = this.props.selectAllCellTemplate;
     const SelectCell = this.props.selectCellTemplate;
 
     return (
       <PluginContainer>
-        {showCheckboxes && (
+        {showSelectionColumn && (
           <Getter
             name="tableColumns"
             pureComputed={this._tableColumns}
@@ -66,7 +66,7 @@ export class TableSelection extends React.PureComponent {
           />
         )}
 
-        {(showCheckboxes && showSelectAll) && (
+        {(showSelectionColumn && showSelectAll) && (
           <Template
             name="tableViewCell"
             predicate={({ column, row }) => column.type === 'select' && row.type === 'heading'}
@@ -93,10 +93,10 @@ export class TableSelection extends React.PureComponent {
             )}
           </Template>
         )}
-        {showCheckboxes && (
+        {showSelectionColumn && (
           <Template
             name="tableViewCell"
-            predicate={({ column, row }) => showCheckboxes && column.type === 'select' && !row.type}
+            predicate={({ column, row }) => showSelectionColumn && column.type === 'select' && !row.type}
             connectGetters={(getter, { row }) => ({
               rowId: getter('getRowId')(row),
               selection: getter('selection'),
@@ -122,7 +122,7 @@ TableSelection.defaultProps = {
   highlightSelected: false,
   selectByRowClick: false,
   showSelectAll: true,
-  showCheckboxes: true,
+  showSelectionColumn: true,
 };
 TableSelection.propTypes = {
   selectAllCellTemplate: PropTypes.func.isRequired,
@@ -130,5 +130,5 @@ TableSelection.propTypes = {
   highlightSelected: PropTypes.bool,
   selectByRowClick: PropTypes.bool,
   showSelectAll: PropTypes.bool,
-  showCheckboxes: PropTypes.bool,
+  showSelectionColumn: PropTypes.bool,
 };

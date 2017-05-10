@@ -140,17 +140,17 @@ export class MyApp extends React.PureComponent {
     this.state = {
       columns: [...],
       rows: [...],
-      sortings: [{ column: 'date', direction: 'desc' }],
+      sorting: [{ column: 'date', direction: 'desc' }],
     };
 
-    this.changeSortings = sortings => this.setState({ sortings });
+    this.changeSorting = sorting => this.setState({ sorting });
   }
   render() {
-    const { rows, columns, sortings } = this.state;
+    const { rows, columns, sorting } = this.state;
 
     return (
       <DataGrid rows={rows} columns={columns}>
-        <SortingState sortings={sortings} sortingsChange={this.changeSortings} />
+        <SortingState sorting={sorting} onSortingChange={this.changeSorting} />
         ...
       </DataGrid>
     );
@@ -158,7 +158,7 @@ export class MyApp extends React.PureComponent {
 }
 ```
 
-So, `sortings` represents the DataGrid sorting configuration. In turn, the `changeSortings` function is a handler that is invoked every time the sorting configuration changes. Note that all state management plugins work with the serializable state. It means that you can persist and restore it in [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values. The controlled state mode can also be helpful if you need to indicate the current state in your UI or bind some controls existing outside the DataGrid. For inctance, it's easy to put a ComboBox with available sort orders and let end-users use it for sorting DataGrid data.
+So, `sorting` represents the DataGrid sorting configuration. In turn, the `changeSorting` function is a handler that is invoked every time the sorting configuration changes. Note that all state management plugins work with the serializable state. It means that you can persist and restore it in [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values. The controlled state mode can also be helpful if you need to indicate the current state in your UI or bind some controls existing outside the DataGrid. For instance, it's easy to put a ComboBox with available sort orders and let end-users use it for sorting DataGrid data.
 
 In uncontrolled state mode, the DataGrid component manages its UI state internally. You do not need to specify the state value and state change handler properties. Yet, you can provide DataGrid with the initial state value using the property with the `default` prefix. For instance, we can convert the previous example into uncontrolled mode:
 
@@ -173,16 +173,16 @@ If you want to specify the default sorting configuration, it will look as follow
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>
-    <SortingState defaultSortings={[ column: 'date', direction: 'desc' ]} />
+    <SortingState defaultSorting={[ column: 'date', direction: 'desc' ]} />
     ...
   </DataGrid>
 ```
 
-Sometimes you may need to controll the DataGrid state partially. For instance, you want to manage filters, but do not wish to manage sorting and grouping. You can configure DataGrid as follows:
+Sometimes you may need to control the DataGrid state partially. For instance, you want to manage filters, but do not wish to manage sorting and grouping. You can configure DataGrid as follows:
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>
-    <FilteringState filters={filters} filtersChange={this.changeFilters}/>
+    <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
     <SortingState />
     <GroupingState />
     ...

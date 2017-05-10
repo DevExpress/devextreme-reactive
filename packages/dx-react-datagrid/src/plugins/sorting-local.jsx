@@ -12,7 +12,7 @@ export class LocalSorting extends React.PureComponent {
           pureComputed={sortedRows}
           connectArgs={getter => [
             getter('rows'),
-            getter('sortings'),
+            getter('sorting'),
           ]}
         />
       </PluginContainer>

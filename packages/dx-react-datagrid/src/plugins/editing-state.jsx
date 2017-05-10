@@ -5,9 +5,9 @@ import {
   startEditRows,
   stopEditRows,
 
-  addNewRow,
-  changeNewRow,
-  cancelNewRows,
+  addRow,
+  changeAddedRow,
+  cancelAddedRows,
   newRowsByIds,
 
   changeRow,
@@ -24,41 +24,41 @@ export class EditingState extends React.PureComponent {
 
     this.state = {
       editingRows: props.defaultEditingRows || [],
-      newRows: props.defaultNewRows || [],
+      newRows: props.defaultAddedRows || [],
       changedRows: props.defaultChangedRows || {},
       deletedRows: props.defaultDeletedRows || [],
     };
 
     this._reduceEditingRows = reducer => (editingRows, payload) => {
-      const { editingRowsChange } = this.props;
+      const { onEditingRowsChange } = this.props;
       const nextEditingRows = reducer(editingRows, payload);
       this.setState({ editingRows: nextEditingRows });
-      if (editingRowsChange) {
-        editingRowsChange(nextEditingRows);
+      if (onEditingRowsChange) {
+        onEditingRowsChange(nextEditingRows);
       }
     };
     this._reduceChangedRows = reducer => (changedRows, payload) => {
-      const { changedRowsChange } = this.props;
+      const { onChangedRowsChange } = this.props;
       const nextChangedRows = reducer(changedRows, payload);
       this.setState({ changedRows: nextChangedRows });
-      if (changedRowsChange) {
-        changedRowsChange(nextChangedRows);
+      if (onChangedRowsChange) {
+        onChangedRowsChange(nextChangedRows);
       }
     };
-    this._reduceNewRows = reducer => (newRows, payload) => {
-      const { newRowsChange } = this.props;
-      const nextNewRows = reducer(newRows, payload);
-      this.setState({ newRows: nextNewRows });
-      if (newRowsChange) {
-        newRowsChange(nextNewRows);
+    this._reduceAddedRows = reducer => (newRows, payload) => {
+      const { onAddedRowsChange } = this.props;
+      const nextAddedRows = reducer(newRows, payload);
+      this.setState({ newRows: nextAddedRows });
+      if (onAddedRowsChange) {
+        onAddedRowsChange(nextAddedRows);
       }
     };
     this._reduceDeletedRows = reducer => (deletedRows, payload) => {
-      const { deletedRowsChange } = this.props;
+      const { onDeletedRowsChange } = this.props;
       const nextDeletedRows = reducer(deletedRows, payload);
       this.setState({ deletedRows: nextDeletedRows });
-      if (deletedRowsChange) {
-        deletedRowsChange(nextDeletedRows);
+      if (onDeletedRowsChange) {
+        onDeletedRowsChange(nextDeletedRows);
       }
     };
 
@@ -68,18 +68,18 @@ export class EditingState extends React.PureComponent {
     this._changeRow = this._reduceChangedRows(changeRow);
     this._cancelChangedRows = this._reduceChangedRows(cancelChanges);
 
-    this._addNewRow = this._reduceNewRows(addNewRow);
-    this._changeNewRow = this._reduceNewRows(changeNewRow);
-    this._cancelNewRows = this._reduceNewRows(cancelNewRows);
+    this._addRow = this._reduceAddedRows(addRow);
+    this._changeAddedRow = this._reduceAddedRows(changeAddedRow);
+    this._cancelAddedRows = this._reduceAddedRows(cancelAddedRows);
 
     this._deleteRows = this._reduceDeletedRows(deleteRows);
     this._cancelDeletedRows = this._reduceDeletedRows(cancelDeletedRows);
 
-    this._commitNewRows = (newRows, { rowIds }) => {
+    this._commitAddedRows = (newRows, { rowIds }) => {
       const toCommit = newRowsByIds(newRows, rowIds);
       const changeSet = { created: toCommit };
       this._commitChanges(changeSet);
-      this._cancelNewRows(newRows, { rowIds });
+      this._cancelAddedRows(newRows, { rowIds });
     };
     this._commitChangedRows = (changedRows, { rowIds }) => {
       const toCommit = changedRowsByIds(changedRows, rowIds);
@@ -118,20 +118,20 @@ export class EditingState extends React.PureComponent {
         />
 
         <Action
-          name="addNewRow"
-          action={() => this._addNewRow(newRows, { row: {} })}
+          name="addRow"
+          action={() => this._addRow(newRows, { row: {} })}
         />
         <Action
-          name="changeNewRow"
-          action={({ rowId, change }) => this._changeNewRow(newRows, { rowId, change })}
+          name="changeAddedRow"
+          action={({ rowId, change }) => this._changeAddedRow(newRows, { rowId, change })}
         />
         <Action
-          name="cancelNewRows"
-          action={({ rowIds }) => this._cancelNewRows(newRows, { rowIds })}
+          name="cancelAddedRows"
+          action={({ rowIds }) => this._cancelAddedRows(newRows, { rowIds })}
         />
         <Action
-          name="commitNewRows"
-          action={({ rowIds }) => this._commitNewRows(newRows, { rowIds })}
+          name="commitAddedRows"
+          action={({ rowIds }) => this._commitAddedRows(newRows, { rowIds })}
         />
 
         <Action
@@ -172,19 +172,19 @@ export class EditingState extends React.PureComponent {
 EditingState.propTypes = {
   editingRows: PropTypes.array,
   defaultEditingRows: PropTypes.array,
-  editingRowsChange: PropTypes.func,
+  onEditingRowsChange: PropTypes.func,
 
   newRows: PropTypes.array,
-  defaultNewRows: PropTypes.array,
-  newRowsChange: PropTypes.func,
+  defaultAddedRows: PropTypes.array,
+  onAddedRowsChange: PropTypes.func,
 
   changedRows: PropTypes.object,
   defaultChangedRows: PropTypes.object,
-  changedRowsChange: PropTypes.func,
+  onChangedRowsChange: PropTypes.func,
 
   deletedRows: PropTypes.array,
   defaultDeletedRows: PropTypes.array,
-  deletedRowsChange: PropTypes.func,
+  onDeletedRowsChange: PropTypes.func,
 
   onCommitChanges: PropTypes.func.isRequired,
 };
@@ -192,17 +192,17 @@ EditingState.propTypes = {
 EditingState.defaultProps = {
   editingRows: undefined,
   defaultEditingRows: undefined,
-  editingRowsChange: undefined,
+  onEditingRowsChange: undefined,
 
   newRows: undefined,
-  defaultNewRows: undefined,
-  newRowsChange: undefined,
+  defaultAddedRows: undefined,
+  onAddedRowsChange: undefined,
 
   deletedRows: undefined,
   defaultDeletedRows: undefined,
-  deletedRowsChange: undefined,
+  onDeletedRowsChange: undefined,
 
   changedRows: undefined,
   defaultChangedRows: undefined,
-  changedRowsChange: undefined,
+  onChangedRowsChange: undefined,
 };

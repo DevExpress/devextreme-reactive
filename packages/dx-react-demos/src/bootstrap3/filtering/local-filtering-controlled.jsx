@@ -41,7 +41,7 @@ export class LocalFilteringControlledDemo extends React.PureComponent {
       >
         <FilteringState
           filters={this.state.filters}
-          filtersChange={this.changeFilters}
+          onFiltersChange={this.changeFilters}
         />
         <LocalFiltering />
         <TableView />

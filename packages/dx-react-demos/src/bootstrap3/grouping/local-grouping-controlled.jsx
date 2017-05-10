@@ -42,11 +42,11 @@ export class LocalGroupingControlledDemo extends React.PureComponent {
       >
         <GroupingState
           grouping={this.state.grouping}
-          groupingChange={this.changeGrouping}
+          onGroupingChange={this.changeGrouping}
         />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow groupingEnabled />
+        <TableHeaderRow allowGrouping />
         <TableGroupRow />
         <GroupingPanel />
       </DataGrid>

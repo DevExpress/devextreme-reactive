@@ -8,44 +8,44 @@ export class SortingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      sortings: props.defaultSortings || [],
+      sorting: props.defaultSorting || [],
     };
 
-    this._setColumnSorting = (sortings, { columnName, direction, keepOther }) => {
-      const { sortingsChange } = this.props;
-      const nextSortings = setColumnSorting(sortings, { columnName, direction, keepOther });
-      this.setState({ sortings: nextSortings });
-      if (sortingsChange) {
-        sortingsChange(nextSortings);
+    this._setColumnSorting = (sorting, { columnName, direction, keepOther }) => {
+      const { onSortingChange } = this.props;
+      const nextSorting = setColumnSorting(sorting, { columnName, direction, keepOther });
+      this.setState({ sorting: nextSorting });
+      if (onSortingChange) {
+        onSortingChange(nextSorting);
       }
     };
   }
   render() {
-    const sortings = this.props.sortings || this.state.sortings;
+    const sorting = this.props.sorting || this.state.sorting;
 
     return (
       <PluginContainer>
         <Action
           name="setColumnSorting"
           action={({ columnName, direction, keepOther }) => {
-            this._setColumnSorting(sortings, { columnName, direction, keepOther });
+            this._setColumnSorting(sorting, { columnName, direction, keepOther });
           }}
         />
 
-        <Getter name="sortings" value={sortings} />
+        <Getter name="sorting" value={sorting} />
       </PluginContainer>
     );
   }
 }
 
 SortingState.propTypes = {
-  sortings: PropTypes.array,
-  defaultSortings: PropTypes.array,
-  sortingsChange: PropTypes.func,
+  sorting: PropTypes.array,
+  defaultSorting: PropTypes.array,
+  onSortingChange: PropTypes.func,
 };
 
 SortingState.defaultProps = {
-  sortings: undefined,
-  defaultSortings: undefined,
-  sortingsChange: undefined,
+  sorting: undefined,
+  defaultSorting: undefined,
+  onSortingChange: undefined,
 };

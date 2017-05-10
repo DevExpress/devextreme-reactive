@@ -15,7 +15,7 @@ export class GroupingPanel extends React.PureComponent {
     ];
   }
   render() {
-    const { sortingEnabled, groupPanelTemplate, groupPanelCellTemplate } = this.props;
+    const { allowSorting, groupPanelTemplate, groupPanelCellTemplate } = this.props;
     const GroupPanel = groupPanelTemplate;
     const GroupPanelCell = groupPanelCellTemplate;
 
@@ -52,27 +52,27 @@ export class GroupingPanel extends React.PureComponent {
         <Template
           name="groupingPanelCell"
           connectGetters={(getter, { column }) => {
-            const sortings = getter('sortings');
+            const sorting = getter('sorting');
 
             const result = {
-              sortingSupported: !column.type && sortings !== undefined,
+              sortingSupported: !column.type && sorting !== undefined,
             };
 
             if (result.sortingSupported) {
-              result.sortDirection = getColumnSortingDirection(sortings, column.name);
+              result.sortingDirection = getColumnSortingDirection(sorting, column.name);
             }
 
             return result;
           }}
           connectActions={(action, { column }) => ({
             groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
-            changeSortDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
+            changeSortingDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
           })}
         >
           {({ sortingSupported, ...restParams }) => (
             <GroupPanelCell
               {...restParams}
-              sortingEnabled={sortingEnabled && sortingSupported}
+              allowSorting={allowSorting && sortingSupported}
             />
           )}
         </Template>
@@ -82,11 +82,11 @@ export class GroupingPanel extends React.PureComponent {
 }
 
 GroupingPanel.propTypes = {
-  sortingEnabled: PropTypes.bool,
+  allowSorting: PropTypes.bool,
   groupPanelTemplate: PropTypes.func.isRequired,
   groupPanelCellTemplate: PropTypes.func.isRequired,
 };
 
 GroupingPanel.defaultProps = {
-  sortingEnabled: false,
+  allowSorting: false,
 };

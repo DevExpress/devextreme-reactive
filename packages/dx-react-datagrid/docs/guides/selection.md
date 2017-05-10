@@ -20,7 +20,7 @@ The following example demonstrates the basic DataGrid selection setup:
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/selection/basic.jsx)
 
-As you can see, in this example we use controlled mode by specifying the `selection` and `selectionChange` options for the `SelectionState` plugin.
+As you can see, in this example we use controlled mode by specifying the `selection` and `onSelectionChange` options for the `SelectionState` plugin.
 
 ## Select by Row Click
 

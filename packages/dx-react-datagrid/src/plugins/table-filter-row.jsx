@@ -27,7 +27,7 @@ export class TableFilterRow extends React.PureComponent {
             filter: getColumnFilterConfig(getter('filters'), column.name),
           })}
           connectActions={(action, { column }) => ({
-            changeFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
+            setFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
           })}
         >
           {params => this.props.filterCellTemplate(params)}

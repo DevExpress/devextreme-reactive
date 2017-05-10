@@ -40,7 +40,7 @@ export class LocalGroupSortingDemo extends React.PureComponent {
         columns={columns}
       >
         <SortingState
-          defaultSortings={[
+          defaultSorting={[
             { column: 'city', direction: 'asc' },
             { column: 'name', direction: 'desc' },
           ]}
@@ -51,9 +51,9 @@ export class LocalGroupSortingDemo extends React.PureComponent {
         <LocalSorting />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow sortingEnabled />
+        <TableHeaderRow allowSorting />
         <TableGroupRow />
-        <GroupingPanel sortingEnabled />
+        <GroupingPanel allowSorting />
       </DataGrid>
     );
   }

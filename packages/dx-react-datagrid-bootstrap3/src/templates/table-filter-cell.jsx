@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableFilterCell = ({ style, column, filter, changeFilter }) => (
+export const TableFilterCell = ({ style, column, filter, setFilter }) => (
   <th
     style={{
       fontWeight: 'normal',
@@ -13,7 +13,7 @@ export const TableFilterCell = ({ style, column, filter, changeFilter }) => (
         type="text"
         className="form-control"
         value={filter ? filter.value : ''}
-        onChange={e => changeFilter({ value: e.target.value })}
+        onChange={e => setFilter({ value: e.target.value })}
       />
     )}
   </th>
@@ -23,12 +23,12 @@ TableFilterCell.propTypes = {
   column: PropTypes.shape(),
   style: PropTypes.shape(),
   filter: PropTypes.string,
-  changeFilter: PropTypes.func,
+  setFilter: PropTypes.func,
 };
 
 TableFilterCell.defaultProps = {
   column: {},
   style: null,
   filter: '',
-  changeFilter: () => {},
+  setFilter: () => {},
 };

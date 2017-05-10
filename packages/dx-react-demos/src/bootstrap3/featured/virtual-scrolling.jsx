@@ -53,7 +53,7 @@ export class VirtualScrollingDemo extends React.PureComponent {
           defaultFilters={[{ column: 'saleDate', value: 'Feb' }]}
         />
         <SortingState
-          defaultSortings={[
+          defaultSorting={[
             { column: 'product', direction: 'asc' },
             { column: 'saleDate', direction: 'asc' },
           ]}
@@ -84,11 +84,11 @@ export class VirtualScrollingDemo extends React.PureComponent {
           }}
         />
 
-        <TableHeaderRow sortingEnabled groupingEnabled />
+        <TableHeaderRow allowSorting allowGrouping />
         <TableFilterRow rowHeight={51} />
         <TableSelection />
         <TableGroupRow />
-        <GroupingPanel sortingEnabled />
+        <GroupingPanel allowSorting />
 
       </DataGrid>
     );

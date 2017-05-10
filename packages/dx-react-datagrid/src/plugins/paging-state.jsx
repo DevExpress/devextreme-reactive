@@ -12,11 +12,11 @@ export class PagingState extends React.PureComponent {
     };
 
     this._setCurrentPage = ({ page }) => {
-      const { currentPageChange } = this.props;
+      const { onCurrentPageChange } = this.props;
       const currentPage = setCurrentPage(this.state.currentPage, { page });
       this.setState({ currentPage });
-      if (currentPageChange) {
-        currentPageChange(currentPage);
+      if (onCurrentPageChange) {
+        onCurrentPageChange(currentPage);
       }
     };
   }
@@ -41,7 +41,7 @@ PagingState.propTypes = {
   totalCount: PropTypes.number,
   currentPage: PropTypes.number,
   defaultCurrentPage: PropTypes.number,
-  currentPageChange: PropTypes.func,
+  onCurrentPageChange: PropTypes.func,
 };
 
 PagingState.defaultProps = {
@@ -49,5 +49,5 @@ PagingState.defaultProps = {
   totalCount: undefined,
   currentPage: undefined,
   defaultCurrentPage: undefined,
-  currentPageChange: undefined,
+  onCurrentPageChange: undefined,
 };

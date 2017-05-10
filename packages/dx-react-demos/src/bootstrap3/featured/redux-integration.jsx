@@ -32,18 +32,18 @@ const GridContainer = (props) => {
     rows,
     columns,
 
-    sortings,
-    sortingsChange,
+    sorting,
+    onSortingChange,
     selection,
-    selectionChange,
+    onSelectionChange,
     grouping,
-    groupingChange,
+    onGroupingChange,
     expandedGroups,
-    expandedGroupsChange,
+    onExpandedGroupsChange,
     filters,
-    filtersChange,
+    onFiltersChange,
     currentPage,
-    currentPageChange,
+    onCurrentPageChange,
   } = props;
 
   return (
@@ -54,21 +54,21 @@ const GridContainer = (props) => {
 
       <FilteringState
         filters={filters}
-        filtersChange={filtersChange}
+        onFiltersChange={onFiltersChange}
       />
       <SortingState
-        sortings={sortings}
-        sortingsChange={sortingsChange}
+        sorting={sorting}
+        onSortingChange={onSortingChange}
       />
       <GroupingState
         grouping={grouping}
-        groupingChange={groupingChange}
+        onGroupingChange={onGroupingChange}
         expandedGroups={expandedGroups}
-        expandedGroupsChange={expandedGroupsChange}
+        onExpandedGroupsChange={onExpandedGroupsChange}
       />
       <PagingState
         currentPage={currentPage}
-        currentPageChange={currentPageChange}
+        onCurrentPageChange={onCurrentPageChange}
         pageSize={10}
       />
 
@@ -79,7 +79,7 @@ const GridContainer = (props) => {
 
       <SelectionState
         selection={selection}
-        selectionChange={selectionChange}
+        onSelectionChange={onSelectionChange}
       />
 
       <TableView
@@ -97,12 +97,12 @@ const GridContainer = (props) => {
         }}
       />
 
-      <TableHeaderRow sortingEnabled groupingEnabled />
+      <TableHeaderRow allowSorting allowGrouping />
       <TableFilterRow />
       <PagingPanel />
       <TableSelection />
       <TableGroupRow />
-      <GroupingPanel sortingEnabled />
+      <GroupingPanel allowSorting />
 
     </DataGrid>
   );
@@ -110,18 +110,18 @@ const GridContainer = (props) => {
 GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  sortings: PropTypes.array.isRequired,
-  sortingsChange: PropTypes.func.isRequired,
+  sorting: PropTypes.array.isRequired,
+  onSortingChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
-  selectionChange: PropTypes.func.isRequired,
+  onSelectionChange: PropTypes.func.isRequired,
   grouping: PropTypes.array.isRequired,
-  groupingChange: PropTypes.func.isRequired,
+  onGroupingChange: PropTypes.func.isRequired,
   expandedGroups: PropTypes.array.isRequired,
-  expandedGroupsChange: PropTypes.func.isRequired,
+  onExpandedGroupsChange: PropTypes.func.isRequired,
   filters: PropTypes.array.isRequired,
-  filtersChange: PropTypes.func.isRequired,
+  onFiltersChange: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
-  currentPageChange: PropTypes.func.isRequired,
+  onCurrentPageChange: PropTypes.func.isRequired,
 };
 
 const gridInitialState = {
@@ -134,7 +134,7 @@ const gridInitialState = {
     { name: 'customer', title: 'Customer' },
   ],
   rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
-  sortings: [
+  sorting: [
     { column: 'product', direction: 'asc' },
     { column: 'saleDate', direction: 'asc' },
   ],
@@ -168,12 +168,12 @@ export const createGridAction = (partialStateName, partialStateValue) => ({
 const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
-  sortingsChange: sortings => dispatch(createGridAction('sortings', sortings)),
-  selectionChange: selection => dispatch(createGridAction('selection', selection)),
-  groupingChange: grouping => dispatch(createGridAction('grouping', grouping)),
-  expandedGroupsChange: expandedGroups => dispatch(createGridAction('expandedGroups', expandedGroups)),
-  filtersChange: filters => dispatch(createGridAction('filters', filters)),
-  currentPageChange: currentPage => dispatch(createGridAction('currentPage', currentPage)),
+  onSortingChange: sorting => dispatch(createGridAction('sorting', sorting)),
+  onSelectionChange: selection => dispatch(createGridAction('selection', selection)),
+  onGroupingChange: grouping => dispatch(createGridAction('grouping', grouping)),
+  onExpandedGroupsChange: expandedGroups => dispatch(createGridAction('expandedGroups', expandedGroups)),
+  onFiltersChange: filters => dispatch(createGridAction('filters', filters)),
+  onCurrentPageChange: currentPage => dispatch(createGridAction('currentPage', currentPage)),
 });
 
 const ReduxGridContainer = connect(mapStateToProps, mapDispatchToProps)(GridContainer);

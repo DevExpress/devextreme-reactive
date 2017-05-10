@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const CommandButton = ({ onCommand, text }) => (
+export const CommandButton = ({ executeCommand, text }) => (
   <button
     className="btn btn-link"
     onClick={(e) => {
-      onCommand();
+      executeCommand();
       e.stopPropagation();
     }}
   >
@@ -13,12 +13,12 @@ export const CommandButton = ({ onCommand, text }) => (
   </button>
 );
 CommandButton.propTypes = {
-  onCommand: PropTypes.func.isRequired,
+  executeCommand: PropTypes.func.isRequired,
   text: PropTypes.func.isRequired,
 };
 
 export const EditCommandHeadingCell = ({
-    onAddNewRow,
+    addRow,
     commandTemplate,
     allowCreating,
     style = {},
@@ -34,13 +34,13 @@ export const EditCommandHeadingCell = ({
     >
       {allowCreating && commandTemplate({
         id: 'create',
-        onCommand: onAddNewRow,
+        executeCommand: addRow,
         text: createCommandText,
       })}
     </th>
 );
 EditCommandHeadingCell.propTypes = {
-  onAddNewRow: PropTypes.func.isRequired,
+  addRow: PropTypes.func.isRequired,
   commandTemplate: PropTypes.func.isRequired,
   createCommandText: PropTypes.string.isRequired,
   allowCreating: PropTypes.bool.isRequired,
@@ -51,10 +51,10 @@ EditCommandHeadingCell.defaultProps = {
 };
 
 export const EditCommandCell = ({
-    onStartEditing,
-    onDelete,
-    onCancelEditing,
-    onCommitChanges,
+    startEditing,
+    deleteRow,
+    cancelEditing,
+    commitChanges,
     isEditing,
     commandTemplate,
     allowEditing,
@@ -70,14 +70,14 @@ export const EditCommandCell = ({
     if (allowEditing) {
       commands.push({
         id: 'edit',
-        onCommand: onStartEditing,
+        executeCommand: startEditing,
         text: editCommandText,
       });
     }
     if (allowDeleting) {
       commands.push({
         id: 'delete',
-        onCommand: onDelete,
+        executeCommand: deleteRow,
         text: deleteCommandText,
       });
     }
@@ -85,12 +85,12 @@ export const EditCommandCell = ({
     commands = [
       {
         id: 'commit',
-        onCommand: onCommitChanges,
+        executeCommand: commitChanges,
         text: commitCommandText,
       },
       {
         id: 'cancel',
-        onCommand: onCancelEditing,
+        executeCommand: cancelEditing,
         text: cancelCommandText,
       },
     ];
@@ -109,10 +109,10 @@ export const EditCommandCell = ({
   );
 };
 EditCommandCell.propTypes = {
-  onStartEditing: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onCancelEditing: PropTypes.func.isRequired,
-  onCommitChanges: PropTypes.func.isRequired,
+  startEditing: PropTypes.func.isRequired,
+  deleteRow: PropTypes.func.isRequired,
+  cancelEditing: PropTypes.func.isRequired,
+  commitChanges: PropTypes.func.isRequired,
   isEditing: PropTypes.bool.isRequired,
   allowEditing: PropTypes.bool.isRequired,
   allowDeleting: PropTypes.bool.isRequired,

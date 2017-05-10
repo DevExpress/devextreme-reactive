@@ -25,10 +25,10 @@ export class LocalSortingControlledDemo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 14 }),
-      sortings: [{ column: 'city', direction: 'asc' }],
+      sorting: [{ column: 'city', direction: 'asc' }],
     };
 
-    this.changeSortings = sortings => this.setState({ sortings });
+    this.changeSorting = sorting => this.setState({ sorting });
   }
   render() {
     const { rows, columns } = this.state;
@@ -39,12 +39,12 @@ export class LocalSortingControlledDemo extends React.PureComponent {
         columns={columns}
       >
         <SortingState
-          sortings={this.state.sortings}
-          sortingsChange={this.changeSortings}
+          sorting={this.state.sorting}
+          onSortingChange={this.changeSorting}
         />
         <LocalSorting />
         <TableView />
-        <TableHeaderRow sortingEnabled />
+        <TableHeaderRow allowSorting />
       </DataGrid>
     );
   }

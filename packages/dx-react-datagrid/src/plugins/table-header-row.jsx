@@ -11,7 +11,7 @@ export class TableHeaderRow extends React.PureComponent {
       [{ type: 'heading' }, ...tableHeaderRows];
   }
   render() {
-    const { sortingEnabled, groupingEnabled, headerCellTemplate } = this.props;
+    const { allowSorting, allowGrouping, headerCellTemplate } = this.props;
     const HeaderCell = headerCellTemplate;
 
     return (
@@ -27,34 +27,34 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableViewCell"
           predicate={({ row }) => row.type === 'heading'}
           connectGetters={(getter, { column }) => {
-            const sortings = getter('sortings');
+            const sorting = getter('sorting');
             const columns = getter('columns');
             const grouping = getter('grouping');
 
             const result = {
               sortingSupported: !column.type &&
-                sortings !== undefined,
+                sorting !== undefined,
               groupingSupported: !column.type &&
                 grouping !== undefined &&
                 grouping.length < columns.length - 1,
             };
 
             if (result.sortingSupported) {
-              result.sortDirection = getColumnSortingDirection(sortings, column.name);
+              result.sortingDirection = getColumnSortingDirection(sorting, column.name);
             }
 
             return result;
           }}
           connectActions={(action, { column }) => ({
-            changeSortDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
+            changeSortingDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
             groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
           })}
         >
           {({ sortingSupported, groupingSupported, ...restParams }) => (
             <HeaderCell
               {...restParams}
-              sortingEnabled={sortingEnabled && sortingSupported}
-              groupingEnabled={groupingEnabled && groupingSupported}
+              allowSorting={allowSorting && sortingSupported}
+              allowGrouping={allowGrouping && groupingSupported}
             />
           )}
         </Template>
@@ -64,12 +64,12 @@ export class TableHeaderRow extends React.PureComponent {
 }
 
 TableHeaderRow.defaultProps = {
-  sortingEnabled: false,
-  groupingEnabled: false,
+  allowSorting: false,
+  allowGrouping: false,
 };
 
 TableHeaderRow.propTypes = {
-  sortingEnabled: PropTypes.bool,
-  groupingEnabled: PropTypes.bool,
+  allowSorting: PropTypes.bool,
+  allowGrouping: PropTypes.bool,
   headerCellTemplate: PropTypes.func.isRequired,
 };

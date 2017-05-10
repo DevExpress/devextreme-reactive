@@ -12,10 +12,10 @@ export class SelectionState extends React.PureComponent {
     };
 
     this.changeSelection = (selection) => {
-      const { selectionChange } = this.props;
+      const { onSelectionChange } = this.props;
       this.setState({ selection });
-      if (selectionChange) {
-        selectionChange(selection);
+      if (onSelectionChange) {
+        onSelectionChange(selection);
       }
     };
   }
@@ -60,11 +60,11 @@ export class SelectionState extends React.PureComponent {
 SelectionState.propTypes = {
   selection: PropTypes.array,
   defaultSelection: PropTypes.array,
-  selectionChange: PropTypes.func,
+  onSelectionChange: PropTypes.func,
 };
 
 SelectionState.defaultProps = {
   selection: undefined,
   defaultSelection: undefined,
-  selectionChange: undefined,
+  onSelectionChange: undefined,
 };

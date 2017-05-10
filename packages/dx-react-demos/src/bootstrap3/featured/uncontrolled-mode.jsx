@@ -49,7 +49,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
           defaultFilters={[{ column: 'saleDate', value: 'Feb' }]}
         />
         <SortingState
-          defaultSortings={[
+          defaultSorting={[
             { column: 'product', direction: 'asc' },
             { column: 'saleDate', direction: 'asc' },
           ]}
@@ -87,12 +87,12 @@ export class UncontrolledModeDemo extends React.PureComponent {
           }}
         />
 
-        <TableHeaderRow sortingEnabled groupingEnabled />
+        <TableHeaderRow allowSorting allowGrouping />
         <TableFilterRow />
         <PagingPanel />
         <TableSelection />
         <TableGroupRow />
-        <GroupingPanel sortingEnabled />
+        <GroupingPanel allowSorting />
 
       </DataGrid>
     );

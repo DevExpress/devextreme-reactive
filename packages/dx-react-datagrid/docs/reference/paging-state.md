@@ -13,10 +13,10 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 pageSize | number | | Specifies the page size
-currentPage | number | | Specifies the current page number
 totalCount | number | | Specifies the total rows count
+currentPage | number | | Specifies the current page number
 defaultCurrentPage | number | | Specifies the initial current page for the uncontrolled mode
-currentPageChange | (currentPage: number) => void | | Handles current page changes
+onCurrentPageChange | (currentPage: number) => void | | Handles current page changes
 
 ## Plugin Developer Reference
 

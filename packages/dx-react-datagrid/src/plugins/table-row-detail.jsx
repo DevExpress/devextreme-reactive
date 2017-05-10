@@ -8,23 +8,23 @@ export class TableRowDetail extends React.PureComponent {
     super(props);
 
     this.state = {
-      expandedDetails: props.defaultExpandedDetails || [],
+      expandedRows: props.defaultExpandedRows || [],
     };
 
     this._setDetailRowExpanded = ({ rowId }) => {
-      const prevExpandedDetails = this.props.expandedDetails || this.state.expandedDetails;
-      const expandedDetails = setDetailRowExpanded(prevExpandedDetails, { rowId });
-      const { expandedDetailsChange } = this.props;
-      this.setState({ expandedDetails });
-      if (expandedDetailsChange) {
-        expandedDetailsChange(expandedDetails);
+      const prevExpandedDetails = this.props.expandedRows || this.state.expandedRows;
+      const expandedRows = setDetailRowExpanded(prevExpandedDetails, { rowId });
+      const { onExpandedRowsChange } = this.props;
+      this.setState({ expandedRows });
+      if (onExpandedRowsChange) {
+        onExpandedRowsChange(expandedRows);
       }
     };
 
     this._tableColumns = tableColumns => [{ type: 'detail', width: 25 }, ...tableColumns];
   }
   render() {
-    const expandedDetails = this.props.expandedDetails || this.state.expandedDetails;
+    const expandedRows = this.props.expandedRows || this.state.expandedRows;
     const { rowHeight, template, detailToggleTemplate } = this.props;
 
     return (
@@ -45,7 +45,7 @@ export class TableRowDetail extends React.PureComponent {
         >
           {({ row, getRowId, ...restParams }) => detailToggleTemplate({
             ...restParams,
-            expanded: isDetailRowExpanded(expandedDetails, getRowId(row)),
+            expanded: isDetailRowExpanded(expandedRows, getRowId(row)),
             toggleExpanded: () => this._setDetailRowExpanded({ rowId: getRowId(row) }),
           })}
         </Template>
@@ -55,7 +55,7 @@ export class TableRowDetail extends React.PureComponent {
           pureComputed={expandedDetailRows}
           connectArgs={getter => [
             getter('tableBodyRows'),
-            expandedDetails,
+            expandedRows,
             getter('getRowId'),
             rowHeight,
           ]}
@@ -69,9 +69,9 @@ export class TableRowDetail extends React.PureComponent {
 }
 
 TableRowDetail.propTypes = {
-  expandedDetails: PropTypes.array,
-  defaultExpandedDetails: PropTypes.array,
-  expandedDetailsChange: PropTypes.func,
+  expandedRows: PropTypes.array,
+  defaultExpandedRows: PropTypes.array,
+  onExpandedRowsChange: PropTypes.func,
   template: PropTypes.func.isRequired,
   detailToggleTemplate: PropTypes.func.isRequired,
   rowHeight: PropTypes.oneOfType([
@@ -81,8 +81,8 @@ TableRowDetail.propTypes = {
 };
 
 TableRowDetail.defaultProps = {
-  expandedDetails: undefined,
-  defaultExpandedDetails: undefined,
-  expandedDetailsChange: undefined,
+  expandedRows: undefined,
+  defaultExpandedRows: undefined,
+  onExpandedRowsChange: undefined,
   rowHeight: 'auto',
 };

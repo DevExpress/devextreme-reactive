@@ -26,11 +26,11 @@ export class RemoteSortingDemo extends React.PureComponent {
         { name: 'SaleAmount', title: 'Sale Amount' },
       ],
       rows: [],
-      sortings: [{ column: 'StoreCity', direction: 'asc' }],
+      sorting: [{ column: 'StoreCity', direction: 'asc' }],
       loading: true,
     };
 
-    this.sortingsChange = this.sortingsChange.bind(this);
+    this.changeSorting = this.changeSorting.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -38,19 +38,19 @@ export class RemoteSortingDemo extends React.PureComponent {
   componentDidUpdate() {
     this.loadData();
   }
-  sortingsChange(sortings) {
+  changeSorting(sorting) {
     this.setState({
       loading: true,
-      sortings,
+      sorting,
     });
   }
   queryString() {
     let queryString = `${URL}?`;
 
-    const sorting = this.state.sortings[0];
-    if (sorting) {
-      const sortDirectionString = sorting.direction === 'desc' ? ' desc' : '';
-      queryString = `${queryString}orderby=${sorting.column}${sortDirectionString}`;
+    const columnSorting = this.state.sorting[0];
+    if (columnSorting) {
+      const sortDirectionString = columnSorting.direction === 'desc' ? ' desc' : '';
+      queryString = `${queryString}orderby=${columnSorting.column}${sortDirectionString}`;
     }
     return queryString;
   }
@@ -71,7 +71,7 @@ export class RemoteSortingDemo extends React.PureComponent {
     this.lastQuery = queryString;
   }
   render() {
-    const { rows, columns, sortings, loading } = this.state;
+    const { rows, columns, sorting, loading } = this.state;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -80,11 +80,11 @@ export class RemoteSortingDemo extends React.PureComponent {
           columns={columns}
         >
           <SortingState
-            sortings={sortings}
-            sortingsChange={this.sortingsChange}
+            sorting={sorting}
+            onSortingChange={this.changeSorting}
           />
           <VirtualTableView />
-          <TableHeaderRow sortingEnabled />
+          <TableHeaderRow allowSorting />
         </DataGrid>
         {loading && <Loading />}
       </div>

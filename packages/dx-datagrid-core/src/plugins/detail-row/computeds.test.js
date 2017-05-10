@@ -6,10 +6,10 @@ describe('DetailRow computeds', () => {
   describe('#expandedDetailRows', () => {
     test('can expand one row', () => {
       const rows = [{ id: 1 }, { id: 2 }];
-      const expandedDetails = [2];
+      const expandedRows = [2];
 
-      const expandedRows = expandedDetailRows(rows, expandedDetails, row => row.id, 'auto');
-      expect(expandedRows).toEqual([
+      const rowsWithDetails = expandedDetailRows(rows, expandedRows, row => row.id, 'auto');
+      expect(rowsWithDetails).toEqual([
         { id: 1 },
         { id: 2 },
         {
@@ -24,10 +24,10 @@ describe('DetailRow computeds', () => {
 
     test('can expand several rows', () => {
       const rows = [{ id: 1 }, { id: 2 }];
-      const expandedDetails = [1, 2];
+      const expandedRows = [1, 2];
 
-      const expandedRows = expandedDetailRows(rows, expandedDetails, row => row.id, 'auto');
-      expect(expandedRows).toEqual([
+      const rowsWithDetails = expandedDetailRows(rows, expandedRows, row => row.id, 'auto');
+      expect(rowsWithDetails).toEqual([
         { id: 1 },
         {
           type: 'detailRow',

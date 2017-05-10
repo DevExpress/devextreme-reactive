@@ -34,7 +34,7 @@ export class ControlledModeDemo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 10000 }),
-      sortings: [
+      sorting: [
         { column: 'product', direction: 'asc' },
         { column: 'saleDate', direction: 'asc' },
       ],
@@ -45,7 +45,7 @@ export class ControlledModeDemo extends React.PureComponent {
       currentPage: 0,
     };
 
-    this.changeSortings = sortings => this.setState({ sortings });
+    this.changeSorting = sorting => this.setState({ sorting });
     this.changeGrouping = grouping => this.setState({ grouping });
     this.changeExpandedGroups = expandedGroups => this.setState({ expandedGroups });
     this.changeSelection = selection => this.setState({ selection });
@@ -56,7 +56,7 @@ export class ControlledModeDemo extends React.PureComponent {
     const {
       rows,
       columns,
-      sortings,
+      sorting,
       grouping,
       expandedGroups,
       selection,
@@ -72,21 +72,21 @@ export class ControlledModeDemo extends React.PureComponent {
 
         <FilteringState
           filters={filters}
-          filtersChange={this.changeFilters}
+          onFiltersChange={this.changeFilters}
         />
         <SortingState
-          sortings={sortings}
-          sortingsChange={this.changeSortings}
+          sorting={sorting}
+          onSortingChange={this.changeSorting}
         />
         <GroupingState
           grouping={grouping}
-          groupingChange={this.changeGrouping}
+          onGroupingChange={this.changeGrouping}
           expandedGroups={expandedGroups}
-          expandedGroupsChange={this.changeExpandedGroups}
+          onExpandedGroupsChange={this.changeExpandedGroups}
         />
         <PagingState
           currentPage={currentPage}
-          currentPageChange={this.changeCurrentPage}
+          onCurrentPageChange={this.changeCurrentPage}
           pageSize={10}
         />
 
@@ -97,7 +97,7 @@ export class ControlledModeDemo extends React.PureComponent {
 
         <SelectionState
           selection={selection}
-          selectionChange={this.changeSelection}
+          onSelectionChange={this.changeSelection}
         />
 
         <TableView
@@ -115,12 +115,12 @@ export class ControlledModeDemo extends React.PureComponent {
           }}
         />
 
-        <TableHeaderRow sortingEnabled groupingEnabled />
+        <TableHeaderRow allowSorting allowGrouping />
         <TableFilterRow />
         <PagingPanel />
         <TableSelection />
         <TableGroupRow />
-        <GroupingPanel sortingEnabled />
+        <GroupingPanel allowSorting />
 
       </DataGrid>
     );

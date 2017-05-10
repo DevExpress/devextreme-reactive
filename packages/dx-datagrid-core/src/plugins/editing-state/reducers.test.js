@@ -2,8 +2,8 @@ import {
     startEditRows,
     stopEditRows,
     addRow,
-    changeNewRow,
-    cancelNewRows,
+    changeAddedRow,
+    cancelAddedRows,
     changeRow,
     cancelChanges,
     deleteRows,
@@ -34,26 +34,26 @@ describe('EditingState reducers', () => {
       const newRows = [{ a: 1 }];
       const payload = { row: { a: 2 } };
 
-      const nextNewRows = addRow(newRows, payload);
-      expect(nextNewRows).toEqual([{ a: 2 }, { a: 1 }]);
+      const nextAddedRows = addRow(newRows, payload);
+      expect(nextAddedRows).toEqual([{ a: 2 }, { a: 1 }]);
     });
   });
-  describe('#changeNewRow', () => {
+  describe('#changeAddedRow', () => {
     test('should work', () => {
       const newRows = [{ a: 1 }, { a: 2 }];
       const payload = { rowId: 0, change: { a: 3 } };
 
-      const nextNewRows = changeNewRow(newRows, payload);
-      expect(nextNewRows).toEqual([{ a: 3 }, { a: 2 }]);
+      const nextAddedRows = changeAddedRow(newRows, payload);
+      expect(nextAddedRows).toEqual([{ a: 3 }, { a: 2 }]);
     });
   });
-  describe('#cancelNewRows', () => {
+  describe('#cancelAddedRows', () => {
     test('should work', () => {
       const newRows = [{ a: 1 }, { a: 2 }];
       const payload = { rowIds: [0] };
 
-      const nextNewRows = cancelNewRows(newRows, payload);
-      expect(nextNewRows).toEqual([{ a: 2 }]);
+      const nextAddedRows = cancelAddedRows(newRows, payload);
+      expect(nextAddedRows).toEqual([{ a: 2 }]);
     });
   });
   describe('#changeRow', () => {

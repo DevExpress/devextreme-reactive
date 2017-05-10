@@ -81,19 +81,19 @@ export class TableEditColumn extends React.PureComponent {
             row: row._originalRow,
           })}
           connectActions={action => ({
-            cancelNewRows: ({ rowIds }) => action('cancelNewRows')({ rowIds }),
-            commitNewRows: ({ rowIds }) => action('commitNewRows')({ rowIds }),
+            cancelAddedRows: ({ rowIds }) => action('cancelAddedRows')({ rowIds }),
+            commitAddedRows: ({ rowIds }) => action('commitAddedRows')({ rowIds }),
           })}
         >
-          {({ rowId, row, column, cancelNewRows, commitNewRows, style }) =>
+          {({ rowId, row, column, cancelAddedRows, commitAddedRows, style }) =>
             cellTemplate({
               row,
               column,
               cancelEditing: () => {
-                cancelNewRows({ rowIds: [rowId] });
+                cancelAddedRows({ rowIds: [rowId] });
               },
               commitChanges: () => {
-                commitNewRows({ rowIds: [rowId] });
+                commitAddedRows({ rowIds: [rowId] });
               },
               isEditing: true,
               commandTemplate,

@@ -8,13 +8,13 @@ export const stopEditRows = (prevEditingRows, { rowIds }) => {
 
 export const addRow = (newRows, { row }) => [row, ...newRows];
 
-export const changeNewRow = (newRows, { rowId, change }) => {
+export const changeAddedRow = (newRows, { rowId, change }) => {
   const result = newRows.slice();
   result[rowId] = Object.assign({}, result[rowId], change);
   return result;
 };
 
-export const cancelNewRows = (newRows, { rowIds }) => {
+export const cancelAddedRows = (newRows, { rowIds }) => {
   const result = [];
   const indexSet = new Set(rowIds);
   newRows.forEach((row, index) => {

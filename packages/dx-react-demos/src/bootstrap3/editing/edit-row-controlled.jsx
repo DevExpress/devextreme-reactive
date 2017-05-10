@@ -39,7 +39,7 @@ export class EditRowControlledDemo extends React.PureComponent {
 
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeChangedRows = changedRows => this.setState({ changedRows });
-    this.changeNewRows = (newRows) => {
+    this.changeAddedRows = (newRows) => {
       const initialized = newRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
       this.setState({ newRows: initialized });
     };
@@ -89,7 +89,7 @@ export class EditRowControlledDemo extends React.PureComponent {
           changedRows={this.state.changedRows}
           onChangedRowsChange={this.changeChangedRows}
           newRows={this.state.newRows}
-          onNewRowsChange={this.changeNewRows}
+          onAddedRowsChange={this.changeAddedRows}
           onCommitChanges={this.commitChanges}
         />
         <TableView />

@@ -65,15 +65,15 @@ export class TableEditRow extends React.PureComponent {
             };
           }}
           connectActions={action => ({
-            changeNewRow: ({ rowId, change }) => action('changeNewRow')({ rowId, change }),
+            changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),
           })}
         >
-          {({ row, rowId, column, value, changeNewRow }) =>
+          {({ row, rowId, column, value, changeAddedRow }) =>
             editCellTemplate({
               row,
               column,
               value,
-              onValueChange: newValue => changeNewRow({
+              onValueChange: newValue => changeAddedRow({
                 rowId,
                 change: {
                   [column.name]: newValue,

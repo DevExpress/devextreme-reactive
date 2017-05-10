@@ -30,6 +30,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+selectionAvailable | boolean | True if at least one row can be seleced
 allSelected | boolean | True if all the rows available to select are selected
 someSelected | boolean | True if at least one but not all rows available to select are selected
 toggleAll | () => void | Selects or deselects all rows

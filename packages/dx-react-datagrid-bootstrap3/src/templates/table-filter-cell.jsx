@@ -11,10 +11,9 @@ export const TableFilterCell = ({ style, column, filter, setFilter }) => (
     {!column.type && (
       <input
         type="text"
-        className="form-control input-sm"
-        value={filter}
-        onChange={e => setFilter(e.target.value)}
-        style={{ width: '100%' }}
+        className="form-control"
+        value={filter ? filter.value : ''}
+        onChange={e => setFilter({ value: e.target.value })}
       />
     )}
   </th>

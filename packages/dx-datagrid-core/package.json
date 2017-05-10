@@ -23,8 +23,9 @@
     "data-grid"
   ],
   "license": "https://js.devexpress.com/Licensing/",
-  "main": "dist/dx-datagrid-core.cjs.js",
+  "main": "dist/dx-datagrid-core.umd.js",
   "module": "dist/dx-datagrid-core.es.js",
+  "globalName": "DevExpress.DXDataGridCore",
   "files": [
     "dist"
   ],

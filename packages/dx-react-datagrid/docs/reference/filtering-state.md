@@ -27,7 +27,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 column | string | Specifies a column name to which a filter is applied
-value | string | Specifies a value by which rows are filtered
+value? | string | Specifies a value by which rows are filtered
 
 ## Plugin Developer Reference
 
@@ -40,4 +40,4 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 filters | Getter | () => Array&lt;[Filter](#filter)&gt; | Applied column filters
-setColumnFilter | Action | ({ columnName: string, value: string }) => void | Changes a column filter
+setColumnFilter | Action | ({ columnName: string, config: object }) => void | Changes a column filter. Removes the filter if config is `null`

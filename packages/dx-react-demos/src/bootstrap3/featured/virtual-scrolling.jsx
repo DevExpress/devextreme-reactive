@@ -85,7 +85,7 @@ export class VirtualScrollingDemo extends React.PureComponent {
         />
 
         <TableHeaderRow sortingEnabled groupingEnabled />
-        <TableFilterRow />
+        <TableFilterRow rowHeight={51} />
         <TableSelection />
         <TableGroupRow />
         <GroupingPanel sortingEnabled />

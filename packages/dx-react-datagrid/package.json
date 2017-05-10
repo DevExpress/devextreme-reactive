@@ -26,8 +26,9 @@
     "data-grid"
   ],
   "license": "https://js.devexpress.com/Licensing/",
-  "main": "dist/dx-react-datagrid.cjs.js",
+  "main": "dist/dx-react-datagrid.umd.js",
   "module": "dist/dx-react-datagrid.es.js",
+  "globalName": "DevExpress.DXReactDataGrid",
   "files": [
     "dist"
   ],

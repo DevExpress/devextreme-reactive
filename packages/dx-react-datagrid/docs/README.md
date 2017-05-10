@@ -59,6 +59,10 @@ const App = () => (
 );
 ```
 
+### Try Out DataGrid for React
+
+If you are interested in playing around with DataGrid for React, you can use Plunker. You don't need to install anything. Try to start from [this basic example](http://plnkr.co/edit/Hf3ez8?p=preview).
+
 ## Plugin Overview
 
 All the DataGrid functionality is provided by plugins. We can divide all the plugins into four logical groups:

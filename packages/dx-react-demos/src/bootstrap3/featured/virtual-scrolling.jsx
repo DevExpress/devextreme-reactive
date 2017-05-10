@@ -84,11 +84,11 @@ export class VirtualScrollingDemo extends React.PureComponent {
           }}
         />
 
-        <TableHeaderRow sortingEnabled groupingEnabled />
+        <TableHeaderRow allowSorting allowGrouping />
         <TableFilterRow rowHeight={51} />
         <TableSelection />
         <TableGroupRow />
-        <GroupingPanel sortingEnabled />
+        <GroupingPanel allowSorting />
 
       </DataGrid>
     );

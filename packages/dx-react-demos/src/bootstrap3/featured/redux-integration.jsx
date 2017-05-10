@@ -97,12 +97,12 @@ const GridContainer = (props) => {
         }}
       />
 
-      <TableHeaderRow sortingEnabled groupingEnabled />
+      <TableHeaderRow allowSorting allowGrouping />
       <TableFilterRow />
       <PagingPanel />
       <TableSelection />
       <TableGroupRow />
-      <GroupingPanel sortingEnabled />
+      <GroupingPanel allowSorting />
 
     </DataGrid>
   );

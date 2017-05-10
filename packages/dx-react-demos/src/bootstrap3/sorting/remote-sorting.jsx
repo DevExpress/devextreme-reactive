@@ -84,7 +84,7 @@ export class RemoteSortingDemo extends React.PureComponent {
             onSortingChange={this.changeSorting}
           />
           <VirtualTableView />
-          <TableHeaderRow sortingEnabled />
+          <TableHeaderRow allowSorting />
         </DataGrid>
         {loading && <Loading />}
       </div>

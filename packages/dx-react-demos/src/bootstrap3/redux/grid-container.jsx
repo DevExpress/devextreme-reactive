@@ -69,7 +69,7 @@ const GridContainer = (props) => {
 
         <TableView />
 
-        <TableHeaderRow sortingEnabled />
+        <TableHeaderRow allowSorting />
 
         <TableFilterRow />
 

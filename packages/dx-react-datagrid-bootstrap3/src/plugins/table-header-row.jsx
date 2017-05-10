@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-datagrid';
 import { TableHeaderCell } from '../templates/table-header-cell';
 
-export const TableHeaderRow = ({ sortingEnabled, groupingEnabled }) => (
+export const TableHeaderRow = ({ allowSorting, allowGrouping }) => (
   <TableHeaderRowBase
     headerCellTemplate={TableHeaderCell}
-    sortingEnabled={sortingEnabled}
-    groupingEnabled={groupingEnabled}
+    allowSorting={allowSorting}
+    allowGrouping={allowGrouping}
   />
 );
 
 TableHeaderRow.defaultProps = {
-  sortingEnabled: false,
-  groupingEnabled: false,
+  allowSorting: false,
+  allowGrouping: false,
 };
 
 TableHeaderRow.propTypes = {
-  sortingEnabled: PropTypes.bool,
-  groupingEnabled: PropTypes.bool,
+  allowSorting: PropTypes.bool,
+  allowGrouping: PropTypes.bool,
 };

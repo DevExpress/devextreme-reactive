@@ -44,7 +44,7 @@ export class LocalSortingControlledDemo extends React.PureComponent {
         />
         <LocalSorting />
         <TableView />
-        <TableHeaderRow sortingEnabled />
+        <TableHeaderRow allowSorting />
       </DataGrid>
     );
   }

@@ -5,13 +5,13 @@ import { SortingIndicator } from './parts/sorting-indicator';
 
 export const TableHeaderCell = ({
   style, column,
-  sortingEnabled, sortingDirection, changeSortingDirection,
-  groupingEnabled, groupByColumn,
+  allowSorting, sortingDirection, changeSortingDirection,
+  allowGrouping, groupByColumn,
 }) => {
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
 
-  const gropingControl = groupingEnabled && (
+  const gropingControl = allowGrouping && (
     <div
       onClick={(e) => {
         e.stopPropagation();
@@ -35,7 +35,7 @@ export const TableHeaderCell = ({
     </div>
   );
 
-  const sortingControl = sortingEnabled && (
+  const sortingControl = allowSorting && (
     align === 'right' ? (
       <span
         className={sortingDirection ? 'text-primary' : ''}
@@ -67,11 +67,11 @@ export const TableHeaderCell = ({
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
-        cursor: sortingEnabled && !column.type && 'pointer',
+        cursor: allowSorting && !column.type && 'pointer',
         ...style,
       }}
       onClick={(e) => {
-        if (!sortingEnabled) return;
+        if (!allowSorting) return;
         e.stopPropagation();
         changeSortingDirection({ keepOther: e.shiftKey });
       }}
@@ -86,7 +86,7 @@ export const TableHeaderCell = ({
           textOverflow: 'ellipsis',
         }}
       >
-        {sortingEnabled ? sortingControl : (
+        {allowSorting ? sortingControl : (
           column.title
         )}
       </div>
@@ -95,10 +95,10 @@ export const TableHeaderCell = ({
 };
 TableHeaderCell.defaultProps = {
   style: null,
-  sortingEnabled: false,
+  allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
-  groupingEnabled: false,
+  allowGrouping: false,
   groupByColumn: undefined,
 };
 TableHeaderCell.propTypes = {
@@ -106,9 +106,9 @@ TableHeaderCell.propTypes = {
     title: PropTypes.string,
   }).isRequired,
   style: PropTypes.shape(),
-  sortingEnabled: PropTypes.bool,
+  allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
-  groupingEnabled: PropTypes.bool,
+  allowGrouping: PropTypes.bool,
   groupByColumn: PropTypes.func,
 };

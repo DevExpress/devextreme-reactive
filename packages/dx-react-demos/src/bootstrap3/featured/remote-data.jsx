@@ -125,7 +125,7 @@ export class RemoteDataDemo extends React.PureComponent {
               </td>
             )}
           />
-          <TableHeaderRow sortingEnabled />
+          <TableHeaderRow allowSorting />
           <PagingPanel />
         </DataGrid>
         {loading && <Loading />}

@@ -61,7 +61,7 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
 
         <VirtualTableView />
 
-        <TableHeaderRow sortingEnabled />
+        <TableHeaderRow allowSorting />
 
         <TableFilterRow rowHeight={51} />
 

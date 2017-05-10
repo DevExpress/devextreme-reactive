@@ -6,7 +6,7 @@ import { SortingIndicator } from './parts/sorting-indicator';
 export const GroupPanelCell = ({
   column,
   groupByColumn,
-  sortingEnabled, sortingDirection, changeSortingDirection,
+  allowSorting, sortingDirection, changeSortingDirection,
 }) => (
   <button
     type="button"
@@ -17,12 +17,12 @@ export const GroupPanelCell = ({
   >
     <span
       onClick={(e) => {
-        if (!sortingEnabled) return;
+        if (!allowSorting) return;
         changeSortingDirection({ keepOther: e.shiftKey });
       }}
     >
       {column.title}
-      {sortingEnabled && sortingDirection && (
+      {allowSorting && sortingDirection && (
         <span>
           &nbsp;
           <SortingIndicator
@@ -46,10 +46,10 @@ export const GroupPanelCell = ({
 );
 
 GroupPanelCell.defaultProps = {
-  sortingEnabled: false,
+  allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
-  groupingEnabled: false,
+  allowGrouping: false,
   groupByColumn: undefined,
 };
 
@@ -57,7 +57,7 @@ GroupPanelCell.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
-  sortingEnabled: PropTypes.bool,
+  allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
   groupByColumn: PropTypes.func,

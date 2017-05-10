@@ -127,8 +127,7 @@ export class ControlledModeDemo extends React.PureComponent {
         length: 200,
       }),
       sortings: [
-        { column: 'product', direction: 'asc' },
-        { column: 'saleDate', direction: 'asc' },
+        { column: 'saleDate', direction: 'desc' },
       ],
       editingRows: [],
       newRows: [],

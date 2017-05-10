@@ -14,7 +14,7 @@ const gridInitialState = {
   rows: generateRows({ length: 105 }),
   sortings: [{ column: 'id', direction: 'asc' }],
   selection: [1, 3, 18],
-  expandedDetails: [3],
+  expandedRows: [3],
   filters: [],
   currentPage: 0,
 };

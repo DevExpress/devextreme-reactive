@@ -28,8 +28,8 @@ const GridContainer = (props) => {
     onSortingsChange,
     selection,
     onSelectionChange,
-    expandedDetails,
-    onExpandedDetailsChange,
+    expandedRows,
+    onExpandedRowsChange,
     filters,
     onFiltersChange,
     currentPage,
@@ -76,8 +76,8 @@ const GridContainer = (props) => {
         <TableSelection />
 
         <TableRowDetail
-          expandedDetails={expandedDetails}
-          onExpandedDetailsChange={onExpandedDetailsChange}
+          expandedRows={expandedRows}
+          onExpandedRowsChange={onExpandedRowsChange}
           template={DetailRow}
         />
 
@@ -94,8 +94,8 @@ GridContainer.propTypes = {
   onSortingsChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
   onSelectionChange: PropTypes.func.isRequired,
-  expandedDetails: PropTypes.array.isRequired,
-  onExpandedDetailsChange: PropTypes.func.isRequired,
+  expandedRows: PropTypes.array.isRequired,
+  onExpandedRowsChange: PropTypes.func.isRequired,
   filters: PropTypes.array.isRequired,
   onFiltersChange: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
@@ -105,7 +105,7 @@ GridContainer.propTypes = {
 const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
-  onExpandedDetailsChange: expandedDetails => dispatch(createGridAction('expandedDetails', expandedDetails)),
+  onExpandedRowsChange: expandedRows => dispatch(createGridAction('expandedRows', expandedRows)),
   onSelectionChange: selection => dispatch(createGridAction('selection', selection)),
   onSortingsChange: sortings => dispatch(createGridAction('sortings', sortings)),
   onFiltersChange: filters => dispatch(createGridAction('filters', filters)),

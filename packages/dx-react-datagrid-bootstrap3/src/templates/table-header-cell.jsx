@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { SortingIndicator } from './parts/sorting-indicator';
+
 export const TableHeaderCell = ({
   style, column,
   sortingEnabled, sortDirection, changeSortDirection,
   groupingEnabled, groupByColumn,
 }) => {
-  const iconName = `glyphicon-arrow-${sortDirection === 'desc' ? 'down' : 'up'}`;
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
 
@@ -39,13 +40,9 @@ export const TableHeaderCell = ({
       <span
         className={sortDirection ? 'text-primary' : ''}
       >
-        <i
-          className={`glyphicon ${iconName}`}
-          style={{
-            visibility: sortDirection ? 'visible' : 'hidden',
-            top: '0',
-            fontSize: '9px',
-          }}
+        <SortingIndicator
+          direction={sortDirection}
+          style={{ visibility: sortDirection ? 'visible' : 'hidden' }}
         />
         &nbsp;
         {column.title}
@@ -56,13 +53,9 @@ export const TableHeaderCell = ({
       >
         {column.title}
         &nbsp;
-        <i
-          className={`glyphicon ${iconName}`}
-          style={{
-            visibility: sortDirection ? 'visible' : 'hidden',
-            top: '0',
-            fontSize: '9px',
-          }}
+        <SortingIndicator
+          direction={sortDirection}
+          style={{ visibility: sortDirection ? 'visible' : 'hidden' }}
         />
       </span>
     )
@@ -114,7 +107,7 @@ TableHeaderCell.propTypes = {
   }).isRequired,
   style: PropTypes.shape(),
   sortingEnabled: PropTypes.bool,
-  sortDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  sortDirection: PropTypes.oneOf(['asc', 'desc']),
   changeSortDirection: PropTypes.func,
   groupingEnabled: PropTypes.bool,
   groupByColumn: PropTypes.func,

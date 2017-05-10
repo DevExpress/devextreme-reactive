@@ -47,7 +47,7 @@ To control the filtering state, pass an array of column filters to the `Filterin
 
 If your data service supports filtering operations, you can handle the DataGrid filtering state changes in order to request data from the server with the corresponding filters applied.
 
-In the case of remote filtering, don't use the `LocalFiltering` plugin. You need to handle the `onFiltersChange` event of the `FilteringState` plugin in order to receive updates on filter changes. They happen once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is received from the server, pass it to the `DataGrid` component's `rows` property.
+In case of remote filtering, you don't need to use the `LocalFiltering` plugin. Handle the `FilteringState` plugin's `onFiltersChange` event to receive filter changes' updates. Filter changes are updated once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is received from the server, pass it to the `DataGrid` component's `rows` property.
 
 ## Using Filtering with Other Data Processing Plugins
 

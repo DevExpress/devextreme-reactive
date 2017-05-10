@@ -60,11 +60,11 @@ export class TableEditColumn extends React.PureComponent {
             cellTemplate({
               row,
               column,
-              onCancelEditing: () => {
+              cancelEditing: () => {
                 stopEditRows({ rowIds: [rowId] });
                 cancelChangedRows({ rowIds: [rowId] });
               },
-              onCommitChanges: () => {
+              commitChanges: () => {
                 stopEditRows({ rowIds: [rowId] });
                 commitChangedRows({ rowIds: [rowId] });
               },
@@ -89,10 +89,10 @@ export class TableEditColumn extends React.PureComponent {
             cellTemplate({
               row,
               column,
-              onCancelEditing: () => {
+              cancelEditing: () => {
                 cancelNewRows({ rowIds: [rowId] });
               },
-              onCommitChanges: () => {
+              commitChanges: () => {
                 commitNewRows({ rowIds: [rowId] });
               },
               isEditing: true,
@@ -118,8 +118,8 @@ export class TableEditColumn extends React.PureComponent {
             cellTemplate({
               row,
               column,
-              onStartEditing: () => startEditRows({ rowIds: [rowId] }),
-              onDelete: () => deleteRows({ rowIds: [rowId] }),
+              startEditing: () => startEditRows({ rowIds: [rowId] }),
+              deleteRow: () => deleteRows({ rowIds: [rowId] }),
               commandTemplate,
               allowEditing,
               allowDeleting,

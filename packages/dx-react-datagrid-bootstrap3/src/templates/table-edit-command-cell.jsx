@@ -22,7 +22,7 @@ export const EditCommandHeadingCell = ({
     commandTemplate,
     allowAdding,
     style = {},
-    createCommandText = 'New',
+    addCommandText = 'New',
   }) => (
     <th
       style={{
@@ -35,14 +35,14 @@ export const EditCommandHeadingCell = ({
       {allowAdding && commandTemplate({
         id: 'add',
         executeCommand: addRow,
-        text: createCommandText,
+        text: addCommandText,
       })}
     </th>
 );
 EditCommandHeadingCell.propTypes = {
   addRow: PropTypes.func.isRequired,
   commandTemplate: PropTypes.func.isRequired,
-  createCommandText: PropTypes.string.isRequired,
+  addCommandText: PropTypes.string.isRequired,
   allowAdding: PropTypes.bool.isRequired,
   style: PropTypes.object,
 };

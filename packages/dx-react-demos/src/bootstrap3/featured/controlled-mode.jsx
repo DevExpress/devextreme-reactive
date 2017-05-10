@@ -130,7 +130,6 @@ export class ControlledModeDemo extends React.PureComponent {
       sortings: [
         { column: 'product', direction: 'asc' },
         { column: 'saleDate', direction: 'asc' },
-        { column: 'id', direction: 'asc' },
       ],
       editingRows: [],
       newRows: [],
@@ -138,9 +137,7 @@ export class ControlledModeDemo extends React.PureComponent {
       currentPage: 0,
     };
 
-    this.changeSortings = sortings => this.setState({
-      sortings: [...sortings.filter(s => s.column !== 'id'), { column: 'id', direction: 'asc' }],
-    });
+    this.changeSortings = sortings => this.setState({ sortings });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeNewRows = newRows => this.setState({
       newRows: newRows.map(row => (Object.keys(row).length ? row : {

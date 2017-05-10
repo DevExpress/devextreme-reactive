@@ -19,6 +19,7 @@ commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | | A componen
 allowCreating | bool | false | If set to true, the 'New' command is rendered within the heading row's command cell
 allowEditing | bool | false | If set to true, the 'Edit' command is rendered within the data row's command cell
 allowDeleting | bool | false | If set to true, the 'Delete' command is rendered within the data row's command cell
+width | number &#124; string | 140 | Specifies the width of the edit column
 
 ## Interfaces
 
@@ -39,10 +40,6 @@ deleteRow | () => void | Initiates row deletion
 allowEditing | bool | Specifies if a row can be edited
 allowDeleting | bool | Specifies if a row can be deleted
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
-editCommandText | string | Specifies the 'edit' command text
-deleteCommandText | string | Specifies the 'delete' command text
-commitCommandText | string | Specifies the 'commit' command text
-cancelCommandText | string | Specifies the 'cancel' command text
 style | Object | Styles that should be applied to the root cell element
 
 ### <a name="command-heading-cell-props"></a>CommandHeadingCellProps
@@ -58,7 +55,6 @@ column | [TableColumn](#table-column) | Specifies a table column
 addRow | () => void | Creates a new row
 allowCreating | bool | Specifies if a new row can be created
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
-createCommandText | string | Specifies the 'create' command text
 style | Object | Styles that should be applied to the root cell element
 
 ### <a name="command-props"></a>CommandProps

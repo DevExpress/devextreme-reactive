@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+
+const withEditColumn = (tableColumns, width) => [{ type: 'edit', width }, ...tableColumns];
 
 export class TableEditColumn extends React.PureComponent {
   render() {
@@ -11,9 +13,18 @@ export class TableEditColumn extends React.PureComponent {
       allowCreating,
       allowEditing,
       allowDeleting,
+      width,
     } = this.props;
     return (
       <PluginContainer>
+        <Getter
+          name="tableColumns"
+          pureComputed={withEditColumn}
+          connectArgs={getter => [
+            getter('tableColumns'),
+            width,
+          ]}
+        />
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'heading' && column.type === 'edit'}
@@ -138,9 +149,11 @@ TableEditColumn.propTypes = {
   allowCreating: PropTypes.bool,
   allowEditing: PropTypes.bool,
   allowDeleting: PropTypes.bool,
+  width: PropTypes.number,
 };
 TableEditColumn.defaultProps = {
   allowCreating: false,
   allowEditing: false,
   allowDeleting: false,
+  width: 140,
 };

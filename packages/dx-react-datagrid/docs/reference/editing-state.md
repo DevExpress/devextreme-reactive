@@ -15,7 +15,7 @@ Name | Type | Default | Description
 editingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows that are currently being edited
 defaultEditingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows that should be switched to the edit mode initially for the uncontrolled state mode
 onEditingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void | | Handles editing row changes
-newRows | Array&lt;Object&gt; | | Specifies the newlly created rows that are not yet committed
+newRows | Array&lt;Object&gt; | | Specifies the newly created rows that are not yet committed
 defaultAddedRows | Array&lt;Object&gt; | | Specifies the initial set of new rows for the uncontrolled mode
 onAddedRowsChange | (newRows: Array&lt;Object&gt;) => void | | Handles new row changes
 changedRows | { [key: string]: Object } | | Specifies the rows that have been changed but not yet committed

@@ -128,15 +128,15 @@ export class ControlledModeDemo extends React.PureComponent {
       }),
       sorting: [],
       editingRows: [],
-      newRows: [],
+      addedRows: [],
       changedRows: {},
       currentPage: 0,
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
-    this.changeNewRows = newRows => this.setState({
-      newRows: newRows.map(row => (Object.keys(row).length ? row : {
+    this.changeAddedRows = addedRows => this.setState({
+      addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
         amount: 0,
         discount: 0.1,
         saleDate: new Date().toDateString(),
@@ -185,7 +185,7 @@ export class ControlledModeDemo extends React.PureComponent {
       columns,
       sorting,
       editingRows,
-      newRows,
+      addedRows,
       changedRows,
       currentPage,
     } = this.state;
@@ -215,8 +215,8 @@ export class ControlledModeDemo extends React.PureComponent {
           onEditingRowsChange={this.changeEditingRows}
           changedRows={changedRows}
           onChangedRowsChange={this.changeChangedRows}
-          newRows={newRows}
-          onAddedRowsChange={this.changeNewRows}
+          addedRows={addedRows}
+          onAddedRowsChange={this.changeAddedRows}
           onCommitChanges={this.commitChanges}
         />
 
@@ -248,7 +248,7 @@ export class ControlledModeDemo extends React.PureComponent {
         />
         <TableEditColumn
           width={100}
-          allowCreating={!this.state.newRows.length}
+          allowCreating={!this.state.addedRows.length}
           allowEditing
           allowDeleting
           commandTemplate={({ executeCommand, id }) => (

@@ -32,15 +32,15 @@ export class EditRowControlledDemo extends React.PureComponent {
         length: 14,
       }),
       editingRows: [],
-      newRows: [],
+      addedRows: [],
       changedRows: {},
     };
 
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeChangedRows = changedRows => this.setState({ changedRows });
-    this.changeAddedRows = (newRows) => {
-      const initialized = newRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
-      this.setState({ newRows: initialized });
+    this.changeAddedRows = (addedRows) => {
+      const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
+      this.setState({ addedRows: initialized });
     };
     this.commitChanges = ({ created, updated, deleted }) => {
       let rows = this.state.rows.slice();
@@ -87,7 +87,7 @@ export class EditRowControlledDemo extends React.PureComponent {
           onEditingRowsChange={this.changeEditingRows}
           changedRows={this.state.changedRows}
           onChangedRowsChange={this.changeChangedRows}
-          newRows={this.state.newRows}
+          addedRows={this.state.addedRows}
           onAddedRowsChange={this.changeAddedRows}
           onCommitChanges={this.commitChanges}
         />
@@ -95,7 +95,7 @@ export class EditRowControlledDemo extends React.PureComponent {
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn
-          allowCreating={!this.state.newRows.length}
+          allowCreating={!this.state.addedRows.length}
           allowEditing
           allowDeleting
         />

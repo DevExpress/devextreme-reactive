@@ -20,7 +20,7 @@ CommandButton.propTypes = {
 export const EditCommandHeadingCell = ({
     addRow,
     commandTemplate,
-    allowCreating,
+    allowAdding,
     style = {},
     createCommandText = 'New',
   }) => (
@@ -32,7 +32,7 @@ export const EditCommandHeadingCell = ({
         ...style,
       }}
     >
-      {allowCreating && commandTemplate({
+      {allowAdding && commandTemplate({
         id: 'create',
         executeCommand: addRow,
         text: createCommandText,
@@ -43,7 +43,7 @@ EditCommandHeadingCell.propTypes = {
   addRow: PropTypes.func.isRequired,
   commandTemplate: PropTypes.func.isRequired,
   createCommandText: PropTypes.string.isRequired,
-  allowCreating: PropTypes.bool.isRequired,
+  allowAdding: PropTypes.bool.isRequired,
   style: PropTypes.object,
 };
 EditCommandHeadingCell.defaultProps = {

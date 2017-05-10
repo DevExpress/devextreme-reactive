@@ -63,7 +63,7 @@ export class EditRowDemo extends React.PureComponent {
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn
-          allowCreating
+          allowAdding
           allowEditing
           allowDeleting
         />

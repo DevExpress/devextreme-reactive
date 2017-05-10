@@ -248,7 +248,7 @@ export class ControlledModeDemo extends React.PureComponent {
         />
         <TableEditColumn
           width={100}
-          allowCreating={!this.state.addedRows.length}
+          allowAdding={!this.state.addedRows.length}
           allowEditing
           allowDeleting
           commandTemplate={({ executeCommand, id }) => (

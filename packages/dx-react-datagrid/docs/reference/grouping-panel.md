@@ -51,8 +51,8 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 sortingEnabled | boolean | If true, an end-user can change sorting by the current column
-direction? | 'asc' &#124; 'desc' | Specifies sorting direction
-toggleSorting | ({ keepOther: boolean }) => void | Changes the sort order of a column. Keeps existing sorting if `keepOther` is set to `true`
+sortingDirection? | 'asc' &#124; 'desc' | Specifies sorting direction
+changeSortingDirection | ({ keepOther: boolean }) => void | Changes the sort order of a column. Keeps existing sorting if `keepOther` is set to `true`
 groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 ## Plugin Developer Reference

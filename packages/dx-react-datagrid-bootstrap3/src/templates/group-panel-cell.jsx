@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 export const GroupPanelCell = ({
   column,
   groupByColumn,
-  sortingEnabled, sortDirection, changeSortDirection,
+  sortingEnabled, sortingDirection, changeSortingDirection,
 }) => {
-  const iconName = `glyphicon-arrow-${sortDirection === 'asc' ? 'down' : 'up'}`;
+  const iconName = `glyphicon-arrow-${sortingDirection === 'asc' ? 'down' : 'up'}`;
   return (
     <button
       type="button"
@@ -18,11 +18,11 @@ export const GroupPanelCell = ({
       <span
         onClick={(e) => {
           if (!sortingEnabled) return;
-          changeSortDirection({ keepOther: e.shiftKey });
+          changeSortingDirection({ keepOther: e.shiftKey });
         }}
       >
         {column.title}
-        {sortingEnabled && sortDirection && (
+        {sortingEnabled && sortingDirection && (
           <span>
             &nbsp;
             <i
@@ -52,8 +52,8 @@ export const GroupPanelCell = ({
 
 GroupPanelCell.defaultProps = {
   sortingEnabled: false,
-  sortDirection: undefined,
-  changeSortDirection: undefined,
+  sortingDirection: undefined,
+  changeSortingDirection: undefined,
   groupingEnabled: false,
   groupByColumn: undefined,
 };
@@ -63,7 +63,7 @@ GroupPanelCell.propTypes = {
     title: PropTypes.string,
   }).isRequired,
   sortingEnabled: PropTypes.bool,
-  sortDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortDirection: PropTypes.func,
+  sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  changeSortingDirection: PropTypes.func,
   groupByColumn: PropTypes.func,
 };

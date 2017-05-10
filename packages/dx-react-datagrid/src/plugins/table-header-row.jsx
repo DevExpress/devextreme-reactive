@@ -40,13 +40,13 @@ export class TableHeaderRow extends React.PureComponent {
             };
 
             if (result.sortingSupported) {
-              result.sortDirection = getColumnSortingDirection(sortings, column.name);
+              result.sortingDirection = getColumnSortingDirection(sortings, column.name);
             }
 
             return result;
           }}
           connectActions={(action, { column }) => ({
-            changeSortDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
+            changeSortingDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
             groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
           })}
         >

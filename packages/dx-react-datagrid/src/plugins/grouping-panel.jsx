@@ -59,14 +59,14 @@ export class GroupingPanel extends React.PureComponent {
             };
 
             if (result.sortingSupported) {
-              result.sortDirection = getColumnSortingDirection(sortings, column.name);
+              result.sortingDirection = getColumnSortingDirection(sortings, column.name);
             }
 
             return result;
           }}
           connectActions={(action, { column }) => ({
             groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
-            changeSortDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
+            changeSortingDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
           })}
         >
           {({ sortingSupported, ...restParams }) => (

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 export const TableHeaderCell = ({
   style, column,
-  sortingEnabled, sortDirection, changeSortDirection,
+  sortingEnabled, sortingDirection, changeSortingDirection,
   groupingEnabled, groupByColumn,
 }) => {
-  const iconName = `glyphicon-arrow-${sortDirection === 'desc' ? 'down' : 'up'}`;
+  const iconName = `glyphicon-arrow-${sortingDirection === 'desc' ? 'down' : 'up'}`;
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
 
@@ -37,12 +37,12 @@ export const TableHeaderCell = ({
   const sortingControl = sortingEnabled && (
     align === 'right' ? (
       <span
-        className={sortDirection ? 'text-primary' : ''}
+        className={sortingDirection ? 'text-primary' : ''}
       >
         <i
           className={`glyphicon ${iconName}`}
           style={{
-            visibility: sortDirection ? 'visible' : 'hidden',
+            visibility: sortingDirection ? 'visible' : 'hidden',
             top: '0',
             fontSize: '9px',
           }}
@@ -52,14 +52,14 @@ export const TableHeaderCell = ({
       </span>
     ) : (
       <span
-        className={sortDirection ? 'text-primary' : ''}
+        className={sortingDirection ? 'text-primary' : ''}
       >
         {column.title}
         &nbsp;
         <i
           className={`glyphicon ${iconName}`}
           style={{
-            visibility: sortDirection ? 'visible' : 'hidden',
+            visibility: sortingDirection ? 'visible' : 'hidden',
             top: '0',
             fontSize: '9px',
           }}
@@ -80,7 +80,7 @@ export const TableHeaderCell = ({
       onClick={(e) => {
         if (!sortingEnabled) return;
         e.stopPropagation();
-        changeSortDirection({ keepOther: e.shiftKey });
+        changeSortingDirection({ keepOther: e.shiftKey });
       }}
     >
       {gropingControl}
@@ -103,8 +103,8 @@ export const TableHeaderCell = ({
 TableHeaderCell.defaultProps = {
   style: null,
   sortingEnabled: false,
-  sortDirection: undefined,
-  changeSortDirection: undefined,
+  sortingDirection: undefined,
+  changeSortingDirection: undefined,
   groupingEnabled: false,
   groupByColumn: undefined,
 };
@@ -114,8 +114,8 @@ TableHeaderCell.propTypes = {
   }).isRequired,
   style: PropTypes.shape(),
   sortingEnabled: PropTypes.bool,
-  sortDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortDirection: PropTypes.func,
+  sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  changeSortingDirection: PropTypes.func,
   groupingEnabled: PropTypes.bool,
   groupByColumn: PropTypes.func,
 };

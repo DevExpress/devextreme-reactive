@@ -33,10 +33,10 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies an edited table row with applied changes
 column | [TableColumn](#table-column) | Specifies a table column
-onStartEditing | () => void | Switches a row to the editing mode
-onCancelEditing | () => void | Switches a row to the read-only mode
-onCommitChanges | () => void | Initiates committing of row changes
-onDelete | () => void | Initiates row deletion
+startEditing | () => void | Switches a row to the editing mode
+cancelEditing | () => void | Switches a row to the read-only mode
+commitChanges | () => void | Initiates committing of row changes
+deleteRow | () => void | Initiates row deletion
 allowEditing | bool | Specifies if a row can be edited
 allowDeleting | bool | Specifies if a row can be deleted
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
@@ -52,7 +52,7 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies an editing table row with applied changes
 column | [TableColumn](#table-column) | Specifies a table column
-onAddNewRow | () => void | Creates a new row
+addRow | () => void | Creates a new row
 allowCreating | bool | Specifies if a new row can be created
 commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
 style | Object | Styles that should be applied to the root cell element
@@ -65,7 +65,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-onCommand | () => void | Executes the command
+executeCommand | () => void | Executes the command
 text | string | Specifies the text to be rendered within the command control
 
 ## Plugin Developer Reference

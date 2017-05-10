@@ -19,7 +19,7 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](datagrid.md#row)&gt; | Rows to be sorted
-sortings | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sortings to be applied
+sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting to be applied
 
 ### Exports
 

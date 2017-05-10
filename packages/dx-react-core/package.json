@@ -22,8 +22,9 @@
     "react"
   ],
   "license": "https://js.devexpress.com/Licensing/",
-  "main": "dist/dx-react-core.cjs.js",
+  "main": "dist/dx-react-core.umd.js",
   "module": "dist/dx-react-core.es.js",
+  "globalName": "DevExpress.DXReactCore",
   "files": [
     "dist"
   ],

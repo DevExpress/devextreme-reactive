@@ -29,8 +29,9 @@
     "twitter-bootstrap"
   ],
   "license": "https://js.devexpress.com/Licensing/",
-  "main": "dist/dx-react-datagrid-bootstrap3.cjs.js",
+  "main": "dist/dx-react-datagrid-bootstrap3.umd.js",
   "module": "dist/dx-react-datagrid-bootstrap3.es.js",
+  "globalName": "DevExpress.DXReactDataGridBootstrap3",
   "files": [
     "dist"
   ],

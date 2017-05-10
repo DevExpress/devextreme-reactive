@@ -24,14 +24,14 @@ export class DetailRowControlledDemo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 7 }),
-      expandedDetails: [2, 5],
+      expandedRows: [2, 5],
     };
 
-    this.changeExpandedDetails = expandedDetails => this.setState({ expandedDetails });
+    this.changeExpandedDetails = expandedRows => this.setState({ expandedRows });
     this.rowTemplate = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
   }
   render() {
-    const { rows, columns, expandedDetails } = this.state;
+    const { rows, columns, expandedRows } = this.state;
 
     return (
       <DataGrid
@@ -41,8 +41,8 @@ export class DetailRowControlledDemo extends React.PureComponent {
         <TableView />
         <TableHeaderRow />
         <TableRowDetail
-          expandedDetails={expandedDetails}
-          expandedDetailsChange={this.changeExpandedDetails}
+          expandedRows={expandedRows}
+          onExpandedRowsChange={this.changeExpandedDetails}
           template={this.rowTemplate}
         />
       </DataGrid>

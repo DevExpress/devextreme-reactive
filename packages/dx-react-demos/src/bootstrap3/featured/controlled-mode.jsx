@@ -21,11 +21,11 @@ import {
   globalSalesValues,
 } from '../../demoData';
 
-const CommandButton = ({ onCommand, icon, text, hint, isDanger }) => (
+const CommandButton = ({ executeCommand, icon, text, hint, isDanger }) => (
   <button
     className="btn btn-link"
     onClick={(e) => {
-      onCommand();
+      executeCommand();
       e.stopPropagation();
     }}
     title={hint}
@@ -37,7 +37,7 @@ const CommandButton = ({ onCommand, icon, text, hint, isDanger }) => (
   </button>
 );
 CommandButton.propTypes = {
-  onCommand: PropTypes.func.isRequired,
+  executeCommand: PropTypes.func.isRequired,
   icon: PropTypes.string,
   text: PropTypes.string,
   hint: PropTypes.string,
@@ -126,14 +126,14 @@ export class ControlledModeDemo extends React.PureComponent {
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200,
       }),
-      sortings: [],
+      sorting: [],
       editingRows: [],
       newRows: [],
       changedRows: {},
       currentPage: 0,
     };
 
-    this.changeSortings = sortings => this.setState({ sortings });
+    this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeNewRows = newRows => this.setState({
       newRows: newRows.map(row => (Object.keys(row).length ? row : {
@@ -163,7 +163,7 @@ export class ControlledModeDemo extends React.PureComponent {
         Object.keys(updated).forEach((key) => {
           const index = rows.findIndex(row => String(row.id) === key);
           if (index > -1) {
-            const change = updated[index];
+            const change = updated[key];
             rows[index] = Object.assign({}, rows[index], change);
           }
         });
@@ -183,7 +183,7 @@ export class ControlledModeDemo extends React.PureComponent {
     const {
       rows,
       columns,
-      sortings,
+      sorting,
       editingRows,
       newRows,
       changedRows,
@@ -198,12 +198,12 @@ export class ControlledModeDemo extends React.PureComponent {
       >
 
         <SortingState
-          sortings={sortings}
-          sortingsChange={this.changeSortings}
+          sorting={sorting}
+          onSortingChange={this.changeSorting}
         />
         <PagingState
           currentPage={currentPage}
-          currentPageChange={this.changeCurrentPage}
+          onCurrentPageChange={this.changeCurrentPage}
           pageSize={10}
         />
 
@@ -212,11 +212,11 @@ export class ControlledModeDemo extends React.PureComponent {
 
         <EditingState
           editingRows={editingRows}
-          editingRowsChange={this.changeEditingRows}
+          onEditingRowsChange={this.changeEditingRows}
           changedRows={changedRows}
-          changedRowsChange={this.changeChangedRows}
+          onChangedRowsChange={this.changeChangedRows}
           newRows={newRows}
-          newRowsChange={this.changeNewRows}
+          onAddedRowsChange={this.changeNewRows}
           onCommitChanges={this.commitChanges}
         />
 
@@ -235,7 +235,7 @@ export class ControlledModeDemo extends React.PureComponent {
           }}
         />
 
-        <TableHeaderRow sortingEnabled />
+        <TableHeaderRow allowSorting />
         <TableEditRow
           editCellTemplate={(props) => {
             const { column } = props;
@@ -251,9 +251,9 @@ export class ControlledModeDemo extends React.PureComponent {
           allowCreating={!this.state.newRows.length}
           allowEditing
           allowDeleting
-          commandTemplate={({ onCommand, id }) => (
+          commandTemplate={({ executeCommand, id }) => (
             commands[id]
-            ? <CommandButton onCommand={onCommand} {...commands[id]} />
+            ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
             : undefined
           )}
         />

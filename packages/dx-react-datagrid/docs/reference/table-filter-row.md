@@ -27,7 +27,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 filter | string | A filter applied to a column
-changeFilter | (filter: string) => void | Set a new filter value for a column
+setFilter | (filter: string) => void | Set a new filter value for a column
 
 ## Plugin Developer Reference
 

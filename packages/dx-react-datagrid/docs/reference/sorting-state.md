@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-sortings | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sortings
-defaultSortings | Array&lt;[Sorting](#sorting)&gt; | | Specifies the initial sortings for the uncontrolled mode
-sortingsChange | (sortings: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes
+sorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting
+defaultSorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the initial sorting for the uncontrolled mode
+onSortingChange | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes
 
 ## Interfaces
 
@@ -39,6 +39,6 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-sortings | Getter | () => Array&lt;[Sorting](#sorting)&gt; | Applied column sortings
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean }) => void | Changes column sortings
+sorting | Getter | () => Array&lt;[Sorting](#sorting)&gt; | Applied column sorting
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean }) => void | Changes column sorting
 

@@ -39,13 +39,13 @@ export class SelectionWithHiddenCheckboxesDemo extends React.PureComponent {
       >
         <SelectionState
           selection={selection}
-          selectionChange={this.changeSelection}
+          onSelectionChange={this.changeSelection}
         />
         <TableView />
         <TableSelection
           selectByRowClick
           highlightSelected
-          showCheckboxes={false}
+          showSelectionColumn={false}
         />
       </DataGrid>
     );

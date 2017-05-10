@@ -39,7 +39,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | string | The name of the column associated with the group
+column | [Column](datagrid.md#column) | The column associated with the group
 value | any | A value that unites all the rows inside a group
 
 ## Plugin Developer Reference

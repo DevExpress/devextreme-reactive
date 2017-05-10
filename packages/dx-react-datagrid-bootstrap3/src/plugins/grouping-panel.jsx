@@ -20,10 +20,10 @@ export const GroupingPanel = ({ groupByColumnText, ...restProps }) => (
 );
 
 GroupingPanel.propTypes = {
-  sortingEnabled: PropTypes.bool,
+  allowSorting: PropTypes.bool,
   groupByColumnText: PropTypes.string,
 };
 GroupingPanel.defaultProps = {
-  sortingEnabled: false,
+  allowSorting: false,
   groupByColumnText: undefined,
 };

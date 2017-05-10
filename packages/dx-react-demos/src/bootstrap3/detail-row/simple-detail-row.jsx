@@ -26,7 +26,7 @@ export class SimpleDetailRowDemo extends React.PureComponent {
       rows: generateRows({ length: 7 }),
     };
 
-    this.changeExpandedDetails = expandedDetails => this.setState({ expandedDetails });
+    this.changeExpandedDetails = expandedRows => this.setState({ expandedRows });
     this.rowTemplate = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
   }
   render() {
@@ -40,7 +40,7 @@ export class SimpleDetailRowDemo extends React.PureComponent {
         <TableView />
         <TableHeaderRow />
         <TableRowDetail
-          defaultExpandedDetails={[2, 5]}
+          defaultExpandedRows={[2, 5]}
           template={this.rowTemplate}
         />
       </DataGrid>

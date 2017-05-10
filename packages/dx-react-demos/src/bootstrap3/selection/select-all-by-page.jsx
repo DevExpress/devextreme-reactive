@@ -51,7 +51,7 @@ export class SelectAllByPageDemo extends React.PureComponent {
           <LocalPaging />
           <SelectionState
             selection={selection}
-            selectionChange={this.changeSelection}
+            onSelectionChange={this.changeSelection}
           />
           <TableView />
           <TableHeaderRow />

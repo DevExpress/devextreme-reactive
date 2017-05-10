@@ -14,10 +14,10 @@ Name | Type | Default | Description
 -----|------|---------|------------
 grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by
 defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping for the uncontrolled mode
-groupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping changes
-expandedGroups | { Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups
+onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping changes
+expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups
 defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; } | | Specifies initially expanded groups for the uncontrolled mode
-expandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt; }) => void | | Handles expanded group changes
+onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt; }) => void | | Handles expanded group changes
 
 ## Interfaces
 
@@ -52,7 +52,7 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | Getter | () => Array&lt;[Grouping](#grouping)&gt; | Applied grouping
-expandedGroups | Getter | () => Set&lt[GroupKey](#group-key)&gt; | Expanded groups
+expandedGroups | Getter | () => Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
 groupedColumns | Getter | () => Array&lt;Column&gt; | Columns with applied grouping on them
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column name or cancels grouping. If `groupIndex` is omitted, the group will be added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state

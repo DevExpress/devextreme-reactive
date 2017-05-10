@@ -37,7 +37,8 @@ var patchMDLinks = function(content) {
       return '{{site.baseurl}}/'+
         splitNameToPath(path)
         .replace(/readme\.md/i, '');
-    });
+    })
+    .replace(/readme\.md/i, '../');
 };
 
 var patchMDTables = function(content) {

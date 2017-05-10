@@ -43,7 +43,7 @@ export class SelectionWithHiddenSelectAllDemo extends React.PureComponent {
       >
         <SelectionState
           selection={selection}
-          selectionChange={this.changeSelection}
+          onSelectionChange={this.changeSelection}
         />
         <PagingState
           defaultCurrentPage={0}

@@ -14,16 +14,16 @@ Name | Type | Default | Description
 -----|------|---------|------------
 editingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows that are currently being edited
 defaultEditingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows that should be switched to the edit mode initially for the uncontrolled state mode
-editingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void | | Handles editing row changes
-newRows | Array&lt;Object&gt; | | Specifies the newlly created rows that are not yet committed
-defaultNewRows | Array&lt;Object&gt; | | Specifies the initial set of new rows for the uncontrolled mode
-newRowsChange | (newRows: Array&lt;Object&gt;) => void | | Handles new row changes
+onEditingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void | | Handles editing row changes
+newRows | Array&lt;Object&gt; | | Specifies the newly created rows that are not yet committed
+defaultAddedRows | Array&lt;Object&gt; | | Specifies the initial set of new rows for the uncontrolled mode
+onAddedRowsChange | (newRows: Array&lt;Object&gt;) => void | | Handles new row changes
 changedRows | { [key: string]: Object } | | Specifies the rows that have been changed but not yet committed
 defaultChangedRows | { [key: string]: Object } | | Specifies the initial set of changed rows for the uncontrolled mode
-changedRowsChange | (changedRows: { [key: string]: Object }) => void | | Handles changed rows' changes
+onChangedRowsChange | (changedRows: { [key: string]: Object }) => void | | Handles changed rows' changes
 deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows that have been deleted but not yet committed
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies the initial set of deleted rows for the uncontrolled mode
-deletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles deleted rows' changes
+onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles deleted rows' changes
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles the request to commit the changes introduced to the data rows
 
 ## Interfaces
@@ -37,7 +37,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 create? | Array&lt;Object&gt; | Rows to be created as an array of data objects
-update? | { [key: string]: Object } | Rows to be updated as a map of their IDs and changes
+update? | { [key: number &#124; string]: Object } | Rows to be updated as a map of their IDs and changes
 delete? | Array&lt;number &#124; string&gt; | Rows to be deleted as an array of their IDs
 
 ## Plugin Developer Reference
@@ -54,10 +54,10 @@ editingRows | Getter | () => Array&lt;number &#124; string&gt; | Rows that are c
 startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows with the corresponding IDs to the edit mode
 stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows with the corresponding IDs to the read-only mode
 newRows | Getter | () => Array&lt;Object&gt; | Newlly created rows
-addNewRow | Action | () => void | Creates a new row
-changeNewRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is represented by the new row index within all new rows created but not yet committed
-cancelNewRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `newRows` array by indexes
-commitNewRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the rows from the `newRows` array
+addRow | Action | () => void | Creates a new row
+changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is represented by the new row index within all new rows created but not yet committed
+cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `newRows` array by indexes
+commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the rows from the `newRows` array
 changedRows | Getter | () => { [key: string]: Object } | Changed rows that are not yet committed
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row
 cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in the rows specified by ID

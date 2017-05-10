@@ -17,7 +17,7 @@ Note that the [plugin order](../README.md#plugin-order) is very important.
 
 To set up basic editing, use the `EditingState`, `TableEditRow` and `TableEditColumn` plugins.
 
-In this example, we use the uncontrolled mode and can optionally specify only the initial editing state via the `defaultNewRows` and `defaultEditingRows` properties of the `EditingState` plugin. After that, the grid will manage thet editing state internally.
+In this example, we use the uncontrolled mode and can optionally specify only the initial editing state via the `defaultAddedRows` and `defaultEditingRows` properties of the `EditingState` plugin. After that, the grid will manage thet editing state internally.
 
 To show editors for the rows being edited, we use the `TableEditRow` plugin. To add a column with a set of editing controls such as the New/Edit/Save/Cancel/Delete buttons, we use the `TableEditColumn` plugin.
 
@@ -29,9 +29,9 @@ To apply the changes introduced by an end-user to your data source (no matter lo
 
 ## Controlled Editing State
 
-To fully control the editing state, you need to specify three pairs of the `EditingState` plugin properties. These are `editingState` and `editingStateChange`, `changedRows` and `changedRowsChange`, `newRows` and `newRowsChange`.
+To fully control the editing state, you need to specify three pairs of the `EditingState` plugin properties. These are `editingState` and `editingStateChange`, `changedRows` and `onChangedRowsChange`, `newRows` and `onAddedRowsChange`.
 
-Note, the `newRowsChange` event can also be used to initialize a newly created row with some default property values.
+Note, the `onAddedRowsChange` event can also be used to initialize a newly created row with some default property values.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/datagrid/demos/#/editing/edit-row-controlled)
 

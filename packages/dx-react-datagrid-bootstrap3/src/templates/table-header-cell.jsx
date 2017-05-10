@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { SortingIndicator } from './parts/sorting-indicator';
+
 export const TableHeaderCell = ({
   style, column,
-  sortingEnabled, sortDirection, changeSortDirection,
-  groupingEnabled, groupByColumn,
+  allowSorting, sortingDirection, changeSortingDirection,
+  allowGrouping, groupByColumn,
 }) => {
-  const iconName = `glyphicon-arrow-${sortDirection === 'asc' ? 'down' : 'up'}`;
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
 
-  const gropingControl = groupingEnabled && (
+  const gropingControl = allowGrouping && (
     <div
       onClick={(e) => {
         e.stopPropagation();
@@ -34,35 +35,27 @@ export const TableHeaderCell = ({
     </div>
   );
 
-  const sortingControl = sortingEnabled && (
+  const sortingControl = allowSorting && (
     align === 'right' ? (
       <span
-        className={sortDirection ? 'text-primary' : ''}
+        className={sortingDirection ? 'text-primary' : ''}
       >
-        <i
-          className={`glyphicon ${iconName}`}
-          style={{
-            visibility: sortDirection ? 'visible' : 'hidden',
-            top: '0',
-            fontSize: '9px',
-          }}
+        <SortingIndicator
+          direction={sortingDirection}
+          style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
         />
         &nbsp;
         {column.title}
       </span>
     ) : (
       <span
-        className={sortDirection ? 'text-primary' : ''}
+        className={sortingDirection ? 'text-primary' : ''}
       >
         {column.title}
         &nbsp;
-        <i
-          className={`glyphicon ${iconName}`}
-          style={{
-            visibility: sortDirection ? 'visible' : 'hidden',
-            top: '0',
-            fontSize: '9px',
-          }}
+        <SortingIndicator
+          direction={sortingDirection}
+          style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
         />
       </span>
     )
@@ -74,13 +67,13 @@ export const TableHeaderCell = ({
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
-        cursor: sortingEnabled && !column.type && 'pointer',
+        cursor: allowSorting && !column.type && 'pointer',
         ...style,
       }}
       onClick={(e) => {
-        if (!sortingEnabled) return;
+        if (!allowSorting) return;
         e.stopPropagation();
-        changeSortDirection({ keepOther: e.shiftKey });
+        changeSortingDirection({ keepOther: e.shiftKey });
       }}
     >
       {gropingControl}
@@ -93,7 +86,7 @@ export const TableHeaderCell = ({
           textOverflow: 'ellipsis',
         }}
       >
-        {sortingEnabled ? sortingControl : (
+        {allowSorting ? sortingControl : (
           column.title
         )}
       </div>
@@ -102,10 +95,10 @@ export const TableHeaderCell = ({
 };
 TableHeaderCell.defaultProps = {
   style: null,
-  sortingEnabled: false,
-  sortDirection: undefined,
-  changeSortDirection: undefined,
-  groupingEnabled: false,
+  allowSorting: false,
+  sortingDirection: undefined,
+  changeSortingDirection: undefined,
+  allowGrouping: false,
   groupByColumn: undefined,
 };
 TableHeaderCell.propTypes = {
@@ -113,9 +106,9 @@ TableHeaderCell.propTypes = {
     title: PropTypes.string,
   }).isRequired,
   style: PropTypes.shape(),
-  sortingEnabled: PropTypes.bool,
-  sortDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortDirection: PropTypes.func,
-  groupingEnabled: PropTypes.bool,
+  allowSorting: PropTypes.bool,
+  sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  changeSortingDirection: PropTypes.func,
+  allowGrouping: PropTypes.bool,
   groupByColumn: PropTypes.func,
 };

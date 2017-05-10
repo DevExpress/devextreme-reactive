@@ -1,5 +1,6 @@
 .embedded-demo {
-    width: 100%;
+    width: 1px;
+    min-width: 100%;
     border: none;
     margin: 10px 0 5px;
 }

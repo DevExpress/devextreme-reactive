@@ -19,8 +19,9 @@
     "javascript"
   ],
   "license": "https://js.devexpress.com/Licensing/",
-  "main": "dist/dx-core.cjs.js",
+  "main": "dist/dx-core.umd.js",
   "module": "dist/dx-core.es.js",
+  "globalName": "DevExpress.DXCore",
   "files": [
     "dist"
   ],

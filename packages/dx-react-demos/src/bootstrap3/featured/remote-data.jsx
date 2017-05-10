@@ -27,15 +27,15 @@ export class RemoteDataDemo extends React.PureComponent {
         { name: 'SaleAmount', title: 'Sale Amount', align: 'right' },
       ],
       rows: [],
-      sortings: [{ column: 'StoreCity', direction: 'asc' }],
+      sorting: [{ column: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
       pageSize: 12,
       currentPage: 0,
       loading: true,
     };
 
-    this.sortingsChange = this.sortingsChange.bind(this);
-    this.currentPageChange = this.currentPageChange.bind(this);
+    this.changeSorting = this.changeSorting.bind(this);
+    this.changeCurrentPage = this.changeCurrentPage.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -43,27 +43,27 @@ export class RemoteDataDemo extends React.PureComponent {
   componentDidUpdate() {
     this.loadData();
   }
-  sortingsChange(sortings) {
+  changeSorting(sorting) {
     this.setState({
       loading: true,
-      sortings,
+      sorting,
     });
   }
-  currentPageChange(currentPage) {
+  changeCurrentPage(currentPage) {
     this.setState({
       loading: true,
       currentPage,
     });
   }
   queryString() {
-    const { sortings, pageSize, currentPage } = this.state;
+    const { sorting, pageSize, currentPage } = this.state;
 
     let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
 
-    const sorting = sortings[0];
-    if (sorting) {
-      const sortDirectionString = sorting.direction === 'desc' ? ' desc' : '';
-      queryString = `${queryString}&orderby=${sorting.column}${sortDirectionString}`;
+    const columnSorting = sorting[0];
+    if (columnSorting) {
+      const sortingDirectionString = columnSorting.direction === 'desc' ? ' desc' : '';
+      queryString = `${queryString}&orderby=${columnSorting.column}${sortingDirectionString}`;
     }
 
     return queryString;
@@ -86,7 +86,7 @@ export class RemoteDataDemo extends React.PureComponent {
     this.lastQuery = queryString;
   }
   render() {
-    const { rows, columns, sortings, pageSize, currentPage, totalCount, loading } = this.state;
+    const { rows, columns, sorting, pageSize, currentPage, totalCount, loading } = this.state;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -95,12 +95,12 @@ export class RemoteDataDemo extends React.PureComponent {
           columns={columns}
         >
           <SortingState
-            sortings={sortings}
-            sortingsChange={this.sortingsChange}
+            sorting={sorting}
+            onSortingChange={this.changeSorting}
           />
           <PagingState
             currentPage={currentPage}
-            currentPageChange={this.currentPageChange}
+            onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
             totalCount={totalCount}
           />
@@ -125,7 +125,7 @@ export class RemoteDataDemo extends React.PureComponent {
               </td>
             )}
           />
-          <TableHeaderRow sortingEnabled />
+          <TableHeaderRow allowSorting />
           <PagingPanel />
         </DataGrid>
         {loading && <Loading />}

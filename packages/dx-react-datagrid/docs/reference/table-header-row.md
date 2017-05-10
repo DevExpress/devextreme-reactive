@@ -17,8 +17,8 @@ Optionally, the plugin allows an end-user to manage a column's sorting and group
 Name | Type | Default | Description
 -----|------|---------|------------
 headerCellTemplate | Component&lt;[HeaderCellProps](#header-cell-props)&gt; | | A component that renders a header cell
-sortingEnabled | boolean | false | If true, allows an end-user to change sorting by a column
-groupingEnabled | boolean | false | If true, renders a component that toggles a column's grouping state
+allowSorting | boolean | false | If true, allows an end-user to change sorting by a column
+allowGrouping | boolean | false | If true, renders a component that toggles a column's grouping state
 
 ## Interfaces
 
@@ -42,10 +42,10 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-sortingEnabled | boolean | If true, an end-user can change sorting by a column
-groupingEnabled | boolean | If true, a component that toggles a column's grouping state is rendered
-direction? | 'asc' &#124; 'desc' | Specifies the column sort order
-changeSortDirection | ({ keepOther: boolean }) | Changes column sort direction. Keeps existing sorting if `keepOther` is set to `true`
+allowSorting | boolean | If true, an end-user can change sorting by a column
+allowGrouping | boolean | If true, a component that toggles a column's grouping state is rendered
+sortingDirection? | 'asc' &#124; 'desc' | Specifies the column sort order
+changeSortingDirection | ({ keepOther: boolean }) | Changes column sort direction. Keeps existing sorting if `keepOther` is set to `true`
 groupByColumn | () => void | Toggles grouping for a column
 
 ## Plugin Developer Reference

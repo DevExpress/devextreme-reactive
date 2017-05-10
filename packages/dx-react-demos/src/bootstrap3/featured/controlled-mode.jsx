@@ -89,7 +89,6 @@ export const LookupEditCell = ({ column, value, onValueChange, availableValues }
       value={value}
       onChange={e => onValueChange(e.target.value)}
     >
-      <option value="">&lt;empty&gt;</option>
       {availableValues.map(val => <option key={val} value={val}>{val}</option>)}
     </select>
   </td>
@@ -144,6 +143,9 @@ export class ControlledModeDemo extends React.PureComponent {
         amount: 0,
         discount: 0.1,
         saleDate: new Date().toDateString(),
+        product: availableValues.product[0],
+        region: availableValues.region[0],
+        customer: availableValues.customer[0],
       })),
     });
     this.changeChangedRows = changedRows => this.setState({ changedRows });

@@ -32,10 +32,6 @@ module.exports = ({ production }) => ({
     ]
   },
   resolve: {
-    alias: {
-      // Strange hack for react-bootstrap and lerna
-      'react-bootstrap': path.resolve('./node_modules/react-bootstrap'),
-    },
     extensions: [".webpack.js", ".web.js", ".js", ".jsx"]
   },
   plugins: [

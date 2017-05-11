@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
-    DataGrid,
+    Grid,
     SortingState, SelectionState, FilteringState, PagingState, GroupingState,
     LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     TableView, TableHeaderRow,
     TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 import {
     ProgressBarCell,
 } from './templates/progress-bar-cell';
@@ -47,7 +47,7 @@ const GridContainer = (props) => {
   } = props;
 
   return (
-    <DataGrid
+    <Grid
       rows={rows}
       columns={columns}
     >
@@ -104,7 +104,7 @@ const GridContainer = (props) => {
       <TableGroupRow />
       <GroupingPanel allowSorting />
 
-    </DataGrid>
+    </Grid>
   );
 };
 GridContainer.propTypes = {

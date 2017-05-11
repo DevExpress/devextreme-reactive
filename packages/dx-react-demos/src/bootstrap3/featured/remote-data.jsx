@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  DataGrid,
+  Grid,
   PagingState,
   SortingState,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
   TableView,
   TableHeaderRow,
   PagingPanel,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
@@ -90,7 +90,7 @@ export class RemoteDataDemo extends React.PureComponent {
 
     return (
       <div style={{ position: 'relative' }}>
-        <DataGrid
+        <Grid
           rows={rows}
           columns={columns}
         >
@@ -127,7 +127,7 @@ export class RemoteDataDemo extends React.PureComponent {
           />
           <TableHeaderRow allowSorting />
           <PagingPanel />
-        </DataGrid>
+        </Grid>
         {loading && <Loading />}
       </div>
     );

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-    DataGrid,
+    Grid,
     SelectionState,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     TableView,
     TableSelection,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -33,7 +33,7 @@ export class SelectionWithHiddenCheckboxesDemo extends React.PureComponent {
     const { rows, columns, selection } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
       >
@@ -47,7 +47,7 @@ export class SelectionWithHiddenCheckboxesDemo extends React.PureComponent {
           highlightSelected
           showSelectionColumn={false}
         />
-      </DataGrid>
+      </Grid>
     );
   }
 }

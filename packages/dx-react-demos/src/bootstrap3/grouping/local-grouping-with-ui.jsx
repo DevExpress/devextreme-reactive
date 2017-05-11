@@ -1,15 +1,15 @@
 import React from 'react';
 import {
-  DataGrid,
+  Grid,
   GroupingState,
   LocalGrouping,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
   TableView,
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -33,7 +33,7 @@ export class LocalGroupingWithUIDemo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
       >
@@ -43,7 +43,7 @@ export class LocalGroupingWithUIDemo extends React.PureComponent {
         <TableHeaderRow allowGrouping />
         <TableGroupRow />
         <GroupingPanel />
-      </DataGrid>
+      </Grid>
     );
   }
 }

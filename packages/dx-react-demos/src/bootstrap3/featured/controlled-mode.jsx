@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    DataGrid,
+    Grid,
     SortingState, EditingState, PagingState,
     LocalPaging, LocalSorting,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     TableView, TableHeaderRow, TableEditRow, TableEditColumn,
     PagingPanel,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 import {
     ProgressBarCell,
 } from './templates/progress-bar-cell';
@@ -191,7 +191,7 @@ export class ControlledModeDemo extends React.PureComponent {
     } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
         getRowId={row => row.id}
@@ -259,7 +259,7 @@ export class ControlledModeDemo extends React.PureComponent {
         />
         <PagingPanel />
 
-      </DataGrid>
+      </Grid>
     );
   }
 }

@@ -28,7 +28,7 @@
   "license": "https://js.devexpress.com/Licensing/",
   "main": "dist/dx-react-grid.umd.js",
   "module": "dist/dx-react-grid.es.js",
-  "globalName": "DevExpress.DXReactDataGrid",
+  "globalName": "DevExpress.DXReactGrid",
   "files": [
     "dist"
   ],

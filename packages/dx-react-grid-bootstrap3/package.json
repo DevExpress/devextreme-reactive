@@ -31,7 +31,7 @@
   "license": "https://js.devexpress.com/Licensing/",
   "main": "dist/dx-react-grid-bootstrap3.umd.js",
   "module": "dist/dx-react-grid-bootstrap3.es.js",
-  "globalName": "DevExpress.DXReactDataGridBootstrap3",
+  "globalName": "DevExpress.DXReactGridBootstrap3",
   "files": [
     "dist"
   ],

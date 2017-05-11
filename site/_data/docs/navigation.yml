@@ -1,66 +1,66 @@
 react:
-  datagrid:
+  grid:
     - title: Guides
       items:
         - title: Getting Started
-          path: /react/datagrid/docs
+          path: /react/grid/docs
         - title: Sorting
-          path: /react/datagrid/docs/guides/sorting
+          path: /react/grid/docs/guides/sorting
         - title: Paging
-          path: /react/datagrid/docs/guides/paging
+          path: /react/grid/docs/guides/paging
         - title: Filtering
-          path: /react/datagrid/docs/guides/filtering
+          path: /react/grid/docs/guides/filtering
         - title: Grouping
-          path: /react/datagrid/docs/guides/grouping
+          path: /react/grid/docs/guides/grouping
         - title: Selection
-          path: /react/datagrid/docs/guides/selection
+          path: /react/grid/docs/guides/selection
         - title: Editing
-          path: /react/datagrid/docs/guides/editing
+          path: /react/grid/docs/guides/editing
         - title: Detail Row
-          path: /react/datagrid/docs/guides/detail-row
+          path: /react/grid/docs/guides/detail-row
         - title: Virtual Scrolling
-          path: /react/datagrid/docs/guides/virtual-scrolling
+          path: /react/grid/docs/guides/virtual-scrolling
     - title: API Reference
       items:
-        - title: DataGrid
-          path: /react/datagrid/docs/reference/datagrid
+        - title: Grid
+          path: /react/grid/docs/reference/grid
         - title: FilteringState
-          path: /react/datagrid/docs/reference/filtering-state
+          path: /react/grid/docs/reference/filtering-state
         - title: SortingState
-          path: /react/datagrid/docs/reference/sorting-state
+          path: /react/grid/docs/reference/sorting-state
         - title: GroupingState
-          path: /react/datagrid/docs/reference/grouping-state
+          path: /react/grid/docs/reference/grouping-state
         - title: PagingState
-          path: /react/datagrid/docs/reference/paging-state
+          path: /react/grid/docs/reference/paging-state
         - title: SelectionState
-          path: /react/datagrid/docs/reference/selection-state
+          path: /react/grid/docs/reference/selection-state
         - title: EditingState
-          path: /react/datagrid/docs/reference/editing-state
+          path: /react/grid/docs/reference/editing-state
         - title: LocalFiltering
-          path: /react/datagrid/docs/reference/local-filtering
+          path: /react/grid/docs/reference/local-filtering
         - title: LocalSorting
-          path: /react/datagrid/docs/reference/local-sorting
+          path: /react/grid/docs/reference/local-sorting
         - title: LocalGrouping
-          path: /react/datagrid/docs/reference/local-grouping
+          path: /react/grid/docs/reference/local-grouping
         - title: LocalPaging
-          path: /react/datagrid/docs/reference/local-paging
+          path: /react/grid/docs/reference/local-paging
         - title: TableView
-          path: /react/datagrid/docs/reference/table-view
+          path: /react/grid/docs/reference/table-view
         - title: TableHeaderRow
-          path: /react/datagrid/docs/reference/table-header-row
+          path: /react/grid/docs/reference/table-header-row
         - title: TableSelection
-          path: /react/datagrid/docs/reference/table-selection
+          path: /react/grid/docs/reference/table-selection
         - title: TableFilterRow
-          path: /react/datagrid/docs/reference/table-filter-row
+          path: /react/grid/docs/reference/table-filter-row
         - title: TableRowDetail
-          path: /react/datagrid/docs/reference/table-row-detail
+          path: /react/grid/docs/reference/table-row-detail
         - title: TableGroupRow
-          path: /react/datagrid/docs/reference/table-group-row
+          path: /react/grid/docs/reference/table-group-row
         - title: TableEditRow
-          path: /react/datagrid/docs/reference/table-edit-row
+          path: /react/grid/docs/reference/table-edit-row
         - title: TableEditColumn
-          path: /react/datagrid/docs/reference/table-edit-column
+          path: /react/grid/docs/reference/table-edit-column
         - title: PagingPanel
-          path: /react/datagrid/docs/reference/paging-panel
+          path: /react/grid/docs/reference/paging-panel
         - title: GroupingPanel
-          path: /react/datagrid/docs/reference/grouping-panel
+          path: /react/grid/docs/reference/grouping-panel

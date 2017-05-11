@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-    DataGrid,
+    Grid,
     SortingState, SelectionState, FilteringState, GroupingState,
     LocalFiltering, LocalGrouping, LocalSorting,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     VirtualTableView, TableHeaderRow,
     TableFilterRow, TableSelection, GroupingPanel, TableGroupRow,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 import {
     ProgressBarCell,
 } from './templates/progress-bar-cell';
@@ -43,7 +43,7 @@ export class VirtualScrollingDemo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
         getRowId={row => row.id}
@@ -90,7 +90,7 @@ export class VirtualScrollingDemo extends React.PureComponent {
         <TableGroupRow />
         <GroupingPanel allowSorting />
 
-      </DataGrid>
+      </Grid>
     );
   }
 }

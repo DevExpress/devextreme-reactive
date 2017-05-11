@@ -1,4 +1,4 @@
-title: DataGrid for React
+title: DevExtreme Reactive Components
 baseurl: "/devextreme-reactive"
 
 markdown: kramdown
@@ -19,17 +19,17 @@ defaults:
     values:
       layout: default
   - scope:
-      path: react/datagrid/demos
+      path: react/grid/demos
       type: pages
     values:
       layout: demos
   - scope:
-      path: react/datagrid/embedded-demo
+      path: react/grid/embedded-demo
       type: pages
     values:
       layout: embedded-demo
   - scope:
-      path: react/datagrid/docs
+      path: react/grid/docs
       type: pages
     values:
       layout: docs

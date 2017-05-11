@@ -8,14 +8,14 @@ Component suite for React.
 
 [Website](https://devexpress.github.io/devextreme-reactive/)
 
-### React DataGrid
+### React Grid
 
-[Website](https://devexpress.github.io/devextreme-reactive/react/datagrid/)
+[Website](https://devexpress.github.io/devextreme-reactive/react/grid/)
 |
-[Demos](https://devexpress.github.io/devextreme-reactive/react/datagrid/demos/)
+[Demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/)
 |
-[Docs](https://devexpress.github.io/devextreme-reactive/react/datagrid/docs/)
+[Docs](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
 
 Packages:
-- [DevExtreme React DataGrid](packages/dx-react-datagrid/README.md)
-- [DevExtreme React DataGrid Bootstrap3](packages/dx-react-datagrid-bootstrap3/README.md)
+- [DevExtreme React Grid](packages/dx-react-grid/README.md)
+- [DevExtreme React Grid Bootstrap3](packages/dx-react-grid-bootstrap3/README.md)

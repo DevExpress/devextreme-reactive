@@ -1,6 +1,6 @@
 # DevExtreme React Demos
 
-Demos showing how to use DevExtreme React DataGrid. <TODO: link to online examples>
+Demos showing how to use DevExtreme React Grid. <TODO: link to online examples>
 
 ## Run locally
 

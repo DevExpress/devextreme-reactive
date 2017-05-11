@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-    DataGrid,
+    Grid,
     SortingState, SelectionState, FilteringState, PagingState, GroupingState,
     LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     TableView, TableHeaderRow,
     TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 import {
     ProgressBarCell,
 } from './templates/progress-bar-cell';
@@ -40,7 +40,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
       >
@@ -94,7 +94,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
         <TableGroupRow />
         <GroupingPanel allowSorting />
 
-      </DataGrid>
+      </Grid>
     );
   }
 }

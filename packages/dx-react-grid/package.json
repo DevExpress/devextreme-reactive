@@ -1,7 +1,7 @@
 {
   "name": "@devexpress/dx-react-grid",
   "version": "1.0.0-alpha.1",
-  "description": "Composable plugin-based Grid component for React",
+  "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
@@ -25,7 +25,7 @@
     "datagrid",
     "data-grid"
   ],
-  "license": "https://js.devexpress.com/Licensing/",
+  "license": "SEE LICENSE IN README.md",
   "main": "dist/dx-react-grid.umd.js",
   "module": "dist/dx-react-grid.es.js",
   "globalName": "DevExpress.DXReactGrid",

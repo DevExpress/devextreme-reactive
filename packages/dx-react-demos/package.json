@@ -2,12 +2,12 @@
   "private": true,
   "name": "@devexpress/dx-react-demos",
   "version": "1.0.0-alpha.1",
-  "description": "DevExtreme for React component suite Demos",
+  "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
-  "license": "https://js.devexpress.com/Licensing/",
+  "license": "SEE LICENSE IN README.md",
   "main": "index.js",
   "scripts": {
     "watch": "webpack-dev-server --env",

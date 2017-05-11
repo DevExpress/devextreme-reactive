@@ -54,3 +54,7 @@ The package exposes plugins with injected templates. Here is the list of the plu
 Each plugin has properties with the 'Template' postfix. Components passed to such properties are templates.
 
 Templates can be overridden by passing your own component or rendering function. If you want to render a UI item with a built-in template, you can return `undefined` from your custom template.
+
+## License
+
+[DevExtreme licensing](https://js.devexpress.com/licensing/).

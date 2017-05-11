@@ -1,7 +1,7 @@
 {
   "name": "@devexpress/dx-grid-core",
   "version": "1.0.0-alpha.1",
-  "description": "Core library for DevExtreme reactive Grid component",
+  "description": "Core library for the DevExtreme Reactive Grid component",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
@@ -22,7 +22,7 @@
     "datagrid",
     "data-grid"
   ],
-  "license": "https://js.devexpress.com/Licensing/",
+  "license": "SEE LICENSE IN README.md",
   "main": "dist/dx-grid-core.umd.js",
   "module": "dist/dx-grid-core.es.js",
   "globalName": "DevExpress.DXGridCore",

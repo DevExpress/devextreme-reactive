@@ -1,6 +1,6 @@
 # DevExtreme Reactive Core
 
-Core library for DevExtreme React Components.
+Core library for DevExtreme Reactive Components.
 
 ## License
 

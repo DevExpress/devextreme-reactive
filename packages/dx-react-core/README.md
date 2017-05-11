@@ -1,4 +1,4 @@
-# DevExtreme Reactive Core
+# DevExtreme React Core
 
 Core library for DevExtreme React Components.
 

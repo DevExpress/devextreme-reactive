@@ -1,4 +1,4 @@
-# DevExtreme Reactive Core
+# DevExtreme Grid Core
 
 Core library for the DevExtreme Reactive Grid component.
 

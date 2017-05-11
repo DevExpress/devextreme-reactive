@@ -147,8 +147,8 @@ section {
     padding-bottom: 50px;
     text-align: center;
     color: #f0f2f4;
-    background: #173952 url({{site.baseurl}}/img/banner-bg.jpg) no-repeat center center;
-    background-size: cover;
+    background: #173952 url({{site.baseurl}}/img/banner-bg.jpg) no-repeat bottom center;
+    background-size: contain;
 }
 
 .intro-message {
@@ -163,7 +163,7 @@ section {
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     color: #f05b41;
     margin: 0;
-    font-size: 5em;
+    font-size: 4.5em;
     position: relative;
     display: inline-block;
 }
@@ -173,11 +173,11 @@ section {
     color: #fff;
     position: absolute;
     top: 5px;
-    right: -30px;
+    right: -35px;
 }
 
 .intro-message > h3 {
-    font-size: 1.5em;
+    font-size: 2.7em;
     color: #fff;
     margin: 5px 0 35px;
 }
@@ -223,9 +223,13 @@ ul.banner-action-buttons .btn.demos:hover {
     }
 
     .intro-message > h1 > sup {
-      right: -20px;
+        right: -25px;
     }
 
+    .intro-message > h3 {
+        font-size: 2em;
+    }
+    
     ul.intro-action-buttons > li {
         margin-bottom: 20px;
     }
@@ -423,5 +427,14 @@ footer ul > li.active > a {
 
     footer {
         padding: 30px 0;
+    }
+}
+
+@media(max-width: 498px) {
+    .intro-message > h1 > .break {
+        display: block;
+    }
+    .intro-message > h1 > sup {
+        right: -20px;
     }
 }

@@ -1,6 +1,6 @@
 import {
     changedRowsByIds,
-    newRowsByIds,
+    addedRowsByIds,
 } from './computeds';
 
 describe('EditingState computeds', () => {
@@ -18,16 +18,16 @@ describe('EditingState computeds', () => {
       });
     });
   });
-  describe('#newRowsByIds', () => {
+  describe('#addedRowsByIds', () => {
     test('should work', () => {
-      const newRows = [
+      const addedRows = [
         { a: 1 },
         { b: 1 },
         { c: 1 },
       ];
       const indexes = [1];
 
-      const computed = newRowsByIds(newRows, indexes);
+      const computed = addedRowsByIds(addedRows, indexes);
       expect(computed).toEqual([
         { b: 1 },
       ]);

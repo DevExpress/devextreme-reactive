@@ -17,7 +17,7 @@ export class TableEditRow extends React.PureComponent {
           connectArgs={getter => [
             getter('tableBodyRows'),
             getter('editingRows'),
-            getter('newRows'),
+            getter('addedRows'),
             getter('getRowId'),
             rowHeight,
           ]}

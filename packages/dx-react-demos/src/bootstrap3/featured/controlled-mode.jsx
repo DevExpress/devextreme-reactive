@@ -51,7 +51,7 @@ CommandButton.defaultProps = {
 };
 
 const commands = {
-  create: {
+  add: {
     text: 'New',
     hint: 'Create new row',
     icon: 'plus',
@@ -128,15 +128,15 @@ export class ControlledModeDemo extends React.PureComponent {
       }),
       sorting: [],
       editingRows: [],
-      newRows: [],
+      addedRows: [],
       changedRows: {},
       currentPage: 0,
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
-    this.changeNewRows = newRows => this.setState({
-      newRows: newRows.map(row => (Object.keys(row).length ? row : {
+    this.changeAddedRows = addedRows => this.setState({
+      addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
         amount: 0,
         discount: 0.1,
         saleDate: new Date().toDateString(),
@@ -148,22 +148,22 @@ export class ControlledModeDemo extends React.PureComponent {
     this.changeChangedRows = changedRows => this.setState({ changedRows });
     this.changeFilters = filters => this.setState({ filters });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
-    this.commitChanges = ({ created, updated, deleted }) => {
+    this.commitChanges = ({ added, changed, deleted }) => {
       let rows = this.state.rows.slice();
-      if (created) {
+      if (added) {
         rows = [
-          ...created.map((row, index) => ({
+          ...added.map((row, index) => ({
             id: rows.length + index,
             ...row,
           })),
           ...rows,
         ];
       }
-      if (updated) {
-        Object.keys(updated).forEach((key) => {
+      if (changed) {
+        Object.keys(changed).forEach((key) => {
           const index = rows.findIndex(row => String(row.id) === key);
           if (index > -1) {
-            const change = updated[key];
+            const change = changed[key];
             rows[index] = Object.assign({}, rows[index], change);
           }
         });
@@ -185,7 +185,7 @@ export class ControlledModeDemo extends React.PureComponent {
       columns,
       sorting,
       editingRows,
-      newRows,
+      addedRows,
       changedRows,
       currentPage,
     } = this.state;
@@ -215,8 +215,8 @@ export class ControlledModeDemo extends React.PureComponent {
           onEditingRowsChange={this.changeEditingRows}
           changedRows={changedRows}
           onChangedRowsChange={this.changeChangedRows}
-          newRows={newRows}
-          onAddedRowsChange={this.changeNewRows}
+          addedRows={addedRows}
+          onAddedRowsChange={this.changeAddedRows}
           onCommitChanges={this.commitChanges}
         />
 
@@ -248,7 +248,7 @@ export class ControlledModeDemo extends React.PureComponent {
         />
         <TableEditColumn
           width={100}
-          allowCreating={!this.state.newRows.length}
+          allowAdding={!this.state.addedRows.length}
           allowEditing
           allowDeleting
           commandTemplate={({ executeCommand, id }) => (

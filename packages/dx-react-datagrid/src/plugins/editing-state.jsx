@@ -8,7 +8,7 @@ import {
   addRow,
   changeAddedRow,
   cancelAddedRows,
-  newRowsByIds,
+  addedRowsByIds,
 
   changeRow,
   cancelChanges,
@@ -24,7 +24,7 @@ export class EditingState extends React.PureComponent {
 
     this.state = {
       editingRows: props.defaultEditingRows || [],
-      newRows: props.defaultAddedRows || [],
+      addedRows: props.defaultAddedRows || [],
       changedRows: props.defaultChangedRows || {},
       deletedRows: props.defaultDeletedRows || [],
     };
@@ -45,10 +45,10 @@ export class EditingState extends React.PureComponent {
         onChangedRowsChange(nextChangedRows);
       }
     };
-    this._reduceAddedRows = reducer => (newRows, payload) => {
+    this._reduceAddedRows = reducer => (addedRows, payload) => {
       const { onAddedRowsChange } = this.props;
-      const nextAddedRows = reducer(newRows, payload);
-      this.setState({ newRows: nextAddedRows });
+      const nextAddedRows = reducer(addedRows, payload);
+      this.setState({ addedRows: nextAddedRows });
       if (onAddedRowsChange) {
         onAddedRowsChange(nextAddedRows);
       }
@@ -75,15 +75,15 @@ export class EditingState extends React.PureComponent {
     this._deleteRows = this._reduceDeletedRows(deleteRows);
     this._cancelDeletedRows = this._reduceDeletedRows(cancelDeletedRows);
 
-    this._commitAddedRows = (newRows, { rowIds }) => {
-      const toCommit = newRowsByIds(newRows, rowIds);
-      const changeSet = { created: toCommit };
+    this._commitAddedRows = (addedRows, { rowIds }) => {
+      const toCommit = addedRowsByIds(addedRows, rowIds);
+      const changeSet = { added: toCommit };
       this._commitChanges(changeSet);
-      this._cancelAddedRows(newRows, { rowIds });
+      this._cancelAddedRows(addedRows, { rowIds });
     };
     this._commitChangedRows = (changedRows, { rowIds }) => {
       const toCommit = changedRowsByIds(changedRows, rowIds);
-      const changeSet = { updated: toCommit };
+      const changeSet = { changed: toCommit };
       this._commitChanges(changeSet);
       this._cancelChangedRows(changedRows, { rowIds });
     };
@@ -103,7 +103,7 @@ export class EditingState extends React.PureComponent {
   render() {
     const editingRows = this.props.editingRows || this.state.editingRows;
     const changedRows = this.props.changedRows || this.state.changedRows;
-    const newRows = this.props.newRows || this.state.newRows;
+    const addedRows = this.props.addedRows || this.state.addedRows;
     const deletedRows = this.props.deletedRows || this.state.deletedRows;
 
     return (
@@ -119,19 +119,19 @@ export class EditingState extends React.PureComponent {
 
         <Action
           name="addRow"
-          action={() => this._addRow(newRows, { row: {} })}
+          action={() => this._addRow(addedRows, { row: {} })}
         />
         <Action
           name="changeAddedRow"
-          action={({ rowId, change }) => this._changeAddedRow(newRows, { rowId, change })}
+          action={({ rowId, change }) => this._changeAddedRow(addedRows, { rowId, change })}
         />
         <Action
           name="cancelAddedRows"
-          action={({ rowIds }) => this._cancelAddedRows(newRows, { rowIds })}
+          action={({ rowIds }) => this._cancelAddedRows(addedRows, { rowIds })}
         />
         <Action
           name="commitAddedRows"
-          action={({ rowIds }) => this._commitAddedRows(newRows, { rowIds })}
+          action={({ rowIds }) => this._commitAddedRows(addedRows, { rowIds })}
         />
 
         <Action
@@ -162,7 +162,7 @@ export class EditingState extends React.PureComponent {
 
         <Getter name="editingRows" value={editingRows} />
         <Getter name="changedRows" value={changedRows} />
-        <Getter name="newRows" value={newRows} />
+        <Getter name="addedRows" value={addedRows} />
         <Getter name="deletedRows" value={deletedRows} />
       </PluginContainer>
     );
@@ -174,7 +174,7 @@ EditingState.propTypes = {
   defaultEditingRows: PropTypes.array,
   onEditingRowsChange: PropTypes.func,
 
-  newRows: PropTypes.array,
+  addedRows: PropTypes.array,
   defaultAddedRows: PropTypes.array,
   onAddedRowsChange: PropTypes.func,
 
@@ -194,7 +194,7 @@ EditingState.defaultProps = {
   defaultEditingRows: undefined,
   onEditingRowsChange: undefined,
 
-  newRows: undefined,
+  addedRows: undefined,
   defaultAddedRows: undefined,
   onAddedRowsChange: undefined,
 

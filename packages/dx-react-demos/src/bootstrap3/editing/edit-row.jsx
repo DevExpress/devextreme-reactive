@@ -28,15 +28,15 @@ export class EditRowDemo extends React.PureComponent {
       rows: generateRows({ length: 14 }),
     };
 
-    this.commitChanges = ({ created, updated, deleted }) => {
+    this.commitChanges = ({ added, changed, deleted }) => {
       let rows = this.state.rows.slice();
-      if (created) {
-        rows = [...created, ...rows];
+      if (added) {
+        rows = [...added, ...rows];
       }
-      if (updated) {
-        Object.keys(updated).forEach((key) => {
+      if (changed) {
+        Object.keys(changed).forEach((key) => {
           const index = Number(key);
-          const change = updated[index];
+          const change = changed[index];
           rows[index] = Object.assign({}, rows[index], change);
         });
       }
@@ -63,7 +63,7 @@ export class EditRowDemo extends React.PureComponent {
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn
-          allowCreating
+          allowAdding
           allowEditing
           allowDeleting
         />

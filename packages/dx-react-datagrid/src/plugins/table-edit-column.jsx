@@ -10,7 +10,7 @@ export class TableEditColumn extends React.PureComponent {
       cellTemplate,
       headingCellTemplate,
       commandTemplate,
-      allowCreating,
+      allowAdding,
       allowEditing,
       allowDeleting,
       width,
@@ -38,7 +38,7 @@ export class TableEditColumn extends React.PureComponent {
               column,
               addRow: () => addRow(),
               commandTemplate,
-              allowCreating,
+              allowAdding,
               style,
             })}
         </Template>
@@ -146,13 +146,13 @@ TableEditColumn.propTypes = {
   cellTemplate: PropTypes.func.isRequired,
   headingCellTemplate: PropTypes.func.isRequired,
   commandTemplate: PropTypes.func.isRequired,
-  allowCreating: PropTypes.bool,
+  allowAdding: PropTypes.bool,
   allowEditing: PropTypes.bool,
   allowDeleting: PropTypes.bool,
   width: PropTypes.number,
 };
 TableEditColumn.defaultProps = {
-  allowCreating: false,
+  allowAdding: false,
   allowEditing: false,
   allowDeleting: false,
   width: 140,

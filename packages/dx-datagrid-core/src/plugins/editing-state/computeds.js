@@ -6,10 +6,10 @@ export const changedRowsByIds = (changes, rowIds) => {
   return result;
 };
 
-export const newRowsByIds = (newRows, rowIds) => {
+export const addedRowsByIds = (addedRows, rowIds) => {
   const rowIdSet = new Set(rowIds);
   const result = [];
-  newRows.forEach((row, index) => {
+  addedRows.forEach((row, index) => {
     if (rowIdSet.has(index)) {
       result.push(row);
     }

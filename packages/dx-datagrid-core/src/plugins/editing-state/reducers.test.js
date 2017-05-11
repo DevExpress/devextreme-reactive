@@ -31,28 +31,28 @@ describe('EditingState reducers', () => {
   });
   describe('#addRow', () => {
     test('should work', () => {
-      const newRows = [{ a: 1 }];
+      const addedRows = [{ a: 1 }];
       const payload = { row: { a: 2 } };
 
-      const nextAddedRows = addRow(newRows, payload);
+      const nextAddedRows = addRow(addedRows, payload);
       expect(nextAddedRows).toEqual([{ a: 2 }, { a: 1 }]);
     });
   });
   describe('#changeAddedRow', () => {
     test('should work', () => {
-      const newRows = [{ a: 1 }, { a: 2 }];
+      const addedRows = [{ a: 1 }, { a: 2 }];
       const payload = { rowId: 0, change: { a: 3 } };
 
-      const nextAddedRows = changeAddedRow(newRows, payload);
+      const nextAddedRows = changeAddedRow(addedRows, payload);
       expect(nextAddedRows).toEqual([{ a: 3 }, { a: 2 }]);
     });
   });
   describe('#cancelAddedRows', () => {
     test('should work', () => {
-      const newRows = [{ a: 1 }, { a: 2 }];
+      const addedRows = [{ a: 1 }, { a: 2 }];
       const payload = { rowIds: [0] };
 
-      const nextAddedRows = cancelAddedRows(newRows, payload);
+      const nextAddedRows = cancelAddedRows(addedRows, payload);
       expect(nextAddedRows).toEqual([{ a: 2 }]);
     });
   });

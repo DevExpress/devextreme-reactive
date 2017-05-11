@@ -6,18 +6,18 @@ export const stopEditRows = (prevEditingRows, { rowIds }) => {
   return prevEditingRows.filter(id => !rowIdSet.has(id));
 };
 
-export const addRow = (newRows, { row }) => [row, ...newRows];
+export const addRow = (addedRows, { row }) => [row, ...addedRows];
 
-export const changeAddedRow = (newRows, { rowId, change }) => {
-  const result = newRows.slice();
+export const changeAddedRow = (addedRows, { rowId, change }) => {
+  const result = addedRows.slice();
   result[rowId] = Object.assign({}, result[rowId], change);
   return result;
 };
 
-export const cancelAddedRows = (newRows, { rowIds }) => {
+export const cancelAddedRows = (addedRows, { rowIds }) => {
   const result = [];
   const indexSet = new Set(rowIds);
-  newRows.forEach((row, index) => {
+  addedRows.forEach((row, index) => {
     if (!indexSet.has(index)) {
       result.push(row);
     }

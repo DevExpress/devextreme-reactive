@@ -26,7 +26,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | string | Specifies a column name to which the sorting is applied
+columnName | string | Specifies a column name to which the sorting is applied
 direction | 'asc' &#124; 'desc' | Specifies the sort order of a column
 
 ## Plugin Developer Reference

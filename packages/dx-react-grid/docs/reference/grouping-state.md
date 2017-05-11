@@ -29,7 +29,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | string | Specifies a column name to group by
+columnName | string | Specifies a column name to group by
 
 ### <a name="group-key"></a>GroupKey
 

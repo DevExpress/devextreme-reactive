@@ -29,7 +29,7 @@ export class TableGroupRow extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'groupRow'
             && column.type === 'groupColumn'
-            && row.column.name === column.group.column}
+            && row.column.name === column.group.columnName}
           connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >

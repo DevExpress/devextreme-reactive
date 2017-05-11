@@ -41,12 +41,12 @@ export class LocalGroupSortingDemo extends React.PureComponent {
       >
         <SortingState
           defaultSorting={[
-            { column: 'city', direction: 'asc' },
-            { column: 'name', direction: 'desc' },
+            { columnName: 'city', direction: 'asc' },
+            { columnName: 'name', direction: 'desc' },
           ]}
         />
         <GroupingState
-          defaultGrouping={[{ column: 'city' }]}
+          defaultGrouping={[{ columnName: 'city' }]}
         />
         <LocalSorting />
         <LocalGrouping />

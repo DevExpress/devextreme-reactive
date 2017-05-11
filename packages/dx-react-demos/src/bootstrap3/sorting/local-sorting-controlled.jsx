@@ -25,7 +25,7 @@ export class LocalSortingControlledDemo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 14 }),
-      sorting: [{ column: 'city', direction: 'asc' }],
+      sorting: [{ columnName: 'city', direction: 'asc' }],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });

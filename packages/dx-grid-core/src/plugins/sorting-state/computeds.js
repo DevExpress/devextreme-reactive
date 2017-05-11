@@ -1,5 +1,7 @@
+import mergeSort from '../../utils/merge-sort';
+
 const createSortingCompare = (sorting, compareEqual) => (a, b) => {
-  const sortColumn = sorting.column;
+  const sortColumn = sorting.columnName;
   const inverse = sorting.direction === 'desc';
 
   if (a[sortColumn] === b[sortColumn]) {
@@ -10,12 +12,12 @@ const createSortingCompare = (sorting, compareEqual) => (a, b) => {
 };
 
 export const sortedRows = (rows, sorting) => {
-  if (!sorting.length) { return rows; }
+  if (!sorting.length) return rows;
 
   const compare = sorting.slice()
     .reverse()
     .reduce((prevCompare, columnSorting) =>
       createSortingCompare(columnSorting, prevCompare), () => 0);
 
-  return rows.slice().sort(compare);
+  return mergeSort(rows, compare);
 };

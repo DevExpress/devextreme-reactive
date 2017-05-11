@@ -11,7 +11,8 @@ export class GroupingPanel extends React.PureComponent {
     super(props);
 
     this._tableColumns = (tableColumns, grouping) => [
-      ...tableColumns.filter(column => grouping.findIndex(g => g.column === column.name) === -1),
+      ...tableColumns.filter(column =>
+        grouping.findIndex(g => g.columnName === column.name) === -1),
     ];
   }
   render() {

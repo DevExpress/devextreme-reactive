@@ -29,7 +29,7 @@ To apply the changes introduced by an end-user to your data source (no matter lo
 
 ## Controlled Editing State
 
-To fully control the editing state, you need to specify three pairs of the `EditingState` plugin properties. These are `editingState` and `editingStateChange`, `changedRows` and `onChangedRowsChange`, `newRows` and `onAddedRowsChange`.
+To fully control the editing state, you need to specify three pairs of the `EditingState` plugin properties. These are `editingState` and `editingStateChange`, `changedRows` and `onChangedRowsChange`, `addedRows` and `onAddedRowsChange`.
 
 Note, the `onAddedRowsChange` event can also be used to initialize a newly created row with some default property values.
 

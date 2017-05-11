@@ -1,4 +1,4 @@
-export const rowsWithEditing = (rows, editingRows, newRows, getRowId, rowHeight) => {
+export const rowsWithEditing = (rows, editingRows, addedRows, getRowId, rowHeight) => {
   const rowIds = new Set(editingRows);
   const tableRows = rows.map(
     row => (
@@ -11,7 +11,7 @@ export const rowsWithEditing = (rows, editingRows, newRows, getRowId, rowHeight)
       : row
     ),
   );
-  const newTableRows = newRows.map((row, index) => ({
+  const addedTableRows = addedRows.map((row, index) => ({
     type: 'edit',
     isNew: true,
     index,
@@ -19,7 +19,7 @@ export const rowsWithEditing = (rows, editingRows, newRows, getRowId, rowHeight)
     height: rowHeight,
   }));
   return [
-    ...newTableRows,
+    ...addedTableRows,
     ...tableRows,
   ];
 };

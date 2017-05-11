@@ -26,7 +26,7 @@ export class RemoteSortingDemo extends React.PureComponent {
         { name: 'SaleAmount', title: 'Sale Amount' },
       ],
       rows: [],
-      sorting: [{ column: 'StoreCity', direction: 'asc' }],
+      sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       loading: true,
     };
 
@@ -50,7 +50,7 @@ export class RemoteSortingDemo extends React.PureComponent {
     const columnSorting = this.state.sorting[0];
     if (columnSorting) {
       const sortDirectionString = columnSorting.direction === 'desc' ? ' desc' : '';
-      queryString = `${queryString}orderby=${columnSorting.column}${sortDirectionString}`;
+      queryString = `${queryString}orderby=${columnSorting.columnName}${sortDirectionString}`;
     }
     return queryString;
   }

@@ -37,7 +37,7 @@ export class LocalGroupingWithUIDemo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <GroupingState defaultGrouping={[{ column: 'city' }]} />
+        <GroupingState defaultGrouping={[{ columnName: 'city' }]} />
         <LocalGrouping />
         <TableView />
         <TableHeaderRow allowGrouping />

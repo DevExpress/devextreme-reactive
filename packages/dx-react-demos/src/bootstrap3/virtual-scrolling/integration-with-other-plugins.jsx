@@ -54,7 +54,7 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
         getRowId={row => row.id}
       >
         <FilteringState defaultFilters={[]} />
-        <SortingState defaultSorting={[{ column: 'city', direction: 'asc' }]} />
+        <SortingState defaultSorting={[{ columnName: 'city', direction: 'asc' }]} />
 
         <LocalFiltering />
         <LocalSorting />

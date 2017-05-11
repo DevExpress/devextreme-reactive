@@ -18,10 +18,10 @@ import {
 const filterFn = (row, filter) => {
   const toLowerCase = value => String(value).toLowerCase();
 
-  if (filter.column === 'sex') {
-    return toLowerCase(row[filter.column]) === toLowerCase(filter.value);
+  if (filter.columnName === 'sex') {
+    return toLowerCase(row[filter.columnName]) === toLowerCase(filter.value);
   }
-  return toLowerCase(row[filter.column]).indexOf(toLowerCase(filter.value)) > -1;
+  return toLowerCase(row[filter.columnName]).indexOf(toLowerCase(filter.value)) > -1;
 };
 
 const SexFilterCell = ({ filter, setFilter }) => (

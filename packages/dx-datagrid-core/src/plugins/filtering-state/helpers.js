@@ -1,9 +1,9 @@
 export const getColumnFilterConfig = (filters, columnName) => {
   if (!filters.length) { return null; }
 
-  const filter = filters.filter(s => s.column === columnName)[0];
+  const filter = filters.filter(s => s.columnName === columnName)[0];
   if (!filter) return null;
 
-  const { column, ...config } = filter;
+  const { columnName: _, ...config } = filter;
   return config;
 };

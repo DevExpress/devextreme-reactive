@@ -1,5 +1,5 @@
 export const setColumnSorting = (sorting, { columnName, direction, keepOther }) => {
-  const sortingIndex = sorting.findIndex(s => s.column === columnName);
+  const sortingIndex = sorting.findIndex(s => s.columnName === columnName);
   const columnSorting = sorting[sortingIndex];
   const nextSorting = keepOther ? sorting.slice() : [];
 
@@ -15,7 +15,7 @@ export const setColumnSorting = (sorting, { columnName, direction, keepOther }) 
     }
   } else {
     nextSorting.push({
-      column: columnName,
+      columnName,
       direction: direction || 'asc',
     });
   }

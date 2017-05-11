@@ -9,30 +9,30 @@ describe('SortingState reducers', () => {
       const payload = { columnName: 'column', config: { value: 'value' } };
 
       const nextFilters = setColumnFilter(filters, payload);
-      expect(nextFilters).toEqual([{ column: 'column', value: 'value' }]);
+      expect(nextFilters).toEqual([{ columnName: 'column', value: 'value' }]);
     });
 
     test('can change column filter', () => {
-      const filters = [{ column: 'column', value: 'value' }];
+      const filters = [{ columnName: 'column', value: 'value' }];
       const payload = { columnName: 'column', config: { value: 'new value' } };
 
       const nextFilters = setColumnFilter(filters, payload);
-      expect(nextFilters).toEqual([{ column: 'column', value: 'new value' }]);
+      expect(nextFilters).toEqual([{ columnName: 'column', value: 'new value' }]);
     });
 
     test('can add column filter', () => {
-      const filters = [{ column: 'column1', value: 'value' }];
+      const filters = [{ columnName: 'column1', value: 'value' }];
       const payload = { columnName: 'column2', config: { value: 'new value' } };
 
       const nextFilters = setColumnFilter(filters, payload);
       expect(nextFilters).toEqual([
-        { column: 'column1', value: 'value' },
-        { column: 'column2', value: 'new value' },
+        { columnName: 'column1', value: 'value' },
+        { columnName: 'column2', value: 'new value' },
       ]);
     });
 
     test('can remove column filter', () => {
-      const filters = [{ column: 'column', value: 'value' }];
+      const filters = [{ columnName: 'column', value: 'value' }];
       const payload = { columnName: 'column', config: null };
 
       const nextFilters = setColumnFilter(filters, payload);

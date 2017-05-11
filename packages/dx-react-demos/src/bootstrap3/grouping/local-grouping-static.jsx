@@ -37,7 +37,7 @@ export class LocalGroupingStaticDemo extends React.PureComponent {
         columns={columns}
       >
         <GroupingState
-          grouping={[{ column: 'city' }]}
+          grouping={[{ columnName: 'city' }]}
         />
         <LocalGrouping />
         <TableView />

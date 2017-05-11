@@ -27,7 +27,7 @@ export class LocalGroupingControlledDemo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 14 }),
-      grouping: [{ column: 'city' }],
+      grouping: [{ columnName: 'city' }],
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });

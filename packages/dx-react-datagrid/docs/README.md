@@ -140,7 +140,7 @@ export class MyApp extends React.PureComponent {
     this.state = {
       columns: [...],
       rows: [...],
-      sorting: [{ column: 'date', direction: 'desc' }],
+      sorting: [{ columnName: 'date', direction: 'desc' }],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -173,7 +173,7 @@ If you want to specify the default sorting configuration, it will look as follow
 
 ```js
   <DataGrid rows={[...]} columns={[...]}>
-    <SortingState defaultSorting={[ column: 'date', direction: 'desc' ]} />
+    <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
     ...
   </DataGrid>
 ```

@@ -32,7 +32,7 @@ Packages:
 
 ## License
 
-[DevExtreme licensing](js.devexpress.com/licensing).
+[DevExtreme licensing](https://js.devexpress.com/licensing/).
 
 ## Support & Feedback
 

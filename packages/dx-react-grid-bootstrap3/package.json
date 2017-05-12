@@ -28,7 +28,7 @@
     "bootstrap3",
     "twitter-bootstrap"
   ],
-  "license": "https://js.devexpress.com/Licensing/",
+  "license": "SEE LICENSE IN README.md",
   "main": "dist/dx-react-grid-bootstrap3.umd.js",
   "module": "dist/dx-react-grid-bootstrap3.es.js",
   "globalName": "DevExpress.DXReactGridBootstrap3",

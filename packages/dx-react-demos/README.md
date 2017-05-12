@@ -1,6 +1,6 @@
 # DevExtreme React Demos
 
-Demos showing how to use DevExtreme React Grid. <TODO: link to online examples>
+[Demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) showing how to use DevExtreme React Grid.
 
 ## Run locally
 
@@ -29,3 +29,7 @@ To run demos locally, follow next steps:
 For more information about components used in these demo cases follow the link:
 
 [DevExtreme for React](../../README.md#devextreme-for-react)
+
+## License
+
+[DevExtreme licensing](https://js.devexpress.com/licensing/).

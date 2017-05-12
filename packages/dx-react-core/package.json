@@ -1,7 +1,7 @@
 {
   "name": "@devexpress/dx-react-core",
   "version": "1.0.0-alpha.1",
-  "description": "Core library for DevExtreme component suite for React",
+  "description": "Core library for DevExtreme React Components",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
@@ -21,7 +21,7 @@
     "component",
     "react"
   ],
-  "license": "https://js.devexpress.com/Licensing/",
+  "license": "SEE LICENSE IN README.md",
   "main": "dist/dx-react-core.umd.js",
   "module": "dist/dx-react-core.es.js",
   "globalName": "DevExpress.DXReactCore",

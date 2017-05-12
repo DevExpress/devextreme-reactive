@@ -1,7 +1,7 @@
 {
   "name": "@devexpress/dx-core",
   "version": "1.0.0-alpha.1",
-  "description": "Core library for DevExtreme reactive component suite",
+  "description": "Core library for DevExtreme Reactive Components",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
@@ -18,7 +18,7 @@
     "js",
     "javascript"
   ],
-  "license": "https://js.devexpress.com/Licensing/",
+  "license": "SEE LICENSE IN README.md",
   "main": "dist/dx-core.umd.js",
   "module": "dist/dx-core.es.js",
   "globalName": "DevExpress.DXCore",

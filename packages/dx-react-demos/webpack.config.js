@@ -32,13 +32,6 @@ module.exports = ({ production }) => ({
     ]
   },
   resolve: {
-    alias: {
-      // Strange hack for lerna
-      'react': path.resolve('./node_modules/react'),
-      'prop-types': path.resolve('./node_modules/prop-types'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
-      'react-bootstrap': path.resolve('./node_modules/react-bootstrap'),
-    },
     extensions: [".webpack.js", ".web.js", ".js", ".jsx"]
   },
   plugins: [

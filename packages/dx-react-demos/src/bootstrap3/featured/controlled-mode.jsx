@@ -10,6 +10,10 @@ import {
     PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
+  Modal,
+  Button,
+} from 'react-bootstrap';
+import {
     ProgressBarCell,
 } from './templates/progress-bar-cell';
 import {
@@ -131,6 +135,7 @@ export class ControlledModeDemo extends React.PureComponent {
       addedRows: [],
       changedRows: {},
       currentPage: 0,
+      deletingRows: [],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -158,6 +163,7 @@ export class ControlledModeDemo extends React.PureComponent {
           })),
           ...rows,
         ];
+        this.setState({ rows });
       }
       if (changed) {
         Object.keys(changed).forEach((key) => {
@@ -167,16 +173,35 @@ export class ControlledModeDemo extends React.PureComponent {
             rows[index] = Object.assign({}, rows[index], change);
           }
         });
+        this.setState({ rows });
       }
       if (deleted) {
-        deleted.forEach((rowId) => {
-          const index = rows.findIndex(row => row.id === rowId);
-          if (index > -1) {
-            rows.splice(index, 1);
-          }
-        });
+        this.setState({ deletingRows: deleted });
       }
-      this.setState({ rows });
+    };
+    this.cancelDelete = () => this.setState({ deletingRows: [] });
+    this.deleteRows = () => {
+      const rows = this.state.rows.slice();
+      this.state.deletingRows.forEach((rowId) => {
+        const index = rows.findIndex(row => row.id === rowId);
+        if (index > -1) {
+          rows.splice(index, 1);
+        }
+      });
+      this.setState({ rows, deletingRows: [] });
+    };
+
+    this.tableCellTemplate = ({ row, column, style }) => {
+      if (column.name === 'discount') {
+        return (
+          <ProgressBarCell value={row.discount * 100} style={style} />
+        );
+      } else if (column.name === 'amount') {
+        return (
+          <HighlightedCell align={column.align} value={row.amount} style={style} />
+        );
+      }
+      return undefined;
     };
   }
   render() {
@@ -188,78 +213,95 @@ export class ControlledModeDemo extends React.PureComponent {
       addedRows,
       changedRows,
       currentPage,
+      deletingRows,
     } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={row => row.id}
-      >
+      <div>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={row => row.id}
+        >
 
-        <SortingState
-          sorting={sorting}
-          onSortingChange={this.changeSorting}
-        />
-        <PagingState
-          currentPage={currentPage}
-          onCurrentPageChange={this.changeCurrentPage}
-          pageSize={10}
-        />
+          <SortingState
+            sorting={sorting}
+            onSortingChange={this.changeSorting}
+          />
+          <PagingState
+            currentPage={currentPage}
+            onCurrentPageChange={this.changeCurrentPage}
+            pageSize={10}
+          />
 
-        <LocalSorting />
-        <LocalPaging />
+          <LocalSorting />
+          <LocalPaging />
 
-        <EditingState
-          editingRows={editingRows}
-          onEditingRowsChange={this.changeEditingRows}
-          changedRows={changedRows}
-          onChangedRowsChange={this.changeChangedRows}
-          addedRows={addedRows}
-          onAddedRowsChange={this.changeAddedRows}
-          onCommitChanges={this.commitChanges}
-        />
+          <EditingState
+            editingRows={editingRows}
+            onEditingRowsChange={this.changeEditingRows}
+            changedRows={changedRows}
+            onChangedRowsChange={this.changeChangedRows}
+            addedRows={addedRows}
+            onAddedRowsChange={this.changeAddedRows}
+            onCommitChanges={this.commitChanges}
+          />
 
-        <TableView
-          tableCellTemplate={({ row, column, style }) => {
-            if (column.name === 'discount') {
-              return (
-                <ProgressBarCell value={row.discount * 100} style={style} />
-              );
-            } else if (column.name === 'amount') {
-              return (
-                <HighlightedCell align={column.align} value={row.amount} style={style} />
-              );
-            }
-            return undefined;
-          }}
-        />
+          <TableView
+            tableCellTemplate={this.tableCellTemplate}
+          />
 
-        <TableHeaderRow allowSorting />
-        <TableEditRow
-          editCellTemplate={(props) => {
-            const { column } = props;
-            const columnValues = availableValues[column.name];
-            if (columnValues) {
-              return <LookupEditCell {...props} availableValues={columnValues} />;
-            }
-            return undefined;
-          }}
-        />
-        <TableEditColumn
-          width={100}
-          allowAdding={!this.state.addedRows.length}
-          allowEditing
-          allowDeleting
-          commandTemplate={({ executeCommand, id }) => (
-            commands[id]
-            ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
-            : undefined
-          )}
-        />
-        <PagingPanel />
+          <TableHeaderRow allowSorting />
+          <TableEditRow
+            editCellTemplate={(props) => {
+              const { column } = props;
+              const columnValues = availableValues[column.name];
+              if (columnValues) {
+                return <LookupEditCell {...props} availableValues={columnValues} />;
+              }
+              return undefined;
+            }}
+          />
+          <TableEditColumn
+            width={100}
+            allowAdding={!this.state.addedRows.length}
+            allowEditing
+            allowDeleting
+            commandTemplate={({ executeCommand, id }) => (
+              commands[id]
+              ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
+              : undefined
+            )}
+          />
+          <PagingPanel />
+        </Grid>
 
-      </Grid>
+        <Modal
+          bsSize="large"
+          show={!!deletingRows.length}
+          onHide={this.cancelDelete}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Row</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure to delete the following row?</p>
+            <Grid
+              rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
+              columns={columns}
+            >
+              <TableView
+                tableCellTemplate={this.tableCellTemplate}
+              />
+              <TableHeaderRow />
+            </Grid>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.cancelDelete}>Cancel</Button>
+            <Button className="btn-danger" onClick={this.deleteRows}>Delete</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     );
   }
 }

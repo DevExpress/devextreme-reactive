@@ -10,110 +10,126 @@ import {
     LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
-    TableView, TableHeaderRow,
-    TableFilterRow, TableSelection, PagingPanel, GroupingPanel, TableGroupRow,
+    TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
+    GroupingPanel, PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
-import {
-    ProgressBarCell,
-} from './templates/progress-bar-cell';
-import {
-    HighlightedCell,
-} from './templates/highlighted-cell';
 
 import {
   generateRows,
-  globalSalesValues,
+  employeeValues,
+  employeeTaskValues,
 } from '../../demoData';
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-const GridContainer = (props) => {
-  const {
-    rows,
-    columns,
-
-    sorting,
-    onSortingChange,
-    selection,
-    onSelectionChange,
-    grouping,
-    onGroupingChange,
-    expandedGroups,
-    onExpandedGroupsChange,
-    filters,
-    onFiltersChange,
-    currentPage,
-    onCurrentPageChange,
-  } = props;
-
-  return (
+const GridDetailContainer = ({
+  columns,
+  data,
+}) => (
+  <div style={{ margin: '20px' }}>
+    <div>
+      <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
+    </div>
     <Grid
-      rows={rows}
+      rows={data.tasks}
       columns={columns}
     >
-
-      <FilteringState
-        filters={filters}
-        onFiltersChange={onFiltersChange}
-      />
-      <SortingState
-        sorting={sorting}
-        onSortingChange={onSortingChange}
-      />
-      <GroupingState
-        grouping={grouping}
-        onGroupingChange={onGroupingChange}
-        expandedGroups={expandedGroups}
-        onExpandedGroupsChange={onExpandedGroupsChange}
-      />
-      <PagingState
-        currentPage={currentPage}
-        onCurrentPageChange={onCurrentPageChange}
-        pageSize={10}
-      />
-
-      <LocalFiltering />
-      <LocalSorting />
-      <LocalGrouping />
-      <LocalPaging />
-
-      <SelectionState
-        selection={selection}
-        onSelectionChange={onSelectionChange}
-      />
-
-      <TableView
-        tableCellTemplate={({ row, column, style }) => {
-          if (column.name === 'discount') {
-            return (
-              <ProgressBarCell value={row.discount * 100} style={style} />
-            );
-          } else if (column.name === 'amount') {
-            return (
-              <HighlightedCell align={column.align} value={row.amount} style={style} />
-            );
-          }
-          return undefined;
-        }}
-      />
-
-      <TableHeaderRow allowSorting allowGrouping />
-      <TableFilterRow />
-      <PagingPanel />
-      <TableSelection />
-      <TableGroupRow />
-      <GroupingPanel allowSorting />
-
+      <TableView />
+      <TableHeaderRow />
     </Grid>
-  );
+  </div>
+);
+GridDetailContainer.propTypes = {
+  data: PropTypes.shape().isRequired,
+  columns: PropTypes.array.isRequired,
 };
+
+const GridContainer = ({
+  rows,
+  columns,
+  detailColumns,
+
+  sorting,
+  onSortingChange,
+  selection,
+  onSelectionChange,
+  expandedRows,
+  onExpandedRowsChange,
+  grouping,
+  onGroupingChange,
+  expandedGroups,
+  onExpandedGroupsChange,
+  filters,
+  onFiltersChange,
+  currentPage,
+  onCurrentPageChange,
+}) => (
+  <Grid
+    rows={rows}
+    columns={columns}
+  >
+
+    <FilteringState
+      filters={filters}
+      onFiltersChange={onFiltersChange}
+    />
+    <SortingState
+      sorting={sorting}
+      onSortingChange={onSortingChange}
+    />
+    <GroupingState
+      grouping={grouping}
+      onGroupingChange={onGroupingChange}
+      expandedGroups={expandedGroups}
+      onExpandedGroupsChange={onExpandedGroupsChange}
+    />
+    <PagingState
+      currentPage={currentPage}
+      onCurrentPageChange={onCurrentPageChange}
+      pageSize={8}
+    />
+
+    <LocalFiltering />
+    <LocalSorting />
+    <LocalGrouping />
+    <LocalPaging />
+
+    <SelectionState
+      selection={selection}
+      onSelectionChange={onSelectionChange}
+    />
+
+    <TableView />
+
+    <TableHeaderRow allowSorting allowGrouping />
+    <TableFilterRow />
+    <TableSelection />
+    <TableRowDetail
+      expandedRows={expandedRows}
+      onExpandedRowsChange={onExpandedRowsChange}
+      template={({ row }) =>
+        <GridDetailContainer
+          data={row}
+          columns={detailColumns}
+        />
+      }
+    />
+    <TableGroupRow />
+    <GroupingPanel allowSorting />
+    <PagingPanel />
+
+  </Grid>
+);
 GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
+  detailColumns: PropTypes.array.isRequired,
   sorting: PropTypes.array.isRequired,
   onSortingChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
   onSelectionChange: PropTypes.func.isRequired,
+  expandedRows: PropTypes.array.isRequired,
+  onExpandedRowsChange: PropTypes.func.isRequired,
   grouping: PropTypes.array.isRequired,
   onGroupingChange: PropTypes.func.isRequired,
   expandedGroups: PropTypes.array.isRequired,
@@ -126,22 +142,37 @@ GridContainer.propTypes = {
 
 const gridInitialState = {
   columns: [
-    { name: 'product', title: 'Product' },
-    { name: 'region', title: 'Region' },
-    { name: 'amount', title: 'Sale Amount', align: 'right' },
-    { name: 'discount', title: 'Discount' },
-    { name: 'saleDate', title: 'Sale Date' },
-    { name: 'customer', title: 'Customer' },
+    { name: 'prefix', title: 'Title', width: 75 },
+    { name: 'firstName', title: 'First Name' },
+    { name: 'lastName', title: 'Last Name' },
+    { name: 'position', title: 'Position', width: 170 },
+    { name: 'state', title: 'State', width: 125 },
+    { name: 'birthDate', title: 'Birth Date', width: 115 },
   ],
-  rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
-  sorting: [
-    { columnName: 'product', direction: 'asc' },
-    { columnName: 'saleDate', direction: 'asc' },
+  detailColumns: [
+    { name: 'subject', title: 'Subject' },
+    { name: 'startDate', title: 'Start Date', width: 115 },
+    { name: 'dueDate', title: 'Due Date', width: 115 },
+    { name: 'priority', title: 'Priority', width: 100 },
+    { name: 'status', title: 'Status', caption: 'Completed', width: 125 },
   ],
-  grouping: [{ columnName: 'product' }],
-  expandedGroups: ['EnviroCare Max'],
+  rows: generateRows({
+    columnValues: {
+      ...employeeValues,
+      tasks: ({ random }) => generateRows({
+        columnValues: employeeTaskValues,
+        length: Math.floor(random() * 3) + 4,
+        random,
+      }),
+    },
+    length: 40,
+  }),
+  sorting: [],
+  grouping: [],
+  expandedGroups: [],
   selection: [],
-  filters: [{ columnName: 'saleDate', value: 'Feb' }],
+  expandedRows: [1],
+  filters: [],
   currentPage: 0,
 };
 
@@ -170,6 +201,7 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   onSortingChange: sorting => dispatch(createGridAction('sorting', sorting)),
   onSelectionChange: selection => dispatch(createGridAction('selection', selection)),
+  onExpandedRowsChange: expandedRows => dispatch(createGridAction('expandedRows', expandedRows)),
   onGroupingChange: grouping => dispatch(createGridAction('grouping', grouping)),
   onExpandedGroupsChange: expandedGroups => dispatch(createGridAction('expandedGroups', expandedGroups)),
   onFiltersChange: filters => dispatch(createGridAction('filters', filters)),

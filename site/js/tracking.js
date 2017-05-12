@@ -1,7 +1,7 @@
 var trackingCookie = (function () {
   var cookieName = 'DXVisitor';
   var backUrl = document.location.origin + '/devextreme-reactive/track/';
-  var cookieSource = 'https://js.devexpress.devx/track?backUrl=' + backUrl;
+  var cookieSource = 'https://js.devexpress.com/track?backUrl=' + backUrl;
 
   function getUrlQueryParam(name) {
       var url = window.location.href;

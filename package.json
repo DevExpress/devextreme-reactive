@@ -16,7 +16,7 @@
     "run-sequence": "^1.2.2"
   },
   "scripts": {
-    "postinstall": "lerna bootstrap --concurrency=1",
+    "postinstall": "lerna bootstrap --concurrency=1 --hoist --nohoist=jest*",
     "build": "lerna run build",
     "build:site": "npm run -s build:site:demos && npm run -s build:site:docs",
     "build:site:demos": "lerna run build --ignore @devexpress/dx-react-demos && lerna run build:prod --scope @devexpress/dx-react-demos",

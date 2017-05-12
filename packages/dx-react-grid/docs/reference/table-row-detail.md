@@ -16,7 +16,7 @@ expandedRows | Array&lt;number&#124;string&gt; | | Specifies expanded rows
 defaultExpandedRows | Array&lt;number&#124;string&gt; | | Specifies initially expanded rows for the uncontrolled mode
 onExpandedRowsChange | (expandedRows: Array&lt;number&#124;string&gt;) => void | | Handles expanded row changes
 template | Component&lt;[DetailContentProps](#detail-content-props)&gt; | | A component that renders details for a row
-detailCellTemplate | Component&lt;[DetailCellProps](#detail-cell-props)&gt; | | A component that renders the detail cell control
+detailCellTemplate | Component&lt;[DetailCellProps](#detail-cell-props)&gt; | | A component that renders the detail cell
 detailToggleTemplate | Component&lt;[DetailToggleProps](#detail-toggle-props)&gt; | | A component that renders the detail toggle control
 
 ## Interfaces

@@ -1,4 +1,4 @@
-# Grid Detail Row
+# React Grid Detail Row
 
 ## Overview
 

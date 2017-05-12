@@ -1,4 +1,4 @@
-# Grid Selection
+# React Grid Row Selection
 
 ## Introduction
 

@@ -1,4 +1,4 @@
-# Grid Reference
+# React Grid Reference
 
 Components:
 

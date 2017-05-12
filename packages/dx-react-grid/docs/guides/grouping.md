@@ -1,4 +1,4 @@
-# Grid Grouping
+# React Grid Data Grouping
 
 ## Overview
 

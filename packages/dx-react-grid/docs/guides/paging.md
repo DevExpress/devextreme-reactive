@@ -1,4 +1,4 @@
-# Grid Paging
+# React Grid Data Paging
 
 ## Overview
 

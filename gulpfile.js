@@ -15,7 +15,7 @@ gulp.task('site:clean', function() {
 });
 
 var splitNameToPath = function(path) {
-  // dx-react-datagrid-bs3\... ==> react\datagrid\bs3\...
+  // dx-react-grid-bs3\... ==> react\grid\bs3\...
   return path
     .replace(/dx-/, '')
     .replace(/-/g, '/');
@@ -85,7 +85,7 @@ gulp.task('site:docs', function() {
 
 gulp.task('site:demos', function() {
   return gulp.src(['packages/dx-react-demos/dist/*'])
-    .pipe(gulp.dest(distPath + 'react/datagrid/demos/dist/'));
+    .pipe(gulp.dest(distPath + 'react/grid/demos/dist/'));
 });
 
 gulp.task('site', function(done) {

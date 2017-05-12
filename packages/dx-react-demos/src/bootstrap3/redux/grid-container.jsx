@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-    DataGrid,
+    Grid,
     SortingState, SelectionState, FilteringState, PagingState,
     LocalFiltering, LocalPaging, LocalSorting,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     TableView, TableRowDetail,
     TableFilterRow, TableSelection, PagingPanel,
     TableHeaderRow,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import { createGridAction } from './grid-reducer';
 
@@ -40,7 +40,7 @@ const GridContainer = (props) => {
     <div style={{ width: '100%' }}>
       <h3>Managing Grid State in a Redux Store</h3>
 
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
       >
@@ -83,7 +83,7 @@ const GridContainer = (props) => {
 
         <PagingPanel />
 
-      </DataGrid>
+      </Grid>
     </div>
   );
 };

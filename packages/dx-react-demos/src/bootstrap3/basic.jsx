@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-    DataGrid,
-} from '@devexpress/dx-react-datagrid';
+    Grid,
+} from '@devexpress/dx-react-grid';
 import {
     TableView,
     TableHeaderRow,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -35,13 +35,13 @@ export class BasicDemos extends React.PureComponent {
       <div>
         <h3>Basic Demo</h3>
 
-        <DataGrid
+        <Grid
           rows={rows}
           columns={columns}
         >
           <TableView />
           <TableHeaderRow />
-        </DataGrid>
+        </Grid>
       </div>
     );
   }

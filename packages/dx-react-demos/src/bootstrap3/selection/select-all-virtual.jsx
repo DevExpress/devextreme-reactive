@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-    DataGrid,
+    Grid,
     SelectionState,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     VirtualTableView,
     TableHeaderRow,
     TableSelection,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -37,7 +37,7 @@ export class SelectAllVirtualDemo extends React.PureComponent {
       <div>
         <span>Total rows selected: {selection.length}</span>
 
-        <DataGrid
+        <Grid
           rows={rows}
           columns={columns}
         >
@@ -48,7 +48,7 @@ export class SelectAllVirtualDemo extends React.PureComponent {
           <VirtualTableView />
           <TableHeaderRow />
           <TableSelection />
-        </DataGrid>
+        </Grid>
       </div>
     );
   }

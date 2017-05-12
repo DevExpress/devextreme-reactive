@@ -15,8 +15,8 @@ build:
   cache_dir_list:
     - $SHIPPABLE_BUILD_DIR/node_modules
     - $SHIPPABLE_BUILD_DIR/packages/dx-core/node_modules
-    - $SHIPPABLE_BUILD_DIR/packages/dx-datagrid-core/node_modules
+    - $SHIPPABLE_BUILD_DIR/packages/dx-grid-core/node_modules
     - $SHIPPABLE_BUILD_DIR/packages/dx-react-core/node_modules
-    - $SHIPPABLE_BUILD_DIR/packages/dx-react-datagrid/node_modules
-    - $SHIPPABLE_BUILD_DIR/packages/dx-react-datagrid-bootstrap3/node_modules
+    - $SHIPPABLE_BUILD_DIR/packages/dx-react-grid/node_modules
+    - $SHIPPABLE_BUILD_DIR/packages/dx-react-grid-bootstrap3/node_modules
     - $SHIPPABLE_BUILD_DIR/packages/dx-react-demos/node_modules

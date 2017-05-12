@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  DataGrid,
+  Grid,
   EditingState,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
   TableView,
   TableHeaderRow,
   TableEditRow,
   TableEditColumn,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -77,7 +77,7 @@ export class EditRowControlledDemo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
         getRowId={row => row.id}
@@ -99,7 +99,7 @@ export class EditRowControlledDemo extends React.PureComponent {
           allowEditing
           allowDeleting
         />
-      </DataGrid>
+      </Grid>
     );
   }
 }

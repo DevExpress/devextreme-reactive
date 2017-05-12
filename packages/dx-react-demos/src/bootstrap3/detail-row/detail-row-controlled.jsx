@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  DataGrid,
-} from '@devexpress/dx-react-datagrid';
+  Grid,
+} from '@devexpress/dx-react-grid';
 import {
   TableView,
   TableHeaderRow,
   TableRowDetail,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -34,7 +34,7 @@ export class DetailRowControlledDemo extends React.PureComponent {
     const { rows, columns, expandedRows } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
       >
@@ -45,7 +45,7 @@ export class DetailRowControlledDemo extends React.PureComponent {
           onExpandedRowsChange={this.changeExpandedDetails}
           template={this.rowTemplate}
         />
-      </DataGrid>
+      </Grid>
     );
   }
 }

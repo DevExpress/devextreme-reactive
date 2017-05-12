@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-    DataGrid,
+    Grid,
     FilteringState,
     SortingState,
     LocalFiltering,
     LocalSorting,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     VirtualTableView,
     TableHeaderRow,
     TableFilterRow,
     TableRowDetail,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -48,7 +48,7 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
         getRowId={row => row.id}
@@ -69,7 +69,7 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
           template={this.rowTemplate}
           rowHeight={80}
         />
-      </DataGrid>
+      </Grid>
     );
   }
 }

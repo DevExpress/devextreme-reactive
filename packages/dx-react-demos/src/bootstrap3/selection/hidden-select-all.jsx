@@ -1,16 +1,16 @@
 import React from 'react';
 import {
-    DataGrid,
+    Grid,
     SelectionState,
     PagingState,
     LocalPaging,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     TableView,
     TableHeaderRow,
     TableSelection,
     PagingPanel,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -37,7 +37,7 @@ export class SelectionWithHiddenSelectAllDemo extends React.PureComponent {
     const { rows, columns, selection } = this.state;
 
     return (
-      <DataGrid
+      <Grid
         rows={rows}
         columns={columns}
       >
@@ -56,7 +56,7 @@ export class SelectionWithHiddenSelectAllDemo extends React.PureComponent {
           showSelectAll={false}
         />
         <PagingPanel />
-      </DataGrid>
+      </Grid>
     );
   }
 }

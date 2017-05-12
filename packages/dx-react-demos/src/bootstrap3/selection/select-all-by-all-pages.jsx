@@ -1,16 +1,16 @@
 import React from 'react';
 import {
-    DataGrid,
+    Grid,
     SelectionState,
     PagingState,
     LocalPaging,
-} from '@devexpress/dx-react-datagrid';
+} from '@devexpress/dx-react-grid';
 import {
     TableView,
     TableHeaderRow,
     TableSelection,
     PagingPanel,
-} from '@devexpress/dx-react-datagrid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -40,7 +40,7 @@ export class SelectAllByAllPagesDemo extends React.PureComponent {
       <div>
         <span>Total rows selected: {selection.length}</span>
 
-        <DataGrid
+        <Grid
           rows={rows}
           columns={columns}
         >
@@ -57,7 +57,7 @@ export class SelectAllByAllPagesDemo extends React.PureComponent {
           <TableHeaderRow />
           <TableSelection />
           <PagingPanel />
-        </DataGrid>
+        </Grid>
       </div>
     );
   }

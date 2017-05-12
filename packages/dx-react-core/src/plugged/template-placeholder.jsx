@@ -40,7 +40,8 @@ export class TemplatePlaceholder extends React.PureComponent {
     const { pluginHost, templateHost } = this.context;
     const { name, params } = this.props;
 
-    this.params = params || (this.context.templateHost && this.context.templateHost.params);
+    this.params = params;
+    if (!name && this.context.templateHost) this.params = this.context.templateHost.params;
 
     const templates = name
             ? pluginHost.collect(`${name}Template`)

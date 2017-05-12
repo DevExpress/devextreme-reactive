@@ -13,7 +13,7 @@ Project status: **CTP**
 * Composable and extensible plugin-based architecture
 * [Bootstrap](https://github.com/react-bootstrap/react-bootstrap) and [Material UI](https://github.com/callemall/material-ui) integration with seamless theming
 * Controlled (stateless) and uncontrolled (stateful) modes
-* [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-traveling
+* [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-travelling
 * 100% Native React (not jQuery or other dependencies inside)
 * High performance via pure components, immutable state and memoization
 

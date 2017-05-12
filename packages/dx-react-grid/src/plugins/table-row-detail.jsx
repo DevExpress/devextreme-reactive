@@ -64,7 +64,7 @@ export class TableRowDetail extends React.PureComponent {
           {({ row, ...params }) => detailCellTemplate({
             ...params,
             row: row.for,
-            content: template && template({ row: row.for }),
+            template: () => template({ row: row.for }),
           })}
         </Template>
       </PluginContainer>

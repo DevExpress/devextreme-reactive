@@ -40,6 +40,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 row | [TableRow](table-view.md#table-row) | A row object for showing its details
+template | Component&lt;void&gt; | A component that renders details for a row
 
 ### <a name="detail-toggle-props"></a>DetailToggleProps
 

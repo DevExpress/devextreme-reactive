@@ -29,7 +29,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | A row object for showing its details
+row | [TableRow](table-view.md#table-row) | A row object for showing row details
 
 ### <a name="detail-cell-props"></a>DetailCellProps
 

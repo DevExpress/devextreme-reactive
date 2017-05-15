@@ -1,4 +1,4 @@
-# Grid Guides
+# React Grid Guides
 
 - [Paging](paging.md)
 - [Sorting](sorting.md)

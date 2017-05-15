@@ -1,4 +1,4 @@
-# Grid Filtering
+# React Grid Data Filtering
 
 ## Overview
 

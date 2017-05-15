@@ -1,4 +1,4 @@
-# Grid Sorting
+# React Grid Data Sorting
 
 ## Overview
 

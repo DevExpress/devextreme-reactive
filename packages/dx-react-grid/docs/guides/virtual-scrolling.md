@@ -1,4 +1,4 @@
-# Grid Virtual Scrolling
+# React Grid Virtual Scrolling
 
 ## Overview
 

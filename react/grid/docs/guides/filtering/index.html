@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Grid Data Filtering - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1494855581">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/react/grid/">
+            <img src="/devextreme-reactive/img/react-grid-logo.svg" alt="DevExtreme Reactive Components">
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+            <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-md-3 main-menu">
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Filtering</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+        </ul>
+
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grid/">Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-state/">PagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/editing-state/">EditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-grouping/">LocalGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-paging/">LocalPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-panel/">GroupingPanel</a></li>
+          
+
+        
+        </ul>
+
+      
+    </div>
+
+    <div class="col-md-9 docs-content">
+        <h1 id="react-grid-data-filtering">React Grid Data Filtering</h1>
+
+<h2 id="overview">Overview</h2>
+
+<p>The Grid component supports filtering by columns. It is also shipped with a number of plugins that allow end-users to filter rows by entering text within filter editors.</p>
+
+<h2 id="plugin-list">Plugin List</h2>
+
+<p>There are several plugins that implement filtering features:</p>
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a></li>
+</ul>
+
+<p>Note that <a href="../../#plugin-order">plugin order</a> is very important.</p>
+
+<h2 id="set-up-local-filtering-with-filter-row">Set up Local Filtering with Filter Row</h2>
+
+<p>To set up basic filtering, use the <code class="highlighter-rouge">FilteringState</code>,<code class="highlighter-rouge">LocalFiltering</code> and <code class="highlighter-rouge">TableFilterRow</code> plugins.</p>
+
+<p>In this example, we use the uncontrolled mode and specify only the initial filters via the <code class="highlighter-rouge">defaultFilters</code> property of the <code class="highlighter-rouge">FilteringState</code> plugin. After that, the grid will manage filter changes internally.</p>
+
+<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/filtering/local-filter-row"></iframe>
+
+<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filter-row.jsx">SOURCE</a></p>
+
+<h2 id="customizing-filter-row">Customizing Filter Row</h2>
+
+<p>You can replace built-in filter row editors with custom ones. To specify a custom editor, define a template using the <code class="highlighter-rouge">TableFilterRow</code> plugin’s <code class="highlighter-rouge">filterCellTemplate</code> property.</p>
+
+<p>In a custom template, you need to handle filter changes. In this example, filter configuration is specified by the <code class="highlighter-rouge">filter</code> parameter and configuration changes are processed by the <code class="highlighter-rouge">setFilter</code> action. This means that the <code class="highlighter-rouge">FilteringState</code> plugin handles changes internally. So, the Grid can run in both controlled and uncontrolled modes.</p>
+
+<p>To process your custom filter locally, specify custom filtering predicate in the <code class="highlighter-rouge">LocalFiltering</code> plugin’s <code class="highlighter-rouge">filterFn</code> property.</p>
+
+<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/filtering/custom-filter-row"></iframe>
+
+<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/custom-filter-row.jsx">SOURCE</a></p>
+
+<h2 id="controlled-filtering-state">Controlled Filtering State</h2>
+
+<p>To control the filtering state, pass an array of column filters to the <code class="highlighter-rouge">FilteringState</code> plugin’s  <code class="highlighter-rouge">filters</code> property  and handle the <code class="highlighter-rouge">onFiltersChange</code> event.</p>
+
+<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/filtering/local-filtering-controlled"></iframe>
+
+<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filtering-controlled.jsx">SOURCE</a></p>
+
+<h2 id="remote-filtering">Remote Filtering</h2>
+
+<p>If your data service supports filtering operations, you can handle the Grid filtering state changes in order to request data from the server with the corresponding filters applied.</p>
+
+<p>In case of remote filtering, you don’t need to use the <code class="highlighter-rouge">LocalFiltering</code> plugin. Handle the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">onFiltersChange</code> event to receive filter changes’ updates. Filter changes are updated once an end-user modifies text within the Filter Row editors or other filtering controls. Once the filtered data is received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
+
+<h2 id="using-filtering-with-other-data-processing-plugins">Using Filtering with Other Data Processing Plugins</h2>
+
+<p>When filtering features are used with other features such as paging and grouping, take note of the order in which the plugins appear in the Grid container. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the <code class="highlighter-rouge">LocalFiltering</code> plugin before the <code class="highlighter-rouge">LocalPaging</code> one. In the second one, inverse the plugins’ order.</p>
+
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
+<script>iFrameResize({ warningTimeout: 0 }, '.embedded-demo')</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+                      <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1494855581"></script>
+    <script>
+        trackingCookie.check();
+    </script>    
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>    
+  </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DevExtreme React Grid Bootstrap3 - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1494855581">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/react/grid/">
+            <img src="/devextreme-reactive/img/react-grid-logo.svg" alt="DevExtreme Reactive Components">
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <h1 id="devextreme-react-grid-bootstrap3">DevExtreme React Grid Bootstrap3</h1>
+
+<p>A template suite used to customize React Grid with the Bootstrap3 rendering.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Install the package and its dependencies:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm i @devexpress/dx-react-grid --save
+npm i @devexpress/dx-react-grid-bootstrap3 --save
+</code></pre>
+</div>
+
+<p>Add the required modules to your project:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">Grid</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">TableView</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Grid</span>
+    <span class="nx">rows</span><span class="o">=</span><span class="p">{[{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="p">...</span> <span class="p">},</span> <span class="p">...]}</span>
+    <span class="nx">columns</span><span class="o">=</span><span class="p">{[{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span> <span class="p">...</span> <span class="p">},</span> <span class="p">...]}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">TableView</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the following link: http://getbootstrap.com/getting-started/#download.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>This package provides templates implementing Bootstrap 3 rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. For your convenience, these templates can be used instead of the ones contained in the original React Grid repository.</p>
+
+<p>See <a href="/devextreme-reactive/react/demos/">demos</a> for more information.</p>
+
+<h2 id="reference">Reference</h2>
+
+<p>The package exposes plugins with injected templates. Here is the list of the plugins:</p>
+
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/view.md">TableView</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/header/row.md">TableHeaderRow</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/selection.md">TableSelection</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/filter/row.md">TableFilterRow</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/row/detail.md">TableRowDetail</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/group/row.md">TableGroupRow</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping/panel.md">GroupingPanel</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/paging/panel.md">PagingPanel</a></li>
+</ul>
+
+<p>Each plugin has properties with the ‘Template’ postfix. Components passed to such properties are templates.</p>
+
+<p>Templates can be overridden by passing your own component or rendering function. If you want to render a UI item with a built-in template, you can return <code class="highlighter-rouge">undefined</code> from your custom template.</p>
+
+<h2 id="license">License</h2>
+
+<p><a href="https://js.devexpress.com/licensing/">DevExtreme licensing</a>.</p>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1494855581"></script>
+    <script>
+        trackingCookie.check();
+    </script>    
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>    
+  </body>
+</html>

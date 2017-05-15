@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TableHeaderRow Plugin Reference - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1494855581">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/react/grid/">
+            <img src="/devextreme-reactive/img/react-grid-logo.svg" alt="DevExtreme Reactive Components">
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+            <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-md-3 main-menu">
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+        </ul>
+
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grid/">Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-state/">PagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/editing-state/">EditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-grouping/">LocalGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-paging/">LocalPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>TableHeaderRow</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-panel/">GroupingPanel</a></li>
+          
+
+        
+        </ul>
+
+      
+    </div>
+
+    <div class="col-md-9 docs-content">
+        <h1 id="tableheaderrow-plugin-reference">TableHeaderRow Plugin Reference</h1>
+
+<p>A plugin that renders a simple table header that shows column titles. A column title is specified by the <code class="highlighter-rouge">title</code> field in a column definition. See the extended data structure for a <a href="#column">Column</a>.</p>
+
+<p>Optionally, the plugin allows an end-user to manage a column’s sorting and grouping state.</p>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>headerCellTemplate</td>
+      <td>Component&lt;<a href="#header-cell-props">HeaderCellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a header cell</td>
+    </tr>
+    <tr>
+      <td>allowSorting</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>If true, allows an end-user to change sorting by a column</td>
+    </tr>
+    <tr>
+      <td>allowGrouping</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>If true, renders a component that toggles a column’s grouping state</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="column">Column</h3>
+
+<p>Describes properties used to render the table header row</p>
+
+<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></p>
+
+<p>A value with the following shape:</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>title?</td>
+      <td>string</td>
+      <td>Specifies a table column title</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="headercellprops"><a name="header-cell-props"></a>HeaderCellProps</h3>
+
+<p>Describes properties used to render a table header cell.</p>
+
+<p>A value with the following shape:</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>allowSorting</td>
+      <td>boolean</td>
+      <td>If true, an end-user can change sorting by a column</td>
+    </tr>
+    <tr>
+      <td>allowGrouping</td>
+      <td>boolean</td>
+      <td>If true, a component that toggles a column’s grouping state is rendered</td>
+    </tr>
+    <tr>
+      <td>sortingDirection?</td>
+      <td>‘asc’ | ‘desc’</td>
+      <td>Specifies the column sort order</td>
+    </tr>
+    <tr>
+      <td>changeSortingDirection</td>
+      <td>({ keepOther: boolean })</td>
+      <td>Changes column sort direction. Keeps existing sorting if <code class="highlighter-rouge">keepOther</code> is set to <code class="highlighter-rouge">true</code></td>
+    </tr>
+    <tr>
+      <td>groupByColumn</td>
+      <td>() =&gt; void</td>
+      <td>Toggles grouping for a column</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<p>To be described…</p>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
+<script>iFrameResize({ warningTimeout: 0 }, '.embedded-demo')</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+                      <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1494855581"></script>
+    <script>
+        trackingCookie.check();
+    </script>    
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>    
+  </body>
+</html>

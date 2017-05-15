@@ -13,7 +13,7 @@
     <link rel="shortcut icon" type="image/png" href="{{ "/favicon.ico" | prepend: site.baseurl }}" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{site.baseurl}}/css/syntax.css">
-    <link rel="stylesheet" href="{{site.baseurl}}/css/site.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/site.css?v={{ site.time | date: '%s' }}">
     <link rel="stylesheet" href="{{site.baseurl}}/css/embedded_demos.css">
 
     <script>
@@ -87,7 +87,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="{{site.baseurl}}/js/tracking.js"></script>
+    <script src="{{site.baseurl}}/js/tracking.js?v={{ site.time | date: '%s' }}"></script>
     <script>
         trackingCookie.check();
     </script>    

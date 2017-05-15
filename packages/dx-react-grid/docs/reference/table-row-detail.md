@@ -33,13 +33,13 @@ row | [TableRow](table-view.md#table-row) | A row object for showing its details
 
 ### <a name="detail-cell-props"></a>DetailCellProps
 
-Describes properties passed to the template that renders details cell for a row
+Describes properties passed to the template that renders the details cell for a row
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | A row object for showing its details
+row | [TableRow](table-view.md#table-row) | A row object
 template | Component&lt;void&gt; | A component that renders details for a row
 
 ### <a name="detail-toggle-props"></a>DetailToggleProps

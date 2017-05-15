@@ -19,6 +19,9 @@
     "javascript"
   ],
   "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/dx-core.umd.js",
   "module": "dist/dx-core.es.js",
   "globalName": "DevExpress.DXCore",

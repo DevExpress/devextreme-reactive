@@ -29,6 +29,9 @@
     "twitter-bootstrap"
   ],
   "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/dx-react-grid-bootstrap3.umd.js",
   "module": "dist/dx-react-grid-bootstrap3.es.js",
   "globalName": "DevExpress.DXReactGridBootstrap3",

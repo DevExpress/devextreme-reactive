@@ -23,6 +23,9 @@
     "data-grid"
   ],
   "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/dx-grid-core.umd.js",
   "module": "dist/dx-grid-core.es.js",
   "globalName": "DevExpress.DXGridCore",

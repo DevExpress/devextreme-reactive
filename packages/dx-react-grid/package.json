@@ -26,6 +26,9 @@
     "data-grid"
   ],
   "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/dx-react-grid.umd.js",
   "module": "dist/dx-react-grid.es.js",
   "globalName": "DevExpress.DXReactGrid",

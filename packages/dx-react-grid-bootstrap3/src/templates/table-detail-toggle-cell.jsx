@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableDetailToggle = ({ style, expanded, toggleExpanded }) => (
+export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => (
   <td
     style={{
       cursor: 'pointer',
@@ -22,13 +22,13 @@ export const TableDetailToggle = ({ style, expanded, toggleExpanded }) => (
   </td>
 );
 
-TableDetailToggle.propTypes = {
+TableDetailToggleCell.propTypes = {
   style: PropTypes.shape(),
   expanded: PropTypes.bool,
   toggleExpanded: PropTypes.func,
 };
 
-TableDetailToggle.defaultProps = {
+TableDetailToggleCell.defaultProps = {
   style: null,
   expanded: false,
   toggleExpanded: () => {},

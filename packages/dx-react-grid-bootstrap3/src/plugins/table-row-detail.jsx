@@ -1,17 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-react-grid';
-import { TableDetailToggle } from '../templates/table-detail-toggle';
+import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
+import { TableDetailCell } from '../templates/table-detail-cell';
 
-export const TableRowDetail = ({ template, ...restProps }) => (
+export const TableRowDetail = props => (
   <TableRowDetailBase
-    detailToggleTemplate={TableDetailToggle}
-    template={({ colspan, style, ...params }) =>
-      <td style={style} colSpan={colspan}>{template(params)}</td>}
-    {...restProps}
+    detailToggleTemplate={TableDetailToggleCell}
+    detailCellTemplate={TableDetailCell}
+    {...props}
   />
 );
-
-TableRowDetail.propTypes = {
-  template: PropTypes.func.isRequired,
-};

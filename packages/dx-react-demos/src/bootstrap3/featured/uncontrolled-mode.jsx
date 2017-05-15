@@ -33,7 +33,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 10000 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
     };
   }
   render() {
@@ -46,7 +46,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
       >
 
         <FilteringState
-          defaultFilters={[{ columnName: 'saleDate', value: 'Feb' }]}
+          defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
         />
         <SortingState
           defaultSorting={[

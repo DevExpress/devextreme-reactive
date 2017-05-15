@@ -47,7 +47,7 @@ describe('TemplatePlaceholder', () => {
         <Template name="test">
           {({ text }) => (
             <h1>{text}</h1>
-                    )}
+          )}
         </Template>
 
         <Template name="root">
@@ -67,7 +67,7 @@ describe('TemplatePlaceholder', () => {
           <Template name="test">
             {({ text }) => (
               <h1>{text}</h1>
-                        )}
+            )}
           </Template>
         );
       }
@@ -124,7 +124,7 @@ describe('TemplatePlaceholder', () => {
         <Template name="test">
           {({ text }) => (
             <h1>{text}</h1>
-                    )}
+          )}
         </Template>
 
         <Template name="test">
@@ -133,7 +133,7 @@ describe('TemplatePlaceholder', () => {
               <TemplatePlaceholder />
               <h2>{text}</h2>
             </div>
-                    )}
+          )}
         </Template>
 
         <Template name="root">
@@ -143,6 +143,34 @@ describe('TemplatePlaceholder', () => {
     );
 
     expect(tree.find('h1').text()).toBe('param');
+    expect(tree.find('h2').text()).toBe('param');
+  });
+
+  test('template chain should not use params from another chain', () => {
+    const tree = mount(
+      <PluginHost>
+        <Template name="testNested">
+          {({ text }) => (
+            <h1>{text}</h1>
+          )}
+        </Template>
+
+        <Template name="test">
+          {({ text }) => (
+            <div>
+              <TemplatePlaceholder name="testNested" />
+              <h2>{text}</h2>
+            </div>
+          )}
+        </Template>
+
+        <Template name="root">
+          <TemplatePlaceholder name="test" params={{ text: 'param' }} />
+        </Template>
+      </PluginHost>,
+    );
+
+    expect(tree.find('h1').text()).toBe('');
     expect(tree.find('h2').text()).toBe('param');
   });
 });

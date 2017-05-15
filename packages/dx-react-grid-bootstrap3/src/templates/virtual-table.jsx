@@ -121,7 +121,7 @@ export class VirtualTable extends React.Component {
 
     return (
       <div
-        style={{ height: '360px' }}
+        style={{ height: '530px' }}
       >
         <WindowedScroller
           onViewportChange={viewport => this.setState({ viewportWidth: viewport.width })}

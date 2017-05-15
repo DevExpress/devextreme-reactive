@@ -25,7 +25,7 @@ export class TableRowDetail extends React.PureComponent {
   }
   render() {
     const expandedRows = this.props.expandedRows || this.state.expandedRows;
-    const { rowHeight, template, detailToggleTemplate } = this.props;
+    const { rowHeight, template, detailToggleTemplate, detailCellTemplate } = this.props;
 
     return (
       <PluginContainer>
@@ -61,7 +61,11 @@ export class TableRowDetail extends React.PureComponent {
           ]}
         />
         <Template name="tableViewCell" predicate={({ row }) => row.type === 'detailRow'}>
-          {({ row, ...params }) => template({ ...params, row: row.for })}
+          {({ row, ...params }) => detailCellTemplate({
+            ...params,
+            row: row.for,
+            template: () => template({ row: row.for }),
+          })}
         </Template>
       </PluginContainer>
     );
@@ -72,8 +76,9 @@ TableRowDetail.propTypes = {
   expandedRows: PropTypes.array,
   defaultExpandedRows: PropTypes.array,
   onExpandedRowsChange: PropTypes.func,
-  template: PropTypes.func.isRequired,
+  template: PropTypes.func,
   detailToggleTemplate: PropTypes.func.isRequired,
+  detailCellTemplate: PropTypes.func.isRequired,
   rowHeight: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.oneOf(['auto']),
@@ -85,4 +90,5 @@ TableRowDetail.defaultProps = {
   defaultExpandedRows: undefined,
   onExpandedRowsChange: undefined,
   rowHeight: 'auto',
+  template: undefined,
 };

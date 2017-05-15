@@ -50,7 +50,7 @@ export class VirtualScrollingDemo extends React.PureComponent {
       >
 
         <FilteringState
-          defaultFilters={[{ columnName: 'saleDate', value: 'Feb' }]}
+          defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
         />
         <SortingState
           defaultSorting={[

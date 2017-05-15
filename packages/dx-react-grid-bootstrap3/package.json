@@ -80,8 +80,8 @@
     "rollup-watch": "^3.2.2"
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "^1.0.0-alpha.1",
-    "@devexpress/dx-react-grid": "^1.0.0-alpha.1",
+    "@devexpress/dx-react-core": "1.0.0-alpha.1",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.1",
     "prop-types": "^15.5.8",
     "react": "^15.5.4"
   },

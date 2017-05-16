@@ -24,9 +24,11 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-currentPage | number | Specifies the current page
 totalPages | number | Specifies the total pages count
+currentPage | number | Specifies the current page
 onCurrentPageChange | (page: number) => void | Changes the current page
+pageSize | number | | Specifies the page size
+onPageSizeChange | (size: number) => void | | Changes the page size
 
 ## Plugin Developer Reference
 

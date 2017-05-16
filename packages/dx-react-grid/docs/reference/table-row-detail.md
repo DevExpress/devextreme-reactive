@@ -1,6 +1,6 @@
 # TableRowDetail Plugin Reference
 
-A plugin that manages the expanded state for table row details and renders a detail row.
+A plugin that renders a table detail row.
 
 ## User Reference
 
@@ -12,9 +12,6 @@ A plugin that manages the expanded state for table row details and renders a det
 
 Name | Type | Default | Description
 -----|------|---------|------------
-expandedRows | Array&lt;number&#124;string&gt; | | Specifies expanded rows
-defaultExpandedRows | Array&lt;number&#124;string&gt; | | Specifies initially expanded rows for the uncontrolled mode
-onExpandedRowsChange | (expandedRows: Array&lt;number&#124;string&gt;) => void | | Handles expanded row changes
 template | Component&lt;[DetailContentProps](#detail-content-props)&gt; | | A component that renders details for a row
 detailCellTemplate | Component&lt;[DetailCellProps](#detail-cell-props)&gt; | | A component that renders the detail cell
 detailToggleTemplate | Component&lt;[DetailToggleProps](#detail-toggle-props)&gt; | | A component that renders the detail toggle control

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
     Grid,
-    SortingState, SelectionState, FilteringState, PagingState,
+    SortingState, SelectionState, FilteringState, PagingState, RowDetailState,
     LocalFiltering, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
@@ -62,6 +62,10 @@ const GridContainer = (props) => {
           selection={selection}
           onSelectionChange={onSelectionChange}
         />
+        <RowDetailState
+          expandedRows={expandedRows}
+          onExpandedRowsChange={onExpandedRowsChange}
+        />
 
         <LocalFiltering />
         <LocalSorting />
@@ -76,8 +80,6 @@ const GridContainer = (props) => {
         <TableSelection />
 
         <TableRowDetail
-          expandedRows={expandedRows}
-          onExpandedRowsChange={onExpandedRowsChange}
           template={DetailRow}
         />
 

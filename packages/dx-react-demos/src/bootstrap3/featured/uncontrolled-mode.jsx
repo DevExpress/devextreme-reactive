@@ -60,7 +60,8 @@ export class UncontrolledModeDemo extends React.PureComponent {
         />
         <PagingState
           defaultCurrentPage={0}
-          pageSize={10}
+          defaultPageSize={10}
+          pageSizes={[5, 10, 15]}
         />
 
         <LocalFiltering />

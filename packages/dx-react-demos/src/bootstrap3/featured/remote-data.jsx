@@ -124,7 +124,6 @@ export class RemoteDataDemo extends React.PureComponent {
             onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
             onPageSizeChange={this.changePageSize}
-            pageSizes={pageSizes}
             totalCount={totalCount}
           />
           <TableView
@@ -149,7 +148,9 @@ export class RemoteDataDemo extends React.PureComponent {
             )}
           />
           <TableHeaderRow allowSorting />
-          <PagingPanel />
+          <PagingPanel
+            pageSizes={pageSizes}
+          />
         </Grid>
         {loading && <Loading />}
       </div>

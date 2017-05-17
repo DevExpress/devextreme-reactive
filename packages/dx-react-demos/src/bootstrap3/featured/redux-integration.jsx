@@ -91,7 +91,6 @@ const GridContainer = ({
       onCurrentPageChange={onCurrentPageChange}
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
-      pageSizes={pageSizes}
     />
 
     <LocalFiltering />
@@ -121,7 +120,9 @@ const GridContainer = ({
     />
     <TableGroupRow />
     <GroupingPanel allowSorting />
-    <PagingPanel />
+    <PagingPanel
+      pageSizes={pageSizes}
+    />
 
   </Grid>
 );

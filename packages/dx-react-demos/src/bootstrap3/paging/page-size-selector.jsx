@@ -23,12 +23,13 @@ export class PageSizeSelectorDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 50 }),
+      rows: generateRows({ length: 60 }),
+      pageSizes: [5, 10, 15],
     };
   }
 
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, pageSizes } = this.state;
 
     return (
       <Grid
@@ -37,13 +38,14 @@ export class PageSizeSelectorDemo extends React.PureComponent {
       >
         <PagingState
           defaultCurrentPage={0}
-          defaultPageSize={8}
-          pageSizes={[4, 8, 12]}
+          defaultPageSize={5}
         />
         <LocalPaging />
         <TableView />
         <TableHeaderRow />
-        <PagingPanel />
+        <PagingPanel
+          pageSizes={pageSizes}
+        />
       </Grid>
     );
   }

@@ -47,12 +47,13 @@ export class LocalPagingControlledDemo extends React.PureComponent {
           onCurrentPageChange={this.changeCurrentPage}
           pageSize={pageSize}
           onPageSizeChange={this.changePageSize}
-          pageSizes={pageSizes}
         />
         <LocalPaging />
         <TableView />
         <TableHeaderRow />
-        <PagingPanel />
+        <PagingPanel
+          pageSizes={pageSizes}
+        />
       </Grid>
     );
   }

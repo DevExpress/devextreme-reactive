@@ -238,7 +238,6 @@ export class ControlledModeDemo extends React.PureComponent {
             onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
             onPageSizeChange={this.changePageSize}
-            pageSizes={pageSizes}
           />
 
           <LocalSorting />
@@ -280,7 +279,9 @@ export class ControlledModeDemo extends React.PureComponent {
               : undefined
             )}
           />
-          <PagingPanel />
+          <PagingPanel
+            pageSizes={pageSizes}
+          />
         </Grid>
 
         <Modal

@@ -3,29 +3,39 @@ import PropTypes from 'prop-types';
 import { Pagination } from 'react-bootstrap';
 
 const PageSizeSelector = ({ pageSize, onPageSizeChange, pageSizes }) => (
-  <ul
-    className="pagination"
-    style={{
-      margin: 0,
-      verticalAlign: 'bottom',
-    }}
-  >
-    {pageSizes.map(item => (
-      <li key={item} className={item === pageSize ? 'active' : ''}>
-        {/* eslint-disable jsx-a11y/href-no-hash */}
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            onPageSizeChange(item);
-          }}
-        >
-          {item}
-        </a>
-        {/* eslint-enable jsx-a11y/href-no-hash */}
-      </li>
-    ))}
-  </ul>
+  <div style={{ display: 'inline-block' }}>
+    <select
+      className="form-control visible-xs-inline-block"
+      style={{ width: 'auto' }}
+      value={pageSize}
+      onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
+    >
+      {pageSizes.map(val => <option key={val} value={val}>{val}</option>)}
+    </select>
+    <ul
+      className="pagination hidden-xs"
+      style={{
+        margin: 0,
+        verticalAlign: 'bottom',
+      }}
+    >
+      {pageSizes.map(item => (
+        <li key={item} className={item === pageSize ? 'active' : ''}>
+          {/* eslint-disable jsx-a11y/href-no-hash */}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              onPageSizeChange(item);
+            }}
+          >
+            {item}
+          </a>
+          {/* eslint-enable jsx-a11y/href-no-hash */}
+        </li>
+      ))}
+    </ul>
+  </div>
 );
 
 PageSizeSelector.propTypes = {
@@ -57,7 +67,7 @@ export const Pager = ({
       items={totalPages}
       activePage={currentPage + 1}
       boundaryLinks
-      maxButtons={5}
+      maxButtons={3}
       onSelect={page => onCurrentPageChange(page - 1)}
     />
   </div>

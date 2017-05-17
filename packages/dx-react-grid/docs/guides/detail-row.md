@@ -6,7 +6,7 @@ The 'Detail Row' feature allows you to display extended representation of a data
 
 ## Plugin List
 
-There are two plugins that enable this feature:
+Two plugins are required to enable this feature:
 - [RowDetailState](../reference/row-detail-state.md)
 - [TableRowDetail](../reference/table-row-detail.md)
 

@@ -34,11 +34,11 @@ export class UncontrolledModeDemo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
-      pageSizes: [5, 10, 15],
+      allowedPageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { rows, columns, pageSizes } = this.state;
+    const { rows, columns, allowedPageSizes } = this.state;
 
     return (
       <Grid
@@ -91,7 +91,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
         <TableHeaderRow allowSorting allowGrouping />
         <TableFilterRow />
         <PagingPanel
-          pageSizes={pageSizes}
+          allowedPageSizes={allowedPageSizes}
         />
         <TableSelection />
         <TableGroupRow />

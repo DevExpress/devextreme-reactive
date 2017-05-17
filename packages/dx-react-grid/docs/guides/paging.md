@@ -25,7 +25,7 @@ In the following example, we use the uncontrolled mode and specify only the init
 
 ## Page Size Selection
 
-Enable page size selection by specifying the available `pageSizes` of the `PagingPanel` plugin.
+Enable page size selection by specifying the available `allowedPageSizes` of the `PagingPanel` plugin.
 
 The example below demonstrates the basic configuration for the uncontrolled mode. The `defaultPageSize` property of the `PagingState` plugin is used to define the initial page size.
 
@@ -34,7 +34,7 @@ The example below demonstrates the basic configuration for the uncontrolled mode
 
 ## Controlled Paging State
 
-To control the paging state from the outside, set the `currentPage` and `pageSize` properties of the `PagingState` plugin and handle the `onCurrentPageChange` event of the same plugin. For enabling the page size selection set also the `pageSizes` property of the `PagingPanel` plugin and then define the `onPageSizeChanged` event handler of the `PagingState` plugin.
+To control the paging state from the outside, set the `currentPage` and `pageSize` properties of the `PagingState` plugin and handle the `onCurrentPageChange` event of the same plugin. For enabling the page size selection set also the `allowedPageSizes` property of the `PagingPanel` plugin and then define the `onPageSizeChanged` event handler of the `PagingState` plugin.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/paging/local-paging-controlled)
 

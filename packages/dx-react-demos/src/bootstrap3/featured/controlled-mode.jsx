@@ -137,7 +137,7 @@ export class ControlledModeDemo extends React.PureComponent {
       currentPage: 0,
       deletingRows: [],
       pageSize: 10,
-      pageSizes: [5, 10, 15],
+      allowedPageSizes: [5, 10, 15],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -218,7 +218,7 @@ export class ControlledModeDemo extends React.PureComponent {
       currentPage,
       deletingRows,
       pageSize,
-      pageSizes,
+      allowedPageSizes,
     } = this.state;
 
     return (
@@ -280,7 +280,7 @@ export class ControlledModeDemo extends React.PureComponent {
             )}
           />
           <PagingPanel
-            pageSizes={pageSizes}
+            allowedPageSizes={allowedPageSizes}
           />
         </Grid>
 

@@ -30,7 +30,7 @@ export class RemoteDataDemo extends React.PureComponent {
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
       pageSize: 12,
-      pageSizes: [6, 12, 18],
+      allowedPageSizes: [6, 12, 18],
       currentPage: 0,
       loading: true,
     };
@@ -103,7 +103,7 @@ export class RemoteDataDemo extends React.PureComponent {
       columns,
       sorting,
       pageSize,
-      pageSizes,
+      allowedPageSizes,
       currentPage,
       totalCount,
       loading,
@@ -149,7 +149,7 @@ export class RemoteDataDemo extends React.PureComponent {
           />
           <TableHeaderRow allowSorting />
           <PagingPanel
-            pageSizes={pageSizes}
+            allowedPageSizes={allowedPageSizes}
           />
         </Grid>
         {loading && <Loading />}

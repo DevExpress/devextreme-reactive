@@ -65,7 +65,7 @@ const GridContainer = ({
   onCurrentPageChange,
   pageSize,
   onPageSizeChange,
-  pageSizes,
+  allowedPageSizes,
 }) => (
   <Grid
     rows={rows}
@@ -121,7 +121,7 @@ const GridContainer = ({
     <TableGroupRow />
     <GroupingPanel allowSorting />
     <PagingPanel
-      pageSizes={pageSizes}
+      allowedPageSizes={allowedPageSizes}
     />
 
   </Grid>
@@ -146,7 +146,7 @@ GridContainer.propTypes = {
   onCurrentPageChange: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 const gridInitialState = {
@@ -184,7 +184,7 @@ const gridInitialState = {
   filters: [],
   currentPage: 0,
   pageSize: 10,
-  pageSizes: [5, 10, 15],
+  allowedPageSizes: [5, 10, 15],
 };
 
 const gridReducer = (state = gridInitialState, action) => {

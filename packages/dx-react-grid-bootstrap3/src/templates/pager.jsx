@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pagination } from 'react-bootstrap';
 
-const PageSizeSelector = ({ pageSize, onPageSizeChange, pageSizes }) => (
+const PageSizeSelector = ({ pageSize, onPageSizeChange, allowedPageSizes }) => (
   <div style={{ display: 'inline-block' }}>
     <select
       className="form-control visible-xs-inline-block"
@@ -10,7 +10,7 @@ const PageSizeSelector = ({ pageSize, onPageSizeChange, pageSizes }) => (
       value={pageSize}
       onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
     >
-      {pageSizes.map(val => <option key={val} value={val}>{val}</option>)}
+      {allowedPageSizes.map(val => <option key={val} value={val}>{val}</option>)}
     </select>
     <ul
       className="pagination hidden-xs"
@@ -19,7 +19,7 @@ const PageSizeSelector = ({ pageSize, onPageSizeChange, pageSizes }) => (
         verticalAlign: 'bottom',
       }}
     >
-      {pageSizes.map(item => (
+      {allowedPageSizes.map(item => (
         <li key={item} className={item === pageSize ? 'active' : ''}>
           {/* eslint-disable jsx-a11y/href-no-hash */}
           <a
@@ -41,7 +41,7 @@ const PageSizeSelector = ({ pageSize, onPageSizeChange, pageSizes }) => (
 PageSizeSelector.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export const Pager = ({
@@ -50,13 +50,13 @@ export const Pager = ({
   totalPages,
   pageSize,
   onPageSizeChange,
-  pageSizes,
+  allowedPageSizes,
 }) => (
   <div className="clearfix">
-    {!!pageSizes.length && <PageSizeSelector
+    {!!allowedPageSizes.length && <PageSizeSelector
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
-      pageSizes={pageSizes}
+      allowedPageSizes={allowedPageSizes}
     />}
     <Pagination
       style={{
@@ -79,5 +79,5 @@ Pager.propTypes = {
   totalPages: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 };

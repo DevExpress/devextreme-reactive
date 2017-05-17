@@ -28,14 +28,14 @@ export class LocalPagingControlledDemo extends React.PureComponent {
       rows: generateRows({ length: 14 }),
       currentPage: 0,
       pageSize: 5,
-      pageSizes: [5, 10, 15],
+      allowedPageSizes: [5, 10, 15],
     };
 
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
   }
   render() {
-    const { rows, columns, pageSize, pageSizes } = this.state;
+    const { rows, columns, pageSize, allowedPageSizes } = this.state;
 
     return (
       <Grid
@@ -52,7 +52,7 @@ export class LocalPagingControlledDemo extends React.PureComponent {
         <TableView />
         <TableHeaderRow />
         <PagingPanel
-          pageSizes={pageSizes}
+          allowedPageSizes={allowedPageSizes}
         />
       </Grid>
     );

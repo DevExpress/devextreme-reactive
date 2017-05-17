@@ -24,12 +24,12 @@ export class PageSizeSelectorDemo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 60 }),
-      pageSizes: [5, 10, 15],
+      allowedPageSizes: [5, 10, 15],
     };
   }
 
   render() {
-    const { rows, columns, pageSizes } = this.state;
+    const { rows, columns, allowedPageSizes } = this.state;
 
     return (
       <Grid
@@ -44,7 +44,7 @@ export class PageSizeSelectorDemo extends React.PureComponent {
         <TableView />
         <TableHeaderRow />
         <PagingPanel
-          pageSizes={pageSizes}
+          allowedPageSizes={allowedPageSizes}
         />
       </Grid>
     );

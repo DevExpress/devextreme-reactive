@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Grid component supports sorting data by any number of columns. It also includes plugins that enable an end-user to specify sorting criteria via the UI (by clicking column headers). The selected sort order is indicated by an arrow glyph in the header of a column. Additionaly, the grid supports multiple column sorting. Click column headers with the `Shift` key held down to select several columns for sorting. In order to clear sorting for a column click the column header with the `Ctrl` key held down.
+The Grid component supports sorting data by any number of columns. It also includes plugins that enable an end-user to specify sorting criteria via the UI (by clicking column headers). The selected sort order is indicated by an arrow glyph in the header of a column. Additionaly, the grid supports multiple column sorting. Click column headers with the `Shift` key held down to select several columns for sorting. In order to clear sorting for a column click the column header with the `Ctrl` key held down or with the `Cmd` key if you are using MacOS.
 
 ## Plugin List
 

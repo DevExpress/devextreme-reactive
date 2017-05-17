@@ -28,7 +28,7 @@ To run demos locally, follow next steps:
 
 For more information about components used in these demo cases follow the link:
 
-[DevExtreme for React](../../README.md#devextreme-for-react)
+[DevExtreme for React](https://devexpress.github.io/devextreme-reactive/react/)
 
 ## License
 

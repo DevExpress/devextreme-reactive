@@ -47,7 +47,7 @@ const App = () => (
 
 ## Documentation
 
-[React Grid Documentation](docs)
+[React Grid Documentation](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
 
 ## License
 

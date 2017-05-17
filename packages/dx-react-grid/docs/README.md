@@ -74,7 +74,7 @@ All the Grid functionality is provided by plugins. We can divide all the plugins
 
 Note that the plugins are composable and can technically be nested into each other.
 
-Refer to the [Reference](#reference) to see the complete plugin list.
+Refer to the [Reference](reference) to see the complete plugin list.
 
 ### Plugin Order
 

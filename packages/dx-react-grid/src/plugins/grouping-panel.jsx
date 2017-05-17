@@ -67,7 +67,7 @@ export class GroupingPanel extends React.PureComponent {
           }}
           connectActions={(action, { column }) => ({
             groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
-            changeSortingDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
+            changeSortingDirection: ({ keepOther, remove }) => action('setColumnSorting')({ columnName: column.name, keepOther, remove }),
           })}
         >
           {({ sortingSupported, ...restParams }) => (

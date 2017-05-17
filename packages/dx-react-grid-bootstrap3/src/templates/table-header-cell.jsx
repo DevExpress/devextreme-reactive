@@ -73,7 +73,7 @@ export const TableHeaderCell = ({
       onClick={(e) => {
         if (!allowSorting) return;
         e.stopPropagation();
-        changeSortingDirection({ keepOther: e.shiftKey });
+        changeSortingDirection({ keepOther: e.shiftKey || e.ctrlKey, remove: e.ctrlKey });
       }}
     >
       {gropingControl}

@@ -19,7 +19,6 @@ onCurrentPageChange | (currentPage: number) => void | | Handles current page cha
 pageSize | number | | Specifies the page size
 defaultPageSize | number | 10 | Specifies the initial page size for the uncontrolled mode
 onPageSizeChange | (pageSize: number) => void | | Handles page size changes
-pageSizes | Array&lt;number&gt; | [] | Specifies the page sizes that can be selected at runtime
 
 ## Plugin Developer Reference
 

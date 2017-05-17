@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { argumentsShallowEqual } from '../utils/shallowEqual';
 import { getAction } from '../utils/pluginHelpers';
 
-function getterMemoize(func, onChange) {
+function getterMemoize(func) {
   let lastArg = null;
   let lastResult = null;
   return (...args) => {
@@ -12,7 +12,6 @@ function getterMemoize(func, onChange) {
       !argumentsShallowEqual(lastArg, args)
     ) {
       lastResult = func(...args);
-      onChange(lastResult);
     }
     lastArg = args;
     return lastResult;
@@ -21,13 +20,11 @@ function getterMemoize(func, onChange) {
 
 export const UPDATE_CONNECTION = 'updateConnection';
 
-const noop = () => {};
-
 export class Getter extends React.PureComponent {
   componentWillMount() {
     const { pluginHost } = this.context;
-    const { name, pureComputed, onChange } = this.props;
-    const pureComputedMemoized = getterMemoize(pureComputed, result => onChange(result));
+    const { name, pureComputed } = this.props;
+    const pureComputedMemoized = getterMemoize(pureComputed);
 
     this.plugin = {
       position: () => this.props.position(),
@@ -65,7 +62,6 @@ export class Getter extends React.PureComponent {
   }
 }
 Getter.defaultProps = {
-  onChange: noop,
   value: null,
   pureComputed: null,
   connectArgs: null,
@@ -74,7 +70,6 @@ Getter.defaultProps = {
 Getter.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
   value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
   pureComputed: PropTypes.func,
   connectArgs: PropTypes.func,

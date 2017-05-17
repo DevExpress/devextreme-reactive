@@ -27,12 +27,15 @@ export class LocalPagingControlledDemo extends React.PureComponent {
       ],
       rows: generateRows({ length: 14 }),
       currentPage: 0,
+      pageSize: 5,
+      pageSizes: [5, 10, 15],
     };
 
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
+    this.changePageSize = pageSize => this.setState({ pageSize });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, pageSize, pageSizes } = this.state;
 
     return (
       <Grid
@@ -42,7 +45,9 @@ export class LocalPagingControlledDemo extends React.PureComponent {
         <PagingState
           currentPage={this.state.currentPage}
           onCurrentPageChange={this.changeCurrentPage}
-          pageSize={5}
+          pageSize={pageSize}
+          onPageSizeChange={this.changePageSize}
+          pageSizes={pageSizes}
         />
         <LocalPaging />
         <TableView />

@@ -23,9 +23,18 @@ In the following example, we use the uncontrolled mode and specify only the init
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/local-paging.jsx)
 
+## Page Size Selection
+
+Enable page size selection by specifying the available `pageSizes` of the `PagingState` plugin.
+
+The example below demonstrates the basic configuration for the uncontrolled mode. The `defaultPageSize` property of the `PagingState` plugin is used to define the initial page size.
+
+[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/paging/page-size-selector)
+[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/page-size-selector.jsx)
+
 ## Controlled Paging State
 
-To control the paging state from the outside, set the `currentPage` and `pageSize` properties of the `PagingState` plugin and handle the `onCurrentPageChange` event of the same plugin.
+To control the paging state from the outside, set the `currentPage` and `pageSize` properties of the `PagingState` plugin and handle the `onCurrentPageChange` event of the same plugin. Also set the  `pageSizes` property and handle the `onPageSizeChanged` event of the plugin if page size selection feature is required.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/paging/local-paging-controlled)
 

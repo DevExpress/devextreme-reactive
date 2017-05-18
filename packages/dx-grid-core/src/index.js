@@ -27,3 +27,4 @@ export * from './plugins/editing-state/helpers';
 export * from './plugins/edit-row/computeds';
 
 export * from './plugins/table-filter-row/computeds';
+export * from './plugins/table-group-row/computeds';

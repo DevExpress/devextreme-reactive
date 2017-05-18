@@ -8,6 +8,7 @@ export * from './plugins/filtering-state/computeds';
 
 export * from './plugins/grouping-state/reducers';
 export * from './plugins/grouping-state/computeds';
+export * from './plugins/grouping-panel/computeds';
 
 export * from './plugins/paging-state/reducers';
 export * from './plugins/paging-state/computeds';

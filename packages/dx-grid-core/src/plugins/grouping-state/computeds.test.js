@@ -1,6 +1,7 @@
 import {
     groupedRows,
     expandedGroupRows,
+    groupedColumns,
 } from './computeds';
 
 describe('GroupingPlugin computeds', () => {
@@ -117,6 +118,27 @@ describe('GroupingPlugin computeds', () => {
           ],
         },
       ]);
+    });
+  });
+
+  describe('#groupedColumns', () => {
+    const columns = [
+      { name: 'a' },
+      { name: 'b' },
+      { name: 'c' },
+      { name: 'd' },
+    ];
+    const grouping = [
+      { columnName: 'a' },
+      { columnName: 'c' },
+    ];
+
+    test('should work', () => {
+      const processedColumns = groupedColumns(columns, grouping);
+
+      expect(processedColumns).toHaveLength(2);
+      expect(processedColumns[0]).toMatchObject({ name: 'a' });
+      expect(processedColumns[1]).toMatchObject({ name: 'c' });
     });
   });
 });

@@ -52,5 +52,5 @@ Handle the `onCurrentPageChange` event of the `PagingState` plugin to receive up
 
 ## Using Paging with Other Data Processing Plugins
 
-Paging features are often used side by side with other features such as sorting, grouping, etc. The order in which the plugins appear inside the Grid container is important because they are applied this order. If you are using paging and sorting together and you put the `LocalSorting` plugin before the `LocalPaging` one,  data is sorted and then paginated. Once you change the order, unsorted rows are paginated, and only the current page is sorted after that.
+Paging features are often used side by side with other features such as sorting, grouping, etc. The order in which the plugins appear inside the Grid container is important because they are applied in this order. If you are using paging and sorting together and you put the `LocalSorting` plugin before the `LocalPaging` one,  data is sorted and then paginated. Once you change the order, unsorted rows are paginated, and only the current page is sorted after that.
 

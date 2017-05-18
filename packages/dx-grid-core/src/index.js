@@ -28,3 +28,4 @@ export * from './plugins/edit-row/computeds';
 
 export * from './plugins/table-filter-row/computeds';
 export * from './plugins/table-group-row/computeds';
+export * from './plugins/table-header-row/computeds';

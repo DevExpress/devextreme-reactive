@@ -1,21 +1,19 @@
 import {
-    tableHeaderRows,
+    tableHeaderRowsWithFilter,
 } from './computeds';
 
 describe('TableFilterRow Plugin computeds', () => {
-  describe('#tableHeaderRows', () => {
+  describe('#tableHeaderRowsWithFilter', () => {
     const headerRows = [
-      { type: 'a' },
-      { type: 'b' },
+      { type: 'heading' },
     ];
 
     test('should work', () => {
-      const rows = tableHeaderRows(headerRows, 100);
+      const rows = tableHeaderRowsWithFilter(headerRows, 100);
 
-      expect(rows).toHaveLength(3);
-      expect(rows[0]).toMatchObject({ type: 'a' });
-      expect(rows[1]).toMatchObject({ type: 'b' });
-      expect(rows[2]).toMatchObject({ type: 'filter', height: 100 });
+      expect(rows).toHaveLength(2);
+      expect(rows[0]).toMatchObject({ type: 'heading' });
+      expect(rows[1]).toMatchObject({ type: 'filter', height: 100 });
     });
   });
 });

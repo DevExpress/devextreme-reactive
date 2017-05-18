@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnFilterConfig, tableHeaderRows } from '@devexpress/dx-grid-core';
+import { getColumnFilterConfig, tableHeaderRowsWithFilter } from '@devexpress/dx-grid-core';
 
 export const TableFilterRow = ({ rowHeight, filterCellTemplate }) => (
   <PluginContainer>
     <Getter
       name="tableHeaderRows"
-      pureComputed={tableHeaderRows}
+      pureComputed={tableHeaderRowsWithFilter}
       connectArgs={getter => [
         getter('tableHeaderRows'),
         rowHeight,

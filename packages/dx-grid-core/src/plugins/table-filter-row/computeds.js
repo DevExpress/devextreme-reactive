@@ -1,1 +1,1 @@
-export const tableHeaderRows = (headerRows, rowHeight) => [...headerRows, { type: 'filter', height: rowHeight }];
+export const tableHeaderRowsWithFilter = (headerRows, rowHeight) => [...headerRows, { type: 'filter', height: rowHeight }];

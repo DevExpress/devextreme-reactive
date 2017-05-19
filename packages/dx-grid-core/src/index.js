@@ -26,7 +26,7 @@ export * from './plugins/editing-state/helpers';
 
 export * from './plugins/edit-row/computeds';
 
-export * from './plugins/table-filter-row/computeds';
-export * from './plugins/table-group-row/computeds';
-export * from './plugins/table-header-row/computeds';
-export * from './plugins/table-selection/computeds';
+export * from './plugins/filter-row/computeds';
+export * from './plugins/group-row/computeds';
+export * from './plugins/header-row/computeds';
+export * from './plugins/selection/computeds';

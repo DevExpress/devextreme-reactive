@@ -42,13 +42,20 @@ const knownGlobals = {
   'prop-types': 'PropTypes',
   'react-bootstrap': 'ReactBootstrap',
   'material-ui': 'material-ui',
+  'material-ui/styles': 'material-ui.styles',
+  'material-ui-icons': 'material-ui-icons',
 };
 
 export const globals = (packageDirectory) => {
   return (moduleId) => {
       if (knownGlobals[moduleId]) return knownGlobals[moduleId];
 
-      const modulePkg = JSON.parse(readFileSync(join(packageDirectory, 'node_modules', moduleId, 'package.json')));
-      return modulePkg.globalName;
+      try {
+        const modulePkg = JSON.parse(readFileSync(join(packageDirectory, 'node_modules', moduleId, 'package.json')));
+        return modulePkg.globalName;
+      }
+      catch(e) {
+        console.log(e);
+      }
     }
 };

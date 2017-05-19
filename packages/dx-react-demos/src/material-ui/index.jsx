@@ -13,7 +13,7 @@ import {
 } from 'react-router-dom';
 
 import { BasicDemos } from './basic';
-// import { SortingDemos } from './sorting';
+import { SortingDemos } from './sorting';
 // import { FilteringDemos } from './filtering';
 // import { EditingDemos } from './editing';
 import { PagingDemos } from './paging';
@@ -50,8 +50,8 @@ const Demos = () => (
 
       <Route path="/material-ui/basic" component={BasicDemos} />
       <Route path="/material-ui/paging" component={PagingDemos} />
-      {/*
       <Route path="/material-ui/sorting" component={SortingDemos} />
+      {/*
       <Route path="/material-ui/selection" component={SelectionDemos} />
       <Route path="/material-ui/grouping" component={GroupingDemos} />
       <Route path="/material-ui/virtual-scrolling" component={VirtualScrollingDemos} />
@@ -99,7 +99,8 @@ export const MaterialUIDemos = withRouter(({ location }) => {
                   <ul className="list-unstyled">
                     <li><NavLink to="/material-ui/basic">Basic</NavLink></li>
                     <li><NavLink to="/material-ui/paging">Paging</NavLink></li>
-                    {/*<li><NavLink to="/material-ui/sorting">Sorting</NavLink></li>
+                    <li><NavLink to="/material-ui/sorting">Sorting</NavLink></li>
+                    {/*
                     <li><NavLink to="/material-ui/filtering">Filtering</NavLink></li>
                     <li><NavLink to="/material-ui/grouping">Grouping</NavLink></li>
                     <li><NavLink to="/material-ui/selection">Selection</NavLink></li>

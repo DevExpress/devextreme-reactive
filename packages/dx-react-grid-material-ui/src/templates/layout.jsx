@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { Paper } from 'material-ui';
 
 const styleSheet = createStyleSheet('GridLayout', theme => ({
   headingPanel: {
@@ -20,7 +21,7 @@ const LayoutBase = props => (
     <Template name="gridFooter" />
 
     <Template name="root">
-      <div>
+      <Paper>
         <TemplatePlaceholder name="gridHeading">
           {content => (
             content ? <div className={props.classes.headingPanel}>{content}</div> : null
@@ -32,7 +33,7 @@ const LayoutBase = props => (
             content ? <div className={props.classes.footerPanel}>{content}</div> : null
           )}
         </TemplatePlaceholder>
-      </div>
+      </Paper>
     </Template>
   </PluginContainer>
 );

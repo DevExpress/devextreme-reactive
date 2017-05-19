@@ -41,6 +41,7 @@ const knownGlobals = {
   react: 'React',
   'prop-types': 'PropTypes',
   'react-bootstrap': 'ReactBootstrap',
+  'material-ui': 'material-ui',
 };
 
 export const globals = (packageDirectory) => {

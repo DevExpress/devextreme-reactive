@@ -1,4 +1,4 @@
-// export { PagingPanel } from './plugins/paging-panel';
+export { PagingPanel } from './plugins/paging-panel';
 // export { GroupingPanel } from './plugins/grouping-panel';
 // export { TableRowDetail } from './plugins/table-row-detail';
 // export { TableGroupRow } from './plugins/table-group-row';

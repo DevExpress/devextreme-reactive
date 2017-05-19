@@ -73,8 +73,8 @@ export const Table = ({
 
   return (
     <div
-      className="table-responsive"
       style={{
+        overflow: 'auto',
         WebkitOverflowScrolling: 'touch',
       }}
     >

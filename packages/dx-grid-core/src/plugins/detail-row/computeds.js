@@ -16,3 +16,5 @@ export const expandedDetailRows = (sourceRows, expandedRows, getRowId, rowHeight
     });
   return rows;
 };
+
+export const tableColumnsWithDetail = columns => [{ type: 'detail', width: 25 }, ...columns];

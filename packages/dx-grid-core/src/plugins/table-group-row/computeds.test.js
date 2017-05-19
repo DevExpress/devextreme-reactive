@@ -1,9 +1,9 @@
 import {
-    tableColumns,
+    tableColumnsWithGroups,
 } from './computeds';
 
 describe('TableGroupRow Plugin computeds', () => {
-  describe('#tableHeaderRows', () => {
+  describe('#tableColumnsWithGroups', () => {
     const allColumns = [
       { name: 'a' },
       { name: 'b' },
@@ -14,7 +14,7 @@ describe('TableGroupRow Plugin computeds', () => {
     ];
 
     test('should work', () => {
-      const columns = tableColumns(allColumns, grouping);
+      const columns = tableColumnsWithGroups(allColumns, grouping);
 
       expect(columns).toHaveLength(4);
       expect(columns[0]).toMatchObject({ type: 'groupColumn', group: { columnName: 'a' }, width: 20 });

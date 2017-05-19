@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { tableColumns } from '@devexpress/dx-grid-core';
+import { tableColumnsWithGroups } from '@devexpress/dx-grid-core';
 
 export const TableGroupRow = ({ groupRowCellTemplate: GroupRowCell }) => (
   <PluginContainer>
     <Getter
       name="tableColumns"
-      pureComputed={tableColumns}
+      pureComputed={tableColumnsWithGroups}
       connectArgs={getter => [
         getter('tableColumns'),
         getter('grouping'),

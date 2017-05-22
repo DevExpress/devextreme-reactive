@@ -60,8 +60,8 @@ describe('DetailRow computeds', () => {
 
       expect(columns).toHaveLength(3);
       expect(columns[0]).toMatchObject({ type: 'detail', width: 25 });
-      expect(columns[1]).toMatchObject({ name: 'a' });
-      expect(columns[2]).toMatchObject({ name: 'b' });
+      expect(columns[1]).toBe(tableColumns[0]);
+      expect(columns[2]).toBe(tableColumns[1]);
     });
   });
 });

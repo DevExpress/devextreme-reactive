@@ -12,7 +12,7 @@ describe('TableFilterRow Plugin computeds', () => {
       const rows = tableHeaderRowsWithFilter(headerRows, 100);
 
       expect(rows).toHaveLength(2);
-      expect(rows[0]).toMatchObject({ type: 'heading' });
+      expect(rows[0]).toBe(headerRows[0]);
       expect(rows[1]).toMatchObject({ type: 'filter', height: 100 });
     });
   });

@@ -19,8 +19,8 @@ describe('GroupingPanel Plugin computeds', () => {
       const columns = ungroupedColumns(allColumns, grouping);
 
       expect(columns).toHaveLength(2);
-      expect(columns[0]).toMatchObject({ name: 'b' });
-      expect(columns[1]).toMatchObject({ name: 'd' });
+      expect(columns[0]).toBe(allColumns[1]);
+      expect(columns[1]).toBe(allColumns[3]);
     });
   });
 });

@@ -5,7 +5,7 @@ import {
 describe('TableHeaderRow Plugin computeds', () => {
   describe('#tableHeaderRows', () => {
     const rows = [
-      { type: 'heading' },
+      { type: 'filter' },
     ];
 
     test('should work', () => {
@@ -13,7 +13,7 @@ describe('TableHeaderRow Plugin computeds', () => {
 
       expect(headerRows).toHaveLength(2);
       expect(headerRows[0]).toMatchObject({ type: 'heading' });
-      expect(headerRows[1]).toMatchObject({ type: 'heading' });
+      expect(headerRows[1]).toBe(rows[0]);
     });
   });
 });

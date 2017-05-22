@@ -16,8 +16,8 @@ describe('TableSelection Plugin computeds', () => {
 
       expect(columns).toHaveLength(3);
       expect(columns[0]).toMatchObject({ type: 'select', name: 'select', width: 30 });
-      expect(columns[1]).toMatchObject({ name: 'a' });
-      expect(columns[2]).toMatchObject({ name: 'b' });
+      expect(columns[1]).toBe(tableColumns[0]);
+      expect(columns[2]).toBe(tableColumns[1]);
     });
   });
 
@@ -34,9 +34,9 @@ describe('TableSelection Plugin computeds', () => {
       const selectedRows = tableBodyRowsWithSelection(bodyRows, selection, getRowId);
 
       expect(selectedRows).toHaveLength(3);
-      expect(selectedRows[0]).toMatchObject({ selected: true, _originalRow: { field: 'a' }, field: 'a' });
-      expect(selectedRows[1]).toMatchObject({ field: 'b' });
-      expect(selectedRows[2]).toMatchObject({ selected: true, _originalRow: { field: 'c' }, field: 'c' });
+      expect(selectedRows[0]).toMatchObject({ selected: true, _originalRow: bodyRows[0], field: 'a' });
+      expect(selectedRows[1]).toBe(bodyRows[1]);
+      expect(selectedRows[2]).toMatchObject({ selected: true, _originalRow: bodyRows[2], field: 'c' });
     });
   });
 

@@ -137,8 +137,8 @@ describe('GroupingPlugin computeds', () => {
       const processedColumns = groupedColumns(columns, grouping);
 
       expect(processedColumns).toHaveLength(2);
-      expect(processedColumns[0]).toMatchObject({ name: 'a' });
-      expect(processedColumns[1]).toMatchObject({ name: 'c' });
+      expect(processedColumns[0]).toBe(columns[0]);
+      expect(processedColumns[1]).toBe(columns[2]);
     });
   });
 });

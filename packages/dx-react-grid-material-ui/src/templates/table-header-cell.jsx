@@ -48,7 +48,10 @@ export const TableHeaderCell = ({
         e.stopPropagation();
         changeSortingDirection({ keepOther: e.shiftKey });
       }}
-      style={style}
+      style={{
+        ...style,
+        ...!column.name ? { padding: 0 } : {},
+      }}
     >
       {gropingControl}
       <div

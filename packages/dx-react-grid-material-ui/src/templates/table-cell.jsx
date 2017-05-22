@@ -5,13 +5,19 @@ import {
     TableCell as TableCellMUI,
 } from 'material-ui';
 
-export const TableCell = ({ style, row, column }) => (
-  <TableCellMUI
-    style={style}
-  >
-    {row[column.name]}
-  </TableCellMUI>
-);
+export const TableCell = ({ style, row, column }) => {
+  const value = row[column.name];
+  return (
+    <TableCellMUI
+      style={{
+        ...style,
+        ...value === undefined ? { padding: 0 } : {},
+      }}
+    >
+      {row[column.name]}
+    </TableCellMUI>
+  );
+};
 
 TableCell.propTypes = {
   style: PropTypes.shape(),

@@ -18,13 +18,22 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
     }}
     onClick={toggleGroupExpanded}
   >
-    {
-      isExpanded
-      ? <ExpandMore />
-      : <ChevronRight />
-
-    }
-    <strong>{row.column.title}: {row.value}</strong>
+    <span
+      style={{
+        verticalAlign: 'middle',
+        display: 'inline-block',
+        height: 24,
+      }}
+    >
+      {
+        isExpanded
+        ? <ExpandMore />
+        : <ChevronRight />
+      }
+    </span>
+    <strong style={{ verticalAlign: 'middle' }}>
+      {row.column.title}: {row.value}
+    </strong>
   </TableCell>
 );
 

@@ -1,22 +1,4 @@
-const creatMultipleHandler = () => {
-  const handlers = [];
-  const multipleHandler = (e) => {
-    handlers.forEach(handler => handler(e));
-  };
-
-  multipleHandler.addHandler = handler => handlers.unshift(handler);
-  return multipleHandler;
-};
-
-const extendWithEventListener = (extraProps, name, handler) => {
-  const extendedExtraProps = Object.assign({}, extraProps);
-  if (!extendedExtraProps[name]) {
-    extendedExtraProps[name] = creatMultipleHandler();
-  }
-
-  extendedExtraProps[name].addHandler(handler);
-  return extendedExtraProps;
-};
+import extendWithEventListener from '../../utils/extend-with-event-listener';
 
 export const tableColumnsWidthSelect = columns =>
   [{ type: 'select', name: 'select', width: 30 }, ...columns];

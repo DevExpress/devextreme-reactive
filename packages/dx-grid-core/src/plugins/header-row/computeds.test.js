@@ -1,19 +1,19 @@
 import {
-    tableHeaderRows,
+    tableRowsWithHeading,
 } from './computeds';
 
 describe('TableHeaderRow Plugin computeds', () => {
-  describe('#tableHeaderRows', () => {
-    const rows = [
+  describe('#tableRowsWithHeading', () => {
+    const existingRows = [
       { type: 'filter' },
     ];
 
     test('should work', () => {
-      const headerRows = tableHeaderRows(rows);
+      const rows = tableRowsWithHeading(existingRows);
 
-      expect(headerRows).toHaveLength(2);
-      expect(headerRows[0]).toMatchObject({ type: 'heading' });
-      expect(headerRows[1]).toBe(rows[0]);
+      expect(rows).toHaveLength(2);
+      expect(rows[0]).toMatchObject({ type: 'heading' });
+      expect(rows[1]).toBe(existingRows[0]);
     });
   });
 });

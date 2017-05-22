@@ -1,1 +1,1 @@
-export const tableHeaderRows = headerRows => [{ type: 'heading' }, ...headerRows];
+export const tableRowsWithHeading = headerRows => [{ type: 'heading' }, ...headerRows];

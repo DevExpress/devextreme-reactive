@@ -6,69 +6,73 @@ import { getColumnSortingDirection, ungroupedColumns } from '@devexpress/dx-grid
 export const GroupPanelCellTemplate = props =>
   <TemplatePlaceholder name="groupingPanelCell" params={props} />;
 
-export const GroupingPanel = ({
-  allowSorting,
-  groupPanelTemplate: GroupPanel,
-  groupPanelCellTemplate: GroupPanelCell,
-}) => (
-  <PluginContainer>
-    <Getter
-      name="tableColumns"
-      pureComputed={ungroupedColumns}
-      connectArgs={getter => [
-        getter('tableColumns'),
-        getter('grouping'),
-      ]}
-    />
+export class GroupingPanel extends React.PureComponent {
+  render() {
+    const { allowSorting, groupPanelTemplate, groupPanelCellTemplate } = this.props;
+    const GroupPanel = groupPanelTemplate;
+    const GroupPanelCell = groupPanelCellTemplate;
 
-    <Template name="gridHeading">
-      <div>
-        <TemplatePlaceholder name="group-panel" />
-        <TemplatePlaceholder />
-      </div>
-    </Template>
-    <Template
-      name="group-panel"
-      connectGetters={getter => ({
-        groupedColumns: getter('groupedColumns'),
-      })}
-    >
-      {({ groupedColumns }) => (
-        <GroupPanel
-          groupedColumns={groupedColumns}
-          cellTemplate={GroupPanelCellTemplate}
+    return (
+      <PluginContainer>
+        <Getter
+          name="tableColumns"
+          pureComputed={ungroupedColumns}
+          connectArgs={getter => [
+            getter('tableColumns'),
+            getter('grouping'),
+          ]}
         />
-      )}
-    </Template>
-    <Template
-      name="groupingPanelCell"
-      connectGetters={(getter, { column }) => {
-        const sorting = getter('sorting');
 
-        const result = {
-          sortingSupported: !column.type && sorting !== undefined,
-        };
+        <Template name="gridHeading">
+          <div>
+            <TemplatePlaceholder name="group-panel" />
+            <TemplatePlaceholder />
+          </div>
+        </Template>
+        <Template
+          name="group-panel"
+          connectGetters={getter => ({
+            groupedColumns: getter('groupedColumns'),
+          })}
+        >
+          {({ groupedColumns }) => (
+            <GroupPanel
+              groupedColumns={groupedColumns}
+              cellTemplate={GroupPanelCellTemplate}
+            />
+          )}
+        </Template>
+        <Template
+          name="groupingPanelCell"
+          connectGetters={(getter, { column }) => {
+            const sorting = getter('sorting');
 
-        if (result.sortingSupported) {
-          result.sortingDirection = getColumnSortingDirection(sorting, column.name);
-        }
+            const result = {
+              sortingSupported: !column.type && sorting !== undefined,
+            };
 
-        return result;
-      }}
-      connectActions={(action, { column }) => ({
-        groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
-        changeSortingDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
-      })}
-    >
-      {({ sortingSupported, ...restParams }) => (
-        <GroupPanelCell
-          {...restParams}
-          allowSorting={allowSorting && sortingSupported}
-        />
-      )}
-    </Template>
-  </PluginContainer>
-);
+            if (result.sortingSupported) {
+              result.sortingDirection = getColumnSortingDirection(sorting, column.name);
+            }
+
+            return result;
+          }}
+          connectActions={(action, { column }) => ({
+            groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
+            changeSortingDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
+          })}
+        >
+          {({ sortingSupported, ...restParams }) => (
+            <GroupPanelCell
+              {...restParams}
+              allowSorting={allowSorting && sortingSupported}
+            />
+          )}
+        </Template>
+      </PluginContainer>
+    );
+  }
+}
 
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,

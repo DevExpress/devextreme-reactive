@@ -15,7 +15,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
   button: {
-    //margin: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
 }));
 

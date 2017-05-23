@@ -26,6 +26,7 @@ export const TableHeaderCell = ({
         float: invertedAlign,
         textAlign: invertedAlign,
         width: '14px',
+        height: '24px',
       }}
     >
       <List />
@@ -50,6 +51,7 @@ export const TableHeaderCell = ({
       }}
       style={{
         ...style,
+        paddingRight: '24px',
         ...!column.name ? { padding: 0 } : {},
       }}
     >
@@ -58,8 +60,11 @@ export const TableHeaderCell = ({
         style={{
           [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',
           textAlign: align,
+          height: '24px',
+          lineHeight: '24px',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
+          verticalAlign: 'middle',
           textOverflow: 'ellipsis',
         }}
       >

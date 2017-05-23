@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnSortingDirection, ungroupedColumns } from '@devexpress/dx-grid-core';
+import { getColumnSortingDirection, tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
 
 export const GroupPanelCellTemplate = props =>
   <TemplatePlaceholder name="groupingPanelCell" params={props} />;
@@ -16,7 +16,7 @@ export class GroupingPanel extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableColumns"
-          pureComputed={ungroupedColumns}
+          pureComputed={tableColumnsWithoutGroups}
           connectArgs={getter => [
             getter('tableColumns'),
             getter('grouping'),

@@ -1,18 +1,18 @@
 import {
-    tableColumnsWidthSelect,
+    tableColumnsWithSelection,
     tableBodyRowsWithSelection,
     tableExtraProps,
 } from './computeds';
 
 describe('TableSelection Plugin computeds', () => {
-  describe('#tableColumnsWidthSelect', () => {
+  describe('#tableColumnsWithSelection', () => {
     const tableColumns = [
       { name: 'a' },
       { name: 'b' },
     ];
 
     test('should work', () => {
-      const columns = tableColumnsWidthSelect(tableColumns);
+      const columns = tableColumnsWithSelection(tableColumns);
 
       expect(columns).toHaveLength(3);
       expect(columns[0]).toMatchObject({ type: 'select', name: 'select', width: 30 });

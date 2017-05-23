@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { tableColumnsWidthSelect, tableBodyRowsWithSelection, tableExtraProps } from '@devexpress/dx-grid-core';
+import { tableColumnsWithSelection, tableBodyRowsWithSelection, tableExtraProps } from '@devexpress/dx-grid-core';
 
 export class TableSelection extends React.PureComponent {
   render() {
@@ -14,7 +14,7 @@ export class TableSelection extends React.PureComponent {
         {showSelectionColumn && (
           <Getter
             name="tableColumns"
-            pureComputed={tableColumnsWidthSelect}
+            pureComputed={tableColumnsWithSelection}
             connectArgs={getter => [
               getter('tableColumns'),
             ]}

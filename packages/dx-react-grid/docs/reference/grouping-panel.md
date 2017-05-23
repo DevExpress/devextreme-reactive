@@ -52,7 +52,7 @@ Field | Type | Description
 ------|------|------------
 allowSorting | boolean | If true, an end-user can change sorting by the current column
 sortingDirection? | 'asc' &#124; 'desc' | Specifies sorting direction
-changeSortingDirection | ({ keepOther: boolean, remove: boolean }) => void | Changes the sort order of a column. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `remove` is set to true.
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) => void | Changes the sort order of a column. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 ## Plugin Developer Reference

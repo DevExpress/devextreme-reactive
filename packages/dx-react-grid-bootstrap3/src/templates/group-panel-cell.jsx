@@ -18,10 +18,10 @@ export const GroupPanelCell = ({
     <span
       onClick={(e) => {
         if (!allowSorting) return;
-        const removeSortingRelatedKey = e.metaKey || e.ctrlKey;
+        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
         changeSortingDirection({
-          keepOther: e.shiftKey || removeSortingRelatedKey,
-          remove: removeSortingRelatedKey,
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey,
         });
       }}
     >

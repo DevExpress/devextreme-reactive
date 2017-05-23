@@ -1,4 +1,4 @@
-export const setColumnSorting = (sorting, { columnName, direction, keepOther, remove }) => {
+export const setColumnSorting = (sorting, { columnName, direction, keepOther, cancel }) => {
   const sortingIndex = sorting.findIndex(s => s.columnName === columnName);
   const columnSorting = sorting[sortingIndex];
   const nextSorting = keepOther ? sorting.slice() : [];
@@ -8,16 +8,16 @@ export const setColumnSorting = (sorting, { columnName, direction, keepOther, re
       ...columnSorting,
       direction: columnSorting.direction === 'asc' ? 'desc' : 'asc',
     };
-    if (keepOther && remove) {
+    if (keepOther && cancel) {
       nextSorting.splice(sortingIndex, 1);
-    } else if (keepOther && !remove) {
+    } else if (keepOther && !cancel) {
       nextSorting.splice(sortingIndex, 1, updatedSorting);
-    } else if (!keepOther && remove) {
+    } else if (!keepOther && cancel) {
       nextSorting.length = 0;
     } else {
       nextSorting.push(updatedSorting);
     }
-  } else if (!remove) {
+  } else if (!cancel) {
     nextSorting.push({
       columnName,
       direction: direction || 'asc',

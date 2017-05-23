@@ -73,10 +73,10 @@ export const TableHeaderCell = ({
       onClick={(e) => {
         if (!allowSorting) return;
         e.stopPropagation();
-        const removeSortingRelatedKey = e.metaKey || e.ctrlKey;
+        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
         changeSortingDirection({
-          keepOther: e.shiftKey || removeSortingRelatedKey,
-          remove: removeSortingRelatedKey,
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey,
         });
       }}
     >

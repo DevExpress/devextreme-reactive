@@ -7,12 +7,13 @@ export class TableGroupRow extends React.PureComponent {
     super(props);
 
     this._tableColumns = (tableColumns, grouping) => [
-      ...grouping.map(group => ({ type: 'groupColumn', group, width: 20 })),
+      ...grouping.map(group => ({ type: 'groupColumn', group })),
       ...tableColumns,
     ];
   }
   render() {
     const GroupRowCell = this.props.groupRowCellTemplate;
+    const GroupIndentCell = this.props.groupIndentCellTemplate;
 
     return (
       <PluginContainer>
@@ -41,6 +42,18 @@ export class TableGroupRow extends React.PureComponent {
             />
           )}
         </Template>
+        <Template
+          name="tableViewCell"
+          predicate={({ column, row }) => (row.type !== 'groupRow'
+            || row.column.name !== column.group.columnName)
+            && column.type === 'groupColumn'}
+        >
+          {({ ...params }) => (
+            <GroupIndentCell
+              {...params}
+            />
+          )}
+        </Template>
       </PluginContainer>
     );
   }
@@ -48,4 +61,5 @@ export class TableGroupRow extends React.PureComponent {
 
 TableGroupRow.propTypes = {
   groupRowCellTemplate: PropTypes.func.isRequired,
+  groupIndentCellTemplate: PropTypes.func.isRequired,
 };

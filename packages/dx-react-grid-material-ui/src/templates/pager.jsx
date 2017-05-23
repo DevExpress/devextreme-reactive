@@ -6,7 +6,7 @@ import {
 
 const PageButton = ({ text, isActive, onClick }) => (
   <Button
-    style={{ minWidth: 16 }}
+    style={{ minWidth: '16px' }}
     accent={isActive}
     raised={isActive}
     onTouchTap={onClick}

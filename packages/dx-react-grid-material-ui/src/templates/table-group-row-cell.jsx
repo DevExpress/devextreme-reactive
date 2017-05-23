@@ -14,7 +14,7 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
     colSpan={colspan}
     style={{
       cursor: 'pointer',
-      paddingLeft: 24,
+      paddingLeft: '24px',
       ...style,
     }}
     onClick={toggleGroupExpanded}
@@ -23,9 +23,9 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
       style={{
         verticalAlign: 'middle',
         display: 'inline-block',
-        marginRight: 6,
-        marginLeft: -6,
-        height: 24,
+        marginRight: '6px',
+        marginLeft: '-6px',
+        height: '24px',
       }}
     >
       {
@@ -59,7 +59,7 @@ TableGroupRowCell.defaultProps = {
 export const TableGroupIndentCell = () => (
   <TableCell
     style={{
-      width: 24,
+      width: '24px',
       padding: 0,
     }}
   >

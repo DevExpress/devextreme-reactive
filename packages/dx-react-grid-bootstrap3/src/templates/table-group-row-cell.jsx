@@ -41,7 +41,7 @@ TableGroupRowCell.defaultProps = {
 export const TableGroupIndentCell = () => (
   <td
     style={{
-      width: 20,
+      width: '20px',
     }}
   >
     &nbsp;

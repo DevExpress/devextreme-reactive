@@ -6,11 +6,11 @@ import { Paper } from 'material-ui';
 
 const styleSheet = createStyleSheet('GridLayout', theme => ({
   headingPanel: {
-    padding: 12,
+    padding: '12px',
     backgroundColor: theme.palette.text.lightDivider,
   },
   footerPanel: {
-    padding: 12,
+    padding: '12px',
     backgroundColor: theme.palette.text.lightDivider,
   },
 }));

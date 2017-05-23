@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Grid,
+  RowDetailState,
 } from '@devexpress/dx-react-grid';
 import {
   TableView,
@@ -38,11 +39,13 @@ export class DetailRowControlledDemo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
+        <RowDetailState
+          expandedRows={expandedRows}
+          onExpandedRowsChange={this.changeExpandedDetails}
+        />
         <TableView />
         <TableHeaderRow />
         <TableRowDetail
-          expandedRows={expandedRows}
-          onExpandedRowsChange={this.changeExpandedDetails}
           template={this.rowTemplate}
         />
       </Grid>

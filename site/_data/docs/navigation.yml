@@ -36,6 +36,8 @@ react:
           path: /react/grid/docs/reference/selection-state
         - title: EditingState
           path: /react/grid/docs/reference/editing-state
+        - title: RowDetailState
+          path: /react/grid/docs/reference/row-detail-state
         - title: LocalFiltering
           path: /react/grid/docs/reference/local-filtering
         - title: LocalSorting

@@ -12,7 +12,7 @@ A plugin that renders a table detail row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-template | Component&lt;[DetailContentProps](#detail-content-props)&gt; | | A component that renders details for a row
+template | Component&lt;[DetailContentProps](#detail-content-props)&gt; | | A component that renders row details
 detailCellTemplate | Component&lt;[DetailCellProps](#detail-cell-props)&gt; | | A component that renders a detail cell
 detailToggleTemplate | Component&lt;[DetailToggleProps](#detail-toggle-props)&gt; | | A component that renders the detail toggle control
 

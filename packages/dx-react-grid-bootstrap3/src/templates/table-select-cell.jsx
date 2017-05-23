@@ -5,6 +5,7 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
   <td
     style={{
       cursor: 'pointer',
+      width: 30,
       ...style,
     }}
     onClick={(e) => {

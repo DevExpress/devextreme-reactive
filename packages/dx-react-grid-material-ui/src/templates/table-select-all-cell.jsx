@@ -13,6 +13,7 @@ export const TableSelectAllCell = (
     checkbox
     style={{
       cursor: selectionAvailable && 'pointer',
+      width: 30,
       ...style,
     }}
     onClick={(e) => {

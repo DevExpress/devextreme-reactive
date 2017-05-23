@@ -8,7 +8,7 @@ export class TableSelection extends React.PureComponent {
     super(props);
 
     this._tableColumns = tableColumns =>
-      [{ type: 'select', name: 'select', width: 30 }, ...tableColumns];
+      [{ type: 'select', name: 'select' }, ...tableColumns];
 
     this._tableBodyRows = (tableBodyRows, selection, getRowId) => {
       const selectionSet = new Set(selection);

@@ -9,7 +9,10 @@ import {
 export const TableSelectCell = ({ style, selected, changeSelected }) => (
   <TableCell
     checkbox
-    style={style}
+    style={{
+      width: 30,
+      ...style,
+    }}
     onClick={(e) => {
       e.stopPropagation();
       changeSelected();

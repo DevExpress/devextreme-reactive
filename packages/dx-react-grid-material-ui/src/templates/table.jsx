@@ -8,7 +8,7 @@ import {
     TableRow as TableRowMUI,
 } from 'material-ui';
 
-import { querySelectorAll } from './utils/dom';
+import { querySelectorAll } from '@devexpress/dx-react-grid';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 

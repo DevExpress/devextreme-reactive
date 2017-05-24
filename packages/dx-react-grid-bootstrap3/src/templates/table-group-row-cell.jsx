@@ -13,9 +13,9 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
     <i
       className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`}
       style={{
-        fontSize: 9,
+        fontSize: '9px',
         top: 0,
-        marginRight: 10,
+        marginRight: '10px',
       }}
     />
     <strong>{row.column.title}: {row.value}</strong>

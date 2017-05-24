@@ -1,31 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import extendWithEventListener from '../utils/extendWithEventListener';
+import { tableColumnsWithSelection, tableBodyRowsWithSelection, tableExtraProps } from '@devexpress/dx-grid-core';
 
 export class TableSelection extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._tableColumns = tableColumns =>
-      [{ type: 'select', name: 'select', width: 30 }, ...tableColumns];
-
-    this._tableBodyRows = (tableBodyRows, selection, getRowId) => {
-      const selectionSet = new Set(selection);
-      return tableBodyRows
-        .map((row) => {
-          if (!selectionSet.has(getRowId(row))) return row;
-          return Object.assign({ selected: true, _originalRow: row }, row);
-        });
-    };
-
-    this._tableExtraProps = (tableExtraProps, availableToSelect, setRowSelection, getRowId) =>
-      extendWithEventListener(tableExtraProps, 'onClick', ({ row }) => {
-        const rowId = getRowId(row);
-        if (availableToSelect.indexOf(rowId) === -1) return;
-        setRowSelection({ rowId });
-      });
-  }
   render() {
     const { highlightSelected, selectByRowClick, showSelectionColumn, showSelectAll } = this.props;
     const SelectAllCell = this.props.selectAllCellTemplate;
@@ -36,7 +14,7 @@ export class TableSelection extends React.PureComponent {
         {showSelectionColumn && (
           <Getter
             name="tableColumns"
-            pureComputed={this._tableColumns}
+            pureComputed={tableColumnsWithSelection}
             connectArgs={getter => [
               getter('tableColumns'),
             ]}
@@ -45,7 +23,7 @@ export class TableSelection extends React.PureComponent {
         {highlightSelected && (
           <Getter
             name="tableBodyRows"
-            pureComputed={this._tableBodyRows}
+            pureComputed={tableBodyRowsWithSelection}
             connectArgs={getter => [
               getter('tableBodyRows'),
               getter('selection'),
@@ -56,7 +34,7 @@ export class TableSelection extends React.PureComponent {
         {selectByRowClick && (
           <Getter
             name="tableExtraProps"
-            pureComputed={this._tableExtraProps}
+            pureComputed={tableExtraProps}
             connectArgs={(getter, action) => [
               getter('tableExtraProps'),
               getter('availableToSelect'),
@@ -118,6 +96,7 @@ export class TableSelection extends React.PureComponent {
     );
   }
 }
+
 TableSelection.defaultProps = {
   highlightSelected: false,
   selectByRowClick: false,

@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setCurrentPage } from '@devexpress/dx-grid-core';
+import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 
 export class PagingState extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentPage: props.defaultCurrentPage || 0,
+      currentPage: props.defaultCurrentPage,
+      pageSize: props.defaultPageSize,
     };
 
     this._setCurrentPage = ({ page }) => {
@@ -19,14 +20,27 @@ export class PagingState extends React.PureComponent {
         onCurrentPageChange(currentPage);
       }
     };
+
+    this._setPageSize = ({ size }) => {
+      const { onPageSizeChange } = this.props;
+      const pageSize = setPageSize(this.state.pageSize, { size });
+      this.setState({ pageSize });
+      if (onPageSizeChange) {
+        onPageSizeChange(pageSize);
+      }
+    };
   }
   render() {
-    const { pageSize, totalCount, currentPage: propsCurrentPage } = this.props;
-    const currentPage = propsCurrentPage === undefined ? this.state.currentPage : propsCurrentPage;
+    const {
+      pageSize = this.state.pageSize,
+      totalCount,
+      currentPage = this.state.currentPage,
+    } = this.props;
 
     return (
       <PluginContainer>
         <Action name="setCurrentPage" action={({ page }) => this._setCurrentPage({ page })} />
+        <Action name="setPageSize" action={({ size }) => this._setPageSize({ size })} />
 
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
@@ -38,6 +52,8 @@ export class PagingState extends React.PureComponent {
 
 PagingState.propTypes = {
   pageSize: PropTypes.number,
+  defaultPageSize: PropTypes.number,
+  onPageSizeChange: PropTypes.func,
   totalCount: PropTypes.number,
   currentPage: PropTypes.number,
   defaultCurrentPage: PropTypes.number,
@@ -46,8 +62,10 @@ PagingState.propTypes = {
 
 PagingState.defaultProps = {
   pageSize: undefined,
+  defaultPageSize: 10,
+  onPageSizeChange: undefined,
   totalCount: undefined,
   currentPage: undefined,
-  defaultCurrentPage: undefined,
+  defaultCurrentPage: 0,
   onCurrentPageChange: undefined,
 };

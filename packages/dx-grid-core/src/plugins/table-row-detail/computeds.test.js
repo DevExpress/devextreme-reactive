@@ -1,5 +1,6 @@
 import {
     expandedDetailRows,
+    tableColumnsWithDetail,
 } from './computeds';
 
 describe('DetailRow computeds', () => {
@@ -45,6 +46,22 @@ describe('DetailRow computeds', () => {
           height: 'auto',
         },
       ]);
+    });
+  });
+
+  describe('#tableColumnsWithDetail', () => {
+    const tableColumns = [
+      { name: 'a' },
+      { name: 'b' },
+    ];
+
+    test('should work', () => {
+      const columns = tableColumnsWithDetail(tableColumns);
+
+      expect(columns).toHaveLength(3);
+      expect(columns[0]).toMatchObject({ type: 'detail', width: 25 });
+      expect(columns[1]).toBe(tableColumns[0]);
+      expect(columns[2]).toBe(tableColumns[1]);
     });
   });
 });

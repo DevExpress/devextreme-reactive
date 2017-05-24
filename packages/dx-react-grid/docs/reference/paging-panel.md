@@ -13,6 +13,7 @@ A plugin that renders a panel allowing an end-user to navigate through data page
 Name | Type | Default | Description
 -----|------|---------|------------
 pagerTemplate | Component&lt;[PagerProps](#pager-props)&gt; | | A component that renders a pager based on the supplied parameters
+allowedPageSizes | Array&lt;number&gt; | [] | Specifies the page sizes that can be selected at runtime
 
 ## Interfaces
 
@@ -24,9 +25,12 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-currentPage | number | Specifies the current page
 totalPages | number | Specifies the total pages count
+currentPage | number | Specifies the current page
 onCurrentPageChange | (page: number) => void | Changes the current page
+pageSize | number | Specifies the page size
+onPageSizeChange | (size: number) => void | Changes the page size
+allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that can be selected at runtime
 
 ## Plugin Developer Reference
 

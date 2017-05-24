@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 
 import { LocalPagingDemo } from './paging/local-paging';
 import { LocalPagingControlledDemo } from './paging/local-paging-controlled';
+import { PageSizeSelectorDemo } from './paging/page-size-selector';
 import { RemotePagingDemo } from './paging/remote-paging';
 
 const AllDemos = () => (
@@ -13,6 +14,8 @@ const AllDemos = () => (
     <LocalPagingDemo />
     <h3>Controlled mode</h3>
     <LocalPagingControlledDemo />
+    <h3>Page size selection</h3>
+    <PageSizeSelectorDemo />
     <h3>Remote paging</h3>
     <RemotePagingDemo />
   </div>
@@ -23,6 +26,7 @@ export const PagingDemos = ({ match }) => (
     <Route exact path={`${match.url}/`} component={AllDemos} />
     <Route path={`${match.url}/local-paging`} component={LocalPagingDemo} />
     <Route path={`${match.url}/local-paging-controlled`} component={LocalPagingControlledDemo} />
+    <Route path={`${match.url}/page-size-selector`} component={PageSizeSelectorDemo} />
     <Route path={`${match.url}/remote-paging`} component={RemotePagingDemo} />
   </div>
 );

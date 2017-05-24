@@ -163,46 +163,6 @@ describe('Getter', () => {
     expect(tree.find('h1').text()).toBe('new');
   });
 
-  test('notifies when updated', () => {
-    const Test = ({ text, onChange }) => (
-      <PluginHost>
-        <Getter name="test" value={text} />
-        <Getter
-          name="test"
-          pureComputed={original => `${original}_extended`}
-          connectArgs={getter => [
-            getter('test'),
-          ]}
-          onChange={onChange}
-        />
-
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
-          })}
-        >
-          {({ prop }) => <h1>{prop}</h1>}
-        </Template>
-      </PluginHost>
-    );
-    Test.propTypes = {
-      text: PropTypes.string.isRequired,
-      onChange: PropTypes.func.isRequired,
-    };
-
-    const onChange = jest.fn();
-    const tree = mount(
-      <Test text="text" onChange={onChange} />,
-    );
-    tree.setProps({ text: 'text' });
-    tree.setProps({ text: 'new' });
-
-    expect(onChange.mock.calls).toHaveLength(2);
-    expect(onChange.mock.calls[0][0]).toBe('text_extended');
-    expect(onChange.mock.calls[1][0]).toBe('new_extended');
-  });
-
   // This test is not correct enough. Rewrite it in future
   test('memoization based on args', () => {
     const staticValue = {};

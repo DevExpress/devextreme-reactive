@@ -136,6 +136,8 @@ export class ControlledModeDemo extends React.PureComponent {
       changedRows: {},
       currentPage: 0,
       deletingRows: [],
+      pageSize: 10,
+      allowedPageSizes: [5, 10, 15],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -153,6 +155,7 @@ export class ControlledModeDemo extends React.PureComponent {
     this.changeChangedRows = changedRows => this.setState({ changedRows });
     this.changeFilters = filters => this.setState({ filters });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
+    this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
       let rows = this.state.rows.slice();
       if (added) {
@@ -214,6 +217,8 @@ export class ControlledModeDemo extends React.PureComponent {
       changedRows,
       currentPage,
       deletingRows,
+      pageSize,
+      allowedPageSizes,
     } = this.state;
 
     return (
@@ -231,7 +236,8 @@ export class ControlledModeDemo extends React.PureComponent {
           <PagingState
             currentPage={currentPage}
             onCurrentPageChange={this.changeCurrentPage}
-            pageSize={10}
+            pageSize={pageSize}
+            onPageSizeChange={this.changePageSize}
           />
 
           <LocalSorting />
@@ -273,7 +279,9 @@ export class ControlledModeDemo extends React.PureComponent {
               : undefined
             )}
           />
-          <PagingPanel />
+          <PagingPanel
+            allowedPageSizes={allowedPageSizes}
+          />
         </Grid>
 
         <Modal

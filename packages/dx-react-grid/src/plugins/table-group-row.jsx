@@ -1,16 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import { tableColumnsWithGroups } from '@devexpress/dx-grid-core';
 
 export class TableGroupRow extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._tableColumns = (tableColumns, grouping) => [
-      ...grouping.map(group => ({ type: 'groupColumn', group, width: 20 })),
-      ...tableColumns,
-    ];
-  }
   render() {
     const GroupRowCell = this.props.groupRowCellTemplate;
 
@@ -18,7 +11,7 @@ export class TableGroupRow extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableColumns"
-          pureComputed={this._tableColumns}
+          pureComputed={tableColumnsWithGroups}
           connectArgs={getter => [
             getter('tableColumns'),
             getter('grouping'),

@@ -56,3 +56,6 @@ export const expandedGroupRows = (rows, expandedGroups) => {
   expandGroups(rows, expandedGroups, result);
   return result;
 };
+
+export const groupedColumns = (columns, grouping) =>
+  grouping.map(group => columns.find(c => c.name === group.columnName));

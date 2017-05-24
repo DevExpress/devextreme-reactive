@@ -30,12 +30,14 @@ export class RemoteDataDemo extends React.PureComponent {
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
       pageSize: 12,
+      allowedPageSizes: [5, 10, 15],
       currentPage: 0,
       loading: true,
     };
 
     this.changeSorting = this.changeSorting.bind(this);
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
+    this.changePageSize = this.changePageSize.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -52,6 +54,16 @@ export class RemoteDataDemo extends React.PureComponent {
   changeCurrentPage(currentPage) {
     this.setState({
       loading: true,
+      currentPage,
+    });
+  }
+  changePageSize(pageSize) {
+    const totalPages = Math.ceil(this.state.totalCount / pageSize);
+    const currentPage = Math.min(this.state.currentPage, totalPages - 1);
+
+    this.setState({
+      loading: true,
+      pageSize,
       currentPage,
     });
   }
@@ -86,7 +98,16 @@ export class RemoteDataDemo extends React.PureComponent {
     this.lastQuery = queryString;
   }
   render() {
-    const { rows, columns, sorting, pageSize, currentPage, totalCount, loading } = this.state;
+    const {
+      rows,
+      columns,
+      sorting,
+      pageSize,
+      allowedPageSizes,
+      currentPage,
+      totalCount,
+      loading,
+    } = this.state;
 
     return (
       <div style={{ position: 'relative' }}>
@@ -102,6 +123,7 @@ export class RemoteDataDemo extends React.PureComponent {
             currentPage={currentPage}
             onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
+            onPageSizeChange={this.changePageSize}
             totalCount={totalCount}
           />
           <TableView
@@ -126,7 +148,9 @@ export class RemoteDataDemo extends React.PureComponent {
             )}
           />
           <TableHeaderRow allowSorting />
-          <PagingPanel />
+          <PagingPanel
+            allowedPageSizes={allowedPageSizes}
+          />
         </Grid>
         {loading && <Loading />}
       </div>

@@ -1,15 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnSortingDirection } from '@devexpress/dx-grid-core';
+import { getColumnSortingDirection, tableRowsWithHeading } from '@devexpress/dx-grid-core';
 
 export class TableHeaderRow extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._tableHeaderRows = tableHeaderRows =>
-      [{ type: 'heading' }, ...tableHeaderRows];
-  }
   render() {
     const { allowSorting, allowGrouping, headerCellTemplate } = this.props;
     const HeaderCell = headerCellTemplate;
@@ -18,7 +12,7 @@ export class TableHeaderRow extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableHeaderRows"
-          pureComputed={this._tableHeaderRows}
+          pureComputed={tableRowsWithHeading}
           connectArgs={getter => [
             getter('tableHeaderRows'),
           ]}

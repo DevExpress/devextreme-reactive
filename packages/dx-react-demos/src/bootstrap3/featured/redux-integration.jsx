@@ -6,7 +6,7 @@ import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
     Grid,
-    SortingState, SelectionState, FilteringState, PagingState, GroupingState,
+    SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
     LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
@@ -63,6 +63,9 @@ const GridContainer = ({
   onFiltersChange,
   currentPage,
   onCurrentPageChange,
+  pageSize,
+  onPageSizeChange,
+  allowedPageSizes,
 }) => (
   <Grid
     rows={rows}
@@ -86,7 +89,12 @@ const GridContainer = ({
     <PagingState
       currentPage={currentPage}
       onCurrentPageChange={onCurrentPageChange}
-      pageSize={8}
+      pageSize={pageSize}
+      onPageSizeChange={onPageSizeChange}
+    />
+    <RowDetailState
+      expandedRows={expandedRows}
+      onExpandedRowsChange={onExpandedRowsChange}
     />
 
     <LocalFiltering />
@@ -116,7 +124,9 @@ const GridContainer = ({
     />
     <TableGroupRow />
     <GroupingPanel allowSorting />
-    <PagingPanel />
+    <PagingPanel
+      allowedPageSizes={allowedPageSizes}
+    />
 
   </Grid>
 );
@@ -138,6 +148,9 @@ GridContainer.propTypes = {
   onFiltersChange: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  onPageSizeChange: PropTypes.func.isRequired,
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 const gridInitialState = {
@@ -174,6 +187,8 @@ const gridInitialState = {
   expandedRows: [1],
   filters: [],
   currentPage: 0,
+  pageSize: 10,
+  allowedPageSizes: [5, 10, 15],
 };
 
 const gridReducer = (state = gridInitialState, action) => {
@@ -206,6 +221,7 @@ const mapDispatchToProps = dispatch => ({
   onExpandedGroupsChange: expandedGroups => dispatch(createGridAction('expandedGroups', expandedGroups)),
   onFiltersChange: filters => dispatch(createGridAction('filters', filters)),
   onCurrentPageChange: currentPage => dispatch(createGridAction('currentPage', currentPage)),
+  onPageSizeChange: pageSize => dispatch(createGridAction('pageSize', pageSize)),
 });
 
 const ReduxGridContainer = connect(mapStateToProps, mapDispatchToProps)(GridContainer);

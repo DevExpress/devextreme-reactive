@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { groupByColumn } from '@devexpress/dx-grid-core';
+import { groupByColumn, groupedColumns } from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
 
@@ -40,8 +40,6 @@ export class GroupingState extends React.PureComponent {
         onGroupingChange(grouping);
       }
     };
-    this._groupedColumns = (columns, grouping) =>
-      grouping.map(group => columns.find(c => c.name === group.columnName));
   }
   render() {
     const grouping = this.props.grouping || this.state.grouping;
@@ -68,7 +66,7 @@ export class GroupingState extends React.PureComponent {
         />
         <Getter
           name="groupedColumns"
-          pureComputed={this._groupedColumns}
+          pureComputed={groupedColumns}
           connectArgs={getter => [
             getter('columns'),
             grouping,

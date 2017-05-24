@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { setDetailRowExpanded, expandedDetailRows, isDetailRowExpanded } from '@devexpress/dx-grid-core';
+import { setDetailRowExpanded, expandedDetailRows, isDetailRowExpanded, tableColumnsWithDetail } from '@devexpress/dx-grid-core';
 
 export class TableRowDetail extends React.PureComponent {
   constructor(props) {
@@ -20,8 +20,6 @@ export class TableRowDetail extends React.PureComponent {
         onExpandedRowsChange(expandedRows);
       }
     };
-
-    this._tableColumns = tableColumns => [{ type: 'detail', width: 25 }, ...tableColumns];
   }
   render() {
     const expandedRows = this.props.expandedRows || this.state.expandedRows;
@@ -31,7 +29,7 @@ export class TableRowDetail extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableColumns"
-          pureComputed={this._tableColumns}
+          pureComputed={tableColumnsWithDetail}
           connectArgs={getter => [
             getter('tableColumns'),
           ]}

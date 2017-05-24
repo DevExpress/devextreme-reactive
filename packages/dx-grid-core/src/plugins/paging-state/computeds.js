@@ -26,3 +26,5 @@ export const ensurePageHeaders = (rows, pageSize) => {
 
   return result;
 };
+
+export const totalPageCount = (rows, pageSize) => Math.ceil(rows.length / pageSize);

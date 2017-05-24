@@ -40,5 +40,5 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 sorting | Getter | () => Array&lt;[Sorting](#sorting)&gt; | Applied column sorting
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean }) => void | Changes column sorting
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 

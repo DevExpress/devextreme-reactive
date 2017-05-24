@@ -11,9 +11,9 @@ export class SortingState extends React.PureComponent {
       sorting: props.defaultSorting || [],
     };
 
-    this._setColumnSorting = (sorting, { columnName, direction, keepOther }) => {
+    this._setColumnSorting = (sorting, { columnName, direction, keepOther, cancel }) => {
       const { onSortingChange } = this.props;
-      const nextSorting = setColumnSorting(sorting, { columnName, direction, keepOther });
+      const nextSorting = setColumnSorting(sorting, { columnName, direction, keepOther, cancel });
       this.setState({ sorting: nextSorting });
       if (onSortingChange) {
         onSortingChange(nextSorting);
@@ -27,8 +27,8 @@ export class SortingState extends React.PureComponent {
       <PluginContainer>
         <Action
           name="setColumnSorting"
-          action={({ columnName, direction, keepOther }) => {
-            this._setColumnSorting(sorting, { columnName, direction, keepOther });
+          action={({ columnName, direction, keepOther, cancel }) => {
+            this._setColumnSorting(sorting, { columnName, direction, keepOther, cancel });
           }}
         />
 

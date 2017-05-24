@@ -1,4 +1,4 @@
-.loading-shading {
+.loading-shading-mui {
   position: absolute;
   top: 0;
   left: 0;
@@ -8,22 +8,9 @@
   background: rgba(255, 255, 255, .3);
 }
 
-.loading-icon {
+.loading-icon-mui {
   position: absolute;
   font-size: 20px;
   top: calc(45% - 10px);
   left: calc(50% - 10px);
-
-  -animation: spin .7s infinite linear;
-  -webkit-animation: spin2 .7s infinite linear;
-}
-
-@-webkit-keyframes spin2 {
-  from { -webkit-transform: rotate(0deg); }
-  to { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  from { transform: scale(1) rotate(0deg); }
-  to { transform: scale(1) rotate(360deg); }
 }

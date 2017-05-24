@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {
+    TableCell,
+} from 'material-ui';
+
 export const TableNoDataCell = ({ style, colspan }) => (
-  <td
+  <TableCell
     style={{
       textAlign: 'center',
       padding: '40px 0',
@@ -11,7 +15,7 @@ export const TableNoDataCell = ({ style, colspan }) => (
     colSpan={colspan}
   >
     <big className="text-muted">No data</big>
-  </td>
+  </TableCell>
 );
 
 TableNoDataCell.propTypes = {

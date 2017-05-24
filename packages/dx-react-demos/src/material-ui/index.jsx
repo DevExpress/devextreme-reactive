@@ -62,7 +62,8 @@ const Demos = () => (
 
       <Route path="/material-ui/featured-uncontrolled" component={FeaturedUncontrolledDemos} />
       <Route path="/material-ui/featured-controlled" component={FeaturedControlledDemos} />
-      <Route path="/material-ui/featured-virtual-scrolling" component={FeaturedVirtualScrollingDemos} />
+      <Route path="/material-ui/featured-virtual-scrolling"
+        component={FeaturedVirtualScrollingDemos} />
       <Route path="/material-ui/featured-redux" component={FeaturedReduxDemos} />
       <Route path="/material-ui/featured-remote-data" component={FeaturedRemoteDataDemos} />*/}
     </div>
@@ -88,11 +89,21 @@ export const MaterialUIDemos = withRouter(({ location }) => {
               (parts[2] && parts[2].indexOf('featured-') > -1)
                 ? (
                   <ul className="list-unstyled">
-                    {/*<li><NavLink to="/material-ui/featured-uncontrolled">Uncontrolled Mode</NavLink></li>
-                    <li><NavLink to="/material-ui/featured-controlled">Controlled Mode</NavLink></li>
-                    <li><NavLink to="/material-ui/featured-virtual-scrolling">Virtual Scrolling</NavLink></li>
+                    {/*
+                    <li>
+                      <NavLink to="/material-ui/featured-uncontrolled">Uncontrolled Mode</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/material-ui/featured-controlled">Controlled Mode</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/material-ui/featured-virtual-scrolling">
+                        Virtual Scrolling
+                      </NavLink>
+                    </li>
                     <li><NavLink to="/material-ui/featured-redux">Redux Integration</NavLink></li>
-                    <li><NavLink to="/material-ui/featured-remote-data">Remote Data</NavLink></li>*/}
+                    <li><NavLink to="/material-ui/featured-remote-data">Remote Data</NavLink></li>
+                    */}
                   </ul>
                   )
                 : (
@@ -106,7 +117,9 @@ export const MaterialUIDemos = withRouter(({ location }) => {
                     <li><NavLink to="/material-ui/filtering">Filtering</NavLink></li>
                     <li><NavLink to="/material-ui/editing">Editing</NavLink></li>
                     <li><NavLink to="/material-ui/detail-row">Detail Row</NavLink></li>
-                    <li><NavLink to="/material-ui/virtual-scrolling">Virtual Scrolling</NavLink></li>
+                    <li>
+                      <NavLink to="/material-ui/virtual-scrolling">Virtual Scrolling</NavLink>
+                    </li>
                     <li><NavLink to="/material-ui/redux">Redux</NavLink></li>
                     <li><NavLink to="/material-ui/">Featured</NavLink></li>*/}
                   </ul>

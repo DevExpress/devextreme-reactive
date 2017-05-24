@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import {
   Button,
-  SvgIcon,
   TableSortLabel,
 } from 'material-ui';
 

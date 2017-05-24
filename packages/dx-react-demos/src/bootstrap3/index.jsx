@@ -48,7 +48,10 @@ const Demos = () => (
     <Route path="/bootstrap3/featured-controlled" component={FeaturedControlledDemos} />
     <Route path="/bootstrap3/featured-redux" component={FeaturedReduxDemos} />
     <Route path="/bootstrap3/featured-remote-data" component={FeaturedRemoteDataDemos} />
-    <Route path="/bootstrap3/featured-virtual-scrolling" component={FeaturedVirtualScrollingDemos} />
+    <Route
+      path="/bootstrap3/featured-virtual-scrolling"
+      component={FeaturedVirtualScrollingDemos}
+    />
   </div>
 );
 
@@ -71,9 +74,15 @@ export const Bootstrap3Demos = withRouter(({ location }) => {
               (parts[2] && parts[2].indexOf('featured-') > -1)
                 ? (
                   <ul className="list-unstyled">
-                    <li><NavLink to="/bootstrap3/featured-uncontrolled">Uncontrolled Mode</NavLink></li>
+                    <li>
+                      <NavLink to="/bootstrap3/featured-uncontrolled">Uncontrolled Mode</NavLink>
+                    </li>
                     <li><NavLink to="/bootstrap3/featured-controlled">Controlled Mode</NavLink></li>
-                    <li><NavLink to="/bootstrap3/featured-virtual-scrolling">Virtual Scrolling</NavLink></li>
+                    <li>
+                      <NavLink to="/bootstrap3/featured-virtual-scrolling">
+                        Virtual Scrolling
+                      </NavLink>
+                    </li>
                     <li><NavLink to="/bootstrap3/featured-redux">Redux Integration</NavLink></li>
                     <li><NavLink to="/bootstrap3/featured-remote-data">Remote Data</NavLink></li>
                   </ul>

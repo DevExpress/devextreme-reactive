@@ -29,7 +29,7 @@ export class RemoteDataDemo extends React.PureComponent {
       rows: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
-      pageSize: 12,
+      pageSize: 10,
       allowedPageSizes: [5, 10, 15],
       currentPage: 0,
       loading: true,

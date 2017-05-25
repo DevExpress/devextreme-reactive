@@ -41,9 +41,13 @@ export class TableGroupRow extends React.PureComponent {
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => (row.type !== 'groupRow'
-            || row.column.name !== column.group.columnName)
-            && column.type === 'groupColumn'}
+          predicate={({ column, row }) => (
+            column.type === 'groupColumn'
+            && (
+              !row.type
+              || (row.type === 'groupRow' && row.column.name !== column.group.columnName)
+            )
+          )}
         >
           {({ ...params }) => (
             <GroupIndentCell

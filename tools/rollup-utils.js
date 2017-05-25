@@ -43,19 +43,19 @@ const knownGlobals = {
   'react-bootstrap': 'ReactBootstrap',
   'material-ui': 'material-ui',
   'material-ui/styles': 'material-ui.styles',
+  'material-ui/styles/palette': 'material-ui.styles.palette',
   'material-ui-icons': 'material-ui-icons',
+  'material-ui-icons/Close': 'material-ui-icons.Close',
+  'material-ui-icons/List': 'material-ui-icons.List',
+  'material-ui-icons/ChevronRight': 'material-ui-icons.ChevronRight',
+  'material-ui-icons/ExpandMore': 'material-ui-icons.ExpandMore',
 };
 
 export const globals = (packageDirectory) => {
   return (moduleId) => {
       if (knownGlobals[moduleId]) return knownGlobals[moduleId];
 
-      try {
-        const modulePkg = JSON.parse(readFileSync(join(packageDirectory, 'node_modules', moduleId, 'package.json')));
-        return modulePkg.globalName;
-      }
-      catch(e) {
-        console.log(e);
-      }
+      const modulePkg = JSON.parse(readFileSync(join(packageDirectory, 'node_modules', moduleId, 'package.json')));
+      return modulePkg.globalName;
     }
 };

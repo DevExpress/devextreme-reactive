@@ -33,6 +33,7 @@ export const Table = ({
     >
       <TableMUI
         style={{
+          tableLayout: 'fixed',
           minWidth: `${minWidth}px`,
         }}
         onClick={tableCellClickHandler({ headerRows, bodyRows, columns, onClick })}

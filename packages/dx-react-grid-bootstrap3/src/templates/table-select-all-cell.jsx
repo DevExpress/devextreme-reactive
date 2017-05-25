@@ -7,7 +7,6 @@ export const TableSelectAllCell = (
   <th
     style={{
       cursor: selectionAvailable && 'pointer',
-      width: '30px',
       ...style,
     }}
     onClick={(e) => {

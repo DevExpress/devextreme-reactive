@@ -10,7 +10,6 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
   <TableCell
     checkbox
     style={{
-      width: '30px',
       ...style,
     }}
     onClick={(e) => {

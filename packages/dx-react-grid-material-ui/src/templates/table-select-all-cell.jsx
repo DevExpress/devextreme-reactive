@@ -7,7 +7,7 @@ import {
 } from 'material-ui';
 
 export const TableSelectAllCell = (
-  { style, allSelected, /* someSelected,*/ selectionAvailable, toggleAll },
+  { style, allSelected, selectionAvailable, toggleAll },
 ) => (
   <TableCell
     checkbox
@@ -38,7 +38,6 @@ TableSelectAllCell.defaultProps = {
 TableSelectAllCell.propTypes = {
   style: PropTypes.shape(),
   allSelected: PropTypes.bool,
-//  someSelected: PropTypes.bool,
   selectionAvailable: PropTypes.bool,
   toggleAll: PropTypes.func,
 };

@@ -1,5 +1,5 @@
-export const tableColumnsWithGroups = (columns, grouping) => [
-  ...grouping.map(group => ({ type: 'groupColumn', group })),
+export const tableColumnsWithGroups = (columns, grouping, groupColumnWidth) => [
+  ...grouping.map(group => ({ type: 'groupColumn', group, width: groupColumnWidth })),
   ...columns,
 ];
 

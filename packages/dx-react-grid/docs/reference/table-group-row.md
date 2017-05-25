@@ -15,6 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | A component that renders a group row
 groupIndentCellTemplate | Component&lt;[GroupIndentCellProps](#group-indent-cell-props)&gt; | | A component that renders a group indent cell
+groupColumnWidth | number | | Width of the group indent columns
 
 ## Interfaces
 

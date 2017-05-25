@@ -38,12 +38,24 @@ TableGroupRowCell.defaultProps = {
   toggleGroupExpanded: () => {},
 };
 
-export const TableGroupIndentCell = () => (
+export const TableGroupIndentCell = ({ column, style }) => (
   <td
     style={{
-      width: '20px',
+      ...style,
+      width: column.width,
     }}
   >
     &nbsp;
   </td>
 );
+
+TableGroupIndentCell.propTypes = {
+  style: PropTypes.object,
+  column: PropTypes.shape({
+    width: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+TableGroupIndentCell.defaultProps = {
+  style: {},
+};

@@ -6,10 +6,10 @@ export const FeaturedRemoteDataDemos = () => (
   <div>
     <h1>Grid Remote Data</h1>
     <p>
-      This demo shows how to bind the Grid to a remote data base.
+      This demo shows how to bind the Grid to a remote data source.
       To perform a parametrized HTTP request to a web-service, handle
       Grid state change events to obtain the current grid state and create a query using the 
-      obtained state. This query will be correctly recognized by the data service.
+      obtained state. This query should be correctly recognized by the data service.
       You can display your own loading indicator during request processing.
     </p>
     <RemoteDataDemo />

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Grid component supports sorting data by any number of columns. It also includes plugins that enable an end-user to specify sorting criteria via the UI (by clicking column headers). The selected sort order is indicated by an arrow glyph in the header of a column. Additionaly, the grid supports multiple column sorting. Click column headers with the `Shift` key held down to select several columns for sorting.
+The Grid component supports sorting data by any number of columns. It also includes plugins that enable an end-user to specify sorting criteria via the UI (by clicking column headers). An arrow glyph in the header of a column indicates the selected sort order. The grid also supports multiple column sorting. Click column headers with the `Shift` key held down to select several columns for sorting. To clear sorting by a column, click the column header with the `Ctrl` key held down or with the `Cmd` key if you are using MacOS.
 
 ## Plugin List
 
@@ -16,11 +16,11 @@ Note that the [plugin order](../README.md#plugin-order) is very important.
 
 ## Basic Local Sorting Setup
 
-To show a grid with interactive sorting features, use the `SortingState`, `LocalSorting` and `TableHeaderRow` plugins.
+Use the `SortingState`, `LocalSorting` and `TableHeaderRow` plugins to show a grid with interactive sorting features.
 
 In this example, we use the uncontrolled mode and specify only the initial sorting configuration via the `defaultSorting` property of the `SortingState` plugin.
 
-By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change sorting criteria. To enable this feature, set the `allowSorting` property to true.
+The `TableHeaderRow` plugin is not configured to allow an end-user to change sorting criteria by default. Set the `allowSorting` property to true to enable this feature.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/sorting/local-header-sorting)
 
@@ -28,7 +28,7 @@ By default, the `TableHeaderRow` plugin is not configured to allow an end-user t
 
 ## Using Sorting with Grouping
 
-You can use the Grid's sorting and grouping features simultaneously. When using sorting and grouping plugins togehther, pay your attention to the order of plugins in the Grid container component. To allow an end-user to change sorting options of grouped columns by clicking the items of the group panel, set the `allowSorting` property of the `GroupingPanel` plugin to true.
+You can use the Grid's sorting and grouping features simultaneously. When using sorting and grouping plugins together, pay attention to the order of plugins in the Grid container component. Set the `allowSorting` property of the `GroupingPanel` plugin to true to allow an end-user to change sorting options of grouped columns by clicking the group panel's items.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/sorting/local-group-sorting)
 
@@ -36,7 +36,7 @@ You can use the Grid's sorting and grouping features simultaneously. When using 
 
 ## Controlled Sorting State
 
-To control the sorting state, pass the appropriate array to the `sorting` property of the `SortingState` plugin and handle the `onSortingChange` event of the same plugin.
+Pass the appropriate array to the `sorting` property of the `SortingState` plugin and handle the `onSortingChange` event of the same plugin to control the sorting state.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/sorting/local-sorting-controlled)
 
@@ -44,9 +44,9 @@ To control the sorting state, pass the appropriate array to the `sorting` proper
 
 ## Remote Sorting
 
-If your data service supports sorting operations, you can handle the Grid's sorting state changes in order to request data from the server with the corresponding sorting applied.
+You can handle the Grid's sorting state changes to request data from the server with the corresponding sorting applied if your data service supports sorting operations.
 
-Don't use the `LocalSorting` plugin to configure remote sorting. Handle the `sortingChange` event of the `SortingState` plugin to process sorting criteria updates. These updates are applied when an end-user changes sorting options via the UI. When sorted data was received from the server, pass it to the `Grid` component's `rows` property.
+Do not use the `LocalSorting` plugin to configure remote sorting. Handle the `sortingChange` event of the `SortingState` plugin to process sorting criteria updates. These updates are applied when end-users change sorting options via the UI. When sorted data was received from the server, pass it to the `Grid` component's `rows` property.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/sorting/remote-sorting)
 

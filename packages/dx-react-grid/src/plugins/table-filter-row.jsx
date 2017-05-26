@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnFilterConfig } from '@devexpress/dx-grid-core';
+import { getColumnFilterConfig, tableHeaderRowsWithFilter } from '@devexpress/dx-grid-core';
 
 export class TableFilterRow extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._tableHeaderRows = tableHeaderRows => [...tableHeaderRows, { type: 'filter', height: props.rowHeight }];
-  }
   render() {
+    const { rowHeight, filterCellTemplate } = this.props;
+
     return (
       <PluginContainer>
         <Getter
           name="tableHeaderRows"
-          pureComputed={this._tableHeaderRows}
+          pureComputed={tableHeaderRowsWithFilter}
           connectArgs={getter => [
             getter('tableHeaderRows'),
+            rowHeight,
           ]}
         />
 
@@ -30,7 +28,7 @@ export class TableFilterRow extends React.PureComponent {
             setFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
           })}
         >
-          {params => this.props.filterCellTemplate(params)}
+          {params => filterCellTemplate(params)}
         </Template>
       </PluginContainer>
     );

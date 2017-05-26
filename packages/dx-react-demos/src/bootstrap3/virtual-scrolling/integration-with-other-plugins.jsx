@@ -3,6 +3,7 @@ import {
     Grid,
     FilteringState,
     SortingState,
+    RowDetailState,
     LocalFiltering,
     LocalSorting,
 } from '@devexpress/dx-react-grid';
@@ -55,6 +56,7 @@ export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
       >
         <FilteringState defaultFilters={[]} />
         <SortingState defaultSorting={[{ columnName: 'city', direction: 'asc' }]} />
+        <RowDetailState />
 
         <LocalFiltering />
         <LocalSorting />

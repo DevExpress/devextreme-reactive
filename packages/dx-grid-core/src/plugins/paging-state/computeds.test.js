@@ -1,6 +1,7 @@
 import {
     paginate,
     ensurePageHeaders,
+    totalPageCount,
 } from './computeds';
 
 describe('PagingState computeds', () => {
@@ -136,6 +137,13 @@ describe('PagingState computeds', () => {
       expect(computedRows[2]).toBe(rows[2]);
       expect(computedRows[3]).toBe(rows[3]);
       expect(computedRows[4]).toBe(rows[4]);
+    });
+  });
+
+  describe('#totalPageCount', () => {
+    test('should work', () => {
+      const count = totalPageCount([1, 2, 3], 2);
+      expect(count).toEqual(2);
     });
   });
 });

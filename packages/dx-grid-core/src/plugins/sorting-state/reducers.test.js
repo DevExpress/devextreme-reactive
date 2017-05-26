@@ -51,5 +51,21 @@ describe('SortingState reducers', () => {
       const nextSorting = setColumnSorting(sorting, payload);
       expect(nextSorting).toEqual([{ columnName: 'test', direction: 'desc' }, { columnName: 'test2', direction: 'asc' }]);
     });
+
+    test('should cancel sorting by column if cancel is set to true', () => {
+      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
+      const payload = { columnName: 'test2', keepOther: true, cancel: true };
+
+      const nextSorting = setColumnSorting(sorting, payload);
+      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }]);
+    });
+
+    test('should clear sorting if cancel is true and keepOther is not specified', () => {
+      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
+      const payload = { columnName: 'test2', cancel: true };
+
+      const nextSorting = setColumnSorting(sorting, payload);
+      expect(nextSorting).toHaveLength(0);
+    });
   });
 });

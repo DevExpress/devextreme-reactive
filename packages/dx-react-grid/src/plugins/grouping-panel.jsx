@@ -1,20 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnSortingDirection } from '@devexpress/dx-grid-core';
+import { getColumnSortingDirection, tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
 
 export const GroupPanelCellTemplate = props =>
   <TemplatePlaceholder name="groupingPanelCell" params={props} />;
 
 export class GroupingPanel extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._tableColumns = (tableColumns, grouping) => [
-      ...tableColumns.filter(column =>
-        grouping.findIndex(g => g.columnName === column.name) === -1),
-    ];
-  }
   render() {
     const { allowSorting, groupPanelTemplate, groupPanelCellTemplate } = this.props;
     const GroupPanel = groupPanelTemplate;
@@ -24,7 +16,7 @@ export class GroupingPanel extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableColumns"
-          pureComputed={this._tableColumns}
+          pureComputed={tableColumnsWithoutGroups}
           connectArgs={getter => [
             getter('tableColumns'),
             getter('grouping'),
@@ -67,7 +59,7 @@ export class GroupingPanel extends React.PureComponent {
           }}
           connectActions={(action, { column }) => ({
             groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
-            changeSortingDirection: ({ keepOther }) => action('setColumnSorting')({ columnName: column.name, keepOther }),
+            changeSortingDirection: ({ keepOther, cancel }) => action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
           })}
         >
           {({ sortingSupported, ...restParams }) => (

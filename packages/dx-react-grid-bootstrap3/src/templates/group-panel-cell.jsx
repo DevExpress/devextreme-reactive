@@ -8,8 +8,7 @@ export const GroupPanelCell = ({
   groupByColumn,
   allowSorting, sortingDirection, changeSortingDirection,
 }) => (
-  <button
-    type="button"
+  <div
     className="btn btn-default"
     style={{
       marginRight: '5px',
@@ -18,7 +17,11 @@ export const GroupPanelCell = ({
     <span
       onClick={(e) => {
         if (!allowSorting) return;
-        changeSortingDirection({ keepOther: e.shiftKey });
+        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+        changeSortingDirection({
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey,
+        });
       }}
     >
       {column.title}
@@ -42,7 +45,7 @@ export const GroupPanelCell = ({
       }}
       onClick={() => groupByColumn({ columnName: column.name })}
     />
-  </button>
+  </div>
 );
 
 GroupPanelCell.defaultProps = {

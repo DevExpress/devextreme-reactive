@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap3",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Bootstrap 3 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -83,8 +83,8 @@
     "rollup-watch": "^3.2.2"
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "1.0.0-alpha.1",
-    "@devexpress/dx-react-grid": "1.0.0-alpha.1",
+    "@devexpress/dx-react-core": "1.0.0-alpha.2",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "prop-types": "^15.5.8",
     "react": "^15.5.4"
   },

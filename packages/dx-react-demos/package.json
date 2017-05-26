@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-demos",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -18,8 +18,8 @@
     "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-demos-lint.xml -f junit"
   },
   "dependencies": {
-    "@devexpress/dx-react-grid": "1.0.0-alpha.1",
-    "@devexpress/dx-react-grid-bootstrap3": "1.0.0-alpha.1",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.2",
+    "@devexpress/dx-react-grid-bootstrap3": "1.0.0-alpha.2",
     "core-js": "^2.4.1",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",

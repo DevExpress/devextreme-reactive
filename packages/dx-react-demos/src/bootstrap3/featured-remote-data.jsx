@@ -6,11 +6,11 @@ export const FeaturedRemoteDataDemos = () => (
   <div>
     <h1>Grid Remote Data</h1>
     <p>
-      This demo shows how to bind the Grid to a remote data.
+      This demo shows how to bind the Grid to a remote data base.
       To perform a parametrized HTTP request to a web-service, handle
-      Grid state change events to obtain the current grid state, and using the 
-      obtained state, create a query that will be correctly recognized by the data service.
-      You can display your own loading indicator during the request processing.
+      Grid state change events to obtain the current grid state and create a query using the 
+      obtained state. This query will be correctly recognized by the data service.
+      You can display your own loading indicator during request processing.
     </p>
     <RemoteDataDemo />
     <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/bootstrap3/featured/remote-data.jsx">

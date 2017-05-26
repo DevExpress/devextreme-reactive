@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TableView Plugin Reference - DevExtreme Reactive Components</title>
+    <title>RowDetailState Plugin Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -195,7 +195,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
+          <li>RowDetailState</li>
           
 
         
@@ -235,7 +235,7 @@
           
 
           
-          <li>TableView</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
           
 
         
@@ -317,9 +317,9 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="tableview-plugin-reference">TableView Plugin Reference</h1>
+        <h1 id="rowdetailstate-plugin-reference">RowDetailState Plugin Reference</h1>
 
-<p>This plugin renders the Grid data as a table. It contains visualization components such as a table view, table view cell that can be extended by other plugins. It also exposes some customization points to manage column span, row height, column width, etc.</p>
+<p>A plugin that manages the expanded state for table row details.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -340,247 +340,29 @@
   </thead>
   <tbody>
     <tr>
-      <td>tableTemplate</td>
-      <td>Component&lt;<a href="#table-props">TableProps</a>&gt;</td>
+      <td>expandedRows</td>
+      <td>Array&lt;number|string&gt;</td>
       <td> </td>
-      <td>Renders a table using the specified parameters</td>
+      <td>Specifies expanded rows</td>
     </tr>
     <tr>
-      <td>tableCellTemplate</td>
-      <td>Component&lt;<a href="#table-cell-props">TableCellProps</a>&gt;</td>
+      <td>defaultExpandedRows</td>
+      <td>Array&lt;number|string&gt;</td>
       <td> </td>
-      <td>Renders a table cell using the specified parameters</td>
+      <td>Specifies initially expanded rows for the uncontrolled mode</td>
     </tr>
     <tr>
-      <td>tableNoDataCellTemplate</td>
-      <td>Component&lt;object&gt;</td>
+      <td>onExpandedRowsChange</td>
+      <td>(expandedRows: Array&lt;number|string&gt;) =&gt; void</td>
       <td> </td>
-      <td>Renders a table cell for an empty state using the specified parameters</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="tableprops"><a name="table-props"></a>TableProps</h3>
-
-<p>Describes properties passed to the table template when it is being rendered</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>headerRows</td>
-      <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Specifies rows that should be rendered within the table header</td>
-    </tr>
-    <tr>
-      <td>bodyRows</td>
-      <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Specifies rows that should be rendered within the table body</td>
-    </tr>
-    <tr>
-      <td>columns</td>
-      <td>Array&lt;<a href="#table-column">TableColumn</a>&gt;</td>
-      <td>Specifies the rendered table columns</td>
-    </tr>
-    <tr>
-      <td>cellTemplate</td>
-      <td>Component&lt;<a href="#cell-props">CellProps</a>&gt;</td>
-      <td>A template that should be used to render table cells</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="cellprops"><a name="cell-props"></a>CellProps</h3>
-
-<p>Describes properties passed to a cell template when it is being rendered</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#table-row">TableRow</a></td>
-      <td>Specifies a table row</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="#table-column">TableColumn</a></td>
-      <td>Specifies a table column</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablecellprops"><a name="table-cell-props"></a>TableCellProps</h3>
-
-<p>Describes properties passed to the table cell template when it is being rendered</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#table-row">TableRow</a></td>
-      <td>Specifies a table row</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="#table-column">TableColumn</a></td>
-      <td>Specifies a table column</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablerow"><a name="table-row"></a>TableRow</h3>
-
-<p>Describes properties of a table row that is rendered by the TableView plugin</p>
-
-<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>type?</td>
-      <td>string</td>
-      <td>Specifies the table row type. Used to identify a cell template for a rendered row. The type is not defined for rows passed by a user.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablecolumn"><a name="table-column"></a>TableColumn</h3>
-
-<p>Describes table column properties taken into account by the TableView plugin</p>
-
-<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>type?</td>
-      <td>string</td>
-      <td>Specifies the table column type. Used to identify a cell template to render a column cell. The type property is not defined for data rows</td>
+      <td>Handles expanded row changes</td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>rows</td>
-      <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
-      <td>Rows to be rendered by the table view</td>
-    </tr>
-    <tr>
-      <td>columns</td>
-      <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
-      <td>Columns to be rendered by the table view</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableHeaderRows</td>
-      <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Rows to be rendered inside the table header</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Rows to be rendered inside the table body</td>
-    </tr>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="#table-column">TableColumn</a>&gt;</td>
-      <td>Columns to be rendered inside the table</td>
-    </tr>
-    <tr>
-      <td>tableExtraProps</td>
-      <td>Getter</td>
-      <td>() =&gt; { [key: string]: any }</td>
-      <td>Additional table properties that can be provided by other plugins</td>
-    </tr>
-    <tr>
-      <td>tableView</td>
-      <td>Template</td>
-      <td>none</td>
-      <td>A template that renders a table</td>
-    </tr>
-    <tr>
-      <td>tableViewCell</td>
-      <td>Template</td>
-      <td>{ row: <a href="#table-row">TableRow</a>, column: <a href="#table-column">TableColumn</a> }</td>
-      <td>A template that renders a table cell</td>
-    </tr>
-  </tbody>
-</table>
+<p>To be described…</p>
 
     </div>
   </div>

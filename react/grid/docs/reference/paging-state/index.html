@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1494855581">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -195,6 +195,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
           
 
@@ -332,12 +340,6 @@
   </thead>
   <tbody>
     <tr>
-      <td>pageSize</td>
-      <td>number</td>
-      <td> </td>
-      <td>Specifies the page size</td>
-    </tr>
-    <tr>
       <td>totalCount</td>
       <td>number</td>
       <td> </td>
@@ -352,7 +354,7 @@
     <tr>
       <td>defaultCurrentPage</td>
       <td>number</td>
-      <td> </td>
+      <td>0</td>
       <td>Specifies the initial current page for the uncontrolled mode</td>
     </tr>
     <tr>
@@ -360,6 +362,24 @@
       <td>(currentPage: number) =&gt; void</td>
       <td> </td>
       <td>Handles current page changes</td>
+    </tr>
+    <tr>
+      <td>pageSize</td>
+      <td>number</td>
+      <td> </td>
+      <td>Specifies the page size</td>
+    </tr>
+    <tr>
+      <td>defaultPageSize</td>
+      <td>number</td>
+      <td>10</td>
+      <td>Specifies the initial page size for the uncontrolled mode</td>
+    </tr>
+    <tr>
+      <td>onPageSizeChange</td>
+      <td>(pageSize: number) =&gt; void</td>
+      <td> </td>
+      <td>Handles page size changes</td>
     </tr>
   </tbody>
 </table>
@@ -387,6 +407,12 @@
       <td>Getter</td>
       <td>() =&gt; number</td>
       <td>The page size specified via properties</td>
+    </tr>
+    <tr>
+      <td>setPageSize</td>
+      <td>Action</td>
+      <td>({ size: number }) =&gt; void</td>
+      <td>Changes the page size</td>
     </tr>
     <tr>
       <td>currentPage</td>
@@ -446,7 +472,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1494855581"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
     <script>
         trackingCookie.check();
     </script>    

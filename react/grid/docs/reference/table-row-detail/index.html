@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1494855581">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -195,6 +195,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
           
 
@@ -311,7 +319,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="tablerowdetail-plugin-reference">TableRowDetail Plugin Reference</h1>
 
-<p>A plugin that manages the expanded state for table row details and renders a detail row.</p>
+<p>A plugin that renders a table detail row.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -334,34 +342,16 @@
   </thead>
   <tbody>
     <tr>
-      <td>expandedRows</td>
-      <td>Array&lt;number|string&gt;</td>
-      <td> </td>
-      <td>Specifies expanded rows</td>
-    </tr>
-    <tr>
-      <td>defaultExpandedRows</td>
-      <td>Array&lt;number|string&gt;</td>
-      <td> </td>
-      <td>Specifies initially expanded rows for the uncontrolled mode</td>
-    </tr>
-    <tr>
-      <td>onExpandedRowsChange</td>
-      <td>(expandedRows: Array&lt;number|string&gt;) =&gt; void</td>
-      <td> </td>
-      <td>Handles expanded row changes</td>
-    </tr>
-    <tr>
       <td>template</td>
       <td>Component&lt;<a href="#detail-content-props">DetailContentProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders details for a row</td>
+      <td>A component that renders row details</td>
     </tr>
     <tr>
       <td>detailCellTemplate</td>
       <td>Component&lt;<a href="#detail-cell-props">DetailCellProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders the detail cell</td>
+      <td>A component that renders a detail cell</td>
     </tr>
     <tr>
       <td>detailToggleTemplate</td>
@@ -376,7 +366,7 @@
 
 <h3 id="detailcontentprops"><a name="detail-content-props"></a>DetailContentProps</h3>
 
-<p>Describes properties passed to the template that renders details for a row</p>
+<p>Describes properties passed to the template that renders row details</p>
 
 <p>A value with the following shape:</p>
 
@@ -399,7 +389,7 @@
 
 <h3 id="detailcellprops"><a name="detail-cell-props"></a>DetailCellProps</h3>
 
-<p>Describes properties passed to the template that renders the details cell for a row</p>
+<p>Describes properties passed to the template that renders a detail cell for a row</p>
 
 <p>A value with the following shape:</p>
 
@@ -420,7 +410,7 @@
     <tr>
       <td>template</td>
       <td>Component&lt;void&gt;</td>
-      <td>A component that renders details for a row</td>
+      <td>A component that renders row details</td>
     </tr>
   </tbody>
 </table>
@@ -500,7 +490,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1494855581"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
     <script>
         trackingCookie.check();
     </script>    

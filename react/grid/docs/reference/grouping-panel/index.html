@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1494855581">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -195,6 +195,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
           
 
@@ -313,7 +321,7 @@
 
 <p>A plugin that renders a panel showing grouped columns in the Grid’s header. An end-user can change the grouping options by interacting with this panel.</p>
 
-<p>Optionally, the plugin allows an end-user to change sorting order of the grouped columns and renders the corresponding sort indicators.</p>
+<p>Optionally, the plugin allows an end-user to change grouped columns’ sorting order and renders the corresponding sort indicators.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -340,19 +348,19 @@
       <td>allowSorting</td>
       <td>boolean</td>
       <td>false</td>
-      <td>If true, allows an end-user to change sorting by a column</td>
+      <td>Allows an end-user to change sorting by a column if true.</td>
     </tr>
     <tr>
       <td>groupPanelTemplate</td>
       <td>Component&lt;<a href="#group-panel-props">GroupPanelProps</a>&gt;</td>
       <td> </td>
-      <td>Renders a group panel</td>
+      <td>Renders a group panel.</td>
     </tr>
     <tr>
       <td>groupPanelCellTemplate</td>
       <td>Component&lt;<a href="#group-panel-cell-props">GroupPanelCellProps</a>&gt;</td>
       <td> </td>
-      <td>Renders a group panel cell</td>
+      <td>Renders a group panel cell.</td>
     </tr>
   </tbody>
 </table>
@@ -361,7 +369,7 @@
 
 <h3 id="grouppanelprops"><a name="group-panel-props"></a>GroupPanelProps</h3>
 
-<p>Describes properties passed to the group panel template when it is being rendered</p>
+<p>Describes properties passed to the group panel template when it is being rendered.</p>
 
 <p>A value with the following shape:</p>
 
@@ -377,19 +385,19 @@
     <tr>
       <td>groupedColumns</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
-      <td>Columns by which the Grid is currently grouped</td>
+      <td>The grid is currently grouped by these columns.</td>
     </tr>
     <tr>
       <td>cellTemplate</td>
       <td>Component&lt;<a href="#cell-props">CellProps</a>&gt;</td>
-      <td>A template that should be used to render the group panel cells</td>
+      <td>A template for rendering the group panel cells.</td>
     </tr>
   </tbody>
 </table>
 
 <h3 id="cellprops"><a name="cell-props"></a>CellProps</h3>
 
-<p>Describes properties passed to the cell template when it is being rendered</p>
+<p>Describes properties passed to the cell template when it is being rendered.</p>
 
 <p>A value with the following shape:</p>
 
@@ -405,14 +413,14 @@
     <tr>
       <td>column</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>Specifies a column associated with the cell</td>
+      <td>Specifies a column associated with the cell.</td>
     </tr>
   </tbody>
 </table>
 
 <h3 id="grouppanelcellprops"><a name="group-panel-cell-props"></a>GroupPanelCellProps</h3>
 
-<p>Describes properties passed to the group panel cell template when it is being rendered</p>
+<p>Describes properties passed to the group panel cell template when it is being rendered.</p>
 
 <p>A value with the following shape:</p>
 
@@ -428,17 +436,17 @@
     <tr>
       <td>allowSorting</td>
       <td>boolean</td>
-      <td>If true, an end-user can change sorting by the current column</td>
+      <td>An end-user can change sorting by the current column if true.</td>
     </tr>
     <tr>
       <td>sortingDirection?</td>
       <td>‘asc’ | ‘desc’</td>
-      <td>Specifies sorting direction</td>
+      <td>Specifies sorting direction.</td>
     </tr>
     <tr>
       <td>changeSortingDirection</td>
-      <td>({ keepOther: boolean }) =&gt; void</td>
-      <td>Changes the sort order of a column. Keeps existing sorting if <code class="highlighter-rouge">keepOther</code> is set to <code class="highlighter-rouge">true</code></td>
+      <td>({ keepOther: boolean, cancel: boolean }) =&gt; void</td>
+      <td>Changes a column’s sorting order. Keeps existing sorting if <code class="highlighter-rouge">keepOther</code> is set to <code class="highlighter-rouge">true</code>. Cancels sorting by the current column if <code class="highlighter-rouge">cancel</code> is set to true.</td>
     </tr>
     <tr>
       <td>groupByColumn</td>
@@ -495,7 +503,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1494855581"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
     <script>
         trackingCookie.check();
     </script>    

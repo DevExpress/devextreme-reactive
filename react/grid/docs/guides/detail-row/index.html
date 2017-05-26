@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1494855581">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -195,6 +195,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
           
 
@@ -317,8 +325,9 @@
 
 <h2 id="plugin-list">Plugin List</h2>
 
-<p>Only one plugin is required to enable this feature:</p>
+<p>Two plugins are required to enable this feature:</p>
 <ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a></li>
 </ul>
 
@@ -326,7 +335,7 @@
 
 <h2 id="detail-row-setup">Detail Row Setup</h2>
 
-<p>To set up a simple Grid with detail rows, you need to use the <code class="highlighter-rouge">TableRowDetail</code> plugin. Specify the detail row template via the <code class="highlighter-rouge">template</code> property of the plugin. In uncontrolled state mode, you can also pass IDs of rows that should be initially expanded into the <code class="highlighter-rouge">defaultExpandedRows</code> property of the same plugin, and the expanded state will be managed by the plugin internally.</p>
+<p>To set up a simple Grid with detail rows, you need to use the <code class="highlighter-rouge">RowDetailState</code> and <code class="highlighter-rouge">TableRowDetail</code> plugins. Specify the detail row template via the <code class="highlighter-rouge">template</code> property of the <code class="highlighter-rouge">TableRowDetail</code> plugin. In uncontrolled state mode, you can also pass IDs of rows that should be initially expanded into the <code class="highlighter-rouge">defaultExpandedRows</code> property of the <code class="highlighter-rouge">RowDetailState</code> plugin, and the expanded state will be managed by the plugin internally.</p>
 
 <iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/detail-row/simple-detail-row"></iframe>
 
@@ -334,7 +343,7 @@
 
 <h2 id="controlled-expanded-state-mode">Controlled Expanded State Mode</h2>
 
-<p>To control the expanded state of the detail rows from the outside, pass an array of the expanded row IDs to the <code class="highlighter-rouge">expandedRows</code> property of the <code class="highlighter-rouge">TableRowDetail</code> plugin and handle the <code class="highlighter-rouge">onExpandedRowsChange</code> event of the same plugin.</p>
+<p>To control the expanded state of the detail rows from the outside, pass an array of the expanded row IDs to the <code class="highlighter-rouge">expandedRows</code> property of the <code class="highlighter-rouge">RowDetailState</code> plugin and handle the <code class="highlighter-rouge">onExpandedRowsChange</code> event of the same plugin.</p>
 
 <iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/detail-row/detail-row-controlled"></iframe>
 
@@ -384,7 +393,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1494855581"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
     <script>
         trackingCookie.check();
     </script>    

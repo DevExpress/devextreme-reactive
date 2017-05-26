@@ -5,6 +5,10 @@
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+  },
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
     "concurrently": "^3.4.0",

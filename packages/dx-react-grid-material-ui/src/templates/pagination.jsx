@@ -1,8 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-} from 'material-ui';
+import { Button } from 'material-ui';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
+const paginationStyleSheet = createStyleSheet('Pagination', () => ({
+  pagination: {
+    float: 'right',
+    margin: 0,
+    verticalAlign: 'bottom',
+  },
+}));
 
 const PageButton = ({ text, isActive, isDisabled, onClick }) => (
   <Button
@@ -44,7 +51,7 @@ const renderPageButtons = (
   onCurrentPageChange,
   ) => {
   const pageButtons = [];
-  const maxButtonCount = 5;
+  const maxButtonCount = 3;
   let startPage = 1;
   let endPage = totalPageCount;
 
@@ -107,14 +114,17 @@ const renderPageButtons = (
   return pageButtons;
 };
 
-export const Pagination = ({ totalPages, currentPage, onCurrentPageChange }) => (
-  <div>
+const PaginationBase = ({ totalPages, currentPage, onCurrentPageChange, classes }) => (
+  <div className={classes.pagination}>
     {renderPageButtons(currentPage, totalPages, onCurrentPageChange)}
   </div>
 );
 
-Pagination.propTypes = {
+PaginationBase.propTypes = {
   totalPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+export const Pagination = withStyles(paginationStyleSheet)(PaginationBase);

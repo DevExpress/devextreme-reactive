@@ -50,8 +50,8 @@ describe('Grid', () => {
             {footerTemplate()}
           </div>
         )}
-        headerPlaceholderTemplate={({ content }) =>
-          <div className="header-placeholder">{content}</div>}
+        headerPlaceholderTemplate={({ children }) =>
+          <div className="header-placeholder">{children}</div>}
       >
         <Template name="header"><div className="header-content" /></Template>
       </Grid>,
@@ -72,8 +72,8 @@ describe('Grid', () => {
             {footerTemplate()}
           </div>
         )}
-        headerPlaceholderTemplate={({ content }) =>
-          <div className="footer-placeholder">{content}</div>}
+        headerPlaceholderTemplate={({ children }) =>
+          <div className="footer-placeholder">{children}</div>}
       />,
     );
 
@@ -92,8 +92,8 @@ describe('Grid', () => {
             {footerTemplate()}
           </div>
         )}
-        footerPlaceholderTemplate={({ content }) =>
-          <div className="footer-placeholder">{content}</div>}
+        footerPlaceholderTemplate={({ children }) =>
+          <div className="footer-placeholder">{children}</div>}
       >
         <Template name="footer"><div className="footer-content" /></Template>
       </Grid>,
@@ -114,8 +114,8 @@ describe('Grid', () => {
             {footerTemplate()}
           </div>
         )}
-        footerPlaceholderTemplate={({ content }) =>
-          <div className="footer-placeholder">{content}</div>}
+        footerPlaceholderTemplate={({ children }) =>
+          <div className="footer-placeholder">{children}</div>}
       />,
     );
 

@@ -32,16 +32,16 @@ export const Grid = ({
       {() => rootTemplate({
         headerTemplate: () => (
           <TemplatePlaceholder name="header">
-            {content => (headerPlaceholderTemplate && content
-              ? headerPlaceholderTemplate({ content })
+            {content => (headerPlaceholderTemplate
+              ? headerPlaceholderTemplate({ children: content })
               : content)}
           </TemplatePlaceholder>
         ),
         bodyTemplate: () => <TemplatePlaceholder name="body" />,
         footerTemplate: () => (
           <TemplatePlaceholder name="footer">
-            {content => (footerPlaceholderTemplate && content
-              ? footerPlaceholderTemplate({ content })
+            {content => (footerPlaceholderTemplate
+              ? footerPlaceholderTemplate({ children: content })
               : content)}
           </TemplatePlaceholder>
         ),

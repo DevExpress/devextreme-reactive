@@ -19,16 +19,16 @@ Root.propTypes = {
   footerTemplate: PropTypes.func.isRequired,
 };
 
-export const Header = ({ content }) =>
-  <div className="panel-heading">{content}</div>;
+export const Header = ({ children }) =>
+  children && <div className="panel-heading">{children}</div>;
 
 Header.propTypes = {
-  content: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
-export const Footer = ({ content }) =>
-  <div className="panel-footer">{content}</div>;
+export const Footer = ({ children }) =>
+  children && <div className="panel-footer">{children}</div>;
 
 Footer.propTypes = {
-  content: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };

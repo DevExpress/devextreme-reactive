@@ -45,7 +45,7 @@ Field | Type | Description
 allowSorting | boolean | If true, an end-user can change sorting by a column
 allowGrouping | boolean | If true, a component that toggles a column's grouping state is rendered
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the column sort order
-changeSortingDirection | ({ keepOther: boolean }) | Changes column sort direction. Keeps existing sorting if `keepOther` is set to `true`
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) | Changes column sort direction. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 groupByColumn | () => void | Toggles grouping for a column
 
 ## Plugin Developer Reference

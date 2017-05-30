@@ -32,13 +32,17 @@ export const Grid = ({
       {() => rootTemplate({
         headerTemplate: () => (
           <TemplatePlaceholder name="gridHeading">
-            {content => headerPlaceholderTemplate({ content })}
+            {content => (headerPlaceholderTemplate
+              ? headerPlaceholderTemplate({ content })
+              : content)}
           </TemplatePlaceholder>
         ),
         bodyTemplate: () => <TemplatePlaceholder name="gridBody" />,
         footerTemplate: () => (
           <TemplatePlaceholder name="gridFooter">
-            {content => footerPlaceholderTemplate({ content })}
+            {content => (footerPlaceholderTemplate
+              ? footerPlaceholderTemplate({ content })
+              : content)}
           </TemplatePlaceholder>
         ),
       })}
@@ -52,8 +56,8 @@ Grid.propTypes = {
   getRowId: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
-  headerPlaceholderTemplate: PropTypes.func.isRequired,
-  footerPlaceholderTemplate: PropTypes.func.isRequired,
+  headerPlaceholderTemplate: PropTypes.func,
+  footerPlaceholderTemplate: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -62,4 +66,6 @@ Grid.propTypes = {
 
 Grid.defaultProps = {
   getRowId: null,
+  headerPlaceholderTemplate: null,
+  footerPlaceholderTemplate: null,
 };

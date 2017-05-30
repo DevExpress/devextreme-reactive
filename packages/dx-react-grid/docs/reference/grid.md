@@ -14,8 +14,8 @@ rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
 columns | Array&lt;[Column](#column)&gt; | | Specifies row fields to be rendered as columns
 getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies the function used to get a unique row identifier
 rootTemplate | ([RootArgs](#root-args)) => ReactElement | | Renders a root layout using the specified parameters
-headerPlaceholderTemplate | ([HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | | Renders a heading placeholder using the specified parameters
-footerPlaceholderTemplate | ([FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | | Renders a footer placeholder using the specified parameters
+headerPlaceholderTemplate | ([HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | Renders a heading placeholder using the specified parameters
+footerPlaceholderTemplate | ([FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | Renders a footer placeholder using the specified parameters
 
 ## Interfaces
 

@@ -7,12 +7,19 @@ import { TableCell } from '../templates/table-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { Layout } from '../templates/layout';
 
+const tableTemplate = props => <Table {...props} />;
+const defaultCellTemplate = props => <TableCell {...props} />;
+const noDataCellTemplate = props => <TableNoDataCell {...props} />;
+
 export const TableView = ({ tableCellTemplate, ...props }) => (
   <PluginContainer>
     <TableViewBase
-      tableTemplate={Table}
-      tableCellTemplate={combineTemplates(tableCellTemplate, TableCell)}
-      tableNoDataCellTemplate={TableNoDataCell}
+      tableTemplate={tableTemplate}
+      tableCellTemplate={combineTemplates(
+        tableCellTemplate,
+        defaultCellTemplate,
+      )}
+      tableNoDataCellTemplate={noDataCellTemplate}
       {...props}
     />
     <Layout />

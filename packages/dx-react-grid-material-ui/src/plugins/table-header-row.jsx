@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
 import { TableHeaderCell } from '../templates/table-header-cell';
 
+const headerCellTemplate = props => <TableHeaderCell {...props} />;
+
 export const TableHeaderRow = ({ allowSorting, allowGrouping }) => (
   <TableHeaderRowBase
-    headerCellTemplate={TableHeaderCell}
+    headerCellTemplate={headerCellTemplate}
     allowSorting={allowSorting}
     allowGrouping={allowGrouping}
   />

@@ -41,9 +41,9 @@ Describes properties passed to the root template when it is being rendered
 
 Field | Type | Description
 ------|------|------------
-headerTemplate | () => ReactElement | A template that should be used to render header
-bodyTemplate | () => ReactElement | A template that should be used to render body
-footerTemplate | () => ReactElement | A template that should be used to render footer
+headerTemplate | () => ReactElement | A template that should be used to render the header
+bodyTemplate | () => ReactElement | A template that should be used to render the body
+footerTemplate | () => ReactElement | A template that should be used to render the footer
 
 ### <a name="header-placeholder-args"></a>HeaderPlaceholderArgs
 
@@ -51,7 +51,7 @@ Describes properties passed to the header placeholder template when it is being 
 
 Field | Type | Description
 ------|------|------------
-children | ReactElement? | A markup that collected to be placed inside header if exists
+children | ReactElement? | A markup to be placed into the header
 
 ### <a name="footer-placeholder-args"></a>FooterPlaceholderArgs
 
@@ -59,7 +59,7 @@ Describes properties passed to the footer placeholder template when it is being 
 
 Field | Type | Description
 ------|------|------------
-children | ReactElement? | A markup that collected to be placed inside footer if exists
+children | ReactElement? | The markup to be placed into the footer
 
 ## Plugin Developer Reference
 

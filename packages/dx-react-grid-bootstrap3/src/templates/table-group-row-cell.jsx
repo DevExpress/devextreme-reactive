@@ -14,8 +14,8 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
       className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`}
       style={{
         fontSize: '9px',
-        top: '0',
-        marginRight: '8px',
+        top: 0,
+        marginRight: '10px',
       }}
     />
     <strong>{row.column.title}: {row.value}</strong>
@@ -36,4 +36,26 @@ TableGroupRowCell.defaultProps = {
   row: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
+};
+
+export const TableGroupIndentCell = ({ column, style }) => (
+  <td
+    style={{
+      ...style,
+      width: column.width,
+    }}
+  >
+    &nbsp;
+  </td>
+);
+
+TableGroupIndentCell.propTypes = {
+  style: PropTypes.object,
+  column: PropTypes.shape({
+    width: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+TableGroupIndentCell.defaultProps = {
+  style: {},
 };

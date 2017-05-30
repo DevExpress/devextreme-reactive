@@ -12,10 +12,10 @@ describe('TableSelection Plugin computeds', () => {
     ];
 
     test('should work', () => {
-      const columns = tableColumnsWithSelection(tableColumns);
+      const columns = tableColumnsWithSelection(tableColumns, 123);
 
       expect(columns).toHaveLength(3);
-      expect(columns[0]).toMatchObject({ type: 'select', name: 'select', width: 30 });
+      expect(columns[0]).toMatchObject({ type: 'select', name: 'select', width: 123 });
       expect(columns[1]).toBe(tableColumns[0]);
       expect(columns[2]).toBe(tableColumns[1]);
     });

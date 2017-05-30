@@ -13,13 +13,15 @@ A plugin that renders group rows with the capability to expand and collapse them
 
 Name | Type | Default | Description
 -----|------|---------|------------
-groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | A component that renders the group row
+groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | A component that renders a group row
+groupIndentCellTemplate | Component&lt;[GroupIndentCellProps](#group-indent-cell-props)&gt; | | A component that renders a group indent cell
+groupColumnWidth | number | | Width of the group indent columns
 
 ## Interfaces
 
 ### <a name="group-row-cell-props"></a>GroupRowCellProps
 
-Describes properties passed to the template that renders the group row.
+Describes properties passed to the template that renders a group row.
 
 A value with the following shape:
 
@@ -28,6 +30,17 @@ Field | Type | Description
 row | [GroupRow](#group-row) | A group row data object
 isExpanded | boolean | Specifies whether or not a row is expanded
 toggleGroupExpanded | () => void | Toggles the expanded state of a group row
+
+### <a name="group-indent-cell-props"></a>GroupIndentCellProps
+
+Describes properties passed to the template that renders a group indent cell.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+row | [Row](grid.md#row) | A row object
+column | [Column](grid.md#column) | A group indent column
 
 ### <a name="group-row"></a>GroupRow
 

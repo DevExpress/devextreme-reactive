@@ -1,0 +1,96 @@
+{
+  "name": "@devexpress/dx-react-grid-material-ui",
+  "version": "1.0.0-alpha.2",
+  "description": "Material UI templates for DevExtreme React Grid component",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  },
+  "homepage": "https://devexpress.github.io/devextreme-reactive/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "widget",
+    "component",
+    "react",
+    "grid",
+    "table",
+    "datagrid",
+    "data-grid",
+    "materialui",
+    "material",
+    "material-ui"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/dx-react-grid-material-ui.umd.js",
+  "module": "dist/dx-react-grid-material-ui.es.js",
+  "globalName": "DevExpress.DXReactGridMaterialUI",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup -c rollup.config.js -w",
+    "lint": "eslint src/**/*",
+    "lint:fix": "npm run -s lint -- --fix",
+    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-datatgrid-material-ui-lint.xml -f junit"
+  },
+  "jest": {
+    "testResultsProcessor": "./node_modules/jest-junit"
+  },
+  "jest-junit": {
+    "suiteName": "React Grid Material UI",
+    "output": "../../shippable/testresults/dx-react-grid-material-ui.xml"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-jest": "^19.0.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "core-js": "^2.4.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jest": "^19.0.1",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "jest": "^19.0.2",
+    "jest-junit": "^1.5.1",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-license": "^0.3.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^3.2.2"
+  },
+  "dependencies": {
+    "@devexpress/dx-react-core": "1.0.0-alpha.2",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.2",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4"
+  },
+  "peerDependencies": {
+    "material-ui": "^1.0.0-alpha.14",
+    "material-ui-icons": "^1.0.0-alpha.3",
+    "classnames": "^2.2.5"
+  }
+}

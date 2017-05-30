@@ -1,7 +1,7 @@
 import extendWithEventListener from '../../utils/extend-with-event-listener';
 
-export const tableColumnsWithSelection = columns =>
-  [{ type: 'select', name: 'select', width: 30 }, ...columns];
+export const tableColumnsWithSelection = (columns, selectionColumnWidth) =>
+  [{ type: 'select', name: 'select', width: selectionColumnWidth }, ...columns];
 
 export const tableBodyRowsWithSelection = (bodyRows, selection, getRowId) => {
   const selectionSet = new Set(selection);

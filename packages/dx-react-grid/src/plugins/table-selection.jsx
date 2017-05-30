@@ -5,7 +5,13 @@ import { tableColumnsWithSelection, tableBodyRowsWithSelection, tableExtraProps 
 
 export class TableSelection extends React.PureComponent {
   render() {
-    const { highlightSelected, selectByRowClick, showSelectionColumn, showSelectAll } = this.props;
+    const {
+      highlightSelected,
+      selectByRowClick,
+      showSelectionColumn,
+      showSelectAll,
+      selectionColumnWidth,
+    } = this.props;
     const SelectAllCell = this.props.selectAllCellTemplate;
     const SelectCell = this.props.selectCellTemplate;
 
@@ -17,6 +23,7 @@ export class TableSelection extends React.PureComponent {
             pureComputed={tableColumnsWithSelection}
             connectArgs={getter => [
               getter('tableColumns'),
+              selectionColumnWidth,
             ]}
           />
         )}
@@ -110,4 +117,5 @@ TableSelection.propTypes = {
   selectByRowClick: PropTypes.bool,
   showSelectAll: PropTypes.bool,
   showSelectionColumn: PropTypes.bool,
+  selectionColumnWidth: PropTypes.number.isRequired,
 };

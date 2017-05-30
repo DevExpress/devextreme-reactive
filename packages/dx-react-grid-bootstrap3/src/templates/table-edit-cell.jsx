@@ -5,7 +5,7 @@ export const EditCell = ({ column, value, onValueChange }) => (
   <td
     style={{
       verticalAlign: 'middle',
-      padding: 1,
+      padding: '1px',
     }}
   >
     <input

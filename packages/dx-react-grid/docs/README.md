@@ -44,10 +44,7 @@ To display the data as a simple table, you can use the TableView plugin as follo
 
 ```js
 import {
-  Grid
-} from '@devexpress/dx-react-grid';
-import {
-  TableView
+  Grid, TableView
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 const App = () => (
@@ -83,10 +80,10 @@ All Grid plugins consist of core plugins. Each core plugin component has unique 
 
 ```js
 import {
-  Grid, FilteringState, LocalFiltering
+  FilteringState, LocalFiltering
 } from '@devexpress/dx-react-grid'
 import {
-  TableView
+  Grid, TableView
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 const App = () => (
@@ -102,10 +99,10 @@ Note that in the previous example, the TableView plugin is linked after the data
 
 ```js
 import {
-  Grid, FilteringState, LocalFiltering
+  FilteringState, LocalFiltering
 } from '@devexpress/dx-react-grid'
 import {
-  TableView, TableFilterRow
+  Grid, TableView, TableFilterRow
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 const App = () => (
@@ -163,30 +160,30 @@ So, `sorting` represents the Grid sorting configuration. In turn, the `changeSor
 In uncontrolled state mode, the Grid component manages its UI state internally. You do not need to specify the state value and state change handler properties. Yet, you can provide Grid with the initial state value using the property with the `default` prefix. For instance, we can convert the previous example into uncontrolled mode:
 
 ```js
-  <Grid rows={[...]} columns={[...]}>
-    <SortingState />
-    ...
-  </Grid>
+<Grid rows={[...]} columns={[...]}>
+  <SortingState />
+  ...
+</Grid>
 ```
 
 If you want to specify the default sorting configuration, it will look as follows:
 
 ```js
-  <Grid rows={[...]} columns={[...]}>
-    <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
-    ...
-  </Grid>
+<Grid rows={[...]} columns={[...]}>
+  <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
+  ...
+</Grid>
 ```
 
 Sometimes you may need to control the Grid state partially. For instance, you want to manage filters, but do not wish to manage sorting and grouping. You can configure Grid as follows:
 
 ```js
-  <Grid rows={[...]} columns={[...]}>
-    <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
-    <SortingState />
-    <GroupingState />
-    ...
-  </Grid>
+<Grid rows={[...]} columns={[...]}>
+  <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
+  <SortingState />
+  <GroupingState />
+  ...
+</Grid>
 ```
 
 Note: If you are using Redux and performing time traveling, the partially controlled state can cause side-effects. In this case, we recommend using the fully-controlled state so the Grid behaves as a stateless component without side-effects.

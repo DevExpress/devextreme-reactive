@@ -30,10 +30,7 @@ To display the data as a simple table, you can use the TableView plugin as follo
 
 ```js
 import {
-  Grid
-} from '@devexpress/dx-react-grid';
-import {
-  TableView
+  Grid, TableView
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 const App = () => (

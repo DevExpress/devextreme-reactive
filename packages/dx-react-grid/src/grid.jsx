@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PluginHost, Getter } from '@devexpress/dx-react-core';
+import { PluginHost, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 const rowIdGetter = (getRowId, rows) => {
   let rowsMap;
@@ -12,7 +12,11 @@ const rowIdGetter = (getRowId, rows) => {
   };
 };
 
-export const Grid = ({ rows, getRowId, columns, children }) => (
+export const Grid = ({
+  rows, getRowId, columns,
+  rootTemplate, headerPlaceholderTemplate, footerPlaceholderTemplate,
+  children,
+}) => (
   <PluginHost>
     <Getter name="rows" value={rows} />
     <Getter name="columns" value={columns} />
@@ -21,6 +25,28 @@ export const Grid = ({ rows, getRowId, columns, children }) => (
       pureComputed={rowIdGetter}
       connectArgs={() => [getRowId, rows]}
     />
+    <Template name="header" />
+    <Template name="body" />
+    <Template name="footer" />
+    <Template name="root">
+      {() => rootTemplate({
+        headerTemplate: () => (
+          <TemplatePlaceholder name="header">
+            {content => (headerPlaceholderTemplate
+              ? headerPlaceholderTemplate({ children: content })
+              : content)}
+          </TemplatePlaceholder>
+        ),
+        bodyTemplate: () => <TemplatePlaceholder name="body" />,
+        footerTemplate: () => (
+          <TemplatePlaceholder name="footer">
+            {content => (footerPlaceholderTemplate
+              ? footerPlaceholderTemplate({ children: content })
+              : content)}
+          </TemplatePlaceholder>
+        ),
+      })}
+    </Template>
     {children}
   </PluginHost>
 );
@@ -29,12 +55,18 @@ Grid.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   columns: PropTypes.array.isRequired,
+  rootTemplate: PropTypes.func.isRequired,
+  headerPlaceholderTemplate: PropTypes.func,
+  footerPlaceholderTemplate: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
-  ]).isRequired,
+  ]),
 };
 
 Grid.defaultProps = {
   getRowId: null,
+  headerPlaceholderTemplate: null,
+  footerPlaceholderTemplate: null,
+  children: null,
 };

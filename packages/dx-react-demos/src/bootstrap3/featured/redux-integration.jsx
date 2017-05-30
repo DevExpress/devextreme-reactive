@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
-    Grid,
-    SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
-    LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+  SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
+  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
-    TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-    GroupingPanel, PagingPanel,
+  Grid,
+  TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
+  GroupingPanel, PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {

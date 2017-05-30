@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-    Grid,
     SortingState, SelectionState, FilteringState, PagingState, RowDetailState,
     LocalFiltering, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
+    Grid,
     TableView, TableRowDetail,
     TableFilterRow, TableSelection, PagingPanel,
     TableHeaderRow,

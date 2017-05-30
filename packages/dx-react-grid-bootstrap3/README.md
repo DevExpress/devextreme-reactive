@@ -15,10 +15,7 @@ Add the required modules to your project:
 
 ```js
 import {
-  Grid
-} from '@devexpress/dx-react-grid';
-import {
-  TableView
+  Grid, TableView
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 export const App = () => (

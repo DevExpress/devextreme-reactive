@@ -74,6 +74,7 @@
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
     "jest-junit": "^1.5.1",
+    "enzyme": "^2.8.2",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "rollup": "^0.41.6",
@@ -87,8 +88,7 @@
     "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
-    "react-tap-event-plugin": "^2.0.1",
-    "enzyme": "^2.8.2"
+    "react-tap-event-plugin": "^2.0.1"
   },
   "peerDependencies": {
     "material-ui": "^1.0.0-alpha.14",

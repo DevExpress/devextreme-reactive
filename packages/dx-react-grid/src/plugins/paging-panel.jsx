@@ -4,7 +4,7 @@ import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-r
 
 export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
   <PluginContainer>
-    <Template name="gridFooter">
+    <Template name="footer">
       <div>
         <TemplatePlaceholder name="pager" />
         <TemplatePlaceholder />

@@ -29,7 +29,7 @@ export class TableView extends React.PureComponent {
         />
         <Getter name="tableExtraProps" value={{}} />
 
-        <Template name="gridBody">
+        <Template name="body">
           <TemplatePlaceholder name="tableView" />
         </Template>
         <Template

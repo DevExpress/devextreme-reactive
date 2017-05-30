@@ -20,7 +20,15 @@ Root.propTypes = {
 };
 
 export const Heading = ({ content }) =>
-  content && <div className="panel-heading">{content}</div>;
+  <div className="panel-heading">{content}</div>;
+
+Heading.propTypes = {
+  content: PropTypes.node.isRequired,
+};
 
 export const Footer = ({ content }) =>
-  content && <div className="panel-footer">{content}</div>;
+  <div className="panel-footer">{content}</div>;
+
+Footer.propTypes = {
+  content: PropTypes.node.isRequired,
+};

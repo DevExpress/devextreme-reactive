@@ -25,22 +25,22 @@ export const Grid = ({
       pureComputed={rowIdGetter}
       connectArgs={() => [getRowId, rows]}
     />
-    <Template name="gridHeading" />
-    <Template name="gridBody" />
-    <Template name="gridFooter" />
+    <Template name="header" />
+    <Template name="body" />
+    <Template name="footer" />
     <Template name="root">
       {() => rootTemplate({
         headerTemplate: () => (
-          <TemplatePlaceholder name="gridHeading">
-            {content => (headerPlaceholderTemplate
+          <TemplatePlaceholder name="header">
+            {content => (headerPlaceholderTemplate && content
               ? headerPlaceholderTemplate({ content })
               : content)}
           </TemplatePlaceholder>
         ),
-        bodyTemplate: () => <TemplatePlaceholder name="gridBody" />,
+        bodyTemplate: () => <TemplatePlaceholder name="body" />,
         footerTemplate: () => (
-          <TemplatePlaceholder name="gridFooter">
-            {content => (footerPlaceholderTemplate
+          <TemplatePlaceholder name="footer">
+            {content => (footerPlaceholderTemplate && content
               ? footerPlaceholderTemplate({ content })
               : content)}
           </TemplatePlaceholder>
@@ -61,11 +61,12 @@ Grid.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
-  ]).isRequired,
+  ]),
 };
 
 Grid.defaultProps = {
   getRowId: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,
+  children: null,
 };

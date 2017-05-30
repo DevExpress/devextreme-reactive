@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Button } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const paginationStyleSheet = createStyleSheet('Pagination', () => ({
+const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   pagination: {
     float: 'right',
     margin: 0,
     verticalAlign: 'bottom',
   },
   button: {
-    minWidth: '16px',
+    minWidth: theme.spacing.unit * 2,
   },
 }));
 

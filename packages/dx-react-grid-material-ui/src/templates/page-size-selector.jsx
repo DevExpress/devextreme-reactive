@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Button } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('PageSizeSelector', () => ({
+const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
   button: {
-    minWidth: '16px',
+    minWidth: theme.spacing.unit * 2,
   },
 }));
 

@@ -86,7 +86,9 @@
     "@devexpress/dx-react-core": "1.0.0-alpha.2",
     "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4"
+    "react": "^15.5.4",
+    "react-tap-event-plugin": "^2.0.1",
+    "enzyme": "^2.8.2"
   },
   "peerDependencies": {
     "material-ui": "^1.0.0-alpha.14",

@@ -1,0 +1,11 @@
+export const applyColumnOrder = (columns, order) => {
+  const result = columns.slice();
+
+  result.sort((a, b) => {
+    const aPos = order.indexOf(a.name);
+    const bPos = order.indexOf(b.name);
+    return aPos - bPos;
+  });
+
+  return result;
+};

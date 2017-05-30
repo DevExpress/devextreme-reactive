@@ -10,6 +10,7 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
   <TableCell
     checkbox
     style={{
+      overflow: 'visible',
       ...style,
     }}
     onClick={(e) => {

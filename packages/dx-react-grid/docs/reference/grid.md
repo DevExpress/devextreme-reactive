@@ -14,8 +14,8 @@ rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
 columns | Array&lt;[Column](#column)&gt; | | Specifies row fields to be rendered as columns
 getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies the function used to get a unique row identifier
 rootTemplate | ([RootArgs](#root-args)) => ReactElement | | Renders a root layout using the specified parameters
-headerPlaceholderTemplate | ([HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | Renders a heading placeholder using the specified parameters
-footerPlaceholderTemplate | ([FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | Renders a footer placeholder using the specified parameters
+headerPlaceholderTemplate | ([HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | Renders a heading placeholder that will be rendered if any content in header exists using the specified parameters
+footerPlaceholderTemplate | ([FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | Renders a footer placeholder that will be rendered if any content in footer exists using the specified parameters
 
 ## Interfaces
 
@@ -51,7 +51,7 @@ Describes properties passed to the header placeholder template when it is being 
 
 Field | Type | Description
 ------|------|------------
-content | ReactElement? | A markup that collected to be placed inside header if exists
+content | ReactElement | A markup that collected to be placed inside header
 
 ### <a name="footer-placeholder-args"></a>FooterPlaceholderArgs
 
@@ -59,7 +59,7 @@ Describes properties passed to the footer placeholder template when it is being 
 
 Field | Type | Description
 ------|------|------------
-content | ReactElement? | A markup that collected to be placed inside footer if exists
+content | ReactElement | A markup that collected to be placed inside footer
 
 ## Plugin Developer Reference
 
@@ -69,3 +69,6 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | () => Array&lt;[Row](#row)&gt; | Specified rows
 columns | Getter | () => Array&lt;[Column](#column)&gt; | Specified columns
+header | Template | none | A template that renders grid header
+body | Template | none | A template that renders grid body
+footer | Template | none | A template that renders grid footer

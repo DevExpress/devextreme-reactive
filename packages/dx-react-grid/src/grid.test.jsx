@@ -60,7 +60,7 @@ describe('Grid', () => {
     expect(tree.find('.header-placeholder').find('.header-content').exists()).toBeTruthy();
   });
 
-  test('should not render footer placeholder if there are no header elements', () => {
+  test('should render footer placeholder with null children if there are no header elements', () => {
     const tree = mount(
       <Grid
         rows={[]}
@@ -73,7 +73,7 @@ describe('Grid', () => {
           </div>
         )}
         headerPlaceholderTemplate={({ children }) =>
-          <div className="footer-placeholder">{children}</div>}
+          children && <div className="footer-placeholder">{children}</div>}
       />,
     );
 
@@ -102,7 +102,7 @@ describe('Grid', () => {
     expect(tree.find('.footer-placeholder').find('.footer-content').exists()).toBeTruthy();
   });
 
-  test('should not render footer placeholder if there are no footer elements', () => {
+  test('should render footer placeholder with null children if there are no footer elements', () => {
     const tree = mount(
       <Grid
         rows={[]}
@@ -115,7 +115,7 @@ describe('Grid', () => {
           </div>
         )}
         footerPlaceholderTemplate={({ children }) =>
-          <div className="footer-placeholder">{children}</div>}
+          children && <div className="footer-placeholder">{children}</div>}
       />,
     );
 

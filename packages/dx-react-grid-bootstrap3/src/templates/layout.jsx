@@ -1,21 +1,26 @@
 import React from 'react';
-import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import PropTypes from 'prop-types';
 
-export const Layout = () => (
-  <PluginContainer>
-    <Template name="gridHeading" />
-    <Template name="gridFooter" />
-
-    <Template name="root">
-      <div className="panel panel-default">
-        <TemplatePlaceholder name="gridHeading">
-          {content => (!content ? null : <div className="panel-heading">{content}</div>)}
-        </TemplatePlaceholder>
-        <TemplatePlaceholder name="gridBody" />
-        <TemplatePlaceholder name="gridFooter">
-          {content => (!content ? null : <div className="panel-footer">{content}</div>)}
-        </TemplatePlaceholder>
-      </div>
-    </Template>
-  </PluginContainer>
+export const Root = ({
+  headerTemplate,
+  bodyTemplate,
+  footerTemplate,
+}) => (
+  <div className="panel panel-default">
+    {headerTemplate()}
+    {bodyTemplate()}
+    {footerTemplate()}
+  </div>
 );
+
+Root.propTypes = {
+  headerTemplate: PropTypes.func.isRequired,
+  bodyTemplate: PropTypes.func.isRequired,
+  footerTemplate: PropTypes.func.isRequired,
+};
+
+export const Heading = ({ content }) =>
+  content && <div className="panel-heading">{content}</div>;
+
+export const Footer = ({ content }) =>
+  content && <div className="panel-footer">{content}</div>;

@@ -32,15 +32,15 @@ Root.propTypes = {
   footerTemplate: PropTypes.func.isRequired,
 };
 
-const HeadingBase = ({ content, classes }) =>
+const HeaderBase = ({ content, classes }) =>
   <div className={classes.headingPanel}>{content}</div>;
 
-HeadingBase.propTypes = {
+HeaderBase.propTypes = {
   content: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export const Heading = withStyles(styleSheet)(HeadingBase);
+export const Header = withStyles(styleSheet)(HeaderBase);
 
 export const FooterBase = ({ content, classes }) =>
   <div className={classes.footerPanel}>{content}</div>;

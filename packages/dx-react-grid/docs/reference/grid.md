@@ -41,7 +41,7 @@ Describes properties passed to the root template when it is being rendered
 
 Field | Type | Description
 ------|------|------------
-headerTemplate | () => ReactElement | A template that should be used to render heading
+headerTemplate | () => ReactElement | A template that should be used to render header
 bodyTemplate | () => ReactElement | A template that should be used to render body
 footerTemplate | () => ReactElement | A template that should be used to render footer
 

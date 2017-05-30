@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid as GridBase } from '@devexpress/dx-react-grid';
-import { Root, Heading, Footer } from './templates/layout';
+import { Root, Header, Footer } from './templates/layout';
 
 const rootTemplate = props => <Root {...props} />;
-const headerPlaceholderTemplate = props => <Heading {...props} />;
+const headerPlaceholderTemplate = props => <Header {...props} />;
 const footerPlaceholderTemplate = props => <Footer {...props} />;
 
 export const Grid = ({ children, ...props }) => (

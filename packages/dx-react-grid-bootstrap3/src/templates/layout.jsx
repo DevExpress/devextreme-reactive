@@ -19,10 +19,10 @@ Root.propTypes = {
   footerTemplate: PropTypes.func.isRequired,
 };
 
-export const Heading = ({ content }) =>
+export const Header = ({ content }) =>
   <div className="panel-heading">{content}</div>;
 
-Heading.propTypes = {
+Header.propTypes = {
   content: PropTypes.node.isRequired,
 };
 

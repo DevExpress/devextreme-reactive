@@ -60,17 +60,17 @@ export class TemplatePlaceholder extends React.PureComponent {
 
     this.setupSubscription();
 
-    const { children: templateChildren, connectGetters, connectActions } = this.template;
-    const { children } = this.props;
+    const { children: template, connectGetters, connectActions } = this.template;
+    const { children: placeholder } = this.props;
 
-    const templateChildrenUnwrapped = children ? children(templateChildren()) : templateChildren();
+    const content = placeholder ? placeholder(template()) : template();
 
     return (
       <TemplateConnector
         params={this.params}
         mapProps={connectGetters}
         mapActions={connectActions}
-        content={templateChildrenUnwrapped}
+        content={content}
       />
     );
   }

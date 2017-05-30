@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { Paper } from 'material-ui';
 
@@ -15,31 +14,41 @@ const styleSheet = createStyleSheet('GridLayout', theme => ({
   },
 }));
 
-const LayoutBase = props => (
-  <PluginContainer>
-    <Template name="gridHeading" />
-    <Template name="gridFooter" />
-
-    <Template name="root">
-      <Paper>
-        <TemplatePlaceholder name="gridHeading">
-          {content => (
-            content ? <div className={props.classes.headingPanel}>{content}</div> : null
-          )}
-        </TemplatePlaceholder>
-        <TemplatePlaceholder name="gridBody" />
-        <TemplatePlaceholder name="gridFooter">
-          {content => (
-            content ? <div className={props.classes.footerPanel}>{content}</div> : null
-          )}
-        </TemplatePlaceholder>
-      </Paper>
-    </Template>
-  </PluginContainer>
+export const Root = ({
+  headerTemplate,
+  bodyTemplate,
+  footerTemplate,
+}) => (
+  <Paper>
+    {headerTemplate()}
+    {bodyTemplate()}
+    {footerTemplate()}
+  </Paper>
 );
 
-LayoutBase.propTypes = {
+Root.propTypes = {
+  headerTemplate: PropTypes.func.isRequired,
+  bodyTemplate: PropTypes.func.isRequired,
+  footerTemplate: PropTypes.func.isRequired,
+};
+
+const HeadingBase = ({ content, classes }) =>
+  <div className={classes.headingPanel}>{content}</div>;
+
+HeadingBase.propTypes = {
+  content: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export const Layout = withStyles(styleSheet)(LayoutBase);
+export const Heading = withStyles(styleSheet)(HeadingBase);
+
+export const FooterBase = ({ content, classes }) =>
+  <div className={classes.footerPanel}>{content}</div>;
+
+FooterBase.propTypes = {
+  content: PropTypes.node.isRequired,
+  classes: PropTypes.object.isRequired,
+};
+
+export const Footer = withStyles(styleSheet)(FooterBase);
+

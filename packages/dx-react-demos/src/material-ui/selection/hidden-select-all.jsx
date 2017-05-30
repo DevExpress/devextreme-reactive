@@ -1,15 +1,15 @@
 import React from 'react';
 import {
-    Grid,
-    SelectionState,
-    PagingState,
-    LocalPaging,
+  SelectionState,
+  PagingState,
+  LocalPaging,
 } from '@devexpress/dx-react-grid';
 import {
-    TableView,
-    TableHeaderRow,
-    TableSelection,
-    PagingPanel,
+  Grid,
+  TableView,
+  TableHeaderRow,
+  TableSelection,
+  PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {

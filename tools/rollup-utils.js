@@ -42,6 +42,7 @@ const knownGlobals = {
   'prop-types': 'PropTypes',
   'react-bootstrap': 'ReactBootstrap',
   'material-ui': 'material-ui',
+  'classnames': 'classNames',
   'material-ui/styles': 'material-ui.styles',
   'material-ui/styles/palette': 'material-ui.styles.palette',
   'material-ui-icons': 'material-ui-icons',

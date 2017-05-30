@@ -5,25 +5,34 @@ import {
     TableCell as TableCellMUI,
 } from 'material-ui';
 
-export const TableCell = ({ style, row, column }) => (
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
+const styleSheet = createStyleSheet('TableCell', theme => ({
+  cell: {
+    paddingRight: theme.spacing.unit * 3,
+  },
+}));
+
+const TableCellBase = ({ style, row, column, classes }) => (
   <TableCellMUI
-    style={{
-      ...style,
-      paddingRight: '24px',
-    }}
+    style={style}
+    className={classes.cell}
   >
     {row[column.name]}
   </TableCellMUI>
 );
 
-TableCell.propTypes = {
+TableCellBase.propTypes = {
   style: PropTypes.shape(),
   row: PropTypes.shape(),
   column: PropTypes.shape(),
+  classes: PropTypes.object.isRequired,
 };
 
-TableCell.defaultProps = {
+TableCellBase.defaultProps = {
   style: null,
   row: {},
   column: {},
 };
+
+export const TableCell = withStyles(styleSheet)(TableCellBase);

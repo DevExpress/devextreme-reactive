@@ -12,12 +12,24 @@ import {
   tableCellClickHandler,
 } from '@devexpress/dx-react-grid';
 
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
 import { TableRow } from './table-row';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
-export const Table = ({
-  headerRows, bodyRows, columns, cellTemplate, onClick, getRowId,
+const styleSheet = createStyleSheet('Table', () => ({
+  root: {
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+  },
+  table: {
+    tableLayout: 'fixed',
+  },
+}));
+
+export const TableBase = ({
+  headerRows, bodyRows, columns, cellTemplate, onClick, getRowId, classes,
 }) => {
   const rowKeyGetter = getKeyGetter(row => (!row.type ? getRowId(row) : row.id));
   const minWidth = columns
@@ -25,17 +37,12 @@ export const Table = ({
     .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);
 
   return (
-    <div
-      style={{
-        overflow: 'auto',
-        WebkitOverflowScrolling: 'touch',
-      }}
-    >
+    <div className={classes.root}>
       <TableMUI
         style={{
-          tableLayout: 'fixed',
           minWidth: `${minWidth}px`,
         }}
+        className={classes.table}
         onClick={tableCellClickHandler({ headerRows, bodyRows, columns, onClick })}
       >
         <TableHeadMUI>
@@ -62,14 +69,19 @@ export const Table = ({
     </div>
   );
 };
-Table.defaultProps = {
+
+TableBase.defaultProps = {
   onClick: () => {},
 };
-Table.propTypes = {
+
+TableBase.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
+  classes: PropTypes.object.isRequired,
 };
+
+export const Table = withStyles(styleSheet)(TableBase);

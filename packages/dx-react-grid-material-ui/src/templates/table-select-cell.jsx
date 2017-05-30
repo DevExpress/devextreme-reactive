@@ -6,13 +6,19 @@ import {
     TableCell,
 } from 'material-ui';
 
-export const TableSelectCell = ({ style, selected, changeSelected }) => (
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
+const styleSheet = createStyleSheet('TableSelectCell', () => ({
+  cell: {
+    overflow: 'visible',
+  },
+}));
+
+export const TableSelectCellBase = ({ style, selected, changeSelected, classes }) => (
   <TableCell
     checkbox
-    style={{
-      overflow: 'visible',
-      ...style,
-    }}
+    style={style}
+    className={classes.cell}
     onClick={(e) => {
       e.stopPropagation();
       changeSelected();
@@ -21,13 +27,18 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
     <Checkbox checked={selected} />
   </TableCell>
 );
-TableSelectCell.defaultProps = {
+
+TableSelectCellBase.defaultProps = {
   style: null,
   selected: false,
   changeSelected: () => {},
 };
-TableSelectCell.propTypes = {
+
+TableSelectCellBase.propTypes = {
   style: PropTypes.shape(),
   selected: PropTypes.bool,
   changeSelected: PropTypes.func,
+  classes: PropTypes.object.isRequired,
 };
+
+export const TableSelectCell = withStyles(styleSheet)(TableSelectCellBase);

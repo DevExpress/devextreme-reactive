@@ -5,25 +5,34 @@ import {
     TableCell,
 } from 'material-ui';
 
-export const TableNoDataCell = ({ style, colspan }) => (
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
+const styleSheet = createStyleSheet('TableNoDataCell', theme => ({
+  cell: {
+    textAlign: 'center',
+    padding: `${theme.spacing.unit * 5}px 0`,
+  },
+}));
+
+export const TableNoDataCellBase = ({ style, colspan, classes }) => (
   <TableCell
-    style={{
-      textAlign: 'center',
-      padding: '40px 0',
-      ...style,
-    }}
+    style={style}
+    className={classes.cell}
     colSpan={colspan}
   >
     <big className="text-muted">No data</big>
   </TableCell>
 );
 
-TableNoDataCell.propTypes = {
+TableNoDataCellBase.propTypes = {
   style: PropTypes.shape(),
   colspan: PropTypes.number,
+  classes: PropTypes.object.isRequired,
 };
 
-TableNoDataCell.defaultProps = {
+TableNoDataCellBase.defaultProps = {
   style: null,
   colspan: 1,
 };
+
+export const TableNoDataCell = withStyles(styleSheet)(TableNoDataCellBase);

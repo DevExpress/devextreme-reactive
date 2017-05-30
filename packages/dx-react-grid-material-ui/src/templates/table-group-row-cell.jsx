@@ -8,15 +8,30 @@ import {
     TableCell,
 } from 'material-ui';
 
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroupExpanded }) => (
+const styleSheet = createStyleSheet('TableGroupRowCell', theme => ({
+  cell: {
+    cursor: 'pointer',
+    paddingLeft: theme.spacing.unit * 3,
+  },
+  indentCell: {
+    padding: 0,
+  },
+}));
+
+const TableGroupRowCellBase = ({
+  style,
+  colspan,
+  row,
+  isExpanded,
+  toggleGroupExpanded,
+  classes,
+}) => (
   <TableCell
     colSpan={colspan}
-    style={{
-      cursor: 'pointer',
-      paddingLeft: '24px',
-      ...style,
-    }}
+    style={style}
+    className={classes.cell}
     onClick={toggleGroupExpanded}
   >
     <span
@@ -40,15 +55,16 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
   </TableCell>
 );
 
-TableGroupRowCell.propTypes = {
+TableGroupRowCellBase.propTypes = {
   style: PropTypes.shape(),
   colspan: PropTypes.number,
   row: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
+  classes: PropTypes.object.isRequired,
 };
 
-TableGroupRowCell.defaultProps = {
+TableGroupRowCellBase.defaultProps = {
   style: null,
   colspan: 1,
   row: {},
@@ -56,25 +72,31 @@ TableGroupRowCell.defaultProps = {
   toggleGroupExpanded: () => {},
 };
 
-export const TableGroupIndentCell = ({ column, style }) => (
+export const TableGroupRowCell = withStyles(styleSheet)(TableGroupRowCellBase);
+
+const TableGroupIndentCellBase = ({ column, style, classes }) => (
   <TableCell
     style={{
-      ...style,
       width: column.width,
-      padding: 0,
+      ...style,
     }}
+    className={classes.indentCell}
   >
     &nbsp;
   </TableCell>
 );
 
-TableGroupIndentCell.propTypes = {
+TableGroupIndentCellBase.propTypes = {
   style: PropTypes.object,
   column: PropTypes.shape({
     width: PropTypes.number.isRequired,
   }).isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-TableGroupIndentCell.defaultProps = {
+TableGroupIndentCellBase.defaultProps = {
   style: {},
 };
+
+export const TableGroupIndentCell = withStyles(styleSheet)(TableGroupIndentCellBase);
+

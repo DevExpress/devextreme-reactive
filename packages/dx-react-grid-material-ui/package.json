@@ -90,6 +90,7 @@
   },
   "peerDependencies": {
     "material-ui": "^1.0.0-alpha.14",
-    "material-ui-icons": "^1.0.0-alpha.3"
+    "material-ui-icons": "^1.0.0-alpha.3",
+    "classnames": "^2.2.5"
   }
 }

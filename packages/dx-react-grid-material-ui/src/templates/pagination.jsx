@@ -9,11 +9,14 @@ const paginationStyleSheet = createStyleSheet('Pagination', () => ({
     margin: 0,
     verticalAlign: 'bottom',
   },
+  button: {
+    minWidth: '16px',
+  },
 }));
 
-const PageButton = ({ text, isActive, isDisabled, onClick }) => (
+const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => (
   <Button
-    style={{ minWidth: '16px' }}
+    className={classes.button}
     accent={isActive}
     raised={isActive}
     disabled={isDisabled}
@@ -27,6 +30,7 @@ PageButton.propTypes = {
   text: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
   isDisabled: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
   onClick: PropTypes.func,
 };
 
@@ -48,6 +52,7 @@ const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math
 const renderPageButtons = (
   currentPage,
   totalPageCount,
+  classes,
   onCurrentPageChange,
   ) => {
   const pageButtons = [];
@@ -65,6 +70,7 @@ const renderPageButtons = (
       <PageButton
         key={1}
         text={String(1)}
+        classes={classes}
         onClick={() => onCurrentPageChange(1)}
       />,
     );
@@ -74,6 +80,7 @@ const renderPageButtons = (
         <PageButton
           key={'ellipsisStart'}
           text={ellipsisSymbol}
+          classes={classes}
           isDisabled
         />,
       );
@@ -86,6 +93,7 @@ const renderPageButtons = (
         key={page}
         text={String(page)}
         isActive={page === currentPage}
+        classes={classes}
         onClick={() => onCurrentPageChange(page)}
       />,
     );
@@ -97,6 +105,7 @@ const renderPageButtons = (
         <PageButton
           key={'ellipsisEnd'}
           text={ellipsisSymbol}
+          classes={classes}
           isDisabled
         />,
       );
@@ -106,6 +115,7 @@ const renderPageButtons = (
       <PageButton
         key={totalPageCount}
         text={String(totalPageCount)}
+        classes={classes}
         onClick={() => onCurrentPageChange(totalPageCount)}
       />,
     );
@@ -116,7 +126,7 @@ const renderPageButtons = (
 
 const PaginationBase = ({ totalPages, currentPage, onCurrentPageChange, classes }) => (
   <div className={classes.pagination}>
-    {renderPageButtons(currentPage, totalPages, onCurrentPageChange)}
+    {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
   </div>
 );
 

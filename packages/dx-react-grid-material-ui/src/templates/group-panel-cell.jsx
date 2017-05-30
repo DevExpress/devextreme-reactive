@@ -25,6 +25,7 @@ const GroupPanelCellBase = ({
   <Button
     raised
     className={classes.button}
+    component="span"
   >
     <span
       onClick={(e) => {

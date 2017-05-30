@@ -30,8 +30,9 @@
     "watch:react-core": "lerna run build:watch --scope @devexpress/dx-react-core --stream",
     "watch:react-grid": "lerna run build:watch --scope @devexpress/dx-react-grid --stream",
     "watch:react-grid-bootstrap3": "lerna run build:watch --scope @devexpress/dx-react-grid-bootstrap3 --stream",
+    "watch:react-grid-material-ui": "lerna run build:watch --scope @devexpress/dx-react-grid-material-ui --stream",
     "watch:react-demos": "lerna run watch --scope @devexpress/dx-react-demos --stream",
-    "watch": "concurrently --kill-others \"npm run watch:core\" \"npm run watch:grid-core\" \"npm run watch:react-core\" \"npm run watch:react-grid\" \"npm run watch:react-grid-bootstrap3\" \"npm run watch:react-demos\"",
+    "watch": "concurrently --kill-others \"npm run watch:core\" \"npm run watch:grid-core\" \"npm run watch:react-core\" \"npm run watch:react-grid\" \"npm run watch:react-grid-bootstrap3\" \"npm run watch:react-grid-material-ui\" \"npm run watch:react-demos\"",
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test"

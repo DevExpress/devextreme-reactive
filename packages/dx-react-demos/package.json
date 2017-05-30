@@ -20,13 +20,17 @@
   "dependencies": {
     "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "@devexpress/dx-react-grid-bootstrap3": "1.0.0-alpha.2",
+    "@devexpress/dx-react-grid-material-ui": "1.0.0-alpha.2",
     "core-js": "^2.4.1",
+    "material-ui": "^1.0.0-alpha.14",
+    "material-ui-icons": "^1.0.0-alpha.3",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "whatwg-fetch": "^2.0.3"
   },

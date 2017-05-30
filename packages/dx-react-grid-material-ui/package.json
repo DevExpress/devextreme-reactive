@@ -87,12 +87,12 @@
     "@devexpress/dx-react-core": "1.0.0-alpha.2",
     "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "react-tap-event-plugin": "^2.0.1"
+    "react": "^15.5.4"
   },
   "peerDependencies": {
     "material-ui": "^1.0.0-alpha.14",
     "material-ui-icons": "^1.0.0-alpha.3",
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "react-tap-event-plugin": "^2.0.1"
   }
 }

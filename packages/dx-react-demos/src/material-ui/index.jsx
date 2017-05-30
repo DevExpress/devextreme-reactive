@@ -14,6 +14,7 @@ import {
 
 import { BasicDemos } from './basic';
 import { SortingDemos } from './sorting';
+import { FilteringDemos } from './filtering';
 import { PagingDemos } from './paging';
 import { GroupingDemos } from './grouping';
 import { SelectionDemos } from './selection';
@@ -40,6 +41,7 @@ const Demos = () => (
       <Route path="/material-ui/basic" component={BasicDemos} />
       <Route path="/material-ui/paging" component={PagingDemos} />
       <Route path="/material-ui/sorting" component={SortingDemos} />
+      <Route path="/material-ui/filtering" component={FilteringDemos} />
       <Route path="/material-ui/selection" component={SelectionDemos} />
       <Route path="/material-ui/grouping" component={GroupingDemos} />
     </div>
@@ -71,6 +73,7 @@ export const MaterialUIDemos = withRouter(({ location }) => {
                     <li><NavLink to="/material-ui/basic">Basic</NavLink></li>
                     <li><NavLink to="/material-ui/paging">Paging</NavLink></li>
                     <li><NavLink to="/material-ui/sorting">Sorting</NavLink></li>
+                    <li><NavLink to="/material-ui/filtering">Filtering</NavLink></li>
                     <li><NavLink to="/material-ui/selection">Selection</NavLink></li>
                     <li><NavLink to="/material-ui/grouping">Grouping</NavLink></li>
                   </ul>

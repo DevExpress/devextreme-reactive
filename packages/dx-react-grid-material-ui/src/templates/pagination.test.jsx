@@ -27,7 +27,6 @@ describe('Pagination', () => {
 
     test('can select the first item', () => {
       const buttons = paginationTree(10, 1).find('Button');
-
       const activeItems = buttons.filterWhere(b => b.props().accent === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 

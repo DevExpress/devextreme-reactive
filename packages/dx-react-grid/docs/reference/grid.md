@@ -59,7 +59,7 @@ Describes properties passed to the footer placeholder template when it is being 
 
 Field | Type | Description
 ------|------|------------
-children | ReactElement? | The markup to be placed into the footer
+children | ReactElement? | A markup to be placed into the footer
 
 ## Plugin Developer Reference
 

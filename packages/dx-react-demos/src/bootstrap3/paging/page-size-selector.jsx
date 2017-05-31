@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  Grid,
   PagingState,
   LocalPaging,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   TableView,
   TableHeaderRow,
   PagingPanel,

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-    Grid,
-    SortingState, SelectionState, FilteringState, GroupingState,
-    LocalFiltering, LocalGrouping, LocalSorting,
+  SortingState, SelectionState, FilteringState, GroupingState,
+  LocalFiltering, LocalGrouping, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
-    VirtualTableView, TableHeaderRow,
-    TableFilterRow, TableSelection, GroupingPanel, TableGroupRow,
+  Grid,
+  VirtualTableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
+  GroupingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
     ProgressBarCell,

@@ -8,13 +8,11 @@ import {
   TableView,
   TableHeaderRow,
   PagingPanel,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-material-ui';
 
-import {
-  generateRows,
-} from '../../demoData';
+import { generateRows } from '../../demoData';
 
-export class LocalPagingDemo extends React.PureComponent {
+export class PageSizeSelectorDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -25,11 +23,13 @@ export class LocalPagingDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ length: 60 }),
+      allowedPageSizes: [5, 10, 15],
     };
   }
+
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, allowedPageSizes } = this.state;
 
     return (
       <Grid
@@ -38,12 +38,14 @@ export class LocalPagingDemo extends React.PureComponent {
       >
         <PagingState
           defaultCurrentPage={0}
-          pageSize={5}
+          defaultPageSize={5}
         />
         <LocalPaging />
         <TableView />
         <TableHeaderRow />
-        <PagingPanel />
+        <PagingPanel
+          allowedPageSizes={allowedPageSizes}
+        />
       </Grid>
     );
   }

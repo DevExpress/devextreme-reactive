@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  Grid,
   PagingState,
   LocalPaging,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   TableView,
   TableHeaderRow,
   PagingPanel,
@@ -27,12 +27,15 @@ export class LocalPagingControlledDemo extends React.PureComponent {
       ],
       rows: generateRows({ length: 14 }),
       currentPage: 0,
+      pageSize: 5,
+      allowedPageSizes: [5, 10, 15],
     };
 
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
+    this.changePageSize = pageSize => this.setState({ pageSize });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, pageSize, allowedPageSizes } = this.state;
 
     return (
       <Grid
@@ -42,12 +45,15 @@ export class LocalPagingControlledDemo extends React.PureComponent {
         <PagingState
           currentPage={this.state.currentPage}
           onCurrentPageChange={this.changeCurrentPage}
-          pageSize={5}
+          pageSize={pageSize}
+          onPageSizeChange={this.changePageSize}
         />
         <LocalPaging />
         <TableView />
         <TableHeaderRow />
-        <PagingPanel />
+        <PagingPanel
+          allowedPageSizes={allowedPageSizes}
+        />
       </Grid>
     );
   }

@@ -74,6 +74,7 @@
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
     "jest-junit": "^1.5.1",
+    "enzyme": "^2.8.2",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "rollup": "^0.41.6",
@@ -91,6 +92,7 @@
   "peerDependencies": {
     "material-ui": "^1.0.0-alpha.14",
     "material-ui-icons": "^1.0.0-alpha.3",
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "react-tap-event-plugin": "^2.0.1"
   }
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-    Grid,
-    SelectionState,
+  SelectionState,
 } from '@devexpress/dx-react-grid';
 import {
-    VirtualTableView,
-    TableHeaderRow,
-    TableSelection,
+  Grid,
+  VirtualTableView,
+  TableHeaderRow,
+  TableSelection,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {

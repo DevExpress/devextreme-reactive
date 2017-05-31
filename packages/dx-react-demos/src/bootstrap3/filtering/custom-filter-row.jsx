@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Grid,
   FilteringState,
   LocalFiltering,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   TableView,
   TableHeaderRow,
   TableFilterRow,

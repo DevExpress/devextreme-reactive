@@ -9,7 +9,7 @@
 
 ## Overview
 
-DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection and data editing. Support for controlled and uncontrolled state modes allows you to use Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extensible plugin-based architecture and is provided with the Twitter Bootstrap rendering and theming out-of-the-box.
+DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection and data editing. Support for controlled and uncontrolled state modes allows you to use Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extensible plugin-based architecture and is provided with the Twitter Bootstrap rendering and theming out of the box.
 
 ## Getting Started
 
@@ -34,7 +34,7 @@ React Grid uses the latest standards of the web platform. This means that some o
 
 You may need to include ES2015 (ES6) polyfill to support some old browsers like IE11, Android 4.
 
-We recommend to use [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/). Feel free to use any other alternative.
+We recommend using [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/). Feel free to use any other alternative.
 
 ### Using Grid component
 
@@ -44,10 +44,7 @@ To display the data as a simple table, you can use the TableView plugin as follo
 
 ```js
 import {
-  Grid
-} from '@devexpress/dx-react-grid';
-import {
-  TableView
+  Grid, TableView
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 const App = () => (
@@ -83,10 +80,10 @@ All Grid plugins consist of core plugins. Each core plugin component has unique 
 
 ```js
 import {
-  Grid, FilteringState, LocalFiltering
+  FilteringState, LocalFiltering
 } from '@devexpress/dx-react-grid'
 import {
-  TableView
+  Grid, TableView
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 const App = () => (
@@ -102,10 +99,10 @@ Note that in the previous example, the TableView plugin is linked after the data
 
 ```js
 import {
-  Grid, FilteringState, LocalFiltering
+  FilteringState, LocalFiltering
 } from '@devexpress/dx-react-grid'
 import {
-  TableView, TableFilterRow
+  Grid, TableView, TableFilterRow
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 const App = () => (
@@ -128,9 +125,9 @@ It is required to specify a visual component for this type of plugins. They are 
 
 ## <a name="controlled-and-uncontrolled-modes"></a>Controlled (stateless) and Uncontrolled (stateful) modes
 
-Depending on a particular use-case, you may need to control the Grid state yourself or delegate state management to the component. For instance, to persist the Grid sorting configured by an end-user and restore it withing the next app usage session, you need to switch the sorting state to controlled mode. In this case, Grid will accept the sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties and notify you once an end-user has changed the sorting configuration. It's very similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
+Depending on a particular use-case, you may need to control the Grid state yourself or delegate state management to the component. For instance, to persist the Grid sorting configured by an end-user and restore it withing the next app usage session, you need to switch the sorting state to the controlled mode. In this case, Grid will accept the sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties and notify you once an end-user has changed the sorting configuration. It's very similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
 
-In your code it will look as follows:
+In your code, it will look as follows:
 
 ```js
 export class MyApp extends React.PureComponent {
@@ -160,33 +157,33 @@ export class MyApp extends React.PureComponent {
 
 So, `sorting` represents the Grid sorting configuration. In turn, the `changeSorting` function is a handler that is invoked every time the sorting configuration changes. Note that all state management plugins work with the serializable state. It means that you can persist and restore it in [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values. The controlled state mode can also be helpful if you need to indicate the current state in your UI or bind some controls existing outside the Grid. For instance, it's easy to put a ComboBox with available sort orders and let end-users use it for sorting Grid data.
 
-In uncontrolled state mode, the Grid component manages its UI state internally. You do not need to specify the state value and state change handler properties. Yet, you can provide Grid with the initial state value using the property with the `default` prefix. For instance, we can convert the previous example into uncontrolled mode:
+In uncontrolled state mode, the Grid component manages its UI state internally. You do not need to specify the state value and state change handler properties. Yet, you can provide Grid with the initial state value using the property with the `default` prefix. For instance, we can convert the previous example into the uncontrolled mode:
 
 ```js
-  <Grid rows={[...]} columns={[...]}>
-    <SortingState />
-    ...
-  </Grid>
+<Grid rows={[...]} columns={[...]}>
+  <SortingState />
+  ...
+</Grid>
 ```
 
 If you want to specify the default sorting configuration, it will look as follows:
 
 ```js
-  <Grid rows={[...]} columns={[...]}>
-    <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
-    ...
-  </Grid>
+<Grid rows={[...]} columns={[...]}>
+  <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
+  ...
+</Grid>
 ```
 
 Sometimes you may need to control the Grid state partially. For instance, you want to manage filters, but do not wish to manage sorting and grouping. You can configure Grid as follows:
 
 ```js
-  <Grid rows={[...]} columns={[...]}>
-    <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
-    <SortingState />
-    <GroupingState />
-    ...
-  </Grid>
+<Grid rows={[...]} columns={[...]}>
+  <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
+  <SortingState />
+  <GroupingState />
+  ...
+</Grid>
 ```
 
-Note: If you are using Redux and performing time traveling, the partially controlled state can cause side-effects. In this case, we recommend using the fully-controlled state so the Grid behaves as a stateless component without side-effects.
+Note: If you are using Redux and performing time traveling, the partially controlled state can cause side-effects. In this case, we recommend using the fully-controlled state so Grid behaves as a stateless component without side-effects.

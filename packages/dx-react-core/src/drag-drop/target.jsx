@@ -26,7 +26,6 @@ export class DropTarget extends React.Component {
   handleDrag({ item, clientOffset, drop }) {
     const { left, top, right, bottom } = this.node.getBoundingClientRect();
     const isOver = clientOffset
-      && this.props.canDrop(item)
       && clamp(clientOffset.x, left, right) === clientOffset.x
       && clamp(clientOffset.y, top, bottom) === clientOffset.y;
 
@@ -62,7 +61,6 @@ DropTarget.contextTypes = {
 
 DropTarget.propTypes = {
   children: PropTypes.node.isRequired,
-  canDrop: PropTypes.func,
   onEnter: PropTypes.func,
   onOver: PropTypes.func,
   onLeave: PropTypes.func,
@@ -70,7 +68,6 @@ DropTarget.propTypes = {
 };
 
 DropTarget.defaultProps = {
-  canDrop: () => true,
   onEnter: () => {},
   onOver: () => {},
   onLeave: () => {},

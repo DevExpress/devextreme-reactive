@@ -10,11 +10,11 @@ export class DragDropContext extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: null, // [{ type: 'column', payload: { columnName: 'region' } }],
-      clientOffset: null, // { x: 500, y: 500 },
+      data: null,
+      clientOffset: null,
     };
 
-    this.track = ({ data, clientOffset }) => this.setState({ data, clientOffset });
+    this.change = ({ data, clientOffset }) => this.setState({ data, clientOffset });
   }
   render() {
     const {
@@ -37,7 +37,7 @@ export class DragDropContext extends React.PureComponent {
           {({ columns }) => (
             <div>
               <DragDropContextCore
-                onChange={this.track}
+                onChange={this.change}
               >
                 <TemplatePlaceholder />
               </DragDropContextCore>

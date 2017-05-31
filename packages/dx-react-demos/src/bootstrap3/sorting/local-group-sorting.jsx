@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  Grid,
   SortingState,
   GroupingState,
   LocalSorting,
   LocalGrouping,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   TableView,
   TableHeaderRow,
   TableGroupRow,

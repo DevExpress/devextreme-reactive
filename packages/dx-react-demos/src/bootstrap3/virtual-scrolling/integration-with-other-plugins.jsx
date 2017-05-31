@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-    Grid,
-    FilteringState,
-    SortingState,
-    RowDetailState,
-    LocalFiltering,
-    LocalSorting,
+  FilteringState,
+  SortingState,
+  RowDetailState,
+  LocalFiltering,
+  LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
-    VirtualTableView,
-    TableHeaderRow,
-    TableFilterRow,
-    TableRowDetail,
+  Grid,
+  VirtualTableView,
+  TableHeaderRow,
+  TableFilterRow,
+  TableRowDetail,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {

@@ -10,7 +10,8 @@
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",
         "react/forbid-prop-types": "off",
-        "react/prefer-stateless-function": ["error", { "ignorePureComponents": true }]
+        "react/prefer-stateless-function": ["error", { "ignorePureComponents": true }],
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}]
     },
     "env": {
       "jest/globals": true

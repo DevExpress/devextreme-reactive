@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  Grid,
   PagingState,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   TableView,
   TableHeaderRow,
   PagingPanel,

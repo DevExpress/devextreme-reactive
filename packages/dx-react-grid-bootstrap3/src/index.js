@@ -1,3 +1,4 @@
+export { Grid } from './grid';
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 export { TableRowDetail } from './plugins/table-row-detail';

@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-    Grid,
-} from '@devexpress/dx-react-grid';
-import {
-    TableView,
-    TableHeaderRow,
+  Grid,
+  TableView,
+  TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {

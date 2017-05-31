@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-    Grid,
-    SelectionState,
+  SelectionState,
 } from '@devexpress/dx-react-grid';
 import {
-    TableView,
-    TableSelection,
+  Grid,
+  TableView,
+  TableSelection,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {

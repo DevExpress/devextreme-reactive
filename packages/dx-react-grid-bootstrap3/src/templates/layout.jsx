@@ -1,21 +1,34 @@
 import React from 'react';
-import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import PropTypes from 'prop-types';
 
-export const Layout = () => (
-  <PluginContainer>
-    <Template name="gridHeading" />
-    <Template name="gridFooter" />
-
-    <Template name="root">
-      <div className="panel panel-default">
-        <TemplatePlaceholder name="gridHeading">
-          {content => (!content ? null : <div className="panel-heading">{content}</div>)}
-        </TemplatePlaceholder>
-        <TemplatePlaceholder name="gridBody" />
-        <TemplatePlaceholder name="gridFooter">
-          {content => (!content ? null : <div className="panel-footer">{content}</div>)}
-        </TemplatePlaceholder>
-      </div>
-    </Template>
-  </PluginContainer>
+export const Root = ({
+  headerTemplate,
+  bodyTemplate,
+  footerTemplate,
+}) => (
+  <div className="panel panel-default">
+    {headerTemplate()}
+    {bodyTemplate()}
+    {footerTemplate()}
+  </div>
 );
+
+Root.propTypes = {
+  headerTemplate: PropTypes.func.isRequired,
+  bodyTemplate: PropTypes.func.isRequired,
+  footerTemplate: PropTypes.func.isRequired,
+};
+
+export const Header = ({ children }) =>
+  children && <div className="panel-heading">{children}</div>;
+
+Header.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export const Footer = ({ children }) =>
+  children && <div className="panel-footer">{children}</div>;
+
+Footer.propTypes = {
+  children: PropTypes.node.isRequired,
+};

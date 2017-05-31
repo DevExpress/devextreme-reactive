@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { DragSource } from '@devexpress/dx-react-core';
+
 import {
   TableCell,
   TableSortLabel,
@@ -28,6 +30,9 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   },
   cell: {
     paddingRight: theme.spacing.unit * 3,
+    userSelect: 'none',
+    MozUserSelect: 'none',
+    WebkitUserSelect: 'none',
   },
   clearPadding: {
     padding: 0,
@@ -53,7 +58,9 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
 export const TableHeaderCellBase = ({
   style, column,
   allowSorting, sortingDirection, changeSortingDirection,
-  allowGrouping, groupByColumn, classes,
+  allowGrouping, groupByColumn,
+  allowDragging,
+  classes,
 }) => {
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
@@ -102,7 +109,7 @@ export const TableHeaderCellBase = ({
     </TableSortLabel>
   );
 
-  return (
+  const cellLayout = (
     <TableCell
       onClick={(e) => {
         if (!allowSorting) return;
@@ -120,6 +127,14 @@ export const TableHeaderCellBase = ({
       </div>
     </TableCell>
   );
+
+  return allowDragging ? (
+    <DragSource
+      getData={() => [{ type: 'column', payload: { columnName: column.name } }]}
+    >
+      {cellLayout}
+    </DragSource>
+  ) : cellLayout;
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -141,6 +156,7 @@ TableHeaderCellBase.propTypes = {
   changeSortingDirection: PropTypes.func,
   allowGrouping: PropTypes.bool,
   groupByColumn: PropTypes.func,
+  allowDragging: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

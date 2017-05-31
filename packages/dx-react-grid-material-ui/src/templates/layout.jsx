@@ -36,7 +36,7 @@ const HeaderBase = ({ children, classes }) =>
   children && <div className={classes.headingPanel}>{children}</div>;
 
 HeaderBase.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
 };
 
@@ -46,7 +46,7 @@ export const FooterBase = ({ children, classes }) =>
   children && <div className={classes.footerPanel}>{children}</div>;
 
 FooterBase.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
 };
 

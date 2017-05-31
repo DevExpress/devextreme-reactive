@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Grid,
+  DragDropContext,
   TableView,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -37,8 +38,9 @@ export class BasicDemos extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
+          <DragDropContext />
           <TableView />
-          <TableHeaderRow />
+          <TableHeaderRow allowDragging />
         </Grid>
       </div>
     );

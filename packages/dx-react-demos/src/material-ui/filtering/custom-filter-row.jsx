@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
 import {
-  Grid,
   FilteringState,
   LocalFiltering,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   TableView,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';

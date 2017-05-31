@@ -1,11 +1,14 @@
 import React from 'react';
-import { createMount } from 'material-ui/test-utils';
+import { mount } from 'enzyme';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { LocalFilteringControlledDemo } from './local-filtering-controlled';
 
 describe('MUI: Local filtering controlled demo', () => {
   test('should work', () => {
-    createMount()(
-      <LocalFilteringControlledDemo />,
+    mount(
+      <MuiThemeProvider theme={createMuiTheme()}>
+        <LocalFilteringControlledDemo />
+      </MuiThemeProvider>,
     );
 
     expect(true).toBeTruthy();

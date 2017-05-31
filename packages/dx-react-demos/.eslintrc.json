@@ -13,6 +13,7 @@
     "rules": {
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",
-        "react/forbid-prop-types": "off"
+        "react/forbid-prop-types": "off",
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}]
     }
 }

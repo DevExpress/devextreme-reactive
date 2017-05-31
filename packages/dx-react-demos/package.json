@@ -10,12 +10,22 @@
   "license": "SEE LICENSE IN README.md",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "watch": "webpack-dev-server --env",
     "build": "webpack --env",
     "build:prod": "webpack --env.production",
     "lint": "eslint src/**/*.{js,jsx}",
     "lint:fix": "npm run -s lint -- --fix",
     "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-demos-lint.xml -f junit"
+  },
+  "jest": {
+    "testResultsProcessor": "./node_modules/jest-junit"
+  },
+  "jest-junit": {
+    "suiteName": "React Grid Demos",
+    "output": "../../shippable/testresults/dx-react-grid-demos.xml"
   },
   "dependencies": {
     "@devexpress/dx-react-grid": "1.0.0-alpha.2",
@@ -51,7 +61,9 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
+    "jest-junit": "^1.5.1",
     "node-static": "^0.7.9",
+    "sinon": "^2.3.2",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.17.0",
     "webpack": "^2.4.1",

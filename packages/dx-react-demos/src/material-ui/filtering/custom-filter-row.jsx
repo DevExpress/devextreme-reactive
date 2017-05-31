@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { TableCell } from 'material-ui';
 import {
   Grid,
   FilteringState,
@@ -9,8 +11,8 @@ import {
   TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
-  SexFilterCell,
-} from '../components/sex-filter-cell';
+  DropDownMenu,
+} from '../components/drop-down-menu';
 import {
   generateRows,
 } from '../../demoData';
@@ -22,6 +24,24 @@ const filterFn = (row, filter) => {
     return toLowerCase(row[filter.columnName]) === toLowerCase(filter.value);
   }
   return toLowerCase(row[filter.columnName]).indexOf(toLowerCase(filter.value)) > -1;
+};
+
+const SexFilterCell = ({ setFilter }) => (
+  <TableCell>
+    <DropDownMenu
+      onItemClick={(item, index) => setFilter(index > 0 ? { value: item } : null)}
+      title={'Sex'}
+      items={[
+        '-',
+        'Male',
+        'Female',
+      ]}
+    />
+  </TableCell>
+);
+
+SexFilterCell.propTypes = {
+  setFilter: PropTypes.func.isRequired,
 };
 
 export class CustomFilterRowDemo extends React.PureComponent {

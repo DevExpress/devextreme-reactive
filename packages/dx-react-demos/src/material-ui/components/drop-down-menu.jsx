@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableCell, Button, Menu, MenuItem } from 'material-ui';
+import { Button, Menu, MenuItem } from 'material-ui';
 
-const options = [
-  '-',
-  'Male',
-  'Female',
-];
-
-export class SexFilterCell extends React.PureComponent {
+export class DropDownMenu extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -27,35 +21,40 @@ export class SexFilterCell extends React.PureComponent {
   }
 
   handleMenuItemClick(event, index) {
-    this.props.setFilter(index > 0 ? { value: options[index] } : null);
+    this.props.onItemClick(this.props.items[index], index);
     this.setState({ selectedIndex: index, open: false });
   }
 
   render() {
+    const { title, items } = this.props;
+    const { anchorEl, open, selectedIndex } = this.state;
+
     return (
-      <TableCell>
+      <div>
         <Button aria-haspopup="true" onClick={this.handleClick}>
-          Sex
+          {title}
         </Button>
         <Menu
-          anchorEl={this.state.anchorEl}
-          open={this.state.open}
+          anchorEl={anchorEl}
+          open={open}
         >
-          {options.map((option, index) => (
+          {items.map((item, index) => (
             <MenuItem
-              key={option}
-              selected={index === this.state.selectedIndex}
+              key={item}
+              selected={index === selectedIndex}
               onClick={event => this.handleMenuItemClick(event, index)}
             >
-              {option}
+              {item}
             </MenuItem>
           ))}
         </Menu>
-      </TableCell>
+      </div>
     );
   }
 }
 
-SexFilterCell.propTypes = {
-  setFilter: PropTypes.func.isRequired,
+DropDownMenu.propTypes = {
+  title: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onItemClick: PropTypes.func.isRequired,
 };

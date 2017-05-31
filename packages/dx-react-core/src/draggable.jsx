@@ -23,7 +23,7 @@ export class Draggable extends React.Component {
       if (this.initialOffset && this.isBoundExceeded({ x, y })) {
         const offset = { x, y };
         if (!this.offset) {
-          this.props.onStart(offset);
+          this.props.onStart(this.initialOffset);
         } else {
           this.props.onUpdate(offset);
         }

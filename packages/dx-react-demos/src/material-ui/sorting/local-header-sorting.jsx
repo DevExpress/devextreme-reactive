@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  Grid,
   SortingState,
   LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   TableView,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';

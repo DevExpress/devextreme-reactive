@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  Grid,
   EditingState,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   TableView,
   TableHeaderRow,
   TableEditRow,

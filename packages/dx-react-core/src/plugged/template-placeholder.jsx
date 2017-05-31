@@ -44,10 +44,10 @@ export class TemplatePlaceholder extends React.PureComponent {
     if (!name && this.context.templateHost) this.params = this.context.templateHost.params;
 
     const templates = name
-            ? pluginHost.collect(`${name}Template`)
-                .filter(template => (template.predicate ? template.predicate(params) : true))
-                .reverse()
-            : templateHost.templates;
+      ? pluginHost.collect(`${name}Template`)
+        .filter(template => (template.predicate ? template.predicate(params) : true))
+        .reverse()
+      : templateHost.templates;
 
     this.template = templates[0];
     this.restTemplates = templates.slice(1);
@@ -60,17 +60,17 @@ export class TemplatePlaceholder extends React.PureComponent {
 
     this.setupSubscription();
 
-    const { children: templateChildren, connectGetters, connectActions } = this.template;
-    const { children } = this.props;
+    const { children: template, connectGetters, connectActions } = this.template;
+    const { children: placeholder } = this.props;
 
-    const templateChildrenUnwrapped = children ? children(templateChildren()) : templateChildren();
+    const content = placeholder ? placeholder(template()) : template();
 
     return (
       <TemplateConnector
         params={this.params}
         mapProps={connectGetters}
         mapActions={connectActions}
-        content={templateChildrenUnwrapped}
+        content={content}
       />
     );
   }

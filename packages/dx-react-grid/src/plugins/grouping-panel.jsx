@@ -23,7 +23,7 @@ export class GroupingPanel extends React.PureComponent {
           ]}
         />
 
-        <Template name="gridHeading">
+        <Template name="header">
           <div>
             <TemplatePlaceholder name="group-panel" />
             <TemplatePlaceholder />

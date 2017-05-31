@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  Grid,
   SortingState,
 } from '@devexpress/dx-react-grid';
 import {
+  Grid,
   VirtualTableView,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';

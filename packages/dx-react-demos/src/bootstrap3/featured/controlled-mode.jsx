@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Grid,
-    SortingState, EditingState, PagingState,
-    LocalPaging, LocalSorting,
+  SortingState, EditingState, PagingState,
+  LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
-    TableView, TableHeaderRow, TableEditRow, TableEditColumn,
-    PagingPanel,
+  Grid,
+  TableView, TableHeaderRow, TableEditRow, TableEditColumn,
+  PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   Modal,

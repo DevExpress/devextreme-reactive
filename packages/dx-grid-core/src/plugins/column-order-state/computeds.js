@@ -1,4 +1,4 @@
-export const applyColumnOrder = (columns, order) => {
+export const orderedColumns = (columns, order) => {
   const result = columns.slice();
 
   result.sort((a, b) => {

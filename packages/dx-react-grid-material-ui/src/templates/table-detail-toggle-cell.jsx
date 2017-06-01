@@ -6,9 +6,11 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import ChevronRight from 'material-ui-icons/ChevronRight';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
-const styleSheet = createStyleSheet('TableDetailToggleCell', () => ({
+const styleSheet = createStyleSheet('TableDetailToggleCell', theme => ({
   toggleCell: {
-    padding: 0,
+    paddingLeft: theme.spacing.unit * 2,
+    textAlign: 'center',
+    cursor: 'pointer',
   },
 }));
 

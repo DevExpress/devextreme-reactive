@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-react-grid';
 import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
 import { TableDetailCell } from '../templates/table-detail-cell';
@@ -10,7 +11,15 @@ export const TableRowDetail = props => (
   <TableRowDetailBase
     detailToggleTemplate={detailToggleTemplate}
     detailCellTemplate={detailCellTemplate}
-    detailToggleCellWidth={50}
     {...props}
   />
 );
+
+TableRowDetail.defaultProps = {
+  detailToggleCellWidth: 40,
+};
+
+TableRowDetail.propTypes = {
+  detailToggleCellWidth: PropTypes.number,
+};
+

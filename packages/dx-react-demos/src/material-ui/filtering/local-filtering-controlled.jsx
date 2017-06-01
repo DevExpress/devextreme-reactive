@@ -1,18 +1,19 @@
 import React from 'react';
 import {
-  PagingState,
-  LocalPaging,
+  FilteringState,
+  LocalFiltering,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView,
-  TableHeaderRow,
-  PagingPanel,
+  TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { generateRows } from '../../demoData';
+import {
+  generateRows,
+} from '../../demoData';
 
-export class PageSizeSelectorDemo extends React.PureComponent {
+export class LocalFilteringControlledDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -23,29 +24,27 @@ export class PageSizeSelectorDemo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 60 }),
-      allowedPageSizes: [5, 10, 15],
+      rows: generateRows({ length: 14 }),
+      filters: [{ columnName: 'car', value: 'cruze' }],
     };
-  }
 
+    this.changeFilters = filters => this.setState({ filters });
+  }
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const { rows, columns } = this.state;
 
     return (
       <Grid
         rows={rows}
         columns={columns}
       >
-        <PagingState
-          defaultCurrentPage={0}
-          defaultPageSize={5}
+        <FilteringState
+          filters={this.state.filters}
+          onFiltersChange={this.changeFilters}
         />
-        <LocalPaging />
+        <LocalFiltering />
         <TableView />
-        <TableHeaderRow />
-        <PagingPanel
-          allowedPageSizes={allowedPageSizes}
-        />
+        <TableFilterRow />
       </Grid>
     );
   }

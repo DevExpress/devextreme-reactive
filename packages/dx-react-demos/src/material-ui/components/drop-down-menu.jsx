@@ -1,8 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Menu, MenuItem } from 'material-ui';
+import { Typography, Menu, MenuItem } from 'material-ui';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-export class DropDownMenu extends React.PureComponent {
+import ExpandMore from 'material-ui-icons/ExpandMore';
+import ExpandLess from 'material-ui-icons/ExpandLess';
+
+const styleSheet = createStyleSheet('DropDownMenu', theme => ({
+  button: {
+    cursor: 'pointer',
+    textTransform: 'none',
+    fontWeight: 'bold',
+    lineHeight: `${theme.spacing.unit * 3}px`,
+    width: '70px',
+  },
+  buttonIcon: {
+    width: theme.spacing.unit * 2,
+    float: 'right',
+  },
+}));
+
+class DropDownMenuBase extends React.PureComponent {
+
   constructor(props) {
     super(props);
 
@@ -26,14 +45,23 @@ export class DropDownMenu extends React.PureComponent {
   }
 
   render() {
-    const { title, items } = this.props;
+    const { title, items, classes } = this.props;
     const { anchorEl, open, selectedIndex } = this.state;
 
     return (
       <div>
-        <Button aria-haspopup="true" onClick={this.handleClick}>
+        <Typography
+          type="button"
+          onClick={this.handleClick}
+          className={classes.button}
+        >
           {title}
-        </Button>
+          {
+            open
+            ? <ExpandLess className={classes.buttonIcon} />
+            : <ExpandMore className={classes.buttonIcon} />
+          }
+        </Typography>
         <Menu
           anchorEl={anchorEl}
           open={open}
@@ -53,8 +81,11 @@ export class DropDownMenu extends React.PureComponent {
   }
 }
 
-DropDownMenu.propTypes = {
+DropDownMenuBase.propTypes = {
   title: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  classes: PropTypes.object.isRequired,
   onItemClick: PropTypes.func.isRequired,
 };
+
+export const DropDownMenu = withStyles(styleSheet)(DropDownMenuBase);

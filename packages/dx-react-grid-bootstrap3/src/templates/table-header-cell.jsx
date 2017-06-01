@@ -9,7 +9,7 @@ export const TableHeaderCell = ({
   style, column,
   allowSorting, sortingDirection, changeSortingDirection,
   allowGrouping, groupByColumn,
-  allowDragging,
+  allowDragging, dragPayload,
 }) => {
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
@@ -101,9 +101,7 @@ export const TableHeaderCell = ({
   );
 
   return allowDragging ? (
-    <DragSource
-      getData={() => [{ type: 'column', payload: { columnName: column.name } }]}
-    >
+    <DragSource getPayload={() => dragPayload}>
       {cellLayout}
     </DragSource>
   ) : cellLayout;
@@ -120,6 +118,7 @@ TableHeaderCell.propTypes = {
   allowGrouping: PropTypes.bool,
   groupByColumn: PropTypes.func,
   allowDragging: PropTypes.bool.isRequired,
+  dragPayload: PropTypes.any.isRequired,
 };
 
 TableHeaderCell.defaultProps = {

@@ -59,7 +59,7 @@ export const TableHeaderCellBase = ({
   style, column,
   allowSorting, sortingDirection, changeSortingDirection,
   allowGrouping, groupByColumn,
-  allowDragging,
+  allowDragging, dragPayload,
   classes,
 }) => {
   const align = column.align || 'left';
@@ -129,21 +129,10 @@ export const TableHeaderCellBase = ({
   );
 
   return allowDragging ? (
-    <DragSource
-      getData={() => [{ type: 'column', payload: { columnName: column.name } }]}
-    >
+    <DragSource getPayload={() => dragPayload}>
       {cellLayout}
     </DragSource>
   ) : cellLayout;
-};
-
-TableHeaderCellBase.defaultProps = {
-  style: null,
-  allowSorting: false,
-  sortingDirection: undefined,
-  changeSortingDirection: undefined,
-  allowGrouping: false,
-  groupByColumn: undefined,
 };
 
 TableHeaderCellBase.propTypes = {
@@ -157,7 +146,17 @@ TableHeaderCellBase.propTypes = {
   allowGrouping: PropTypes.bool,
   groupByColumn: PropTypes.func,
   allowDragging: PropTypes.bool.isRequired,
+  dragPayload: PropTypes.any.isRequired,
   classes: PropTypes.object.isRequired,
+};
+
+TableHeaderCellBase.defaultProps = {
+  style: null,
+  allowSorting: false,
+  sortingDirection: undefined,
+  changeSortingDirection: undefined,
+  allowGrouping: false,
+  groupByColumn: undefined,
 };
 
 export const TableHeaderCell = withStyles(styleSheet)(TableHeaderCellBase);

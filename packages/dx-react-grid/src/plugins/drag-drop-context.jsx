@@ -56,7 +56,7 @@ export class DragDropContext extends React.PureComponent {
                   clientOffset,
                   columns: data
                     .filter(item => item.type === 'column')
-                    .map(item => columns.find(column => column.name === item.payload.columnName)),
+                    .map(item => columns.find(column => column.name === item.columnName)),
                   columnTemplate,
                 })}
               </div>

@@ -28,7 +28,7 @@ describe('DropTarget', () => {
       <DragDropContext>
         <div>
           <DragSource
-            getData={() => []}
+            getPayload={() => []}
           >
             <div className="source" />
           </DragSource>
@@ -59,7 +59,7 @@ describe('DropTarget', () => {
       <DragDropContext>
         <div>
           <DragSource
-            getData={() => []}
+            getPayload={() => []}
           >
             <div className="source" />
           </DragSource>
@@ -91,7 +91,7 @@ describe('DropTarget', () => {
       <DragDropContext>
         <div>
           <DragSource
-            getData={() => []}
+            getPayload={() => []}
           >
             <div className="source" />
           </DragSource>
@@ -123,7 +123,7 @@ describe('DropTarget', () => {
       <DragDropContext>
         <div>
           <DragSource
-            getData={() => []}
+            getPayload={() => []}
           >
             <div className="source" />
           </DragSource>

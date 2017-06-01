@@ -48,6 +48,7 @@ export class TableHeaderRow extends React.PureComponent {
             allowSorting: allowSorting && sortingSupported,
             allowGrouping: allowGrouping && groupingSupported,
             allowDragging,
+            dragPayload: [{ type: 'column', columnName: restParams.column.name }],
           })}
         </Template>
       </PluginContainer>

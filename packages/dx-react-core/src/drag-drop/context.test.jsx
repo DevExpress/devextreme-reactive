@@ -14,7 +14,7 @@ describe('DragDropContext', () => {
       >
         <div>
           <DragSource
-            getData={() => 'data'}
+            getPayload={() => 'data'}
           >
             <div className="source" />
           </DragSource>

@@ -7,7 +7,7 @@ import { ColumnOrderState } from './column-order-state';
 
 describe('ColumnOrderState', () => {
   it('should apply initial columns order specified in the "defaultOrder" property in uncontrolled mode', () => {
-    const columnsMock = jest.fn();
+    let orderedColumns;
     mount(
       <PluginHost>
         <Getter
@@ -19,17 +19,17 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={getter => columnsMock(getter('columns'))}
+          connectGetters={getter => (orderedColumns = getter('columns'))}
         />
       </PluginHost>,
     );
 
-    expect(columnsMock.mock.calls[0][0])
+    expect(orderedColumns)
       .toEqual([{ name: 'b' }, { name: 'a' }]);
   });
 
   it('should apply columns order according to the "order" property in controlled mode', () => {
-    const columnsMock = jest.fn();
+    let orderedColumns;
     mount(
       <PluginHost>
         <Getter
@@ -41,18 +41,19 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={getter => columnsMock(getter('columns'))}
+          connectGetters={getter => (orderedColumns = getter('columns'))}
         />
       </PluginHost>,
     );
 
-    expect(columnsMock.mock.calls[0][0])
+    expect(orderedColumns)
       .toEqual([{ name: 'b' }, { name: 'a' }]);
   });
 
   it('should change columns order in uncontrolled mode after the "setColumnOrder" action was fired', () => {
-    const columnsMock = jest.fn();
-    const tree = mount(
+    let orderedColumns;
+    let setColumnOrder;
+    mount(
       <PluginHost>
         <Getter
           name="columns"
@@ -63,32 +64,26 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={getter => ({ mock: columnsMock(getter('columns')) })}
-          connectActions={action => ({ setColumnOrder: action('setColumnOrder') })}
-        >
-          {({ setColumnOrder }) => (
-            <button
-              onClick={() => setColumnOrder({
-                sourceColumnName: 'a',
-                targetColumnName: 'b',
-              })}
-            />
-          )}
-        </Template>
+          connectGetters={getter => (orderedColumns = getter('columns'))}
+          connectActions={action => (setColumnOrder = action('setColumnOrder'))}
+        />
       </PluginHost>,
     );
 
-    columnsMock.mockReset();
-    tree.find('button').simulate('click');
+    setColumnOrder({
+      sourceColumnName: 'a',
+      targetColumnName: 'b',
+    });
 
-    expect(columnsMock.mock.calls[0][0])
+    expect(orderedColumns)
       .toEqual([{ name: 'b' }, { name: 'a' }]);
   });
 
   it('should fire the "onOrderChange" callback and preserve current order in controlled mode after the "setColumnOrder" action was fired', () => {
-    const columnsMock = jest.fn();
     const orderChangeMock = jest.fn();
-    const tree = mount(
+    let orderedColumns;
+    let setColumnOrder;
+    mount(
       <PluginHost>
         <Getter
           name="columns"
@@ -100,25 +95,18 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={getter => ({ mock: columnsMock(getter('columns')) })}
-          connectActions={action => ({ setColumnOrder: action('setColumnOrder') })}
-        >
-          {({ setColumnOrder }) => (
-            <button
-              onClick={() => setColumnOrder({
-                sourceColumnName: 'a',
-                targetColumnName: 'b',
-              })}
-            />
-          )}
-        </Template>
+          connectGetters={getter => (orderedColumns = getter('columns'))}
+          connectActions={action => (setColumnOrder = action('setColumnOrder'))}
+        />
       </PluginHost>,
     );
 
-    columnsMock.mockReset();
-    tree.find('button').simulate('click');
+    setColumnOrder({
+      sourceColumnName: 'a',
+      targetColumnName: 'b',
+    });
 
-    expect(columnsMock.mock.calls[0][0])
+    expect(orderedColumns)
       .toEqual([{ name: 'a' }, { name: 'b' }]);
     expect(orderChangeMock.mock.calls[0][0])
       .toEqual(['b', 'a']);

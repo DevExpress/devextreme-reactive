@@ -1,6 +1,6 @@
 # ColumnOrderState Plugin Reference
 
-Plugin that manages columns order state. It controls the order in which columns are displayed.
+Plugin that manages the order of displayed columns.
 
 ## User Reference
 
@@ -12,8 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-order | Array&lt;string&gt; | | Specifies columns order
-defaultOrder | Array&lt;string&gt; | | Specifies initial columns order for the the uncontrolled mode
+order | Array&lt;string&gt; | | Specifies the columns order
+defaultOrder | Array&lt;string&gt; | | Specifies the initial columns order for the the uncontrolled mode
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles columns order changes
 
 ## Plugin Developer Reference
@@ -30,4 +30,4 @@ columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be ordered
 Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | () => Array&lt;[Column](grid.md#column)&gt; | Ordered columns
-setColumnOrder | Action | ({ sourceColumnName, targetColumnName }) => void | Moves a specific column to the place of another column. Columns are identified by names. `sourceColumnName` represents the column to be moved and `targetColumnName` specifies the column which is currently located in the target place
+setColumnOrder | Action | ({ sourceColumnName, targetColumnName }) => void | Moves a column to the position of another column.  `sourceColumnName` specifies the column to be moved and `targetColumnName` specifies the target column.

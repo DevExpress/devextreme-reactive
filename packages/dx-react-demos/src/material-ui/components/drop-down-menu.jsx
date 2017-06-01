@@ -11,12 +11,14 @@ const styleSheet = createStyleSheet('DropDownMenu', theme => ({
     cursor: 'pointer',
     textTransform: 'none',
     fontWeight: 'bold',
-    lineHeight: `${theme.spacing.unit * 3}px`,
-    width: '70px',
+    lineHeight: theme.typography.subheading.lineHeight,
   },
   buttonIcon: {
     width: theme.spacing.unit * 2,
     float: 'right',
+  },
+  selected: {
+    color: theme.palette.text.primary,
   },
 }));
 
@@ -29,6 +31,7 @@ class DropDownMenuBase extends React.PureComponent {
       anchorEl: undefined,
       open: false,
       selectedIndex: undefined,
+      title: this.props.defaultTitle,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -40,13 +43,18 @@ class DropDownMenuBase extends React.PureComponent {
   }
 
   handleMenuItemClick(event, index) {
-    this.props.onItemClick(this.props.items[index], index);
-    this.setState({ selectedIndex: index, open: false });
+    const title = this.props.items[index];
+    this.props.onItemClick(title, index);
+    this.setState({
+      selectedIndex: index,
+      open: false,
+      title: index ? title : this.props.defaultTitle,
+    });
   }
 
   render() {
-    const { title, items, classes } = this.props;
-    const { anchorEl, open, selectedIndex } = this.state;
+    const { items, classes } = this.props;
+    const { anchorEl, open, selectedIndex, title } = this.state;
 
     return (
       <div>
@@ -55,7 +63,9 @@ class DropDownMenuBase extends React.PureComponent {
           onClick={this.handleClick}
           className={classes.button}
         >
-          {title}
+          <span className={selectedIndex ? classes.selected : null}>
+            {title}
+          </span>
           {
             open
             ? <ExpandLess className={classes.buttonIcon} />
@@ -82,7 +92,7 @@ class DropDownMenuBase extends React.PureComponent {
 }
 
 DropDownMenuBase.propTypes = {
-  title: PropTypes.string.isRequired,
+  defaultTitle: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   classes: PropTypes.object.isRequired,
   onItemClick: PropTypes.func.isRequired,

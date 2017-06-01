@@ -29,8 +29,8 @@ const filterFn = (row, filter) => {
 const SexFilterCell = ({ setFilter }) => (
   <TableCell>
     <DropDownMenu
-      onItemClick={(item, index) => setFilter(index > 0 ? { value: item } : null)}
-      title={'Sex'}
+      onItemClick={(item, index) => setFilter(index ? { value: item } : null)}
+      defaultTitle={'Sex'}
       items={[
         '-',
         'Male',

@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import createPalette from 'material-ui/styles/palette';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Pagination } from './pagination';
 
@@ -9,14 +8,8 @@ injectTapEventPlugin();
 
 describe('Pagination', () => {
   describe('#render', () => {
-    const theme = createMuiTheme({
-      palette: createPalette({
-        type: 'light',
-      }),
-    });
-
     const paginationTree = (totalPages, currentPage) => mount(
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={createMuiTheme()}>
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}

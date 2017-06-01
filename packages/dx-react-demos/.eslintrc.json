@@ -2,13 +2,18 @@
     "extends": "airbnb",
     "plugins": [
         "react",
+        "jest",
         "jsx-a11y",
         "import"
     ],
-    "env": { "browser": true },
+    "env": {
+      "browser": true,
+      "jest/globals": true
+    },
     "rules": {
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",
-        "react/forbid-prop-types": "off"
+        "react/forbid-prop-types": "off",
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}]
     }
 }

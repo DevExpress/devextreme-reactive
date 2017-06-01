@@ -33,3 +33,4 @@ UI Plugins:
 - [TableEditColumn](table-edit-column.md)
 - [GroupingPanel](grouping-panel.md)
 - [PagingPanel](paging-panel.md)
+- [DragDropContext](drag-drop-context.md)

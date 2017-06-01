@@ -23,7 +23,13 @@ export class TableRowDetail extends React.PureComponent {
   }
   render() {
     const expandedRows = this.props.expandedRows || this.state.expandedRows;
-    const { rowHeight, template, detailToggleTemplate, detailCellTemplate } = this.props;
+    const {
+      rowHeight,
+      template,
+      detailToggleTemplate,
+      detailCellTemplate,
+      detailToggleCellWidth,
+    } = this.props;
 
     return (
       <PluginContainer>
@@ -32,6 +38,7 @@ export class TableRowDetail extends React.PureComponent {
           pureComputed={tableColumnsWithDetail}
           connectArgs={getter => [
             getter('tableColumns'),
+            detailToggleCellWidth,
           ]}
         />
         <Template
@@ -77,6 +84,7 @@ TableRowDetail.propTypes = {
   template: PropTypes.func,
   detailToggleTemplate: PropTypes.func.isRequired,
   detailCellTemplate: PropTypes.func.isRequired,
+  detailToggleCellWidth: PropTypes.number.isRequired,
   rowHeight: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.oneOf(['auto']),

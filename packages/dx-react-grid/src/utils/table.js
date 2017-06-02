@@ -52,39 +52,3 @@ export const getTableColumnGeometries = (columns, tableWidth) => {
       };
     });
 };
-
-export const getTableColumnGeometriesChanges = (prevColumns, newColumns, tableWidth) => {
-  const prevGeometries = getTableColumnGeometries(prevColumns, tableWidth);
-  const newGeometries = getTableColumnGeometries(newColumns, tableWidth);
-
-  return newColumns.reduce((acc, newColumn, newIndex) => {
-    const key = tableColumnKeyGetter(newColumn, newIndex);
-    const prevIndex = prevColumns
-      .findIndex((column, index) => tableColumnKeyGetter(column, index) === key);
-
-    const changes = {};
-
-    const prevGeometry = prevGeometries[prevIndex];
-    const newGeometry = newGeometries[newIndex];
-
-    const prevLeft = prevIndex !== -1
-      ? prevGeometry.left
-      : newGeometry.left + (newGeometry.right - newGeometry.left) / 2;
-    const newLeft = newGeometry.left;
-    if (prevLeft !== newLeft) {
-      changes.left = { from: prevLeft, to: newLeft };
-    }
-
-    const prevWidth = prevIndex !== -1 ? prevGeometry.right - prevGeometry.left : 0;
-    const newWidth = newGeometry.right - newGeometry.left;
-    if (prevWidth !== newWidth) {
-      changes.width = { from: prevWidth, to: newWidth };
-    }
-
-    if (Object.keys(changes).length) {
-      acc[key] = changes;
-    }
-
-    return acc;
-  }, {});
-};

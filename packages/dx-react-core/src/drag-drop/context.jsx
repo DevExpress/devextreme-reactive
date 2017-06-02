@@ -1,20 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const emitter = () => {
-  const subscriptions = [];
-
-  return {
-    emit: (e) => { subscriptions.forEach(subscription => subscription(e)); },
-    subscribe: subscription => subscriptions.push(subscription),
-    unsubscribe: subscription => subscriptions.splice(subscriptions.indexOf(subscription), 1),
-  };
-};
+import { EventEmitter } from '@devexpress/dx-core';
 
 class DragDropContextCore {
   constructor() {
     this.data = null;
-    this.dragEmitter = emitter();
+    this.dragEmitter = new EventEmitter();
   }
   start(data, clientOffset) {
     this.data = data;

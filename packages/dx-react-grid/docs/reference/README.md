@@ -13,6 +13,7 @@ State Management Plugins:
 - [SelectionState](selection-state.md)
 - [EditingState](editing-state.md)
 - [RowDetailState](row-detail-state.md)
+- [ColumnOrderState](column-order-state.md)
 
 Data Processing Plugins:
 

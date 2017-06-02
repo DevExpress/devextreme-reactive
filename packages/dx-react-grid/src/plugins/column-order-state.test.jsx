@@ -6,7 +6,7 @@ import { Template, Getter, PluginHost } from '@devexpress/dx-react-core';
 import { ColumnOrderState } from './column-order-state';
 
 describe('ColumnOrderState', () => {
-  it('should apply initial columns order specified in the "defaultOrder" property in uncontrolled mode', () => {
+  it('should apply the initial column order specified in the "defaultOrder" property in uncontrolled mode', () => {
     let orderedColumns;
     mount(
       <PluginHost>
@@ -28,7 +28,7 @@ describe('ColumnOrderState', () => {
       .toEqual([{ name: 'b' }, { name: 'a' }]);
   });
 
-  it('should apply columns order according to the "order" property in controlled mode', () => {
+  it('should apply the column order according to the "order" property in controlled mode', () => {
     let orderedColumns;
     mount(
       <PluginHost>
@@ -50,7 +50,7 @@ describe('ColumnOrderState', () => {
       .toEqual([{ name: 'b' }, { name: 'a' }]);
   });
 
-  it('should change columns order in uncontrolled mode after the "setColumnOrder" action was fired', () => {
+  it('should change the column order in uncontrolled mode after the "setColumnOrder" action is fired', () => {
     let orderedColumns;
     let setColumnOrder;
     mount(
@@ -79,7 +79,7 @@ describe('ColumnOrderState', () => {
       .toEqual([{ name: 'b' }, { name: 'a' }]);
   });
 
-  it('should fire the "onOrderChange" callback and preserve current order in controlled mode after the "setColumnOrder" action was fired', () => {
+  it('should fire the "onOrderChange" callback and preserve the current column order in controlled mode after the "setColumnOrder" action is fired', () => {
     const orderChangeMock = jest.fn();
     let orderedColumns;
     let setColumnOrder;

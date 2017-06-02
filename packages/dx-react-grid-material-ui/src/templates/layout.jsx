@@ -40,6 +40,10 @@ HeaderBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+HeaderBase.defaultProps = {
+  children: null,
+};
+
 export const Header = withStyles(styleSheet)(HeaderBase);
 
 export const FooterBase = ({ children, classes }) =>
@@ -48,6 +52,10 @@ export const FooterBase = ({ children, classes }) =>
 FooterBase.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
+};
+
+FooterBase.defaultProps = {
+  children: null,
 };
 
 export const Footer = withStyles(styleSheet)(FooterBase);

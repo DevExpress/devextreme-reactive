@@ -8,7 +8,7 @@ import {
 } from 'material-ui';
 
 import {
-  getKeyGetter,
+  getTableKeyGetter,
   tableCellClickHandler,
 } from '@devexpress/dx-react-grid';
 
@@ -31,7 +31,7 @@ const styleSheet = createStyleSheet('Table', () => ({
 export const TableBase = ({
   headerRows, bodyRows, columns, cellTemplate, onClick, getRowId, classes,
 }) => {
-  const rowKeyGetter = getKeyGetter(row => (!row.type ? getRowId(row) : row.id));
+  const rowKeyGetter = getTableKeyGetter(row => (!row.type ? getRowId(row) : row.id));
   const minWidth = columns
     .map(column => column.width || MINIMAL_COLUMN_WIDTH)
     .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);

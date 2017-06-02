@@ -6,7 +6,7 @@ import { DragDropContext } from './context';
 import { DragSource } from './source';
 
 describe('DragDropContext', () => {
-  it('should fire the "onChange" callback source is dragging', () => {
+  it('should fire the "onChange" callback while dragging a source', () => {
     const onChange = jest.fn();
     const tree = mount(
       <DragDropContext

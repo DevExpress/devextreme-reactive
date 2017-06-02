@@ -19,7 +19,7 @@ describe('DropTarget', () => {
     getRect.mockRestore();
   });
 
-  it('should fire the "onEnter" callback when source is over target', () => {
+  it('should fire the "onEnter" callback when a source enters its bounds', () => {
     getRect.mockImplementation(() =>
       ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
@@ -50,7 +50,7 @@ describe('DropTarget', () => {
       .toHaveLength(1);
   });
 
-  it('should fire the "onOver" callback when source is over target', () => {
+  it('should fire the "onOver" callback when a source moves over its bounds', () => {
     getRect.mockImplementation(() =>
       ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
@@ -82,7 +82,7 @@ describe('DropTarget', () => {
       .toHaveLength(1);
   });
 
-  it('should fire the "onLeave" callback when source is over target', () => {
+  it('should fire the "onLeave" callback when a source leaves its bounds', () => {
     getRect.mockImplementation(() =>
       ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
@@ -114,7 +114,7 @@ describe('DropTarget', () => {
       .toHaveLength(1);
   });
 
-  it('should fire the "onDrop" callback when source is over target', () => {
+  it('should fire the "onDrop" callback when a source is dropped', () => {
     getRect.mockImplementation(() =>
       ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 

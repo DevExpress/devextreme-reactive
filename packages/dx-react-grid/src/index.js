@@ -32,7 +32,7 @@ export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 
 export {
-  getTableKeyGetter,
+  tableRowKeyGetter,
   tableColumnKeyGetter,
   getTableCellInfo,
   tableCellClickHandler,

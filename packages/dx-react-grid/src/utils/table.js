@@ -1,13 +1,17 @@
 import { querySelectorAll } from './dom';
 
-export const getTableKeyGetter = getIntrinsicKey => (object, index) => {
-  const intrinsicKey = getIntrinsicKey(object);
+const getTableKeyGetter = (getIntrinsicKey, object, index) => {
   const type = object.type || 'data';
+  const intrinsicKey = type === 'data' ? getIntrinsicKey(object) : object.id;
   const key = intrinsicKey === undefined ? `$${index}` : intrinsicKey;
   return `${type}_${key}`;
 };
 
-export const tableColumnKeyGetter = getTableKeyGetter(column => column.name);
+export const tableRowKeyGetter = getTableKeyGetter;
+
+const getColumnId = column => column.name;
+export const tableColumnKeyGetter = (column, columnIndex) =>
+  getTableKeyGetter(getColumnId, column, columnIndex);
 
 export const getTableCellInfo = ({ row, columnIndex, columns }) => {
   if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
@@ -28,27 +32,4 @@ export const tableCellClickHandler = ({ headerRows, bodyRows, columns, onClick }
   const row = [...headerRows, ...bodyRows][rowIndex];
   const column = columns[columnIndex];
   onClick({ row, column, e });
-};
-
-export const getTableColumnGeometries = (columns, tableWidth) => {
-  const columnWidths = columns
-    .map(column => column.width);
-
-  const freeSpace = tableWidth;
-  const restrictedSpace = columnWidths
-    .reduce((accum, width) => accum + (width || 0), 0);
-  const freeSpacePortions = columnWidths
-    .reduce((accum, width) => accum + (width === undefined ? 1 : 0), 0);
-  const freeSpacePortion = (freeSpace - restrictedSpace) / freeSpacePortions;
-
-  let lastRightPosition = 0;
-  return columnWidths
-    .map(width => (width === undefined ? freeSpacePortion : width))
-    .map((width) => {
-      lastRightPosition += width;
-      return {
-        left: lastRightPosition - width,
-        right: lastRightPosition,
-      };
-    });
 };

@@ -1,14 +1,14 @@
 export class EventEmitter {
   constructor() {
-    this.subscriptions = [];
+    this.handlers = [];
   }
   emit(e) {
-    this.subscriptions.forEach(subscription => subscription(e));
+    this.handlers.forEach(handler => handler(e));
   }
-  subscribe(subscription) {
-    this.subscriptions.push(subscription);
+  subscribe(handler) {
+    this.handlers.push(handler);
   }
-  unsubscribe(subscription) {
-    this.subscriptions.splice(this.subscriptions.indexOf(subscription), 1);
+  unsubscribe(handler) {
+    this.handlers.splice(this.handlers.indexOf(handler), 1);
   }
 }

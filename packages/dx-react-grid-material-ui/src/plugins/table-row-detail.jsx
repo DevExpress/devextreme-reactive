@@ -16,7 +16,7 @@ export const TableRowDetail = props => (
 );
 
 TableRowDetail.defaultProps = {
-  detailToggleCellWidth: 40,
+  detailToggleCellWidth: 42,
 };
 
 TableRowDetail.propTypes = {

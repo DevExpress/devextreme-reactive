@@ -8,9 +8,15 @@ import ExpandMore from 'material-ui-icons/ExpandMore';
 
 const styleSheet = createStyleSheet('TableDetailToggleCell', theme => ({
   toggleCell: {
-    paddingLeft: theme.spacing.unit * 2,
     textAlign: 'center',
     cursor: 'pointer',
+    textOverflow: 'initial',
+  },
+  toggleCellIcon: {
+    verticalAlign: 'middle',
+    display: 'inline-block',
+    height: theme.spacing.unit * 3,
+    marginLeft: '-6px',
   },
 }));
 
@@ -23,11 +29,13 @@ const TableDetailToggleCellBase = ({ style, expanded, classes, toggleExpanded })
       toggleExpanded();
     }}
   >
-    {
-      expanded
-      ? <ExpandMore />
-      : <ChevronRight />
-    }
+    <span className={classes.toggleCellIcon}>
+      {
+        expanded
+        ? <ExpandMore />
+        : <ChevronRight />
+      }
+    </span>
   </TableCell>
 );
 

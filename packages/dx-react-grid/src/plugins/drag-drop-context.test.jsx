@@ -54,7 +54,7 @@ describe('DragDropContext', () => {
 
     const dragDropContext = tree.find(DragDropContextCore);
     dragDropContext.prop('onChange')({
-      data: [{ type: 'column', columnName: 'a' }],
+      payload: [{ type: 'column', columnName: 'a' }],
       clientOffset: { x: 10, y: 10 },
     });
 

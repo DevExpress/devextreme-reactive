@@ -113,8 +113,6 @@ const GridContainer = ({
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
-      expandedRows={expandedRows}
-      onExpandedRowsChange={onExpandedRowsChange}
       template={({ row }) =>
         <GridDetailContainer
           data={row}

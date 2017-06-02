@@ -16,6 +16,8 @@ export { SelectionState } from './plugins/selection-state';
 export { SortingState } from './plugins/sorting-state';
 export { LocalSorting } from './plugins/sorting-local';
 
+export { ColumnOrderState } from './plugins/column-order-state';
+
 export { TableView } from './plugins/table-view';
 export { TableSelection } from './plugins/table-selection';
 
@@ -31,4 +33,9 @@ export { TableEditColumn } from './plugins/table-edit-column';
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 
-export { getKeyGetter, getCellInfo, tableCellClickHandler } from './utils/table-utils';
+export {
+  tableRowKeyGetter,
+  tableColumnKeyGetter,
+  getTableCellInfo,
+  tableCellClickHandler,
+} from './utils/table';

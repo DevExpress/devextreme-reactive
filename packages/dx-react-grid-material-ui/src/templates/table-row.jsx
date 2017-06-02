@@ -6,14 +6,13 @@ import {
 } from 'material-ui';
 
 import {
-  getCellInfo,
-  getKeyGetter,
+  getTableCellInfo,
+  tableColumnKeyGetter,
 } from '@devexpress/dx-react-grid';
 
 export const TableRow = (props) => {
   const { row, columns, cellTemplate } = props;
   const TableCell = cellTemplate;
-  const columnKeyGetter = getKeyGetter(column => column.name);
 
   const style = (!row.height || row.height === 'auto') ? null : { height: `${row.height}px` };
   return (
@@ -22,11 +21,11 @@ export const TableRow = (props) => {
       style={style}
     >
       {columns.map((column, columnIndex) => {
-        const info = getCellInfo({ row, column, columnIndex, columns });
+        const info = getTableCellInfo({ row, column, columnIndex, columns });
         if (info.skip) return null;
         return (
           <TableCell
-            key={columnKeyGetter(column, columnIndex)}
+            key={tableColumnKeyGetter(column, columnIndex)}
             row={row}
             column={column}
             colspan={info.colspan}

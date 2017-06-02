@@ -18,6 +18,7 @@ import { FilteringDemos } from './filtering';
 import { PagingDemos } from './paging';
 import { GroupingDemos } from './grouping';
 import { SelectionDemos } from './selection';
+import { ColumnReorderingDemos } from './column-reordering';
 
 injectTapEventPlugin();
 
@@ -44,6 +45,7 @@ const Demos = () => (
       <Route path="/material-ui/filtering" component={FilteringDemos} />
       <Route path="/material-ui/selection" component={SelectionDemos} />
       <Route path="/material-ui/grouping" component={GroupingDemos} />
+      <Route path="/material-ui/column-reordering" component={ColumnReorderingDemos} />
     </div>
   </MuiThemeProvider>
 );
@@ -76,6 +78,9 @@ export const MaterialUIDemos = withRouter(({ location }) => {
                     <li><NavLink to="/material-ui/filtering">Filtering</NavLink></li>
                     <li><NavLink to="/material-ui/selection">Selection</NavLink></li>
                     <li><NavLink to="/material-ui/grouping">Grouping</NavLink></li>
+                    <li>
+                      <NavLink to="/material-ui/column-reordering">Column Reordering</NavLink>
+                    </li>
                   </ul>
                 )
             }

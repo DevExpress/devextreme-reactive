@@ -1,4 +1,4 @@
-/* globals document:true Element:true */
+/* globals Element:true */
 
 import React from 'react';
 import { mount } from 'enzyme';

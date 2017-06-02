@@ -23,12 +23,20 @@ export const Header = ({ children }) =>
   children && <div className="panel-heading">{children}</div>;
 
 Header.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+Header.defaultProps = {
+  children: null,
 };
 
 export const Footer = ({ children }) =>
   children && <div className="panel-footer">{children}</div>;
 
 Footer.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+Footer.defaultProps = {
+  children: null,
 };

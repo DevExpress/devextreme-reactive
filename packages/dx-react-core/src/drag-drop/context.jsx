@@ -5,19 +5,19 @@ import { EventEmitter } from '@devexpress/dx-core';
 
 class DragDropContextCore {
   constructor() {
-    this.data = null;
+    this.payload = null;
     this.dragEmitter = new EventEmitter();
   }
-  start(data, clientOffset) {
-    this.data = data;
-    this.dragEmitter.emit({ data: this.data, clientOffset });
+  start(payload, clientOffset) {
+    this.payload = payload;
+    this.dragEmitter.emit({ payload: this.payload, clientOffset });
   }
   update(clientOffset) {
-    this.dragEmitter.emit({ data: this.data, clientOffset });
+    this.dragEmitter.emit({ payload: this.payload, clientOffset });
   }
-  end() {
-    this.data = null;
-    this.dragEmitter.emit({ data: this.data, drop: true, clientOffset: null });
+  end(clientOffset) {
+    this.dragEmitter.emit({ payload: this.payload, clientOffset, end: true });
+    this.payload = null;
   }
 }
 
@@ -27,8 +27,11 @@ export class DragDropContext extends React.Component {
 
     this.dragDropContext = new DragDropContextCore();
 
-    this.dragDropContext.dragEmitter.subscribe(({ data, clientOffset }) => {
-      this.props.onChange({ data, clientOffset });
+    this.dragDropContext.dragEmitter.subscribe(({ payload, clientOffset, end }) => {
+      this.props.onChange({
+        payload: end ? null : payload,
+        clientOffset: end ? null : clientOffset,
+      });
     });
   }
   getChildContext() {

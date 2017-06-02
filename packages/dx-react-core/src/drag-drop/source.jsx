@@ -12,7 +12,7 @@ export class DragSource extends React.Component {
       <Draggable
         onStart={({ x, y }) => dragDropContext.start(this.props.getPayload(), { x, y })}
         onUpdate={({ x, y }) => dragDropContext.update({ x, y })}
-        onEnd={() => dragDropContext.end()}
+        onEnd={({ x, y }) => dragDropContext.end({ x, y })}
       >
         {this.props.children}
       </Draggable>

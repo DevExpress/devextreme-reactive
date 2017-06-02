@@ -10,11 +10,11 @@ export class DragDropContext extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: null,
+      payload: null,
       clientOffset: null,
     };
 
-    this.change = ({ data, clientOffset }) => this.setState({ data, clientOffset });
+    this.change = ({ payload, clientOffset }) => this.setState({ payload, clientOffset });
   }
   render() {
     const {
@@ -22,7 +22,7 @@ export class DragDropContext extends React.PureComponent {
       columnTemplate,
     } = this.props;
     const {
-      data,
+      payload,
       clientOffset,
     } = this.state;
 
@@ -52,9 +52,9 @@ export class DragDropContext extends React.PureComponent {
                   height: '100%',
                 }}
               >
-                {data && containerTemplate({
+                {payload && containerTemplate({
                   clientOffset,
-                  columns: data
+                  columns: payload
                     .filter(item => item.type === 'column')
                     .map(item => columns.find(column => column.name === item.columnName)),
                   columnTemplate,

@@ -27,18 +27,18 @@ describe('DragDropContext', () => {
     draggable.prop('onStart')({ x: 50, y: 50 });
 
     expect(onChange.mock.calls[0][0])
-      .toEqual({ data: 'data', clientOffset: { x: 50, y: 50 } });
+      .toEqual({ payload: 'data', clientOffset: { x: 50, y: 50 } });
 
     onChange.mockReset();
     draggable.prop('onUpdate')({ x: 100, y: 100 });
 
     expect(onChange.mock.calls[0][0])
-      .toEqual({ data: 'data', clientOffset: { x: 100, y: 100 } });
+      .toEqual({ payload: 'data', clientOffset: { x: 100, y: 100 } });
 
     onChange.mockReset();
     draggable.prop('onEnd')({ x: 100, y: 100 });
 
     expect(onChange.mock.calls[0][0])
-      .toEqual({ data: null, clientOffset: null });
+      .toEqual({ payload: null, clientOffset: null });
   });
 });

@@ -23,23 +23,18 @@ export class DropTarget extends React.Component {
     const { dragDropContext: { dragEmitter } } = this.context;
     dragEmitter.unsubscribe(this.handleDrag);
   }
-  handleDrag({ item, clientOffset, drop }) {
+  handleDrag({ payload, clientOffset, end }) {
     const { left, top, right, bottom } = this.node.getBoundingClientRect();
     const isOver = clientOffset
       && clamp(clientOffset.x, left, right) === clientOffset.x
       && clamp(clientOffset.y, top, bottom) === clientOffset.y;
 
-    if (!this.isOver && isOver) this.props.onEnter(item, clientOffset);
-    if (this.isOver && isOver) this.props.onOver(item, clientOffset);
-    if (this.isOver && !isOver) {
-      if (drop) {
-        this.props.onDrop(item);
-      } else {
-        this.props.onLeave(item);
-      }
-    }
+    if (!this.isOver && isOver) this.props.onEnter({ payload, clientOffset });
+    if (this.isOver && isOver) this.props.onOver({ payload, clientOffset });
+    if (this.isOver && !isOver) this.props.onLeave({ payload, clientOffset });
+    if (isOver && end) this.props.onDrop({ payload, clientOffset });
 
-    this.isOver = isOver;
+    this.isOver = isOver && !end;
   }
   render() {
     const { children } = this.props;

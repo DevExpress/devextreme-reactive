@@ -28,7 +28,7 @@ describe('DropTarget', () => {
       <DragDropContext>
         <div>
           <DragSource
-            getPayload={() => []}
+            getPayload={() => 'data'}
           >
             <div className="source" />
           </DragSource>
@@ -47,7 +47,7 @@ describe('DropTarget', () => {
     draggable.prop('onUpdate')({ x: 100, y: 100 });
 
     expect(onEnter.mock.calls)
-      .toHaveLength(1);
+      .toEqual([[{ payload: 'data', clientOffset: { x: 100, y: 100 } }]]);
   });
 
   it('should fire the "onOver" callback when a source moves over its bounds', () => {
@@ -59,7 +59,7 @@ describe('DropTarget', () => {
       <DragDropContext>
         <div>
           <DragSource
-            getPayload={() => []}
+            getPayload={() => 'data'}
           >
             <div className="source" />
           </DragSource>
@@ -79,7 +79,7 @@ describe('DropTarget', () => {
     draggable.prop('onUpdate')({ x: 150, y: 150 });
 
     expect(onOver.mock.calls)
-      .toHaveLength(1);
+      .toEqual([[{ payload: 'data', clientOffset: { x: 150, y: 150 } }]]);
   });
 
   it('should fire the "onLeave" callback when a source leaves its bounds', () => {
@@ -91,7 +91,7 @@ describe('DropTarget', () => {
       <DragDropContext>
         <div>
           <DragSource
-            getPayload={() => []}
+            getPayload={() => 'data'}
           >
             <div className="source" />
           </DragSource>
@@ -111,7 +111,7 @@ describe('DropTarget', () => {
     draggable.prop('onUpdate')({ x: 300, y: 300 });
 
     expect(onLeave.mock.calls)
-      .toHaveLength(1);
+      .toEqual([[{ payload: 'data', clientOffset: { x: 300, y: 300 } }]]);
   });
 
   it('should fire the "onDrop" callback when a source is dropped', () => {
@@ -123,7 +123,7 @@ describe('DropTarget', () => {
       <DragDropContext>
         <div>
           <DragSource
-            getPayload={() => []}
+            getPayload={() => 'data'}
           >
             <div className="source" />
           </DragSource>
@@ -143,6 +143,6 @@ describe('DropTarget', () => {
     draggable.prop('onEnd')({ x: 100, y: 100 });
 
     expect(onDrop.mock.calls)
-      .toHaveLength(1);
+      .toEqual([[{ payload: 'data', clientOffset: { x: 100, y: 100 } }]]);
   });
 });

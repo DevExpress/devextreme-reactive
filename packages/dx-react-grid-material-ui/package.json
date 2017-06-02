@@ -56,6 +56,7 @@
     "output": "../../shippable/testresults/dx-react-grid-material-ui.xml"
   },
   "devDependencies": {
+    "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
@@ -75,8 +76,12 @@
     "jest": "^19.0.2",
     "jest-junit": "^1.5.1",
     "enzyme": "^2.8.2",
+    "material-ui": "^1.0.0-alpha.14",
+    "material-ui-icons": "^1.0.0-alpha.3",
+    "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
+    "react-tap-event-plugin": "^2.0.1",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-license": "^0.3.0",
@@ -85,14 +90,13 @@
   },
   "dependencies": {
     "@devexpress/dx-react-core": "1.0.0-alpha.2",
-    "@devexpress/dx-react-grid": "1.0.0-alpha.2",
-    "prop-types": "^15.5.8",
-    "react": "^15.5.4"
+    "classnames": "^2.2.5",
+    "prop-types": "^15.5.8"
   },
   "peerDependencies": {
+    "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "material-ui": "^1.0.0-alpha.14",
     "material-ui-icons": "^1.0.0-alpha.3",
-    "classnames": "^2.2.5",
-    "react-tap-event-plugin": "^2.0.1"
+    "react": "^15.5.4"
   }
 }

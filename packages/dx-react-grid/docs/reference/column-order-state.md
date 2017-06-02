@@ -1,6 +1,6 @@
 # ColumnOrderState Plugin Reference
 
-Plugin that manages the order of displayed columns.
+The plugin that manages the order of displayed columns.
 
 ## User Reference
 
@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-order | Array&lt;string&gt; | | Specifies the columns order
-defaultOrder | Array&lt;string&gt; | | Specifies the initial columns order for the the uncontrolled mode
-onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles columns order changes
+order | Array&lt;string&gt; | | Specifies the column order.
+defaultOrder | Array&lt;string&gt; | | Specifies the initial column order for the uncontrolled mode.
+onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
 
 ## Plugin Developer Reference
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  getKeyGetter,
+  tableRowKeyGetter,
   tableCellClickHandler,
 } from '@devexpress/dx-react-grid';
 
@@ -13,7 +13,6 @@ const MINIMAL_COLUMN_WIDTH = 120;
 export const Table = ({
   headerRows, bodyRows, columns, cellTemplate, onClick, getRowId,
 }) => {
-  const rowKeyGetter = getKeyGetter(row => (!row.type ? getRowId(row) : row.id));
   const minWidth = columns
     .map(column => column.width || MINIMAL_COLUMN_WIDTH)
     .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);
@@ -36,7 +35,7 @@ export const Table = ({
         <thead>
           {headerRows.map((row, rowIndex) => (
             <TableRow
-              key={rowKeyGetter(row, rowIndex)}
+              key={tableRowKeyGetter(getRowId, row, rowIndex)}
               row={row}
               columns={columns}
               cellTemplate={cellTemplate}
@@ -46,7 +45,7 @@ export const Table = ({
         <tbody>
           {bodyRows.map((row, rowIndex) => (
             <TableRow
-              key={rowKeyGetter(row, rowIndex)}
+              key={tableRowKeyGetter(getRowId, row, rowIndex)}
               row={row}
               columns={columns}
               cellTemplate={cellTemplate}

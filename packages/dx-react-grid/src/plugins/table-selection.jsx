@@ -81,7 +81,7 @@ export class TableSelection extends React.PureComponent {
         {showSelectionColumn && (
           <Template
             name="tableViewCell"
-            predicate={({ column, row }) => showSelectionColumn && column.type === 'select' && !row.type}
+            predicate={({ column, row }) => column.type === 'select' && !row.type}
             connectGetters={(getter, { row }) => ({
               rowId: getter('getRowId')(row),
               selection: getter('selection'),

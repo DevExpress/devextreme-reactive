@@ -37,7 +37,13 @@ See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) 
 
 ## Reference
 
-The package exposes plugins with injected templates. Here is the list of the plugins:
+The package exposes components and plugins with injected templates.
+
+Here is the list of the components:
+
+- [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/)
+
+Here is the list of the plugins:
 
 - [TableView](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-view/)
 - [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)
@@ -47,6 +53,7 @@ The package exposes plugins with injected templates. Here is the list of the plu
 - [TableGroupRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-group-row/)
 - [GroupingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grouping-panel/)
 - [PagingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/)
+- [DragDropContext](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-context/)
 
 Each plugin has properties with the 'Template' postfix. Components passed to such properties are templates.
 

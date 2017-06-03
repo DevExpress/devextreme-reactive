@@ -34,7 +34,7 @@ const GroupPanelCellBase = ({
       }}
     >
       <TableSortLabel
-        active={allowSorting && sortingDirection}
+        active={allowSorting && !!sortingDirection}
         direction={sortingDirection}
       >
         {column.title}

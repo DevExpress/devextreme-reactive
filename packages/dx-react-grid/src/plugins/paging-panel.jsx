@@ -16,16 +16,14 @@ export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
         currentPage: getter('currentPage'),
         totalPages: getter('totalPages'),
         pageSize: getter('pageSize'),
+        allowedPageSizes,
       })}
       connectActions={action => ({
         onCurrentPageChange: page => action('setCurrentPage')({ page }),
         onPageSizeChange: size => action('setPageSize')({ size }),
       })}
     >
-      {params => pagerTemplate({
-        ...params,
-        allowedPageSizes,
-      })}
+      {pagerTemplate}
     </Template>
   </PluginContainer>
 );

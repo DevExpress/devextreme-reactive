@@ -4,6 +4,8 @@ import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-grid';
 import { GroupPanel } from '../templates/group-panel';
 import { GroupPanelCell } from '../templates/group-panel-cell';
 
+const groupPanelCellTemplate = props => <GroupPanelCell {...props} />;
+
 export const GroupingPanel = ({ groupByColumnText, ...restProps }) => (
   <GroupingPanelBase
     groupPanelTemplate={
@@ -14,7 +16,7 @@ export const GroupingPanel = ({ groupByColumnText, ...restProps }) => (
         />
       )
     }
-    groupPanelCellTemplate={GroupPanelCell}
+    groupPanelCellTemplate={groupPanelCellTemplate}
     {...restProps}
   />
 );

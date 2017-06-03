@@ -6,7 +6,6 @@ import { getColumnSortingDirection, tableRowsWithHeading } from '@devexpress/dx-
 export class TableHeaderRow extends React.PureComponent {
   render() {
     const { allowSorting, allowGrouping, headerCellTemplate } = this.props;
-    const HeaderCell = headerCellTemplate;
 
     return (
       <PluginContainer>
@@ -44,13 +43,11 @@ export class TableHeaderRow extends React.PureComponent {
             groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
           })}
         >
-          {({ sortingSupported, groupingSupported, ...restParams }) => (
-            <HeaderCell
-              {...restParams}
-              allowSorting={allowSorting && sortingSupported}
-              allowGrouping={allowGrouping && groupingSupported}
-            />
-          )}
+          {({ sortingSupported, groupingSupported, ...restParams }) => headerCellTemplate({
+            ...restParams,
+            allowSorting: allowSorting && sortingSupported,
+            allowGrouping: allowGrouping && groupingSupported,
+          })}
         </Template>
       </PluginContainer>
     );

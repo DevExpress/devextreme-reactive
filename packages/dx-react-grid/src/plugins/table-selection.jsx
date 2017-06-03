@@ -11,9 +11,9 @@ export class TableSelection extends React.PureComponent {
       showSelectionColumn,
       showSelectAll,
       selectionColumnWidth,
+      selectAllCellTemplate,
+      selectCellTemplate,
     } = this.props;
-    const SelectAllCell = this.props.selectAllCellTemplate;
-    const SelectCell = this.props.selectCellTemplate;
 
     return (
       <PluginContainer>
@@ -70,12 +70,10 @@ export class TableSelection extends React.PureComponent {
               toggleAll: availableToSelect => action('setRowsSelection')({ rowIds: availableToSelect }),
             })}
           >
-            {({ toggleAll, availableToSelect, ...params }) => (
-              <SelectAllCell
-                {...params}
-                toggleAll={() => toggleAll(availableToSelect)}
-              />
-            )}
+            {({ toggleAll, availableToSelect, ...restParams }) => selectAllCellTemplate({
+              ...restParams,
+              toggleAll: () => toggleAll(availableToSelect),
+            })}
           </Template>
         )}
         {showSelectionColumn && (
@@ -90,13 +88,11 @@ export class TableSelection extends React.PureComponent {
               toggleSelected: ({ rowId }) => action('setRowSelection')({ rowId }),
             })}
           >
-            {({ rowId, selection, toggleSelected, ...restParams }) => (
-              <SelectCell
-                {...restParams}
-                selected={selection.indexOf(rowId) > -1}
-                changeSelected={() => toggleSelected({ rowId })}
-              />
-            )}
+            {({ rowId, selection, toggleSelected, ...restParams }) => selectCellTemplate({
+              ...restParams,
+              selected: selection.indexOf(rowId) > -1,
+              changeSelected: () => toggleSelected({ rowId }),
+            })}
           </Template>
         )}
       </PluginContainer>

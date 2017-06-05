@@ -50,7 +50,7 @@ changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) | Changes col
 allowGrouping | boolean | If true, a component that toggles a column's grouping state is rendered
 groupByColumn | () => void | Toggles grouping for a column
 allowDragging | boolean | If true, an end-user can start dragging a column by the header cell
-dragPayload | any | A data object that identifies the corresponding column in the drag'n'drop context
+dragPayload | any | A data object that identifies the corresponding column in the drag-and-drop context
 
 ## Plugin Developer Reference
 

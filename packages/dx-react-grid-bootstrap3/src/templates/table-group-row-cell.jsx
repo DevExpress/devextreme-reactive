@@ -18,7 +18,7 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
         marginRight: '10px',
       }}
     />
-    <strong>{row.column.title}: {row.value}</strong>
+    <strong>{row.column.title || row.column.name}: {row.value}</strong>
   </td>
 );
 

@@ -56,10 +56,10 @@ describe('DetailRow computeds', () => {
     ];
 
     test('should work', () => {
-      const columns = tableColumnsWithDetail(tableColumns);
+      const columns = tableColumnsWithDetail(tableColumns, 50);
 
       expect(columns).toHaveLength(3);
-      expect(columns[0]).toMatchObject({ type: 'detail', width: 25 });
+      expect(columns[0]).toMatchObject({ type: 'detail', width: 50 });
       expect(columns[1]).toBe(tableColumns[0]);
       expect(columns[2]).toBe(tableColumns[1]);
     });

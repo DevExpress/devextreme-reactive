@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { TableSelection as TableSelectionBase } from '@devexpress/dx-react-grid';
 import { TableSelectAllCell } from '../templates/table-select-all-cell';
@@ -12,14 +11,7 @@ export const TableSelection = props => (
   <TableSelectionBase
     selectCellTemplate={selectCellTemplate}
     selectAllCellTemplate={selectAllCellTemplate}
+    selectionColumnWidth={50}
     {...props}
   />
 );
-
-TableSelection.defaultProps = {
-  selectionColumnWidth: 50,
-};
-
-TableSelection.propTypes = {
-  selectionColumnWidth: PropTypes.number,
-};

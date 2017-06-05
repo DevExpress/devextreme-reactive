@@ -65,6 +65,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "core-js": "^2.4.1",
+    "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^11.1.3",
@@ -74,6 +75,7 @@
     "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
     "jest-junit": "^1.5.1",
+    "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "rollup": "^0.41.6",
@@ -85,10 +87,10 @@
   "dependencies": {
     "@devexpress/dx-react-core": "1.0.0-alpha.2",
     "@devexpress/dx-react-grid": "1.0.0-alpha.2",
-    "prop-types": "^15.5.8",
-    "react": "^15.5.4"
+    "prop-types": "^15.5.8"
   },
   "peerDependencies": {
+    "react": "^15.5.4",
     "react-bootstrap": "^0.31.0"
   }
 }

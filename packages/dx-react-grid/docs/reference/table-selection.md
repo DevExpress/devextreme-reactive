@@ -17,13 +17,13 @@ highlightSelected | boolean | false | If true, selected rows are highlighted
 selectByRowClick | boolean | false | If true, a selected row is toggled by click
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row
 showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row
-selectCellTemplate | Component&lt;[SelectCellProps](#select-cell-props)&gt; | | A component that renders a data row selection checkbox
-selectAllCellTemplate | Component&lt;[SelectAllCellProps](#select-all-cell-props)&gt; | | A component that renders the Select All checkbox
+selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox
+selectAllCellTemplate | (args: [SelectAllCellArgs](#select-all-cell-args)) => ReactElement | | A component that renders the Select All checkbox
 selectionColumnWidth | number | | Width of the selection column
 
 ## Interfaces
 
-### <a name="select-all-cell-props"></a>SelectAllCellProps
+### <a name="select-all-cell-args"></a>SelectAllCellArgs
 
 Describes properties passed to the template that renders a cell with a selection control.
 
@@ -36,7 +36,7 @@ allSelected | boolean | True if all the rows available to select are selected
 someSelected | boolean | True if at least one but not all rows available to select are selected
 toggleAll | () => void | Selects or deselects all rows
 
-### <a name="select-cell-props"></a>SelectCellProps
+### <a name="select-cell-args"></a>SelectCellArgs
 
 Describes properties passed to a template that renders a cell with the selection control inside the heading row.
 

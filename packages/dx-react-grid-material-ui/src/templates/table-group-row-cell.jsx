@@ -50,7 +50,7 @@ const TableGroupRowCellBase = ({
       }
     </span>
     <strong style={{ verticalAlign: 'middle' }}>
-      {row.column.title}: {row.value}
+      {row.column.title || row.column.name}: {row.value}
     </strong>
   </TableCell>
 );

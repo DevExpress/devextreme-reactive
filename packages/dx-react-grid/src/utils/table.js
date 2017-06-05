@@ -1,13 +1,19 @@
 import { querySelectorAll } from './dom';
 
-export const getKeyGetter = getIntrinsicKey => (object, index) => {
-  const intrinsicKey = getIntrinsicKey(object);
+const getTableKeyGetter = (getIntrinsicKey, object, index) => {
   const type = object.type || 'data';
+  const intrinsicKey = type === 'data' ? getIntrinsicKey(object) : object.id;
   const key = intrinsicKey === undefined ? `$${index}` : intrinsicKey;
   return `${type}_${key}`;
 };
 
-export const getCellInfo = ({ row, columnIndex, columns }) => {
+export const tableRowKeyGetter = getTableKeyGetter;
+
+const getColumnId = column => column.name;
+export const tableColumnKeyGetter = (column, columnIndex) =>
+  getTableKeyGetter(getColumnId, column, columnIndex);
+
+export const getTableCellInfo = ({ row, columnIndex, columns }) => {
   if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
   const colspan = row.colspan === columnIndex ? columns.length - row.colspan : 1;
   return { colspan };

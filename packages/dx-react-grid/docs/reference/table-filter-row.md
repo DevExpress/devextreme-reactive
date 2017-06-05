@@ -14,11 +14,11 @@ A plugin that renders a row with filtering controls right under the Grid heading
 Name | Type | Default | Description
 -----|------|---------|------------
 rowHeight | number | | Specifies the height for the filter row
-filterCellTemplate | Component&lt;[FilterCellProps](#filter-cell-props)&gt; | | A component that renders a cell with the capability to change a column filter
+filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a cell with the capability to change a column filter
 
 ## Interfaces
 
-### <a name="filter-cell-props"></a>FilterCellProps
+### <a name="filter-cell-args"></a>FilterCellArgs
 
 Describes properties passed to the filter row cell template.
 

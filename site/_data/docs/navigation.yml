@@ -38,6 +38,8 @@ react:
           path: /react/grid/docs/reference/editing-state
         - title: RowDetailState
           path: /react/grid/docs/reference/row-detail-state
+        - title: ColumnOrderState
+          path: /react/grid/docs/reference/column-order-state
         - title: LocalFiltering
           path: /react/grid/docs/reference/local-filtering
         - title: LocalSorting

@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { getColumnSortingDirection, tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
 
-export const GroupPanelCellTemplate = props =>
+export const cellTemplate = props =>
   <TemplatePlaceholder name="groupingPanelCell" params={props} />;
 
 export class GroupingPanel extends React.PureComponent {
   render() {
     const { allowSorting, groupPanelTemplate, groupPanelCellTemplate } = this.props;
-    const GroupPanel = groupPanelTemplate;
-    const GroupPanelCell = groupPanelCellTemplate;
 
     return (
       <PluginContainer>
@@ -33,14 +31,10 @@ export class GroupingPanel extends React.PureComponent {
           name="group-panel"
           connectGetters={getter => ({
             groupedColumns: getter('groupedColumns'),
+            cellTemplate,
           })}
         >
-          {({ groupedColumns }) => (
-            <GroupPanel
-              groupedColumns={groupedColumns}
-              cellTemplate={GroupPanelCellTemplate}
-            />
-          )}
+          {groupPanelTemplate}
         </Template>
         <Template
           name="groupingPanelCell"
@@ -62,12 +56,10 @@ export class GroupingPanel extends React.PureComponent {
             changeSortingDirection: ({ keepOther, cancel }) => action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
           })}
         >
-          {({ sortingSupported, ...restParams }) => (
-            <GroupPanelCell
-              {...restParams}
-              allowSorting={allowSorting && sortingSupported}
-            />
-          )}
+          {({ sortingSupported, ...restParams }) => groupPanelCellTemplate({
+            ...restParams,
+            allowSorting: allowSorting && sortingSupported,
+          })}
         </Template>
       </PluginContainer>
     );

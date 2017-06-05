@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    Table as TableMUI,
-    TableBody as TableBodyMUI,
-    TableHead as TableHeadMUI,
+  Table as TableMUI,
+  TableBody as TableBodyMUI,
+  TableHead as TableHeadMUI,
 } from 'material-ui';
 
 import {
   tableRowKeyGetter,
   tableCellClickHandler,
-} from '@devexpress/dx-react-grid';
+} from '@devexpress/dx-grid-core';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 

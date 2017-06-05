@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   tableRowKeyGetter,
   tableCellClickHandler,
-} from '@devexpress/dx-react-grid';
+} from '@devexpress/dx-grid-core';
 
 import { TableRow } from './table-row';
 

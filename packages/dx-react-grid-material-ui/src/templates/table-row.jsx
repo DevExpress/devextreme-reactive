@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    TableRow as TableRowMUI,
+  TableRow as TableRowMUI,
 } from 'material-ui';
 
 import {
   getTableCellInfo,
   tableColumnKeyGetter,
-} from '@devexpress/dx-react-grid';
+} from '@devexpress/dx-grid-core';
 
 export const TableRow = (props) => {
   const { row, columns, cellTemplate } = props;

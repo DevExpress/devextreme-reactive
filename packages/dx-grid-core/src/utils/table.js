@@ -1,4 +1,4 @@
-import { querySelectorAll } from './dom';
+import { querySelectorAll } from './dom-utils';
 
 const getTableKeyGetter = (getIntrinsicKey, object, index) => {
   const type = object.type || 'data';

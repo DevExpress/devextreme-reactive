@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   getTableCellInfo,
   tableColumnKeyGetter,
-} from '@devexpress/dx-react-grid';
+} from '@devexpress/dx-grid-core';
 
 export const TableRow = (props) => {
   const { row, columns, cellTemplate } = props;

@@ -15,6 +15,8 @@ Name | Type | Default | Description
 template | Component&lt;[DetailContentProps](#detail-content-props)&gt; | | A component that renders row details
 detailCellTemplate | Component&lt;[DetailCellProps](#detail-cell-props)&gt; | | A component that renders a detail cell
 detailToggleTemplate | Component&lt;[DetailToggleProps](#detail-toggle-props)&gt; | | A component that renders the detail toggle control
+detailToggleCellWidth | number | | Specifies the detail toggle cell width
+rowHeight | number &#124; string | 'auto' | Specifies the detail row height
 
 ## Interfaces
 

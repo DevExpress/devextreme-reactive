@@ -28,3 +28,4 @@ export const ensurePageHeaders = (rows, pageSize) => {
 };
 
 export const totalPageCount = (rows, pageSize) => Math.ceil(rows.length / pageSize);
+export const totalCount = rows => rows.length;

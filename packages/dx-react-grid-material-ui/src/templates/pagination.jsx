@@ -9,6 +9,10 @@ const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
     margin: 0,
     verticalAlign: 'bottom',
   },
+  rows: {
+    ...theme.typography.caption,
+    paddingRight: theme.spacing.unit * 5,
+  },
   button: {
     minWidth: theme.spacing.unit * 2,
   },
@@ -64,7 +68,6 @@ const renderPageButtons = (
     startPage = calculateStartPage(currentPage, maxButtonCount, totalPageCount);
     endPage = (startPage + maxButtonCount) - 1;
   }
-
   if (startPage > 1) {
     pageButtons.push(
       <PageButton
@@ -124,17 +127,38 @@ const renderPageButtons = (
   return pageButtons;
 };
 
-const PaginationBase = ({ totalPages, currentPage, onCurrentPageChange, classes }) => (
-  <div className={classes.pagination}>
-    {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
-  </div>
-);
+const PaginationBase = ({
+  totalPages,
+  totalCount,
+  pageSize,
+  currentPage,
+  onCurrentPageChange,
+  classes,
+}) => {
+  const startPage = ((currentPage - 1) * pageSize) + 1;
+  const endPage = currentPage * pageSize;
+
+  return (
+    <div className={classes.pagination}>
+      <span className={classes.rows}>
+        { String(startPage) }
+        -
+        { String(endPage > totalCount ? totalCount : endPage) }
+        &nbsp;of&nbsp;
+        {String(totalCount)}
+      </span>
+      {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
+    </div>
+  );
+};
 
 PaginationBase.propTypes = {
   totalPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  totalCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
 };
 
 export const Pagination = withStyles(paginationStyleSheet)(PaginationBase);

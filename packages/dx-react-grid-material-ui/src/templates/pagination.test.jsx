@@ -12,6 +12,8 @@ describe('Pagination', () => {
         totalPages={totalPages}
         currentPage={currentPage}
         onCurrentPageChange={() => {}}
+        totalCount={10}
+        pageSize={5}
       />,
     );
 

@@ -17,15 +17,15 @@ export const TableFilterCell = ({ style, column, filter, setFilter }) => (
 );
 
 TableFilterCell.propTypes = {
-  column: PropTypes.shape(),
-  style: PropTypes.shape(),
-  filter: PropTypes.string,
+  column: PropTypes.object,
+  style: PropTypes.object,
+  filter: PropTypes.object,
   setFilter: PropTypes.func,
 };
 
 TableFilterCell.defaultProps = {
   column: {},
   style: null,
-  filter: '',
+  filter: null,
   setFilter: () => {},
 };

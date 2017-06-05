@@ -1,21 +1,18 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import { mountWithStyles } from '../utils/testing';
 import { Pagination } from './pagination';
 
 injectTapEventPlugin();
 
 describe('Pagination', () => {
   describe('#render', () => {
-    const paginationTree = (totalPages, currentPage) => mount(
-      <MuiThemeProvider theme={createMuiTheme()}>
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onCurrentPageChange={() => {}}
-        />
-      </MuiThemeProvider>,
+    const paginationTree = (totalPages, currentPage) => mountWithStyles(
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onCurrentPageChange={() => {}}
+      />,
     );
 
     test('can select the first item', () => {

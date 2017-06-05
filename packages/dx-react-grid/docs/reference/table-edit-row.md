@@ -14,11 +14,11 @@ A plugin that renders a row being edited.
 Name | Type | Default | Description
 -----|------|---------|------------
 rowHeight | number | | Specifies the edit row height
-editCellTemplate | Component&lt;[EditCellProps](#edit-cell-props)&gt; | | A component that renders an editable cell
+editCellTemplate | (args: [EditCellArgs](#edit-cell-args)) => ReactElement | | A component that renders an editable cell
 
 ## Interfaces
 
-### <a name="edit-cell-props"></a>EditCellProps
+### <a name="edit-cell-args"></a>EditCellArgs
 
 Describes properties passed to the edit row's cell template.
 

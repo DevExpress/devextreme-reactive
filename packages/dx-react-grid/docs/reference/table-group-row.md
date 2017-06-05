@@ -13,13 +13,13 @@ A plugin that renders group rows with the capability to expand and collapse them
 
 Name | Type | Default | Description
 -----|------|---------|------------
-groupRowCellTemplate | Component&lt;[GroupRowCellProps](#group-row-cell-props)&gt; | | A component that renders a group row
-groupIndentCellTemplate | Component&lt;[GroupIndentCellProps](#group-indent-cell-props)&gt; | | A component that renders a group indent cell
+groupRowCellTemplate | (args: [GroupRowCellArgs](#group-row-cell-args)) => ReactElement | | A component that renders a group row
+groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | | A component that renders a group indent cell
 groupColumnWidth | number | | Width of the group indent columns
 
 ## Interfaces
 
-### <a name="group-row-cell-props"></a>GroupRowCellProps
+### <a name="group-row-cell-args"></a>GroupRowCellArgs
 
 Describes properties passed to the template that renders a group row.
 
@@ -31,7 +31,7 @@ row | [GroupRow](#group-row) | A group row data object
 isExpanded | boolean | Specifies whether or not a row is expanded
 toggleGroupExpanded | () => void | Toggles the expanded state of a group row
 
-### <a name="group-indent-cell-props"></a>GroupIndentCellProps
+### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
 
 Describes properties passed to the template that renders a group indent cell.
 

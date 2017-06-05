@@ -4,9 +4,14 @@ import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableFilterRow as TableFilterRowBase } from '@devexpress/dx-react-grid';
 import { TableFilterCell } from '../templates/table-filter-cell';
 
+const defaultFilterCellTemplate = props => <TableFilterCell {...props} />;
+
 export const TableFilterRow = ({ filterCellTemplate, ...restProps }) => (
   <TableFilterRowBase
-    filterCellTemplate={combineTemplates(filterCellTemplate, TableFilterCell)}
+    filterCellTemplate={combineTemplates(
+      filterCellTemplate,
+      defaultFilterCellTemplate,
+    )}
     {...restProps}
   />
 );

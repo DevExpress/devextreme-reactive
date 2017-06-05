@@ -7,8 +7,8 @@ export class TableGroupRow extends React.PureComponent {
   render() {
     const {
       groupColumnWidth,
-      groupRowCellTemplate: GroupRowCell,
-      groupIndentCellTemplate: GroupIndentCell,
+      groupRowCellTemplate,
+      groupIndentCellTemplate,
     } = this.props;
 
     return (
@@ -31,13 +31,11 @@ export class TableGroupRow extends React.PureComponent {
           connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
-          {({ expandedGroups, toggleGroupExpanded, ...params }) => (
-            <GroupRowCell
-              {...params}
-              isExpanded={expandedGroups.has(params.row.key)}
-              toggleGroupExpanded={() => toggleGroupExpanded({ groupKey: params.row.key })}
-            />
-          )}
+          {({ expandedGroups, toggleGroupExpanded, ...params }) => groupRowCellTemplate({
+            ...params,
+            isExpanded: expandedGroups.has(params.row.key),
+            toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.row.key }),
+          })}
         </Template>
         <Template
           name="tableViewCell"
@@ -49,11 +47,7 @@ export class TableGroupRow extends React.PureComponent {
             )
           )}
         >
-          {({ ...params }) => (
-            <GroupIndentCell
-              {...params}
-            />
-          )}
+          {groupIndentCellTemplate}
         </Template>
       </PluginContainer>
     );

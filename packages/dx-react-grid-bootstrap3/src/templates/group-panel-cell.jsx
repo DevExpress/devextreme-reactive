@@ -24,7 +24,7 @@ export const GroupPanelCell = ({
         });
       }}
     >
-      {column.title}
+      {column.title || column.name}
       {allowSorting && sortingDirection && (
         <span>
           &nbsp;

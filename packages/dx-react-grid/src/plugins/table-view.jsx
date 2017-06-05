@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
-const CellTemplate = params =>
+const cellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
 
 export class TableView extends React.PureComponent {
   render() {
     const { tableTemplate, tableCellTemplate, tableNoDataCellTemplate } = this.props;
-    const Table = tableTemplate;
 
     return (
       <PluginContainer>
@@ -38,20 +37,12 @@ export class TableView extends React.PureComponent {
             headerRows: getter('tableHeaderRows'),
             bodyRows: getter('tableBodyRows'),
             columns: getter('tableColumns'),
-            extraProps: getter('tableExtraProps'),
             getRowId: getter('getRowId'),
+            cellTemplate,
+            ...getter('tableExtraProps'),
           })}
         >
-          {({ headerRows, bodyRows, columns, getRowId, extraProps }) => (
-            <Table
-              headerRows={headerRows}
-              bodyRows={bodyRows}
-              columns={columns}
-              cellTemplate={CellTemplate}
-              getRowId={getRowId}
-              {...extraProps}
-            />
-          )}
+          {tableTemplate}
         </Template>
         <Template
           name="tableViewCell"

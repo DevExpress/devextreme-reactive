@@ -13,9 +13,9 @@ Name | Type | Default | Description
 rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
 columns | Array&lt;[Column](#column)&gt; | | Specifies row fields to be rendered as columns
 getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies the function used to get a unique row identifier
-rootTemplate | ([RootArgs](#root-args)) => ReactElement | | Renders a root layout using the specified parameters
-headerPlaceholderTemplate | ([HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | Renders a heading placeholder using the specified parameters
-footerPlaceholderTemplate | ([FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | Renders a footer placeholder using the specified parameters
+rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | Renders a root layout using the specified parameters
+headerPlaceholderTemplate | (args: [HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | Renders a heading placeholder using the specified parameters
+footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | Renders a footer placeholder using the specified parameters
 
 ## Interfaces
 
@@ -69,6 +69,6 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | () => Array&lt;[Row](#row)&gt; | Specified rows
 columns | Getter | () => Array&lt;[Column](#column)&gt; | Specified columns
-header | Template | none | A template that renders grid header
-body | Template | none | A template that renders grid body
-footer | Template | none | A template that renders grid footer
+header | Template | | A template that renders grid header
+body | Template | | A template that renders grid body
+footer | Template | | A template that renders grid footer

@@ -6,3 +6,5 @@ export { TableSelection } from './plugins/table-selection';
 export { TableView } from './plugins/table-view';
 export { TableFilterRow } from './plugins/table-filter-row';
 export { TableHeaderRow } from './plugins/table-header-row';
+
+export { DropDownMenu } from './templates/drop-down-menu';

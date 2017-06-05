@@ -50,6 +50,7 @@ const knownGlobals = {
   'material-ui-icons/List': 'material-ui-icons.List',
   'material-ui-icons/ChevronRight': 'material-ui-icons.ChevronRight',
   'material-ui-icons/ExpandMore': 'material-ui-icons.ExpandMore',
+  'material-ui-icons/ExpandLess': 'material-ui-icons.ExpandLess',
 };
 
 export const globals = (packageDirectory) => {

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Menu, MenuItem } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 
@@ -92,8 +91,14 @@ class DropDownMenuBase extends React.PureComponent {
 }
 
 DropDownMenuBase.propTypes = {
-  defaultTitle: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  defaultTitle: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  items: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])).isRequired,
   classes: PropTypes.object.isRequired,
   onItemClick: PropTypes.func.isRequired,
 };

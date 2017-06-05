@@ -52,11 +52,11 @@ class DropDownMenuBase extends React.PureComponent {
   }
 
   render() {
-    const { items, classes } = this.props;
+    const { items, classes, className } = this.props;
     const { anchorEl, open, selectedIndex, title } = this.state;
 
     return (
-      <div>
+      <div className={className}>
         <Typography
           type="button"
           onClick={this.handleClick}
@@ -101,6 +101,11 @@ DropDownMenuBase.propTypes = {
   ])).isRequired,
   classes: PropTypes.object.isRequired,
   onItemClick: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+DropDownMenuBase.defaultProps = {
+  className: null,
 };
 
 export const DropDownMenu = withStyles(styleSheet)(DropDownMenuBase);

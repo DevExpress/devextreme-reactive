@@ -13,9 +13,9 @@ A plugin that renders a command column (a column containing controls used for ro
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellTemplate | Component&lt;[CommandCellProps](#command-cell-props)&gt; | | A component that renders a cell within the command column and the data row
-headingCellTemplate | Component&lt;[CommandHeadingCellProps](#command-heading-cell-props)&gt; | | A component that renders a cell within the command column and the heading row
-commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | | A component that renders command controls within the command column cell
+cellTemplate | (args: [CommandCellArgs](#command-cell-args)) => ReactElement | | A component that renders a cell within the command column and the data row
+headingCellTemplate | (args: [CommandHeadingCellArgs](#command-heading-cell-args)) => ReactElement | | A component that renders a cell within the command column and the heading row
+commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | | A component that renders command controls within the command column cell
 allowAdding | bool | false | If set to true, the 'New' command is rendered within the heading row's command cell
 allowEditing | bool | false | If set to true, the 'Edit' command is rendered within the data row's command cell
 allowDeleting | bool | false | If set to true, the 'Delete' command is rendered within the data row's command cell
@@ -23,7 +23,7 @@ width | number &#124; string | 140 | Specifies the width of the edit column
 
 ## Interfaces
 
-### <a name="command-cell-props"></a>CommandCellProps
+### <a name="command-cell-args"></a>CommandCellArgs
 
 Describes properties passed to the command cell template of a data row.
 
@@ -39,10 +39,10 @@ commitChanges | () => void | Initiates committing of row changes
 deleteRow | () => void | Initiates row deletion
 allowEditing | bool | Specifies if a row can be edited
 allowDeleting | bool | Specifies if a row can be deleted
-commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
+commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
 style | Object | Styles that should be applied to the root cell element
 
-### <a name="command-heading-cell-props"></a>CommandHeadingCellProps
+### <a name="command-heading-cell-args"></a>CommandHeadingCellArgs
 
 Describes properties passed to the command cell template of a heading row.
 
@@ -54,10 +54,10 @@ row | [TableRow](#table-row) | Specifies an editing table row with applied chang
 column | [TableColumn](#table-column) | Specifies a table column
 addRow | () => void | Creates a new row
 allowAdding | bool | Specifies if a new row can be created
-commandTemplate | Component&lt;[CommandProps](#command-props)&gt; | A component that renders command controls within the command column cell
+commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
 style | Object | Styles that should be applied to the root cell element
 
-### <a name="command-props"></a>CommandProps
+### <a name="command-args"></a>CommandArgs
 
 Describes properties passed to the command control template.
 

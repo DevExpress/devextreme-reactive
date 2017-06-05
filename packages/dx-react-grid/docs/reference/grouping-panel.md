@@ -15,9 +15,9 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 
 Name | Type | Default | Description
 -----|------|---------|------------
-allowSorting | boolean | false | Allows an end-user to change sorting by a column if true.
-groupPanelTemplate | Component&lt;[GroupPanelProps](#group-panel-props)&gt; | | Renders a group panel.
-groupPanelCellTemplate | Component&lt;[GroupPanelCellProps](#group-panel-cell-props)&gt; | | Renders a group panel cell.
+allowSorting | boolean | false | Allows an end-user to change sorting by a column if true
+groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel
+groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell
 
 ## Interfaces
 
@@ -29,8 +29,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-groupedColumns | Array&lt;[Column](grid.md#column)&gt; | The grid is currently grouped by these columns. 
-cellTemplate | Component&lt;[CellProps](#cell-props)&gt; | A template for rendering the group panel cells.
+groupedColumns | Array&lt;[Column](grid.md#column)&gt; | The grid is currently grouped by these columns
+cellTemplate | (args: [CellProps](#cell-props)) => ReactElement | A template for rendering the group panel cells
 
 ### <a name="cell-props"></a>CellProps
 
@@ -40,7 +40,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | Specifies a column associated with the cell.
+column | [Column](grid.md#column) | Specifies a column associated with the cell
 
 ### <a name="group-panel-cell-props"></a>GroupPanelCellProps
 
@@ -50,8 +50,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-allowSorting | boolean | An end-user can change sorting by the current column if true.
-sortingDirection? | 'asc' &#124; 'desc' | Specifies sorting direction.
+column | [Column](grid.md#column) | Specifies a column associated with the cell
+allowSorting | boolean | An end-user can change sorting by the current column if true
+sortingDirection? | 'asc' &#124; 'desc' | Specifies sorting direction
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) => void | Changes a column's sorting order. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 

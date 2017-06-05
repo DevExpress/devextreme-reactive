@@ -2,7 +2,7 @@
 
 A plugin that renders a simple table header that shows column titles. A column title is specified by the `title` field in a column definition. See the extended data structure for a [Column](#column).
 
-Optionally, the plugin allows an end-user to manage a column's sorting and grouping state or initiate column dragging process.
+Optionally, the plugin allows an end-user to manage a column's sorting and grouping state or initiate column dragging.
 
 ## User Reference
 

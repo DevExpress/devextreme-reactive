@@ -6,10 +6,12 @@ import { DropDownMenu } from './drop-down-menu';
 const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
   pageSizeSelector: {
     ...theme.typography.caption,
-    display: 'inline-block',
+    float: 'right',
+    paddingRight: theme.spacing.unit * 5,
   },
   label: {
     paddingRight: theme.spacing.unit * 3,
+    lineHeight: `${theme.spacing.unit * 5}px`,
   },
   pageSizes: {
     display: 'inline-block',

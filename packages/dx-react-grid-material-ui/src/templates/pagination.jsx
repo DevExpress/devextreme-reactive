@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Button, IconButton } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
@@ -9,7 +10,6 @@ const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   pagination: {
     float: 'right',
     margin: 0,
-    verticalAlign: 'bottom',
   },
   rowsLabel: {
     ...theme.typography.caption,
@@ -17,27 +17,50 @@ const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   },
   button: {
     minWidth: theme.spacing.unit * 2,
+    height: theme.spacing.unit * 5,
+  },
+  activeButton: {
+    fontWeight: 'bold',
   },
   arrowButton: {
-    width: theme.spacing.unit * 3,
-    height: theme.spacing.unit * 3,
+    width: theme.spacing.unit * 4,
+    height: theme.spacing.unit * 4,
     display: 'inline-block',
     verticalAlign: 'middle',
   },
+  prev: {
+    marginRight: 0,
+  },
+  next: {
+    marginLeft: 0,
+  },
+  '@media(max-width: 767px)': {
+    button: {
+      display: 'none',
+    },
+    prev: {
+      marginRight: theme.spacing.unit,
+    },
+    next: {
+      marginLeft: theme.spacing.unit,
+    },
+  },
 }));
 
+const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => {
+  const buttonClasses = classNames({
+    [classes.button]: true,
+    [classes.activeButton]: isActive,
+  });
 
-const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => (
-  <Button
-    className={classes.button}
-    accent={isActive}
-    raised={isActive}
+  return (<Button
+    className={buttonClasses}
     disabled={isDisabled}
     onTouchTap={onClick}
   >
     {text}
-  </Button>
-);
+  </Button>);
+};
 
 PageButton.propTypes = {
   text: PropTypes.string.isRequired,
@@ -155,7 +178,7 @@ const PaginationBase = ({
         { String(endPage > totalCount ? totalCount : endPage) } of {String(totalCount)}
       </span>
       <IconButton
-        className={classes.arrowButton}
+        className={classNames(classes.arrowButton, classes.prev)}
         disabled={currentPage === 1}
         onTouchTap={() => currentPage > 1 && onCurrentPageChange(currentPage - 1)}
       >
@@ -163,7 +186,7 @@ const PaginationBase = ({
       </IconButton>
       {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
       <IconButton
-        className={classes.arrowButton}
+        className={classNames(classes.arrowButton, classes.next)}
         disabled={currentPage === totalPages}
         onTouchTap={() => currentPage < totalPages && onCurrentPageChange(currentPage + 1)}
       >

@@ -21,11 +21,6 @@ const PagerBase = ({
   totalCount,
   }) => (
     <div className={classes.pager}>
-      {!!allowedPageSizes.length && <PageSizeSelector
-        pageSize={pageSize}
-        onPageSizeChange={onPageSizeChange}
-        allowedPageSizes={allowedPageSizes}
-      />}
       <Pagination
         totalPages={totalPages}
         totalCount={totalCount}
@@ -33,6 +28,11 @@ const PagerBase = ({
         onCurrentPageChange={page => onCurrentPageChange(page - 1)}
         pageSize={pageSize}
       />
+      {!!allowedPageSizes.length && <PageSizeSelector
+        pageSize={pageSize}
+        onPageSizeChange={onPageSizeChange}
+        allowedPageSizes={allowedPageSizes}
+      />}
     </div>
 );
 

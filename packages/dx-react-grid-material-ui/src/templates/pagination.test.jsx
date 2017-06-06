@@ -134,8 +134,8 @@ describe('Pagination', () => {
       triggerTouchTap(prew.node);
       triggerTouchTap(next.node);
 
-      expect(arrows.at(0).props().disabled).toBeTruthy();
-      expect(arrows.at(1).props().disabled).toBeFalsy();
+      expect(prew.props().disabled).toBeTruthy();
+      expect(next.props().disabled).toBeFalsy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
 
@@ -155,8 +155,8 @@ describe('Pagination', () => {
       triggerTouchTap(prew.node);
       triggerTouchTap(next.node);
 
-      expect(arrows.at(0).props().disabled).toBeFalsy();
-      expect(arrows.at(1).props().disabled).toBeTruthy();
+      expect(prew.props().disabled).toBeFalsy();
+      expect(next.props().disabled).toBeTruthy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
   });

@@ -129,7 +129,7 @@ export class VirtualTable extends React.Component {
           <VirtualBox
             rootTag="table"
             className="table"
-            style={{ zIndex: 0 }}
+            style={{ zIndex: 0, margin: 0 }}
 
             crossSize={scrollWidth}
             direction="vertical"

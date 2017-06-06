@@ -37,5 +37,5 @@ export {
   tableRowKeyGetter,
   tableColumnKeyGetter,
   getTableCellInfo,
-  tableCellClickHandler,
+  findTableCellTarget,
 } from './utils/table';

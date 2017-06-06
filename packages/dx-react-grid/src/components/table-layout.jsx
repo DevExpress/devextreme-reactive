@@ -90,6 +90,10 @@ export const TableLayout = ({
   return (
     <div
       {...restProps}
+      style={{
+        overflow: 'auto',
+        ...restProps.style,
+      }}
     >
       {
         tableTemplate({

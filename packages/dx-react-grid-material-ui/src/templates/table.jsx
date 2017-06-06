@@ -41,7 +41,6 @@ export const Table = ({
   onClick,
 }) => (
   <TableLayout
-    className="table-responsive"
     headerRows={headerRows}
     rows={bodyRows}
     getRowId={getRowId}

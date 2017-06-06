@@ -1,16 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-dom/test-utils';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { mountWithStyles } from '../utils/testing';
+import { mountWithStyles, triggerTouchTap } from '../utils/testing';
 import { Pagination, paginationStyleSheet } from './pagination';
 
 injectTapEventPlugin();
-
-const triggerTouchTap = (element) => {
-  const node = ReactDOM.findDOMNode(element); // eslint-disable-line react/no-find-dom-node
-  TestUtils.Simulate.touchTap(node);
-};
 
 describe('Pagination', () => {
   describe('#render', () => {

@@ -28,6 +28,6 @@
     "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
-    "test": "lerna run test --stream"
+    "test": "lerna run test"
   }
 }

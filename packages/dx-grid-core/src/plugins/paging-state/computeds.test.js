@@ -2,6 +2,7 @@ import {
     paginate,
     ensurePageHeaders,
     totalPageCount,
+    totalCount,
 } from './computeds';
 
 describe('PagingState computeds', () => {
@@ -144,6 +145,13 @@ describe('PagingState computeds', () => {
     test('should work', () => {
       const count = totalPageCount([1, 2, 3], 2);
       expect(count).toEqual(2);
+    });
+  });
+
+  describe('#totalCount', () => {
+    test('should work', () => {
+      const count = totalCount([1, 2, 3]);
+      expect(count).toEqual(3);
     });
   });
 });

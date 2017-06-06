@@ -7,18 +7,23 @@ injectTapEventPlugin();
 
 describe('Pagination', () => {
   describe('#render', () => {
-    const paginationTree = (totalPages, currentPage) => mountWithStyles(
+    const paginationTree = ({ totalPages, currentPage, totalCount, pageSize }) => mountWithStyles(
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
+        totalCount={totalCount}
+        pageSize={pageSize}
         onCurrentPageChange={() => {}}
-        totalCount={10}
-        pageSize={5}
       />,
     );
 
     test('can select the first item', () => {
-      const buttons = paginationTree(10, 1).find('Button');
+      const buttons = paginationTree({
+        totalPages: 10,
+        currentPage: 1,
+        totalCount: 10,
+        pageSize: 5,
+      }).find('Button');
       const activeItems = buttons.filterWhere(b => b.props().accent === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -31,7 +36,12 @@ describe('Pagination', () => {
     });
 
     test('can select an item in the middle', () => {
-      const buttons = paginationTree(10, 4).find('Button');
+      const buttons = paginationTree({
+        totalPages: 10,
+        currentPage: 4,
+        totalCount: 10,
+        pageSize: 5,
+      }).find('Button');
       const activeItems = buttons.filterWhere(b => b.props().accent === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -45,7 +55,12 @@ describe('Pagination', () => {
     });
 
     test('can select the last item', () => {
-      const buttons = paginationTree(10, 10).find('Button');
+      const buttons = paginationTree({
+        totalPages: 10,
+        currentPage: 10,
+        totalCount: 10,
+        pageSize: 5,
+      }).find('Button');
       const activeItems = buttons.filterWhere(b => b.props().accent === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -55,6 +70,17 @@ describe('Pagination', () => {
 
       expect(buttons.at(4).props().accent).toBeTruthy();
       expect(buttons.at(1).props().disabled).toBeTruthy();
+    });
+
+    test('can show info about rendered pages', () => {
+      const tree = paginationTree({
+        totalPages: 10,
+        currentPage: 2,
+        totalCount: 96,
+        pageSize: 10,
+      });
+
+      expect(tree.find('div > span').text()).toBe('11-20 of 96');
     });
   });
 });

@@ -9,7 +9,7 @@ const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
     margin: 0,
     verticalAlign: 'bottom',
   },
-  rows: {
+  rowsLabel: {
     ...theme.typography.caption,
     paddingRight: theme.spacing.unit * 5,
   },
@@ -140,12 +140,10 @@ const PaginationBase = ({
 
   return (
     <div className={classes.pagination}>
-      <span className={classes.rows}>
+      <span className={classes.rowsLabel}>
         { String(startPage) }
         -
-        { String(endPage > totalCount ? totalCount : endPage) }
-        &nbsp;of&nbsp;
-        {String(totalCount)}
+        { String(endPage > totalCount ? totalCount : endPage) } of {String(totalCount)}
       </span>
       {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
     </div>

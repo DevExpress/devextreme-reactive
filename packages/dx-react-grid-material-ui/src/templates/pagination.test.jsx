@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { mountWithStyles } from '../utils/testing';
-import { Pagination } from './pagination';
+import { Pagination, paginationStyleSheet } from './pagination';
 
 injectTapEventPlugin();
 
@@ -14,7 +14,7 @@ const triggerTouchTap = (element) => {
 
 describe('Pagination', () => {
   describe('#render', () => {
-    const paginationTree = ({
+    const mountPagination = ({
       totalPages,
       currentPage,
       totalCount,
@@ -28,83 +28,90 @@ describe('Pagination', () => {
         pageSize={pageSize}
         onCurrentPageChange={onCurrentPageChange}
       />,
+      paginationStyleSheet,
     );
 
-    // test('can select the first item', () => {
-    //   const buttons = paginationTree({
-    //     totalPages: 10,
-    //     currentPage: 1,
-    //     totalCount: 10,
-    //     pageSize: 5,
-    //   }).find('Button');
-    //   const activeItems = buttons.filterWhere(b => b.props().accent === true);
-    //   const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
+    test('can select the first item', () => {
+      const pagination = mountPagination({
+        totalPages: 10,
+        currentPage: 1,
+        totalCount: 10,
+        pageSize: 5,
+      });
+      const activeButtonClass = pagination.classes.activeButton;
+      const buttons = pagination.tree.find('Button');
+      const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
+      const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
-    //   expect(buttons).toHaveLength(5);
-    //   expect(activeItems).toHaveLength(1);
-    //   expect(disabledItems).toHaveLength(1);
+      expect(buttons).toHaveLength(5);
+      expect(activeItems).toHaveLength(1);
+      expect(disabledItems).toHaveLength(1);
 
-    //   expect(buttons.at(0).props().accent).toBeTruthy();
-    //   expect(buttons.at(3).props().disabled).toBeTruthy();
-    // });
+      expect(buttons.at(0).hasClass(pagination.classes.activeButton)).toBeTruthy();
+      expect(buttons.at(3).props().disabled).toBeTruthy();
+    });
 
-    // test('can select an item in the middle', () => {
-    //   const buttons = paginationTree({
-    //     totalPages: 10,
-    //     currentPage: 4,
-    //     totalCount: 10,
-    //     pageSize: 5,
-    //   }).find('Button');
-    //   const activeItems = buttons.filterWhere(b => b.props().accent === true);
-    //   const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
+    test('can select an item in the middle', () => {
+      const pagination = mountPagination({
+        totalPages: 10,
+        currentPage: 4,
+        totalCount: 10,
+        pageSize: 5,
+      });
+      const activeButtonClass = pagination.classes.activeButton;
+      const buttons = pagination.tree.find('Button');
+      const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
+      const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
-    //   expect(buttons).toHaveLength(7);
-    //   expect(activeItems).toHaveLength(1);
-    //   expect(disabledItems).toHaveLength(2);
+      expect(buttons).toHaveLength(7);
+      expect(activeItems).toHaveLength(1);
+      expect(disabledItems).toHaveLength(2);
 
-    //   expect(buttons.at(3).props().accent).toBeTruthy();
-    //   expect(buttons.at(1).props().disabled).toBeTruthy();
-    //   expect(buttons.at(5).props().disabled).toBeTruthy();
-    // });
+      expect(buttons.at(3).hasClass(activeButtonClass)).toBeTruthy();
+      expect(buttons.at(1).props().disabled).toBeTruthy();
+      expect(buttons.at(5).props().disabled).toBeTruthy();
+    });
 
-    // test('can select the last item', () => {
-    //   const buttons = paginationTree({
-    //     totalPages: 10,
-    //     currentPage: 10,
-    //     totalCount: 10,
-    //     pageSize: 5,
-    //   }).find('Button');
-    //   const activeItems = buttons.filterWhere(b => b.props().accent === true);
-    //   const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
+    test('can select the last item', () => {
+      const pagination = mountPagination({
+        totalPages: 10,
+        currentPage: 10,
+        totalCount: 10,
+        pageSize: 5,
+      });
+      const activeButtonClass = pagination.classes.activeButton;
+      const buttons = pagination.tree.find('Button');
+      const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
+      const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
-    //   expect(buttons).toHaveLength(5);
-    //   expect(activeItems).toHaveLength(1);
-    //   expect(disabledItems).toHaveLength(1);
+      expect(buttons).toHaveLength(5);
+      expect(activeItems).toHaveLength(1);
+      expect(disabledItems).toHaveLength(1);
 
-    //   expect(buttons.at(4).props().accent).toBeTruthy();
-    //   expect(buttons.at(1).props().disabled).toBeTruthy();
-    // });
+      expect(buttons.at(4).hasClass(activeButtonClass)).toBeTruthy();
+      expect(buttons.at(1).props().disabled).toBeTruthy();
+    });
 
     test('can show info about rendered pages', () => {
-      const tree = paginationTree({
+      const tree = mountPagination({
         totalPages: 10,
         currentPage: 2,
         totalCount: 96,
         pageSize: 10,
-      });
+      }).tree;
 
       expect(tree.find('div > span').text()).toBe('11-20 of 96');
     });
 
     test('can render pagination arrows', () => {
       const onCurrentPageChange = jest.fn();
-      const arrows = paginationTree({
+      const arrows = mountPagination({
         totalPages: 10,
         currentPage: 2,
         totalCount: 96,
         pageSize: 10,
         onCurrentPageChange,
-      }).find('IconButton');
+      }).tree.find('IconButton');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);
@@ -120,13 +127,13 @@ describe('Pagination', () => {
 
     test('the prev arrow is disabled if current page is 1', () => {
       const onCurrentPageChange = jest.fn();
-      const arrows = paginationTree({
+      const arrows = mountPagination({
         totalPages: 10,
         currentPage: 1,
         totalCount: 96,
         pageSize: 10,
         onCurrentPageChange,
-      }).find('IconButton');
+      }).tree.find('IconButton');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);
@@ -141,13 +148,13 @@ describe('Pagination', () => {
 
     test('the next arrow is disabled if current page equals to total page count', () => {
       const onCurrentPageChange = jest.fn();
-      const arrows = paginationTree({
+      const arrows = mountPagination({
         totalPages: 10,
         currentPage: 10,
         totalCount: 96,
         pageSize: 10,
         onCurrentPageChange,
-      }).find('IconButton');
+      }).tree.find('IconButton');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);

@@ -6,7 +6,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import ChevronRight from 'material-ui-icons/ChevronRight';
 
-const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
+export const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   pagination: {
     float: 'right',
     margin: 0,

@@ -1,6 +1,9 @@
 *.log
 **/dist
 
+# IDE
+.vscode
+
 # Node & npm
 **/node_modules
 /packages/*/*.tgz

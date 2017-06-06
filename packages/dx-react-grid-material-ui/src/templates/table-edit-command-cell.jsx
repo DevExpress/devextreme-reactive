@@ -8,7 +8,7 @@ import {
     TableCell,
 } from 'material-ui';
 
-const styleSheet = createStyleSheet('EditColumn', theme => ({
+export const styleSheet = createStyleSheet('EditColumn', theme => ({
   button: {
     margin: theme.spacing.unit,
     padding: theme.spacing.unit,
@@ -44,7 +44,7 @@ const CommandButtonBase = ({ executeCommand, text, classes }) => (
 );
 CommandButtonBase.propTypes = {
   executeCommand: PropTypes.func.isRequired,
-  text: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -55,7 +55,7 @@ const EditCommandHeadingCellBase = ({
     commandTemplate,
     allowAdding,
     style = {},
-    addCommandText = 'New',
+    addCommandText,
     classes,
   }) => (
     <TableCell
@@ -70,14 +70,17 @@ const EditCommandHeadingCellBase = ({
     </TableCell>
 );
 EditCommandHeadingCellBase.propTypes = {
-  addRow: PropTypes.func.isRequired,
+  addRow: PropTypes.func,
+  addCommandText: PropTypes.string,
+  allowAdding: PropTypes.bool,
   commandTemplate: PropTypes.func.isRequired,
-  addCommandText: PropTypes.string.isRequired,
-  allowAdding: PropTypes.bool.isRequired,
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
 };
 EditCommandHeadingCellBase.defaultProps = {
+  addRow: () => {},
+  addCommandText: 'New',
+  allowAdding: false,
   style: undefined,
 };
 
@@ -94,10 +97,10 @@ const EditCommandCellBase = ({
     allowDeleting,
     style = {},
     classes,
-    editCommandText = 'Edit',
-    deleteCommandText = 'Delete',
-    commitCommandText = 'Save',
-    cancelCommandText = 'Cancel',
+    editCommandText,
+    deleteCommandText,
+    commitCommandText,
+    cancelCommandText,
   }) => {
   let commands = [];
   if (!isEditing) {
@@ -139,22 +142,34 @@ const EditCommandCellBase = ({
   );
 };
 EditCommandCellBase.propTypes = {
-  startEditing: PropTypes.func.isRequired,
-  deleteRow: PropTypes.func.isRequired,
-  cancelEditing: PropTypes.func.isRequired,
-  commitChanges: PropTypes.func.isRequired,
-  isEditing: PropTypes.bool.isRequired,
-  allowEditing: PropTypes.bool.isRequired,
-  allowDeleting: PropTypes.bool.isRequired,
-  commandTemplate: PropTypes.func.isRequired,
-  editCommandText: PropTypes.string.isRequired,
-  deleteCommandText: PropTypes.string.isRequired,
-  commitCommandText: PropTypes.string.isRequired,
-  cancelCommandText: PropTypes.string.isRequired,
+  startEditing: PropTypes.func,
+  deleteRow: PropTypes.func,
+  cancelEditing: PropTypes.func,
+  commitChanges: PropTypes.func,
+  isEditing: PropTypes.bool,
+  allowEditing: PropTypes.bool,
+  allowDeleting: PropTypes.bool,
+  commandTemplate: PropTypes.func,
+  editCommandText: PropTypes.string,
+  deleteCommandText: PropTypes.string,
+  commitCommandText: PropTypes.string,
+  cancelCommandText: PropTypes.string,
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
 };
 EditCommandCellBase.defaultProps = {
+  startEditing: () => {},
+  deleteRow: () => {},
+  cancelEditing: () => {},
+  commitChanges: () => {},
+  isEditing: false,
+  allowEditing: false,
+  allowDeleting: false,
+  commandTemplate: PropTypes.func,
+  editCommandText: 'Edit',
+  deleteCommandText: 'Delete',
+  commitCommandText: 'Save',
+  cancelCommandText: 'Cancel',
   style: undefined,
 };
 

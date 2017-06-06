@@ -6,7 +6,7 @@ import {
   Grid,
   TableView,
   TableHeaderRow,
-  //TableEditRow,
+  TableEditRow,
   TableEditColumn,
 } from '@devexpress/dx-react-grid-material-ui';
 
@@ -93,7 +93,7 @@ export class EditRowControlledDemo extends React.PureComponent {
         />
         <TableView />
         <TableHeaderRow />
-        {/* <TableEditRow />*/}
+        <TableEditRow />
         <TableEditColumn
           allowAdding={!this.state.addedRows.length}
           allowEditing

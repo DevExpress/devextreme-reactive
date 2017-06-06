@@ -10,7 +10,5 @@ describe('MUI: custom filter row demo', () => {
         <CustomFilterRowDemo />
       </MuiThemeProvider>,
     );
-
-    expect(true).toBeTruthy();
   });
 });

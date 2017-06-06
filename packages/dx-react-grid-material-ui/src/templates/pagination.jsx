@@ -34,7 +34,7 @@ const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   next: {
     marginLeft: 0,
   },
-  '@media(max-width: 767px)': {
+  '@media(max-width: 768px)': {
     button: {
       display: 'none',
     },

@@ -17,9 +17,12 @@ const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
     display: 'inline-block',
     minWidth: theme.spacing.unit * 4,
   },
-  '@media (max-width: 767px)': {
+  '@media (max-width: 768px)': {
     label: {
       display: 'none',
+    },
+    pageSizeSelector: {
+      paddingRight: theme.spacing.unit * 4,
     },
   },
 }));

@@ -162,39 +162,35 @@ const renderPageButtons = (
 const PaginationBase = ({
   totalPages,
   totalCount,
-  pageSize,
+  firstRowIndex,
+  lastRowIndex,
   currentPage,
   onCurrentPageChange,
   classes,
-}) => {
-  const startPage = ((currentPage - 1) * pageSize) + 1;
-  const endPage = currentPage * pageSize;
-
-  return (
-    <div className={classes.pagination}>
-      <span className={classes.rowsLabel}>
-        { String(startPage) }
-        -
-        { String(endPage > totalCount ? totalCount : endPage) } of {String(totalCount)}
-      </span>
-      <IconButton
-        className={classNames(classes.arrowButton, classes.prev)}
-        disabled={currentPage === 1}
-        onTouchTap={() => currentPage > 1 && onCurrentPageChange(currentPage - 1)}
-      >
-        <ChevronLeft />
-      </IconButton>
-      {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
-      <IconButton
-        className={classNames(classes.arrowButton, classes.next)}
-        disabled={currentPage === totalPages}
-        onTouchTap={() => currentPage < totalPages && onCurrentPageChange(currentPage + 1)}
-      >
-        <ChevronRight />
-      </IconButton>
-    </div>
-  );
-};
+}) => (
+  <div className={classes.pagination}>
+    <span className={classes.rowsLabel}>
+      { String(firstRowIndex) }
+      -
+      { String(lastRowIndex) } of {String(totalCount)}
+    </span>
+    <IconButton
+      className={classNames(classes.arrowButton, classes.prev)}
+      disabled={currentPage === 1}
+      onTouchTap={() => currentPage > 1 && onCurrentPageChange(currentPage - 1)}
+    >
+      <ChevronLeft />
+    </IconButton>
+    {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
+    <IconButton
+      className={classNames(classes.arrowButton, classes.next)}
+      disabled={currentPage === totalPages}
+      onTouchTap={() => currentPage < totalPages && onCurrentPageChange(currentPage + 1)}
+    >
+      <ChevronRight />
+    </IconButton>
+  </div>
+);
 
 PaginationBase.propTypes = {
   totalPages: PropTypes.number.isRequired,
@@ -202,7 +198,8 @@ PaginationBase.propTypes = {
   onCurrentPageChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   totalCount: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
+  firstRowIndex: PropTypes.number.isRequired,
+  lastRowIndex: PropTypes.number.isRequired,
 };
 
 export const Pagination = withStyles(paginationStyleSheet)(PaginationBase);

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import { firstRowIndex, lastRowIndex } from '@devexpress/dx-grid-core';
 
 export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
   <PluginContainer>
@@ -17,6 +18,8 @@ export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
         totalPages: getter('totalPages'),
         pageSize: getter('pageSize'),
         totalCount: getter('totalCount'),
+        firstRowIndex: firstRowIndex(getter('currentPage'), getter('pageSize')),
+        lastRowIndex: lastRowIndex(getter('currentPage'), getter('pageSize'), getter('totalCount')),
         allowedPageSizes,
       })}
       connectActions={action => ({

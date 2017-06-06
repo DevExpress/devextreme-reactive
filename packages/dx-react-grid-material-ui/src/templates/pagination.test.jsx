@@ -11,14 +11,16 @@ describe('Pagination', () => {
       totalPages,
       currentPage,
       totalCount,
-      pageSize,
+      firstRowIndex,
+      lastRowIndex,
       onCurrentPageChange = () => {},
     }) => mountWithStyles(
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
         totalCount={totalCount}
-        pageSize={pageSize}
+        firstRowIndex={firstRowIndex}
+        lastRowIndex={lastRowIndex}
         onCurrentPageChange={onCurrentPageChange}
       />,
       paginationStyleSheet,
@@ -29,7 +31,8 @@ describe('Pagination', () => {
         totalPages: 10,
         currentPage: 1,
         totalCount: 10,
-        pageSize: 5,
+        firstRowIndex: 1,
+        lastRowIndex: 5,
       });
       const activeButtonClass = pagination.classes.activeButton;
       const buttons = pagination.tree.find('Button');
@@ -48,8 +51,9 @@ describe('Pagination', () => {
       const pagination = mountPagination({
         totalPages: 10,
         currentPage: 4,
-        totalCount: 10,
-        pageSize: 5,
+        totalCount: 50,
+        firstRowIndex: 41,
+        lastRowIndex: 45,
       });
       const activeButtonClass = pagination.classes.activeButton;
       const buttons = pagination.tree.find('Button');
@@ -69,8 +73,9 @@ describe('Pagination', () => {
       const pagination = mountPagination({
         totalPages: 10,
         currentPage: 10,
-        totalCount: 10,
-        pageSize: 5,
+        totalCount: 100,
+        firstRowIndex: 91,
+        lastRowIndex: 100,
       });
       const activeButtonClass = pagination.classes.activeButton;
       const buttons = pagination.tree.find('Button');
@@ -90,7 +95,8 @@ describe('Pagination', () => {
         totalPages: 10,
         currentPage: 2,
         totalCount: 96,
-        pageSize: 10,
+        firstRowIndex: 11,
+        lastRowIndex: 20,
       }).tree;
 
       expect(tree.find('div > span').text()).toBe('11-20 of 96');
@@ -102,7 +108,8 @@ describe('Pagination', () => {
         totalPages: 10,
         currentPage: 2,
         totalCount: 96,
-        pageSize: 10,
+        firstRowIndex: 11,
+        lastRowIndex: 20,
         onCurrentPageChange,
       }).tree.find('IconButton');
 
@@ -124,7 +131,8 @@ describe('Pagination', () => {
         totalPages: 10,
         currentPage: 1,
         totalCount: 96,
-        pageSize: 10,
+        firstRowIndex: 1,
+        lastRowIndex: 10,
         onCurrentPageChange,
       }).tree.find('IconButton');
 
@@ -145,7 +153,8 @@ describe('Pagination', () => {
         totalPages: 10,
         currentPage: 10,
         totalCount: 96,
-        pageSize: 10,
+        firstRowIndex: 91,
+        lastRowIndex: 96,
         onCurrentPageChange,
       }).tree.find('IconButton');
 

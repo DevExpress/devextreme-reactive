@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'material-ui';
+import { Button, IconButton } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import ChevronLeft from 'material-ui-icons/ChevronLeft';
+import ChevronRight from 'material-ui-icons/ChevronRight';
 
 const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   pagination: {
@@ -16,7 +18,14 @@ const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   button: {
     minWidth: theme.spacing.unit * 2,
   },
+  arrowButton: {
+    width: theme.spacing.unit * 3,
+    height: theme.spacing.unit * 3,
+    display: 'inline-block',
+    verticalAlign: 'middle',
+  },
 }));
+
 
 const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => (
   <Button
@@ -145,7 +154,21 @@ const PaginationBase = ({
         -
         { String(endPage > totalCount ? totalCount : endPage) } of {String(totalCount)}
       </span>
+      <IconButton
+        className={classes.arrowButton}
+        disabled={currentPage === 1}
+        onTouchTap={() => currentPage > 1 && onCurrentPageChange(currentPage - 1)}
+      >
+        <ChevronLeft />
+      </IconButton>
       {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
+      <IconButton
+        className={classes.arrowButton}
+        disabled={currentPage === totalPages}
+        onTouchTap={() => currentPage < totalPages && onCurrentPageChange(currentPage + 1)}
+      >
+        <ChevronRight />
+      </IconButton>
     </div>
   );
 };

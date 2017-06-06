@@ -1,19 +1,32 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-dom/test-utils';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { mountWithStyles } from '../utils/testing';
 import { Pagination } from './pagination';
 
 injectTapEventPlugin();
 
+const triggerTouchTap = (element) => {
+  const node = ReactDOM.findDOMNode(element); // eslint-disable-line react/no-find-dom-node
+  TestUtils.Simulate.touchTap(node);
+};
+
 describe('Pagination', () => {
   describe('#render', () => {
-    const paginationTree = ({ totalPages, currentPage, totalCount, pageSize }) => mountWithStyles(
+    const paginationTree = ({
+      totalPages,
+      currentPage,
+      totalCount,
+      pageSize,
+      onCurrentPageChange = () => {},
+    }) => mountWithStyles(
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
         totalCount={totalCount}
         pageSize={pageSize}
-        onCurrentPageChange={() => {}}
+        onCurrentPageChange={onCurrentPageChange}
       />,
     );
 
@@ -81,6 +94,70 @@ describe('Pagination', () => {
       });
 
       expect(tree.find('div > span').text()).toBe('11-20 of 96');
+    });
+
+    test('can render pagination arrows', () => {
+      const onCurrentPageChange = jest.fn();
+      const arrows = paginationTree({
+        totalPages: 10,
+        currentPage: 2,
+        totalCount: 96,
+        pageSize: 10,
+        onCurrentPageChange,
+      }).find('IconButton');
+
+      const prew = arrows.at(0);
+      const next = arrows.at(1);
+
+      triggerTouchTap(prew.node);
+      triggerTouchTap(next.node);
+
+      expect(arrows).toHaveLength(2);
+      expect(prew.props().disabled).toBeFalsy();
+      expect(next.props().disabled).toBeFalsy();
+      expect(onCurrentPageChange.mock.calls).toHaveLength(2);
+    });
+
+    test('the prev arrow is disabled if current page is 1', () => {
+      const onCurrentPageChange = jest.fn();
+      const arrows = paginationTree({
+        totalPages: 10,
+        currentPage: 1,
+        totalCount: 96,
+        pageSize: 10,
+        onCurrentPageChange,
+      }).find('IconButton');
+
+      const prew = arrows.at(0);
+      const next = arrows.at(1);
+
+      triggerTouchTap(prew.node);
+      triggerTouchTap(next.node);
+
+      expect(arrows.at(0).props().disabled).toBeTruthy();
+      expect(arrows.at(1).props().disabled).toBeFalsy();
+      expect(onCurrentPageChange.mock.calls).toHaveLength(1);
+    });
+
+    test('the next arrow is disabled if current page equals to total page count', () => {
+      const onCurrentPageChange = jest.fn();
+      const arrows = paginationTree({
+        totalPages: 10,
+        currentPage: 10,
+        totalCount: 96,
+        pageSize: 10,
+        onCurrentPageChange,
+      }).find('IconButton');
+
+      const prew = arrows.at(0);
+      const next = arrows.at(1);
+
+      triggerTouchTap(prew.node);
+      triggerTouchTap(next.node);
+
+      expect(arrows.at(0).props().disabled).toBeFalsy();
+      expect(arrows.at(1).props().disabled).toBeTruthy();
+      expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
   });
 });

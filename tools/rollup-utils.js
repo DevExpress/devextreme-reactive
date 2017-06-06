@@ -49,6 +49,7 @@ const knownGlobals = {
   'material-ui-icons/Close': 'material-ui-icons.Close',
   'material-ui-icons/List': 'material-ui-icons.List',
   'material-ui-icons/ChevronRight': 'material-ui-icons.ChevronRight',
+  'material-ui-icons/ChevronLeft': 'material-ui-icons.ChevronLeft',
   'material-ui-icons/ExpandMore': 'material-ui-icons.ExpandMore',
   'material-ui-icons/ExpandLess': 'material-ui-icons.ExpandLess',
 };

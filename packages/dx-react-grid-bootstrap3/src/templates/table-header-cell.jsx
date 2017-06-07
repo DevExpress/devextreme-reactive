@@ -10,6 +10,7 @@ export const TableHeaderCell = ({
 }) => {
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
+  const columnTitle = column.title || column.name;
 
   const gropingControl = allowGrouping && (
     <div
@@ -45,13 +46,13 @@ export const TableHeaderCell = ({
           style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
         />
         &nbsp;
-        {column.title}
+        {columnTitle}
       </span>
     ) : (
       <span
         className={sortingDirection ? 'text-primary' : ''}
       >
-        {column.title}
+        {columnTitle}
         &nbsp;
         <SortingIndicator
           direction={sortingDirection}
@@ -91,7 +92,7 @@ export const TableHeaderCell = ({
         }}
       >
         {allowSorting ? sortingControl : (
-          column.title
+          columnTitle
         )}
       </div>
     </th>

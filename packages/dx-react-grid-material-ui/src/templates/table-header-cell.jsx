@@ -57,6 +57,7 @@ export const TableHeaderCellBase = ({
 }) => {
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
+  const columnTitle = column.title || column.name;
 
   const groupingControlClasses = classNames(
     {
@@ -98,7 +99,7 @@ export const TableHeaderCellBase = ({
       active={!!sortingDirection}
       direction={sortingDirection}
     >
-      {column.title}
+      {columnTitle}
     </TableSortLabel>
   );
 
@@ -115,7 +116,7 @@ export const TableHeaderCellBase = ({
       {gropingControl}
       <div className={titleClasses}>
         {allowSorting ? sortingControl : (
-          column.title
+          columnTitle
         )}
       </div>
     </TableCell>

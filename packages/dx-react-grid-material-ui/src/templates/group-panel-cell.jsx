@@ -37,7 +37,7 @@ const GroupPanelCellBase = ({
         active={allowSorting && !!sortingDirection}
         direction={sortingDirection}
       >
-        {column.title}
+        {column.title || column.name}
       </TableSortLabel>
     </span>
     &nbsp;

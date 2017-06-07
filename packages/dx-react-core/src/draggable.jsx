@@ -18,6 +18,7 @@ export class Draggable extends React.Component {
       clamp(y, this.initialOffset.y - BOUNDARY, this.initialOffset.y + BOUNDARY) !== y;
     this.onStart = ({ x, y }) => {
       this.initialOffset = { x, y };
+      this.installListeners();
     };
     this.onMove = ({ x, y, prevent }) => {
       if (this.initialOffset && this.isBoundExceeded({ x, y })) {
@@ -31,35 +32,43 @@ export class Draggable extends React.Component {
         prevent();
       }
     };
-    this.onEnd = ({ x, y }) => {
+    this.onEnd = ({ x, y, prevent }) => {
       if (this.offset) {
+        prevent();
         this.props.onEnd({ x, y });
       }
       this.initialOffset = null;
       this.offset = null;
+      this.removeListeners();
     };
-  }
-  componentDidMount() {
-    window.addEventListener('mousemove', (e) => {
-      const { clientX, clientY } = e;
-      this.onMove({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
-    });
-    window.addEventListener('mouseup', (e) => {
-      const { clientX, clientY } = e;
-      this.onEnd({ x: clientX, y: clientY });
-    });
 
-    window.addEventListener('touchmove', (e) => {
-      const { clientX, clientY } = e.touches[0];
-      this.onMove({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
-    }, { passive: false });
-    window.addEventListener('touchend', (e) => {
-      const { clientX, clientY } = e.changedTouches[0];
-      this.onEnd({ x: clientX, y: clientY });
-    });
+    this.listeners = [
+      ['mousemove', (e) => {
+        const { clientX, clientY } = e;
+        this.onMove({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
+      }],
+      ['mouseup', (e) => {
+        const { clientX, clientY } = e;
+        this.onEnd({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
+      }],
+      ['touchmove', (e) => {
+        const { clientX, clientY } = e.touches[0];
+        this.onMove({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
+      }, { passive: false }],
+      ['touchend', (e) => {
+        const { clientX, clientY } = e.changedTouches[0];
+        this.onEnd({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
+      }],
+    ];
   }
   shouldComponentUpdate(nextProps) {
     return nextProps.children !== this.props.children;
+  }
+  installListeners() {
+    this.listeners.forEach(args => window.addEventListener(...args));
+  }
+  removeListeners() {
+    this.listeners.forEach(args => window.removeEventListener(...args));
   }
   render() {
     return React.cloneElement(

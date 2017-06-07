@@ -8,6 +8,10 @@ export const Container = ({
 }) => (
   <div
     style={{
+      position: 'fixed',
+      zIndex: 1000,
+      left: 0,
+      top: 0,
       display: 'inline-block',
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
     }}

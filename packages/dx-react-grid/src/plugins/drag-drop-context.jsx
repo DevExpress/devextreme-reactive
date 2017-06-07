@@ -41,25 +41,13 @@ export class DragDropContext extends React.PureComponent {
               >
                 <TemplatePlaceholder />
               </DragDropContextCore>
-              <div
-                style={{
-                  position: 'fixed',
-                  pointerEvents: 'none',
-                  zIndex: 1000,
-                  left: 0,
-                  top: 0,
-                  width: '100%',
-                  height: '100%',
-                }}
-              >
-                {payload && containerTemplate({
-                  clientOffset,
-                  columns: payload
-                    .filter(item => item.type === 'column')
-                    .map(item => columns.find(column => column.name === item.columnName)),
-                  columnTemplate,
-                })}
-              </div>
+              {payload && containerTemplate({
+                clientOffset,
+                columns: payload
+                  .filter(item => item.type === 'column')
+                  .map(item => columns.find(column => column.name === item.columnName)),
+                columnTemplate,
+              })}
             </div>
           )}
         </Template>

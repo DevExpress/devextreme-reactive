@@ -10,7 +10,5 @@ describe('MUI: local filtering controlled demo', () => {
         <LocalFilteringControlledDemo />
       </MuiThemeProvider>,
     );
-
-    expect(true).toBeTruthy();
   });
 });

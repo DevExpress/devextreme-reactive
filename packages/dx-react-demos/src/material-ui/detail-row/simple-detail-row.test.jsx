@@ -10,7 +10,5 @@ describe('MUI: simple detail row demo', () => {
         <SimpleDetailRowDemo />
       </MuiThemeProvider>,
     );
-
-    expect(true).toBeTruthy();
   });
 });

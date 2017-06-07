@@ -7,3 +7,5 @@ export { TableSelection } from './plugins/table-selection';
 export { TableView } from './plugins/table-view';
 export { TableFilterRow } from './plugins/table-filter-row';
 export { TableHeaderRow } from './plugins/table-header-row';
+export { TableEditColumn } from './plugins/table-edit-column';
+export { TableEditRow } from './plugins/table-edit-row';

@@ -2,6 +2,9 @@ import {
     paginate,
     ensurePageHeaders,
     totalPageCount,
+    totalCount,
+    firstRowOnPage,
+    lastRowOnPage,
 } from './computeds';
 
 describe('PagingState computeds', () => {
@@ -144,6 +147,32 @@ describe('PagingState computeds', () => {
     test('should work', () => {
       const count = totalPageCount([1, 2, 3], 2);
       expect(count).toEqual(2);
+    });
+  });
+
+  describe('#totalCount', () => {
+    test('should work', () => {
+      const count = totalCount([1, 2, 3]);
+      expect(count).toEqual(3);
+    });
+  });
+
+  describe('#firstRowOnPage', () => {
+    test('should work', () => {
+      const count = firstRowOnPage(1, 5);
+      expect(count).toEqual(6);
+    });
+  });
+
+  describe('#lastRowOnPage', () => {
+    test('should work', () => {
+      const count = lastRowOnPage(1, 5, 15);
+      expect(count).toEqual(10);
+    });
+
+    test('should not be greater than total count', () => {
+      const count = lastRowOnPage(1, 5, 9);
+      expect(count).toEqual(9);
     });
   });
 });

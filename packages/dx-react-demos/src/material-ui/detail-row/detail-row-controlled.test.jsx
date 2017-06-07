@@ -10,7 +10,5 @@ describe('MUI: detail row controlled demo', () => {
         <DetailRowControlledDemo />
       </MuiThemeProvider>,
     );
-
-    expect(true).toBeTruthy();
   });
 });

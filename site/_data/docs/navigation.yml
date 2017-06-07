@@ -68,3 +68,5 @@ react:
           path: /react/grid/docs/reference/paging-panel
         - title: GroupingPanel
           path: /react/grid/docs/reference/grouping-panel
+        - title: DragDropContext
+          path: /react/grid/docs/reference/drag-drop-context

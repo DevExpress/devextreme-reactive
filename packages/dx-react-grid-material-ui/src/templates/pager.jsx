@@ -18,18 +18,21 @@ const PagerBase = ({
   classes,
   onCurrentPageChange,
   onPageSizeChange,
+  totalCount,
   }) => (
     <div className={classes.pager}>
+      <Pagination
+        totalPages={totalPages}
+        totalCount={totalCount}
+        currentPage={currentPage}
+        onCurrentPageChange={page => onCurrentPageChange(page)}
+        pageSize={pageSize}
+      />
       {!!allowedPageSizes.length && <PageSizeSelector
         pageSize={pageSize}
         onPageSizeChange={onPageSizeChange}
         allowedPageSizes={allowedPageSizes}
       />}
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage + 1}
-        onCurrentPageChange={page => onCurrentPageChange(page - 1)}
-      />
     </div>
 );
 
@@ -41,6 +44,7 @@ PagerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
+  totalCount: PropTypes.number.isRequired,
 };
 
 export const Pager = withStyles(styleSheet)(PagerBase);

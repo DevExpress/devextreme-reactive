@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { DragSource } from '@devexpress/dx-react-core';
+
 import { SortingIndicator } from './parts/sorting-indicator';
 
 export const TableHeaderCell = ({
   style, column,
   allowSorting, sortingDirection, changeSortingDirection,
   allowGrouping, groupByColumn,
+  allowDragging, dragPayload,
 }) => {
   const align = column.align || 'left';
   const invertedAlign = align === 'left' ? 'right' : 'left';
@@ -62,13 +65,13 @@ export const TableHeaderCell = ({
     )
   );
 
-  return (
+  const cellLayout = (
     <th
       style={{
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
-        cursor: allowSorting && !column.type && 'pointer',
+        cursor: allowSorting && !column.type ? 'pointer' : 'default',
         ...style,
       }}
       onClick={(e) => {
@@ -97,15 +100,14 @@ export const TableHeaderCell = ({
       </div>
     </th>
   );
+
+  return allowDragging ? (
+    <DragSource getPayload={() => dragPayload}>
+      {cellLayout}
+    </DragSource>
+  ) : cellLayout;
 };
-TableHeaderCell.defaultProps = {
-  style: null,
-  allowSorting: false,
-  sortingDirection: undefined,
-  changeSortingDirection: undefined,
-  allowGrouping: false,
-  groupByColumn: undefined,
-};
+
 TableHeaderCell.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
@@ -116,4 +118,17 @@ TableHeaderCell.propTypes = {
   changeSortingDirection: PropTypes.func,
   allowGrouping: PropTypes.bool,
   groupByColumn: PropTypes.func,
+  allowDragging: PropTypes.bool,
+  dragPayload: PropTypes.any,
+};
+
+TableHeaderCell.defaultProps = {
+  style: null,
+  allowSorting: false,
+  sortingDirection: undefined,
+  changeSortingDirection: undefined,
+  allowGrouping: false,
+  groupByColumn: undefined,
+  allowDragging: false,
+  dragPayload: null,
 };

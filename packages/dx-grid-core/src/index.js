@@ -32,3 +32,10 @@ export * from './plugins/table-filter-row/computeds';
 export * from './plugins/table-group-row/computeds';
 export * from './plugins/table-header-row/computeds';
 export * from './plugins/table-selection/computeds';
+
+export {
+  tableRowKeyGetter,
+  tableColumnKeyGetter,
+  getTableCellInfo,
+  findTableCellTarget,
+} from './utils/table';

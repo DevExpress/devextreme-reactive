@@ -1,13 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { CustomFilterRowDemo } from './custom-filter-row';
+import { EditRowDemo } from './edit-row';
 
-describe('MUI: custom filter row demo', () => {
+describe('MUI: edit row controlled demo', () => {
   test('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>
-        <CustomFilterRowDemo />
+        <EditRowDemo />
       </MuiThemeProvider>,
     );
   });

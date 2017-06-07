@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    TableCell as TableCellMUI,
+  TableCell as TableCellMUI,
 } from 'material-ui';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';

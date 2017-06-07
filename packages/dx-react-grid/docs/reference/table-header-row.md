@@ -1,8 +1,8 @@
 # TableHeaderRow Plugin Reference
 
-A plugin that renders a simple table header that shows column titles. A column title is specified by the `title` field in a column definition. See the extended data structure for a [Column](#column).
+A plugin that renders a simple table header that shows column titles. The `title` field in a column's definition specifies its title. See the extended data structure for a [Column](#column).
 
-Optionally, the plugin allows an end-user to manage a column's sorting and grouping state or initiate column dragging.
+The plugin also allows an end-user to manage a column's sorting and grouping state or initiate column dragging.
 
 ## User Reference
 
@@ -26,7 +26,7 @@ allowDragging | boolean | false | If true, allows an end-user to start dragging 
 
 ### Column
 
-Describes properties used to render the table header row
+Describes properties used to render the table header row.
 
 Extends [Column](grid.md#column)
 

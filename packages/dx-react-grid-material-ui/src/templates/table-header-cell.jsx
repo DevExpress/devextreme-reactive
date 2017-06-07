@@ -13,7 +13,7 @@ import List from 'material-ui-icons/List';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
+export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   gropingControl: {
     cursor: 'pointer',
     paddingLeft: theme.spacing.unit * 3,
@@ -30,9 +30,17 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   },
   cell: {
     paddingRight: theme.spacing.unit * 3,
+  },
+  cellNoUserSelect: {
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
+  },
+  cellDraggable: {
+    cursor: 'move',
+  },
+  cellClickable: {
+    cursor: 'pointer',
   },
   clearPadding: {
     padding: 0,
@@ -78,6 +86,9 @@ export const TableHeaderCellBase = ({
     {
       [classes.cell]: true,
       [classes.clearPadding]: !column.name,
+      [classes.cellNoUserSelect]: allowDragging || allowSorting,
+      [classes.cellDraggable]: allowDragging,
+      [classes.cellClickable]: allowSorting,
     },
   );
 

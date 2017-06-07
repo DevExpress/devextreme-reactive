@@ -68,10 +68,13 @@ export const TableHeaderCell = ({
   const cellLayout = (
     <th
       style={{
-        userSelect: 'none',
-        MozUserSelect: 'none',
-        WebkitUserSelect: 'none',
-        cursor: allowSorting && !column.type ? 'pointer' : 'default',
+        ...(allowSorting || allowDragging ? {
+          userSelect: 'none',
+          MozUserSelect: 'none',
+          WebkitUserSelect: 'none',
+        } : {}),
+        ...(allowDragging ? { cursor: 'move' } : {}),
+        ...(allowSorting ? { cursor: 'pointer' } : {}),
         ...style,
       }}
       onClick={(e) => {

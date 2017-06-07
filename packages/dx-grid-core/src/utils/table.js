@@ -1,4 +1,4 @@
-import { querySelectorAll } from './dom';
+import { querySelectorAll } from './dom-utils';
 
 const getTableKeyGetter = (getIntrinsicKey, object, index) => {
   const type = object.type || 'data';
@@ -14,22 +14,20 @@ export const tableColumnKeyGetter = (column, columnIndex) =>
   getTableKeyGetter(getColumnId, column, columnIndex);
 
 export const getTableCellInfo = ({ row, columnIndex, columns }) => {
-  if (row.colspan !== undefined && columnIndex > row.colspan) { return { skip: true }; }
-  const colspan = row.colspan === columnIndex ? columns.length - row.colspan : 1;
-  return { colspan };
+  if (row.colspan !== undefined && columnIndex > row.colspan) return { skip: true };
+  if (row.colspan === columnIndex) return { colspan: columns.length - row.colspan };
+  return {};
 };
 
-export const tableCellClickHandler = ({ headerRows, bodyRows, columns, onClick }) => (e) => {
+export const findTableCellTarget = (e) => {
   const { target, currentTarget } = e;
 
-  const rowsEls = querySelectorAll(currentTarget, ':scope > thead > tr, :scope > tbody > tr');
+  const rowsEls = querySelectorAll(currentTarget, ':scope > tr, :scope > tr');
   const rowIndex = [...rowsEls].findIndex(rowEl => rowEl.contains(target));
-  if (rowIndex === -1) return;
+  if (rowIndex === -1) return { rowIndex: -1, columnIndex: -1 };
   const cellEls = querySelectorAll(rowsEls[rowIndex], ':scope > th, :scope > td');
   const columnIndex = [...cellEls].findIndex(cellEl => cellEl.contains(target));
-  if (columnIndex === -1) return;
+  if (columnIndex === -1) return { rowIndex: -1, columnIndex: -1 };
 
-  const row = [...headerRows, ...bodyRows][rowIndex];
-  const column = columns[columnIndex];
-  onClick({ row, column, e });
+  return { rowIndex, columnIndex };
 };

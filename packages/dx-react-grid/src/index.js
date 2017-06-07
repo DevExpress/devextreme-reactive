@@ -16,6 +16,8 @@ export { SelectionState } from './plugins/selection-state';
 export { SortingState } from './plugins/sorting-state';
 export { LocalSorting } from './plugins/sorting-local';
 
+export { DragDropContext } from './plugins/drag-drop-context';
+
 export { ColumnOrderState } from './plugins/column-order-state';
 
 export { TableView } from './plugins/table-view';

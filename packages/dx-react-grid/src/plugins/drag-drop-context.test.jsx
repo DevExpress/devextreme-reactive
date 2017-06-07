@@ -1,0 +1,71 @@
+import React from 'react';
+import { mount } from 'enzyme';
+
+import {
+  Getter, PluginHost,
+  DragDropContext as DragDropContextCore,
+} from '@devexpress/dx-react-core';
+
+import { DragDropContext } from './drag-drop-context';
+
+describe('DragDropContext', () => {
+  it('should not render container if dragging is not started', () => {
+    const tree = mount(
+      <PluginHost>
+        <Getter
+          name="columns"
+          value={[{ name: 'a' }, { name: 'b' }]}
+        />
+        <DragDropContext
+          containerTemplate={() => <ul className="container" />}
+          columnTemplate={() => <li />}
+        />
+      </PluginHost>,
+    );
+
+    expect(tree.find('.container').exists())
+      .toBeFalsy();
+  });
+
+  it('should render container while dragging', () => {
+    const tree = mount(
+      <PluginHost>
+        <Getter
+          name="columns"
+          value={[{ name: 'a', title: 'A' }, { name: 'b', title: 'B' }]}
+        />
+        <DragDropContext
+          containerTemplate={({ clientOffset, columns, columnTemplate }) => (
+            <ul className="container" style={{ top: clientOffset.y, left: clientOffset.x }}>
+              {columns.map(column => React.cloneElement(
+                columnTemplate({ column }),
+                { key: column.name },
+              ))}
+            </ul>
+          )}
+          columnTemplate={({ column }) => (
+            <li className="column" >
+              {column.title}
+            </li>
+          )}
+        />
+      </PluginHost>,
+    );
+
+    const dragDropContext = tree.find(DragDropContextCore);
+    dragDropContext.prop('onChange')({
+      payload: [{ type: 'column', columnName: 'a' }],
+      clientOffset: { x: 10, y: 10 },
+    });
+
+    const container = tree.find('.container');
+    expect(container.exists())
+      .toBeTruthy();
+    expect(container.get(0).style.top)
+      .toBe('10px');
+    expect(container.get(0).style.left)
+      .toBe('10px');
+    expect(tree.find('.column').text())
+      .toBe('A');
+  });
+});

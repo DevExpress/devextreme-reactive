@@ -1,30 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { DropDownMenu } from './drop-down-menu';
 
 const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
-  button: {
-    minWidth: theme.spacing.unit * 2,
+  pageSizeSelector: {
+    ...theme.typography.caption,
+    float: 'right',
+    paddingRight: theme.spacing.unit * 5,
+  },
+  label: {
+    paddingRight: theme.spacing.unit * 3,
+    lineHeight: `${theme.spacing.unit * 5}px`,
+  },
+  pageSizes: {
+    display: 'inline-block',
+    minWidth: theme.spacing.unit * 4,
+  },
+  '@media (max-width: 768px)': {
+    label: {
+      display: 'none',
+    },
+    pageSizeSelector: {
+      paddingRight: theme.spacing.unit * 2,
+      marginTop: 4,
+    },
   },
 }));
 
-export const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, classes }) => (
-  <div style={{ display: 'inline-block' }}>
-    {allowedPageSizes.map(item => (
-      <Button
-        key={item}
-        accent={item === pageSize}
-        raised={item === pageSize}
-        className={classes.button}
-        onTouchTap={(e) => {
-          e.preventDefault();
-          onPageSizeChange(item);
-        }}
-      >
-        {item}
-      </Button>
-    ))}
+const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, classes }) => (
+  <div className={classes.pageSizeSelector}>
+    <span className={classes.label}>
+    Rows per page:
+    </span>
+    <DropDownMenu
+      defaultTitle={String(pageSize)}
+      items={allowedPageSizes}
+      onItemClick={(item) => {
+        onPageSizeChange(item);
+      }}
+      className={classes.pageSizes}
+    />
   </div>
 );
 

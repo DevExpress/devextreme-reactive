@@ -99,6 +99,7 @@
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
+    "@devexpress/dx-grid-core": "1.0.0-alpha.2",
     "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "material-ui": "^1.0.0-alpha.14",
     "material-ui-icons": "^1.0.0-alpha.3",

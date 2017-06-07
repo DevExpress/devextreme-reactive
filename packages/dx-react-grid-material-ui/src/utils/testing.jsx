@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-dom/test-utils';
 
 import { mount } from 'enzyme';
 import { create } from 'jss';
@@ -43,3 +45,7 @@ export const setupConsole = (config = {}) => {
   };
 };
 
+export const triggerTouchTap = (element) => {
+  const node = ReactDOM.findDOMNode(element); // eslint-disable-line react/no-find-dom-node
+  TestUtils.Simulate.touchTap(node);
+};

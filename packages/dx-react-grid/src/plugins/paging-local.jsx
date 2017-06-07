@@ -1,6 +1,6 @@
 import React from 'react';
 import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
-import { paginate, ensurePageHeaders, totalPageCount } from '@devexpress/dx-grid-core';
+import { paginate, ensurePageHeaders, totalPageCount, totalCount } from '@devexpress/dx-grid-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalPaging extends React.PureComponent {
@@ -21,6 +21,13 @@ export class LocalPaging extends React.PureComponent {
           connectArgs={getter => [
             getter('rows'),
             getter('pageSize'),
+          ]}
+        />
+        <Getter
+          name="totalCount"
+          pureComputed={totalCount}
+          connectArgs={getter => [
+            getter('rows'),
           ]}
         />
         <Watcher

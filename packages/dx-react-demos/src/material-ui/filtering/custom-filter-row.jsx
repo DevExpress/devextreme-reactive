@@ -9,10 +9,8 @@ import {
   Grid,
   TableView,
   TableFilterRow,
-} from '@devexpress/dx-react-grid-material-ui';
-import {
   DropDownMenu,
-} from '../components/drop-down-menu';
+} from '@devexpress/dx-react-grid-material-ui';
 import {
   generateRows,
 } from '../../demoData';

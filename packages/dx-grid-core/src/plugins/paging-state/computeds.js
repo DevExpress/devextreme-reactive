@@ -28,3 +28,12 @@ export const ensurePageHeaders = (rows, pageSize) => {
 };
 
 export const totalPageCount = (rows, pageSize) => Math.ceil(rows.length / pageSize);
+
+export const totalCount = rows => rows.length;
+
+export const firstRowOnPage = (currentPage, pageSize) => (currentPage * pageSize) + 1;
+
+export const lastRowOnPage = (currentPage, pageSize, totalRowCount) => {
+  const index = (currentPage + 1) * pageSize;
+  return index > totalRowCount ? totalRowCount : index;
+};

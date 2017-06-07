@@ -16,6 +16,7 @@ export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
         currentPage: getter('currentPage'),
         totalPages: getter('totalPages'),
         pageSize: getter('pageSize'),
+        totalCount: getter('totalCount'),
         allowedPageSizes,
       })}
       connectActions={action => ({

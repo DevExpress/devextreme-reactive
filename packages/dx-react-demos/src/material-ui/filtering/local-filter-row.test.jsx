@@ -10,7 +10,5 @@ describe('MUI: local filter row demo', () => {
         <LocalFilterRowDemo />
       </MuiThemeProvider>,
     );
-
-    expect(true).toBeTruthy();
   });
 });

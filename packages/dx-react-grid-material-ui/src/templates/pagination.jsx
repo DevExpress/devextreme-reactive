@@ -5,7 +5,7 @@ import { Button, IconButton } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import ChevronRight from 'material-ui-icons/ChevronRight';
-import { firstRowOnPage, lastRowOnPage } from '../../../dx-grid-core';
+import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 
 export const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   pagination: {

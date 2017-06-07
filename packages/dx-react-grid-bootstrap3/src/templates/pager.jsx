@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, Pager as BootstrapPager } from 'react-bootstrap';
+import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 import { PageSizeSelector } from './page-size-selector';
-import { firstRowOnPage, lastRowOnPage } from '../../../dx-grid-core';
 
 export const Pager = ({
   currentPage,

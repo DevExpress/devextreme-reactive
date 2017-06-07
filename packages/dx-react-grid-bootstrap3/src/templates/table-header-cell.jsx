@@ -118,8 +118,8 @@ TableHeaderCell.propTypes = {
   changeSortingDirection: PropTypes.func,
   allowGrouping: PropTypes.bool,
   groupByColumn: PropTypes.func,
-  allowDragging: PropTypes.bool.isRequired,
-  dragPayload: PropTypes.any.isRequired,
+  allowDragging: PropTypes.bool,
+  dragPayload: PropTypes.any,
 };
 
 TableHeaderCell.defaultProps = {
@@ -129,4 +129,6 @@ TableHeaderCell.defaultProps = {
   changeSortingDirection: undefined,
   allowGrouping: false,
   groupByColumn: undefined,
+  allowDragging: false,
+  dragPayload: null,
 };

@@ -146,8 +146,8 @@ TableHeaderCellBase.propTypes = {
   changeSortingDirection: PropTypes.func,
   allowGrouping: PropTypes.bool,
   groupByColumn: PropTypes.func,
-  allowDragging: PropTypes.bool.isRequired,
-  dragPayload: PropTypes.any.isRequired,
+  allowDragging: PropTypes.bool,
+  dragPayload: PropTypes.any,
   classes: PropTypes.object.isRequired,
 };
 
@@ -158,6 +158,8 @@ TableHeaderCellBase.defaultProps = {
   changeSortingDirection: undefined,
   allowGrouping: false,
   groupByColumn: undefined,
+  allowDragging: false,
+  dragPayload: null,
 };
 
 export const TableHeaderCell = withStyles(styleSheet)(TableHeaderCellBase);

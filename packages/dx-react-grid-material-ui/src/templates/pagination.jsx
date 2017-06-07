@@ -44,6 +44,9 @@ export const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
     next: {
       marginLeft: theme.spacing.unit,
     },
+    rowsLabel: {
+      paddingRight: theme.spacing.unit * 2,
+    },
   },
 }));
 

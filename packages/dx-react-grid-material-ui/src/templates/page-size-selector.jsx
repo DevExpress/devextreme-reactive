@@ -22,7 +22,8 @@ const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
       display: 'none',
     },
     pageSizeSelector: {
-      paddingRight: theme.spacing.unit * 4,
+      paddingRight: theme.spacing.unit * 2,
+      marginTop: 4,
     },
   },
 }));

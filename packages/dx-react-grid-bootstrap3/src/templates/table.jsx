@@ -2,60 +2,57 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  tableRowKeyGetter,
-  tableCellClickHandler,
+  TableLayout,
 } from '@devexpress/dx-react-grid';
-
-import { TableRow } from './table-row';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
-export const Table = ({
-  headerRows, bodyRows, columns, cellTemplate, onClick, getRowId,
-}) => {
-  const minWidth = columns
-    .map(column => column.width || MINIMAL_COLUMN_WIDTH)
-    .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);
+/* eslint-disable react/prop-types */
+const tableTemplate = ({ children, ...restProps }) => (
+  <table
+    className="table"
+    {...restProps}
+  >
+    {children}
+  </table>
+);
+const headTemplate = ({ children, ...restProps }) => (
+  <thead {...restProps}>{children}</thead>
+);
+const bodyTemplate = ({ children, ...restProps }) => (
+  <tbody {...restProps}>{children}</tbody>
+);
+const rowTemplate = ({ children, row, ...restProps }) => (
+  <tr
+    className={row.selected ? 'active' : ''}
+    {...restProps}
+  >
+    {children}
+  </tr>
+);
+/* eslint-enable react/prop-types */
 
-  return (
-    <div
-      className="table-responsive"
-      style={{
-        WebkitOverflowScrolling: 'touch',
-      }}
-    >
-      <table
-        className="table"
-        style={{
-          tableLayout: 'fixed',
-          minWidth: `${minWidth}px`,
-        }}
-        onClick={tableCellClickHandler({ headerRows, bodyRows, columns, onClick })}
-      >
-        <thead>
-          {headerRows.map((row, rowIndex) => (
-            <TableRow
-              key={tableRowKeyGetter(getRowId, row, rowIndex)}
-              row={row}
-              columns={columns}
-              cellTemplate={cellTemplate}
-            />
-          ))}
-        </thead>
-        <tbody>
-          {bodyRows.map((row, rowIndex) => (
-            <TableRow
-              key={tableRowKeyGetter(getRowId, row, rowIndex)}
-              row={row}
-              columns={columns}
-              cellTemplate={cellTemplate}
-            />
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+export const Table = ({
+  headerRows, bodyRows, getRowId,
+  columns,
+  cellTemplate,
+  onClick,
+}) => (
+  <TableLayout
+    className="table-responsive"
+    headerRows={headerRows}
+    rows={bodyRows}
+    getRowId={getRowId}
+    columns={columns}
+    minColumnWidth={MINIMAL_COLUMN_WIDTH}
+    tableTemplate={tableTemplate}
+    headTemplate={headTemplate}
+    bodyTemplate={bodyTemplate}
+    rowTemplate={rowTemplate}
+    cellTemplate={cellTemplate}
+    onClick={onClick}
+  />
+);
 Table.defaultProps = {
   onClick: () => {},
 };

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  SortingState, SelectionState, FilteringState, PagingState, GroupingState,
+  SortingState, SelectionState, FilteringState, PagingState, GroupingState, ColumnOrderState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel,
+  PagingPanel, GroupingPanel, DragDropContext,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
     ProgressBarCell,
@@ -63,6 +63,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
           defaultCurrentPage={0}
           defaultPageSize={10}
         />
+        <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
 
         <LocalFiltering />
         <LocalSorting />
@@ -73,6 +74,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
           defaultSelection={[1, 3, 18]}
         />
 
+        <DragDropContext />
         <TableView
           tableCellTemplate={({ row, column, style }) => {
             if (column.name === 'discount') {
@@ -86,9 +88,10 @@ export class UncontrolledModeDemo extends React.PureComponent {
             }
             return undefined;
           }}
+          allowColumnReordering
         />
 
-        <TableHeaderRow allowSorting allowGrouping />
+        <TableHeaderRow allowSorting allowGrouping allowDragging />
         <TableFilterRow />
         <PagingPanel
           allowedPageSizes={allowedPageSizes}

@@ -5,6 +5,7 @@ import { Button, IconButton } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import ChevronRight from 'material-ui-icons/ChevronRight';
+import { firstRowOnPage, lastRowOnPage } from '../../../dx-grid-core';
 
 export const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   pagination: {
@@ -100,7 +101,7 @@ const renderPageButtons = (
   let endPage = totalPageCount;
 
   if (maxButtonCount < totalPageCount) {
-    startPage = calculateStartPage(currentPage, maxButtonCount, totalPageCount);
+    startPage = calculateStartPage(currentPage + 1, maxButtonCount, totalPageCount);
     endPage = (startPage + maxButtonCount) - 1;
   }
   if (startPage > 1) {
@@ -109,7 +110,7 @@ const renderPageButtons = (
         key={1}
         text={String(1)}
         classes={classes}
-        onClick={() => onCurrentPageChange(1)}
+        onClick={() => onCurrentPageChange(0)}
       />,
     );
 
@@ -130,9 +131,9 @@ const renderPageButtons = (
       <PageButton
         key={page}
         text={String(page)}
-        isActive={page === currentPage}
+        isActive={page === currentPage + 1}
         classes={classes}
-        onClick={() => onCurrentPageChange(page)}
+        onClick={() => onCurrentPageChange(page - 1)}
       />,
     );
   }
@@ -154,7 +155,7 @@ const renderPageButtons = (
         key={totalPageCount}
         text={String(totalPageCount)}
         classes={classes}
-        onClick={() => onCurrentPageChange(totalPageCount)}
+        onClick={() => onCurrentPageChange(totalPageCount - 1)}
       />,
     );
   }
@@ -165,30 +166,29 @@ const renderPageButtons = (
 const PaginationBase = ({
   totalPages,
   totalCount,
-  firstRowIndex,
-  lastRowIndex,
+  pageSize,
   currentPage,
   onCurrentPageChange,
   classes,
 }) => (
   <div className={classes.pagination}>
     <span className={classes.rowsLabel}>
-      { String(firstRowIndex) }
+      { String(firstRowOnPage(currentPage, pageSize)) }
       -
-      { String(lastRowIndex) } of {String(totalCount)}
+      { String(lastRowOnPage(currentPage, pageSize, totalCount)) } of {String(totalCount)}
     </span>
     <IconButton
       className={classNames(classes.arrowButton, classes.prev)}
-      disabled={currentPage === 1}
-      onTouchTap={() => currentPage > 1 && onCurrentPageChange(currentPage - 1)}
+      disabled={currentPage === 0}
+      onTouchTap={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
     >
       <ChevronLeft />
     </IconButton>
     {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
     <IconButton
       className={classNames(classes.arrowButton, classes.next)}
-      disabled={currentPage === totalPages}
-      onTouchTap={() => currentPage < totalPages && onCurrentPageChange(currentPage + 1)}
+      disabled={currentPage === totalPages - 1}
+      onTouchTap={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
     >
       <ChevronRight />
     </IconButton>
@@ -201,8 +201,7 @@ PaginationBase.propTypes = {
   onCurrentPageChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   totalCount: PropTypes.number.isRequired,
-  firstRowIndex: PropTypes.number.isRequired,
-  lastRowIndex: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
 };
 
 export const Pagination = withStyles(paginationStyleSheet)(PaginationBase);

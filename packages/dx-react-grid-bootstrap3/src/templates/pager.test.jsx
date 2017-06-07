@@ -9,8 +9,6 @@ describe('Pager', () => {
       totalPages,
       pageSize,
       totalCount,
-      firstRowIndex,
-      lastRowIndex,
       allowedPageSizes = [],
       onPageSizeChange = () => {},
       onCurrentPageChange = () => {},
@@ -18,8 +16,6 @@ describe('Pager', () => {
       totalPages={totalPages}
       currentPage={currentPage}
       totalCount={totalCount}
-      firstRowIndex={firstRowIndex}
-      lastRowIndex={lastRowIndex}
       pageSize={pageSize}
       allowedPageSizes={allowedPageSizes}
       onCurrentPageChange={onCurrentPageChange}
@@ -29,10 +25,8 @@ describe('Pager', () => {
     test('can show info about rendered pages', () => {
       const tree = mountPager({
         totalPages: 10,
-        currentPage: 2,
+        currentPage: 1,
         totalCount: 96,
-        firstRowIndex: 11,
-        lastRowIndex: 20,
         pageSize: 10,
       });
 
@@ -45,8 +39,6 @@ describe('Pager', () => {
         totalPages: 10,
         currentPage: 2,
         totalCount: 96,
-        firstRowIndex: 11,
-        lastRowIndex: 20,
         pageSize: 10,
         onCurrentPageChange,
       }).find('.pager li');
@@ -69,8 +61,6 @@ describe('Pager', () => {
         totalPages: 10,
         currentPage: 0,
         totalCount: 96,
-        firstRowIndex: 1,
-        lastRowIndex: 10,
         pageSize: 10,
         onCurrentPageChange,
       }).find('.pager li');
@@ -92,8 +82,6 @@ describe('Pager', () => {
         totalPages: 10,
         currentPage: 9,
         totalCount: 96,
-        firstRowIndex: 91,
-        lastRowIndex: 96,
         pageSize: 5,
         onCurrentPageChange,
       }).find('.pager li');

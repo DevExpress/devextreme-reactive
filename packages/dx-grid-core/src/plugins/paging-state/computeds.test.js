@@ -3,8 +3,8 @@ import {
     ensurePageHeaders,
     totalPageCount,
     totalCount,
-    firstRowIndex,
-    lastRowIndex,
+    firstRowOnPage,
+    lastRowOnPage,
 } from './computeds';
 
 describe('PagingState computeds', () => {
@@ -157,21 +157,21 @@ describe('PagingState computeds', () => {
     });
   });
 
-  describe('#firstRowIndex', () => {
+  describe('#firstRowOnPage', () => {
     test('should work', () => {
-      const count = firstRowIndex(1, 5);
+      const count = firstRowOnPage(1, 5);
       expect(count).toEqual(6);
     });
   });
 
-  describe('#lastRowIndex', () => {
+  describe('#lastRowOnPage', () => {
     test('should work', () => {
-      const count = lastRowIndex(1, 5, 15);
+      const count = lastRowOnPage(1, 5, 15);
       expect(count).toEqual(10);
     });
 
     test('should not be greater than total count', () => {
-      const count = lastRowIndex(1, 5, 9);
+      const count = lastRowOnPage(1, 5, 9);
       expect(count).toEqual(9);
     });
   });

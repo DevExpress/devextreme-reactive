@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, Pager as BootstrapPager } from 'react-bootstrap';
 import { PageSizeSelector } from './page-size-selector';
+import { firstRowOnPage, lastRowOnPage } from '../../../dx-grid-core';
 
 export const Pager = ({
   currentPage,
@@ -11,8 +12,6 @@ export const Pager = ({
   onPageSizeChange,
   allowedPageSizes,
   totalCount,
-  firstRowIndex,
-  lastRowIndex,
 }) => (
   <div className="clearfix">
     {!!allowedPageSizes.length && <PageSizeSelector
@@ -38,23 +37,23 @@ export const Pager = ({
     >
       <BootstrapPager.Item
         disabled={currentPage === 0}
-        onClick={() => currentPage > 0 && onCurrentPageChange(currentPage - 1)}
+        onClick={() => onCurrentPageChange(currentPage - 1)}
       >
         &laquo;
       </BootstrapPager.Item>
       {' '}
       <BootstrapPager.Item
         disabled={currentPage === totalPages - 1}
-        onClick={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
+        onClick={() => onCurrentPageChange(currentPage + 1)}
       >
         &raquo;
       </BootstrapPager.Item>
     </BootstrapPager>
     <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
       <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
-        { String(firstRowIndex) }
+        { String(firstRowOnPage(currentPage, pageSize)) }
         -
-        { String(lastRowIndex) } of {String(totalCount)}
+        { String(lastRowOnPage(currentPage, pageSize, totalCount)) } of {String(totalCount)}
       </span>
     </span>
   </div>
@@ -68,6 +67,4 @@ Pager.propTypes = {
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   totalCount: PropTypes.number.isRequired,
-  firstRowIndex: PropTypes.number.isRequired,
-  lastRowIndex: PropTypes.number.isRequired,
 };

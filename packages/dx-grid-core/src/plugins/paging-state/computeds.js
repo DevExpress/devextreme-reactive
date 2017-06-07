@@ -31,9 +31,9 @@ export const totalPageCount = (rows, pageSize) => Math.ceil(rows.length / pageSi
 
 export const totalCount = rows => rows.length;
 
-export const firstRowIndex = (currentPage, pageSize) => (currentPage * pageSize) + 1;
+export const firstRowOnPage = (currentPage, pageSize) => (currentPage * pageSize) + 1;
 
-export const lastRowIndex = (currentPage, pageSize, totalRowCount) => {
+export const lastRowOnPage = (currentPage, pageSize, totalRowCount) => {
   const index = (currentPage + 1) * pageSize;
   return index > totalRowCount ? totalRowCount : index;
 };

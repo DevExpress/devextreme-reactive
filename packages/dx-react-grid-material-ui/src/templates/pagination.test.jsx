@@ -11,16 +11,14 @@ describe('Pagination', () => {
       totalPages,
       currentPage,
       totalCount,
-      firstRowIndex,
-      lastRowIndex,
+      pageSize,
       onCurrentPageChange = () => {},
     }) => mountWithStyles(
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
         totalCount={totalCount}
-        firstRowIndex={firstRowIndex}
-        lastRowIndex={lastRowIndex}
+        pageSize={pageSize}
         onCurrentPageChange={onCurrentPageChange}
       />,
       paginationStyleSheet,
@@ -29,10 +27,9 @@ describe('Pagination', () => {
     test('can select the first item', () => {
       const pagination = mountPagination({
         totalPages: 10,
-        currentPage: 1,
+        currentPage: 0,
         totalCount: 10,
-        firstRowIndex: 1,
-        lastRowIndex: 5,
+        pageSize: 5,
       });
       const activeButtonClass = pagination.classes.activeButton;
       const buttons = pagination.tree.find('Button');
@@ -50,10 +47,9 @@ describe('Pagination', () => {
     test('can select an item in the middle', () => {
       const pagination = mountPagination({
         totalPages: 10,
-        currentPage: 4,
+        currentPage: 3,
         totalCount: 50,
-        firstRowIndex: 41,
-        lastRowIndex: 45,
+        pageSize: 5,
       });
       const activeButtonClass = pagination.classes.activeButton;
       const buttons = pagination.tree.find('Button');
@@ -72,10 +68,9 @@ describe('Pagination', () => {
     test('can select the last item', () => {
       const pagination = mountPagination({
         totalPages: 10,
-        currentPage: 10,
+        currentPage: 9,
         totalCount: 100,
-        firstRowIndex: 91,
-        lastRowIndex: 100,
+        pageSize: 10,
       });
       const activeButtonClass = pagination.classes.activeButton;
       const buttons = pagination.tree.find('Button');
@@ -93,10 +88,9 @@ describe('Pagination', () => {
     test('can show info about rendered pages', () => {
       const tree = mountPagination({
         totalPages: 10,
-        currentPage: 2,
+        currentPage: 1,
         totalCount: 96,
-        firstRowIndex: 11,
-        lastRowIndex: 20,
+        pageSize: 10,
       }).tree;
 
       expect(tree.find('div > span').text()).toBe('11-20 of 96');
@@ -108,8 +102,7 @@ describe('Pagination', () => {
         totalPages: 10,
         currentPage: 2,
         totalCount: 96,
-        firstRowIndex: 11,
-        lastRowIndex: 20,
+        pageSize: 10,
         onCurrentPageChange,
       }).tree.find('IconButton');
 
@@ -125,14 +118,13 @@ describe('Pagination', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(2);
     });
 
-    test('the prev arrow is disabled if current page is 1', () => {
+    test('the prev arrow is disabled if the first page is selected', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mountPagination({
         totalPages: 10,
-        currentPage: 1,
+        currentPage: 0,
         totalCount: 96,
-        firstRowIndex: 1,
-        lastRowIndex: 10,
+        pageSize: 10,
         onCurrentPageChange,
       }).tree.find('IconButton');
 
@@ -151,10 +143,9 @@ describe('Pagination', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mountPagination({
         totalPages: 10,
-        currentPage: 10,
+        currentPage: 9,
         totalCount: 96,
-        firstRowIndex: 91,
-        lastRowIndex: 96,
+        pageSize: 5,
         onCurrentPageChange,
       }).tree.find('IconButton');
 

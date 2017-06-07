@@ -34,7 +34,7 @@ Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) depende
 
 ## Getting started
 
-This package provides templates implementing Materual UI rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. For your convenience, these templates can be used instead of the ones contained in the original React Grid repository.
+This package provides templates implementing Material UI rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the ones in the original React Grid repository.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 
@@ -42,11 +42,11 @@ See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) 
 
 The package exposes components and plugins with injected templates.
 
-Here is the list of the components:
+The list of components:
 
 - [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/)
 
-Here is the list of the plugins:
+The list of plugins:
 
 - [TableView](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-view/)
 - [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)
@@ -60,7 +60,7 @@ Here is the list of the plugins:
 
 Each plugin has properties with the 'Template' postfix. Components passed to such properties are templates.
 
-Templates can be overridden by passing your own component or rendering function. If you want to render a UI item with a built-in template, you can return `undefined` from your custom template.
+You can override templates by passing your component or rendering function, or return `undefined` from your custom template if you want to render a UI item with a built-in template.
 
 ## License
 

@@ -43,7 +43,7 @@ describe('TableEditCell', () => {
     });
 
     input.find('input').simulate('change', { target: { value: 'changed' } });
-    expect(onValueChange.mock.calls.length).toBe(1);
+    expect(onValueChange.mock.calls).toHaveLength(1);
     expect(onValueChange.mock.calls[0][0]).toBe('changed');
   });
 

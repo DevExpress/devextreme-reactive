@@ -61,7 +61,7 @@ describe('Table command column', () => {
         />,
       );
 
-      expect(template.mock.calls.length).toBe(1);
+      expect(template.mock.calls).toHaveLength(1);
       expect(template.mock.calls[0][0]).toMatchObject({
         executeCommand: addRow,
         id: 'add',
@@ -83,7 +83,7 @@ describe('Table command column', () => {
       );
 
       const buttons = tree.find(CommandButton);
-      expect(buttons.length).toBe(2);
+      expect(buttons).toHaveLength(2);
       expect(buttons.at(0).text()).toBe('CustomEdit');
       expect(buttons.at(1).text()).toBe('CustomDelete');
     });
@@ -101,7 +101,7 @@ describe('Table command column', () => {
       );
 
       const buttons = tree.find(CommandButton);
-      expect(buttons.length).toBe(2);
+      expect(buttons).toHaveLength(2);
       expect(buttons.at(0).text()).toBe('CustomCommit');
       expect(buttons.at(1).text()).toBe('CustomCancel');
     });
@@ -114,15 +114,15 @@ describe('Table command column', () => {
       );
 
       let buttons = tree.find(CommandButton);
-      expect(buttons.length).toBe(0);
+      expect(buttons).toHaveLength(0);
 
       tree.setProps({ allowEditing: true });
       buttons = tree.find(CommandButton);
-      expect(buttons.length).toBe(1);
+      expect(buttons).toHaveLength(1);
 
       tree.setProps({ allowDeleting: true });
       buttons = tree.find(CommandButton);
-      expect(buttons.length).toBe(2);
+      expect(buttons).toHaveLength(2);
     });
 
     test('should use commandTemplate with proper arguments in view mode', () => {
@@ -140,7 +140,7 @@ describe('Table command column', () => {
         />,
       );
 
-      expect(template.mock.calls.length).toBe(2);
+      expect(template.mock.calls).toHaveLength(2);
       expect(template.mock.calls[0][0]).toMatchObject({
         executeCommand: startEditing,
         id: 'edit',
@@ -169,7 +169,7 @@ describe('Table command column', () => {
         />,
       );
 
-      expect(template.mock.calls.length).toBe(2);
+      expect(template.mock.calls).toHaveLength(2);
       expect(template.mock.calls[0][0]).toMatchObject({
         executeCommand: commitChanges,
         id: 'commit',

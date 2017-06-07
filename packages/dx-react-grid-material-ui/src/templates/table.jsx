@@ -2,85 +2,66 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    Table as TableMUI,
-    TableBody as TableBodyMUI,
-    TableHead as TableHeadMUI,
+  Table as TableMUI,
+  TableBody as TableBodyMUI,
+  TableHead as TableHeadMUI,
+  TableRow as TableRowMUI,
 } from 'material-ui';
 
 import {
-  tableRowKeyGetter,
-  tableCellClickHandler,
+  TableLayout,
 } from '@devexpress/dx-react-grid';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+const MINIMAL_COLUMN_WIDTH = 150;
 
-import { TableRow } from './table-row';
+/* eslint-disable react/prop-types */
+const tableTemplate = ({ children, ...restProps }) => (
+  <TableMUI {...restProps}>{children}</TableMUI>
+);
+const headTemplate = ({ children, ...restProps }) => (
+  <TableHeadMUI {...restProps}>{children}</TableHeadMUI>
+);
+const bodyTemplate = ({ children, ...restProps }) => (
+  <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
+);
+const rowTemplate = ({ children, row, ...restProps }) => (
+  <TableRowMUI
+    selected={row.selected}
+    {...restProps}
+  >
+    {children}
+  </TableRowMUI>
+);
+/* eslint-enable react/prop-types */
 
-const MINIMAL_COLUMN_WIDTH = 120;
-
-const styleSheet = createStyleSheet('Table', () => ({
-  root: {
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-  },
-  table: {
-    tableLayout: 'fixed',
-  },
-}));
-
-export const TableBase = ({
-  headerRows, bodyRows, columns, cellTemplate, onClick, getRowId, classes,
-}) => {
-  const minWidth = columns
-    .map(column => column.width || MINIMAL_COLUMN_WIDTH)
-    .reduce((accum, minColumnWidth) => accum + minColumnWidth, 0);
-
-  return (
-    <div className={classes.root}>
-      <TableMUI
-        style={{
-          minWidth: `${minWidth}px`,
-        }}
-        className={classes.table}
-        onClick={tableCellClickHandler({ headerRows, bodyRows, columns, onClick })}
-      >
-        <TableHeadMUI>
-          {headerRows.map((row, rowIndex) => (
-            <TableRow
-              key={tableRowKeyGetter(getRowId, row, rowIndex)}
-              row={row}
-              columns={columns}
-              cellTemplate={cellTemplate}
-            />
-          ))}
-        </TableHeadMUI>
-        <TableBodyMUI>
-          {bodyRows.map((row, rowIndex) => (
-            <TableRow
-              key={tableRowKeyGetter(getRowId, row, rowIndex)}
-              row={row}
-              columns={columns}
-              cellTemplate={cellTemplate}
-            />
-          ))}
-        </TableBodyMUI>
-      </TableMUI>
-    </div>
-  );
-};
-
-TableBase.defaultProps = {
+export const Table = ({
+  headerRows, bodyRows, getRowId,
+  columns,
+  cellTemplate,
+  onClick,
+}) => (
+  <TableLayout
+    headerRows={headerRows}
+    rows={bodyRows}
+    getRowId={getRowId}
+    columns={columns}
+    minColumnWidth={MINIMAL_COLUMN_WIDTH}
+    tableTemplate={tableTemplate}
+    headTemplate={headTemplate}
+    bodyTemplate={bodyTemplate}
+    rowTemplate={rowTemplate}
+    cellTemplate={cellTemplate}
+    onClick={onClick}
+  />
+);
+Table.defaultProps = {
   onClick: () => {},
 };
-
-TableBase.propTypes = {
+Table.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
-  classes: PropTypes.object.isRequired,
 };
-
-export const Table = withStyles(styleSheet)(TableBase);

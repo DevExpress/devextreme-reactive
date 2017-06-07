@@ -85,11 +85,12 @@
     "rollup-watch": "^3.2.2"
   },
   "dependencies": {
+    "@devexpress/dx-grid-core": "1.0.0-alpha.2",
     "@devexpress/dx-react-core": "1.0.0-alpha.2",
-    "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
+    "@devexpress/dx-react-grid": "1.0.0-alpha.2",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0"
   }

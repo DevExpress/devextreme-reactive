@@ -33,9 +33,4 @@ export { TableEditColumn } from './plugins/table-edit-column';
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 
-export {
-  tableRowKeyGetter,
-  tableColumnKeyGetter,
-  getTableCellInfo,
-  tableCellClickHandler,
-} from './utils/table';
+export { TableLayout } from './components/table-layout';

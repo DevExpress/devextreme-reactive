@@ -13,7 +13,7 @@ describe('TableFilterCell', () => {
     resetConsole();
   });
 
-  test('should use column name if title is not specified', () => {
+  test('should use the \'Filter...\' placeholder', () => {
     const tree = mountWithStyles(
       <TableFilterCell
         column={{
@@ -22,6 +22,6 @@ describe('TableFilterCell', () => {
       />,
     );
 
-    expect(tree.find('TextField').prop('label')).toBe('Test');
+    expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
   });
 });

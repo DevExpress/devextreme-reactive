@@ -16,9 +16,18 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   gropingControl: {
     cursor: 'pointer',
-    paddingLeft: theme.spacing.unit * 3,
-    width: (theme.spacing.unit * 2) - 2,
+    paddingLeft: 0,
     height: theme.spacing.unit * 3,
+  },
+  sortingControl: {
+    cursor: 'pointer',
+    display: 'inline-block',
+    paddingTop: theme.spacing.unit / 2,
+  },
+  sortingTitle: {
+    lineHeight: '18px',
+    display: 'inline-block',
+    verticalAlign: 'top',
   },
   floatLeft: {
     float: 'left',
@@ -29,12 +38,13 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     textAlign: 'right',
   },
   cell: {
-    paddingRight: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit,
   },
   cellNoUserSelect: {
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
+    width: '100%',
   },
   cellDraggable: {
     cursor: 'move',
@@ -127,12 +137,27 @@ export class TableHeaderCellBase extends React.PureComponent {
     );
 
     const sortingControl = allowSorting && (
-      <TableSortLabel
-        active={!!sortingDirection}
-        direction={sortingDirection}
-      >
-        {columnTitle}
-      </TableSortLabel>
+      align === 'right' ? (
+        <span className={classes.sortingControl}>
+          <TableSortLabel
+            active={!!sortingDirection}
+            direction={sortingDirection}
+          />
+          <span className={classes.sortingTitle}>
+            {columnTitle}
+          </span>
+        </span>
+      ) : (
+        <span className={classes.sortingControl}>
+          <span className={classes.sortingTitle}>
+            {columnTitle}
+          </span>
+          <TableSortLabel
+            active={!!sortingDirection}
+            direction={sortingDirection}
+          />
+        </span>
+      )
     );
 
     const cellLayout = (

@@ -45,6 +45,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
+        <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
 
         <FilteringState
           defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
@@ -63,7 +64,6 @@ export class UncontrolledModeDemo extends React.PureComponent {
           defaultCurrentPage={0}
           defaultPageSize={10}
         />
-        <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
 
         <LocalFiltering />
         <LocalSorting />

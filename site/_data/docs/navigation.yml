@@ -20,6 +20,8 @@ react:
           path: /react/grid/docs/guides/detail-row
         - title: Virtual Scrolling
           path: /react/grid/docs/guides/virtual-scrolling
+        - title: Column Reordering
+          path: /react/grid/docs/guides/column-reordering
     - title: API Reference
       items:
         - title: Grid

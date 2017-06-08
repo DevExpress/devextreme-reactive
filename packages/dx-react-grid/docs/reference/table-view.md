@@ -1,12 +1,15 @@
 # TableView Plugin Reference
 
-This plugin renders the Grid data as a table. It contains visualization components such as a table view, table view cell that can be extended by other plugins. It also exposes some customization points to manage column span, row height, column width, etc.
+This plugin renders the Grid data as a table. It contains visualization components such as a table view, table view cell that can be extended by other plugins. It exposes some customization points to manage column span, row height, column width, etc.
+
+The plugin also allows an end-user to manage a column order state.
 
 ## User Reference
 
 ### Dependencies
 
-none
+- [ColumnOrderState](column-order-state.md) [Optional]
+- [DragDropContext](drag-drop-context.md) [Optional]
 
 ### Properties
 
@@ -15,6 +18,7 @@ Name | Type | Default | Description
 tableTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table using the specified parameters
 tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
 tableNoDataCellTemplate | (args: Object) => ReactElement | | Renders a table cell for an empty state using the specified parameters
+allowColumnReordering | boolean | false | If true, allows an end-user to change column order by dragging
 
 ## Interfaces
 

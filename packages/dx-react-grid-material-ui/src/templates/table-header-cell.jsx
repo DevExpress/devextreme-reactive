@@ -17,8 +17,17 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   gropingControl: {
     cursor: 'pointer',
     paddingLeft: 0,
-    width: (theme.spacing.unit * 2) - 2,
     height: theme.spacing.unit * 3,
+  },
+  sortingControl: {
+    cursor: 'pointer',
+    display: 'inline-block',
+    paddingTop: theme.spacing.unit / 2,
+  },
+  sortingTitle: {
+    lineHeight: '18px',
+    display: 'inline-block',
+    verticalAlign: 'top',
   },
   floatLeft: {
     float: 'left',
@@ -33,7 +42,7 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
-    widht: '100%',
+    width: '100%',
   },
   clearPadding: {
     padding: 0,
@@ -103,12 +112,27 @@ export const TableHeaderCellBase = ({
   );
 
   const sortingControl = allowSorting && (
-    <TableSortLabel
-      active={!!sortingDirection}
-      direction={sortingDirection}
-    >
-      {columnTitle}
-    </TableSortLabel>
+    align === 'right' ? (
+      <span className={classes.sortingControl}>
+        <TableSortLabel
+          active={!!sortingDirection}
+          direction={sortingDirection}
+        />
+        <span className={classes.sortingTitle}>
+          {columnTitle}
+        </span>
+      </span>
+    ) : (
+      <span className={classes.sortingControl}>
+        <span className={classes.sortingTitle}>
+          {columnTitle}
+        </span>
+        <TableSortLabel
+          active={!!sortingDirection}
+          direction={sortingDirection}
+        />
+      </span>
+    )
   );
 
   const cellLayout = (

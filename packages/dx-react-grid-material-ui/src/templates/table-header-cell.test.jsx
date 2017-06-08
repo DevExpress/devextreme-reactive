@@ -1,6 +1,6 @@
 import React from 'react';
 import { TableCell } from 'material-ui';
-import { DragDropContext } from '@devexpress/dx-react-core';
+import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { mountWithStyles, setupConsole } from '../utils/testing';
 import { TableHeaderCell, styleSheet } from './table-header-cell';
 
@@ -66,5 +66,25 @@ describe('TableHeaderCell', () => {
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
     expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeTruthy();
+  });
+
+  test('should have correct styles while dragging', () => {
+    const { tree, classes } = mountWithStyles(
+      <DragDropContext>
+        <TableHeaderCell
+          column={{}}
+          allowDragging
+        />
+      </DragDropContext>,
+      styleSheet,
+    );
+
+    expect(tree.find(TableCell).hasClass(classes.cellDragging)).toBeFalsy();
+
+    tree.find(DragSource).prop('onStart')();
+    expect(tree.find(TableCell).hasClass(classes.cellDragging)).toBeTruthy();
+
+    tree.find(DragSource).prop('onEnd')();
+    expect(tree.find(TableCell).hasClass(classes.cellDragging)).toBeFalsy();
   });
 });

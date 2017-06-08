@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { DragDropContext } from '@devexpress/dx-react-core';
+import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 
 describe('TableHeaderCell', () => {
@@ -69,7 +69,7 @@ describe('TableHeaderCell', () => {
       });
   });
 
-  test('should have correct styles when sorting is allowed', () => {
+  test('should have correct styles when dragging is allowed', () => {
     const tree = mount(
       <DragDropContext>
         <table>
@@ -91,6 +91,40 @@ describe('TableHeaderCell', () => {
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
         cursor: 'move',
+      });
+  });
+
+  test('should have correct styles when dragging', () => {
+    const tree = mount(
+      <DragDropContext>
+        <table>
+          <thead>
+            <tr>
+              <TableHeaderCell
+                column={{}}
+                allowDragging
+              />
+            </tr>
+          </thead>
+        </table>
+      </DragDropContext>,
+    );
+
+    expect(tree.find('th').prop('style'))
+      .not.toMatchObject({
+        opacity: 0.3,
+      });
+
+    tree.find(DragSource).prop('onStart')();
+    expect(tree.find('th').prop('style'))
+      .toMatchObject({
+        opacity: 0.3,
+      });
+
+    tree.find(DragSource).prop('onEnd')();
+    expect(tree.find('th').prop('style'))
+      .not.toMatchObject({
+        opacity: 0.3,
       });
   });
 });

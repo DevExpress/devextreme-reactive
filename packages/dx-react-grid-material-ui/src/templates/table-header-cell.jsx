@@ -16,7 +16,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   gropingControl: {
     cursor: 'pointer',
-    paddingLeft: theme.spacing.unit * 3,
+    paddingLeft: 0,
     width: (theme.spacing.unit * 2) - 2,
     height: theme.spacing.unit * 3,
   },
@@ -29,10 +29,11 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     textAlign: 'right',
   },
   cell: {
-    paddingRight: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit,
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
+    widht: '100%',
   },
   clearPadding: {
     padding: 0,

@@ -26,11 +26,13 @@ class DropDownMenuBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    const selectedItem = this.props.selectedItem;
+
     this.state = {
       anchorEl: undefined,
       open: false,
-      selectedIndex: undefined,
-      title: this.props.defaultTitle,
+      selectedIndex: this.props.items.findIndex(item => item === selectedItem),
+      title: this.props.defaultTitle || selectedItem,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -42,12 +44,16 @@ class DropDownMenuBase extends React.PureComponent {
   }
 
   handleMenuItemClick(event, index) {
-    const title = this.props.items[index];
+    let title = this.props.items[index];
+    if (index === 0 && this.props.defaultTitle) {
+      title = this.props.defaultTitle;
+    }
+
     this.props.onItemClick(title, index);
     this.setState({
       selectedIndex: index,
       open: false,
-      title: index ? title : this.props.defaultTitle,
+      title,
     });
   }
 
@@ -62,7 +68,7 @@ class DropDownMenuBase extends React.PureComponent {
           onClick={this.handleClick}
           className={classes.button}
         >
-          <span className={selectedIndex ? classes.selected : null}>
+          <span className={selectedIndex > -1 ? classes.selected : null}>
             {title}
           </span>
           {
@@ -95,6 +101,10 @@ DropDownMenuBase.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
+  selectedItem: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   items: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -106,6 +116,7 @@ DropDownMenuBase.propTypes = {
 
 DropDownMenuBase.defaultProps = {
   className: null,
+  selectedItem: undefined,
 };
 
 export const DropDownMenu = withStyles(styleSheet)(DropDownMenuBase);

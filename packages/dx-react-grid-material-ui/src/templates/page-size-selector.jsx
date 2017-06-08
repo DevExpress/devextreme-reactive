@@ -34,7 +34,7 @@ const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, cl
     Rows per page:
     </span>
     <DropDownMenu
-      defaultTitle={String(pageSize)}
+      selectedItem={pageSize}
       items={allowedPageSizes}
       onItemClick={(item) => {
         onPageSizeChange(item);

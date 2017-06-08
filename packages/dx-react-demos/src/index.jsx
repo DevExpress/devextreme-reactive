@@ -18,7 +18,6 @@ import './index.css';
 const App = () => (
   <Router>
     <div>
-      <Route exact path="/" render={() => <Redirect push from="/" to="/bootstrap3" />} />
       <Route path="/bootstrap3" component={Bootstrap3Demos} />
       <Route path="/material-ui" component={MaterialUIDemos} />
       <Route

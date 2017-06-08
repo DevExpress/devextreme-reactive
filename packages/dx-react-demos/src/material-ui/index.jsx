@@ -23,6 +23,7 @@ import { DetailRowDemos } from './detail-row';
 import { ColumnReorderingDemos } from './column-reordering';
 
 import { FeaturedUncontrolledDemos } from './featured-uncontrolled';
+import { FeaturedReduxDemos } from './featured-redux';
 
 injectTapEventPlugin();
 
@@ -54,6 +55,7 @@ const Demos = () => (
       <Route path="/material-ui/column-reordering" component={ColumnReorderingDemos} />
 
       <Route path="/material-ui/featured-uncontrolled" component={FeaturedUncontrolledDemos} />
+      <Route path="/material-ui/featured-redux" component={FeaturedReduxDemos} />
     </div>
   </MuiThemeProvider>
 );
@@ -79,6 +81,9 @@ export const MaterialUIDemos = withRouter(({ location }) => {
                   <ul className="list-unstyled">
                     <li>
                       <NavLink to="/material-ui/featured-uncontrolled">Uncontrolled Mode</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/material-ui/featured-redux">Redux Integration</NavLink>
                     </li>
                   </ul>
                   )

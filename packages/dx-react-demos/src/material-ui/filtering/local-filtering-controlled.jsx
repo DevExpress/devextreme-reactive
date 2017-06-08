@@ -6,6 +6,7 @@ import {
 import {
   Grid,
   TableView,
+  TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
@@ -44,6 +45,7 @@ export class LocalFilteringControlledDemo extends React.PureComponent {
         />
         <LocalFiltering />
         <TableView />
+        <TableHeaderRow />
         <TableFilterRow />
       </Grid>
     );

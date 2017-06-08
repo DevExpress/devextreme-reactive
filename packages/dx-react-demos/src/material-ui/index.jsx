@@ -22,6 +22,8 @@ import { SelectionDemos } from './selection';
 import { DetailRowDemos } from './detail-row';
 import { ColumnReorderingDemos } from './column-reordering';
 
+import { FeaturedUncontrolledDemos } from './featured-uncontrolled';
+
 injectTapEventPlugin();
 
 const theme = createMuiTheme({
@@ -50,6 +52,8 @@ const Demos = () => (
       <Route path="/material-ui/grouping" component={GroupingDemos} />
       <Route path="/material-ui/detail-row" component={DetailRowDemos} />
       <Route path="/material-ui/column-reordering" component={ColumnReorderingDemos} />
+
+      <Route path="/material-ui/featured-uncontrolled" component={FeaturedUncontrolledDemos} />
     </div>
   </MuiThemeProvider>
 );
@@ -72,7 +76,11 @@ export const MaterialUIDemos = withRouter(({ location }) => {
             {
               (parts[2] && parts[2].indexOf('featured-') > -1)
                 ? (
-                  <ul className="list-unstyled" />
+                  <ul className="list-unstyled">
+                    <li>
+                      <NavLink to="/material-ui/featured-uncontrolled">Uncontrolled Mode</NavLink>
+                    </li>
+                  </ul>
                   )
                 : (
                   <ul className="list-unstyled">
@@ -87,6 +95,7 @@ export const MaterialUIDemos = withRouter(({ location }) => {
                     <li>
                       <NavLink to="/material-ui/column-reordering">Column Reordering</NavLink>
                     </li>
+                    <li><NavLink to="/material-ui/">Featured</NavLink></li>
                   </ul>
                 )
             }

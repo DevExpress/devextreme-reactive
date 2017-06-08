@@ -9,10 +9,10 @@ import {
   PagingPanel, GroupingPanel, DragDropContext,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
-    ProgressBarCell,
+  ProgressBarCell,
 } from './templates/progress-bar-cell';
 import {
-    HighlightedCell,
+  HighlightedCell,
 } from './templates/highlighted-cell';
 
 import {
@@ -75,6 +75,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
         />
 
         <DragDropContext />
+
         <TableView
           tableCellTemplate={({ row, column, style }) => {
             if (column.name === 'discount') {

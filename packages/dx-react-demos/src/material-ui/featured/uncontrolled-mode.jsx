@@ -1,18 +1,18 @@
 import React from 'react';
 import {
-  SortingState, SelectionState, FilteringState, PagingState, GroupingState,
+  SortingState, SelectionState, FilteringState, PagingState, GroupingState, ColumnOrderState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel,
+  PagingPanel, GroupingPanel, DragDropContext,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
-    ProgressBarCell,
+  ProgressBarCell,
 } from './templates/progress-bar-cell';
 import {
-    HighlightedCell,
+  HighlightedCell,
 } from './templates/highlighted-cell';
 
 import {
@@ -45,6 +45,7 @@ export class UncontrolledModeDemo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
+        <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
 
         <FilteringState
           defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
@@ -73,6 +74,8 @@ export class UncontrolledModeDemo extends React.PureComponent {
           defaultSelection={[1, 3, 18]}
         />
 
+        <DragDropContext />
+
         <TableView
           tableCellTemplate={({ row, column }) => {
             if (column.name === 'discount') {
@@ -86,9 +89,10 @@ export class UncontrolledModeDemo extends React.PureComponent {
             }
             return undefined;
           }}
+          allowColumnReordering
         />
 
-        <TableHeaderRow allowSorting allowGrouping />
+        <TableHeaderRow allowSorting allowGrouping allowDragging />
         <TableFilterRow />
         <PagingPanel
           allowedPageSizes={allowedPageSizes}

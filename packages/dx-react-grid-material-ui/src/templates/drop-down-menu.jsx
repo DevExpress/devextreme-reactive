@@ -100,7 +100,7 @@ DropDownMenuBase.propTypes = {
   defaultTitle: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
+  ]),
   selectedItem: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -117,6 +117,7 @@ DropDownMenuBase.propTypes = {
 DropDownMenuBase.defaultProps = {
   className: null,
   selectedItem: undefined,
+  defaultTitle: undefined,
 };
 
 export const DropDownMenu = withStyles(styleSheet)(DropDownMenuBase);

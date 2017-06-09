@@ -21,6 +21,7 @@ import {
 const styleSheet = createStyleSheet('SexFilterCell', theme => ({
   cell: {
     width: '100%',
+    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
 }));

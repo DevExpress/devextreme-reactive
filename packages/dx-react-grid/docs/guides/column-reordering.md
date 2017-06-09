@@ -24,7 +24,7 @@ To enable end-user interactions the following setup is required:
 - set the `allowColumnReordering` property of the `TableView` plugin to true;
 - set the `allowDragging` property of the `TableHeaderRow` plugin to true.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/column-reordering/uncontrolled)
+[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/column-reordering/uncontrolled)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/column-reordering/uncontrolled.jsx)
 
@@ -32,6 +32,6 @@ To enable end-user interactions the following setup is required:
 
 To control the column order state from the outside, pass the column order to the `order` property of the `ColumnOrderState` plugin and handle the `onOrderChange` event of the same plugin.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/column-reordering/controlled)
+[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/column-reordering/controlled)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/column-reordering/controlled.jsx)

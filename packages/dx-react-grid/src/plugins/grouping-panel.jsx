@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnSortingDirection, tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
+import { tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
 
 export class GroupingPanel extends React.PureComponent {
   render() {
@@ -28,19 +28,7 @@ export class GroupingPanel extends React.PureComponent {
           name="groupPanel"
           connectGetters={getter => ({
             groupedColumns: getter('groupedColumns'),
-            getSortingConfig: ({ column }) => {
-              const sorting = getter('sorting');
-
-              const result = {
-                sortingSupported: !column.type && sorting !== undefined,
-              };
-
-              if (result.sortingSupported) {
-                result.sortingDirection = getColumnSortingDirection(sorting, column.name);
-              }
-
-              return result;
-            },
+            sorting: getter('sorting'),
           })}
           connectActions={action => ({
             groupByColumn: action('groupByColumn'),

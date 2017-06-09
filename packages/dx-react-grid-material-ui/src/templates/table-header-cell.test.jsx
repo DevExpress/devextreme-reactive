@@ -24,4 +24,22 @@ describe('TableHeaderCell', () => {
 
     expect(tree.find('div').text()).toBe('Test');
   });
+
+  test('should cancel sorting by using the Ctrl key', () => {
+    const changeSortingDirection = jest.fn();
+    const tree = mountWithStyles(
+      <TableHeaderCell
+        column={{
+          name: 'Test',
+        }}
+        changeSortingDirection={changeSortingDirection}
+        allowSorting
+      />,
+    );
+
+    tree.simulate('click', { ctrlKey: true });
+
+    expect(changeSortingDirection.mock.calls).toHaveLength(1);
+    expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
+  });
 });

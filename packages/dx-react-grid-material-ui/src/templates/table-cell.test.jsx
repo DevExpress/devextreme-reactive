@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableCell as TableCellMUI } from 'material-ui';
 import { mountWithStyles, setupConsole } from '../utils/testing';
-import { TableCell } from './table-cell';
+import { styleSheet, TableCell } from './table-cell';
 
 describe('TableCell', () => {
   let resetConsole;
@@ -15,25 +15,28 @@ describe('TableCell', () => {
   });
 
   test('should have correct text alignment', () => {
-    let tree = mountWithStyles(
+    let mounted = mountWithStyles(
       <TableCell
         column={{}}
       />,
+      styleSheet,
     );
-    expect(tree.find(TableCellMUI).prop('style').textAlign).toBe('left');
+    expect(mounted.tree.find(TableCellMUI).hasClass(mounted.classes.cellRightAlign)).toBeFalsy();
 
-    tree = mountWithStyles(
+    mounted = mountWithStyles(
       <TableCell
         column={{ align: 'left' }}
       />,
+      styleSheet,
     );
-    expect(tree.find(TableCellMUI).prop('style').textAlign).toBe('left');
+    expect(mounted.tree.find(TableCellMUI).hasClass(mounted.classes.cellRightAlign)).toBeFalsy();
 
-    tree = mountWithStyles(
+    mounted = mountWithStyles(
       <TableCell
         column={{ align: 'right' }}
       />,
+      styleSheet,
     );
-    expect(tree.find(TableCellMUI).prop('style').textAlign).toBe('right');
+    expect(mounted.tree.find(TableCellMUI).hasClass(mounted.classes.cellRightAlign)).toBeTruthy();
   });
 });

@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  SortingState, SelectionState, FilteringState, PagingState, GroupingState, ColumnOrderState,
+  SortingState, SelectionState, FilteringState, PagingState, GroupingState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+  ColumnOrderState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,

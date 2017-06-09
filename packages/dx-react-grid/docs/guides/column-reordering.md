@@ -27,3 +27,11 @@ To enable end-user interactions the following setup is required:
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/column-reordering/uncontrolled)
 
 [SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/column-reordering/uncontrolled.jsx)
+
+## Controlled Mode
+
+To control the column order state from the outside, pass the column order to the `order` property of the `ColumnOrderState` plugin and handle the `onOrderChange` event of the same plugin.
+
+[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/column-reordering/controlled)
+
+[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/column-reordering/controlled.jsx)

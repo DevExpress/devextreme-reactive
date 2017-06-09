@@ -10,7 +10,7 @@ const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
     paddingRight: theme.spacing.unit * 5,
   },
   label: {
-    paddingRight: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit,
     lineHeight: `${theme.spacing.unit * 5}px`,
   },
   pageSizes: {

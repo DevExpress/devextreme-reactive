@@ -23,11 +23,8 @@ import { DetailRowDemos } from './detail-row';
 import { ColumnReorderingDemos } from './column-reordering';
 
 import { FeaturedUncontrolledDemos } from './featured-uncontrolled';
-<<<<<<< HEAD
 import { FeaturedReduxDemos } from './featured-redux';
-=======
 import { FeaturedControlledDemos } from './featured-controlled';
->>>>>>> 2528c67d71d1e596a36610261ca71f845eef5529
 
 injectTapEventPlugin();
 

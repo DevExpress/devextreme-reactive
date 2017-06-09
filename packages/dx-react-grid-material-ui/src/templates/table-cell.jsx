@@ -15,7 +15,10 @@ const styleSheet = createStyleSheet('TableCell', theme => ({
 
 const TableCellBase = ({ style, row, column, classes }) => (
   <TableCellMUI
-    style={style}
+    style={{
+      textAlign: column.align || 'left',
+      ...style,
+    }}
     className={classes.cell}
   >
     {row[column.name]}

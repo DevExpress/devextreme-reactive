@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { Paper } from 'material-ui';
 
-const styleSheet = createStyleSheet('GridLayout', theme => ({
+const styleSheet = createStyleSheet('GridLayout', () => ({
   headingPanel: {
     padding: '12px',
-    backgroundColor: theme.palette.text.lightDivider,
   },
   footerPanel: {
     padding: '12px',
-    backgroundColor: theme.palette.text.lightDivider,
   },
 }));
 

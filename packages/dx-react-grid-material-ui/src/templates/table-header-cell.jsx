@@ -13,7 +13,7 @@ import List from 'material-ui-icons/List';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
+export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   gropingControl: {
     cursor: 'pointer',
     paddingLeft: 0,
@@ -28,6 +28,12 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     lineHeight: '18px',
     display: 'inline-block',
     verticalAlign: 'top',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+  plainTitle: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
   floatLeft: {
     float: 'left',
@@ -58,7 +64,6 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     verticalAlign: 'middle',
-    textOverflow: 'ellipsis',
   },
   titleRight: {
     textAlign: 'right',
@@ -158,7 +163,9 @@ export const TableHeaderCellBase = ({
       {gropingControl}
       <div className={titleClasses}>
         {allowSorting ? sortingControl : (
-          columnTitle
+          <div className={classes.plainTitle}>
+            {columnTitle}
+          </div>
         )}
       </div>
     </TableCell>

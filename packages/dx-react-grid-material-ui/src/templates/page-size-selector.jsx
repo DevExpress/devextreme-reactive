@@ -15,7 +15,7 @@ const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
   },
   pageSizes: {
     display: 'inline-block',
-    minWidth: theme.spacing.unit * 4,
+    minWidth: theme.spacing.unit * 5,
   },
   '@media (max-width: 768px)': {
     label: {
@@ -34,7 +34,7 @@ const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, cl
     Rows per page:
     </span>
     <DropDownMenu
-      defaultTitle={String(pageSize)}
+      selectedItem={pageSize}
       items={allowedPageSizes}
       onItemClick={(item) => {
         onPageSizeChange(item);

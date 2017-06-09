@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -82,8 +82,8 @@
     "rollup-watch": "^3.2.2"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-alpha.2",
-    "@devexpress/dx-react-core": "1.0.0-alpha.2",
+    "@devexpress/dx-grid-core": "^1.0.0-alpha.3",
+    "@devexpress/dx-react-core": "^1.0.0-alpha.3",
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {

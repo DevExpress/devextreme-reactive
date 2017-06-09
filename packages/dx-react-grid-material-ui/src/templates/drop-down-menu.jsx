@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Typography, Menu, MenuItem } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import ExpandMore from 'material-ui-icons/ExpandMore';
@@ -16,6 +17,15 @@ const styleSheet = createStyleSheet('DropDownMenu', theme => ({
     width: theme.spacing.unit * 2,
     float: 'right',
   },
+  title: {
+    display: 'inline-block',
+    width: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    verticalAlign: 'middle',
+    paddingLeft: theme.spacing.unit * 3,
+    marginLeft: -(theme.spacing.unit * 3),
+  },
   selected: {
     color: theme.palette.text.primary,
   },
@@ -26,15 +36,18 @@ class DropDownMenuBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    const selectedItem = this.props.selectedItem;
+
     this.state = {
       anchorEl: undefined,
       open: false,
-      selectedIndex: undefined,
-      title: this.props.defaultTitle,
+      selectedIndex: this.props.items.findIndex(item => item === selectedItem),
+      title: this.props.defaultTitle || selectedItem,
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   handleClick(event) {
@@ -42,19 +55,30 @@ class DropDownMenuBase extends React.PureComponent {
   }
 
   handleMenuItemClick(event, index) {
-    const title = this.props.items[index];
+    let title = this.props.items[index];
+    if (index === 0 && this.props.defaultTitle) {
+      title = this.props.defaultTitle;
+    }
+
     this.props.onItemClick(title, index);
     this.setState({
       selectedIndex: index,
       open: false,
-      title: index ? title : this.props.defaultTitle,
+      title,
     });
+  }
+
+  handleRequestClose() {
+    this.setState({ open: false });
   }
 
   render() {
     const { items, classes, className } = this.props;
     const { anchorEl, open, selectedIndex, title } = this.state;
-
+    const titleClasses = classNames({
+      [classes.title]: true,
+      [classes.selected]: selectedIndex > -1,
+    });
     return (
       <div className={className}>
         <Typography
@@ -62,7 +86,7 @@ class DropDownMenuBase extends React.PureComponent {
           onClick={this.handleClick}
           className={classes.button}
         >
-          <span className={selectedIndex ? classes.selected : null}>
+          <span className={titleClasses}>
             {title}
           </span>
           {
@@ -74,6 +98,7 @@ class DropDownMenuBase extends React.PureComponent {
         <Menu
           anchorEl={anchorEl}
           open={open}
+          onRequestClose={this.handleRequestClose}
         >
           {items.map((item, index) => (
             <MenuItem
@@ -94,7 +119,11 @@ DropDownMenuBase.propTypes = {
   defaultTitle: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
+  ]),
+  selectedItem: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   items: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -106,6 +135,8 @@ DropDownMenuBase.propTypes = {
 
 DropDownMenuBase.defaultProps = {
   className: null,
+  selectedItem: undefined,
+  defaultTitle: undefined,
 };
 
 export const DropDownMenu = withStyles(styleSheet)(DropDownMenuBase);

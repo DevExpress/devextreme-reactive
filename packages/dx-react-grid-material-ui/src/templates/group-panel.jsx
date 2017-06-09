@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 
 import List from 'material-ui-icons/List';
 
-export const GroupPanel = ({ groupedColumns, groupByColumnText, cellTemplate }) => {
+import { GroupPanelCell } from './group-panel-cell';
+
+export const GroupPanel = ({
+  groupedColumns, groupByColumnText, groupByColumn,
+  getSortingConfig, allowSorting, changeSortingDirection,
+}) => {
   const text = () => groupByColumnText ||
     <span>
       Click
@@ -13,18 +18,22 @@ export const GroupPanel = ({ groupedColumns, groupByColumnText, cellTemplate }) 
       icon in the column header to group by that column
     </span>;
 
-  const GroupPanelCell = cellTemplate;
-
   return groupedColumns.length
     ? (
       <div>
         {
-          groupedColumns.map(column => (
-            <GroupPanelCell
+          groupedColumns.map((column) => {
+            const { sortingSupported, sortingDirection } = getSortingConfig({ column });
+
+            return (<GroupPanelCell
               key={column.name}
               column={column}
-            />
-          ))
+              allowSorting={allowSorting && sortingSupported}
+              sortingDirection={sortingDirection}
+              changeSortingDirection={changeSortingDirection}
+              groupByColumn={groupByColumn}
+            />);
+          })
         }
       </div>
     )
@@ -32,9 +41,12 @@ export const GroupPanel = ({ groupedColumns, groupByColumnText, cellTemplate }) 
 };
 
 GroupPanel.propTypes = {
+  getSortingConfig: PropTypes.any.isRequired,
+  allowSorting: PropTypes.bool.isRequired,
+  changeSortingDirection: PropTypes.func.isRequired,
   groupedColumns: PropTypes.array.isRequired,
+  groupByColumn: PropTypes.func.isRequired,
   groupByColumnText: PropTypes.string,
-  cellTemplate: PropTypes.func.isRequired,
 };
 
 GroupPanel.defaultProps = {

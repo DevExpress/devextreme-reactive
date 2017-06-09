@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1497017976">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -64,10 +64,7 @@ npm i @devexpress/dx-react-grid-bootstrap3 --save
 <p>Add the required modules to your project:</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Grid</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">TableView</span>
+  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">TableView</span>
 <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="p">;</span>
 
 <span class="kr">export</span> <span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
@@ -84,13 +81,21 @@ npm i @devexpress/dx-react-grid-bootstrap3 --save
 
 <h2 id="getting-started">Getting started</h2>
 
-<p>This package provides templates implementing Bootstrap 3 rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. For your convenience, these templates can be used instead of the ones contained in the original React Grid repository.</p>
+<p>This package provides templates implementing Bootstrap 3 rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the ones in the original React Grid repository.</p>
 
 <p>See <a href="https://devexpress.github.io/devextreme-reactive/react/grid/demos/">demos</a> for more information.</p>
 
 <h2 id="reference">Reference</h2>
 
-<p>The package exposes plugins with injected templates. Here is the list of the plugins:</p>
+<p>The package exposes components and plugins with injected templates.</p>
+
+<p>The list of components:</p>
+
+<ul>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/">Grid</a></li>
+</ul>
+
+<p>The list of plugins:</p>
 
 <ul>
   <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
@@ -101,11 +106,12 @@ npm i @devexpress/dx-react-grid-bootstrap3 --save
   <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
   <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grouping-panel/">GroupingPanel</a></li>
   <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
 </ul>
 
 <p>Each plugin has properties with the ‘Template’ postfix. Components passed to such properties are templates.</p>
 
-<p>Templates can be overridden by passing your own component or rendering function. If you want to render a UI item with a built-in template, you can return <code class="highlighter-rouge">undefined</code> from your custom template.</p>
+<p>You can override templates by passing your component or rendering function, or return <code class="highlighter-rouge">undefined</code> from your custom template if you want to render a UI item with a built-in template.</p>
 
 <h2 id="license">License</h2>
 
@@ -147,7 +153,7 @@ npm i @devexpress/dx-react-grid-bootstrap3 --save
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1497017976"></script>
     <script>
         trackingCookie.check();
     </script>    

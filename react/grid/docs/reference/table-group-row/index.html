@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1497017976">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -203,6 +203,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
           
 
@@ -311,6 +319,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
+          
+
+        
         </ul>
 
       
@@ -344,18 +360,30 @@
   <tbody>
     <tr>
       <td>groupRowCellTemplate</td>
-      <td>Component&lt;<a href="#group-row-cell-props">GroupRowCellProps</a>&gt;</td>
+      <td>(args: <a href="#group-row-cell-args">GroupRowCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders the group row</td>
+      <td>A component that renders a group row</td>
+    </tr>
+    <tr>
+      <td>groupIndentCellTemplate</td>
+      <td>(args: <a href="#group-indent-cell-args">GroupIndentCellArgs</a>) =&gt; ReactElement</td>
+      <td> </td>
+      <td>A component that renders a group indent cell</td>
+    </tr>
+    <tr>
+      <td>groupColumnWidth</td>
+      <td>number</td>
+      <td> </td>
+      <td>Width of the group indent columns</td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="grouprowcellprops"><a name="group-row-cell-props"></a>GroupRowCellProps</h3>
+<h3 id="grouprowcellargs"><a name="group-row-cell-args"></a>GroupRowCellArgs</h3>
 
-<p>Describes properties passed to the template that renders the group row.</p>
+<p>Describes properties passed to the template that renders a group row.</p>
 
 <p>A value with the following shape:</p>
 
@@ -382,6 +410,34 @@
       <td>toggleGroupExpanded</td>
       <td>() =&gt; void</td>
       <td>Toggles the expanded state of a group row</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="groupindentcellargs"><a name="group-indent-cell-args"></a>GroupIndentCellArgs</h3>
+
+<p>Describes properties passed to the template that renders a group indent cell.</p>
+
+<p>A value with the following shape:</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
+      <td>A row object</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A group indent column</td>
     </tr>
   </tbody>
 </table>
@@ -463,7 +519,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1497017976"></script>
     <script>
         trackingCookie.check();
     </script>    

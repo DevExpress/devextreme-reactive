@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1497017976">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -203,6 +203,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
           
 
@@ -311,6 +319,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
+          
+
+        
         </ul>
 
       
@@ -343,28 +359,40 @@
   <tbody>
     <tr>
       <td>template</td>
-      <td>Component&lt;<a href="#detail-content-props">DetailContentProps</a>&gt;</td>
+      <td>(args: <a href="#detail-content-args">DetailContentArgs</a>) =&gt; ReactElement</td>
       <td> </td>
       <td>A component that renders row details</td>
     </tr>
     <tr>
       <td>detailCellTemplate</td>
-      <td>Component&lt;<a href="#detail-cell-props">DetailCellProps</a>&gt;</td>
+      <td>(args: <a href="#detail-cell-args">DetailCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
       <td>A component that renders a detail cell</td>
     </tr>
     <tr>
       <td>detailToggleTemplate</td>
-      <td>Component&lt;<a href="#detail-toggle-props">DetailToggleProps</a>&gt;</td>
+      <td>(args: <a href="#detail-toggle-args">DetailToggleArgs</a>) =&gt; ReactElement</td>
       <td> </td>
       <td>A component that renders the detail toggle control</td>
+    </tr>
+    <tr>
+      <td>detailToggleCellWidth</td>
+      <td>number</td>
+      <td> </td>
+      <td>Specifies the detail toggle cell width</td>
+    </tr>
+    <tr>
+      <td>rowHeight</td>
+      <td>number | string</td>
+      <td>‘auto’</td>
+      <td>Specifies the detail row height</td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="detailcontentprops"><a name="detail-content-props"></a>DetailContentProps</h3>
+<h3 id="detailcontentargs"><a name="detail-content-args"></a>DetailContentArgs</h3>
 
 <p>Describes properties passed to the template that renders row details</p>
 
@@ -387,7 +415,7 @@
   </tbody>
 </table>
 
-<h3 id="detailcellprops"><a name="detail-cell-props"></a>DetailCellProps</h3>
+<h3 id="detailcellargs"><a name="detail-cell-args"></a>DetailCellArgs</h3>
 
 <p>Describes properties passed to the template that renders a detail cell for a row</p>
 
@@ -409,13 +437,13 @@
     </tr>
     <tr>
       <td>template</td>
-      <td>Component&lt;void&gt;</td>
+      <td>() =&gt; ReactElement</td>
       <td>A component that renders row details</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="detailtoggleprops"><a name="detail-toggle-props"></a>DetailToggleProps</h3>
+<h3 id="detailtoggleargs"><a name="detail-toggle-args"></a>DetailToggleArgs</h3>
 
 <p>Describes properties passed to the template that renders the detail toggle control</p>
 
@@ -490,7 +518,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1497017976"></script>
     <script>
         trackingCookie.check();
     </script>    

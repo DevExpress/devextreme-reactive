@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1497017976">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -203,6 +203,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
           
 
@@ -311,6 +319,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
+          
+
+        
         </ul>
 
       
@@ -319,9 +335,9 @@
     <div class="col-md-9 docs-content">
         <h1 id="tableheaderrow-plugin-reference">TableHeaderRow Plugin Reference</h1>
 
-<p>A plugin that renders a simple table header that shows column titles. A column title is specified by the <code class="highlighter-rouge">title</code> field in a column definition. See the extended data structure for a <a href="#column">Column</a>.</p>
+<p>A plugin that renders a simple table header that shows column titles. The <code class="highlighter-rouge">title</code> field in a column’s definition specifies its title. See the extended data structure for a <a href="#column">Column</a>.</p>
 
-<p>Optionally, the plugin allows an end-user to manage a column’s sorting and grouping state.</p>
+<p>The plugin also allows an end-user to manage a column’s sorting and grouping state or initiate column dragging.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -330,6 +346,7 @@
 <ul>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> [Optional]</li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a> [Optional]</li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
 </ul>
 
@@ -347,7 +364,7 @@
   <tbody>
     <tr>
       <td>headerCellTemplate</td>
-      <td>Component&lt;<a href="#header-cell-props">HeaderCellProps</a>&gt;</td>
+      <td>(args: <a href="#header-cell-args">HeaderCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
       <td>A component that renders a header cell</td>
     </tr>
@@ -363,6 +380,12 @@
       <td>false</td>
       <td>If true, renders a component that toggles a column’s grouping state</td>
     </tr>
+    <tr>
+      <td>allowDragging</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>If true, allows an end-user to start dragging a column by the header cell</td>
+    </tr>
   </tbody>
 </table>
 
@@ -370,7 +393,7 @@
 
 <h3 id="column">Column</h3>
 
-<p>Describes properties used to render the table header row</p>
+<p>Describes properties used to render the table header row.</p>
 
 <p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></p>
 
@@ -393,7 +416,7 @@
   </tbody>
 </table>
 
-<h3 id="headercellprops"><a name="header-cell-props"></a>HeaderCellProps</h3>
+<h3 id="headercellargs"><a name="header-cell-args"></a>HeaderCellArgs</h3>
 
 <p>Describes properties used to render a table header cell.</p>
 
@@ -414,11 +437,6 @@
       <td>If true, an end-user can change sorting by a column</td>
     </tr>
     <tr>
-      <td>allowGrouping</td>
-      <td>boolean</td>
-      <td>If true, a component that toggles a column’s grouping state is rendered</td>
-    </tr>
-    <tr>
       <td>sortingDirection?</td>
       <td>‘asc’ | ‘desc’</td>
       <td>Specifies the column sort order</td>
@@ -429,9 +447,24 @@
       <td>Changes column sort direction. Keeps existing sorting if <code class="highlighter-rouge">keepOther</code> is set to <code class="highlighter-rouge">true</code>. Cancels sorting by the current column if <code class="highlighter-rouge">cancel</code> is set to true.</td>
     </tr>
     <tr>
+      <td>allowGrouping</td>
+      <td>boolean</td>
+      <td>If true, a component that toggles a column’s grouping state is rendered</td>
+    </tr>
+    <tr>
       <td>groupByColumn</td>
       <td>() =&gt; void</td>
       <td>Toggles grouping for a column</td>
+    </tr>
+    <tr>
+      <td>allowDragging</td>
+      <td>boolean</td>
+      <td>If true, an end-user can start dragging a column by the header cell</td>
+    </tr>
+    <tr>
+      <td>dragPayload</td>
+      <td>any</td>
+      <td>A data object that identifies the corresponding column in the drag-and-drop context</td>
     </tr>
   </tbody>
 </table>
@@ -483,7 +516,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1497017976"></script>
     <script>
         trackingCookie.check();
     </script>    

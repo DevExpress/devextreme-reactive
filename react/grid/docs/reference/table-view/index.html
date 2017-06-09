@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1495803124">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1497017976">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -203,6 +203,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
           
 
@@ -311,6 +319,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
+          
+
+        
         </ul>
 
       
@@ -341,19 +357,19 @@
   <tbody>
     <tr>
       <td>tableTemplate</td>
-      <td>Component&lt;<a href="#table-props">TableProps</a>&gt;</td>
+      <td>(args: <a href="#table-args">TableArgs</a>) =&gt; ReactElement</td>
       <td> </td>
       <td>Renders a table using the specified parameters</td>
     </tr>
     <tr>
       <td>tableCellTemplate</td>
-      <td>Component&lt;<a href="#table-cell-props">TableCellProps</a>&gt;</td>
+      <td>(args: <a href="#table-cell-args">TableCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
       <td>Renders a table cell using the specified parameters</td>
     </tr>
     <tr>
       <td>tableNoDataCellTemplate</td>
-      <td>Component&lt;object&gt;</td>
+      <td>(args: Object) =&gt; ReactElement</td>
       <td> </td>
       <td>Renders a table cell for an empty state using the specified parameters</td>
     </tr>
@@ -362,7 +378,7 @@
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="tableprops"><a name="table-props"></a>TableProps</h3>
+<h3 id="tableargs"><a name="table-args"></a>TableArgs</h3>
 
 <p>Describes properties passed to the table template when it is being rendered</p>
 
@@ -392,13 +408,13 @@
     </tr>
     <tr>
       <td>cellTemplate</td>
-      <td>Component&lt;<a href="#cell-props">CellProps</a>&gt;</td>
+      <td>(args: <a href="#cell-args">CellArgs</a>) =&gt; ReactElement</td>
       <td>A template that should be used to render table cells</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="cellprops"><a name="cell-props"></a>CellProps</h3>
+<h3 id="cellargs"><a name="cell-args"></a>CellArgs</h3>
 
 <p>Describes properties passed to a cell template when it is being rendered</p>
 
@@ -426,7 +442,7 @@
   </tbody>
 </table>
 
-<h3 id="tablecellprops"><a name="table-cell-props"></a>TableCellProps</h3>
+<h3 id="tablecellargs"><a name="table-cell-args"></a>TableCellArgs</h3>
 
 <p>Describes properties passed to the table cell template when it is being rendered</p>
 
@@ -570,7 +586,7 @@
     <tr>
       <td>tableView</td>
       <td>Template</td>
-      <td>none</td>
+      <td> </td>
       <td>A template that renders a table</td>
     </tr>
     <tr>
@@ -625,7 +641,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1495803124"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1497017976"></script>
     <script>
         trackingCookie.check();
     </script>    

@@ -10,20 +10,21 @@ import {
 
 export const styleSheet = createStyleSheet('EditColumn', theme => ({
   button: {
-    margin: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
     padding: theme.spacing.unit,
     minWidth: 40,
   },
   headingCell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    paddingLeft: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
 }));

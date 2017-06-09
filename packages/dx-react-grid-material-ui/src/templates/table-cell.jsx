@@ -9,7 +9,8 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('TableCell', theme => ({
   cell: {
-    paddingRight: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
 }));
 

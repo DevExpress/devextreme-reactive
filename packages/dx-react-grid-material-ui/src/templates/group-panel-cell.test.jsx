@@ -14,4 +14,22 @@ describe('GroupPanelCell', () => {
 
     expect(tree.find('TableSortLabel').text()).toBe('Test');
   });
+
+  test('should cancel sorting by using the Ctrl key', () => {
+    const changeSortingDirection = jest.fn();
+    const tree = mountWithStyles(
+      <GroupPanelCell
+        column={{
+          name: 'Test',
+        }}
+        changeSortingDirection={changeSortingDirection}
+        allowSorting
+      />,
+    );
+
+    tree.find('span > span > span').simulate('click', { ctrlKey: true });
+
+    expect(changeSortingDirection.mock.calls).toHaveLength(1);
+    expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
+  });
 });

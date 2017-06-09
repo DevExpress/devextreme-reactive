@@ -57,12 +57,13 @@ describe('TableEditCell', () => {
       styleSheet,
     );
 
-    const input = tree.find(Input);
-    expect(input.hasClass(classes.input)).toBeTruthy();
-    expect(input.hasClass(classes.right)).toBeFalsy();
+    const inputRoot = tree.find(Input);
+    const input = inputRoot.find('input');
+    expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
+    expect(input.hasClass(classes.inputRight)).toBeFalsy();
 
     tree.setProps({ column: { align: 'right' } });
-    expect(input.hasClass(classes.input)).toBeTruthy();
-    expect(input.hasClass(classes.right)).toBeTruthy();
+    expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
+    expect(input.hasClass(classes.inputRight)).toBeTruthy();
   });
 });

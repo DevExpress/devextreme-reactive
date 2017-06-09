@@ -153,12 +153,12 @@ GridContainer.propTypes = {
 
 const gridInitialState = {
   columns: [
-    { name: 'prefix', title: 'Title', width: 75 },
+    { name: 'prefix', title: 'Title', width: 90 },
     { name: 'firstName', title: 'First Name' },
     { name: 'lastName', title: 'Last Name' },
     { name: 'position', title: 'Position', width: 170 },
     { name: 'state', title: 'State', width: 125 },
-    { name: 'birthDate', title: 'Birth Date', width: 115 },
+    { name: 'birthDate', title: 'Birth Date', width: 135 },
   ],
   detailColumns: [
     { name: 'subject', title: 'Subject' },

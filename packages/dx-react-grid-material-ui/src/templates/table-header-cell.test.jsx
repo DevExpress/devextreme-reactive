@@ -1,6 +1,6 @@
 import React from 'react';
 import { mountWithStyles, setupConsole } from '../utils/testing';
-import { TableHeaderCell } from './table-header-cell';
+import { TableHeaderCell, styleSheet } from './table-header-cell';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -14,15 +14,16 @@ describe('TableHeaderCell', () => {
   });
 
   test('should use column name if title is not specified', () => {
-    const tree = mountWithStyles(
+    const { tree, classes } = mountWithStyles(
       <TableHeaderCell
         column={{
           name: 'Test',
         }}
       />,
+      styleSheet,
     );
 
-    expect(tree.find('div').text()).toBe('Test');
+    expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
   });
 
   test('should cancel sorting by using the Ctrl key', () => {

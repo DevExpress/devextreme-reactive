@@ -140,7 +140,11 @@ export const TableHeaderCellBase = ({
       onClick={(e) => {
         if (!allowSorting) return;
         e.stopPropagation();
-        changeSortingDirection({ keepOther: e.shiftKey });
+        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+        changeSortingDirection({
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey,
+        });
       }}
       style={style}
       className={tableCellClasses}

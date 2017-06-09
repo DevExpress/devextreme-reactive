@@ -38,11 +38,16 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     textAlign: 'right',
   },
   cell: {
+    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
     width: '100%',
+  },
+  cellRight: {
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
   clearPadding: {
     padding: 0,
@@ -87,6 +92,7 @@ export const TableHeaderCellBase = ({
   const tableCellClasses = classNames(
     {
       [classes.cell]: true,
+      [classes.cellRight]: align === 'right',
       [classes.clearPadding]: !column.name,
     },
   );
@@ -114,10 +120,10 @@ export const TableHeaderCellBase = ({
   const sortingControl = allowSorting && (
     align === 'right' ? (
       <span className={classes.sortingControl}>
-        <TableSortLabel
+        {!!sortingDirection && <TableSortLabel
           active={!!sortingDirection}
           direction={sortingDirection}
-        />
+        />}
         <span className={classes.sortingTitle}>
           {columnTitle}
         </span>

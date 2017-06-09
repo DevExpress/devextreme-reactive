@@ -29,5 +29,8 @@
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test"
+  },
+  "dependencies": {
+    "material-ui-icons": "^1.0.0-alpha.3"
   }
 }

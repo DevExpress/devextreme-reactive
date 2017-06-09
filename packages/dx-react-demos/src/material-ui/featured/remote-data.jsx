@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   PagingState,
   SortingState,
@@ -10,9 +11,52 @@ import {
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
 import { TableCell } from 'material-ui';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
+
+const styleSheet = createStyleSheet('RemoteDataDemo', () => ({
+  saleAmountCell: {
+    textAlign: 'right',
+  },
+  noDataCell: {
+    textAlign: 'center',
+    padding: '40px 0',
+  },
+}));
+
+const SaleAmountCellBase = ({ row, classes }) => (
+  <TableCell
+    className={classes.saleAmountCell}
+  >
+    ${row.SaleAmount}
+  </TableCell>
+);
+
+SaleAmountCellBase.propTypes = {
+  row: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+};
+
+const SaleAmountCell = withStyles(styleSheet)(SaleAmountCellBase);
+
+const NoDataCellBase = ({ loading, colspan, classes }) => (
+  <TableCell
+    className={classes.noDataCell}
+    colSpan={colspan}
+  >
+    <big>{loading ? '' : 'No data'}</big>
+  </TableCell>
+);
+
+NoDataCellBase.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  colspan: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired,
+};
+
+const NoDataCell = withStyles(styleSheet)(NoDataCellBase);
 
 export class RemoteDataDemo extends React.PureComponent {
   constructor(props) {
@@ -130,22 +174,12 @@ export class RemoteDataDemo extends React.PureComponent {
           <TableView
             tableCellTemplate={({ row, column }) => {
               if (column.name === 'SaleAmount') {
-                return (
-                  <TableCell style={{ textAlign: 'right' }}>${row.SaleAmount}</TableCell>
-                );
+                return <SaleAmountCell row={row} />;
               }
               return undefined;
             }}
             tableNoDataCellTemplate={({ colspan }) => (
-              <TableCell
-                style={{
-                  textAlign: 'center',
-                  padding: '40px 0',
-                }}
-                colSpan={colspan}
-              >
-                <big>{loading ? '' : 'No data'}</big>
-              </TableCell>
+              <NoDataCell loading={loading} colspan={colspan} />
             )}
           />
           <TableHeaderRow allowSorting />

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Typography, Menu, MenuItem } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import ExpandMore from 'material-ui-icons/ExpandMore';
@@ -15,6 +16,15 @@ const styleSheet = createStyleSheet('DropDownMenu', theme => ({
   buttonIcon: {
     width: theme.spacing.unit * 2,
     float: 'right',
+  },
+  title: {
+    display: 'inline-block',
+    width: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    verticalAlign: 'middle',
+    paddingLeft: theme.spacing.unit * 3,
+    marginLeft: -(theme.spacing.unit * 3),
   },
   selected: {
     color: theme.palette.text.primary,
@@ -65,7 +75,10 @@ class DropDownMenuBase extends React.PureComponent {
   render() {
     const { items, classes, className } = this.props;
     const { anchorEl, open, selectedIndex, title } = this.state;
-
+    const titleClasses = classNames({
+      [classes.title]: true,
+      [classes.selected]: selectedIndex > -1,
+    });
     return (
       <div className={className}>
         <Typography
@@ -73,7 +86,7 @@ class DropDownMenuBase extends React.PureComponent {
           onClick={this.handleClick}
           className={classes.button}
         >
-          <span className={selectedIndex > -1 ? classes.selected : null}>
+          <span className={titleClasses}>
             {title}
           </span>
           {

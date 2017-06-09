@@ -37,6 +37,7 @@ class DropDownMenuBase extends React.PureComponent {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   handleClick(event) {
@@ -55,6 +56,10 @@ class DropDownMenuBase extends React.PureComponent {
       open: false,
       title,
     });
+  }
+
+  handleRequestClose() {
+    this.setState({ open: false });
   }
 
   render() {
@@ -80,6 +85,7 @@ class DropDownMenuBase extends React.PureComponent {
         <Menu
           anchorEl={anchorEl}
           open={open}
+          onRequestClose={this.handleRequestClose}
         >
           {items.map((item, index) => (
             <MenuItem

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import {
   TableCell as TableCellMUI,
@@ -7,17 +8,25 @@ import {
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableCell', theme => ({
+export const styleSheet = createStyleSheet('TableCell', theme => ({
   cell: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+  },
+  cellRightAlign: {
+    textAlign: 'right',
   },
 }));
 
 const TableCellBase = ({ style, row, column, classes }) => (
   <TableCellMUI
-    style={style}
-    className={classes.cell}
+    style={{
+      ...style,
+    }}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.cellRightAlign]: column.align === 'right',
+    })}
   >
     {row[column.name]}
   </TableCellMUI>

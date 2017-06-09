@@ -21,7 +21,10 @@
     "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-demos-lint.xml -f junit"
   },
   "jest": {
-    "testResultsProcessor": "./node_modules/jest-junit"
+    "testResultsProcessor": "./node_modules/jest-junit",
+    "moduleNameMapper": {
+      "\\.css$": "<rootDir>/css-stub.js"
+    }
   },
   "jest-junit": {
     "suiteName": "React Grid Demos",

@@ -33,18 +33,6 @@ export const mountWithStyles = (node, styleSheet) => {
   return tree;
 };
 
-export const setupConsole = (config = {}) => {
-  const savedConsoleError = console.error; // eslint-disable-line no-console
-  console.error = (error) => { // eslint-disable-line no-console
-    if (!config.ignore || !config.ignore.filter(message => error.includes(message)).length) {
-      throw new Error(error);
-    }
-  };
-  return () => {
-    console.error = savedConsoleError; // eslint-disable-line no-console
-  };
-};
-
 export const triggerTouchTap = (element) => {
   const node = ReactDOM.findDOMNode(element); // eslint-disable-line react/no-find-dom-node
   TestUtils.Simulate.touchTap(node);

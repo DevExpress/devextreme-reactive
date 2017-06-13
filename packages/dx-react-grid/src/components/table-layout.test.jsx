@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { format } from 'util';
 
 import { TableLayout } from './table-layout';
+import { setupWarningInterceptor } from '../utils/testing';
 
 /* eslint-disable react/prop-types */
 const PropsContainer = () => null;
@@ -40,24 +40,15 @@ const cellTemplateMock = props => (
 /* eslint-enable react/prop-types */
 
 describe('TableLayout', () => {
-  /* eslint-disable no-console */
-  const consoleWarn = console.warn;
-  const consoleError = console.error;
-
-  const logToError = (...args) => {
-    throw new Error(format(...args).replace(/^Error: (?:Warning: )?/, ''));
-  };
+  let resetWarningInterceptor;
 
   beforeEach(() => {
-    console.warn = logToError;
-    console.error = logToError;
+    resetWarningInterceptor = setupWarningInterceptor();
   });
 
   afterEach(() => {
-    console.warn = consoleWarn;
-    console.error = consoleError;
+    resetWarningInterceptor();
   });
-  /* eslint-enable no-console */
 
   const testTablePart = ({ tree, rows, columns }) => {
     const rowWrappers = tree.find('tr');

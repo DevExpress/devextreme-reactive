@@ -1,27 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TableCell } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('ProgressBarCell', theme => ({
   progressBarCell: {
-    padding: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
     borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
   },
   progressBar: {
     backgroundColor: theme.palette.primary[300],
     float: 'left',
-    height: theme.spacing.unit * 3,
+    height: theme.spacing.unit,
   },
 }));
 
 export const ProgressBarCellBase = ({ value, classes }) => (
-  <td className={classes.progressBarCell}>
+  <TableCell className={classes.progressBarCell}>
     <div
       className={classes.progressBar}
       style={{ width: `${value}%` }}
       title={`${value.toFixed(1)}%`}
     />
-  </td>
+  </TableCell>
 );
 ProgressBarCellBase.propTypes = {
   value: PropTypes.number.isRequired,

@@ -28,6 +28,12 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     lineHeight: '18px',
     display: 'inline-block',
     verticalAlign: 'top',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+  plainTitle: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
   floatLeft: {
     float: 'left',
@@ -38,6 +44,7 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     textAlign: 'right',
   },
   cell: {
+    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
   cellNoUserSelect: {
@@ -55,6 +62,10 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   cellDragging: {
     opacity: 0.3,
   },
+  cellRight: {
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+  },
   clearPadding: {
     padding: 0,
   },
@@ -64,7 +75,6 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     verticalAlign: 'middle',
-    textOverflow: 'ellipsis',
   },
   titleRight: {
     textAlign: 'right',
@@ -108,6 +118,7 @@ export class TableHeaderCellBase extends React.PureComponent {
     const tableCellClasses = classNames(
       {
         [classes.cell]: true,
+        [classes.cellRight]: align === 'right',
         [classes.clearPadding]: !column.name,
         [classes.cellNoUserSelect]: allowDragging || allowSorting,
         [classes.cellDraggable]: allowDragging,
@@ -139,10 +150,10 @@ export class TableHeaderCellBase extends React.PureComponent {
     const sortingControl = allowSorting && (
       align === 'right' ? (
         <span className={classes.sortingControl}>
-          <TableSortLabel
+          {!!sortingDirection && <TableSortLabel
             active={!!sortingDirection}
             direction={sortingDirection}
-          />
+          />}
           <span className={classes.sortingTitle}>
             {columnTitle}
           </span>
@@ -165,7 +176,11 @@ export class TableHeaderCellBase extends React.PureComponent {
         onClick={(e) => {
           if (!allowSorting) return;
           e.stopPropagation();
-          changeSortingDirection({ keepOther: e.shiftKey });
+          const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+          changeSortingDirection({
+            keepOther: e.shiftKey || cancelSortingRelatedKey,
+            cancel: cancelSortingRelatedKey,
+          });
         }}
         style={style}
         className={tableCellClasses}

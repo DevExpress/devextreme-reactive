@@ -12,7 +12,7 @@ import {
   TableLayout,
 } from '@devexpress/dx-react-grid';
 
-const MINIMAL_COLUMN_WIDTH = 150;
+const MINIMAL_COLUMN_WIDTH = 120;
 
 /* eslint-disable react/prop-types */
 const tableTemplate = ({ children, ...restProps }) => (

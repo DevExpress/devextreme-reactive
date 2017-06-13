@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import List from 'material-ui-icons/List';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
@@ -19,7 +20,14 @@ const defaultText = (
   </span>
 );
 
-export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
+const styleSheet = createStyleSheet('GroupPanel', () => ({
+  groupIcon: {
+    display: 'inline-block',
+    verticalAlign: 'middle',
+  },
+}));
+
+const GroupPanelBase = ({ groupByColumnText, ...restProps }) => (
   <GroupPanelLayout
     groupByColumnText={groupByColumnText || defaultText}
     groupPanelCellTemplate={groupPanelCellTemplate}
@@ -27,10 +35,12 @@ export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
   />
 );
 
-GroupPanel.propTypes = {
+GroupPanelBase.propTypes = {
   groupByColumnText: PropTypes.string,
 };
 
-GroupPanel.defaultProps = {
+GroupPanelBase.defaultProps = {
   groupByColumnText: undefined,
 };
+
+export const GroupPanel = withStyles(styleSheet)(GroupPanelBase);

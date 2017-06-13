@@ -12,13 +12,14 @@ import {
 export const styleSheet = createStyleSheet('EditCell', theme => ({
   cell: {
     verticalAlign: 'top',
-    paddingTop: theme.spacing.unit + 4,
+    paddingTop: theme.spacing.unit + 2,
+    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
-  input: {
+  inputRoot: {
     width: '100%',
   },
-  right: {
+  inputRight: {
     textAlign: 'right',
   },
 }));
@@ -26,8 +27,7 @@ export const styleSheet = createStyleSheet('EditCell', theme => ({
 const EditCellBase = ({ column, value, onValueChange, classes }) => {
   const inputClasses = classNames(
     {
-      [classes.input]: true,
-      [classes.right]: column.align === 'right',
+      [classes.inputRight]: column.align === 'right',
     },
   );
 
@@ -36,7 +36,8 @@ const EditCellBase = ({ column, value, onValueChange, classes }) => {
       className={classes.cell}
     >
       <Input
-        className={inputClasses}
+        className={classes.inputRoot}
+        inputClassName={inputClasses}
         value={value}
         onChange={e => onValueChange(e.target.value)}
       />

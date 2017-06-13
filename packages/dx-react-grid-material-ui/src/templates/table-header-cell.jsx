@@ -13,12 +13,27 @@ import List from 'material-ui-icons/List';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
+export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   gropingControl: {
     cursor: 'pointer',
-    paddingLeft: theme.spacing.unit * 3,
-    width: (theme.spacing.unit * 2) - 2,
+    paddingLeft: 0,
     height: theme.spacing.unit * 3,
+  },
+  sortingControl: {
+    cursor: 'pointer',
+    display: 'inline-block',
+    paddingTop: theme.spacing.unit / 2,
+  },
+  sortingTitle: {
+    lineHeight: '18px',
+    display: 'inline-block',
+    verticalAlign: 'top',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+  plainTitle: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
   floatLeft: {
     float: 'left',
@@ -29,10 +44,16 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     textAlign: 'right',
   },
   cell: {
-    paddingRight: theme.spacing.unit * 3,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
+    width: '100%',
+  },
+  cellRight: {
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
   },
   clearPadding: {
     padding: 0,
@@ -43,7 +64,6 @@ const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     verticalAlign: 'middle',
-    textOverflow: 'ellipsis',
   },
   titleRight: {
     textAlign: 'right',
@@ -77,6 +97,7 @@ export const TableHeaderCellBase = ({
   const tableCellClasses = classNames(
     {
       [classes.cell]: true,
+      [classes.cellRight]: align === 'right',
       [classes.clearPadding]: !column.name,
     },
   );
@@ -102,12 +123,27 @@ export const TableHeaderCellBase = ({
   );
 
   const sortingControl = allowSorting && (
-    <TableSortLabel
-      active={!!sortingDirection}
-      direction={sortingDirection}
-    >
-      {columnTitle}
-    </TableSortLabel>
+    align === 'right' ? (
+      <span className={classes.sortingControl}>
+        {!!sortingDirection && <TableSortLabel
+          active={!!sortingDirection}
+          direction={sortingDirection}
+        />}
+        <span className={classes.sortingTitle}>
+          {columnTitle}
+        </span>
+      </span>
+    ) : (
+      <span className={classes.sortingControl}>
+        <span className={classes.sortingTitle}>
+          {columnTitle}
+        </span>
+        <TableSortLabel
+          active={!!sortingDirection}
+          direction={sortingDirection}
+        />
+      </span>
+    )
   );
 
   const cellLayout = (
@@ -115,7 +151,11 @@ export const TableHeaderCellBase = ({
       onClick={(e) => {
         if (!allowSorting) return;
         e.stopPropagation();
-        changeSortingDirection({ keepOther: e.shiftKey });
+        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+        changeSortingDirection({
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey,
+        });
       }}
       style={style}
       className={tableCellClasses}
@@ -123,7 +163,9 @@ export const TableHeaderCellBase = ({
       {gropingControl}
       <div className={titleClasses}>
         {allowSorting ? sortingControl : (
-          columnTitle
+          <div className={classes.plainTitle}>
+            {columnTitle}
+          </div>
         )}
       </div>
     </TableCell>

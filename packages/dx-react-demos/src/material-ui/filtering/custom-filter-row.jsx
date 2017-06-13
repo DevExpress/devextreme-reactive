@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
 import {
   FilteringState,
   LocalFiltering,
@@ -8,12 +10,21 @@ import {
 import {
   Grid,
   TableView,
+  TableHeaderRow,
   TableFilterRow,
   DropDownMenu,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   generateRows,
 } from '../../demoData';
+
+const styleSheet = createStyleSheet('SexFilterCell', theme => ({
+  cell: {
+    width: '100%',
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+  },
+}));
 
 const filterFn = (row, filter) => {
   const toLowerCase = value => String(value).toLowerCase();
@@ -24,8 +35,8 @@ const filterFn = (row, filter) => {
   return toLowerCase(row[filter.columnName]).indexOf(toLowerCase(filter.value)) > -1;
 };
 
-const SexFilterCell = ({ setFilter }) => (
-  <TableCell>
+const SexFilterCellBase = ({ setFilter, classes }) => (
+  <TableCell className={classes.cell}>
     <DropDownMenu
       onItemClick={(item, index) => setFilter(index ? { value: item } : null)}
       defaultTitle={'Sex'}
@@ -38,9 +49,12 @@ const SexFilterCell = ({ setFilter }) => (
   </TableCell>
 );
 
-SexFilterCell.propTypes = {
+SexFilterCellBase.propTypes = {
   setFilter: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+const SexFilterCell = withStyles(styleSheet)(SexFilterCellBase);
 
 export class CustomFilterRowDemo extends React.PureComponent {
   constructor(props) {
@@ -67,6 +81,7 @@ export class CustomFilterRowDemo extends React.PureComponent {
         <FilteringState defaultFilters={[]} />
         <LocalFiltering filterFn={filterFn} />
         <TableView />
+        <TableHeaderRow />
         <TableFilterRow
           filterCellTemplate={({ column, setFilter }) => {
             if (column.name === 'sex') {

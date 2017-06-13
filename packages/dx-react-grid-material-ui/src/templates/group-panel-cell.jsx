@@ -30,7 +30,13 @@ const GroupPanelCellBase = ({
     <span
       onClick={(e) => {
         if (!allowSorting) return;
-        changeSortingDirection({ keepOther: e.shiftKey, column });
+
+        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+        changeSortingDirection({
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey,
+          column,
+        });
       }}
     >
       <TableSortLabel

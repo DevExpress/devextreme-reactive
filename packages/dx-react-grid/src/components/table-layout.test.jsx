@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { TableLayout } from './table-layout';
-import { setupWarningInterceptor } from '../utils/testing';
+import { setupConsole } from '../utils/testing';
 
 /* eslint-disable react/prop-types */
 const PropsContainer = () => null;
@@ -40,14 +40,14 @@ const cellTemplateMock = props => (
 /* eslint-enable react/prop-types */
 
 describe('TableLayout', () => {
-  let resetWarningInterceptor;
+  let resetSetupConsole;
 
   beforeEach(() => {
-    resetWarningInterceptor = setupWarningInterceptor();
+    resetSetupConsole = setupConsole();
   });
 
   afterEach(() => {
-    resetWarningInterceptor();
+    resetSetupConsole();
   });
 
   const testTablePart = ({ tree, rows, columns }) => {

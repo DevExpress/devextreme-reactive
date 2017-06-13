@@ -188,7 +188,9 @@ export class TableHeaderCellBase extends React.PureComponent {
         {gropingControl}
         <div className={titleClasses}>
           {allowSorting ? sortingControl : (
-            columnTitle
+            <div className={classes.plainTitle}>
+              {columnTitle}
+            </div>
           )}
         </div>
       </TableCell>

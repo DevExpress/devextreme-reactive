@@ -14,19 +14,28 @@ import {
   GroupingPanel, PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
 
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
 import {
   generateRows,
   employeeValues,
   employeeTaskValues,
 } from '../../demoData';
 
+const styleSheet = createStyleSheet('ReduxIntegrationDemo', () => ({
+  detailContainer: {
+    margin: 20,
+  },
+}));
+
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-const GridDetailContainer = ({
+const GridDetailContainerBase = ({
   columns,
   data,
+  classes,
 }) => (
-  <div style={{ margin: '20px' }}>
+  <div className={classes.detailContainer}>
     <div>
       <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
     </div>
@@ -39,10 +48,13 @@ const GridDetailContainer = ({
     </Grid>
   </div>
 );
-GridDetailContainer.propTypes = {
+GridDetailContainerBase.propTypes = {
   data: PropTypes.shape().isRequired,
   columns: PropTypes.array.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+const GridDetailContainer = withStyles(styleSheet)(GridDetailContainerBase);
 
 const GridContainer = ({
   rows,

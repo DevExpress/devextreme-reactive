@@ -1,5 +1,6 @@
 import babel from 'rollup-plugin-babel';
 import license from 'rollup-plugin-license';
+import replace from 'rollup-plugin-replace';
 import { banner, external, babelrc, moduleName, globals } from '../../tools/rollup-utils';
 
 export default {
@@ -27,6 +28,10 @@ export default {
     license({
       sourceMap: true,
       banner,
+    }),
+    replace({
+      exclude: 'node_modules/**',
+      ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
   ],
 };

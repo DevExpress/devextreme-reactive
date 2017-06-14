@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'util';
-import { setupConsole } from '@devexpress/dx-core/';
+import { setupConsole } from '@devexpress/dx-core';
 import { mountWithStyles } from '../utils/testing';
 import { TableFilterCell } from './table-filter-cell';
 

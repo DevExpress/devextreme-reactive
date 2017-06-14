@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { format } from 'util';
-import { setupConsole } from '@devexpress/dx-core/';
+import { setupConsole } from '@devexpress/dx-core';
 import { TableHeaderCell } from './table-header-cell';
 
 describe('TableHeaderCell', () => {

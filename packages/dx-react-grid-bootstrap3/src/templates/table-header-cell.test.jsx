@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { format } from 'util';
 import { setupConsole } from '@devexpress/dx-react-grid/';
 import { TableHeaderCell } from './table-header-cell';
 
@@ -7,7 +8,7 @@ describe('TableHeaderCell', () => {
   let resetConsole;
 
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'], formatOutput: format });
   });
 
   afterAll(() => {

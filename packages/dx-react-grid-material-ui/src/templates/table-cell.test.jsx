@@ -1,5 +1,6 @@
 import React from 'react';
 import { TableCell as TableCellMUI } from 'material-ui';
+import { format } from 'util';
 import { setupConsole } from '@devexpress/dx-react-grid/';
 import { mountWithStyles } from '../utils/testing';
 import { styleSheet, TableCell } from './table-cell';
@@ -8,7 +9,7 @@ describe('TableCell', () => {
   let resetConsole;
 
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'], formatOutput: format });
   });
 
   afterAll(() => {

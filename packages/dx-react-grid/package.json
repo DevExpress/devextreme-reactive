@@ -79,8 +79,7 @@
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-license": "^0.3.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-watch": "^3.2.2",
-    "util": "^0.10.3"
+    "rollup-watch": "^3.2.2"
   },
   "dependencies": {
     "@devexpress/dx-grid-core": "^1.0.0-alpha.3",

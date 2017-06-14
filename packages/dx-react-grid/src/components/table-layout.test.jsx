@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { format } from 'util';
 
 import { TableLayout } from './table-layout';
 import { setupConsole } from '../utils/testing';
@@ -43,7 +44,7 @@ describe('TableLayout', () => {
   let resetSetupConsole;
 
   beforeEach(() => {
-    resetSetupConsole = setupConsole();
+    resetSetupConsole = setupConsole({ formatOutput: format });
   });
 
   afterEach(() => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'util';
 import { setupConsole } from '@devexpress/dx-react-grid/';
 import { mountWithStyles } from '../utils/testing';
 import {
@@ -11,7 +12,7 @@ describe('Table command column', () => {
   let resetConsole;
 
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'], formatOutput: format });
   });
 
   afterAll(() => {

@@ -1,9 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { format } from 'util';
-
+import { setupConsole } from '@devexpress/dx-core/';
 import { TableLayout } from './table-layout';
-import { setupConsole } from '../utils/testing';
 
 /* eslint-disable react/prop-types */
 const PropsContainer = () => null;

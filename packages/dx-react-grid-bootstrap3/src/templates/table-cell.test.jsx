@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { format } from 'util';
-import { setupConsole } from '@devexpress/dx-react-grid/';
+import { setupConsole } from '@devexpress/dx-core/';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'util';
-import { setupConsole } from '@devexpress/dx-react-grid/';
+import { setupConsole } from '@devexpress/dx-core/';
 import { mountWithStyles } from '../utils/testing';
 import {
   CommandButton,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableCell as TableCellMUI } from 'material-ui';
 import { format } from 'util';
-import { setupConsole } from '@devexpress/dx-react-grid/';
+import { setupConsole } from '@devexpress/dx-core/';
 import { mountWithStyles } from '../utils/testing';
 import { styleSheet, TableCell } from './table-cell';
 

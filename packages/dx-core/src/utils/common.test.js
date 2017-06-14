@@ -1,4 +1,4 @@
-import { sortPlugins } from './utils';
+import { sortPlugins } from './common';
 
 describe('utils', () => {
   describe('sortPlugins', () => {

@@ -36,3 +36,4 @@ export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 
 export { TableLayout } from './components/table-layout';
+export { GroupPanelLayout } from './components/group-panel-layout';

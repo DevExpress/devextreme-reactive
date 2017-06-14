@@ -4,7 +4,7 @@ import {
 
 describe('SortingState reducers', () => {
   describe('#setColumnSorting', () => {
-    test('can initiate sorting', () => {
+    it('can initiate sorting', () => {
       const sorting = [];
       const payload = { columnName: 'test' };
 
@@ -12,7 +12,7 @@ describe('SortingState reducers', () => {
       expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }]);
     });
 
-    test('can initiate sorting with direction', () => {
+    it('can initiate sorting with direction', () => {
       const sorting = [];
       const payload = { columnName: 'test', direction: 'desc' };
 
@@ -20,7 +20,7 @@ describe('SortingState reducers', () => {
       expect(nextSorting).toEqual([{ columnName: 'test', direction: 'desc' }]);
     });
 
-    test('can toggle sorting', () => {
+    it('can toggle sorting', () => {
       const sorting = [{ columnName: 'test', direction: 'asc' }];
       const payload = { columnName: 'test' };
 
@@ -28,7 +28,7 @@ describe('SortingState reducers', () => {
       expect(nextSorting).toEqual([{ columnName: 'test', direction: 'desc' }]);
     });
 
-    test('should reset sorting if no keepOther is specified', () => {
+    it('should reset sorting if no keepOther is specified', () => {
       const sorting = [{ columnName: 'test', direction: 'asc' }];
       const payload = { columnName: 'test2' };
 
@@ -36,7 +36,7 @@ describe('SortingState reducers', () => {
       expect(nextSorting).toEqual([{ columnName: 'test2', direction: 'asc' }]);
     });
 
-    test('can initiate multi-column sorting by keepOther option', () => {
+    it('can initiate multi-column sorting by keepOther option', () => {
       const sorting = [{ columnName: 'test', direction: 'asc' }];
       const payload = { columnName: 'test2', keepOther: true };
 
@@ -44,7 +44,7 @@ describe('SortingState reducers', () => {
       expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }]);
     });
 
-    test('can toggle multi-column sorting', () => {
+    it('can toggle multi-column sorting', () => {
       const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
       const payload = { columnName: 'test', keepOther: true };
 
@@ -52,7 +52,7 @@ describe('SortingState reducers', () => {
       expect(nextSorting).toEqual([{ columnName: 'test', direction: 'desc' }, { columnName: 'test2', direction: 'asc' }]);
     });
 
-    test('should cancel sorting by column if cancel is set to true', () => {
+    it('should cancel sorting by column if cancel is set to true', () => {
       const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
       const payload = { columnName: 'test2', keepOther: true, cancel: true };
 
@@ -60,7 +60,7 @@ describe('SortingState reducers', () => {
       expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }]);
     });
 
-    test('should clear sorting if cancel is true and keepOther is not specified', () => {
+    it('should clear sorting if cancel is true and keepOther is not specified', () => {
       const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
       const payload = { columnName: 'test2', cancel: true };
 

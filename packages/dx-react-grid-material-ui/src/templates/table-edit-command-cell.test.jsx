@@ -20,7 +20,7 @@ describe('Table command column', () => {
 
 
   describe('EditCommandHeadingCell', () => {
-    test('should render without exceptions in view mode', () => {
+    it('should render without exceptions in view mode', () => {
       const tree = mountWithStyles(
         <EditCommandHeadingCell
           allowAdding
@@ -34,7 +34,7 @@ describe('Table command column', () => {
       expect(button.text()).toBe('CustomAdd');
     });
 
-    test('should take allowAdding into account', () => {
+    it('should take allowAdding into account', () => {
       const tree = mountWithStyles(
         <EditCommandHeadingCell
           commandTemplate={props => <CommandButton {...props} />}
@@ -49,7 +49,7 @@ describe('Table command column', () => {
       expect(button.exists()).toBeTruthy();
     });
 
-    test('should use commandTemplate with proper arguments', () => {
+    it('should use commandTemplate with proper arguments', () => {
       const template = jest.fn();
       const addRow = () => {};
 
@@ -71,7 +71,7 @@ describe('Table command column', () => {
   });
 
   describe('EditCommandCell', () => {
-    test('should render without exceptions in view mode', () => {
+    it('should render without exceptions in view mode', () => {
       const tree = mountWithStyles(
         <EditCommandCell
           allowEditing
@@ -88,7 +88,7 @@ describe('Table command column', () => {
       expect(buttons.at(1).text()).toBe('CustomDelete');
     });
 
-    test('should render without exceptions in edit mode', () => {
+    it('should render without exceptions in edit mode', () => {
       const tree = mountWithStyles(
         <EditCommandCell
           isEditing
@@ -106,7 +106,7 @@ describe('Table command column', () => {
       expect(buttons.at(1).text()).toBe('CustomCancel');
     });
 
-    test('should take allowEditing and allowDeleting into account', () => {
+    it('should take allowEditing and allowDeleting into account', () => {
       const tree = mountWithStyles(
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
@@ -125,7 +125,7 @@ describe('Table command column', () => {
       expect(buttons).toHaveLength(2);
     });
 
-    test('should use commandTemplate with proper arguments in view mode', () => {
+    it('should use commandTemplate with proper arguments in view mode', () => {
       const template = jest.fn();
       const startEditing = () => {};
       const deleteRow = () => {};
@@ -153,7 +153,7 @@ describe('Table command column', () => {
       });
     });
 
-    test('should use commandTemplate with proper arguments in edit mode', () => {
+    it('should use commandTemplate with proper arguments in edit mode', () => {
       const template = jest.fn();
       const commitChanges = () => {};
       const cancelEditing = () => {};

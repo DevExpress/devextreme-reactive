@@ -4,7 +4,7 @@ import {
 
 describe('EditRow computeds', () => {
   describe('#rowsWithEditing', () => {
-    test('should work', () => {
+    it('should work', () => {
       const rows = [{ id: 1 }, { id: 2 }];
       const editingRows = [2];
       const addedRows = [{ id: 3 }];

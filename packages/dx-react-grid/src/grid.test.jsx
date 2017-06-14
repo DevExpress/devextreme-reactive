@@ -6,7 +6,7 @@ import { Template } from '@devexpress/dx-react-core';
 import { Grid } from './grid';
 
 describe('Grid', () => {
-  test('should render root template', () => {
+  it('should render root template', () => {
     const tree = mount(
       <Grid
         rows={[]}
@@ -38,7 +38,7 @@ describe('Grid', () => {
     expect(root.find('.footer').find('.footer-content').exists()).toBeTruthy();
   });
 
-  test('should render header placeholder', () => {
+  it('should render header placeholder', () => {
     const tree = mount(
       <Grid
         rows={[]}
@@ -60,7 +60,7 @@ describe('Grid', () => {
     expect(tree.find('.header-placeholder').find('.header-content').exists()).toBeTruthy();
   });
 
-  test('should render footer placeholder with null children if there are no header elements', () => {
+  it('should render footer placeholder with null children if there are no header elements', () => {
     const tree = mount(
       <Grid
         rows={[]}
@@ -80,7 +80,7 @@ describe('Grid', () => {
     expect(!tree.find('.footer-placeholder').exists()).toBeTruthy();
   });
 
-  test('should render footer placeholder', () => {
+  it('should render footer placeholder', () => {
     const tree = mount(
       <Grid
         rows={[]}
@@ -102,7 +102,7 @@ describe('Grid', () => {
     expect(tree.find('.footer-placeholder').find('.footer-content').exists()).toBeTruthy();
   });
 
-  test('should render footer placeholder with null children if there are no footer elements', () => {
+  it('should render footer placeholder with null children if there are no footer elements', () => {
     const tree = mount(
       <Grid
         rows={[]}

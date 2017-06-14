@@ -4,7 +4,7 @@ import {
 
 describe('PagingState reducers', () => {
   describe('#setCurrentPage', () => {
-    test('should work', () => {
+    it('should work', () => {
       const state = 0;
       const payload = { page: 1 };
 

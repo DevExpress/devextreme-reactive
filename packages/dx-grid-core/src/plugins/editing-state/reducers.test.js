@@ -12,7 +12,7 @@ import {
 
 describe('EditingState reducers', () => {
   describe('#startEditRows', () => {
-    test('should work', () => {
+    it('should work', () => {
       const editingRows = [1];
       const payload = { rowIds: [2, 3] };
 
@@ -21,7 +21,7 @@ describe('EditingState reducers', () => {
     });
   });
   describe('#stopEditRows', () => {
-    test('should work', () => {
+    it('should work', () => {
       const editingRows = [1, 2, 3];
       const payload = { rowIds: [2] };
 
@@ -30,7 +30,7 @@ describe('EditingState reducers', () => {
     });
   });
   describe('#addRow', () => {
-    test('should work', () => {
+    it('should work', () => {
       const addedRows = [{ a: 1 }];
       const payload = { row: { a: 2 } };
 
@@ -39,7 +39,7 @@ describe('EditingState reducers', () => {
     });
   });
   describe('#changeAddedRow', () => {
-    test('should work', () => {
+    it('should work', () => {
       const addedRows = [{ a: 1 }, { a: 2 }];
       const payload = { rowId: 0, change: { a: 3 } };
 
@@ -48,7 +48,7 @@ describe('EditingState reducers', () => {
     });
   });
   describe('#cancelAddedRows', () => {
-    test('should work', () => {
+    it('should work', () => {
       const addedRows = [{ a: 1 }, { a: 2 }];
       const payload = { rowIds: [0] };
 
@@ -57,7 +57,7 @@ describe('EditingState reducers', () => {
     });
   });
   describe('#changeRow', () => {
-    test('first change should work', () => {
+    it('should work on the first change', () => {
       const changedRows = {
         o1: { a: 1 },
       };
@@ -69,7 +69,7 @@ describe('EditingState reducers', () => {
         o2: { a: 2 },
       });
     });
-    test('second change should work', () => {
+    it('should work on the second change', () => {
       const changedRows = {
         o1: { a: 1 },
       };
@@ -82,7 +82,7 @@ describe('EditingState reducers', () => {
     });
   });
   describe('#cancelChanges', () => {
-    test('should work', () => {
+    it('should work', () => {
       const changedRows = {
         o1: { a: 1 },
         o2: { a: 2 },
@@ -96,7 +96,7 @@ describe('EditingState reducers', () => {
     });
   });
   describe('#deleteRows', () => {
-    test('should work', () => {
+    it('should work', () => {
       const deletedRows = [1];
       const payload = { rowIds: [2] };
 
@@ -105,7 +105,7 @@ describe('EditingState reducers', () => {
     });
   });
   describe('#cancelDeletedRows', () => {
-    test('should work', () => {
+    it('should work', () => {
       const deletedRows = [1, 2];
       const payload = { rowIds: [2] };
 

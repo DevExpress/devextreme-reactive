@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { format } from 'util';
-
+import { setupConsole } from '@devexpress/dx-testing';
 import { TableLayout } from './table-layout';
 
 /* eslint-disable react/prop-types */
@@ -40,24 +39,15 @@ const cellTemplateMock = props => (
 /* eslint-enable react/prop-types */
 
 describe('TableLayout', () => {
-  /* eslint-disable no-console */
-  const consoleWarn = console.warn;
-  const consoleError = console.error;
-
-  const logToError = (...args) => {
-    throw new Error(format(...args).replace(/^Error: (?:Warning: )?/, ''));
-  };
+  let resetConsole;
 
   beforeEach(() => {
-    console.warn = logToError;
-    console.error = logToError;
+    resetConsole = setupConsole();
   });
 
   afterEach(() => {
-    console.warn = consoleWarn;
-    console.error = consoleError;
+    resetConsole();
   });
-  /* eslint-enable no-console */
 
   const testTablePart = ({ tree, rows, columns }) => {
     const rowWrappers = tree.find('tr');

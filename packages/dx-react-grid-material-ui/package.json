@@ -56,6 +56,7 @@
     "output": "../../shippable/testresults/dx-react-grid-material-ui.xml"
   },
   "devDependencies": {
+    "@devexpress/dx-testing": "^1.0.0-alpha.3",
     "@devexpress/dx-grid-core": "^1.0.0-alpha.3",
     "@devexpress/dx-react-core": "^1.0.0-alpha.3",
     "@devexpress/dx-react-grid": "^1.0.0-alpha.3",

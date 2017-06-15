@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "@devexpress/dx-testing",
+  "version": "1.0.0-alpha.3",
+  "description": "DevExtreme Reactive Components Testing Utilities",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN README.md",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint **/*.js",
+    "lint:fix": "npm run -s lint -- --fix",
+    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-tesitng-lint.xml -f junit"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3"
+  }
+}

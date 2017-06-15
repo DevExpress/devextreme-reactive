@@ -4,7 +4,7 @@ import {
 
 describe('Plugin computeds', () => {
   describe('#pureComputed', () => {
-    test('should work', () => {
+    it('should work', () => {
       const arg1 = [];
 
       const computed = pureComputed(arg1);

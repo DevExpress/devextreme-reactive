@@ -11,7 +11,7 @@ describe('BS3 featured: remote data demo', () => {
     window.fetch = jest.fn().mockImplementation(() => Promise.resolve());
   });
 
-  test('should work', () => {
+  it('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>
         <RemoteDataDemo />

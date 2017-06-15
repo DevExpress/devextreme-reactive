@@ -7,7 +7,7 @@ import { UncontrolledModeDemo } from './uncontrolled-mode';
 injectTapEventPlugin();
 
 describe('MUI featured: uncontrolled mode demo', () => {
-  test('should work', () => {
+  it('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>
         <UncontrolledModeDemo />

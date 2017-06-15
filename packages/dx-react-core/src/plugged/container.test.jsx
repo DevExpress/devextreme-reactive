@@ -8,7 +8,7 @@ import { Getter } from './getter';
 import { Template } from './template';
 
 describe('PluginContainer', () => {
-  test('should correctly determine plugin position', () => {
+  it('should correctly determine plugin position', () => {
     const Test = ({ enableGetter }) => (
       <PluginHost>
         <Getter name="test" value={1} />
@@ -37,7 +37,7 @@ describe('PluginContainer', () => {
     expect(tree.find('span').text()).toBe('text2');
   });
 
-  test('should correctly determine plugin position within another component', () => {
+  it('should correctly determine plugin position within another component', () => {
     const Test = ({ enableGetter }) => (
       <PluginHost>
         <div>

@@ -16,7 +16,7 @@ describe('TableEditCell', () => {
     resetConsole();
   });
 
-  test('should render without exceptions', () => {
+  it('should render without exceptions', () => {
     const tree = mountWithStyles(
       <EditCell
         column={{}}
@@ -28,7 +28,7 @@ describe('TableEditCell', () => {
     expect(tree.find(EditCell).exists()).toBeTruthy();
   });
 
-  test('should work with editor properly', () => {
+  it('should work with editor properly', () => {
     const onValueChange = jest.fn();
     const tree = mountWithStyles(
       <EditCell
@@ -48,7 +48,7 @@ describe('TableEditCell', () => {
     expect(onValueChange.mock.calls[0][0]).toBe('changed');
   });
 
-  test('should take column align into account', () => {
+  it('should take column align into account', () => {
     const { tree, classes } = mountWithStyles(
       <EditCell
         column={{}}

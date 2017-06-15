@@ -15,7 +15,7 @@ describe('TableHeaderCell', () => {
     resetConsole();
   });
 
-  test('should use column name if title is not specified', () => {
+  it('should use column name if title is not specified', () => {
     const tree = mount(
       <TableHeaderCell
         column={{

@@ -3,7 +3,7 @@ import { mountWithStyles } from '../utils/testing';
 import { GroupPanelCell } from './group-panel-cell';
 
 describe('GroupPanelCell', () => {
-  test('should use column name if title is not specified', () => {
+  it('should use column name if title is not specified', () => {
     const tree = mountWithStyles(
       <GroupPanelCell
         column={{
@@ -15,7 +15,7 @@ describe('GroupPanelCell', () => {
     expect(tree.find('TableSortLabel').text()).toBe('Test');
   });
 
-  test('should cancel sorting by using the Ctrl key', () => {
+  it('should cancel sorting by using the Ctrl key', () => {
     const changeSortingDirection = jest.fn();
     const tree = mountWithStyles(
       <GroupPanelCell

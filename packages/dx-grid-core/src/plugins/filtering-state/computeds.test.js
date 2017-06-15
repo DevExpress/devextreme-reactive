@@ -11,14 +11,14 @@ describe('FilteringState computeds', () => {
             { a: 2, b: 2 },
     ];
 
-    test('should not touch rows if no filters specified', () => {
+    it('should not touch rows if no filters specified', () => {
       const filters = [];
 
       const filtered = filteredRows(rows, filters);
       expect(filtered).toBe(rows);
     });
 
-    test('can filter by one field', () => {
+    it('can filter by one field', () => {
       const filters = [{ columnName: 'a', value: 1 }];
 
       const filtered = filteredRows(rows, filters);
@@ -28,7 +28,7 @@ describe('FilteringState computeds', () => {
       ]);
     });
 
-    test('can filter by several fields', () => {
+    it('can filter by several fields', () => {
       const filters = [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }];
 
       const filtered = filteredRows(rows, filters);

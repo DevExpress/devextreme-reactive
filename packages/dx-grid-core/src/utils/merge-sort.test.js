@@ -1,12 +1,12 @@
 import mergeSort from './merge-sort';
 
 describe('margeSort', () => {
-  test('sort correctly', () => {
+  it('sorts correctly', () => {
     const data = [1, 5, 6, 3, 0, 2, 7];
     expect(mergeSort(data)).toEqual([0, 1, 2, 3, 5, 6, 7]);
   });
 
-  test('sort stable', () => {
+  it('sorts stable', () => {
     const data = [
       { id: 4 }, { id: 1, pos: 0 }, { id: 2 }, { id: 3 },
       { id: 1, pos: 1 }, { id: 1, pos: 2 }, { id: 0 }, { id: 1, pos: 3 },

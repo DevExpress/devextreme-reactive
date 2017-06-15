@@ -21,3 +21,4 @@ build:
     - $SHIPPABLE_BUILD_DIR/packages/dx-react-grid-bootstrap3/node_modules
     - $SHIPPABLE_BUILD_DIR/packages/dx-react-grid-material-ui/node_modules
     - $SHIPPABLE_BUILD_DIR/packages/dx-react-demos/node_modules
+    - $SHIPPABLE_BUILD_DIR/packages/dx-testing/node_modules

@@ -1,6 +1,5 @@
 import React from 'react';
-import { format } from 'util';
-import { setupConsole } from '@devexpress/dx-core';
+import { setupConsole } from '@devexpress/dx-testing';
 import { mountWithStyles } from '../utils/testing';
 import {
   CommandButton,
@@ -12,7 +11,7 @@ describe('Table command column', () => {
   let resetConsole;
 
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'], formatOutput: format });
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
 
   afterAll(() => {

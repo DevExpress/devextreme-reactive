@@ -1,13 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { format } from 'util';
-import { setupConsole } from '@devexpress/dx-core';
+import { setupConsole } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
   let resetConsole;
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'], formatOutput: format });
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
 
   afterAll(() => {

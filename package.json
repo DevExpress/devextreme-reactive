@@ -22,7 +22,6 @@
   "scripts": {
     "postinstall": "lerna bootstrap --concurrency=1",
     "build": "lerna run build",
-    "build:prod": "lerna run build:prod",
     "build:site": "npm run -s build:site:demos && npm run -s build:site:docs",
     "build:site:demos": "lerna run build --ignore @devexpress/dx-react-demos && lerna run build:prod --scope @devexpress/dx-react-demos",
     "build:site:docs": "gulp site",

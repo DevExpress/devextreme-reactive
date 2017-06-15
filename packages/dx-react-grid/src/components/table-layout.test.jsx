@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { format } from 'util';
-import { setupConsole } from '@devexpress/dx-core';
+import { setupConsole } from '@devexpress/dx-testing';
 import { TableLayout } from './table-layout';
 
 /* eslint-disable react/prop-types */
@@ -43,7 +42,7 @@ describe('TableLayout', () => {
   let resetSetupConsole;
 
   beforeEach(() => {
-    resetSetupConsole = setupConsole({ formatOutput: format });
+    resetSetupConsole = setupConsole();
   });
 
   afterEach(() => {

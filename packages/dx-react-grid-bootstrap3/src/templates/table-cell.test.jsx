@@ -1,45 +1,37 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should have correct text alignment', () => {
     let tree = mount(
-      <table>
-        <thead>
-          <tr>
-            <TableCell
-              column={{}}
-            />
-          </tr>
-        </thead>
-      </table>,
+      <TableCell
+        column={{}}
+      />,
     );
     expect(tree.find('td').prop('style').textAlign).toBe('left');
 
     tree = mount(
-      <table>
-        <thead>
-          <tr>
-            <TableCell
-              column={{ align: 'left' }}
-            />
-          </tr>
-        </thead>
-      </table>,
+      <TableCell
+        column={{ align: 'left' }}
+      />,
     );
     expect(tree.find('td').prop('style').textAlign).toBe('left');
 
     tree = mount(
-      <table>
-        <thead>
-          <tr>
-            <TableCell
-              column={{ align: 'right' }}
-            />
-          </tr>
-        </thead>
-      </table>,
+      <TableCell
+        column={{ align: 'right' }}
+      />,
     );
     expect(tree.find('td').prop('style').textAlign).toBe('right');
   });

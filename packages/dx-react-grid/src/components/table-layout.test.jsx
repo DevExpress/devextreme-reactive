@@ -39,14 +39,14 @@ const cellTemplateMock = props => (
 /* eslint-enable react/prop-types */
 
 describe('TableLayout', () => {
-  let resetSetupConsole;
+  let resetConsole;
 
   beforeEach(() => {
-    resetSetupConsole = setupConsole();
+    resetConsole = setupConsole();
   });
 
   afterEach(() => {
-    resetSetupConsole();
+    resetConsole();
   });
 
   const testTablePart = ({ tree, rows, columns }) => {

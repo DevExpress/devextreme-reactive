@@ -1,4 +1,4 @@
-import { sortPlugins } from './utils/common';
+import { sortPlugins } from './utils';
 
 export class PluginHost {
   constructor() {

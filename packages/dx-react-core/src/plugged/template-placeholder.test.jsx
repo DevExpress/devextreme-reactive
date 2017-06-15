@@ -7,7 +7,7 @@ import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
 
 describe('TemplatePlaceholder', () => {
-  test('template should be rendered in placeholder', () => {
+  it('should be a place for template rendering', () => {
     const tree = mount(
       <PluginHost>
         <Template name="test">
@@ -23,7 +23,7 @@ describe('TemplatePlaceholder', () => {
     expect(tree.find('h1').exists()).toBeTruthy();
   });
 
-  test('placeholder can accept a content render function as a child', () => {
+  it('can accept a content render function as a child', () => {
     const tree = mount(
       <PluginHost>
         <Template name="test">
@@ -41,7 +41,7 @@ describe('TemplatePlaceholder', () => {
     expect(tree.find('h1 > span').exists()).toBeTruthy();
   });
 
-  test('template should be rendered in placeholder with params', () => {
+  it('should pass params to the template which is rendered inside it', () => {
     const tree = mount(
       <PluginHost>
         <Template name="test">
@@ -59,7 +59,7 @@ describe('TemplatePlaceholder', () => {
     expect(tree.find('h1').text()).toBe('param');
   });
 
-  test('template should be updated in placeholder on params change', () => {
+  it('should support automatic template update on params change', () => {
     // eslint-disable-next-line
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
@@ -94,7 +94,7 @@ describe('TemplatePlaceholder', () => {
     expect(tree.find('h1').text()).toBe('new');
   });
 
-  test('template chain should be rendered in placeholder', () => {
+  it('should support template chain rendering', () => {
     const tree = mount(
       <PluginHost>
         <Template name="test">
@@ -118,7 +118,7 @@ describe('TemplatePlaceholder', () => {
     expect(tree.find('h2').exists()).toBeTruthy();
   });
 
-  test('template chain should be rendered in placeholder with params', () => {
+  it('should pass params to the template chain which is rendered inside it', () => {
     const tree = mount(
       <PluginHost>
         <Template name="test">
@@ -146,7 +146,7 @@ describe('TemplatePlaceholder', () => {
     expect(tree.find('h2').text()).toBe('param');
   });
 
-  test('template chain should not use params from another chain', () => {
+  it('should supply correct params for different template chains', () => {
     const tree = mount(
       <PluginHost>
         <Template name="testNested">

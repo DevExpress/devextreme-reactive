@@ -4,7 +4,7 @@ import {
 
 describe('Plugin helpers', () => {
   describe('#_pureHelper', () => {
-    test('should work', () => {
+    it('should work', () => {
       const arg1 = [];
 
       const value = pureHelper(arg1);

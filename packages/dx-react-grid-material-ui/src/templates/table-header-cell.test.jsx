@@ -15,7 +15,7 @@ describe('TableHeaderCell', () => {
     resetConsole();
   });
 
-  test('should use column name if title is not specified', () => {
+  it('should use column name if title is not specified', () => {
     const { tree, classes } = mountWithStyles(
       <TableHeaderCell
         column={{
@@ -28,7 +28,7 @@ describe('TableHeaderCell', () => {
     expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
   });
 
-  test('should cancel sorting by using the Ctrl key', () => {
+  it('should cancel sorting by using the Ctrl key', () => {
     const changeSortingDirection = jest.fn();
     const tree = mountWithStyles(
       <TableHeaderCell

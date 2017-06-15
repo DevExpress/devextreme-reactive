@@ -5,7 +5,7 @@ import {
 
 describe('EditingState computeds', () => {
   describe('#changedRowsByIds', () => {
-    test('should work', () => {
+    it('should work', () => {
       const changed = {
         o1: { a: 1 },
         o2: { b: 1 },
@@ -19,7 +19,7 @@ describe('EditingState computeds', () => {
     });
   });
   describe('#addedRowsByIds', () => {
-    test('should work', () => {
+    it('should work', () => {
       const addedRows = [
         { a: 1 },
         { b: 1 },

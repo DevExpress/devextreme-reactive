@@ -4,7 +4,7 @@ import {
 
 describe('EditingState helpers', () => {
   describe('#getRowChange', () => {
-    test('should work', () => {
+    it('should work', () => {
       const changed = {
         o1: { a: 1 },
         o2: { b: 1 },

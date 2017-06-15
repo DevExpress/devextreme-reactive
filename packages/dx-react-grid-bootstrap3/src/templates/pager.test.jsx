@@ -22,7 +22,7 @@ describe('Pager', () => {
       onPageSizeChange={onPageSizeChange}
     />);
 
-    test('can show info about rendered pages', () => {
+    it('can show info about rendered pages', () => {
       const tree = mountPager({
         totalPages: 10,
         currentPage: 1,
@@ -33,7 +33,7 @@ describe('Pager', () => {
       expect(tree.find('div > span > span').text()).toBe('11-20 of 96');
     });
 
-    test('can render pagination arrows', () => {
+    it('can render pagination arrows', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mountPager({
         totalPages: 10,
@@ -55,7 +55,7 @@ describe('Pager', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(2);
     });
 
-    test('the prev arrow is disabled if current page is 1', () => {
+    it('disables the prev arrow if current page is 1', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mountPager({
         totalPages: 10,
@@ -76,7 +76,7 @@ describe('Pager', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
 
-    test('the next arrow is disabled if current page equals to total page count', () => {
+    it('disables the next arrow if current page equals to total page count', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mountPager({
         totalPages: 10,

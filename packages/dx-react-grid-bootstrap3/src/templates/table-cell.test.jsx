@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
-  test('should have correct text alignment', () => {
+  it('should have correct text alignment', () => {
     let tree = mount(
       <table>
         <thead>

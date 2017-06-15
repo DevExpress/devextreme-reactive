@@ -7,7 +7,7 @@ import { ReduxIntegrationDemo } from './redux-integration';
 injectTapEventPlugin();
 
 describe('MUI featured: redux integration demo', () => {
-  test('should work', () => {
+  it('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>
         <ReduxIntegrationDemo />

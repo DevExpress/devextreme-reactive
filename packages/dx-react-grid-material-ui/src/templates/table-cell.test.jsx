@@ -14,7 +14,7 @@ describe('TableCell', () => {
     resetConsole();
   });
 
-  test('should have correct text alignment', () => {
+  it('should have correct text alignment', () => {
     let mounted = mountWithStyles(
       <TableCell
         column={{}}

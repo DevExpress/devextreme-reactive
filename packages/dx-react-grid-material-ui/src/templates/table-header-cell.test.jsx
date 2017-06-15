@@ -1,7 +1,11 @@
 import React from 'react';
+
 import { TableCell } from 'material-ui';
+
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
-import { mountWithStyles, setupConsole } from '../utils/testing';
+import { setupConsole } from '@devexpress/dx-testing';
+
+import { mountWithStyles } from '../utils/testing';
 import { TableHeaderCell, styleSheet } from './table-header-cell';
 
 describe('TableHeaderCell', () => {

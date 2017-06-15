@@ -1,6 +1,7 @@
 import React from 'react';
 import { TableCell as TableCellMUI } from 'material-ui';
-import { mountWithStyles, setupConsole } from '../utils/testing';
+import { setupConsole } from '@devexpress/dx-testing';
+import { mountWithStyles } from '../utils/testing';
 import { styleSheet, TableCell } from './table-cell';
 
 describe('TableCell', () => {

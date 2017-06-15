@@ -53,6 +53,7 @@
     "output": "../../shippable/testresults/dx-react-grid.xml"
   },
   "devDependencies": {
+    "@devexpress/dx-testing": "^1.0.0-alpha.3",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",

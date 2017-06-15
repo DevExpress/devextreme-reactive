@@ -4,7 +4,7 @@ import {
 
 describe('ColumnOrderState reducers', () => {
   describe('#setColumnOrder', () => {
-    test('should work', () => {
+    it('should work', () => {
       const order = ['a', 'b', 'c'];
       const payload = { sourceColumnName: 'a', targetColumnName: 'b' };
 

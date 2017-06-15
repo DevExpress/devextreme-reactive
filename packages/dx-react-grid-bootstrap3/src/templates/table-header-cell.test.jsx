@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { TableHeaderCell } from './table-header-cell';
 
 describe('TableHeaderCell', () => {
-  test('should use column name if title is not specified', () => {
+  it('should use column name if title is not specified', () => {
     const tree = mount(
       <table>
         <thead>

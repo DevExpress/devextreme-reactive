@@ -5,7 +5,7 @@ import {
 
 describe('DetailRow computeds', () => {
   describe('#expandedDetailRows', () => {
-    test('can expand one row', () => {
+    it('can expand one row', () => {
       const rows = [{ id: 1 }, { id: 2 }];
       const expandedRows = [2];
 
@@ -23,7 +23,7 @@ describe('DetailRow computeds', () => {
       ]);
     });
 
-    test('can expand several rows', () => {
+    it('can expand several rows', () => {
       const rows = [{ id: 1 }, { id: 2 }];
       const expandedRows = [1, 2];
 
@@ -55,7 +55,7 @@ describe('DetailRow computeds', () => {
       { name: 'b' },
     ];
 
-    test('should work', () => {
+    it('should work', () => {
       const columns = tableColumnsWithDetail(tableColumns, 50);
 
       expect(columns).toHaveLength(3);

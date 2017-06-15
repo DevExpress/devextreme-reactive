@@ -4,7 +4,7 @@ import {
 
 describe('Plugin reducers', () => {
   describe('#pureReducer', () => {
-    test('should work', () => {
+    it('should work', () => {
       const state = [];
       const payload = { columnName: 'test' };
 

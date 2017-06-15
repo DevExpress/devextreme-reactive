@@ -4,14 +4,14 @@ import {
 
 describe('SortingState helpers', () => {
   describe('#getColumnSortingDirection', () => {
-    test('returns sorting direction', () => {
+    it('returns sorting direction', () => {
       const sorting = [{ columnName: 'test', direction: 'testDirection' }];
 
       const direction = getColumnSortingDirection(sorting, 'test');
       expect(direction).toBe('testDirection');
     });
 
-    test('returns null if a column is not sorted', () => {
+    it('returns null if a column is not sorted', () => {
       const sorting = [];
 
       const direction = getColumnSortingDirection(sorting, 'test');

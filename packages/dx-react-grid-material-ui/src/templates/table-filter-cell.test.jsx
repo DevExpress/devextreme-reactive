@@ -13,7 +13,7 @@ describe('TableFilterCell', () => {
     resetConsole();
   });
 
-  test('should use the \'Filter...\' placeholder', () => {
+  it('should use the \'Filter...\' placeholder', () => {
     const tree = mountWithStyles(
       <TableFilterCell
         column={{

@@ -9,11 +9,15 @@ const styleSheet = createStyleSheet('GroupPanel', () => ({
     display: 'inline-block',
     verticalAlign: 'middle',
   },
+  groupInfo: {
+    marginBottom: '12px',
+    display: 'inline-block',
+  },
 }));
 
 const GroupPanelBase = ({ groupedColumns, groupByColumnText, cellTemplate, classes }) => {
   const text = () => groupByColumnText ||
-    <span>
+    <span className={classes.groupInfo}>
       Click
       &nbsp;
       <span className={classes.groupIcon}>

@@ -7,7 +7,7 @@ import { Template } from './template';
 import { Getter } from './getter';
 
 describe('Getter', () => {
-  test('should return value', () => {
+  it('should return value', () => {
     const tree = mount(
       <PluginHost>
         <Getter name="test" value={'arg'} />
@@ -26,7 +26,7 @@ describe('Getter', () => {
     expect(tree.find('h1').text()).toBe('arg');
   });
 
-  test('can use other getters', () => {
+  it('can use other getters', () => {
     const tree = mount(
       <PluginHost>
         <Getter name="dep" value={'dep'} />
@@ -52,7 +52,7 @@ describe('Getter', () => {
     expect(tree.find('h1').text()).toBe('dep');
   });
 
-  test('order has the meaning', () => {
+  it('should preserve the order if used after another getter', () => {
     const tree = mount(
       <PluginHost>
         <Getter name="dep" value={'base'} />
@@ -80,7 +80,7 @@ describe('Getter', () => {
     expect(tree.find('h1').text()).toBe('base');
   });
 
-  test('latest result should be tracked in template', () => {
+  it('should pass the latest result to the template', () => {
     const tree = mount(
       <PluginHost>
         <Getter name="dep" value={'base'} />
@@ -101,7 +101,7 @@ describe('Getter', () => {
     expect(tree.find('h1').text()).toBe('overriden');
   });
 
-  test('can extend getter with same name', () => {
+  it('can extend getter with same name', () => {
     const tree = mount(
       <PluginHost>
         <Getter name="test" value={'base'} />
@@ -127,7 +127,7 @@ describe('Getter', () => {
     expect(tree.find('h1').text()).toBe('base_extended');
   });
 
-  test('notifies dependencies to update', () => {
+  it('notifies dependencies to update', () => {
     // eslint-disable-next-line
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
@@ -164,7 +164,7 @@ describe('Getter', () => {
   });
 
   // This test is not correct enough. Rewrite it in future
-  test('memoization based on args', () => {
+  it('should be memoized based on args', () => {
     const staticValue = {};
     const log = [];
 

@@ -8,7 +8,7 @@ import { Action } from './action';
 import { Watcher } from './watcher';
 
 describe('Watcher', () => {
-  test('should be invoked on componentWillMount', () => {
+  it('should be invoked on componentWillMount', () => {
     const changeLogger = jest.fn();
     const actionLogger = jest.fn();
     mount(
@@ -31,7 +31,7 @@ describe('Watcher', () => {
     expect(actionLogger.mock.calls[0][0]).toBe('arg');
   });
 
-  test('should be invoked only if dependencies change', () => {
+  it('should be invoked only if dependencies change', () => {
     const changeLogger = jest.fn();
     let dependency = 'value';
     const pureComputed = jest.fn(() => dependency);

@@ -10,7 +10,7 @@ import {
 
 describe('PagingState computeds', () => {
   describe('#paginate', () => {
-    test('should work', () => {
+    it('should work', () => {
       const rows = [1, 2, 3];
 
       let page = paginate(rows, 2, 0);
@@ -28,7 +28,7 @@ describe('PagingState computeds', () => {
   });
 
   describe('#ensurePageHeaders', () => {
-    test('should work with single headers', () => {
+    it('should work with single headers', () => {
       const rows = [
         { a: 1, _headerKey: 'a' },
         { a: 2 },
@@ -42,7 +42,7 @@ describe('PagingState computeds', () => {
       expect(computedRows[2]).toBe(rows[2]);
     });
 
-    test('should work with singe header on several pages', () => {
+    it('should work with singe header on several pages', () => {
       const rows = [
         { a: 1, _headerKey: 'a' },
         { a: 2 },
@@ -59,7 +59,7 @@ describe('PagingState computeds', () => {
       expect(computedRows[4]).toBe(rows[3]);
     });
 
-    test('should work with multiple repeated headers', () => {
+    it('should work with multiple repeated headers', () => {
       const rows = [
         { a: 1, _headerKey: 'a' },
         { a: 2, _headerKey: 'a' },
@@ -75,7 +75,7 @@ describe('PagingState computeds', () => {
       expect(computedRows[3]).toBe(rows[3]);
     });
 
-    test('should work with multiple headers', () => {
+    it('should work with multiple headers', () => {
       const rows = [
         { a: 1, _headerKey: 'a' },
         { a: 2 },
@@ -93,7 +93,7 @@ describe('PagingState computeds', () => {
       expect(computedRows[4]).toBe(rows[4]);
     });
 
-    test('should work with multiple headers ended by header', () => {
+    it('should work with multiple headers ended by header', () => {
       const rows = [
         { a: 1, _headerKey: 'a' },
         { a: 2 },
@@ -109,7 +109,7 @@ describe('PagingState computeds', () => {
       expect(computedRows[3]).toBe(rows[3]);
     });
 
-    test('should work with nested headers', () => {
+    it('should work with nested headers', () => {
       const rows = [
         { a: 1, _headerKey: 'a' },
         { a: 2, _headerKey: 'b' },
@@ -128,7 +128,7 @@ describe('PagingState computeds', () => {
       expect(computedRows[5]).toBe(rows[4]);
     });
 
-    test('should work with nested headers and different depth', () => {
+    it('should work with nested headers and different depth', () => {
       const rows = [
         { a: 1, _headerKey: 'a' },
         { a: 2, _headerKey: 'b' },
@@ -148,7 +148,7 @@ describe('PagingState computeds', () => {
   });
 
   describe('#totalPageCount', () => {
-    test('should work', () => {
+    it('should work', () => {
       let count = totalPageCount([1, 2, 3], 2);
       expect(count).toEqual(2);
 
@@ -158,14 +158,14 @@ describe('PagingState computeds', () => {
   });
 
   describe('#totalCount', () => {
-    test('should work', () => {
+    it('should work', () => {
       const count = totalCount([1, 2, 3]);
       expect(count).toEqual(3);
     });
   });
 
   describe('#firstRowOnPage', () => {
-    test('should work', () => {
+    it('should work', () => {
       let count = firstRowOnPage(1, 5);
       expect(count).toEqual(6);
 
@@ -175,7 +175,7 @@ describe('PagingState computeds', () => {
   });
 
   describe('#lastRowOnPage', () => {
-    test('should work', () => {
+    it('should work', () => {
       let count = lastRowOnPage(1, 5, 15);
       expect(count).toEqual(10);
 
@@ -183,7 +183,7 @@ describe('PagingState computeds', () => {
       expect(count).toEqual(15);
     });
 
-    test('should not be greater than total count', () => {
+    it('should not be greater than total count', () => {
       const count = lastRowOnPage(1, 5, 9);
       expect(count).toEqual(9);
     });

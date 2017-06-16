@@ -4,7 +4,7 @@ import {
 
 describe('DetailRow helpers', () => {
   describe('#isDetailRowExpanded', () => {
-    test('should work', () => {
+    it('should work', () => {
       const expandedRows = [1];
 
       expect(isDetailRowExpanded(expandedRows, 1)).toBeTruthy();

@@ -8,7 +8,7 @@ describe('TableFilterRow Plugin computeds', () => {
       { type: 'heading' },
     ];
 
-    test('should work', () => {
+    it('should work', () => {
       const rows = tableHeaderRowsWithFilter(headerRows, 100);
 
       expect(rows).toHaveLength(2);

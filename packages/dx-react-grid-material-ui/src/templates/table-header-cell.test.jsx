@@ -1,5 +1,6 @@
 import React from 'react';
-import { mountWithStyles, setupConsole } from '../utils/testing';
+import { setupConsole } from '@devexpress/dx-testing';
+import { mountWithStyles } from '../utils/testing';
 import { TableHeaderCell, styleSheet } from './table-header-cell';
 
 describe('TableHeaderCell', () => {
@@ -13,7 +14,7 @@ describe('TableHeaderCell', () => {
     resetConsole();
   });
 
-  test('should use column name if title is not specified', () => {
+  it('should use column name if title is not specified', () => {
     const { tree, classes } = mountWithStyles(
       <TableHeaderCell
         column={{
@@ -26,7 +27,7 @@ describe('TableHeaderCell', () => {
     expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
   });
 
-  test('should cancel sorting by using the Ctrl key', () => {
+  it('should cancel sorting by using the Ctrl key', () => {
     const changeSortingDirection = jest.fn();
     const tree = mountWithStyles(
       <TableHeaderCell

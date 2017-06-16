@@ -11,7 +11,7 @@ describe('TableSelection Plugin computeds', () => {
       { name: 'b' },
     ];
 
-    test('should work', () => {
+    it('should work', () => {
       const columns = tableColumnsWithSelection(tableColumns, 123);
 
       expect(columns).toHaveLength(3);
@@ -30,7 +30,7 @@ describe('TableSelection Plugin computeds', () => {
     const selection = [0, 2];
     const getRowId = row => bodyRows.findIndex(item => item.field === row.field);
 
-    test('should work', () => {
+    it('should work', () => {
       const selectedRows = tableBodyRowsWithSelection(bodyRows, selection, getRowId);
 
       expect(selectedRows).toHaveLength(3);
@@ -53,7 +53,7 @@ describe('TableSelection Plugin computeds', () => {
     const existingExtraProps = { a: 1 };
     const availableToSelect = [0, 2];
 
-    test('should work', () => {
+    it('should work', () => {
       const extraProps = tableExtraProps(
         existingExtraProps,
         availableToSelect,

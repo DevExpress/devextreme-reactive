@@ -4,7 +4,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { EditRowControlledDemo } from './edit-row-controlled';
 
 describe('MUI: edit row controlled demo', () => {
-  test('should work', () => {
+  it('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>
         <EditRowControlledDemo />

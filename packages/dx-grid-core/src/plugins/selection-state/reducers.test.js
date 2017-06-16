@@ -5,7 +5,7 @@ import {
 
 describe('SelectionState reducers', () => {
   describe('#setRowSelection', () => {
-    test('can select row by toggling', () => {
+    it('can select row by toggling', () => {
       const selection = [];
       const payload = { rowId: 1 };
 
@@ -13,7 +13,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1]);
     });
 
-    test('can deselect row by toggling', () => {
+    it('can deselect row by toggling', () => {
       const selection = [1];
       const payload = { rowId: 1 };
 
@@ -21,7 +21,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([]);
     });
 
-    test('does not deselect if isSelected is true', () => {
+    it('does not deselect if isSelected is true', () => {
       const selection = [1];
       const payload = { rowId: 1, isSelected: true };
 
@@ -32,7 +32,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1]);
     });
 
-    test('does not select if isSelected is false', () => {
+    it('does not select if isSelected is false', () => {
       const selection = [];
       const payload = { rowId: 1, isSelected: false };
 
@@ -45,7 +45,7 @@ describe('SelectionState reducers', () => {
   });
 
   describe('#setRowsSelection', () => {
-    test('can select all', () => {
+    it('can select all', () => {
       const selection = [];
       const payload = { rowIds: [1, 2] };
 
@@ -53,7 +53,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1, 2]);
     });
 
-    test('should add to selection if there are no selection rows', () => {
+    it('should add to selection if there are no selection rows', () => {
       const selection = [1, 2];
       const payload = { rowIds: [3, 4] };
 
@@ -61,7 +61,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
-    test('should add to selection if there are some selection rows', () => {
+    it('should add to selection if there are some selection rows', () => {
       const selection = [1, 2, 3];
       const payload = { rowIds: [3, 4] };
 
@@ -69,7 +69,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
-    test('should remove from selection all rows is selected', () => {
+    it('should remove from selection all rows is selected', () => {
       const selection = [1, 2, 3, 4];
       const payload = { rowIds: [3, 4] };
 
@@ -77,7 +77,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1, 2]);
     });
 
-    test('should add to selection if isSelected is true', () => {
+    it('should add to selection if isSelected is true', () => {
       const selection = [1, 2, 3, 4];
       const payload = { rowIds: [3, 4], isSelected: true };
 
@@ -85,7 +85,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
-    test('should remove from selection if isSelected is false', () => {
+    it('should remove from selection if isSelected is false', () => {
       const selection = [1, 2, 3];
       const payload = { rowIds: [3, 4], isSelected: false };
 

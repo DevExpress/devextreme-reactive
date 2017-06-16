@@ -6,7 +6,7 @@ import { PluginHost } from './host';
 import { Template } from './template';
 
 describe('Template', () => {
-  test('template should be rendered', () => {
+  it('should be rendered', () => {
     const tree = mount(
       <PluginHost>
         <Template name="root">
@@ -18,7 +18,7 @@ describe('Template', () => {
     expect(tree.find('h1').exists()).toBeTruthy();
   });
 
-  test('template should be rendered depending on predicate', () => {
+  it('should be rendered depending on predicate', () => {
     const tree = mount(
       <PluginHost>
         <Template name="root" predicate={() => false}>
@@ -30,7 +30,7 @@ describe('Template', () => {
     expect(tree.find('h1').exists()).toBeFalsy();
   });
 
-  test('template should be rerendered when content changes', () => {
+  it('should be rerendered when content changes', () => {
     const Test = ({ text }) => (
       <PluginHost>
         <Template name="root">

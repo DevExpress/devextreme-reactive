@@ -1,5 +1,6 @@
 import React from 'react';
-import { mountWithStyles, setupConsole } from '../utils/testing';
+import { setupConsole } from '@devexpress/dx-testing';
+import { mountWithStyles } from '../utils/testing';
 import { TableFilterCell } from './table-filter-cell';
 
 describe('TableFilterCell', () => {
@@ -13,7 +14,7 @@ describe('TableFilterCell', () => {
     resetConsole();
   });
 
-  test('should use the \'Filter...\' placeholder', () => {
+  it('should use the \'Filter...\' placeholder', () => {
     const tree = mountWithStyles(
       <TableFilterCell
         column={{

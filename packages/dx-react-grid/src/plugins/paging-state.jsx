@@ -53,7 +53,10 @@ export class PagingState extends React.PureComponent {
 
 PagingState.propTypes = {
   pageSize: PropTypes.number,
-  defaultPageSize: PropTypes.number,
+  defaultPageSize: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   onPageSizeChange: PropTypes.func,
   totalCount: PropTypes.number,
   currentPage: PropTypes.number,

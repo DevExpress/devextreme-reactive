@@ -1,5 +1,6 @@
 import React from 'react';
-import { mountWithStyles, setupConsole } from '../utils/testing';
+import { setupConsole } from '@devexpress/dx-testing';
+import { mountWithStyles } from '../utils/testing';
 import { TableHeaderCell, styleSheet } from './table-header-cell';
 
 describe('TableHeaderCell', () => {

@@ -8,7 +8,7 @@ export class TableRowDetail extends React.PureComponent {
     const {
       rowHeight,
       template,
-      detailToggleTemplate,
+      detailToggleCellTemplate,
       detailCellTemplate,
       detailToggleCellWidth,
     } = this.props;
@@ -40,7 +40,7 @@ export class TableRowDetail extends React.PureComponent {
               expandedRows,
               setDetailRowExpanded,
               ...restParams
-            }) => detailToggleTemplate({
+            }) => detailToggleCellTemplate({
               ...restParams,
               expanded: isDetailRowExpanded(expandedRows, getRowId(row)),
               toggleExpanded: () => setDetailRowExpanded({ rowId: getRowId(row) }),
@@ -71,7 +71,7 @@ export class TableRowDetail extends React.PureComponent {
 
 TableRowDetail.propTypes = {
   template: PropTypes.func,
-  detailToggleTemplate: PropTypes.func.isRequired,
+  detailToggleCellTemplate: PropTypes.func.isRequired,
   detailCellTemplate: PropTypes.func.isRequired,
   detailToggleCellWidth: PropTypes.number.isRequired,
   rowHeight: PropTypes.oneOfType([

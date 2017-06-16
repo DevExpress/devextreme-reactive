@@ -153,7 +153,7 @@ describe('PagingState computeds', () => {
       expect(count).toEqual(2);
 
       count = totalPageCount([1, 2, 3], 'all');
-      expect(count).toEqual(0);
+      expect(count).toEqual(1);
     });
   });
 

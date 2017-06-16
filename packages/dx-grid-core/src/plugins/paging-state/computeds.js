@@ -33,7 +33,7 @@ export const ensurePageHeaders = (rows, pageSize) => {
 };
 
 export const totalPageCount = (rows, pageSize) => (
-  pageSize === showAllPagesKey ? 0 : Math.ceil(rows.length / pageSize)
+  pageSize === showAllPagesKey ? 1 : Math.ceil(rows.length / pageSize)
 );
 
 export const totalCount = rows => rows.length;

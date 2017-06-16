@@ -178,23 +178,21 @@ const PaginationBase = ({
       -
       { String(lastRowOnPage(currentPage, pageSize, totalCount)) } of {String(totalCount)}
     </span>
-    {!!totalPages && <IconButton
+    <IconButton
       className={classNames(classes.arrowButton, classes.prev)}
       disabled={currentPage === 0}
       onTouchTap={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
     >
       <ChevronLeft />
     </IconButton>
-    }
     {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
-    {!!totalPages && <IconButton
+    <IconButton
       className={classNames(classes.arrowButton, classes.next)}
       disabled={currentPage === totalPages - 1}
       onTouchTap={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
     >
       <ChevronRight />
     </IconButton>
-    }
   </div>
 );
 

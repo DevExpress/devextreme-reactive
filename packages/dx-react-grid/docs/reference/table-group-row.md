@@ -57,4 +57,15 @@ value | any | A value that unites all the rows inside a group
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns to group by
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns with groups

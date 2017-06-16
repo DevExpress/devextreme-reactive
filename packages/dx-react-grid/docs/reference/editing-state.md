@@ -53,7 +53,7 @@ Name | Plugin | Type | Description
 editingRows | Getter | () => Array&lt;number &#124; string&gt; | Rows that are currently being edited
 startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows with the corresponding IDs to the edit mode
 stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows with the corresponding IDs to the read-only mode
-addedRows | Getter | () => Array&lt;Object&gt; | Newlly created rows
+addedRows | Getter | () => Array&lt;Object&gt; | Newly created rows
 addRow | Action | () => void | Creates a new row
 changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is represented by the new row index within all new rows created but not yet committed
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array by indexes

@@ -54,4 +54,14 @@ toggleExpanded | () => void | Toggles the expanded state for a row
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table along with detail cell

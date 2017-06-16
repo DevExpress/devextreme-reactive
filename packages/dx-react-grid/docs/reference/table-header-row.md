@@ -54,4 +54,14 @@ dragPayload | any | A data object that identifies the corresponding column in th
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableHeaderRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table header
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableHeaderRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows along with heading

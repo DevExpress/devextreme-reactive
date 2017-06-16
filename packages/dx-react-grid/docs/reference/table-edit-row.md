@@ -26,11 +26,24 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](#table-row) | Specifies the initial row
-column | [TableColumn](#table-column) | Specifies a table column
+row | [TableRow](table-view.md#table-row) | Specifies the initial row
+column | [TableColumn](table-view.md#table-column) | Specifies a table column
 value | any | Specifies a value to be edited
 onValueChange | (newValue: any) => void | Handles value changes
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableBodyRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
+editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows that are currently being edited
+addedRows | Getter | () => Array&lt;Object&gt; | Newly created rows
+getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table data rows along with editing rows

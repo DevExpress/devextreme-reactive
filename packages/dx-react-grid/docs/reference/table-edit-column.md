@@ -31,8 +31,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](#table-row) | Specifies an edited table row with applied changes
-column | [TableColumn](#table-column) | Specifies a table column
+row | [TableRow](table-view.md#table-row) | Specifies an edited table row with applied changes
+column | [TableColumn](table-view.md#table-column) | Specifies a table column
 startEditing | () => void | Switches a row to the editing mode
 cancelEditing | () => void | Switches a row to the read-only mode
 commitChanges | () => void | Initiates committing of row changes
@@ -50,8 +50,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](#table-row) | Specifies an editing table row with applied changes
-column | [TableColumn](#table-column) | Specifies a table column
+row | [TableRow](table-view.md#table-row) | Specifies an editing table row with applied changes
+column | [TableColumn](table-view.md#table-column) | Specifies a table column
 addRow | () => void | Creates a new row
 allowAdding | bool | Specifies if a new row can be created
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
@@ -70,4 +70,14 @@ text | string | Specifies the text to be rendered within the command control
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns along with edit column

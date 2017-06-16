@@ -31,4 +31,14 @@ setFilter | (filter: string) => void | Set a new filter value for a column
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableHeaderRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table header
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableHeaderRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows with filters to be rendered inside the table header

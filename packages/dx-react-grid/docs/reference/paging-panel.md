@@ -34,4 +34,10 @@ allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that can be se
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+none
+
+### Exports
+
+none

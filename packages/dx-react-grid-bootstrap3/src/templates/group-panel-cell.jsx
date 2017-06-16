@@ -11,7 +11,8 @@ export const GroupPanelCell = ({
   <div
     className="btn btn-default"
     style={{
-      marginRight: '5px',
+      marginRight: 5,
+      marginBottom: 5,
     }}
   >
     <span

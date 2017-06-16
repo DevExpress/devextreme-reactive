@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { pageSizeTitle } from '@devexpress/dx-grid-core';
 import { DropDownMenu } from './drop-down-menu';
 
 const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
@@ -36,6 +37,7 @@ const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, cl
     <DropDownMenu
       selectedItem={pageSize}
       items={allowedPageSizes}
+      itemTemplate={pageSizeTitle}
       onItemClick={(item) => {
         onPageSizeChange(item);
       }}
@@ -45,9 +47,15 @@ const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, cl
 );
 
 PageSizeSelectorBase.propTypes = {
-  pageSize: PropTypes.number.isRequired,
+  pageSize: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string]))
+  .isRequired,
   classes: PropTypes.object.isRequired,
 };
 

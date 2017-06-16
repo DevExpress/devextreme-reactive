@@ -5,6 +5,7 @@ import {
     totalCount,
     firstRowOnPage,
     lastRowOnPage,
+    pageSizeTitle,
 } from './computeds';
 
 describe('PagingState computeds', () => {
@@ -20,6 +21,9 @@ describe('PagingState computeds', () => {
 
       page = paginate(rows, 2, 3);
       expect(page).toEqual([]);
+
+      page = paginate(rows, 'all', 1);
+      expect(page).toEqual(rows);
     });
   });
 
@@ -145,8 +149,11 @@ describe('PagingState computeds', () => {
 
   describe('#totalPageCount', () => {
     test('should work', () => {
-      const count = totalPageCount([1, 2, 3], 2);
+      let count = totalPageCount([1, 2, 3], 2);
       expect(count).toEqual(2);
+
+      count = totalPageCount([1, 2, 3], 'all');
+      expect(count).toEqual(0);
     });
   });
 
@@ -159,20 +166,36 @@ describe('PagingState computeds', () => {
 
   describe('#firstRowOnPage', () => {
     test('should work', () => {
-      const count = firstRowOnPage(1, 5);
+      let count = firstRowOnPage(1, 5);
       expect(count).toEqual(6);
+
+      count = firstRowOnPage(1, 'all');
+      expect(count).toEqual(1);
     });
   });
 
   describe('#lastRowOnPage', () => {
     test('should work', () => {
-      const count = lastRowOnPage(1, 5, 15);
+      let count = lastRowOnPage(1, 5, 15);
       expect(count).toEqual(10);
+
+      count = lastRowOnPage(1, 'all', 15);
+      expect(count).toEqual(15);
     });
 
     test('should not be greater than total count', () => {
       const count = lastRowOnPage(1, 5, 9);
       expect(count).toEqual(9);
+    });
+  });
+
+  describe('#pageSizeTitle', () => {
+    it('should work', () => {
+      let title = pageSizeTitle(10);
+      expect(title).toEqual(10);
+
+      title = pageSizeTitle('all');
+      expect(title).toEqual('All');
     });
   });
 });

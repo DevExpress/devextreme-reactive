@@ -15,6 +15,7 @@ export const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   rowsLabel: {
     ...theme.typography.caption,
     paddingRight: theme.spacing.unit * 5,
+    lineHeight: `${theme.spacing.unit * 5}px`,
   },
   button: {
     minWidth: theme.spacing.unit * 2,
@@ -177,21 +178,23 @@ const PaginationBase = ({
       -
       { String(lastRowOnPage(currentPage, pageSize, totalCount)) } of {String(totalCount)}
     </span>
-    <IconButton
+    {!!totalPages && <IconButton
       className={classNames(classes.arrowButton, classes.prev)}
       disabled={currentPage === 0}
       onTouchTap={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
     >
       <ChevronLeft />
     </IconButton>
+    }
     {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
-    <IconButton
+    {!!totalPages && <IconButton
       className={classNames(classes.arrowButton, classes.next)}
       disabled={currentPage === totalPages - 1}
       onTouchTap={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
     >
       <ChevronRight />
     </IconButton>
+    }
   </div>
 );
 
@@ -201,7 +204,10 @@ PaginationBase.propTypes = {
   onCurrentPageChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   totalCount: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
+  pageSize: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
 };
 
 export const Pagination = withStyles(paginationStyleSheet)(PaginationBase);

@@ -63,8 +63,14 @@ Pager.propTypes = {
   currentPage: PropTypes.number.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
+  pageSize: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string]))
+  .isRequired,
   totalCount: PropTypes.number.isRequired,
 };

@@ -30,7 +30,10 @@ export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
 );
 
 PagingPanel.propTypes = {
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number),
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string]))
+  .isRequired,
   pagerTemplate: PropTypes.func.isRequired,
 };
 

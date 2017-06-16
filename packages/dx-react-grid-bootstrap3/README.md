@@ -10,7 +10,7 @@ Install the main dx-react-grid package and its templates for Bootstrap 3:
 npm i --save @devexpress/dx-react-grid @devexpress/dx-react-grid-bootstrap3
 ```
 
-**Note:** the packages above have some peer dependencies that should be installed manually if don't already have them in your application:
+**Note:** the packages above have some peer dependencies that should be installed manually if don't have them installed in your application yet:
 
 ```
 npm i --save @devexpress/dx-core @devexpress/dx-react-core

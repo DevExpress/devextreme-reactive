@@ -14,7 +14,7 @@ import List from 'material-ui-icons/List';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
-  gropingControl: {
+  groupingControl: {
     cursor: 'pointer',
     paddingLeft: 0,
     height: theme.spacing.unit * 3,
@@ -88,7 +88,7 @@ export const TableHeaderCellBase = ({
 
   const groupingControlClasses = classNames(
     {
-      [classes.gropingControl]: true,
+      [classes.groupingControl]: true,
       [classes.floatLeft]: invertedAlign === 'left',
       [classes.floatRight]: invertedAlign === 'right',
     },
@@ -110,7 +110,7 @@ export const TableHeaderCellBase = ({
     },
   );
 
-  const gropingControl = allowGrouping && (
+  const groupingControl = allowGrouping && (
     <div
       onClick={(e) => {
         e.stopPropagation();
@@ -160,7 +160,7 @@ export const TableHeaderCellBase = ({
       style={style}
       className={tableCellClasses}
     >
-      {gropingControl}
+      {groupingControl}
       <div className={titleClasses}>
         {allowSorting ? sortingControl : (
           <div className={classes.plainTitle}>

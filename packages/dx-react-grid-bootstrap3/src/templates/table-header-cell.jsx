@@ -15,7 +15,7 @@ export const TableHeaderCell = ({
   const invertedAlign = align === 'left' ? 'right' : 'left';
   const columnTitle = column.title || column.name;
 
-  const gropingControl = allowGrouping && (
+  const groupingControl = allowGrouping && (
     <div
       onClick={(e) => {
         e.stopPropagation();
@@ -84,7 +84,7 @@ export const TableHeaderCell = ({
         });
       }}
     >
-      {gropingControl}
+      {groupingControl}
       <div
         style={{
           [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',

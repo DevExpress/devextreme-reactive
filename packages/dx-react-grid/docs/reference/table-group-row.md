@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 groupRowCellTemplate | (args: [GroupRowCellArgs](#group-row-cell-args)) => ReactElement | | A component that renders a group row
 groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | | A component that renders a group indent cell
-groupColumnWidth | number | | Width of the group indent columns
+groupIndentColumnWidth | number | | Width of the group indent columns
 
 ## Interfaces
 

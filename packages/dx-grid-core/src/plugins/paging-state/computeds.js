@@ -8,6 +8,9 @@ export const paginate = (rows, pageSize, page) => (
 
 export const ensurePageHeaders = (rows, pageSize) => {
   const result = rows.slice();
+  if (pageSize === showAllPagesKey) {
+    return result;
+  }
 
   const headers = [];
   let currentIndex = 0;

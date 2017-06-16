@@ -4,11 +4,16 @@ A template suite used to customize React Grid with the Material UI rendering.
 
 ## Installation
 
-Install the package and its dependencies:
+Install the main dx-react-grid package and its templates for Material UI:
 
 ```
-npm i @devexpress/dx-react-grid --save
-npm i @devexpress/dx-react-grid-material-ui --save
+npm i --save @devexpress/dx-react-grid @devexpress/dx-react-grid-material-ui
+```
+
+**Note:** the packages above have some peer dependencies that should be installed manually if don't have them installed in your application yet:
+
+```
+npm i --save @devexpress/dx-core @devexpress/dx-react-core
 ```
 
 Add the required modules to your project:

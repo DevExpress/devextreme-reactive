@@ -4,11 +4,16 @@ A template suite used to customize React Grid with the Bootstrap3 rendering.
 
 ## Installation
 
-Install the package and its dependencies:
+Install the main dx-react-grid package and its templates for Bootstrap 3:
 
 ```
-npm i @devexpress/dx-react-grid --save
-npm i @devexpress/dx-react-grid-bootstrap3 --save
+npm i --save @devexpress/dx-react-grid @devexpress/dx-react-grid-bootstrap3
+```
+
+**Note:** the packages above have some peer dependencies that should be installed manually if don't already have them in your application:
+
+```
+npm i --save @devexpress/dx-core @devexpress/dx-react-core
 ```
 
 Add the required modules to your project:

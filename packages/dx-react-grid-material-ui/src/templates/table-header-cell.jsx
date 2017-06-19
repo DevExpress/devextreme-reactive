@@ -46,10 +46,21 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   cell: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+  },
+  cellNoUserSelect: {
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
     width: '100%',
+  },
+  cellDraggable: {
+    cursor: 'move',
+  },
+  cellClickable: {
+    cursor: 'pointer',
+  },
+  cellDragging: {
+    opacity: 0.3,
   },
   cellRight: {
     paddingLeft: theme.spacing.unit,
@@ -75,108 +86,127 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   },
 }));
 
-export const TableHeaderCellBase = ({
-  style, column,
-  allowSorting, sortingDirection, changeSortingDirection,
-  allowGrouping, groupByColumn,
-  allowDragging, dragPayload,
-  classes,
-}) => {
-  const align = column.align || 'left';
-  const invertedAlign = align === 'left' ? 'right' : 'left';
-  const columnTitle = column.title || column.name;
+class TableHeaderCellBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  const groupingControlClasses = classNames(
-    {
-      [classes.groupingControl]: true,
-      [classes.floatLeft]: invertedAlign === 'left',
-      [classes.floatRight]: invertedAlign === 'right',
-    },
-  );
+    this.state = {
+      dragging: false,
+    };
+  }
+  render() {
+    const {
+      style, column,
+      allowSorting, sortingDirection, changeSortingDirection,
+      allowGrouping, groupByColumn,
+      allowDragging, dragPayload,
+      classes,
+    } = this.props;
+    const { dragging } = this.state;
+    const align = column.align || 'left';
+    const invertedAlign = align === 'left' ? 'right' : 'left';
+    const columnTitle = column.title || column.name;
 
-  const tableCellClasses = classNames(
-    {
-      [classes.cell]: true,
-      [classes.cellRight]: align === 'right',
-      [classes.clearPadding]: !column.name,
-    },
-  );
+    const groupingControlClasses = classNames(
+      {
+        [classes.groupingControl]: true,
+        [classes.floatLeft]: invertedAlign === 'left',
+        [classes.floatRight]: invertedAlign === 'right',
+      },
+    );
 
-  const titleClasses = classNames(
-    {
-      [classes.title]: true,
-      [classes.titleRight]: align === 'right',
-      [classes.titleLeft]: align === 'left',
-    },
-  );
+    const tableCellClasses = classNames(
+      {
+        [classes.cell]: true,
+        [classes.cellRight]: align === 'right',
+        [classes.clearPadding]: !column.name,
+        [classes.cellNoUserSelect]: allowDragging || allowSorting,
+        [classes.cellDraggable]: allowDragging,
+        [classes.cellClickable]: allowSorting,
+        [classes.cellDragging]: dragging,
+      },
+    );
 
-  const groupingControl = allowGrouping && (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
-        groupByColumn(e);
-      }}
-      className={groupingControlClasses}
-    >
-      <List />
-    </div>
-  );
+    const titleClasses = classNames(
+      {
+        [classes.title]: true,
+        [classes.titleRight]: align === 'right',
+        [classes.titleLeft]: align === 'left',
+      },
+    );
 
-  const sortingControl = allowSorting && (
-    align === 'right' ? (
-      <span className={classes.sortingControl}>
-        {!!sortingDirection && <TableSortLabel
-          active={!!sortingDirection}
-          direction={sortingDirection}
-        />}
-        <span className={classes.sortingTitle}>
-          {columnTitle}
-        </span>
-      </span>
-    ) : (
-      <span className={classes.sortingControl}>
-        <span className={classes.sortingTitle}>
-          {columnTitle}
-        </span>
-        <TableSortLabel
-          active={!!sortingDirection}
-          direction={sortingDirection}
-        />
-      </span>
-    )
-  );
-
-  const cellLayout = (
-    <TableCell
-      onClick={(e) => {
-        if (!allowSorting) return;
-        e.stopPropagation();
-        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-        changeSortingDirection({
-          keepOther: e.shiftKey || cancelSortingRelatedKey,
-          cancel: cancelSortingRelatedKey,
-        });
-      }}
-      style={style}
-      className={tableCellClasses}
-    >
-      {groupingControl}
-      <div className={titleClasses}>
-        {allowSorting ? sortingControl : (
-          <div className={classes.plainTitle}>
-            {columnTitle}
-          </div>
-        )}
+    const groupingControl = allowGrouping && (
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          groupByColumn(e);
+        }}
+        className={groupingControlClasses}
+      >
+        <List />
       </div>
-    </TableCell>
-  );
+    );
 
-  return allowDragging ? (
-    <DragSource getPayload={() => dragPayload}>
-      {cellLayout}
-    </DragSource>
-  ) : cellLayout;
-};
+    const sortingControl = allowSorting && (
+      align === 'right' ? (
+        <span className={classes.sortingControl}>
+          {!!sortingDirection && <TableSortLabel
+            active={!!sortingDirection}
+            direction={sortingDirection}
+          />}
+          <span className={classes.sortingTitle}>
+            {columnTitle}
+          </span>
+        </span>
+      ) : (
+        <span className={classes.sortingControl}>
+          <span className={classes.sortingTitle}>
+            {columnTitle}
+          </span>
+          <TableSortLabel
+            active={!!sortingDirection}
+            direction={sortingDirection}
+          />
+        </span>
+      )
+    );
+
+    const cellLayout = (
+      <TableCell
+        onClick={(e) => {
+          if (!allowSorting) return;
+          e.stopPropagation();
+          const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+          changeSortingDirection({
+            keepOther: e.shiftKey || cancelSortingRelatedKey,
+            cancel: cancelSortingRelatedKey,
+          });
+        }}
+        style={style}
+        className={tableCellClasses}
+      >
+        {groupingControl}
+        <div className={titleClasses}>
+          {allowSorting ? sortingControl : (
+            <div className={classes.plainTitle}>
+              {columnTitle}
+            </div>
+          )}
+        </div>
+      </TableCell>
+    );
+
+    return allowDragging ? (
+      <DragSource
+        getPayload={() => dragPayload}
+        onStart={() => this.setState({ dragging: true })}
+        onEnd={() => this.setState({ dragging: false })}
+      >
+        {cellLayout}
+      </DragSource>
+    ) : cellLayout;
+  }
+}
 
 TableHeaderCellBase.propTypes = {
   column: PropTypes.shape({

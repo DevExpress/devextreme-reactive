@@ -39,7 +39,7 @@ export class UncontrolledDemo extends React.PureComponent {
           defaultOrder={['city', 'sex', 'car', 'name']}
         />
         <DragDropContext />
-        <TableView />
+        <TableView allowColumnReordering />
         <TableHeaderRow allowDragging />
       </Grid>
     );

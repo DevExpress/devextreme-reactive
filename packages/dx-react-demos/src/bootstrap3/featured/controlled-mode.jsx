@@ -3,21 +3,22 @@ import PropTypes from 'prop-types';
 import {
   SortingState, EditingState, PagingState,
   LocalPaging, LocalSorting,
+  ColumnOrderState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel,
+  PagingPanel, DragDropContext,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   Modal,
   Button,
 } from 'react-bootstrap';
 import {
-    ProgressBarCell,
+  ProgressBarCell,
 } from './templates/progress-bar-cell';
 import {
-    HighlightedCell,
+  HighlightedCell,
 } from './templates/highlighted-cell';
 
 import {
@@ -138,6 +139,7 @@ export class ControlledModeDemo extends React.PureComponent {
       deletingRows: [],
       pageSize: 10,
       allowedPageSizes: [5, 10, 15],
+      columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -193,6 +195,9 @@ export class ControlledModeDemo extends React.PureComponent {
       });
       this.setState({ rows, deletingRows: [] });
     };
+    this.changeColumnOrder = (order) => {
+      this.setState({ columnOrder: order });
+    };
 
     this.tableCellTemplate = ({ row, column, style }) => {
       if (column.name === 'discount') {
@@ -219,6 +224,7 @@ export class ControlledModeDemo extends React.PureComponent {
       deletingRows,
       pageSize,
       allowedPageSizes,
+      columnOrder,
     } = this.state;
 
     return (
@@ -228,6 +234,10 @@ export class ControlledModeDemo extends React.PureComponent {
           columns={columns}
           getRowId={row => row.id}
         >
+          <ColumnOrderState
+            order={columnOrder}
+            onOrderChange={this.changeColumnOrder}
+          />
 
           <SortingState
             sorting={sorting}
@@ -253,11 +263,14 @@ export class ControlledModeDemo extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
 
+          <DragDropContext />
+
           <TableView
             tableCellTemplate={this.tableCellTemplate}
+            allowColumnReordering
           />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow allowSorting allowDragging />
           <TableEditRow
             editCellTemplate={(props) => {
               const { column } = props;

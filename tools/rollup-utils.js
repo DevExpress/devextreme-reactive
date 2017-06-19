@@ -39,6 +39,7 @@ export const moduleName = (packageDirectory) => {
 
 const knownGlobals = {
   react: 'React',
+  'react-dom': 'ReactDOM',
   'prop-types': 'PropTypes',
   'react-bootstrap': 'ReactBootstrap',
   'material-ui': 'material-ui',

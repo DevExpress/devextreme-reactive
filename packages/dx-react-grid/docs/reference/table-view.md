@@ -1,12 +1,13 @@
 # TableView Plugin Reference
 
-This plugin renders the Grid data as a table. It contains visualization components such as a table view, table view cell that can be extended by other plugins. It also exposes some customization points to manage column span, row height, column width, etc.
+This plugin renders the Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
 
 ## User Reference
 
 ### Dependencies
 
-none
+- [ColumnOrderState](column-order-state.md) [Optional]
+- [DragDropContext](drag-drop-context.md) [Optional]
 
 ### Properties
 
@@ -15,6 +16,7 @@ Name | Type | Default | Description
 tableTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table using the specified parameters
 tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
 tableNoDataCellTemplate | (args: Object) => ReactElement | | Renders a table cell for an empty state using the specified parameters
+allowColumnReordering | boolean | false | If true, allows an end-user to change the column order by dragging
 
 ## Interfaces
 
@@ -27,7 +29,7 @@ Field | Type | Description
 headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table header
 bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table body
 columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns
-cellTemplate | (args: [CellArgs](#cell-args)) => ReactElement | A template that should be used to render table cells
+cellTemplate | (args: [CellArgs](#cell-args)) => ReactElement | The template that should be used to render table cells
 
 ### <a name="cell-args"></a>CellArgs
 

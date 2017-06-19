@@ -7,11 +7,12 @@ import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+  ColumnOrderState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel,
+  GroupingPanel, PagingPanel, DragDropContext,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -66,11 +67,17 @@ const GridContainer = ({
   pageSize,
   onPageSizeChange,
   allowedPageSizes,
+  columnOrder,
+  onColumnOrderChange,
 }) => (
   <Grid
     rows={rows}
     columns={columns}
   >
+    <ColumnOrderState
+      order={columnOrder}
+      onOrderChange={onColumnOrderChange}
+    />
 
     <FilteringState
       filters={filters}
@@ -107,9 +114,11 @@ const GridContainer = ({
       onSelectionChange={onSelectionChange}
     />
 
-    <TableView />
+    <DragDropContext />
 
-    <TableHeaderRow allowSorting allowGrouping />
+    <TableView allowColumnReordering />
+
+    <TableHeaderRow allowSorting allowGrouping allowDragging />
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
@@ -149,6 +158,8 @@ GridContainer.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  columnOrder: PropTypes.array.isRequired,
+  onColumnOrderChange: PropTypes.func.isRequired,
 };
 
 const gridInitialState = {
@@ -187,6 +198,7 @@ const gridInitialState = {
   currentPage: 0,
   pageSize: 10,
   allowedPageSizes: [5, 10, 15],
+  columnOrder: ['prefix', 'firstName', 'lastName', 'position', 'state', 'birthDate'],
 };
 
 const gridReducer = (state = gridInitialState, action) => {
@@ -220,6 +232,7 @@ const mapDispatchToProps = dispatch => ({
   onFiltersChange: filters => dispatch(createGridAction('filters', filters)),
   onCurrentPageChange: currentPage => dispatch(createGridAction('currentPage', currentPage)),
   onPageSizeChange: pageSize => dispatch(createGridAction('pageSize', pageSize)),
+  onColumnOrderChange: order => dispatch(createGridAction('columnOrder', order)),
 });
 
 const ReduxGridContainer = connect(mapStateToProps, mapDispatchToProps)(GridContainer);

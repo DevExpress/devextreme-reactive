@@ -202,10 +202,7 @@ PaginationBase.propTypes = {
   onCurrentPageChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   totalCount: PropTypes.number.isRequired,
-  pageSize: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
+  pageSize: PropTypes.number.isRequired,
 };
 
 export const Pagination = withStyles(paginationStyleSheet)(PaginationBase);

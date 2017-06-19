@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setCurrentPage, setPageSize, ALL_PAGES_KEY } from '@devexpress/dx-grid-core';
+import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 
 export class PagingState extends React.PureComponent {
   constructor(props) {
@@ -46,7 +46,7 @@ export class PagingState extends React.PureComponent {
         <Getter name="pageSize" value={pageSize} />
         <Getter
           name="totalPages"
-          value={pageSize === ALL_PAGES_KEY ? 1 : Math.max(1, Math.ceil(totalCount / pageSize))}
+          value={pageSize ? Math.max(1, Math.ceil(totalCount / pageSize)) : 1}
         />
         <Getter name="totalCount" value={totalCount || 0} />
       </PluginContainer>
@@ -55,14 +55,8 @@ export class PagingState extends React.PureComponent {
 }
 
 PagingState.propTypes = {
-  pageSize: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  defaultPageSize: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  pageSize: PropTypes.number,
+  defaultPageSize: PropTypes.number,
   onPageSizeChange: PropTypes.func,
   totalCount: PropTypes.number,
   currentPage: PropTypes.number,

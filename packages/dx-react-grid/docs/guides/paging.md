@@ -25,7 +25,7 @@ In the following example, we use the uncontrolled mode and specify only the init
 
 ## Page Size Selection
 
-To enable page size selection, specify the `allowedPageSizes` property of the `PagingPanel` plugin. To show all rows on a page you can add the 'all' value to the `allowedPageSizes` property.
+To enable page size selection, specify the `allowedPageSizes` property of the `PagingPanel` plugin. To show all rows on a page you can use `0` as one of the `allowedPageSizes` values.
 
 The example below demonstrates the basic configuration for the uncontrolled mode. The `defaultPageSize` property of the `PagingState` plugin is used to define the initial page size.
 

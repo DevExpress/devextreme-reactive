@@ -39,14 +39,8 @@ const PagerBase = ({
 PagerBase.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string]))
-  .isRequired,
-  pageSize: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  pageSize: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,

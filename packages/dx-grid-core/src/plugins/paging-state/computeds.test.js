@@ -22,7 +22,7 @@ describe('PagingState computeds', () => {
       page = paginate(rows, 2, 3);
       expect(page).toEqual([]);
 
-      page = paginate(rows, 'all', 1);
+      page = paginate(rows, 0, 1);
       expect(page).toEqual(rows);
     });
   });
@@ -154,7 +154,7 @@ describe('PagingState computeds', () => {
         { a: 4 },
       ];
 
-      const computedRows = ensurePageHeaders(rows, 'all');
+      const computedRows = ensurePageHeaders(rows, 0);
       expect(computedRows).toHaveLength(4);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -168,7 +168,7 @@ describe('PagingState computeds', () => {
       let count = totalPageCount([1, 2, 3], 2);
       expect(count).toEqual(2);
 
-      count = totalPageCount([1, 2, 3], 'all');
+      count = totalPageCount([1, 2, 3], 0);
       expect(count).toEqual(1);
     });
   });
@@ -185,7 +185,7 @@ describe('PagingState computeds', () => {
       let count = firstRowOnPage(1, 5);
       expect(count).toEqual(6);
 
-      count = firstRowOnPage(1, 'all');
+      count = firstRowOnPage(1, 0);
       expect(count).toEqual(1);
     });
   });
@@ -195,7 +195,7 @@ describe('PagingState computeds', () => {
       let count = lastRowOnPage(1, 5, 15);
       expect(count).toEqual(10);
 
-      count = lastRowOnPage(1, 'all', 15);
+      count = lastRowOnPage(1, 0, 15);
       expect(count).toEqual(15);
     });
 
@@ -210,7 +210,7 @@ describe('PagingState computeds', () => {
       let title = pageSizeTitle(10);
       expect(title).toEqual(10);
 
-      title = pageSizeTitle('all');
+      title = pageSizeTitle(0);
       expect(title).toEqual('All');
     });
   });

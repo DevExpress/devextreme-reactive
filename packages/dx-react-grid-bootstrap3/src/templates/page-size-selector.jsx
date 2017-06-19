@@ -8,7 +8,7 @@ export const PageSizeSelector = ({ pageSize, onPageSizeChange, allowedPageSizes 
       className="form-control visible-xs-inline-block"
       style={{ width: 'auto' }}
       value={pageSize}
-      onChange={e => onPageSizeChange(e.target.value)}
+      onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
     >
       {allowedPageSizes.map(val => <option key={val} value={val}>{pageSizeTitle(val)}</option>)}
     </select>
@@ -39,13 +39,7 @@ export const PageSizeSelector = ({ pageSize, onPageSizeChange, allowedPageSizes 
 );
 
 PageSizeSelector.propTypes = {
-  pageSize: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
+  pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string]))
-  .isRequired,
+  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 };

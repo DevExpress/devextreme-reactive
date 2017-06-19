@@ -16,9 +16,9 @@ totalCount | number | | Specifies the total rows count
 currentPage | number | | Specifies the current page number
 defaultCurrentPage | number | 0 | Specifies the initial current page for the uncontrolled mode
 onCurrentPageChange | (currentPage: number) => void | | Handles current page changes
-pageSize | number &#124; 'all' | | Specifies the page size
-defaultPageSize | number &#124; 'all' | 10 | Specifies the initial page size for the uncontrolled mode
-onPageSizeChange | (pageSize: number &#124; 'all') => void | | Handles page size changes
+pageSize | number &#124; | | Specifies the page size
+defaultPageSize | number | 10 | Specifies the initial page size for the uncontrolled mode
+onPageSizeChange | (pageSize: number) => void | | Handles page size changes
 
 ## Plugin Developer Reference
 
@@ -30,7 +30,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-pageSize | Getter | () => number &#124; 'all' | The page size specified via properties
-setPageSize | Action | ({ size: number &#124; 'all' }) => void | Changes the page size
+pageSize | Getter | () => number | The page size specified via properties
+setPageSize | Action | ({ size: number }) => void | Changes the page size
 currentPage | Getter | () => number | The current page number
 setCurrentPage | Action | ({ page: number }) => void | Changes the current page number

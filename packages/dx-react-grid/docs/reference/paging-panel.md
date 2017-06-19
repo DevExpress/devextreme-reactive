@@ -13,7 +13,7 @@ A plugin that renders a panel allowing an end-user to navigate through data page
 Name | Type | Default | Description
 -----|------|---------|------------
 pagerTemplate | (args: [PagerArgs](#pager-args)) => ReactElement | | A component that renders a pager based on the supplied parameters
-allowedPageSizes | Array&lt;number&#124;'all'&gt; | [] | Specifies the page sizes that can be selected at runtime
+allowedPageSizes | Array&lt;number&gt; | [] | Specifies the page sizes that can be selected at runtime
 
 ## Interfaces
 
@@ -28,9 +28,9 @@ Field | Type | Description
 totalPages | number | Specifies the total pages count
 currentPage | number | Specifies the current page
 onCurrentPageChange | (page: number) => void | Changes the current page
-pageSize | number &#124; 'all' | Specifies the page size
-onPageSizeChange | (size: number &#124; 'all') => void | Changes the page size
-allowedPageSizes | Array&lt;number&#124;'all'&gt; | Specifies the page sizes that can be selected at runtime
+pageSize | number | Specifies the page size
+onPageSizeChange | (size: number) => void | Changes the page size
+allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that can be selected at runtime
 
 ## Plugin Developer Reference
 

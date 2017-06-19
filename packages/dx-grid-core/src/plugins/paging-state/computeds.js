@@ -7,10 +7,11 @@ export const paginate = (rows, pageSize, page) => (
 );
 
 export const ensurePageHeaders = (rows, pageSize) => {
-  const result = rows.slice();
   if (!pageSize) {
-    return result;
+    return rows;
   }
+
+  const result = rows.slice();
 
   const headers = [];
   let currentIndex = 0;

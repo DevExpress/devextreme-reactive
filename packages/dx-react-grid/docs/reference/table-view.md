@@ -29,7 +29,7 @@ Field | Type | Description
 headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table header
 bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table body
 columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns
-cellTemplate | (args: [CellArgs](#cell-args)) => ReactElement | A template that should be used to render table cells
+cellTemplate | (args: [CellArgs](#cell-args)) => ReactElement | The template that should be used to render table cells
 
 ### <a name="cell-args"></a>CellArgs
 

@@ -14,7 +14,7 @@ import List from 'material-ui-icons/List';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
-  gropingControl: {
+  groupingControl: {
     cursor: 'pointer',
     paddingLeft: 0,
     height: theme.spacing.unit * 3,
@@ -86,7 +86,7 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   },
 }));
 
-export class TableHeaderCellBase extends React.PureComponent {
+class TableHeaderCellBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -109,7 +109,7 @@ export class TableHeaderCellBase extends React.PureComponent {
 
     const groupingControlClasses = classNames(
       {
-        [classes.gropingControl]: true,
+        [classes.groupingControl]: true,
         [classes.floatLeft]: invertedAlign === 'left',
         [classes.floatRight]: invertedAlign === 'right',
       },
@@ -135,7 +135,7 @@ export class TableHeaderCellBase extends React.PureComponent {
       },
     );
 
-    const gropingControl = allowGrouping && (
+    const groupingControl = allowGrouping && (
       <div
         onClick={(e) => {
           e.stopPropagation();
@@ -185,7 +185,7 @@ export class TableHeaderCellBase extends React.PureComponent {
         style={style}
         className={tableCellClasses}
       >
-        {gropingControl}
+        {groupingControl}
         <div className={titleClasses}>
           {allowSorting ? sortingControl : (
             <div className={classes.plainTitle}>

@@ -25,7 +25,7 @@ export class TableHeaderCell extends React.PureComponent {
     const invertedAlign = align === 'left' ? 'right' : 'left';
     const columnTitle = column.title || column.name;
 
-    const gropingControl = allowGrouping && (
+    const groupingControl = allowGrouping && (
       <div
         onClick={(e) => {
           e.stopPropagation();
@@ -98,7 +98,7 @@ export class TableHeaderCell extends React.PureComponent {
           });
         }}
       >
-        {gropingControl}
+        {groupingControl}
         <div
           style={{
             [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',

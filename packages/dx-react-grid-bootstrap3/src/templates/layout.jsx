@@ -20,7 +20,7 @@ Root.propTypes = {
 };
 
 export const Header = ({ children }) =>
-  children && <div className="panel-heading">{children}</div>;
+  children && <div className="panel-heading" style={{ paddingBottom: '5px' }}>{children}</div>;
 
 Header.propTypes = {
   children: PropTypes.node,

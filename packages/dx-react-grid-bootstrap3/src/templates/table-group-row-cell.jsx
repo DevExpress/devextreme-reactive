@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroupExpanded }) => (
+export const TableGroupCell = ({ style, colspan, row, isExpanded, toggleGroupExpanded }) => (
   <td
     colSpan={colspan}
     style={{
@@ -22,7 +22,7 @@ export const TableGroupRowCell = ({ style, colspan, row, isExpanded, toggleGroup
   </td>
 );
 
-TableGroupRowCell.propTypes = {
+TableGroupCell.propTypes = {
   style: PropTypes.shape(),
   colspan: PropTypes.number,
   row: PropTypes.shape(),
@@ -30,7 +30,7 @@ TableGroupRowCell.propTypes = {
   toggleGroupExpanded: PropTypes.func,
 };
 
-TableGroupRowCell.defaultProps = {
+TableGroupCell.defaultProps = {
   style: null,
   colspan: 1,
   row: {},

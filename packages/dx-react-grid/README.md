@@ -12,7 +12,7 @@ The DevExtreme React Grid component has a composable and extensible plugin-based
 npm i @devexpress/dx-react-grid --save
 ```
 
-This package does not contain any visual components. In the examples below, the DevExtreme React Grid Bootstrap3 package is used to render visual components.
+This package does not contain any visual components. In the examples below, the DevExtreme React Grid Bootstrap 3 package is used to render visual components.
 
 Install the Grid Bootstrap3 components package:
 

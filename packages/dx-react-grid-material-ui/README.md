@@ -13,7 +13,7 @@ npm i --save @devexpress/dx-react-grid @devexpress/dx-react-grid-material-ui
 **Note:** The packages mentioned above have peer dependencies that should be installed manually. Use the following command to install them.
 
 ```
-npm i --save @devexpress/dx-core @devexpress/dx-react-core
+npm i --save @devexpress/dx-react-core
 ```
 
 Add the required modules to your project:

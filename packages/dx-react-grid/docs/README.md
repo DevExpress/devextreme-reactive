@@ -29,7 +29,7 @@ npm i @devexpress/dx-react-grid-bootstrap3 --save
 **Note:** The packages mentioned above have peer dependencies that should be installed manually. Use the following command to install them.
 
 ```
-npm i --save @devexpress/dx-core @devexpress/dx-react-core
+npm i --save @devexpress/dx-react-core
 ```
 
 Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the [following link](http://getbootstrap.com/getting-started/#download).

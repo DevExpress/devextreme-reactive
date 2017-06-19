@@ -1,12 +1,19 @@
+/* globals Element:true */
+
 import React from 'react';
 import { mount } from 'enzyme';
+
+import { DragDropContext, DropTarget } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
+
 import { TableLayout } from './table-layout';
 
 /* eslint-disable react/prop-types */
 const PropsContainer = () => null;
 const tableTemplateMock = ({ children, ...props }) => (
-  <table>
+  <table
+    ref={props.ref}
+  >
     <PropsContainer {...props} />
     {children}
   </table>
@@ -51,7 +58,7 @@ describe('TableLayout', () => {
 
   const testTablePart = ({ tree, rows, columns }) => {
     const rowWrappers = tree.find('tr');
-    expect(rowWrappers.length).toBe(3);
+    expect(rowWrappers.length).toBe(rows.length);
     rows.forEach((row, rowIndex) => {
       const rowWrapper = rowWrappers.at(rowIndex);
       const rowData = rowWrapper.children(PropsContainer).props();
@@ -59,7 +66,7 @@ describe('TableLayout', () => {
       expect(rowData.row).toBe(row);
 
       const columnWrappers = rowWrapper.find('td');
-      expect(columnWrappers.length).toBe(4);
+      expect(columnWrappers.length).toBe(columns.length);
       columns.forEach((column, columnIndex) => {
         const columnWrapper = columnWrappers.at(columnIndex);
         const columnData = columnWrapper.children(PropsContainer).props();
@@ -220,5 +227,104 @@ describe('TableLayout', () => {
       .simulate('click');
     expect(onClick.mock.calls[0][0])
       .toMatchObject({ row: rows[1], column: columns[1], e: {} });
+  });
+
+  describe('DnD reordering', () => {
+    let getRect;
+
+    beforeEach(() => {
+      getRect = jest.spyOn(Element.prototype, 'getBoundingClientRect');
+    });
+
+    afterEach(() => {
+      getRect.mockRestore();
+    });
+
+    it('should preview column order while dragging', () => {
+      getRect.mockImplementation(() =>
+        ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+
+      const rows = [{ id: 1 }, { id: 2 }];
+      const columns = [{ name: 'a' }, { name: 'b' }];
+      const tree = mount(
+        <DragDropContext>
+          <TableLayout
+            rows={rows}
+            columns={columns}
+            tableTemplate={tableTemplateMock}
+            bodyTemplate={bodyTemplateMock}
+            rowTemplate={rowTemplateMock}
+            cellTemplate={cellTemplateMock}
+            getRowId={row => row.id}
+            allowColumnReordering
+          />
+        </DragDropContext>,
+      );
+
+      const targetWrapper = tree.find(DropTarget);
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 175, y: 100 } });
+
+      testTablePart({ tree: tree.find('tbody'), rows, columns: [columns[1], columns[0]] });
+    });
+
+    it('should revert column order when source moves out', () => {
+      getRect.mockImplementation(() =>
+        ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+
+      const rows = [{ id: 1 }, { id: 2 }];
+      const columns = [{ name: 'a' }, { name: 'b' }];
+      const tree = mount(
+        <DragDropContext>
+          <TableLayout
+            rows={rows}
+            columns={columns}
+            tableTemplate={tableTemplateMock}
+            bodyTemplate={bodyTemplateMock}
+            rowTemplate={rowTemplateMock}
+            cellTemplate={cellTemplateMock}
+            getRowId={row => row.id}
+            allowColumnReordering
+          />
+        </DragDropContext>,
+      );
+
+      const targetWrapper = tree.find(DropTarget);
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 175, y: 100 } });
+      targetWrapper.prop('onLeave')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 90, y: 90 } });
+
+      testTablePart({ tree: tree.find('tbody'), rows, columns });
+    });
+
+    it('should change column order on drop', () => {
+      getRect.mockImplementation(() =>
+        ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+
+      const rows = [{ id: 1 }, { id: 2 }];
+      const columns = [{ name: 'a' }, { name: 'b' }];
+      const setColumnOrder = jest.fn();
+      const tree = mount(
+        <DragDropContext>
+          <TableLayout
+            rows={rows}
+            columns={columns}
+            minColumnWidth={150}
+            tableTemplate={tableTemplateMock}
+            bodyTemplate={bodyTemplateMock}
+            rowTemplate={rowTemplateMock}
+            cellTemplate={cellTemplateMock}
+            getRowId={row => row.id}
+            allowColumnReordering
+            setColumnOrder={setColumnOrder}
+          />
+        </DragDropContext>,
+      );
+
+      const targetWrapper = tree.find(DropTarget);
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 175, y: 100 } });
+      targetWrapper.prop('onDrop')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 175, y: 100 } });
+
+      expect(setColumnOrder)
+        .toBeCalledWith({ sourceColumnName: 'a', targetColumnName: 'b' });
+    });
   });
 });

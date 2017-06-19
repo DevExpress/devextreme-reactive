@@ -13,7 +13,7 @@ import {
   generateRows,
 } from '../../demoData';
 
-export class UncontrolledDemo extends React.PureComponent {
+export class ControlledDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -25,10 +25,16 @@ export class UncontrolledDemo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 6 }),
+      columnOrder: ['city', 'sex', 'car', 'name'],
     };
+
+    this.changeColumnOrder = this.changeColumnOrder.bind(this);
+  }
+  changeColumnOrder(newOrder) {
+    this.setState({ columnOrder: newOrder });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, columnOrder } = this.state;
 
     return (
       <Grid
@@ -36,7 +42,8 @@ export class UncontrolledDemo extends React.PureComponent {
         columns={columns}
       >
         <ColumnOrderState
-          defaultOrder={['city', 'sex', 'car', 'name']}
+          order={columnOrder}
+          onOrderChange={this.changeColumnOrder}
         />
         <DragDropContext />
         <TableView allowColumnReordering />

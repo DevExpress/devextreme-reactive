@@ -21,9 +21,11 @@ export const TableView = ({ tableCellTemplate, ...props }) => (
     {...props}
   />
 );
+
 TableView.propTypes = {
   tableCellTemplate: PropTypes.func,
 };
+
 TableView.defaultProps = {
   tableCellTemplate: undefined,
 };

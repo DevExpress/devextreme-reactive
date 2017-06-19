@@ -1,14 +1,16 @@
-const showAllPagesKey = 'all';
+const ALL_PAGES_TITLE = 'All';
+
+export const ALL_PAGES_KEY = 'all';
 
 export const paginate = (rows, pageSize, page) => (
-  pageSize !== showAllPagesKey ?
+  pageSize !== ALL_PAGES_KEY ?
     rows.slice(pageSize * page, pageSize * (page + 1)) :
     rows
 );
 
 export const ensurePageHeaders = (rows, pageSize) => {
   const result = rows.slice();
-  if (pageSize === showAllPagesKey) {
+  if (pageSize === ALL_PAGES_KEY) {
     return result;
   }
 
@@ -36,18 +38,18 @@ export const ensurePageHeaders = (rows, pageSize) => {
 };
 
 export const totalPageCount = (rows, pageSize) => (
-  pageSize === showAllPagesKey ? 1 : Math.ceil(rows.length / pageSize)
+  pageSize === ALL_PAGES_KEY ? 1 : Math.ceil(rows.length / pageSize)
 );
 
 export const totalCount = rows => rows.length;
 
 export const firstRowOnPage = (currentPage, pageSize) => (
-  pageSize === showAllPagesKey ? 1 : (currentPage * pageSize) + 1
+  pageSize === ALL_PAGES_KEY ? 1 : (currentPage * pageSize) + 1
 );
 
 export const lastRowOnPage = (currentPage, pageSize, totalRowCount) => {
   let result = totalRowCount;
-  if (pageSize !== showAllPagesKey) {
+  if (pageSize !== ALL_PAGES_KEY) {
     const index = (currentPage + 1) * pageSize;
     result = index > totalRowCount ? totalRowCount : index;
   }
@@ -56,5 +58,5 @@ export const lastRowOnPage = (currentPage, pageSize, totalRowCount) => {
 };
 
 export const pageSizeTitle = pageSize => (
-  pageSize === showAllPagesKey ? 'All' : pageSize
+  pageSize === ALL_PAGES_KEY ? ALL_PAGES_TITLE : pageSize
 );

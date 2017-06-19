@@ -54,7 +54,7 @@ describe('table utils', () => {
   });
 
   describe('#getTableTargetColumnIndex', () => {
-    it('should correctly return geometries', () => {
+    it('should correctly return index', () => {
       const columnGeometries = [
         { left: 0, right: 100 },
         { left: 100, right: 150 },

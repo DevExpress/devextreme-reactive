@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Grid component allows to reorder grid columns using the drag-and-drop feature.
+The Grid component allows reordering grid columns using the drag-and-drop feature.
 
 ## Plugin List
 
@@ -16,13 +16,13 @@ Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Column Reordering Setup
 
-To set up a simple Grid with column reordering enabled, you need to use the `ColumnOrderState`, `DragDropContext`, `TableView` and `TableRowDetail` plugins.
+You need to use the `ColumnOrderState`, `DragDropContext`, `TableView` and `TableRowDetail` plugins to set up a simple Grid with column reordering enabled.
 
 In the uncontrolled state mode, specify the initial column order by the `defaultOrder` property of the `ColumnOrderState` plugin.
 
-To enable end-user interactions the following setup is required:
-- set the `allowColumnReordering` property of the `TableView` plugin to true;
-- set the `allowDragging` property of the `TableHeaderRow` plugin to true.
+The following setup is required to enable end-user interactions:
+- set the `TableView` plugin's `allowColumnReordering` property to true;
+- set the `TableHeaderRow` plugin's `allowDragging` property to true.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/column-reordering/uncontrolled)
 
@@ -30,7 +30,7 @@ To enable end-user interactions the following setup is required:
 
 ## Controlled Mode
 
-To control the column order state, pass the column order to the `order` property of the `ColumnOrderState` plugin and handle the `onOrderChange` event.
+Pass the column order to the `order` property of the `ColumnOrderState` plugin and handle the `onOrderChange` event to control the column order state.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/column-reordering/controlled)
 

@@ -12,12 +12,14 @@ export const Pager = ({
   onPageSizeChange,
   allowedPageSizes,
   totalCount,
+  showAllPagesText,
 }) => (
   <div className="clearfix">
     {!!allowedPageSizes.length && <PageSizeSelector
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
       allowedPageSizes={allowedPageSizes}
+      showAllPagesText={showAllPagesText}
     />}
     <Pagination
       style={{
@@ -67,4 +69,9 @@ Pager.propTypes = {
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   totalCount: PropTypes.number.isRequired,
+  showAllPagesText: PropTypes.string,
+};
+
+Pager.defaultProps = {
+  showAllPagesText: undefined,
 };

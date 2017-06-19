@@ -1,5 +1,3 @@
-const ALL_PAGES_TITLE = 'All';
-
 export const paginate = (rows, pageSize, page) => (
   pageSize ?
     rows.slice(pageSize * page, pageSize * (page + 1)) :
@@ -55,5 +53,3 @@ export const lastRowOnPage = (currentPage, pageSize, totalRowCount) => {
 
   return result;
 };
-
-export const pageSizeTitle = pageSize => pageSize || ALL_PAGES_TITLE;

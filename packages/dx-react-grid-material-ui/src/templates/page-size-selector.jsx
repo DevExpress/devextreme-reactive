@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import { pageSizeTitle } from '@devexpress/dx-grid-core';
 import { DropDownMenu } from './drop-down-menu';
 
 const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
@@ -29,7 +28,13 @@ const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
   },
 }));
 
-const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, classes }) => (
+const PageSizeSelectorBase = ({
+  pageSize,
+  onPageSizeChange,
+  allowedPageSizes,
+  showAllPagesText,
+  classes,
+}) => (
   <div className={classes.pageSizeSelector}>
     <span className={classes.label}>
     Rows per page:
@@ -37,7 +42,7 @@ const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, cl
     <DropDownMenu
       selectedItem={pageSize}
       items={allowedPageSizes}
-      itemTemplate={pageSizeTitle}
+      itemTemplate={title => title || showAllPagesText}
       onItemClick={(item) => {
         onPageSizeChange(item);
       }}
@@ -50,7 +55,12 @@ PageSizeSelectorBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  showAllPagesText: PropTypes.string,
   classes: PropTypes.object.isRequired,
+};
+
+PageSizeSelectorBase.defaultProps = {
+  showAllPagesText: 'All',
 };
 
 export const PageSizeSelector = withStyles(styleSheet)(PageSizeSelectorBase);

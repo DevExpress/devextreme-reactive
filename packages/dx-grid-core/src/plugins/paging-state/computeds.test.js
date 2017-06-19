@@ -5,7 +5,6 @@ import {
     totalCount,
     firstRowOnPage,
     lastRowOnPage,
-    pageSizeTitle,
 } from './computeds';
 
 describe('PagingState computeds', () => {
@@ -202,16 +201,6 @@ describe('PagingState computeds', () => {
     it('should not be greater than total count', () => {
       const count = lastRowOnPage(1, 5, 9);
       expect(count).toEqual(9);
-    });
-  });
-
-  describe('#pageSizeTitle', () => {
-    it('should work', () => {
-      let title = pageSizeTitle(10);
-      expect(title).toEqual(10);
-
-      title = pageSizeTitle(0);
-      expect(title).toEqual('All');
     });
   });
 });

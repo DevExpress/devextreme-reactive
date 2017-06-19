@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pageSizeTitle } from '@devexpress/dx-grid-core';
 
-export const PageSizeSelector = ({ pageSize, onPageSizeChange, allowedPageSizes }) => (
+export const PageSizeSelector = ({
+  pageSize,
+  onPageSizeChange,
+  allowedPageSizes,
+  showAllPagesText,
+}) => (
   <div style={{ display: 'inline-block' }}>
     <select
       className="form-control visible-xs-inline-block"
@@ -10,7 +14,12 @@ export const PageSizeSelector = ({ pageSize, onPageSizeChange, allowedPageSizes 
       value={pageSize}
       onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
     >
-      {allowedPageSizes.map(val => <option key={val} value={val}>{pageSizeTitle(val)}</option>)}
+      {
+        allowedPageSizes.map(val =>
+          <option key={val} value={val}>
+            {val || showAllPagesText}
+          </option>)
+      }
     </select>
     <ul
       className="pagination hidden-xs"
@@ -29,7 +38,7 @@ export const PageSizeSelector = ({ pageSize, onPageSizeChange, allowedPageSizes 
               onPageSizeChange(item);
             }}
           >
-            {pageSizeTitle(item)}
+            {item || showAllPagesText}
           </a>
           {/* eslint-enable jsx-a11y/href-no-hash */}
         </li>
@@ -42,4 +51,10 @@ PageSizeSelector.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  showAllPagesText: PropTypes.string,
 };
+
+PageSizeSelector.defaultProps = {
+  showAllPagesText: 'All',
+};
+

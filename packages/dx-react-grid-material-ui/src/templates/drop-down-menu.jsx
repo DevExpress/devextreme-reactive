@@ -35,13 +35,13 @@ class DropDownMenuBase extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    const { selectedItem, items, defaultTitle } = this.props;
+    const { selectedItem, items, defaultTitle, itemTemplate } = this.props;
 
     this.state = {
       anchorEl: undefined,
       open: false,
       selectedIndex: items.findIndex(item => item === selectedItem),
-      title: defaultTitle || selectedItem,
+      title: defaultTitle || (itemTemplate ? itemTemplate(selectedItem) : selectedItem),
     };
 
     this.handleClick = this.handleClick.bind(this);

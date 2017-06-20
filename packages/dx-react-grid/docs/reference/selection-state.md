@@ -22,7 +22,7 @@ onSelectionChange | (selection: Array&lt;int&#124;string&gt;) => void | | Handle
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered inside the table
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered inside the table
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | A function used to get a unique row identifier
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered inside the table body which can be selected
 

@@ -74,7 +74,7 @@ text | string | Specifies the text to be rendered within the command control
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | A function used to get a unique row identifier
 addRow | Action | () => void | Creates a new row
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array
@@ -91,4 +91,4 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns along with edit column
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns along with edit column

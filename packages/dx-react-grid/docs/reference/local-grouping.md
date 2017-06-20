@@ -26,4 +26,4 @@ expandedGroups | Getter | { [key: [GroupKey](grouping-state.md#group-key)]: true
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => Array&lt;[Row](grid.md#row)&gt; | Rows with the applied grouping and expanded groups
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied grouping and expanded groups

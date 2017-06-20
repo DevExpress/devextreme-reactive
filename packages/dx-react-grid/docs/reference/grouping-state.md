@@ -51,8 +51,8 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-grouping | Getter | () => Array&lt;[Grouping](#grouping)&gt; | Applied grouping
-expandedGroups | Getter | () => Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
-groupedColumns | Getter | () => Array&lt;Column&gt; | Columns with applied grouping on them
+grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | Applied grouping
+expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
+groupedColumns | Getter | Array&lt;Column&gt; | Columns with applied grouping on them
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column name or cancels grouping. If `groupIndex` is omitted, the group will be added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state

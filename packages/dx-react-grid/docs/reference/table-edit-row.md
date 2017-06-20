@@ -37,7 +37,7 @@ onValueChange | (newValue: any) => void | Handles value changes
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
 editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows that are currently being edited
 addedRows | Getter | Array&lt;Object&gt; | Newly created rows
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
@@ -50,4 +50,4 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Table data rows along with editing rows
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table data rows along with editing rows

@@ -62,11 +62,11 @@ groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns to group by
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered inside the table excluding grouped ones
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered inside the table excluding grouped ones

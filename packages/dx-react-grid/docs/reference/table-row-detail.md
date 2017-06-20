@@ -58,8 +58,8 @@ toggleExpanded | () => void | Toggles the expanded state for a row
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
-tableBodyRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
 expandedRows | Getter | Array&lt;number &#124; string&gt; | Expanded rows
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
 setDetailRowExpanded | Action | ({ rowId }) => void | Expands the row specified
@@ -69,5 +69,5 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table along with detail cell
-tableBodyRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body along with detailed rows
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table along with detail cell
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body along with detailed rows

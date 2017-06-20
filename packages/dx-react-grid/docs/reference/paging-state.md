@@ -30,7 +30,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-pageSize | Getter | () => number | The page size specified via properties
+pageSize | Getter | number | The page size specified via properties
 setPageSize | Action | ({ size: number }) => void | Changes the page size
-currentPage | Getter | () => number | The current page number
+currentPage | Getter | number | The current page number
 setCurrentPage | Action | ({ page: number }) => void | Changes the current page number

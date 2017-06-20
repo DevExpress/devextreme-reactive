@@ -39,5 +39,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filters | Getter | () => Array&lt;[Filter](#filter)&gt; | Applied column filters
+filters | Getter | Array&lt;[Filter](#filter)&gt; | Applied column filters
 setColumnFilter | Action | ({ columnName: string, config: object }) => void | Changes a column filter. Removes the filter if config is `null`

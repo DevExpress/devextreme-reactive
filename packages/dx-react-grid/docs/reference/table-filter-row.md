@@ -35,8 +35,8 @@ setFilter | (filter: string) => void | Set a new filter value for a column
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table header
-filters | Getter | () => Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters
+tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table header
+filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters
 setColumnFilter | Action | ({ columnName: string, config: object }) => void | Changes a column filter. Removes the filter if config is `null`
 tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
 
@@ -44,4 +44,4 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows with filters to be rendered inside the table header
+tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows with filters to be rendered inside the table header

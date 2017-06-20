@@ -29,5 +29,5 @@ columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be ordered
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | () => Array&lt;[Column](grid.md#column)&gt; | Ordered columns
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Ordered columns
 setColumnOrder | Action | ({ sourceColumnName, targetColumnName }) => void | Moves a column to the position of another column.  `sourceColumnName` specifies the column to be moved and `targetColumnName` specifies the target column.

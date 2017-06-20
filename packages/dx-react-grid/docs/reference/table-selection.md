@@ -53,11 +53,11 @@ changeSelected | () => void | Selects or deselects a row
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
-tableBodyRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
 selection | Getter | Array&lt;int &#124; string&gt; | Selected rows
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
-tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that can be provided by other plugins
+tableExtraProps | Getter | { [key: string]: any } | Additional table properties that can be provided by other plugins
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered inside table body which can be selected
 setRowSelection | Action | ({ rowId }) => void | A function which sets selection to the row passed
 setRowsSelection | Action | ({ rowIds }) => void | A function which sets selection to the multiple rows passed
@@ -67,6 +67,6 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table along with selection
-tableBodyRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body with selection
-tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties extended with row onClick event listener
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table along with selection
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body with selection
+tableExtraProps | Getter | { [key: string]: any } | Additional table properties extended with row onClick event listener

@@ -32,7 +32,7 @@ const PageSizeSelectorBase = ({
   pageSize,
   onPageSizeChange,
   allowedPageSizes,
-  showAllPagesText,
+  showAllText,
   classes,
 }) => (
   <div className={classes.pageSizeSelector}>
@@ -42,7 +42,7 @@ const PageSizeSelectorBase = ({
     <DropDownMenu
       selectedItem={pageSize}
       items={allowedPageSizes}
-      itemTemplate={title => title || showAllPagesText}
+      itemTemplate={title => title || showAllText}
       onItemClick={(item) => {
         onPageSizeChange(item);
       }}
@@ -55,12 +55,12 @@ PageSizeSelectorBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  showAllPagesText: PropTypes.string,
+  showAllText: PropTypes.string,
   classes: PropTypes.object.isRequired,
 };
 
 PageSizeSelectorBase.defaultProps = {
-  showAllPagesText: 'All',
+  showAllText: 'All',
 };
 
 export const PageSizeSelector = withStyles(styleSheet)(PageSizeSelectorBase);

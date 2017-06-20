@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 pagerTemplate | (args: [PagerArgs](#pager-args)) => ReactElement | | A component that renders a pager based on the supplied parameters
 allowedPageSizes | Array&lt;number&gt; | [] | Specifies the page sizes that can be selected at runtime
-showAllPagesText | string | | Specifies the text of the 'All' item of a page size selector
+showAllText | string | | Specifies the text of the 'All' item of a page size selector
 
 ## Interfaces
 
@@ -32,7 +32,7 @@ onCurrentPageChange | (page: number) => void | Changes the current page
 pageSize | number | Specifies the page size
 onPageSizeChange | (size: number) => void | Changes the page size
 allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that can be selected at runtime
-showAllPagesText | string | Specifies the text of the 'All' item of a page size selector
+showAllText | string | Specifies the text of the 'All' item of a page size selector
 
 ## Plugin Developer Reference
 

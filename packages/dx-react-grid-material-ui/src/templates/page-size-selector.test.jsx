@@ -11,13 +11,13 @@ describe('PageSizeSelector', () => {
     const mountPageSizeSelector = ({
       pageSize,
       allowedPageSizes,
-      showAllPagesText,
+      showAllText,
       onPageSizeChange = () => {},
     }) => mountWithStyles(
       <PageSizeSelector
         pageSize={pageSize}
         allowedPageSizes={allowedPageSizes}
-        showAllPagesText={showAllPagesText}
+        showAllText={showAllText}
         onPageSizeChange={onPageSizeChange}
       />);
 
@@ -51,7 +51,7 @@ describe('PageSizeSelector', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
         allowedPageSizes: [5, 10, 0],
-        showAllPagesText: 'Show all',
+        showAllText: 'Show all',
       });
       const ddMenu = pageSizeSelector.find(DropDownMenu);
 

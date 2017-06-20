@@ -9,7 +9,7 @@ describe('Pager', () => {
       totalPages,
       pageSize,
       totalCount,
-      showAllPagesText,
+      showAllText,
       allowedPageSizes = [],
       onPageSizeChange = () => {},
       onCurrentPageChange = () => {},
@@ -18,7 +18,7 @@ describe('Pager', () => {
       currentPage={currentPage}
       totalCount={totalCount}
       pageSize={pageSize}
-      showAllPagesText={showAllPagesText}
+      showAllText={showAllText}
       allowedPageSizes={allowedPageSizes}
       onCurrentPageChange={onCurrentPageChange}
       onPageSizeChange={onPageSizeChange}
@@ -106,11 +106,11 @@ describe('Pager', () => {
         totalCount: 96,
         pageSize: 5,
         allowedPageSizes: [5, 10],
-        showAllPagesText: 'Show all',
+        showAllText: 'Show all',
       }).find('PageSizeSelector');
 
       expect(pageSizeSelector).toHaveLength(1);
-      expect(pageSizeSelector.at(0).prop('showAllPagesText')).toBe('Show all');
+      expect(pageSizeSelector.at(0).prop('showAllText')).toBe('Show all');
     });
 
     it('doesn\'t render page selector if the allowedPageSizes option is not defined ', () => {

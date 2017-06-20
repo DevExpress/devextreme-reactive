@@ -5,7 +5,7 @@ export const PageSizeSelector = ({
   pageSize,
   onPageSizeChange,
   allowedPageSizes,
-  showAllPagesText,
+  showAllText,
 }) => (
   <div style={{ display: 'inline-block' }}>
     <select
@@ -17,7 +17,7 @@ export const PageSizeSelector = ({
       {
         allowedPageSizes.map(val =>
           <option key={val} value={val}>
-            {val || showAllPagesText}
+            {val || showAllText}
           </option>)
       }
     </select>
@@ -38,7 +38,7 @@ export const PageSizeSelector = ({
               onPageSizeChange(item);
             }}
           >
-            {item || showAllPagesText}
+            {item || showAllText}
           </a>
           {/* eslint-enable jsx-a11y/href-no-hash */}
         </li>
@@ -51,10 +51,10 @@ PageSizeSelector.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  showAllPagesText: PropTypes.string,
+  showAllText: PropTypes.string,
 };
 
 PageSizeSelector.defaultProps = {
-  showAllPagesText: 'All',
+  showAllText: 'All',
 };
 

@@ -7,12 +7,12 @@ describe('PageSizeSelector', () => {
     const mountPageSizeSelector = ({
       pageSize,
       allowedPageSizes,
-      showAllPagesText,
+      showAllText,
       onPageSizeChange = () => {},
     }) => mount(<PageSizeSelector
       pageSize={pageSize}
       allowedPageSizes={allowedPageSizes}
-      showAllPagesText={showAllPagesText}
+      showAllText={showAllText}
       onPageSizeChange={onPageSizeChange}
     />);
 
@@ -66,7 +66,7 @@ describe('PageSizeSelector', () => {
       const tree = mountPageSizeSelector({
         pageSize: 10,
         allowedPageSizes: [5, 10, 0],
-        showAllPagesText: 'Show all',
+        showAllText: 'Show all',
       });
 
       const mobileSelector = tree.find('select');

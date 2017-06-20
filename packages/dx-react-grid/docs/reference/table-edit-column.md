@@ -74,10 +74,21 @@ text | string | Specifies the text to be rendered within the command control
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
+getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | A function used to get a unique row identifier
+addRow | Action | () => void | Creates a new row
+cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array
+commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the rows from the `addedRows` array
+startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows with the corresponding IDs to the edit mode
+stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows with the corresponding IDs to the read-only mode
+cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in the rows specified by ID
+commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the rows from the `changedRows` array
+deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Marks rows specified by ID as deleted by adding them into the `deletedRows` array
+commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the rows from the `deletedRows` array
+tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns along with edit column
+tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns along with edit column

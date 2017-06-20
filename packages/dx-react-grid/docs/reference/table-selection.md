@@ -59,8 +59,9 @@ selection | Getter | Array&lt;int &#124; string&gt; | Selected rows
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
 tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that can be provided by other plugins
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered inside table body which can be selected
-setRowSelection | Action | ({ rowId } &124; { rowIds }) => void | A function which sets selection to the row or rows passed
-
+setRowSelection | Action | ({ rowId }) => void | A function which sets selection to the row passed
+setRowsSelection | Action | ({ rowIds }) => void | A function which sets selection to the multiple rows passed
+tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
 
 ### Exports
 

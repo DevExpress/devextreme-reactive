@@ -36,8 +36,18 @@ allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that can be se
 
 ### Imports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+currentPage | Getter | number | The current page
+totalPages | Getter | number | The total pages count
+pageSize | Getter | number | The count of the rows to be shown on a single page
+totalCount | Getter | number | The total rows count
+setCurrentPage | Action | ({ page: number }) => void | Changes the current page
+setPageSize | Action | ({ size: number }) => void | Changes the page size
+footer | Template | none | A template that renders the grid footer
 
 ### Exports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+pager | Template | none | A template that renders the pager

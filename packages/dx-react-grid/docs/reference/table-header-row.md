@@ -59,6 +59,12 @@ dragPayload | any | A data object that identifies the corresponding column in th
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | () => Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table header
+sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting
+columns | Getter | () => Array&lt;[Column](grid.md#column)&gt; | Columns of the table
+grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used to group by
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
+groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column name or cancels grouping. If `groupIndex` is omitted, the group will be added to the last position.
+tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
 
 ### Exports
 

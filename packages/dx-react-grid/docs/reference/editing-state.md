@@ -50,19 +50,19 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-editingRows | Getter | () => Array&lt;number &#124; string&gt; | Rows that are currently being edited
+editingRows | Getter | Array&lt;number &#124; string&gt; | Rows that are currently being edited
 startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows with the corresponding IDs to the edit mode
 stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows with the corresponding IDs to the read-only mode
-addedRows | Getter | () => Array&lt;Object&gt; | Newly created rows
+addedRows | Getter | Array&lt;Object&gt; | Newly created rows
 addRow | Action | () => void | Creates a new row
 changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is represented by the new row index within all new rows created but not yet committed
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array by indexes
 commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the rows from the `addedRows` array
-changedRows | Getter | () => { [key: string]: Object } | Changed rows that are not yet committed
+changedRows | Getter | { [key: string]: Object } | Changed rows that are not yet committed
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row
 cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in the rows specified by ID
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the rows from the `changedRows` array
-deletedRows | Getter | () => Array&lt;number &#124; string&gt; | Deleted rows that are not yet committed
+deletedRows | Getter | Array&lt;number &#124; string&gt; | Deleted rows that are not yet committed
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Marks rows specified by ID as deleted by adding them into the `deletedRows` array
 cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels deleting of the rows specified by ID by removing them from the `deletedRows` array
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the rows from the `deletedRows` array

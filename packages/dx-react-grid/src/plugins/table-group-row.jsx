@@ -37,18 +37,20 @@ export class TableGroupRow extends React.PureComponent {
             toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.row.key }),
           })}
         </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ column, row }) => (
-            column.type === 'groupColumn'
-            && (
-              !row.type
-              || (row.type === 'groupRow' && row.column.name !== column.group.columnName)
-            )
-          )}
-        >
-          {groupIndentCellTemplate}
-        </Template>
+        {groupIndentCellTemplate && (
+          <Template
+            name="tableViewCell"
+            predicate={({ column, row }) => (
+              column.type === 'groupColumn'
+              && (
+                !row.type
+                || (row.type === 'groupRow' && row.column.name !== column.group.columnName)
+              )
+            )}
+          >
+            {groupIndentCellTemplate}
+          </Template>
+        )}
       </PluginContainer>
     );
   }
@@ -56,6 +58,10 @@ export class TableGroupRow extends React.PureComponent {
 
 TableGroupRow.propTypes = {
   groupCellTemplate: PropTypes.func.isRequired,
-  groupIndentCellTemplate: PropTypes.func.isRequired,
+  groupIndentCellTemplate: PropTypes.func,
   groupIndentColumnWidth: PropTypes.number.isRequired,
+};
+
+TableGroupRow.defaultProps = {
+  groupIndentCellTemplate: null,
 };

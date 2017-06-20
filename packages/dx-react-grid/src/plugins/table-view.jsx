@@ -10,6 +10,8 @@ export class TableView extends React.PureComponent {
     const {
       tableTemplate,
       tableCellTemplate,
+      tableEmptyCellTemplate,
+      tableEmptyHeaderCellTemplate,
       tableNoDataCellTemplate,
       allowColumnReordering,
     } = this.props;
@@ -33,11 +35,8 @@ export class TableView extends React.PureComponent {
         />
         <Getter name="tableExtraProps" value={{}} />
 
-        <Template name="body">
-          <TemplatePlaceholder name="tableView" />
-        </Template>
         <Template
-          name="tableView"
+          name="body"
           connectGetters={getter => ({
             headerRows: getter('tableHeaderRows'),
             bodyRows: getter('tableBodyRows'),
@@ -55,6 +54,19 @@ export class TableView extends React.PureComponent {
         </Template>
         <Template
           name="tableViewCell"
+          connectGetters={getter => ({
+            headerRows: getter('tableHeaderRows'),
+          })}
+        >
+          {({ row, column, headerRows, ...restParams }) => (
+            headerRows.indexOf(row) > -1
+              ? tableEmptyHeaderCellTemplate(restParams)
+              : tableEmptyCellTemplate(restParams)
+          )}
+        </Template>
+        <Template
+          name="tableViewCell"
+          predicate={({ row, column }) => !column.type && !row.type}
         >
           {tableCellTemplate}
         </Template>
@@ -72,6 +84,8 @@ export class TableView extends React.PureComponent {
 TableView.propTypes = {
   tableTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
+  tableEmptyCellTemplate: PropTypes.func.isRequired,
+  tableEmptyHeaderCellTemplate: PropTypes.func.isRequired,
   tableNoDataCellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,
 };

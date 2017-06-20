@@ -15,6 +15,8 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tableTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table using the specified parameters
 tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
+tableEmptyCellTemplate | (args: [TableEmptyCellArgs](#table-empty-cell-args)) => ReactElement | Renders an empty table cell if there are no data for cell
+tableEmptyHeaderCellTemplate | (args: [TableEmptyHeaderCellArgs](#table-empty-header-cell-args)) => ReactElement | Renders an empty header table cell if there are no data for cell
 tableNoDataCellTemplate | (args: Object) => ReactElement | | Renders a table cell for an empty state using the specified parameters
 allowColumnReordering | boolean | false | If true, allows an end-user to change the column order by dragging
 
@@ -41,6 +43,7 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies a table row
 column | [TableColumn](#table-column) | Specifies a table column
+style? | Object | Specifies a cell styles
 
 ### <a name="table-cell-args"></a>TableCellArgs
 
@@ -50,6 +53,23 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies a table row
 column | [TableColumn](#table-column) | Specifies a table column
+style? | Object | Specifies a cell styles
+
+### <a name="table-empty-cell-args"></a>TableEmptyCellArgs
+
+Describes properties passed to the table empty cell template when it is being rendered
+
+Field | Type | Description
+------|------|------------
+style? | Object | Specifies a cell styles
+
+### <a name="table-empty-header-cell-args"></a>TableEmptyHeaderCellArgs
+
+Describes properties passed to the table empty cell template when it is being rendered
+
+Field | Type | Description
+------|------|------------
+style? | Object | Specifies a cell styles
 
 ### <a name="table-row"></a>TableRow
 
@@ -92,5 +112,4 @@ tableHeaderRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to b
 tableBodyRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table body
 tableColumns | Getter | () => Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered inside the table
 tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that can be provided by other plugins
-tableView | Template | | A template that renders a table
 tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders a table cell

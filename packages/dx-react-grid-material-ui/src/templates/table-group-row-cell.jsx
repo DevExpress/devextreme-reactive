@@ -5,12 +5,12 @@ import ChevronRight from 'material-ui-icons/ChevronRight';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
 import {
-    TableCell,
+  TableCell,
 } from 'material-ui';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableGroupRowCell', theme => ({
+const styleSheet = createStyleSheet('TableGroupCell', theme => ({
   cell: {
     cursor: 'pointer',
     paddingLeft: theme.spacing.unit,
@@ -21,7 +21,7 @@ const styleSheet = createStyleSheet('TableGroupRowCell', theme => ({
   },
 }));
 
-const TableGroupRowCellBase = ({
+const TableGroupCellBase = ({
   style,
   colspan,
   row,
@@ -56,7 +56,7 @@ const TableGroupRowCellBase = ({
   </TableCell>
 );
 
-TableGroupRowCellBase.propTypes = {
+TableGroupCellBase.propTypes = {
   style: PropTypes.shape(),
   colspan: PropTypes.number,
   row: PropTypes.shape(),
@@ -65,7 +65,7 @@ TableGroupRowCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-TableGroupRowCellBase.defaultProps = {
+TableGroupCellBase.defaultProps = {
   style: null,
   colspan: 1,
   row: {},
@@ -73,7 +73,7 @@ TableGroupRowCellBase.defaultProps = {
   toggleGroupExpanded: () => {},
 };
 
-export const TableGroupRowCell = withStyles(styleSheet)(TableGroupRowCellBase);
+export const TableGroupCell = withStyles(styleSheet)(TableGroupCellBase);
 
 const TableGroupIndentCellBase = ({ column, style, classes }) => (
   <TableCell

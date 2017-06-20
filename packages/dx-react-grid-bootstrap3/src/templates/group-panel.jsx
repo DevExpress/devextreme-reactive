@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const GroupPanel = ({ groupedColumns, groupByColumnText, cellTemplate }) => {
   const text = () => groupByColumnText ||
-    <span>
+    <span style={{ marginBottom: '5px', display: 'inline-block' }}>
       Click
       &nbsp;
       <i

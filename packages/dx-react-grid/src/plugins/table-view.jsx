@@ -7,7 +7,12 @@ const cellTemplate = params =>
 
 export class TableView extends React.PureComponent {
   render() {
-    const { tableTemplate, tableCellTemplate, tableNoDataCellTemplate } = this.props;
+    const {
+      tableTemplate,
+      tableCellTemplate,
+      tableNoDataCellTemplate,
+      allowColumnReordering,
+    } = this.props;
 
     return (
       <PluginContainer>
@@ -39,7 +44,11 @@ export class TableView extends React.PureComponent {
             columns: getter('tableColumns'),
             getRowId: getter('getRowId'),
             cellTemplate,
+            allowColumnReordering,
             ...getter('tableExtraProps'),
+          })}
+          connectActions={action => ({
+            setColumnOrder: action('setColumnOrder'),
           })}
         >
           {tableTemplate}
@@ -64,4 +73,9 @@ TableView.propTypes = {
   tableTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
   tableNoDataCellTemplate: PropTypes.func.isRequired,
+  allowColumnReordering: PropTypes.bool,
+};
+
+TableView.defaultProps = {
+  allowColumnReordering: false,
 };

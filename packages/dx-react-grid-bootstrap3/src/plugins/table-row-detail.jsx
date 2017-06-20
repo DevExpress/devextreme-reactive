@@ -3,12 +3,12 @@ import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-react-grid'
 import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
 import { TableDetailCell } from '../templates/table-detail-cell';
 
-const detailToggleTemplate = props => <TableDetailToggleCell {...props} />;
+const detailToggleCellTemplate = props => <TableDetailToggleCell {...props} />;
 const detailCellTemplate = props => <TableDetailCell {...props} />;
 
 export const TableRowDetail = props => (
   <TableRowDetailBase
-    detailToggleTemplate={detailToggleTemplate}
+    detailToggleCellTemplate={detailToggleCellTemplate}
     detailCellTemplate={detailCellTemplate}
     detailToggleCellWidth={25}
     {...props}

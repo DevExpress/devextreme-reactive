@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
-export const PagingPanel = ({ pagerTemplate, allowedPageSizes, showAllText }) => (
+export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
   <PluginContainer>
     <Template name="footer">
       <div>
@@ -18,7 +18,6 @@ export const PagingPanel = ({ pagerTemplate, allowedPageSizes, showAllText }) =>
         pageSize: getter('pageSize'),
         totalCount: getter('totalCount'),
         allowedPageSizes,
-        showAllText,
       })}
       connectActions={action => ({
         onCurrentPageChange: page => action('setCurrentPage')({ page }),
@@ -33,10 +32,8 @@ export const PagingPanel = ({ pagerTemplate, allowedPageSizes, showAllText }) =>
 PagingPanel.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number),
   pagerTemplate: PropTypes.func.isRequired,
-  showAllText: PropTypes.string,
 };
 
 PagingPanel.defaultProps = {
   allowedPageSizes: [],
-  showAllText: undefined,
 };

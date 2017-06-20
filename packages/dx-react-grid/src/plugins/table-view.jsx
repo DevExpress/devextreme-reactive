@@ -10,9 +10,9 @@ export class TableView extends React.PureComponent {
     const {
       tableTemplate,
       tableCellTemplate,
-      tableEmptyCellTemplate,
-      tableEmptyHeaderCellTemplate,
       tableNoDataCellTemplate,
+      tableStubCellTemplate,
+      tableStubHeaderCellTemplate,
       allowColumnReordering,
     } = this.props;
 
@@ -60,8 +60,8 @@ export class TableView extends React.PureComponent {
         >
           {({ row, column, headerRows, ...restParams }) => (
             headerRows.indexOf(row) > -1
-              ? tableEmptyHeaderCellTemplate(restParams)
-              : tableEmptyCellTemplate(restParams)
+              ? tableStubHeaderCellTemplate(restParams)
+              : tableStubCellTemplate(restParams)
           )}
         </Template>
         <Template
@@ -84,9 +84,9 @@ export class TableView extends React.PureComponent {
 TableView.propTypes = {
   tableTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
-  tableEmptyCellTemplate: PropTypes.func.isRequired,
-  tableEmptyHeaderCellTemplate: PropTypes.func.isRequired,
   tableNoDataCellTemplate: PropTypes.func.isRequired,
+  tableStubCellTemplate: PropTypes.func.isRequired,
+  tableStubHeaderCellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,
 };
 

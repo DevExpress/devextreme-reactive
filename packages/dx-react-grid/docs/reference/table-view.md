@@ -15,9 +15,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tableTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table using the specified parameters
 tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
-tableEmptyCellTemplate | (args: [TableEmptyCellArgs](#table-empty-cell-args)) => ReactElement | Renders an empty table cell if there are no data for cell
-tableEmptyHeaderCellTemplate | (args: [TableEmptyHeaderCellArgs](#table-empty-header-cell-args)) => ReactElement | Renders an empty header table cell if there are no data for cell
-tableNoDataCellTemplate | (args: Object) => ReactElement | | Renders a table cell for an empty state using the specified parameters
+tableNoDataCellTemplate | (args: [TableNoDataCellArgs](#table-no-data-cell-args)) => ReactElement | | Renders a table cell for an empty state using the specified parameters
+tableStubCellTemplate | (args: [TableStubCellArgs](#table-stub-cell-args)) => ReactElement | | Renders an stub table cell if there are no data for cell
+tableStubHeaderCellTemplate | (args: [TableStubHeaderCellArgs](#table-stub-header-cell-args)) => ReactElement | | Renders an stub header table cell if there are no data for cell
 allowColumnReordering | boolean | false | If true, allows an end-user to change the column order by dragging
 
 ## Interfaces
@@ -55,17 +55,26 @@ row | [TableRow](#table-row) | Specifies a table row
 column | [TableColumn](#table-column) | Specifies a table column
 style? | Object | Specifies a cell styles
 
-### <a name="table-empty-cell-args"></a>TableEmptyCellArgs
+### <a name="table-no-data-cell-args"></a>TableNoDataCellArgs
 
-Describes properties passed to the table empty cell template when it is being rendered
+Describes properties passed to the table cell for an empty state template when it is being rendered
+
+Field | Type | Description
+------|------|------------
+style? | Object | Specifies a cell styles
+colspan | number | Specifies the number of columns a cell should span
+
+### <a name="table-stub-cell-args"></a>TableStubCellArgs
+
+Describes properties passed to the table stub cell template when it is being rendered
 
 Field | Type | Description
 ------|------|------------
 style? | Object | Specifies a cell styles
 
-### <a name="table-empty-header-cell-args"></a>TableEmptyHeaderCellArgs
+### <a name="table-stub-header-cell-args"></a>TableStubHeaderCellArgs
 
-Describes properties passed to the table empty cell template when it is being rendered
+Describes properties passed to the table stub cell template when it is being rendered
 
 Field | Type | Description
 ------|------|------------

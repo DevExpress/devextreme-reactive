@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableEmptyCell', () => ({
+const styleSheet = createStyleSheet('TableStubCell', () => ({
   cell: {
     padding: 0,
   },
 }));
 
-const TableEmptyCellBase = ({ style, classes }) => (
+const TableStubCellBase = ({ style, classes }) => (
   <TableCell
     style={style}
     className={classes.cell}
   />
 );
 
-TableEmptyCellBase.propTypes = {
+TableStubCellBase.propTypes = {
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
 };
 
-TableEmptyCellBase.defaultProps = {
+TableStubCellBase.defaultProps = {
   style: {},
 };
 
-export const TableEmptyCell = withStyles(styleSheet)(TableEmptyCellBase);
+export const TableStubCell = withStyles(styleSheet)(TableStubCellBase);

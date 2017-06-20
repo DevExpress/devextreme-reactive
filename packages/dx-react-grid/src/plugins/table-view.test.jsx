@@ -41,8 +41,8 @@ describe('TableView', () => {
             </table>
           )}
           tableCellTemplate={({ row, column }) => <td className="data">{row.id + column.name}</td>}
-          tableEmptyCellTemplate={() => null}
-          tableEmptyHeaderCellTemplate={() => null}
+          tableStubCellTemplate={() => null}
+          tableStubHeaderCellTemplate={() => null}
           tableNoDataCellTemplate={() => null}
         />
       </PluginHost>,
@@ -85,8 +85,8 @@ describe('TableView', () => {
             </table>
           )}
           tableCellTemplate={() => <td className="data" />}
-          tableEmptyCellTemplate={() => <td className="empty" />}
-          tableEmptyHeaderCellTemplate={() => null}
+          tableStubCellTemplate={() => <td className="empty" />}
+          tableStubHeaderCellTemplate={() => null}
           tableNoDataCellTemplate={() => null}
         />
         <Getter
@@ -136,8 +136,8 @@ describe('TableView', () => {
             </table>
           )}
           tableCellTemplate={() => <td className="data" />}
-          tableEmptyCellTemplate={() => <td className="empty" />}
-          tableEmptyHeaderCellTemplate={() => <td className="empty-header" />}
+          tableStubCellTemplate={() => <td className="empty" />}
+          tableStubHeaderCellTemplate={() => <td className="empty-header" />}
           tableNoDataCellTemplate={() => null}
         />
         <Getter
@@ -192,8 +192,8 @@ describe('TableView', () => {
             </table>
           )}
           tableCellTemplate={() => null}
-          tableEmptyCellTemplate={() => null}
-          tableEmptyHeaderCellTemplate={() => null}
+          tableStubCellTemplate={() => null}
+          tableStubHeaderCellTemplate={() => null}
           tableNoDataCellTemplate={({ colspan }) => <td className="no-data" colSpan={colspan} />}
         />
       </PluginHost>,

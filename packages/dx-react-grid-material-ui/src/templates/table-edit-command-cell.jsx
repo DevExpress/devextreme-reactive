@@ -18,14 +18,14 @@ export const styleSheet = createStyleSheet('EditColumn', theme => ({
   headingCell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: 0,
+    paddingRight: 0,
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
     paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingRight: 0,
   },
 }));
 

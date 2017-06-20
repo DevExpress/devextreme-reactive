@@ -20,7 +20,7 @@ const styleSheet = createStyleSheet('TableFilterCell', theme => ({
 
 const TableFilterCellBase = ({ style, column, filter, setFilter, classes }) => (
   <TableCell
-    className={classes.cell}
+    className={column.name && column.name !== 'select' ? classes.cell : ''}
     style={style}
   >
     {!column.type && (

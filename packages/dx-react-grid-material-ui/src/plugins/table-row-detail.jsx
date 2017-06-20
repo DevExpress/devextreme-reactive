@@ -10,7 +10,7 @@ export const TableRowDetail = props => (
   <TableRowDetailBase
     detailToggleCellTemplate={detailToggleCellTemplate}
     detailCellTemplate={detailCellTemplate}
-    detailToggleCellWidth={42}
+    detailToggleCellWidth={38}
     {...props}
   />
 );

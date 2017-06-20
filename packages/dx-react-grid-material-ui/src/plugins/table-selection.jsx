@@ -11,7 +11,7 @@ export const TableSelection = props => (
   <TableSelectionBase
     selectCellTemplate={selectCellTemplate}
     selectAllCellTemplate={selectAllCellTemplate}
-    selectionColumnWidth={50}
+    selectionColumnWidth={40}
     {...props}
   />
 );

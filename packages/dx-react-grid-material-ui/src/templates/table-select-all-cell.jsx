@@ -12,6 +12,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 const styleSheet = createStyleSheet('TableSelectAllCell', () => ({
   cell: {
     overflow: 'visible',
+    paddingRight: 0,
   },
   pointer: {
     cursor: 'pointer',

@@ -58,9 +58,7 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     paddingRight: theme.spacing.unit,
   },
   clearPadding: {
-    paddingRight: 0,
-    paddingTop: 0,
-    paddingBottom: 0,
+    padding: 0,
   },
   title: {
     height: '24px',
@@ -100,7 +98,7 @@ export const TableHeaderCellBase = ({
 
   const tableCellClasses = classNames(
     {
-      [classes.cell]: true,
+      [classes.cell]: column.name,
       [classes.cellRight]: align === 'right',
       [classes.clearPadding]: !column.name,
     },

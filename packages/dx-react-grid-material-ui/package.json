@@ -56,10 +56,10 @@
     "output": "../../shippable/testresults/dx-react-grid-material-ui.xml"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "^1.0.0-alpha.3",
-    "@devexpress/dx-grid-core": "^1.0.0-alpha.3",
-    "@devexpress/dx-react-core": "^1.0.0-alpha.3",
-    "@devexpress/dx-react-grid": "^1.0.0-alpha.3",
+    "@devexpress/dx-testing": "1.0.0-alpha.3",
+    "@devexpress/dx-grid-core": "1.0.0-alpha.3",
+    "@devexpress/dx-react-core": "1.0.0-alpha.3",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.3",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
@@ -83,7 +83,7 @@
     "jss-preset-default": "^2.0.0",
     "jss-theme-reactor": "^0.11.1",
     "material-ui": "^1.0.0-alpha.14",
-    "material-ui-icons": "^1.0.0-alpha.3",
+    "material-ui-icons": "1.0.0-alpha.3",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
@@ -100,11 +100,11 @@
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "^1.0.0-alpha.3",
-    "@devexpress/dx-react-core": "^1.0.0-alpha.3",
-    "@devexpress/dx-react-grid": "^1.0.0-alpha.3",
+    "@devexpress/dx-grid-core": "1.0.0-alpha.3",
+    "@devexpress/dx-react-core": "1.0.0-alpha.3",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.3",
     "material-ui": "^1.0.0-alpha.14",
-    "material-ui-icons": "^1.0.0-alpha.3",
+    "material-ui-icons": "1.0.0-alpha.3",
     "react": "^15.5.4"
   }
 }

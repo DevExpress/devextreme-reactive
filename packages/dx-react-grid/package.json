@@ -53,7 +53,8 @@
     "output": "../../shippable/testresults/dx-react-grid.xml"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "^1.0.0-alpha.3",
+    "@devexpress/dx-react-core": "1.0.0-alpha.3",
+    "@devexpress/dx-testing": "1.0.0-alpha.3",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
@@ -83,11 +84,11 @@
     "rollup-watch": "^3.2.2"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "^1.0.0-alpha.3",
-    "@devexpress/dx-react-core": "^1.0.0-alpha.3",
+    "@devexpress/dx-grid-core": "1.0.0-alpha.3",
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
+    "@devexpress/dx-react-core": "1.0.0-alpha.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   }

@@ -9,7 +9,7 @@ import { TableNoDataCell } from '../templates/table-no-data-cell';
 
 const tableTemplate = props => <Table {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
-const emptyCellTemplate = props => <TableStubCell {...props} />;
+const stubCellTemplate = props => <TableStubCell {...props} />;
 const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 
 export const TableView = ({ tableCellTemplate, ...props }) => (
@@ -19,8 +19,8 @@ export const TableView = ({ tableCellTemplate, ...props }) => (
       tableCellTemplate,
       defaultCellTemplate,
     )}
-    tableStubCellTemplate={emptyCellTemplate}
-    tableStubHeaderCellTemplate={emptyCellTemplate}
+    tableStubCellTemplate={stubCellTemplate}
+    tableStubHeaderCellTemplate={stubCellTemplate}
     tableNoDataCellTemplate={noDataCellTemplate}
     {...props}
   />

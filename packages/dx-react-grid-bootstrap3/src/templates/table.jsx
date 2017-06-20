@@ -37,6 +37,7 @@ export const Table = ({
   columns,
   cellTemplate,
   onClick,
+  allowColumnReordering, setColumnOrder,
 }) => (
   <TableLayout
     className="table-responsive"
@@ -51,6 +52,8 @@ export const Table = ({
     rowTemplate={rowTemplate}
     cellTemplate={cellTemplate}
     onClick={onClick}
+    allowColumnReordering={allowColumnReordering}
+    setColumnOrder={setColumnOrder}
   />
 );
 Table.defaultProps = {
@@ -63,4 +66,10 @@ Table.propTypes = {
   cellTemplate: PropTypes.func.isRequired,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
+  allowColumnReordering: PropTypes.bool.isRequired,
+  setColumnOrder: PropTypes.func.isRequired,
+};
+
+Table.defaultProps = {
+  onClick: () => {},
 };

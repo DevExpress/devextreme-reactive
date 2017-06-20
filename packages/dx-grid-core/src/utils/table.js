@@ -31,3 +31,56 @@ export const findTableCellTarget = (e) => {
 
   return { rowIndex, columnIndex };
 };
+
+export const getTableColumnGeometries = (columns, tableWidth) => {
+  const columnWidths = columns
+    .map(column => column.width);
+
+  const freeSpace = tableWidth;
+  const restrictedSpace = columnWidths
+    .reduce((accum, width) => accum + (width || 0), 0);
+  const freeSpacePortions = columnWidths
+    .reduce((accum, width) => accum + (width === undefined ? 1 : 0), 0);
+  const freeSpacePortion = (freeSpace - restrictedSpace) / freeSpacePortions;
+
+  let lastRightPosition = 0;
+  return columnWidths
+    .map(width => (width === undefined ? freeSpacePortion : width))
+    .map((width) => {
+      lastRightPosition += width;
+      return {
+        left: lastRightPosition - width,
+        right: lastRightPosition,
+      };
+    });
+};
+
+export const getTableTargetColumnIndex = (columnGeometries, sourceIndex, offset) => {
+  const sourceWidth = columnGeometries[sourceIndex].right - columnGeometries[sourceIndex].left;
+  const getWidthDifference = index =>
+    columnGeometries[index].right - columnGeometries[index].left - sourceWidth;
+
+  return columnGeometries
+    .map(({ left, right }, targetIndex) => {
+      let leftBorder = left;
+      if (targetIndex > 0 && targetIndex <= sourceIndex) {
+        leftBorder = Math.min(leftBorder, leftBorder - getWidthDifference(targetIndex - 1));
+      }
+      if (targetIndex > sourceIndex) {
+        leftBorder = Math.max(leftBorder, leftBorder + getWidthDifference(targetIndex));
+      }
+      let rightBorder = right;
+      if (targetIndex < columnGeometries.length - 1 && targetIndex >= sourceIndex) {
+        rightBorder = Math.max(rightBorder, rightBorder + getWidthDifference(targetIndex + 1));
+      }
+      if (targetIndex < sourceIndex) {
+        rightBorder = Math.min(rightBorder, rightBorder - getWidthDifference(targetIndex));
+      }
+
+      return {
+        left: leftBorder,
+        right: rightBorder,
+      };
+    })
+    .findIndex(({ left, right }) => offset > left && offset < right);
+};

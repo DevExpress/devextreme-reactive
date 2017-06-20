@@ -6,9 +6,9 @@ import { tableColumnsWithGroups } from '@devexpress/dx-grid-core';
 export class TableGroupRow extends React.PureComponent {
   render() {
     const {
-      groupIndentColumnWidth,
-      groupRowCellTemplate,
+      groupCellTemplate,
       groupIndentCellTemplate,
+      groupIndentColumnWidth,
     } = this.props;
 
     return (
@@ -31,7 +31,7 @@ export class TableGroupRow extends React.PureComponent {
           connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
-          {({ expandedGroups, toggleGroupExpanded, ...params }) => groupRowCellTemplate({
+          {({ expandedGroups, toggleGroupExpanded, ...params }) => groupCellTemplate({
             ...params,
             isExpanded: expandedGroups.has(params.row.key),
             toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.row.key }),
@@ -55,7 +55,7 @@ export class TableGroupRow extends React.PureComponent {
 }
 
 TableGroupRow.propTypes = {
-  groupRowCellTemplate: PropTypes.func.isRequired,
+  groupCellTemplate: PropTypes.func.isRequired,
   groupIndentCellTemplate: PropTypes.func.isRequired,
   groupIndentColumnWidth: PropTypes.number.isRequired,
 };

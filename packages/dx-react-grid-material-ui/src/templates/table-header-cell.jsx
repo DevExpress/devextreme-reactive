@@ -44,19 +44,23 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     textAlign: 'right',
   },
   cell: {
-    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
     width: '100%',
+    '& ~ $cell': {
+      paddingLeft: theme.spacing.unit,
+    },
   },
   cellRight: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
   clearPadding: {
-    padding: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   title: {
     height: '24px',

@@ -38,4 +38,6 @@ export {
   tableColumnKeyGetter,
   getTableCellInfo,
   findTableCellTarget,
+  getTableColumnGeometries,
+  getTableTargetColumnIndex,
 } from './utils/table';

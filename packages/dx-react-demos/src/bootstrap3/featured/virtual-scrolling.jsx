@@ -9,10 +9,10 @@ import {
   GroupingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
-    ProgressBarCell,
+  ProgressBarCell,
 } from './templates/progress-bar-cell';
 import {
-    HighlightedCell,
+  HighlightedCell,
 } from './templates/highlighted-cell';
 
 import {

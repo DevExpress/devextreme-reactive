@@ -14,7 +14,7 @@ A plugin that renders group rows with the capability to expand and collapse them
 Name | Type | Default | Description
 -----|------|---------|------------
 groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | | A component that renders a group row
-groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | | A component that renders a group indent cell
+groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell
 groupIndentColumnWidth | number | | Width of the group indent columns
 
 ## Interfaces

@@ -45,15 +45,15 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   },
   cell: {
     paddingRight: theme.spacing.unit,
+    '& ~ $cell': {
+      paddingLeft: theme.spacing.unit,
+    },
   },
   cellNoUserSelect: {
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
     width: '100%',
-    '& ~ $cell': {
-      paddingLeft: theme.spacing.unit,
-    },
   },
   cellDraggable: {
     cursor: 'move',
@@ -119,7 +119,7 @@ class TableHeaderCellBase extends React.PureComponent {
 
     const tableCellClasses = classNames(
       {
-        [classes.cell]: true,
+        [classes.cell]: column.name,
         [classes.cellRight]: align === 'right',
         [classes.clearPadding]: !column.name,
         [classes.cellNoUserSelect]: allowDragging || allowSorting,

@@ -13,9 +13,9 @@ This plugin renders the Grid data as a table. It contains the Table View and Tab
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tableTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table
-tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell
-tableNoDataCellTemplate | (args: [TableNoDataCellArgs](#table-no-data-cell-args)) => ReactElement | | Renders a table cell when the table is in the empty state
+tableTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table using the specified parameters
+tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
+tableNoDataCellTemplate | (args: [TableNoDataCellArgs](#table-no-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is in the empty state
 tableStubCellTemplate | (args: [TableStubCellArgs](#table-stub-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided
 tableStubHeaderCellTemplate | (args: [TableStubHeaderCellArgs](#table-stub-header-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
 allowColumnReordering | boolean | false | If true, allows an end-user to change the column order by dragging

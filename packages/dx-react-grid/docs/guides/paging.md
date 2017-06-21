@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Grid's paging features are used to perform data paging on the client side. However, if your data service supports server-side paging, you can handle the Grid's paging state changes (the current page, the page size) and pass this data to your server. The paging plugin set also contains plugins that display paging controls for enabling end-user interaction, for instance, page switching.
+The Grid's paging features are used to divide data into pages on the client side. However, if your data service supports server-side paging, you can handle the Grid's paging state changes (the current page, the page size) and pass this data to your server. There are also plugins that display paging controls to enable end-user interaction, for instance, page switching.
 
 ## Plugin List
 
@@ -11,13 +11,13 @@ There are several plugins that implement sorting features:
 - [LocalPaging](../reference/local-paging.md)
 - [PagingPanel](../reference/paging-panel.md)
 
-Note that the [plugin order](../README.md#plugin-order) is very important.
+Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Local Paging Setup
 
 To set up a common paging configuration, use the `PagingState`, `LocalPaging`, and `PagingPanel` plugins.
 
-In the following example, we use the uncontrolled mode and specify only the initial active page number via the `defaultCurrentPage` property of the `PagingState` plugin. After that, the grid manages paging state changes internally.
+In the following example, we use the uncontrolled mode and specify only the initial active page number via the `defaultCurrentPage` property of the `PagingState` plugin. In this case, the grid manages paging state changes internally.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/paging/local-paging)
 
@@ -25,7 +25,7 @@ In the following example, we use the uncontrolled mode and specify only the init
 
 ## Page Size Selection
 
-To enable page size selection, specify the `allowedPageSizes` property of the `PagingPanel` plugin. To show all rows on a page you can use `0` as one of the `allowedPageSizes` values. In this case the page size selector will contain the item with the 'All' title. To change it use the `showAllText` property of the `PagingPanel` plugin.
+Assign an array of available page sizes to the `allowedPageSizes` property of the `PagingPanel` plugin to enable page size selection. If on of array values is 0, the page size selector contains the 'All' item. To change it's text use the `showAllText` property of the `PagingPanel` plugin.
 
 The example below demonstrates the basic configuration for the uncontrolled mode. The `defaultPageSize` property of the `PagingState` plugin is used to define the initial page size.
 

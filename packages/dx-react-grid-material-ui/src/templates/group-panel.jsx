@@ -6,10 +6,6 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
-import { GroupPanelCell } from './group-panel-cell';
-
-const groupPanelCellTemplate = props => <GroupPanelCell {...props} />;
-
 // eslint-disable-next-line react/prop-types
 const getDefaultText = ({ classes }) => (
   <span className={classes.groupInfo}>
@@ -37,7 +33,6 @@ const styleSheet = createStyleSheet('GroupPanel', () => ({
 const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => (
   <GroupPanelLayout
     groupByColumnText={groupByColumnText || getDefaultText({ classes })}
-    groupPanelCellTemplate={groupPanelCellTemplate}
     {...restProps}
   />
 );

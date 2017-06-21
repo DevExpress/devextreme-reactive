@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Button,
-  TableSortLabel,
-} from 'material-ui';
-
+import { Button, TableSortLabel } from 'material-ui';
 import Close from 'material-ui-icons/Close';
-
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
@@ -54,14 +49,6 @@ const GroupPanelCellBase = ({
   </Button>
 );
 
-GroupPanelCellBase.defaultProps = {
-  allowSorting: false,
-  sortingDirection: undefined,
-  changeSortingDirection: undefined,
-  allowGrouping: false,
-  groupByColumn: undefined,
-};
-
 GroupPanelCellBase.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
@@ -71,6 +58,14 @@ GroupPanelCellBase.propTypes = {
   changeSortingDirection: PropTypes.func,
   groupByColumn: PropTypes.func,
   classes: PropTypes.object.isRequired,
+};
+
+GroupPanelCellBase.defaultProps = {
+  allowSorting: false,
+  sortingDirection: undefined,
+  changeSortingDirection: undefined,
+  allowGrouping: false,
+  groupByColumn: undefined,
 };
 
 export const GroupPanelCell = withStyles(styleSheet)(GroupPanelCellBase);

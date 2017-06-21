@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
-import { GroupPanelCell } from './group-panel-cell';
-
 const defaultText = (
   <span style={{ marginBottom: '5px', display: 'inline-block' }}>
     Click
@@ -24,15 +22,10 @@ const defaultText = (
 export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
   <GroupPanelLayout
     groupByColumnText={groupByColumnText || defaultText}
-    groupPanelCellTemplate={GroupPanelCell}
     {...restProps}
   />
 );
 
 GroupPanel.propTypes = {
-  groupByColumnText: PropTypes.string,
-};
-
-GroupPanel.defaultProps = {
-  groupByColumnText: undefined,
+  groupByColumnText: PropTypes.string.isRequired,
 };

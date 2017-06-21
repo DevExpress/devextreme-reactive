@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
 
@@ -33,7 +34,7 @@ export class GroupingPanel extends React.PureComponent {
           connectActions={action => ({
             groupByColumn: action('groupByColumn'),
             changeSortingDirection: ({ keepOther, cancel, column }) =>
-                action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
+              action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
           })}
         >
           {params => groupPanelTemplate({ allowSorting, ...params })}

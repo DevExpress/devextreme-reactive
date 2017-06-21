@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 pagerTemplate | (args: [PagerArgs](#pager-args)) => ReactElement | | A component that renders a pager based on the supplied parameters
 allowedPageSizes | Array&lt;number&gt; | [] | Specifies the page sizes that can be selected at runtime
-showAllText | string | | Specifies the text of the 'All' item of a page size selector. Available for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
+showAllText | string | | Specifies a page size selector's 'All' item text. Available for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
 ## Interfaces
 
@@ -32,7 +32,7 @@ onCurrentPageChange | (page: number) => void | Changes the current page
 pageSize | number | Specifies the page size
 onPageSizeChange | (size: number) => void | Changes the page size
 allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that can be selected at runtime
-showAllText | string | Specifies the text of the 'All' item of a page size selector. Available for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
+showAllText | string | Specifies a page size selector's 'All' item text. Available for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
 ## Plugin Developer Reference
 

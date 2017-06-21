@@ -1,7 +1,14 @@
-export const paginate = (rows, pageSize, page) =>
-  rows.slice(pageSize * page, pageSize * (page + 1));
+export const paginate = (rows, pageSize, page) => (
+  pageSize ?
+    rows.slice(pageSize * page, pageSize * (page + 1)) :
+    rows
+);
 
 export const ensurePageHeaders = (rows, pageSize) => {
+  if (!pageSize) {
+    return rows;
+  }
+
   const result = rows.slice();
 
   const headers = [];
@@ -27,13 +34,22 @@ export const ensurePageHeaders = (rows, pageSize) => {
   return result;
 };
 
-export const totalPageCount = (rows, pageSize) => Math.ceil(rows.length / pageSize);
+export const totalPageCount = (rows, pageSize) => (
+  pageSize ? Math.ceil(rows.length / pageSize) : 1
+);
 
 export const totalCount = rows => rows.length;
 
-export const firstRowOnPage = (currentPage, pageSize) => (currentPage * pageSize) + 1;
+export const firstRowOnPage = (currentPage, pageSize) => (
+  pageSize ? (currentPage * pageSize) + 1 : 1
+);
 
 export const lastRowOnPage = (currentPage, pageSize, totalRowCount) => {
-  const index = (currentPage + 1) * pageSize;
-  return index > totalRowCount ? totalRowCount : index;
+  let result = totalRowCount;
+  if (pageSize) {
+    const index = (currentPage + 1) * pageSize;
+    result = index > totalRowCount ? totalRowCount : index;
+  }
+
+  return result;
 };

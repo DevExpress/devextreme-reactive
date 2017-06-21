@@ -1,6 +1,6 @@
 # PagingState Plugin Reference
 
-A plugin that manages paging state. It controls the total page count depending on the total row count and the specified page size. It also controls the currently selected page number and can change it in response to the corresponding actions.
+A plugin that manages the paging state. It controls the total page count depending on the total row count and the specified page size, controls the currently selected page number and changes it in response to the corresponding actions.
 
 ## User Reference
 
@@ -16,7 +16,7 @@ totalCount | number | | Specifies the total rows count
 currentPage | number | | Specifies the current page number
 defaultCurrentPage | number | 0 | Specifies the initial current page for the uncontrolled mode
 onCurrentPageChange | (currentPage: number) => void | | Handles current page changes
-pageSize | number | | Specifies the page size
+pageSize | number | | Specifies the page size. Set this property to `0` to show all rows on a page
 defaultPageSize | number | 10 | Specifies the initial page size for the uncontrolled mode
 onPageSizeChange | (pageSize: number) => void | | Handles page size changes
 

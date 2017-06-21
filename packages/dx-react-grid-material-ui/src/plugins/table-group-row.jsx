@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { TableGroupRow as TableGroupRowBase } from '@devexpress/dx-react-grid';
-import { TableGroupRowCell, TableGroupIndentCell } from '../templates/table-group-row-cell';
+import { TableGroupCell, TableGroupIndentCell } from '../templates/table-group-row-cell';
 
-const groupRowCellTemplate = props => <TableGroupRowCell {...props} />;
+const groupCellTemplate = props => <TableGroupCell {...props} />;
 const groupIndentCellTemplate = props => <TableGroupIndentCell {...props} />;
 
 export const TableGroupRow = props => (
   <TableGroupRowBase
-    groupRowCellTemplate={groupRowCellTemplate}
+    groupCellTemplate={groupCellTemplate}
     groupIndentCellTemplate={groupIndentCellTemplate}
-    groupColumnWidth={24}
+    groupIndentColumnWidth={24}
     {...props}
   />
 );

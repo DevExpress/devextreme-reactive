@@ -7,7 +7,7 @@ import { ControlledModeDemo } from './controlled-mode';
 injectTapEventPlugin();
 
 describe('MUI featured: controlled mode demo', () => {
-  test('should work', () => {
+  it('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>
         <ControlledModeDemo />

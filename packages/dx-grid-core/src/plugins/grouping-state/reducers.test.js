@@ -4,7 +4,7 @@ import {
 
 describe('GroupingState reducers', () => {
   describe('#groupByColumn', () => {
-    test('can group by column', () => {
+    it('can group by column', () => {
       const grouping = [];
       const payload = { columnName: 'test' };
 
@@ -14,7 +14,7 @@ describe('GroupingState reducers', () => {
       ]);
     });
 
-    test('can ungroup by column', () => {
+    it('can ungroup by column', () => {
       const grouping = [{ columnName: 'test' }];
       const payload = { columnName: 'test' };
 
@@ -22,7 +22,7 @@ describe('GroupingState reducers', () => {
       expect(nextGrouping).toEqual([]);
     });
 
-    test('can group by several columns', () => {
+    it('can group by several columns', () => {
       const grouping = [{ columnName: 'column1' }];
       const payload = { columnName: 'column2' };
 
@@ -33,7 +33,7 @@ describe('GroupingState reducers', () => {
       ]);
     });
 
-    test('can group by column with a group index', () => {
+    it('can group by column with a group index', () => {
       const grouping = [{ columnName: 'column1' }];
       const payload = { columnName: 'column2', groupIndex: 0 };
 

@@ -14,7 +14,7 @@ describe('TableGroupRow Plugin computeds', () => {
       { columnName: 'b' },
     ];
 
-    test('should work', () => {
+    it('should work', () => {
       const columns = tableColumnsWithGroups(allColumns, grouping, 123);
 
       expect(columns).toHaveLength(4);
@@ -32,6 +32,7 @@ describe('TableGroupRow Plugin computeds', () => {
       expect(columns[3]).toBe(allColumns[1]);
     });
   });
+
   describe('#tableColumnsWithoutGroups', () => {
     const allColumns = [
       { name: 'a' },
@@ -44,7 +45,7 @@ describe('TableGroupRow Plugin computeds', () => {
       { columnName: 'c' },
     ];
 
-    test('should work', () => {
+    it('should work', () => {
       const columns = tableColumnsWithoutGroups(allColumns, grouping);
 
       expect(columns).toHaveLength(2);

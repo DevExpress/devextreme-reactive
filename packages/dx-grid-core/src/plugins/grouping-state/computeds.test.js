@@ -13,7 +13,7 @@ describe('GroupingPlugin computeds', () => {
       { a: 2, b: 2 },
     ];
 
-    test('can group by one column', () => {
+    it('can group by one column', () => {
       const groupings = [{ name: 'a' }];
 
       const grouped = groupedRows(rows, groupings);
@@ -41,7 +41,7 @@ describe('GroupingPlugin computeds', () => {
       expect(grouped[1].rows[1]).toMatchObject(rows[3]);
     });
 
-    test('can group by several columns', () => {
+    it('can group by several columns', () => {
       const groupings = [{ name: 'a' }, { name: 'b' }];
 
       const grouped = groupedRows(rows, groupings);
@@ -97,7 +97,7 @@ describe('GroupingPlugin computeds', () => {
       },
     ];
 
-    test('can expand groups', () => {
+    it('can expand groups', () => {
       const expandedGroups = new Set(['toExpand']);
 
       const expanded = expandedGroupRows(rows, expandedGroups);
@@ -133,7 +133,7 @@ describe('GroupingPlugin computeds', () => {
       { columnName: 'c' },
     ];
 
-    test('should work', () => {
+    it('should work', () => {
       const processedColumns = groupedColumns(columns, grouping);
 
       expect(processedColumns).toHaveLength(2);

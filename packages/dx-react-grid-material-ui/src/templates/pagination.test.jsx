@@ -24,7 +24,7 @@ describe('Pagination', () => {
       paginationStyleSheet,
     );
 
-    test('can select the first item', () => {
+    it('can select the first item', () => {
       const pagination = mountPagination({
         totalPages: 10,
         currentPage: 0,
@@ -44,7 +44,7 @@ describe('Pagination', () => {
       expect(buttons.at(3).props().disabled).toBeTruthy();
     });
 
-    test('can select an item in the middle', () => {
+    it('can select an item in the middle', () => {
       const pagination = mountPagination({
         totalPages: 10,
         currentPage: 3,
@@ -65,7 +65,7 @@ describe('Pagination', () => {
       expect(buttons.at(5).props().disabled).toBeTruthy();
     });
 
-    test('can select the last item', () => {
+    it('can select the last item', () => {
       const pagination = mountPagination({
         totalPages: 10,
         currentPage: 9,
@@ -85,7 +85,7 @@ describe('Pagination', () => {
       expect(buttons.at(1).props().disabled).toBeTruthy();
     });
 
-    test('can show info about rendered pages', () => {
+    it('can show info about rendered pages', () => {
       const tree = mountPagination({
         totalPages: 10,
         currentPage: 1,
@@ -96,7 +96,7 @@ describe('Pagination', () => {
       expect(tree.find('div > span').text()).toBe('11-20 of 96');
     });
 
-    test('can render pagination arrows', () => {
+    it('can render pagination arrows', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mountPagination({
         totalPages: 10,
@@ -118,7 +118,7 @@ describe('Pagination', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(2);
     });
 
-    test('the prev arrow is disabled if the first page is selected', () => {
+    it('displays the prev arrow if the first page is selected', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mountPagination({
         totalPages: 10,
@@ -139,7 +139,7 @@ describe('Pagination', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
 
-    test('the next arrow is disabled if current page equals to total page count', () => {
+    it('displays the next arrow if the current page equals to total page count', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mountPagination({
         totalPages: 10,

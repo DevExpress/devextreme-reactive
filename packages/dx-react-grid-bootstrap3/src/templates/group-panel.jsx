@@ -6,7 +6,7 @@ import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 import { GroupPanelCell } from './group-panel-cell';
 
 const defaultText = (
-  <span>
+  <span style={{ marginBottom: '5px', display: 'inline-block' }}>
     Click
     &nbsp;
     <i

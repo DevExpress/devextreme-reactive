@@ -11,14 +11,14 @@ describe('SortingState computeds', () => {
       { a: 1, b: 2 },
     ];
 
-    test('does not mutate rows if no sorting specified', () => {
+    it('does not mutate rows if no sorting specified', () => {
       const sorting = [];
 
       const sorted = sortedRows(rows, sorting);
       expect(sorted).toBe(rows);
     });
 
-    test('can sort ascending by one column', () => {
+    it('can sort ascending by one column', () => {
       const sorting = [{ columnName: 'a', direction: 'asc' }];
 
       const sorted = sortedRows(rows, sorting);
@@ -30,7 +30,7 @@ describe('SortingState computeds', () => {
       ]);
     });
 
-    test('can sort descending by one column', () => {
+    it('can sort descending by one column', () => {
       const sorting = [{ columnName: 'a', direction: 'desc' }];
 
       const sorted = sortedRows(rows, sorting);
@@ -42,7 +42,7 @@ describe('SortingState computeds', () => {
       ]);
     });
 
-    test('can sort by several columns', () => {
+    it('can sort by several columns', () => {
       const sorting = [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'asc' }];
 
       const sorted = sortedRows(rows, sorting);
@@ -54,7 +54,7 @@ describe('SortingState computeds', () => {
       ]);
     });
 
-    test('can sort by several columns with different directions', () => {
+    it('can sort by several columns with different directions', () => {
       const sorting = [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'desc' }];
 
       const sorted = sortedRows(rows, sorting);

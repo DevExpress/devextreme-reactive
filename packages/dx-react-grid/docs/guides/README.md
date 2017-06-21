@@ -8,4 +8,5 @@
 - [Selection](selection.md)
 - [Editing](editing.md)
 - [Virtual Scrolling](virtual-scrolling.md)
+- [Column Reordering](column-reordering.md)
 

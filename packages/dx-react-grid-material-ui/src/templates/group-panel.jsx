@@ -10,11 +10,14 @@ import { GroupPanelCell } from './group-panel-cell';
 
 const groupPanelCellTemplate = props => <GroupPanelCell {...props} />;
 
-const defaultText = (
-  <span>
+// eslint-disable-next-line react/prop-types
+const getDefaultText = ({ classes }) => (
+  <span className={classes.groupInfo}>
     Click
     &nbsp;
-    <List />
+    <span className={classes.groupIcon}>
+      <List />
+    </span>
     &nbsp;
     icon in the column header to group by that column
   </span>
@@ -25,11 +28,15 @@ const styleSheet = createStyleSheet('GroupPanel', () => ({
     display: 'inline-block',
     verticalAlign: 'middle',
   },
+  groupInfo: {
+    marginBottom: '12px',
+    display: 'inline-block',
+  },
 }));
 
-const GroupPanelBase = ({ groupByColumnText, ...restProps }) => (
+const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => (
   <GroupPanelLayout
-    groupByColumnText={groupByColumnText || defaultText}
+    groupByColumnText={groupByColumnText || getDefaultText({ classes })}
     groupPanelCellTemplate={groupPanelCellTemplate}
     {...restProps}
   />
@@ -37,6 +44,7 @@ const GroupPanelBase = ({ groupByColumnText, ...restProps }) => (
 
 GroupPanelBase.propTypes = {
   groupByColumnText: PropTypes.string,
+  classes: PropTypes.object.isRequired,
 };
 
 GroupPanelBase.defaultProps = {

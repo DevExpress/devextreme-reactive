@@ -3,7 +3,7 @@ import extendWithEventListener from './extend-with-event-listener';
 describe('extendWithEventListener', () => {
   const handler = jest.fn();
 
-  test('can extend object with handler', () => {
+  it('can extend object with handler', () => {
     const extendedProps = extendWithEventListener({}, 'onClick', handler);
     extendedProps.onClick('a');
 

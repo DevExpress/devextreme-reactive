@@ -20,7 +20,7 @@ export class UncontrolledDemo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex', width: 80 },
+        { name: 'sex', title: 'Sex', width: 100 },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
@@ -39,7 +39,7 @@ export class UncontrolledDemo extends React.PureComponent {
           defaultOrder={['city', 'sex', 'car', 'name']}
         />
         <DragDropContext />
-        <TableView />
+        <TableView allowColumnReordering />
         <TableHeaderRow allowDragging />
       </Grid>
     );

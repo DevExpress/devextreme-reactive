@@ -7,7 +7,7 @@ import { Action } from './action';
 import { Template } from './template';
 
 describe('Action', () => {
-  test('should return value', () => {
+  it('should return value', () => {
     const Test = ({ onAction }) => (
       <PluginHost>
         <Action name="test" action={onAction} />

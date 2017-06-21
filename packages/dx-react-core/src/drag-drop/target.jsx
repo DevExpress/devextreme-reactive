@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
@@ -24,7 +25,8 @@ export class DropTarget extends React.Component {
     dragEmitter.unsubscribe(this.handleDrag);
   }
   handleDrag({ payload, clientOffset, end }) {
-    const { left, top, right, bottom } = this.node.getBoundingClientRect();
+    // eslint-disable-next-line react/no-find-dom-node
+    const { left, top, right, bottom } = findDOMNode(this).getBoundingClientRect();
     const isOver = clientOffset
       && clamp(clientOffset.x, left, right) === clientOffset.x
       && clamp(clientOffset.y, top, bottom) === clientOffset.y;
@@ -38,15 +40,7 @@ export class DropTarget extends React.Component {
   }
   render() {
     const { children } = this.props;
-    return React.cloneElement(
-      React.Children.only(children),
-      {
-        ref: (node) => {
-          if (node) this.node = node;
-          if (typeof children.ref === 'function') children.ref(node);
-        },
-      },
-    );
+    return React.Children.only(children);
   }
 }
 

@@ -31,12 +31,13 @@
     "output": "../../shippable/testresults/dx-react-grid-demos.xml"
   },
   "dependencies": {
-    "@devexpress/dx-react-grid": "^1.0.0-alpha.3",
-    "@devexpress/dx-react-grid-bootstrap3": "^1.0.0-alpha.3",
-    "@devexpress/dx-react-grid-material-ui": "^1.0.0-alpha.3",
+    "@devexpress/dx-react-core": "1.0.0-alpha.3",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.3",
+    "@devexpress/dx-react-grid-bootstrap3": "1.0.0-alpha.3",
+    "@devexpress/dx-react-grid-material-ui": "1.0.0-alpha.3",
     "core-js": "^2.4.1",
     "material-ui": "^1.0.0-alpha.14",
-    "material-ui-icons": "^1.0.0-alpha.3",
+    "material-ui-icons": "1.0.0-alpha.3",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",

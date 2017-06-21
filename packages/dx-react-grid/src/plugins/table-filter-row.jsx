@@ -20,7 +20,7 @@ export class TableFilterRow extends React.PureComponent {
 
         <Template
           name="tableViewCell"
-          predicate={({ row }) => row.type === 'filter'}
+          predicate={({ row, column }) => row.type === 'filter' && !column.type}
           connectGetters={(getter, { column }) => ({
             filter: getColumnFilterConfig(getter('filters'), column.name),
           })}

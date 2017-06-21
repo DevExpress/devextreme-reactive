@@ -15,6 +15,7 @@ export const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
   rowsLabel: {
     ...theme.typography.caption,
     paddingRight: theme.spacing.unit * 5,
+    lineHeight: `${theme.spacing.unit * 5}px`,
   },
   button: {
     minWidth: theme.spacing.unit * 2,

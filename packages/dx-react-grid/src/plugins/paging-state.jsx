@@ -44,7 +44,10 @@ export class PagingState extends React.PureComponent {
 
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
-        <Getter name="totalPages" value={Math.max(1, Math.ceil(totalCount / pageSize))} />
+        <Getter
+          name="totalPages"
+          value={pageSize ? Math.max(1, Math.ceil(totalCount / pageSize)) : 1}
+        />
         <Getter name="totalCount" value={totalCount || 0} />
       </PluginContainer>
     );

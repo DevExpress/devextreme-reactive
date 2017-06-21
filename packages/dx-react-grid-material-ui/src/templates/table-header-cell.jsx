@@ -119,7 +119,7 @@ class TableHeaderCellBase extends React.PureComponent {
 
     const tableCellClasses = classNames(
       {
-        [classes.cell]: column.name,
+        [classes.cell]: !!column.name,
         [classes.cellRight]: align === 'right',
         [classes.clearPadding]: !column.name,
         [classes.cellNoUserSelect]: allowDragging || allowSorting,

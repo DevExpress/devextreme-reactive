@@ -17,7 +17,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 allowSorting | boolean | false | Allows an end-user to change sorting by a column if true
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel
-groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell
+groupPanelCellTemplate? | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell. Available for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
 ## Interfaces
 
@@ -29,18 +29,13 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+allowSorting | boolean | Allows an end-user to change sorting by a column if true
+sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The currently applied sorting
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) => void | Changes a column's sorting order. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 groupedColumns | Array&lt;[Column](grid.md#column)&gt; | The grid is currently grouped by these columns
-cellTemplate | (args: [CellProps](#cell-props)) => ReactElement | A template for rendering the group panel cells
-
-### <a name="cell-props"></a>CellProps
-
-Describes properties passed to the cell template when it is being rendered.
-
-A value with the following shape:
-
-Field | Type | Description
-------|------|------------
-column | [Column](grid.md#column) | Specifies a column associated with the cell
+groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
+groupByColumnText | string | The text which is displayed in the group panel when no grouping is set
+groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | Renders a group panel cell. Available for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
 ### <a name="group-panel-cell-props"></a>GroupPanelCellProps
 

@@ -17,6 +17,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 allowSorting | boolean | false | Allows an end-user to change sorting by a column if true
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel
+groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell
 
 ## Interfaces
 
@@ -29,22 +30,32 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 groupedColumns | Array&lt;[Column](grid.md#column)&gt; | The grid is currently grouped by these columns
-groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
+cellTemplate | (args: [CellProps](#cell-props)) => ReactElement | A template for rendering the group panel cells
+
+### <a name="cell-props"></a>CellProps
+
+Describes properties passed to the cell template when it is being rendered.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+column | [Column](grid.md#column) | Specifies a column associated with the cell
+
+### <a name="group-panel-cell-props"></a>GroupPanelCellProps
+
+Describes properties passed to the group panel cell template when it is being rendered.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+column | [Column](grid.md#column) | Specifies a column associated with the cell
 allowSorting | boolean | An end-user can change sorting by the current column if true
-sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The currently applied sorting
+sortingDirection? | 'asc' &#124; 'desc' | Specifies sorting direction
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) => void | Changes a column's sorting order. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
+groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 ## Plugin Developer Reference
 
-### Imports
-
-Name | Plugin | Type | Description
------|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](#table-column)&gt; | Columns of the table
-grouping | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | | Columns to group by
-
-### Exports
-
-Name | Plugin | Type | Description
------|--------|------|------------
-tableColumns | Getter | () => Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered inside the table excluding grouped ones
+To be described...

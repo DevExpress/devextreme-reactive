@@ -14,12 +14,11 @@ export const PageSizeSelector = ({
       value={pageSize}
       onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
     >
-      {
-        allowedPageSizes.map(val =>
-          <option key={val} value={val}>
-            {val || showAllText}
-          </option>)
-      }
+      {allowedPageSizes.map(val => (
+        <option key={val} value={val}>
+          {val || showAllText}
+        </option>
+      ))}
     </select>
     <ul
       className="pagination hidden-xs"

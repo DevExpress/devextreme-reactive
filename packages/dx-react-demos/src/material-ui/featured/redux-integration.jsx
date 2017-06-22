@@ -125,12 +125,12 @@ const GridContainer = ({
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
-      template={({ row }) =>
+      template={({ row }) => (
         <GridDetailContainer
           data={row}
           columns={detailColumns}
         />
-      }
+      )}
     />
     <TableGroupRow />
     <GroupingPanel allowSorting />

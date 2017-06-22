@@ -31,7 +31,7 @@ const GroupPanelCellBase = ({
         changeSortingDirection({
           keepOther: e.shiftKey || cancelSortingRelatedKey,
           cancel: cancelSortingRelatedKey,
-          column,
+          columnName: column.name,
         });
       }}
     >

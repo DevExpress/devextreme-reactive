@@ -31,7 +31,7 @@ Field | Type | Description
 ------|------|------------
 allowSorting | boolean | Allows an end-user to change sorting by a column if true
 sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The currently applied sorting
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) => void | Changes a column's sorting order. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the sorting order of the column specified by `columnName`. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 groupedColumns | Array&lt;[Column](grid.md#column)&gt; | The grid is currently grouped by these columns
 groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
 groupByColumnText | string | The text which is displayed in the group panel when no grouping is set
@@ -48,7 +48,7 @@ Field | Type | Description
 column | [Column](grid.md#column) | Specifies a column associated with the cell
 allowSorting | boolean | An end-user can change sorting by the current column if true
 sortingDirection? | 'asc' &#124; 'desc' | Specifies sorting direction
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) => void | Changes a column's sorting order. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the sorting order of the column specified by `columnName`. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 ## Plugin Developer Reference

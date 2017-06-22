@@ -22,7 +22,7 @@ export const GroupPanelCell = ({
         changeSortingDirection({
           keepOther: e.shiftKey || cancelSortingRelatedKey,
           cancel: cancelSortingRelatedKey,
-          column,
+          columnName: column.name,
         });
       }}
     >

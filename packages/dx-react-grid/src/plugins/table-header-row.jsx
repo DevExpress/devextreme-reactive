@@ -18,17 +18,15 @@ export class TableHeaderRow extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ row }) => row.type === 'heading'}
+          predicate={({ row, column }) => row.type === 'heading' && !column.type}
           connectGetters={(getter, { column }) => {
             const sorting = getter('sorting');
             const columns = getter('columns');
             const grouping = getter('grouping');
 
             const result = {
-              sortingSupported: !column.type &&
-                sorting !== undefined,
-              groupingSupported: !column.type &&
-                grouping !== undefined &&
+              sortingSupported: sorting !== undefined,
+              groupingSupported: grouping !== undefined &&
                 grouping.length < columns.length - 1,
             };
 

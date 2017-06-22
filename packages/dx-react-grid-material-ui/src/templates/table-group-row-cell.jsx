@@ -74,30 +74,3 @@ TableGroupCellBase.defaultProps = {
 };
 
 export const TableGroupCell = withStyles(styleSheet)(TableGroupCellBase);
-
-const TableGroupIndentCellBase = ({ column, style, classes }) => (
-  <TableCell
-    style={{
-      width: column.width,
-      ...style,
-    }}
-    className={classes.indentCell}
-  >
-    &nbsp;
-  </TableCell>
-);
-
-TableGroupIndentCellBase.propTypes = {
-  style: PropTypes.object,
-  column: PropTypes.shape({
-    width: PropTypes.number.isRequired,
-  }).isRequired,
-  classes: PropTypes.object.isRequired,
-};
-
-TableGroupIndentCellBase.defaultProps = {
-  style: {},
-};
-
-export const TableGroupIndentCell = withStyles(styleSheet)(TableGroupIndentCellBase);
-

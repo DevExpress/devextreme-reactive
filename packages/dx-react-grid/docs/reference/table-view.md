@@ -15,25 +15,27 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tableTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table using the specified parameters
 tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
-tableNoDataCellTemplate | (args: Object) => ReactElement | | Renders a table cell for an empty state using the specified parameters
-allowColumnReordering | boolean | false | If true, allows an end-user to change the column order by dragging
+tableNoDataCellTemplate | (args: [TableNoDataCellArgs](#table-no-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
+tableStubCellTemplate | (args: [TableStubCellArgs](#table-stub-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided
+tableStubHeaderCellTemplate | (args: [TableStubHeaderCellArgs](#table-stub-header-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
+allowColumnReordering | boolean | false | If true, allows an end-user to change the column's order by dragging it
 
 ## Interfaces
 
 ### <a name="table-args"></a>TableArgs
 
-Describes properties passed to the table template when it is being rendered
+Describes properties passed to the table template when it is being rendered.
 
 Field | Type | Description
 ------|------|------------
-headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table header
-bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows that should be rendered within the table body
+headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table header
+bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table body
 columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns
-cellTemplate | (args: [CellArgs](#cell-args)) => ReactElement | The template that should be used to render table cells
+cellTemplate | (args: [CellArgs](#cell-args)) => ReactElement | The template used to render table cells
 
 ### <a name="cell-args"></a>CellArgs
 
-Describes properties passed to a cell template when it is being rendered
+Describes properties passed to a cell template when it is being rendered.
 
 A value with the following shape:
 
@@ -41,19 +43,46 @@ Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies a table row
 column | [TableColumn](#table-column) | Specifies a table column
+style? | Object | Specifies cell styles
 
 ### <a name="table-cell-args"></a>TableCellArgs
 
-Describes properties passed to the table cell template when it is being rendered
+Describes properties passed to the table cell template when it is being rendered.
 
 Field | Type | Description
 ------|------|------------
 row | [TableRow](#table-row) | Specifies a table row
 column | [TableColumn](#table-column) | Specifies a table column
+style? | Object | Specifies cell styles
+
+### <a name="table-no-data-cell-args"></a>TableNoDataCellArgs
+
+Describes properties passed to the table cell being rendered when using an empty template.
+
+Field | Type | Description
+------|------|------------
+style? | Object | Specifies cell styles
+colspan? | number | Specifies the number of columns the cell spans
+
+### <a name="table-stub-cell-args"></a>TableStubCellArgs
+
+Describes properties passed to the stub table cell template being rendered.
+
+Field | Type | Description
+------|------|------------
+style? | Object | Specifies cell styles
+
+### <a name="table-stub-header-cell-args"></a>TableStubHeaderCellArgs
+
+Describes properties passed to the stub header cell template being rendered.
+
+Field | Type | Description
+------|------|------------
+style? | Object | Specifies cell styles
 
 ### <a name="table-row"></a>TableRow
 
-Describes properties of a table row that is rendered by the TableView plugin
+Describes properties of a table row rendered by the TableView plugin.
 
 Extends [Row](grid.md#row)
 
@@ -61,11 +90,11 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-type? | string | Specifies the table row type. Used to identify a cell template for a rendered row. The type is not defined for rows passed by a user.
+type? | string | Specifies the table row type. Defines a cell template used to render a row. The type is not defined for rows passed by a user.
 
 ### <a name="table-column"></a>TableColumn
 
-Describes table column properties taken into account by the TableView plugin
+Describes table column properties that the TableView plugin takes into account.
 
 Extends [Column](grid.md#column)
 
@@ -73,7 +102,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-type? | string | Specifies the table column type. Used to identify a cell template to render a column cell. The type property is not defined for data rows
+type? | string | Specifies the table column type. Defines a cell template used to render a cell. The type is not defined for data rows
 
 ## Plugin Developer Reference
 
@@ -91,6 +120,5 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table header
 tableBodyRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table body
 tableColumns | Getter | () => Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered inside the table
-tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that can be provided by other plugins
-tableView | Template | | A template that renders a table
+tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that other plugins can provide 
 tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders a table cell

@@ -20,6 +20,9 @@ describe('PagingState computeds', () => {
 
       page = paginate(rows, 2, 3);
       expect(page).toEqual([]);
+
+      page = paginate(rows, 0, 1);
+      expect(page).toEqual(rows);
     });
   });
 
@@ -141,12 +144,31 @@ describe('PagingState computeds', () => {
       expect(computedRows[3]).toBe(rows[3]);
       expect(computedRows[4]).toBe(rows[4]);
     });
+
+    it('should work if pageSize is \'all\'', () => {
+      const rows = [
+        { a: 1, _headerKey: 'a' },
+        { a: 2 },
+        { a: 3 },
+        { a: 4 },
+      ];
+
+      const computedRows = ensurePageHeaders(rows, 0);
+      expect(computedRows).toHaveLength(4);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
+      expect(computedRows[3]).toBe(rows[3]);
+    });
   });
 
   describe('#totalPageCount', () => {
     it('should work', () => {
-      const count = totalPageCount([1, 2, 3], 2);
+      let count = totalPageCount([1, 2, 3], 2);
       expect(count).toEqual(2);
+
+      count = totalPageCount([1, 2, 3], 0);
+      expect(count).toEqual(1);
     });
   });
 
@@ -159,15 +181,21 @@ describe('PagingState computeds', () => {
 
   describe('#firstRowOnPage', () => {
     it('should work', () => {
-      const count = firstRowOnPage(1, 5);
+      let count = firstRowOnPage(1, 5);
       expect(count).toEqual(6);
+
+      count = firstRowOnPage(1, 0);
+      expect(count).toEqual(1);
     });
   });
 
   describe('#lastRowOnPage', () => {
     it('should work', () => {
-      const count = lastRowOnPage(1, 5, 15);
+      let count = lastRowOnPage(1, 5, 15);
       expect(count).toEqual(10);
+
+      count = lastRowOnPage(1, 0, 15);
+      expect(count).toEqual(15);
     });
 
     it('should not be greater than total count', () => {

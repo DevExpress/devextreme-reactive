@@ -37,25 +37,3 @@ TableGroupCell.defaultProps = {
   isExpanded: false,
   toggleGroupExpanded: () => {},
 };
-
-export const TableGroupIndentCell = ({ column, style }) => (
-  <td
-    style={{
-      ...style,
-      width: column.width,
-    }}
-  >
-    &nbsp;
-  </td>
-);
-
-TableGroupIndentCell.propTypes = {
-  style: PropTypes.object,
-  column: PropTypes.shape({
-    width: PropTypes.number.isRequired,
-  }).isRequired,
-};
-
-TableGroupIndentCell.defaultProps = {
-  style: {},
-};

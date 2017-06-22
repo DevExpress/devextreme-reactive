@@ -9,6 +9,7 @@ describe('Pager', () => {
       totalPages,
       pageSize,
       totalCount,
+      showAllText,
       allowedPageSizes = [],
       onPageSizeChange = () => {},
       onCurrentPageChange = () => {},
@@ -17,6 +18,7 @@ describe('Pager', () => {
       currentPage={currentPage}
       totalCount={totalCount}
       pageSize={pageSize}
+      showAllText={showAllText}
       allowedPageSizes={allowedPageSizes}
       onCurrentPageChange={onCurrentPageChange}
       onPageSizeChange={onPageSizeChange}
@@ -95,6 +97,31 @@ describe('Pager', () => {
       expect(prew.hasClass('disabled')).toBeFalsy();
       expect(next.hasClass('disabled')).toBeTruthy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
+    });
+
+    it('renders page selector', () => {
+      const pageSizeSelector = mountPager({
+        totalPages: 10,
+        currentPage: 9,
+        totalCount: 96,
+        pageSize: 5,
+        allowedPageSizes: [5, 10],
+        showAllText: 'Show all',
+      }).find('PageSizeSelector');
+
+      expect(pageSizeSelector).toHaveLength(1);
+      expect(pageSizeSelector.at(0).prop('showAllText')).toBe('Show all');
+    });
+
+    it('doesn\'t render page selector if the allowedPageSizes option is not defined ', () => {
+      const pageSizeSelector = mountPager({
+        totalPages: 10,
+        currentPage: 9,
+        totalCount: 96,
+        pageSize: 5,
+      }).find('PageSizeSelector');
+
+      expect(pageSizeSelector).toHaveLength(0);
     });
   });
 });

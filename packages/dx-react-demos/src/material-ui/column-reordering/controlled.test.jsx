@@ -7,7 +7,7 @@ import { ControlledDemo } from './controlled';
 injectTapEventPlugin();
 
 describe('MUI column reordering: controlled demo', () => {
-  test('should work', () => {
+  it('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>
         <ControlledDemo />

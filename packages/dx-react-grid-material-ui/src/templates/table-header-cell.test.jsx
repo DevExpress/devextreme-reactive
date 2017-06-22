@@ -50,7 +50,7 @@ describe('TableHeaderCell', () => {
     expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
   });
 
-  test('should have correct styles when user interaction disallowed', () => {
+  it('should have correct styles when user interaction disallowed', () => {
     const { tree, classes } = mountWithStyles(
       <TableHeaderCell
         column={{}}
@@ -63,7 +63,7 @@ describe('TableHeaderCell', () => {
     expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeFalsy();
   });
 
-  test('should have correct styles when sorting is allowed', () => {
+  it('should have correct styles when sorting is allowed', () => {
     const { tree, classes } = mountWithStyles(
       <TableHeaderCell
         column={{}}
@@ -76,7 +76,7 @@ describe('TableHeaderCell', () => {
     expect(tree.find(TableCell).hasClass(classes.cellClickable)).toBeTruthy();
   });
 
-  test('should have correct styles when dragging is allowed', () => {
+  it('should have correct styles when dragging is allowed', () => {
     const { tree, classes } = mountWithStyles(
       <DragDropContext>
         <TableHeaderCell
@@ -91,7 +91,7 @@ describe('TableHeaderCell', () => {
     expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeTruthy();
   });
 
-  test('should have correct styles while dragging', () => {
+  it('should have correct styles while dragging', () => {
     const { tree, classes } = mountWithStyles(
       <DragDropContext>
         <TableHeaderCell

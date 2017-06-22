@@ -29,7 +29,7 @@ describe('TableHeaderCell', () => {
     expect(tree.find('th > div').text()).toBe('Test');
   });
 
-  test('should have correct styles when user interaction disallowed', () => {
+  it('should have correct styles when user interaction disallowed', () => {
     const tree = mount(
       <table>
         <thead>
@@ -53,7 +53,7 @@ describe('TableHeaderCell', () => {
       .toBeUndefined();
   });
 
-  test('should have correct styles when sorting is allowed', () => {
+  it('should have correct styles when sorting is allowed', () => {
     const tree = mount(
       <table>
         <thead>
@@ -76,7 +76,7 @@ describe('TableHeaderCell', () => {
       });
   });
 
-  test('should have correct styles when dragging is allowed', () => {
+  it('should have correct styles when dragging is allowed', () => {
     const tree = mount(
       <DragDropContext>
         <table>
@@ -101,7 +101,7 @@ describe('TableHeaderCell', () => {
       });
   });
 
-  test('should have correct styles when dragging', () => {
+  it('should have correct styles when dragging', () => {
     const tree = mount(
       <DragDropContext>
         <table>

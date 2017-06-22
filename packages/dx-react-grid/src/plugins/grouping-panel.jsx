@@ -19,14 +19,8 @@ export class GroupingPanel extends React.PureComponent {
           ]}
         />
 
-        <Template name="header">
-          <div>
-            <TemplatePlaceholder name="groupPanel" />
-            <TemplatePlaceholder />
-          </div>
-        </Template>
         <Template
-          name="groupPanel"
+          name="header"
           connectGetters={getter => ({
             groupedColumns: getter('groupedColumns'),
             sorting: getter('sorting'),
@@ -37,7 +31,12 @@ export class GroupingPanel extends React.PureComponent {
               action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
           })}
         >
-          {params => groupPanelTemplate({ allowSorting, ...params })}
+          {params => (
+            <div>
+              {groupPanelTemplate({ allowSorting, ...params })}
+              <TemplatePlaceholder />
+            </div>
+          )}
         </Template>
       </PluginContainer>
     );

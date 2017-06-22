@@ -27,5 +27,9 @@ export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
 );
 
 GroupPanel.propTypes = {
-  groupByColumnText: PropTypes.string.isRequired,
+  groupByColumnText: PropTypes.string,
+};
+
+GroupPanel.defaultProps = {
+  groupByColumnText: undefined,
 };

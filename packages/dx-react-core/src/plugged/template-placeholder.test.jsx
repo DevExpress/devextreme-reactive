@@ -39,7 +39,7 @@ describe('TemplatePlaceholder', () => {
       </PluginHost>,
     );
 
-    expect(tree.find('h1 span').exists()).toBeTruthy();
+    expect(tree.render().find('h1 > span').length).toBe(1);
   });
 
   it('should pass params to the template which is rendered inside it', () => {

@@ -1,13 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { PagingPanel as PagingPanelBase } from '@devexpress/dx-react-grid';
 import { Pager } from '../templates/pager';
 
-const pagerTemplate = props => <Pager {...props} />;
-
-export const PagingPanel = props => (
+export const PagingPanel = ({ showAllText, ...restProps }) => (
   <PagingPanelBase
-    pagerTemplate={pagerTemplate}
-    {...props}
+    pagerTemplate={
+      props => (
+        <Pager
+          showAllText={showAllText}
+          {...props}
+        />
+      )
+    }
+    {...restProps}
   />
 );
 
+PagingPanel.propTypes = {
+  showAllText: PropTypes.string,
+};
+PagingPanel.defaultProps = {
+  showAllText: undefined,
+};

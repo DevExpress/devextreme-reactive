@@ -57,7 +57,7 @@ const commandTemplates = {
     <div style={{ textAlign: 'center' }}>
       <Button
         fab
-        primary
+        color="primary"
         onClick={onClick}
         title="Create new row"
         style={{ width: 40, height: 40 }}
@@ -83,7 +83,7 @@ const commandTemplates = {
     </IconButton>
   ),
   cancel: onClick => (
-    <IconButton accent onClick={onClick} title="Cancel changes">
+    <IconButton color="accent" onClick={onClick} title="Cancel changes">
       <CancelIcon />
     </IconButton>
   ),
@@ -318,8 +318,8 @@ export class ControlledModeDemo extends React.PureComponent {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.cancelDelete} primary>Cancel</Button>
-            <Button onClick={this.deleteRows} accent>Delete</Button>
+            <Button onClick={this.cancelDelete} color="primary">Cancel</Button>
+            <Button onClick={this.deleteRows} color="accent">Delete</Button>
           </DialogActions>
         </Dialog>
       </div>

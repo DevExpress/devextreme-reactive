@@ -25,7 +25,8 @@ export class SelectionState extends React.PureComponent {
     return (
       <PluginContainer>
         <Action
-          name="setRowSelection" action={({ rowId }) => {
+          name="setRowSelection"
+          action={({ rowId }) => {
             this.changeSelection(setRowSelection(selection, { rowId }));
           }}
         />

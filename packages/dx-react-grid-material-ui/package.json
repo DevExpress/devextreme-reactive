@@ -105,6 +105,6 @@
     "@devexpress/dx-react-grid": "1.0.0-alpha.3",
     "material-ui": "^1.0.0-alpha.19",
     "material-ui-icons": "1.0.0-alpha.3",
-    "react": "^15.6.1"
+    "react": "^15.5.4"
   }
 }

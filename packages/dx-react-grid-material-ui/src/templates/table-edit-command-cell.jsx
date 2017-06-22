@@ -33,7 +33,7 @@ const withEditColumnStyles = withStyles(styleSheet);
 
 const CommandButtonBase = ({ executeCommand, text, classes }) => (
   <Button
-    primary
+    color="primary"
     className={classes.button}
     onClick={(e) => {
       executeCommand();

@@ -273,7 +273,7 @@ export class ControlledModeDemo extends React.PureComponent {
             }}
           />
           <TableEditColumn
-            width={110}
+            width={120}
             allowAdding
             allowEditing
             allowDeleting

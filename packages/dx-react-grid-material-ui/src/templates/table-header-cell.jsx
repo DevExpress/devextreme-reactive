@@ -111,7 +111,7 @@ class TableHeaderCellBase extends React.PureComponent {
 
     const groupingControlClasses = classNames(
       {
-        [classes.groupingControl]: !column.type,
+        [classes.groupingControl]: true,
         [classes.floatLeft]: invertedAlign === 'left',
         [classes.floatRight]: invertedAlign === 'right',
       },
@@ -119,7 +119,7 @@ class TableHeaderCellBase extends React.PureComponent {
 
     const tableCellClasses = classNames(
       {
-        [classes.cell]: !column.type,
+        [classes.cell]: true,
         [classes.cellRight]: align === 'right',
         [classes.clearPadding]: !column.name,
         [classes.cellNoUserSelect]: allowDragging || allowSorting,

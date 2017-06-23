@@ -229,7 +229,32 @@ describe('TableLayout', () => {
       .toMatchObject({ row: rows[1], column: columns[1], e: {} });
   });
 
-  describe('DnD reordering', () => {
+  describe('flex column', () => {
+    it('should add flex column if all columns have fixed widths', () => {
+      const rows = [{ id: 1 }, { id: 2 }];
+      const columns = [{ name: 'a', width: 100 }, { name: 'b', width: 100 }];
+      const tree = mount(
+        <TableLayout
+          rows={rows}
+          columns={columns}
+          tableTemplate={tableTemplateMock}
+          bodyTemplate={bodyTemplateMock}
+          rowTemplate={rowTemplateMock}
+          cellTemplate={cellTemplateMock}
+          getRowId={row => row.id}
+        />,
+      );
+
+      const tableWrapper = tree.find('table');
+      expect(tableWrapper.children(PropsContainer).props().style)
+        .toMatchObject({ minWidth: '200px' });
+
+      expect(tree.find('tr').at(1).find('td'))
+        .toHaveLength(3);
+    });
+  });
+
+  describe('drag\'n\'drop reordering', () => {
     let getRect;
 
     beforeEach(() => {

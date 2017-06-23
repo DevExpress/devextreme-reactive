@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1497017976">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1498219793">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -125,6 +125,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
         
@@ -337,24 +345,24 @@
 
 <h2 id="overview">Overview</h2>
 
-<p>The Grid’s paging features are used to perform data paging on the client side. However, if your data service supports server-side paging, you can handle the Grid’s paging state changes (the current page, the page size) and pass this data to your server. The paging plugin set also contains plugins that display paging controls for enabling end-user interaction, for instance, page switching.</p>
+<p>The Grid’s paging features are used to divide data into pages on the client side. However, if your data service supports server-side paging, you can handle the Grid’s paging state changes (current page, page size) and pass this data to the server. There are also plugins that display paging controls that enable end-user interaction, for instance, page switching.</p>
 
 <h2 id="plugin-list">Plugin List</h2>
 
-<p>There are several plugins that implement sorting features:</p>
+<p>Several plugins implement sorting features:</p>
 <ul>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-state/">PagingState</a></li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/local-paging/">LocalPaging</a></li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
 </ul>
 
-<p>Note that the <a href="../../#plugin-order">plugin order</a> is very important.</p>
+<p>Note that the <a href="../../#plugin-order">plugin order</a> is important.</p>
 
 <h2 id="basic-local-paging-setup">Basic Local Paging Setup</h2>
 
-<p>To set up a common paging configuration, use the <code class="highlighter-rouge">PagingState</code>, <code class="highlighter-rouge">LocalPaging</code>, and <code class="highlighter-rouge">PagingPanel</code> plugins.</p>
+<p>Use the <code class="highlighter-rouge">PagingState</code>, <code class="highlighter-rouge">LocalPaging</code>, and <code class="highlighter-rouge">PagingPanel</code> plugins to set up a common paging configuration.</p>
 
-<p>In the following example, we use the uncontrolled mode and specify only the initial active page number via the <code class="highlighter-rouge">defaultCurrentPage</code> property of the <code class="highlighter-rouge">PagingState</code> plugin. After that, the grid manages paging state changes internally.</p>
+<p>In the following example, we use the uncontrolled mode and specify only the initial active page number via the <code class="highlighter-rouge">defaultCurrentPage</code> property of the <code class="highlighter-rouge">PagingState</code> plugin. In this case, the grid manages paging state changes internally.</p>
 
 <iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/paging/local-paging"></iframe>
 
@@ -362,16 +370,16 @@
 
 <h2 id="page-size-selection">Page Size Selection</h2>
 
-<p>To enable page size selection, specify the <code class="highlighter-rouge">allowedPageSizes</code> property of the <code class="highlighter-rouge">PagingPanel</code> plugin.</p>
+<p>Assign an array of available page sizes to the <code class="highlighter-rouge">allowedPageSizes</code> property of the <code class="highlighter-rouge">PagingPanel</code> plugin to enable page size selection. The page size selector contains the ‘All’ item if one of array values is 0. Use the <code class="highlighter-rouge">showAllText</code> property of the <code class="highlighter-rouge">PagingPanel</code> plugin to change its text.</p>
 
-<p>The example below demonstrates the basic configuration for the uncontrolled mode. The <code class="highlighter-rouge">defaultPageSize</code> property of the <code class="highlighter-rouge">PagingState</code> plugin is used to define the initial page size.</p>
+<p>The example below demonstrates the basic configuration for the uncontrolled mode. The <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">defaultPageSize</code> property is used to define the initial page size.</p>
 
 <iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/paging/page-size-selector"></iframe>
 <p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/page-size-selector.jsx">SOURCE</a></p>
 
 <h2 id="controlled-paging-state">Controlled Paging State</h2>
 
-<p>To control the paging state, specify the <code class="highlighter-rouge">currentPage</code> and <code class="highlighter-rouge">pageSize</code> properties of the <code class="highlighter-rouge">PagingState</code> plugin and handle the <code class="highlighter-rouge">onCurrentPageChange</code> event. Specify the <code class="highlighter-rouge">allowedPageSizes</code> property of the <code class="highlighter-rouge">PagingPanel</code> plugin and define the <code class="highlighter-rouge">onPageSizeChanged</code> event handler of the <code class="highlighter-rouge">PagingState</code> plugin to enable page size selection.</p>
+<p>Specify the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">currentPage</code> and <code class="highlighter-rouge">pageSize</code> properties and handle the <code class="highlighter-rouge">onCurrentPageChange</code> event to control the paging state. Specify the <code class="highlighter-rouge">PagingPanel</code> plugin’s <code class="highlighter-rouge">allowedPageSizes</code> property and define the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">onPageSizeChanged</code> event handler to enable page size selection.</p>
 
 <iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/paging/local-paging-controlled"></iframe>
 
@@ -379,9 +387,9 @@
 
 <h2 id="remote-paging">Remote Paging</h2>
 
-<p>If your data service supports paging operations, you can handle the Grid’s paging state changes to request a page from the server according to the active page number and size.</p>
+<p>You can handle the Grid’s paging state changes to request a page from the server according to the active page number and size if your data service supports paging operations.</p>
 
-<p>Handle the <code class="highlighter-rouge">onCurrentPageChange</code> event of the <code class="highlighter-rouge">PagingState</code> plugin to receive updates on the current page number changes instead of using the <code class="highlighter-rouge">LocalSorting</code> plugin to configure remote paging. Pass the data page received from the server to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
+<p>Handle the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">onCurrentPageChange</code> event to receive updates on the current page number changes instead of using the <code class="highlighter-rouge">LocalSorting</code> plugin to configure remote paging. Pass the data page received from the server to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
 
 <iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/paging/remote-paging"></iframe>
 
@@ -435,7 +443,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1497017976"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1498219793"></script>
     <script>
         trackingCookie.check();
     </script>    

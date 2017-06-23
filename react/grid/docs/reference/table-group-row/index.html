@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1497017976">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1498219793">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -125,6 +125,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
         
@@ -359,19 +367,19 @@
   </thead>
   <tbody>
     <tr>
-      <td>groupRowCellTemplate</td>
-      <td>(args: <a href="#group-row-cell-args">GroupRowCellArgs</a>) =&gt; ReactElement</td>
+      <td>groupCellTemplate</td>
+      <td>(args: <a href="#group-cell-args">GroupCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
       <td>A component that renders a group row</td>
     </tr>
     <tr>
       <td>groupIndentCellTemplate</td>
       <td>(args: <a href="#group-indent-cell-args">GroupIndentCellArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
+      <td>null</td>
       <td>A component that renders a group indent cell</td>
     </tr>
     <tr>
-      <td>groupColumnWidth</td>
+      <td>groupIndentColumnWidth</td>
       <td>number</td>
       <td> </td>
       <td>Width of the group indent columns</td>
@@ -381,9 +389,9 @@
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="grouprowcellargs"><a name="group-row-cell-args"></a>GroupRowCellArgs</h3>
+<h3 id="groupcellargs"><a name="group-cell-args"></a>GroupCellArgs</h3>
 
-<p>Describes properties passed to the template that renders a group row.</p>
+<p>Describes the properties passed to the template that renders a group row.</p>
 
 <p>A value with the following shape:</p>
 
@@ -404,7 +412,7 @@
     <tr>
       <td>isExpanded</td>
       <td>boolean</td>
-      <td>Specifies whether or not a row is expanded</td>
+      <td>Specifies if a row is expanded</td>
     </tr>
     <tr>
       <td>toggleGroupExpanded</td>
@@ -519,7 +527,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1497017976"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1498219793"></script>
     <script>
         trackingCookie.check();
     </script>    

@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1497017976">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1498219793">
     <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
 
     <script>
@@ -125,6 +125,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
         
@@ -335,13 +343,16 @@
     <div class="col-md-9 docs-content">
         <h1 id="tableview-plugin-reference">TableView Plugin Reference</h1>
 
-<p>This plugin renders the Grid data as a table. It contains visualization components such as a table view, table view cell that can be extended by other plugins. It also exposes some customization points to manage column span, row height, column width, etc.</p>
+<p>This plugin renders the Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins and provides ways to customize table rows and columns.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
 <h3 id="dependencies">Dependencies</h3>
 
-<p>none</p>
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a> [Optional]</li>
+</ul>
 
 <h3 id="properties">Properties</h3>
 
@@ -369,9 +380,27 @@
     </tr>
     <tr>
       <td>tableNoDataCellTemplate</td>
-      <td>(args: Object) =&gt; ReactElement</td>
+      <td>(args: <a href="#table-no-data-cell-args">TableNoDataCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a table cell for an empty state using the specified parameters</td>
+      <td>Renders a table cell using the specified parameters when the table is empty</td>
+    </tr>
+    <tr>
+      <td>tableStubCellTemplate</td>
+      <td>(args: <a href="#table-stub-cell-args">TableStubCellArgs</a>) =&gt; ReactElement</td>
+      <td> </td>
+      <td>Renders a stub table cell if the cell data is not provided</td>
+    </tr>
+    <tr>
+      <td>tableStubHeaderCellTemplate</td>
+      <td>(args: <a href="#table-stub-header-cell-args">TableStubHeaderCellArgs</a>) =&gt; ReactElement</td>
+      <td> </td>
+      <td>Renders a stub header cell if the cell data is not provided</td>
+    </tr>
+    <tr>
+      <td>allowColumnReordering</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>If true, allows an end-user to change the column’s order by dragging it</td>
     </tr>
   </tbody>
 </table>
@@ -380,7 +409,7 @@
 
 <h3 id="tableargs"><a name="table-args"></a>TableArgs</h3>
 
-<p>Describes properties passed to the table template when it is being rendered</p>
+<p>Describes properties passed to the table template when it is being rendered.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -394,12 +423,12 @@
     <tr>
       <td>headerRows</td>
       <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Specifies rows that should be rendered within the table header</td>
+      <td>Specifies rows rendered in the table header</td>
     </tr>
     <tr>
       <td>bodyRows</td>
       <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Specifies rows that should be rendered within the table body</td>
+      <td>Specifies rows rendered in the table body</td>
     </tr>
     <tr>
       <td>columns</td>
@@ -409,14 +438,14 @@
     <tr>
       <td>cellTemplate</td>
       <td>(args: <a href="#cell-args">CellArgs</a>) =&gt; ReactElement</td>
-      <td>A template that should be used to render table cells</td>
+      <td>The template used to render table cells</td>
     </tr>
   </tbody>
 </table>
 
 <h3 id="cellargs"><a name="cell-args"></a>CellArgs</h3>
 
-<p>Describes properties passed to a cell template when it is being rendered</p>
+<p>Describes properties passed to a cell template when it is being rendered.</p>
 
 <p>A value with the following shape:</p>
 
@@ -439,12 +468,17 @@
       <td><a href="#table-column">TableColumn</a></td>
       <td>Specifies a table column</td>
     </tr>
+    <tr>
+      <td>style?</td>
+      <td>Object</td>
+      <td>Specifies cell styles</td>
+    </tr>
   </tbody>
 </table>
 
 <h3 id="tablecellargs"><a name="table-cell-args"></a>TableCellArgs</h3>
 
-<p>Describes properties passed to the table cell template when it is being rendered</p>
+<p>Describes properties passed to the table cell template when it is being rendered.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -465,12 +499,85 @@
       <td><a href="#table-column">TableColumn</a></td>
       <td>Specifies a table column</td>
     </tr>
+    <tr>
+      <td>style?</td>
+      <td>Object</td>
+      <td>Specifies cell styles</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablenodatacellargs"><a name="table-no-data-cell-args"></a>TableNoDataCellArgs</h3>
+
+<p>Describes properties passed to the table cell being rendered when using an empty template.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>style?</td>
+      <td>Object</td>
+      <td>Specifies cell styles</td>
+    </tr>
+    <tr>
+      <td>colspan?</td>
+      <td>number</td>
+      <td>Specifies the number of columns the cell spans</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablestubcellargs"><a name="table-stub-cell-args"></a>TableStubCellArgs</h3>
+
+<p>Describes properties passed to the stub table cell template being rendered.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>style?</td>
+      <td>Object</td>
+      <td>Specifies cell styles</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablestubheadercellargs"><a name="table-stub-header-cell-args"></a>TableStubHeaderCellArgs</h3>
+
+<p>Describes properties passed to the stub header cell template being rendered.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>style?</td>
+      <td>Object</td>
+      <td>Specifies cell styles</td>
+    </tr>
   </tbody>
 </table>
 
 <h3 id="tablerow"><a name="table-row"></a>TableRow</h3>
 
-<p>Describes properties of a table row that is rendered by the TableView plugin</p>
+<p>Describes properties of a table row rendered by the TableView plugin.</p>
 
 <p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></p>
 
@@ -488,14 +595,14 @@
     <tr>
       <td>type?</td>
       <td>string</td>
-      <td>Specifies the table row type. Used to identify a cell template for a rendered row. The type is not defined for rows passed by a user.</td>
+      <td>Specifies the table row type. Defines a cell template used to render a row. The type is not defined for rows passed by a user.</td>
     </tr>
   </tbody>
 </table>
 
 <h3 id="tablecolumn"><a name="table-column"></a>TableColumn</h3>
 
-<p>Describes table column properties taken into account by the TableView plugin</p>
+<p>Describes table column properties that the TableView plugin takes into account.</p>
 
 <p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></p>
 
@@ -513,7 +620,7 @@
     <tr>
       <td>type?</td>
       <td>string</td>
-      <td>Specifies the table column type. Used to identify a cell template to render a column cell. The type property is not defined for data rows</td>
+      <td>Specifies the table column type. Defines a cell template used to render a cell. The type is not defined for data rows</td>
     </tr>
   </tbody>
 </table>
@@ -581,13 +688,7 @@
       <td>tableExtraProps</td>
       <td>Getter</td>
       <td>() =&gt; { [key: string]: any }</td>
-      <td>Additional table properties that can be provided by other plugins</td>
-    </tr>
-    <tr>
-      <td>tableView</td>
-      <td>Template</td>
-      <td> </td>
-      <td>A template that renders a table</td>
+      <td>Additional table properties that other plugins can provide</td>
     </tr>
     <tr>
       <td>tableViewCell</td>
@@ -641,7 +742,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1497017976"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1498219793"></script>
     <script>
         trackingCookie.check();
     </script>    

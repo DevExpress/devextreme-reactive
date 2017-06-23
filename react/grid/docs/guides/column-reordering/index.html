@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TableSelection Plugin Reference - DevExtreme Reactive Components</title>
+    <title>React Grid Column Reordering - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -132,7 +132,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
+          <li>Column Reordering</li>
           
 
         
@@ -267,7 +267,7 @@
           
 
           
-          <li>TableSelection</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a></li>
           
 
         
@@ -341,147 +341,47 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="tableselection-plugin-reference">TableSelection Plugin Reference</h1>
+        <h1 id="react-grid-column-reordering">React Grid Column Reordering</h1>
 
-<p>This plugin visualizes the selection state within a table by rendering selection checkboxes and highlighting selected rows.</p>
+<h2 id="overview">Overview</h2>
 
-<h2 id="user-reference">User Reference</h2>
+<p>The Grid component allows reordering grid columns using the drag-and-drop feature.</p>
 
-<h3 id="dependencies">Dependencies</h3>
+<h2 id="plugin-list">Plugin List</h2>
 
+<p>The following plugins implement column reordering features:</p>
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a></li>
 </ul>
 
-<h3 id="properties">Properties</h3>
+<p>Note that the <a href="../../#plugin-order">plugin order</a> is important.</p>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>highlightSelected</td>
-      <td>boolean</td>
-      <td>false</td>
-      <td>If true, selected rows are highlighted</td>
-    </tr>
-    <tr>
-      <td>selectByRowClick</td>
-      <td>boolean</td>
-      <td>false</td>
-      <td>If true, a selected row is toggled by click</td>
-    </tr>
-    <tr>
-      <td>showSelectAll</td>
-      <td>boolean</td>
-      <td>true</td>
-      <td>If true, the ‘select all’ checkbox is rendered inside the heading row</td>
-    </tr>
-    <tr>
-      <td>showSelectionColumn</td>
-      <td>boolean</td>
-      <td>false</td>
-      <td>If true, selection checkboxes are rendered inside each data row</td>
-    </tr>
-    <tr>
-      <td>selectCellTemplate</td>
-      <td>(args: <a href="#select-cell-args">SelectCellArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
-      <td>A component that renders a data row selection checkbox</td>
-    </tr>
-    <tr>
-      <td>selectAllCellTemplate</td>
-      <td>(args: <a href="#select-all-cell-args">SelectAllCellArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
-      <td>A component that renders the Select All checkbox</td>
-    </tr>
-    <tr>
-      <td>selectionColumnWidth</td>
-      <td>number</td>
-      <td> </td>
-      <td>Width of the selection column</td>
-    </tr>
-  </tbody>
-</table>
+<h2 id="column-reordering-setup">Column Reordering Setup</h2>
 
-<h2 id="interfaces">Interfaces</h2>
+<p>You need to use the <code class="highlighter-rouge">ColumnOrderState</code>, <code class="highlighter-rouge">DragDropContext</code>, <code class="highlighter-rouge">TableView</code> and <code class="highlighter-rouge">TableRowDetail</code> plugins to set up a simple Grid with column reordering enabled.</p>
 
-<h3 id="selectallcellargs"><a name="select-all-cell-args"></a>SelectAllCellArgs</h3>
+<p>In the uncontrolled state mode, specify the initial column order by the <code class="highlighter-rouge">defaultOrder</code> property of the <code class="highlighter-rouge">ColumnOrderState</code> plugin.</p>
 
-<p>Describes properties passed to the template that renders a cell with a selection control.</p>
+<p>The following setup is required to enable end-user interactions:</p>
+<ul>
+  <li>set the <code class="highlighter-rouge">TableView</code> plugin’s <code class="highlighter-rouge">allowColumnReordering</code> property to true;</li>
+  <li>set the <code class="highlighter-rouge">TableHeaderRow</code> plugin’s <code class="highlighter-rouge">allowDragging</code> property to true.</li>
+</ul>
 
-<p>A value with the following shape:</p>
+<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/column-reordering/uncontrolled"></iframe>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>selectionAvailable</td>
-      <td>boolean</td>
-      <td>True if at least one row can be seleced</td>
-    </tr>
-    <tr>
-      <td>allSelected</td>
-      <td>boolean</td>
-      <td>True if all the rows available to select are selected</td>
-    </tr>
-    <tr>
-      <td>someSelected</td>
-      <td>boolean</td>
-      <td>True if at least one but not all rows available to select are selected</td>
-    </tr>
-    <tr>
-      <td>toggleAll</td>
-      <td>() =&gt; void</td>
-      <td>Selects or deselects all rows</td>
-    </tr>
-  </tbody>
-</table>
+<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/column-reordering/uncontrolled.jsx">SOURCE</a></p>
 
-<h3 id="selectcellargs"><a name="select-cell-args"></a>SelectCellArgs</h3>
+<h2 id="controlled-mode">Controlled Mode</h2>
 
-<p>Describes properties passed to a template that renders a cell with the selection control inside the heading row.</p>
+<p>Pass the column order to the <code class="highlighter-rouge">order</code> property of the <code class="highlighter-rouge">ColumnOrderState</code> plugin and handle the <code class="highlighter-rouge">onOrderChange</code> event to control the column order state.</p>
 
-<p>A value with the following shape:</p>
+<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/column-reordering/controlled"></iframe>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>selected</td>
-      <td>boolean</td>
-      <td>Specifies whether or not a row is selected</td>
-    </tr>
-    <tr>
-      <td>changeSelected</td>
-      <td>() =&gt; void</td>
-      <td>Selects or deselects a row</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<p>To be described…</p>
+<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/column-reordering/controlled.jsx">SOURCE</a></p>
 
     </div>
   </div>

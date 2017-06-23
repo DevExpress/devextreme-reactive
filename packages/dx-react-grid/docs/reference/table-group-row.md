@@ -61,8 +61,8 @@ value | any | A value that unites all the rows inside a group
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns to group by
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state
 tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
@@ -71,4 +71,4 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns with groups
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the ones by which the table is grouped

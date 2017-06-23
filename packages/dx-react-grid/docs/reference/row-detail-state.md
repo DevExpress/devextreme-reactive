@@ -26,5 +26,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-setDetailRowExpanded | Action | ({ rowId }) => void | Expands the row specified
-expandedRows | Getter | Array&lt;number &#124; string&gt; | Rows that are currently expanded
+setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row
+expandedRows | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows

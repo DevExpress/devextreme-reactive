@@ -13,8 +13,10 @@ export const styleSheet = createStyleSheet('EditCell', theme => ({
   cell: {
     verticalAlign: 'top',
     paddingTop: theme.spacing.unit + 2,
-    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+    '& ~ $cell': {
+      paddingLeft: theme.spacing.unit,
+    },
   },
   inputRoot: {
     width: '100%',

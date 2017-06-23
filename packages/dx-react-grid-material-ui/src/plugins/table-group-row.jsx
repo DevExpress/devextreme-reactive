@@ -8,7 +8,7 @@ const groupCellTemplate = props => <TableGroupCell {...props} />;
 export const TableGroupRow = props => (
   <TableGroupRowBase
     groupCellTemplate={groupCellTemplate}
-    groupIndentColumnWidth={24}
+    groupIndentColumnWidth={16}
     {...props}
   />
 );

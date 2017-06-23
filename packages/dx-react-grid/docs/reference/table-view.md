@@ -117,9 +117,9 @@ columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendere
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table header
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table body
-tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered inside the table
+tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered
+tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
+tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered
 tableExtraProps | Getter | { [key: string]: any } | Additional table properties that other plugins can provide
 tableView | Template | none | A template that renders a table
 tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders a table cell

@@ -38,16 +38,16 @@ onValueChange | (newValue: any) => void | Handles value changes
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
-editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows that are currently being edited
-addedRows | Getter | Array&lt;Object&gt; | Newly created rows
+editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows being edited
+addedRows | Getter | Array&lt;Object&gt; | The created rows
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
-changedRows | Getter | { [key: string]: Object } | Changed rows that are not yet committed
+changedRows | Getter | { [key: string]: Object } | Uncommitted changed rows
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row
-changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is represented by the new row index within all new rows created but not yet committed
+changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is a row index within the `addedRows` array
 tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table data rows along with editing rows
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table data rows including editing rows

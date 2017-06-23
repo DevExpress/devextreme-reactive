@@ -15,6 +15,8 @@ import {
   getTableTargetColumnIndex,
 } from '@devexpress/dx-grid-core';
 
+const FLEX_TYPE = 'flex';
+
 const getColumnStyle = ({ column }) => ({
   width: column.width !== undefined ? `${column.width}px` : undefined,
 });
@@ -93,10 +95,10 @@ export class TableLayout extends React.PureComponent {
 
       let result = columns;
 
-      const staticWidth = columns.filter(column => column.width === undefined).length === 0;
-      if (staticWidth) {
+      const isFixedWidth = columns.filter(column => column.width === undefined).length === 0;
+      if (isFixedWidth) {
         result = result.slice();
-        result.push({ type: 'spring' });
+        result.push({ type: FLEX_TYPE });
       }
 
       if (sourceColumnIndex !== -1 && targetColumnIndex !== -1) {
@@ -175,7 +177,7 @@ export class TableLayout extends React.PureComponent {
     } = this.props;
     const columns = this.getColumns();
     const minWidth = columns
-      .map(column => column.width || (column.type === 'spring' ? 0 : minColumnWidth))
+      .map(column => column.width || (column.type === FLEX_TYPE ? 0 : minColumnWidth))
       .reduce((accum, width) => accum + width, 0);
 
     const table = tableTemplate({

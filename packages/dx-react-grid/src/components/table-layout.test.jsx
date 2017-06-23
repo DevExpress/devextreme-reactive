@@ -229,8 +229,8 @@ describe('TableLayout', () => {
       .toMatchObject({ row: rows[1], column: columns[1], e: {} });
   });
 
-  describe('spring column', () => {
-    it('should add spring column if all columns have concrete widths', () => {
+  describe('flex column', () => {
+    it('should add flex column if all columns have fixed widths', () => {
       const rows = [{ id: 1 }, { id: 2 }];
       const columns = [{ name: 'a', width: 100 }, { name: 'b', width: 100 }];
       const tree = mount(

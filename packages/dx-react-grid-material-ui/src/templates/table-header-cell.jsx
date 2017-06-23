@@ -44,8 +44,10 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     textAlign: 'right',
   },
   cell: {
-    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+    '& ~ $cell': {
+      paddingLeft: theme.spacing.unit,
+    },
   },
   cellNoUserSelect: {
     userSelect: 'none',

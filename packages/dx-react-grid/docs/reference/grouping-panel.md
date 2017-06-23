@@ -62,8 +62,8 @@ groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns of the table
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns to group by
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
 
 ### Exports
 

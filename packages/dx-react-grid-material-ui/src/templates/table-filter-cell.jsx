@@ -8,8 +8,10 @@ const styleSheet = createStyleSheet('TableFilterCell', theme => ({
   cell: {
     verticalAlign: 'top',
     paddingTop: theme.spacing.unit + 4,
-    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+    '& ~ $cell': {
+      paddingLeft: theme.spacing.unit,
+    },
   },
   input: {
     width: '100%',

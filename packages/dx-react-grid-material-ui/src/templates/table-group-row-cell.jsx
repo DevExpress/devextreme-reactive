@@ -13,7 +13,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 const styleSheet = createStyleSheet('TableGroupCell', theme => ({
   cell: {
     cursor: 'pointer',
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit,
   },
   indentCell: {

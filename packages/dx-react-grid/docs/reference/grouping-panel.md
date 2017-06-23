@@ -69,4 +69,4 @@ grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Column
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered inside the table excluding grouped ones
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered excluding the grouped ones

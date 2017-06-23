@@ -63,6 +63,7 @@ gulp.task('site:docs', function() {
       'packages/**/*.md',
       '!packages/**/LICENSE.md',
       '!packages/dx-react-demos/**/*',
+      '!packages/dx-testing/**/*',
       '!/**/node_modules/**/*'
     ])
     .pipe(rename(function(path) {

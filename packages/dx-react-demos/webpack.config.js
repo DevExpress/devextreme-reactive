@@ -38,6 +38,7 @@ module.exports = ({ production }) => ({
   plugins: [
     ...(!production ? [] :
       [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.UglifyJsPlugin({
           sourceMap: true
         })

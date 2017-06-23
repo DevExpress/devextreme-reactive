@@ -39,7 +39,7 @@ const EditCellBase = ({ column, value, onValueChange, classes }) => {
     >
       <Input
         className={classes.inputRoot}
-        inputClassName={inputClasses}
+        classes={{ input: inputClasses }}
         value={value}
         onChange={e => onValueChange(e.target.value)}
       />

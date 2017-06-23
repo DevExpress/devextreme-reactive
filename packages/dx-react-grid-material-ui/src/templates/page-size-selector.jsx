@@ -23,12 +23,18 @@ const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
     },
     pageSizeSelector: {
       paddingRight: theme.spacing.unit * 2,
-      marginTop: 4,
+      marginTop: theme.spacing.unit,
     },
   },
 }));
 
-const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, classes }) => (
+const PageSizeSelectorBase = ({
+  pageSize,
+  onPageSizeChange,
+  allowedPageSizes,
+  showAllText,
+  classes,
+}) => (
   <div className={classes.pageSizeSelector}>
     <span className={classes.label}>
     Rows per page:
@@ -36,6 +42,7 @@ const PageSizeSelectorBase = ({ pageSize, onPageSizeChange, allowedPageSizes, cl
     <DropDownMenu
       selectedItem={pageSize}
       items={allowedPageSizes}
+      itemTemplate={title => title || showAllText}
       onItemClick={(item) => {
         onPageSizeChange(item);
       }}
@@ -48,7 +55,12 @@ PageSizeSelectorBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  showAllText: PropTypes.string,
   classes: PropTypes.object.isRequired,
+};
+
+PageSizeSelectorBase.defaultProps = {
+  showAllText: 'All',
 };
 
 export const PageSizeSelector = withStyles(styleSheet)(PageSizeSelectorBase);

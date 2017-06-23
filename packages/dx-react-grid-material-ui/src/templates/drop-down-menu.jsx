@@ -35,14 +35,13 @@ class DropDownMenuBase extends React.PureComponent {
 
   constructor(props) {
     super(props);
-
-    const selectedItem = this.props.selectedItem;
+    const { selectedItem, items, defaultTitle, itemTemplate } = this.props;
 
     this.state = {
       anchorEl: undefined,
       open: false,
-      selectedIndex: this.props.items.findIndex(item => item === selectedItem),
-      title: this.props.defaultTitle || selectedItem,
+      selectedIndex: items.findIndex(item => item === selectedItem),
+      title: defaultTitle || (itemTemplate ? itemTemplate(selectedItem) : selectedItem),
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -55,12 +54,17 @@ class DropDownMenuBase extends React.PureComponent {
   }
 
   handleMenuItemClick(event, index) {
-    let title = this.props.items[index];
-    if (index === 0 && this.props.defaultTitle) {
-      title = this.props.defaultTitle;
+    const { items, defaultTitle, itemTemplate, onItemClick } = this.props;
+    let title = items[index];
+
+    if (index === 0 && defaultTitle) {
+      title = defaultTitle;
+    } else if (itemTemplate) {
+      title = itemTemplate(title);
     }
 
-    this.props.onItemClick(title, index);
+    onItemClick(items[index], index);
+
     this.setState({
       selectedIndex: index,
       open: false,
@@ -73,7 +77,7 @@ class DropDownMenuBase extends React.PureComponent {
   }
 
   render() {
-    const { items, classes, className } = this.props;
+    const { items, classes, className, itemTemplate } = this.props;
     const { anchorEl, open, selectedIndex, title } = this.state;
     const titleClasses = classNames({
       [classes.title]: true,
@@ -106,7 +110,7 @@ class DropDownMenuBase extends React.PureComponent {
               selected={index === selectedIndex}
               onClick={event => this.handleMenuItemClick(event, index)}
             >
-              {item}
+              {itemTemplate ? itemTemplate(item) : item}
             </MenuItem>
           ))}
         </Menu>
@@ -130,6 +134,7 @@ DropDownMenuBase.propTypes = {
   ])).isRequired,
   classes: PropTypes.object.isRequired,
   onItemClick: PropTypes.func.isRequired,
+  itemTemplate: PropTypes.func,
   className: PropTypes.string,
 };
 
@@ -137,6 +142,7 @@ DropDownMenuBase.defaultProps = {
   className: null,
   selectedItem: undefined,
   defaultTitle: undefined,
+  itemTemplate: undefined,
 };
 
 export const DropDownMenu = withStyles(styleSheet)(DropDownMenuBase);

@@ -9,14 +9,15 @@ const styleSheet = createStyleSheet('TableDetailCell', theme => ({
   },
 }));
 
-const TableDetailCellBase = ({ colspan, style, template, classes }) =>
+const TableDetailCellBase = ({ colspan, style, template, classes }) => (
   <TableCell
     style={style}
     colSpan={colspan}
     className={classes.active}
   >
     {template()}
-  </TableCell>;
+  </TableCell>
+);
 
 TableDetailCellBase.propTypes = {
   style: PropTypes.shape(),

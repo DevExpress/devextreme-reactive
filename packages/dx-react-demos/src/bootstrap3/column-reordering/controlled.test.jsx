@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { ControlledDemo } from './controlled';
 
 describe('BS3 column reordering: controlled demo', () => {
-  test('should work', () => {
+  it('should work', () => {
     mount(
       <ControlledDemo />,
     );

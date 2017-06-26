@@ -26,8 +26,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-filter | string | A filter applied to a column
-setFilter | (filter: string) => void | Set a new filter value for a column
+filter | [Filter](filtering-state.md#filter) | A filter applied to a column
+setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Set a new filter value for a column
+style? | Object | Specifies the filter cell styles
 
 ## Plugin Developer Reference
 

@@ -1,3 +1,44 @@
+<a name="1.0.0-alpha.4"></a>
+# [1.0.0-alpha.4](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2017-06-23)
+
+
+### Bug Fixes
+
+* **react-grid:** Add a vertical space between grouping buttons ([#151](https://github.com/DevExpress/devextreme-reactive/issues/151)) ([ec1bd30](https://github.com/DevExpress/devextreme-reactive/commit/ec1bd30))
+* **react-grid:** Add an offset for left column in Material UI ([#156](https://github.com/DevExpress/devextreme-reactive/issues/156)) ([67d0eda](https://github.com/DevExpress/devextreme-reactive/commit/67d0eda))
+* **react-grid:** Fix incorrect table layout if all columns have fixed width ([#160](https://github.com/DevExpress/devextreme-reactive/issues/160)) ([b933aea](https://github.com/DevExpress/devextreme-reactive/commit/b933aea))
+* **react-grid:** Put the dx-react-grid dependencies in order ([#148](https://github.com/DevExpress/devextreme-reactive/issues/148)) ([fe60801](https://github.com/DevExpress/devextreme-reactive/commit/fe60801))
+* **react-grid:** Update deps (fixes [#134](https://github.com/DevExpress/devextreme-reactive/issues/134)) ([#139](https://github.com/DevExpress/devextreme-reactive/issues/139)) ([5bf504a](https://github.com/DevExpress/devextreme-reactive/commit/5bf504a))
+
+
+### Code Refactoring
+
+* **react-grid:** Rename detailToggleTemplate to detailToggleCellTemplate ([#146](https://github.com/DevExpress/devextreme-reactive/issues/146)) ([bd49b0e](https://github.com/DevExpress/devextreme-reactive/commit/bd49b0e))
+* **react-grid:** Rename groupColumnWidth to groupIndentColumnWidth ([#145](https://github.com/DevExpress/devextreme-reactive/issues/145)) ([e78b55f](https://github.com/DevExpress/devextreme-reactive/commit/e78b55f))
+* **react-grid:** Rename groupRowCellTemplate to groupCellTemplate ([#153](https://github.com/DevExpress/devextreme-reactive/issues/153)) ([fec0aac](https://github.com/DevExpress/devextreme-reactive/commit/fec0aac))
+
+
+### Features
+
+* **react-grid:** Ability to show all rows on a page via page size selector ([#150](https://github.com/DevExpress/devextreme-reactive/issues/150)) ([8af3dde](https://github.com/DevExpress/devextreme-reactive/commit/8af3dde))
+* **react-grid:** Implement column reordering ([#128](https://github.com/DevExpress/devextreme-reactive/issues/128)) ([1de1c63](https://github.com/DevExpress/devextreme-reactive/commit/1de1c63))
+* **react-grid:** TableView support stub cell rendering if no data for cell is provided ([#155](https://github.com/DevExpress/devextreme-reactive/issues/155)) ([34dee6c](https://github.com/DevExpress/devextreme-reactive/commit/34dee6c))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** The following package has become a peer dependency of the `@devexpress/dx-react-grid` one and has to be installed by your app:
+
+  ```
+  npm i --save @devexpress/dx-react-core
+  ```
+
+* **react-grid:** The 'groupRowCellTemplate' property of the TableGroupRow plugin has been renamed to 'groupCellTemplate'
+* **react-grid:** We renamed the `detailToggleTemplate` property of the TableRowDetail plugin to `detailToggleCellTemplate` to make it consistent with the `detailToggleCellWidth` property.
+* **react-grid:** The groupColumnWidth property of the TableGroupRow plugin has been renamed to groupIndentColumnWidth to avoid possible confusion of what it is responsible for.
+
+
+
 <a name="1.0.0-alpha.3"></a>
 # [1.0.0-alpha.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2017-06-09)
 

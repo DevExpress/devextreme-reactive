@@ -3,50 +3,40 @@ import React from 'react';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-  ColumnOrderState,
+  ColumnOrderState, RowDetailState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext,
+  PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { MuiThemeProvider } from 'material-ui/styles';
-
-import {
-  ProgressBarCell,
-} from './templates/progress-bar-cell';
-import {
-  HighlightedCell,
-} from './templates/highlighted-cell';
 
 import {
   generateRows,
   globalSalesValues,
 } from '../../demoData';
 
-const createGrid = () => ({ rows, columns, allowedPageSizes }) => (<Grid
+const createGrid = () => ({ rows, columns, allowedPageSizes, rowTemplate }) => (<Grid
   rows={rows}
   columns={columns}
 >
   <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
 
-  <FilteringState
-    defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
-  />
+  <FilteringState />
   <SortingState
     defaultSorting={[
       { columnName: 'product', direction: 'asc' },
-      { columnName: 'saleDate', direction: 'asc' },
     ]}
   />
-  <GroupingState
-    defaultGrouping={[{ columnName: 'product' }]}
-    defaultExpandedGroups={['EnviroCare Max']}
-  />
+  <GroupingState />
   <PagingState
     defaultCurrentPage={0}
     defaultPageSize={10}
+  />
+  <RowDetailState
+    defaultExpandedRows={[2, 5]}
   />
 
   <LocalFiltering />
@@ -60,21 +50,7 @@ const createGrid = () => ({ rows, columns, allowedPageSizes }) => (<Grid
 
   <DragDropContext />
 
-  <TableView
-    tableCellTemplate={({ row, column }) => {
-      if (column.name === 'discount') {
-        return (
-          <ProgressBarCell value={row.discount * 100} />
-        );
-      } else if (column.name === 'amount') {
-        return (
-          <HighlightedCell align={column.align} value={row.amount} />
-        );
-      }
-      return undefined;
-    }}
-    allowColumnReordering
-  />
+  <TableView allowColumnReordering />
 
   <TableHeaderRow allowSorting allowGrouping allowDragging />
   <TableFilterRow />
@@ -82,6 +58,9 @@ const createGrid = () => ({ rows, columns, allowedPageSizes }) => (<Grid
     allowedPageSizes={allowedPageSizes}
   />
   <TableSelection />
+  <TableRowDetail
+    template={rowTemplate}
+  />
   <TableGroupRow />
   <GroupingPanel allowSorting />
 </Grid>);
@@ -102,6 +81,7 @@ export class ThemingDemo extends React.PureComponent {
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       allowedPageSizes: [5, 10, 15],
     };
+    this.rowTemplate = ({ row }) => <div>Details for {row.product} from {row.region}</div>;
   }
   render() {
     const { rows, columns, allowedPageSizes } = this.state;
@@ -113,6 +93,7 @@ export class ThemingDemo extends React.PureComponent {
           rows={rows}
           columns={columns}
           allowedPageSizes={allowedPageSizes}
+          rowTemplate={this.rowTemplate}
         />
       </MuiThemeProvider>
     );

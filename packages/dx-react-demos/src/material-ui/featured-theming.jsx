@@ -1,10 +1,7 @@
 import React from 'react';
-
 import { createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
-
 import { Nav, NavItem } from 'react-bootstrap';
-
 import { ThemingDemo } from './featured/theming';
 
 const createTheme = themeKey => createMuiTheme({

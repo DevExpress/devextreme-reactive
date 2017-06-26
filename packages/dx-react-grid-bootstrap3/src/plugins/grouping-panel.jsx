@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { combineTemplates } from '@devexpress/dx-react-core';
 import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-grid';
 
 import { GroupPanel } from '../templates/group-panel';
@@ -14,7 +15,10 @@ export const GroupingPanel = ({ groupByColumnText, groupPanelCellTemplate, ...re
       props => (
         <GroupPanel
           groupByColumnText={groupByColumnText}
-          groupPanelCellTemplate={groupPanelCellTemplate || defaultCellTemplate}
+          groupPanelCellTemplate={combineTemplates(
+            groupPanelCellTemplate,
+            defaultCellTemplate,
+          )}
           {...props}
         />
       )

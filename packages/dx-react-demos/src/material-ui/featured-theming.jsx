@@ -3,48 +3,52 @@ import React from 'react';
 import { createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
 
-import { FormControl } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 
 import { ThemingDemo } from './featured/theming';
 
-const createTheme = theme => createMuiTheme({
+const createTheme = themeKey => createMuiTheme({
   palette: createPalette({
-    type: theme,
+    type: themeKey,
   }),
 });
 
 export class FeaturedThemingDemos extends React.PureComponent {
   constructor(props) {
     super(props);
+    const currentThemeKey = 'light';
+
     this.state = {
-      theme: createTheme('light'),
+      currentThemeKey,
+      currentTheme: createTheme(currentThemeKey),
     };
     this.changeTheme = this.changeTheme.bind(this);
   }
 
-  changeTheme(evt) {
-    this.setState({ theme: createTheme(evt.target.value) });
+  changeTheme(themeKey) {
+    this.setState({ currentTheme: createTheme(themeKey), currentThemeKey: themeKey });
   }
 
   render() {
+    const { currentTheme, currentThemeKey } = this.state;
     return (<div>
       <h1>Grid Theming</h1>
       <p>
         Description...
       </p>
 
-      <FormControl
-        componentClass="select"
-        placeholder="Choose theme"
-        onChange={this.changeTheme}
+      <Nav
+        bsStyle="tabs"
+        activeKey={currentThemeKey}
+        onSelect={this.changeTheme}
         style={{ marginBottom: '20px' }}
       >
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </FormControl>
+        <NavItem eventKey="light" title="Light">Light</NavItem>
+        <NavItem eventKey="dark" title="Dark">Dark</NavItem>
+      </Nav>
 
       <ThemingDemo
-        theme={this.state.theme}
+        theme={currentTheme}
       />
 
       <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/material-ui/featured/theming.jsx">

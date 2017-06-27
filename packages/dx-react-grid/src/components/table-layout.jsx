@@ -1,3 +1,5 @@
+/* globals requestAnimationFrame */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
@@ -15,28 +17,102 @@ import {
   getTableTargetColumnIndex,
 } from '@devexpress/dx-grid-core';
 
+const easingFunctions = {
+  linear: t => t,
+  easeInQuad: t => t * t,
+  easeOutQuad: t => t * (2 - t),
+  easeInOutQuad: t => (t < 0.5 ? 2 * t * t : -1 + ((4 - (2 * t)) * t)),
+  easeInCubic: t => t * t * t,
+  easeOutCubic: t => ((t - 1) * (t - 1) * (t - 1)) + 1,
+  easeInOutCubic: t => (t < 0.5 ? 4 * t * t * t : ((t - 1) * ((2 * t) - 2) * ((2 * t) - 2)) + 1),
+  easeInQuart: t => t * t * t * t,
+  easeOutQuart: t => 1 - ((t - 1) * (t - 1) * (t - 1) * (t - 1)),
+  easeInOutQuart: t => (t < 0.5 ? 8 * t * t * t * t : 1 - (8 * (t - 1) * (t - 1) * (t - 1) * (t - 1))),
+  easeInQuint: t => t * t * t * t * t,
+  easeOutQuint: t => 1 + ((t - 1) * (t - 1) * (t - 1) * (t - 1) * (t - 1)),
+  easeInOutQuint: t => (t < 0.5 ? 16 * t * t * t * t * t : 1 + (16 * (t - 1) * (t - 1) * (t - 1) * (t - 1) * (t - 1))),
+};
+
 const FLEX_TYPE = 'flex';
 
-const getColumnStyle = ({ column }) => ({
+const ANIMATION_DURATION = 200;
+
+const getAnimations = (prevColumns, nextColumns, tableWidth, draggingColumnKey, prevAnimations) => {
+  const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
+    .map((geometry, index) => [tableColumnKeyGetter(prevColumns[index], index), geometry])
+    .map(([key, geometry]) => {
+      const animation = prevAnimations.get(key);
+      if (!animation) return [key, geometry];
+      const progress = easingFunctions.easeOutCubic((new Date().getTime() - animation.startTime) / ANIMATION_DURATION);
+      const left = ((animation.left.to - animation.left.from) * progress) + animation.left.from;
+      return [key, {
+        left,
+        right: geometry.right - (geometry.left - left),
+      }];
+    }));
+
+  const nextColumnGeometries = new Map(getTableColumnGeometries(nextColumns, tableWidth)
+    .map((geometry, index) => [tableColumnKeyGetter(nextColumns[index], index), geometry]));
+
+  return new Map([...nextColumnGeometries.keys()]
+    .map((key) => {
+      const prev = prevColumnGeometries.get(key);
+      const next = nextColumnGeometries.get(key);
+
+      const result = { startTime: new Date().getTime(), style: {} };
+      if (Math.abs(prev.left - next.left) > 1) {
+        result.left = { from: prev.left, to: next.left };
+      }
+      if (draggingColumnKey === key) {
+        result.style = {
+          zIndex: 100,
+          position: 'relative',
+        };
+      }
+      return [key, result];
+    })
+    .filter(animation => animation[1].left));
+};
+
+const filterAnimations = animations => new Map([...animations.entries()]
+  .filter(([, animation]) => (new Date().getTime() - animation.startTime) < ANIMATION_DURATION));
+
+const evalAnimations = animations => new Map([...animations.entries()]
+  .map(([key, animation]) => {
+    const progress = easingFunctions.easeOutCubic((new Date().getTime() - animation.startTime) / ANIMATION_DURATION);
+    const result = { ...animation.style };
+    if (animation.left) {
+      const offset = (animation.left.to - animation.left.from) * (progress - 1);
+      result.transform = `translateX(${offset}px)`;
+    }
+    return [key, result];
+  }));
+
+const getColumnStyle = ({ column, animationState = {} }) => ({
   width: column.width !== undefined ? `${column.width}px` : undefined,
+  ...animationState,
 });
 
 const getRowStyle = ({ row }) => ({
   height: row.height !== undefined ? `${row.height}px` : undefined,
 });
 
-const renderRowCells = ({ row, columns, cellTemplate }) =>
+const renderRowCells = ({ row, columns, cellTemplate, animationState }) =>
   columns
     .filter((column, columnIndex) => !getTableCellInfo({ row, columns, columnIndex }).skip)
-    .map((column, columnIndex) => React.cloneElement(
-      cellTemplate({
-        row,
-        column,
-        colspan: getTableCellInfo({ row, columns, columnIndex }).colspan,
-        style: getColumnStyle({ column }),
-      }),
-      { key: tableColumnKeyGetter(column, columnIndex) },
-    ));
+    .map((column, columnIndex) => {
+      const key = tableColumnKeyGetter(column, columnIndex);
+
+      return React.cloneElement(
+        cellTemplate({
+          row,
+          column,
+          colspan: getTableCellInfo({ row, columns, columnIndex }).colspan,
+          style: getColumnStyle({ column, animationState: animationState.get(key) }),
+        }),
+        { key },
+      );
+    });
 
 const renderRows = ({
   rows,
@@ -44,13 +120,14 @@ const renderRows = ({
   columns,
   rowTemplate,
   cellTemplate,
+  animationState,
 }) =>
   rows
     .map((row, rowIndex) => React.cloneElement(
       rowTemplate({
         row,
         style: getRowStyle({ row }),
-        children: renderRowCells({ row, columns, cellTemplate }),
+        children: renderRowCells({ row, columns, cellTemplate, animationState }),
       }),
       { key: tableRowKeyGetter(getRowId, row, rowIndex) },
     ));
@@ -63,6 +140,7 @@ const renderRowsBlock = ({
   rowTemplate,
   cellTemplate,
   onClick,
+  animationState,
 }) => blockTemplate({
   onClick: (e) => {
     const { rowIndex, columnIndex } = findTableCellTarget(e);
@@ -75,6 +153,7 @@ const renderRowsBlock = ({
     columns,
     rowTemplate,
     cellTemplate,
+    animationState,
   }),
 });
 
@@ -85,9 +164,15 @@ export class TableLayout extends React.PureComponent {
     this.state = {
       sourceColumnIndex: -1,
       targetColumnIndex: -1,
+
+      animationState: new Map(),
     };
 
+    this.animations = new Map();
+
     this.tableNode = null;
+    // eslint-disable-next-line react/no-find-dom-node
+    this.tableRect = () => findDOMNode(this.tableNode).getBoundingClientRect();
 
     this.getColumns = () => {
       const { columns } = this.props;
@@ -112,8 +197,7 @@ export class TableLayout extends React.PureComponent {
     };
     this.onOver = ({ payload, clientOffset }) => {
       const sourceColumnName = payload[0].columnName;
-      // eslint-disable-next-line react/no-find-dom-node
-      const tableRect = findDOMNode(this.tableNode).getBoundingClientRect();
+      const tableRect = this.tableRect();
       const columns = this.getColumns();
       const columnGeometries = getTableColumnGeometries(columns, tableRect.width);
       const targetColumnIndex = getTableTargetColumnIndex(
@@ -121,7 +205,9 @@ export class TableLayout extends React.PureComponent {
         columns.findIndex(c => c.name === sourceColumnName),
         clientOffset.x - tableRect.left);
 
-      if (targetColumnIndex === -1 || columns[targetColumnIndex].type) return;
+      if (targetColumnIndex === -1 ||
+        columns[targetColumnIndex].type ||
+        targetColumnIndex === this.state.targetColumnIndex) return;
 
       const { sourceColumnIndex } = this.state;
       this.setState({
@@ -130,12 +216,25 @@ export class TableLayout extends React.PureComponent {
           : sourceColumnIndex,
         targetColumnIndex,
       });
+
+      this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
+        tableColumnKeyGetter(this.props.columns[this.state.sourceColumnIndex]), this.animations);
+      this.processAnimationFrame();
     };
     this.onLeave = () => {
+      const columns = this.getColumns();
+      const tableRect = this.tableRect();
+
+      const sourceColumnIndex = this.state.sourceColumnIndex;
+
       this.setState({
         sourceColumnIndex: -1,
         targetColumnIndex: -1,
       });
+
+      this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
+        tableColumnKeyGetter(this.props.columns[sourceColumnIndex]), this.animations);
+      this.processAnimationFrame();
     };
     this.onDrop = () => {
       const { sourceColumnIndex, targetColumnIndex } = this.state;
@@ -159,6 +258,21 @@ export class TableLayout extends React.PureComponent {
       });
     }
   }
+  processAnimationFrame() {
+    this.animations = filterAnimations(this.animations);
+
+    if (!this.animations.size) {
+      if (this.state.animationState.size) {
+        this.setState({ animationState: new Map() });
+      }
+      return;
+    }
+
+    const animationState = evalAnimations(this.animations);
+    this.setState({ animationState });
+
+    requestAnimationFrame(this.processAnimationFrame.bind(this));
+  }
   render() {
     const {
       headerRows,
@@ -175,6 +289,7 @@ export class TableLayout extends React.PureComponent {
       className,
       style,
     } = this.props;
+    const { animationState } = this.state;
     const columns = this.getColumns();
     const minWidth = columns
       .map(column => column.width || (column.type === FLEX_TYPE ? 0 : minColumnWidth))
@@ -196,6 +311,7 @@ export class TableLayout extends React.PureComponent {
             rowTemplate,
             cellTemplate,
             onClick,
+            animationState,
           }),
           { key: 'head' },
         ),
@@ -208,6 +324,7 @@ export class TableLayout extends React.PureComponent {
             rowTemplate,
             cellTemplate,
             onClick,
+            animationState,
           }),
           { key: 'body' },
         ),

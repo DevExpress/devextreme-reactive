@@ -28,6 +28,7 @@ Field | Type | Description
 ------|------|------------
 filter | [Filter](filtering-state.md#filter) | A filter applied to a column
 setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Set a new filter value for a column
+column | [TableColumn](table-view.md#table-column) | Specifies a table column
 style? | Object | Specifies the filter cell styles
 
 ## Plugin Developer Reference

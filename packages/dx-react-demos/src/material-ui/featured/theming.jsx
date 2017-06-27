@@ -1,4 +1,3 @@
-/* eslint react/prop-types: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -20,7 +19,7 @@ import {
   employeeTaskValues,
 } from '../../demoData';
 
-const styleSheet = createStyleSheet('ReduxIntegrationDemo', () => ({
+const styleSheet = createStyleSheet('ThemingDemo', () => ({
   detailContainer: {
     margin: 20,
   },
@@ -52,6 +51,7 @@ GridDetailContainerBase.propTypes = {
 
 const GridDetailContainer = withStyles(styleSheet)(GridDetailContainerBase);
 
+// eslint-disable-next-line
 const createGrid = () => ({ rows, columns, allowedPageSizes, detailColumns }) => (<Grid
   rows={rows}
   columns={columns}
@@ -154,3 +154,7 @@ export class ThemingDemo extends React.PureComponent {
     );
   }
 }
+
+ThemingDemo.propTypes = {
+  theme: PropTypes.object.isRequired,
+};

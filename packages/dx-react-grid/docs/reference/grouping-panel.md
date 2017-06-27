@@ -1,6 +1,6 @@
 # GroupingPanel Plugin Reference
 
-A plugin that renders a panel showing grouped columns in the Grid's header. An end-user can change the grouping options by interacting with this panel.
+A plugin that renders a panel showing grouped columns in the Grid's header. An end-user can use this panel to change the grouping options.
 
 Optionally, the plugin allows an end-user to change grouped columns' sorting order and renders the corresponding sort indicators.
 
@@ -31,7 +31,7 @@ Field | Type | Description
 ------|------|------------
 allowSorting | boolean | Specifies whether an end-user can sort data by a column
 sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column, which is specified using the `columnName` argument. Keeps current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void |Changes the column's sorting direction, specified using the `columnName` argument. Keeps the current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
 groupedColumns | Array&lt;[Column](grid.md#column)&gt; | Columns by which the grid data is currently grouped
 groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
 groupByColumnText | string | The text displayed in the group panel if the grid is not grouped
@@ -47,8 +47,8 @@ Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | Specifies a column associated with the cell
 allowSorting | boolean | Specifies whether an end-user can sort data by a column
-sortingDirection? | 'asc' &#124; 'desc' | Specifies sorting direction
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column, which is specified using the `columnName` argument. Keeps current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
+sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the column's sorting direction, specified using the `columnName` argument. Keeps the current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
 groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 ## Plugin Developer Reference

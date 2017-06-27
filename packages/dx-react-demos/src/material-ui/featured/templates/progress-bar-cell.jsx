@@ -16,8 +16,11 @@ const styleSheet = createStyleSheet('ProgressBarCell', theme => ({
   },
 }));
 
-export const ProgressBarCellBase = ({ value, classes }) => (
-  <TableCell className={classes.progressBarCell}>
+export const ProgressBarCellBase = ({ value, classes, style }) => (
+  <TableCell
+    className={classes.progressBarCell}
+    style={style}
+  >
     <div
       className={classes.progressBar}
       style={{ width: `${value}%` }}
@@ -28,6 +31,10 @@ export const ProgressBarCellBase = ({ value, classes }) => (
 ProgressBarCellBase.propTypes = {
   value: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
+  style: PropTypes.object,
+};
+ProgressBarCellBase.defaultProps = {
+  style: {},
 };
 
 export const ProgressBarCell = withStyles(styleSheet)(ProgressBarCellBase);

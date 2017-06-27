@@ -1,35 +1,23 @@
 import React from 'react';
-import { createMuiTheme } from 'material-ui/styles';
-import createPalette from 'material-ui/styles/palette';
-import { blue } from 'material-ui/styles/colors';
 import { Nav, NavItem } from 'react-bootstrap';
 import { ThemingDemo } from './featured/theming';
-
-const createTheme = themeKey => createMuiTheme({
-  palette: createPalette({
-    type: themeKey,
-    primary: blue,
-  }),
-});
 
 export class FeaturedThemingDemos extends React.PureComponent {
   constructor(props) {
     super(props);
-    const currentThemeKey = 'light';
 
     this.state = {
-      currentThemeKey,
-      currentTheme: createTheme(currentThemeKey),
+      currentTheme: 'light',
     };
     this.changeTheme = this.changeTheme.bind(this);
   }
 
-  changeTheme(themeKey) {
-    this.setState({ currentTheme: createTheme(themeKey), currentThemeKey: themeKey });
+  changeTheme(theme) {
+    this.setState({ currentTheme: theme });
   }
 
   render() {
-    const { currentTheme, currentThemeKey } = this.state;
+    const currentTheme = this.state.currentTheme;
     return (<div>
       <h1>Grid Theming</h1>
       <p>
@@ -39,7 +27,7 @@ export class FeaturedThemingDemos extends React.PureComponent {
 
       <Nav
         bsStyle="tabs"
-        activeKey={currentThemeKey}
+        activeKey={currentTheme}
         onSelect={this.changeTheme}
         style={{ marginBottom: '20px' }}
       >

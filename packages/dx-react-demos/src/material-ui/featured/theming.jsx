@@ -11,13 +11,22 @@ import {
   PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { MuiThemeProvider, withStyles, createStyleSheet } from 'material-ui/styles';
+import { MuiThemeProvider, withStyles, createStyleSheet, createMuiTheme } from 'material-ui/styles';
+import createPalette from 'material-ui/styles/palette';
+import { blue } from 'material-ui/styles/colors';
 
 import {
   generateRows,
   employeeValues,
   employeeTaskValues,
 } from '../../demoData';
+
+const createTheme = theme => createMuiTheme({
+  palette: createPalette({
+    type: theme,
+    primary: blue,
+  }),
+});
 
 const styleSheet = createStyleSheet('ThemingDemo', () => ({
   detailContainer: {
@@ -136,14 +145,20 @@ export class ThemingDemo extends React.PureComponent {
         length: 40,
       }),
       allowedPageSizes: [5, 10, 15],
+      currentTheme: createTheme(this.props.theme),
     };
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.theme) {
+      this.setState({ currentTheme: createTheme(nextProps.theme) });
+    }
+  }
   render() {
-    const { rows, columns, allowedPageSizes, detailColumns } = this.state;
+    const { rows, columns, allowedPageSizes, detailColumns, currentTheme } = this.state;
     const GridInst = createGrid();
 
     return (
-      <MuiThemeProvider theme={this.props.theme}>
+      <MuiThemeProvider theme={currentTheme}>
         <GridInst
           rows={rows}
           columns={columns}
@@ -156,5 +171,5 @@ export class ThemingDemo extends React.PureComponent {
 }
 
 ThemingDemo.propTypes = {
-  theme: PropTypes.object.isRequired,
+  theme: PropTypes.string.isRequired,
 };

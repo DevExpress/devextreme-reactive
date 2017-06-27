@@ -33,7 +33,8 @@ export class FeaturedThemingDemos extends React.PureComponent {
     return (<div>
       <h1>Grid Theming</h1>
       <p>
-        Description...
+        This demo demonstrates how the Grid looks within different Material UI themes.
+        You can switch between the Light and Dark themes and check the appearance.
       </p>
 
       <Nav

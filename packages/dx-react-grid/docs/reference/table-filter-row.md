@@ -26,8 +26,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-filter | [Filter](filtering-state.md#filter) | Filtering options applied to a column
-setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Apply new filtering options to a column
+filter | [Filter](filtering-state.md#filter) | A filter applied to a column
+setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Apply a new filter to a column
 column | [TableColumn](table-view.md#table-column) | Specifies a table column
 style? | Object | Specifies filter cell styles
 

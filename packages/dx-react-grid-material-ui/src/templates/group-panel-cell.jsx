@@ -24,7 +24,6 @@ const GroupPanelCellBase = ({
   classes,
 }) => (
   <Button
-    raised
     className={classes.button}
     component="span"
   >

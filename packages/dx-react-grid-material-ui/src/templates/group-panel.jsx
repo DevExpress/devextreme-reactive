@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import List from 'material-ui-icons/List';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('GroupPanel', () => ({
+const styleSheet = createStyleSheet('GroupPanel', theme => ({
   groupIcon: {
     display: 'inline-block',
     verticalAlign: 'middle',
@@ -12,6 +12,7 @@ const styleSheet = createStyleSheet('GroupPanel', () => ({
   groupInfo: {
     marginBottom: '12px',
     display: 'inline-block',
+    color: theme.typography.title.color,
   },
 }));
 

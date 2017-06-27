@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+  SortingState, SelectionState, PagingState, GroupingState,
+  LocalGrouping, LocalPaging, LocalSorting,
   ColumnOrderState, RowDetailState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
+  TableView, TableHeaderRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import {
+  AppBar, Paper, Typography, IconButton,
+  List, ListItem, ListItemText, ListItemSecondaryAction,
+  Tabs, Tab,
+} from 'material-ui';
+import DoneIcon from 'material-ui-icons/Done';
 import { MuiThemeProvider, withStyles, createStyleSheet, createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
 import { blue } from 'material-ui/styles/colors';
@@ -28,46 +33,112 @@ const createTheme = theme => createMuiTheme({
   }),
 });
 
-const styleSheet = createStyleSheet('ThemingDemo', () => ({
-  detailContainer: {
-    margin: 20,
+const styleSheet = createStyleSheet('ThemingDemo', theme => ({
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+  },
+  title: {
+    marginBottom: theme.spacing.unit * 2,
+    marginLeft: 0,
   },
 }));
 
-const GridDetailContainerBase = ({
-  columns,
-  data,
-  classes,
-}) => (
-  <div className={classes.detailContainer}>
-    <div>
-      <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
-    </div>
-    <Grid
-      rows={data.tasks}
-      columns={columns}
-    >
-      <TableView />
-      <TableHeaderRow />
-    </Grid>
-  </div>
+const TabContainer = ({ rows }) => (<List style={{ height: 180 }}>
+  {
+    rows.map((item, index) => {
+      const key = index;
+      return (<ListItem dense key={key}>
+        <ListItemText primary={item.subject} />
+        <ListItemSecondaryAction>
+          {
+            item.status === 'Completed' && <IconButton aria-label="Done" color="accent">
+              <DoneIcon />
+            </IconButton>
+          }
+        </ListItemSecondaryAction>
+      </ListItem>);
+    })
+  }
+</List>
 );
+
+TabContainer.propTypes = {
+  rows: PropTypes.array.isRequired,
+};
+
+class GridDetailContainerBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      lowPriorityTasks: this.findTasks('Low'),
+      normalPriorityTasks: this.findTasks('Normal'),
+      highPriorityTasks: this.findTasks('High'),
+    };
+    this.state.index = this.firstSelectedIndex();
+    this.handleChange = this.handleChange.bind(this);
+  }
+  findTasks(priority) {
+    return this.props.data.tasks.filter(task => task.priority === priority);
+  }
+  firstSelectedIndex() {
+    let result = 0;
+    const { lowPriorityTasks, normalPriorityTasks } = this.state;
+
+    if (!lowPriorityTasks.length) {
+      result = normalPriorityTasks.length ? 1 : 2;
+    }
+
+    return result;
+  }
+  handleChange(event, index) {
+    this.setState({ index });
+  }
+  render() {
+    const { lowPriorityTasks, normalPriorityTasks, highPriorityTasks, index } = this.state;
+    const { data, classes } = this.props;
+
+    return (<div className={classes.root}>
+      <Typography type="title" component="h5" className={classes.title}>
+        {data.firstName} {data.lastName}&apos;s Tasks:
+      </Typography>
+      <Paper>
+        <AppBar position="static" color="inherit">
+          <Tabs
+            index={index}
+            onChange={this.handleChange}
+            fullWidth
+          >
+            <Tab label="Low" disabled={!lowPriorityTasks.length} />
+            <Tab label="Normal" disabled={!normalPriorityTasks.length} />
+            <Tab label="High" disabled={!highPriorityTasks.length} />
+          </Tabs>
+        </AppBar>
+        {index === 0 && <TabContainer rows={lowPriorityTasks} />}
+        {index === 1 && <TabContainer rows={normalPriorityTasks} />}
+        {index === 2 && <TabContainer rows={highPriorityTasks} />}
+      </Paper>
+    </div>);
+  }
+}
+
 GridDetailContainerBase.propTypes = {
   data: PropTypes.shape().isRequired,
-  columns: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 const GridDetailContainer = withStyles(styleSheet)(GridDetailContainerBase);
 
 // eslint-disable-next-line
-const createGrid = () => ({ rows, columns, allowedPageSizes, detailColumns }) => (<Grid
+const createGrid = () => ({ rows, columns, allowedPageSizes }) => (<Grid
   rows={rows}
   columns={columns}
 >
   <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
 
-  <FilteringState />
   <SortingState
     defaultSorting={[
       { columnName: 'product', direction: 'asc' },
@@ -82,7 +153,6 @@ const createGrid = () => ({ rows, columns, allowedPageSizes, detailColumns }) =>
     defaultExpandedRows={[2]}
   />
 
-  <LocalFiltering />
   <LocalSorting />
   <LocalGrouping />
   <LocalPaging />
@@ -96,7 +166,6 @@ const createGrid = () => ({ rows, columns, allowedPageSizes, detailColumns }) =>
   <TableView allowColumnReordering />
 
   <TableHeaderRow allowSorting allowGrouping allowDragging />
-  <TableFilterRow />
   <PagingPanel
     allowedPageSizes={allowedPageSizes}
   />
@@ -105,7 +174,6 @@ const createGrid = () => ({ rows, columns, allowedPageSizes, detailColumns }) =>
     template={({ row }) => (
       <GridDetailContainer
         data={row}
-        columns={detailColumns}
       />
     )}
   />
@@ -113,6 +181,7 @@ const createGrid = () => ({ rows, columns, allowedPageSizes, detailColumns }) =>
   <GroupingPanel allowSorting />
 </Grid>);
 
+// eslint-disable-next-line
 export class ThemingDemo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -124,14 +193,6 @@ export class ThemingDemo extends React.PureComponent {
         { name: 'lastName', title: 'Last Name' },
         { name: 'position', title: 'Position', width: 170 },
         { name: 'state', title: 'State', width: 125 },
-        { name: 'birthDate', title: 'Birth Date', width: 135 },
-      ],
-      detailColumns: [
-        { name: 'subject', title: 'Subject' },
-        { name: 'startDate', title: 'Start Date', width: 115 },
-        { name: 'dueDate', title: 'Due Date', width: 115 },
-        { name: 'priority', title: 'Priority', width: 100 },
-        { name: 'status', title: 'Status', caption: 'Completed', width: 125 },
       ],
       rows: generateRows({
         columnValues: {
@@ -154,7 +215,7 @@ export class ThemingDemo extends React.PureComponent {
     }
   }
   render() {
-    const { rows, columns, allowedPageSizes, detailColumns, currentTheme } = this.state;
+    const { rows, columns, allowedPageSizes, currentTheme } = this.state;
     const GridInst = createGrid();
 
     return (
@@ -163,7 +224,6 @@ export class ThemingDemo extends React.PureComponent {
           rows={rows}
           columns={columns}
           allowedPageSizes={allowedPageSizes}
-          detailColumns={detailColumns}
         />
       </MuiThemeProvider>
     );

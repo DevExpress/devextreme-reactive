@@ -1,6 +1,6 @@
 # LocalSorting Plugin Reference
 
-Plugin that performs local data sorting.
+A plugin that performs local data sorting.
 
 ## User Reference
 
@@ -25,5 +25,5 @@ sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sor
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => Array&lt;[Row](grid.md#row)&gt; | Rows with the applied sorting
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied sorting
 

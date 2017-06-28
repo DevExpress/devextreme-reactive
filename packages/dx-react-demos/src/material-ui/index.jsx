@@ -4,6 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
+import { blue } from 'material-ui/styles/colors';
 
 import {
   Route,
@@ -26,12 +27,14 @@ import { FeaturedUncontrolledDemos } from './featured-uncontrolled';
 import { FeaturedReduxDemos } from './featured-redux';
 import { FeaturedControlledDemos } from './featured-controlled';
 import { FeaturedRemoteDataDemos } from './featured-remote-data';
+import { FeaturedThemingDemos } from './featured-theming';
 
 injectTapEventPlugin();
 
 const theme = createMuiTheme({
   palette: createPalette({
     type: 'light',
+    primary: blue,
   }),
 });
 
@@ -59,6 +62,7 @@ const Demos = () => (
       <Route path="/material-ui/featured-controlled" component={FeaturedControlledDemos} />
       <Route path="/material-ui/featured-redux" component={FeaturedReduxDemos} />
       <Route path="/material-ui/featured-remote-data" component={FeaturedRemoteDataDemos} />
+      <Route path="/material-ui/featured-theming" component={FeaturedThemingDemos} />
     </div>
   </MuiThemeProvider>
 );
@@ -92,6 +96,7 @@ export const MaterialUIDemos = withRouter(({ location }) => {
                       <NavLink to="/material-ui/featured-redux">Redux Integration</NavLink>
                     </li>
                     <li><NavLink to="/material-ui/featured-remote-data">Remote Data</NavLink></li>
+                    <li><NavLink to="/material-ui/featured-theming">Theming</NavLink></li>
                   </ul>
                 )
                 : (

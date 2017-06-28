@@ -27,5 +27,5 @@ filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Column fil
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => Array&lt;[Row](grid.md#row)&gt; | Rows with the applied filtering
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied filtering
 

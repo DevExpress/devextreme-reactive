@@ -19,11 +19,11 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be grouped
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Grouping to be applied
-expandedGroups | Getter | { [key: [GroupKey](grouping-state.md#group-key)]: true } | Groups to be expanded
+groupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns by which the grid is grouped
+expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => Array&lt;[Row](grid.md#row)&gt; | Rows with the applied grouping and expanded groups
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied grouping and expanded groups

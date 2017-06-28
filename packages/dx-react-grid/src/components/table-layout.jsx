@@ -16,7 +16,7 @@ import {
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,
-  filterAnimations,
+  filterActiveAnimations,
   evalAnimations,
 } from '@devexpress/dx-grid-core';
 
@@ -193,7 +193,7 @@ export class TableLayout extends React.PureComponent {
     }
   }
   processAnimationFrame() {
-    this.animations = filterAnimations(this.animations);
+    this.animations = filterActiveAnimations(this.animations);
 
     if (!this.animations.size) {
       if (this.state.animationState.size) {

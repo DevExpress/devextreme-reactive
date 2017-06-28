@@ -131,7 +131,7 @@ export const getAnimations = (
     .filter(animation => animation[1].left));
 };
 
-export const filterAnimations = animations => new Map([...animations.entries()]
+export const filterActiveAnimations = animations => new Map([...animations.entries()]
   .filter(([, animation]) => getAnimationProgress(animation) < 1));
 
 export const evalAnimations = animations => new Map([...animations.entries()]

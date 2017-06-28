@@ -41,6 +41,6 @@ export {
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,
-  filterAnimations,
+  filterActiveAnimations,
   evalAnimations,
 } from './utils/table';

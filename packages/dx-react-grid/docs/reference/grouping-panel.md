@@ -53,4 +53,15 @@ groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns by which the grid is grouped
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered (excluding the grouped ones)

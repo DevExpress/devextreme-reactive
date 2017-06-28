@@ -18,7 +18,7 @@ tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | 
 tableNoDataCellTemplate | (args: [TableNoDataCellArgs](#table-no-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
 tableStubCellTemplate | (args: [TableStubCellArgs](#table-stub-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided
 tableStubHeaderCellTemplate | (args: [TableStubHeaderCellArgs](#table-stub-header-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
-allowColumnReordering | boolean | false | If true, allows an end-user to change the column's order by dragging it
+allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it
 
 ## Interfaces
 
@@ -110,15 +110,16 @@ type? | string | Specifies the table column type. Defines a cell template used t
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | () => Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
-columns | Getter | () => Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table header
-tableBodyRows | Getter | () => Array&lt;[TableRow](#table-row)&gt; | Rows to be rendered inside the table body
-tableColumns | Getter | () => Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered inside the table
-tableExtraProps | Getter | () => { [key: string]: any } | Additional table properties that other plugins can provide 
+tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered
+tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
+tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered
+tableExtraProps | Getter | { [key: string]: any } | Additional table properties that other plugins can provide
+tableView | Template | none | A template that renders a table
 tableViewCell | Template | { row: [TableRow](#table-row), column: [TableColumn](#table-column) } | A template that renders a table cell

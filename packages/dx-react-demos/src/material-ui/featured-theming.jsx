@@ -21,8 +21,11 @@ export class FeaturedThemingDemos extends React.PureComponent {
     return (<div>
       <h1>Grid Theming</h1>
       <p>
-        This demo demonstrates how the Grid looks within different Material UI themes.
-        You can switch between the Light and Dark themes and check the appearance.
+        This demo demonstrates the possibility to use the Grid with different themes.
+        You can switch between the Light and Dark <a href="https://material-ui-1dab0.firebaseapp.com/customization/themes">Material UI themes</a> and check the appearance.
+        In order, to change the Grid theme you can use the <a href="https://material-ui-1dab0.firebaseapp.com/component-api/mui-theme-provider">MuiThemeProvider</a> component
+         and dynamically change its &quot;theme&quot; property.
+         Refer the <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/material-ui/featured/theming.jsx">source code</a> for details.
       </p>
 
       <Nav

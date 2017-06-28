@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 selection | Array&lt;int&#124;string&gt; | [] | Specifies the selected rows
-defaultSelection | Array&lt;int&#124;string&gt; | [] | Specifies the uncontrolled mode's initially selected rows
+defaultSelection | Array&lt;int&#124;string&gt; | [] | Specifies initially selected rows in the uncontrolled mode
 onSelectionChange | (selection: Array&lt;int&#124;string&gt;) => void | | Handles selection changes
 
 ## Plugin Developer Reference

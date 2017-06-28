@@ -13,9 +13,12 @@ import {
 import {
   AppBar, Paper, Typography, IconButton,
   List, ListItem, ListItemText, ListItemSecondaryAction,
-  Tabs, Tab,
+  Tabs, Tab, Divider,
 } from 'material-ui';
 import DoneIcon from 'material-ui-icons/Done';
+import PauseIcon from 'material-ui-icons/PauseCircleOutline';
+import LoopIcon from 'material-ui-icons/Loop';
+import HelpIcon from 'material-ui-icons/HelpOutline';
 import { MuiThemeProvider, withStyles, createStyleSheet, createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
 import { blue } from 'material-ui/styles/colors';
@@ -46,24 +49,44 @@ const styleSheet = createStyleSheet('ThemingDemo', theme => ({
   },
 }));
 
-const TabContainer = ({ rows }) => (<List style={{ height: 180 }}>
-  {
-    rows.map((item, index) => {
-      const key = index;
-      return (<ListItem dense key={key}>
-        <ListItemText primary={item.subject} />
-        <ListItemSecondaryAction>
-          {
-            item.status === 'Completed' && <IconButton aria-label="Done" color="accent">
-              <DoneIcon />
-            </IconButton>
-          }
-        </ListItemSecondaryAction>
-      </ListItem>);
-    })
+const TaskIcon = ({ status }) => {
+  switch (status) {
+    case 'Deferred': return <PauseIcon />;
+    case 'In Progress': return <LoopIcon />;
+    case 'Need Assistance': return <HelpIcon />;
+    default: return <DoneIcon />;
   }
-</List>
-);
+};
+
+TaskIcon.propTypes = {
+  status: PropTypes.string.isRequired,
+};
+
+const TabContainer = ({ rows }) => {
+  const lastItemIndex = rows.length - 1;
+
+  return (
+    <List style={{ height: 180 }}>
+      {
+      rows.map((item, index) => {
+        const key = index;
+        const status = item.status;
+        return (<div key={key}>
+          <ListItem dense>
+            <ListItemText primary={item.subject} />
+            <ListItemSecondaryAction>
+              <IconButton aria-label={status}>
+                <TaskIcon status={status} />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+          {index < lastItemIndex && <Divider />}
+        </div>);
+      })
+    }
+    </List>
+  );
+};
 
 TabContainer.propTypes = {
   rows: PropTypes.array.isRequired,
@@ -103,7 +126,7 @@ class GridDetailContainerBase extends React.PureComponent {
 
     return (<div className={classes.root}>
       <Typography type="title" component="h5" className={classes.title}>
-        {data.firstName} {data.lastName}&apos;s Tasks:
+        {data.firstName} {data.lastName}&apos;s Tasks by Priority:
       </Typography>
       <Paper>
         <AppBar position="static" color="inherit">
@@ -112,9 +135,9 @@ class GridDetailContainerBase extends React.PureComponent {
             onChange={this.handleChange}
             fullWidth
           >
-            <Tab label="Low" disabled={!lowPriorityTasks.length} />
-            <Tab label="Normal" disabled={!normalPriorityTasks.length} />
-            <Tab label="High" disabled={!highPriorityTasks.length} />
+            <Tab label={`Low (${lowPriorityTasks.length})`} disabled={!lowPriorityTasks.length} />
+            <Tab label={`Normal (${normalPriorityTasks.length})`} disabled={!normalPriorityTasks.length} />
+            <Tab label={`High (${highPriorityTasks.length})`} disabled={!highPriorityTasks.length} />
           </Tabs>
         </AppBar>
         {index === 0 && <TabContainer rows={lowPriorityTasks} />}
@@ -199,7 +222,7 @@ export class ThemingDemo extends React.PureComponent {
           ...employeeValues,
           tasks: ({ random }) => generateRows({
             columnValues: employeeTaskValues,
-            length: Math.floor(random() * 3) + 4,
+            length: Math.floor(random() * 4) + 5,
             random,
           }),
         },

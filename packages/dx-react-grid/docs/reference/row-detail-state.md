@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 expandedRows | Array&lt;number &#124; string&gt; | | Specifies expanded rows
-defaultExpandedRows | Array&lt;number &#124; string&gt; | | Specifies initially expanded rows for the uncontrolled mode
+defaultExpandedRows | Array&lt;number &#124; string&gt; | | Specifies the uncontrolled mode's initially expanded rows
 onExpandedRowsChange | (expandedRows: Array&lt;number &#124; string&gt;) => void | | Handles expanded row changes
 
 ## Plugin Developer Reference

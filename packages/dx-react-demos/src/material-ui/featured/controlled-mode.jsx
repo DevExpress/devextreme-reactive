@@ -48,7 +48,6 @@ const styleSheet = createStyleSheet('ControlledModeDemo', theme => ({
   },
   lookupEditCell: {
     verticalAlign: 'middle',
-    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
 }));

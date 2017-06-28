@@ -18,7 +18,7 @@ onEditingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void |
 addedRows | Array&lt;Object&gt; | | Specifies the created but not committed rows
 defaultAddedRows | Array&lt;Object&gt; | | Specifies rows initially added to the `addedRows` array in the uncontrolled mode
 onAddedRowsChange | (addedRows: Array&lt;Object&gt;) => void | | Handles adding or removing a row from the `addedRows` array
-changedRows | { [key: string]: Object } | | Specifies the changed but not committed rows
+changedRows | { [key: string]: Object } | | Specifies the changed, but not committed rows
 defaultChangedRows | { [key: string]: Object } | | Specifies rows initially added to the `changedRows` array in the uncontrolled mode
 onChangedRowsChange | (changedRows: { [key: string]: Object }) => void | | Handles adding a row to or removing from the `changedRows` array
 deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows prepared for deletion

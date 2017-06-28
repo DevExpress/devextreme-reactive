@@ -1,4 +1,5 @@
 import React from 'react';
+import { Chip } from 'material-ui';
 import { mountWithStyles } from '../utils/testing';
 import { GroupPanelCell } from './group-panel-cell';
 
@@ -27,7 +28,7 @@ describe('GroupPanelCell', () => {
       />,
     );
 
-    tree.find('span > span > span').simulate('click', { ctrlKey: true });
+    tree.find(Chip).simulate('click', { ctrlKey: true });
 
     expect(changeSortingDirection.mock.calls).toHaveLength(1);
     expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();

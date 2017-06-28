@@ -13,7 +13,7 @@ A plugin that renders a filter row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rowHeight | number | | Specifies the height of the filter row
+rowHeight | number | | Specifies the filter row's height
 filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a filter cell
 
 ## Interfaces

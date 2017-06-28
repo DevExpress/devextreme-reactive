@@ -36,12 +36,12 @@ const renderRowCells = ({ row, columns, cellTemplate, animationState }) =>
     .filter((column, columnIndex) => !getTableCellInfo({ row, columns, columnIndex }).skip)
     .map((column, columnIndex) => {
       const key = tableColumnKeyGetter(column, columnIndex);
-
+      const colspan = getTableCellInfo({ row, columns, columnIndex }).colspan;
       return React.cloneElement(
         cellTemplate({
           row,
           column,
-          colspan: getTableCellInfo({ row, columns, columnIndex }).colspan,
+          ...colspan ? { colspan } : null,
           style: getColumnStyle({ column, animationState: animationState.get(key) }),
         }),
         { key },

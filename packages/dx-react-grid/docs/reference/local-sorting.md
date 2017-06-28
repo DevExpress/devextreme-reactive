@@ -1,6 +1,6 @@
 # LocalSorting Plugin Reference
 
-Plugin that performs local data sorting.
+A plugin that performs local data sorting.
 
 ## User Reference
 

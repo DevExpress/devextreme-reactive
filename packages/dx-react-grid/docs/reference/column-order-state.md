@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 order | Array&lt;string&gt; | | Specifies the column order.
-defaultOrder | Array&lt;string&gt; | | Specifies the uncontrolled mode's initial column order.
+defaultOrder | Array&lt;string&gt; | | Specifies initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
 
 ## Plugin Developer Reference

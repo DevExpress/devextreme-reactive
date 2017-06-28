@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 sorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting
-defaultSorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the uncontrolled mode's initial sorting
+defaultSorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies initial sorting in the uncontrolled mode
 onSortingChange | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes
 
 ## Interfaces

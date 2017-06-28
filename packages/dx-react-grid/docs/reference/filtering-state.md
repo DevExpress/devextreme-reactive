@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters to be applied
-defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies initial filters for the uncontrolled mode
+defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies the uncontrolled mode's initial filters
 onFiltersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filter changes
 
 ## Interfaces

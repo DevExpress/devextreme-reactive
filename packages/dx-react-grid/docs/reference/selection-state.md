@@ -1,6 +1,6 @@
 # SelectionState Plugin Reference
 
-Plugin that manages selection state.
+A plugin that manages selection state.
 
 ## User Reference
 
@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 selection | Array&lt;int&#124;string&gt; | [] | Specifies the selected rows
-defaultSelection | Array&lt;int&#124;string&gt; | [] | Specifies initially selected rows for the the uncontrolled mode
+defaultSelection | Array&lt;int&#124;string&gt; | [] | Specifies the uncontrolled mode's initially selected rows
 onSelectionChange | (selection: Array&lt;int&#124;string&gt;) => void | | Handles selection changes
 
 ## Plugin Developer Reference

@@ -1,6 +1,6 @@
 # TableHeaderRow Plugin Reference
 
-A plugin that renders a simple table header that shows column titles. The `title` field in a column's definition specifies its title. See the extended data structure for a [Column](#column).
+A plugin that renders a simple table header showing column titles. The `title` field in a column's definition specifies its title. See a [Column](#column)'s extended data structure.
 
 The plugin also allows an end-user to manage a column's sorting and grouping state or initiate column dragging.
 
@@ -18,9 +18,9 @@ The plugin also allows an end-user to manage a column's sorting and grouping sta
 Name | Type | Default | Description
 -----|------|---------|------------
 headerCellTemplate | (args: [HeaderCellArgs](#header-cell-args)) => ReactElement | | A component that renders a header cell
-allowSorting | boolean | false | If true, allows an end-user to change sorting by a column
-allowGrouping | boolean | false | If true, renders a component that toggles a column's grouping state
-allowDragging | boolean | false | If true, allows an end-user to start dragging a column by the header cell
+allowSorting | boolean | false | If true, it allows an end-user to change sorting by a column
+allowGrouping | boolean | false | If true, it renders a component that toggles a column's grouping state
+allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell
 
 ## Interfaces
 

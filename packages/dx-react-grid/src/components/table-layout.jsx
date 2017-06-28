@@ -28,15 +28,18 @@ const getRowStyle = ({ row }) => ({
 const renderRowCells = ({ row, columns, cellTemplate }) =>
   columns
     .filter((column, columnIndex) => !getTableCellInfo({ row, columns, columnIndex }).skip)
-    .map((column, columnIndex) => React.cloneElement(
-      cellTemplate({
-        row,
-        column,
-        colspan: getTableCellInfo({ row, columns, columnIndex }).colspan,
-        style: getColumnStyle({ column }),
-      }),
-      { key: tableColumnKeyGetter(column, columnIndex) },
-    ));
+    .map((column, columnIndex) => {
+      const colspan = getTableCellInfo({ row, columns, columnIndex }).colspan;
+      return React.cloneElement(
+        cellTemplate({
+          row,
+          column,
+          style: getColumnStyle({ column }),
+          ...colspan ? { colspan } : null,
+        }),
+        { key: tableColumnKeyGetter(column, columnIndex) },
+      );
+    });
 
 const renderRows = ({
   rows,

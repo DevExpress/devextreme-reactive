@@ -19,7 +19,7 @@ showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered 
 showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row
 selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox
 selectAllCellTemplate | (args: [SelectAllCellArgs](#select-all-cell-args)) => ReactElement | | A component that renders the Select All checkbox
-selectionColumnWidth | number | | Width of the selection column
+selectionColumnWidth | number | | The selection column's width
 
 ## Interfaces
 
@@ -31,7 +31,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-selectionAvailable | boolean | True if at least one row can be seleced
+selectionAvailable | boolean | True if at least one row can be selected
 allSelected | boolean | True if all the rows available to select are selected
 someSelected | boolean | True if at least one but not all rows available to select are selected
 toggleAll | () => void | Selects or deselects all rows
@@ -44,7 +44,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-selected | boolean | Specifies whether or not a row is selected
+selected | boolean | Specifies whether a row is selected
 changeSelected | () => void | Selects or deselects a row
 
 ## Plugin Developer Reference

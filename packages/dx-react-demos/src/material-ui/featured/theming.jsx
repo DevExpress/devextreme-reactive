@@ -211,7 +211,7 @@ export class ThemingDemo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'prefix', title: 'Title', width: 90 },
+        { name: 'prefix', title: 'Title', width: 100 },
         { name: 'firstName', title: 'First Name' },
         { name: 'lastName', title: 'Last Name' },
         { name: 'position', title: 'Position', width: 170 },

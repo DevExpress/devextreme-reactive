@@ -18,7 +18,7 @@ tableCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | 
 tableNoDataCellTemplate | (args: [TableNoDataCellArgs](#table-no-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
 tableStubCellTemplate | (args: [TableStubCellArgs](#table-stub-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided
 tableStubHeaderCellTemplate | (args: [TableStubHeaderCellArgs](#table-stub-header-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
-allowColumnReordering | boolean | false | If true, allows an end-user to change the column's order by dragging it
+allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it
 
 ## Interfaces
 

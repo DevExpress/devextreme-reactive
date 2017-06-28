@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import List from 'material-ui-icons/List';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('GroupPanel', theme => ({
+const styleSheet = createStyleSheet('GroupPanel', () => ({
+  panel: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   groupIcon: {
     display: 'inline-block',
     verticalAlign: 'middle',
@@ -32,7 +36,7 @@ const GroupPanelBase = ({ groupedColumns, groupByColumnText, cellTemplate, class
 
   return groupedColumns.length
     ? (
-      <div>
+      <div className={classes.panel}>
         {
           groupedColumns.map(column => (
             <GroupPanelCell

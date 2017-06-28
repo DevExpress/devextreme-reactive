@@ -64,7 +64,7 @@ const App = () => (
 
 ### Try Out React Grid
 
-You can use [Plunker](http://plnkr.co/edit/Hf3ez8?p=preview) if you are interested in trying out the React Grid. 
+You can use [Plunker](http://plnkr.co/edit/jR8j7p?p=preview) if you are interested in trying out the React Grid.
 
 ## Plugin Overview
 

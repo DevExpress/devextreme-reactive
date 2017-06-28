@@ -18,30 +18,28 @@ const getSortingConfig = (sorting, column) => {
 export const GroupPanelLayout = ({
   allowSorting, sorting, changeSortingDirection,
   groupedColumns, groupByColumn, groupByColumnText,
-  groupPanelCellTemplate,
-}) => (
-  groupedColumns.length
-    ? (
-      <div>
-        {
-          groupedColumns.map((column) => {
-            const { sortingSupported, sortingDirection } = getSortingConfig(sorting, column);
-            return React.cloneElement(
-              groupPanelCellTemplate({
-                column,
-                allowSorting: allowSorting && sortingSupported,
-                sortingDirection,
-                changeSortingDirection,
-                groupByColumn,
-              }),
-              { key: column.name },
-            );
-          })
-        }
-      </div>
-    )
-    : <span>{groupByColumnText}</span>
-);
+  groupPanelCellTemplate, panelTemplate,
+}) => {
+  const cells = groupedColumns.map((column) => {
+    const { sortingSupported, sortingDirection } = getSortingConfig(sorting, column);
+    return React.cloneElement(
+      groupPanelCellTemplate({
+        column,
+        allowSorting: allowSorting && sortingSupported,
+        sortingDirection,
+        changeSortingDirection,
+        groupByColumn,
+      }),
+      { key: column.name },
+    );
+  });
+
+  return (
+    groupedColumns.length
+      ? panelTemplate({ cells })
+      : <span>{groupByColumnText}</span>
+  );
+};
 
 GroupPanelLayout.propTypes = {
   allowSorting: PropTypes.bool.isRequired,
@@ -51,6 +49,7 @@ GroupPanelLayout.propTypes = {
   groupByColumn: PropTypes.func.isRequired,
   groupByColumnText: PropTypes.any.isRequired,
   groupPanelCellTemplate: PropTypes.func.isRequired,
+  panelTemplate: PropTypes.func.isRequired,
 };
 
 GroupPanelLayout.defaultProps = {

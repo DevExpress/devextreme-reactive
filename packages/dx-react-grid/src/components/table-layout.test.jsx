@@ -179,7 +179,7 @@ describe('TableLayout', () => {
       .toMatchObject({ width: undefined });
   });
 
-  it('should handles click in body', () => {
+  it('should handle click in body', () => {
     const rows = [{ id: 1 }, { id: 2 }];
     const columns = [{ name: 'a' }, { name: 'b' }];
     const onClick = jest.fn();
@@ -203,7 +203,7 @@ describe('TableLayout', () => {
       .toMatchObject({ row: rows[1], column: columns[1], e: {} });
   });
 
-  it('should handles click in head', () => {
+  it('should handle click in head', () => {
     const rows = [{ id: 1 }, { id: 2 }];
     const columns = [{ name: 'a' }, { name: 'b' }];
     const onClick = jest.fn();
@@ -227,6 +227,24 @@ describe('TableLayout', () => {
       .simulate('click');
     expect(onClick.mock.calls[0][0])
       .toMatchObject({ row: rows[1], column: columns[1], e: {} });
+  });
+
+  it('should not pass the "colspan" parameter to the cellTemplate if it is undefined', () => {
+    const cellTemplate = jest.fn().mockImplementation(cellTemplateMock);
+    mount(
+      <TableLayout
+        rows={[{ id: 1 }]}
+        columns={[{ name: 'a' }]}
+        tableTemplate={tableTemplateMock}
+        bodyTemplate={bodyTemplateMock}
+        rowTemplate={rowTemplateMock}
+        cellTemplate={cellTemplate}
+        getRowId={row => row.id}
+      />,
+    );
+
+    expect(cellTemplate.mock.calls[0][0])
+      .not.toHaveProperty('colspan');
   });
 
   describe('flex column', () => {

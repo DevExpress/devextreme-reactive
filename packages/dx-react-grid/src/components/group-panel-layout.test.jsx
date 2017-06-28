@@ -1,35 +1,29 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { format } from 'util';
+
+import { setupConsole } from '@devexpress/dx-testing';
 
 import { GroupPanelLayout } from './group-panel-layout';
 
-// eslint-disable-next-line react/prop-types
 const groupPanelCellTemplate = () => (
   <div
     className="cell"
   />
 );
+// eslint-disable-next-line react/prop-types
+const panelTemplate = ({ cells }) => <div>{cells}</div>;
 
 describe('GroupPanelLayout', () => {
-  /* eslint-disable no-console */
-  const consoleWarn = console.warn;
-  const consoleError = console.error;
+  let resetConsole;
 
-  const logToError = (...args) => {
-    throw new Error(format(...args).replace(/^Error: (?:Warning: )?/, ''));
-  };
-
-  beforeEach(() => {
-    console.warn = logToError;
-    console.error = logToError;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
 
-  afterEach(() => {
-    console.warn = consoleWarn;
-    console.error = consoleError;
+  afterAll(() => {
+    resetConsole();
   });
-  /* eslint-enable no-console */
+
 
   it('should render group panel with cells', () => {
     const groupedColumns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
@@ -41,6 +35,7 @@ describe('GroupPanelLayout', () => {
         groupByColumn={() => {}}
         groupByColumnText={''}
         groupPanelCellTemplate={groupPanelCellTemplate}
+        panelTemplate={panelTemplate}
       />,
     );
 
@@ -58,6 +53,7 @@ describe('GroupPanelLayout', () => {
         groupByColumn={() => {}}
         groupByColumnText={groupByColumnText}
         groupPanelCellTemplate={groupPanelCellTemplate}
+        panelTemplate={panelTemplate}
       />,
     );
 
@@ -78,6 +74,7 @@ describe('GroupPanelLayout', () => {
         groupByColumn={() => {}}
         groupByColumnText={''}
         groupPanelCellTemplate={cellTemplate}
+        panelTemplate={panelTemplate}
       />,
     );
 
@@ -104,6 +101,7 @@ describe('GroupPanelLayout', () => {
         groupByColumn={() => {}}
         groupByColumnText={''}
         groupPanelCellTemplate={cellTemplate}
+        panelTemplate={panelTemplate}
       />,
     );
 

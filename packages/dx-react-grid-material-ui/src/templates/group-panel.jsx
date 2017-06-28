@@ -6,8 +6,22 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
-// eslint-disable-next-line react/prop-types
-const getDefaultText = ({ classes }) => (
+const styleSheet = createStyleSheet('GroupPanel', () => ({
+  panel: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  groupIcon: {
+    display: 'inline-block',
+    verticalAlign: 'middle',
+  },
+  groupInfo: {
+    marginBottom: '12px',
+    display: 'inline-block',
+  },
+}));
+
+const DefaultTextBase = ({ classes }) => (
   <span className={classes.groupInfo}>
     Click
     &nbsp;
@@ -19,22 +33,35 @@ const getDefaultText = ({ classes }) => (
   </span>
 );
 
-const styleSheet = createStyleSheet('GroupPanel', () => ({
-  groupIcon: {
-    display: 'inline-block',
-    verticalAlign: 'middle',
-  },
-  groupInfo: {
-    marginBottom: '12px',
-    display: 'inline-block',
-  },
-}));
+DefaultTextBase.propTypes = {
+  classes: PropTypes.shape().isRequired,
+};
+
+const DefaultText = withStyles(styleSheet)(DefaultTextBase);
+
+const PanelTemplateBase = ({ classes, cells }) => (
+  <div className={classes.panel}>
+    {cells}
+  </div>
+);
+
+PanelTemplateBase.propTypes = {
+  classes: PropTypes.shape().isRequired,
+  cells: PropTypes.arrayOf(PropTypes.node).isRequired,
+};
+
+const PanelTemplate = withStyles(styleSheet)(PanelTemplateBase);
+
+const panelTemplate = props => <PanelTemplate {...props} />;
 
 const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => (
-  <GroupPanelLayout
-    groupByColumnText={groupByColumnText || getDefaultText({ classes })}
-    {...restProps}
-  />
+  <div className={classes.panel}>
+    <GroupPanelLayout
+      groupByColumnText={groupByColumnText || <DefaultText />}
+      panelTemplate={panelTemplate}
+      {...restProps}
+    />
+  </div>
 );
 
 GroupPanelBase.propTypes = {

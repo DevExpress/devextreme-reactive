@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, TableSortLabel } from 'material-ui';
-import Close from 'material-ui-icons/Close';
+import { TableSortLabel, Chip } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
@@ -12,41 +11,34 @@ const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
   },
 }));
 
+const label = (allowSorting, sortingDirection, column) => (
+  <TableSortLabel
+    active={allowSorting && !!sortingDirection}
+    direction={sortingDirection}
+  >
+    {column.title || column.name}
+  </TableSortLabel>
+);
+
 const GroupPanelCellBase = ({
   column,
   groupByColumn,
   allowSorting, sortingDirection, changeSortingDirection,
   classes,
 }) => (
-  <Button
-    raised
+  <Chip
+    label={label(allowSorting, sortingDirection, column)}
     className={classes.button}
-    component="span"
-  >
-    <span
-      onClick={(e) => {
-        if (!allowSorting) return;
-
-        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-        changeSortingDirection({
-          keepOther: e.shiftKey || cancelSortingRelatedKey,
-          cancel: cancelSortingRelatedKey,
-          columnName: column.name,
-        });
-      }}
-    >
-      <TableSortLabel
-        active={allowSorting && !!sortingDirection}
-        direction={sortingDirection}
-      >
-        {column.title || column.name}
-      </TableSortLabel>
-    </span>
-    &nbsp;
-    <Close
-      onClick={() => groupByColumn({ columnName: column.name })}
-    />
-  </Button>
+    onRequestDelete={() => groupByColumn({ columnName: column.name })}
+    onClick={(e) => {
+      if (!allowSorting) return;
+      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+      changeSortingDirection({
+        keepOther: e.shiftKey || cancelSortingRelatedKey,
+        cancel: cancelSortingRelatedKey,
+      });
+    }}
+  />
 );
 
 GroupPanelCellBase.propTypes = {

@@ -19,9 +19,18 @@ const defaultText = (
   </span>
 );
 
+const PanelTemplate = ({ cells }) => <div>{cells}</div>;
+
+PanelTemplate.propTypes = {
+  cells: PropTypes.arrayOf(PropTypes.node).isRequired,
+};
+
+const panelTemplate = props => <PanelTemplate {...props} />;
+
 export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
   <GroupPanelLayout
     groupByColumnText={groupByColumnText || defaultText}
+    panelTemplate={panelTemplate}
     {...restProps}
   />
 );

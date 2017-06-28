@@ -6,7 +6,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
-const styleSheet = createStyleSheet('GroupPanel', () => ({
+const styleSheet = createStyleSheet('GroupPanel', theme => ({
   panel: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -18,6 +18,7 @@ const styleSheet = createStyleSheet('GroupPanel', () => ({
   groupInfo: {
     marginBottom: '12px',
     display: 'inline-block',
+    color: theme.typography.title.color,
   },
 }));
 

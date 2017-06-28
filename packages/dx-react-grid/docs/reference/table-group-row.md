@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | | A component that renders a group row
 groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell
-groupIndentColumnWidth | number | | Width of the group indent columns
+groupIndentColumnWidth | number | | The group indent columns' width
 
 ## Interfaces
 
@@ -29,7 +29,7 @@ Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | A group row data object
 isExpanded | boolean | Specifies if a row is expanded
-toggleGroupExpanded | () => void | Toggles the expanded state of a group row
+toggleGroupExpanded | () => void | Toggles a group row's expanded state
 
 ### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
 

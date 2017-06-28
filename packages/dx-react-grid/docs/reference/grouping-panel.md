@@ -1,6 +1,6 @@
 # GroupingPanel Plugin Reference
 
-A plugin that renders a panel showing grouped columns in the Grid's header. An end-user can change the grouping options by interacting with this panel.
+A plugin that renders a panel showing grouped columns in the Grid's header. An end-user can use this panel to change the grouping options.
 
 Optionally, the plugin allows an end-user to change grouped columns' sorting order and renders the corresponding sort indicators.
 
@@ -15,7 +15,7 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 
 Name | Type | Default | Description
 -----|------|---------|------------
-allowSorting | boolean | false | Allows an end-user to change sorting by a column if true
+allowSorting | boolean | false | Specifies whether an end-user can sort data by a column
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel
 groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell
 
@@ -69,4 +69,4 @@ grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Column
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered excluding the grouped ones
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered (excluding the grouped ones)

@@ -21,8 +21,8 @@ export class FeaturedThemingDemos extends React.PureComponent {
     return (<div>
       <h1>Grid Theming</h1>
       <p>
-        This demo illustrates the grid's Light and Dark <a href="https://material-ui-1dab0.firebaseapp.com/customization/themes">Material UI theme</a> appearance.
-        The <a href="https://material-ui-1dab0.firebaseapp.com/component-api/mui-theme-provider">MuiThemeProvider's</a> &quot;theme&quot; property component specifies the current theme.
+        This demo illustrates the grid&apos;s Light and Dark <a href="https://material-ui-1dab0.firebaseapp.com/customization/themes">Material UI theme</a> appearance.
+        The <a href="https://material-ui-1dab0.firebaseapp.com/component-api/mui-theme-provider">MuiThemeProvider&apos;s</a> &quot;theme&quot; property component specifies the current theme.
         See the <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/material-ui/featured/theming.jsx">source code</a> for more details.
       </p>
 

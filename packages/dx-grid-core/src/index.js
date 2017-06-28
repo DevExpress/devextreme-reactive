@@ -40,4 +40,7 @@ export {
   findTableCellTarget,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
+  getAnimations,
+  filterAnimations,
+  evalAnimations,
 } from './utils/table';

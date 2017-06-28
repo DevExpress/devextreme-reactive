@@ -15,78 +15,12 @@ import {
   findTableCellTarget,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
+  getAnimations,
+  filterAnimations,
+  evalAnimations,
 } from '@devexpress/dx-grid-core';
 
-const easingFunctions = {
-  linear: t => t,
-  easeInQuad: t => t * t,
-  easeOutQuad: t => t * (2 - t),
-  easeInOutQuad: t => (t < 0.5 ? 2 * t * t : -1 + ((4 - (2 * t)) * t)),
-  easeInCubic: t => t * t * t,
-  easeOutCubic: t => ((t - 1) * (t - 1) * (t - 1)) + 1,
-  easeInOutCubic: t => (t < 0.5 ? 4 * t * t * t : ((t - 1) * ((2 * t) - 2) * ((2 * t) - 2)) + 1),
-  easeInQuart: t => t * t * t * t,
-  easeOutQuart: t => 1 - ((t - 1) * (t - 1) * (t - 1) * (t - 1)),
-  easeInOutQuart: t => (t < 0.5 ? 8 * t * t * t * t : 1 - (8 * (t - 1) * (t - 1) * (t - 1) * (t - 1))),
-  easeInQuint: t => t * t * t * t * t,
-  easeOutQuint: t => 1 + ((t - 1) * (t - 1) * (t - 1) * (t - 1) * (t - 1)),
-  easeInOutQuint: t => (t < 0.5 ? 16 * t * t * t * t * t : 1 + (16 * (t - 1) * (t - 1) * (t - 1) * (t - 1) * (t - 1))),
-};
-
 const FLEX_TYPE = 'flex';
-
-const ANIMATION_DURATION = 200;
-
-const getAnimations = (prevColumns, nextColumns, tableWidth, draggingColumnKey, prevAnimations) => {
-  const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
-    .map((geometry, index) => [tableColumnKeyGetter(prevColumns[index], index), geometry])
-    .map(([key, geometry]) => {
-      const animation = prevAnimations.get(key);
-      if (!animation) return [key, geometry];
-      const progress = easingFunctions.easeOutCubic((new Date().getTime() - animation.startTime) / ANIMATION_DURATION);
-      const left = ((animation.left.to - animation.left.from) * progress) + animation.left.from;
-      return [key, {
-        left,
-        right: geometry.right - (geometry.left - left),
-      }];
-    }));
-
-  const nextColumnGeometries = new Map(getTableColumnGeometries(nextColumns, tableWidth)
-    .map((geometry, index) => [tableColumnKeyGetter(nextColumns[index], index), geometry]));
-
-  return new Map([...nextColumnGeometries.keys()]
-    .map((key) => {
-      const prev = prevColumnGeometries.get(key);
-      const next = nextColumnGeometries.get(key);
-
-      const result = { startTime: new Date().getTime(), style: {} };
-      if (Math.abs(prev.left - next.left) > 1) {
-        result.left = { from: prev.left, to: next.left };
-      }
-      if (draggingColumnKey === key) {
-        result.style = {
-          zIndex: 100,
-          position: 'relative',
-        };
-      }
-      return [key, result];
-    })
-    .filter(animation => animation[1].left));
-};
-
-const filterAnimations = animations => new Map([...animations.entries()]
-  .filter(([, animation]) => (new Date().getTime() - animation.startTime) < ANIMATION_DURATION));
-
-const evalAnimations = animations => new Map([...animations.entries()]
-  .map(([key, animation]) => {
-    const progress = easingFunctions.easeOutCubic((new Date().getTime() - animation.startTime) / ANIMATION_DURATION);
-    const result = { ...animation.style };
-    if (animation.left) {
-      const offset = (animation.left.to - animation.left.from) * (progress - 1);
-      result.transform = `translateX(${offset}px)`;
-    }
-    return [key, result];
-  }));
 
 const getColumnStyle = ({ column, animationState = {} }) => ({
   width: column.width !== undefined ? `${column.width}px` : undefined,

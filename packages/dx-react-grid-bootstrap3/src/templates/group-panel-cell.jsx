@@ -22,6 +22,7 @@ export const GroupPanelCell = ({
         changeSortingDirection({
           keepOther: e.shiftKey || cancelSortingRelatedKey,
           cancel: cancelSortingRelatedKey,
+          columnName: column.name,
         });
       }}
     >
@@ -49,14 +50,6 @@ export const GroupPanelCell = ({
   </div>
 );
 
-GroupPanelCell.defaultProps = {
-  allowSorting: false,
-  sortingDirection: undefined,
-  changeSortingDirection: undefined,
-  allowGrouping: false,
-  groupByColumn: undefined,
-};
-
 GroupPanelCell.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
@@ -65,4 +58,12 @@ GroupPanelCell.propTypes = {
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
   groupByColumn: PropTypes.func,
+};
+
+GroupPanelCell.defaultProps = {
+  allowSorting: false,
+  sortingDirection: undefined,
+  changeSortingDirection: undefined,
+  allowGrouping: false,
+  groupByColumn: undefined,
 };

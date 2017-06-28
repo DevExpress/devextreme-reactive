@@ -1,44 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const GroupPanel = ({ groupedColumns, groupByColumnText, cellTemplate }) => {
-  const text = () => groupByColumnText ||
-    <span style={{ marginBottom: '5px', display: 'inline-block' }}>
-      Click
-      &nbsp;
-      <i
-        className="glyphicon glyphicon-th-list"
-        style={{
-          top: '0',
-          fontSize: '9px',
-        }}
-      />
-      &nbsp;
-      icon in the column header to group by that column
-    </span>;
+import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
-  const GroupPanelCell = cellTemplate;
+const defaultText = (
+  <span style={{ marginBottom: '5px', display: 'inline-block' }}>
+    Click
+    &nbsp;
+    <i
+      className="glyphicon glyphicon-th-list"
+      style={{
+        top: '0',
+        fontSize: '9px',
+      }}
+    />
+    &nbsp;
+    icon in the column header to group by that column
+  </span>
+);
 
-  return groupedColumns.length
-    ? (
-      <div>
-        {
-          groupedColumns.map(column => (
-            <GroupPanelCell
-              key={column.name}
-              column={column}
-            />
-          ))
-        }
-      </div>
-    )
-    : <span>{text()}</span>;
+const PanelTemplate = ({ cells }) => <div>{cells}</div>;
+
+PanelTemplate.propTypes = {
+  cells: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 
+const panelTemplate = props => <PanelTemplate {...props} />;
+
+export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
+  <GroupPanelLayout
+    groupByColumnText={groupByColumnText || defaultText}
+    panelTemplate={panelTemplate}
+    {...restProps}
+  />
+);
+
 GroupPanel.propTypes = {
-  groupedColumns: PropTypes.array.isRequired,
   groupByColumnText: PropTypes.string,
-  cellTemplate: PropTypes.func.isRequired,
 };
 
 GroupPanel.defaultProps = {

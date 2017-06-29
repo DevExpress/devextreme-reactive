@@ -1,3 +1,5 @@
+import { easeOutCubic } from '@devexpress/dx-core';
+
 import { querySelectorAll } from './dom-utils';
 
 const getTableKeyGetter = (getIntrinsicKey, object, index) => {
@@ -84,3 +86,61 @@ export const getTableTargetColumnIndex = (columnGeometries, sourceIndex, offset)
     })
     .findIndex(({ left, right }) => offset > left && offset < right);
 };
+
+const ANIMATION_DURATION = 200;
+
+const getAnimationProgress = animation =>
+  (new Date().getTime() - animation.startTime) / ANIMATION_DURATION;
+
+export const getAnimations = (
+  prevColumns, nextColumns, tableWidth, draggingColumnKey, prevAnimations,
+) => {
+  const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
+    .map((geometry, index) => [tableColumnKeyGetter(prevColumns[index], index), geometry])
+    .map(([key, geometry]) => {
+      const animation = prevAnimations.get(key);
+      if (!animation) return [key, geometry];
+      const progress = easeOutCubic(getAnimationProgress(animation));
+      const left = ((animation.left.to - animation.left.from) * progress) + animation.left.from;
+      return [key, {
+        left,
+        right: geometry.right - (geometry.left - left),
+      }];
+    }));
+
+  const nextColumnGeometries = new Map(getTableColumnGeometries(nextColumns, tableWidth)
+    .map((geometry, index) => [tableColumnKeyGetter(nextColumns[index], index), geometry]));
+
+  return new Map([...nextColumnGeometries.keys()]
+    .map((key) => {
+      const prev = prevColumnGeometries.get(key);
+      const next = nextColumnGeometries.get(key);
+
+      const result = { startTime: new Date().getTime(), style: {} };
+      if (Math.abs(prev.left - next.left) > 1) {
+        result.left = { from: prev.left, to: next.left };
+      }
+      if (draggingColumnKey === key) {
+        result.style = {
+          zIndex: 100,
+          position: 'relative',
+        };
+      }
+      return [key, result];
+    })
+    .filter(animation => animation[1].left));
+};
+
+export const filterActiveAnimations = animations => new Map([...animations.entries()]
+  .filter(([, animation]) => getAnimationProgress(animation) < 1));
+
+export const evalAnimations = animations => new Map([...animations.entries()]
+  .map(([key, animation]) => {
+    const progress = easeOutCubic(getAnimationProgress(animation));
+    const result = { ...animation.style };
+    if (animation.left) {
+      const offset = (animation.left.to - animation.left.from) * (progress - 1);
+      result.transform = `translateX(${offset}px)`;
+    }
+    return [key, result];
+  }));

@@ -1,3 +1,5 @@
+/* globals requestAnimationFrame */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
@@ -13,31 +15,36 @@ import {
   findTableCellTarget,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
+  getAnimations,
+  filterActiveAnimations,
+  evalAnimations,
 } from '@devexpress/dx-grid-core';
 
 const FLEX_TYPE = 'flex';
 
-const getColumnStyle = ({ column }) => ({
+const getColumnStyle = ({ column, animationState = {} }) => ({
   width: column.width !== undefined ? `${column.width}px` : undefined,
+  ...animationState,
 });
 
 const getRowStyle = ({ row }) => ({
   height: row.height !== undefined ? `${row.height}px` : undefined,
 });
 
-const renderRowCells = ({ row, columns, cellTemplate }) =>
+const renderRowCells = ({ row, columns, cellTemplate, animationState }) =>
   columns
     .filter((column, columnIndex) => !getTableCellInfo({ row, columns, columnIndex }).skip)
     .map((column, columnIndex) => {
+      const key = tableColumnKeyGetter(column, columnIndex);
       const colspan = getTableCellInfo({ row, columns, columnIndex }).colspan;
       return React.cloneElement(
         cellTemplate({
           row,
           column,
-          style: getColumnStyle({ column }),
           ...colspan ? { colspan } : null,
+          style: getColumnStyle({ column, animationState: animationState.get(key) }),
         }),
-        { key: tableColumnKeyGetter(column, columnIndex) },
+        { key },
       );
     });
 
@@ -47,13 +54,14 @@ const renderRows = ({
   columns,
   rowTemplate,
   cellTemplate,
+  animationState,
 }) =>
   rows
     .map((row, rowIndex) => React.cloneElement(
       rowTemplate({
         row,
         style: getRowStyle({ row }),
-        children: renderRowCells({ row, columns, cellTemplate }),
+        children: renderRowCells({ row, columns, cellTemplate, animationState }),
       }),
       { key: tableRowKeyGetter(getRowId, row, rowIndex) },
     ));
@@ -66,6 +74,7 @@ const renderRowsBlock = ({
   rowTemplate,
   cellTemplate,
   onClick,
+  animationState,
 }) => blockTemplate({
   onClick: (e) => {
     const { rowIndex, columnIndex } = findTableCellTarget(e);
@@ -78,6 +87,7 @@ const renderRowsBlock = ({
     columns,
     rowTemplate,
     cellTemplate,
+    animationState,
   }),
 });
 
@@ -88,9 +98,15 @@ export class TableLayout extends React.PureComponent {
     this.state = {
       sourceColumnIndex: -1,
       targetColumnIndex: -1,
+
+      animationState: new Map(),
     };
 
+    this.animations = new Map();
+
     this.tableNode = null;
+    // eslint-disable-next-line react/no-find-dom-node
+    this.tableRect = () => findDOMNode(this.tableNode).getBoundingClientRect();
 
     this.getColumns = () => {
       const { columns } = this.props;
@@ -115,8 +131,7 @@ export class TableLayout extends React.PureComponent {
     };
     this.onOver = ({ payload, clientOffset }) => {
       const sourceColumnName = payload[0].columnName;
-      // eslint-disable-next-line react/no-find-dom-node
-      const tableRect = findDOMNode(this.tableNode).getBoundingClientRect();
+      const tableRect = this.tableRect();
       const columns = this.getColumns();
       const columnGeometries = getTableColumnGeometries(columns, tableRect.width);
       const targetColumnIndex = getTableTargetColumnIndex(
@@ -124,7 +139,9 @@ export class TableLayout extends React.PureComponent {
         columns.findIndex(c => c.name === sourceColumnName),
         clientOffset.x - tableRect.left);
 
-      if (targetColumnIndex === -1 || columns[targetColumnIndex].type) return;
+      if (targetColumnIndex === -1 ||
+        columns[targetColumnIndex].type ||
+        targetColumnIndex === this.state.targetColumnIndex) return;
 
       const { sourceColumnIndex } = this.state;
       this.setState({
@@ -133,12 +150,25 @@ export class TableLayout extends React.PureComponent {
           : sourceColumnIndex,
         targetColumnIndex,
       });
+
+      this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
+        tableColumnKeyGetter(this.props.columns[this.state.sourceColumnIndex]), this.animations);
+      this.processAnimationFrame();
     };
     this.onLeave = () => {
+      const columns = this.getColumns();
+      const tableRect = this.tableRect();
+
+      const sourceColumnIndex = this.state.sourceColumnIndex;
+
       this.setState({
         sourceColumnIndex: -1,
         targetColumnIndex: -1,
       });
+
+      this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
+        tableColumnKeyGetter(this.props.columns[sourceColumnIndex]), this.animations);
+      this.processAnimationFrame();
     };
     this.onDrop = () => {
       const { sourceColumnIndex, targetColumnIndex } = this.state;
@@ -162,6 +192,21 @@ export class TableLayout extends React.PureComponent {
       });
     }
   }
+  processAnimationFrame() {
+    this.animations = filterActiveAnimations(this.animations);
+
+    if (!this.animations.size) {
+      if (this.state.animationState.size) {
+        this.setState({ animationState: new Map() });
+      }
+      return;
+    }
+
+    const animationState = evalAnimations(this.animations);
+    this.setState({ animationState });
+
+    requestAnimationFrame(this.processAnimationFrame.bind(this));
+  }
   render() {
     const {
       headerRows,
@@ -178,6 +223,7 @@ export class TableLayout extends React.PureComponent {
       className,
       style,
     } = this.props;
+    const { animationState } = this.state;
     const columns = this.getColumns();
     const minWidth = columns
       .map(column => column.width || (column.type === FLEX_TYPE ? 0 : minColumnWidth))
@@ -199,6 +245,7 @@ export class TableLayout extends React.PureComponent {
             rowTemplate,
             cellTemplate,
             onClick,
+            animationState,
           }),
           { key: 'head' },
         ),
@@ -211,6 +258,7 @@ export class TableLayout extends React.PureComponent {
             rowTemplate,
             cellTemplate,
             onClick,
+            animationState,
           }),
           { key: 'body' },
         ),

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './host';
+import { PluginContainer } from './container';
 import { Template } from './template';
 import { Getter } from './getter';
 
@@ -172,7 +173,7 @@ describe('Getter', () => {
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (
-          <div>
+          <PluginContainer>
             <Getter
               name="test"
               pureComputed={() => ({})}
@@ -186,8 +187,10 @@ describe('Getter', () => {
               connectGetters={(getter) => {
                 log.push(getter('test'));
               }}
-            />
-          </div>
+            >
+              <div />
+            </Template>
+          </PluginContainer>
         );
       }
     }

@@ -5,6 +5,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from './host';
 import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
+import { Getter } from './getter';
 
 describe('TemplatePlaceholder', () => {
   it('should be a place for template rendering', () => {
@@ -38,7 +39,7 @@ describe('TemplatePlaceholder', () => {
       </PluginHost>,
     );
 
-    expect(tree.find('h1 > span').exists()).toBeTruthy();
+    expect(tree.render().find('h1 > span').length).toBe(1);
   });
 
   it('should pass params to the template which is rendered inside it', () => {
@@ -172,5 +173,32 @@ describe('TemplatePlaceholder', () => {
 
     expect(tree.find('h1').text()).toBe('');
     expect(tree.find('h2').text()).toBe('param');
+  });
+
+  it('should supply correct element with connected properties when templates are chained', () => {
+    const getterValue = 'test value';
+    const tree = mount(
+      <PluginHost>
+        <Getter name="testGetter" value={getterValue} />
+
+        <Template name="root">
+          <TemplatePlaceholder name="test">
+            {content => (<div>{content}</div>)}
+          </TemplatePlaceholder>
+        </Template>
+
+        <Template
+          name="test"
+          connectGetters={getter => ({
+            value: getter('testGetter'),
+          })}
+        >
+          {({ value }) => (<div className="test" >{value}</div>)}
+        </Template>
+      </PluginHost>,
+    );
+
+    expect(tree.find('.test').text())
+      .toBe(getterValue);
   });
 });

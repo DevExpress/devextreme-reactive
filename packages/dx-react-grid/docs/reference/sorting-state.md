@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 sorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting
-defaultSorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the initial sorting for the uncontrolled mode
+defaultSorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies initial sorting in the uncontrolled mode
 onSortingChange | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes
 
 ## Interfaces
@@ -27,7 +27,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 columnName | string | Specifies a column name to which the sorting is applied
-direction | 'asc' &#124; 'desc' | Specifies the sort order of a column
+direction | 'asc' &#124; 'desc' | Specifies a column's sort order
 
 ## Plugin Developer Reference
 
@@ -39,6 +39,6 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-sorting | Getter | () => Array&lt;[Sorting](#sorting)&gt; | Applied column sorting
+sorting | Getter | Array&lt;[Sorting](#sorting)&gt; | Applied column sorting
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 

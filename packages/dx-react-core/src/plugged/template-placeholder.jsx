@@ -63,32 +63,37 @@ export class TemplatePlaceholder extends React.PureComponent {
     const { children: template, connectGetters, connectActions } = this.template;
     const { children: placeholder } = this.props;
 
-    const content = placeholder ? placeholder(template()) : template();
-
-    return (
+    const renderedTemplate = template();
+    const content = renderedTemplate ? (
       <TemplateConnector
         params={this.params}
         mapProps={connectGetters}
         mapActions={connectActions}
-        content={content}
+        content={renderedTemplate}
       />
-    );
+    ) : null;
+
+    return placeholder ? placeholder(content) : content;
   }
 }
-TemplatePlaceholder.defaultProps = {
-  name: null,
-  params: null,
-  children: null,
-};
+
 TemplatePlaceholder.propTypes = {
   name: PropTypes.string,
   params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   children: PropTypes.func,
 };
-TemplatePlaceholder.childContextTypes = {
-  templateHost: PropTypes.object.isRequired,
+
+TemplatePlaceholder.defaultProps = {
+  name: null,
+  params: null,
+  children: null,
 };
+
 TemplatePlaceholder.contextTypes = {
   templateHost: PropTypes.object,
   pluginHost: PropTypes.object.isRequired,
+};
+
+TemplatePlaceholder.childContextTypes = {
+  templateHost: PropTypes.object.isRequired,
 };

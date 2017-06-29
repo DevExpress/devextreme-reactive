@@ -26,7 +26,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-totalPages | number | Specifies the total pages count
+totalPages | number | Specifies the total page count
 currentPage | number | Specifies the current page
 onCurrentPageChange | (page: number) => void | Changes the current page
 pageSize | number | Specifies the page size
@@ -36,4 +36,20 @@ showAllText | string | Specifies a page size selector's 'All' item text. Availab
 
 ## Plugin Developer Reference
 
-To be described...
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+currentPage | Getter | number | The current page
+totalPages | Getter | number | The total page count
+pageSize | Getter | number | The count of rows to be shown on a single page
+totalCount | Getter | number | The total row count
+setCurrentPage | Action | ({ page: number }) => void | Changes the current page
+setPageSize | Action | ({ size: number }) => void | Changes the page size
+footer | Template | none | A template that renders the grid footer
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+pager | Template | none | A template that renders the pager

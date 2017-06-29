@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  TableSortLabel,
-  Chip,
-} from 'material-ui';
-
+import { TableSortLabel, Chip } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
@@ -15,12 +11,14 @@ const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
   },
 }));
 
-const label = (allowSorting, sortingDirection, column) => (<TableSortLabel
-  active={allowSorting && !!sortingDirection}
-  direction={sortingDirection}
->
-  {column.title || column.name}
-</TableSortLabel>);
+const label = (allowSorting, sortingDirection, column) => (
+  <TableSortLabel
+    active={allowSorting && !!sortingDirection}
+    direction={sortingDirection}
+  >
+    {column.title || column.name}
+  </TableSortLabel>
+);
 
 const GroupPanelCellBase = ({
   column,
@@ -43,14 +41,6 @@ const GroupPanelCellBase = ({
   />
 );
 
-GroupPanelCellBase.defaultProps = {
-  allowSorting: false,
-  sortingDirection: undefined,
-  changeSortingDirection: undefined,
-  allowGrouping: false,
-  groupByColumn: undefined,
-};
-
 GroupPanelCellBase.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
@@ -60,6 +50,14 @@ GroupPanelCellBase.propTypes = {
   changeSortingDirection: PropTypes.func,
   groupByColumn: PropTypes.func,
   classes: PropTypes.object.isRequired,
+};
+
+GroupPanelCellBase.defaultProps = {
+  allowSorting: false,
+  sortingDirection: undefined,
+  changeSortingDirection: undefined,
+  allowGrouping: false,
+  groupByColumn: undefined,
 };
 
 export const GroupPanelCell = withStyles(styleSheet)(GroupPanelCellBase);

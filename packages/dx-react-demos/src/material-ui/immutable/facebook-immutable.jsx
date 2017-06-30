@@ -9,6 +9,8 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
+import { Map, List } from 'immutable';
+
 import {
   generateRows,
 } from '../../demoData';
@@ -17,15 +19,20 @@ export class FacebookImmutableDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 14 }),
-    };
+    const columns = List([
+      { name: 'name', title: 'Name' },
+      { name: 'sex', title: 'Sex' },
+      { name: 'city', title: 'City' },
+      { name: 'car', title: 'Car' },
+    ]);
+    const rows = List(generateRows({ length: 14 }));
+
+    const state = Map({
+      columns,
+      rows,
+    });
+
+    this.state = state.toJS();
   }
   render() {
     const { rows, columns } = this.state;

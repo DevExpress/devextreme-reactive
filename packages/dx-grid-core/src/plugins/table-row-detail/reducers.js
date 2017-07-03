@@ -1,5 +1,5 @@
 export const setDetailRowExpanded = (prevExpanded, { rowId, isExpanded }) => {
-  const expandedRows = prevExpanded.slice();
+  const expandedRows = Array.from(prevExpanded);
   const expandedIndex = expandedRows.indexOf(rowId);
   const isRowExpanded = isExpanded !== undefined ? isExpanded : expandedIndex === -1;
 

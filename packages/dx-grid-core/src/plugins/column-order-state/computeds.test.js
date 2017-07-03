@@ -14,5 +14,17 @@ describe('ColumnOrderState computeds', () => {
       expect(computed === columns)
         .toBeFalsy();
     });
+
+    it('should create columns copy before processing', () => {
+      const columns = [{ name: 'a' }];
+
+      Object.defineProperty(columns, 'slice', {
+        value: () => columns,
+      });
+
+      const computed = orderedColumns(columns, ['a']);
+
+      expect(computed.slice()).not.toBe(columns);
+    });
   });
 });

@@ -41,5 +41,17 @@ describe('DetailRow reducers', () => {
       nextExpandedRows = setDetailRowExpanded(expandedRows, payload);
       expect(nextExpandedRows).toEqual([]);
     });
+
+    it('should create expanded rows copy before processing', () => {
+      const expandedRows = [];
+
+      Object.defineProperty(expandedRows, 'slice', {
+        value: () => expandedRows,
+      });
+
+      const computed = setDetailRowExpanded(expandedRows, { rowId: 1 });
+
+      expect(computed.slice()).not.toBe(expandedRows);
+    });
   });
 });

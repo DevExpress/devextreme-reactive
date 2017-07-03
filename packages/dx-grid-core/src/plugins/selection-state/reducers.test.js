@@ -42,6 +42,18 @@ describe('SelectionState reducers', () => {
       nextSelection = setRowSelection(selection, payload);
       expect(nextSelection).toEqual([]);
     });
+
+    it('should create selection copy before processing', () => {
+      const selection = [{ name: 'a' }];
+
+      Object.defineProperty(selection, 'slice', {
+        value: () => selection,
+      });
+
+      const computed = setRowSelection(selection, { rowId: 1 });
+
+      expect(computed.slice()).not.toBe(selection);
+    });
   });
 
   describe('#setRowsSelection', () => {

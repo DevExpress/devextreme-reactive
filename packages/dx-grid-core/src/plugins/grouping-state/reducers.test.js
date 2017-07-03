@@ -43,5 +43,17 @@ describe('GroupingState reducers', () => {
         { columnName: 'column1' },
       ]);
     });
+
+    it('should create grouping copy before processing', () => {
+      const grouping = [];
+
+      Object.defineProperty(grouping, 'slice', {
+        value: () => grouping,
+      });
+
+      const nextGrouping = groupByColumn(grouping, { columnName: 'test' });
+
+      expect(nextGrouping.slice()).not.toBe(grouping);
+    });
   });
 });

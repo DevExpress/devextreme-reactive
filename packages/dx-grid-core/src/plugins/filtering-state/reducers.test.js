@@ -38,5 +38,17 @@ describe('SortingState reducers', () => {
       const nextFilters = setColumnFilter(filters, payload);
       expect(nextFilters).toEqual([]);
     });
+
+    it('should create filters copy before processing', () => {
+      const filters = [];
+
+      Object.defineProperty(filters, 'slice', {
+        value: () => filters,
+      });
+
+      const computed = setColumnFilter(filters, { columnName: 'a', config: { value: 'value' } });
+
+      expect(computed.slice()).not.toBe(filters);
+    });
   });
 });

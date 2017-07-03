@@ -18,7 +18,7 @@ export class GroupingState extends React.PureComponent {
       const prevExpandedGroups = this.props.expandedGroups || this.state.expandedGroups;
       const { onExpandedGroupsChange } = this.props;
 
-      const expandedGroups = prevExpandedGroups.slice();
+      const expandedGroups = Array.from(prevExpandedGroups);
       const groupKeyIndex = expandedGroups.indexOf(groupKey);
       if (groupKeyIndex > -1) {
         expandedGroups.splice(groupKeyIndex, 1);

@@ -1,13 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { FacebookImmutableDemo } from './facebook-immutable';
+import { ImmutableJSDemo } from './immutablejs';
 
-describe('MUI: facebook immutable demo', () => {
+describe('MUI: immutablejs demo', () => {
   it('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>
-        <FacebookImmutableDemo />
+        <ImmutableJSDemo />
       </MuiThemeProvider>,
     );
   });

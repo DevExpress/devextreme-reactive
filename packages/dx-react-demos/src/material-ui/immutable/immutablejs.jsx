@@ -15,7 +15,7 @@ import {
   generateRows,
 } from '../../demoData';
 
-export class FacebookImmutableDemo extends React.PureComponent {
+export class ImmutableJSDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 

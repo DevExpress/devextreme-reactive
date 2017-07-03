@@ -50,6 +50,4 @@ footer | Template | none | A template that renders the grid footer
 
 ### Exports
 
-Name | Plugin | Type | Description
------|--------|------|------------
-pager | Template | none | A template that renders the pager
+none

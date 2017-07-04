@@ -1,12 +1,14 @@
 import React from 'react';
 import {
   SortingState,
+  SelectionState,
   LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView,
   TableHeaderRow,
+  TableSelection,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { Map, List } from 'immutable';
@@ -27,25 +29,47 @@ export class ImmutableJSDemo extends React.PureComponent {
     ]);
     const rows = List(generateRows({ length: 14 }));
 
-    const state = Map({
-      columns,
-      rows,
-    });
+    this.state = {
+      data: Map({
+        columns,
+        rows,
+        sorting: List([]),
+        selection: List([]),
+      }),
+    };
 
-    this.state = state.toJS();
+    this.changeSorting = (sorting) => {
+      this.setState(({ data }) => ({
+        data: data.update('sorting', () => List(sorting)),
+      }));
+    };
+
+    this.changeSelection = (selection) => {
+      this.setState(({ data }) => ({
+        data: data.update('selection', () => List(selection)),
+      }));
+    };
   }
   render() {
-    const { rows, columns } = this.state;
+    const data = this.state.data;
 
     return (
       <Grid
-        rows={rows}
-        columns={columns}
+        rows={data.get('rows').toJS()}
+        columns={data.get('columns').toJS()}
       >
-        <SortingState />
+        <SortingState
+          sorting={data.get('sorting').toJS()}
+          onSortingChange={this.changeSorting}
+        />
         <LocalSorting />
+        <SelectionState
+          selection={data.get('selection').toJS()}
+          onSelectionChange={this.changeSelection}
+        />
         <TableView />
         <TableHeaderRow allowSorting />
+        <TableSelection />
       </Grid>
     );
   }

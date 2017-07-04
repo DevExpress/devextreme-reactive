@@ -8,9 +8,9 @@ import { SeamlessImmutableDemo } from './immutable/seamless-immutable';
 const AllDemos = () => (
   <div>
     <h2>Immutable Demos</h2>
-    <h3>ImmutableJS</h3>
+    <h3>ImmutableJS as React state</h3>
     <ImmutableJSDemo />
-    <h3>Seamless-Immutable</h3>
+    <h3>Seamless-Immutable as React state</h3>
     <SeamlessImmutableDemo />
   </div>
 );

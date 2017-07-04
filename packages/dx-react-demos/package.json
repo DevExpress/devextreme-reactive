@@ -39,7 +39,6 @@
     "@devexpress/dx-react-grid-bootstrap3": "1.0.0-alpha.4",
     "@devexpress/dx-react-grid-material-ui": "1.0.0-alpha.4",
     "core-js": "^2.4.1",
-    "immutable": "^3.8.1",
     "material-ui": "^1.0.0-alpha.19",
     "material-ui-icons": "1.0.0-alpha.3",
     "prop-types": "^15.5.8",

@@ -21,9 +21,9 @@ Install this package with it dependencies by the following command:
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-This package does not contain visual components. In the examples below, the DevExtreme React Grid Bootstrap3 package is used to render visual components.
+This package does not contain visual components. In the examples below, a template package is used to render visual components.
 
-Install one of the preferred components package:
+Feel free to install one of the components packages that fit your project appearance:
 
 - Bootstrap 3
 

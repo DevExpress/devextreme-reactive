@@ -19,7 +19,7 @@ export class FeaturedThemingDemos extends React.PureComponent {
   render() {
     const currentTheme = this.state.currentTheme;
     return (<div>
-      <h1>Grid Theming</h1>
+      <h1>Material UI Grid Theming</h1>
       <p>
         This demo illustrates the grid&apos;s Light and Dark <a href="https://material-ui-1dab0.firebaseapp.com/customization/themes">Material UI theme</a> appearance.
         The <a href="https://material-ui-1dab0.firebaseapp.com/component-api/mui-theme-provider">MuiThemeProvider&apos;s</a> &quot;theme&quot; property component specifies the current theme.
@@ -40,8 +40,11 @@ export class FeaturedThemingDemos extends React.PureComponent {
         theme={currentTheme}
       />
 
-      <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/material-ui/featured/theming.jsx">
-        SOURCE CODE
+      <a
+        className="source-code-link"
+        href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/bootstrap3/featured/theming.jsx"
+      >
+        Source Code
       </a>
     </div>);
   }

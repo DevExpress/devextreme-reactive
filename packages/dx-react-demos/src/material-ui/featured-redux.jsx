@@ -13,8 +13,11 @@ export const FeaturedReduxDemos = () => (
       and perform time-traveling and observe Grid state mutations.
     </p>
     <ReduxIntegrationDemo />
-    <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/material-ui/featured/redux-integration.jsx">
-      SOURCE CODE
+    <a
+      className="source-code-link"
+      href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/bootstrap3/featured/redux-integration.jsx"
+    >
+      Source Code
     </a>
   </div>
 );

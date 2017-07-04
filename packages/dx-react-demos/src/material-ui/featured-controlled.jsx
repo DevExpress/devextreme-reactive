@@ -13,8 +13,11 @@ export const FeaturedControlledDemos = () => (
       can also persist the component state and restore it when required.
     </p>
     <ControlledModeDemo />
-    <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/material-ui/featured/controlled-mode.jsx">
-      SOURCE CODE
+    <a
+      className="source-code-link"
+      href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/bootstrap3/featured/controlled-mode.jsx"
+    >
+      Source Code
     </a>
   </div>
 );

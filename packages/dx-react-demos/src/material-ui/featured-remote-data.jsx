@@ -13,8 +13,11 @@ export const FeaturedRemoteDataDemos = () => (
       service. You can display your own loading indicator during request processing.
     </p>
     <RemoteDataDemo />
-    <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/material-ui/featured/remote-data.jsx">
-      SOURCE CODE
+    <a
+      className="source-code-link"
+      href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/bootstrap3/featured/remote-data.jsx"
+    >
+      Source Code
     </a>
   </div>
 );

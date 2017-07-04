@@ -11,8 +11,11 @@ export const FeaturedVirtualScrollingDemos = () => (
       records and virtual scrolling is enabled using the VirtualTableView plugin.
     </p>
     <VirtualScrollingDemo />
-    <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/bootstrap3/featured/virtual-scrolling.jsx">
-      SOURCE CODE
+    <a
+      className="source-code-link"
+      href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/bootstrap3/featured/virtual-scrolling.jsx"
+    >
+      Source Code
     </a>
   </div>
 );

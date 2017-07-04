@@ -4,6 +4,8 @@ react:
       items:
         - title: Getting Started
           path: /react/grid/docs
+        - title: Immutability
+          path: /react/grid/docs/guides/immutability
         - title: Sorting
           path: /react/grid/docs/guides/sorting
         - title: Paging

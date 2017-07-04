@@ -21,7 +21,7 @@ import { GroupingDemos } from './grouping';
 import { SelectionDemos } from './selection';
 import { DetailRowDemos } from './detail-row';
 import { ColumnReorderingDemos } from './column-reordering';
-import { ImmutableDemos } from './immutable';
+import { ImmutabilityDemos } from './immutability';
 
 import { FeaturedUncontrolledDemos } from './featured-uncontrolled';
 import { FeaturedReduxDemos } from './featured-redux';
@@ -56,7 +56,7 @@ const Demos = () => (
       <Route path="/material-ui/grouping" component={GroupingDemos} />
       <Route path="/material-ui/detail-row" component={DetailRowDemos} />
       <Route path="/material-ui/column-reordering" component={ColumnReorderingDemos} />
-      <Route path="/material-ui/immutable" component={ImmutableDemos} />
+      <Route path="/material-ui/immutability" component={ImmutabilityDemos} />
       <Route path="/material-ui/featured-uncontrolled" component={FeaturedUncontrolledDemos} />
       <Route path="/material-ui/featured-controlled" component={FeaturedControlledDemos} />
       <Route path="/material-ui/featured-redux" component={FeaturedReduxDemos} />
@@ -109,7 +109,7 @@ export const MaterialUIDemos = withRouter(({ location }) => {
                     <li>
                       <NavLink to="/material-ui/column-reordering">Column Reordering</NavLink>
                     </li>
-                    <li><NavLink to="/material-ui/immutable">Immutable</NavLink></li>
+                    <li><NavLink to="/material-ui/immutability">Immutability</NavLink></li>
                     <li><NavLink to="/material-ui/">Featured</NavLink></li>
                   </ul>
                 )

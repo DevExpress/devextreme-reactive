@@ -16,6 +16,7 @@ import { SelectionDemos } from './selection';
 import { DetailRowDemos } from './detail-row';
 import { VirtualScrollingDemos } from './virtual-scrolling';
 import { ColumnReorderingDemos } from './column-reordering';
+import { ImmutabilityDemos } from './immutability';
 
 import { FeaturedUncontrolledDemos } from './featured-uncontrolled';
 import { FeaturedControlledDemos } from './featured-controlled';
@@ -43,6 +44,7 @@ const Demos = () => (
     <Route path="/bootstrap3/detail-row" component={DetailRowDemos} />
     <Route path="/bootstrap3/virtual-scrolling" component={VirtualScrollingDemos} />
     <Route path="/bootstrap3/column-reordering" component={ColumnReorderingDemos} />
+    <Route path="/bootstrap3/immutability" component={ImmutabilityDemos} />
 
     <Route path="/bootstrap3/featured-uncontrolled" component={FeaturedUncontrolledDemos} />
     <Route path="/bootstrap3/featured-controlled" component={FeaturedControlledDemos} />
@@ -99,6 +101,7 @@ export const Bootstrap3Demos = withRouter(({ location }) => {
                     <li><NavLink to="/bootstrap3/detail-row">Detail Row</NavLink></li>
                     <li><NavLink to="/bootstrap3/virtual-scrolling">Virtual Scrolling</NavLink></li>
                     <li><NavLink to="/bootstrap3/column-reordering">Column Reordering</NavLink></li>
+                    <li><NavLink to="/bootstrap3/immutability">Immutability</NavLink></li>
                     <li><NavLink to="/bootstrap3/">Featured</NavLink></li>
                   </ul>
                 )

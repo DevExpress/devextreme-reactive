@@ -229,7 +229,7 @@ ul.banner-action-buttons .btn.demos:hover {
     .intro-message > h3 {
         font-size: 2em;
     }
-    
+
     ul.intro-action-buttons > li {
         margin-bottom: 20px;
     }
@@ -456,4 +456,8 @@ footer ul > li.active > a {
   cursor: pointer;
   border-bottom: dashed 1px #337ab7;
   text-decoration: none;
+}
+
+.source-code-link {
+  float: right;
 }

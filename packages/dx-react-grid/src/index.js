@@ -1,20 +1,20 @@
 export { Grid } from './grid';
 
 export { FilteringState } from './plugins/filtering-state';
-export { LocalFiltering } from './plugins/filtering-local';
+export { LocalFiltering } from './plugins/local-filtering';
 
 export { EditingState } from './plugins/editing-state';
 
 export { PagingState } from './plugins/paging-state';
-export { LocalPaging } from './plugins/paging-local';
+export { LocalPaging } from './plugins/local-paging';
 
 export { GroupingState } from './plugins/grouping-state';
-export { LocalGrouping } from './plugins/grouping-local';
+export { LocalGrouping } from './plugins/local-grouping';
 
 export { SelectionState } from './plugins/selection-state';
 
 export { SortingState } from './plugins/sorting-state';
-export { LocalSorting } from './plugins/sorting-local';
+export { LocalSorting } from './plugins/local-sorting';
 
 export { DragDropContext } from './plugins/drag-drop-context';
 

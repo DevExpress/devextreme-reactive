@@ -19,6 +19,15 @@ const styleSheet = createStyleSheet('TableGroupCell', theme => ({
   indentCell: {
     padding: 0,
   },
+  groupIcon: {
+    verticalAlign: 'middle',
+    display: 'inline-block',
+    marginRight: '6px',
+    height: theme.spacing.unit * 3,
+  },
+  columnTitle: {
+    verticalAlign: 'middle',
+  },
 }));
 
 const TableGroupCellBase = ({
@@ -35,22 +44,14 @@ const TableGroupCellBase = ({
     className={classes.cell}
     onClick={toggleGroupExpanded}
   >
-    <span
-      style={{
-        verticalAlign: 'middle',
-        display: 'inline-block',
-        marginRight: '6px',
-        marginLeft: '-6px',
-        height: '24px',
-      }}
-    >
+    <span className={classes.groupIcon}>
       {
         isExpanded
         ? <ExpandMore />
         : <ChevronRight />
       }
     </span>
-    <strong style={{ verticalAlign: 'middle' }}>
+    <strong className={classes.columnTitle}>
       {row.column.title || row.column.name}: {row.value}
     </strong>
   </TableCell>

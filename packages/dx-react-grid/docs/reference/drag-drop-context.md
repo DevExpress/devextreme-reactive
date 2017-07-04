@@ -1,6 +1,6 @@
 # DragDropContext Plugin Reference
 
-This plugin enables drag-and-drop feature and visualizes dragging process.
+This plugin enables drag-and-drop feature and visualizes the dragging process.
 
 ## User Reference
 
@@ -26,7 +26,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 clientOffset | { x: number, y: number } | Current screen offset of dragged items
-columns | Array&lt;[Column](grid.md#column)&gt; | Columns being drugged
+columns | Array&lt;[Column](grid.md#column)&gt; | Columns being dragged
 columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | A template that should be applied to dragging columns
 
 ### <a name="column-args"></a>ColumnArgs
@@ -45,7 +45,7 @@ column | [Column](grid.md#column) | Specifies a table column
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | () => Array&lt;[Column](grid.md#column)&gt; | Columns that can be dragged
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns that can be dragged
 
 ### Exports
 

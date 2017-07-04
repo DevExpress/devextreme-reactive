@@ -1,4 +1,4 @@
-/* globals Element:true */
+/* globals Element:true, window:true */
 
 import React from 'react';
 import { mount } from 'enzyme';
@@ -274,13 +274,17 @@ describe('TableLayout', () => {
 
   describe('drag\'n\'drop reordering', () => {
     let getRect;
+    let originalRaf;
 
     beforeEach(() => {
       getRect = jest.spyOn(Element.prototype, 'getBoundingClientRect');
+      originalRaf = window.requestAnimationFrame;
+      window.requestAnimationFrame = jest.fn();
     });
 
     afterEach(() => {
       getRect.mockRestore();
+      window.requestAnimationFrame = originalRaf;
     });
 
     it('should preview column order while dragging', () => {

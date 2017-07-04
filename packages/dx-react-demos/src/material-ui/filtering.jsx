@@ -22,6 +22,7 @@ export const FilteringDemos = ({ match }) => (
   <div>
     <Route exact path={`${match.url}/`} component={AllDemos} />
     <Route path={`${match.url}/local-filter-row`} component={LocalFilterRowDemo} />
+    <Route path={`${match.url}/custom-filter-row`} component={CustomFilterRowDemo} />
     <Route path={`${match.url}/local-filtering-controlled`} component={LocalFilteringControlledDemo} />
   </div>
 );

@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable';
+
 import {
     setDetailRowExpanded,
 } from './reducers';
@@ -42,16 +44,11 @@ describe('DetailRow reducers', () => {
       expect(nextExpandedRows).toEqual([]);
     });
 
-    it('should create expanded rows copy before processing', () => {
-      const expandedRows = [];
+    it('should work with immutable expanded rows', () => {
+      const expandedRows = Immutable([]);
+      const nextExpandedRows = setDetailRowExpanded(expandedRows, { rowId: 1 });
 
-      Object.defineProperty(expandedRows, 'slice', {
-        value: () => expandedRows,
-      });
-
-      const computed = setDetailRowExpanded(expandedRows, { rowId: 1 });
-
-      expect(computed.slice()).not.toBe(expandedRows);
+      expect(nextExpandedRows).toEqual([1]);
     });
   });
 });

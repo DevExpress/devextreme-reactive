@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable';
+
 import {
     groupByColumn,
 } from './reducers';
@@ -44,16 +46,13 @@ describe('GroupingState reducers', () => {
       ]);
     });
 
-    it('should create grouping copy before processing', () => {
-      const grouping = [];
-
-      Object.defineProperty(grouping, 'slice', {
-        value: () => grouping,
-      });
+    it('should work with immutable grouping', () => {
+      const grouping = Immutable([]);
 
       const nextGrouping = groupByColumn(grouping, { columnName: 'test' });
-
-      expect(nextGrouping.slice()).not.toBe(grouping);
+      expect(nextGrouping).toEqual([
+        { columnName: 'test' },
+      ]);
     });
   });
 });

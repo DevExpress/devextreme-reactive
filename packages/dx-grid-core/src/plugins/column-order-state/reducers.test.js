@@ -1,27 +1,25 @@
+import Immutable from 'seamless-immutable';
+
 import {
     setColumnOrder,
 } from './reducers';
 
 describe('ColumnOrderState reducers', () => {
   describe('#setColumnOrder', () => {
-    it('should work', () => {
-      const order = ['a', 'b', 'c'];
-      const payload = { sourceColumnName: 'a', targetColumnName: 'b' };
+    const order = ['a', 'b', 'c'];
+    const payload = { sourceColumnName: 'a', targetColumnName: 'b' };
+    const setUpOrder = useImmutable => (useImmutable ? Immutable(order) : order);
 
-      const nextOrder = setColumnOrder(order, payload);
+    it('should work', () => {
+      const nextOrder = setColumnOrder(setUpOrder(), payload);
+
       expect(nextOrder).toEqual(['b', 'a', 'c']);
     });
 
-    it('should create order copy before processing', () => {
-      const order = ['a', 'b', 'c'];
+    it('should work with immutable order', () => {
+      const nextOrder = setColumnOrder(setUpOrder(true), payload);
 
-      Object.defineProperty(order, 'slice', {
-        value: () => order,
-      });
-
-      const computed = setColumnOrder(order, { sourceColumnName: 'a', targetColumnName: 'b' });
-
-      expect(computed.slice()).not.toBe(order);
+      expect(nextOrder).toEqual(['b', 'a', 'c']);
     });
   });
 });

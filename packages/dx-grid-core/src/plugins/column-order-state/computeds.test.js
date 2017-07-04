@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable';
+
 import {
     orderedColumns,
 } from './computeds';
@@ -15,16 +17,13 @@ describe('ColumnOrderState computeds', () => {
         .toBeFalsy();
     });
 
-    it('should create columns copy before processing', () => {
-      const columns = [{ name: 'a' }];
+    it('should work with immutable columns', () => {
+      const columns = Immutable([{ name: 'a' }, { name: 'b' }]);
+      const order = ['b', 'a'];
 
-      Object.defineProperty(columns, 'slice', {
-        value: () => columns,
-      });
+      const computed = orderedColumns(columns, order);
 
-      const computed = orderedColumns(columns, ['a']);
-
-      expect(computed.slice()).not.toBe(columns);
+      expect(computed).toEqual([{ name: 'b' }, { name: 'a' }]);
     });
   });
 });

@@ -19,5 +19,5 @@ export const sortedRows = (rows, sorting) => {
     .reduce((prevCompare, columnSorting) =>
       createSortingCompare(columnSorting, prevCompare), () => 0);
 
-  return mergeSort(rows, compare);
+  return mergeSort(Array.from(rows), compare);
 };

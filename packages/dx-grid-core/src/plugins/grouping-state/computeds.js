@@ -59,3 +59,16 @@ export const expandedGroupRows = (rows, expandedGroups) => {
 
 export const groupedColumns = (columns, grouping) =>
   grouping.map(group => columns.find(c => c.name === group.columnName));
+
+export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
+  const expandedGroups = Array.from(prevExpandedGroups);
+  const groupKeyIndex = expandedGroups.indexOf(groupKey);
+
+  if (groupKeyIndex > -1) {
+    expandedGroups.splice(groupKeyIndex, 1);
+  } else {
+    expandedGroups.push(groupKey);
+  }
+
+  return expandedGroups;
+};

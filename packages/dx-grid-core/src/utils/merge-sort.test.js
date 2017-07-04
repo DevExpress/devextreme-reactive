@@ -24,14 +24,4 @@ describe('margeSort', () => {
       ],
     );
   });
-
-  it('should create array copy before sorting', () => {
-    const data = [1, 2, 3];
-
-    Object.defineProperty(data, 'slice', {
-      value: () => data,
-    });
-
-    expect(mergeSort(data).slice()).not.toBe(data);
-  });
 });

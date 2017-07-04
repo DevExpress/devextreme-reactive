@@ -8,32 +8,31 @@ const styleSheet = createStyleSheet('TableFilterCell', theme => ({
   cell: {
     verticalAlign: 'top',
     paddingTop: theme.spacing.unit + 4,
-    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+    '& ~ $cell': {
+      paddingLeft: theme.spacing.unit,
+    },
   },
   input: {
     width: '100%',
   },
 }));
 
-const TableFilterCellBase = ({ style, column, filter, setFilter, classes }) => (
+const TableFilterCellBase = ({ style, filter, setFilter, classes }) => (
   <TableCell
     className={classes.cell}
     style={style}
   >
-    {!column.type && (
-      <Input
-        className={classes.input}
-        value={filter ? filter.value : ''}
-        placeholder={'Filter...'}
-        onChange={e => setFilter({ value: e.target.value })}
-      />
-    )}
+    <Input
+      className={classes.input}
+      value={filter ? filter.value : ''}
+      placeholder={'Filter...'}
+      onChange={e => setFilter({ value: e.target.value })}
+    />
   </TableCell>
 );
 
 TableFilterCellBase.propTypes = {
-  column: PropTypes.object,
   style: PropTypes.object,
   filter: PropTypes.object,
   setFilter: PropTypes.func,
@@ -41,7 +40,6 @@ TableFilterCellBase.propTypes = {
 };
 
 TableFilterCellBase.defaultProps = {
-  column: {},
   style: null,
   filter: null,
   setFilter: () => {},

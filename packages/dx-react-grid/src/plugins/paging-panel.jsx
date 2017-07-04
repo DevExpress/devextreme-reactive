@@ -4,14 +4,8 @@ import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-r
 
 export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
   <PluginContainer>
-    <Template name="footer">
-      <div>
-        <TemplatePlaceholder name="pager" />
-        <TemplatePlaceholder />
-      </div>
-    </Template>
     <Template
-      name="pager"
+      name="footer"
       connectGetters={getter => ({
         currentPage: getter('currentPage'),
         totalPages: getter('totalPages'),
@@ -24,7 +18,12 @@ export const PagingPanel = ({ pagerTemplate, allowedPageSizes }) => (
         onPageSizeChange: size => action('setPageSize')({ size }),
       })}
     >
-      {pagerTemplate}
+      {params => (
+        <div>
+          {pagerTemplate(params)}
+          <TemplatePlaceholder />
+        </div>
+      )}
     </Template>
   </PluginContainer>
 );

@@ -20,7 +20,9 @@ describe('ColumnOrderState', () => {
         <Template
           name="root"
           connectGetters={getter => (orderedColumns = getter('columns'))}
-        />
+        >
+          <div />
+        </Template>
       </PluginHost>,
     );
 
@@ -42,7 +44,9 @@ describe('ColumnOrderState', () => {
         <Template
           name="root"
           connectGetters={getter => (orderedColumns = getter('columns'))}
-        />
+        >
+          <div />
+        </Template>
       </PluginHost>,
     );
 
@@ -66,7 +70,9 @@ describe('ColumnOrderState', () => {
           name="root"
           connectGetters={getter => (orderedColumns = getter('columns'))}
           connectActions={action => (setColumnOrder = action('setColumnOrder'))}
-        />
+        >
+          <div />
+        </Template>
       </PluginHost>,
     );
 
@@ -97,7 +103,9 @@ describe('ColumnOrderState', () => {
           name="root"
           connectGetters={getter => (orderedColumns = getter('columns'))}
           connectActions={action => (setColumnOrder = action('setColumnOrder'))}
-        />
+        >
+          <div />
+        </Template>
       </PluginHost>,
     );
 

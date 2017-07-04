@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 filters | Array&lt;[Filter](#filter)&gt; | | Specifies filters to be applied
-defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies initial filters for the uncontrolled mode
+defaultFilters | Array&lt;[Filter](#filter)&gt; | | Specifies initial filters in the uncontrolled mode
 onFiltersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filter changes
 
 ## Interfaces
@@ -39,5 +39,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filters | Getter | () => Array&lt;[Filter](#filter)&gt; | Applied column filters
+filters | Getter | Array&lt;[Filter](#filter)&gt; | Applied column filters
 setColumnFilter | Action | ({ columnName: string, config: object }) => void | Changes a column filter. Removes the filter if config is `null`

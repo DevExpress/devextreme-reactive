@@ -38,4 +38,9 @@ export {
   tableColumnKeyGetter,
   getTableCellInfo,
   findTableCellTarget,
+  getTableColumnGeometries,
+  getTableTargetColumnIndex,
+  getAnimations,
+  filterActiveAnimations,
+  evalAnimations,
 } from './utils/table';

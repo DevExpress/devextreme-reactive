@@ -7,7 +7,14 @@ const cellTemplate = params =>
 
 export class TableView extends React.PureComponent {
   render() {
-    const { tableTemplate, tableCellTemplate, tableNoDataCellTemplate } = this.props;
+    const {
+      tableTemplate,
+      tableCellTemplate,
+      tableNoDataCellTemplate,
+      tableStubCellTemplate,
+      tableStubHeaderCellTemplate,
+      allowColumnReordering,
+    } = this.props;
 
     return (
       <PluginContainer>
@@ -28,24 +35,38 @@ export class TableView extends React.PureComponent {
         />
         <Getter name="tableExtraProps" value={{}} />
 
-        <Template name="body">
-          <TemplatePlaceholder name="tableView" />
-        </Template>
         <Template
-          name="tableView"
+          name="body"
           connectGetters={getter => ({
             headerRows: getter('tableHeaderRows'),
             bodyRows: getter('tableBodyRows'),
             columns: getter('tableColumns'),
             getRowId: getter('getRowId'),
             cellTemplate,
+            allowColumnReordering,
             ...getter('tableExtraProps'),
+          })}
+          connectActions={action => ({
+            setColumnOrder: action('setColumnOrder'),
           })}
         >
           {tableTemplate}
         </Template>
         <Template
           name="tableViewCell"
+          connectGetters={getter => ({
+            headerRows: getter('tableHeaderRows'),
+          })}
+        >
+          {({ row, column, headerRows, ...restParams }) => (
+            headerRows.indexOf(row) > -1
+              ? tableStubHeaderCellTemplate(restParams)
+              : tableStubCellTemplate(restParams)
+          )}
+        </Template>
+        <Template
+          name="tableViewCell"
+          predicate={({ row, column }) => !column.type && !row.type}
         >
           {tableCellTemplate}
         </Template>
@@ -64,4 +85,11 @@ TableView.propTypes = {
   tableTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
   tableNoDataCellTemplate: PropTypes.func.isRequired,
+  tableStubCellTemplate: PropTypes.func.isRequired,
+  tableStubHeaderCellTemplate: PropTypes.func.isRequired,
+  allowColumnReordering: PropTypes.bool,
+};
+
+TableView.defaultProps = {
+  allowColumnReordering: false,
 };

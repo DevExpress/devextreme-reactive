@@ -19,7 +19,7 @@ export const TableEditColumn = ({
   ...restProps
 }) => (
   <TableEditColumnBase
-    width={170}
+    width={140}
     {...restProps}
     cellTemplate={combineTemplates(cellTemplate, defaultCellTemplate)}
     headingCellTemplate={combineTemplates(headingCellTemplate, defaultHeadingCellTemplate)}

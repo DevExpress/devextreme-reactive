@@ -5,23 +5,32 @@ import ChevronRight from 'material-ui-icons/ChevronRight';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
 import {
-    TableCell,
+  TableCell,
 } from 'material-ui';
 
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableGroupRowCell', theme => ({
+const styleSheet = createStyleSheet('TableGroupCell', theme => ({
   cell: {
     cursor: 'pointer',
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit,
   },
   indentCell: {
     padding: 0,
   },
+  groupIcon: {
+    verticalAlign: 'middle',
+    display: 'inline-block',
+    marginRight: '6px',
+    height: theme.spacing.unit * 3,
+  },
+  columnTitle: {
+    verticalAlign: 'middle',
+  },
 }));
 
-const TableGroupRowCellBase = ({
+const TableGroupCellBase = ({
   style,
   colspan,
   row,
@@ -35,28 +44,20 @@ const TableGroupRowCellBase = ({
     className={classes.cell}
     onClick={toggleGroupExpanded}
   >
-    <span
-      style={{
-        verticalAlign: 'middle',
-        display: 'inline-block',
-        marginRight: '6px',
-        marginLeft: '-6px',
-        height: '24px',
-      }}
-    >
+    <span className={classes.groupIcon}>
       {
         isExpanded
         ? <ExpandMore />
         : <ChevronRight />
       }
     </span>
-    <strong style={{ verticalAlign: 'middle' }}>
+    <strong className={classes.columnTitle}>
       {row.column.title || row.column.name}: {row.value}
     </strong>
   </TableCell>
 );
 
-TableGroupRowCellBase.propTypes = {
+TableGroupCellBase.propTypes = {
   style: PropTypes.shape(),
   colspan: PropTypes.number,
   row: PropTypes.shape(),
@@ -65,7 +66,7 @@ TableGroupRowCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-TableGroupRowCellBase.defaultProps = {
+TableGroupCellBase.defaultProps = {
   style: null,
   colspan: 1,
   row: {},
@@ -73,31 +74,4 @@ TableGroupRowCellBase.defaultProps = {
   toggleGroupExpanded: () => {},
 };
 
-export const TableGroupRowCell = withStyles(styleSheet)(TableGroupRowCellBase);
-
-const TableGroupIndentCellBase = ({ column, style, classes }) => (
-  <TableCell
-    style={{
-      width: column.width,
-      ...style,
-    }}
-    className={classes.indentCell}
-  >
-    &nbsp;
-  </TableCell>
-);
-
-TableGroupIndentCellBase.propTypes = {
-  style: PropTypes.object,
-  column: PropTypes.shape({
-    width: PropTypes.number.isRequired,
-  }).isRequired,
-  classes: PropTypes.object.isRequired,
-};
-
-TableGroupIndentCellBase.defaultProps = {
-  style: {},
-};
-
-export const TableGroupIndentCell = withStyles(styleSheet)(TableGroupIndentCellBase);
-
+export const TableGroupCell = withStyles(styleSheet)(TableGroupCellBase);

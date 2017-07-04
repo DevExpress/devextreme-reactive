@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnSortingDirection, tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
 
-export const cellTemplate = props =>
-  <TemplatePlaceholder name="groupingPanelCell" params={props} />;
+import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import { tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
 
 export class GroupingPanel extends React.PureComponent {
   render() {
-    const { allowSorting, groupPanelTemplate, groupPanelCellTemplate } = this.props;
+    const { groupPanelTemplate, allowSorting } = this.props;
 
     return (
       <PluginContainer>
@@ -21,45 +19,24 @@ export class GroupingPanel extends React.PureComponent {
           ]}
         />
 
-        <Template name="header">
-          <div>
-            <TemplatePlaceholder name="group-panel" />
-            <TemplatePlaceholder />
-          </div>
-        </Template>
         <Template
-          name="group-panel"
+          name="header"
           connectGetters={getter => ({
             groupedColumns: getter('groupedColumns'),
-            cellTemplate,
+            sorting: getter('sorting'),
+          })}
+          connectActions={action => ({
+            groupByColumn: action('groupByColumn'),
+            changeSortingDirection: ({ keepOther, cancel, columnName }) =>
+              action('setColumnSorting')({ columnName, keepOther, cancel }),
           })}
         >
-          {groupPanelTemplate}
-        </Template>
-        <Template
-          name="groupingPanelCell"
-          connectGetters={(getter, { column }) => {
-            const sorting = getter('sorting');
-
-            const result = {
-              sortingSupported: !column.type && sorting !== undefined,
-            };
-
-            if (result.sortingSupported) {
-              result.sortingDirection = getColumnSortingDirection(sorting, column.name);
-            }
-
-            return result;
-          }}
-          connectActions={(action, { column }) => ({
-            groupByColumn: ({ columnName, groupIndex }) => action('groupByColumn')({ columnName, groupIndex }),
-            changeSortingDirection: ({ keepOther, cancel }) => action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
-          })}
-        >
-          {({ sortingSupported, ...restParams }) => groupPanelCellTemplate({
-            ...restParams,
-            allowSorting: allowSorting && sortingSupported,
-          })}
+          {params => (
+            <div>
+              {groupPanelTemplate({ allowSorting, ...params })}
+              <TemplatePlaceholder />
+            </div>
+          )}
         </Template>
       </PluginContainer>
     );
@@ -69,7 +46,6 @@ export class GroupingPanel extends React.PureComponent {
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
   groupPanelTemplate: PropTypes.func.isRequired,
-  groupPanelCellTemplate: PropTypes.func.isRequired,
 };
 
 GroupingPanel.defaultProps = {

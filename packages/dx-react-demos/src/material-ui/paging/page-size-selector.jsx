@@ -24,7 +24,7 @@ export class PageSizeSelectorDemo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 60 }),
-      allowedPageSizes: [5, 10, 15],
+      allowedPageSizes: [5, 10, 15, 0],
     };
   }
 

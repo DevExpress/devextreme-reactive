@@ -10,8 +10,10 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 export const styleSheet = createStyleSheet('TableCell', theme => ({
   cell: {
-    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
+    '& ~ $cell': {
+      paddingLeft: theme.spacing.unit,
+    },
   },
   cellRightAlign: {
     textAlign: 'right',

@@ -22,6 +22,10 @@ export class Draggable extends React.Component {
     };
     this.onMove = ({ x, y, prevent }) => {
       if (this.initialOffset && this.isBoundExceeded({ x, y })) {
+        prevent();
+        if (window.getSelection) {
+          window.getSelection().removeAllRanges();
+        }
         const offset = { x, y };
         if (!this.offset) {
           this.props.onStart(this.initialOffset);
@@ -29,7 +33,6 @@ export class Draggable extends React.Component {
           this.props.onUpdate(offset);
         }
         this.offset = offset;
-        prevent();
       }
     };
     this.onEnd = ({ x, y, prevent }) => {

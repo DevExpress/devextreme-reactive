@@ -13,7 +13,7 @@
     }
   }
 
-  function setDemoTemplates(root, activeItem) {
+  function setDemoTemplates(root, activeItem, save) {
     var chooser = root.children('.template-chooser');
     var iframe = root.children('.embedded-demo');
     var sourceLink = root.children('.source-code-link');
@@ -24,7 +24,9 @@
     iframe.attr('src', activeItem.url);
     iFrameResize({ warningTimeout: 0 }, iframe[0]);
     sourceLink.attr('href', activeItem.demoSrc);
-    saveActiveTemplatesName(activeItem.templatesName);
+    if (save) {
+      saveActiveTemplatesName(activeItem.templatesName);
+    }
   }
 
   function createEmbeddedDemo(root, items) {
@@ -42,11 +44,10 @@
             <span class="caption"></span>
             <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu"></ul>
         </div>
       `).insertBefore(iframe);
 
-      var menu = chooser.children('.dropdown-menu');
+      var menu = $('<ul class="dropdown-menu"></ul>').appendTo(chooser);
       var activeItem = items[0];
 
       items.forEach(function(item) {
@@ -55,7 +56,7 @@
         link.text(item.title);
         link.wrap('<li>');
         link.on('click', function() {
-          setDemoTemplates(root, item);
+          setDemoTemplates(root, item, true);
           event.preventDefault();
         });
 

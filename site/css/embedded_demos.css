@@ -1,3 +1,7 @@
+.mui-demo-container {
+  padding: 2px 3px 5px 2px;
+}
+
 .loading-shading {
   position: absolute;
   top: 0;

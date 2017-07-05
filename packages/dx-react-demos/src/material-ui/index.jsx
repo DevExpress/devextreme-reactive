@@ -35,7 +35,7 @@ const theme = createMuiTheme({
 
 const Demos = () => (
   <MuiThemeProvider theme={theme}>
-    <div>
+    <div className="mui-demo-container">
       <Route
         exact
         path="/material-ui/"

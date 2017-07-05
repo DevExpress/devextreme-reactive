@@ -72,8 +72,8 @@ const App = () => (
 ### Try Out React Grid
 
 You can use the following links if you are interested in trying out the React Grid:
-- [webpackbin for Bootstrap3](https://www.webpackbin.com/bins/-KoCcFwPPtps5fEN0PkI)
-- [webpackbin for Material UI](https://www.webpackbin.com/bins/-KoCeS-_jZrZuTecv-wd)
+- [WebpackBin for Bootstrap3](https://www.webpackbin.com/bins/-KoCcFwPPtps5fEN0PkI)
+- [WebpackBin for Material UI](https://www.webpackbin.com/bins/-KoCeS-_jZrZuTecv-wd)
 
 ## Plugin Overview
 

@@ -461,3 +461,11 @@ footer ul > li.active > a {
 .source-code-link {
   float: right;
 }
+
+.embedded-demo {
+    width: 1px;
+    min-width: 100%;
+    border: none;
+    margin: 10px 0 5px;
+    min-height: 300px;
+}

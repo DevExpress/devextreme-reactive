@@ -112,14 +112,16 @@ gulp.task('site:docs', function() {
         .replace(/readme/i, 'index');
     }))
     .pipe(intercept(function(file){
-      var content = applyInterceptors(
-        file.contents.toString(),
-        patchMDLinks,
-        patchMDTables,
-        injectLiveDemos,
-        addFrontMatter
-      );
-      file.contents = new Buffer(content);
+      if(file.contents) {
+        var content = applyInterceptors(
+          file.contents.toString(),
+          patchMDLinks,
+          patchMDTables,
+          injectLiveDemos,
+          addFrontMatter
+        );
+        file.contents = new Buffer(content);
+      }
       return file;
     }))
     .pipe(gulp.dest(distPath));

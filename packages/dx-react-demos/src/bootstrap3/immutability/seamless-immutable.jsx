@@ -28,23 +28,29 @@ export class SeamlessImmutableDemo extends React.PureComponent {
       { name: 'car', title: 'Car' },
     ];
     const rows = generateRows({ length: 14 });
-    this.state = Immutable({
-      columns,
-      rows,
-      sorting: [],
-      selection: [],
-    });
+    this.state = {
+      data: Immutable({
+        columns,
+        rows,
+        sorting: [],
+        selection: [],
+      }),
+    };
 
     this.changeSorting = (sorting) => {
-      this.setState({ sorting: Immutable(sorting) });
+      this.setState({
+        data: this.state.data.setIn(['sorting'], sorting),
+      });
     };
 
     this.changeSelection = (selection) => {
-      this.setState({ selection: Immutable(selection) });
+      this.setState({
+        data: this.state.data.setIn(['selection'], selection),
+      });
     };
   }
   render() {
-    const { rows, columns, sorting, selection } = this.state;
+    const { rows, columns, sorting, selection } = this.state.data;
 
     return (
       <Grid

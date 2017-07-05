@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { Paper } from 'material-ui';
 
-const styleSheet = createStyleSheet('GridLayout', theme => ({
+export const styleSheet = createStyleSheet('GridLayout', theme => ({
   headingPanel: {
     paddingLeft: '12px',
     paddingRight: '12px',
@@ -13,25 +13,32 @@ const styleSheet = createStyleSheet('GridLayout', theme => ({
   footerPanel: {
     padding: '12px',
   },
+  root: {
+    marginBottom: theme.spacing.unit * 3,
+  },
 }));
 
-export const Root = ({
+const RootBase = ({
   headerTemplate,
   bodyTemplate,
   footerTemplate,
+  classes,
 }) => (
-  <Paper>
+  <Paper className={classes.root}>
     {headerTemplate()}
     {bodyTemplate()}
     {footerTemplate()}
   </Paper>
 );
 
-Root.propTypes = {
+RootBase.propTypes = {
   headerTemplate: PropTypes.func.isRequired,
   bodyTemplate: PropTypes.func.isRequired,
   footerTemplate: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+export const Root = withStyles(styleSheet)(RootBase);
 
 const HeaderBase = ({ children, classes }) =>
   children && <div className={classes.headingPanel}>{children}</div>;
@@ -47,7 +54,7 @@ HeaderBase.defaultProps = {
 
 export const Header = withStyles(styleSheet)(HeaderBase);
 
-export const FooterBase = ({ children, classes }) =>
+const FooterBase = ({ children, classes }) =>
   children && <div className={classes.footerPanel}>{children}</div>;
 
 FooterBase.propTypes = {
@@ -60,4 +67,3 @@ FooterBase.defaultProps = {
 };
 
 export const Footer = withStyles(styleSheet)(FooterBase);
-

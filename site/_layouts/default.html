@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{site.baseurl}}/css/syntax.css">
     <link rel="stylesheet" href="{{site.baseurl}}/css/site.css?v={{ site.time | date: '%s' }}">
-    <link rel="stylesheet" href="{{site.baseurl}}/css/embedded_demos.css">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -42,7 +41,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/demos/">Demos</a></li>
+            <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/docs/">Docs</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
           </ul>
@@ -57,7 +56,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
-                      <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/demos/">Demos</a></li>
+                      <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/docs/">Docs</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
                     </ul>
@@ -88,9 +87,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
     <script src="{{site.baseurl}}/js/tracking.js?v={{ site.time | date: '%s' }}"></script>
+    <script src="{{site.baseurl}}/js/site.js?v={{ site.time | date: '%s' }}"></script>
     <script>
         trackingCookie.check();
-    </script>    
+    </script>
 
     <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
     <script>
@@ -109,6 +109,6 @@
         };
 
         trackDXPageview();
-    </script>    
+    </script>
   </body>
 </html>

@@ -18,9 +18,9 @@ Unlike the ordinary mode, the virtual mode requires cell size to be defined. By 
 
 The following example demonstrates the basic Grid with virtual scrolling:
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/virtual-scrolling/basic)
-
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/virtual-scrolling/basic.jsx)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/virtual-scrolling/basic) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/virtual-scrolling/basic.jsx)
 
 ## Integration with Other Plugins
 
@@ -30,8 +30,8 @@ The `TableRowDetail` plugin renders rows with auto height. It is impossible to h
 
 Here is an example:
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/virtual-scrolling/integration-with-other-plugins)
-
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/virtual-scrolling/integration-with-other-plugins.jsx)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/virtual-scrolling/integration-with-other-plugins) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/virtual-scrolling/integration-with-other-plugins.jsx)
 
 

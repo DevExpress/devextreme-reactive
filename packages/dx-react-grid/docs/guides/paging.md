@@ -19,9 +19,13 @@ Use the `PagingState`, `LocalPaging`, and `PagingPanel` plugins to set up a comm
 
 In the following example, we use the uncontrolled mode and specify only the initial active page number via the `defaultCurrentPage` property of the `PagingState` plugin. In this case, the grid manages paging state changes internally.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/paging/local-paging)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/paging/local-paging) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/local-paging.jsx)
 
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/local-paging.jsx)
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/paging/local-paging) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/paging/local-paging.jsx)
 
 ## Page Size Selection
 
@@ -29,16 +33,25 @@ Assign an array of available page sizes to the `allowedPageSizes` property of th
 
 The example below demonstrates the basic configuration for the uncontrolled mode. The `PagingState` plugin's `defaultPageSize` property is used to define the initial page size.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/paging/page-size-selector)
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/page-size-selector.jsx)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/paging/page-size-selector) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/page-size-selector.jsx)
+
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/paging/page-size-selector) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/paging/page-size-selector.jsx)
 
 ## Controlled Paging State
 
 Specify the `PagingState` plugin's `currentPage` and `pageSize` properties and handle the `onCurrentPageChange` event to control the paging state. Specify the `PagingPanel` plugin's `allowedPageSizes` property and define the `PagingState` plugin's `onPageSizeChanged` event handler to enable page size selection.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/paging/local-paging-controlled)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/paging/local-paging-controlled) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/local-paging-controlled.jsx)
 
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/local-paging-controlled.jsx)
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/paging/local-paging-controlled) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/paging/local-paging-controlled.jsx)
 
 ## Remote Paging
 
@@ -46,9 +59,13 @@ You can handle the Grid's paging state changes to request a page from the server
 
 Handle the `PagingState` plugin's `onCurrentPageChange` event to receive updates on the current page number changes instead of using the `LocalSorting` plugin to configure remote paging. Pass the data page received from the server to the `Grid` component's `rows` property.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/paging/remote-paging)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/paging/remote-paging) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/remote-paging.jsx)
 
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/remote-paging.jsx)
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/paging/remote-paging) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/paging/remote-paging.jsx)
 
 ## Using Paging with Other Data Processing Plugins
 

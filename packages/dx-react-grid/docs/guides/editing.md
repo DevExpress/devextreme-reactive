@@ -23,9 +23,13 @@ To show editors for the rows being edited, we use the `TableEditRow` plugin. To 
 
 To apply the changes introduced by an end-user to your data source (no matter local or remote), handle the `onCommitChanges` event of the `EditingState` plugin.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/editing/edit-row)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/editing/edit-row) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/editing/edit-row.jsx)
 
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/editing/edit-row.jsx)
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/editing/edit-row) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/editing/edit-row.jsx)
 
 ## Controlled Editing State
 
@@ -33,8 +37,12 @@ To fully control the editing state, you need to specify three pairs of the `Edit
 
 Note, the `onAddedRowsChange` event can also be used to initialize a newly created row with some default property values.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/editing/edit-row-controlled)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/editing/edit-row-controlled) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/editing/edit-row-controlled.jsx)
 
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/editing/edit-row-controlled.jsx)
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/editing/edit-row-controlled) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/editing/edit-row-controlled.jsx)
 
 

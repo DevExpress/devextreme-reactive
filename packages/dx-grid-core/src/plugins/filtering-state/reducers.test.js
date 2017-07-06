@@ -38,5 +38,13 @@ describe('SortingState reducers', () => {
       const nextFilters = setColumnFilter(filters, payload);
       expect(nextFilters).toEqual([]);
     });
+
+    it('can remove column filter if its value is empty', () => {
+      const filters = [{ columnName: 'a', value: 'value' }, { columnName: 'b', value: 'value1' }];
+      const payload = { columnName: 'b', config: { value: '' } };
+
+      const nextFilters = setColumnFilter(filters, payload);
+      expect(nextFilters).toEqual([{ columnName: 'a', value: 'value' }]);
+    });
   });
 });

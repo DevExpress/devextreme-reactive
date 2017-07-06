@@ -16,7 +16,7 @@ Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Column Reordering Setup
 
-You need to use the `ColumnOrderState`, `DragDropContext`, `TableView` and `TableRowDetail` plugins to set up a simple Grid with column reordering enabled.
+You need to use the `ColumnOrderState`, `DragDropContext`, `TableView` and `TableHeaderRow` plugins to set up a simple Grid with column reordering enabled.
 
 In the uncontrolled state mode, specify the initial column order by the `defaultOrder` property of the `ColumnOrderState` plugin.
 

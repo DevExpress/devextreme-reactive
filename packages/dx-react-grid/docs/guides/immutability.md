@@ -1,11 +1,11 @@
-# Usage with Immutable Data
+# Using the Immutable Data
 
 ## Overview
 
-Under the hood, the Grid uses React [optimization principles](https://facebook.github.io/react/docs/optimizing-performance.html). In order, to keep these optimizations the Grid doesn't mutate data passed through a state, uses memoization and [React.PureComponents](https://facebook.github.io/react/docs/react-api.html#react.purecomponent). The possible problem is that [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent) matches the old and new state values using a simple comparison. Let's say, you have an object within the state and would like to update some of its field. In this case, you have to create the copy of this object and put it back to the state. Otherwise, React won't update a component. Immutable data structures [help](https://facebook.github.io/react/docs/optimizing-performance.html#the-power-of-not-mutating-data) to solve this problem.
+DevExpress Data Grid for React conforms to React [optimization principles](https://facebook.github.io/react/docs/optimizing-performance.html). According to these principles, the Grid doesn't mutate data passed through a state and uses memoization and [React.PureComponents](https://facebook.github.io/react/docs/react-api.html#react.purecomponent). A [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent) compares old and new state values using a simple comparison. In this case, if you update a state object field, React does not update the component because it compares two references to the same object. Immutable data structures [help](https://facebook.github.io/react/docs/optimizing-performance.html#the-power-of-not-mutating-data) to solve this problem.
 
-To make the state of React Grid immutable you can use the [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) library.
-Initialize the state like below:
+To make a React Grid state immutable, you can use the [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) library.
+The following example demonstrates how to initialize an immutable state.
 
     this.state = {
       data: Immutable({
@@ -13,9 +13,9 @@ Initialize the state like below:
       })
     };
 
-Next, use the state as usually. It's possible because `seamless-immutable` keeps backwards-compatibility with normal Arrays and Objects.
+Then you can use the state in a usual way because `seamless-immutable` keeps backwards-compatibility with normal Arrays and Objects.
 
-The following demo demonstrates how to use React Grid with `seamless-immutable` in action.
+The following demo demonstrates the React Grid with `seamless-immutable` in action.
 
 [DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/immutability/seamless-immutable)
 

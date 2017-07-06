@@ -1,7 +1,7 @@
 const { join } = require('path');
+const { execSync } = require('child_process');
 const { publish } = require('gh-pages');
 const { copySync, removeSync } = require('fs-extra');
-const { execSync } = require('child_process');
 
 
 const SITE_DIRECTORY = join(process.cwd(), 'site');
@@ -17,8 +17,8 @@ console.log('| Assume that repo is clean and up to date')
 console.log('====================');
 console.log();
 
-console.log('Building demos...');
-execSync('npm run build:site', { cwd: process.cwd() });
+console.log('Building site content...');
+execSync('npm run build:site');
 
 console.log('Cleaning generated site...');
 removeSync(GENERATED_SITE_DIRECTORY);

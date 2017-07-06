@@ -1,6 +1,6 @@
 # DevExtreme React Grid Bootstrap3
 
-A template suite used to customize React Grid with the Bootstrap3 rendering.
+A template suite used to customize the React Grid with Bootstrap3 rendering.
 
 ## Installation
 
@@ -26,11 +26,11 @@ export const App = () => (
 );
 ```
 
-Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the [following link](http://getbootstrap.com/getting-started/#download).
+Make sure that Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured Bootstrap yet.
 
 ## Getting started
 
-This package provides templates implementing Bootstrap 3 rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the ones in the original React Grid repository.
+This package provides templates implementing Bootstrap 3 rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the original React Grid repository ones.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 
@@ -56,7 +56,7 @@ The list of plugins:
 
 Each plugin has properties with the 'Template' postfix. Components passed to such properties are templates.
 
-You can override templates by passing your component or rendering function, or return `undefined` from your custom template if you want to render a UI item with a built-in template.
+You can override templates by passing your component or rendering function, or return `undefined` from your custom template to render a UI item with a built-in template.
 
 ## License
 

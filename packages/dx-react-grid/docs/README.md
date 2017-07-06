@@ -15,15 +15,13 @@ DevExtreme React Grid is a component that displays data from a local or remote s
 
 ### Installation
 
-Install this package with it dependencies by the following command:
+Install this package with its dependencies using the following command:
 
 ```
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-This package does not contain visual components. In the examples below, a template package is used to render visual components.
-
-Feel free to install one of the components packages that fit your project appearance:
+This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following ones:
 
 - Bootstrap 3
 

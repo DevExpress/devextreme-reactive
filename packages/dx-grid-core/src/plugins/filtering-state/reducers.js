@@ -5,8 +5,7 @@ export const setColumnFilter = (filters, { columnName, config }) => {
   if (config) {
     const filter = { columnName, ...config };
     if (filterIndex > -1) {
-      const args = config.value ? [filterIndex, 1, filter] : [filterIndex, 1];
-      nextState.splice(...args);
+      nextState.splice(filterIndex, 1, filter);
     } else {
       nextState.push(filter);
     }

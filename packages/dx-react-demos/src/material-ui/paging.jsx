@@ -26,6 +26,7 @@ export const PagingDemos = ({ match }) => (
     <Route exact path={`${match.url}/`} component={AllDemos} />
     <Route path={`${match.url}/local-paging`} component={LocalPagingDemo} />
     <Route path={`${match.url}/local-paging-controlled`} component={LocalPagingControlledDemo} />
+    <Route path={`${match.url}/page-size-selector`} component={PageSizeSelectorDemo} />
     <Route path={`${match.url}/remote-paging`} component={RemotePagingDemo} />
   </div>
 );

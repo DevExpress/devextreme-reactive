@@ -16,12 +16,7 @@ import { SelectionDemos } from './selection';
 import { DetailRowDemos } from './detail-row';
 import { VirtualScrollingDemos } from './virtual-scrolling';
 import { ColumnReorderingDemos } from './column-reordering';
-
-import { FeaturedUncontrolledDemos } from './featured-uncontrolled';
-import { FeaturedControlledDemos } from './featured-controlled';
-import { FeaturedVirtualScrollingDemos } from './featured-virtual-scrolling';
-import { FeaturedReduxDemos } from './featured-redux';
-import { FeaturedRemoteDataDemos } from './featured-remote-data';
+import { FeaturedDemos } from './featured';
 
 const Demos = () => (
   <div>
@@ -29,7 +24,7 @@ const Demos = () => (
       exact
       path="/bootstrap3/"
       render={() => (
-        <Redirect push from="/bootstrap3/" to="/bootstrap3/featured-uncontrolled" />
+        <Redirect push from="/bootstrap3/" to="/bootstrap3/basic" />
       )}
     />
 
@@ -43,15 +38,7 @@ const Demos = () => (
     <Route path="/bootstrap3/detail-row" component={DetailRowDemos} />
     <Route path="/bootstrap3/virtual-scrolling" component={VirtualScrollingDemos} />
     <Route path="/bootstrap3/column-reordering" component={ColumnReorderingDemos} />
-
-    <Route path="/bootstrap3/featured-uncontrolled" component={FeaturedUncontrolledDemos} />
-    <Route path="/bootstrap3/featured-controlled" component={FeaturedControlledDemos} />
-    <Route path="/bootstrap3/featured-redux" component={FeaturedReduxDemos} />
-    <Route path="/bootstrap3/featured-remote-data" component={FeaturedRemoteDataDemos} />
-    <Route
-      path="/bootstrap3/featured-virtual-scrolling"
-      component={FeaturedVirtualScrollingDemos}
-    />
+    <Route path="/bootstrap3/featured" component={FeaturedDemos} />
   </div>
 );
 
@@ -70,41 +57,20 @@ export const Bootstrap3Demos = withRouter(({ location }) => {
         <div className="row">
           <div className="col-md-3 main-menu">
             <h3>Demos</h3>
-            {
-              (parts[2] && parts[2].indexOf('featured-') > -1)
-                ? (
-                  <ul className="list-unstyled">
-                    <li>
-                      <NavLink to="/bootstrap3/featured-uncontrolled">Uncontrolled Mode</NavLink>
-                    </li>
-                    <li><NavLink to="/bootstrap3/featured-controlled">Controlled Mode</NavLink></li>
-                    <li>
-                      <NavLink to="/bootstrap3/featured-virtual-scrolling">
-                        Virtual Scrolling
-                      </NavLink>
-                    </li>
-                    <li><NavLink to="/bootstrap3/featured-redux">Redux Integration</NavLink></li>
-                    <li><NavLink to="/bootstrap3/featured-remote-data">Remote Data</NavLink></li>
-                  </ul>
-                  )
-                : (
-                  <ul className="list-unstyled">
-                    <li><NavLink to="/bootstrap3/basic">Basic</NavLink></li>
-                    <li><NavLink to="/bootstrap3/sorting">Sorting</NavLink></li>
-                    <li><NavLink to="/bootstrap3/filtering">Filtering</NavLink></li>
-                    <li><NavLink to="/bootstrap3/paging">Paging</NavLink></li>
-                    <li><NavLink to="/bootstrap3/grouping">Grouping</NavLink></li>
-                    <li><NavLink to="/bootstrap3/selection">Selection</NavLink></li>
-                    <li><NavLink to="/bootstrap3/editing">Editing</NavLink></li>
-                    <li><NavLink to="/bootstrap3/detail-row">Detail Row</NavLink></li>
-                    <li><NavLink to="/bootstrap3/virtual-scrolling">Virtual Scrolling</NavLink></li>
-                    <li><NavLink to="/bootstrap3/column-reordering">Column Reordering</NavLink></li>
-                    <li><NavLink to="/bootstrap3/">Featured</NavLink></li>
-                  </ul>
-                )
-            }
+            <ul className="list-unstyled">
+              <li><NavLink to="/bootstrap3/basic">Basic</NavLink></li>
+              <li><NavLink to="/bootstrap3/sorting">Sorting</NavLink></li>
+              <li><NavLink to="/bootstrap3/filtering">Filtering</NavLink></li>
+              <li><NavLink to="/bootstrap3/paging">Paging</NavLink></li>
+              <li><NavLink to="/bootstrap3/grouping">Grouping</NavLink></li>
+              <li><NavLink to="/bootstrap3/selection">Selection</NavLink></li>
+              <li><NavLink to="/bootstrap3/editing">Editing</NavLink></li>
+              <li><NavLink to="/bootstrap3/detail-row">Detail Row</NavLink></li>
+              <li><NavLink to="/bootstrap3/virtual-scrolling">Virtual Scrolling</NavLink></li>
+              <li><NavLink to="/bootstrap3/column-reordering">Column Reordering</NavLink></li>
+              <li><NavLink to="/bootstrap3/featured">Featured</NavLink></li>
+            </ul>
           </div>
-
           <div className="col-md-9 demo-content">
             <Demos />
           </div>

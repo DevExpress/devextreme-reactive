@@ -111,7 +111,7 @@ section {
 }
 
 .main-menu h3 {
-    font-family: "Segoe UI","Helvetica Neue",Helvetica,Verdana,"san-serif";    
+    font-family: "Segoe UI","Helvetica Neue",Helvetica,Verdana,"san-serif";
     text-transform: uppercase;
     color: #5b7f98;
     font-size: 16px;
@@ -229,7 +229,7 @@ ul.banner-action-buttons .btn.demos:hover {
     .intro-message > h3 {
         font-size: 2em;
     }
-    
+
     ul.intro-action-buttons > li {
         margin-bottom: 20px;
     }
@@ -437,4 +437,35 @@ footer ul > li.active > a {
     .intro-message > h1 > sup {
         right: -20px;
     }
+}
+
+.template-chooser {
+  text-align: right;
+}
+
+.template-chooser ul.dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+.template-chooser ul.dropdown-menu a {
+  cursor: pointer;
+}
+
+.template-chooser a.dropdown-toggle {
+  cursor: pointer;
+  border-bottom: dashed 1px #337ab7;
+  text-decoration: none;
+}
+
+.source-code-link {
+  float: right;
+}
+
+.embedded-demo {
+    width: 1px;
+    min-width: 100%;
+    border: none;
+    margin: 10px 0 5px;
+    min-height: 300px;
 }

@@ -8,15 +8,13 @@ The DevExtreme React Grid component has a composable and extensible plugin-based
 
 #### Install package
 
-Install this package with it dependencies by the following command:
+Install this package with its dependencies using the following command:
 
 ```
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-This package does not contain visual components. In the examples below, the DevExtreme React Grid Bootstrap3 package is used to render visual components.
-
-Install one of the preferred components package:
+This package does not contain visual components. In the examples below, the DevExtreme React Grid uses the Bootstrap 3 package to render visual components. However, you can use any of the following ones:
 
 - Bootstrap 3
 

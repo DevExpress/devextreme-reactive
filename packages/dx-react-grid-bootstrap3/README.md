@@ -26,7 +26,7 @@ export const App = () => (
 );
 ```
 
-Make sure that Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured Bootstrap yet.
+Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured the Bootstrap yet.
 
 ## Getting started
 

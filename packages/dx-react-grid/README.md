@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DevExtreme React Grid component has a composable and extensible plugin-based architecture and allows you to display table data with a set of different transformations, such as paging, sorting, filtering, grouping, etc. It also allows row selection and data editing, supports the controlled and uncontrolled state modes and can be used in either a regular or a Redux-based application. It is provided with Twitter Bootstrap rendering and theming out-of-the-box.
+The DevExtreme React Grid component has a composable and extendable plugin-based architecture that allows you to display table data with a set of different transformations, such as paging, sorting, filtering, grouping, etc. It also allows row selection and data editing, supports the controlled and uncontrolled state modes and can be used in either a regular or a Redux-based application. It comes with Twitter Bootstrap rendering and theming out-of-the-box.
 
 ## Installation
 
@@ -22,7 +22,7 @@ This package does not contain visual components. In the examples below, the DevE
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
 
-  Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the [following link](http://getbootstrap.com/getting-started/#download).
+  Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured the Bootstrap yet.
 
 - Material UI
 
@@ -30,13 +30,13 @@ This package does not contain visual components. In the examples below, the DevE
   npm i --save @devexpress/dx-react-grid-material-ui
   ```
 
-  Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependenices are installed and configured. If you have not yet configured Material UI for your project, check the [following link](https://material-ui-1dab0.firebaseapp.com/getting-started/installation).
+  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and configured. Check the [following link](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) if you have not configured the Material UI yet.
 
 #### Add a Grid to your app:
 
-The Grid renders nothing by default. All its functionality is implemented via plugin components that are nested into the root Grid component. You should specify at least one plugin that visualizes the data provided for the grid.
+The Grid renders nothing by default. Plugin components, nested into the root Grid component, implement its functionality. You should specify at least one plugin that visualizes the data provided for the grid.
 
-You can use the TableView plugin as follows to display the data as a simple table:
+You can use the TableView plugin to display data as a simple table:
 
 ```js
 import {

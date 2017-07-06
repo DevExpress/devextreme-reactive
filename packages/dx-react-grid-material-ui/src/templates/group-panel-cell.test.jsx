@@ -33,4 +33,21 @@ describe('GroupPanelCell', () => {
     expect(changeSortingDirection.mock.calls).toHaveLength(1);
     expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
   });
+
+  it('should use column name for sorting', () => {
+    const changeSortingDirection = jest.fn();
+    const tree = mountWithStyles(
+      <GroupPanelCell
+        column={{
+          name: 'Test',
+        }}
+        changeSortingDirection={changeSortingDirection}
+        allowSorting
+      />,
+    );
+
+    tree.find(Chip).simulate('click');
+
+    expect(changeSortingDirection.mock.calls[0][0].columnName).toBe('Test');
+  });
 });

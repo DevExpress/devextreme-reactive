@@ -12,7 +12,7 @@ export const TableFilterCell = ({ style, filter, setFilter }) => (
       type="text"
       className="form-control"
       value={filter ? filter.value : ''}
-      onChange={e => setFilter({ value: e.target.value })}
+      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
     />
   </th>
 );

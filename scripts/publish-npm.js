@@ -33,8 +33,8 @@ prompt({
   execSync('git merge --ff-only');
 
   console.log('Cleaning previous build result...');
-  const rmScript = "require('fs-extra').removeSync(require('path').join(process.cwd(), 'dist'))";
-  execSync(`./node_modules/.bin/lerna exec --loglevel silent -- node -e "\\"${rmScript}\\""`);
+  const rmScript = "require('fs-extra').removeSync(require('path').join(process.cwd(),'dist'))";
+  execSync(`"./node_modules/.bin/lerna" exec --loglevel silent -- node -e "${rmScript}"`);
 
   console.log('Installing dependencies...');
   execSync('npm install');
@@ -44,13 +44,13 @@ prompt({
 
   console.log('Genereting CHANGELOG.md...');
   const changelogFile = join(process.cwd(), 'CHANGELOG.md');
-  execSync('./node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s');
+  execSync('"./node_modules/.bin/conventional-changelog" -p angular -i CHANGELOG.md -s');
   writeFileSync(
     changelogFile,
     String(readFileSync(changelogFile))
       .replace('name=""', `name="${version}"`)
       .replace('[](', `[${version}](`)
-      .replace('...v)', `...v${version})`),
+      .replace('...v)', `...v${version})`)
     );
 
   prompt({
@@ -70,7 +70,7 @@ prompt({
     execSync('npm login', { stdio: 'inherit' });
 
     console.log('Publishing npm...');
-    execSync(`./node_modules/.bin/lerna publish --exact --force-publish * --repo-version ${version} --yes --skip-git`);
+    execSync(`"./node_modules/.bin/lerna" publish --exact --force-publish * --repo-version ${version} --yes --skip-git`);
 
     console.log('Logout from npm...');
     execSync('npm logout', { stdio: 'ignore' });

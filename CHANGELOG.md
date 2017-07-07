@@ -1,3 +1,33 @@
+<a name="1.0.0-alpha.5"></a>
+# [1.0.0-alpha.5](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2017-07-07)
+
+
+### Bug Fixes
+
+* **react-grid:** add grid bottom offset in Material UI ([#180](https://github.com/DevExpress/devextreme-reactive/issues/180)) ([48f12a2](https://github.com/DevExpress/devextreme-reactive/commit/48f12a2))
+* **react-grid:** add group icon offset in Material UI ([#171](https://github.com/DevExpress/devextreme-reactive/issues/171)) ([43d9da1](https://github.com/DevExpress/devextreme-reactive/commit/43d9da1))
+* **react-grid:** limit filterCellTemplate arguments ([#163](https://github.com/DevExpress/devextreme-reactive/issues/163)) ([2a4f003](https://github.com/DevExpress/devextreme-reactive/commit/2a4f003))
+* **react-grid:** reset a column filter when clearing the filter editor value ([#184](https://github.com/DevExpress/devextreme-reactive/issues/184)) ([83b321c](https://github.com/DevExpress/devextreme-reactive/commit/83b321c)), closes [#136](https://github.com/DevExpress/devextreme-reactive/issues/136)
+* **react-grid:** use MUI Chips for group panel items rendering ([#168](https://github.com/DevExpress/devextreme-reactive/issues/168)) ([45ceb12](https://github.com/DevExpress/devextreme-reactive/commit/45ceb12))
+
+
+### Code Refactoring
+
+* **react-grid:** extract GroupPanelLayout ([#149](https://github.com/DevExpress/devextreme-reactive/issues/149)) ([ed73aa1](https://github.com/DevExpress/devextreme-reactive/commit/ed73aa1))
+
+
+### Features
+
+* **react-grid:** introduce column reordering animation ([#169](https://github.com/DevExpress/devextreme-reactive/issues/169)) ([d5e808b](https://github.com/DevExpress/devextreme-reactive/commit/d5e808b))
+* **react-grid:** introduce Material UI templates (closes [#93](https://github.com/DevExpress/devextreme-reactive/issues/93))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** Use the `groupPanelCellTemplate` property of the grouping-panel plugin instead of the GroupPanelProps interface's `cellTemplate` property to specify a template used to render a grouping panel cell. The GroupPanelProps interface's `cellTemplate` property is no longer available.
+
+
+
 <a name="1.0.0-alpha.4"></a>
 # [1.0.0-alpha.4](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2017-06-23)
 

@@ -1,19 +1,13 @@
 # DevExtreme React Grid Material UI
 
-A template suite used to customize React Grid with the Material UI rendering.
+A template suite used to customize the React Grid with Material UI rendering.
 
 ## Installation
 
-Install the main dx-react-grid package and its templates for Material UI:
+Install the main dx-react-grid package with its Material UI dependencies and templates:
 
 ```
-npm i --save @devexpress/dx-react-grid @devexpress/dx-react-grid-material-ui
-```
-
-**Note:** The packages mentioned above have peer dependencies that should be installed manually. Use the following command to install them.
-
-```
-npm i --save @devexpress/dx-react-core
+npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid @devexpress/dx-react-grid-material-ui
 ```
 
 Add the required modules to your project:
@@ -35,11 +29,11 @@ export const App = () => (
 );
 ```
 
-Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependenices are installed and configured. If you have not yet configured Material UI for your project, check the [following link](https://material-ui-1dab0.firebaseapp.com/getting-started/installation).
+Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependenices are installed and configured. Check the [following link](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) if you have not configured the Material UI yet.
 
 ## Getting started
 
-This package provides templates implementing Material UI rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the ones in the original React Grid repository.
+This package provides templates implementing Material UI rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the original React Grid repository ones.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 
@@ -65,7 +59,7 @@ The list of plugins:
 
 Each plugin has properties with the 'Template' postfix. Components passed to such properties are templates.
 
-You can override templates by passing your component or rendering function, or return `undefined` from your custom template if you want to render a UI item with a built-in template.
+You can override templates by passing your component or rendering function, or return `undefined` from your custom template to render a UI item with a built-in template.
 
 ## License
 

@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable';
+
 import {
     groupByColumn,
 } from './reducers';
@@ -41,6 +43,15 @@ describe('GroupingState reducers', () => {
       expect(nextGrouping).toEqual([
         { columnName: 'column2' },
         { columnName: 'column1' },
+      ]);
+    });
+
+    it('should work with immutable grouping', () => {
+      const grouping = Immutable([]);
+
+      const nextGrouping = groupByColumn(grouping, { columnName: 'test' });
+      expect(nextGrouping).toEqual([
+        { columnName: 'test' },
       ]);
     });
   });

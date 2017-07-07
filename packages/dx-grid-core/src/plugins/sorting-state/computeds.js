@@ -14,10 +14,10 @@ const createSortingCompare = (sorting, compareEqual) => (a, b) => {
 export const sortedRows = (rows, sorting) => {
   if (!sorting.length) return rows;
 
-  const compare = sorting.slice()
+  const compare = Array.from(sorting)
     .reverse()
     .reduce((prevCompare, columnSorting) =>
       createSortingCompare(columnSorting, prevCompare), () => 0);
 
-  return mergeSort(rows, compare);
+  return mergeSort(Array.from(rows), compare);
 };

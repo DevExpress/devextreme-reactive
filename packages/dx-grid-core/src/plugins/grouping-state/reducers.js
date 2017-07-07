@@ -1,5 +1,5 @@
 export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
-  const grouping = prevGrouping.slice();
+  const grouping = Array.from(prevGrouping);
   const index = grouping.findIndex(g => g.columnName === columnName);
   let targetIndex = groupIndex;
 

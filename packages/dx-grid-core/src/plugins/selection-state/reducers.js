@@ -1,6 +1,7 @@
 export const setRowSelection = (selection, { rowId, isSelected }) => {
-  const selectedRows = selection.slice();
+  const selectedRows = Array.from(selection);
   const selectedIndex = selectedRows.indexOf(rowId);
+
   let isRowSelected = isSelected;
 
   if (isRowSelected === undefined) {

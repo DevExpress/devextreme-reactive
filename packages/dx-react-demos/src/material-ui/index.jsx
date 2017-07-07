@@ -22,6 +22,7 @@ import { GroupingDemos } from './grouping';
 import { SelectionDemos } from './selection';
 import { DetailRowDemos } from './detail-row';
 import { ColumnReorderingDemos } from './column-reordering';
+import { ImmutabilityDemos } from './immutability';
 import { FeaturedDemos } from './featured';
 
 injectTapEventPlugin();
@@ -53,6 +54,7 @@ const Demos = () => (
       <Route path="/material-ui/grouping" component={GroupingDemos} />
       <Route path="/material-ui/detail-row" component={DetailRowDemos} />
       <Route path="/material-ui/column-reordering" component={ColumnReorderingDemos} />
+      <Route path="/material-ui/immutability" component={ImmutabilityDemos} />
       <Route path="/material-ui/featured" component={FeaturedDemos} />
     </div>
   </MuiThemeProvider>
@@ -82,9 +84,8 @@ export const MaterialUIDemos = withRouter(({ location }) => {
               <li><NavLink to="/material-ui/editing">Editing</NavLink></li>
               <li><NavLink to="/material-ui/grouping">Grouping</NavLink></li>
               <li><NavLink to="/material-ui/detail-row">Detail Row</NavLink></li>
-              <li>
-                <NavLink to="/material-ui/column-reordering">Column Reordering</NavLink>
-              </li>
+              <li><NavLink to="/material-ui/column-reordering">Column Reordering</NavLink></li>
+              <li><NavLink to="/material-ui/immutability">Immutability</NavLink></li>
               <li><NavLink to="/material-ui/featured">Featured</NavLink></li>
             </ul>
           </div>

@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable';
+
 import {
     setDetailRowExpanded,
 } from './reducers';
@@ -40,6 +42,13 @@ describe('DetailRow reducers', () => {
 
       nextExpandedRows = setDetailRowExpanded(expandedRows, payload);
       expect(nextExpandedRows).toEqual([]);
+    });
+
+    it('should work with immutable expanded rows', () => {
+      const expandedRows = Immutable([]);
+      const nextExpandedRows = setDetailRowExpanded(expandedRows, { rowId: 1 });
+
+      expect(nextExpandedRows).toEqual([1]);
     });
   });
 });

@@ -22,7 +22,7 @@ This package does not contain visual components. In the examples below, the DevE
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
 
-  Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured the Bootstrap yet.
+  Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured Bootstrap yet.
 
 - Material UI
 

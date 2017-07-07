@@ -1,5 +1,5 @@
 export const orderedColumns = (columns, order) => {
-  const result = columns.slice();
+  const result = Array.from(columns);
 
   result.sort((a, b) => {
     const aPos = order.indexOf(a.name);

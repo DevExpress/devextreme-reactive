@@ -1,7 +1,10 @@
+import Immutable from 'seamless-immutable';
+
 import {
     groupedRows,
     expandedGroupRows,
     groupedColumns,
+    nextExpandedGroups,
 } from './computeds';
 
 describe('GroupingPlugin computeds', () => {
@@ -139,6 +142,26 @@ describe('GroupingPlugin computeds', () => {
       expect(processedColumns).toHaveLength(2);
       expect(processedColumns[0]).toBe(columns[0]);
       expect(processedColumns[1]).toBe(columns[2]);
+    });
+  });
+
+  describe('#nextExpandedGroups', () => {
+    it('should add an opened group', () => {
+      const groups = nextExpandedGroups(['a', 'b'], 'c');
+
+      expect(groups).toEqual(['a', 'b', 'c']);
+    });
+
+    it('should remove a closed group', () => {
+      const groups = nextExpandedGroups(['a', 'b', 'c'], 'c');
+
+      expect(groups).toEqual(['a', 'b']);
+    });
+
+    it('should work with immutable groups', () => {
+      const groups = nextExpandedGroups(Immutable(['a']), 'b');
+
+      expect(groups).toEqual(['a', 'b']);
     });
   });
 });

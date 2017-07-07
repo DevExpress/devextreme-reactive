@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { groupByColumn, groupedColumns } from '@devexpress/dx-grid-core';
+import { groupByColumn, groupedColumns, nextExpandedGroups } from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
 
@@ -17,14 +17,7 @@ export class GroupingState extends React.PureComponent {
     this.toggleGroupExpanded = (groupKey) => {
       const prevExpandedGroups = this.props.expandedGroups || this.state.expandedGroups;
       const { onExpandedGroupsChange } = this.props;
-
-      const expandedGroups = prevExpandedGroups.slice();
-      const groupKeyIndex = expandedGroups.indexOf(groupKey);
-      if (groupKeyIndex > -1) {
-        expandedGroups.splice(groupKeyIndex, 1);
-      } else {
-        expandedGroups.push(groupKey);
-      }
+      const expandedGroups = nextExpandedGroups(prevExpandedGroups, groupKey);
 
       this.setState({ expandedGroups });
       if (onExpandedGroupsChange) {

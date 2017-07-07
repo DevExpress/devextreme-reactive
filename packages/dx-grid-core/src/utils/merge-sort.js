@@ -54,8 +54,8 @@ export default (
     return 0;
   },
 ) => {
-  const result = array.slice(0);
-  const auxiliary = array.slice(0);
+  const result = array.slice();
+  const auxiliary = array.slice();
   sortAuxiliaryToArray(result, auxiliary, 0, result.length - 1, compare);
   return result;
 };

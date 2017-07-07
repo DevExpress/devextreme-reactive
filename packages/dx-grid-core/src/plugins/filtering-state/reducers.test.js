@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable';
+
 import {
     setColumnFilter,
 } from './reducers';
@@ -37,6 +39,13 @@ describe('SortingState reducers', () => {
 
       const nextFilters = setColumnFilter(filters, payload);
       expect(nextFilters).toEqual([]);
+    });
+
+    it('should work with immutable filter', () => {
+      const filters = Immutable([]);
+
+      const nextFilters = setColumnFilter(filters, { columnName: 'column', config: { value: 'value' } });
+      expect(nextFilters).toEqual([{ columnName: 'column', value: 'value' }]);
     });
   });
 });

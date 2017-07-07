@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable';
+
 import {
     setRowSelection,
     setRowsSelection,
@@ -41,6 +43,13 @@ describe('SelectionState reducers', () => {
 
       nextSelection = setRowSelection(selection, payload);
       expect(nextSelection).toEqual([]);
+    });
+
+    it('should work with immutable selection', () => {
+      const selection = Immutable([]);
+
+      const nextSelection = setRowSelection(selection, { rowId: 1 });
+      expect(nextSelection).toEqual([1]);
     });
   });
 

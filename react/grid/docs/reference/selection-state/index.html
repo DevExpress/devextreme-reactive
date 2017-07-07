@@ -11,8 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1498219793">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -40,7 +39,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
           </ul>
@@ -61,6 +60,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
           
 
         
@@ -343,7 +350,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="selectionstate-plugin-reference">SelectionState Plugin Reference</h1>
 
-<p>Plugin that manages selection state.</p>
+<p>A plugin that manages selection state.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -367,13 +374,13 @@
       <td>selection</td>
       <td>Array&lt;int|string&gt;</td>
       <td>[]</td>
-      <td>Specifies selected rows</td>
+      <td>Specifies the selected rows</td>
     </tr>
     <tr>
       <td>defaultSelection</td>
       <td>Array&lt;int|string&gt;</td>
       <td>[]</td>
-      <td>Specifies initially selected rows for the the uncontrolled mode</td>
+      <td>Specifies initially selected rows in the uncontrolled mode</td>
     </tr>
     <tr>
       <td>onSelectionChange</td>
@@ -384,12 +391,85 @@
   </tbody>
 </table>
 
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
+      <td>Rows to be rendered</td>
+    </tr>
+    <tr>
+      <td>getRowId</td>
+      <td>Getter</td>
+      <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>) =&gt; number | string</td>
+      <td>A function used to get a unique row identifier</td>
+    </tr>
+    <tr>
+      <td>availableToSelect</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
+      <td>Rows to be rendered, which are available for selection</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>setRowSelection</td>
+      <td>Action</td>
+      <td>({ rowId }) =&gt; void</td>
+      <td>A function that selects a row</td>
+    </tr>
+    <tr>
+      <td>setRowsSelection</td>
+      <td>Action</td>
+      <td>({ rowIds }) =&gt; void</td>
+      <td>A function that selects multiple rows</td>
+    </tr>
+    <tr>
+      <td>availableToSelect</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
+      <td>Rows to be rendered, which are available for selection</td>
+    </tr>
+    <tr>
+      <td>selection</td>
+      <td>Getter</td>
+      <td>Array&lt;int | string&gt;</td>
+      <td>Selected rows</td>
+    </tr>
+  </tbody>
+</table>
+
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
-<script>iFrameResize({ warningTimeout: 0 }, '.embedded-demo')</script>
 
 
     <footer>
@@ -397,7 +477,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
-                      <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
                     </ul>
@@ -427,10 +507,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1498219793"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
     <script>
         trackingCookie.check();
-    </script>    
+    </script>
 
     <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
     <script>
@@ -449,6 +530,6 @@
         };
 
         trackDXPageview();
-    </script>    
+    </script>
   </body>
 </html>

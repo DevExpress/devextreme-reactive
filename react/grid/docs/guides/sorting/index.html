@@ -11,8 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1498219793">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -40,7 +39,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
           </ul>
@@ -61,6 +60,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
           
 
         
@@ -367,42 +374,38 @@
 
 <p>The <code class="highlighter-rouge">TableHeaderRow</code> plugin is not configured to allow an end-user to change sorting criteria by default. Set the <code class="highlighter-rouge">allowSorting</code> property to true to enable this feature.</p>
 
-<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/sorting/local-header-sorting"></iframe>
-
-<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-header-sorting.jsx">SOURCE</a></p>
-
+<p class="embedded-demo-root">
+      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/sorting/local-header-sorting","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-header-sorting.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/sorting/local-header-sorting","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/sorting/local-header-sorting.jsx"}]</script>
+    </p>
 <h2 id="using-sorting-with-grouping">Using Sorting with Grouping</h2>
 
 <p>You can use the Grid’s sorting and grouping features simultaneously. When using sorting and grouping plugins together, pay attention to the order of plugins in the Grid container component. Set the <code class="highlighter-rouge">allowSorting</code> property of the <code class="highlighter-rouge">GroupingPanel</code> plugin to true to allow an end-user to change sorting options of grouped columns by clicking the group panel’s items.</p>
 
-<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/sorting/local-group-sorting"></iframe>
-
-<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-group-sorting.jsx">SOURCE</a></p>
-
+<p class="embedded-demo-root">
+      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/sorting/local-group-sorting","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-group-sorting.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/sorting/local-group-sorting","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/sorting/local-group-sorting.jsx"}]</script>
+    </p>
 <h2 id="controlled-sorting-state">Controlled Sorting State</h2>
 
 <p>Pass the appropriate array to the <code class="highlighter-rouge">sorting</code> property of the <code class="highlighter-rouge">SortingState</code> plugin and handle the <code class="highlighter-rouge">onSortingChange</code> event of the same plugin to control the sorting state.</p>
 
-<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/sorting/local-sorting-controlled"></iframe>
-
-<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-sorting-controlled.jsx">SOURCE</a></p>
-
+<p class="embedded-demo-root">
+      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/sorting/local-sorting-controlled","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-sorting-controlled.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/sorting/local-sorting-controlled","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/sorting/local-sorting-controlled.jsx"}]</script>
+    </p>
 <h2 id="remote-sorting">Remote Sorting</h2>
 
 <p>You can handle the Grid’s sorting state changes to request data from the server with the corresponding sorting applied if your data service supports sorting operations.</p>
 
 <p>Do not use the <code class="highlighter-rouge">LocalSorting</code> plugin to configure remote sorting. Handle the <code class="highlighter-rouge">sortingChange</code> event of the <code class="highlighter-rouge">SortingState</code> plugin to process sorting criteria updates. These updates are applied when end-users change sorting options via the UI. When sorted data was received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
 
-<iframe class="embedded-demo" scrolling="no" src="/devextreme-reactive/react/grid/embedded-demo/#/sorting/remote-sorting"></iframe>
-
-<p><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/remote-sorting.jsx">SOURCE</a></p>
+<p class="embedded-demo-root">
+      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/sorting/remote-sorting","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/remote-sorting.jsx"}]</script>
+    </p>
 
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
-<script>iFrameResize({ warningTimeout: 0 }, '.embedded-demo')</script>
 
 
     <footer>
@@ -410,7 +413,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
-                      <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
                     </ul>
@@ -440,10 +443,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1498219793"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
     <script>
         trackingCookie.check();
-    </script>    
+    </script>
 
     <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
     <script>
@@ -462,6 +466,6 @@
         };
 
         trackDXPageview();
-    </script>    
+    </script>
   </body>
 </html>

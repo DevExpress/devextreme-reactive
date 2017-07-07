@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Grid Controlled State Mode - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/react/grid/">
+            <img src="/devextreme-reactive/img/react-grid-logo.svg" alt="DevExtreme Reactive Components">
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <style>
+  body {
+    overflow-y: scroll;
+  }
+</style>
+
+<div class="container demos-container">
+  <div class="row">
+    <div class="col-md-3 main-menu">
+      
+        <h3>DEMOS</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Uncontrolled Mode</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Controlled Mode</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/demos/featured/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/demos/featured/redux-integration/">Redux Integration</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/demos/featured/remote-data/">Remote Data</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/demos/featured/theming/">Theming</a></li>
+          
+
+        
+        </ul>
+
+      
+    </div>
+
+    <div class="col-md-9 docs-content">
+        <h1 id="react-grid-controlled-state-mode">React Grid Controlled State Mode</h1>
+
+<p>This demo shows the Grid capability to delegate its UI state management to the parent component. You can contol either the whole Grid state or just a part of it. In the
+first case, Grid becomes a stateless component. This mode is usefull if you need to use the Grid state in other parts of your application. Using this mode, you can also persist the component state and restore it when required.</p>
+
+<p class="embedded-demo-root">
+      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/featured/controlled-mode","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/featured/controlled-mode.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/featured/controlled-mode","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/featured/controlled-mode.jsx"}]</script>
+    </p>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      <li class="active"><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
+    <script>
+        trackingCookie.check();
+    </script>
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>
+  </body>
+</html>

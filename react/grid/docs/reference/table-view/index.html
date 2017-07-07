@@ -11,8 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1498219793">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -40,7 +39,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
           </ul>
@@ -61,6 +60,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
           
 
         
@@ -400,7 +407,7 @@
       <td>allowColumnReordering</td>
       <td>boolean</td>
       <td>false</td>
-      <td>If true, allows an end-user to change the column’s order by dragging it</td>
+      <td>If true, it allows end-users to change the column’s order by dragging it</td>
     </tr>
   </tbody>
 </table>
@@ -642,13 +649,13 @@
     <tr>
       <td>rows</td>
       <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
       <td>Rows to be rendered by the table view</td>
     </tr>
     <tr>
       <td>columns</td>
       <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
       <td>Columns to be rendered by the table view</td>
     </tr>
   </tbody>
@@ -669,26 +676,32 @@
     <tr>
       <td>tableHeaderRows</td>
       <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Rows to be rendered inside the table header</td>
+      <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
+      <td>Header rows to be rendered</td>
     </tr>
     <tr>
       <td>tableBodyRows</td>
       <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Rows to be rendered inside the table body</td>
+      <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
+      <td>Body rows to be rendered</td>
     </tr>
     <tr>
       <td>tableColumns</td>
       <td>Getter</td>
-      <td>() =&gt; Array&lt;<a href="#table-column">TableColumn</a>&gt;</td>
-      <td>Columns to be rendered inside the table</td>
+      <td>Array&lt;<a href="#table-column">TableColumn</a>&gt;</td>
+      <td>Columns to be rendered</td>
     </tr>
     <tr>
       <td>tableExtraProps</td>
       <td>Getter</td>
-      <td>() =&gt; { [key: string]: any }</td>
+      <td>{ [key: string]: any }</td>
       <td>Additional table properties that other plugins can provide</td>
+    </tr>
+    <tr>
+      <td>tableView</td>
+      <td>Template</td>
+      <td>none</td>
+      <td>A template that renders a table</td>
     </tr>
     <tr>
       <td>tableViewCell</td>
@@ -704,7 +717,6 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
-<script>iFrameResize({ warningTimeout: 0 }, '.embedded-demo')</script>
 
 
     <footer>
@@ -712,7 +724,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
-                      <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
                     </ul>
@@ -742,10 +754,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1498219793"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
     <script>
         trackingCookie.check();
-    </script>    
+    </script>
 
     <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
     <script>
@@ -764,6 +777,6 @@
         };
 
         trackDXPageview();
-    </script>    
+    </script>
   </body>
 </html>

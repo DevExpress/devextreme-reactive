@@ -11,8 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1498219793">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -40,7 +39,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
           </ul>
@@ -61,6 +60,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
           
 
         
@@ -343,7 +350,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="editingstate-plugin-reference">EditingState Plugin Reference</h1>
 
-<p>A plugin that manages the editing state. It controls the list of rows that are currently being edited and lists of changed, deleted and newly created rows.</p>
+<p>A plugin that manages the editing state of grid rows. It arranges grid rows by different lists depending on a row’s state.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -367,79 +374,79 @@
       <td>editingRows</td>
       <td>Array&lt;number | string&gt;</td>
       <td> </td>
-      <td>Specifies IDs of the rows that are currently being edited</td>
+      <td>Specifies IDs of the rows being edited</td>
     </tr>
     <tr>
       <td>defaultEditingRows</td>
       <td>Array&lt;number | string&gt;</td>
       <td> </td>
-      <td>Specifies IDs of the rows that should be switched to the edit mode initially for the uncontrolled state mode</td>
+      <td>Specifies IDs of the rows initially added to the <code class="highlighter-rouge">editingRows</code> array in the uncontrolled mode</td>
     </tr>
     <tr>
       <td>onEditingRowsChange</td>
       <td>(editingRows: Array&lt;number | string&gt;) =&gt; void</td>
       <td> </td>
-      <td>Handles editing row changes</td>
+      <td>Handles adding or removing a row from the <code class="highlighter-rouge">editingRows</code> array</td>
     </tr>
     <tr>
       <td>addedRows</td>
       <td>Array&lt;Object&gt;</td>
       <td> </td>
-      <td>Specifies the newly created rows that are not yet committed</td>
+      <td>Specifies the created but not committed rows</td>
     </tr>
     <tr>
       <td>defaultAddedRows</td>
       <td>Array&lt;Object&gt;</td>
       <td> </td>
-      <td>Specifies the initial set of new rows for the uncontrolled mode</td>
+      <td>Specifies rows initially added to the <code class="highlighter-rouge">addedRows</code> array in the uncontrolled mode</td>
     </tr>
     <tr>
       <td>onAddedRowsChange</td>
       <td>(addedRows: Array&lt;Object&gt;) =&gt; void</td>
       <td> </td>
-      <td>Handles new row changes</td>
+      <td>Handles adding or removing a row from the <code class="highlighter-rouge">addedRows</code> array</td>
     </tr>
     <tr>
       <td>changedRows</td>
       <td>{ [key: string]: Object }</td>
       <td> </td>
-      <td>Specifies the rows that have been changed but not yet committed</td>
+      <td>Specifies the changed, but not committed rows</td>
     </tr>
     <tr>
       <td>defaultChangedRows</td>
       <td>{ [key: string]: Object }</td>
       <td> </td>
-      <td>Specifies the initial set of changed rows for the uncontrolled mode</td>
+      <td>Specifies rows initially added to the <code class="highlighter-rouge">changedRows</code> array in the uncontrolled mode</td>
     </tr>
     <tr>
       <td>onChangedRowsChange</td>
       <td>(changedRows: { [key: string]: Object }) =&gt; void</td>
       <td> </td>
-      <td>Handles changed rows’ changes</td>
+      <td>Handles adding a row to or removing from the <code class="highlighter-rouge">changedRows</code> array</td>
     </tr>
     <tr>
       <td>deletedRows</td>
       <td>Array&lt;number | string&gt;</td>
       <td> </td>
-      <td>Specifies IDs of the rows that have been deleted but not yet committed</td>
+      <td>Specifies IDs of the rows prepared for deletion</td>
     </tr>
     <tr>
       <td>defaultDeletedRows</td>
       <td>Array&lt;number | string&gt;</td>
       <td> </td>
-      <td>Specifies the initial set of deleted rows for the uncontrolled mode</td>
+      <td>Specifies rows initially added to the <code class="highlighter-rouge">deletedRows</code> array in the uncontrolled mode</td>
     </tr>
     <tr>
       <td>onDeletedRowsChange</td>
       <td>(deletedRows: Array&lt;number | string&gt;) =&gt; void</td>
       <td> </td>
-      <td>Handles deleted rows’ changes</td>
+      <td>Handles adding or removing a row from the <code class="highlighter-rouge">deletedRows</code> array</td>
     </tr>
     <tr>
       <td>onCommitChanges</td>
       <td>(Array&lt;<a href="#change-set">ChangeSet</a>&gt;) =&gt; void</td>
       <td> </td>
-      <td>Handles the request to commit the changes introduced to the data rows</td>
+      <td>Handles row changes committing</td>
     </tr>
   </tbody>
 </table>
@@ -448,7 +455,7 @@
 
 <h3 id="changeset"><a name="change-set"></a>ChangeSet</h3>
 
-<p>Describes a set of changes that have been applied to the data rows such as created, deleted and modified rows</p>
+<p>Describes changes made to the data rows: creation, deletion, modification.</p>
 
 <p>A value with the following shape:</p>
 
@@ -464,17 +471,17 @@
     <tr>
       <td>added?</td>
       <td>Array&lt;Object&gt;</td>
-      <td>Rows to be created as an array of data objects</td>
+      <td>A data object array representing the rows to be created</td>
     </tr>
     <tr>
       <td>changed?</td>
       <td>{ [key: number | string]: Object }</td>
-      <td>Rows to be updated as a map of their IDs and changes</td>
+      <td>An associative array where an item key is a row ID and an item value is data that should be changed</td>
     </tr>
     <tr>
       <td>deleted?</td>
       <td>Array&lt;number | string&gt;</td>
-      <td>Rows to be deleted as an array of their IDs</td>
+      <td>An array of IDs representing rows to be deleted.</td>
     </tr>
   </tbody>
 </table>
@@ -500,56 +507,56 @@
     <tr>
       <td>editingRows</td>
       <td>Getter</td>
-      <td>() =&gt; Array&lt;number | string&gt;</td>
-      <td>Rows that are currently being edited</td>
+      <td>Array&lt;number | string&gt;</td>
+      <td>Rows being edited</td>
     </tr>
     <tr>
       <td>startEditRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
-      <td>Switches the rows with the corresponding IDs to the edit mode</td>
+      <td>Switches rows specified by the ID to the edit mode</td>
     </tr>
     <tr>
       <td>stopEditRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
-      <td>Switches the rows with the corresponding IDs to the read-only mode</td>
+      <td>Switches rows specified by the ID to the read-only mode</td>
     </tr>
     <tr>
       <td>addedRows</td>
       <td>Getter</td>
-      <td>() =&gt; Array&lt;Object&gt;</td>
-      <td>Newlly created rows</td>
+      <td>Array&lt;Object&gt;</td>
+      <td>Created rows</td>
     </tr>
     <tr>
       <td>addRow</td>
       <td>Action</td>
       <td>() =&gt; void</td>
-      <td>Creates a new row</td>
+      <td>Creates a row</td>
     </tr>
     <tr>
       <td>changeAddedRow</td>
       <td>Action</td>
       <td>({ rowId: number, change: Object }) =&gt; void</td>
-      <td>Applies a change to a new row. Note: <code class="highlighter-rouge">rowId</code> is represented by the new row index within all new rows created but not yet committed</td>
+      <td>Applies a change to a new row. Note: <code class="highlighter-rouge">rowId</code> is a row index within the <code class="highlighter-rouge">addedRows</code> array</td>
     </tr>
     <tr>
       <td>cancelAddedRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number&gt; }) =&gt; void</td>
-      <td>Removes uncommitted new rows from the <code class="highlighter-rouge">addedRows</code> array by indexes</td>
+      <td>Removes new rows specified by index from the <code class="highlighter-rouge">addedRows</code> array</td>
     </tr>
     <tr>
       <td>commitAddedRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number&gt; }) =&gt; void</td>
-      <td>Raises the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="#change-set">ChangeSet</a> and removes the rows from the <code class="highlighter-rouge">addedRows</code> array</td>
+      <td>Fires the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="#change-set">ChangeSet</a> and removes the specified rows from the <code class="highlighter-rouge">addedRows</code> array</td>
     </tr>
     <tr>
       <td>changedRows</td>
       <td>Getter</td>
-      <td>() =&gt; { [key: string]: Object }</td>
-      <td>Changed rows that are not yet committed</td>
+      <td>{ [key: string]: Object }</td>
+      <td>Uncommitted changed rows</td>
     </tr>
     <tr>
       <td>changeRow</td>
@@ -561,37 +568,37 @@
       <td>cancelChangedRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
-      <td>Cancels uncommitted changes in the rows specified by ID</td>
+      <td>Cancels rows’ uncommitted changes specified by the ID</td>
     </tr>
     <tr>
       <td>commitChangedRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
-      <td>Raises the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="#change-set">ChangeSet</a> and removes the rows from the <code class="highlighter-rouge">changedRows</code> array</td>
+      <td>Fires the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="#change-set">ChangeSet</a> and removes the specified rows from the <code class="highlighter-rouge">changedRows</code> array</td>
     </tr>
     <tr>
       <td>deletedRows</td>
       <td>Getter</td>
-      <td>() =&gt; Array&lt;number | string&gt;</td>
-      <td>Deleted rows that are not yet committed</td>
+      <td>Array&lt;number | string&gt;</td>
+      <td>Rows prepared for deletion</td>
     </tr>
     <tr>
       <td>deleteRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
-      <td>Marks rows specified by ID as deleted by adding them into the <code class="highlighter-rouge">deletedRows</code> array</td>
+      <td>Adds rows specified by the ID to the <code class="highlighter-rouge">deletedRows</code> array</td>
     </tr>
     <tr>
       <td>cancelDeletedRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
-      <td>Cancels deleting of the rows specified by ID by removing them from the <code class="highlighter-rouge">deletedRows</code> array</td>
+      <td>Cancels rows’ deletion specified by the ID removing them from the <code class="highlighter-rouge">deletedRows</code> array</td>
     </tr>
     <tr>
       <td>commitDeletedRows</td>
       <td>Action</td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
-      <td>Raises the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="#change-set">ChangeSet</a> and removes the rows from the <code class="highlighter-rouge">deletedRows</code> array</td>
+      <td>Fires the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="#change-set">ChangeSet</a> and removes the specified rows from the <code class="highlighter-rouge">deletedRows</code> array</td>
     </tr>
   </tbody>
 </table>
@@ -602,7 +609,6 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
-<script>iFrameResize({ warningTimeout: 0 }, '.embedded-demo')</script>
 
 
     <footer>
@@ -610,7 +616,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
-                      <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
                     </ul>
@@ -640,10 +646,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1498219793"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
     <script>
         trackingCookie.check();
-    </script>    
+    </script>
 
     <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
     <script>
@@ -662,6 +669,6 @@
         };
 
         trackDXPageview();
-    </script>    
+    </script>
   </body>
 </html>

@@ -11,8 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1498219793">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded_demos.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -40,7 +39,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
           </ul>
@@ -61,6 +60,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
           
 
         
@@ -370,13 +377,13 @@
       <td>cellTemplate</td>
       <td>(args: <a href="#command-cell-args">CommandCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders a cell within the command column and the data row</td>
+      <td>A component that renders a cell within the command column and data row</td>
     </tr>
     <tr>
       <td>headingCellTemplate</td>
       <td>(args: <a href="#command-heading-cell-args">CommandHeadingCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders a cell within the command column and the heading row</td>
+      <td>A component that renders a cell within the command column and heading row</td>
     </tr>
     <tr>
       <td>commandTemplate</td>
@@ -430,12 +437,12 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="#table-row">TableRow</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a></td>
       <td>Specifies an edited table row with applied changes</td>
     </tr>
     <tr>
       <td>column</td>
-      <td><a href="#table-column">TableColumn</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a></td>
       <td>Specifies a table column</td>
     </tr>
     <tr>
@@ -498,12 +505,12 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="#table-row">TableRow</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a></td>
       <td>Specifies an editing table row with applied changes</td>
     </tr>
     <tr>
       <td>column</td>
-      <td><a href="#table-column">TableColumn</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a></td>
       <td>Specifies a table column</td>
     </tr>
     <tr>
@@ -559,14 +566,119 @@
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
-<p>To be described…</p>
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
+      <td>Table columns</td>
+    </tr>
+    <tr>
+      <td>getRowId</td>
+      <td>Getter</td>
+      <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>) =&gt; number | string</td>
+      <td>A function used to get a unique row identifier</td>
+    </tr>
+    <tr>
+      <td>addRow</td>
+      <td>Action</td>
+      <td>() =&gt; void</td>
+      <td>Creates a row</td>
+    </tr>
+    <tr>
+      <td>cancelAddedRows</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number&gt; }) =&gt; void</td>
+      <td>Removes uncommitted new rows from the <code class="highlighter-rouge">addedRows</code> array</td>
+    </tr>
+    <tr>
+      <td>commitAddedRows</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number&gt; }) =&gt; void</td>
+      <td>Fires the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="/devextreme-reactive/react/grid/docs/reference/editing-state/#change-set">ChangeSet</a> and removes the specified rows from the <code class="highlighter-rouge">addedRows</code> array</td>
+    </tr>
+    <tr>
+      <td>startEditRows</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
+      <td>Switches the rows specified by the ID to the edit mode</td>
+    </tr>
+    <tr>
+      <td>stopEditRows</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
+      <td>Switches the rows specified by the ID to the read-only mode</td>
+    </tr>
+    <tr>
+      <td>cancelChangedRows</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
+      <td>Cancels uncommitted changes in the rows specified by the ID</td>
+    </tr>
+    <tr>
+      <td>commitChangedRows</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
+      <td>Fires the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="/devextreme-reactive/react/grid/docs/reference/editing-state/#change-set">ChangeSet</a> and removes the specified rows from the <code class="highlighter-rouge">changedRows</code> array</td>
+    </tr>
+    <tr>
+      <td>deleteRows</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
+      <td>Prepares rows specified by the ID for deletion, adding them to the <code class="highlighter-rouge">deletedRows</code> array</td>
+    </tr>
+    <tr>
+      <td>commitDeletedRows</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
+      <td>Fires the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="/devextreme-reactive/react/grid/docs/reference/editing-state/#change-set">ChangeSet</a> and removes the specified rows from the <code class="highlighter-rouge">deletedRows</code> array</td>
+    </tr>
+    <tr>
+      <td>tableViewCell</td>
+      <td>Template</td>
+      <td>{ row: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>, column: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a> }</td>
+      <td>A template that renders a table cell</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
+      <td>Table columns including the edit column</td>
+    </tr>
+  </tbody>
+</table>
 
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
-<script>iFrameResize({ warningTimeout: 0 }, '.embedded-demo')</script>
 
 
     <footer>
@@ -574,7 +686,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
-                      <li><a href="/devextreme-reactive/react/grid/demos/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
                     </ul>
@@ -604,10 +716,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1498219793"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
     <script>
         trackingCookie.check();
-    </script>    
+    </script>
 
     <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
     <script>
@@ -626,6 +739,6 @@
         };
 
         trackDXPageview();
-    </script>    
+    </script>
   </body>
 </html>

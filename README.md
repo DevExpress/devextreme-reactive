@@ -2,7 +2,7 @@
 
 [![Shippable](https://api.shippable.com/projects/58cf6adb35d7240600ba9bbb/badge?branch=master)](https://app.shippable.com/github/DevExpress/devextreme-reactive/)
 
-Project status: **CTP**
+Project Status: **CTP**
 
 ## Business Components for React
 
@@ -10,12 +10,12 @@ Project status: **CTP**
 
 ### Main Features
 
-* Composable and extensible plugin-based architecture
+* Composable and extendable plugin-based architecture
 * [Bootstrap](https://github.com/react-bootstrap/react-bootstrap) and [Material UI](https://github.com/callemall/material-ui) integration with seamless theming
 * Controlled (stateless) and uncontrolled (stateful) modes
 * [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-travelling
 * 100% Native React (not jQuery or other dependencies inside)
-* High performance via pure components, immutable state and memoization
+* High performance via pure components, immutable state, and memoization
 
 
 ### React Grid
@@ -29,6 +29,7 @@ Project status: **CTP**
 Packages:
 - [DevExtreme React Grid](packages/dx-react-grid/README.md)
 - [DevExtreme React Grid Bootstrap3](packages/dx-react-grid-bootstrap3/README.md)
+- [DevExtreme React Grid Material UI](packages/dx-react-grid-material-ui/README.md)
 
 ## License
 
@@ -36,4 +37,4 @@ Packages:
 
 ## Support & Feedback
 
-For reporting bugs, questions and feature requests, use [GitHub Issues](https://github.com/DevExpress/devextreme-reactive/issues).
+Use [GitHub Issues](https://github.com/DevExpress/devextreme-reactive/issues) for reporting bugs, questions, and feature requests.

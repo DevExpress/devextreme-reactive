@@ -9,49 +9,54 @@
 
 ## Overview
 
-DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extensible plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out of the box.
+DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out-of-the-box.
 
 ## Getting Started
 
 ### Installation
 
-```
-npm i @devexpress/dx-react-grid --save
-```
-This package does not contain visual components. In the examples below, the DevExtreme React Grid Bootstrap3 package is used to render visual components.
-
-Install the Grid Bootstrap 3 components package:
+Install this package with its dependencies using the following command:
 
 ```
-npm i @devexpress/dx-react-grid-bootstrap3 --save
+npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-**Note:** The packages mentioned above have peer dependencies that should be installed manually using the following command:
+This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following ones:
 
-```
-npm i --save @devexpress/dx-react-core
-```
+- Bootstrap 3
 
-Make sure that Bootstrap styles are linked to the page. If you have not yet configured Bootstrap for your project, check the [following link](http://getbootstrap.com/getting-started/#download).
+  ```
+  npm i --save @devexpress/dx-react-grid-bootstrap3
+  ```
+
+  Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured Bootstrap yet.
+
+- Material UI
+
+  ```
+  npm i --save @devexpress/dx-react-grid-material-ui
+  ```
+
+  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and configured. Check the [following link](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) if you have not configured the Material UI yet.
 
 ### Polyfills
 
-React Grid uses the latest standards of the web platform. This means that some old browsers do not support all features of modern ones.
+React Grid uses the latest web platform standards. This means that older browsers might not support all the modern features.
 
-You may need to include ES2015 (ES6) polyfill to support some old browsers like IE11, Android 4.
+You may need to include ES2015 (ES6) polyfill to support browsers like IE11 and Android 4.
 
-We recommend using [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
+We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
 ### Using Grid component
 
-The Grid renders nothing by default. All its functionality is implemented in nested plugin components of the root Grid component. Thus, it is required to specify at least one plugin that visualizes the grid data.
+The Grid renders nothing by default. The root Grid component's nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid data.
 
-Use the TableView plugin as follows to display the data as a simple table:
+Use the TableView plugin to display the data as a simple table:
 
 ```js
 import {
   Grid, TableView
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid
@@ -64,7 +69,9 @@ const App = () => (
 
 ### Try Out React Grid
 
-You can use [Plunker](http://plnkr.co/edit/jR8j7p?p=preview) if you are interested in trying out the React Grid.
+You can use the following links if you are interested in trying out the React Grid:
+- [WebpackBin for Bootstrap3](https://www.webpackbin.com/bins/-KoCcFwPPtps5fEN0PkI)
+- [WebpackBin for Material UI](https://www.webpackbin.com/bins/-KoCeS-_jZrZuTecv-wd)
 
 ## Plugin Overview
 
@@ -81,7 +88,7 @@ Refer to the [Reference](reference) to see the complete plugin list.
 
 ### Plugin Order
 
-The plugins' order is important because all Grid plugins consist of core plugins, each of which has a unique behavior. For example, if data processing is based on some state, it should be linked after an appropriate state plugin. See the following example:
+The plugins' order is important because all Grid plugins consist of core plugins, each of which has a unique behavior. For example, if data processing is based on some state, it should be linked after an appropriate state plugin:
 
 
 ```js
@@ -90,7 +97,7 @@ import {
 } from '@devexpress/dx-react-grid'
 import {
   Grid, TableView
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid rows={[...]} columns={[...]}>
@@ -101,7 +108,7 @@ const App = () => (
 );
 ```
 
-Note that in the previous example, the TableView plugin is linked after the data processing one. The same rule applies to visualization plugins. See the following example:
+Note that in the previous example, the TableView plugin is linked after the data processing one. The same rule applies to visualization plugins:
 
 ```js
 import {
@@ -109,7 +116,7 @@ import {
 } from '@devexpress/dx-react-grid'
 import {
   Grid, TableView, TableFilterRow
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid rows={[...]} columns={[...]}>
@@ -127,7 +134,7 @@ NOTE: Refer to the plugin documentation for information on its requirements.
 
 It is required to specify a visual component for this type of plugins (not included by default). You can create your templates based on the plugin specification or use one of the predefined ones:
 - DevExtreme React Grid for [Bootstrap 3](http://getbootstrap.com/) (used in examples)
-- DevExtreme React Grid for [Material UI](http://www.material-ui.com) (coming soon...)
+- DevExtreme React Grid for [Material UI](http://www.material-ui.com) (used in examples as an alternative)
 
 ## <a name="controlled-and-uncontrolled-modes"></a>Controlled (stateless) and Uncontrolled (stateful) modes
 

@@ -27,7 +27,7 @@
     "postinstall": "lerna bootstrap --concurrency=1",
     "build": "lerna run build",
     "build:site": "npm run -s build:site:demos && npm run -s build:site:docs",
-    "build:site:demos": "lerna run build --ignore @devexpress/dx-react-demos --loglevel silent && lerna run build:prod --scope @devexpress/dx-react-demos --loglevel silent",
+    "build:site:demos": "lerna run build --ignore @devexpress/dx-react-demos && lerna run build:prod --scope @devexpress/dx-react-demos",
     "build:site:docs": "gulp site",
     "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint",

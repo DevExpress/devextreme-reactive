@@ -22,12 +22,7 @@ import { GroupingDemos } from './grouping';
 import { SelectionDemos } from './selection';
 import { DetailRowDemos } from './detail-row';
 import { ColumnReorderingDemos } from './column-reordering';
-
-import { FeaturedUncontrolledDemos } from './featured-uncontrolled';
-import { FeaturedReduxDemos } from './featured-redux';
-import { FeaturedControlledDemos } from './featured-controlled';
-import { FeaturedRemoteDataDemos } from './featured-remote-data';
-import { FeaturedThemingDemos } from './featured-theming';
+import { FeaturedDemos } from './featured';
 
 injectTapEventPlugin();
 
@@ -40,12 +35,12 @@ const theme = createMuiTheme({
 
 const Demos = () => (
   <MuiThemeProvider theme={theme}>
-    <div>
+    <div className="mui-demo-container">
       <Route
         exact
         path="/material-ui/"
         render={() => (
-          <Redirect push from="/material-ui/" to="/material-ui/featured-uncontrolled" />
+          <Redirect push from="/material-ui/" to="/material-ui/featured/uncontrolled-mode" />
         )}
       />
 
@@ -58,11 +53,7 @@ const Demos = () => (
       <Route path="/material-ui/grouping" component={GroupingDemos} />
       <Route path="/material-ui/detail-row" component={DetailRowDemos} />
       <Route path="/material-ui/column-reordering" component={ColumnReorderingDemos} />
-      <Route path="/material-ui/featured-uncontrolled" component={FeaturedUncontrolledDemos} />
-      <Route path="/material-ui/featured-controlled" component={FeaturedControlledDemos} />
-      <Route path="/material-ui/featured-redux" component={FeaturedReduxDemos} />
-      <Route path="/material-ui/featured-remote-data" component={FeaturedRemoteDataDemos} />
-      <Route path="/material-ui/featured-theming" component={FeaturedThemingDemos} />
+      <Route path="/material-ui/featured" component={FeaturedDemos} />
     </div>
   </MuiThemeProvider>
 );
@@ -82,40 +73,20 @@ export const MaterialUIDemos = withRouter(({ location }) => {
         <div className="row">
           <div className="col-md-3 main-menu">
             <h3>Demos</h3>
-            {
-              (parts[2] && parts[2].indexOf('featured-') > -1)
-                ? (
-                  <ul className="list-unstyled">
-                    <li>
-                      <NavLink to="/material-ui/featured-uncontrolled">Uncontrolled Mode</NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/material-ui/featured-controlled">Controlled Mode</NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/material-ui/featured-redux">Redux Integration</NavLink>
-                    </li>
-                    <li><NavLink to="/material-ui/featured-remote-data">Remote Data</NavLink></li>
-                    <li><NavLink to="/material-ui/featured-theming">Theming</NavLink></li>
-                  </ul>
-                )
-                : (
-                  <ul className="list-unstyled">
-                    <li><NavLink to="/material-ui/basic">Basic</NavLink></li>
-                    <li><NavLink to="/material-ui/paging">Paging</NavLink></li>
-                    <li><NavLink to="/material-ui/sorting">Sorting</NavLink></li>
-                    <li><NavLink to="/material-ui/filtering">Filtering</NavLink></li>
-                    <li><NavLink to="/material-ui/selection">Selection</NavLink></li>
-                    <li><NavLink to="/material-ui/editing">Editing</NavLink></li>
-                    <li><NavLink to="/material-ui/grouping">Grouping</NavLink></li>
-                    <li><NavLink to="/material-ui/detail-row">Detail Row</NavLink></li>
-                    <li>
-                      <NavLink to="/material-ui/column-reordering">Column Reordering</NavLink>
-                    </li>
-                    <li><NavLink to="/material-ui/">Featured</NavLink></li>
-                  </ul>
-                )
-            }
+            <ul className="list-unstyled">
+              <li><NavLink to="/material-ui/basic">Basic</NavLink></li>
+              <li><NavLink to="/material-ui/paging">Paging</NavLink></li>
+              <li><NavLink to="/material-ui/sorting">Sorting</NavLink></li>
+              <li><NavLink to="/material-ui/filtering">Filtering</NavLink></li>
+              <li><NavLink to="/material-ui/selection">Selection</NavLink></li>
+              <li><NavLink to="/material-ui/editing">Editing</NavLink></li>
+              <li><NavLink to="/material-ui/grouping">Grouping</NavLink></li>
+              <li><NavLink to="/material-ui/detail-row">Detail Row</NavLink></li>
+              <li>
+                <NavLink to="/material-ui/column-reordering">Column Reordering</NavLink>
+              </li>
+              <li><NavLink to="/material-ui/featured">Featured</NavLink></li>
+            </ul>
           </div>
 
           <div className="col-md-9 demo-content">

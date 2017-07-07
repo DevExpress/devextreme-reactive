@@ -19,9 +19,13 @@ To set up basic filtering, use the `FilteringState`,`LocalFiltering` and `TableF
 
 In this example, we use the uncontrolled mode and specify only the initial filters via the `defaultFilters` property of the `FilteringState` plugin. After that, the grid will manage filter changes internally.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/filtering/local-filter-row)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/filtering/local-filter-row) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filter-row.jsx)
 
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filter-row.jsx)
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/filtering/local-filter-row) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/filtering/local-filter-row.jsx)
 
 ## Customizing Filter Row
 
@@ -31,17 +35,25 @@ In a custom template, you need to handle filter changes. In this example, filter
 
 To process your custom filter locally, specify custom filtering predicate in the `LocalFiltering` plugin's `filterFn` property.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/filtering/custom-filter-row)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/filtering/custom-filter-row) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/custom-filter-row.jsx)
 
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/custom-filter-row.jsx)
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/filtering/custom-filter-row) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/filtering/custom-filter-row.jsx)
 
 ## Controlled Filtering State
 
 To control the filtering state, pass an array of column filters to the `FilteringState` plugin's  `filters` property  and handle the `onFiltersChange` event.
 
-[DEMO](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/filtering/local-filtering-controlled)
+Bootstrap 3:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/filtering/local-filtering-controlled) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filtering-controlled.jsx)
 
-[SOURCE](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filtering-controlled.jsx)
+Material UI:
+[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/filtering/local-filtering-controlled) |
+[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/filtering/local-filtering-controlled.jsx)
 
 ## Remote Filtering
 

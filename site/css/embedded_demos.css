@@ -1,6 +1,31 @@
-.embedded-demo {
-    width: 1px;
-    min-width: 100%;
-    border: none;
-    margin: 10px 0 5px;
+.mui-demo-container {
+  padding: 2px 3px 5px 2px;
+}
+
+.loading-shading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.loading-icon {
+  position: absolute;
+  font-size: 20px;
+  top: calc(45% - 10px);
+  left: calc(50% - 10px);
+
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg); }
+  to { transform: scale(1) rotate(360deg); }
 }

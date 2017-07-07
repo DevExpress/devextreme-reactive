@@ -27,7 +27,7 @@ const TableFilterCellBase = ({ style, filter, setFilter, classes }) => (
       className={classes.input}
       value={filter ? filter.value : ''}
       placeholder={'Filter...'}
-      onChange={e => setFilter({ value: e.target.value })}
+      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
     />
   </TableCell>
 );

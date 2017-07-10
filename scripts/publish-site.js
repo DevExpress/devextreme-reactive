@@ -18,13 +18,13 @@ console.log('====================');
 console.log();
 
 console.log('Building site content...');
-execSync('npm run build:site');
+execSync('npm run build:site', { stdio: 'ignore' });
 
 console.log('Cleaning generated site...');
 removeSync(GENERATED_SITE_DIRECTORY);
 
 console.log('Generating site...');
-execSync(`bundle exec jekyll build --source ${SITE_DIRECTORY} --destination ${GENERATED_SITE_DIRECTORY}`, { cwd: SITE_DIRECTORY });
+execSync(`bundle exec jekyll build --source ${SITE_DIRECTORY} --destination ${GENERATED_SITE_DIRECTORY}`, { cwd: SITE_DIRECTORY, stdio: 'ignore' });
 
 console.log('Coping github staff...');
 copySync(join(__dirname, 'gh-pages-files'), GENERATED_SITE_DIRECTORY);

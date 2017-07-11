@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import { setupConsole } from '@devexpress/dx-testing';
 import {
   Getter, Template, TemplatePlaceholder, PluginHost,
 } from '@devexpress/dx-react-core';
@@ -11,6 +12,14 @@ import {
 import { TableView } from './table-view';
 
 describe('TableView', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should render data cell on user-defined column and row intersection', () => {
     const tree = mount(
       <PluginHost>

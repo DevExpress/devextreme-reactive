@@ -11,11 +11,9 @@ import { TableFilterRow } from './table-filter-row';
 
 describe('TableFilterRow', () => {
   let resetConsole;
-
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
-
   afterAll(() => {
     resetConsole();
   });

@@ -13,7 +13,6 @@ describe('TableGroupRow', () => {
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
-
   afterAll(() => {
     resetConsole();
   });

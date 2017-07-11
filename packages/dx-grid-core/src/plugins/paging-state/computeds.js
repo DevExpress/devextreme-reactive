@@ -34,11 +34,11 @@ export const ensurePageHeaders = (rows, pageSize) => {
   return result;
 };
 
-export const totalPageCount = (rows, pageSize) => (
-  pageSize ? Math.ceil(rows.length / pageSize) : 1
+export const pagesCount = (count, pageSize) => (
+  pageSize ? Math.ceil(count / pageSize) : 1
 );
 
-export const totalCount = rows => rows.length;
+export const rowsCount = rows => rows.length;
 
 export const firstRowOnPage = (currentPage, pageSize) => (
   pageSize ? (currentPage * pageSize) + 1 : 1

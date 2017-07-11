@@ -41,7 +41,6 @@ showAllText | string | Specifies a page size selector's 'All' item text. Availab
 Name | Plugin | Type | Description
 -----|--------|------|------------
 currentPage | Getter | number | The current page
-totalPages | Getter | number | The total page count
 pageSize | Getter | number | The count of rows to be shown on a single page
 totalCount | Getter | number | The total row count
 setCurrentPage | Action | ({ page: number }) => void | Changes the current page

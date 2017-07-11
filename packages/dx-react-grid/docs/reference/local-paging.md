@@ -28,4 +28,4 @@ setCurrentPage | Action | ({ page: number }) => void | Changes the current page
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied paging
-totalPages | Getter | number | The total page count
+totalCount | Getter | number | The total row count

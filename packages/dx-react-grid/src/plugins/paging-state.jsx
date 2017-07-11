@@ -33,8 +33,8 @@ export class PagingState extends React.PureComponent {
   render() {
     const {
       pageSize = this.state.pageSize,
-      totalCount,
       currentPage = this.state.currentPage,
+      totalCount,
     } = this.props;
 
     return (
@@ -44,11 +44,7 @@ export class PagingState extends React.PureComponent {
 
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
-        <Getter
-          name="totalPages"
-          value={pageSize ? Math.max(1, Math.ceil(totalCount / pageSize)) : 1}
-        />
-        <Getter name="totalCount" value={totalCount || 0} />
+        <Getter name="totalCount" value={totalCount} />
       </PluginContainer>
     );
   }
@@ -58,18 +54,18 @@ PagingState.propTypes = {
   pageSize: PropTypes.number,
   defaultPageSize: PropTypes.number,
   onPageSizeChange: PropTypes.func,
-  totalCount: PropTypes.number,
   currentPage: PropTypes.number,
   defaultCurrentPage: PropTypes.number,
   onCurrentPageChange: PropTypes.func,
+  totalCount: PropTypes.number,
 };
 
 PagingState.defaultProps = {
   pageSize: undefined,
   defaultPageSize: 10,
   onPageSizeChange: undefined,
-  totalCount: undefined,
   currentPage: undefined,
   defaultCurrentPage: 0,
   onCurrentPageChange: undefined,
+  totalCount: 0,
 };

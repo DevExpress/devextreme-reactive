@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
-import { blue } from 'material-ui/styles/colors';
+import { blue } from 'material-ui/colors';
 
 import {
   Route,

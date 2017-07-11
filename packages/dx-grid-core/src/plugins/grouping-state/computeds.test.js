@@ -5,6 +5,8 @@ import {
     expandedGroupRows,
     groupedColumns,
     nextExpandedGroups,
+    visualGrouping,
+    visuallyGroupedColumns,
 } from './computeds';
 
 describe('GroupingPlugin computeds', () => {
@@ -145,6 +147,28 @@ describe('GroupingPlugin computeds', () => {
     });
   });
 
+  describe('#visuallyGroupedColumns', () => {
+    const columns = [
+      { name: 'a' },
+      { name: 'b' },
+      { name: 'c' },
+      { name: 'd' },
+    ];
+    const visGrouping = [
+      { columnName: 'a' },
+      { columnName: 'c', isDraft: true },
+    ];
+
+    it('should work', () => {
+      const processedColumns = visuallyGroupedColumns(columns, visGrouping);
+
+      expect(processedColumns).toHaveLength(2);
+      expect(processedColumns[0].column).toBe(columns[0]);
+      expect(processedColumns[1].column).toBe(columns[2]);
+      expect(processedColumns[1].isDraft).toBeTruthy();
+    });
+  });
+
   describe('#nextExpandedGroups', () => {
     it('should add an opened group', () => {
       const groups = nextExpandedGroups(['a', 'b'], 'c');
@@ -162,6 +186,50 @@ describe('GroupingPlugin computeds', () => {
       const groups = nextExpandedGroups(Immutable(['a']), 'b');
 
       expect(groups).toEqual(['a', 'b']);
+    });
+  });
+
+  describe('#visualGrouping', () => {
+    const groupingChange = {
+      columnName: 'b',
+      groupIndex: 1,
+    };
+
+    it('can add draft column to visualGrouping', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'c' },
+      ];
+      const processedGrouping = visualGrouping(grouping, groupingChange);
+
+      expect(processedGrouping)
+        .toEqual([
+          { columnName: 'a' },
+          { columnName: 'b', isDraft: true },
+          { columnName: 'c' },
+        ]);
+    });
+
+    it('can reset visualGrouping', () => {
+      const grouping = [{ columnName: 'a' }];
+
+      expect(visualGrouping(grouping, null))
+        .toEqual([
+          { columnName: 'a' },
+        ]);
+    });
+
+    it('can mark a column as draft in visualGrouping', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'b' },
+      ];
+
+      expect(visualGrouping(grouping, { columnName: 'a', groupIndex: -1 }))
+        .toEqual([
+          { columnName: 'a', isDraft: true },
+          { columnName: 'b' },
+        ]);
     });
   });
 });

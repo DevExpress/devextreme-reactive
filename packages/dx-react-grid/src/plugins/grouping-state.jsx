@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { groupByColumn, groupedColumns, nextExpandedGroups } from '@devexpress/dx-grid-core';
+import {
+  groupByColumn,
+  groupedColumns,
+  nextExpandedGroups,
+  visualGrouping,
+  startGroupingChange,
+  cancelGroupingChange,
+  visuallyGroupedColumns,
+} from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
 
@@ -11,6 +19,7 @@ export class GroupingState extends React.PureComponent {
 
     this.state = {
       grouping: props.defaultGrouping || [],
+      groupingChange: props.defaultGroupingChange,
       expandedGroups: props.defaultExpandedGroups || [],
     };
 
@@ -33,9 +42,22 @@ export class GroupingState extends React.PureComponent {
         onGroupingChange(grouping);
       }
     };
+
+    this.startGroupingChange = (groupingChange) => {
+      this.setState({
+        groupingChange: startGroupingChange(this.state.groupingChange, groupingChange),
+      });
+    };
+
+    this.cancelGroupingChange = () => {
+      this.setState({
+        groupingChange: cancelGroupingChange(),
+      });
+    };
   }
   render() {
     const grouping = this.props.grouping || this.state.grouping;
+    const groupingChange = this.props.groupingChange || this.state.groupingChange;
     const expandedGroups = this.props.expandedGroups || this.state.expandedGroups;
 
     return (
@@ -50,8 +72,35 @@ export class GroupingState extends React.PureComponent {
             this._groupByColumn(grouping, { columnName, groupIndex });
           }}
         />
+        <Action
+          name="startGroupingChange"
+          action={(change) => { this.startGroupingChange(change); }}
+        />
+        <Action
+          name="cancelGroupingChange"
+          action={() => { this.cancelGroupingChange(); }}
+        />
 
-        <Getter name="grouping" value={grouping} />
+        <Getter
+          name="grouping"
+          value={grouping}
+        />
+        <Getter
+          name="visualGrouping"
+          pureComputed={visualGrouping}
+          connectArgs={() => [
+            grouping,
+            groupingChange,
+          ]}
+        />
+        <Getter
+          name="visuallyGroupedColumns"
+          pureComputed={visuallyGroupedColumns}
+          connectArgs={getter => [
+            getter('columns'),
+            getter('visualGrouping'),
+          ]}
+        />
         <Getter
           name="expandedGroups"
           pureComputed={arrayToSet}
@@ -73,6 +122,14 @@ export class GroupingState extends React.PureComponent {
 GroupingState.propTypes = {
   grouping: PropTypes.array,
   defaultGrouping: PropTypes.array,
+  groupingChange: PropTypes.shape({
+    columnName: PropTypes.string,
+    groupIndex: PropTypes.number,
+  }),
+  defaultGroupingChange: PropTypes.shape({
+    columnName: PropTypes.string,
+    groupIndex: PropTypes.number,
+  }),
   onGroupingChange: PropTypes.func,
   expandedGroups: PropTypes.array,
   defaultExpandedGroups: PropTypes.array,
@@ -82,9 +139,10 @@ GroupingState.propTypes = {
 GroupingState.defaultProps = {
   grouping: undefined,
   defaultGrouping: undefined,
+  groupingChange: null,
+  defaultGroupingChange: null,
   onGroupingChange: undefined,
   expandedGroups: undefined,
   defaultExpandedGroups: undefined,
   onExpandedGroupsChange: undefined,
 };
-

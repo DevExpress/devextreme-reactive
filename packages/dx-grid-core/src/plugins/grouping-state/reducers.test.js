@@ -2,6 +2,8 @@ import Immutable from 'seamless-immutable';
 
 import {
     groupByColumn,
+    startGroupingChange,
+    cancelGroupingChange,
 } from './reducers';
 
 describe('GroupingState reducers', () => {
@@ -53,6 +55,27 @@ describe('GroupingState reducers', () => {
       expect(nextGrouping).toEqual([
         { columnName: 'test' },
       ]);
+    });
+  });
+});
+
+describe('GroupingChangeState reducers', () => {
+  describe('#startGroupingChange', () => {
+    it('can start grouping change', () => {
+      const groupingChange = null;
+      const payload = { columnName: 'test', groupIndex: 2 };
+
+      const nextGrouping = startGroupingChange(groupingChange, payload);
+      expect(nextGrouping).toEqual({ columnName: 'test', groupIndex: 2 });
+    });
+  });
+
+  describe('#cancelGroupingChange', () => {
+    it('can cancel grouping change', () => {
+      const groupingChange = { columnName: 'test', groupIndex: 2 };
+
+      const nextGrouping = cancelGroupingChange(groupingChange);
+      expect(nextGrouping).toEqual(null);
     });
   });
 });

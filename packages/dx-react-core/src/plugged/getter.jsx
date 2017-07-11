@@ -30,7 +30,7 @@ export class Getter extends React.PureComponent {
       position: () => this.props.position(),
       [`${name}Getter`]: (original) => {
         const { value, connectArgs } = this.props;
-        if (value !== null) return value;
+        if (value !== undefined) return value;
 
         let args = [];
         if (connectArgs) {
@@ -62,7 +62,7 @@ export class Getter extends React.PureComponent {
   }
 }
 Getter.defaultProps = {
-  value: null,
+  value: undefined,
   pureComputed: null,
   connectArgs: null,
   position: () => NaN,

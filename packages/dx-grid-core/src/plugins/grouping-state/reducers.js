@@ -17,3 +17,9 @@ export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
 
   return grouping;
 };
+
+export const startGroupingChange = (prevGroupingChange, { columnName, groupIndex }) =>
+  ({ columnName, groupIndex });
+
+
+export const cancelGroupingChange = () => null;

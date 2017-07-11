@@ -60,6 +60,12 @@ export const expandedGroupRows = (rows, expandedGroups) => {
 export const groupedColumns = (columns, grouping) =>
   grouping.map(group => columns.find(c => c.name === group.columnName));
 
+export const visuallyGroupedColumns = (columns, grouping) =>
+  grouping.map(({ columnName, isDraft }) => ({
+    column: columns.find(c => c.name === columnName),
+    isDraft,
+  }));
+
 export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
   const expandedGroups = Array.from(prevExpandedGroups);
   const groupKeyIndex = expandedGroups.indexOf(groupKey);
@@ -71,4 +77,29 @@ export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
   }
 
   return expandedGroups;
+};
+
+export const visualGrouping = (grouping, groupingChange) => {
+  const result = Array.from(grouping).slice();
+
+  if (!groupingChange) return result;
+
+  const { columnName, groupIndex } = groupingChange;
+  const index = grouping.findIndex(g => g.columnName === columnName);
+  let targetIndex = groupIndex;
+
+  if (index > -1) {
+    result.splice(index, 1, { columnName, isDraft: true });
+  } else if (groupIndex === undefined) {
+    targetIndex = result.length;
+  }
+
+  if (targetIndex > -1) {
+    result.splice(targetIndex, 0, {
+      columnName,
+      isDraft: true,
+    });
+  }
+
+  return result;
 };

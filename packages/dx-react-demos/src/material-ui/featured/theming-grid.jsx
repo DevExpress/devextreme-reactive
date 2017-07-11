@@ -21,7 +21,7 @@ import LoopIcon from 'material-ui-icons/Loop';
 import HelpIcon from 'material-ui-icons/HelpOutline';
 import { MuiThemeProvider, withStyles, createStyleSheet, createMuiTheme } from 'material-ui/styles';
 import createPalette from 'material-ui/styles/palette';
-import { blue } from 'material-ui/styles/colors';
+import { blue } from 'material-ui/colors';
 
 import {
   generateRows,

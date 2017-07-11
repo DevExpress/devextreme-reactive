@@ -1,11 +1,5 @@
 .mui-demo-container {
-  padding: 2px 3px 0 2px;
-}
-.mui-demo-container:after {
-  content: "";
-  display: block;
-  height: 1px;
-  margin-top: -22px;
+  padding: 2px 3px 5px 2px;
 }
 
 .loading-shading {

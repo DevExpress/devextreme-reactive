@@ -1,8 +1,8 @@
 import {
     paginate,
     ensurePageHeaders,
-    totalPageCount,
-    totalCount,
+    pagesCount,
+    rowsCount,
     firstRowOnPage,
     lastRowOnPage,
 } from './computeds';
@@ -162,19 +162,19 @@ describe('PagingState computeds', () => {
     });
   });
 
-  describe('#totalPageCount', () => {
+  describe('#pagesCount', () => {
     it('should work', () => {
-      let count = totalPageCount([1, 2, 3], 2);
+      let count = pagesCount(3, 2);
       expect(count).toEqual(2);
 
-      count = totalPageCount([1, 2, 3], 0);
+      count = pagesCount(3, 0);
       expect(count).toEqual(1);
     });
   });
 
-  describe('#totalCount', () => {
+  describe('#rowsCount', () => {
     it('should work', () => {
-      const count = totalCount([1, 2, 3]);
+      const count = rowsCount([1, 2, 3]);
       expect(count).toEqual(3);
     });
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
-import { paginate, ensurePageHeaders, pagesCount, rowsCount } from '@devexpress/dx-grid-core';
+import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalPaging extends React.PureComponent {
@@ -17,7 +17,7 @@ export class LocalPaging extends React.PureComponent {
         />
         <Getter
           name="totalCount"
-          pureComputed={rowsCount}
+          pureComputed={rowCount}
           connectArgs={getter => [
             getter('rows'),
           ]}
@@ -29,7 +29,7 @@ export class LocalPaging extends React.PureComponent {
             getter('pageSize'),
           ]}
           onChange={(action, totalCount, currentPage, pageSize) => {
-            const totalPages = pagesCount(totalCount, pageSize);
+            const totalPages = pageCount(totalCount, pageSize);
             if (totalPages - 1 < currentPage) {
               action('setCurrentPage')({ page: Math.max(totalPages - 1, 0) });
             }

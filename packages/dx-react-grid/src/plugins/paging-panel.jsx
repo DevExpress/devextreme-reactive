@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
-import { pagesCount } from '@devexpress/dx-grid-core';
+import { pageCount } from '@devexpress/dx-grid-core';
 
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -17,7 +17,7 @@ export class PagingPanel extends React.PureComponent {
             const totalCount = getter('totalCount');
             return {
               currentPage: getter('currentPage'),
-              totalPages: pagesCount(totalCount, pageSize),
+              totalPages: pageCount(totalCount, pageSize),
               pageSize,
               totalCount,
               allowedPageSizes,

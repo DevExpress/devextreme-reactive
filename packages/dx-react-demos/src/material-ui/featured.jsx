@@ -6,7 +6,6 @@ import { ControlledModeDemo } from './featured/controlled-mode';
 import { ReduxIntegrationDemo } from './featured/redux-integration';
 import { RemoteDataDemo } from './featured/remote-data';
 import { UncontrolledModeDemo } from './featured/uncontrolled-mode';
-import { ThemingDemo } from './featured/theming';
 
 const AllDemos = () => (
   <div>
@@ -19,8 +18,6 @@ const AllDemos = () => (
     <ReduxIntegrationDemo />
     <h3>Remote Data Binding</h3>
     <RemoteDataDemo />
-    <h3>Theming</h3>
-    <ThemingDemo />
   </div>
 );
 
@@ -31,7 +28,6 @@ export const FeaturedDemos = ({ match }) => (
     <Route path={`${match.url}/controlled-mode`} component={ControlledModeDemo} />
     <Route path={`${match.url}/redux-integration`} component={ReduxIntegrationDemo} />
     <Route path={`${match.url}/remote-data`} component={RemoteDataDemo} />
-    <Route path={`${match.url}/theming`} component={ThemingDemo} />
   </div>
 );
 FeaturedDemos.propTypes = {

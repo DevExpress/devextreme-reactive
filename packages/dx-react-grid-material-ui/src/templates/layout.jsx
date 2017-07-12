@@ -13,32 +13,25 @@ export const styleSheet = createStyleSheet('GridLayout', theme => ({
   footerPanel: {
     padding: '12px',
   },
-  root: {
-    marginBottom: theme.spacing.unit * 3,
-  },
 }));
 
-const RootBase = ({
+export const Root = ({
   headerTemplate,
   bodyTemplate,
   footerTemplate,
-  classes,
 }) => (
-  <Paper className={classes.root}>
+  <Paper>
     {headerTemplate()}
     {bodyTemplate()}
     {footerTemplate()}
   </Paper>
 );
 
-RootBase.propTypes = {
+Root.propTypes = {
   headerTemplate: PropTypes.func.isRequired,
   bodyTemplate: PropTypes.func.isRequired,
   footerTemplate: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
 };
-
-export const Root = withStyles(styleSheet)(RootBase);
 
 const HeaderBase = ({ children, classes }) =>
   children && <div className={classes.headingPanel}>{children}</div>;

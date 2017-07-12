@@ -18,7 +18,7 @@ onCurrentPageChange | (currentPage: number) => void | | Handles current page cha
 pageSize | number | | Specifies the page size. Set this property to `0` to show all rows on a page
 defaultPageSize | number | 10 | Specifies the initial page size in the uncontrolled mode
 onPageSizeChange | (pageSize: number) => void | | Handles page size changes
-totalCount | number | | Specifies the total row count
+totalCount | number | 0 | Specifies the total row count
 
 ## Plugin Developer Reference
 

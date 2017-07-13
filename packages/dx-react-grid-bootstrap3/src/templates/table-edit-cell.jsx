@@ -11,7 +11,7 @@ export const EditCell = ({ column, value, onValueChange }) => (
     <input
       type="text"
       className="form-control"
-      value={value}
+      value={value || ''}
       onChange={e => onValueChange(e.target.value)}
       style={{ width: '100%', textAlign: column.align }}
     />

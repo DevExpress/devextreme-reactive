@@ -1,3 +1,5 @@
+const SEPARATOR = '|';
+
 const groupRows = (originalRows, groupedColumns, parentGroup) => {
   if (!groupedColumns.length) return originalRows;
 
@@ -15,7 +17,7 @@ const groupRows = (originalRows, groupedColumns, parentGroup) => {
     } else {
       group = {
         _headerKey: `groupRow_${groupColumn.name}`,
-        key: (parentGroup ? `${parentGroup.key}|` : '') + groupKey,
+        key: (parentGroup ? `${parentGroup.key}${SEPARATOR}` : '') + groupKey,
         colspan: (parentGroup ? parentGroup.colspan + 1 : 0),
         value: groupKey,
         type: 'groupRow',
@@ -93,9 +95,9 @@ export const expandedGroupsWithChangedGrouping = (prevGrouping, nextGrouping, ex
   if (index !== null) {
     let result = expandedGroups.map(
     group => group
-      .split('|')
+      .split(SEPARATOR)
       .slice(0, index)
-      .join('|'),
+      .join(SEPARATOR),
     );
 
     result = new Set(result);

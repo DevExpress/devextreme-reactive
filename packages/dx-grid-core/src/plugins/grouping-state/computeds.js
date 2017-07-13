@@ -72,3 +72,37 @@ export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
 
   return expandedGroups;
 };
+
+const ungroupedColumnIndex = (prevGrouping, nextGrouping) => {
+  if (prevGrouping.length > nextGrouping.length) {
+    for (let i = 0; i < prevGrouping.length; i += 1) {
+      const index = nextGrouping
+        .findIndex(column => column.columnName === prevGrouping[i].columnName);
+
+      if (index === -1) {
+        return i;
+      }
+    }
+  }
+
+  return null;
+};
+
+export const expandedGroupsWithChangedGrouping = (prevGrouping, nextGrouping, expandedGroups) => {
+  const index = ungroupedColumnIndex(prevGrouping, nextGrouping);
+  if (index !== null) {
+    let result = expandedGroups.map(
+    group => group
+      .split('|')
+      .slice(0, index)
+      .join('|'),
+    );
+
+    result = new Set(result);
+    result.delete('');
+
+    return Array.from(result);
+  }
+
+  return expandedGroups;
+};

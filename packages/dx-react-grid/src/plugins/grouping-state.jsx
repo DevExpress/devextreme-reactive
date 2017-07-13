@@ -1,22 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer, Watcher } from '@devexpress/dx-react-core';
-import { groupByColumn, groupedColumns, nextExpandedGroups } from '@devexpress/dx-grid-core';
+import {
+  groupByColumn,
+  groupedColumns,
+  nextExpandedGroups,
+  expandedGroupsWithChangedGrouping,
+} from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
-
-const findRemovedColumnIndex = (initialColumns, updatedColumns) => {
-  for (let i = 0; i < initialColumns.length; i += 1) {
-    const index = updatedColumns
-      .findIndex(column => column.columnName === initialColumns[i].columnName);
-
-    if (index === -1) {
-      return i;
-    }
-  }
-
-  return null;
-};
 
 export class GroupingState extends React.PureComponent {
   constructor(props) {
@@ -31,14 +23,9 @@ export class GroupingState extends React.PureComponent {
 
     this.toggleGroupExpanded = (groupKey) => {
       const prevExpandedGroups = this.props.expandedGroups || this.state.expandedGroups;
-      const { onExpandedGroupsChange } = this.props;
       const expandedGroups = nextExpandedGroups(prevExpandedGroups, groupKey);
 
-      this.setState({ expandedGroups });
-
-      if (onExpandedGroupsChange) {
-        onExpandedGroupsChange(expandedGroups);
-      }
+      this._expandedGroupsChanged(expandedGroups);
     };
 
     this._groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
@@ -48,6 +35,15 @@ export class GroupingState extends React.PureComponent {
       this.setState({ grouping });
       if (onGroupingChange) {
         onGroupingChange(grouping);
+      }
+    };
+
+    this._expandedGroupsChanged = (groups) => {
+      const { onExpandedGroupsChange } = this.props;
+      this.setState({ expandedGroups: groups });
+
+      if (onExpandedGroupsChange) {
+        onExpandedGroupsChange(groups);
       }
     };
   }
@@ -88,27 +84,17 @@ export class GroupingState extends React.PureComponent {
           ]}
           onChange={(action, nextGrouping) => {
             const prevGrouping = this.prevGrouping;
-            const { onExpandedGroupsChange } = this.props;
 
-            if (prevGrouping.length >= nextGrouping.length) {
-              const index = findRemovedColumnIndex(prevGrouping, nextGrouping);
-              let processedExpandedGroups = this.state.expandedGroups.map(
-                group => group
-                  .split('|')
-                  .slice(0, index)
-                  .join('|'),
-                );
+            const updatedExpandedGroups = expandedGroupsWithChangedGrouping(
+              prevGrouping,
+              nextGrouping,
+              this.state.expandedGroups,
+            );
 
-              processedExpandedGroups = arrayToSet(processedExpandedGroups);
-              processedExpandedGroups.delete('');
-
-              this.setState({
-                expandedGroups: Array.from(processedExpandedGroups),
-              });
-              if (onExpandedGroupsChange) {
-                onExpandedGroupsChange(Array.from(processedExpandedGroups));
-              }
+            if (updatedExpandedGroups !== this.state.expandedGroups) {
+              this._expandedGroupsChanged(updatedExpandedGroups);
             }
+
             this.prevGrouping = nextGrouping;
           }}
         />

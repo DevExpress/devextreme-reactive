@@ -42,6 +42,33 @@ describe('GroupingState', () => {
     expect(groupingChange.mock.calls[0][0]).toEqual([{ columnName: 'a' }, { columnName: 'b' }]);
   });
 
+  it('should group by column in controlled mode', () => {
+    let grouping;
+    let groupByColumn;
+    const groupingChange = jest.fn();
+
+    mount(
+      <PluginHost>
+        <GroupingState
+          grouping={[{ columnName: 'b' }]}
+          onGroupingChange={groupingChange}
+        />
+        <Template
+          name="root"
+          connectGetters={getter => (grouping = Array.from(getter('grouping')))}
+          connectActions={action => (groupByColumn = action('groupByColumn'))}
+        >
+          {() => <div />}
+        </Template>
+      </PluginHost>,
+    );
+
+    groupByColumn({ columnName: 'a', groupIndex: 0 });
+
+    expect(grouping).toEqual([{ columnName: 'b' }]);
+    expect(groupingChange.mock.calls[0][0]).toEqual([{ columnName: 'a' }, { columnName: 'b' }]);
+  });
+
   it('should ungroup by column', () => {
     let grouping = [{ columnName: 'a' }];
     let groupByColumn;
@@ -92,6 +119,33 @@ describe('GroupingState', () => {
     toggleGroupExpanded({ groupKey: 'a' });
 
     expect(expandedGroups).toEqual(['a']);
+    expect(expandedGroupsChangeMock.mock.calls[0][0]).toEqual(['a']);
+  });
+
+  it('should expand group row in controlled mode', () => {
+    let expandedGroups;
+    let toggleGroupExpanded;
+    const expandedGroupsChangeMock = jest.fn();
+
+    mount(
+      <PluginHost>
+        <GroupingState
+          expandedGroups={[]}
+          onExpandedGroupsChange={expandedGroupsChangeMock}
+        />
+        <Template
+          name="root"
+          connectGetters={getter => (expandedGroups = Array.from(getter('expandedGroups')))}
+          connectActions={action => (toggleGroupExpanded = action('toggleGroupExpanded'))}
+        >
+          {() => <div />}
+        </Template>
+      </PluginHost>,
+    );
+
+    toggleGroupExpanded({ groupKey: 'a' });
+
+    expect(expandedGroups).toHaveLength(0);
     expect(expandedGroupsChangeMock.mock.calls[0][0]).toEqual(['a']);
   });
 

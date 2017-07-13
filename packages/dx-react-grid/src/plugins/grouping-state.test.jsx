@@ -15,26 +15,34 @@ describe('GroupingState', () => {
     resetConsole();
   });
 
-  it('should group by column', () => {
-    let grouping = [{ columnName: 'b' }];
-    let groupByColumn;
-    const groupingChange = jest.fn();
-
+  const mountPlugin = (pluginProps, templateProps) => {
     mount(
       <PluginHost>
         <GroupingState
-          defaultGrouping={grouping}
-          onGroupingChange={groupingChange}
+          {...pluginProps}
         />
         <Template
           name="root"
-          connectGetters={getter => (grouping = Array.from(getter('grouping')))}
-          connectActions={action => (groupByColumn = action('groupByColumn'))}
+          {...templateProps}
         >
           {() => <div />}
         </Template>
       </PluginHost>,
     );
+  };
+
+  it('should group by column', () => {
+    let grouping = [{ columnName: 'b' }];
+    let groupByColumn;
+    const groupingChange = jest.fn();
+
+    mountPlugin({
+      defaultGrouping: grouping,
+      onGroupingChange: groupingChange,
+    }, {
+      connectGetters: getter => (grouping = Array.from(getter('grouping'))),
+      connectActions: action => (groupByColumn = action('groupByColumn')),
+    });
 
     groupByColumn({ columnName: 'a', groupIndex: 0 });
 
@@ -47,21 +55,13 @@ describe('GroupingState', () => {
     let groupByColumn;
     const groupingChange = jest.fn();
 
-    mount(
-      <PluginHost>
-        <GroupingState
-          grouping={[{ columnName: 'b' }]}
-          onGroupingChange={groupingChange}
-        />
-        <Template
-          name="root"
-          connectGetters={getter => (grouping = Array.from(getter('grouping')))}
-          connectActions={action => (groupByColumn = action('groupByColumn'))}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
+    mountPlugin({
+      grouping: [{ columnName: 'b' }],
+      onGroupingChange: groupingChange,
+    }, {
+      connectGetters: getter => (grouping = Array.from(getter('grouping'))),
+      connectActions: action => (groupByColumn = action('groupByColumn')),
+    });
 
     groupByColumn({ columnName: 'a', groupIndex: 0 });
 
@@ -74,21 +74,13 @@ describe('GroupingState', () => {
     let groupByColumn;
     const groupingChange = jest.fn();
 
-    mount(
-      <PluginHost>
-        <GroupingState
-          defaultGrouping={grouping}
-          onGroupingChange={groupingChange}
-        />
-        <Template
-          name="root"
-          connectGetters={getter => (grouping = Array.from(getter('grouping')))}
-          connectActions={action => (groupByColumn = action('groupByColumn'))}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
+    mountPlugin({
+      defaultGrouping: grouping,
+      onGroupingChange: groupingChange,
+    }, {
+      connectGetters: getter => (grouping = Array.from(getter('grouping'))),
+      connectActions: action => (groupByColumn = action('groupByColumn')),
+    });
 
     groupByColumn({ columnName: 'a' });
 
@@ -101,20 +93,12 @@ describe('GroupingState', () => {
     let toggleGroupExpanded;
     const expandedGroupsChangeMock = jest.fn();
 
-    mount(
-      <PluginHost>
-        <GroupingState
-          onExpandedGroupsChange={expandedGroupsChangeMock}
-        />
-        <Template
-          name="root"
-          connectGetters={getter => (expandedGroups = Array.from(getter('expandedGroups')))}
-          connectActions={action => (toggleGroupExpanded = action('toggleGroupExpanded'))}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
+    mountPlugin({
+      onExpandedGroupsChange: expandedGroupsChangeMock,
+    }, {
+      connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
+      connectActions: action => (toggleGroupExpanded = action('toggleGroupExpanded')),
+    });
 
     toggleGroupExpanded({ groupKey: 'a' });
 
@@ -127,21 +111,13 @@ describe('GroupingState', () => {
     let toggleGroupExpanded;
     const expandedGroupsChangeMock = jest.fn();
 
-    mount(
-      <PluginHost>
-        <GroupingState
-          expandedGroups={[]}
-          onExpandedGroupsChange={expandedGroupsChangeMock}
-        />
-        <Template
-          name="root"
-          connectGetters={getter => (expandedGroups = Array.from(getter('expandedGroups')))}
-          connectActions={action => (toggleGroupExpanded = action('toggleGroupExpanded'))}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
+    mountPlugin({
+      expandedGroups: [],
+      onExpandedGroupsChange: expandedGroupsChangeMock,
+    }, {
+      connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
+      connectActions: action => (toggleGroupExpanded = action('toggleGroupExpanded')),
+    });
 
     toggleGroupExpanded({ groupKey: 'a' });
 
@@ -154,21 +130,13 @@ describe('GroupingState', () => {
     let toggleGroupExpanded;
     const expandedGroupsChangeMock = jest.fn();
 
-    mount(
-      <PluginHost>
-        <GroupingState
-          defaultExpandedGroups={['a']}
-          onExpandedGroupsChange={expandedGroupsChangeMock}
-        />
-        <Template
-          name="root"
-          connectGetters={getter => (expandedGroups = Array.from(getter('expandedGroups')))}
-          connectActions={action => (toggleGroupExpanded = action('toggleGroupExpanded'))}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
+    mountPlugin({
+      defaultExpandedGroups: ['a'],
+      onExpandedGroupsChange: expandedGroupsChangeMock,
+    }, {
+      connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
+      connectActions: action => (toggleGroupExpanded = action('toggleGroupExpanded')),
+    });
 
     toggleGroupExpanded({ groupKey: 'a' });
 
@@ -181,22 +149,14 @@ describe('GroupingState', () => {
     let groupByColumn;
     const expandedGroupsChangeMock = jest.fn();
 
-    mount(
-      <PluginHost>
-        <GroupingState
-          defaultGrouping={[{ columnName: 'name' }]}
-          defaultExpandedGroups={['John']}
-          onExpandedGroupsChange={expandedGroupsChangeMock}
-        />
-        <Template
-          name="root"
-          connectGetters={getter => (expandedGroups = Array.from(getter('expandedGroups')))}
-          connectActions={action => (groupByColumn = action('groupByColumn'))}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
+    mountPlugin({
+      defaultGrouping: [{ columnName: 'name' }],
+      defaultExpandedGroups: ['John'],
+      onExpandedGroupsChange: expandedGroupsChangeMock,
+    }, {
+      connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
+      connectActions: action => (groupByColumn = action('groupByColumn')),
+    });
 
     groupByColumn({ columnName: 'name' });
 
@@ -209,22 +169,14 @@ describe('GroupingState', () => {
     let groupByColumn;
     const expandedGroupsChangeMock = jest.fn();
 
-    mount(
-      <PluginHost>
-        <GroupingState
-          defaultGrouping={[{ columnName: 'name' }, { columnName: 'age' }]}
-          defaultExpandedGroups={['John', 'John|30', 'Mike']}
-          onExpandedGroupsChange={expandedGroupsChangeMock}
-        />
-        <Template
-          name="root"
-          connectGetters={getter => (expandedGroups = Array.from(getter('expandedGroups')))}
-          connectActions={action => (groupByColumn = action('groupByColumn'))}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
+    mountPlugin({
+      defaultGrouping: [{ columnName: 'name' }, { columnName: 'age' }],
+      defaultExpandedGroups: ['John', 'John|30', 'Mike'],
+      onExpandedGroupsChange: expandedGroupsChangeMock,
+    }, {
+      connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
+      connectActions: action => (groupByColumn = action('groupByColumn')),
+    });
 
     groupByColumn({ columnName: 'age' });
 
@@ -237,22 +189,14 @@ describe('GroupingState', () => {
     let groupByColumn;
     const expandedGroupsChangeMock = jest.fn();
 
-    mount(
-      <PluginHost>
-        <GroupingState
-          defaultGrouping={[{ columnName: 'name' }]}
-          defaultExpandedGroups={['John', 'Mike']}
-          onExpandedGroupsChange={expandedGroupsChangeMock}
-        />
-        <Template
-          name="root"
-          connectGetters={getter => (expandedGroups = Array.from(getter('expandedGroups')))}
-          connectActions={action => (groupByColumn = action('groupByColumn'))}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
+    mountPlugin({
+      defaultGrouping: [{ columnName: 'name' }],
+      defaultExpandedGroups: ['John', 'Mike'],
+      onExpandedGroupsChange: expandedGroupsChangeMock,
+    }, {
+      connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
+      connectActions: action => (groupByColumn = action('groupByColumn')),
+    });
 
     groupByColumn({ columnName: 'age' });
 

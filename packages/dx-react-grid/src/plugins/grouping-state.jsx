@@ -21,8 +21,10 @@ export class GroupingState extends React.PureComponent {
 
     this.prevGrouping = [];
 
+    this._expandedGroups = () => (this.props.expandedGroups || this.state.expandedGroups);
+
     this.toggleGroupExpanded = (groupKey) => {
-      const prevExpandedGroups = this.props.expandedGroups || this.state.expandedGroups;
+      const prevExpandedGroups = this._expandedGroups();
       const expandedGroups = nextExpandedGroups(prevExpandedGroups, groupKey);
 
       this._expandedGroupsChanged(expandedGroups);
@@ -49,7 +51,7 @@ export class GroupingState extends React.PureComponent {
   }
   render() {
     const grouping = this.props.grouping || this.state.grouping;
-    const expandedGroups = this.props.expandedGroups || this.state.expandedGroups;
+    const expandedGroups = this._expandedGroups();
 
     return (
       <PluginContainer>
@@ -84,14 +86,15 @@ export class GroupingState extends React.PureComponent {
           ]}
           onChange={(action, nextGrouping) => {
             const prevGrouping = this.prevGrouping;
+            const prevExpandedGroups = this._expandedGroups();
 
             const updatedExpandedGroups = expandedGroupsWithChangedGrouping(
               prevGrouping,
               nextGrouping,
-              this.state.expandedGroups,
+              prevExpandedGroups,
             );
 
-            if (updatedExpandedGroups !== this.state.expandedGroups) {
+            if (updatedExpandedGroups !== prevExpandedGroups) {
               this._expandedGroupsChanged(updatedExpandedGroups);
             }
 

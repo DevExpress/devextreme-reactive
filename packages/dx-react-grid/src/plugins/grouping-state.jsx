@@ -1,9 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, PluginContainer, Watcher } from '@devexpress/dx-react-core';
 import { groupByColumn, groupedColumns, nextExpandedGroups } from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
+
+const findRemovedColumnIndex = (initialColumns, updatedColumns) => {
+  for (let i = 0; i < initialColumns.length; i += 1) {
+    const index = updatedColumns
+      .findIndex(column => column.columnName === initialColumns[i].columnName);
+
+    if (index === -1) {
+      return i;
+    }
+  }
+
+  return null;
+};
 
 export class GroupingState extends React.PureComponent {
   constructor(props) {
@@ -14,12 +27,15 @@ export class GroupingState extends React.PureComponent {
       expandedGroups: props.defaultExpandedGroups || [],
     };
 
+    this.prevGrouping = [];
+
     this.toggleGroupExpanded = (groupKey) => {
       const prevExpandedGroups = this.props.expandedGroups || this.state.expandedGroups;
       const { onExpandedGroupsChange } = this.props;
       const expandedGroups = nextExpandedGroups(prevExpandedGroups, groupKey);
 
       this.setState({ expandedGroups });
+
       if (onExpandedGroupsChange) {
         onExpandedGroupsChange(expandedGroups);
       }
@@ -28,6 +44,7 @@ export class GroupingState extends React.PureComponent {
     this._groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
       const { onGroupingChange } = this.props;
       const grouping = groupByColumn(prevGrouping, { columnName, groupIndex });
+
       this.setState({ grouping });
       if (onGroupingChange) {
         onGroupingChange(grouping);
@@ -64,6 +81,36 @@ export class GroupingState extends React.PureComponent {
             getter('columns'),
             grouping,
           ]}
+        />
+        <Watcher
+          watch={getter => [
+            getter('grouping'),
+          ]}
+          onChange={(action, nextGrouping) => {
+            const prevGrouping = this.prevGrouping;
+            const { onExpandedGroupsChange } = this.props;
+
+            if (prevGrouping.length >= nextGrouping.length) {
+              const index = findRemovedColumnIndex(prevGrouping, nextGrouping);
+              let processedExpandedGroups = this.state.expandedGroups.map(
+                group => group
+                  .split('|')
+                  .slice(0, index)
+                  .join('|'),
+                );
+
+              processedExpandedGroups = arrayToSet(processedExpandedGroups);
+              processedExpandedGroups.delete('');
+
+              this.setState({
+                expandedGroups: Array.from(processedExpandedGroups),
+              });
+              if (onExpandedGroupsChange) {
+                onExpandedGroupsChange(Array.from(processedExpandedGroups));
+              }
+            }
+            this.prevGrouping = nextGrouping;
+          }}
         />
       </PluginContainer>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { SeamlessImmutableDemo } from './immutability/seamless-immutable';
+import SeamlessImmutableDemo from './immutability/seamless-immutable';
 
 const AllDemos = () => (
   <div>

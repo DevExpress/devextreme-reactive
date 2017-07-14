@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { BasicDemo } from './virtual-scrolling/basic';
-import { IntegrationWithOtherPluginsDemo } from './virtual-scrolling/integration-with-other-plugins';
+import BasicDemo from './virtual-scrolling/basic';
+import IntegrationWithOtherPluginsDemo from './virtual-scrolling/integration-with-other-plugins';
 
 const AllDemos = () => (
   <div>

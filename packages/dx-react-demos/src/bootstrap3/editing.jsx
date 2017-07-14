@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { EditRowDemo } from './editing/edit-row';
-import { EditRowControlledDemo } from './editing/edit-row-controlled';
+import EditRowDemo from './editing/edit-row';
+import EditRowControlledDemo from './editing/edit-row-controlled';
 
 const AllDemos = () => (
   <div>

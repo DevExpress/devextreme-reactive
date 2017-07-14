@@ -13,18 +13,18 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import { BasicDemos } from './basic';
-import { SortingDemos } from './sorting';
-import { FilteringDemos } from './filtering';
-import { EditingDemos } from './editing';
-import { PagingDemos } from './paging';
-import { GroupingDemos } from './grouping';
-import { SelectionDemos } from './selection';
-import { DetailRowDemos } from './detail-row';
-import { ColumnReorderingDemos } from './column-reordering';
-import { ImmutabilityDemos } from './immutability';
-import { FeaturedDemos } from './featured';
-import { FeaturedThemingDemos } from './featured-theming';
+import { BasicDemos } from './material-ui/basic';
+import { SortingDemos } from './material-ui/sorting';
+import { FilteringDemos } from './material-ui/filtering';
+import { EditingDemos } from './material-ui/editing';
+import { PagingDemos } from './material-ui/paging';
+import { GroupingDemos } from './material-ui/grouping';
+import { SelectionDemos } from './material-ui/selection';
+import { DetailRowDemos } from './material-ui/detail-row';
+import { ColumnReorderingDemos } from './material-ui/column-reordering';
+import { ImmutabilityDemos } from './material-ui/immutability';
+import { FeaturedDemos } from './material-ui/featured';
+import { FeaturedThemingDemos } from './material-ui/featured-theming';
 
 injectTapEventPlugin();
 

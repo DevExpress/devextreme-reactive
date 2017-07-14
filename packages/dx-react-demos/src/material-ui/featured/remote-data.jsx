@@ -58,7 +58,7 @@ NoDataCellBase.propTypes = {
 
 const NoDataCell = withStyles(styleSheet)(NoDataCellBase);
 
-export class RemoteDataDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

@@ -20,7 +20,7 @@ import {
   globalSalesValues,
 } from '../../demoData';
 
-export class VirtualScrollingDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

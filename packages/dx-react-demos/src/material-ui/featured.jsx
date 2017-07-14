@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { ControlledModeDemo } from './featured/controlled-mode';
-import { ReduxIntegrationDemo } from './featured/redux-integration';
-import { RemoteDataDemo } from './featured/remote-data';
-import { UncontrolledModeDemo } from './featured/uncontrolled-mode';
+import ControlledModeDemo from './featured/controlled-mode';
+import ReduxIntegrationDemo from './featured/redux-integration';
+import RemoteDataDemo from './featured/remote-data';
+import UncontrolledModeDemo from './featured/uncontrolled-mode';
 
 const AllDemos = () => (
   <div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { RemoteDataDemo } from './remote-data';
+import RemoteDataDemo from './remote-data';
 
 describe('BS3 featured: remote data demo', () => {
   beforeEach(() => {

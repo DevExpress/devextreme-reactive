@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { ThemingDemo } from './featured-theming/theming';
+import ThemingDemo from './featured-theming/theming';
 
 const AllDemos = () => (
   <div>

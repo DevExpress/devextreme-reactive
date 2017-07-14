@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { BasicSelectionDemo } from './selection/basic';
-import { SelectByRowClickDemo } from './selection/select-by-row-click';
-import { SelectionWithHiddenCheckboxesDemo } from './selection/hidden-checkboxes';
-import { SelectAllByPageDemo } from './selection/select-all-by-page';
-import { SelectAllByAllPagesDemo } from './selection/select-all-by-all-pages';
-import { SelectionWithHiddenSelectAllDemo } from './selection/hidden-select-all';
+import BasicSelectionDemo from './selection/basic';
+import SelectByRowClickDemo from './selection/select-by-row-click';
+import SelectionWithHiddenCheckboxesDemo from './selection/hidden-checkboxes';
+import SelectAllByPageDemo from './selection/select-all-by-page';
+import SelectAllByAllPagesDemo from './selection/select-all-by-all-pages';
+import SelectionWithHiddenSelectAllDemo from './selection/hidden-select-all';
 
 const AllDemos = () => (
   <div>

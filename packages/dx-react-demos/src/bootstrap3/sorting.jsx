@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { HeaderSortingDemo } from './sorting/local-header-sorting';
-import { LocalSortingControlledDemo } from './sorting/local-sorting-controlled';
-import { LocalGroupSortingDemo } from './sorting/local-group-sorting';
-import { RemoteSortingDemo } from './sorting/remote-sorting';
+import HeaderSortingDemo from './sorting/local-header-sorting';
+import LocalSortingControlledDemo from './sorting/local-sorting-controlled';
+import LocalGroupSortingDemo from './sorting/local-group-sorting';
+import RemoteSortingDemo from './sorting/remote-sorting';
 
 const AllDemos = () => (
   <div>

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { UncontrolledDemo } from './column-reordering/uncontrolled';
-import { ControlledDemo } from './column-reordering/controlled';
+import UncontrolledDemo from './column-reordering/uncontrolled';
+import ControlledDemo from './column-reordering/controlled';
 
 const AllDemos = () => (
   <div>

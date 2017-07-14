@@ -6,18 +6,18 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import { BasicDemos } from './basic';
-import { SortingDemos } from './sorting';
-import { FilteringDemos } from './filtering';
-import { EditingDemos } from './editing';
-import { PagingDemos } from './paging';
-import { GroupingDemos } from './grouping';
-import { SelectionDemos } from './selection';
-import { DetailRowDemos } from './detail-row';
-import { VirtualScrollingDemos } from './virtual-scrolling';
-import { ColumnReorderingDemos } from './column-reordering';
-import { ImmutabilityDemos } from './immutability';
-import { FeaturedDemos } from './featured';
+import { BasicDemos } from './bootstrap3/basic';
+import { SortingDemos } from './bootstrap3/sorting';
+import { FilteringDemos } from './bootstrap3/filtering';
+import { EditingDemos } from './bootstrap3/editing';
+import { PagingDemos } from './bootstrap3/paging';
+import { GroupingDemos } from './bootstrap3/grouping';
+import { SelectionDemos } from './bootstrap3/selection';
+import { DetailRowDemos } from './bootstrap3/detail-row';
+import { VirtualScrollingDemos } from './bootstrap3/virtual-scrolling';
+import { ColumnReorderingDemos } from './bootstrap3/column-reordering';
+import { ImmutabilityDemos } from './bootstrap3/immutability';
+import { FeaturedDemos } from './bootstrap3/featured';
 
 const Demos = () => (
   <div>

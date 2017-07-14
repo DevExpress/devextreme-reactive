@@ -19,7 +19,7 @@ import {
   defaultColumnValues,
 } from '../../demoData';
 
-export class IntegrationWithOtherPluginsDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

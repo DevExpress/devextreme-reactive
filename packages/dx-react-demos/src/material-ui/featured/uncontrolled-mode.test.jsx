@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { UncontrolledModeDemo } from './uncontrolled-mode';
+import UncontrolledModeDemo from './uncontrolled-mode';
 
 injectTapEventPlugin();
 

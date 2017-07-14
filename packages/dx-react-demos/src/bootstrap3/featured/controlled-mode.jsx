@@ -114,7 +114,7 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
-export class ControlledModeDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

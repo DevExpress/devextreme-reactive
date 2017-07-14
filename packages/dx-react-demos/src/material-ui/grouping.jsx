@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { LocalGroupingStaticDemo } from './grouping/local-grouping-static';
-import { LocalGroupingWithUIDemo } from './grouping/local-grouping-with-ui';
-import { LocalGroupingControlledDemo } from './grouping/local-grouping-controlled';
+import LocalGroupingStaticDemo from './grouping/local-grouping-static';
+import LocalGroupingWithUIDemo from './grouping/local-grouping-with-ui';
+import LocalGroupingControlledDemo from './grouping/local-grouping-controlled';
 
 const AllDemos = () => (
   <div>

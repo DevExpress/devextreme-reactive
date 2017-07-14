@@ -21,7 +21,7 @@ import {
   globalSalesValues,
 } from '../../demoData';
 
-export class UncontrolledModeDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { SimpleDetailRowDemo } from './detail-row/simple-detail-row';
-import { DetailRowControlledDemo } from './detail-row/detail-row-controlled';
+import SimpleDetailRowDemo from './detail-row/simple-detail-row';
+import DetailRowControlledDemo from './detail-row/detail-row-controlled';
 
 const AllDemos = () => (
   <div>

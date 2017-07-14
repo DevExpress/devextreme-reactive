@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import { LocalFilterRowDemo } from './filtering/local-filter-row';
-import { CustomFilterRowDemo } from './filtering/custom-filter-row';
-import { LocalFilteringControlledDemo } from './filtering/local-filtering-controlled';
+import LocalFilterRowDemo from './filtering/local-filter-row';
+import CustomFilterRowDemo from './filtering/custom-filter-row';
+import LocalFilteringControlledDemo from './filtering/local-filtering-controlled';
 
 const AllDemos = () => (
   <div>

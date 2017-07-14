@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 
 import { LocalGroupingStaticDemo } from './grouping/local-grouping-static';
 import { LocalGroupingWithUIDemo } from './grouping/local-grouping-with-ui';
+import { LocalGroupingByDndDemo } from './grouping/local-grouping-by-dnd';
 import { LocalGroupingControlledDemo } from './grouping/local-grouping-controlled';
 
 const AllDemos = () => (
@@ -13,6 +14,8 @@ const AllDemos = () => (
     <LocalGroupingStaticDemo />
     <h3>Local Grouping with UI</h3>
     <LocalGroupingWithUIDemo />
+    <h3>Grouping by Drag and Drop</h3>
+    <LocalGroupingByDndDemo />
     <h3>Controlled Grouping Mode</h3>
     <LocalGroupingControlledDemo />
   </div>
@@ -23,6 +26,7 @@ export const GroupingDemos = ({ match }) => (
     <Route exact path={`${match.url}/`} component={AllDemos} />
     <Route path={`${match.url}/local-grouping-static`} component={LocalGroupingStaticDemo} />
     <Route path={`${match.url}/local-grouping-with-ui`} component={LocalGroupingWithUIDemo} />
+    <Route path={`${match.url}/local-grouping-by-dnd`} component={LocalGroupingByDndDemo} />
     <Route path={`${match.url}/local-grouping-controlled`} component={LocalGroupingControlledDemo} />
   </div>
 );

@@ -163,9 +163,11 @@ describe('GroupingPlugin computeds', () => {
       const processedColumns = visuallyGroupedColumns(columns, visGrouping);
 
       expect(processedColumns).toHaveLength(2);
-      expect(processedColumns[0].column).toBe(columns[0]);
-      expect(processedColumns[1].column).toBe(columns[2]);
-      expect(processedColumns[1].isDraft).toBeTruthy();
+      expect(processedColumns[0]).toBe(columns[0]);
+      expect(processedColumns[1]).toEqual({
+        ...columns[2],
+        isDraft: true,
+      });
     });
   });
 
@@ -190,22 +192,17 @@ describe('GroupingPlugin computeds', () => {
   });
 
   describe('#visualGrouping', () => {
-    const groupingChange = {
-      columnName: 'b',
-      groupIndex: 1,
-    };
-
     it('can add draft column to visualGrouping', () => {
       const grouping = [
         { columnName: 'a' },
         { columnName: 'c' },
       ];
-      const processedGrouping = visualGrouping(grouping, groupingChange);
+      const processedGrouping = visualGrouping(grouping, { columnName: 'b', groupIndex: 1 });
 
       expect(processedGrouping)
         .toEqual([
           { columnName: 'a' },
-          { columnName: 'b', isDraft: true },
+          { columnName: 'b', isDraft: true, mode: 'add' },
           { columnName: 'c' },
         ]);
     });
@@ -227,8 +224,26 @@ describe('GroupingPlugin computeds', () => {
 
       expect(visualGrouping(grouping, { columnName: 'a', groupIndex: -1 }))
         .toEqual([
-          { columnName: 'a', isDraft: true },
+          { columnName: 'a', isDraft: true, mode: 'remove' },
           { columnName: 'b' },
+        ]);
+      expect(visualGrouping(grouping, { columnName: 'b', groupIndex: -1 }))
+        .toEqual([
+          { columnName: 'a' },
+          { columnName: 'b', isDraft: true, mode: 'remove' },
+        ]);
+    });
+
+    it('can change grouping order', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'b' },
+      ];
+
+      expect(visualGrouping(grouping, { columnName: 'a', groupIndex: 1 }))
+        .toEqual([
+          { columnName: 'b' },
+          { columnName: 'a', isDraft: true, mode: 'reorder' },
         ]);
     });
   });

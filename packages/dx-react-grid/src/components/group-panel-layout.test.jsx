@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { setupConsole } from '@devexpress/dx-testing';
+import { DragDropContext } from '@devexpress/dx-react-core';
 
 import { GroupPanelLayout } from './group-panel-layout';
 
@@ -15,25 +16,24 @@ const panelTemplate = ({ cells }) => <div>{cells}</div>;
 
 describe('GroupPanelLayout', () => {
   let resetConsole;
-
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
-
   afterAll(() => {
     resetConsole();
   });
 
 
   it('should render group panel with cells', () => {
-    const groupedColumns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
+    const groupedColumns = [
+      { name: 'a' },
+      { name: 'b' },
+      { name: 'c' },
+      { name: 'd' },
+    ];
     const tree = mount(
       <GroupPanelLayout
         groupedColumns={groupedColumns}
-        allowSorting={false}
-        changeSortingDirection={() => {}}
-        groupByColumn={() => {}}
-        groupByColumnText={''}
         groupPanelCellTemplate={groupPanelCellTemplate}
         panelTemplate={panelTemplate}
       />,
@@ -48,9 +48,6 @@ describe('GroupPanelLayout', () => {
     const tree = mount(
       <GroupPanelLayout
         groupedColumns={[]}
-        allowSorting={false}
-        changeSortingDirection={() => {}}
-        groupByColumn={() => {}}
         groupByColumnText={groupByColumnText}
         groupPanelCellTemplate={groupPanelCellTemplate}
         panelTemplate={panelTemplate}
@@ -70,9 +67,6 @@ describe('GroupPanelLayout', () => {
         groupedColumns={groupedColumns}
         allowSorting
         sorting={sorting}
-        changeSortingDirection={() => {}}
-        groupByColumn={() => {}}
-        groupByColumnText={''}
         groupPanelCellTemplate={cellTemplate}
         panelTemplate={panelTemplate}
       />,
@@ -97,9 +91,6 @@ describe('GroupPanelLayout', () => {
         groupedColumns={groupedColumns}
         allowSorting={false}
         sorting={sorting}
-        changeSortingDirection={() => {}}
-        groupByColumn={() => {}}
-        groupByColumnText={''}
         groupPanelCellTemplate={cellTemplate}
         panelTemplate={panelTemplate}
       />,
@@ -109,5 +100,213 @@ describe('GroupPanelLayout', () => {
       .toBe('desc');
     expect(cellTemplate.mock.calls[0][0].allowSorting)
       .toBeFalsy();
+  });
+
+  describe('drag\'n\'drop grouping', () => {
+    it('should render DropTarget if allowDropping property is true', () => {
+      const groupedColumns = [
+        { name: 'a' },
+        { name: 'b' },
+        { name: 'c' },
+        { name: 'd' },
+      ];
+      const tree = mount(
+        <DragDropContext>
+          <GroupPanelLayout
+            groupedColumns={groupedColumns}
+            groupPanelCellTemplate={groupPanelCellTemplate}
+            panelTemplate={panelTemplate}
+            allowDropping
+          />
+        </DragDropContext>,
+      );
+
+      expect(tree.find('DropTarget').exists())
+        .toBeTruthy();
+    });
+
+    it('should render DragSource for each cell of allowDragging is true', () => {
+      const groupedColumns = [
+        { name: 'a' },
+        { name: 'b' },
+        { name: 'c' },
+        { name: 'd' },
+      ];
+      const tree = mount(
+        <DragDropContext>
+          <GroupPanelLayout
+            groupedColumns={groupedColumns}
+            groupPanelCellTemplate={groupPanelCellTemplate}
+            panelTemplate={panelTemplate}
+            allowDragging
+          />
+        </DragDropContext>,
+      );
+
+      expect(tree.find('DragSource > .cell').length)
+        .toBe(groupedColumns.length);
+    });
+
+    it('should call startGroupingChange when dragging a column over the group panel', () => {
+      const startGroupingChange = jest.fn();
+      const column = { name: 'a' };
+      const tree = mount(
+        <DragDropContext>
+          <GroupPanelLayout
+            groupedColumns={[]}
+            groupPanelCellTemplate={groupPanelCellTemplate}
+            panelTemplate={panelTemplate}
+            columns={[column]}
+            startGroupingChange={startGroupingChange}
+            allowDragging
+            allowDropping
+          />
+        </DragDropContext>,
+      );
+
+      const dropTarget = tree.find('DropTarget');
+      dropTarget.prop('onEnter')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 170, y: 20 },
+      });
+      dropTarget.prop('onOver')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 175, y: 20 },
+      });
+
+      expect(startGroupingChange)
+        .toHaveBeenCalledTimes(1);
+      expect(startGroupingChange)
+        .toHaveBeenCalledWith({
+          columnName: column.name,
+          groupIndex: 0,
+        });
+    });
+
+    it('should call startGroupingChange on drag leave', () => {
+      const startGroupingChange = jest.fn();
+      const column = { name: 'a' };
+      const tree = mount(
+        <DragDropContext>
+          <GroupPanelLayout
+            groupedColumns={[]}
+            groupPanelCellTemplate={groupPanelCellTemplate}
+            panelTemplate={panelTemplate}
+            columns={[column]}
+            startGroupingChange={startGroupingChange}
+            allowDragging
+            allowDropping
+          />
+        </DragDropContext>,
+
+      );
+
+      const dropTarget = tree.find('DropTarget');
+      dropTarget.prop('onEnter')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 170, y: 20 },
+      });
+      dropTarget.prop('onLeave')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 175, y: 60 },
+      });
+
+      expect(startGroupingChange)
+        .toHaveBeenCalledTimes(1);
+      expect(startGroupingChange)
+        .toHaveBeenCalledWith({
+          columnName: column.name,
+          groupIndex: -1,
+        });
+    });
+
+    it('should apply grouping and reset grouping change on drop', () => {
+      const column = { name: 'a' };
+      const groupByColumn = jest.fn();
+      const cancelGroupingChange = jest.fn();
+      const tree = mount(
+        <DragDropContext>
+          <GroupPanelLayout
+            groupedColumns={[]}
+            groupPanelCellTemplate={groupPanelCellTemplate}
+            panelTemplate={panelTemplate}
+            columns={[column]}
+            groupByColumn={groupByColumn}
+            cancelGroupingChange={cancelGroupingChange}
+            allowDragging
+            allowDropping
+          />
+        </DragDropContext>,
+      );
+
+      const dropTarget = tree.find('DropTarget');
+      dropTarget.prop('onEnter')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 170, y: 20 },
+      });
+      dropTarget.prop('onOver')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 175, y: 20 },
+      });
+      dropTarget.prop('onDrop')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 175, y: 20 },
+      });
+
+      expect(groupByColumn)
+        .toHaveBeenCalledTimes(1);
+      expect(groupByColumn)
+        .toHaveBeenCalledWith({ columnName: column.name, groupIndex: 0 });
+
+      expect(cancelGroupingChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should apply grouping and reset grouping change on drag end', () => {
+      const column = { name: 'a' };
+      const groupByColumn = jest.fn();
+      const cancelGroupingChange = jest.fn();
+      const tree = mount(
+        <DragDropContext>
+          <GroupPanelLayout
+            columns={[column]}
+            groupedColumns={[column]}
+            groupPanelCellTemplate={groupPanelCellTemplate}
+            panelTemplate={panelTemplate}
+            groupByColumn={groupByColumn}
+            cancelGroupingChange={cancelGroupingChange}
+            allowDragging
+            allowDropping
+          />
+        </DragDropContext>,
+      );
+
+      const dragSource = tree.find('DragSource');
+      dragSource.prop('onStart')();
+
+      const dropTarget = tree.find('DropTarget');
+      dropTarget.prop('onEnter')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 170, y: 20 },
+      });
+      dropTarget.prop('onOver')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 175, y: 20 },
+      });
+      dropTarget.prop('onLeave')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 175, y: 20 },
+      });
+
+      dragSource.prop('onEnd')();
+
+      expect(groupByColumn)
+        .toHaveBeenCalledTimes(1);
+      expect(groupByColumn)
+        .toHaveBeenCalledWith({ columnName: column.name });
+
+      expect(cancelGroupingChange)
+        .toHaveBeenCalledTimes(1);
+    });
   });
 });

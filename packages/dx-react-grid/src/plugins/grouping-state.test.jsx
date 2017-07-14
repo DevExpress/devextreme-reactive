@@ -181,7 +181,7 @@ describe('GroupingState', () => {
       );
 
       expect(visualGrouping)
-        .toEqual([{ columnName: 'a' }, { columnName: 'b', isDraft: true }, { columnName: 'c' }]);
+        .toEqual([{ columnName: 'a' }, { columnName: 'b', isDraft: true, mode: 'add' }, { columnName: 'c' }]);
     });
 
     it('should be applied depending on the "groupingChange" property in the controlled mode', () => {
@@ -206,7 +206,11 @@ describe('GroupingState', () => {
       );
 
       expect(visualGrouping)
-        .toEqual([{ columnName: 'a' }, { columnName: 'b', isDraft: true }, { columnName: 'c' }]);
+        .toEqual([
+          { columnName: 'a' },
+          { columnName: 'b', isDraft: true, mode: 'add' },
+          { columnName: 'c' },
+        ]);
     });
   });
 
@@ -234,9 +238,10 @@ describe('GroupingState', () => {
       );
 
       expect(visuallyGroupedColumns)
-        .toEqual([
-          { column: columns[1], isDraft: true },
-        ]);
+        .toEqual([{
+          ...columns[1],
+          isDraft: true,
+        }]);
     });
   });
 
@@ -262,7 +267,7 @@ describe('GroupingState', () => {
       startGroupingChange({ columnName: 'a', groupIndex: 0 });
 
       expect(visualGrouping)
-        .toEqual([{ columnName: 'a', isDraft: true }]);
+        .toEqual([{ columnName: 'a', isDraft: true, mode: 'add' }]);
     });
   });
 
@@ -274,7 +279,7 @@ describe('GroupingState', () => {
         <PluginHost>
           <GroupingState
             grouping={[{ columnName: 'a' }]}
-            visualGrouping={[{ columnName: 'b', isDraft: true }]}
+            visualGrouping={[{ columnName: 'b', isDraft: true, mode: 'add' }]}
           />
           <Template
             name="root"

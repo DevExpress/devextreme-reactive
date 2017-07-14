@@ -1,6 +1,7 @@
 import { easeOutCubic } from '@devexpress/dx-core';
 
 import { querySelectorAll } from './dom-utils';
+import { getTargetColumnGeometries } from './column-geometries';
 
 const getTableKeyGetter = (getIntrinsicKey, object, index) => {
   const type = object.type || 'data';
@@ -57,35 +58,10 @@ export const getTableColumnGeometries = (columns, tableWidth) => {
     });
 };
 
-export const getTableTargetColumnIndex = (columnGeometries, sourceIndex, offset) => {
-  const sourceWidth = columnGeometries[sourceIndex].right - columnGeometries[sourceIndex].left;
-  const getWidthDifference = index =>
-    columnGeometries[index].right - columnGeometries[index].left - sourceWidth;
-
-  return columnGeometries
-    .map(({ left, right }, targetIndex) => {
-      let leftBorder = left;
-      if (targetIndex > 0 && targetIndex <= sourceIndex) {
-        leftBorder = Math.min(leftBorder, leftBorder - getWidthDifference(targetIndex - 1));
-      }
-      if (targetIndex > sourceIndex) {
-        leftBorder = Math.max(leftBorder, leftBorder + getWidthDifference(targetIndex));
-      }
-      let rightBorder = right;
-      if (targetIndex < columnGeometries.length - 1 && targetIndex >= sourceIndex) {
-        rightBorder = Math.max(rightBorder, rightBorder + getWidthDifference(targetIndex + 1));
-      }
-      if (targetIndex < sourceIndex) {
-        rightBorder = Math.min(rightBorder, rightBorder - getWidthDifference(targetIndex));
-      }
-
-      return {
-        left: leftBorder,
-        right: rightBorder,
-      };
-    })
+export const getTableTargetColumnIndex = (columnGeometries, sourceIndex, offset) =>
+  getTargetColumnGeometries(columnGeometries, sourceIndex)
     .findIndex(({ left, right }) => offset > left && offset < right);
-};
+
 
 const ANIMATION_DURATION = 200;
 

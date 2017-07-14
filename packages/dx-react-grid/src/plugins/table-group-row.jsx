@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { tableColumnsWithGroups } from '@devexpress/dx-grid-core';
+import { tableColumnsWithoutGroups, tableColumnsWithGroups } from '@devexpress/dx-grid-core';
 
 export class TableGroupRow extends React.PureComponent {
   render() {
@@ -13,6 +13,14 @@ export class TableGroupRow extends React.PureComponent {
 
     return (
       <PluginContainer>
+        <Getter
+          name="tableColumns"
+          pureComputed={tableColumnsWithoutGroups}
+          connectArgs={getter => [
+            getter('tableColumns'),
+            getter('visualGrouping'),
+          ]}
+        />
         <Getter
           name="tableColumns"
           pureComputed={tableColumnsWithGroups}

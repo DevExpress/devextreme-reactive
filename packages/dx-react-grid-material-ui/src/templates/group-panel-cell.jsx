@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { TableSortLabel, Chip } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
@@ -8,6 +9,9 @@ const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
   button: {
     marginRight: theme.spacing.unit,
     marginBottom: '12px',
+  },
+  draftCell: {
+    opacity: 0.3,
   },
 }));
 
@@ -20,15 +24,23 @@ const label = (allowSorting, sortingDirection, column) => (
   </TableSortLabel>
 );
 
+
 const GroupPanelCellBase = ({
   column,
   groupByColumn,
   allowSorting, sortingDirection, changeSortingDirection,
   classes,
-}) => (
-  <Chip
+}) => {
+  const chipClassNames = classNames(
+    {
+      [classes.button]: true,
+      [classes.draftCell]: column.isDraft,
+    },
+  );
+
+  return (<Chip
     label={label(allowSorting, sortingDirection, column)}
-    className={classes.button}
+    className={chipClassNames}
     onRequestDelete={() => groupByColumn({ columnName: column.name })}
     onClick={(e) => {
       if (!allowSorting) return;
@@ -39,8 +51,8 @@ const GroupPanelCellBase = ({
         columnName: column.name,
       });
     }}
-  />
-);
+  />);
+};
 
 GroupPanelCellBase.propTypes = {
   column: PropTypes.shape({

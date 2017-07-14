@@ -85,7 +85,7 @@ export class TableHeaderCell extends React.PureComponent {
           } : {}),
           ...(allowDragging ? { cursor: 'move' } : {}),
           ...(allowSorting ? { cursor: 'pointer' } : {}),
-          ...(dragging ? { opacity: 0.3 } : {}),
+          ...(dragging || column.isDraft ? { opacity: 0.3 } : null),
           ...style,
         }}
         onClick={(e) => {
@@ -117,9 +117,10 @@ export class TableHeaderCell extends React.PureComponent {
 
     return allowDragging ? (
       <DragSource
+        ref={(element) => { this.cellRef = element; }}
         getPayload={() => dragPayload}
         onStart={() => this.setState({ dragging: true })}
-        onEnd={() => this.setState({ dragging: false })}
+        onEnd={() => this.cellRef && this.setState({ dragging: false })}
       >
         {cellLayout}
       </DragSource>

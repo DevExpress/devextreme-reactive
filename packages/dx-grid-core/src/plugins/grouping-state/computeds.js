@@ -61,10 +61,13 @@ export const groupedColumns = (columns, grouping) =>
   grouping.map(group => columns.find(c => c.name === group.columnName));
 
 export const visuallyGroupedColumns = (columns, grouping) =>
-  grouping.map(({ columnName, isDraft }) => ({
-    column: columns.find(c => c.name === columnName),
-    isDraft,
-  }));
+  grouping.map(({ columnName, isDraft }) => {
+    const column = columns.find(c => c.name === columnName);
+    return isDraft ? {
+      ...column,
+      isDraft,
+    } : column;
+  });
 
 export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
   const expandedGroups = Array.from(prevExpandedGroups);
@@ -80,25 +83,22 @@ export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
 };
 
 export const visualGrouping = (grouping, groupingChange) => {
-  const result = Array.from(grouping).slice();
-
-  if (!groupingChange) return result;
+  if (!groupingChange) return grouping;
 
   const { columnName, groupIndex } = groupingChange;
-  const index = grouping.findIndex(g => g.columnName === columnName);
-  let targetIndex = groupIndex;
+  let result = Array.from(grouping);
 
-  if (index > -1) {
-    result.splice(index, 1, { columnName, isDraft: true });
-  } else if (groupIndex === undefined) {
-    targetIndex = result.length;
-  }
-
-  if (targetIndex > -1) {
-    result.splice(targetIndex, 0, {
+  if (groupIndex !== -1) {
+    result = result.filter(g => g.columnName !== columnName);
+    result.splice(groupIndex, 0, {
       columnName,
       isDraft: true,
+      mode: grouping.length > result.length ? 'reorder' : 'add',
     });
+  } else {
+    result = result.map(g => (g.columnName === columnName
+      ? { columnName, isDraft: true, mode: 'remove' }
+      : g));
   }
 
   return result;

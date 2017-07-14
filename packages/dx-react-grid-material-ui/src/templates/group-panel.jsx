@@ -10,6 +10,7 @@ const styleSheet = createStyleSheet('GroupPanel', theme => ({
   panel: {
     display: 'flex',
     flexWrap: 'wrap',
+    width: '100%',
   },
   groupIcon: {
     display: 'inline-block',

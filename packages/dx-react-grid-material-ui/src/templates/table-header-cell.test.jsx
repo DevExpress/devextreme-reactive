@@ -102,12 +102,12 @@ describe('TableHeaderCell', () => {
       styleSheet,
     );
 
-    expect(tree.find(TableCell).hasClass(classes.cellDragging)).toBeFalsy();
+    expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
 
     tree.find(DragSource).prop('onStart')();
-    expect(tree.find(TableCell).hasClass(classes.cellDragging)).toBeTruthy();
+    expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeTruthy();
 
     tree.find(DragSource).prop('onEnd')();
-    expect(tree.find(TableCell).hasClass(classes.cellDragging)).toBeFalsy();
+    expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
   });
 });

@@ -54,15 +54,15 @@ export class TableHeaderRow extends React.PureComponent {
   }
 }
 
-TableHeaderRow.defaultProps = {
-  allowSorting: false,
-  allowGrouping: false,
-  allowDragging: false,
-};
-
 TableHeaderRow.propTypes = {
   allowSorting: PropTypes.bool,
   allowGrouping: PropTypes.bool,
   allowDragging: PropTypes.bool,
   headerCellTemplate: PropTypes.func.isRequired,
+};
+
+TableHeaderRow.defaultProps = {
+  allowSorting: false,
+  allowGrouping: false,
+  allowDragging: false,
 };

@@ -61,7 +61,7 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   cellClickable: {
     cursor: 'pointer',
   },
-  cellDragging: {
+  cellDimmed: {
     opacity: 0.3,
   },
   cellRight: {
@@ -125,7 +125,7 @@ class TableHeaderCellBase extends React.PureComponent {
         [classes.cellNoUserSelect]: allowDragging || allowSorting,
         [classes.cellDraggable]: allowDragging,
         [classes.cellClickable]: allowSorting,
-        [classes.cellDragging]: dragging,
+        [classes.cellDimmed]: dragging || column.isDraft,
       },
     );
 
@@ -200,9 +200,10 @@ class TableHeaderCellBase extends React.PureComponent {
 
     return allowDragging ? (
       <DragSource
+        ref={(element) => { this.cellRef = element; }}
         getPayload={() => dragPayload}
         onStart={() => this.setState({ dragging: true })}
-        onEnd={() => this.setState({ dragging: false })}
+        onEnd={() => this.cellRef && this.setState({ dragging: false })}
       >
         {cellLayout}
       </DragSource>

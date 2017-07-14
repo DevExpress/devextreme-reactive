@@ -13,6 +13,7 @@ export const GroupPanelCell = ({
     style={{
       marginRight: '5px',
       marginBottom: '5px',
+      ...column.isDraft ? { opacity: 0.3 } : null,
     }}
   >
     <span

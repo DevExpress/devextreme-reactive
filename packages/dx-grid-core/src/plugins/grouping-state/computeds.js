@@ -1,4 +1,4 @@
-const SEPARATOR = '|';
+export const SEPARATOR = '|';
 
 const groupRows = (originalRows, groupedColumns, parentGroup) => {
   if (!groupedColumns.length) return originalRows;
@@ -62,7 +62,7 @@ export const expandedGroupRows = (rows, expandedGroups) => {
 export const groupedColumns = (columns, grouping) =>
   grouping.map(group => columns.find(c => c.name === group.columnName));
 
-export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
+export const nextExpandedGroups = (prevExpandedGroups, { groupKey }) => {
   const expandedGroups = Array.from(prevExpandedGroups);
   const groupKeyIndex = expandedGroups.indexOf(groupKey);
 
@@ -73,17 +73,4 @@ export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
   }
 
   return expandedGroups;
-};
-
-export const ungroupedColumnIndex = (prevGrouping, nextGrouping) => {
-  if (prevGrouping.length <= nextGrouping.length) {
-    return -1;
-  }
-
-  return prevGrouping
-    .findIndex((group, index) => (
-      !nextGrouping[index]
-      ||
-      group.columnName !== nextGrouping[index].columnName),
-    );
 };

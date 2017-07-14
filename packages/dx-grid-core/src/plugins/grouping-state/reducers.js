@@ -1,3 +1,5 @@
+import { SEPARATOR } from './computeds';
+
 export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   const grouping = Array.from(prevGrouping);
   const index = grouping.findIndex(g => g.columnName === columnName);
@@ -16,4 +18,12 @@ export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   }
 
   return grouping;
+};
+
+export const updateExpandedGroups = (prevExpandedGroups, { ungroupedColumnIndex }) => {
+  if (ungroupedColumnIndex === -1) {
+    return prevExpandedGroups;
+  }
+
+  return prevExpandedGroups.filter(group => group.split(SEPARATOR).length <= ungroupedColumnIndex);
 };

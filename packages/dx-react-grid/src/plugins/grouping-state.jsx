@@ -6,6 +6,7 @@ import {
   groupedColumns,
   nextExpandedGroups,
   ungroupedColumnIndex,
+  updateExpandedGroups,
 } from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
@@ -19,11 +20,21 @@ export class GroupingState extends React.PureComponent {
       expandedGroups: props.defaultExpandedGroups || [],
     };
 
-    this._toggleGroupExpanded = (prevExpandedGroups, { groupKey }) => {
-      const expandedGroups = nextExpandedGroups(prevExpandedGroups, groupKey);
+    this._reduceExpandedGroups = reducer => (prevExpandedGroups, payload) => {
+      const expandedGroups = reducer(prevExpandedGroups, payload);
 
-      this._expandedGroupsChanged(expandedGroups);
+      if (expandedGroups === prevExpandedGroups) return;
+
+      const { onExpandedGroupsChange } = this.props;
+      this.setState({ expandedGroups });
+
+      if (onExpandedGroupsChange) {
+        onExpandedGroupsChange(expandedGroups);
+      }
     };
+
+    this._toggleGroupExpanded = this._reduceExpandedGroups(nextExpandedGroups);
+    this._updateExpandedGroups = this._reduceExpandedGroups(updateExpandedGroups);
 
     this._groupByColumn = (prevGrouping, prevExpandedGroups, { columnName, groupIndex }) => {
       const { onGroupingChange } = this.props;
@@ -34,25 +45,11 @@ export class GroupingState extends React.PureComponent {
         onGroupingChange(grouping);
       }
 
-      this._updateExpandedGroups(prevGrouping, grouping, prevExpandedGroups);
-    };
-
-    this._updateExpandedGroups = (prevGrouping, nextGrouping, prevExpandedGroups) => {
-      const index = ungroupedColumnIndex(prevGrouping, nextGrouping);
-
+      const index = ungroupedColumnIndex(prevGrouping, grouping);
       if (index > -1) {
-        this._expandedGroupsChanged(
-          prevExpandedGroups.filter(group => group.split('|').length <= index),
-        );
-      }
-    };
-
-    this._expandedGroupsChanged = (groups) => {
-      const { onExpandedGroupsChange } = this.props;
-      this.setState({ expandedGroups: groups });
-
-      if (onExpandedGroupsChange) {
-        onExpandedGroupsChange(groups);
+        this._updateExpandedGroups(prevExpandedGroups, {
+          ungroupedColumnIndex: index,
+        });
       }
     };
   }

@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import {
     groupByColumn,
+    updateExpandedGroups,
 } from './reducers';
 
 describe('GroupingState reducers', () => {
@@ -53,6 +54,22 @@ describe('GroupingState reducers', () => {
       expect(nextGrouping).toEqual([
         { columnName: 'test' },
       ]);
+    });
+  });
+
+  describe('#updateExpandedGroups', () => {
+    it('should update expanded groups depend on ungrouped column index', () => {
+      const expandedGroups = ['a', 'a|b', 'a|b|c'];
+      const nextExpandedGroups = updateExpandedGroups(expandedGroups, { ungroupedColumnIndex: 1 });
+
+      expect(nextExpandedGroups).toEqual(['a']);
+    });
+
+    it('should not update expanded groups id ungrouped column index is -1', () => {
+      const expandedGroups = ['a', 'a', 'c'];
+      const nextExpandedGroups = updateExpandedGroups(expandedGroups, { ungroupedColumnIndex: -1 });
+
+      expect(nextExpandedGroups).toBe(expandedGroups);
     });
   });
 });

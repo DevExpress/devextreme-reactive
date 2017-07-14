@@ -5,7 +5,6 @@ import {
     expandedGroupRows,
     groupedColumns,
     nextExpandedGroups,
-    ungroupedColumnIndex,
 } from './computeds';
 
 describe('GroupingPlugin computeds', () => {
@@ -148,50 +147,21 @@ describe('GroupingPlugin computeds', () => {
 
   describe('#nextExpandedGroups', () => {
     it('should add an opened group', () => {
-      const groups = nextExpandedGroups(['a', 'b'], 'c');
+      const groups = nextExpandedGroups(['a', 'b'], { groupKey: 'c' });
 
       expect(groups).toEqual(['a', 'b', 'c']);
     });
 
     it('should remove a closed group', () => {
-      const groups = nextExpandedGroups(['a', 'b', 'c'], 'c');
+      const groups = nextExpandedGroups(['a', 'b', 'c'], { groupKey: 'c' });
 
       expect(groups).toEqual(['a', 'b']);
     });
 
     it('should work with immutable groups', () => {
-      const groups = nextExpandedGroups(Immutable(['a']), 'b');
+      const groups = nextExpandedGroups(Immutable(['a']), { groupKey: 'b' });
 
       expect(groups).toEqual(['a', 'b']);
-    });
-  });
-
-  describe('#ungroupedColumnIndex', () => {
-    it('should find ungrouped column index', () => {
-      const index = ungroupedColumnIndex(
-        [{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }],
-        [{ columnName: 'a' }, { columnName: 'c' }],
-      );
-
-      expect(index).toBe(1);
-    });
-
-    it('should return -1 if columns were not ungrouped', () => {
-      const index = ungroupedColumnIndex(
-        [{ columnName: 'a' }, { columnName: 'b' }],
-        [{ columnName: 'a' }, { columnName: 'b' }],
-      );
-
-      expect(index).toBe(-1);
-    });
-
-    it('should work if all columns were ungrouped', () => {
-      const index = ungroupedColumnIndex(
-        [{ columnName: 'a' }],
-        [],
-      );
-
-      expect(index).toBe(0);
     });
   });
 });

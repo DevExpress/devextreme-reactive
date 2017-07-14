@@ -94,25 +94,11 @@ const ungroupedColumnIndex = (prevGrouping, nextGrouping) => {
   return result;
 };
 
-const uniqueArrayWithoutEmptyStrings = (array) => {
-  const tmpSet = new Set(array);
-  tmpSet.delete('');
-
-  return Array.from(tmpSet);
-};
-
 export const expandedGroupsDependOnGrouping = (prevGrouping, nextGrouping, expandedGroups) => {
   const index = ungroupedColumnIndex(prevGrouping, nextGrouping);
   if (index === null) {
     return expandedGroups;
   }
 
-  const result = expandedGroups.map(
-    group => group
-      .split(SEPARATOR)
-      .slice(0, index)
-      .join(SEPARATOR),
-  );
-
-  return uniqueArrayWithoutEmptyStrings(result);
+  return expandedGroups.filter(group => group.split(SEPARATOR).length <= index);
 };

@@ -1,20 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { setupConsole } from '@devexpress/dx-testing';
 import { Template, PluginHost } from '@devexpress/dx-react-core';
 
 import { GroupingState } from './grouping-state';
 
 describe('GroupingState', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   const mountPlugin = (pluginProps, templateProps) => {
     mount(
       <PluginHost>

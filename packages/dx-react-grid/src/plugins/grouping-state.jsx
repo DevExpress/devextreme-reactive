@@ -5,7 +5,7 @@ import {
   groupByColumn,
   groupedColumns,
   nextExpandedGroups,
-  expandedGroupsWithChangedGrouping,
+  expandedGroupsDependOnGrouping,
 } from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
@@ -88,7 +88,7 @@ export class GroupingState extends React.PureComponent {
             const prevGrouping = this.prevGrouping;
             const prevExpandedGroups = this._expandedGroups();
 
-            const updatedExpandedGroups = expandedGroupsWithChangedGrouping(
+            const updatedExpandedGroups = expandedGroupsDependOnGrouping(
               prevGrouping,
               nextGrouping,
               prevExpandedGroups,

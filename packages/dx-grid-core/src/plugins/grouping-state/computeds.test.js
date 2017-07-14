@@ -5,7 +5,7 @@ import {
     expandedGroupRows,
     groupedColumns,
     nextExpandedGroups,
-    expandedGroupsWithChangedGrouping,
+    expandedGroupsDependOnGrouping,
 } from './computeds';
 
 describe('GroupingPlugin computeds', () => {
@@ -166,9 +166,9 @@ describe('GroupingPlugin computeds', () => {
     });
   });
 
-  describe('#expandedGroupsWithChangedGrouping', () => {
+  describe('#expandedGroupsDependOnGrouping', () => {
     it('should strip ungrouped rows', () => {
-      const groups = expandedGroupsWithChangedGrouping(
+      const groups = expandedGroupsDependOnGrouping(
         [{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }],
         [{ columnName: 'a' }, { columnName: 'c' }],
         ['a1', 'a2', 'a1|b1|c1', 'a2|b2'],
@@ -178,7 +178,7 @@ describe('GroupingPlugin computeds', () => {
     });
 
     it('should strip all rows if there isn\'t any grouping', () => {
-      const groups = expandedGroupsWithChangedGrouping(
+      const groups = expandedGroupsDependOnGrouping(
         [{ columnName: 'a' }],
         [],
         ['a1', 'a2|b1', 'a3'],
@@ -189,7 +189,7 @@ describe('GroupingPlugin computeds', () => {
 
     it('should ignore added grouping', () => {
       const prevExpandedGroups = ['a1', 'a2'];
-      const newExpandedGroups = expandedGroupsWithChangedGrouping(
+      const newExpandedGroups = expandedGroupsDependOnGrouping(
         [{ columnName: 'a' }],
         [{ columnName: 'a' }, { columnName: 'b' }],
         prevExpandedGroups,

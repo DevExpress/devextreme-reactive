@@ -76,35 +76,43 @@ export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
 };
 
 const ungroupedColumnIndex = (prevGrouping, nextGrouping) => {
-  if (prevGrouping.length > nextGrouping.length) {
-    for (let i = 0; i < prevGrouping.length; i += 1) {
-      const index = nextGrouping
-        .findIndex(column => column.columnName === prevGrouping[i].columnName);
+  let result = null;
+  if (prevGrouping.length <= nextGrouping.length) {
+    return result;
+  }
 
-      if (index === -1) {
-        return i;
-      }
+  for (let i = 0; i < prevGrouping.length; i += 1) {
+    const index = nextGrouping
+      .findIndex(column => column.columnName === prevGrouping[i].columnName);
+
+    if (index === -1) {
+      result = i;
+      break;
     }
   }
 
-  return null;
+  return result;
 };
 
-export const expandedGroupsWithChangedGrouping = (prevGrouping, nextGrouping, expandedGroups) => {
+const uniqueArrayWithoutEmptyStrings = (array) => {
+  const tmpSet = new Set(array);
+  tmpSet.delete('');
+
+  return Array.from(tmpSet);
+};
+
+export const expandedGroupsDependOnGrouping = (prevGrouping, nextGrouping, expandedGroups) => {
   const index = ungroupedColumnIndex(prevGrouping, nextGrouping);
-  if (index !== null) {
-    let result = expandedGroups.map(
+  if (index === null) {
+    return expandedGroups;
+  }
+
+  const result = expandedGroups.map(
     group => group
       .split(SEPARATOR)
       .slice(0, index)
       .join(SEPARATOR),
-    );
+  );
 
-    result = new Set(result);
-    result.delete('');
-
-    return Array.from(result);
-  }
-
-  return expandedGroups;
+  return uniqueArrayWithoutEmptyStrings(result);
 };

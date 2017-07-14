@@ -75,30 +75,15 @@ export const nextExpandedGroups = (prevExpandedGroups, groupKey) => {
   return expandedGroups;
 };
 
-const ungroupedColumnIndex = (prevGrouping, nextGrouping) => {
-  let result = null;
+export const ungroupedColumnIndex = (prevGrouping, nextGrouping) => {
   if (prevGrouping.length <= nextGrouping.length) {
-    return result;
+    return -1;
   }
 
-  for (let i = 0; i < prevGrouping.length; i += 1) {
-    const index = nextGrouping
-      .findIndex(column => column.columnName === prevGrouping[i].columnName);
-
-    if (index === -1) {
-      result = i;
-      break;
-    }
-  }
-
-  return result;
-};
-
-export const expandedGroupsDependOnGrouping = (prevGrouping, nextGrouping, expandedGroups) => {
-  const index = ungroupedColumnIndex(prevGrouping, nextGrouping);
-  if (index === null) {
-    return expandedGroups;
-  }
-
-  return expandedGroups.filter(group => group.split(SEPARATOR).length <= index);
+  return prevGrouping
+    .findIndex((group, index) => (
+      !nextGrouping[index]
+      ||
+      group.columnName !== nextGrouping[index].columnName),
+    );
 };

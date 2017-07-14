@@ -5,7 +5,7 @@ import {
   groupByColumn,
   groupedColumns,
   nextExpandedGroups,
-  expandedGroupsDependOnGrouping,
+  ungroupedColumnIndex,
 } from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
@@ -42,14 +42,12 @@ export class GroupingState extends React.PureComponent {
 
     this._updateExpandedGroups = (prevGrouping, nextGrouping) => {
       const prevExpandedGroups = this._expandedGroups();
-      const updatedExpandedGroups = expandedGroupsDependOnGrouping(
-        prevGrouping,
-        nextGrouping,
-        prevExpandedGroups,
-      );
+      const index = ungroupedColumnIndex(prevGrouping, nextGrouping);
 
-      if (updatedExpandedGroups !== prevExpandedGroups) {
-        this._expandedGroupsChanged(updatedExpandedGroups);
+      if (index > -1) {
+        this._expandedGroupsChanged(
+          prevExpandedGroups.filter(group => group.split('|').length <= index),
+        );
       }
     };
 

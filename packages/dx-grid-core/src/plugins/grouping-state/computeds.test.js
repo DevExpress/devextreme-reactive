@@ -5,7 +5,7 @@ import {
     expandedGroupRows,
     groupedColumns,
     nextExpandedGroups,
-    expandedGroupsDependOnGrouping,
+    ungroupedColumnIndex,
 } from './computeds';
 
 describe('GroupingPlugin computeds', () => {
@@ -166,36 +166,32 @@ describe('GroupingPlugin computeds', () => {
     });
   });
 
-  describe('#expandedGroupsDependOnGrouping', () => {
-    it('should strip ungrouped rows', () => {
-      const groups = expandedGroupsDependOnGrouping(
+  describe('#ungroupedColumnIndex', () => {
+    it('should find ungrouped column index', () => {
+      const index = ungroupedColumnIndex(
         [{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }],
         [{ columnName: 'a' }, { columnName: 'c' }],
-        ['a1', 'a2', 'a1|b1|c1', 'a2|b2'],
       );
 
-      expect(groups).toEqual(['a1', 'a2']);
+      expect(index).toBe(1);
     });
 
-    it('should strip all rows if there isn\'t any grouping', () => {
-      const groups = expandedGroupsDependOnGrouping(
+    it('should return -1 if columns were not ungrouped', () => {
+      const index = ungroupedColumnIndex(
+        [{ columnName: 'a' }, { columnName: 'b' }],
+        [{ columnName: 'a' }, { columnName: 'b' }],
+      );
+
+      expect(index).toBe(-1);
+    });
+
+    it('should work if all columns were ungrouped', () => {
+      const index = ungroupedColumnIndex(
         [{ columnName: 'a' }],
         [],
-        ['a1', 'a2|b1', 'a3'],
       );
 
-      expect(groups).toHaveLength(0);
-    });
-
-    it('should ignore added grouping', () => {
-      const prevExpandedGroups = ['a1', 'a2'];
-      const newExpandedGroups = expandedGroupsDependOnGrouping(
-        [{ columnName: 'a' }],
-        [{ columnName: 'a' }, { columnName: 'b' }],
-        prevExpandedGroups,
-      );
-
-      expect(prevExpandedGroups).toBe(newExpandedGroups);
+      expect(index).toBe(0);
     });
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer, Watcher } from '@devexpress/dx-react-core';
+import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   groupByColumn,
   groupedColumns,
@@ -37,6 +37,21 @@ export class GroupingState extends React.PureComponent {
       this.setState({ grouping });
       if (onGroupingChange) {
         onGroupingChange(grouping);
+      }
+
+      this._updateExpandedGroups(prevGrouping, grouping);
+    };
+
+    this._updateExpandedGroups = (prevGrouping, nextGrouping) => {
+      const prevExpandedGroups = this._expandedGroups();
+      const updatedExpandedGroups = expandedGroupsDependOnGrouping(
+        prevGrouping,
+        nextGrouping,
+        prevExpandedGroups,
+      );
+
+      if (updatedExpandedGroups !== prevExpandedGroups) {
+        this._expandedGroupsChanged(updatedExpandedGroups);
       }
     };
 
@@ -79,27 +94,6 @@ export class GroupingState extends React.PureComponent {
             getter('columns'),
             grouping,
           ]}
-        />
-        <Watcher
-          watch={getter => [
-            getter('grouping'),
-          ]}
-          onChange={(action, nextGrouping) => {
-            const prevGrouping = this.prevGrouping;
-            const prevExpandedGroups = this._expandedGroups();
-
-            const updatedExpandedGroups = expandedGroupsDependOnGrouping(
-              prevGrouping,
-              nextGrouping,
-              prevExpandedGroups,
-            );
-
-            if (updatedExpandedGroups !== prevExpandedGroups) {
-              this._expandedGroupsChanged(updatedExpandedGroups);
-            }
-
-            this.prevGrouping = nextGrouping;
-          }}
         />
       </PluginContainer>
     );

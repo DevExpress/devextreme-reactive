@@ -19,16 +19,13 @@ export class GroupingState extends React.PureComponent {
       expandedGroups: props.defaultExpandedGroups || [],
     };
 
-    this._expandedGroups = () => (this.props.expandedGroups || this.state.expandedGroups);
-
-    this.toggleGroupExpanded = (groupKey) => {
-      const prevExpandedGroups = this._expandedGroups();
+    this._toggleGroupExpanded = (prevExpandedGroups, { groupKey }) => {
       const expandedGroups = nextExpandedGroups(prevExpandedGroups, groupKey);
 
       this._expandedGroupsChanged(expandedGroups);
     };
 
-    this._groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
+    this._groupByColumn = (prevGrouping, prevExpandedGroups, { columnName, groupIndex }) => {
       const { onGroupingChange } = this.props;
       const grouping = groupByColumn(prevGrouping, { columnName, groupIndex });
 
@@ -37,11 +34,10 @@ export class GroupingState extends React.PureComponent {
         onGroupingChange(grouping);
       }
 
-      this._updateExpandedGroups(prevGrouping, grouping);
+      this._updateExpandedGroups(prevGrouping, grouping, prevExpandedGroups);
     };
 
-    this._updateExpandedGroups = (prevGrouping, nextGrouping) => {
-      const prevExpandedGroups = this._expandedGroups();
+    this._updateExpandedGroups = (prevGrouping, nextGrouping, prevExpandedGroups) => {
       const index = ungroupedColumnIndex(prevGrouping, nextGrouping);
 
       if (index > -1) {
@@ -62,18 +58,20 @@ export class GroupingState extends React.PureComponent {
   }
   render() {
     const grouping = this.props.grouping || this.state.grouping;
-    const expandedGroups = this._expandedGroups();
+    const expandedGroups = this.props.expandedGroups || this.state.expandedGroups;
 
     return (
       <PluginContainer>
         <Action
           name="toggleGroupExpanded"
-          action={({ groupKey }) => { this.toggleGroupExpanded(groupKey); }}
+          action={({ groupKey }) => {
+            this._toggleGroupExpanded(expandedGroups, { groupKey });
+          }}
         />
         <Action
           name="groupByColumn"
           action={({ columnName, groupIndex }) => {
-            this._groupByColumn(grouping, { columnName, groupIndex });
+            this._groupByColumn(grouping, expandedGroups, { columnName, groupIndex });
           }}
         />
 

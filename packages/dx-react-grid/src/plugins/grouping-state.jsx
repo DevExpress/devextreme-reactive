@@ -19,8 +19,6 @@ export class GroupingState extends React.PureComponent {
       expandedGroups: props.defaultExpandedGroups || [],
     };
 
-    this.prevGrouping = [];
-
     this._expandedGroups = () => (this.props.expandedGroups || this.state.expandedGroups);
 
     this.toggleGroupExpanded = (groupKey) => {

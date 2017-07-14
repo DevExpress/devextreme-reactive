@@ -24,7 +24,7 @@ import {
 import {
   generateRows,
   globalSalesValues,
-} from '../../demoData';
+} from '../../demo-data';
 
 const CommandButton = ({ executeCommand, icon, text, hint, isDanger }) => (
   <button

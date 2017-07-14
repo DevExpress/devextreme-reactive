@@ -40,7 +40,7 @@ import {
 import {
   generateRows,
   globalSalesValues,
-} from '../../demoData';
+} from '../../demo-data';
 
 const styleSheet = createStyleSheet('ControlledModeDemo', theme => ({
   commandButton: {

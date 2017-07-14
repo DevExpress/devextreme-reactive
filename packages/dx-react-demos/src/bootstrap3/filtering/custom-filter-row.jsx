@@ -13,7 +13,7 @@ import {
 
 import {
   generateRows,
-} from '../../demoData';
+} from '../../demo-data';
 
 const filterFn = (row, filter) => {
   const toLowerCase = value => String(value).toLowerCase();

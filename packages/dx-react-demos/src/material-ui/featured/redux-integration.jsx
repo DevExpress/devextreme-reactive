@@ -21,7 +21,7 @@ import {
   generateRows,
   employeeValues,
   employeeTaskValues,
-} from '../../demoData';
+} from '../../demo-data';
 
 const styleSheet = createStyleSheet('ReduxIntegrationDemo', () => ({
   detailContainer: {

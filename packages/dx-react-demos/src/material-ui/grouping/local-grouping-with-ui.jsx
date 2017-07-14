@@ -13,7 +13,7 @@ import {
 
 import {
   generateRows,
-} from '../../demoData';
+} from '../../demo-data';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

@@ -10,7 +10,7 @@ import {
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { generateRows } from '../../demoData';
+import { generateRows } from '../../demo-data';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

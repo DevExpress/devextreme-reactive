@@ -19,7 +19,7 @@ Use the `PagingState`, `LocalPaging`, and `PagingPanel` plugins to set up a comm
 
 In the following example, we use the uncontrolled mode and specify only the initial active page number via the `defaultCurrentPage` property of the `PagingState` plugin. In this case, the grid manages paging state changes internally.
 
-.embedded-demo({ "path": "/demo/paging/local-paging" })
+.embedded-demo(paging/local-paging)
 
 ## Page Size Selection
 
@@ -27,13 +27,13 @@ Assign an array of available page sizes to the `allowedPageSizes` property of th
 
 The example below demonstrates the basic configuration for the uncontrolled mode. The `PagingState` plugin's `defaultPageSize` property is used to define the initial page size.
 
-.embedded-demo({ "path": "/demo/paging/page-size-selector" })
+.embedded-demo(paging/page-size-selector)
 
 ## Controlled Paging State
 
 Specify the `PagingState` plugin's `currentPage` and `pageSize` properties and handle the `onCurrentPageChange` event to control the paging state. Specify the `PagingPanel` plugin's `allowedPageSizes` property and define the `PagingState` plugin's `onPageSizeChanged` event handler to enable page size selection.
 
-.embedded-demo({ "path": "/demo/paging/local-paging-controlled" })
+.embedded-demo(paging/local-paging-controlled)
 
 ## Remote Paging
 
@@ -41,7 +41,7 @@ You can handle the Grid's paging state changes to request a page from the server
 
 Handle the `PagingState` plugin's `onCurrentPageChange` event to receive updates on the current page number changes instead of using the `LocalSorting` plugin to configure remote paging. Pass the data page received from the server to the `Grid` component's `rows` property.
 
-.embedded-demo({ "path": "/demo/paging/remote-paging" })
+.embedded-demo(paging/remote-paging)
 
 ## Using Paging with Other Data Processing Plugins
 

@@ -18,7 +18,7 @@ Unlike the ordinary mode, the virtual mode requires cell size to be defined. By 
 
 The following example demonstrates the basic Grid with virtual scrolling:
 
-.embedded-demo({ "path": "/demo/virtual-scrolling/basic" })
+.embedded-demo(virtual-scrolling/basic)
 
 ## Integration with Other Plugins
 
@@ -28,4 +28,4 @@ The `TableRowDetail` plugin renders rows with auto height. It is impossible to h
 
 Here is an example:
 
-.embedded-demo({ "path": "/demo/virtual-scrolling/integration-with-other-plugins" })
+.embedded-demo(virtual-scrolling/integration-with-other-plugins)

@@ -24,10 +24,10 @@ The following setup is required to enable end-user interactions:
 - set the `TableView` plugin's `allowColumnReordering` property to true;
 - set the `TableHeaderRow` plugin's `allowDragging` property to true.
 
-.embedded-demo({ "path": "/demo/column-reordering/uncontrolled" })
+.embedded-demo(column-reordering/uncontrolled)
 
 ## Controlled Mode
 
 Pass the column order to the `order` property of the `ColumnOrderState` plugin and handle the `onOrderChange` event to control the column order state.
 
-.embedded-demo({ "path": "/demo/column-reordering/controlled" })
+.embedded-demo(column-reordering/controlled)

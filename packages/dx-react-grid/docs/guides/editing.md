@@ -23,7 +23,7 @@ To show editors for the rows being edited, we use the `TableEditRow` plugin. To 
 
 To apply the changes introduced by an end-user to your data source (no matter local or remote), handle the `onCommitChanges` event of the `EditingState` plugin.
 
-.embedded-demo({ "path": "/demo/editing/edit-row" })
+.embedded-demo(editing/edit-row)
 
 ## Controlled Editing State
 
@@ -31,6 +31,6 @@ To fully control the editing state, you need to specify three pairs of the `Edit
 
 Note, the `onAddedRowsChange` event can also be used to initialize a newly created row with some default property values.
 
-.embedded-demo({ "path": "/demo/editing/edit-row-controlled" })
+.embedded-demo(editing/edit-row-controlled)
 
 

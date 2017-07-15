@@ -67,7 +67,7 @@ var injectLiveDemos = function(content) {
   return content
     .replace(
       /\.embedded\-demo\(([^\(\)]*)\)/g,
-      `<div class="embedded-demo" data-options='$1'>
+      `<div class="embedded-demo" data-options='{ "path": "/demo/$1" }'>
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
         </div>

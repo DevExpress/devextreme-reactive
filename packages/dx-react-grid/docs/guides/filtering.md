@@ -19,7 +19,7 @@ To set up basic filtering, use the `FilteringState`,`LocalFiltering` and `TableF
 
 In this example, we use the uncontrolled mode and specify only the initial filters via the `defaultFilters` property of the `FilteringState` plugin. After that, the grid will manage filter changes internally.
 
-.embedded-demo({ "path": "/demo/filtering/local-filter-row" })
+.embedded-demo(filtering/local-filter-row)
 
 ## Customizing Filter Row
 
@@ -29,13 +29,13 @@ In a custom template, you need to handle filter changes. In this example, filter
 
 To process your custom filter locally, specify custom filtering predicate in the `LocalFiltering` plugin's `filterFn` property.
 
-.embedded-demo({ "path": "/demo/filtering/custom-filter-row" })
+.embedded-demo(filtering/custom-filter-row)
 
 ## Controlled Filtering State
 
 To control the filtering state, pass an array of column filters to the `FilteringState` plugin's  `filters` property  and handle the `onFiltersChange` event.
 
-.embedded-demo({ "path": "/demo/filtering/local-filtering-controlled" })
+.embedded-demo(filtering/local-filtering-controlled)
 
 ## Remote Filtering
 

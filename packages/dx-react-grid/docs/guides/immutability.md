@@ -19,4 +19,4 @@ Then you can use the state in a usual way because `seamless-immutable` keeps bac
 
 The following demo demonstrates the React Grid with `seamless-immutable` in action:
 
-.embedded-demo({ "path": "/demo/immutability/seamless-immutable" })
+.embedded-demo(immutability/seamless-immutable)

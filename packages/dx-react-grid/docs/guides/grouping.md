@@ -22,7 +22,7 @@ To set up simple static Grid grouping, use the `GroupingState`, `LocalGrouping` 
 
 In the following example, we enable the controlled mode by defining the `grouping` property of the `GroupingState` plugin. Handling the `onGroupingChange` event is not required because there is no UI allowing a user to change grouping options.
 
-.embedded-demo({ "path": "/demo/grouping/local-grouping-static" })
+.embedded-demo(grouping/local-grouping-static)
 
 ## Grouping UI for an end-user
 
@@ -32,11 +32,11 @@ By default, the `TableHeaderRow` plugin is not configured to allow an end-user t
 
 You can also enable an end-user to sort data by grouped columns. Define the `allowSorting` option of the `GroupingPanel` plugin to enable this feature.
 
-.embedded-demo({ "path": "/demo/grouping/local-grouping-with-ui" })
+.embedded-demo(grouping/local-grouping-with-ui)
 
 ## Grouping Controlled Mode
 
 To control the grouping state, pass the appropriate array to the `grouping` property of the `GroupingState` plugin and handle the `onGroupingChange` event.
 
-.embedded-demo({ "path": "/demo/grouping/local-grouping-controlled" })
+.embedded-demo(grouping/local-grouping-controlled)
 

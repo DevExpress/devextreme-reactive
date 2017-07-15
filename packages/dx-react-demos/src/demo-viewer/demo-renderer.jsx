@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 
 import { themes, demos } from '../demo-registry';
 
-export const DemoRenderer = ({ section, demo, theme }) => {
-  const themedDemoEntity = demos
-    .find(demoEntity => demoEntity.section === section && demoEntity.demo === demo).themes
-    .find(themeEntity => themeEntity.name === theme);
+export const DemoRenderer = ({
+  section: currentSection,
+  demo: currentDemo,
+  theme: currentTheme,
+}) => {
+  const Component = demos[currentSection][currentDemo][currentTheme];
 
-  if (!themedDemoEntity) return <h5>&gt; DEMO NOT AVALIABLE &lt;</h5>;
+  if (!Component) return <div>&gt; DEMO NOT AVALIABLE &lt;</div>;
 
   const DemoContainer = themes
-    .find(themeEntity => themeEntity.name === theme)
+    .find(({ name: theme }) => theme === currentTheme)
     .DemoContainer;
-  const Component = themedDemoEntity.Component;
 
   return (
     <DemoContainer>

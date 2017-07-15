@@ -10,15 +10,14 @@ export const SectionViewerBase = ({ match: { params: { section } } }) => (
   <ThemeViewer>
     {({ theme }) => (
       <div>
-        {demos
-          .filter(demo => demo.section === section)
+        {Object.keys(demos[section])
           .map(demo => (
-            <div key={demo.demo}>
-              <h4>{demo.title || demo.demo}</h4>
+            <div key={demo}>
+              <h4>{demo}</h4>
               <DemoRenderer
                 theme={theme}
                 section={section}
-                demo={demo.demo}
+                demo={demo}
               />
             </div>
           ))}

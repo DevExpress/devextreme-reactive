@@ -30,17 +30,13 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <div>
-        <h3>Basic Demo</h3>
-
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <TableView />
-          <TableHeaderRow />
-        </Grid>
-      </div>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <TableView />
+        <TableHeaderRow />
+      </Grid>
     );
   }
 }

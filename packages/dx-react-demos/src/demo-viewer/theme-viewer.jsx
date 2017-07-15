@@ -26,15 +26,15 @@ const ThemeViewerBase = ({ avaliableThemes, match: { url }, history, children })
     <Switch>
       <Route
         path={`${url}/:theme`}
-        render={({ match: { params: { theme } } }) => (
+        render={({ match: { params: { theme: currentTheme } } }) => (
           <div>
             <ThemeSelector
-              selectedTheme={theme}
+              selectedTheme={currentTheme}
               avaliableThemes={avaliableThemes}
               onThemeSelect={changeTheme}
             />
             <div>
-              {children({ theme })}
+              {children({ theme: currentTheme })}
             </div>
           </div>
         )}

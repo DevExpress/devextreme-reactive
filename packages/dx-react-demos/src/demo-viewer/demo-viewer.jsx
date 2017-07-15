@@ -5,17 +5,17 @@ import { demos } from '../demo-registry';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
 
-export const DemoViewer = ({ match: { params: { demo, section } } }) => (
+export const DemoViewer = ({
+  match: { params: { demo: currentDemo, section: currentSection } },
+}) => (
   <ThemeViewer
-    avaliableThemes={demos
-      .find(demoEntity => demoEntity.section === section && demoEntity.demo === demo)
-      .themes.map(themeEntity => themeEntity.name)}
+    avaliableThemes={Object.keys(demos[currentSection][currentDemo])}
   >
     {({ theme }) => (
       <DemoRenderer
         theme={theme}
-        section={section}
-        demo={demo}
+        section={currentSection}
+        demo={currentDemo}
       />
     )}
   </ThemeViewer>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 
 import './theme-selector.css';
-import { themes } from './demo-registry';
+import { themes } from '../demo-registry';
 
 const Toggle = ({ children, onClick }) => (
   <a

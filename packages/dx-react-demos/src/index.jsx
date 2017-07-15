@@ -13,8 +13,8 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { DemoViewer } from './demo-viewer';
-import { SectionsViewer } from './sections-viewer';
+import { DemoViewer } from './demo-viewer/demo-viewer';
+import { SectionsViewer } from './demo-viewer/sections-viewer';
 
 const App = ({ router, path }) => {
   const Router = router === 'hash' ? HashRouter : MemoryRouter;

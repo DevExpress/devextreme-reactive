@@ -27,7 +27,7 @@ import {
   generateRows,
   employeeValues,
   employeeTaskValues,
-} from '../../demo-data';
+} from '../../demo-data/generator';
 
 const createTheme = theme => createMuiTheme({
   palette: createPalette({

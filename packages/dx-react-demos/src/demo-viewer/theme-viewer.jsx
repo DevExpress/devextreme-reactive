@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
-import { themes } from './demo-registry';
+import { themes } from '../demo-registry';
 import { ThemeSelector } from './theme-selector';
 
 const STORAGE_KEY = 'devextreme-reactive/react/theme';

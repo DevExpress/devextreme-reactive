@@ -15,7 +15,7 @@ import {
 
 import {
   generateRows,
-} from '../../demo-data';
+} from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

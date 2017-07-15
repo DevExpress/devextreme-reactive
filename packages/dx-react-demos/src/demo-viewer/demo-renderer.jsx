@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { themes, demos } from './demo-registry';
+import { themes, demos } from '../demo-registry';
 
 export const DemoRenderer = ({ section, demo, theme }) => {
   const themedDemoEntity = demos

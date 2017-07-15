@@ -19,7 +19,7 @@ import {
   generateRows,
   employeeValues,
   employeeTaskValues,
-} from '../../demo-data';
+} from '../../demo-data/generator';
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 

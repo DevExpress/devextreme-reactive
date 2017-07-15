@@ -9,104 +9,111 @@ import {
   Grid,
   TableView, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropContext,
-} from '@devexpress/dx-react-grid-bootstrap3';
+  DropDownMenu,
+} from '@devexpress/dx-react-grid-material-ui';
 import {
-  Modal,
+  TableCell,
   Button,
-} from 'react-bootstrap';
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui';
+
+import DeleteIcon from 'material-ui-icons/Delete';
+import AddIcon from 'material-ui-icons/Add';
+import EditIcon from 'material-ui-icons/Edit';
+import SaveIcon from 'material-ui-icons/Save';
+import CancelIcon from 'material-ui-icons/Cancel';
+
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+
 import {
-  ProgressBarCell,
-} from './templates/progress-bar-cell';
+    ProgressBarCell,
+} from '../templates/progress-bar-cell';
 import {
-  HighlightedCell,
-} from './templates/highlighted-cell';
+    HighlightedCell,
+} from '../templates/highlighted-cell';
 
 import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const CommandButton = ({ executeCommand, icon, text, hint, isDanger }) => (
-  <button
-    className="btn btn-link"
-    onClick={(e) => {
-      executeCommand();
-      e.stopPropagation();
-    }}
-    title={hint}
-  >
-    <span className={isDanger ? 'text-danger' : undefined}>
-      {icon ? <i className={`glyphicon glyphicon-${icon}`} style={{ marginRight: text ? 5 : 0 }} /> : null}
-      {text}
-    </span>
-  </button>
-);
-CommandButton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
-  icon: PropTypes.string,
-  text: PropTypes.string,
-  hint: PropTypes.string,
-  isDanger: PropTypes.bool,
-};
-CommandButton.defaultProps = {
-  icon: undefined,
-  text: undefined,
-  hint: undefined,
-  isDanger: false,
+const styleSheet = createStyleSheet('ControlledModeDemo', theme => ({
+  commandButton: {
+    minWidth: '40px',
+  },
+  lookupEditCell: {
+    verticalAlign: 'middle',
+    paddingRight: theme.spacing.unit,
+    '& ~ $lookupEditCell': {
+      paddingLeft: theme.spacing.unit,
+    },
+  },
+}));
+
+const commandTemplates = {
+  add: (onClick, allowAdding) => (
+    <div style={{ textAlign: 'center' }}>
+      <Button
+        fab
+        color="primary"
+        onClick={onClick}
+        title="Create new row"
+        style={{ width: 40, height: 40 }}
+        disabled={!allowAdding}
+      >
+        <AddIcon />
+      </Button>
+    </div>
+  ),
+  edit: onClick => (
+    <IconButton onClick={onClick} title="Edit row">
+      <EditIcon />
+    </IconButton>
+  ),
+  delete: onClick => (
+    <IconButton onClick={onClick} title="Delete row">
+      <DeleteIcon />
+    </IconButton>
+  ),
+  commit: onClick => (
+    <IconButton onClick={onClick} title="Save changes">
+      <SaveIcon />
+    </IconButton>
+  ),
+  cancel: onClick => (
+    <IconButton color="accent" onClick={onClick} title="Cancel changes">
+      <CancelIcon />
+    </IconButton>
+  ),
 };
 
-const commands = {
-  add: {
-    text: 'New',
-    hint: 'Create new row',
-    icon: 'plus',
-  },
-  edit: {
-    text: 'Edit',
-    hint: 'Edit row',
-  },
-  delete: {
-    icon: 'trash',
-    hint: 'Delete row',
-    isDanger: true,
-  },
-  commit: {
-    text: 'Save',
-    hint: 'Save changes',
-  },
-  cancel: {
-    icon: 'remove',
-    hint: 'Cancel changes',
-    isDanger: true,
-  },
-};
-
-export const LookupEditCell = ({ column, value, onValueChange, availableValues }) => (
-  <td
-    style={{
-      verticalAlign: 'middle',
-      padding: 1,
-    }}
+const LookupEditCellBase = (({ value, onValueChange, availableValues, classes }) => (
+  <TableCell
+    className={classes.lookupEditCell}
   >
-    <select
-      className="form-control"
-      style={{ width: '100%', textAlign: column.align }}
-      value={value}
-      onChange={e => onValueChange(e.target.value)}
-    >
-      {availableValues.map(val => <option key={val} value={val}>{val}</option>)}
-    </select>
-  </td>
-);
-LookupEditCell.propTypes = {
-  column: PropTypes.object.isRequired,
+    <DropDownMenu
+      onItemClick={newValue => onValueChange(newValue)}
+      defaultTitle={value}
+      items={availableValues}
+    />
+  </TableCell>
+));
+LookupEditCellBase.propTypes = {
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
   availableValues: PropTypes.array.isRequired,
+  classes: PropTypes.object.isRequired,
 };
-LookupEditCell.defaultProps = {
+LookupEditCellBase.defaultProps = {
   value: undefined,
 };
+
+export const LookupEditCell = withStyles(styleSheet)(LookupEditCellBase);
 
 const availableValues = {
   product: globalSalesValues.product,
@@ -121,10 +128,9 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
-        { name: 'discount', title: 'Discount' },
-        { name: 'saleDate', title: 'Sale Date' },
+        { name: 'region', title: 'Region', width: 110 },
+        { name: 'amount', title: 'Amount', align: 'right', width: 90 },
+        { name: 'discount', title: 'Discount', width: 110 },
         { name: 'customer', title: 'Customer' },
       ],
       rows: generateRows({
@@ -282,31 +288,40 @@ export default class Demo extends React.PureComponent {
             }}
           />
           <TableEditColumn
-            width={100}
-            allowAdding={!this.state.addedRows.length}
+            width={120}
+            allowAdding
             allowEditing
             allowDeleting
-            commandTemplate={({ executeCommand, id }) => (
-              commands[id]
-              ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
-              : undefined
-            )}
+            commandTemplate={({ executeCommand, id }) => {
+              const template = commandTemplates[id];
+              if (template) {
+                const allowAdding = !this.state.addedRows.length;
+                const onClick = (e) => {
+                  executeCommand();
+                  e.stopPropagation();
+                };
+                return template(
+                  onClick,
+                  allowAdding,
+                );
+              }
+              return undefined;
+            }}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}
           />
         </Grid>
 
-        <Modal
-          bsSize="large"
-          show={!!deletingRows.length}
-          onHide={this.cancelDelete}
+        <Dialog
+          open={!!deletingRows.length}
+          onRequestClose={this.cancelDelete}
         >
-          <Modal.Header closeButton>
-            <Modal.Title>Delete Row</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>Are you sure to delete the following row?</p>
+          <DialogTitle>Delete Row</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure to delete the following row?
+            </DialogContentText>
             <Grid
               rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
               columns={columns}
@@ -316,12 +331,12 @@ export default class Demo extends React.PureComponent {
               />
               <TableHeaderRow />
             </Grid>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.cancelDelete}>Cancel</Button>
-            <Button className="btn-danger" onClick={this.deleteRows}>Delete</Button>
-          </Modal.Footer>
-        </Modal>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.cancelDelete} color="primary">Cancel</Button>
+            <Button onClick={this.deleteRows} color="accent">Delete</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

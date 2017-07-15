@@ -10,10 +10,10 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
-} from './templates/progress-bar-cell';
+} from '../templates/progress-bar-cell';
 import {
   HighlightedCell,
-} from './templates/highlighted-cell';
+} from '../templates/highlighted-cell';
 
 import {
   generateRows,

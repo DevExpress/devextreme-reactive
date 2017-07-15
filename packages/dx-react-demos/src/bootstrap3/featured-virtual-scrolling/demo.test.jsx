@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import VirtualScrollingDemo from './virtual-scrolling';
+import VirtualScrollingDemo from './demo';
 
 describe('BS3 featured: virtual scrolling demo', () => {
   let getRect;

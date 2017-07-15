@@ -47,30 +47,38 @@ export const demos = {
       'material-ui': require('./material-ui/editing/edit-row-controlled').default,
     },
   },
-  featured: {
-    'uncontrolled-mode': {
-      bootstrap3: require('./bootstrap3/featured/uncontrolled-mode').default,
-      'material-ui': require('./material-ui/featured/uncontrolled-mode').default,
+  'featured-uncontrolled-mode': {
+    demo: {
+      bootstrap3: require('./bootstrap3/featured-uncontrolled-mode/demo').default,
+      'material-ui': require('./material-ui/featured-uncontrolled-mode/demo').default,
     },
-    'controlled-mode': {
-      bootstrap3: require('./bootstrap3/featured/controlled-mode').default,
-      'material-ui': require('./material-ui/featured/controlled-mode').default,
+  },
+  'featured-controlled-mode': {
+    demo: {
+      bootstrap3: require('./bootstrap3/featured-controlled-mode/demo').default,
+      'material-ui': require('./material-ui/featured-controlled-mode/demo').default,
     },
-    'redux-integration': {
-      bootstrap3: require('./bootstrap3/featured/redux-integration').default,
-      'material-ui': require('./material-ui/featured/redux-integration').default,
+  },
+  'featured-redux-integration': {
+    demo: {
+      bootstrap3: require('./bootstrap3/featured-redux-integration/demo').default,
+      'material-ui': require('./material-ui/featured-redux-integration/demo').default,
     },
-    'virtual-scrolling': {
-      bootstrap3: require('./bootstrap3/featured/virtual-scrolling').default,
+  },
+  'featured-virtual-scrolling': {
+    demo: {
+      bootstrap3: require('./bootstrap3/featured-virtual-scrolling/demo').default,
     },
-    'remote-data': {
-      bootstrap3: require('./bootstrap3/featured/remote-data').default,
-      'material-ui': require('./material-ui/featured/remote-data').default,
+  },
+  'featured-remote-data': {
+    demo: {
+      bootstrap3: require('./bootstrap3/featured-remote-data/demo').default,
+      'material-ui': require('./material-ui/featured-remote-data/demo').default,
     },
   },
   'featured-theming': {
-    theming: {
-      'material-ui': require('./material-ui/featured-theming/theming').default,
+    demo: {
+      'material-ui': require('./material-ui/featured-theming/demo').default,
     },
   },
   filtering: {

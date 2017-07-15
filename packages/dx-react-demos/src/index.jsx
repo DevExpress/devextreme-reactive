@@ -10,41 +10,36 @@ import {
   MemoryRouter,
   Route,
   Redirect,
+  Switch,
 } from 'react-router-dom';
 
-import { Bootstrap3Demos } from './bootstrap3';
-import { MaterialUIDemos } from './material-ui';
+import { DemoViewer } from './demo-viewer';
+import { SectionsViewer } from './sections-viewer';
 
-import './index.css';
-
-const App = ({ router }) => {
+const App = ({ router, path }) => {
   const Router = router === 'hash' ? HashRouter : MemoryRouter;
 
   return (
-    <Router>
-      <div>
-        <Route path="/bootstrap3" component={Bootstrap3Demos} />
-        <Route path="/material-ui" component={MaterialUIDemos} />
-        <Route
-          path="/"
-          render={({ location }) => (
-            (location.pathname.startsWith('/bootstrap3')
-              || location.pathname.startsWith('/material-ui'))
-            ? null
-            : <Redirect push from={location.pathname} to={`/bootstrap3${location.pathname}`} />
-          )}
-        />
-      </div>
+    <Router
+      initialEntries={path ? [path] : undefined}
+    >
+      <Switch>
+        <Route path="/demo/:section/:demo" component={DemoViewer} />
+        <Route path="/section" component={SectionsViewer} />
+        <Redirect from="/" to="/section" />
+      </Switch>
     </Router>
   );
 };
 
 App.propTypes = {
   router: PropTypes.string,
+  path: PropTypes.string,
 };
 
 App.defaultProps = {
   router: 'memory',
+  path: undefined,
 };
 
 

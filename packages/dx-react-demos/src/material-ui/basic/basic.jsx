@@ -8,9 +8,9 @@ import {
 import {
   generateRows,
   globalSalesValues,
-} from '../demo-data';
+} from '../../demo-data';
 
-export class BasicDemos extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

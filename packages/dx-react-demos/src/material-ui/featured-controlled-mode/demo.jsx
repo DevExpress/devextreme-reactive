@@ -53,6 +53,9 @@ const styleSheet = createStyleSheet('ControlledModeDemo', theme => ({
       paddingLeft: theme.spacing.unit,
     },
   },
+  dialog: {
+    width: 'calc(100% - 16px)',
+  },
 }));
 
 const commandTemplates = {
@@ -121,7 +124,7 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
-export default class Demo extends React.PureComponent {
+class DemoBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -220,6 +223,9 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
+      classes,
+    } = this.props;
+    const {
       rows,
       columns,
       sorting,
@@ -316,6 +322,7 @@ export default class Demo extends React.PureComponent {
         <Dialog
           open={!!deletingRows.length}
           onRequestClose={this.cancelDelete}
+          classes={{ paper: classes.dialog }}
         >
           <DialogTitle>Delete Row</DialogTitle>
           <DialogContent>
@@ -341,3 +348,9 @@ export default class Demo extends React.PureComponent {
     );
   }
 }
+
+DemoBase.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styleSheet)(DemoBase);

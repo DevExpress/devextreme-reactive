@@ -1,3 +1,7 @@
+import { SEPARATOR } from './computeds';
+
+import { getFirstChangedGropingIndex } from './helpers';
+
 export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   const grouping = Array.from(prevGrouping);
   const index = grouping.findIndex(g => g.columnName === columnName);
@@ -16,4 +20,13 @@ export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   }
 
   return grouping;
+};
+
+export const removeOutdatedExpandedGroups = (prevExpandedGroups, { prevGrouping, grouping }) => {
+  const ungroupedColumnIndex = getFirstChangedGropingIndex(prevGrouping, grouping);
+  if (ungroupedColumnIndex === -1) {
+    return prevExpandedGroups;
+  }
+
+  return prevExpandedGroups.filter(group => group.split(SEPARATOR).length <= ungroupedColumnIndex);
 };

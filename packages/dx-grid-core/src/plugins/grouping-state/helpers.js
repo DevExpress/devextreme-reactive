@@ -1,4 +1,4 @@
-export const ungroupedColumnIndex = (prevGrouping, nextGrouping) => {
+export const getUngroupedColumnIndex = (prevGrouping, nextGrouping) => {
   if (prevGrouping.length <= nextGrouping.length) {
     return -1;
   }

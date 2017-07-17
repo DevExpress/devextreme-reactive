@@ -5,7 +5,6 @@ import {
   groupByColumn,
   groupedColumns,
   nextExpandedGroups,
-  ungroupedColumnIndex,
   updateExpandedGroups,
 } from '@devexpress/dx-grid-core';
 
@@ -25,9 +24,9 @@ export class GroupingState extends React.PureComponent {
 
       if (expandedGroups === prevExpandedGroups) return;
 
-      const { onExpandedGroupsChange } = this.props;
       this.setState({ expandedGroups });
 
+      const { onExpandedGroupsChange } = this.props;
       if (onExpandedGroupsChange) {
         onExpandedGroupsChange(expandedGroups);
       }
@@ -37,20 +36,19 @@ export class GroupingState extends React.PureComponent {
     this._updateExpandedGroups = this._reduceExpandedGroups(updateExpandedGroups);
 
     this._groupByColumn = (prevGrouping, prevExpandedGroups, { columnName, groupIndex }) => {
-      const { onGroupingChange } = this.props;
       const grouping = groupByColumn(prevGrouping, { columnName, groupIndex });
 
       this.setState({ grouping });
+
+      const { onGroupingChange } = this.props;
       if (onGroupingChange) {
         onGroupingChange(grouping);
       }
 
-      const index = ungroupedColumnIndex(prevGrouping, grouping);
-      if (index > -1) {
-        this._updateExpandedGroups(prevExpandedGroups, {
-          ungroupedColumnIndex: index,
-        });
-      }
+      this._updateExpandedGroups(prevExpandedGroups, {
+        prevGrouping,
+        grouping,
+      });
     };
   }
   render() {

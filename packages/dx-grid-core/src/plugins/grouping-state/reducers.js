@@ -1,5 +1,7 @@
 import { SEPARATOR } from './computeds';
 
+import { getUngroupedColumnIndex } from './helpers';
+
 export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   const grouping = Array.from(prevGrouping);
   const index = grouping.findIndex(g => g.columnName === columnName);
@@ -20,7 +22,8 @@ export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   return grouping;
 };
 
-export const updateExpandedGroups = (prevExpandedGroups, { ungroupedColumnIndex }) => {
+export const updateExpandedGroups = (prevExpandedGroups, { prevGrouping, grouping }) => {
+  const ungroupedColumnIndex = getUngroupedColumnIndex(prevGrouping, grouping);
   if (ungroupedColumnIndex === -1) {
     return prevExpandedGroups;
   }

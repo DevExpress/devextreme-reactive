@@ -15,8 +15,8 @@ import {
 const MINIMAL_COLUMN_WIDTH = 120;
 
 /* eslint-disable react/prop-types */
-const tableTemplate = ({ children, ...restProps }) => (
-  <TableMUI {...restProps}>{children}</TableMUI>
+const tableTemplate = ({ children, tableRef, ...restProps }) => (
+  <TableMUI ref={tableRef} {...restProps}>{children}</TableMUI>
 );
 const headTemplate = ({ children, ...restProps }) => (
   <TableHeadMUI {...restProps}>{children}</TableHeadMUI>

@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import {
     groupByColumn,
-    updateExpandedGroups,
+    removeOutdatedExpandedGroups,
 } from './reducers';
 
 describe('GroupingState reducers', () => {
@@ -57,10 +57,10 @@ describe('GroupingState reducers', () => {
     });
   });
 
-  describe('#updateExpandedGroups', () => {
+  describe('#removeOutdatedExpandedGroups', () => {
     it('should update expanded groups depend on ungrouped column index', () => {
       const expandedGroups = ['a', 'a|b', 'a|b|c'];
-      const nextExpandedGroups = updateExpandedGroups(expandedGroups, {
+      const nextExpandedGroups = removeOutdatedExpandedGroups(expandedGroups, {
         prevGrouping: [{ columnName: 'w' }, { columnName: 'z' }],
         grouping: [{ columnName: 'w' }],
       });
@@ -70,7 +70,7 @@ describe('GroupingState reducers', () => {
 
     it('should not update expanded groups id ungrouped column index is -1', () => {
       const expandedGroups = ['a', 'a', 'c'];
-      const nextExpandedGroups = updateExpandedGroups(expandedGroups, {
+      const nextExpandedGroups = removeOutdatedExpandedGroups(expandedGroups, {
         prevGrouping: [{ columnName: 'w' }, { columnName: 'z' }],
         grouping: [{ columnName: 'w' }, { columnName: 'z' }, { columnName: 'y' }],
       });

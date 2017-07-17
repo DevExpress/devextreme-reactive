@@ -1,6 +1,6 @@
 import { SEPARATOR } from './computeds';
 
-import { getUngroupedColumnIndex } from './helpers';
+import { getFirstChangedGropingIndex } from './helpers';
 
 export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   const grouping = Array.from(prevGrouping);
@@ -22,8 +22,8 @@ export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   return grouping;
 };
 
-export const updateExpandedGroups = (prevExpandedGroups, { prevGrouping, grouping }) => {
-  const ungroupedColumnIndex = getUngroupedColumnIndex(prevGrouping, grouping);
+export const removeOutdatedExpandedGroups = (prevExpandedGroups, { prevGrouping, grouping }) => {
+  const ungroupedColumnIndex = getFirstChangedGropingIndex(prevGrouping, grouping);
   if (ungroupedColumnIndex === -1) {
     return prevExpandedGroups;
   }

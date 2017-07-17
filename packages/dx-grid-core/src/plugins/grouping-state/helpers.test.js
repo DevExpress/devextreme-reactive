@@ -1,11 +1,11 @@
 import {
-    getUngroupedColumnIndex,
+    getFirstChangedGropingIndex,
 } from './helpers';
 
 describe('GroupingPlugin helpers', () => {
   describe('#ungroupedColumnIndex', () => {
     it('should find ungrouped column index', () => {
-      const index = getUngroupedColumnIndex(
+      const index = getFirstChangedGropingIndex(
         [{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }],
         [{ columnName: 'a' }, { columnName: 'c' }],
       );
@@ -14,7 +14,7 @@ describe('GroupingPlugin helpers', () => {
     });
 
     it('should return -1 if columns were not ungrouped', () => {
-      const index = getUngroupedColumnIndex(
+      const index = getFirstChangedGropingIndex(
         [{ columnName: 'a' }, { columnName: 'b' }],
         [{ columnName: 'a' }, { columnName: 'b' }],
       );
@@ -23,7 +23,7 @@ describe('GroupingPlugin helpers', () => {
     });
 
     it('should work if all columns were ungrouped', () => {
-      const index = getUngroupedColumnIndex(
+      const index = getFirstChangedGropingIndex(
         [{ columnName: 'a' }],
         [],
       );

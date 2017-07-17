@@ -8,9 +8,10 @@ import {
 const MINIMAL_COLUMN_WIDTH = 120;
 
 /* eslint-disable react/prop-types */
-const tableTemplate = ({ children, ...restProps }) => (
+const tableTemplate = ({ children, tableRef, ...restProps }) => (
   <table
     className="table"
+    ref={tableRef}
     {...restProps}
   >
     {children}

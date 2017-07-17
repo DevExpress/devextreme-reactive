@@ -4,7 +4,7 @@ import { shallowEqual } from '../utils/shallowEqual';
 import { UPDATE_CONNECTION } from './getter';
 import { getAction } from '../utils/pluginHelpers';
 
-export class TemplateConnector extends React.PureComponent {
+export class TemplateConnector extends React.Component {
   constructor(props, context) {
     super(props, context);
 

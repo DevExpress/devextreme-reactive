@@ -24,6 +24,7 @@ import { DetailRowDemos } from './detail-row';
 import { ColumnReorderingDemos } from './column-reordering';
 import { ImmutabilityDemos } from './immutability';
 import { FeaturedDemos } from './featured';
+import { FeaturedThemingDemos } from './featured-theming';
 
 injectTapEventPlugin();
 
@@ -56,6 +57,7 @@ const Demos = () => (
       <Route path="/material-ui/column-reordering" component={ColumnReorderingDemos} />
       <Route path="/material-ui/immutability" component={ImmutabilityDemos} />
       <Route path="/material-ui/featured" component={FeaturedDemos} />
+      <Route path="/material-ui/featured-theming" component={FeaturedThemingDemos} />
     </div>
   </MuiThemeProvider>
 );
@@ -87,6 +89,7 @@ export const MaterialUIDemos = withRouter(({ location }) => {
               <li><NavLink to="/material-ui/column-reordering">Column Reordering</NavLink></li>
               <li><NavLink to="/material-ui/immutability">Immutability</NavLink></li>
               <li><NavLink to="/material-ui/featured">Featured</NavLink></li>
+              <li><NavLink to="/material-ui/featured-theming">Featured Theming</NavLink></li>
             </ul>
           </div>
 

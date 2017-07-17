@@ -4,7 +4,7 @@ import { shallowEqual } from '../utils/shallowEqual';
 import { RERENDER_TEMPLATE } from './template';
 import { TemplateConnector } from './template-connector';
 
-export class TemplatePlaceholder extends React.PureComponent {
+export class TemplatePlaceholder extends React.Component {
   constructor(props, context) {
     super(props, context);
 

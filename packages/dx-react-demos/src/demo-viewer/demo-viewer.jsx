@@ -12,11 +12,24 @@ export const DemoViewer = ({
     avaliableThemes={Object.keys(demos[currentSection][currentDemo])}
   >
     {({ theme }) => (
-      <DemoRenderer
-        theme={theme}
-        section={currentSection}
-        demo={currentDemo}
-      />
+      <div>
+        <DemoRenderer
+          theme={theme}
+          section={currentSection}
+          demo={currentDemo}
+        />
+        <div className="clearfix">
+          <a
+            className="pull-right"
+            style={{
+              marginTop: `${theme === 'bootstrap3' ? -10 : 10}px`,
+            }}
+            href={`https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/${theme}/${currentSection}/${currentDemo}.jsx`}
+          >
+            Source Code
+          </a>
+        </div>
+      </div>
     )}
   </ThemeViewer>
 );

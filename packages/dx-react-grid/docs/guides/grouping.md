@@ -22,13 +22,7 @@ To set up simple static Grid grouping, use the `GroupingState`, `LocalGrouping` 
 
 In the following example, we enable the controlled mode by defining the `grouping` property of the `GroupingState` plugin. Handling the `onGroupingChange` event is not required because there is no UI allowing a user to change grouping options.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/grouping/local-grouping-static) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/grouping/local-grouping-static.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/grouping/local-grouping-static) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/grouping/local-grouping-static.jsx)
+.embedded-demo(grouping/local-grouping-static)
 
 ## Grouping UI for an end-user
 
@@ -38,23 +32,11 @@ By default, the `TableHeaderRow` plugin is not configured to allow an end-user t
 
 You can also enable an end-user to sort data by grouped columns. Define the `allowSorting` option of the `GroupingPanel` plugin to enable this feature.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/grouping/local-grouping-with-ui) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/grouping/local-grouping-with-ui.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/grouping/local-grouping-with-ui) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/grouping/local-grouping-with-ui.jsx)
+.embedded-demo(grouping/local-grouping-with-ui)
 
 ## Grouping Controlled Mode
 
 To control the grouping state, pass the appropriate array to the `grouping` property of the `GroupingState` plugin and handle the `onGroupingChange` event.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/grouping/local-grouping-controlled) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/grouping/local-grouping-controlled.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/grouping/local-grouping-controlled) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/grouping/local-grouping-controlled.jsx)
+.embedded-demo(grouping/local-grouping-controlled)
 

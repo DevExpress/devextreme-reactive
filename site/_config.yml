@@ -24,11 +24,6 @@ defaults:
     values:
       layout: demos
   - scope:
-      path: react/grid/embedded-demo
-      type: pages
-    values:
-      layout: embedded-demo
-  - scope:
       path: react/grid/docs
       type: pages
     values:

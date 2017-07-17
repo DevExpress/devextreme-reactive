@@ -13,7 +13,7 @@ import {
 
 import {
   generateRows,
-} from '../../demoData';
+} from '../../demo-data/generator';
 
 const filterFn = (row, filter) => {
   const toLowerCase = value => String(value).toLowerCase();
@@ -51,7 +51,7 @@ SexFilterCell.defaultProps = {
   filter: null,
 };
 
-export class CustomFilterRowDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

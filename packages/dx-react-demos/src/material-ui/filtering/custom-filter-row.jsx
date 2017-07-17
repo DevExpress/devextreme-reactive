@@ -16,15 +16,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   generateRows,
-} from '../../demoData';
-
-const styleSheet = createStyleSheet('SexFilterCell', theme => ({
-  cell: {
-    width: '100%',
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-  },
-}));
+} from '../../demo-data/generator';
 
 const filterFn = (row, filter) => {
   const toLowerCase = value => String(value).toLowerCase();
@@ -34,6 +26,14 @@ const filterFn = (row, filter) => {
   }
   return toLowerCase(row[filter.columnName]).indexOf(toLowerCase(filter.value)) > -1;
 };
+
+const styleSheet = createStyleSheet('SexFilterCell', theme => ({
+  cell: {
+    width: '100%',
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+  },
+}));
 
 const SexFilterCellBase = ({ setFilter, classes }) => (
   <TableCell className={classes.cell}>
@@ -56,7 +56,7 @@ SexFilterCellBase.propTypes = {
 
 const SexFilterCell = withStyles(styleSheet)(SexFilterCellBase);
 
-export class CustomFilterRowDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

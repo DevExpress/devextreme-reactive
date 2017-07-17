@@ -15,9 +15,9 @@ import {
 
 import {
   generateRows,
-} from '../../demoData';
+} from '../../demo-data/generator';
 
-export class LocalGroupSortingDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import {
     groupByColumn,
+    removeOutdatedExpandedGroups,
 } from './reducers';
 
 describe('GroupingState reducers', () => {
@@ -53,6 +54,28 @@ describe('GroupingState reducers', () => {
       expect(nextGrouping).toEqual([
         { columnName: 'test' },
       ]);
+    });
+  });
+
+  describe('#removeOutdatedExpandedGroups', () => {
+    it('should update expanded groups depend on ungrouped column index', () => {
+      const expandedGroups = ['a', 'a|b', 'a|b|c'];
+      const nextExpandedGroups = removeOutdatedExpandedGroups(expandedGroups, {
+        prevGrouping: [{ columnName: 'w' }, { columnName: 'z' }],
+        grouping: [{ columnName: 'w' }],
+      });
+
+      expect(nextExpandedGroups).toEqual(['a']);
+    });
+
+    it('should not update expanded groups id ungrouped column index is -1', () => {
+      const expandedGroups = ['a', 'a', 'c'];
+      const nextExpandedGroups = removeOutdatedExpandedGroups(expandedGroups, {
+        prevGrouping: [{ columnName: 'w' }, { columnName: 'z' }],
+        grouping: [{ columnName: 'w' }, { columnName: 'z' }, { columnName: 'y' }],
+      });
+
+      expect(nextExpandedGroups).toBe(expandedGroups);
     });
   });
 });

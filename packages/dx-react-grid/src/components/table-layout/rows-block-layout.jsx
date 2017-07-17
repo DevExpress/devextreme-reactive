@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  TemplateComponent,
+  TemplateRenderer,
 } from '@devexpress/dx-react-core';
 
 import {
@@ -26,7 +26,7 @@ export class RowsBlockLayout extends React.PureComponent {
     } = this.props;
 
     return (
-      <TemplateComponent
+      <TemplateRenderer
         template={blockTemplate}
         onClick={(e) => {
           const { rowIndex, columnIndex } = findTableCellTarget(e);
@@ -47,7 +47,7 @@ export class RowsBlockLayout extends React.PureComponent {
               />
             ))
         }
-      </TemplateComponent>
+      </TemplateRenderer>
     );
   }
 }

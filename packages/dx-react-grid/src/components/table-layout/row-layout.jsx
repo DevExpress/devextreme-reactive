@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  TemplateComponent,
+  TemplateRenderer,
 } from '@devexpress/dx-react-core';
 
 import {
@@ -30,7 +30,7 @@ export class RowLayout extends React.PureComponent {
     } = this.props;
 
     return (
-      <TemplateComponent
+      <TemplateRenderer
         template={rowTemplate}
         row={row}
         style={getRowStyle({ row })}
@@ -42,7 +42,7 @@ export class RowLayout extends React.PureComponent {
               const key = tableColumnKeyGetter(column, columnIndex);
               const colspan = getTableCellInfo({ row, columns, columnIndex }).colspan;
               return (
-                <TemplateComponent
+                <TemplateRenderer
                   key={key}
                   template={cellTemplate}
                   row={row}
@@ -53,7 +53,7 @@ export class RowLayout extends React.PureComponent {
               );
             })
         }
-      </TemplateComponent>
+      </TemplateRenderer>
     );
   }
 }

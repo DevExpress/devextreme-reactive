@@ -1,17 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { TemplateComponent } from './template-component';
+import { TemplateRenderer } from './template-component';
 
-describe('TemplateComponent', () => {
+describe('TemplateRenderer', () => {
   it('should work', () => {
     const tree = mount(
-      <TemplateComponent
+      <TemplateRenderer
         template={({ test, children }) => <div className={test}>{children}</div>}
         test={'test'}
       >
         <div className="content" />
-      </TemplateComponent>,
+      </TemplateRenderer>,
     );
 
     expect(tree.find('.test > .content').exists())

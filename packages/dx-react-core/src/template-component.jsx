@@ -1,2 +1,2 @@
-export const TemplateComponent = ({ template, children, ...restProps }) =>
+export const TemplateRenderer = ({ template, children, ...restProps }) =>
   template({ ...restProps, children });

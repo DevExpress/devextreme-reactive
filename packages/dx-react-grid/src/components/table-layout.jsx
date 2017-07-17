@@ -6,7 +6,7 @@ import { findDOMNode } from 'react-dom';
 
 import {
   DropTarget,
-  TemplateComponent,
+  TemplateRenderer,
 } from '@devexpress/dx-react-core';
 
 import {
@@ -161,7 +161,7 @@ export class TableLayout extends React.PureComponent {
       .reduce((accum, width) => accum + width, 0);
 
     const table = (
-      <TemplateComponent
+      <TemplateRenderer
         template={tableTemplate}
         style={{
           tableLayout: 'fixed',
@@ -198,7 +198,7 @@ export class TableLayout extends React.PureComponent {
             animationState={animationState}
           />,
         ]}
-      </TemplateComponent>
+      </TemplateRenderer>
     );
 
     return (

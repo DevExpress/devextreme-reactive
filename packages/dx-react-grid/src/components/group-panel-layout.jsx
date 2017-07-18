@@ -37,7 +37,7 @@ export class GroupPanelLayout extends React.PureComponent {
       });
     };
     this.onOver = ({ clientOffset }) => {
-      const { startGroupingChange } = this.props;
+      const { draftGroupingChange } = this.props;
       const {
         sourceColumnName, sourceColumnIndex,
         targetColumnIndex: prevTargetColumnIndex,
@@ -48,16 +48,16 @@ export class GroupPanelLayout extends React.PureComponent {
 
       if (prevTargetColumnIndex === targetColumnIndex) return;
 
-      startGroupingChange({
+      draftGroupingChange({
         columnName: sourceColumnName,
         groupIndex: targetColumnIndex,
       });
       this.setState({ targetColumnIndex });
     };
     this.onLeave = () => {
-      const { startGroupingChange } = this.props;
+      const { draftGroupingChange } = this.props;
       const { sourceColumnName } = this.state;
-      startGroupingChange({
+      draftGroupingChange({
         columnName: sourceColumnName,
         groupIndex: -1,
       });
@@ -185,7 +185,7 @@ GroupPanelLayout.propTypes = {
   panelTemplate: PropTypes.func.isRequired,
   allowDropping: PropTypes.bool,
   allowDragging: PropTypes.bool,
-  startGroupingChange: PropTypes.func,
+  draftGroupingChange: PropTypes.func,
   cancelGroupingChange: PropTypes.func,
 };
 
@@ -197,6 +197,6 @@ GroupPanelLayout.defaultProps = {
   groupByColumnText: undefined,
   allowDragging: false,
   allowDropping: false,
-  startGroupingChange: () => {},
+  draftGroupingChange: () => {},
   cancelGroupingChange: () => {},
 };

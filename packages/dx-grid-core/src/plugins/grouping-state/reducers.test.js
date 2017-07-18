@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import {
     groupByColumn,
-    startGroupingChange,
+    draftGroupingChange,
     cancelGroupingChange,
     removeOutdatedExpandedGroups,
 } from './reducers';
@@ -83,12 +83,12 @@ describe('GroupingState reducers', () => {
 });
 
 describe('GroupingChangeState reducers', () => {
-  describe('#startGroupingChange', () => {
+  describe('#draftGroupingChange', () => {
     it('can start grouping change', () => {
       const groupingChange = null;
       const payload = { columnName: 'test', groupIndex: 2 };
 
-      const nextGrouping = startGroupingChange(groupingChange, payload);
+      const nextGrouping = draftGroupingChange(groupingChange, payload);
       expect(nextGrouping).toEqual({ columnName: 'test', groupIndex: 2 });
     });
   });

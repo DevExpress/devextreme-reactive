@@ -6,7 +6,7 @@ import {
   groupedColumns,
   nextExpandedGroups,
   visualGrouping,
-  startGroupingChange,
+  draftGroupingChange,
   cancelGroupingChange,
   visuallyGroupedColumns,
   removeOutdatedExpandedGroups,
@@ -61,9 +61,9 @@ export class GroupingState extends React.PureComponent {
       });
     };
 
-    this.startGroupingChange = (groupingChange) => {
+    this.draftGroupingChange = (groupingChange) => {
       this.setState({
-        groupingChange: startGroupingChange(this.state.groupingChange, groupingChange),
+        groupingChange: draftGroupingChange(this.state.groupingChange, groupingChange),
       });
     };
 
@@ -93,8 +93,8 @@ export class GroupingState extends React.PureComponent {
           }}
         />
         <Action
-          name="startGroupingChange"
-          action={(change) => { this.startGroupingChange(change); }}
+          name="draftGroupingChange"
+          action={(change) => { this.draftGroupingChange(change); }}
         />
         <Action
           name="cancelGroupingChange"

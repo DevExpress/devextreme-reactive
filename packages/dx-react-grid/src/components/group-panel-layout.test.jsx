@@ -147,8 +147,8 @@ describe('GroupPanelLayout', () => {
         .toBe(groupedColumns.length);
     });
 
-    it('should call startGroupingChange when dragging a column over the group panel', () => {
-      const startGroupingChange = jest.fn();
+    it('should call draftGroupingChange when dragging a column over the group panel', () => {
+      const draftGroupingChange = jest.fn();
       const column = { name: 'a' };
       const tree = mount(
         <DragDropContext>
@@ -157,7 +157,7 @@ describe('GroupPanelLayout', () => {
             groupPanelCellTemplate={groupPanelCellTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
-            startGroupingChange={startGroupingChange}
+            draftGroupingChange={draftGroupingChange}
             allowDragging
             allowDropping
           />
@@ -174,17 +174,17 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 20 },
       });
 
-      expect(startGroupingChange)
+      expect(draftGroupingChange)
         .toHaveBeenCalledTimes(1);
-      expect(startGroupingChange)
+      expect(draftGroupingChange)
         .toHaveBeenCalledWith({
           columnName: column.name,
           groupIndex: 0,
         });
     });
 
-    it('should call startGroupingChange on drag leave', () => {
-      const startGroupingChange = jest.fn();
+    it('should call draftGroupingChange on drag leave', () => {
+      const draftGroupingChange = jest.fn();
       const column = { name: 'a' };
       const tree = mount(
         <DragDropContext>
@@ -193,7 +193,7 @@ describe('GroupPanelLayout', () => {
             groupPanelCellTemplate={groupPanelCellTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
-            startGroupingChange={startGroupingChange}
+            draftGroupingChange={draftGroupingChange}
             allowDragging
             allowDropping
           />
@@ -211,9 +211,9 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 60 },
       });
 
-      expect(startGroupingChange)
+      expect(draftGroupingChange)
         .toHaveBeenCalledTimes(1);
-      expect(startGroupingChange)
+      expect(draftGroupingChange)
         .toHaveBeenCalledWith({
           columnName: column.name,
           groupIndex: -1,

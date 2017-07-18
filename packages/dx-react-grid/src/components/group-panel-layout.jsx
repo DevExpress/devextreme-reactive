@@ -93,7 +93,7 @@ export class GroupPanelLayout extends React.PureComponent {
       groupedColumns,
       groupByColumn,
       groupPanelCellTemplate,
-      allowDragging,
+      allowDraggingAndDropping,
     } = this.props;
 
     this.itemRefs = [];
@@ -107,7 +107,7 @@ export class GroupPanelLayout extends React.PureComponent {
         groupByColumn,
       });
 
-      return allowDragging
+      return allowDraggingAndDropping
         ? (
           <DragSource
             key={column.name}
@@ -148,7 +148,7 @@ export class GroupPanelLayout extends React.PureComponent {
     const {
       groupByColumnText,
       panelTemplate,
-      allowDropping,
+      allowDraggingAndDropping,
     } = this.props;
 
     const cells = this.getCells();
@@ -159,7 +159,7 @@ export class GroupPanelLayout extends React.PureComponent {
         : <span>{groupByColumnText}</span>
     );
 
-    return allowDropping
+    return allowDraggingAndDropping
       ? (
         <DropTarget
           onEnter={this.onEnter}
@@ -183,8 +183,7 @@ GroupPanelLayout.propTypes = {
   groupByColumnText: PropTypes.any,
   groupPanelCellTemplate: PropTypes.func.isRequired,
   panelTemplate: PropTypes.func.isRequired,
-  allowDropping: PropTypes.bool,
-  allowDragging: PropTypes.bool,
+  allowDraggingAndDropping: PropTypes.bool,
   draftGroupingChange: PropTypes.func,
   cancelGroupingChange: PropTypes.func,
 };
@@ -195,8 +194,7 @@ GroupPanelLayout.defaultProps = {
   changeSortingDirection: () => {},
   groupByColumn: () => {},
   groupByColumnText: undefined,
-  allowDragging: false,
-  allowDropping: false,
+  allowDraggingAndDropping: false,
   draftGroupingChange: () => {},
   cancelGroupingChange: () => {},
 };

@@ -44,7 +44,7 @@ export default class LocalGroupingByDndDemo extends React.PureComponent {
         <GroupingState defaultGrouping={[{ columnName: 'city' }]} />
         <LocalGrouping />
         <TableView allowColumnReordering />
-        <GroupingPanel allowDragging allowDropping />
+        <GroupingPanel allowDraggingAndDropping />
         <TableHeaderRow allowGrouping allowDragging />
         <TableGroupRow />
       </Grid>

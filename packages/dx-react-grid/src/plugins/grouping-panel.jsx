@@ -21,7 +21,7 @@ export class GroupingPanel extends React.PureComponent {
           })}
           connectActions={action => ({
             groupByColumn: action('groupByColumn'),
-            changeSortingDirection: ({ keepOther, cancel, columnName }) =>
+            changeSortingDirection: ({ columnName, keepOther, cancel }) =>
               action('setColumnSorting')({ columnName, keepOther, cancel }),
             startGroupingChange: groupingChange => action('startGroupingChange')(groupingChange),
             cancelGroupingChange: () => action('cancelGroupingChange')(),

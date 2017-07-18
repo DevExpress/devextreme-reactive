@@ -24,10 +24,13 @@ export class TableHeaderRow extends React.PureComponent {
             const columns = getter('columns');
             const grouping = getter('grouping');
 
+            const groupingSupported = grouping !== undefined &&
+                grouping.length < columns.length - 1;
+
             const result = {
               sortingSupported: sorting !== undefined,
-              groupingSupported: grouping !== undefined &&
-                grouping.length < columns.length - 1,
+              groupingSupported,
+              draggingSupported: !grouping || groupingSupported,
             };
 
             if (result.sortingSupported) {
@@ -41,11 +44,16 @@ export class TableHeaderRow extends React.PureComponent {
             groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
           })}
         >
-          {({ sortingSupported, groupingSupported, ...restParams }) => headerCellTemplate({
+          {({
+            sortingSupported,
+            groupingSupported,
+            draggingSupported,
+            ...restParams
+          }) => headerCellTemplate({
             ...restParams,
             allowSorting: allowSorting && sortingSupported,
             allowGrouping: allowGrouping && groupingSupported,
-            allowDragging,
+            allowDragging: allowDragging && draggingSupported,
             dragPayload: [{ type: 'column', columnName: restParams.column.name }],
           })}
         </Template>

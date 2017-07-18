@@ -19,7 +19,7 @@ export class GroupingState extends React.PureComponent {
 
     this.state = {
       grouping: props.defaultGrouping || [],
-      groupingChange: props.defaultGroupingChange,
+      groupingChange: null,
       expandedGroups: props.defaultExpandedGroups || [],
     };
 
@@ -56,8 +56,8 @@ export class GroupingState extends React.PureComponent {
     };
   }
   render() {
+    const { groupingChange } = this.state;
     const grouping = this.props.grouping || this.state.grouping;
-    const groupingChange = this.props.groupingChange || this.state.groupingChange;
     const expandedGroups = this.props.expandedGroups || this.state.expandedGroups;
 
     return (
@@ -122,14 +122,6 @@ export class GroupingState extends React.PureComponent {
 GroupingState.propTypes = {
   grouping: PropTypes.array,
   defaultGrouping: PropTypes.array,
-  groupingChange: PropTypes.shape({
-    columnName: PropTypes.string,
-    groupIndex: PropTypes.number,
-  }),
-  defaultGroupingChange: PropTypes.shape({
-    columnName: PropTypes.string,
-    groupIndex: PropTypes.number,
-  }),
   onGroupingChange: PropTypes.func,
   expandedGroups: PropTypes.array,
   defaultExpandedGroups: PropTypes.array,
@@ -139,8 +131,6 @@ GroupingState.propTypes = {
 GroupingState.defaultProps = {
   grouping: undefined,
   defaultGrouping: undefined,
-  groupingChange: null,
-  defaultGroupingChange: null,
   onGroupingChange: undefined,
   expandedGroups: undefined,
   defaultExpandedGroups: undefined,

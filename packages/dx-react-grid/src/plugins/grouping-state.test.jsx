@@ -158,93 +158,6 @@ describe('GroupingState', () => {
     });
   });
 
-  describe('visualGrouping', () => {
-    it('should be initially set depending on the "defaultGroupingChange" property in the uncontrolled mode', () => {
-      let visualGrouping;
-      mount(
-        <PluginHost>
-          <Getter
-            name="columns"
-            value={[{ name: 'a' }, { name: 'b' }, { name: 'c' }]}
-          />
-          <GroupingState
-            defaultGrouping={[{ columnName: 'a' }, { columnName: 'c' }]}
-            defaultGroupingChange={{ columnName: 'b', groupIndex: 1 }}
-          />
-          <Template
-            name="root"
-            connectGetters={getter => (visualGrouping = getter('visualGrouping'))}
-          >
-            {() => <div />}
-          </Template>
-        </PluginHost>,
-      );
-
-      expect(visualGrouping)
-        .toEqual([{ columnName: 'a' }, { columnName: 'b', isDraft: true, mode: 'add' }, { columnName: 'c' }]);
-    });
-
-    it('should be applied depending on the "groupingChange" property in the controlled mode', () => {
-      let visualGrouping;
-      mount(
-        <PluginHost>
-          <Getter
-            name="columns"
-            value={[{ name: 'a' }, { name: 'b' }, { name: 'c' }]}
-          />
-          <GroupingState
-            grouping={[{ columnName: 'a' }, { columnName: 'c' }]}
-            groupingChange={{ columnName: 'b', groupIndex: 1 }}
-          />
-          <Template
-            name="root"
-            connectGetters={getter => (visualGrouping = getter('visualGrouping'))}
-          >
-            {() => <div />}
-          </Template>
-        </PluginHost>,
-      );
-
-      expect(visualGrouping)
-        .toEqual([
-          { columnName: 'a' },
-          { columnName: 'b', isDraft: true, mode: 'add' },
-          { columnName: 'c' },
-        ]);
-    });
-  });
-
-  describe('visuallyGroupedColumns', () => {
-    it('should expose correct value', () => {
-      let visuallyGroupedColumns;
-      const columns = [{ name: 'a' }, { name: 'b' }];
-      mount(
-        <PluginHost>
-          <Getter
-            name="columns"
-            value={columns}
-          />
-          <GroupingState
-            grouping={[]}
-            groupingChange={{ columnName: 'b', groupIndex: 0 }}
-          />
-          <Template
-            name="root"
-            connectGetters={getter => (visuallyGroupedColumns = getter('visuallyGroupedColumns'))}
-          >
-            {() => <div />}
-          </Template>
-        </PluginHost>,
-      );
-
-      expect(visuallyGroupedColumns)
-        .toEqual([{
-          ...columns[1],
-          isDraft: true,
-        }]);
-    });
-  });
-
   describe('startGroupingChange', () => {
     it('should add the column passed to visualGrouping', () => {
       let visualGrouping;
@@ -269,32 +182,94 @@ describe('GroupingState', () => {
       expect(visualGrouping)
         .toEqual([{ columnName: 'a', isDraft: true, mode: 'add' }]);
     });
-  });
 
-  describe('cancelGroupingChange', () => {
-    it('should reset visualGrouping', () => {
-      let visualGrouping;
-      let cancelGroupingChange;
+    it('should add the column passed ot visuallyGroupedColumns', () => {
+      let visuallyGroupedColumns;
+      let startGroupingChange;
       mount(
         <PluginHost>
+          <Getter name="columns" value={[{ name: 'a' }, { name: 'b' }, { name: 'c' }]} />
           <GroupingState
-            grouping={[{ columnName: 'a' }]}
-            visualGrouping={[{ columnName: 'b', isDraft: true, mode: 'add' }]}
+            grouping={[{ columnName: 'b' }]}
+            startGroupingChange={startGroupingChange}
           />
           <Template
             name="root"
-            connectGetters={getter => (visualGrouping = getter('visualGrouping'))}
-            connectActions={action => (cancelGroupingChange = action('cancelGroupingChange'))}
+            connectGetters={getter => (visuallyGroupedColumns = getter('visuallyGroupedColumns'))}
+            connectActions={action => (startGroupingChange = action('startGroupingChange'))}
           >
             {() => <div />}
           </Template>
         </PluginHost>,
       );
 
+      startGroupingChange({ columnName: 'a', groupIndex: 0 });
+      expect(visuallyGroupedColumns)
+        .toEqual([
+          { name: 'a', isDraft: true },
+          { name: 'b' },
+        ]);
+    });
+  });
+
+  describe('cancelGroupingChange', () => {
+    it('should reset visualGrouping', () => {
+      let visualGrouping;
+      let startGroupingChange;
+      let cancelGroupingChange;
+      mount(
+        <PluginHost>
+          <GroupingState
+            grouping={[{ columnName: 'a' }]}
+          />
+          <Template
+            name="root"
+            connectGetters={getter => (visualGrouping = getter('visualGrouping'))}
+            connectActions={(action) => {
+              startGroupingChange = action('startGroupingChange');
+              cancelGroupingChange = action('cancelGroupingChange');
+            }}
+          >
+            {() => <div />}
+          </Template>
+        </PluginHost>,
+      );
+
+      startGroupingChange({ columnName: 'v', groupIndex: 1 });
       cancelGroupingChange();
 
       expect(visualGrouping)
         .toEqual([{ columnName: 'a' }]);
+    });
+
+    it('should reset visuallyGroupedColumns', () => {
+      let visuallyGroupedColumns;
+      let startGroupingChange;
+      let cancelGroupingChange;
+      mount(
+        <PluginHost>
+          <Getter name="columns" value={[{ name: 'a' }, { name: 'b' }, { name: 'c' }]} />
+          <GroupingState
+            grouping={[{ columnName: 'a' }]}
+          />
+          <Template
+            name="root"
+            connectGetters={getter => (visuallyGroupedColumns = getter('visuallyGroupedColumns'))}
+            connectActions={(action) => {
+              startGroupingChange = action('startGroupingChange');
+              cancelGroupingChange = action('cancelGroupingChange');
+            }}
+          >
+            {() => <div />}
+          </Template>
+        </PluginHost>,
+      );
+
+      startGroupingChange({ columnName: 'c', groupIndex: 1 });
+      cancelGroupingChange();
+
+      expect(visuallyGroupedColumns)
+        .toEqual([{ name: 'a' }]);
     });
   });
 

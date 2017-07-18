@@ -13,15 +13,15 @@ import {
 import {
   generateRows,
   defaultColumnValues,
-} from '../../demoData';
+} from '../../demo-data/generator';
 
-export class EditRowControlledDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       columns: [
-        { name: 'id', title: 'ID', width: 50 },
+        { name: 'id', title: 'ID', width: 60 },
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },

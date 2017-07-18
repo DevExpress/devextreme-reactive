@@ -12,7 +12,7 @@ import { TableLayout } from './table-layout';
 const PropsContainer = () => null;
 const tableTemplateMock = ({ children, ...props }) => (
   <table
-    ref={props.ref}
+    ref={props.tableRef}
   >
     <PropsContainer {...props} />
     {children}
@@ -92,7 +92,7 @@ describe('TableLayout', () => {
       />,
     );
 
-    testTablePart({ tree: tree.find('table > tbody'), rows, columns });
+    testTablePart({ tree: tree.find('table tbody'), rows, columns });
   });
 
   it('should render table with headerRows and columns', () => {
@@ -112,7 +112,7 @@ describe('TableLayout', () => {
       />,
     );
 
-    testTablePart({ tree: tree.find('table > thead'), rows, columns });
+    testTablePart({ tree: tree.find('table thead'), rows, columns });
   });
 
   it('should span columns if specified', () => {
@@ -138,7 +138,7 @@ describe('TableLayout', () => {
 
     rowColumn = rowWrappers.at(1).find('td');
     expect(rowColumn.length).toBe(2);
-    expect(rowColumn.at(0).children(PropsContainer).props().colspan).toBe(undefined);
+    expect(rowColumn.at(0).children(PropsContainer).props()).not.toHaveProperty('colspan');
     expect(rowColumn.at(1).children(PropsContainer).props().colspan).toBe(3);
   });
 
@@ -227,24 +227,6 @@ describe('TableLayout', () => {
       .simulate('click');
     expect(onClick.mock.calls[0][0])
       .toMatchObject({ row: rows[1], column: columns[1], e: {} });
-  });
-
-  it('should not pass the "colspan" parameter to the cellTemplate if it is undefined', () => {
-    const cellTemplate = jest.fn().mockImplementation(cellTemplateMock);
-    mount(
-      <TableLayout
-        rows={[{ id: 1 }]}
-        columns={[{ name: 'a' }]}
-        tableTemplate={tableTemplateMock}
-        bodyTemplate={bodyTemplateMock}
-        rowTemplate={rowTemplateMock}
-        cellTemplate={cellTemplate}
-        getRowId={row => row.id}
-      />,
-    );
-
-    expect(cellTemplate.mock.calls[0][0])
-      .not.toHaveProperty('colspan');
   });
 
   describe('flex column', () => {

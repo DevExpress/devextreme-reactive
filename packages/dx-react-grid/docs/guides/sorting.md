@@ -22,38 +22,19 @@ In this example, we use the uncontrolled mode and specify only the initial sorti
 
 The `TableHeaderRow` plugin is not configured to allow an end-user to change sorting criteria by default. Set the `allowSorting` property to true to enable this feature.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/sorting/local-header-sorting) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-header-sorting.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/sorting/local-header-sorting) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/sorting/local-header-sorting.jsx)
+.embedded-demo(sorting/local-header-sorting)
 
 ## Using Sorting with Grouping
 
 You can use the Grid's sorting and grouping features simultaneously. When using sorting and grouping plugins together, pay attention to the order of plugins in the Grid container component. Set the `allowSorting` property of the `GroupingPanel` plugin to true to allow an end-user to change sorting options of grouped columns by clicking the group panel's items.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/sorting/local-group-sorting) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-group-sorting.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/sorting/local-group-sorting) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/sorting/local-group-sorting.jsx)
-
+.embedded-demo(sorting/local-group-sorting)
 
 ## Controlled Sorting State
 
 Pass the appropriate array to the `sorting` property of the `SortingState` plugin and handle the `onSortingChange` event of the same plugin to control the sorting state.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/sorting/local-sorting-controlled) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/local-sorting-controlled.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/sorting/local-sorting-controlled) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/sorting/local-sorting-controlled.jsx)
+.embedded-demo(sorting/local-sorting-controlled)
 
 ## Remote Sorting
 
@@ -61,7 +42,4 @@ You can handle the Grid's sorting state changes to request data from the server 
 
 Do not use the `LocalSorting` plugin to configure remote sorting. Handle the `sortingChange` event of the `SortingState` plugin to process sorting criteria updates. These updates are applied when end-users change sorting options via the UI. When sorted data was received from the server, pass it to the `Grid` component's `rows` property.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/sorting/remote-sorting) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/sorting/remote-sorting.jsx)
-
+.embedded-demo(sorting/remote-sorting)

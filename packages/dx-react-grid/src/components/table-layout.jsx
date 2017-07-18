@@ -6,13 +6,11 @@ import { findDOMNode } from 'react-dom';
 
 import {
   DropTarget,
+  TemplateRenderer,
 } from '@devexpress/dx-react-core';
 
 import {
-  tableRowKeyGetter,
   tableColumnKeyGetter,
-  getTableCellInfo,
-  findTableCellTarget,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,
@@ -20,76 +18,9 @@ import {
   evalAnimations,
 } from '@devexpress/dx-grid-core';
 
+import { RowsBlockLayout } from './table-layout/rows-block-layout';
+
 const FLEX_TYPE = 'flex';
-
-const getColumnStyle = ({ column, animationState = {} }) => ({
-  width: column.width !== undefined ? `${column.width}px` : undefined,
-  ...animationState,
-});
-
-const getRowStyle = ({ row }) => ({
-  height: row.height !== undefined ? `${row.height}px` : undefined,
-});
-
-const renderRowCells = ({ row, columns, cellTemplate, animationState }) =>
-  columns
-    .filter((column, columnIndex) => !getTableCellInfo({ row, columns, columnIndex }).skip)
-    .map((column, columnIndex) => {
-      const key = tableColumnKeyGetter(column, columnIndex);
-      const colspan = getTableCellInfo({ row, columns, columnIndex }).colspan;
-      return React.cloneElement(
-        cellTemplate({
-          row,
-          column,
-          ...colspan ? { colspan } : null,
-          style: getColumnStyle({ column, animationState: animationState.get(key) }),
-        }),
-        { key },
-      );
-    });
-
-const renderRows = ({
-  rows,
-  getRowId,
-  columns,
-  rowTemplate,
-  cellTemplate,
-  animationState,
-}) =>
-  rows
-    .map((row, rowIndex) => React.cloneElement(
-      rowTemplate({
-        row,
-        style: getRowStyle({ row }),
-        children: renderRowCells({ row, columns, cellTemplate, animationState }),
-      }),
-      { key: tableRowKeyGetter(getRowId, row, rowIndex) },
-    ));
-
-const renderRowsBlock = ({
-  rows,
-  getRowId,
-  columns,
-  blockTemplate,
-  rowTemplate,
-  cellTemplate,
-  onClick,
-  animationState,
-}) => blockTemplate({
-  onClick: (e) => {
-    const { rowIndex, columnIndex } = findTableCellTarget(e);
-    if (rowIndex === -1 || columnIndex === -1) return;
-    onClick({ e, row: rows[rowIndex], column: columns[columnIndex] });
-  },
-  children: renderRows({
-    rows,
-    getRowId,
-    columns,
-    rowTemplate,
-    cellTemplate,
-    animationState,
-  }),
-});
 
 export class TableLayout extends React.PureComponent {
   constructor(props) {
@@ -229,41 +160,46 @@ export class TableLayout extends React.PureComponent {
       .map(column => column.width || (column.type === FLEX_TYPE ? 0 : minColumnWidth))
       .reduce((accum, width) => accum + width, 0);
 
-    const table = tableTemplate({
-      style: {
-        tableLayout: 'fixed',
-        minWidth: `${minWidth}px`,
-      },
-      ref: (node) => { if (node) this.tableNode = node; },
-      children: [
-        !headerRows.length ? null : React.cloneElement(
-          renderRowsBlock({
-            rows: headerRows,
-            getRowId,
-            columns,
-            blockTemplate: headTemplate,
-            rowTemplate,
-            cellTemplate,
-            onClick,
-            animationState,
-          }),
-          { key: 'head' },
-        ),
-        React.cloneElement(
-          renderRowsBlock({
-            rows,
-            getRowId,
-            columns,
-            blockTemplate: bodyTemplate,
-            rowTemplate,
-            cellTemplate,
-            onClick,
-            animationState,
-          }),
-          { key: 'body' },
-        ),
-      ],
-    });
+    const table = (
+      <TemplateRenderer
+        template={tableTemplate}
+        style={{
+          tableLayout: 'fixed',
+          minWidth: `${minWidth}px`,
+        }}
+        tableRef={(node) => { if (node) this.tableNode = node; }}
+      >
+        {[
+          ...(!headerRows.length
+            ? []
+            : [(
+              <RowsBlockLayout
+                key="head"
+                rows={headerRows}
+                getRowId={getRowId}
+                columns={columns}
+                blockTemplate={headTemplate}
+                rowTemplate={rowTemplate}
+                cellTemplate={cellTemplate}
+                onClick={onClick}
+                animationState={animationState}
+              />
+            )]
+          ),
+          <RowsBlockLayout
+            key="body"
+            rows={rows}
+            getRowId={getRowId}
+            columns={columns}
+            blockTemplate={bodyTemplate}
+            rowTemplate={rowTemplate}
+            cellTemplate={cellTemplate}
+            onClick={onClick}
+            animationState={animationState}
+          />,
+        ]}
+      </TemplateRenderer>
+    );
 
     return (
       <div

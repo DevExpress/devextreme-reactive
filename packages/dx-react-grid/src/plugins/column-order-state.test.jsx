@@ -1,12 +1,21 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import { setupConsole } from '@devexpress/dx-testing';
 import { Template, Getter, PluginHost } from '@devexpress/dx-react-core';
 
 import { ColumnOrderState } from './column-order-state';
 
 describe('ColumnOrderState', () => {
-  it('should apply the initial column order specified in the "defaultOrder" property in uncontrolled mode', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
+  it('should apply the column order specified in the "defaultOrder" property in uncontrolled mode', () => {
     let orderedColumns;
     mount(
       <PluginHost>
@@ -21,7 +30,7 @@ describe('ColumnOrderState', () => {
           name="root"
           connectGetters={getter => (orderedColumns = getter('columns'))}
         >
-          <div />
+          {() => <div />}
         </Template>
       </PluginHost>,
     );
@@ -30,7 +39,7 @@ describe('ColumnOrderState', () => {
       .toEqual([{ name: 'b' }, { name: 'a' }]);
   });
 
-  it('should apply the column order according to the "order" property in controlled mode', () => {
+  it('should apply the column order specified in the "order" property in controlled mode', () => {
     let orderedColumns;
     mount(
       <PluginHost>
@@ -45,7 +54,7 @@ describe('ColumnOrderState', () => {
           name="root"
           connectGetters={getter => (orderedColumns = getter('columns'))}
         >
-          <div />
+          {() => <div />}
         </Template>
       </PluginHost>,
     );
@@ -54,7 +63,8 @@ describe('ColumnOrderState', () => {
       .toEqual([{ name: 'b' }, { name: 'a' }]);
   });
 
-  it('should change the column order in uncontrolled mode after the "setColumnOrder" action is fired', () => {
+  it('should fire the "onOrderChange" callback and should change the column order in uncontrolled mode after the "setColumnOrder" action is fired', () => {
+    const orderChangeMock = jest.fn();
     let orderedColumns;
     let setColumnOrder;
     mount(
@@ -65,13 +75,14 @@ describe('ColumnOrderState', () => {
         />
         <ColumnOrderState
           defaultOrder={['a', 'b']}
+          onOrderChange={orderChangeMock}
         />
         <Template
           name="root"
           connectGetters={getter => (orderedColumns = getter('columns'))}
           connectActions={action => (setColumnOrder = action('setColumnOrder'))}
         >
-          <div />
+          {() => <div />}
         </Template>
       </PluginHost>,
     );
@@ -83,9 +94,11 @@ describe('ColumnOrderState', () => {
 
     expect(orderedColumns)
       .toEqual([{ name: 'b' }, { name: 'a' }]);
+    expect(orderChangeMock.mock.calls[0][0])
+      .toEqual(['b', 'a']);
   });
 
-  it('should fire the "onOrderChange" callback and preserve the current column order in controlled mode after the "setColumnOrder" action is fired', () => {
+  it('should fire the "onOrderChange" callback and apply the column order specified in the "order" property in controlled mode after the "setColumnOrder" action is fired', () => {
     const orderChangeMock = jest.fn();
     let orderedColumns;
     let setColumnOrder;
@@ -104,7 +117,7 @@ describe('ColumnOrderState', () => {
           connectGetters={getter => (orderedColumns = getter('columns'))}
           connectActions={action => (setColumnOrder = action('setColumnOrder'))}
         >
-          <div />
+          {() => <div />}
         </Template>
       </PluginHost>,
     );

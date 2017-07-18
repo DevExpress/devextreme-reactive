@@ -19,11 +19,4 @@ Then you can use the state in a usual way because `seamless-immutable` keeps bac
 
 The following demo demonstrates the React Grid with `seamless-immutable` in action:
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/immutability/seamless-immutable) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/immutability/seamless-immutable.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/immutability/seamless-immutable) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/immutability/seamless-immutable.jsx)
-
+.embedded-demo(immutability/seamless-immutable)

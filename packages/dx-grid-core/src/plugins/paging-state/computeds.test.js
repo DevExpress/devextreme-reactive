@@ -1,8 +1,8 @@
 import {
     paginate,
     ensurePageHeaders,
-    totalPageCount,
-    totalCount,
+    pageCount,
+    rowCount,
     firstRowOnPage,
     lastRowOnPage,
 } from './computeds';
@@ -145,7 +145,7 @@ describe('PagingState computeds', () => {
       expect(computedRows[4]).toBe(rows[4]);
     });
 
-    it('should work if pageSize is \'all\'', () => {
+    it('should work if pageSize is 0', () => {
       const rows = [
         { a: 1, _headerKey: 'a' },
         { a: 2 },
@@ -160,21 +160,34 @@ describe('PagingState computeds', () => {
       expect(computedRows[2]).toBe(rows[2]);
       expect(computedRows[3]).toBe(rows[3]);
     });
+
+    it('should throw human readable error if page size is less that header count', () => {
+      const rows = [
+        { a: 1, _headerKey: 'a' },
+        { a: 2, _headerKey: 'b' },
+        { a: 3, _headerKey: 'c' },
+        { a: 4 },
+      ];
+
+      expect(() => {
+        ensurePageHeaders(rows, 3);
+      }).toThrowError(/page size/);
+    });
   });
 
-  describe('#totalPageCount', () => {
+  describe('#pageCount', () => {
     it('should work', () => {
-      let count = totalPageCount([1, 2, 3], 2);
+      let count = pageCount(3, 2);
       expect(count).toEqual(2);
 
-      count = totalPageCount([1, 2, 3], 0);
+      count = pageCount(3, 0);
       expect(count).toEqual(1);
     });
   });
 
-  describe('#totalCount', () => {
+  describe('#rowCount', () => {
     it('should work', () => {
-      const count = totalCount([1, 2, 3]);
+      const count = rowCount([1, 2, 3]);
       expect(count).toEqual(3);
     });
   });

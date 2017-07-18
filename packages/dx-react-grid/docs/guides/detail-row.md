@@ -16,23 +16,10 @@ Note that the [plugin order](../README.md#plugin-order) is very important.
 
 To set up a simple Grid with detail rows, you need to use the `RowDetailState` and `TableRowDetail` plugins. Specify the detail row template via the `template` property of the `TableRowDetail` plugin. In uncontrolled state mode, you can also pass IDs of rows that should be initially expanded into the `defaultExpandedRows` property of the `RowDetailState` plugin, and the expanded state will be managed by the plugin internally.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/detail-row/simple-detail-row) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/detail-row/simple-detail-row.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/detail-row/simple-detail-row) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/detail-row/simple-detail-row.jsx)
+.embedded-demo(detail-row/simple-detail-row)
 
 ## Controlled Expanded State Mode
 
 To control the expanded state of the detail rows from the outside, pass an array of the expanded row IDs to the `expandedRows` property of the `RowDetailState` plugin and handle the `onExpandedRowsChange` event of the same plugin.
 
-Bootstrap 3:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/bootstrap3/detail-row/detail-row-controlled) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/detail-row/detail-row-controlled.jsx)
-
-Material UI:
-[Demo](http://devexpress.github.io/devextreme-reactive/react/grid/demos/#/material-ui/detail-row/detail-row-controlled) |
-[Source](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/detail-row/detail-row-controlled.jsx)
-
+.embedded-demo(detail-row/detail-row-controlled)

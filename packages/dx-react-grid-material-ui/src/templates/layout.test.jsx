@@ -1,23 +1,8 @@
 import React from 'react';
-import { Paper } from 'material-ui';
 import { mountWithStyles } from '../utils/testing';
-import { Root, Header, Footer, styleSheet } from './layout';
+import { Header, Footer, styleSheet } from './layout';
 
 describe('Layout', () => {
-  describe('Root', () => {
-    it('should have a correct css class', () => {
-      const mounted = mountWithStyles(
-        <Root
-          headerTemplate={() => {}}
-          bodyTemplate={() => {}}
-          footerTemplate={() => {}}
-        />,
-        styleSheet,
-      );
-
-      expect(mounted.tree.find(Paper).hasClass(mounted.classes.root)).toBeTruthy();
-    });
-  });
   describe('Header', () => {
     it('should have a correct css class', () => {
       const mounted = mountWithStyles(

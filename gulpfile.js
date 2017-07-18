@@ -64,30 +64,14 @@ var applyInterceptors = function(content, ...interceptors) {
 };
 
 var injectLiveDemos = function(content) {
-  var demoDef = '';
-  var demoDefRegex = /(.+?):\n\[Demo\]\(([^\s]*)\)\s\|\s+\[Source\]\(([^\s]*)\)\n\n/g;
-  var demoBlockRegex = new RegExp(`(${demoDefRegex.source})+`, 'g');
-
-  return content.replace(demoBlockRegex, (demoBlock) => {
-    var items = [];
-    var match;
-    while(match = demoDefRegex.exec(demoBlock)) {
-      var title = match[1];
-      var url = match[2].replace(/\/demos\//, '/embedded-demo/');
-      var templatesName = /#\/([^\/]+)\//.exec(url)[1];
-      var demoSrc = match[3];
-
-      items.push({
-        title,
-        url,
-        templatesName,
-        demoSrc,
-      });
-    }
-    return `<p class="embedded-demo-root">
-      <script type="embedded-demo-data">${JSON.stringify(items)}</script>
-    </p>`;
-  });
+  return content
+    .replace(
+      /\.embedded\-demo\(([^\(\)]*)\)/g,
+      `<div class="embedded-demo" data-options='{ "path": "/demo/$1" }'>
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>`);
 };
 
 gulp.task('site:clean', function() {

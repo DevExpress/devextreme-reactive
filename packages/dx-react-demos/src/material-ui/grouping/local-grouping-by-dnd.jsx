@@ -15,9 +15,9 @@ import {
 
 import {
   generateRows,
-} from '../../demoData';
+} from '../../demo-data/generator';
 
-export class LocalGroupingByDndDemo extends React.PureComponent {
+export default class LocalGroupingByDndDemo extends React.PureComponent {
   constructor(props) {
     super(props);
 

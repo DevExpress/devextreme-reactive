@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import { setupConsole } from '@devexpress/dx-testing';
 import {
   Getter, PluginHost,
   DragDropContext as DragDropContextCore,
@@ -9,6 +10,14 @@ import {
 import { DragDropContext } from './drag-drop-context';
 
 describe('DragDropContext', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should not render container if dragging is not started', () => {
     const tree = mount(
       <PluginHost>

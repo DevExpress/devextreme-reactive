@@ -9,6 +9,7 @@ import {
   startGroupingChange,
   cancelGroupingChange,
   visuallyGroupedColumns,
+  removeOutdatedExpandedGroups,
 } from '@devexpress/dx-grid-core';
 
 const arrayToSet = array => new Set(array);
@@ -23,24 +24,41 @@ export class GroupingState extends React.PureComponent {
       expandedGroups: props.defaultExpandedGroups || [],
     };
 
-    this.toggleGroupExpanded = (groupKey) => {
-      const prevExpandedGroups = this.props.expandedGroups || this.state.expandedGroups;
-      const { onExpandedGroupsChange } = this.props;
-      const expandedGroups = nextExpandedGroups(prevExpandedGroups, groupKey);
+    this._grouping = () => this.props.grouping || this.state.grouping;
+    this._expandedGroups = () => this.props.expandedGroups || this.state.expandedGroups;
+
+    this._reduceExpandedGroups = reducer => (prevExpandedGroups, payload) => {
+      const expandedGroups = reducer(prevExpandedGroups, payload);
+
+      if (expandedGroups === prevExpandedGroups) return;
 
       this.setState({ expandedGroups });
+
+      const { onExpandedGroupsChange } = this.props;
       if (onExpandedGroupsChange) {
         onExpandedGroupsChange(expandedGroups);
       }
     };
 
-    this._groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
-      const { onGroupingChange } = this.props;
+    this._toggleGroupExpanded = this._reduceExpandedGroups(nextExpandedGroups);
+    this._removeOutdatedExpandedGroups = this._reduceExpandedGroups(removeOutdatedExpandedGroups);
+
+    this._groupByColumn = (prevGrouping, prevExpandedGroups, { columnName, groupIndex }) => {
       const grouping = groupByColumn(prevGrouping, { columnName, groupIndex });
+
       this.setState({ grouping });
+
+      const { onGroupingChange } = this.props;
       if (onGroupingChange) {
         onGroupingChange(grouping);
       }
+
+      if (this._expandedGroups() !== prevExpandedGroups) return;
+
+      this._removeOutdatedExpandedGroups(prevExpandedGroups, {
+        prevGrouping,
+        grouping,
+      });
     };
 
     this.startGroupingChange = (groupingChange) => {
@@ -57,19 +75,21 @@ export class GroupingState extends React.PureComponent {
   }
   render() {
     const { groupingChange } = this.state;
-    const grouping = this.props.grouping || this.state.grouping;
-    const expandedGroups = this.props.expandedGroups || this.state.expandedGroups;
+    const grouping = this._grouping();
+    const expandedGroups = this._expandedGroups();
 
     return (
       <PluginContainer>
         <Action
           name="toggleGroupExpanded"
-          action={({ groupKey }) => { this.toggleGroupExpanded(groupKey); }}
+          action={({ groupKey }) => {
+            this._toggleGroupExpanded(expandedGroups, { groupKey });
+          }}
         />
         <Action
           name="groupByColumn"
           action={({ columnName, groupIndex }) => {
-            this._groupByColumn(grouping, { columnName, groupIndex });
+            this._groupByColumn(grouping, expandedGroups, { columnName, groupIndex });
           }}
         />
         <Action
@@ -94,6 +114,14 @@ export class GroupingState extends React.PureComponent {
           ]}
         />
         <Getter
+          name="groupedColumns"
+          pureComputed={groupedColumns}
+          connectArgs={getter => [
+            getter('columns'),
+            grouping,
+          ]}
+        />
+        <Getter
           name="visuallyGroupedColumns"
           pureComputed={visuallyGroupedColumns}
           connectArgs={getter => [
@@ -105,14 +133,6 @@ export class GroupingState extends React.PureComponent {
           name="expandedGroups"
           pureComputed={arrayToSet}
           connectArgs={() => [expandedGroups]}
-        />
-        <Getter
-          name="groupedColumns"
-          pureComputed={groupedColumns}
-          connectArgs={getter => [
-            getter('columns'),
-            grouping,
-          ]}
         />
       </PluginContainer>
     );

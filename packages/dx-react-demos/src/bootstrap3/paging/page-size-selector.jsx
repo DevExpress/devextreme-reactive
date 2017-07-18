@@ -10,9 +10,9 @@ import {
   PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
-import { generateRows } from '../../demoData';
+import { generateRows } from '../../demo-data/generator';
 
-export class PageSizeSelectorDemo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 

@@ -16,6 +16,7 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 Name | Type | Default | Description
 -----|------|---------|------------
 allowSorting | boolean | false | Specifies whether an end-user can sort data by a column
+allowDraggingAndDropping | boolean | false | Specifies whether it is allowed to change grouping by dragging and dropping columns between the group panel and the table header
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel
 groupPanelCellTemplate? | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
@@ -30,11 +31,14 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 allowSorting | boolean | Specifies whether an end-user can sort data by a column
+allowDraggingAndDropping | boolean | Specifies whether it is allowed to change grouping by dragging and dropping columns between the group panel and the table header
 sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column specified using the `columnName` argument. Keeps the current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
 groupedColumns | Array&lt;[Column](grid.md#column)&gt; | Columns by which the grid data is currently grouped
-groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
 groupByColumnText | string | The text displayed in the group panel if the grid is not grouped
+groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
+draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the value passed
+cancelGroupingChange | () => void | Resets the groupingChange state
 groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | Renders a group panel cell. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
 ### <a name="group-panel-cell-props"></a>GroupPanelCellProps
@@ -57,11 +61,13 @@ groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns by which the grid is grouped
+visuallyGroupedColumns | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns by which the grid is grouped
+sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
+groupByColumn | Action | ({ columnName: string }) => void | Toggles a column's grouping state
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
+draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the value passed
+cancelGroupingChange | Action | () => void | Resets the groupingChange state
 
 ### Exports
 
-Name | Plugin | Type | Description
------|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Columns to be rendered (excluding the grouped ones)
+none

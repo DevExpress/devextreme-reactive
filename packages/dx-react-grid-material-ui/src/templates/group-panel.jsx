@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import List from 'material-ui-icons/List';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
@@ -12,10 +11,6 @@ const styleSheet = createStyleSheet('GroupPanel', theme => ({
     flexWrap: 'wrap',
     width: '100%',
   },
-  groupIcon: {
-    display: 'inline-block',
-    verticalAlign: 'middle',
-  },
   groupInfo: {
     marginBottom: '12px',
     display: 'inline-block',
@@ -25,13 +20,7 @@ const styleSheet = createStyleSheet('GroupPanel', theme => ({
 
 const DefaultTextBase = ({ classes }) => (
   <span className={classes.groupInfo}>
-    Click
-    &nbsp;
-    <span className={classes.groupIcon}>
-      <List />
-    </span>
-    &nbsp;
-    icon in the column header to group by that column
+    Drag a column header here to group by that column
   </span>
 );
 

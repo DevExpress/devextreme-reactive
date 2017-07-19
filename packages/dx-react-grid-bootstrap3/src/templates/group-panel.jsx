@@ -5,17 +5,7 @@ import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
 const defaultText = (
   <span style={{ marginBottom: '5px', display: 'inline-block' }}>
-    Click
-    &nbsp;
-    <i
-      className="glyphicon glyphicon-th-list"
-      style={{
-        top: '0',
-        fontSize: '9px',
-      }}
-    />
-    &nbsp;
-    icon in the column header to group by that column
+    Drag a column header here to group by that column
   </span>
 );
 

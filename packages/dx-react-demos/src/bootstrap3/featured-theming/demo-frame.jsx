@@ -1,27 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
-import { Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Nav, NavItem, FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
 
-export default class DemoFrame extends React.Component {
+const THEMES = [{
+  name: 'Journal',
+  link: 'https://bootswatch.com/journal/bootstrap.min.css',
+}, {
+  name: 'Darkly',
+  link: 'https://bootswatch.com/darkly/bootstrap.min.css',
+}, {
+  name: 'United',
+  link: 'https://bootswatch.com/united/bootstrap.min.css',
+}, {
+  name: 'Custom',
+}];
+const CUSTOM_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css';
+
+export default class DemoFrame extends React.PureComponent {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      themes: [{
-        name: 'default',
-        link: 'https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css',
-      }, {
-        name: 'journal',
-        link: 'https://bootswatch.com/journal/bootstrap.min.css',
-      }, {
-        name: 'darkly',
-        link: 'https://bootswatch.com/darkly/bootstrap.min.css',
-      }],
-      currentTheme: 'journal',
+      themes: THEMES,
+      currentTheme: THEMES[0].name,
+      customThemeLink: CUSTOM_THEME,
+      customThemeLinkDraft: CUSTOM_THEME,
       frameHeight: 600,
     };
 
+    const { scriptPath } = this.context.embeddedDemoOptions;
+    this.markup = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>.panel { margin: 0 !important; }</style>
+      </head>
+      <body>
+      <div id="mountPoint"></div>
+      <div class="embedded-demo" data-options='{ "path": "/demo/featured-theming/_embedded-demo/clear/bootstrap3" }'>Loading...</div>
+      <script src="${scriptPath}"></script>
+      </body>
+      </html>`;
+  }
+  componentDidMount() {
     this.updateFrameHeight();
   }
   updateFrameHeight() {
@@ -34,41 +56,50 @@ export default class DemoFrame extends React.Component {
     }
   }
   render() {
-    const { themes, currentTheme, frameHeight } = this.state;
-    const { scriptPath } = this.context.embeddedDemoOptions;
-    const markup = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>.panel { margin: 0 !important; }</style>
-      </head>
-      <body>
-      <div id="mountPoint"></div>
-      <div class="embedded-demo" data-options='{ "path": "/demo/featured-theming/_embedded-demo/clear/bootstrap3" }'>Loading...</div>
-      <script src="${scriptPath}"></script>
-      </body>
-      </html>`;
+    const { themes, currentTheme, customThemeLink, customThemeLinkDraft, frameHeight } = this.state;
 
     return (
       <div>
-        <div style={{ marginBottom: '20px' }}>
-          <Form inline>
-            <FormGroup>
-              <ControlLabel>Theme</ControlLabel>
-              {' '}
-              <FormControl
-                componentClass="select"
-                placeholder="select"
-                value={currentTheme}
-                onChange={e => this.setState({ currentTheme: e.target.value })}
-              >
-                {themes.map(theme => (
-                  <option key={theme.name} value={theme.name}>{theme.name}</option>
-                ))}
-              </FormControl>
+        <Nav
+          bsStyle="tabs"
+          activeKey={currentTheme}
+          onSelect={theme => this.setState({ currentTheme: theme })}
+          style={{ marginBottom: '20px' }}
+        >
+          {themes.map(theme => (
+            <NavItem
+              key={theme.name}
+              eventKey={theme.name}
+              title={theme.name}
+            >
+              {theme.name}
+            </NavItem>
+          ))}
+        </Nav>
+
+        {currentTheme === 'Custom' && (
+          <form
+            style={{ marginBottom: '20px' }}
+          >
+            <FormGroup controlId="customThemeLink">
+              <ControlLabel>Custom theme link</ControlLabel>
+              <InputGroup>
+                <FormControl
+                  type="text"
+                  value={customThemeLinkDraft}
+                  onChange={e => this.setState({ customThemeLinkDraft: e.target.value })}
+                />
+                <InputGroup.Button>
+                  <Button
+                    onClick={() => this.setState({ customThemeLink: customThemeLinkDraft })}
+                  >
+                    Apply
+                  </Button>
+                </InputGroup.Button>
+              </InputGroup>
             </FormGroup>
-          </Form>
-        </div>
+          </form>
+        )}
 
         <Frame
           style={{
@@ -78,13 +109,14 @@ export default class DemoFrame extends React.Component {
             height: `${frameHeight}px`,
             marginBottom: '20px',
           }}
-          initialContent={markup}
+          initialContent={this.markup}
           mountTarget="#mountPoint"
         >
-          <link rel="stylesheet" href={themes.find(theme => theme.name === currentTheme).link} />
-          <div
-            ref={(node) => { this.node = node; }}
+          <link
+            rel="stylesheet"
+            href={themes.find(theme => theme.name === currentTheme).link || customThemeLink}
           />
+          <div ref={(node) => { this.node = node; }} />
         </Frame>
       </div>
     );

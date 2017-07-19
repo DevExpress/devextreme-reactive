@@ -5,8 +5,8 @@ import {
     expandedGroupRows,
     groupedColumns,
     nextExpandedGroups,
-    visualGrouping,
-    visuallyGroupedColumns,
+    draftGrouping,
+    draftGroupedColumns,
 } from './computeds';
 
 describe('GroupingPlugin computeds', () => {
@@ -147,7 +147,7 @@ describe('GroupingPlugin computeds', () => {
     });
   });
 
-  describe('#visuallyGroupedColumns', () => {
+  describe('#draftGroupedColumns', () => {
     const columns = [
       { name: 'a' },
       { name: 'b' },
@@ -160,7 +160,7 @@ describe('GroupingPlugin computeds', () => {
     ];
 
     it('should work', () => {
-      const processedColumns = visuallyGroupedColumns(columns, visGrouping);
+      const processedColumns = draftGroupedColumns(columns, visGrouping);
 
       expect(processedColumns).toHaveLength(2);
       expect(processedColumns[0]).toBe(columns[0]);
@@ -191,13 +191,13 @@ describe('GroupingPlugin computeds', () => {
     });
   });
 
-  describe('#visualGrouping', () => {
-    it('can add draft column to visualGrouping', () => {
+  describe('#draftGrouping', () => {
+    it('can add draft column to draftGrouping', () => {
       const grouping = [
         { columnName: 'a' },
         { columnName: 'c' },
       ];
-      const processedGrouping = visualGrouping(grouping, { columnName: 'b', groupIndex: 1 });
+      const processedGrouping = draftGrouping(grouping, { columnName: 'b', groupIndex: 1 });
 
       expect(processedGrouping)
         .toEqual([
@@ -207,27 +207,27 @@ describe('GroupingPlugin computeds', () => {
         ]);
     });
 
-    it('can reset visualGrouping', () => {
+    it('can reset draftGrouping', () => {
       const grouping = [{ columnName: 'a' }];
 
-      expect(visualGrouping(grouping, null))
+      expect(draftGrouping(grouping, null))
         .toEqual([
           { columnName: 'a' },
         ]);
     });
 
-    it('can mark a column as draft in visualGrouping', () => {
+    it('can mark a column as draft in draftGrouping', () => {
       const grouping = [
         { columnName: 'a' },
         { columnName: 'b' },
       ];
 
-      expect(visualGrouping(grouping, { columnName: 'a', groupIndex: -1 }))
+      expect(draftGrouping(grouping, { columnName: 'a', groupIndex: -1 }))
         .toEqual([
           { columnName: 'a', isDraft: true, mode: 'remove' },
           { columnName: 'b' },
         ]);
-      expect(visualGrouping(grouping, { columnName: 'b', groupIndex: -1 }))
+      expect(draftGrouping(grouping, { columnName: 'b', groupIndex: -1 }))
         .toEqual([
           { columnName: 'a' },
           { columnName: 'b', isDraft: true, mode: 'remove' },
@@ -240,7 +240,7 @@ describe('GroupingPlugin computeds', () => {
         { columnName: 'b' },
       ];
 
-      expect(visualGrouping(grouping, { columnName: 'a', groupIndex: 1 }))
+      expect(draftGrouping(grouping, { columnName: 'a', groupIndex: 1 }))
         .toEqual([
           { columnName: 'b' },
           { columnName: 'a', isDraft: true, mode: 'reorder' },

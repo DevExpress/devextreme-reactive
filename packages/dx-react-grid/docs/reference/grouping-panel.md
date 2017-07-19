@@ -61,7 +61,7 @@ groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-visuallyGroupedColumns | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns by which the grid is grouped
+draftGroupedColumns | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns by which the grid is grouped
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
 groupByColumn | Action | ({ columnName: string }) => void | Toggles a column's grouping state
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting

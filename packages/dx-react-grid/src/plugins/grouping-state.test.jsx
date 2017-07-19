@@ -342,25 +342,25 @@ describe('GroupingState', () => {
   });
 
   describe('draftGroupingChange', () => {
-    it('should add the column passed to visualGrouping', () => {
-      let visualGrouping;
+    it('should add the column passed to draftGrouping', () => {
+      let draftGrouping;
       let draftGroupingChange;
       mountPlugin(
         { grouping: [] },
         {
-          connectGetters: getter => (visualGrouping = getter('visualGrouping')),
+          connectGetters: getter => (draftGrouping = getter('draftGrouping')),
           connectActions: action => (draftGroupingChange = action('draftGroupingChange')),
         },
       );
 
       draftGroupingChange({ columnName: 'a', groupIndex: 0 });
 
-      expect(visualGrouping)
+      expect(draftGrouping)
         .toEqual([{ columnName: 'a', isDraft: true, mode: 'add' }]);
     });
 
-    it('should add the column passed ot visuallyGroupedColumns', () => {
-      let visuallyGroupedColumns;
+    it('should add the column passed ot draftGroupedColumns', () => {
+      let draftGroupedColumns;
       let draftGroupingChange;
       mount(
         <PluginHost>
@@ -371,7 +371,7 @@ describe('GroupingState', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (visuallyGroupedColumns = getter('visuallyGroupedColumns'))}
+            connectGetters={getter => (draftGroupedColumns = getter('draftGroupedColumns'))}
             connectActions={action => (draftGroupingChange = action('draftGroupingChange'))}
           >
             {() => <div />}
@@ -380,7 +380,7 @@ describe('GroupingState', () => {
       );
 
       draftGroupingChange({ columnName: 'a', groupIndex: 0 });
-      expect(visuallyGroupedColumns)
+      expect(draftGroupedColumns)
         .toEqual([
           { name: 'a', isDraft: true },
           { name: 'b' },
@@ -389,14 +389,14 @@ describe('GroupingState', () => {
   });
 
   describe('cancelGroupingChange', () => {
-    it('should reset visualGrouping', () => {
-      let visualGrouping;
+    it('should reset draftGrouping', () => {
+      let draftGrouping;
       let draftGroupingChange;
       let cancelGroupingChange;
       mountPlugin(
         { grouping: [{ columnName: 'a' }] },
         {
-          connectGetters: getter => (visualGrouping = getter('visualGrouping')),
+          connectGetters: getter => (draftGrouping = getter('draftGrouping')),
           connectActions: (action) => {
             draftGroupingChange = action('draftGroupingChange');
             cancelGroupingChange = action('cancelGroupingChange');
@@ -407,12 +407,12 @@ describe('GroupingState', () => {
       draftGroupingChange({ columnName: 'v', groupIndex: 1 });
       cancelGroupingChange();
 
-      expect(visualGrouping)
+      expect(draftGrouping)
         .toEqual([{ columnName: 'a' }]);
     });
 
-    it('should reset visuallyGroupedColumns', () => {
-      let visuallyGroupedColumns;
+    it('should reset draftGroupedColumns', () => {
+      let draftGroupedColumns;
       let draftGroupingChange;
       let cancelGroupingChange;
       mount(
@@ -423,7 +423,7 @@ describe('GroupingState', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (visuallyGroupedColumns = getter('visuallyGroupedColumns'))}
+            connectGetters={getter => (draftGroupedColumns = getter('draftGroupedColumns'))}
             connectActions={(action) => {
               draftGroupingChange = action('draftGroupingChange');
               cancelGroupingChange = action('cancelGroupingChange');
@@ -437,7 +437,7 @@ describe('GroupingState', () => {
       draftGroupingChange({ columnName: 'c', groupIndex: 1 });
       cancelGroupingChange();
 
-      expect(visuallyGroupedColumns)
+      expect(draftGroupedColumns)
         .toEqual([{ name: 'a' }]);
     });
   });

@@ -1,4 +1,4 @@
-const tableColumnsWithVisualGrouping = (columns, grouping) => columns.reduce((acc, column) => {
+const tableColumnsWithDraftGrouping = (columns, grouping) => columns.reduce((acc, column) => {
   const currentColumn = grouping.find(g => (g.columnName === column.name));
   if (!currentColumn) {
     acc.push(column);
@@ -12,7 +12,7 @@ const tableColumnsWithVisualGrouping = (columns, grouping) => columns.reduce((ac
 }, []);
 
 export const tableColumnsWithGrouping = (columns, grouping,
-  visualGrouping, groupIndentColumnWidth) => [
+  draftGrouping, groupIndentColumnWidth) => [
     ...grouping.map(group => ({ type: 'groupColumn', group, width: groupIndentColumnWidth })),
-    ...tableColumnsWithVisualGrouping(columns, visualGrouping),
+    ...tableColumnsWithDraftGrouping(columns, draftGrouping),
   ];

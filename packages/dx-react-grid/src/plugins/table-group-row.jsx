@@ -19,7 +19,7 @@ export class TableGroupRow extends React.PureComponent {
           connectArgs={getter => [
             getter('tableColumns'),
             getter('grouping'),
-            getter('visualGrouping'),
+            getter('draftGrouping'),
             groupIndentColumnWidth,
           ]}
         />

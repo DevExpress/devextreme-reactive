@@ -31,7 +31,7 @@ Field | Type | Description
 ------|------|------------
 columnName | string | Specifies a column name to group by
 
-### <a name="visual-grouping">### VisualGrouping
+### <a name="draft-grouping">### draftGrouping
 
 Describes applied grouping
 
@@ -65,9 +65,9 @@ columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns of the grid
 Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | Applied grouping
-visualGrouping | Getter | Array&lt;[VisualGrouping](#visual-grouping)&gt; | Grouping to be visually displayed
+draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping to be visually displayed
 expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
 groupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for grouping
-visuallyGroupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for `visualGrouping`
+draftGroupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for `draftGrouping`
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column name or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state

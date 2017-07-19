@@ -5,10 +5,10 @@ import {
   groupByColumn,
   groupedColumns,
   nextExpandedGroups,
-  visualGrouping,
+  draftGrouping,
   draftGroupingChange,
   cancelGroupingChange,
-  visuallyGroupedColumns,
+  draftGroupedColumns,
   removeOutdatedExpandedGroups,
 } from '@devexpress/dx-grid-core';
 
@@ -106,8 +106,8 @@ export class GroupingState extends React.PureComponent {
           value={grouping}
         />
         <Getter
-          name="visualGrouping"
-          pureComputed={visualGrouping}
+          name="draftGrouping"
+          pureComputed={draftGrouping}
           connectArgs={() => [
             grouping,
             groupingChange,
@@ -122,11 +122,11 @@ export class GroupingState extends React.PureComponent {
           ]}
         />
         <Getter
-          name="visuallyGroupedColumns"
-          pureComputed={visuallyGroupedColumns}
+          name="draftGroupedColumns"
+          pureComputed={draftGroupedColumns}
           connectArgs={getter => [
             getter('columns'),
-            getter('visualGrouping'),
+            getter('draftGrouping'),
           ]}
         />
         <Getter

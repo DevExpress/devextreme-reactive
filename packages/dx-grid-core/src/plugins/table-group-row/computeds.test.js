@@ -34,11 +34,11 @@ describe('TableGroupRow Plugin computeds', () => {
     });
 
     it('should not remove column when grouping', () => {
-      const visualGrouping = [
+      const draftGrouping = [
         { columnName: 'a' },
         { columnName: 'c', isDraft: true, mode: 'add' },
       ];
-      const columns = tableColumnsWithGrouping(allColumns, [], visualGrouping, 123);
+      const columns = tableColumnsWithGrouping(allColumns, [], draftGrouping, 123);
 
       expect(columns).toHaveLength(3);
       expect(columns[0]).toBe(allColumns[1]);
@@ -50,11 +50,11 @@ describe('TableGroupRow Plugin computeds', () => {
     });
 
     it('should add a draft column when ungrouping', () => {
-      const visualGrouping = [
+      const draftGrouping = [
         { columnName: 'a' },
         { columnName: 'c', isDraft: true, mode: 'remove' },
       ];
-      const columns = tableColumnsWithGrouping(allColumns, [], visualGrouping, 123);
+      const columns = tableColumnsWithGrouping(allColumns, [], draftGrouping, 123);
 
       expect(columns).toHaveLength(3);
       expect(columns[0]).toBe(allColumns[1]);
@@ -66,11 +66,11 @@ describe('TableGroupRow Plugin computeds', () => {
     });
 
     it('should add a draft column when reordering groups', () => {
-      const visualGrouping = [
+      const draftGrouping = [
         { columnName: 'a' },
         { columnName: 'c', isDraft: true, mode: 'reorder' },
       ];
-      const columns = tableColumnsWithGrouping(allColumns, [], visualGrouping, 123);
+      const columns = tableColumnsWithGrouping(allColumns, [], draftGrouping, 123);
 
       expect(columns).toHaveLength(2);
       expect(columns[0]).toBe(allColumns[1]);

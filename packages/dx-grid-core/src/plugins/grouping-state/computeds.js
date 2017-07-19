@@ -62,7 +62,7 @@ export const expandedGroupRows = (rows, expandedGroups) => {
 export const groupedColumns = (columns, grouping) =>
   grouping.map(group => columns.find(c => c.name === group.columnName));
 
-export const visuallyGroupedColumns = (columns, grouping) =>
+export const draftGroupedColumns = (columns, grouping) =>
   grouping.map(({ columnName, isDraft }) => {
     const column = columns.find(c => c.name === columnName);
     return isDraft ? {
@@ -84,7 +84,7 @@ export const nextExpandedGroups = (prevExpandedGroups, { groupKey }) => {
   return expandedGroups;
 };
 
-export const visualGrouping = (grouping, groupingChange) => {
+export const draftGrouping = (grouping, groupingChange) => {
   if (!groupingChange) return grouping;
 
   const { columnName, groupIndex } = groupingChange;

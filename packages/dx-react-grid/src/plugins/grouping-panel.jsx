@@ -16,7 +16,7 @@ export class GroupingPanel extends React.PureComponent {
         <Template
           name="header"
           connectGetters={getter => ({
-            groupedColumns: getter('visuallyGroupedColumns'),
+            groupedColumns: getter('draftGroupedColumns'),
             sorting: getter('sorting'),
           })}
           connectActions={action => ({

@@ -28,7 +28,7 @@ In the following example, we enable the controlled mode by defining the `groupin
 
 To enable an end-user to group data by a certain column, use the `GroupPanel` and `TableHeaderRow` plugins.
 
-By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change grouping. To enable this feature, set the `allowGrouping` property to true. There is also an ability to change grouping by moving columns with drag and drop gesture between the group panel and the table header. To enable this feature it is required to set the `allowDraggingAndDropping` property of the `GroupingPanel` plugin and the `allowDragging` property of the `TableHeaderRow` plugin to true.
+By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change grouping. To enable this feature, set the `showGroupingControls` property to true. There is also an ability to change grouping by moving columns with drag and drop gesture between the group panel and the table header. To enable this feature it is required to set the `allowDraggingAndDropping` property of the `GroupingPanel` plugin and the `allowDragging` property of the `TableHeaderRow` plugin to true.
 
 You can also enable an end-user to sort data by grouped columns. Define the `allowSorting` option of the `GroupingPanel` plugin to enable this feature.
 

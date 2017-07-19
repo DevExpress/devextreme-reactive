@@ -17,7 +17,7 @@ export class TableHeaderCell extends React.PureComponent {
     const {
       style, column,
       allowSorting, sortingDirection, changeSortingDirection,
-      allowGrouping, groupByColumn,
+      showGroupingControls, groupByColumn,
       allowDragging, dragPayload,
     } = this.props;
     const { dragging } = this.state;
@@ -25,7 +25,7 @@ export class TableHeaderCell extends React.PureComponent {
     const invertedAlign = align === 'left' ? 'right' : 'left';
     const columnTitle = column.title || column.name;
 
-    const groupingControl = allowGrouping && (
+    const groupingControl = showGroupingControls && (
       <div
         onClick={(e) => {
           e.stopPropagation();
@@ -136,7 +136,7 @@ TableHeaderCell.propTypes = {
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
-  allowGrouping: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
   groupByColumn: PropTypes.func,
   allowDragging: PropTypes.bool,
   dragPayload: PropTypes.any,
@@ -147,7 +147,7 @@ TableHeaderCell.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
-  allowGrouping: false,
+  showGroupingControls: false,
   groupByColumn: undefined,
   allowDragging: false,
   dragPayload: null,

@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
           }}
         />
 
-        <TableHeaderRow allowSorting allowGrouping allowDragging />
+        <TableHeaderRow allowSorting showGroupingControls allowDragging />
         <TableFilterRow rowHeight={51} />
         <TableSelection />
         <TableGroupRow />

@@ -65,6 +65,6 @@ GroupPanelCell.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
-  allowGrouping: false,
+  showGroupingControls: false,
   groupByColumn: undefined,
 };

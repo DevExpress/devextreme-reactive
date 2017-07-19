@@ -188,7 +188,7 @@ const createGrid = () => ({ rows, columns, allowedPageSizes }) => (<Grid
 
   <TableView allowColumnReordering />
 
-  <TableHeaderRow allowSorting allowGrouping allowDragging />
+  <TableHeaderRow allowSorting showGroupingControls allowDragging />
   <PagingPanel
     allowedPageSizes={allowedPageSizes}
   />

@@ -93,7 +93,7 @@ export default class Demo extends React.PureComponent {
           allowColumnReordering
         />
 
-        <TableHeaderRow allowSorting allowGrouping allowDragging />
+        <TableHeaderRow allowSorting showGroupingControls allowDragging />
         <TableFilterRow />
         <PagingPanel
           allowedPageSizes={allowedPageSizes}

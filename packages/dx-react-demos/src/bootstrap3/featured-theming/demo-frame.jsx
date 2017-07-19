@@ -104,7 +104,6 @@ export default class DemoFrame extends React.PureComponent {
         <Frame
           style={{
             border: 'none',
-            borderRadius: '5px',
             width: '100%',
             height: `${frameHeight}px`,
             marginBottom: '20px',

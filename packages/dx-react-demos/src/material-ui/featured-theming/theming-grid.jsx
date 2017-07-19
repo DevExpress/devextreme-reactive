@@ -201,7 +201,7 @@ const createGrid = () => ({ rows, columns, allowedPageSizes }) => (<Grid
     )}
   />
   <TableGroupRow />
-  <GroupingPanel allowSorting />
+  <GroupingPanel allowSorting allowDraggingAndDropping />
 </Grid>);
 
 // eslint-disable-next-line

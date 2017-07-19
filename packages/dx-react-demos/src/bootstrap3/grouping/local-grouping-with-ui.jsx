@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
         <GroupingState defaultGrouping={[{ columnName: 'city' }]} />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow showGroupingControls allowDragging />
+        <TableHeaderRow allowDragging />
         <TableGroupRow />
         <GroupingPanel allowDraggingAndDropping />
       </Grid>

@@ -130,7 +130,7 @@ const GridContainer = ({
 
     <TableView allowColumnReordering />
 
-    <TableHeaderRow allowSorting showGroupingControls allowDragging />
+    <TableHeaderRow allowSorting allowDragging />
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail

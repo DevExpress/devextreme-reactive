@@ -51,7 +51,7 @@ export default class Demo extends React.PureComponent {
         <LocalSorting />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow allowSorting showGroupingControls />
+        <TableHeaderRow allowSorting />
         <TableGroupRow />
         <GroupingPanel allowSorting />
       </Grid>

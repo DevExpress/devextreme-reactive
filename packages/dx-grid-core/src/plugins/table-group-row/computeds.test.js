@@ -1,36 +1,7 @@
-import { tableColumnsWithGroups, tableColumnsWithoutGroups } from './computeds';
+import { tableColumnsWithGrouping } from './computeds';
 
 describe('TableGroupRow Plugin computeds', () => {
-  describe('#tableColumnsWithGroups', () => {
-    const allColumns = [
-      { name: 'a' },
-      { name: 'b' },
-    ];
-    const grouping = [
-      { columnName: 'a' },
-      { columnName: 'b' },
-    ];
-
-    it('should work', () => {
-      const columns = tableColumnsWithGroups(allColumns, grouping, 123);
-
-      expect(columns).toHaveLength(4);
-      expect(columns[0]).toMatchObject({
-        type: 'groupColumn',
-        group: { columnName: 'a' },
-        width: 123,
-      });
-      expect(columns[1]).toMatchObject({
-        type: 'groupColumn',
-        group: { columnName: 'b' },
-        width: 123,
-      });
-      expect(columns[2]).toBe(allColumns[0]);
-      expect(columns[3]).toBe(allColumns[1]);
-    });
-  });
-
-  describe('#tableColumnsWithoutGroups', () => {
+  describe('#tableColumnsWithGrouping', () => {
     const allColumns = [
       { name: 'a' },
       { name: 'b' },
@@ -43,11 +14,23 @@ describe('TableGroupRow Plugin computeds', () => {
     ];
 
     it('should work', () => {
-      const columns = tableColumnsWithoutGroups(allColumns, grouping);
+      const columns = tableColumnsWithGrouping(allColumns, grouping, [], 123);
 
-      expect(columns).toHaveLength(2);
-      expect(columns[0]).toBe(allColumns[1]);
-      expect(columns[1]).toBe(allColumns[3]);
+      expect(columns).toHaveLength(6);
+      expect(columns[0]).toMatchObject({
+        type: 'groupColumn',
+        group: { columnName: 'a' },
+        width: 123,
+      });
+      expect(columns[1]).toMatchObject({
+        type: 'groupColumn',
+        group: { columnName: 'c' },
+        width: 123,
+      });
+      expect(columns[2]).toBe(allColumns[0]);
+      expect(columns[3]).toBe(allColumns[1]);
+      expect(columns[4]).toBe(allColumns[2]);
+      expect(columns[5]).toBe(allColumns[3]);
     });
 
     it('should not remove column when grouping', () => {
@@ -55,7 +38,7 @@ describe('TableGroupRow Plugin computeds', () => {
         { columnName: 'a' },
         { columnName: 'c', isDraft: true, mode: 'add' },
       ];
-      const columns = tableColumnsWithoutGroups(allColumns, visualGrouping);
+      const columns = tableColumnsWithGrouping(allColumns, [], visualGrouping, 123);
 
       expect(columns).toHaveLength(3);
       expect(columns[0]).toBe(allColumns[1]);
@@ -71,7 +54,7 @@ describe('TableGroupRow Plugin computeds', () => {
         { columnName: 'a' },
         { columnName: 'c', isDraft: true, mode: 'remove' },
       ];
-      const columns = tableColumnsWithoutGroups(allColumns, visualGrouping);
+      const columns = tableColumnsWithGrouping(allColumns, [], visualGrouping, 123);
 
       expect(columns).toHaveLength(3);
       expect(columns[0]).toBe(allColumns[1]);
@@ -87,7 +70,7 @@ describe('TableGroupRow Plugin computeds', () => {
         { columnName: 'a' },
         { columnName: 'c', isDraft: true, mode: 'reorder' },
       ];
-      const columns = tableColumnsWithoutGroups(allColumns, visualGrouping);
+      const columns = tableColumnsWithGrouping(allColumns, [], visualGrouping, 123);
 
       expect(columns).toHaveLength(2);
       expect(columns[0]).toBe(allColumns[1]);

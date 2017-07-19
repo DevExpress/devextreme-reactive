@@ -104,10 +104,6 @@ export const demos = {
       bootstrap3: require('./bootstrap3/grouping/local-grouping-with-ui').default,
       'material-ui': require('./material-ui/grouping/local-grouping-with-ui').default,
     },
-    'local-grouping-by-dnd': {
-      bootstrap3: require('./bootstrap3/grouping/local-grouping-by-dnd').default,
-      'material-ui': require('./material-ui/grouping/local-grouping-by-dnd').default,
-    },
     'local-grouping-controlled': {
       bootstrap3: require('./bootstrap3/grouping/local-grouping-controlled').default,
       'material-ui': require('./material-ui/grouping/local-grouping-controlled').default,

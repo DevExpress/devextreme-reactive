@@ -23,7 +23,7 @@ export class GroupingPanel extends React.PureComponent {
             groupByColumn: action('groupByColumn'),
             changeSortingDirection: ({ columnName, keepOther, cancel }) =>
               action('setColumnSorting')({ columnName, keepOther, cancel }),
-            startGroupingChange: groupingChange => action('startGroupingChange')(groupingChange),
+            draftGroupingChange: groupingChange => action('draftGroupingChange')(groupingChange),
             cancelGroupingChange: () => action('cancelGroupingChange')(),
           })}
         >

@@ -1,90 +1,71 @@
-/* globals window:true */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BOUNDARY = 1;
-const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
+import { TouchStrategy } from './draggable/touch-strategy';
+import { MouseStrategy } from './draggable/mouse-strategy';
+import { getSharedEventEmitter, touchEventsSupported } from './draggable/shared-events';
 
 export class Draggable extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.initialOffset = null;
-    this.offset = null;
-
-    this.isBoundExceeded = ({ x, y }) =>
-      clamp(x, this.initialOffset.x - BOUNDARY, this.initialOffset.x + BOUNDARY) !== x ||
-      clamp(y, this.initialOffset.y - BOUNDARY, this.initialOffset.y + BOUNDARY) !== y;
-    this.onStart = ({ x, y }) => {
-      this.initialOffset = { x, y };
-      this.installListeners();
-    };
-    this.onMove = ({ x, y, prevent }) => {
-      if (this.initialOffset && this.isBoundExceeded({ x, y })) {
-        prevent();
-        if (window.getSelection) {
-          window.getSelection().removeAllRanges();
-        }
-        const offset = { x, y };
-        if (!this.offset) {
-          this.props.onStart(this.initialOffset);
-        } else {
-          this.props.onUpdate(offset);
-        }
-        this.offset = offset;
-      }
-    };
-    this.onEnd = ({ x, y, prevent }) => {
-      if (this.offset) {
-        prevent();
+    const delegate = {
+      onStart: ({ x, y }) => {
+        this.props.onStart({ x, y });
+      },
+      onMove: ({ x, y }) => {
+        this.props.onUpdate({ x, y });
+      },
+      onEnd: ({ x, y }) => {
         this.props.onEnd({ x, y });
-      }
-      this.initialOffset = null;
-      this.offset = null;
-      this.removeListeners();
+      },
     };
 
-    this.listeners = [
-      ['mousemove', (e) => {
-        const { clientX, clientY } = e;
-        this.onMove({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
-      }],
-      ['mouseup', (e) => {
-        const { clientX, clientY } = e;
-        this.onEnd({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
-      }],
-      ['touchmove', (e) => {
-        const { clientX, clientY } = e.touches[0];
-        this.onMove({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
-      }, { passive: false }],
-      ['touchend', (e) => {
-        const { clientX, clientY } = e.changedTouches[0];
-        this.onEnd({ x: clientX, y: clientY, prevent: () => e.preventDefault() });
-      }],
-    ];
+    this.mouseStrategy = new MouseStrategy(delegate);
+    this.touchStrategy = new TouchStrategy(delegate);
+
+    this.listener = this.listener.bind(this);
+  }
+  componentDidMount() {
+    getSharedEventEmitter().subscribe(this.listener);
   }
   shouldComponentUpdate(nextProps) {
     return nextProps.children !== this.props.children;
   }
-  installListeners() {
-    this.listeners.forEach(args => window.addEventListener(...args));
+  componentWillUnmount() {
+    getSharedEventEmitter().unsubscribe(this.listener);
   }
-  removeListeners() {
-    this.listeners.forEach(args => window.removeEventListener(...args));
+  listener([name, e]) {
+    switch (name) {
+      case 'mousemove':
+        this.mouseStrategy.move(e);
+        break;
+      case 'mouseup':
+        this.mouseStrategy.end(e);
+        break;
+      case 'touchmove': {
+        this.touchStrategy.move(e);
+        break;
+      }
+      case 'touchend':
+      case 'touchcancel': {
+        this.touchStrategy.end(e);
+        break;
+      }
+      default:
+        break;
+    }
   }
   render() {
     return React.cloneElement(
       React.Children.only(this.props.children),
       {
         onMouseDown: (e) => {
-          const { clientX, clientY, currentTarget } = e;
-          this.onStart({ target: currentTarget, x: clientX, y: clientY });
+          if (touchEventsSupported()) return;
+          this.mouseStrategy.start(e);
         },
         onTouchStart: (e) => {
-          const { currentTarget } = e;
-          const { clientX, clientY } = e.touches[0];
-          this.onStart({ target: currentTarget, x: clientX, y: clientY });
+          this.touchStrategy.start(e);
         },
       },
     );

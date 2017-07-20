@@ -97,6 +97,8 @@ export class TableLayout extends React.PureComponent {
         targetColumnIndex: -1,
       });
 
+      if (sourceColumnIndex === -1) return;
+
       this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
         tableColumnKeyGetter(this.props.columns[sourceColumnIndex]), this.animations);
       this.processAnimationFrame();

@@ -34,11 +34,11 @@ const App = () => (
 );
 ```
 
-Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. For the React-Bootstrap configuration details, check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article.
+Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article for the React-Bootstrap configuration details. 
 
 ## Getting started
 
-This package provides templates implementing Bootstrap 3 rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the original React Grid repository ones.
+This package provides templates implementing Bootstrap 3 rendering for the React Grid UI plugins with and without injected templates. You can use these templates instead of the original React Grid repository ones.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 

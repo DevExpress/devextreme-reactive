@@ -5,9 +5,7 @@ const isOnTheSameLine = (geometry, y) => y >= geometry.top && y <= geometry.bott
 export const getGroupCellTargetIndex = (geometries, sourceIndex, { x, y }) => {
   if (geometries.length === 0) return 0;
 
-  const targetGeometries = sourceIndex !== -1
-    ? getTargetColumnGeometries(geometries, sourceIndex)
-    : geometries;
+  const targetGeometries = getTargetColumnGeometries(geometries, sourceIndex);
 
   const targetIndex = targetGeometries.findIndex((geometry, index) => {
     const inVerticalBounds = isOnTheSameLine(geometry, y);

@@ -22,27 +22,25 @@ export class GroupPanelLayout extends React.PureComponent {
 
     this.state = {
       sourceColumnName: null,
-      sourceColumnIndex: -1,
       targetColumnIndex: -1,
     };
 
     this.onEnter = ({ payload }) => {
-      const { groupedColumns } = this.props;
+      const { draftGroupingChange } = this.props;
       const sourceColumnName = payload[0].columnName;
-      const sourceColumnIndex = groupedColumns.findIndex(
-        column => column.name === sourceColumnName);
       this.setState({
         sourceColumnName,
-        sourceColumnIndex,
+      });
+      draftGroupingChange({
+        columnName: sourceColumnName,
       });
     };
     this.onOver = ({ clientOffset }) => {
-      const { draftGroupingChange } = this.props;
-      const {
-        sourceColumnName, sourceColumnIndex,
-        targetColumnIndex: prevTargetColumnIndex,
-      } = this.state;
+      const { draftGroupingChange, groupedColumns } = this.props;
+      const { sourceColumnName, targetColumnIndex: prevTargetColumnIndex } = this.state;
       const itemGeometries = this.itemRefs.map(element => element.getBoundingClientRect());
+      const sourceColumnIndex = groupedColumns.findIndex(
+        column => column.name === sourceColumnName);
       const targetColumnIndex = getGroupCellTargetIndex(
         itemGeometries, sourceColumnIndex, clientOffset);
 
@@ -139,7 +137,6 @@ export class GroupPanelLayout extends React.PureComponent {
     cancelGroupingChange();
     this.setState({
       sourceColumnName: null,
-      sourceColumnIndex: -1,
       targetColumnIndex: -1,
     });
   }

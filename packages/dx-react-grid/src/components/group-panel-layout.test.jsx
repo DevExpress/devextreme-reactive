@@ -174,8 +174,6 @@ describe('GroupPanelLayout', () => {
       });
 
       expect(draftGroupingChange)
-        .toHaveBeenCalledTimes(1);
-      expect(draftGroupingChange)
         .toHaveBeenCalledWith({
           columnName: column.name,
           groupIndex: 0,
@@ -209,8 +207,6 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 60 },
       });
 
-      expect(draftGroupingChange)
-        .toHaveBeenCalledTimes(1);
       expect(draftGroupingChange)
         .toHaveBeenCalledWith({
           columnName: column.name,

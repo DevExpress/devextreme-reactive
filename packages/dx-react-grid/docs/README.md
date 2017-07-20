@@ -37,7 +37,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-material-ui
   ```
 
-  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and configured. Check the [following link](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) if you have not configured the Material UI yet.
+  Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and configured. For the Material UI configuration details, check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article.
 
 ### Polyfills
 

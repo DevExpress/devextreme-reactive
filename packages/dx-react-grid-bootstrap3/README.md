@@ -34,7 +34,7 @@ const App = () => (
 );
 ```
 
-Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. Check the [following link](https://react-bootstrap.github.io/getting-started.html) if you have not configured the React-Bootstrap yet.
+Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. For the React-Bootstrap configuration details, check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article.
 
 ## Getting started
 

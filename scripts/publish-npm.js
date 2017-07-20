@@ -6,12 +6,24 @@ const { valid, lt, inc, prerelease } = require('semver');
 const conventionalRecommendedBump = require('conventional-recommended-bump');
 const CONVENTIONAL_CHANGELOG_PRESET = 'angular';
 
+console.log();
 console.log('====================');
 console.log(`| Publishing npm packages`);
 console.log('====================');
+console.log();
+
+console.log('Fetching the latest changes from upstream...');
+const startingGitRevision = execSync('git rev-parse HEAD', { stdio: 'pipe' }).toString();
+execSync('git checkout master', { stdio: 'ignore' });
+execSync('git fetch upstream master', { stdio: 'ignore' });
+execSync('git merge --ff-only', { stdio: 'ignore' });
+const currentGitRevision = execSync('git rev-parse HEAD', { stdio: 'pipe' }).toString();
+if (startingGitRevision !== currentGitRevision) {
+  console.log('Repo updated. Please, rerun script.');
+  return;
+}
 
 const currentVersion = require('../lerna.json').version;
-
 new Promise((resolve) => {
   conventionalRecommendedBump({
     preset: CONVENTIONAL_CHANGELOG_PRESET
@@ -36,16 +48,11 @@ new Promise((resolve) => {
     }
   })
   .then(({ version }) => {
-    console.log('Fetching the latest changes from upstream...');
-    execSync('git checkout master', { stdio: 'ignore' });
-    execSync('git fetch upstream master', { stdio: 'ignore' });
-    execSync('git merge --ff-only', { stdio: 'ignore' });
-
     console.log('Cleaning previous build result...');
     execSync(`"./node_modules/.bin/lerna" exec -- node "../../scripts/rm-dist.js"`, { stdio: 'ignore' });
 
-    console.log('Installing dependencies...');
-    execSync('npm install', { stdio: 'ignore' });
+    console.log('Updating versions...');
+    execSync(`"./node_modules/.bin/lerna" publish --exact --repo-version ${version} --yes --skip-git --skip-npm`, { stdio: 'ignore' });
 
     console.log('Building...');
     execSync('npm run build', { stdio: 'ignore' });
@@ -78,7 +85,7 @@ new Promise((resolve) => {
       execSync('npm login', { stdio: 'inherit' });
 
       console.log('Publishing npm...');
-      execSync(`"./node_modules/.bin/lerna" publish --exact --force-publish * --repo-version ${version} --yes --skip-git`, { stdio: 'ignore' });
+      execSync(`"./node_modules/.bin/lerna" publish --exact --repo-version ${version} --yes --skip-git --force-publish *`, { stdio: 'ignore' });
 
       console.log('Logout from npm...');
       execSync('npm logout', { stdio: 'ignore' });
@@ -92,10 +99,14 @@ new Promise((resolve) => {
       execSync(`git push origin ${branchName}`, { stdio: 'ignore' });
       execSync(`git checkout master`, { stdio: 'ignore' });
 
+      console.log();
       console.log('--------------------');
+      console.log('Done!');
+      console.log();
       console.log(`You have to pull request changes from branch ${branchName}!`);
       console.log(`Don\'t forget to create a release on GitHub!`);
       console.log('--------------------');
+      console.log();
 
       prompt({
         message: 'It is a good point to publish site. Proceed?',

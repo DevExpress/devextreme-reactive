@@ -34,7 +34,7 @@
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test",
-    "publish:npm": "node ./scripts/publish-npm.js",
-    "publish:site": "node ./scripts/publish-site.js"
+    "publish:npm": "npm install && node ./scripts/publish-npm.js",
+    "publish:site": "npm install && node ./scripts/publish-site.js"
   }
 }

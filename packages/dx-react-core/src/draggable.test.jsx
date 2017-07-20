@@ -29,7 +29,7 @@ describe('Draggable', () => {
   });
 
   describe('mouse', () => {
-    it('should fire the "onStart" callback on first mousemove', () => {
+    it('should fire the "onStart" callback on first mousemove that cross bound', () => {
       const onStart = jest.fn();
 
       tree = mount(
@@ -43,7 +43,7 @@ describe('Draggable', () => {
 
       const draggable = tree.find('div');
       draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
-      dispatchEvent('mousemove', { clientX: 20, clientY: 20 });
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
 
       expect(onStart.mock.calls)
         .toHaveLength(1);
@@ -66,7 +66,7 @@ describe('Draggable', () => {
       const draggable = tree.find('div');
       draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
 
-      const event = dispatchEvent('mousemove', { clientX: 20, clientY: 20 });
+      const event = dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
 
       expect(event.defaultPrevented)
         .toBeTruthy();
@@ -86,13 +86,15 @@ describe('Draggable', () => {
 
       const draggable = tree.find('div');
       draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
-      dispatchEvent('mousemove', { clientX: 20, clientY: 20 });
       dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+      dispatchEvent('mousemove', { clientX: 40, clientY: 40 });
 
       expect(onUpdate.mock.calls)
-        .toHaveLength(1);
+        .toHaveLength(2);
       expect(onUpdate.mock.calls[0][0])
         .toEqual({ x: 30, y: 30 });
+      expect(onUpdate.mock.calls[1][0])
+        .toEqual({ x: 40, y: 40 });
     });
 
     it('should fire the "onEnd" callback on mouseup', () => {
@@ -109,18 +111,20 @@ describe('Draggable', () => {
 
       const draggable = tree.find('div');
       draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
-      dispatchEvent('mousemove', { clientX: 20, clientY: 20 });
-      dispatchEvent('mouseup', { clientX: 20, clientY: 20 });
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+      dispatchEvent('mouseup', { clientX: 30, clientY: 30 });
 
       expect(onEnd.mock.calls)
         .toHaveLength(1);
       expect(onEnd.mock.calls[0][0])
-        .toEqual({ x: 20, y: 20 });
+        .toEqual({ x: 30, y: 30 });
     });
   });
 
   describe('touch', () => {
-    it('should fire the "onStart" callback on first touchmove', () => {
+    jest.useFakeTimers();
+
+    it('should fire the "onStart" callback on after timeout', () => {
       const onStart = jest.fn();
 
       tree = mount(
@@ -134,7 +138,7 @@ describe('Draggable', () => {
 
       const draggable = tree.find('div');
       draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
-      dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
+      jest.runAllTimers();
 
       expect(onStart.mock.calls)
         .toHaveLength(1);
@@ -156,7 +160,7 @@ describe('Draggable', () => {
 
       const draggable = tree.find('div');
       draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
-
+      jest.runAllTimers();
       const event = dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
 
       expect(event.defaultPrevented)
@@ -177,13 +181,13 @@ describe('Draggable', () => {
 
       const draggable = tree.find('div');
       draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
+      jest.runAllTimers();
       dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
-      dispatchEvent('touchmove', { touches: [{ clientX: 30, clientY: 30 }] });
 
       expect(onUpdate.mock.calls)
         .toHaveLength(1);
       expect(onUpdate.mock.calls[0][0])
-        .toEqual({ x: 30, y: 30 });
+        .toEqual({ x: 20, y: 20 });
     });
 
     it('should fire the "onEnd" callback on touchend', () => {
@@ -200,6 +204,7 @@ describe('Draggable', () => {
 
       const draggable = tree.find('div');
       draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
+      jest.runAllTimers();
       dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
       dispatchEvent('touchend', { changedTouches: [{ clientX: 20, clientY: 20 }] });
 

@@ -31,7 +31,7 @@ Field | Type | Description
 ------|------|------------
 columnName | string | Specifies a column name to group by
 
-### <a name="draft-grouping">### draftGrouping
+### <a name="draft-grouping"></a>DraftGrouping
 
 Describes applied grouping
 
@@ -71,3 +71,5 @@ groupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used f
 draftGroupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for `draftGrouping`
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column name or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state
+draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the value passed
+cancelGroupingChange | Action | () => void | Resets the groupingChange state

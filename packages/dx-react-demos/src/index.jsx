@@ -16,32 +16,44 @@ import {
 import { DemoViewer } from './demo-viewer/demo-viewer';
 import { SectionsViewer } from './demo-viewer/sections-viewer';
 
-const App = ({ router, path }) => {
-  const Router = router === 'hash' ? HashRouter : MemoryRouter;
+class App extends React.Component {
+  getChildContext() {
+    const { scriptPath } = this.props;
+    return { embeddedDemoOptions: { scriptPath } };
+  }
+  render() {
+    const { router, path } = this.props;
+    const Router = router === 'hash' ? HashRouter : MemoryRouter;
 
-  return (
-    <Router
-      initialEntries={path ? [path] : undefined}
-    >
-      <Switch>
-        <Route path="/demo/:section/:demo" component={DemoViewer} />
-        <Route path="/section" component={SectionsViewer} />
-        <Redirect from="/" to="/section" />
-      </Switch>
-    </Router>
-  );
+    return (
+      <Router
+        initialEntries={path ? [path] : undefined}
+      >
+        <Switch>
+          <Route path="/demo/:section/:demo" component={DemoViewer} />
+          <Route path="/section" component={SectionsViewer} />
+          <Redirect from="/" to="/section" />
+        </Switch>
+      </Router>
+    );
+  }
+}
+
+App.childContextTypes = {
+  embeddedDemoOptions: PropTypes.object,
 };
 
 App.propTypes = {
   router: PropTypes.string,
   path: PropTypes.string,
+  scriptPath: PropTypes.string,
 };
 
 App.defaultProps = {
   router: 'memory',
   path: undefined,
+  scriptPath: '/dist/index.js',
 };
-
 
 const embeddedDemoPlaceholders = document.getElementsByClassName('embedded-demo');
 const embeddedDemoConfigs = [...embeddedDemoPlaceholders]

@@ -11,6 +11,7 @@ export const SectionViewerBase = ({ match: { params: { section } } }) => (
     {({ theme }) => (
       <div>
         {Object.keys(demos[section])
+          .filter(demo => !demo.startsWith('_'))
           .map(demo => (
             <div key={demo}>
               <h4>{demo}</h4>

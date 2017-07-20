@@ -5,7 +5,7 @@ import { getColumnSortingDirection, tableRowsWithHeading } from '@devexpress/dx-
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
-    const { allowSorting, showGroupingControls, allowDragging, headerCellTemplate } = this.props;
+    const { allowSorting, allowGroupingByClick, allowDragging, headerCellTemplate } = this.props;
 
     return (
       <PluginContainer>
@@ -52,7 +52,7 @@ export class TableHeaderRow extends React.PureComponent {
           }) => headerCellTemplate({
             ...restParams,
             allowSorting: allowSorting && sortingSupported,
-            showGroupingControls: showGroupingControls && groupingSupported,
+            allowGroupingByClick: allowGroupingByClick && groupingSupported,
             allowDragging: allowDragging && draggingSupported,
             dragPayload: [{ type: 'column', columnName: restParams.column.name }],
           })}
@@ -64,13 +64,13 @@ export class TableHeaderRow extends React.PureComponent {
 
 TableHeaderRow.propTypes = {
   allowSorting: PropTypes.bool,
-  showGroupingControls: PropTypes.bool,
+  allowGroupingByClick: PropTypes.bool,
   allowDragging: PropTypes.bool,
   headerCellTemplate: PropTypes.func.isRequired,
 };
 
 TableHeaderRow.defaultProps = {
   allowSorting: false,
-  showGroupingControls: false,
+  allowGroupingByClick: false,
   allowDragging: false,
 };

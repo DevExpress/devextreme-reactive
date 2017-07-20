@@ -38,7 +38,7 @@ Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dep
 
 ## Getting started
 
-This package provides templates implementing Material UI rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the original React Grid repository ones.
+This package provides templates implementing Material UI rendering for the React Grid UI plugins with and without injected templates. You can use these templates instead of the original React Grid repository ones.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 
@@ -46,11 +46,11 @@ See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) 
 
 The package exposes components and plugins with injected templates.
 
-The list of components:
+Components:
 
 - [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/)
 
-The list of plugins:
+Plugins:
 
 - [TableView](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-view/)
 - [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)

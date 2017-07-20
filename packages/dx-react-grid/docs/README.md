@@ -9,7 +9,7 @@
 
 ## Overview
 
-DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out-of-the-box.
+DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out of the box.
 
 ## Getting Started
 
@@ -146,7 +146,7 @@ It is required to specify a visual component for this type of plugins (not inclu
 
 ## <a name="controlled-and-uncontrolled-modes"></a>Controlled (stateless) and Uncontrolled (stateful) modes
 
-You may need to control the Grid state or delegate state management to a component, for instance, you need to switch the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restore it withing the next app usage session. In this case, the Grid accepts the sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
+You may need to control the Grid state or delegate state management to a component, for instance, when switching the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restoring it within the next app usage session. In this case, the Grid accepts the sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
 
 In your code, it looks as follows:
 
@@ -196,7 +196,7 @@ Specify the default sorting configuration as follows:
 </Grid>
 ```
 
-You can configure the Grid as follows when you need to control its state partially, for example, to manage filters without managing sorting and grouping:
+You can configure the Grid when you need to control its state partially, for example, to manage filters without managing sorting and grouping:
 
 ```js
 <Grid rows={[/* ... */]} columns={[/* ... */]}>

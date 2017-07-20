@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DevExtreme React Grid component has a composable and extendable plugin-based architecture that allows you to display table data with a set of different transformations, such as paging, sorting, filtering, grouping, etc. It also allows row selection and data editing, supports the controlled and uncontrolled state modes and can be used in either a regular or a Redux-based application. It comes with Twitter Bootstrap rendering and theming out-of-the-box.
+The DevExtreme React Grid component has a composable and extendable plugin-based architecture that allows you to display table data with a set of different transformations, such as paging, sorting, filtering, grouping, etc. It also allows row selection and data editing, supports the controlled and uncontrolled state modes, and can be used in either a regular or a Redux-based application. It comes with Twitter Bootstrap rendering and theming out-of-the-box.
 
 ## Installation
 
@@ -21,7 +21,7 @@ This package does not contain visual components. In the examples below, the DevE
   ```
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
-  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. For the React-Bootstrap configuration details, check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article.
+  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article For configuration details.
 
 - Material UI
 

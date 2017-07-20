@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DevExtreme React Grid component has a composable and extendable plugin-based architecture that allows you to display table data with a set of different transformations, such as paging, sorting, filtering, grouping, etc. It also allows row selection and data editing, supports the controlled and uncontrolled state modes, and can be used in either a regular or a Redux-based application. It comes with Twitter Bootstrap rendering and theming out-of-the-box.
+The DevExtreme React Grid component has a composable and extendable plugin-based architecture that allows you to display table data with a set of different transformations, such as paging, sorting, filtering, grouping, etc. It also allows row selection and data editing, supports the controlled and uncontrolled state modes, and can be used in either a regular or a Redux-based application. It comes with Twitter Bootstrap rendering and theming out of the box.
 
 ## Installation
 

@@ -1,5 +1,7 @@
-# React Grid Material UI Theming
+# React Grid Theming
 
-This demo illustrates the grid&apos;s Light and Dark <a href="https://material-ui-1dab0.firebaseapp.com/customization/themes">Material UI theme</a> appearance. The <a href="https://material-ui-1dab0.firebaseapp.com/component-api/mui-theme-provider">MuiThemeProvider&apos;s</a> &quot;theme&quot; property component specifies the current theme. See the <a href="https://github.com/DevExpress/devextreme-reactive/blob/master/packages/dx-react-demos/src/material-ui/featured-theming/theming.jsx">source code</a> for more details.
+This demo illustrates the Grid&apos;s theming capabilities. You can view the Grid with [Bootswatch](https://bootswatch.com) and [Material UI](https://material-ui-1dab0.firebaseapp.com/customization/themes) themes applied.
+
+Use a Bootstrap 3 or Material UI template to apply a Bootstrap compatible or Material UI theme respectively.
 
 .embedded-demo(featured-theming/demo)

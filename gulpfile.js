@@ -67,7 +67,7 @@ var injectLiveDemos = function(content) {
   return content
     .replace(
       /\.embedded\-demo\(([^\(\)]*)\)/g,
-      `<div class="embedded-demo" data-options='{ "path": "/demo/$1" }'>
+      `<div class="embedded-demo" data-options='{ "path": "/demo/$1", "scriptPath": "/devextreme-reactive/react/grid/demos/dist/index.js?v=${new Date().getTime()}" }'>
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
         </div>

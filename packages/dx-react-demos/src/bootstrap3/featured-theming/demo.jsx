@@ -9,17 +9,8 @@ import {
   Grid,
   TableView, TableHeaderRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
-} from '@devexpress/dx-react-grid-material-ui';
-import {
-  AppBar, Paper, Typography, IconButton,
-  List, ListItem, ListItemText, ListItemSecondaryAction,
-  Tabs, Tab, Divider,
-} from 'material-ui';
-import DoneIcon from 'material-ui-icons/Done';
-import PauseIcon from 'material-ui-icons/PauseCircleOutline';
-import LoopIcon from 'material-ui-icons/Loop';
-import HelpIcon from 'material-ui-icons/HelpOutline';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+} from '@devexpress/dx-react-grid-bootstrap3';
+import { Nav, NavItem, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 import {
   generateRows,
@@ -27,25 +18,13 @@ import {
   employeeTaskValues,
 } from '../../demo-data/generator';
 
-const styleSheet = createStyleSheet('ThemingDemo', theme => ({
-  root: {
-    flexGrow: 1,
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-  },
-  title: {
-    marginBottom: theme.spacing.unit * 2,
-    marginLeft: 0,
-  },
-}));
 
 const TaskIcon = ({ status }) => {
   switch (status) {
-    case 'Deferred': return <PauseIcon />;
-    case 'In Progress': return <LoopIcon />;
-    case 'Need Assistance': return <HelpIcon />;
-    default: return <DoneIcon />;
+    case 'Deferred': return <i className="glyphicon glyphicon-time" />;
+    case 'In Progress': return <i className="glyphicon glyphicon-cog" />;
+    case 'Need Assistance': return <i className="glyphicon glyphicon-earphone" />;
+    default: return <i className="glyphicon glyphicon-ok" />;
   }
 };
 
@@ -53,37 +32,28 @@ TaskIcon.propTypes = {
   status: PropTypes.string.isRequired,
 };
 
-const TabContainer = ({ rows }) => {
-  const lastItemIndex = rows.length - 1;
-
-  return (
-    <List style={{ height: 180 }}>
-      {rows.map((item, index) => {
-        const key = index;
-        const status = item.status;
-        return (
-          <div key={key}>
-            <ListItem dense>
-              <ListItemText primary={item.subject} />
-              <ListItemSecondaryAction>
-                <IconButton aria-label={status}>
-                  <TaskIcon status={status} />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-            {index < lastItemIndex && <Divider />}
-          </div>
-        );
-      })}
-    </List>
-  );
-};
+const TabContainer = ({ rows }) => (
+  <ListGroup>
+    {rows.map((item, index) => {
+      const key = index;
+      const status = item.status;
+      return (
+        <ListGroupItem key={key}>
+          <span style={{ float: 'right' }}>
+            <TaskIcon status={status} />
+          </span>
+          {item.subject}
+        </ListGroupItem>
+      );
+    })}
+  </ListGroup>
+);
 
 TabContainer.propTypes = {
   rows: PropTypes.array.isRequired,
 };
 
-class GridDetailContainerBase extends React.PureComponent {
+class GridDetailContainer extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -113,40 +83,45 @@ class GridDetailContainerBase extends React.PureComponent {
   }
   render() {
     const { lowPriorityTasks, normalPriorityTasks, highPriorityTasks, index } = this.state;
-    const { data, classes } = this.props;
+    const { data } = this.props;
 
     return (
-      <div className={classes.root}>
-        <Typography type="title" component="h5" className={classes.title}>
+      <div
+        style={{ margin: '20px' }}
+      >
+        <h4
+          style={{ marginBottom: '20px' }}
+        >
           {data.firstName} {data.lastName}&apos;s Tasks by Priority:
-        </Typography>
-        <Paper>
-          <AppBar position="static" color="inherit">
-            <Tabs
-              index={index}
-              onChange={this.handleChange}
-              fullWidth
-            >
-              <Tab label={`Low (${lowPriorityTasks.length})`} disabled={!lowPriorityTasks.length} />
-              <Tab label={`Normal (${normalPriorityTasks.length})`} disabled={!normalPriorityTasks.length} />
-              <Tab label={`High (${highPriorityTasks.length})`} disabled={!highPriorityTasks.length} />
-            </Tabs>
-          </AppBar>
-          {index === 0 && <TabContainer rows={lowPriorityTasks} />}
-          {index === 1 && <TabContainer rows={normalPriorityTasks} />}
-          {index === 2 && <TabContainer rows={highPriorityTasks} />}
-        </Paper>
+        </h4>
+
+        <Nav
+          bsStyle="pills"
+          activeKey={index}
+          onSelect={newIndex => this.setState({ index: newIndex })}
+          style={{ marginBottom: '20px' }}
+        >
+          <NavItem eventKey={0} title="Low" disabled={!lowPriorityTasks.length}>
+            {`Low (${lowPriorityTasks.length})`}
+          </NavItem>
+          <NavItem eventKey={1} title="Normal" disabled={!normalPriorityTasks.length}>
+            {`Normal (${normalPriorityTasks.length})`}
+          </NavItem>
+          <NavItem eventKey={2} title="High" disabled={!highPriorityTasks.length}>
+            {`High (${highPriorityTasks.length})`}
+          </NavItem>
+        </Nav>
+        {index === 0 && <TabContainer rows={lowPriorityTasks} />}
+        {index === 1 && <TabContainer rows={normalPriorityTasks} />}
+        {index === 2 && <TabContainer rows={highPriorityTasks} />}
       </div>
     );
   }
 }
 
-GridDetailContainerBase.propTypes = {
+GridDetailContainer.propTypes = {
   data: PropTypes.shape().isRequired,
-  classes: PropTypes.object.isRequired,
 };
-
-const GridDetailContainer = withStyles(styleSheet)(GridDetailContainerBase);
 
 // eslint-disable-next-line
 export default class Demo extends React.PureComponent {

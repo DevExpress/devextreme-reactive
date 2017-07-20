@@ -78,6 +78,11 @@ export const demos = {
   },
   'featured-theming': {
     demo: {
+      bootstrap3: require('./bootstrap3/featured-theming/demo-frame').default,
+      'material-ui': require('./material-ui/featured-theming/demo-frame').default,
+    },
+    '_embedded-demo': {
+      bootstrap3: require('./bootstrap3/featured-theming/demo').default,
       'material-ui': require('./material-ui/featured-theming/demo').default,
     },
   },

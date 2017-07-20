@@ -45,6 +45,7 @@
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
+    "react-frame-component": "^1.1.1",
     "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",

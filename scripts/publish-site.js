@@ -11,6 +11,7 @@ const BRANCH = 'gh-pages';
 const COMMIT_MESSAGE = 'chore: update site';
 
 
+console.log();
 console.log('====================');
 console.log(`| Publishing site to ${REPO}@${BRANCH}`);
 console.log('| Assume that repo is clean and up to date')
@@ -40,5 +41,12 @@ publish(GENERATED_SITE_DIRECTORY, {
     console.log(String(err));
     return;
   }
-  console.log(`Published!`);
+
+  console.log();
+  console.log('--------------------');
+  console.log('Done!');
+  console.log();
+  console.log(`You have to check that everething is good at https://devexpress.github.io/devextreme-reactive/`);
+  console.log('--------------------');
+  console.log();
 });

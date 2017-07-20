@@ -14,19 +14,27 @@ Add the required modules to your project:
 
 ```js
 import {
-  Grid, TableView
+  Grid, TableView, TableHeaderRow
 } from '@devexpress/dx-react-grid-bootstrap3';
 
-export const App = () => (
+const App = () => (
   <Grid
-    rows={[{ id: 0, ... }, ...]}
-    columns={[{ name: 'id', ... }, ...]}>
+    rows={[
+      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+    ]}
+    columns={[
+      { name: 'id', title: 'ID' },
+      { name: 'product', title: 'Product' },
+      { name: 'owner', title: 'Owner' },
+    ]}>
     <TableView />
+    <TableHeaderRow />
   </Grid>
 );
 ```
 
-Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured Bootstrap yet.
+Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. Check the [following link](https://react-bootstrap.github.io/getting-started.html) if you have not configured the React-Bootstrap yet.
 
 ## Getting started
 

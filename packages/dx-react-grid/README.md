@@ -22,7 +22,7 @@ This package does not contain visual components. In the examples below, the DevE
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
 
-  Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured Bootstrap yet.
+  Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. Check the [following link](https://react-bootstrap.github.io/getting-started.html) if you have not configured the React-Bootstrap yet.
 
 - Material UI
 
@@ -40,14 +40,22 @@ You can use the TableView plugin to display data as a simple table:
 
 ```js
 import {
-  Grid, TableView
+  Grid, TableView, TableHeaderRow
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid
-    rows={[{ id: 0, ... }, ...]}
-    columns={[{ name: 'id', ... }, ...]}>
+    rows={[
+      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+    ]}
+    columns={[
+      { name: 'id', title: 'ID' },
+      { name: 'product', title: 'Product' },
+      { name: 'owner', title: 'Owner' },
+    ]}>
     <TableView />
+    <TableHeaderRow />
   </Grid>
 );
 ```

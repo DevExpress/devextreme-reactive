@@ -29,7 +29,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
 
-  Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured Bootstrap yet.
+   Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. Check the [following link](https://react-bootstrap.github.io/getting-started.html) if you have not configured the React-Bootstrap yet.
 
 - Material UI
 
@@ -55,14 +55,22 @@ Use the TableView plugin to display the data as a simple table:
 
 ```js
 import {
-  Grid, TableView
+  Grid, TableView, TableHeaderRow
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid
-    rows={[{ id: 0, ... }, ...]}
-    columns={[{ name: 'id', ... }, ...]}>
+    rows={[
+      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+    ]}
+    columns={[
+      { name: 'id', title: 'ID' },
+      { name: 'product', title: 'Product' },
+      { name: 'owner', title: 'Owner' },
+    ]}>
     <TableView />
+    <TableHeaderRow />
   </Grid>
 );
 ```
@@ -100,8 +108,8 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
-  <Grid rows={[...]} columns={[...]}>
-    <FilteringState defaultFilters={[...]}/>
+  <Grid rows={[/* ... */]} columns={[/* ... */]}>
+    <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
     <TableView/>
   </Grid>
@@ -119,11 +127,11 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
-  <Grid rows={[...]} columns={[...]}>
-    <FilteringState defaultFilters={[...]}/>
+  <Grid rows={[/* ... */]} columns={[/* ... */]}>
+    <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
     <TableView/>
-    <TableFilterRow filterCellTemplate={...}/>
+    <TableFilterRow filterCellTemplate={ /* ... */ }/>
   </Grid>
 );
 ```
@@ -148,8 +156,8 @@ export class MyApp extends React.PureComponent {
     super(props);
 
     this.state = {
-      columns: [...],
-      rows: [...],
+      columns: [/* ... */],
+      rows: [/* ... */],
       sorting: [{ columnName: 'date', direction: 'desc' }],
     };
 
@@ -161,7 +169,7 @@ export class MyApp extends React.PureComponent {
     return (
       <Grid rows={rows} columns={columns}>
         <SortingState sorting={sorting} onSortingChange={this.changeSorting} />
-        ...
+        { /* ... */ }
       </Grid>
     );
   }
@@ -173,29 +181,29 @@ export class MyApp extends React.PureComponent {
 In the uncontrolled state mode, the Grid component manages its UI state internally. It is not necessary to specify the state value and state change handler properties. You can provide Grid with the initial state value using the property with the `default` prefix, for instance, converting the previous example into the uncontrolled mode:
 
 ```js
-<Grid rows={[...]} columns={[...]}>
+<Grid rows={[/* ... */]} columns={[/* ... */]}>
   <SortingState />
-  ...
+  { /* ... */ }
 </Grid>
 ```
 
 Specify the default sorting configuration as follows:
 
 ```js
-<Grid rows={[...]} columns={[...]}>
+<Grid rows={[/* ... */]} columns={[/* ... */]}>
   <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
-  ...
+  { /* ... */ }
 </Grid>
 ```
 
 You can configure the Grid as follows when you need to control its state partially, for example, to manage filters without managing sorting and grouping:
 
 ```js
-<Grid rows={[...]} columns={[...]}>
+<Grid rows={[/* ... */]} columns={[/* ... */]}>
   <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
   <SortingState />
   <GroupingState />
-  ...
+  { /* ... */ }
 </Grid>
 ```
 

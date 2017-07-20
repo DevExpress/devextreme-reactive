@@ -14,17 +14,22 @@ Add the required modules to your project:
 
 ```js
 import {
-  Grid
-} from '@devexpress/dx-react-grid';
-import {
-  TableView
+  Grid, TableView, TableHeaderRow
 } from '@devexpress/dx-react-grid-material-ui';
 
-export const App = () => (
+const App = () => (
   <Grid
-    rows={[{ id: 0, ... }, ...]}
-    columns={[{ name: 'id', ... }, ...]}>
+    rows={[
+      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+    ]}
+    columns={[
+      { name: 'id', title: 'ID' },
+      { name: 'product', title: 'Product' },
+      { name: 'owner', title: 'Owner' },
+    ]}>
     <TableView />
+    <TableHeaderRow />
   </Grid>
 );
 ```

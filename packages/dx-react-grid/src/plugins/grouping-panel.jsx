@@ -8,7 +8,7 @@ export class GroupingPanel extends React.PureComponent {
     const {
       groupPanelTemplate,
       allowSorting,
-      allowDraggingAndDropping,
+      allowDragging,
       allowUngroupingByClick,
     } = this.props;
 
@@ -32,7 +32,7 @@ export class GroupingPanel extends React.PureComponent {
             <div>
               {groupPanelTemplate({
                 allowSorting,
-                allowDraggingAndDropping,
+                allowDragging,
                 allowUngroupingByClick,
                 ...params,
               })}
@@ -47,13 +47,13 @@ export class GroupingPanel extends React.PureComponent {
 
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
-  allowDraggingAndDropping: PropTypes.bool,
+  allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
   groupPanelTemplate: PropTypes.func.isRequired,
 };
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
-  allowDraggingAndDropping: false,
+  allowDragging: false,
   allowUngroupingByClick: false,
 };

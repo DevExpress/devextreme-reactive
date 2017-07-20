@@ -142,7 +142,7 @@ const GridContainer = ({
       )}
     />
     <TableGroupRow />
-    <GroupingPanel allowSorting allowDraggingAndDropping />
+    <GroupingPanel allowSorting allowDragging />
     <PagingPanel
       allowedPageSizes={allowedPageSizes}
     />

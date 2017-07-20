@@ -100,7 +100,7 @@ export default class Demo extends React.PureComponent {
         />
         <TableSelection />
         <TableGroupRow />
-        <GroupingPanel allowSorting allowDraggingAndDropping />
+        <GroupingPanel allowSorting allowDragging />
 
       </Grid>
     );

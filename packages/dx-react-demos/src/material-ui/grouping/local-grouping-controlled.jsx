@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
         <TableView />
         <TableHeaderRow allowDragging allowGroupingByClick />
         <TableGroupRow />
-        <GroupingPanel allowDraggingAndDropping allowUngroupingByClick />
+        <GroupingPanel allowDragging allowUngroupingByClick />
       </Grid>
     );
   }

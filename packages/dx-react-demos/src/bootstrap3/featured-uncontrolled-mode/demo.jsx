@@ -99,7 +99,7 @@ export default class Demo extends React.PureComponent {
           allowedPageSizes={allowedPageSizes}
         />
         <TableSelection />
-        <GroupingPanel allowSorting allowDraggingAndDropping />
+        <GroupingPanel allowSorting allowDragging />
         <TableGroupRow />
 
       </Grid>

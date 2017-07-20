@@ -90,7 +90,7 @@ export default class Demo extends React.PureComponent {
         <TableFilterRow rowHeight={51} />
         <TableSelection />
         <TableGroupRow />
-        <GroupingPanel allowSorting allowDraggingAndDropping />
+        <GroupingPanel allowSorting allowDragging />
 
       </Grid>
     );

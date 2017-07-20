@@ -103,7 +103,7 @@ describe('GroupPanelLayout', () => {
   });
 
   describe('drag\'n\'drop grouping', () => {
-    it('should render DropTarget if allowDraggingAndDropping property is true', () => {
+    it('should render DropTarget if allowDragging property is true', () => {
       const groupedColumns = [
         { name: 'a' },
         { name: 'b' },
@@ -116,7 +116,7 @@ describe('GroupPanelLayout', () => {
             groupedColumns={groupedColumns}
             groupPanelCellTemplate={groupPanelCellTemplate}
             panelTemplate={panelTemplate}
-            allowDraggingAndDropping
+            allowDragging
           />
         </DragDropContext>,
       );
@@ -125,7 +125,7 @@ describe('GroupPanelLayout', () => {
         .toBeTruthy();
     });
 
-    it('should render DragSource for each cell of allowDraggingAndDropping is true', () => {
+    it('should render DragSource for each cell of allowDragging is true', () => {
       const groupedColumns = [
         { name: 'a' },
         { name: 'b' },
@@ -138,7 +138,7 @@ describe('GroupPanelLayout', () => {
             groupedColumns={groupedColumns}
             groupPanelCellTemplate={groupPanelCellTemplate}
             panelTemplate={panelTemplate}
-            allowDraggingAndDropping
+            allowDragging
           />
         </DragDropContext>,
       );
@@ -158,7 +158,7 @@ describe('GroupPanelLayout', () => {
             panelTemplate={panelTemplate}
             columns={[column]}
             draftGroupingChange={draftGroupingChange}
-            allowDraggingAndDropping
+            allowDragging
           />
         </DragDropContext>,
       );
@@ -191,7 +191,7 @@ describe('GroupPanelLayout', () => {
             panelTemplate={panelTemplate}
             columns={[column]}
             draftGroupingChange={draftGroupingChange}
-            allowDraggingAndDropping
+            allowDragging
           />
         </DragDropContext>,
 
@@ -227,7 +227,7 @@ describe('GroupPanelLayout', () => {
             columns={[column]}
             groupByColumn={groupByColumn}
             cancelGroupingChange={cancelGroupingChange}
-            allowDraggingAndDropping
+            allowDragging
           />
         </DragDropContext>,
       );
@@ -268,7 +268,7 @@ describe('GroupPanelLayout', () => {
             panelTemplate={panelTemplate}
             groupByColumn={groupByColumn}
             cancelGroupingChange={cancelGroupingChange}
-            allowDraggingAndDropping
+            allowDragging
           />
         </DragDropContext>,
       );

@@ -46,11 +46,11 @@ See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) 
 
 The package exposes components and plugins with injected templates.
 
-The list of components:
+Components:
 
 - [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/)
 
-The list of plugins:
+Plugins:
 
 - [TableView](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-view/)
 - [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)

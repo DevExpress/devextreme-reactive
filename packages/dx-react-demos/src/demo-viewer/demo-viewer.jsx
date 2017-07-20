@@ -31,7 +31,7 @@ export const DemoViewer = ({
 }) => (
   <Switch>
     <Route
-      path={`${url}/clear/:theme`}
+      path={`${url}/:theme/clean`}
       render={({ match: { params: { theme: currentTheme } } }) => (
         <div>
           <DemoRenderer

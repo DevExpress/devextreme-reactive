@@ -25,7 +25,6 @@ export default class DemoFrame extends React.PureComponent {
       themes: THEMES,
       currentTheme: THEMES[0].name,
       customThemeLink: CUSTOM_THEME,
-      customThemeLinkDraft: CUSTOM_THEME,
       frameHeight: 600,
     };
 
@@ -38,7 +37,7 @@ export default class DemoFrame extends React.PureComponent {
       </head>
       <body>
       <div id="mountPoint"></div>
-      <div class="embedded-demo" data-options='{ "path": "/demo/featured-theming/_embedded-demo/clear/bootstrap3" }'>Loading...</div>
+      <div class="embedded-demo" data-options='{ "path": "/demo/featured-theming/_embedded-demo/bootstrap3/clean" }'>Loading...</div>
       <script src="${scriptPath}"></script>
       </body>
       </html>`;
@@ -56,7 +55,7 @@ export default class DemoFrame extends React.PureComponent {
     }
   }
   render() {
-    const { themes, currentTheme, customThemeLink, customThemeLinkDraft, frameHeight } = this.state;
+    const { themes, currentTheme, customThemeLink, frameHeight } = this.state;
 
     return (
       <div>
@@ -86,12 +85,14 @@ export default class DemoFrame extends React.PureComponent {
               <InputGroup>
                 <FormControl
                   type="text"
-                  value={customThemeLinkDraft}
-                  onChange={e => this.setState({ customThemeLinkDraft: e.target.value })}
+                  inputRef={node => (this.customThemeLinkNode = node)}
+                  defaultValue={customThemeLink}
                 />
                 <InputGroup.Button>
                   <Button
-                    onClick={() => this.setState({ customThemeLink: customThemeLinkDraft })}
+                    onClick={() =>
+                      this.setState({ customThemeLink: this.customThemeLinkNode.value })
+                    }
                   >
                     Apply
                   </Button>

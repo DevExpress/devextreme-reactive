@@ -5,7 +5,7 @@ import { SortingIndicator } from './parts/sorting-indicator';
 
 export const GroupPanelCell = ({
   column,
-  groupByColumn,
+  groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
 }) => (
   <div
@@ -38,16 +38,17 @@ export const GroupPanelCell = ({
       )}
     </span>
     &nbsp;
-    <i
-      className="glyphicon glyphicon-remove"
-      style={{
-        top: '0',
-        fontSize: '9px',
-        margin: '-5px',
-        padding: '5px',
-      }}
-      onClick={() => groupByColumn({ columnName: column.name })}
-    />
+    {allowUngroupingByClick && (
+      <i
+        className="glyphicon glyphicon-remove"
+        style={{
+          top: '0',
+          fontSize: '9px',
+          margin: '-5px',
+          padding: '5px',
+        }}
+        onClick={() => groupByColumn({ columnName: column.name })}
+      />)}
   </div>
 );
 
@@ -59,12 +60,13 @@ GroupPanelCell.propTypes = {
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
   groupByColumn: PropTypes.func,
+  allowUngroupingByClick: PropTypes.bool,
 };
 
 GroupPanelCell.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
-  showGroupingControls: false,
   groupByColumn: undefined,
+  allowUngroupingByClick: false,
 };

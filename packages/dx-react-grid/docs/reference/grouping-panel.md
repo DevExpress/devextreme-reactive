@@ -17,6 +17,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 allowSorting | boolean | false | Specifies whether an end-user can sort data by a column
 allowDraggingAndDropping | boolean | false | Specifies whether it is allowed to change grouping by dragging and dropping columns between the group panel and the table header
+allowUngroupingByClick | boolean | false | Specifies whether buttons to remove columns from grouping should be rendered or not
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel
 groupPanelCellTemplate? | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
@@ -39,6 +40,7 @@ groupByColumnText | string | The text displayed in the group panel if the grid i
 groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
 draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the value passed
 cancelGroupingChange | () => void | Resets the groupingChange state
+allowUngroupingByClick | boolean | Specifies whether buttons to remove columns from grouping should be rendered or not
 groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | Renders a group panel cell. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
 ### <a name="group-panel-cell-props"></a>GroupPanelCellProps
@@ -54,6 +56,7 @@ allowSorting | boolean | Specifies whether an end-user can sort data by a column
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column specified using the `columnName` argument. Keeps the current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
 groupByColumn | ({ columnName: string }) | Toggles a column's grouping state
+allowUngroupingByClick | boolean | Specifies whether buttons to remove columns from grouping should be rendered or not
 
 ## Plugin Developer Reference
 

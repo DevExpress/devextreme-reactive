@@ -50,4 +50,17 @@ describe('GroupPanelCell', () => {
 
     expect(changeSortingDirection.mock.calls[0][0].columnName).toBe('Test');
   });
+
+  it('can render the ungroup button', () => {
+    const tree = mountWithStyles(
+      <GroupPanelCell
+        column={{
+          name: 'test',
+        }}
+        allowUngroupingByClick
+      />,
+    );
+    expect(tree.find('Chip').props())
+      .toHaveProperty('onRequestDelete');
+  });
 });

@@ -6,14 +6,14 @@ import { demos } from '../demo-registry';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
 
-const SourceCode = ({ theme, section, demo }) => (
+const SourceCode = ({ theme, section, demo }, { embeddedDemoOptions: { repoTag } }) => (
   <div className="clearfix">
     <a
       className="pull-right"
       style={{
         marginTop: `${theme === 'bootstrap3' ? -10 : 10}px`,
       }}
-      href={`https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/${theme}/${section}/${demo}.jsx`}
+      href={`https://github.com/DevExpress/devextreme-reactive/tree/${repoTag}/packages/dx-react-demos/src/${theme}/${section}/${demo}.jsx`}
     >
       Source Code
     </a>
@@ -24,6 +24,10 @@ SourceCode.propTypes = {
   section: PropTypes.string.isRequired,
   demo: PropTypes.string.isRequired,
   theme: PropTypes.string.isRequired,
+};
+
+SourceCode.contextTypes = {
+  embeddedDemoOptions: PropTypes.object.isRequired,
 };
 
 export const DemoViewer = ({

@@ -1,6 +1,6 @@
 import {
   combineTemplates,
-} from './templateHelpers';
+} from './template-helpers';
 
 describe('combineTemplates', () => {
   it('uses params and default template', () => {

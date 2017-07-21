@@ -56,6 +56,7 @@
     "core-js": "^2.4.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jest": "^20.0.3",
     "jest": "^20.0.4",

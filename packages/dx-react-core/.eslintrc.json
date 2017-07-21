@@ -4,11 +4,13 @@
         "react",
         "jsx-a11y",
         "import",
-        "jest"
+        "jest",
+        "filenames"
     ],
     "rules": {
         "import/prefer-default-export": "off",
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}]
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}],
+        "filenames/match-regex": [2, "^[a-z-\\.]+$"]
     },
     "env": {
       "jest/globals": true

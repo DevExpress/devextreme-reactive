@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { shallowEqual } from '../utils/shallowEqual';
+import { shallowEqual } from '../utils/shallow-equal';
 import { UPDATE_CONNECTION } from './getter';
-import { getAction } from '../utils/pluginHelpers';
+import { getAction } from '../utils/plugin-helpers';
 
 export class TemplateConnector extends React.Component {
   constructor(props, context) {

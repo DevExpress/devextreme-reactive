@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { argumentsShallowEqual } from '../utils/shallowEqual';
+import { argumentsShallowEqual } from '../utils/shallow-equal';
 import { UPDATE_CONNECTION } from './getter';
-import { getAction } from '../utils/pluginHelpers';
+import { getAction } from '../utils/plugin-helpers';
 
 function changeDetector(watch, onChange) {
   let lastArg = null;

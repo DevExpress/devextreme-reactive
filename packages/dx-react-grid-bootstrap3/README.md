@@ -38,7 +38,7 @@ Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies 
 
 ## Getting started
 
-This package provides templates implementing Bootstrap 3 rendering for the React Grid UI plugins with and without injected templates. You can use these templates instead of the original React Grid repository ones.
+This package provides components and plugins implementing Bootstrap 3 rendering for the React Grid, which you can use instead of the ones provided by the original React Grid package.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 

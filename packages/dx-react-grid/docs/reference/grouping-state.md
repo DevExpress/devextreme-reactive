@@ -31,6 +31,17 @@ Field | Type | Description
 ------|------|------------
 columnName | string | Specifies a column name to group by
 
+### <a name="draft-grouping"></a>DraftGrouping
+
+Describes grouping options used for preview
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+columnName | string | Specifies the name of the column by which the data is grouped
+isDraft? | boolean | Indicates that the column should be displayed as grouped
+
 ### <a name="group-key"></a>GroupKey
 
 Describes a group that can be nested in another one
@@ -45,14 +56,20 @@ This string consists of values by which rows are grouped. The `|` symbol merges 
 
 ### Imports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | Applied grouping
+grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state 
+draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for preview
 expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
 groupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for grouping
-groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column name or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
+draftGroupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for `draftGrouping`
+groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state
+draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value
+cancelGroupingChange | Action | () => void | Resets the groupingChange state

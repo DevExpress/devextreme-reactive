@@ -61,7 +61,7 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
   cellClickable: {
     cursor: 'pointer',
   },
-  cellDragging: {
+  cellDimmed: {
     opacity: 0.3,
   },
   cellRight: {
@@ -100,7 +100,7 @@ class TableHeaderCellBase extends React.PureComponent {
     const {
       style, column,
       allowSorting, sortingDirection, changeSortingDirection,
-      allowGrouping, groupByColumn,
+      allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
       classes,
     } = this.props;
@@ -125,7 +125,7 @@ class TableHeaderCellBase extends React.PureComponent {
         [classes.cellNoUserSelect]: allowDragging || allowSorting,
         [classes.cellDraggable]: allowDragging,
         [classes.cellClickable]: allowSorting,
-        [classes.cellDragging]: dragging,
+        [classes.cellDimmed]: dragging || column.isDraft,
       },
     );
 
@@ -137,7 +137,7 @@ class TableHeaderCellBase extends React.PureComponent {
       },
     );
 
-    const groupingControl = allowGrouping && (
+    const groupingControl = allowGroupingByClick && (
       <div
         onClick={(e) => {
           e.stopPropagation();
@@ -200,9 +200,10 @@ class TableHeaderCellBase extends React.PureComponent {
 
     return allowDragging ? (
       <DragSource
+        ref={(element) => { this.cellRef = element; }}
         getPayload={() => dragPayload}
         onStart={() => this.setState({ dragging: true })}
-        onEnd={() => this.setState({ dragging: false })}
+        onEnd={() => this.cellRef && this.setState({ dragging: false })}
       >
         {cellLayout}
       </DragSource>
@@ -218,7 +219,7 @@ TableHeaderCellBase.propTypes = {
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
-  allowGrouping: PropTypes.bool,
+  allowGroupingByClick: PropTypes.bool,
   groupByColumn: PropTypes.func,
   allowDragging: PropTypes.bool,
   dragPayload: PropTypes.any,
@@ -230,7 +231,7 @@ TableHeaderCellBase.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
-  allowGrouping: false,
+  allowGroupingByClick: false,
   groupByColumn: undefined,
   allowDragging: false,
   dragPayload: null,

@@ -9,6 +9,7 @@ import {
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
+  DragDropContext,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
@@ -37,12 +38,13 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
+        <DragDropContext />
         <GroupingState defaultGrouping={[{ columnName: 'city' }]} />
         <LocalGrouping />
         <TableView />
-        <TableHeaderRow allowGrouping />
+        <TableHeaderRow allowDragging />
         <TableGroupRow />
-        <GroupingPanel />
+        <GroupingPanel allowDragging />
       </Grid>
     );
   }

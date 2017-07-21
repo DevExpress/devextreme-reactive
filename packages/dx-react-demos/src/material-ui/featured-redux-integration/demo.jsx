@@ -130,7 +130,7 @@ const GridContainer = ({
 
     <TableView allowColumnReordering />
 
-    <TableHeaderRow allowSorting allowGrouping allowDragging />
+    <TableHeaderRow allowSorting allowDragging />
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
@@ -142,7 +142,7 @@ const GridContainer = ({
       )}
     />
     <TableGroupRow />
-    <GroupingPanel allowSorting />
+    <GroupingPanel allowSorting allowDragging />
     <PagingPanel
       allowedPageSizes={allowedPageSizes}
     />

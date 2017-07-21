@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { TableSortLabel, Chip } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
@@ -8,6 +9,9 @@ const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
   button: {
     marginRight: theme.spacing.unit,
     marginBottom: '12px',
+  },
+  draftCell: {
+    opacity: 0.3,
   },
 }));
 
@@ -20,16 +24,26 @@ const label = (allowSorting, sortingDirection, column) => (
   </TableSortLabel>
 );
 
+
 const GroupPanelCellBase = ({
   column,
-  groupByColumn,
+  groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
   classes,
-}) => (
-  <Chip
+}) => {
+  const chipClassNames = classNames(
+    {
+      [classes.button]: true,
+      [classes.draftCell]: column.isDraft,
+    },
+  );
+
+  return (<Chip
     label={label(allowSorting, sortingDirection, column)}
-    className={classes.button}
-    onRequestDelete={() => groupByColumn({ columnName: column.name })}
+    className={chipClassNames}
+    {...allowUngroupingByClick
+      ? { onRequestDelete: () => groupByColumn({ columnName: column.name }) }
+      : null}
     onClick={(e) => {
       if (!allowSorting) return;
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
@@ -39,8 +53,8 @@ const GroupPanelCellBase = ({
         columnName: column.name,
       });
     }}
-  />
-);
+  />);
+};
 
 GroupPanelCellBase.propTypes = {
   column: PropTypes.shape({
@@ -50,6 +64,7 @@ GroupPanelCellBase.propTypes = {
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
   groupByColumn: PropTypes.func,
+  allowUngroupingByClick: PropTypes.bool,
   classes: PropTypes.object.isRequired,
 };
 
@@ -57,8 +72,8 @@ GroupPanelCellBase.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
-  allowGrouping: false,
   groupByColumn: undefined,
+  allowUngroupingByClick: false,
 };
 
 export const GroupPanelCell = withStyles(styleSheet)(GroupPanelCellBase);

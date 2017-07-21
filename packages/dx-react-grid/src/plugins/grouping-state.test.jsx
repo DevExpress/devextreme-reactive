@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { Template, PluginHost } from '@devexpress/dx-react-core';
+import { setupConsole } from '@devexpress/dx-testing';
+import { Template, Getter, PluginHost } from '@devexpress/dx-react-core';
 
 import { GroupingState } from './grouping-state';
 
@@ -21,16 +22,24 @@ describe('GroupingState', () => {
       </PluginHost>,
     );
   };
+  let resetConsole;
+
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+  afterAll(() => {
+    resetConsole();
+  });
 
   describe('grouping', () => {
     it('should group by column', () => {
       let grouping = [{ columnName: 'b' }];
       let groupByColumn;
-      const groupingChange = jest.fn();
+      const onGroupingChange = jest.fn();
 
       mountPlugin({
         defaultGrouping: grouping,
-        onGroupingChange: groupingChange,
+        onGroupingChange,
       }, {
         connectGetters: getter => (grouping = Array.from(getter('grouping'))),
         connectActions: action => (groupByColumn = action('groupByColumn')),
@@ -38,18 +47,20 @@ describe('GroupingState', () => {
 
       groupByColumn({ columnName: 'a', groupIndex: 0 });
 
-      expect(grouping).toEqual([{ columnName: 'a' }, { columnName: 'b' }]);
-      expect(groupingChange.mock.calls[0][0]).toEqual([{ columnName: 'a' }, { columnName: 'b' }]);
+      expect(grouping)
+        .toEqual([{ columnName: 'a' }, { columnName: 'b' }]);
+      expect(onGroupingChange)
+        .toHaveBeenCalledWith([{ columnName: 'a' }, { columnName: 'b' }]);
     });
 
     it('should group by column in controlled mode', () => {
       let grouping;
       let groupByColumn;
-      const groupingChange = jest.fn();
+      const onGroupingChange = jest.fn();
 
       mountPlugin({
         grouping: [{ columnName: 'b' }],
-        onGroupingChange: groupingChange,
+        onGroupingChange,
       }, {
         connectGetters: getter => (grouping = Array.from(getter('grouping'))),
         connectActions: action => (groupByColumn = action('groupByColumn')),
@@ -57,8 +68,10 @@ describe('GroupingState', () => {
 
       groupByColumn({ columnName: 'a', groupIndex: 0 });
 
-      expect(grouping).toEqual([{ columnName: 'b' }]);
-      expect(groupingChange.mock.calls[0][0]).toEqual([{ columnName: 'a' }, { columnName: 'b' }]);
+      expect(grouping)
+        .toEqual([{ columnName: 'b' }]);
+      expect(onGroupingChange)
+        .toHaveBeenCalledWith([{ columnName: 'a' }, { columnName: 'b' }]);
     });
 
     it('should ungroup by column', () => {
@@ -76,8 +89,10 @@ describe('GroupingState', () => {
 
       groupByColumn({ columnName: 'a' });
 
-      expect(grouping).toHaveLength(0);
-      expect(groupingChange.mock.calls[0][0]).toHaveLength(0);
+      expect(grouping)
+        .toHaveLength(0);
+      expect(groupingChange.mock.calls[0][0])
+        .toHaveLength(0);
     });
   });
 
@@ -96,8 +111,10 @@ describe('GroupingState', () => {
 
       toggleGroupExpanded({ groupKey: 'a' });
 
-      expect(expandedGroups).toEqual(['a']);
-      expect(expandedGroupsChangeMock.mock.calls[0][0]).toEqual(['a']);
+      expect(expandedGroups)
+        .toEqual(['a']);
+      expect(expandedGroupsChangeMock)
+        .toHaveBeenCalledWith(['a']);
     });
 
     it('should expand group row in controlled mode', () => {
@@ -115,8 +132,10 @@ describe('GroupingState', () => {
 
       toggleGroupExpanded({ groupKey: 'a' });
 
-      expect(expandedGroups).toHaveLength(0);
-      expect(expandedGroupsChangeMock.mock.calls[0][0]).toEqual(['a']);
+      expect(expandedGroups)
+        .toHaveLength(0);
+      expect(expandedGroupsChangeMock)
+        .toHaveBeenCalledWith(['a']);
     });
 
     it('should collapse group row', () => {
@@ -134,8 +153,10 @@ describe('GroupingState', () => {
 
       toggleGroupExpanded({ groupKey: 'a' });
 
-      expect(expandedGroups).toHaveLength(0);
-      expect(expandedGroupsChangeMock.mock.calls[0][0]).toHaveLength(0);
+      expect(expandedGroups)
+        .toHaveLength(0);
+      expect(expandedGroupsChangeMock.mock.calls[0][0])
+        .toHaveLength(0);
     });
   });
 
@@ -156,8 +177,10 @@ describe('GroupingState', () => {
 
       groupByColumn({ columnName: 'name' });
 
-      expect(expandedGroups).toHaveLength(0);
-      expect(expandedGroupsChangeMock.mock.calls[0][0]).toHaveLength(0);
+      expect(expandedGroups)
+        .toHaveLength(0);
+      expect(expandedGroupsChangeMock.mock.calls[0][0])
+        .toHaveLength(0);
     });
 
     it('should clear expanded rows after ungrouping nested rows', () => {
@@ -176,8 +199,10 @@ describe('GroupingState', () => {
 
       groupByColumn({ columnName: 'age' });
 
-      expect(expandedGroups).toEqual(['John', 'Mike']);
-      expect(expandedGroupsChangeMock.mock.calls[0][0]).toEqual(['John', 'Mike']);
+      expect(expandedGroups)
+        .toEqual(['John', 'Mike']);
+      expect(expandedGroupsChangeMock)
+        .toHaveBeenCalledWith(['John', 'Mike']);
     });
 
     it('should not clear expanded rows after grouping', () => {
@@ -196,8 +221,10 @@ describe('GroupingState', () => {
 
       groupByColumn({ columnName: 'age' });
 
-      expect(expandedGroups).toEqual(['John', 'Mike']);
-      expect(expandedGroupsChangeMock.mock.calls).toHaveLength(0);
+      expect(expandedGroups)
+        .toEqual(['John', 'Mike']);
+      expect(expandedGroupsChangeMock.mock.calls)
+        .toHaveLength(0);
     });
 
     it('should not change expanded groups if they are controlled by the user', () => {
@@ -231,7 +258,187 @@ describe('GroupingState', () => {
 
       groupByColumn({ columnName: 'age' });
 
-      expect(expandedGroupsChangeMock.mock.calls).toHaveLength(0);
+      expect(expandedGroupsChangeMock)
+        .not.toHaveBeenCalled();
+    });
+  });
+
+  describe('groupedColumns', () => {
+    it('should be initially set depending on the "defaultGrouping" property in the uncontrolled mode', () => {
+      let groupedColumns;
+      mount(
+        <PluginHost>
+          <Getter
+            name="columns"
+            value={[{ name: 'a' }, { name: 'b' }]}
+          />
+          <GroupingState
+            defaultGrouping={[{ columnName: 'a' }]}
+          />
+          <Template
+            name="root"
+            connectGetters={getter => (groupedColumns = getter('groupedColumns'))}
+          >
+            {() => <div />}
+          </Template>
+        </PluginHost>,
+      );
+
+      expect(groupedColumns)
+        .toEqual([{ name: 'a' }]);
+    });
+
+    it('should be applied depending on the "grouping" property in the controlled mode', () => {
+      let groupedColumns;
+      mount(
+        <PluginHost>
+          <Getter
+            name="columns"
+            value={[{ name: 'a' }, { name: 'b' }]}
+          />
+          <GroupingState
+            grouping={[{ columnName: 'a' }]}
+          />
+          <Template
+            name="root"
+            connectGetters={getter => (groupedColumns = getter('groupedColumns'))}
+          >
+            {() => <div />}
+          </Template>
+        </PluginHost>,
+      );
+
+      expect(groupedColumns)
+        .toEqual([{ name: 'a' }]);
+    });
+
+    it('should be changed on grouping change', () => {
+      let groupedColumns;
+      let groupByColumn;
+      mount(
+        <PluginHost>
+          <Getter
+            name="columns"
+            value={[{ name: 'a' }, { name: 'b' }]}
+          />
+          <GroupingState
+            defaultGrouping={[{ columnName: 'a' }]}
+          />
+          <Template
+            name="root"
+            connectGetters={getter => (groupedColumns = getter('groupedColumns'))}
+            connectActions={action => (groupByColumn = action('groupByColumn'))}
+          >
+            {() => <div />}
+          </Template>
+        </PluginHost>,
+      );
+
+      groupByColumn({ columnName: 'b', groupIndex: 0 });
+
+      expect(groupedColumns)
+        .toEqual([{ name: 'b' }, { name: 'a' }]);
+    });
+  });
+
+  describe('draftGroupingChange', () => {
+    it('should add the column passed to draftGrouping', () => {
+      let draftGrouping;
+      let draftGroupingChange;
+      mountPlugin(
+        { grouping: [] },
+        {
+          connectGetters: getter => (draftGrouping = getter('draftGrouping')),
+          connectActions: action => (draftGroupingChange = action('draftGroupingChange')),
+        },
+      );
+
+      draftGroupingChange({ columnName: 'a', groupIndex: 0 });
+
+      expect(draftGrouping)
+        .toEqual([{ columnName: 'a', isDraft: true, mode: 'add' }]);
+    });
+
+    it('should add the column passed ot draftGroupedColumns', () => {
+      let draftGroupedColumns;
+      let draftGroupingChange;
+      mount(
+        <PluginHost>
+          <Getter name="columns" value={[{ name: 'a' }, { name: 'b' }, { name: 'c' }]} />
+          <GroupingState
+            grouping={[{ columnName: 'b' }]}
+            draftGroupingChange={draftGroupingChange}
+          />
+          <Template
+            name="root"
+            connectGetters={getter => (draftGroupedColumns = getter('draftGroupedColumns'))}
+            connectActions={action => (draftGroupingChange = action('draftGroupingChange'))}
+          >
+            {() => <div />}
+          </Template>
+        </PluginHost>,
+      );
+
+      draftGroupingChange({ columnName: 'a', groupIndex: 0 });
+      expect(draftGroupedColumns)
+        .toEqual([
+          { name: 'a', isDraft: true },
+          { name: 'b' },
+        ]);
+    });
+  });
+
+  describe('cancelGroupingChange', () => {
+    it('should reset draftGrouping', () => {
+      let draftGrouping;
+      let draftGroupingChange;
+      let cancelGroupingChange;
+      mountPlugin(
+        { grouping: [{ columnName: 'a' }] },
+        {
+          connectGetters: getter => (draftGrouping = getter('draftGrouping')),
+          connectActions: (action) => {
+            draftGroupingChange = action('draftGroupingChange');
+            cancelGroupingChange = action('cancelGroupingChange');
+          },
+        },
+      );
+
+      draftGroupingChange({ columnName: 'v', groupIndex: 1 });
+      cancelGroupingChange();
+
+      expect(draftGrouping)
+        .toEqual([{ columnName: 'a' }]);
+    });
+
+    it('should reset draftGroupedColumns', () => {
+      let draftGroupedColumns;
+      let draftGroupingChange;
+      let cancelGroupingChange;
+      mount(
+        <PluginHost>
+          <Getter name="columns" value={[{ name: 'a' }, { name: 'b' }, { name: 'c' }]} />
+          <GroupingState
+            grouping={[{ columnName: 'a' }]}
+          />
+          <Template
+            name="root"
+            connectGetters={getter => (draftGroupedColumns = getter('draftGroupedColumns'))}
+            connectActions={(action) => {
+              draftGroupingChange = action('draftGroupingChange');
+              cancelGroupingChange = action('cancelGroupingChange');
+            }}
+          >
+            {() => <div />}
+          </Template>
+        </PluginHost>,
+      );
+
+      draftGroupingChange({ columnName: 'c', groupIndex: 1 });
+      cancelGroupingChange();
+
+      expect(draftGroupedColumns)
+        .toEqual([{ name: 'a' }]);
     });
   });
 });

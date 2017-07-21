@@ -22,6 +22,11 @@ export const groupByColumn = (prevGrouping, { columnName, groupIndex }) => {
   return grouping;
 };
 
+export const draftGroupingChange = (prevGroupingChange, { columnName, groupIndex }) =>
+  ({ columnName, groupIndex });
+
+export const cancelGroupingChange = () => null;
+
 export const removeOutdatedExpandedGroups = (prevExpandedGroups, { prevGrouping, grouping }) => {
   const ungroupedColumnIndex = getFirstChangedGropingIndex(prevGrouping, grouping);
   if (ungroupedColumnIndex === -1) {

@@ -17,7 +17,7 @@ export class TableHeaderCell extends React.PureComponent {
     const {
       style, column,
       allowSorting, sortingDirection, changeSortingDirection,
-      allowGrouping, groupByColumn,
+      allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
     } = this.props;
     const { dragging } = this.state;
@@ -25,7 +25,7 @@ export class TableHeaderCell extends React.PureComponent {
     const invertedAlign = align === 'left' ? 'right' : 'left';
     const columnTitle = column.title || column.name;
 
-    const groupingControl = allowGrouping && (
+    const groupingControl = allowGroupingByClick && (
       <div
         onClick={(e) => {
           e.stopPropagation();
@@ -85,7 +85,7 @@ export class TableHeaderCell extends React.PureComponent {
           } : {}),
           ...(allowDragging ? { cursor: 'move' } : {}),
           ...(allowSorting ? { cursor: 'pointer' } : {}),
-          ...(dragging ? { opacity: 0.3 } : {}),
+          ...(dragging || column.isDraft ? { opacity: 0.3 } : null),
           ...style,
         }}
         onClick={(e) => {
@@ -117,9 +117,10 @@ export class TableHeaderCell extends React.PureComponent {
 
     return allowDragging ? (
       <DragSource
+        ref={(element) => { this.cellRef = element; }}
         getPayload={() => dragPayload}
         onStart={() => this.setState({ dragging: true })}
-        onEnd={() => this.setState({ dragging: false })}
+        onEnd={() => this.cellRef && this.setState({ dragging: false })}
       >
         {cellLayout}
       </DragSource>
@@ -135,7 +136,7 @@ TableHeaderCell.propTypes = {
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
-  allowGrouping: PropTypes.bool,
+  allowGroupingByClick: PropTypes.bool,
   groupByColumn: PropTypes.func,
   allowDragging: PropTypes.bool,
   dragPayload: PropTypes.any,
@@ -146,7 +147,7 @@ TableHeaderCell.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
-  allowGrouping: false,
+  allowGroupingByClick: false,
   groupByColumn: undefined,
   allowDragging: false,
   dragPayload: null,

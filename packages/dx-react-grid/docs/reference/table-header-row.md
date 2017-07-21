@@ -19,8 +19,8 @@ Name | Type | Default | Description
 -----|------|---------|------------
 headerCellTemplate | (args: [HeaderCellArgs](#header-cell-args)) => ReactElement | | A component that renders a header cell
 allowSorting | boolean | false | If true, it allows an end-user to change sorting by a column
-allowGrouping | boolean | false | If true, it renders a component that toggles a column's grouping state
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell
+allowGroupingByClick | boolean | false | If true, it renders a component that toggles a column's grouping state
 
 ## Interfaces
 
@@ -47,7 +47,7 @@ Field | Type | Description
 allowSorting | boolean | If true, an end-user can change sorting by a column
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the column sort order
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) | Changes column sort direction. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
-allowGrouping | boolean | If true, a component that toggles a column's grouping state is rendered
+allowGroupingByClick | boolean | If true, a component that toggles a column's grouping state is rendered
 groupByColumn | () => void | Toggles grouping for a column
 allowDragging | boolean | If true, an end-user can start dragging a column by the header cell
 dragPayload | any | A data object that identifies the corresponding column in the drag-and-drop context

@@ -14,4 +14,18 @@ describe('GroupPanelCell', () => {
 
     expect(tree.find('div > span').text()).toBe('Test');
   });
+
+  it('can render the ungroup button', () => {
+    const tree = mount(
+      <GroupPanelCell
+        column={{
+          name: 'test',
+        }}
+        allowUngroupingByClick
+      />,
+    );
+
+    expect(tree.find('i.glyphicon-remove').exists())
+      .toBeTruthy();
+  });
 });

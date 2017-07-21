@@ -2,8 +2,7 @@
 
 ## Overview
 
-The grouping feature allows you to display data grouped by one or several
-column values. We also provide a number of plugins that allow end-users to group grid data using the Grid's UI (group panel or column headers).
+The grouping feature allows you to display data grouped by one or several column values. We also provide plugins that allow end-users to group grid data using the Grid's UI (group panel or column headers).
 
 ## Plugin List
 
@@ -14,29 +13,29 @@ There are several plugins that implement grouping features:
 - [TableHeaderRow](../reference/table-header-row.md)
 - [GroupingPanel](../reference/grouping-panel.md)
 
-Note that [plugin order](../README.md#plugin-order) is very important.
+Note that [plugin order](../README.md#plugin-order) is important.
 
 ## Basic setup
 
-To set up simple static Grid grouping, use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins.
+Use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins to set up a simple static Grid grouping.
 
-In the following example, we enable the controlled mode by defining the `grouping` property of the `GroupingState` plugin. Handling the `onGroupingChange` event is not required because there is no UI allowing a user to change grouping options.
+In the following example, the controlled mode is enabled using the `grouping` property of the `GroupingState` plugin. You do not have to handle the `onGroupingChange` event because an end-user can not change grouping state via the UI.
 
 .embedded-demo(grouping/local-grouping-static)
 
 ## Grouping UI for an end-user
 
-To enable an end-user to group data by a certain column, use the `GroupPanel` and `TableHeaderRow` plugins.
+Use the `GroupPanel` and `TableHeaderRow` plugins to enable an end-user to group data by a certain column.
 
-By default, the `TableHeaderRow` plugin is not configured to allow an end-user to change grouping. To enable this feature, set the `allowGrouping` property to true.
+Set the `TableHeaderRow` plugin's `allowDragging` property and the `GroupingPanel` plugin's `allowDragging` property to true to allow changing grouping state by dragging column headers to or from the group panel. Alternatively, you can set the `TableHeaderRow` plugin's `allowGroupingByClick` property and the `GroupingPanel` plugin's `allowUngroupingByClick` property to true to allow an end-user to change grouping state via the UI. In this case, the plugins add the appropriate buttons to header cells located in the table header row and on the grouping panel.
 
-You can also enable an end-user to sort data by grouped columns. Define the `allowSorting` option of the `GroupingPanel` plugin to enable this feature.
+Define the `GroupingPanel` plugin's `allowSorting` option to enable sorting data by grouped columns.
 
 .embedded-demo(grouping/local-grouping-with-ui)
 
 ## Grouping Controlled Mode
 
-To control the grouping state, pass the appropriate array to the `grouping` property of the `GroupingState` plugin and handle the `onGroupingChange` event.
+Pass the appropriate array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grouping state.
 
 .embedded-demo(grouping/local-grouping-controlled)
 

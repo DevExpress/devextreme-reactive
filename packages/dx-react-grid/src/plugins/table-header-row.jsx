@@ -5,7 +5,7 @@ import { getColumnSortingDirection, tableRowsWithHeading } from '@devexpress/dx-
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
-    const { allowSorting, allowGrouping, allowDragging, headerCellTemplate } = this.props;
+    const { allowSorting, allowGroupingByClick, allowDragging, headerCellTemplate } = this.props;
 
     return (
       <PluginContainer>
@@ -24,10 +24,13 @@ export class TableHeaderRow extends React.PureComponent {
             const columns = getter('columns');
             const grouping = getter('grouping');
 
+            const groupingSupported = grouping !== undefined &&
+                grouping.length < columns.length - 1;
+
             const result = {
               sortingSupported: sorting !== undefined,
-              groupingSupported: grouping !== undefined &&
-                grouping.length < columns.length - 1,
+              groupingSupported,
+              draggingSupported: !grouping || groupingSupported,
             };
 
             if (result.sortingSupported) {
@@ -41,11 +44,16 @@ export class TableHeaderRow extends React.PureComponent {
             groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
           })}
         >
-          {({ sortingSupported, groupingSupported, ...restParams }) => headerCellTemplate({
+          {({
+            sortingSupported,
+            groupingSupported,
+            draggingSupported,
+            ...restParams
+          }) => headerCellTemplate({
             ...restParams,
             allowSorting: allowSorting && sortingSupported,
-            allowGrouping: allowGrouping && groupingSupported,
-            allowDragging,
+            allowGroupingByClick: allowGroupingByClick && groupingSupported,
+            allowDragging: allowDragging && draggingSupported,
             dragPayload: [{ type: 'column', columnName: restParams.column.name }],
           })}
         </Template>
@@ -54,15 +62,15 @@ export class TableHeaderRow extends React.PureComponent {
   }
 }
 
-TableHeaderRow.defaultProps = {
-  allowSorting: false,
-  allowGrouping: false,
-  allowDragging: false,
-};
-
 TableHeaderRow.propTypes = {
   allowSorting: PropTypes.bool,
-  allowGrouping: PropTypes.bool,
+  allowGroupingByClick: PropTypes.bool,
   allowDragging: PropTypes.bool,
   headerCellTemplate: PropTypes.func.isRequired,
+};
+
+TableHeaderRow.defaultProps = {
+  allowSorting: false,
+  allowGroupingByClick: false,
+  allowDragging: false,
 };

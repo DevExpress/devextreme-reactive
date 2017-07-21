@@ -1,39 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
-import { tableColumnsWithoutGroups } from '@devexpress/dx-grid-core';
+import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 
 export class GroupingPanel extends React.PureComponent {
   render() {
-    const { groupPanelTemplate, allowSorting } = this.props;
+    const {
+      groupPanelTemplate,
+      allowSorting,
+      allowDragging,
+      allowUngroupingByClick,
+    } = this.props;
 
     return (
       <PluginContainer>
-        <Getter
-          name="tableColumns"
-          pureComputed={tableColumnsWithoutGroups}
-          connectArgs={getter => [
-            getter('tableColumns'),
-            getter('grouping'),
-          ]}
-        />
-
         <Template
           name="header"
           connectGetters={getter => ({
-            groupedColumns: getter('groupedColumns'),
+            groupedColumns: getter('draftGroupedColumns'),
             sorting: getter('sorting'),
           })}
           connectActions={action => ({
             groupByColumn: action('groupByColumn'),
-            changeSortingDirection: ({ keepOther, cancel, columnName }) =>
+            changeSortingDirection: ({ columnName, keepOther, cancel }) =>
               action('setColumnSorting')({ columnName, keepOther, cancel }),
+            draftGroupingChange: groupingChange => action('draftGroupingChange')(groupingChange),
+            cancelGroupingChange: () => action('cancelGroupingChange')(),
           })}
         >
           {params => (
             <div>
-              {groupPanelTemplate({ allowSorting, ...params })}
+              {groupPanelTemplate({
+                allowSorting,
+                allowDragging,
+                allowUngroupingByClick,
+                ...params,
+              })}
               <TemplatePlaceholder />
             </div>
           )}
@@ -45,9 +47,13 @@ export class GroupingPanel extends React.PureComponent {
 
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
+  allowDragging: PropTypes.bool,
+  allowUngroupingByClick: PropTypes.bool,
   groupPanelTemplate: PropTypes.func.isRequired,
 };
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
+  allowDragging: false,
+  allowUngroupingByClick: false,
 };

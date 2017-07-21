@@ -62,6 +62,15 @@ export const expandedGroupRows = (rows, expandedGroups) => {
 export const groupedColumns = (columns, grouping) =>
   grouping.map(group => columns.find(c => c.name === group.columnName));
 
+export const draftGroupedColumns = (columns, grouping) =>
+  grouping.map(({ columnName, isDraft }) => {
+    const column = columns.find(c => c.name === columnName);
+    return isDraft ? {
+      ...column,
+      isDraft,
+    } : column;
+  });
+
 export const nextExpandedGroups = (prevExpandedGroups, { groupKey }) => {
   const expandedGroups = Array.from(prevExpandedGroups);
   const groupKeyIndex = expandedGroups.indexOf(groupKey);
@@ -73,4 +82,26 @@ export const nextExpandedGroups = (prevExpandedGroups, { groupKey }) => {
   }
 
   return expandedGroups;
+};
+
+export const draftGrouping = (grouping, groupingChange) => {
+  if (!groupingChange) return grouping;
+
+  const { columnName, groupIndex } = groupingChange;
+  let result = Array.from(grouping);
+
+  if (groupIndex !== -1) {
+    result = result.filter(g => g.columnName !== columnName);
+    result.splice(groupIndex, 0, {
+      columnName,
+      isDraft: true,
+      mode: grouping.length > result.length ? 'reorder' : 'add',
+    });
+  } else {
+    result = result.map(g => (g.columnName === columnName
+      ? { columnName, isDraft: true, mode: 'remove' }
+      : g));
+  }
+
+  return result;
 };

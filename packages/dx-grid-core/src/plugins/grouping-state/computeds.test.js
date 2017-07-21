@@ -5,6 +5,8 @@ import {
     expandedGroupRows,
     groupedColumns,
     nextExpandedGroups,
+    draftGrouping,
+    draftGroupedColumns,
 } from './computeds';
 
 describe('GroupingPlugin computeds', () => {
@@ -145,6 +147,30 @@ describe('GroupingPlugin computeds', () => {
     });
   });
 
+  describe('#draftGroupedColumns', () => {
+    const columns = [
+      { name: 'a' },
+      { name: 'b' },
+      { name: 'c' },
+      { name: 'd' },
+    ];
+    const visGrouping = [
+      { columnName: 'a' },
+      { columnName: 'c', isDraft: true },
+    ];
+
+    it('should work', () => {
+      const processedColumns = draftGroupedColumns(columns, visGrouping);
+
+      expect(processedColumns).toHaveLength(2);
+      expect(processedColumns[0]).toBe(columns[0]);
+      expect(processedColumns[1]).toEqual({
+        ...columns[2],
+        isDraft: true,
+      });
+    });
+  });
+
   describe('#nextExpandedGroups', () => {
     it('should add an opened group', () => {
       const groups = nextExpandedGroups(['a', 'b'], { groupKey: 'c' });
@@ -162,6 +188,63 @@ describe('GroupingPlugin computeds', () => {
       const groups = nextExpandedGroups(Immutable(['a']), { groupKey: 'b' });
 
       expect(groups).toEqual(['a', 'b']);
+    });
+  });
+
+  describe('#draftGrouping', () => {
+    it('can add draft column to draftGrouping', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'c' },
+      ];
+      const processedGrouping = draftGrouping(grouping, { columnName: 'b', groupIndex: 1 });
+
+      expect(processedGrouping)
+        .toEqual([
+          { columnName: 'a' },
+          { columnName: 'b', isDraft: true, mode: 'add' },
+          { columnName: 'c' },
+        ]);
+    });
+
+    it('can reset draftGrouping', () => {
+      const grouping = [{ columnName: 'a' }];
+
+      expect(draftGrouping(grouping, null))
+        .toEqual([
+          { columnName: 'a' },
+        ]);
+    });
+
+    it('can mark a column as draft in draftGrouping', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'b' },
+      ];
+
+      expect(draftGrouping(grouping, { columnName: 'a', groupIndex: -1 }))
+        .toEqual([
+          { columnName: 'a', isDraft: true, mode: 'remove' },
+          { columnName: 'b' },
+        ]);
+      expect(draftGrouping(grouping, { columnName: 'b', groupIndex: -1 }))
+        .toEqual([
+          { columnName: 'a' },
+          { columnName: 'b', isDraft: true, mode: 'remove' },
+        ]);
+    });
+
+    it('can change grouping order', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'b' },
+      ];
+
+      expect(draftGrouping(grouping, { columnName: 'a', groupIndex: 1 }))
+        .toEqual([
+          { columnName: 'b' },
+          { columnName: 'a', isDraft: true, mode: 'reorder' },
+        ]);
     });
   });
 });

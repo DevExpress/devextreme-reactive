@@ -45,3 +45,5 @@ export {
   filterActiveAnimations,
   evalAnimations,
 } from './utils/table';
+
+export { getGroupCellTargetIndex } from './utils/group-panel';

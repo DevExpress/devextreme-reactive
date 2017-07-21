@@ -186,7 +186,7 @@ export default class Demo extends React.PureComponent {
 
         <TableView allowColumnReordering />
 
-        <TableHeaderRow allowSorting allowGrouping allowDragging />
+        <TableHeaderRow allowSorting allowDragging />
         <PagingPanel
           allowedPageSizes={allowedPageSizes}
         />
@@ -199,7 +199,7 @@ export default class Demo extends React.PureComponent {
           )}
         />
         <TableGroupRow />
-        <GroupingPanel allowSorting />
+        <GroupingPanel allowSorting allowDragging />
       </Grid>
     );
   }

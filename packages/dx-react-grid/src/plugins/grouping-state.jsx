@@ -5,6 +5,10 @@ import {
   groupByColumn,
   groupedColumns,
   nextExpandedGroups,
+  draftGrouping,
+  draftGroupingChange,
+  cancelGroupingChange,
+  draftGroupedColumns,
   removeOutdatedExpandedGroups,
 } from '@devexpress/dx-grid-core';
 
@@ -16,6 +20,7 @@ export class GroupingState extends React.PureComponent {
 
     this.state = {
       grouping: props.defaultGrouping || [],
+      groupingChange: null,
       expandedGroups: props.defaultExpandedGroups || [],
     };
 
@@ -55,8 +60,21 @@ export class GroupingState extends React.PureComponent {
         grouping,
       });
     };
+
+    this.draftGroupingChange = (groupingChange) => {
+      this.setState({
+        groupingChange: draftGroupingChange(this.state.groupingChange, groupingChange),
+      });
+    };
+
+    this.cancelGroupingChange = () => {
+      this.setState({
+        groupingChange: cancelGroupingChange(),
+      });
+    };
   }
   render() {
+    const { groupingChange } = this.state;
     const grouping = this._grouping();
     const expandedGroups = this._expandedGroups();
 
@@ -74,12 +92,26 @@ export class GroupingState extends React.PureComponent {
             this._groupByColumn(grouping, expandedGroups, { columnName, groupIndex });
           }}
         />
+        <Action
+          name="draftGroupingChange"
+          action={(change) => { this.draftGroupingChange(change); }}
+        />
+        <Action
+          name="cancelGroupingChange"
+          action={() => { this.cancelGroupingChange(); }}
+        />
 
-        <Getter name="grouping" value={grouping} />
         <Getter
-          name="expandedGroups"
-          pureComputed={arrayToSet}
-          connectArgs={() => [expandedGroups]}
+          name="grouping"
+          value={grouping}
+        />
+        <Getter
+          name="draftGrouping"
+          pureComputed={draftGrouping}
+          connectArgs={() => [
+            grouping,
+            groupingChange,
+          ]}
         />
         <Getter
           name="groupedColumns"
@@ -88,6 +120,19 @@ export class GroupingState extends React.PureComponent {
             getter('columns'),
             grouping,
           ]}
+        />
+        <Getter
+          name="draftGroupedColumns"
+          pureComputed={draftGroupedColumns}
+          connectArgs={getter => [
+            getter('columns'),
+            getter('draftGrouping'),
+          ]}
+        />
+        <Getter
+          name="expandedGroups"
+          pureComputed={arrayToSet}
+          connectArgs={() => [expandedGroups]}
         />
       </PluginContainer>
     );
@@ -111,4 +156,3 @@ GroupingState.defaultProps = {
   defaultExpandedGroups: undefined,
   onExpandedGroupsChange: undefined,
 };
-

@@ -16,9 +16,9 @@ Name | Type | Default | Description
 cellTemplate | (args: [CommandCellArgs](#command-cell-args)) => ReactElement | | A component that renders a cell within the command column and data row
 headingCellTemplate | (args: [CommandHeadingCellArgs](#command-heading-cell-args)) => ReactElement | | A component that renders a cell within the command column and heading row
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | | A component that renders command controls within the command column cell
-allowAdding | bool | false | If set to true, the 'New' command is rendered within the heading row's command cell
-allowEditing | bool | false | If set to true, the 'Edit' command is rendered within the data row's command cell
-allowDeleting | bool | false | If set to true, the 'Delete' command is rendered within the data row's command cell
+allowAdding | boolean | false | If set to true, the 'New' command is rendered within the heading row's command cell
+allowEditing | boolean | false | If set to true, the 'Edit' command is rendered within the data row's command cell
+allowDeleting | boolean | false | If set to true, the 'Delete' command is rendered within the data row's command cell
 width | number &#124; string | 140 | Specifies the width of the edit column
 
 ## Interfaces
@@ -37,8 +37,8 @@ startEditing | () => void | Switches a row to the editing mode
 cancelEditing | () => void | Switches a row to the read-only mode
 commitChanges | () => void | Initiates committing of row changes
 deleteRow | () => void | Initiates row deletion
-allowEditing | bool | Specifies if a row can be edited
-allowDeleting | bool | Specifies if a row can be deleted
+allowEditing | boolean | Specifies if a row can be edited
+allowDeleting | boolean | Specifies if a row can be deleted
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
 style | Object | Styles that should be applied to the root cell element
 
@@ -53,7 +53,7 @@ Field | Type | Description
 row | [TableRow](table-view.md#table-row) | Specifies an editing table row with applied changes
 column | [TableColumn](table-view.md#table-column) | Specifies a table column
 addRow | () => void | Creates a new row
-allowAdding | bool | Specifies if a new row can be created
+allowAdding | boolean | Specifies if a new row can be created
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
 style | Object | Styles that should be applied to the root cell element
 

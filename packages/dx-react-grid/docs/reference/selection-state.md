@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-selection | Array&lt;int&#124;string&gt; | [] | Specifies the selected rows
-defaultSelection | Array&lt;int&#124;string&gt; | [] | Specifies initially selected rows in the uncontrolled mode
-onSelectionChange | (selection: Array&lt;int&#124;string&gt;) => void | | Handles selection changes
+selection | Array&lt;number &#124; string&gt; | [] | Specifies the selected rows
+defaultSelection | Array&lt;number &#124; string&gt; | [] | Specifies initially selected rows in the uncontrolled mode
+onSelectionChange | (selection: Array&lt;number &#124; string&gt;) => void | | Handles selection changes
 
 ## Plugin Developer Reference
 
@@ -33,4 +33,4 @@ Name | Plugin | Type | Description
 setRowSelection | Action | ({ rowId }) => void | A function that selects a row
 setRowsSelection | Action | ({ rowIds }) => void | A function that selects multiple rows
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered, which are available for selection
-selection | Getter | Array&lt;int &#124; string&gt; | Selected rows
+selection | Getter | Array&lt;number &#124; string&gt; | Selected rows

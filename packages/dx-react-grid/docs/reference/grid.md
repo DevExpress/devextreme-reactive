@@ -51,7 +51,7 @@ Describes properties passed to the header placeholder template when it is being 
 
 Field | Type | Description
 ------|------|------------
-children | ReactElement? | A markup to be placed into the header
+children? | ReactElement | A markup to be placed into the header
 
 ### <a name="footer-placeholder-args"></a>FooterPlaceholderArgs
 
@@ -59,7 +59,7 @@ Describes properties passed to the footer placeholder template when it is being 
 
 Field | Type | Description
 ------|------|------------
-children | ReactElement? | A markup to be placed into the footer
+children? | ReactElement | A markup to be placed into the footer
 
 ## Plugin Developer Reference
 

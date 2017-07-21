@@ -16,8 +16,8 @@ grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by
 defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping in the uncontrolled mode
 onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping changes
 expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups
-defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; } | | Specifies initially expanded groups in the uncontrolled mode
-onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt; }) => void | | Handles expanded group changes
+defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies initially expanded groups in the uncontrolled mode
+onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) => void | | Handles expanded group changes
 
 ## Interfaces
 

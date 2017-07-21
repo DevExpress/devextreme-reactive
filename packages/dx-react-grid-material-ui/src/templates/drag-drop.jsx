@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Paper } from 'material-ui';
+import { Paper, Typography } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('DragDrop', theme => ({
@@ -51,7 +51,13 @@ ContainerBase.propTypes = {
 export const Container = withStyles(styleSheet)(ContainerBase);
 
 export const ColumnBase = ({ column, classes }) => (
-  <div className={classes.column}>{column.title}</div>
+  <Typography
+    className={classes.column}
+    type="body1"
+    component="p"
+  >
+    {column.title}
+  </Typography>
 );
 
 ColumnBase.propTypes = {

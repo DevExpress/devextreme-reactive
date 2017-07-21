@@ -4,7 +4,8 @@
         "react",
         "jest",
         "jsx-a11y",
-        "import"
+        "import",
+        "filenames"
     ],
     "env": {
       "browser": true,
@@ -14,6 +15,7 @@
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",
         "react/forbid-prop-types": "off",
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}]
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}],
+        "filenames/match-regex": [2, "^[a-z-\\.]+$"]
     }
 }

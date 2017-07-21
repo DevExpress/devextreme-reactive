@@ -19,7 +19,7 @@ console.log('====================');
 console.log();
 
 console.log('Building site content...');
-execSync('npm run build:site', { stdio: 'ignore' });
+execSync('npm run build:site -- -- --useVersionTag', { stdio: 'ignore' });
 
 console.log('Cleaning generated site...');
 removeSync(GENERATED_SITE_DIRECTORY);

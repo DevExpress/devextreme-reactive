@@ -9,7 +9,7 @@
 
 ## Overview
 
-DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out-of-the-box.
+DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out of the box.
 
 ## Getting Started
 
@@ -29,7 +29,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
 
-  Make sure that the Bootstrap styles are linked to the page. Check the [following link](http://getbootstrap.com/getting-started/#download) if you have not configured Bootstrap yet.
+   Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. Check the [following link](https://react-bootstrap.github.io/getting-started.html) if you have not configured the React-Bootstrap yet.
 
 - Material UI
 
@@ -37,7 +37,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-material-ui
   ```
 
-  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and configured. Check the [following link](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) if you have not configured the Material UI yet.
+  Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article  for configuration details.
 
 ### Polyfills
 
@@ -55,14 +55,22 @@ Use the TableView plugin to display the data as a simple table:
 
 ```js
 import {
-  Grid, TableView
+  Grid, TableView, TableHeaderRow
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid
-    rows={[{ id: 0, ... }, ...]}
-    columns={[{ name: 'id', ... }, ...]}>
+    rows={[
+      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+    ]}
+    columns={[
+      { name: 'id', title: 'ID' },
+      { name: 'product', title: 'Product' },
+      { name: 'owner', title: 'Owner' },
+    ]}>
     <TableView />
+    <TableHeaderRow />
   </Grid>
 );
 ```
@@ -100,8 +108,8 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
-  <Grid rows={[...]} columns={[...]}>
-    <FilteringState defaultFilters={[...]}/>
+  <Grid rows={[/* ... */]} columns={[/* ... */]}>
+    <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
     <TableView/>
   </Grid>
@@ -119,11 +127,11 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
-  <Grid rows={[...]} columns={[...]}>
-    <FilteringState defaultFilters={[...]}/>
+  <Grid rows={[/* ... */]} columns={[/* ... */]}>
+    <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
     <TableView/>
-    <TableFilterRow filterCellTemplate={...}/>
+    <TableFilterRow filterCellTemplate={ /* ... */ }/>
   </Grid>
 );
 ```
@@ -138,7 +146,7 @@ It is required to specify a visual component for this type of plugins (not inclu
 
 ## <a name="controlled-and-uncontrolled-modes"></a>Controlled (stateless) and Uncontrolled (stateful) modes
 
-You may need to control the Grid state or delegate state management to a component, for instance, you need to switch the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restore it withing the next app usage session. In this case, the Grid accepts the sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
+You may need to control the Grid state or delegate state management to a component, for instance, when switching the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restoring it within the next app usage session. In this case, the Grid accepts the sorting configuration via the [SortingState](reference/sorting-state.md) plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
 
 In your code, it looks as follows:
 
@@ -148,8 +156,8 @@ export class MyApp extends React.PureComponent {
     super(props);
 
     this.state = {
-      columns: [...],
-      rows: [...],
+      columns: [/* ... */],
+      rows: [/* ... */],
       sorting: [{ columnName: 'date', direction: 'desc' }],
     };
 
@@ -161,7 +169,7 @@ export class MyApp extends React.PureComponent {
     return (
       <Grid rows={rows} columns={columns}>
         <SortingState sorting={sorting} onSortingChange={this.changeSorting} />
-        ...
+        { /* ... */ }
       </Grid>
     );
   }
@@ -173,29 +181,29 @@ export class MyApp extends React.PureComponent {
 In the uncontrolled state mode, the Grid component manages its UI state internally. It is not necessary to specify the state value and state change handler properties. You can provide Grid with the initial state value using the property with the `default` prefix, for instance, converting the previous example into the uncontrolled mode:
 
 ```js
-<Grid rows={[...]} columns={[...]}>
+<Grid rows={[/* ... */]} columns={[/* ... */]}>
   <SortingState />
-  ...
+  { /* ... */ }
 </Grid>
 ```
 
 Specify the default sorting configuration as follows:
 
 ```js
-<Grid rows={[...]} columns={[...]}>
+<Grid rows={[/* ... */]} columns={[/* ... */]}>
   <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
-  ...
+  { /* ... */ }
 </Grid>
 ```
 
-You can configure the Grid as follows when you need to control its state partially, for example, to manage filters without managing sorting and grouping:
+You can configure the Grid when you need to control its state partially, for example, to manage filters without managing sorting and grouping:
 
 ```js
-<Grid rows={[...]} columns={[...]}>
+<Grid rows={[/* ... */]} columns={[/* ... */]}>
   <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
   <SortingState />
   <GroupingState />
-  ...
+  { /* ... */ }
 </Grid>
 ```
 

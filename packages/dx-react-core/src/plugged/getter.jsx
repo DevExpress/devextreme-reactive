@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { argumentsShallowEqual } from '../utils/shallowEqual';
-import { getAction } from '../utils/pluginHelpers';
+import { argumentsShallowEqual } from '../utils/shallow-equal';
+import { getAction } from '../utils/plugin-helpers';
 
 function getterMemoize(func) {
   let lastArg = null;

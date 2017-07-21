@@ -64,8 +64,8 @@ columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The applied grouping options
-draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for preview
+grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The applied grouping state
+draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping state used for preview
 expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
 groupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for grouping
 draftGroupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for `draftGrouping`

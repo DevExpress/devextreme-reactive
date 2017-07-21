@@ -11,4 +11,4 @@ export { DragSource } from './drag-drop/source';
 export { DropTarget } from './drag-drop/target';
 
 export { TemplateRenderer } from './template-component';
-export { combineTemplates } from './utils/templateHelpers';
+export { combineTemplates } from './utils/template-helpers';

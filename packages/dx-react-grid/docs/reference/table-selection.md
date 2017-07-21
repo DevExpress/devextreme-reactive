@@ -55,7 +55,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
 tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered
-selection | Getter | Array&lt;int &#124; string&gt; | Selected rows
+selection | Getter | Array&lt;number &#124; string&gt; | Selected rows
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
 tableExtraProps | Getter | { [key: string]: any } | Additional table properties that can be provided by other plugins
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Body rows to be rendered available for selection

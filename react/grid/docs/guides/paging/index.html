@@ -11,7 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1500885612">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1500885612">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -371,44 +372,71 @@
 
 <p>In the following example, we use the uncontrolled mode and specify only the initial active page number via the <code class="highlighter-rouge">defaultCurrentPage</code> property of the <code class="highlighter-rouge">PagingState</code> plugin. In this case, the grid manages paging state changes internally.</p>
 
-<p class="embedded-demo-root">
-      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/paging/local-paging","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/local-paging.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/paging/local-paging","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/paging/local-paging.jsx"}]</script>
-    </p>
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-alpha.5&quot;,
+          &quot;path&quot;: &quot;/demo/paging/local-paging&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885611275&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
 <h2 id="page-size-selection">Page Size Selection</h2>
 
 <p>Assign an array of available page sizes to the <code class="highlighter-rouge">allowedPageSizes</code> property of the <code class="highlighter-rouge">PagingPanel</code> plugin to enable page size selection. The page size selector contains the ‘All’ item if one of array values is 0. Use the <code class="highlighter-rouge">showAllText</code> property of the <code class="highlighter-rouge">PagingPanel</code> plugin to change its text.</p>
 
 <p>The example below demonstrates the basic configuration for the uncontrolled mode. The <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">defaultPageSize</code> property is used to define the initial page size.</p>
 
-<p class="embedded-demo-root">
-      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/paging/page-size-selector","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/page-size-selector.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/paging/page-size-selector","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/paging/page-size-selector.jsx"}]</script>
-    </p>
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-alpha.5&quot;,
+          &quot;path&quot;: &quot;/demo/paging/page-size-selector&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885611275&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
 <h2 id="controlled-paging-state">Controlled Paging State</h2>
 
 <p>Specify the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">currentPage</code> and <code class="highlighter-rouge">pageSize</code> properties and handle the <code class="highlighter-rouge">onCurrentPageChange</code> event to control the paging state. Specify the <code class="highlighter-rouge">PagingPanel</code> plugin’s <code class="highlighter-rouge">allowedPageSizes</code> property and define the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">onPageSizeChanged</code> event handler to enable page size selection.</p>
 
-<p class="embedded-demo-root">
-      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/paging/local-paging-controlled","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/local-paging-controlled.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/paging/local-paging-controlled","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/paging/local-paging-controlled.jsx"}]</script>
-    </p>
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-alpha.5&quot;,
+          &quot;path&quot;: &quot;/demo/paging/local-paging-controlled&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885611275&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
 <h2 id="remote-paging">Remote Paging</h2>
 
 <p>You can handle the Grid’s paging state changes to request a page from the server according to the active page number and size if your data service supports paging operations.</p>
 
 <p>Handle the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">onCurrentPageChange</code> event to receive updates on the current page number changes instead of using the <code class="highlighter-rouge">LocalSorting</code> plugin to configure remote paging. Pass the data page received from the server to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
 
-<p class="embedded-demo-root">
-      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/paging/remote-paging","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/paging/remote-paging.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/paging/remote-paging","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/paging/remote-paging.jsx"}]</script>
-    </p>
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-alpha.5&quot;,
+          &quot;path&quot;: &quot;/demo/paging/remote-paging&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885611275&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
 <h2 id="using-paging-with-other-data-processing-plugins">Using Paging with Other Data Processing Plugins</h2>
 
 <p>Paging features are often used side by side with other features such as sorting, grouping, etc. Note that plugins are applied in the order in which they appear inside the Grid container. If you are using paging and sorting together and you put the <code class="highlighter-rouge">LocalSorting</code> plugin before the <code class="highlighter-rouge">LocalPaging</code> one,  data is sorted and then paginated. Once you change the order, unsorted rows are paginated, and only the current page is sorted after that.</p>
-
 
     </div>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885612"></script>
 
 
     <footer>
@@ -446,8 +474,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
-    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1500885612"></script>
     <script>
         trackingCookie.check();
     </script>

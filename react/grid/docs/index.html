@@ -11,7 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1500885612">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1500885612">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -361,7 +362,7 @@
 
 <h2 id="overview">Overview</h2>
 
-<p>DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out-of-the-box.</p>
+<p>DevExtreme React Grid is a component that displays data from a local or remote source in the form of a grid. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out of the box.</p>
 
 <h2 id="getting-started">Getting Started</h2>
 
@@ -383,7 +384,7 @@
 </code></pre>
     </div>
 
-    <p>Make sure that the Bootstrap styles are linked to the page. Check the <a href="http://getbootstrap.com/getting-started/#download">following link</a> if you have not configured Bootstrap yet.</p>
+    <p>Make sure that the <a href="https://react-bootstrap.github.io">React-Boostrap</a> dependencies are installed and configured. Check the <a href="https://react-bootstrap.github.io/getting-started.html">following link</a> if you have not configured the React-Bootstrap yet.</p>
   </li>
   <li>
     <p>Material UI</p>
@@ -392,7 +393,7 @@
 </code></pre>
     </div>
 
-    <p>Make sure that the <a href="https://material-ui-1dab0.firebaseapp.com/">Material UI</a> dependencies are installed and configured. Check the <a href="https://material-ui-1dab0.firebaseapp.com/getting-started/installation">following link</a> if you have not configured the Material UI yet.</p>
+    <p>Make sure that <a href="https://material-ui-1dab0.firebaseapp.com/">Material UI</a> dependencies are installed and configured. Check the Material UI’s <a href="https://material-ui-1dab0.firebaseapp.com/getting-started/installation">Getting Started</a> article  for configuration details.</p>
   </li>
 </ul>
 
@@ -411,14 +412,22 @@
 <p>Use the TableView plugin to display the data as a simple table:</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">TableView</span>
+  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">TableView</span><span class="p">,</span> <span class="nx">TableHeaderRow</span>
 <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
 
 <span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
   <span class="o">&lt;</span><span class="nx">Grid</span>
-    <span class="nx">rows</span><span class="o">=</span><span class="p">{[{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="p">...</span> <span class="p">},</span> <span class="p">...]}</span>
-    <span class="nx">columns</span><span class="o">=</span><span class="p">{[{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span> <span class="p">...</span> <span class="p">},</span> <span class="p">...]}</span><span class="o">&gt;</span>
+    <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span>
+      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme Reactive'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
+    <span class="p">]}</span>
+    <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'ID'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'owner'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Owner'</span> <span class="p">},</span>
+    <span class="p">]}</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">TableView</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">TableHeaderRow</span> <span class="o">/&gt;</span>
   <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span><span class="p">);</span>
 </code></pre>
@@ -459,8 +468,8 @@
 <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
 
 <span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
-  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[...]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[...]}</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">defaultFilters</span><span class="o">=</span><span class="p">{[...]}</span><span class="sr">/</span><span class="err">&gt;
+  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">defaultFilters</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="sr">/</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="nx">LocalFiltering</span><span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="nx">TableView</span><span class="o">/&gt;</span>
   <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
@@ -478,11 +487,11 @@
 <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
 
 <span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
-  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[...]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[...]}</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">defaultFilters</span><span class="o">=</span><span class="p">{[...]}</span><span class="sr">/</span><span class="err">&gt;
+  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">defaultFilters</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="sr">/</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="nx">LocalFiltering</span><span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="nx">TableView</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">TableFilterRow</span> <span class="nx">filterCellTemplate</span><span class="o">=</span><span class="p">{...}</span><span class="sr">/</span><span class="err">&gt;
+    <span class="o">&lt;</span><span class="nx">TableFilterRow</span> <span class="nx">filterCellTemplate</span><span class="o">=</span><span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span><span class="sr">/</span><span class="err">&gt;
 </span>  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span><span class="p">);</span>
 </code></pre>
@@ -500,7 +509,7 @@
 
 <h2 id="controlled-stateless-and-uncontrolled-stateful-modes"><a name="controlled-and-uncontrolled-modes"></a>Controlled (stateless) and Uncontrolled (stateful) modes</h2>
 
-<p>You may need to control the Grid state or delegate state management to a component, for instance, you need to switch the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restore it withing the next app usage session. In this case, the Grid accepts the sorting configuration via the <a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the <a href="https://facebook.github.io/react/docs/forms.html#controlled-components">controlled components concept</a>.</p>
+<p>You may need to control the Grid state or delegate state management to a component, for instance, when switching the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restoring it within the next app usage session. In this case, the Grid accepts the sorting configuration via the <a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the <a href="https://facebook.github.io/react/docs/forms.html#controlled-components">controlled components concept</a>.</p>
 
 <p>In your code, it looks as follows:</p>
 
@@ -509,8 +518,8 @@
     <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
 
     <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="na">columns</span><span class="p">:</span> <span class="p">[...],</span>
-      <span class="na">rows</span><span class="p">:</span> <span class="p">[...],</span>
+      <span class="na">columns</span><span class="p">:</span> <span class="p">[</span><span class="cm">/* ... */</span><span class="p">],</span>
+      <span class="na">rows</span><span class="p">:</span> <span class="p">[</span><span class="cm">/* ... */</span><span class="p">],</span>
       <span class="na">sorting</span><span class="p">:</span> <span class="p">[{</span> <span class="na">columnName</span><span class="p">:</span> <span class="s1">'date'</span><span class="p">,</span> <span class="na">direction</span><span class="p">:</span> <span class="s1">'desc'</span> <span class="p">}],</span>
     <span class="p">};</span>
 
@@ -522,7 +531,7 @@
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="nx">sorting</span><span class="o">=</span><span class="p">{</span><span class="nx">sorting</span><span class="p">}</span> <span class="nx">onSortingChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">changeSorting</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>        <span class="p">...</span>
+</span>        <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
       <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span>    <span class="p">);</span>
   <span class="p">}</span>
@@ -534,29 +543,29 @@
 
 <p>In the uncontrolled state mode, the Grid component manages its UI state internally. It is not necessary to specify the state value and state change handler properties. You can provide Grid with the initial state value using the property with the <code class="highlighter-rouge">default</code> prefix, for instance, converting the previous example into the uncontrolled mode:</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[...]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[...]}</span><span class="o">&gt;</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="o">/&gt;</span>
-  <span class="p">...</span>
+  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span></code></pre>
 </div>
 
 <p>Specify the default sorting configuration as follows:</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[...]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[...]}</span><span class="o">&gt;</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="nx">defaultSorting</span><span class="o">=</span><span class="p">{[</span> <span class="na">columnName</span><span class="p">:</span> <span class="s1">'date'</span><span class="p">,</span> <span class="na">direction</span><span class="p">:</span> <span class="s1">'desc'</span> <span class="p">]}</span> <span class="sr">/</span><span class="err">&gt;
-</span>  <span class="p">...</span>
+</span>  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span></code></pre>
 </div>
 
-<p>You can configure the Grid as follows when you need to control its state partially, for example, to manage filters without managing sorting and grouping:</p>
+<p>You can configure the Grid when you need to control its state partially, for example, to manage filters without managing sorting and grouping:</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[...]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[...]}</span><span class="o">&gt;</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">filters</span><span class="o">=</span><span class="p">{</span><span class="nx">filters</span><span class="p">}</span> <span class="nx">onFiltersChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">changeFilters</span><span class="p">}</span><span class="sr">/</span><span class="err">&gt;
 </span>  <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="o">/&gt;</span>
   <span class="o">&lt;</span><span class="nx">GroupingState</span> <span class="o">/&gt;</span>
-  <span class="p">...</span>
+  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span></code></pre>
 </div>
@@ -567,7 +576,7 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885612"></script>
 
 
     <footer>
@@ -605,8 +614,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
-    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1500885612"></script>
     <script>
         trackingCookie.check();
     </script>

@@ -11,7 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1500885612">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1500885612">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -371,9 +372,16 @@
 
 <p>In this example, we use the uncontrolled mode and specify only the initial filters via the <code class="highlighter-rouge">defaultFilters</code> property of the <code class="highlighter-rouge">FilteringState</code> plugin. After that, the grid will manage filter changes internally.</p>
 
-<p class="embedded-demo-root">
-      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/filtering/local-filter-row","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filter-row.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/filtering/local-filter-row","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/filtering/local-filter-row.jsx"}]</script>
-    </p>
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-alpha.5&quot;,
+          &quot;path&quot;: &quot;/demo/filtering/local-filter-row&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885611271&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
 <h2 id="customizing-filter-row">Customizing Filter Row</h2>
 
 <p>You can replace built-in filter row editors with custom ones. To specify a custom editor, define a template using the <code class="highlighter-rouge">TableFilterRow</code> plugin’s <code class="highlighter-rouge">filterCellTemplate</code> property.</p>
@@ -382,16 +390,30 @@
 
 <p>To process your custom filter locally, specify custom filtering predicate in the <code class="highlighter-rouge">LocalFiltering</code> plugin’s <code class="highlighter-rouge">filterFn</code> property.</p>
 
-<p class="embedded-demo-root">
-      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/filtering/custom-filter-row","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/custom-filter-row.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/filtering/custom-filter-row","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/filtering/custom-filter-row.jsx"}]</script>
-    </p>
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-alpha.5&quot;,
+          &quot;path&quot;: &quot;/demo/filtering/custom-filter-row&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885611271&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
 <h2 id="controlled-filtering-state">Controlled Filtering State</h2>
 
 <p>To control the filtering state, pass an array of column filters to the <code class="highlighter-rouge">FilteringState</code> plugin’s  <code class="highlighter-rouge">filters</code> property  and handle the <code class="highlighter-rouge">onFiltersChange</code> event.</p>
 
-<p class="embedded-demo-root">
-      <script type="embedded-demo-data">[{"title":"Bootstrap 3","url":"/devextreme-reactive/react/grid/embedded-demo/#/bootstrap3/filtering/local-filtering-controlled","templatesName":"bootstrap3","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/bootstrap3/filtering/local-filtering-controlled.jsx"},{"title":"Material UI","url":"/devextreme-reactive/react/grid/embedded-demo/#/material-ui/filtering/local-filtering-controlled","templatesName":"material-ui","demoSrc":"https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-demos/src/material-ui/filtering/local-filtering-controlled.jsx"}]</script>
-    </p>
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-alpha.5&quot;,
+          &quot;path&quot;: &quot;/demo/filtering/local-filtering-controlled&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885611271&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
 <h2 id="remote-filtering">Remote Filtering</h2>
 
 <p>If your data service supports filtering operations, you can handle the Grid filtering state changes in order to request data from the server with the corresponding filters applied.</p>
@@ -407,7 +429,7 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1500885612"></script>
 
 
     <footer>
@@ -445,8 +467,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
-    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1500885612"></script>
     <script>
         trackingCookie.check();
     </script>

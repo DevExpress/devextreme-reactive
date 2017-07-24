@@ -11,7 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1499434704">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1500885612">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1500885612">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -62,17 +63,22 @@
 <p>Add the required modules to your project:</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Grid</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">TableView</span>
+  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">TableView</span><span class="p">,</span> <span class="nx">TableHeaderRow</span>
 <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-material-ui'</span><span class="p">;</span>
 
-<span class="kr">export</span> <span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
   <span class="o">&lt;</span><span class="nx">Grid</span>
-    <span class="nx">rows</span><span class="o">=</span><span class="p">{[{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="p">...</span> <span class="p">},</span> <span class="p">...]}</span>
-    <span class="nx">columns</span><span class="o">=</span><span class="p">{[{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span> <span class="p">...</span> <span class="p">},</span> <span class="p">...]}</span><span class="o">&gt;</span>
+    <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span>
+      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme Reactive'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
+    <span class="p">]}</span>
+    <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'ID'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'owner'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Owner'</span> <span class="p">},</span>
+    <span class="p">]}</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">TableView</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">TableHeaderRow</span> <span class="o">/&gt;</span>
   <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span><span class="p">);</span>
 </code></pre>
@@ -82,7 +88,7 @@
 
 <h2 id="getting-started">Getting started</h2>
 
-<p>This package provides templates implementing Material UI rendering for the React Grid UI plugins and the UI Plugins with injected templates as well. You can use these templates instead of the original React Grid repository ones.</p>
+<p>This package provides components and plugins implementing Material UI rendering for the React Grid, which you can use instead of the ones provided by the original React Grid package.</p>
 
 <p>See <a href="https://devexpress.github.io/devextreme-reactive/react/grid/demos/">demos</a> for more information.</p>
 
@@ -90,13 +96,13 @@
 
 <p>The package exposes components and plugins with injected templates.</p>
 
-<p>The list of components:</p>
+<p>Components:</p>
 
 <ul>
   <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/">Grid</a></li>
 </ul>
 
-<p>The list of plugins:</p>
+<p>Plugins:</p>
 
 <ul>
   <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
@@ -154,8 +160,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1499434704"></script>
-    <script src="/devextreme-reactive/js/site.js?v=1499434704"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1500885612"></script>
     <script>
         trackingCookie.check();
     </script>

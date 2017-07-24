@@ -1,3 +1,41 @@
+<a name="1.0.0-alpha.6"></a>
+# [1.0.0-alpha.6](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2017-07-24)
+
+
+### Bug Fixes
+
+* **react-core:** prevent scrolling while dragging ([#207](https://github.com/DevExpress/devextreme-reactive/issues/207)) ([e3e18a9](https://github.com/DevExpress/devextreme-reactive/commit/e3e18a9))
+* **react-grid:** clear expanded groups after ungrouping ([#202](https://github.com/DevExpress/devextreme-reactive/issues/202)) ([d97809e](https://github.com/DevExpress/devextreme-reactive/commit/d97809e))
+* **react-grid:** remove the totalPages getter from the PagingState plugin ([#195](https://github.com/DevExpress/devextreme-reactive/issues/195)) ([e231d63](https://github.com/DevExpress/devextreme-reactive/commit/e231d63))
+* **react-grid:** throw error if the count of title rows exceeds the page size ([#193](https://github.com/DevExpress/devextreme-reactive/issues/193)) ([8abde20](https://github.com/DevExpress/devextreme-reactive/commit/8abde20))
+* **react-grid:** turn edit cell input into the controlled mode ([#201](https://github.com/DevExpress/devextreme-reactive/issues/201)) ([af26c64](https://github.com/DevExpress/devextreme-reactive/commit/af26c64))
+* **react-grid-material-ui:** pin material-ui version ([#197](https://github.com/DevExpress/devextreme-reactive/issues/197)) ([34e6ddb](https://github.com/DevExpress/devextreme-reactive/commit/34e6ddb))
+* fix versions in distrubutives ([#208](https://github.com/DevExpress/devextreme-reactive/issues/208)) ([7c2f9da](https://github.com/DevExpress/devextreme-reactive/commit/7c2f9da))
+* **react-grid-material-ui:** use correct typography for the drag preview ([#214](https://github.com/DevExpress/devextreme-reactive/issues/214)) ([e1a134d](https://github.com/DevExpress/devextreme-reactive/commit/e1a134d))
+
+
+### Features
+
+* **react-grid:** implement grouping by drag and drop ([#205](https://github.com/DevExpress/devextreme-reactive/issues/205)) ([ebb6c61](https://github.com/DevExpress/devextreme-reactive/commit/ebb6c61))
+
+
+### Performance Improvements
+
+* **react-grid:** update only changed rows in table ([#199](https://github.com/DevExpress/devextreme-reactive/issues/199)) ([e1c64ff](https://github.com/DevExpress/devextreme-reactive/commit/e1c64ff))
+
+
+### Reverts
+
+* fix(react-grid): grid bottom offset in Material UI ([#196](https://github.com/DevExpress/devextreme-reactive/issues/196)) ([e2392ed](https://github.com/DevExpress/devextreme-reactive/commit/e2392ed))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** The TableHeaderRow plugin's `allowGrouping` property has been renamed to `allowGroupingByClick`.
+* **react-grid:** The `totalPages` getter is no longer exported from the PagingState and LocalPaging plugins.
+
+
+
 <a name="1.0.0-alpha.5"></a>
 # [1.0.0-alpha.5](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2017-07-07)
 

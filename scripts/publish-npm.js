@@ -52,7 +52,7 @@ new Promise((resolve) => {
     execSync(`"./node_modules/.bin/lerna" exec -- node "../../scripts/rm-dist.js"`, { stdio: 'ignore' });
 
     console.log('Updating versions...');
-    execSync(`"./node_modules/.bin/lerna" publish --exact --repo-version ${version} --yes --skip-git --skip-npm`, { stdio: 'ignore' });
+    execSync(`"./node_modules/.bin/lerna" publish --exact --repo-version ${version} --force-publish * --yes --skip-git --skip-npm`, { stdio: 'ignore' });
 
     console.log('Building...');
     execSync('npm run build', { stdio: 'ignore' });
@@ -85,7 +85,7 @@ new Promise((resolve) => {
       execSync('npm login', { stdio: 'inherit' });
 
       console.log('Publishing npm...');
-      execSync(`"./node_modules/.bin/lerna" publish --exact --repo-version ${version} --yes --skip-git --force-publish *`, { stdio: 'ignore' });
+      execSync(`"./node_modules/.bin/lerna" publish --exact --repo-version ${version} --force-publish * --yes --skip-git`, { stdio: 'ignore' });
 
       console.log('Logout from npm...');
       execSync('npm logout', { stdio: 'ignore' });

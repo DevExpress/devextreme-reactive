@@ -29,10 +29,9 @@ describe('TableGroupRow', () => {
 
   describe('table layout getters extending', () => {
     it('should extend tableBodyRows', () => {
-      const tableBodyRows = [];
       mount(
         <PluginHost>
-          <Getter name="tableBodyRows" value={tableBodyRows} />
+          <Getter name="tableBodyRows" value="tableBodyRows" />
           <TableGroupRow
             groupCellTemplate={() => null}
             groupIndentColumnWidth={40}
@@ -47,18 +46,15 @@ describe('TableGroupRow', () => {
       );
 
       expect(tableRowsWithGrouping)
-        .toBeCalledWith(tableBodyRows);
+        .toBeCalledWith('tableBodyRows');
     });
 
     it('should extend tableColumns', () => {
-      const tableColumns = [];
-      const grouping = [];
-      const draftGrouping = [];
       mount(
         <PluginHost>
-          <Getter name="tableColumns" value={tableColumns} />
-          <Getter name="grouping" value={grouping} />
-          <Getter name="draftGrouping" value={draftGrouping} />
+          <Getter name="tableColumns" value="tableColumns" />
+          <Getter name="grouping" value="grouping" />
+          <Getter name="draftGrouping" value="draftGrouping" />
           <TableGroupRow
             groupCellTemplate={() => null}
             groupIndentColumnWidth={40}
@@ -73,7 +69,7 @@ describe('TableGroupRow', () => {
       );
 
       expect(tableColumnsWithGrouping)
-        .toBeCalledWith(tableColumns, grouping, draftGrouping, 40);
+        .toBeCalledWith('tableColumns', 'grouping', 'draftGrouping', 40);
     });
   });
 

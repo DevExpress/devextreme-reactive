@@ -6,7 +6,8 @@ var gulp = require('gulp'),
 
 var distPath = 'site/';
 
-var useVersionTag = process.argv.indexOf('--useVersionTag') > -1;
+var versionTagIndex = process.argv.indexOf('--versionTag');
+var versionTag = process.argv[versionTagIndex + 1];
 
 var splitNameToPath = function(path) {
   // dx-react-grid-bs3\... ==> react\grid\bs3\...
@@ -66,14 +67,14 @@ var applyInterceptors = function(content, ...interceptors) {
 };
 
 var injectLiveDemos = function(content) {
-  var versionTag = useVersionTag ? `"repoTag": "v${require('./lerna.json').version}",` : '';
+  var versionTagString = versionTag ? `"repoTag": "${versionTag}",` : '';
   return content
     .replace(
       /\.embedded\-demo\(([^\(\)]*)\)/g,
       `<div
         class="embedded-demo"
         data-options='{
-          ${versionTag}
+          ${versionTagString}
           "path": "/demo/$1",
           "scriptPath": "/devextreme-reactive/react/grid/demos/dist/index.js?v=${new Date().getTime()}"
         }'

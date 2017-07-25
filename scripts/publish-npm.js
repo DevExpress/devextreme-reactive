@@ -5,23 +5,15 @@ const { prompt } = require('inquirer');
 const { valid, lt, inc, prerelease } = require('semver');
 const conventionalRecommendedBump = require('conventional-recommended-bump');
 const CONVENTIONAL_CHANGELOG_PRESET = 'angular';
+const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
+
+ensureRepoUpToDate();
 
 console.log();
 console.log('====================');
 console.log(`| Publishing npm packages`);
 console.log('====================');
 console.log();
-
-console.log('Fetching the latest changes from upstream...');
-const startingGitRevision = execSync('git rev-parse HEAD', { stdio: 'pipe' }).toString();
-execSync('git checkout master', { stdio: 'ignore' });
-execSync('git fetch upstream master', { stdio: 'ignore' });
-execSync('git merge --ff-only', { stdio: 'ignore' });
-const currentGitRevision = execSync('git rev-parse HEAD', { stdio: 'pipe' }).toString();
-if (startingGitRevision !== currentGitRevision) {
-  console.log('Repo updated. Please, rerun script.');
-  return;
-}
 
 const currentVersion = require('../lerna.json').version;
 new Promise((resolve) => {

@@ -15,14 +15,19 @@ const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
   },
 }));
 
-const label = (allowSorting, sortingDirection, column) => (
-  <TableSortLabel
-    active={allowSorting && !!sortingDirection}
-    direction={sortingDirection}
-  >
-    {column.title || column.name}
-  </TableSortLabel>
-);
+const label = (allowSorting, sortingDirection, column) => {
+  const title = column.title || column.name;
+  return allowSorting
+    ? (
+      <TableSortLabel
+        active={!!sortingDirection}
+        direction={sortingDirection}
+      >
+        {title}
+      </TableSortLabel>
+    )
+    : title;
+};
 
 
 const GroupPanelCellBase = ({

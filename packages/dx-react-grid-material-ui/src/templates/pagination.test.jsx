@@ -2,7 +2,7 @@ import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { triggerTouchTap } from '../utils/testing';
-import { Pagination, paginationStyleSheet } from './pagination';
+import { Pagination, styleSheet } from './pagination';
 
 injectTapEventPlugin();
 
@@ -11,7 +11,7 @@ describe('Pagination', () => {
   let classes;
   beforeAll(() => {
     mount = createMount();
-    classes = getClasses(paginationStyleSheet);
+    classes = getClasses(styleSheet);
   });
   afterAll(() => {
     mount.cleanUp();

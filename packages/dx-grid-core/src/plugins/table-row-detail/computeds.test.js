@@ -17,7 +17,7 @@ describe('DetailRow computeds', () => {
           type: 'detailRow',
           id: 2,
           for: { id: 2 },
-          colSpanStart: 0,
+          colspan: 0,
           height: 'auto',
         },
       ]);
@@ -34,7 +34,7 @@ describe('DetailRow computeds', () => {
           type: 'detailRow',
           id: 1,
           for: { id: 1 },
-          colSpanStart: 0,
+          colspan: 0,
           height: 'auto',
         },
         { id: 2 },
@@ -42,7 +42,7 @@ describe('DetailRow computeds', () => {
           type: 'detailRow',
           id: 2,
           for: { id: 2 },
-          colSpanStart: 0,
+          colspan: 0,
           height: 'auto',
         },
       ]);

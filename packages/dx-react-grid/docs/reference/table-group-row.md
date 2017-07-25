@@ -74,4 +74,4 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the ones by which the table is grouped
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-column)&gt; | Table body rows with applyed modifications to group rows
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-column)&gt; | Table body rows with modified group rows

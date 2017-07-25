@@ -2,24 +2,34 @@ const { join } = require('path');
 const { execSync } = require('child_process');
 const { publish } = require('gh-pages');
 const { copySync, removeSync } = require('fs-extra');
+const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
 
-
+const COLORS = {
+  reset: "\x1b[0m",
+  bright: "\x1b[1m",
+};
 const SITE_DIRECTORY = join(process.cwd(), 'site');
 const GENERATED_SITE_DIRECTORY = join(process.cwd(), 'site/_site');
 const REPO = 'devexpress/devextreme-reactive';
 const BRANCH = 'gh-pages';
 const COMMIT_MESSAGE = 'chore: update site';
 
+ensureRepoUpToDate();
+
+const gitTag = execSync('git tag --points-at HEAD', { stdio: 'pipe' }).toString().trim();
+const gitRevision = execSync('git rev-parse HEAD', { stdio: 'pipe' }).toString().trim();
+const demosRevision = gitTag || gitRevision;
 
 console.log();
 console.log('====================');
-console.log(`| Publishing site to ${REPO}@${BRANCH}`);
+console.log(`| Publishing site to '${COLORS.bright}${REPO}@${BRANCH}${COLORS.reset}'`);
+console.log(`| Demos will be linked to the '${COLORS.bright}${demosRevision}${COLORS.reset}' revision`);
 console.log('| Assume that repo is clean and up to date')
 console.log('====================');
 console.log();
 
 console.log('Building site content...');
-execSync('npm run build:site -- -- --useVersionTag', { stdio: 'ignore' });
+execSync(`npm run build:site -- -- --versionTag "${demosRevision}"`, { stdio: 'ignore' });
 
 console.log('Cleaning generated site...');
 removeSync(GENERATED_SITE_DIRECTORY);

@@ -83,7 +83,7 @@ describe('TableGroupRow Plugin computeds', () => {
     });
   });
   describe('#tableRowsWithGrouping', () => {
-    it('should add correct colspan to group rows', () => {
+    it('should add correct colSpanStart to group rows', () => {
       const rows = [
         { type: 'groupRow', column: { name: 'a' } },
         {},
@@ -92,7 +92,7 @@ describe('TableGroupRow Plugin computeds', () => {
 
       expect(tableRowsWithGrouping(rows))
         .toEqual([
-          { type: 'groupRow', column: { name: 'a' }, colspan: 'groupColumn_a' },
+          { type: 'groupRow', column: { name: 'a' }, colSpanStart: 'groupColumn_a' },
           ...rows.slice(1),
         ]);
     });

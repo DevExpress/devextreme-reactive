@@ -16,16 +16,17 @@ const getColumnId = column => column.name;
 export const tableColumnKeyGetter = (column, columnIndex) =>
   getTableKeyGetter(getColumnId, column, columnIndex);
 
-export const getTableRowColumnsWithColSpan = (columns, colspan) => {
-  if (colspan === undefined) return columns.map(column => ({ original: column }));
+export const getTableRowColumnsWithColSpan = (columns, colSpanStart) => {
+  if (colSpanStart === undefined) return columns.map(column => ({ original: column }));
 
   let span = false;
   return columns
     .reduce((acc, column, columnIndex) => {
       if (span) return acc;
-      if (columnIndex === colspan || tableColumnKeyGetter(column, columnIndex) === colspan) {
+      if (columnIndex === colSpanStart ||
+        tableColumnKeyGetter(column, columnIndex) === colSpanStart) {
         span = true;
-        return [...acc, { original: column, colspan: columns.length - columnIndex }];
+        return [...acc, { original: column, colSpan: columns.length - columnIndex }];
       }
       return [...acc, { original: column }];
     }, []);

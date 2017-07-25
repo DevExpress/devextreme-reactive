@@ -186,9 +186,9 @@ describe('TableView', () => {
               <tbody>
                 {bodyRows.map(row => (
                   <tr key={row.id || row.type}>
-                    {getTableRowColumnsWithColSpan(columns, row.colspan)
-                      .map(({ original: column, colspan }) => React.cloneElement(
-                        cellTemplate({ row, column, colspan }),
+                    {getTableRowColumnsWithColSpan(columns, row.colSpanStart)
+                      .map(({ original: column, colSpan }) => React.cloneElement(
+                        cellTemplate({ row, column, colSpan }),
                         { key: column.name },
                       ))}
                   </tr>
@@ -199,7 +199,7 @@ describe('TableView', () => {
           tableCellTemplate={() => null}
           tableStubCellTemplate={() => null}
           tableStubHeaderCellTemplate={() => null}
-          tableNoDataCellTemplate={({ colspan }) => <td className="no-data" colSpan={colspan} />}
+          tableNoDataCellTemplate={({ colSpan }) => <td className="no-data" colSpan={colSpan} />}
         />
       </PluginHost>,
     );

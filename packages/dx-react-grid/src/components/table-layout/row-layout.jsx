@@ -36,8 +36,8 @@ export class RowLayout extends React.PureComponent {
         style={getRowStyle({ row })}
       >
         {
-          getTableRowColumnsWithColSpan(columns, row.colspan)
-            .map(({ original: column, colspan }, columnIndex) => {
+          getTableRowColumnsWithColSpan(columns, row.colSpanStart)
+            .map(({ original: column, colSpan }, columnIndex) => {
               const key = tableColumnKeyGetter(column, columnIndex);
               return (
                 <TemplateRenderer
@@ -46,7 +46,7 @@ export class RowLayout extends React.PureComponent {
                   row={row}
                   column={column}
                   style={getColumnStyle({ column, animationState: animationState.get(key) })}
-                  {...colspan ? { colspan } : null}
+                  {...colSpan ? { colSpan } : null}
                 />
               );
             })

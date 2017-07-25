@@ -62,7 +62,7 @@ Describes properties passed to the table cell being rendered when using an empty
 Field | Type | Description
 ------|------|------------
 style? | Object | Specifies cell styles
-colspan? | number | Specifies the number of columns the cell spans
+colSpan? | number | Specifies the number of columns the cell spans
 
 ### <a name="table-stub-cell-args"></a>TableStubCellArgs
 

@@ -21,5 +21,5 @@ export const tableColumnsWithGrouping = (columns, grouping,
 export const tableRowsWithGrouping = rows =>
   rows.map((row) => {
     if (row.type !== 'groupRow') return row;
-    return { ...row, colspan: `groupColumn_${row.column.name}` };
+    return { ...row, colSpanStart: `groupColumn_${row.column.name}` };
   });

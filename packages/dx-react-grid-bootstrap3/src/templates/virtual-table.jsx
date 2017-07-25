@@ -49,8 +49,8 @@ export class VirtualTable extends React.Component {
     const scrollWidth = columnWidths.reduce((accum, width) => accum + width, 0);
 
     const tableRow = (row, position) => {
-      const colspan = row.colspan;
-      const columnLength = colspan !== undefined ? colspan + 1 : columns.length;
+      const colSpan = row.colSpan;
+      const columnLength = colSpan !== undefined ? colSpan + 1 : columns.length;
       return (
         <VirtualBox
           rootTag="tr"
@@ -60,9 +60,9 @@ export class VirtualTable extends React.Component {
           direction="horizontal"
           itemCount={columnLength}
           itemInfo={(columnIndex) => {
-            const size = columnIndex !== colspan
+            const size = columnIndex !== colSpan
               ? columnWidths[columnIndex]
-              : columns.slice(colspan).reduce(
+              : columns.slice(colSpan).reduce(
                 (accum, column) => accum + columnWidths[columns.indexOf(column)],
                 0,
               );

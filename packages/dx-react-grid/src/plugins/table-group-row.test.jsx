@@ -29,6 +29,9 @@ describe('TableGroupRow', () => {
 
   describe('table layout getters extending', () => {
     it('should extend tableBodyRows', () => {
+      tableRowsWithGrouping.mockImplementation(() => 'tableRowsWithGrouping');
+
+      let tableBodyRows = null;
       mount(
         <PluginHost>
           <Getter name="tableBodyRows" value="tableBodyRows" />
@@ -38,7 +41,7 @@ describe('TableGroupRow', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => getter('tableBodyRows')}
+            connectGetters={getter => (tableBodyRows = getter('tableBodyRows'))}
           >
             {() => <div />}
           </Template>
@@ -47,9 +50,14 @@ describe('TableGroupRow', () => {
 
       expect(tableRowsWithGrouping)
         .toBeCalledWith('tableBodyRows');
+      expect(tableBodyRows)
+        .toBe('tableRowsWithGrouping');
     });
 
     it('should extend tableColumns', () => {
+      tableColumnsWithGrouping.mockImplementation(() => 'tableColumnsWithGrouping');
+
+      let tableColumns = null;
       mount(
         <PluginHost>
           <Getter name="tableColumns" value="tableColumns" />
@@ -61,7 +69,7 @@ describe('TableGroupRow', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => getter('tableColumns')}
+            connectGetters={getter => (tableColumns = getter('tableColumns'))}
           >
             {() => <div />}
           </Template>
@@ -70,6 +78,8 @@ describe('TableGroupRow', () => {
 
       expect(tableColumnsWithGrouping)
         .toBeCalledWith('tableColumns', 'grouping', 'draftGrouping', 40);
+      expect(tableColumns)
+        .toBe('tableColumnsWithGrouping');
     });
   });
 

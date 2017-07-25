@@ -207,7 +207,7 @@ describe('TableView', () => {
     const noDataCell = tree.find('td.no-data');
     expect(noDataCell)
       .toHaveLength(1);
-    expect(noDataCell.prop('colspan'))
+    expect(noDataCell.prop('colSpan'))
       .toBe(2);
   });
 });

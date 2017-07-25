@@ -28,6 +28,7 @@ describe('GroupingPlugin computeds', () => {
         value: '1',
         type: 'groupRow',
         column: { name: 'a' },
+        colspan: 0,
       });
       expect(grouped[0].rows).toHaveLength(2);
       expect(grouped[0].rows[0]).toMatchObject(rows[0]);
@@ -38,6 +39,7 @@ describe('GroupingPlugin computeds', () => {
         value: '2',
         type: 'groupRow',
         column: { name: 'a' },
+        colspan: 0,
       });
       expect(grouped[1].rows).toHaveLength(2);
       expect(grouped[1].rows[0]).toMatchObject(rows[2]);
@@ -54,6 +56,7 @@ describe('GroupingPlugin computeds', () => {
         value: '1',
         type: 'groupRow',
         column: { name: 'a' },
+        colspan: 0,
       });
       expect(grouped[0].rows).toHaveLength(2);
       expect(grouped[0].rows[0]).toMatchObject({
@@ -61,12 +64,14 @@ describe('GroupingPlugin computeds', () => {
         value: '1',
         type: 'groupRow',
         column: { name: 'b' },
+        colspan: 1,
       });
       expect(grouped[0].rows[1]).toMatchObject({
         key: '1|2',
         value: '2',
         type: 'groupRow',
         column: { name: 'b' },
+        colspan: 1,
       });
       expect(grouped[0].rows[0].rows).toHaveLength(1);
       expect(grouped[0].rows[1].rows).toHaveLength(1);

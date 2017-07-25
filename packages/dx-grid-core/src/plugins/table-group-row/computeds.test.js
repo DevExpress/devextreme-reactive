@@ -1,7 +1,4 @@
-import {
-  tableColumnsWithGrouping,
-  tableRowsWithGrouping,
-} from './computeds';
+import { tableColumnsWithGrouping } from './computeds';
 
 describe('TableGroupRow Plugin computeds', () => {
   describe('#tableColumnsWithGrouping', () => {
@@ -22,13 +19,11 @@ describe('TableGroupRow Plugin computeds', () => {
       expect(columns).toHaveLength(6);
       expect(columns[0]).toMatchObject({
         type: 'groupColumn',
-        id: 'a',
         group: { columnName: 'a' },
         width: 123,
       });
       expect(columns[1]).toMatchObject({
         type: 'groupColumn',
-        id: 'c',
         group: { columnName: 'c' },
         width: 123,
       });
@@ -80,21 +75,6 @@ describe('TableGroupRow Plugin computeds', () => {
       expect(columns).toHaveLength(2);
       expect(columns[0]).toBe(allColumns[1]);
       expect(columns[1]).toBe(allColumns[3]);
-    });
-  });
-  describe('#tableRowsWithGrouping', () => {
-    it('should add correct colSpanStart to group rows', () => {
-      const rows = [
-        { type: 'groupRow', column: { name: 'a' } },
-        {},
-        {},
-      ];
-
-      expect(tableRowsWithGrouping(rows))
-        .toEqual([
-          { type: 'groupRow', column: { name: 'a' }, colSpanStart: 'groupColumn_a' },
-          ...rows.slice(1),
-        ]);
     });
   });
 });

@@ -37,7 +37,7 @@ export * from './plugins/table-selection/computeds';
 export {
   tableRowKeyGetter,
   tableColumnKeyGetter,
-  getTableRowColumnsWithColSpan,
+  getTableCellInfo,
   findTableCellTarget,
   getTableColumnGeometries,
   getTableTargetColumnIndex,

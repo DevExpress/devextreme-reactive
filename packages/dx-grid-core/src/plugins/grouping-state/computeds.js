@@ -18,6 +18,7 @@ const groupRows = (originalRows, groupedColumns, parentGroup) => {
       group = {
         _headerKey: `groupRow_${groupColumn.name}`,
         key: (parentGroup ? `${parentGroup.key}${SEPARATOR}` : '') + groupKey,
+        colspan: (parentGroup ? parentGroup.colspan + 1 : 0),
         value: groupKey,
         type: 'groupRow',
         column: groupColumn,

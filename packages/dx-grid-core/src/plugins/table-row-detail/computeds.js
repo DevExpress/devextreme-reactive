@@ -9,7 +9,7 @@ export const expandedDetailRows = (sourceRows, expandedRows, getRowId, rowHeight
         const row = rows[rowIndex];
         rows = [
           ...rows.slice(0, insertIndex),
-          { type: 'detailRow', id: getRowId(row), for: row, colSpanStart: 0, height: rowHeight },
+          { type: 'detailRow', id: getRowId(row), for: row, colspan: 0, height: rowHeight },
           ...rows.slice(insertIndex),
         ];
       }

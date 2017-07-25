@@ -21,7 +21,7 @@ export class TableView extends React.PureComponent {
         <Getter name="tableHeaderRows" value={[]} />
         <Getter
           name="tableBodyRows"
-          pureComputed={rows => (rows.length ? rows : [{ type: 'nodata', colSpanStart: 0 }])}
+          pureComputed={rows => (rows.length ? rows : [{ type: 'nodata', colspan: 0 }])}
           connectArgs={getter => [
             getter('rows'),
           ]}

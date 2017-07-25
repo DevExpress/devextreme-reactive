@@ -13,7 +13,19 @@ describe('GroupPanelCell', () => {
       />,
     );
 
-    expect(tree.find('TableSortLabel').text()).toBe('Test');
+    expect(tree.text()).toBe('Test');
+  });
+
+  it('should not render the "TableSortLabel" component if sorting is disabled', () => {
+    const tree = mountWithStyles(
+      <GroupPanelCell
+        column={{
+          name: 'Test',
+        }}
+      />,
+    );
+
+    expect(tree.find('TableSortLabel').exists()).toBeFalsy();
   });
 
   it('should cancel sorting by using the Ctrl key', () => {

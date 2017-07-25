@@ -12,7 +12,7 @@ describe('GroupPanelCell', () => {
       />,
     );
 
-    expect(tree.find('div > span').text()).toBe('Test');
+    expect(tree.find('div').text()).toBe('Test');
   });
 
   it('can render the ungroup button', () => {

@@ -26,13 +26,8 @@ export class GroupPanelLayout extends React.PureComponent {
     };
 
     this.onEnter = ({ payload }) => {
-      const { draftGroupingChange } = this.props;
-      const sourceColumnName = payload[0].columnName;
       this.setState({
-        sourceColumnName,
-      });
-      draftGroupingChange({
-        columnName: sourceColumnName,
+        sourceColumnName: payload[0].columnName,
       });
     };
     this.onOver = ({ clientOffset }) => {
@@ -60,7 +55,6 @@ export class GroupPanelLayout extends React.PureComponent {
         groupIndex: -1,
       });
       this.setState({
-        sourceColumnName,
         targetColumnIndex: -1,
       });
     };

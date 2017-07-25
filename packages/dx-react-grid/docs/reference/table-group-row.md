@@ -62,6 +62,7 @@ value | any | A value that unites all the rows inside a group
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table body rows
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups
@@ -73,3 +74,4 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the ones by which the table is grouped
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-column)&gt; | Table body rows with applyed modifications to group rows

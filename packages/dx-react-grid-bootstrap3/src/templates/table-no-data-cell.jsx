@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableNoDataCell = ({ style, colSpan }) => (
+export const TableNoDataCell = ({ style, colspan }) => (
   <td
     style={{
       textAlign: 'center',
       padding: '40px 0',
       ...style,
     }}
-    colSpan={colSpan}
+    colSpan={colspan}
   >
     <big className="text-muted">No data</big>
   </td>
@@ -16,10 +16,10 @@ export const TableNoDataCell = ({ style, colSpan }) => (
 
 TableNoDataCell.propTypes = {
   style: PropTypes.shape(),
-  colSpan: PropTypes.number,
+  colspan: PropTypes.number,
 };
 
 TableNoDataCell.defaultProps = {
   style: null,
-  colSpan: 1,
+  colspan: 1,
 };

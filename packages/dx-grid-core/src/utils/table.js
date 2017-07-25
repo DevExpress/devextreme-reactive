@@ -26,7 +26,7 @@ export const getTableRowColumnsWithColSpan = (columns, colSpanStart) => {
       if (columnIndex === colSpanStart ||
         tableColumnKeyGetter(column, columnIndex) === colSpanStart) {
         span = true;
-        return [...acc, { original: column, colSpan: columns.length - columnIndex }];
+        return [...acc, { original: column, colspan: columns.length - columnIndex }];
       }
       return [...acc, { original: column }];
     }, []);

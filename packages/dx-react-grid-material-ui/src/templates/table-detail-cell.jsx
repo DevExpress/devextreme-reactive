@@ -9,10 +9,10 @@ const styleSheet = createStyleSheet('TableDetailCell', theme => ({
   },
 }));
 
-const TableDetailCellBase = ({ colSpan, style, template, classes }) => (
+const TableDetailCellBase = ({ colspan, style, template, classes }) => (
   <TableCell
     style={style}
-    colSpan={colSpan}
+    colSpan={colspan}
     className={classes.active}
   >
     {template()}
@@ -21,14 +21,14 @@ const TableDetailCellBase = ({ colSpan, style, template, classes }) => (
 
 TableDetailCellBase.propTypes = {
   style: PropTypes.shape(),
-  colSpan: PropTypes.number,
+  colspan: PropTypes.number,
   template: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 TableDetailCellBase.defaultProps = {
   style: null,
-  colSpan: 1,
+  colspan: 1,
 };
 
 export const TableDetailCell = withStyles(styleSheet)(TableDetailCellBase);

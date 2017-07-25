@@ -135,13 +135,13 @@ export default class Demo extends React.PureComponent {
               }
               return undefined;
             }}
-            tableNoDataCellTemplate={({ colSpan }) => (
+            tableNoDataCellTemplate={({ colspan }) => (
               <td
                 style={{
                   textAlign: 'center',
                   padding: '40px 0',
                 }}
-                colSpan={colSpan}
+                colSpan={colspan}
               >
                 <big className="text-muted">{loading ? '' : 'No data'}</big>
               </td>

@@ -187,8 +187,8 @@ describe('TableView', () => {
                 {bodyRows.map(row => (
                   <tr key={row.id || row.type}>
                     {getTableRowColumnsWithColSpan(columns, row.colSpanStart)
-                      .map(({ original: column, colSpan }) => React.cloneElement(
-                        cellTemplate({ row, column, colSpan }),
+                      .map(({ original: column, colspan }) => React.cloneElement(
+                        cellTemplate({ row, column, colspan }),
                         { key: column.name },
                       ))}
                   </tr>
@@ -199,7 +199,7 @@ describe('TableView', () => {
           tableCellTemplate={() => null}
           tableStubCellTemplate={() => null}
           tableStubHeaderCellTemplate={() => null}
-          tableNoDataCellTemplate={({ colSpan }) => <td className="no-data" colSpan={colSpan} />}
+          tableNoDataCellTemplate={({ colspan }) => <td className="no-data" colSpan={colspan} />}
         />
       </PluginHost>,
     );
@@ -207,7 +207,7 @@ describe('TableView', () => {
     const noDataCell = tree.find('td.no-data');
     expect(noDataCell)
       .toHaveLength(1);
-    expect(noDataCell.prop('colSpan'))
+    expect(noDataCell.prop('colspan'))
       .toBe(2);
   });
 });

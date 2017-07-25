@@ -1,6 +1,6 @@
 # TableGroupRow Plugin Reference
 
-A plugin that renders group rows with the capability to expand and collapse them.
+A plugin that renders group rows and provides a capability to expand and collapse them.
 
 ## User Reference
 
@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | | A component that renders a group row
 groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell
-groupIndentColumnWidth | number | | The group indent columns' width
+groupIndentColumnWidth | number | | The group indent column's width
 
 ## Interfaces
 
@@ -29,7 +29,7 @@ Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | A group row data object
 isExpanded | boolean | Specifies if a row is expanded
-toggleGroupExpanded | () => void | Toggles a group row's expanded state
+toggleGroupExpanded | () => void | Toggles the group row's expanded state
 
 ### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
 

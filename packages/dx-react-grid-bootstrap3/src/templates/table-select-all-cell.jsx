@@ -35,17 +35,19 @@ export const TableSelectAllCell = (
     />
   </th>
 );
-TableSelectAllCell.defaultProps = {
-  style: null,
-  allSelected: false,
-  someSelected: false,
-  selectionAvailable: false,
-  toggleAll: () => {},
-};
+
 TableSelectAllCell.propTypes = {
   style: PropTypes.shape(),
   allSelected: PropTypes.bool,
   someSelected: PropTypes.bool,
   selectionAvailable: PropTypes.bool,
   toggleAll: PropTypes.func,
+};
+
+TableSelectAllCell.defaultProps = {
+  style: null,
+  allSelected: false,
+  someSelected: false,
+  selectionAvailable: false,
+  toggleAll: () => {},
 };

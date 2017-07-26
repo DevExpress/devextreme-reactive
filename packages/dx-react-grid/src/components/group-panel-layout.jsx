@@ -6,7 +6,7 @@ import { getColumnSortingDirection, getGroupCellTargetIndex } from '@devexpress/
 
 const getSortingConfig = (sorting, column) => {
   const result = {
-    sortingSupported: !column.type && sorting !== undefined,
+    sortingSupported: sorting !== undefined,
   };
 
   if (result.sortingSupported) {

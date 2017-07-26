@@ -1,24 +1,26 @@
+import { SELECT_TYPE } from './constants';
 import extendWithEventListener from '../../utils/extend-with-event-listener';
 
 export const tableColumnsWithSelection = (columns, selectionColumnWidth) =>
-  [{ type: 'select', name: 'select', width: selectionColumnWidth }, ...columns];
+  [{ type: SELECT_TYPE, id: 0, width: selectionColumnWidth }, ...columns];
 
+// TODO: remove getRowId
 export const tableBodyRowsWithSelection = (bodyRows, selection, getRowId) => {
   const selectionSet = new Set(selection);
   return bodyRows
     .map((row) => {
-      if (!selectionSet.has(getRowId(row))) return row;
-      return Object.assign({ selected: true, _originalRow: row }, row);
+      if (!selectionSet.has(getRowId(row.original))) return row;
+      return { selected: true, ...row };
     });
 };
 
-export const tableExtraProps = (
-    extraProps,
-    availableToSelect,
-    setRowSelection,
-    getRowId,
-  ) => extendWithEventListener(extraProps, 'onClick', ({ row }) => {
-    const rowId = getRowId(row);
-    if (availableToSelect.indexOf(rowId) === -1) return;
-    setRowSelection({ rowId });
-  });
+// TODO: remove getRowId
+export const tableExtraPropsWithSelection = (
+  extraProps,
+  setRowSelection,
+  getRowId,
+) => extendWithEventListener(extraProps, 'onClick', ({ row }) => {
+  const rowId = getRowId(row.original);
+  if (rowId === undefined) return;
+  setRowSelection({ rowId });
+});

@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnSortingDirection, tableRowsWithHeading } from '@devexpress/dx-grid-core';
+import {
+  getColumnSortingDirection,
+  tableRowsWithHeading,
+  isHeadingTableCell,
+} from '@devexpress/dx-grid-core';
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
@@ -18,8 +22,8 @@ export class TableHeaderRow extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ row, column }) => row.type === 'heading' && !column.type}
-          connectGetters={(getter, { column }) => {
+          predicate={({ row, column }) => isHeadingTableCell(row, column)}
+          connectGetters={(getter, { column: { original: column } }) => {
             const sorting = getter('sorting');
             const columns = getter('columns');
             const grouping = getter('grouping');
@@ -39,22 +43,25 @@ export class TableHeaderRow extends React.PureComponent {
 
             return result;
           }}
-          connectActions={(action, { column }) => ({
+          connectActions={(action, { column: { original: column } }) => ({
             changeSortingDirection: ({ keepOther, cancel }) => action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
             groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
           })}
         >
           {({
+            row,
+            column: { original: column },
             sortingSupported,
             groupingSupported,
             draggingSupported,
             ...restParams
           }) => headerCellTemplate({
-            ...restParams,
+            column,
             allowSorting: allowSorting && sortingSupported,
             allowGroupingByClick: allowGroupingByClick && groupingSupported,
             allowDragging: allowDragging && draggingSupported,
-            dragPayload: [{ type: 'column', columnName: restParams.column.name }],
+            dragPayload: [{ type: 'column', columnName: column.name }],
+            ...restParams,
           })}
         </Template>
       </PluginContainer>

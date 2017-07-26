@@ -8,19 +8,18 @@ import {
   PluginHost,
 } from '@devexpress/dx-react-core';
 import {
-  tableHeaderRowsWithFilter,
-  isFilterTableCell,
+  tableRowsWithHeading,
+  isHeadingTableCell,
 } from '@devexpress/dx-grid-core';
-import { TableFilterRow } from './table-filter-row';
+import { TableHeaderRow } from './table-header-row';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  tableHeaderRowsWithFilter: jest.fn(),
-  isFilterTableCell: jest.fn(),
-  getColumnFilterConfig: jest.fn(),
+  tableRowsWithHeading: jest.fn(),
+  isHeadingTableCell: jest.fn(),
 }));
 
 const defaultPluginProps = {
-  filterCellTemplate: () => null,
+  headerCellTemplate: () => null,
 };
 
 describe('TableHeaderRow', () => {
@@ -33,8 +32,8 @@ describe('TableHeaderRow', () => {
   });
 
   beforeEach(() => {
-    tableHeaderRowsWithFilter.mockImplementation(() => 'tableHeaderRowsWithFilter');
-    isFilterTableCell.mockImplementation(() => false);
+    tableRowsWithHeading.mockImplementation(() => 'tableRowsWithHeading');
+    isHeadingTableCell.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -46,7 +45,7 @@ describe('TableHeaderRow', () => {
       mount(
         <PluginHost>
           <Getter name="tableHeaderRows" value="tableHeaderRows" />
-          <TableFilterRow
+          <TableHeaderRow
             {...defaultPluginProps}
           />
           <Template
@@ -58,17 +57,17 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(tableHeaderRowsWithFilter)
-        .toBeCalledWith('tableHeaderRows', undefined);
+      expect(tableRowsWithHeading)
+        .toBeCalledWith('tableHeaderRows');
       expect(tableHeaderRows)
-        .toBe('tableHeaderRowsWithFilter');
+        .toBe('tableRowsWithHeading');
     });
   });
 
-  it('should render heading cell on user-defined column and filter row intersection', () => {
-    isFilterTableCell.mockImplementation(() => true);
+  it('should render heading cell on user-defined column and heading row intersection', () => {
+    isHeadingTableCell.mockImplementation(() => true);
 
-    const filterCellTemplate = jest.fn(() => null);
+    const headerCellTemplate = jest.fn(() => null);
 
     mount(
       <PluginHost>
@@ -78,18 +77,18 @@ describe('TableHeaderRow', () => {
             params={{ row: { original: 'row' }, column: { original: { name: 'a' } }, style: {} }}
           />
         </Template>
-        <TableFilterRow
+        <TableHeaderRow
           {...defaultPluginProps}
-          filterCellTemplate={filterCellTemplate}
+          headerCellTemplate={headerCellTemplate}
         />
       </PluginHost>,
     );
 
-    expect(isFilterTableCell)
+    expect(isHeadingTableCell)
       .toBeCalledWith({ original: 'row' }, { original: { name: 'a' } });
-    expect(filterCellTemplate)
+    expect(headerCellTemplate)
       .not.toBeCalledWith(expect.objectContaining({ row: 'row' }));
-    expect(filterCellTemplate)
+    expect(headerCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         column: { name: 'a' },
         style: {},

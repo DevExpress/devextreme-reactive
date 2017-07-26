@@ -1,22 +1,23 @@
+import { DETAIL_TYPE } from './constants';
 import {
-    expandedDetailRows,
-    tableColumnsWithDetail,
+  tableRowsWithExpandedDetail,
+  tableColumnsWithDetail,
 } from './computeds';
 
-describe('DetailRow computeds', () => {
-  describe('#expandedDetailRows', () => {
+describe('TableRowDetail Plugin computeds', () => {
+  describe('#tableRowsWithExpandedDetail', () => {
     it('can expand one row', () => {
-      const rows = [{ id: 1 }, { id: 2 }];
+      const rows = [{ original: { id: 1 } }, { original: { id: 2 } }];
       const expandedRows = [2];
 
-      const rowsWithDetails = expandedDetailRows(rows, expandedRows, row => row.id, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(rows, expandedRows, row => row.id, 'auto');
       expect(rowsWithDetails).toEqual([
-        { id: 1 },
-        { id: 2 },
+        { original: { id: 1 } },
+        { original: { id: 2 } },
         {
-          type: 'detailRow',
+          type: DETAIL_TYPE,
           id: 2,
-          for: { id: 2 },
+          original: { id: 2 },
           colspan: 0,
           height: 'auto',
         },
@@ -24,24 +25,24 @@ describe('DetailRow computeds', () => {
     });
 
     it('can expand several rows', () => {
-      const rows = [{ id: 1 }, { id: 2 }];
+      const rows = [{ original: { id: 1 } }, { original: { id: 2 } }];
       const expandedRows = [1, 2];
 
-      const rowsWithDetails = expandedDetailRows(rows, expandedRows, row => row.id, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(rows, expandedRows, row => row.id, 'auto');
       expect(rowsWithDetails).toEqual([
-        { id: 1 },
+        { original: { id: 1 } },
         {
-          type: 'detailRow',
+          type: DETAIL_TYPE,
           id: 1,
-          for: { id: 1 },
+          original: { id: 1 },
           colspan: 0,
           height: 'auto',
         },
-        { id: 2 },
+        { original: { id: 2 } },
         {
-          type: 'detailRow',
+          type: DETAIL_TYPE,
           id: 2,
-          for: { id: 2 },
+          original: { id: 2 },
           colspan: 0,
           height: 'auto',
         },
@@ -59,7 +60,7 @@ describe('DetailRow computeds', () => {
       const columns = tableColumnsWithDetail(tableColumns, 50);
 
       expect(columns).toHaveLength(3);
-      expect(columns[0]).toMatchObject({ type: 'detail', width: 50 });
+      expect(columns[0]).toMatchObject({ type: DETAIL_TYPE, width: 50 });
       expect(columns[1]).toBe(tableColumns[0]);
       expect(columns[2]).toBe(tableColumns[1]);
     });

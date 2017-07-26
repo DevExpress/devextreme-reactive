@@ -44,6 +44,7 @@ Field | Type | Description
 row | [TableRow](#table-row) | Specifies a table row
 column | [TableColumn](#table-column) | Specifies a table column
 style? | Object | Specifies cell styles
+colspan? | number | Specifies the number of columns the cell spans
 
 ### <a name="table-cell-args"></a>TableCellArgs
 
@@ -54,6 +55,7 @@ Field | Type | Description
 row | [TableRow](#table-row) | Specifies a table row
 column | [TableColumn](#table-column) | Specifies a table column
 style? | Object | Specifies cell styles
+colspan? | number | Specifies the number of columns the cell spans
 
 ### <a name="table-no-data-cell-args"></a>TableNoDataCellArgs
 
@@ -84,25 +86,27 @@ style? | Object | Specifies cell styles
 
 Describes properties of a table row rendered by the TableView plugin.
 
-Extends [Row](grid.md#row)
-
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-type? | string | Specifies the table row type. Defines a cell template used to render a row. The type is not defined for rows passed by a user.
+type | string | Specifies the table row type. Defines a cell template used to render a row.
+id | number &#124; string | Specifies the table row id. Used to unique identify row of the given type.
+height? | number &#124; string | Specifies the table row height.
+original? | [Row](grid.md#row) | Specifies the associated row.
 
 ### <a name="table-column"></a>TableColumn
 
 Describes table column properties that the TableView plugin takes into account.
 
-Extends [Column](grid.md#column)
-
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-type? | string | Specifies the table column type. Defines a cell template used to render a cell. The type is not defined for data rows
+type | string | Specifies the table column type. Defines a cell template used to render a row.
+id | number &#124; string | Specifies the table column id. Used to unique identify column of the given type.
+width? | number &#124; string | Specifies the table column width.
+original? | [Column](grid.md#column) | Specifies the associated column.
 
 ## Plugin Developer Reference
 

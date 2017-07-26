@@ -44,6 +44,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+row | [Row](grid.md#row) | A row object
 selected | boolean | Specifies whether a row is selected
 changeSelected | () => void | Selects or deselects a row
 

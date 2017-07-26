@@ -28,7 +28,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | A row object for showing row details
+row | [Row](grid.md#row) | A row object for showing row details
 
 ### <a name="detail-cell-args"></a>DetailCellArgs
 
@@ -38,8 +38,10 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | A row object
+row | [Row](grid.md#row) | A row object
 template | () => ReactElement | A component that renders row details
+style? | Object | Specifies cell styles
+colspan? | number | Specifies the number of columns the cell spans
 
 ### <a name="detail-toggle-args"></a>DetailToggleArgs
 
@@ -49,8 +51,10 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+row | [Row](grid.md#row) | A row object
 expanded | boolean | Specifies whether or not row details are displayed
 toggleExpanded | () => void | Toggles the expanded state for a row
+style? | Object | Specifies cell styles
 
 ## Plugin Developer Reference
 

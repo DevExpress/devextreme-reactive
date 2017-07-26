@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { tableColumnsWithSelection, tableBodyRowsWithSelection, tableExtraProps } from '@devexpress/dx-grid-core';
+import {
+  tableColumnsWithSelection,
+  tableBodyRowsWithSelection,
+  tableExtraPropsWithSelection,
+  isSelectTableCell,
+  isSelectAllTableCell,
+} from '@devexpress/dx-grid-core';
 
 export class TableSelection extends React.PureComponent {
   render() {
@@ -41,10 +47,9 @@ export class TableSelection extends React.PureComponent {
         {selectByRowClick && (
           <Getter
             name="tableExtraProps"
-            pureComputed={tableExtraProps}
+            pureComputed={tableExtraPropsWithSelection}
             connectArgs={(getter, action) => [
               getter('tableExtraProps'),
-              getter('availableToSelect'),
               action('setRowSelection'),
               getter('getRowId'),
             ]}
@@ -54,7 +59,7 @@ export class TableSelection extends React.PureComponent {
         {(showSelectionColumn && showSelectAll) && (
           <Template
             name="tableViewCell"
-            predicate={({ column, row }) => column.type === 'select' && row.type === 'heading'}
+            predicate={({ column, row }) => isSelectAllTableCell(row, column)}
             connectGetters={(getter) => {
               const availableToSelect = getter('availableToSelect');
               const selection = getter('selection');
@@ -70,7 +75,13 @@ export class TableSelection extends React.PureComponent {
               toggleAll: availableToSelect => action('setRowsSelection')({ rowIds: availableToSelect }),
             })}
           >
-            {({ toggleAll, availableToSelect, ...restParams }) => selectAllCellTemplate({
+            {({
+              row,
+              column,
+              toggleAll,
+              availableToSelect,
+              ...restParams
+            }) => selectAllCellTemplate({
               ...restParams,
               toggleAll: () => toggleAll(availableToSelect),
             })}
@@ -79,19 +90,24 @@ export class TableSelection extends React.PureComponent {
         {showSelectionColumn && (
           <Template
             name="tableViewCell"
-            predicate={({ column, row }) => column.type === 'select' && !row.type}
-            connectGetters={(getter, { row }) => ({
-              rowId: getter('getRowId')(row),
+            predicate={({ column, row }) => isSelectTableCell(row, column)}
+            connectGetters={getter => ({
               selection: getter('selection'),
             })}
             connectActions={action => ({
               toggleSelected: ({ rowId }) => action('setRowSelection')({ rowId }),
             })}
           >
-            {({ rowId, selection, toggleSelected, ...restParams }) => selectCellTemplate({
-              ...restParams,
+            {({
+              row: { id: rowId, original: row },
+              selection,
+              toggleSelected,
+              ...restParams
+            }) => selectCellTemplate({
+              row,
               selected: selection.indexOf(rowId) > -1,
               changeSelected: () => toggleSelected({ rowId }),
+              ...restParams,
             })}
           </Template>
         )}

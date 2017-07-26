@@ -22,19 +22,19 @@ allowSorting | boolean | false | If true, it allows an end-user to change sortin
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell
 allowGroupingByClick | boolean | false | If true, it renders a component that toggles a column's grouping state
 
-## Interfaces
+## Extensions
 
-### Column
+### <a name="titled-column"></a>TitledColumn
 
-Describes properties used to render the table header row.
+Describes column properties used to render the table header row.
 
-Extends [Column](grid.md#column)
-
-A value with the following shape:
+Extends [Column](grid.md#column) with the following shape:
 
 Field | Type | Description
 ------|------|------------
 title? | string | Specifies a table column title
+
+## Interfaces
 
 ### <a name="header-cell-args"></a>HeaderCellArgs
 
@@ -44,6 +44,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+column | [TitledColumn](#titled-column) | A column object
 allowSorting | boolean | If true, an end-user can change sorting by a column
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the column sort order
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) | Changes column sort direction. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
@@ -60,7 +61,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Table columns
+columns | Getter | Array&lt;[TitledColumn](#titled-column)&gt; | Table columns
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.

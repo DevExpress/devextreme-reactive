@@ -24,7 +24,7 @@ export class TableEditRow extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && !row.isNew && !column.type}
+          predicate={({ column, row }) => row.type === 'edit' && !row.isNew && column.type === 'data'}
           connectGetters={(getter, { column, row }) => {
             const originalRow = row._originalRow;
             const rowId = getter('getRowId')(row);
@@ -55,7 +55,7 @@ export class TableEditRow extends React.PureComponent {
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && row.isNew && !column.type}
+          predicate={({ column, row }) => row.type === 'edit' && row.isNew && column.type === 'data'}
           connectGetters={(_, { column, row }) => {
             const originalRow = row._originalRow;
             return {

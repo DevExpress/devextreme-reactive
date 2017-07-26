@@ -113,7 +113,7 @@ export class TableEditColumn extends React.PureComponent {
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => !row.type && column.type === 'edit'}
+          predicate={({ column, row }) => row.type === 'data' && column.type === 'edit'}
           connectGetters={(getter, { row }) => ({
             rowId: getter('getRowId')(row),
           })}

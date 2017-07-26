@@ -26,8 +26,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | Specifies the initial row
-column | [TableColumn](table-view.md#table-column) | Specifies a table column
+row | [Row](grid.md#row) | Specifies the initial row
+column | [Column](grid.md#column) | Specifies a column
 value | any | Specifies a value to be edited
 onValueChange | (newValue: any) => void | Handles value changes
 

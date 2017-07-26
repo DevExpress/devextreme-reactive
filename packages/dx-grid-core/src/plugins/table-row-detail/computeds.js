@@ -1,15 +1,24 @@
-export const expandedDetailRows = (sourceRows, expandedRows, getRowId, rowHeight) => {
+import { DETAIL_TYPE } from './constants';
+
+// TODO: remove getRowId
+export const tableRowsWithExpandedDetail = (sourceRows, expandedRows, getRowId, rowHeight) => {
   let rows = sourceRows;
   expandedRows
     .forEach((expandedRowId) => {
-      const index = rows.findIndex(row => getRowId(row) === expandedRowId);
+      const index = rows.findIndex(row => getRowId(row.original) === expandedRowId);
       if (index !== -1) {
-        const rowIndex = rows.findIndex(row => getRowId(row) === expandedRowId);
+        const rowIndex = rows.findIndex(row => getRowId(row.original) === expandedRowId);
         const insertIndex = rowIndex + 1;
         const row = rows[rowIndex];
         rows = [
           ...rows.slice(0, insertIndex),
-          { type: 'detailRow', id: getRowId(row), for: row, colspan: 0, height: rowHeight },
+          {
+            type: DETAIL_TYPE,
+            id: getRowId(row.original),
+            original: row.original,
+            colspan: 0,
+            height: rowHeight,
+          },
           ...rows.slice(insertIndex),
         ];
       }
@@ -17,4 +26,5 @@ export const expandedDetailRows = (sourceRows, expandedRows, getRowId, rowHeight
   return rows;
 };
 
-export const tableColumnsWithDetail = (columns, detailToggleCellWidth) => [{ type: 'detail', width: detailToggleCellWidth }, ...columns];
+export const tableColumnsWithDetail = (columns, detailToggleCellWidth) =>
+  [{ type: DETAIL_TYPE, width: detailToggleCellWidth }, ...columns];

@@ -1,37 +1,14 @@
 import {
-  tableColumnKeyGetter,
-  tableRowKeyGetter,
+  tableKeyGetter,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
 } from './table';
 
 describe('table utils', () => {
-  describe('#tableColumnKeyGetter', () => {
+  describe('#tableKeyGetter', () => {
     it('should correctly return keys', () => {
-      const columns = [{ type: 'test' }, { type: 'test', id: 'a' }, { name: 'a' }, { name: 'b', id: 'bb' }];
-
-      expect(columns.map(tableColumnKeyGetter))
-        .toEqual([
-          'test_$0',
-          'test_a',
-          'data_a',
-          'data_b',
-        ]);
-    });
-  });
-
-  describe('#tableRowKeyGetter', () => {
-    it('should correctly return keys', () => {
-      const rows = [{ type: 'test' }, { type: 'test', id: 'a' }, { name: 'a' }, { name: 'b', id: 'bb' }];
-      const getRowId = row => rows.filter(r => !r.type).indexOf(row);
-
-      expect(rows.map((row, rowIndex) => tableRowKeyGetter(getRowId, row, rowIndex)))
-        .toEqual([
-          'test_$0',
-          'test_a',
-          'data_0',
-          'data_1',
-        ]);
+      expect(tableKeyGetter({ type: 'a', id: 0 }))
+        .toBe('a_0');
     });
   });
 

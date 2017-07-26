@@ -78,8 +78,8 @@ describe('TableLayout', () => {
   };
 
   it('should render table with rows and columns', () => {
-    const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
-    const columns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
+    const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }, { type: 'data', id: 3 }];
+    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }, { type: 'data', id: 'c' }, { type: 'data', id: 'd' }];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -88,7 +88,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
       />,
     );
 
@@ -96,8 +95,8 @@ describe('TableLayout', () => {
   });
 
   it('should render table with headerRows and columns', () => {
-    const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
-    const columns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
+    const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }, { type: 'data', id: 3 }];
+    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }, { type: 'data', id: 'c' }, { type: 'data', id: 'd' }];
     const tree = mount(
       <TableLayout
         headerRows={rows}
@@ -108,7 +107,6 @@ describe('TableLayout', () => {
         headTemplate={headTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
       />,
     );
 
@@ -116,8 +114,8 @@ describe('TableLayout', () => {
   });
 
   it('should span columns if specified', () => {
-    const rows = [{ id: 1, colspan: 0 }, { id: 2, colspan: 1 }];
-    const columns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
+    const rows = [{ type: 'data', id: 1, colspan: 0 }, { type: 'data', id: 2, colspan: 1 }];
+    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }, { type: 'data', id: 'c' }, { type: 'data', id: 'd' }];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -126,7 +124,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
       />,
     );
 
@@ -143,8 +140,8 @@ describe('TableLayout', () => {
   });
 
   it('should have correct styles', () => {
-    const rows = [{ id: 1, height: 100 }, { id: 2 }];
-    const columns = [{ name: 'a', width: 100 }, { name: 'b' }];
+    const rows = [{ type: 'data', id: 1, height: 100 }, { type: 'data', id: 2 }];
+    const columns = [{ type: 'data', id: 'a', width: 100 }, { type: 'data', id: 'b' }];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -154,7 +151,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
       />,
     );
 
@@ -180,8 +176,8 @@ describe('TableLayout', () => {
   });
 
   it('should handle click in body', () => {
-    const rows = [{ id: 1 }, { id: 2 }];
-    const columns = [{ name: 'a' }, { name: 'b' }];
+    const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
+    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
     const onClick = jest.fn();
     const tree = mount(
       <TableLayout
@@ -192,7 +188,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
         onClick={onClick}
       />,
     );
@@ -204,8 +199,8 @@ describe('TableLayout', () => {
   });
 
   it('should handle click in head', () => {
-    const rows = [{ id: 1 }, { id: 2 }];
-    const columns = [{ name: 'a' }, { name: 'b' }];
+    const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
+    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
     const onClick = jest.fn();
     const tree = mount(
       <TableLayout
@@ -218,7 +213,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
         onClick={onClick}
       />,
     );
@@ -231,8 +225,8 @@ describe('TableLayout', () => {
 
   describe('flex column', () => {
     it('should add flex column if all columns have fixed widths', () => {
-      const rows = [{ id: 1 }, { id: 2 }];
-      const columns = [{ name: 'a', width: 100 }, { name: 'b', width: 100 }];
+      const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
+      const columns = [{ type: 'data', id: 'a', width: 100 }, { type: 'data', id: 'b', width: 100 }];
       const tree = mount(
         <TableLayout
           rows={rows}
@@ -241,7 +235,6 @@ describe('TableLayout', () => {
           bodyTemplate={bodyTemplateMock}
           rowTemplate={rowTemplateMock}
           cellTemplate={cellTemplateMock}
-          getRowId={row => row.id}
         />,
       );
 
@@ -273,8 +266,8 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ id: 1 }, { id: 2 }];
-      const columns = [{ name: 'a' }, { name: 'b' }];
+      const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
+      const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
       const tree = mount(
         <DragDropContext>
           <TableLayout
@@ -284,7 +277,6 @@ describe('TableLayout', () => {
             bodyTemplate={bodyTemplateMock}
             rowTemplate={rowTemplateMock}
             cellTemplate={cellTemplateMock}
-            getRowId={row => row.id}
             allowColumnReordering
           />
         </DragDropContext>,
@@ -300,8 +292,8 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ id: 1 }, { id: 2 }];
-      const columns = [{ name: 'a' }, { name: 'b' }];
+      const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
+      const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
       const tree = mount(
         <DragDropContext>
           <TableLayout
@@ -311,7 +303,6 @@ describe('TableLayout', () => {
             bodyTemplate={bodyTemplateMock}
             rowTemplate={rowTemplateMock}
             cellTemplate={cellTemplateMock}
-            getRowId={row => row.id}
             allowColumnReordering
           />
         </DragDropContext>,
@@ -328,8 +319,8 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ id: 1 }, { id: 2 }];
-      const columns = [{ name: 'a' }, { name: 'b' }];
+      const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
+      const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
       const setColumnOrder = jest.fn();
       const tree = mount(
         <DragDropContext>
@@ -341,7 +332,6 @@ describe('TableLayout', () => {
             bodyTemplate={bodyTemplateMock}
             rowTemplate={rowTemplateMock}
             cellTemplate={cellTemplateMock}
-            getRowId={row => row.id}
             allowColumnReordering
             setColumnOrder={setColumnOrder}
           />

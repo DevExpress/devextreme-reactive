@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-core';
 
 import {
-  tableRowKeyGetter,
+  tableKeyGetter,
   findTableCellTarget,
 } from '@devexpress/dx-grid-core';
 
@@ -16,13 +16,11 @@ export class RowsBlockLayout extends React.PureComponent {
   render() {
     const {
       rows,
-      getRowId,
       columns,
       blockTemplate,
       rowTemplate,
       cellTemplate,
       onClick,
-      animationState,
     } = this.props;
 
     return (
@@ -36,14 +34,13 @@ export class RowsBlockLayout extends React.PureComponent {
       >
         {
           rows
-            .map((row, rowIndex) => (
+            .map(row => (
               <RowLayout
-                key={tableRowKeyGetter(getRowId, row, rowIndex)}
+                key={tableKeyGetter(row)}
                 row={row}
                 columns={columns}
                 rowTemplate={rowTemplate}
                 cellTemplate={cellTemplate}
-                animationState={animationState}
               />
             ))
         }
@@ -54,11 +51,9 @@ export class RowsBlockLayout extends React.PureComponent {
 
 RowsBlockLayout.propTypes = {
   rows: PropTypes.array.isRequired,
-  getRowId: PropTypes.func.isRequired,
   columns: PropTypes.array.isRequired,
   blockTemplate: PropTypes.func.isRequired,
   rowTemplate: PropTypes.func.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  animationState: PropTypes.instanceOf(Map).isRequired,
 };

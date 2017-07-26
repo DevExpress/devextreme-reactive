@@ -44,8 +44,7 @@ export * from './plugins/table-view/helpers';
 export * from './plugins/table-view/computeds';
 
 export {
-  tableRowKeyGetter,
-  tableColumnKeyGetter,
+  tableKeyGetter,
   getTableCellInfo,
   findTableCellTarget,
   getTableColumnGeometries,

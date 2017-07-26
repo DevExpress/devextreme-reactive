@@ -147,8 +147,8 @@ export default class Demo extends React.PureComponent {
     this.changeAddedRows = addedRows => this.setState({
       addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
         amount: 0,
-        discount: 0.1,
-        saleDate: new Date().toDateString(),
+        discount: 0,
+        saleDate: new Date().toISOString().split('T')[0],
         product: availableValues.product[0],
         region: availableValues.region[0],
         customer: availableValues.customer[0],

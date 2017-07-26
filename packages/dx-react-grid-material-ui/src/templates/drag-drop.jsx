@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Paper, Typography } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('DragDrop', theme => ({
+export const styleSheet = createStyleSheet('DragDrop', theme => ({
   container: {
+    cursor: 'move',
     position: 'fixed',
     zIndex: 1000,
     left: 0,
@@ -50,7 +51,7 @@ ContainerBase.propTypes = {
 
 export const Container = withStyles(styleSheet)(ContainerBase);
 
-export const ColumnBase = ({ column, classes }) => (
+const ColumnBase = ({ column, classes }) => (
   <Typography
     className={classes.column}
     type="body1"

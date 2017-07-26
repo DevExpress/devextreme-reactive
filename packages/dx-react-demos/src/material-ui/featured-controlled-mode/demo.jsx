@@ -23,7 +23,6 @@ import {
 } from 'material-ui';
 
 import DeleteIcon from 'material-ui-icons/Delete';
-import AddIcon from 'material-ui-icons/Add';
 import EditIcon from 'material-ui-icons/Edit';
 import SaveIcon from 'material-ui-icons/Save';
 import CancelIcon from 'material-ui-icons/Cancel';
@@ -62,14 +61,12 @@ const commandTemplates = {
   add: (onClick, allowAdding) => (
     <div style={{ textAlign: 'center' }}>
       <Button
-        fab
         color="primary"
         onClick={onClick}
         title="Create new row"
-        style={{ width: 40, height: 40 }}
         disabled={!allowAdding}
       >
-        <AddIcon />
+        New
       </Button>
     </div>
   ),
@@ -134,6 +131,7 @@ class DemoBase extends React.PureComponent {
         { name: 'region', title: 'Region', width: 110 },
         { name: 'amount', title: 'Amount', align: 'right', width: 90 },
         { name: 'discount', title: 'Discount', width: 110 },
+        { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
       rows: generateRows({
@@ -156,8 +154,8 @@ class DemoBase extends React.PureComponent {
     this.changeAddedRows = addedRows => this.setState({
       addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
         amount: 0,
-        discount: 0.1,
-        saleDate: new Date().toDateString(),
+        discount: 0,
+        saleDate: new Date().toISOString().split('T')[0],
         product: availableValues.product[0],
         region: availableValues.region[0],
         customer: availableValues.customer[0],

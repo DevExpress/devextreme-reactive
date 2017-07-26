@@ -67,9 +67,9 @@ children? | ReactElement | A markup to be placed into the footer
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](#row)&gt; | Specified rows
-columns | Getter | Array&lt;[Column](#column)&gt; | Specified columns
-root | Template | Object? | A template that renders grid root layout
-header | Template | Object? | A template that renders grid header
-body | Template | Object? | A template that renders grid body
-footer | Template | Object? | A template that renders grid footer
+rows | Getter | Array&lt;[Row](#row)&gt; | Grid rows
+columns | Getter | Array&lt;[Column](#column)&gt; | Grid  columns
+root | Template | Object? | A template that renders the grid root layout
+header | Template | Object? | A template that renders the grid header
+body | Template | Object? | A template that renders the grid body
+footer | Template | Object? | A template that renders the grid footer

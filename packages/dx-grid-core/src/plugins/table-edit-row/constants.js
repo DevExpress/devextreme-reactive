@@ -1,2 +1,2 @@
-export const ADD_TYPE = 'add';
-export const EDIT_TYPE = 'edit';
+export const TABLE_ADDING_TYPE = 'adding';
+export const TABLE_EDITING_TYPE = 'editing';

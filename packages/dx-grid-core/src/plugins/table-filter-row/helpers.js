@@ -1,5 +1,5 @@
-import { FILTER_TYPE } from './constants';
-import { DATA_TYPE } from '../table-view/constants';
+import { TABLE_FILTER_TYPE } from './constants';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
 
 export const isFilterTableCell = (row, column) =>
-  row.type === FILTER_TYPE && column.type === DATA_TYPE;
+  row.type === TABLE_FILTER_TYPE && column.type === TABLE_DATA_TYPE;

@@ -1,4 +1,4 @@
-import { SELECT_TYPE } from './constants';
+import { TABLE_SELECT_TYPE } from './constants';
 import {
   tableColumnsWithSelection,
   tableBodyRowsWithSelection,
@@ -16,7 +16,7 @@ describe('TableSelection Plugin computeds', () => {
       const columns = tableColumnsWithSelection(tableColumns, 123);
 
       expect(columns).toHaveLength(3);
-      expect(columns[0]).toMatchObject({ type: SELECT_TYPE, id: 0, width: 123 });
+      expect(columns[0]).toMatchObject({ type: TABLE_SELECT_TYPE, id: 0, width: 123 });
       expect(columns[1]).toBe(tableColumns[0]);
       expect(columns[2]).toBe(tableColumns[1]);
     });

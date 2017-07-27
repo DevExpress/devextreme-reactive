@@ -1,2 +1,2 @@
-export const DATA_TYPE = 'data';
-export const NODATA_TYPE = 'nodata';
+export const TABLE_DATA_TYPE = 'data';
+export const TABLE_NODATA_TYPE = 'nodata';

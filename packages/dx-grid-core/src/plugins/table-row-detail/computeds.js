@@ -1,4 +1,4 @@
-import { DETAIL_TYPE } from './constants';
+import { TABLE_DETAIL_TYPE } from './constants';
 
 // TODO: remove getRowId
 export const tableRowsWithExpandedDetail = (sourceRows, expandedRows, getRowId, rowHeight) => {
@@ -13,7 +13,7 @@ export const tableRowsWithExpandedDetail = (sourceRows, expandedRows, getRowId, 
         rows = [
           ...rows.slice(0, insertIndex),
           {
-            type: DETAIL_TYPE,
+            type: TABLE_DETAIL_TYPE,
             id: getRowId(row.original),
             original: row.original,
             colspan: 0,
@@ -27,4 +27,4 @@ export const tableRowsWithExpandedDetail = (sourceRows, expandedRows, getRowId, 
 };
 
 export const tableColumnsWithDetail = (columns, detailToggleCellWidth) =>
-  [{ type: DETAIL_TYPE, width: detailToggleCellWidth }, ...columns];
+  [{ type: TABLE_DETAIL_TYPE, width: detailToggleCellWidth }, ...columns];

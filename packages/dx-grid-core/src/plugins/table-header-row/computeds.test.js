@@ -1,4 +1,4 @@
-import { HEADING_TYPE } from './constants';
+import { TABLE_HEADING_TYPE } from './constants';
 import {
   tableRowsWithHeading,
 } from './computeds';
@@ -9,7 +9,7 @@ describe('TableHeaderRow Plugin computeds', () => {
       const rows = tableRowsWithHeading([{}]);
 
       expect(rows)
-        .toEqual([{ type: HEADING_TYPE, id: 0 }, {}]);
+        .toEqual([{ type: TABLE_HEADING_TYPE, id: 0 }, {}]);
     });
   });
 });

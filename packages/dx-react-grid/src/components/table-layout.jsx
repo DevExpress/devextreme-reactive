@@ -3,13 +3,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-
 import {
   DropTarget,
   TemplateRenderer,
 } from '@devexpress/dx-react-core';
-
 import {
+  TABLE_DATA_TYPE,
   tableKeyGetter,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
@@ -20,7 +19,7 @@ import {
 
 import { RowsBlockLayout } from './table-layout/rows-block-layout';
 
-const FLEX_TYPE = 'flex';
+const TABLE_FLEX_TYPE = 'flex';
 
 export class TableLayout extends React.PureComponent {
   constructor(props) {
@@ -48,7 +47,7 @@ export class TableLayout extends React.PureComponent {
       const isFixedWidth = columns.filter(column => column.width === undefined).length === 0;
       if (isFixedWidth) {
         result = result.slice();
-        result.push({ type: FLEX_TYPE });
+        result.push({ type: TABLE_FLEX_TYPE });
       }
 
       if (sourceColumnIndex !== -1 && targetColumnIndex !== -1) {
@@ -74,17 +73,19 @@ export class TableLayout extends React.PureComponent {
       const columnGeometries = getTableColumnGeometries(columns, tableRect.width);
       const targetColumnIndex = getTableTargetColumnIndex(
         columnGeometries,
-        columns.findIndex(column => column.type === 'data' && column.id === sourceColumnName),
+        columns.findIndex(column =>
+          column.type === TABLE_DATA_TYPE && column.id === sourceColumnName),
         clientOffset.x - tableRect.left);
 
       if (targetColumnIndex === -1 ||
-        columns[targetColumnIndex].type !== 'data' ||
+        columns[targetColumnIndex].type !== TABLE_DATA_TYPE ||
         targetColumnIndex === this.state.targetColumnIndex) return;
 
       const { sourceColumnIndex } = this.state;
       this.setState({
         sourceColumnIndex: sourceColumnIndex === -1
-          ? columns.findIndex(column => column.type === 'data' && column.id === sourceColumnName)
+          ? columns.findIndex(column =>
+            column.type === TABLE_DATA_TYPE && column.id === sourceColumnName)
           : sourceColumnIndex,
         targetColumnIndex,
       });
@@ -164,7 +165,7 @@ export class TableLayout extends React.PureComponent {
     } = this.props;
     const columns = this.getColumns();
     const minWidth = columns
-      .map(column => column.width || (column.type === FLEX_TYPE ? 0 : minColumnWidth))
+      .map(column => column.width || (column.type === TABLE_FLEX_TYPE ? 0 : minColumnWidth))
       .reduce((accum, width) => accum + width, 0);
 
     const table = (

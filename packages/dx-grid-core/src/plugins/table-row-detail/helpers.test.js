@@ -1,5 +1,5 @@
-import { DETAIL_TYPE } from './constants';
-import { DATA_TYPE } from '../table-view/constants';
+import { TABLE_DETAIL_TYPE } from './constants';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
 import {
   isDetailRowExpanded,
   isDetailToggleTableCell,
@@ -18,9 +18,9 @@ describe('TableRowDetail Plugin helpers', () => {
 
   describe('#isDetailToggleTableCell', () => {
     it('should work', () => {
-      expect(isDetailToggleTableCell({ type: DATA_TYPE }, { type: DETAIL_TYPE }))
+      expect(isDetailToggleTableCell({ type: TABLE_DATA_TYPE }, { type: TABLE_DETAIL_TYPE }))
         .toBeTruthy();
-      expect(isDetailToggleTableCell({ type: 'undefined' }, { type: DETAIL_TYPE }))
+      expect(isDetailToggleTableCell({ type: 'undefined' }, { type: TABLE_DETAIL_TYPE }))
         .toBeFalsy();
       expect(isDetailToggleTableCell({ type: 'undefined' }, { type: 'undefined' }))
         .toBeFalsy();
@@ -29,7 +29,7 @@ describe('TableRowDetail Plugin helpers', () => {
 
   describe('#isDetailTableRow', () => {
     it('should work', () => {
-      expect(isDetailTableRow({ type: DETAIL_TYPE }))
+      expect(isDetailTableRow({ type: TABLE_DETAIL_TYPE }))
         .toBeTruthy();
       expect(isDetailTableRow({ type: 'undefined' }))
         .toBeFalsy();

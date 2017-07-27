@@ -1,3 +1,3 @@
-import { HEADING_TYPE } from './constants';
+import { TABLE_HEADING_TYPE } from './constants';
 
-export const tableRowsWithHeading = headerRows => [{ type: HEADING_TYPE, id: 0 }, ...headerRows];
+export const tableRowsWithHeading = headerRows => [{ type: TABLE_HEADING_TYPE, id: 0 }, ...headerRows];

@@ -1,4 +1,4 @@
-import { ADD_TYPE, EDIT_TYPE } from './constants';
+import { TABLE_ADDING_TYPE, TABLE_EDITING_TYPE } from './constants';
 
 // TODO: remove getRowId
 export const tableRowsWithEditing = (rows, editingRows, addedRows, getRowId, rowHeight) => {
@@ -8,7 +8,7 @@ export const tableRowsWithEditing = (rows, editingRows, addedRows, getRowId, row
       rowIds.has(getRowId(row.original))
       ? {
         ...row,
-        type: EDIT_TYPE,
+        type: TABLE_EDITING_TYPE,
         height: rowHeight,
       }
       : row
@@ -16,7 +16,7 @@ export const tableRowsWithEditing = (rows, editingRows, addedRows, getRowId, row
 
   const addedTableRows = addedRows
     .map((row, rowIndex) => ({
-      type: ADD_TYPE,
+      type: TABLE_ADDING_TYPE,
       id: rowIndex,
       height: rowHeight,
       original: row,

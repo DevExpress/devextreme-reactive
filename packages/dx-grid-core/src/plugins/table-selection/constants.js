@@ -1,1 +1,1 @@
-export const SELECT_TYPE = 'select';
+export const TABLE_SELECT_TYPE = 'select';

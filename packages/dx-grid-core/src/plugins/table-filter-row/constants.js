@@ -1,1 +1,1 @@
-export const FILTER_TYPE = 'filter';
+export const TABLE_FILTER_TYPE = 'filter';

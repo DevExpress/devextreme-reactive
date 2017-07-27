@@ -1,4 +1,4 @@
-import { DATA_TYPE, NODATA_TYPE } from './constants';
+import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import {
   tableRowsWithDataRows,
   tableColumnsWithDataRows,
@@ -11,8 +11,8 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableColumnsWithDataRows(columns))
         .toEqual([
-          { type: DATA_TYPE, id: 'a', original: columns[0] },
-          { type: DATA_TYPE, id: 'b', original: columns[1] },
+          { type: TABLE_DATA_TYPE, id: 'a', original: columns[0] },
+          { type: TABLE_DATA_TYPE, id: 'b', original: columns[1] },
         ]);
     });
 
@@ -31,8 +31,8 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { type: DATA_TYPE, id: 1, original: rows[0] },
-          { type: DATA_TYPE, id: 2, original: rows[1] },
+          { type: TABLE_DATA_TYPE, id: 1, original: rows[0] },
+          { type: TABLE_DATA_TYPE, id: 2, original: rows[1] },
         ]);
     });
 
@@ -42,7 +42,7 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { type: NODATA_TYPE, id: 0, colspan: 0 },
+          { type: TABLE_NODATA_TYPE, id: 0, colspan: 0 },
         ]);
     });
   });

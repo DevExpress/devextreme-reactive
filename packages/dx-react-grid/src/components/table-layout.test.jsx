@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { DragDropContext, DropTarget } from '@devexpress/dx-react-core';
+import { TABLE_DATA_TYPE } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableLayout } from './table-layout';
@@ -58,28 +58,37 @@ describe('TableLayout', () => {
 
   const testTablePart = ({ tree, rows, columns }) => {
     const rowWrappers = tree.find('tr');
-    expect(rowWrappers.length).toBe(rows.length);
+    expect(rowWrappers).toHaveLength(rows.length);
     rows.forEach((row, rowIndex) => {
       const rowWrapper = rowWrappers.at(rowIndex);
       const rowData = rowWrapper.children(PropsContainer).props();
 
-      expect(rowData.row).toBe(row);
+      expect(rowData.row).toMatchObject(row);
 
       const columnWrappers = rowWrapper.find('td');
-      expect(columnWrappers.length).toBe(columns.length);
+      expect(columnWrappers).toHaveLength(columns.length);
       columns.forEach((column, columnIndex) => {
         const columnWrapper = columnWrappers.at(columnIndex);
         const columnData = columnWrapper.children(PropsContainer).props();
 
-        expect(columnData.row).toBe(row);
-        expect(columnData.column).toBe(column);
+        expect(columnData.row).toMatchObject(row);
+        expect(columnData.column).toMatchObject(column);
       });
     });
   };
 
   it('should render table with rows and columns', () => {
-    const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }, { type: 'data', id: 3 }];
-    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }, { type: 'data', id: 'c' }, { type: 'data', id: 'd' }];
+    const rows = [
+      { type: TABLE_DATA_TYPE, id: 1 },
+      { type: TABLE_DATA_TYPE, id: 2 },
+      { type: TABLE_DATA_TYPE, id: 3 },
+    ];
+    const columns = [
+      { type: TABLE_DATA_TYPE, id: 'a' },
+      { type: TABLE_DATA_TYPE, id: 'b' },
+      { type: TABLE_DATA_TYPE, id: 'c' },
+      { type: TABLE_DATA_TYPE, id: 'd' },
+    ];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -95,8 +104,17 @@ describe('TableLayout', () => {
   });
 
   it('should render table with headerRows and columns', () => {
-    const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }, { type: 'data', id: 3 }];
-    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }, { type: 'data', id: 'c' }, { type: 'data', id: 'd' }];
+    const rows = [
+      { type: TABLE_DATA_TYPE, id: 1 },
+      { type: TABLE_DATA_TYPE, id: 2 },
+      { type: TABLE_DATA_TYPE, id: 3 },
+    ];
+    const columns = [
+      { type: TABLE_DATA_TYPE, id: 'a' },
+      { type: TABLE_DATA_TYPE, id: 'b' },
+      { type: TABLE_DATA_TYPE, id: 'c' },
+      { type: TABLE_DATA_TYPE, id: 'd' },
+    ];
     const tree = mount(
       <TableLayout
         headerRows={rows}
@@ -114,8 +132,16 @@ describe('TableLayout', () => {
   });
 
   it('should span columns if specified', () => {
-    const rows = [{ type: 'data', id: 1, colspan: 0 }, { type: 'data', id: 2, colspan: 1 }];
-    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }, { type: 'data', id: 'c' }, { type: 'data', id: 'd' }];
+    const rows = [
+      { type: TABLE_DATA_TYPE, id: 1, colspan: 0 },
+      { type: TABLE_DATA_TYPE, id: 2, colspan: 1 },
+    ];
+    const columns = [
+      { type: TABLE_DATA_TYPE, id: 'a' },
+      { type: TABLE_DATA_TYPE, id: 'b' },
+      { type: TABLE_DATA_TYPE, id: 'c' },
+      { type: TABLE_DATA_TYPE, id: 'd' },
+    ];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -140,8 +166,14 @@ describe('TableLayout', () => {
   });
 
   it('should have correct styles', () => {
-    const rows = [{ type: 'data', id: 1, height: 100 }, { type: 'data', id: 2 }];
-    const columns = [{ type: 'data', id: 'a', width: 100 }, { type: 'data', id: 'b' }];
+    const rows = [
+      { type: TABLE_DATA_TYPE, id: 1, height: 100 },
+      { type: TABLE_DATA_TYPE, id: 2 },
+    ];
+    const columns = [
+      { type: TABLE_DATA_TYPE, id: 'a', width: 100 },
+      { type: TABLE_DATA_TYPE, id: 'b' },
+    ];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -176,8 +208,14 @@ describe('TableLayout', () => {
   });
 
   it('should handle click in body', () => {
-    const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
-    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
+    const rows = [
+      { type: TABLE_DATA_TYPE, id: 1 },
+      { type: TABLE_DATA_TYPE, id: 2 },
+    ];
+    const columns = [
+      { type: TABLE_DATA_TYPE, id: 'a' },
+      { type: TABLE_DATA_TYPE, id: 'b' },
+    ];
     const onClick = jest.fn();
     const tree = mount(
       <TableLayout
@@ -199,8 +237,14 @@ describe('TableLayout', () => {
   });
 
   it('should handle click in head', () => {
-    const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
-    const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
+    const rows = [
+      { type: TABLE_DATA_TYPE, id: 1 },
+      { type: TABLE_DATA_TYPE, id: 2 },
+    ];
+    const columns = [
+      { type: TABLE_DATA_TYPE, id: 'a' },
+      { type: TABLE_DATA_TYPE, id: 'b' },
+    ];
     const onClick = jest.fn();
     const tree = mount(
       <TableLayout
@@ -225,8 +269,14 @@ describe('TableLayout', () => {
 
   describe('flex column', () => {
     it('should add flex column if all columns have fixed widths', () => {
-      const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
-      const columns = [{ type: 'data', id: 'a', width: 100 }, { type: 'data', id: 'b', width: 100 }];
+      const rows = [
+        { type: TABLE_DATA_TYPE, id: 1 },
+        { type: TABLE_DATA_TYPE, id: 2 },
+      ];
+      const columns = [
+        { type: TABLE_DATA_TYPE, id: 'a', width: 100 },
+        { type: TABLE_DATA_TYPE, id: 'b', width: 100 },
+      ];
       const tree = mount(
         <TableLayout
           rows={rows}
@@ -266,8 +316,14 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
-      const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
+      const rows = [
+        { type: TABLE_DATA_TYPE, id: 1 },
+        { type: TABLE_DATA_TYPE, id: 2 },
+      ];
+      const columns = [
+        { type: TABLE_DATA_TYPE, id: 'a' },
+        { type: TABLE_DATA_TYPE, id: 'b' },
+      ];
       const tree = mount(
         <DragDropContext>
           <TableLayout
@@ -292,8 +348,14 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
-      const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
+      const rows = [
+        { type: TABLE_DATA_TYPE, id: 1 },
+        { type: TABLE_DATA_TYPE, id: 2 },
+      ];
+      const columns = [
+        { type: TABLE_DATA_TYPE, id: 'a' },
+        { type: TABLE_DATA_TYPE, id: 'b' },
+      ];
       const tree = mount(
         <DragDropContext>
           <TableLayout
@@ -319,8 +381,14 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ type: 'data', id: 1 }, { type: 'data', id: 2 }];
-      const columns = [{ type: 'data', id: 'a' }, { type: 'data', id: 'b' }];
+      const rows = [
+        { type: TABLE_DATA_TYPE, id: 1 },
+        { type: TABLE_DATA_TYPE, id: 2 },
+      ];
+      const columns = [
+        { type: TABLE_DATA_TYPE, id: 'a' },
+        { type: TABLE_DATA_TYPE, id: 'b' },
+      ];
       const setColumnOrder = jest.fn();
       const tree = mount(
         <DragDropContext>

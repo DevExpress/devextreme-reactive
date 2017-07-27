@@ -1,4 +1,4 @@
-import { DATA_TYPE, NODATA_TYPE } from './constants';
+import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import {
   isNoDataTableRow,
   isDataTableCell,
@@ -8,7 +8,7 @@ import {
 describe('TableView Plugin helpers', () => {
   describe('#isNoDataTableRow', () => {
     it('should work', () => {
-      expect(isNoDataTableRow({ type: NODATA_TYPE }))
+      expect(isNoDataTableRow({ type: TABLE_NODATA_TYPE }))
         .toBeTruthy();
       expect(isNoDataTableRow({ type: 'undefined' }))
         .toBeFalsy();
@@ -16,11 +16,11 @@ describe('TableView Plugin helpers', () => {
   });
   describe('#isDataTableCell', () => {
     it('should work', () => {
-      expect(isDataTableCell({ type: DATA_TYPE }, { type: DATA_TYPE }))
+      expect(isDataTableCell({ type: TABLE_DATA_TYPE }, { type: TABLE_DATA_TYPE }))
         .toBeTruthy();
-      expect(isDataTableCell({ type: 'undefined' }, { type: DATA_TYPE }))
+      expect(isDataTableCell({ type: 'undefined' }, { type: TABLE_DATA_TYPE }))
         .toBeFalsy();
-      expect(isDataTableCell({ type: DATA_TYPE }, { type: 'undefined' }))
+      expect(isDataTableCell({ type: TABLE_DATA_TYPE }, { type: 'undefined' }))
         .toBeFalsy();
       expect(isDataTableCell({ type: 'undefined' }, { type: 'undefined' }))
         .toBeFalsy();

@@ -1,4 +1,4 @@
-import { ADD_TYPE, EDIT_TYPE } from './constants';
+import { TABLE_ADDING_TYPE, TABLE_EDITING_TYPE } from './constants';
 import {
   tableRowsWithEditing,
 } from './computeds';
@@ -13,13 +13,13 @@ describe('TableEditRow Plugin computeds', () => {
       expect(tableRowsWithEditing(rows, editingRows, addedRows, row => row.id))
         .toEqual([
           {
-            type: ADD_TYPE,
+            type: TABLE_ADDING_TYPE,
             id: 0,
             original: { id: 3 },
           },
           { original: { id: 1 } },
           {
-            type: EDIT_TYPE,
+            type: TABLE_EDITING_TYPE,
             original: { id: 2 },
           },
         ]);

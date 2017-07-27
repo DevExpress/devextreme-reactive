@@ -1,4 +1,4 @@
-import { DETAIL_TYPE } from './constants';
+import { TABLE_DETAIL_TYPE } from './constants';
 import {
   tableRowsWithExpandedDetail,
   tableColumnsWithDetail,
@@ -15,7 +15,7 @@ describe('TableRowDetail Plugin computeds', () => {
         { original: { id: 1 } },
         { original: { id: 2 } },
         {
-          type: DETAIL_TYPE,
+          type: TABLE_DETAIL_TYPE,
           id: 2,
           original: { id: 2 },
           colspan: 0,
@@ -32,7 +32,7 @@ describe('TableRowDetail Plugin computeds', () => {
       expect(rowsWithDetails).toEqual([
         { original: { id: 1 } },
         {
-          type: DETAIL_TYPE,
+          type: TABLE_DETAIL_TYPE,
           id: 1,
           original: { id: 1 },
           colspan: 0,
@@ -40,7 +40,7 @@ describe('TableRowDetail Plugin computeds', () => {
         },
         { original: { id: 2 } },
         {
-          type: DETAIL_TYPE,
+          type: TABLE_DETAIL_TYPE,
           id: 2,
           original: { id: 2 },
           colspan: 0,
@@ -60,7 +60,7 @@ describe('TableRowDetail Plugin computeds', () => {
       const columns = tableColumnsWithDetail(tableColumns, 50);
 
       expect(columns).toHaveLength(3);
-      expect(columns[0]).toMatchObject({ type: DETAIL_TYPE, width: 50 });
+      expect(columns[0]).toMatchObject({ type: TABLE_DETAIL_TYPE, width: 50 });
       expect(columns[1]).toBe(tableColumns[0]);
       expect(columns[2]).toBe(tableColumns[1]);
     });

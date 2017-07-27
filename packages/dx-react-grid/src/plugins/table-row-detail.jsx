@@ -41,13 +41,13 @@ export class TableRowDetail extends React.PureComponent {
         >
           {({
             column,
-            row: { original: row },
+            row,
             expandedRows,
             setDetailRowExpanded,
             ...restParams
           }) => detailToggleCellTemplate({
             ...restParams,
-            row,
+            row: row.original,
             expanded: isDetailRowExpanded(expandedRows, row.id),
             toggleExpanded: () => setDetailRowExpanded({ rowId: row.id }),
           })}

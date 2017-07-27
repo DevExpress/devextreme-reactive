@@ -23,6 +23,9 @@ export * from './plugins/editing-state/helpers';
 export * from './plugins/column-order-state/reducers';
 export * from './plugins/column-order-state/computeds';
 
+export * from './plugins/table-edit-column/helpers';
+export * from './plugins/table-edit-column/computeds';
+
 export * from './plugins/table-edit-row/helpers';
 export * from './plugins/table-edit-row/computeds';
 

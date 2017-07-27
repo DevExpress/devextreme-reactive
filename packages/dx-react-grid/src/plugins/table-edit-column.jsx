@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-
-const withEditColumn = (tableColumns, width) => [{ type: 'edit', width }, ...tableColumns];
+import {
+  tableColumnsWithEditing,
+  isHeaderEditCommandsTableCell,
+  isDataEditCommandsTableCell,
+  isEditNewRowCommandsTableCell,
+  isEditExistingRowCommandsTableCell,
+} from '@devexpress/dx-grid-core';
 
 export class TableEditColumn extends React.PureComponent {
   render() {
@@ -19,7 +24,7 @@ export class TableEditColumn extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableColumns"
-          pureComputed={withEditColumn}
+          pureComputed={tableColumnsWithEditing}
           connectArgs={getter => [
             getter('tableColumns'),
             width,
@@ -27,7 +32,7 @@ export class TableEditColumn extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'heading' && column.type === 'edit'}
+          predicate={({ column, row }) => isHeaderEditCommandsTableCell(row, column)}
           connectActions={action => ({
             addRow: () => action('addRow')(),
           })}
@@ -44,10 +49,63 @@ export class TableEditColumn extends React.PureComponent {
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && column.type === 'edit'}
+          predicate={({ column, row }) => isDataEditCommandsTableCell(row, column)}
+          connectGetters={(getter, { row }) => ({
+            rowId: row.id,
+          })}
+          connectActions={action => ({
+            startEditRows: ({ rowIds }) => action('startEditRows')({ rowIds }),
+            deleteRows: ({ rowIds }) => {
+              action('deleteRows')({ rowIds });
+              action('commitDeletedRows')({ rowIds });
+            },
+          })}
+        >
+          {({ rowId, row: { original: row }, column, startEditRows, deleteRows, ...restParams }) =>
+            cellTemplate({
+              row,
+              startEditing: () => startEditRows({ rowIds: [rowId] }),
+              deleteRow: () => deleteRows({ rowIds: [rowId] }),
+              commandTemplate,
+              allowEditing,
+              allowDeleting,
+              isEditing: false,
+              ...restParams,
+            })}
+        </Template>
+        <Template
+          name="tableViewCell"
+          predicate={({ column, row }) => isEditNewRowCommandsTableCell(row, column)}
+          connectGetters={(_, { row }) => ({
+            rowId: row.id,
+            row: row.original,
+          })}
+          connectActions={action => ({
+            cancelAddedRows: ({ rowIds }) => action('cancelAddedRows')({ rowIds }),
+            commitAddedRows: ({ rowIds }) => action('commitAddedRows')({ rowIds }),
+          })}
+        >
+          {({ rowId, row, column, cancelAddedRows, commitAddedRows, style }) =>
+            cellTemplate({
+              row,
+              column,
+              cancelEditing: () => {
+                cancelAddedRows({ rowIds: [rowId] });
+              },
+              commitChanges: () => {
+                commitAddedRows({ rowIds: [rowId] });
+              },
+              isEditing: true,
+              commandTemplate,
+              style,
+            })}
+        </Template>
+        <Template
+          name="tableViewCell"
+          predicate={({ column, row }) => isEditExistingRowCommandsTableCell(row, column)}
           connectGetters={(getter, { row }) => {
             const originalRow = row.original;
-            const rowId = getter('getRowId')(originalRow);
+            const rowId = row.id;
             return {
               rowId,
               row: originalRow,
@@ -83,60 +141,6 @@ export class TableEditColumn extends React.PureComponent {
             commandTemplate,
             style,
           })}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'add' && column.type === 'edit'}
-          connectGetters={(_, { row }) => ({
-            rowId: row.id,
-            row: row.original,
-          })}
-          connectActions={action => ({
-            cancelAddedRows: ({ rowIds }) => action('cancelAddedRows')({ rowIds }),
-            commitAddedRows: ({ rowIds }) => action('commitAddedRows')({ rowIds }),
-          })}
-        >
-          {({ rowId, row, column, cancelAddedRows, commitAddedRows, style }) =>
-            cellTemplate({
-              row,
-              column,
-              cancelEditing: () => {
-                cancelAddedRows({ rowIds: [rowId] });
-              },
-              commitChanges: () => {
-                commitAddedRows({ rowIds: [rowId] });
-              },
-              isEditing: true,
-              commandTemplate,
-              style,
-            })}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'data' && column.type === 'edit'}
-          connectGetters={(getter, { row }) => ({
-            rowId: getter('getRowId')(row.original),
-          })}
-          connectActions={action => ({
-            startEditRows: ({ rowIds }) => action('startEditRows')({ rowIds }),
-            deleteRows: ({ rowIds }) => {
-              action('deleteRows')({ rowIds });
-              action('commitDeletedRows')({ rowIds });
-            },
-          })}
-        >
-          {({ rowId, row, column, startEditRows, deleteRows, style }) =>
-            cellTemplate({
-              row,
-              column,
-              startEditing: () => startEditRows({ rowIds: [rowId] }),
-              deleteRow: () => deleteRows({ rowIds: [rowId] }),
-              commandTemplate,
-              allowEditing,
-              allowDeleting,
-              isEditing: false,
-              style,
-            })}
         </Template>
       </PluginContainer>
     );

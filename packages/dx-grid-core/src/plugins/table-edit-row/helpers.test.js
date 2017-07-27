@@ -5,7 +5,7 @@ import {
   isEditExistingTableCell,
 } from './helpers';
 
-describe('TableFilterRow Plugin helpers', () => {
+describe('TableEditRow Plugin helpers', () => {
   describe('#isEditNewTableCell', () => {
     it('should work', () => {
       expect(isEditNewTableCell({ type: ADD_TYPE }, { type: DATA_TYPE }))

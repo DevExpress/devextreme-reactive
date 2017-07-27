@@ -3,7 +3,7 @@ import {
   tableRowsWithEditing,
 } from './computeds';
 
-describe('EditRow computeds', () => {
+describe('TableEditRow Plugin computeds', () => {
   describe('#tableRowsWithEditing', () => {
     it('should work', () => {
       const rows = [{ original: { id: 1 } }, { original: { id: 2 } }];

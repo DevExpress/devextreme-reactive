@@ -27,12 +27,12 @@ export class TableEditRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => isEditExistingTableCell(row, column)}
-          connectGetters={(getter, { column, row }) => {
+          connectGetters={(getter, { column: { original: column }, row }) => {
             const rowId = row.id;
             const change = getRowChange(getter('changedRows'), rowId);
             return {
               rowId,
-              value: change[column.name] || row.original[column.name],
+              value: column.name in change ? change[column.name] : row.original[column.name],
             };
           }}
           connectActions={action => ({
@@ -63,8 +63,8 @@ export class TableEditRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ column, row }) => isEditNewTableCell(row, column)}
-          connectGetters={(_, { column, row }) => ({
-            rowId: row.index,
+          connectGetters={(_, { column: { original: column }, row }) => ({
+            rowId: row.id,
             value: row.original[column.name],
           })}
           connectActions={action => ({

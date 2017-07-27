@@ -56,7 +56,7 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     width: '100%',
   },
   cellDraggable: {
-    cursor: 'move',
+    cursor: 'pointer',
   },
   cellClickable: {
     cursor: 'pointer',

@@ -7,6 +7,7 @@ export const Container = ({
   <ul
     className="list-group"
     style={{
+      cursor: 'move',
       position: 'fixed',
       zIndex: 1000,
       left: 0,

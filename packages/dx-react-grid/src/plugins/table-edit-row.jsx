@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getRowChange,
-  rowsWithEditing,
+  tableRowsWithEditing,
+  isEditNewTableCell,
+  isEditExistingTableCell,
 } from '@devexpress/dx-grid-core';
 
 export class TableEditRow extends React.PureComponent {
@@ -13,7 +15,7 @@ export class TableEditRow extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableBodyRows"
-          pureComputed={rowsWithEditing}
+          pureComputed={tableRowsWithEditing}
           connectArgs={getter => [
             getter('tableBodyRows'),
             getter('editingRows'),
@@ -24,23 +26,27 @@ export class TableEditRow extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && !row.isNew && column.type === 'data'}
+          predicate={({ column, row }) => isEditExistingTableCell(row, column)}
           connectGetters={(getter, { column, row }) => {
-            const originalRow = row._originalRow;
-            const rowId = getter('getRowId')(row);
+            const rowId = row.id;
             const change = getRowChange(getter('changedRows'), rowId);
-            const changedRow = Object.assign({}, originalRow, change);
             return {
               rowId,
-              row: originalRow,
-              value: changedRow[column.name],
+              value: change[column.name] || row.original[column.name],
             };
           }}
           connectActions={action => ({
             changeRow: ({ rowId, change }) => action('changeRow')({ rowId, change }),
           })}
         >
-          {({ rowId, row, column, value, changeRow }) =>
+          {({
+            rowId,
+            row: { original: row },
+            column: { original: column },
+            value,
+            changeRow,
+            ...restParams
+          }) =>
             editCellTemplate({
               row,
               column,
@@ -51,24 +57,28 @@ export class TableEditRow extends React.PureComponent {
                   [column.name]: newValue,
                 },
               }),
+              ...restParams,
             })}
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && row.isNew && column.type === 'data'}
-          connectGetters={(_, { column, row }) => {
-            const originalRow = row._originalRow;
-            return {
-              row: originalRow,
-              rowId: row.index,
-              value: originalRow[column.name],
-            };
-          }}
+          predicate={({ column, row }) => isEditNewTableCell(row, column)}
+          connectGetters={(_, { column, row }) => ({
+            rowId: row.index,
+            value: row.original[column.name],
+          })}
           connectActions={action => ({
             changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),
           })}
         >
-          {({ row, rowId, column, value, changeAddedRow }) =>
+          {({
+            row: { original: row },
+            rowId,
+            column: { original: column },
+            value,
+            changeAddedRow,
+            ...restParams
+          }) =>
             editCellTemplate({
               row,
               column,
@@ -79,6 +89,7 @@ export class TableEditRow extends React.PureComponent {
                   [column.name]: newValue,
                 },
               }),
+              ...restParams,
             })}
         </Template>
       </PluginContainer>

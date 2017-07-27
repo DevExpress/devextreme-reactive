@@ -20,10 +20,11 @@ export * from './plugins/editing-state/reducers';
 export * from './plugins/editing-state/computeds';
 export * from './plugins/editing-state/helpers';
 
-export * from './plugins/table-edit-row/computeds';
-
 export * from './plugins/column-order-state/reducers';
 export * from './plugins/column-order-state/computeds';
+
+export * from './plugins/table-edit-row/helpers';
+export * from './plugins/table-edit-row/computeds';
 
 export * from './plugins/table-filter-row/helpers';
 export * from './plugins/table-filter-row/computeds';

@@ -1,28 +1,28 @@
+import { ADD_TYPE, EDIT_TYPE } from './constants';
 import {
-    rowsWithEditing,
+  tableRowsWithEditing,
 } from './computeds';
 
 describe('EditRow computeds', () => {
-  describe('#rowsWithEditing', () => {
+  describe('#tableRowsWithEditing', () => {
     it('should work', () => {
-      const rows = [{ id: 1 }, { id: 2 }];
+      const rows = [{ original: { id: 1 } }, { original: { id: 2 } }];
       const editingRows = [2];
       const addedRows = [{ id: 3 }];
 
-      const computed = rowsWithEditing(rows, editingRows, addedRows, row => row.id);
-      expect(computed).toEqual([
-        {
-          index: 0,
-          type: 'edit',
-          _originalRow: { id: 3 },
-          isNew: true,
-        },
-        { id: 1 },
-        {
-          type: 'edit',
-          _originalRow: { id: 2 },
-        },
-      ]);
+      expect(tableRowsWithEditing(rows, editingRows, addedRows, row => row.id))
+        .toEqual([
+          {
+            type: ADD_TYPE,
+            id: 0,
+            original: { id: 3 },
+          },
+          { original: { id: 1 } },
+          {
+            type: EDIT_TYPE,
+            original: { id: 2 },
+          },
+        ]);
     });
   });
 });

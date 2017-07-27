@@ -27,7 +27,7 @@ selectionColumnWidth | number | | The selection column's width
 
 Describes properties passed to the template that renders a cell with a selection control.
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -40,7 +40,7 @@ toggleAll | () => void | Selects or deselects all rows
 
 Describes properties passed to a template that renders a cell with the selection control inside the heading row.
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------

@@ -34,27 +34,24 @@ row | [Row](grid.md#row) | A row object for showing row details
 
 Describes properties passed to the template that renders a detail cell for a row
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
 row | [Row](grid.md#row) | A row object
 template | () => ReactElement | A component that renders row details
-style? | Object | Specifies cell styles
-colspan? | number | Specifies the number of columns the cell spans
 
 ### <a name="detail-toggle-args"></a>DetailToggleArgs
 
 Describes properties passed to the template that renders the detail toggle control
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
 row | [Row](grid.md#row) | A row object
 expanded | boolean | Specifies whether or not row details are displayed
 toggleExpanded | () => void | Toggles the expanded state for a row
-style? | Object | Specifies cell styles
 
 ## Plugin Developer Reference
 

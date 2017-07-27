@@ -46,9 +46,7 @@ column | [Column](grid.md#column) | A group indent column
 
 Describes a group row data structure.
 
-Extends [Row](grid.md#row)
-
-A value with the following shape:
+Extends [Row](grid.md#row) with the following shape:
 
 Field | Type | Description
 ------|------|------------

@@ -24,16 +24,15 @@ export class TableFilterRow extends React.PureComponent {
 
         <Template
           name="tableViewCell"
-          predicate={({ row, column }) => isFilterTableCell(row, column)}
-          connectGetters={(getter, { column: { original: column } }) => ({
+          predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
+          connectGetters={(getter, { tableColumn: { column } }) => ({
             filter: getColumnFilterConfig(getter('filters'), column.name),
           })}
-          connectActions={(action, { column: { original: column } }) => ({
+          connectActions={(action, { tableColumn: { column } }) => ({
             setFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
           })}
         >
-          {({ row, column: { original: column }, ...restParams }) =>
-            filterCellTemplate({ column, ...restParams })}
+          {params => filterCellTemplate({ ...params, column: params.tableColumn.column })}
         </Template>
       </PluginContainer>
     );

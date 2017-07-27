@@ -71,8 +71,8 @@ describe('TableLayout', () => {
         const columnWrapper = columnWrappers.at(columnIndex);
         const columnData = columnWrapper.children(PropsContainer).props();
 
-        expect(columnData.row).toMatchObject(row);
-        expect(columnData.column).toMatchObject(column);
+        expect(columnData.tableRow).toMatchObject(row);
+        expect(columnData.tableColumn).toMatchObject(column);
       });
     });
   };
@@ -233,7 +233,7 @@ describe('TableLayout', () => {
     tree.find('tr').at(1).find('td').at(1)
       .simulate('click');
     expect(onClick.mock.calls[0][0])
-      .toMatchObject({ row: rows[1], column: columns[1], e: {} });
+      .toMatchObject({ tableRow: rows[1], tableColumn: columns[1], e: {} });
   });
 
   it('should handle click in head', () => {
@@ -264,7 +264,7 @@ describe('TableLayout', () => {
     tree.find('tr').at(1).find('td').at(1)
       .simulate('click');
     expect(onClick.mock.calls[0][0])
-      .toMatchObject({ row: rows[1], column: columns[1], e: {} });
+      .toMatchObject({ tableRow: rows[1], tableColumn: columns[1], e: {} });
   });
 
   describe('flex column', () => {

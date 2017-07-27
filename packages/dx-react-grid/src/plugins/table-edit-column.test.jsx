@@ -80,13 +80,14 @@ describe('TableHeaderRow', () => {
     isHeaderEditCommandsTableCell.mockImplementation(() => true);
 
     const headingCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: 'column' }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableEditColumn
@@ -97,15 +98,10 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isHeaderEditCommandsTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
-    expect(headingCellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({
-        row: 'row',
-        column: 'column',
-      }));
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(headingCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        style: {},
+        ...tableCellArgs,
       }));
   });
 
@@ -113,13 +109,14 @@ describe('TableHeaderRow', () => {
     isDataEditCommandsTableCell.mockImplementation(() => true);
 
     const cellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: 'column' }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableEditColumn
@@ -130,15 +127,11 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isHeaderEditCommandsTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
-    expect(cellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({
-        column: 'column',
-      }));
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        row: 'row',
-        style: {},
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
         isEditing: false,
       }));
   });
@@ -147,13 +140,14 @@ describe('TableHeaderRow', () => {
     isEditNewRowCommandsTableCell.mockImplementation(() => true);
 
     const cellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: 'column' }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableEditColumn
@@ -164,15 +158,11 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isEditNewRowCommandsTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
-    expect(cellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({
-        column: 'column',
-      }));
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        row: 'row',
-        style: {},
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
         isEditing: true,
       }));
   });
@@ -181,13 +171,14 @@ describe('TableHeaderRow', () => {
     isEditExistingRowCommandsTableCell.mockImplementation(() => true);
 
     const cellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: 'column' }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableEditColumn
@@ -198,15 +189,11 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isEditExistingRowCommandsTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
-    expect(cellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({
-        column: 'column',
-      }));
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        row: 'row',
-        style: {},
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
         isEditing: true,
       }));
   });

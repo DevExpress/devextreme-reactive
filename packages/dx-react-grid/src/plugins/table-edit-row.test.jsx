@@ -78,13 +78,14 @@ describe('TableHeaderRow', () => {
     isEditNewTableCell.mockImplementation(() => true);
 
     const editCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: 'column' }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableEditRow
@@ -95,12 +96,12 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isEditNewTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(editCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        row: 'row',
-        column: 'column',
-        style: {},
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
+        column: tableCellArgs.tableColumn.column,
       }));
   });
 
@@ -108,13 +109,14 @@ describe('TableHeaderRow', () => {
     isEditExistingTableCell.mockImplementation(() => true);
 
     const editCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: 'column' }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableEditRow
@@ -125,12 +127,12 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isEditExistingTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(editCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        row: 'row',
-        column: 'column',
-        style: {},
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
+        column: tableCellArgs.tableColumn.column,
       }));
   });
 });

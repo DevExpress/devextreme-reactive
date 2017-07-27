@@ -107,13 +107,14 @@ describe('TableRowDetail', () => {
     isDetailToggleTableCell.mockImplementation(() => true);
 
     const detailToggleCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: { id: 0 } }, column: 'column', style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableRowDetail
@@ -124,13 +125,11 @@ describe('TableRowDetail', () => {
     );
 
     expect(isDetailToggleTableCell)
-      .toBeCalledWith({ original: { id: 0 } }, 'column');
-    expect(detailToggleCellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({ column: 'column' }));
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(detailToggleCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        row: { id: 0 },
-        style: {},
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
       }));
   });
 
@@ -138,13 +137,14 @@ describe('TableRowDetail', () => {
     isDetailTableRow.mockImplementation(() => true);
 
     const detailCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colspan: 4 };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: { id: 0 } }, column: 'column', style: {}, colspan: 3 }}
+            params={tableCellArgs}
           />
         </Template>
         <TableRowDetail
@@ -155,14 +155,11 @@ describe('TableRowDetail', () => {
     );
 
     expect(isDetailTableRow)
-      .toBeCalledWith({ original: { id: 0 } });
-    expect(detailCellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({ column: 'column' }));
+      .toBeCalledWith(tableCellArgs.tableRow);
     expect(detailCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        row: { id: 0 },
-        style: {},
-        colspan: 3,
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
       }));
   });
 });

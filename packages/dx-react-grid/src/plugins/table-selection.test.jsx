@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
-  tableBodyRowsWithSelection,
+  tableRowsWithSelection,
   tableExtraPropsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
@@ -18,7 +18,7 @@ import { TableSelection } from './table-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),
-  tableBodyRowsWithSelection: jest.fn(),
+  tableRowsWithSelection: jest.fn(),
   tableExtraPropsWithSelection: jest.fn(),
   isSelectTableCell: jest.fn(),
   isSelectAllTableCell: jest.fn(),
@@ -41,7 +41,7 @@ describe('TableHeaderRow', () => {
 
   beforeEach(() => {
     tableColumnsWithSelection.mockImplementation(() => 'tableColumnsWithSelection');
-    tableBodyRowsWithSelection.mockImplementation(() => 'tableBodyRowsWithSelection');
+    tableRowsWithSelection.mockImplementation(() => 'tableRowsWithSelection');
     tableExtraPropsWithSelection.mockImplementation(() => 'tableExtraPropsWithSelection');
     isSelectTableCell.mockImplementation(() => false);
     isSelectAllTableCell.mockImplementation(() => false);
@@ -72,10 +72,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(tableBodyRowsWithSelection)
+      expect(tableRowsWithSelection)
         .toBeCalledWith('tableBodyRows', 'selection', 'getRowId');
       expect(tableBodyRows)
-        .toBe('tableBodyRowsWithSelection');
+        .toBe('tableRowsWithSelection');
     });
 
     it('should extend tableColumns', () => {
@@ -132,6 +132,7 @@ describe('TableHeaderRow', () => {
     isSelectTableCell.mockImplementation(() => true);
 
     const selectCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
@@ -140,7 +141,7 @@ describe('TableHeaderRow', () => {
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: 'column' }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableSelection
@@ -151,13 +152,11 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isSelectTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
-    expect(selectCellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({ column: 'column' }));
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(selectCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        row: 'row',
-        style: {},
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
       }));
   });
 
@@ -165,6 +164,7 @@ describe('TableHeaderRow', () => {
     isSelectAllTableCell.mockImplementation(() => true);
 
     const selectAllCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
@@ -173,7 +173,7 @@ describe('TableHeaderRow', () => {
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: 'column' }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableSelection
@@ -183,13 +183,9 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
-    expect(isSelectAllTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
+    expect(isSelectTableCell)
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(selectAllCellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({ row: 'row', column: 'column' }));
-    expect(selectAllCellTemplate)
-      .toBeCalledWith(expect.objectContaining({
-        style: {},
-      }));
+      .toBeCalledWith(expect.objectContaining(tableCellArgs));
   });
 });

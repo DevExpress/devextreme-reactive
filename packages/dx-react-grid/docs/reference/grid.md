@@ -25,6 +25,8 @@ A data object to be represented as a Grid row
 
 Note that any number of other fields can be specified. The fields are used as data to be displayed within the Grid.
 
+Can be extended by other plugins. See the Extensions section.
+
 ### Column
 
 Describes the column interface
@@ -34,6 +36,8 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 name | string | Specifies the field name in the data row to obtain a column value. A unique key can be also used to identify a particular column
+
+Can be extended by other plugins. See the Extensions section.
 
 ### <a name="root-args"></a>RootArgs
 

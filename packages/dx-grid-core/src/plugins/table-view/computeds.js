@@ -5,7 +5,7 @@ export const tableColumnsWithDataRows = columns =>
     type: TABLE_DATA_TYPE,
     id: column.name,
     width: column.width, // TODO: remove it?
-    original: column,
+    column,
   }));
 
 export const tableRowsWithDataRows = (rows, getRowId) => (
@@ -18,5 +18,5 @@ export const tableRowsWithDataRows = (rows, getRowId) => (
   : rows.map(row => ({
     type: TABLE_DATA_TYPE,
     id: getRowId(row),
-    original: row,
+    row,
   })));

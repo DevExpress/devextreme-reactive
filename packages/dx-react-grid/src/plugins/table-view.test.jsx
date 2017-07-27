@@ -105,6 +105,7 @@ describe('TableView', () => {
     isDataTableCell.mockImplementation(() => true);
 
     const tableCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
@@ -113,20 +114,25 @@ describe('TableView', () => {
         </Template>
         <TableView
           {...defaultPluginProps}
-          tableTemplate={({ cellTemplate }) => cellTemplate({ row: { original: 'row' }, column: { original: 'column' }, style: {} })}
+          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableCellTemplate={tableCellTemplate}
         />
       </PluginHost>,
     );
 
     expect(isDataTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: 'column' });
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(tableCellTemplate)
-      .toBeCalledWith({ row: 'row', column: 'column', style: {} });
+      .toBeCalledWith({
+        ...tableCellArgs,
+        row: tableCellArgs.tableRow.row,
+        column: tableCellArgs.tableColumn.column,
+      });
   });
 
   it('should render stub cell on plugin-defined column and row intersection', () => {
     const tableStubCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
@@ -135,23 +141,21 @@ describe('TableView', () => {
         </Template>
         <TableView
           {...defaultPluginProps}
-          tableTemplate={({ cellTemplate }) =>
-            cellTemplate({ row: { original: 'row' }, column: { original: 'column' }, style: {} })}
+          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubCellTemplate={tableStubCellTemplate}
         />
       </PluginHost>,
     );
 
     expect(tableStubCellTemplate)
-      .not.toBeCalledWith({ row: 'row', column: 'column' });
-    expect(tableStubCellTemplate)
-      .toBeCalledWith({ style: {} });
+      .toBeCalledWith(tableCellArgs);
   });
 
   it('should render stub header cell on plugin-defined column and row intersection', () => {
     isHeaderStubTableCell.mockImplementation(() => true);
 
     const tableStubHeaderCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
@@ -160,8 +164,7 @@ describe('TableView', () => {
         </Template>
         <TableView
           {...defaultPluginProps}
-          tableTemplate={({ cellTemplate }) =>
-            cellTemplate({ row: { original: 'row' }, column: { original: 'column' }, style: {} })}
+          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubHeaderCellTemplate={tableStubHeaderCellTemplate}
         />
         <Getter name="tableHeaderRows" value="tableHeaderRows" />
@@ -169,17 +172,16 @@ describe('TableView', () => {
     );
 
     expect(isHeaderStubTableCell)
-      .toBeCalledWith({ original: 'row' }, 'tableHeaderRows');
+      .toBeCalledWith(tableCellArgs.tableRow, 'tableHeaderRows');
     expect(tableStubHeaderCellTemplate)
-      .not.toBeCalledWith({ row: 'row', column: 'column' });
-    expect(tableStubHeaderCellTemplate)
-      .toBeCalledWith({ style: {} });
+      .toBeCalledWith(tableCellArgs);
   });
 
   it('should render no data cell if rows are empty', () => {
     isNoDataTableRow.mockImplementation(() => true);
 
     const tableNoDataCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colspan: 4 };
 
     mount(
       <PluginHost>
@@ -188,20 +190,15 @@ describe('TableView', () => {
         </Template>
         <TableView
           {...defaultPluginProps}
-          tableTemplate={({ cellTemplate }) =>
-            cellTemplate({ row: { original: 'row' }, column: { original: 'column' }, style: {}, colspan: 3 })}
+          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableNoDataCellTemplate={tableNoDataCellTemplate}
         />
-        <Getter name="tableHeaderRows" value="tableHeaderRows" />
       </PluginHost>,
     );
 
     expect(isNoDataTableRow)
-      .toBeCalledWith({ original: 'row' });
-
+      .toBeCalledWith(tableCellArgs.tableRow);
     expect(tableNoDataCellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({ row: 'row', column: 'column' }));
-    expect(tableNoDataCellTemplate)
-      .toBeCalledWith(expect.objectContaining({ style: {}, colspan: 3 }));
+      .toBeCalledWith(tableCellArgs);
   });
 });

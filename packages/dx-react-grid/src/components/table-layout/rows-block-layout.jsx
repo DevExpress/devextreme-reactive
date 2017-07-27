@@ -29,7 +29,7 @@ export class RowsBlockLayout extends React.PureComponent {
         onClick={(e) => {
           const { rowIndex, columnIndex } = findTableCellTarget(e);
           if (rowIndex === -1 || columnIndex === -1) return;
-          onClick({ e, row: rows[rowIndex], column: columns[columnIndex] });
+          onClick({ e, tableRow: rows[rowIndex], tableColumn: columns[columnIndex] });
         }}
       >
         {

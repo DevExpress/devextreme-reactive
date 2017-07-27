@@ -22,14 +22,13 @@ filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement
 
 Describes properties passed to the filter row cell template.
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
 filter | [Filter](filtering-state.md#filter) | A filter applied to a column
 setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Apply a new filter to a column
 column | [Column](grid.md#column) | Specifies a column
-style? | Object | Specifies filter cell styles
 
 ## Plugin Developer Reference
 

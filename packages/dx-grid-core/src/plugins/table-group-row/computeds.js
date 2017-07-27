@@ -1,18 +1,20 @@
-const tableColumnsWithDraftGrouping = (columns, grouping) => columns.reduce((acc, column) => {
-  const currentColumn = grouping.find(g => (g.columnName === column.name));
-  if (!currentColumn) {
-    acc.push(column);
-  } else if (currentColumn.mode === 'remove' || currentColumn.mode === 'add') {
-    acc.push({
-      ...column,
-      isDraft: true,
-    });
-  }
-  return acc;
-}, []);
+const tableColumnsWithDraftGrouping = (tableColumns, grouping) =>
+  tableColumns
+  .reduce((acc, tableColumn) => {
+    const currentColumn = grouping.find(g => (g.columnName === tableColumn.name));
+    if (!currentColumn) {
+      acc.push(tableColumn);
+    } else if (currentColumn.mode === 'remove' || currentColumn.mode === 'add') {
+      acc.push({
+        ...tableColumn,
+        isDraft: true,
+      });
+    }
+    return acc;
+  }, []);
 
-export const tableColumnsWithGrouping = (columns, grouping,
+export const tableColumnsWithGrouping = (tableColumns, grouping,
   draftGrouping, groupIndentColumnWidth) => [
     ...grouping.map(group => ({ type: 'groupColumn', group, width: groupIndentColumnWidth })),
-    ...tableColumnsWithDraftGrouping(columns, draftGrouping),
+    ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping),
   ];

@@ -11,8 +11,8 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableColumnsWithDataRows(columns))
         .toEqual([
-          { type: TABLE_DATA_TYPE, id: 'a', original: columns[0] },
-          { type: TABLE_DATA_TYPE, id: 'b', original: columns[1] },
+          { type: TABLE_DATA_TYPE, id: 'a', column: columns[0] },
+          { type: TABLE_DATA_TYPE, id: 'b', column: columns[1] },
         ]);
     });
 
@@ -31,8 +31,8 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { type: TABLE_DATA_TYPE, id: 1, original: rows[0] },
-          { type: TABLE_DATA_TYPE, id: 2, original: rows[1] },
+          { type: TABLE_DATA_TYPE, id: 1, row: rows[0] },
+          { type: TABLE_DATA_TYPE, id: 2, row: rows[1] },
         ]);
     });
 

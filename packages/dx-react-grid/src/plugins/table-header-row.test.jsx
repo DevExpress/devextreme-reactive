@@ -68,13 +68,14 @@ describe('TableHeaderRow', () => {
     isHeadingTableCell.mockImplementation(() => true);
 
     const headerCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: { name: 'a' } }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableHeaderRow
@@ -85,13 +86,11 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isHeadingTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: { name: 'a' } });
-    expect(headerCellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({ row: 'row' }));
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(headerCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        column: { name: 'a' },
-        style: {},
+        ...tableCellArgs,
+        column: tableCellArgs.tableColumn.column,
       }));
   });
 });

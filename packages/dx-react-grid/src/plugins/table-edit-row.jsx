@@ -26,13 +26,11 @@ export class TableEditRow extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => isEditExistingTableCell(row, column)}
-          connectGetters={(getter, { column: { original: column }, row }) => {
-            const rowId = row.id;
+          predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}
+          connectGetters={(getter, { tableColumn: { column }, tableRow: { id: rowId, row } }) => {
             const change = getRowChange(getter('changedRows'), rowId);
             return {
-              rowId,
-              value: column.name in change ? change[column.name] : row.original[column.name],
+              value: column.name in change ? change[column.name] : row[column.name],
             };
           }}
           connectActions={action => ({
@@ -40,21 +38,18 @@ export class TableEditRow extends React.PureComponent {
           })}
         >
           {({
-            rowId,
-            row: { original: row },
-            column: { original: column },
             value,
             changeRow,
             ...restParams
           }) =>
             editCellTemplate({
-              row,
-              column,
+              row: restParams.tableRow.row,
+              column: restParams.tableColumn.column,
               value,
               onValueChange: newValue => changeRow({
-                rowId,
+                rowId: restParams.tableRow.id,
                 change: {
-                  [column.name]: newValue,
+                  [restParams.tableColumn.column.name]: newValue,
                 },
               }),
               ...restParams,
@@ -62,31 +57,27 @@ export class TableEditRow extends React.PureComponent {
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => isEditNewTableCell(row, column)}
-          connectGetters={(_, { column: { original: column }, row }) => ({
-            rowId: row.id,
-            value: row.original[column.name],
+          predicate={({ tableRow, tableColumn }) => isEditNewTableCell(tableRow, tableColumn)}
+          connectGetters={(_, { tableColumn: { column }, tableRow: { row } }) => ({
+            value: row[column.name],
           })}
           connectActions={action => ({
             changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),
           })}
         >
           {({
-            row: { original: row },
-            rowId,
-            column: { original: column },
             value,
             changeAddedRow,
             ...restParams
           }) =>
             editCellTemplate({
-              row,
-              column,
+              row: restParams.tableRow.row,
+              column: restParams.tableColumn.column,
               value,
               onValueChange: newValue => changeAddedRow({
-                rowId,
+                rowId: restParams.tableRow.id,
                 change: {
-                  [column.name]: newValue,
+                  [restParams.tableColumn.column.name]: newValue,
                 },
               }),
               ...restParams,

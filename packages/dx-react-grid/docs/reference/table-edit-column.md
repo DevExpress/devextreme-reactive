@@ -27,12 +27,12 @@ width | number &#124; string | 140 | Specifies the width of the edit column
 
 Describes properties passed to the command cell template of a data row.
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | Specifies an edited table row with applied changes
-column | [TableColumn](table-view.md#table-column) | Specifies a table column
+row | [Row](grid.md#row) | Specifies an edited table row with applied changes
+column | [Column](grid.md#column) | Specifies a table column
 startEditing | () => void | Switches a row to the editing mode
 cancelEditing | () => void | Switches a row to the read-only mode
 commitChanges | () => void | Initiates committing of row changes
@@ -40,22 +40,18 @@ deleteRow | () => void | Initiates row deletion
 allowEditing | boolean | Specifies if a row can be edited
 allowDeleting | boolean | Specifies if a row can be deleted
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
-style | Object | Styles that should be applied to the root cell element
 
 ### <a name="command-heading-cell-args"></a>CommandHeadingCellArgs
 
 Describes properties passed to the command cell template of a heading row.
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | Specifies an editing table row with applied changes
-column | [TableColumn](table-view.md#table-column) | Specifies a table column
 addRow | () => void | Creates a new row
 allowAdding | boolean | Specifies if a new row can be created
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
-style | Object | Styles that should be applied to the root cell element
 
 ### <a name="command-args"></a>CommandArgs
 

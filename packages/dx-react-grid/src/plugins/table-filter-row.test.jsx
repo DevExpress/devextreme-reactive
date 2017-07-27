@@ -69,13 +69,14 @@ describe('TableHeaderRow', () => {
     isFilterTableCell.mockImplementation(() => true);
 
     const filterCellTemplate = jest.fn(() => null);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
         <Template name="root">
           <TemplatePlaceholder
             name="tableViewCell"
-            params={{ row: { original: 'row' }, column: { original: { name: 'a' } }, style: {} }}
+            params={tableCellArgs}
           />
         </Template>
         <TableFilterRow
@@ -86,13 +87,11 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isFilterTableCell)
-      .toBeCalledWith({ original: 'row' }, { original: { name: 'a' } });
-    expect(filterCellTemplate)
-      .not.toBeCalledWith(expect.objectContaining({ row: 'row' }));
+      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(filterCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        column: { name: 'a' },
-        style: {},
+        ...tableCellArgs,
+        column: tableCellArgs.tableColumn.column,
       }));
   });
 });

@@ -43,8 +43,8 @@ export class RowLayout extends React.PureComponent {
                 <TemplateRenderer
                   key={tableKeyGetter(column)}
                   template={cellTemplate}
-                  row={row}
-                  column={column}
+                  tableRow={row}
+                  tableColumn={column}
                   style={getColumnStyle({ column })}
                   {...colspan ? { colspan } : null}
                 />

@@ -31,7 +31,7 @@ export class TableRowDetail extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => isDetailToggleTableCell(row, column)}
+          predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
           connectGetters={getter => ({
             expandedRows: getter('expandedRows'),
           })}
@@ -40,16 +40,14 @@ export class TableRowDetail extends React.PureComponent {
           })}
         >
           {({
-            column,
-            row,
             expandedRows,
             setDetailRowExpanded,
             ...restParams
           }) => detailToggleCellTemplate({
             ...restParams,
-            row: row.original,
-            expanded: isDetailRowExpanded(expandedRows, row.id),
-            toggleExpanded: () => setDetailRowExpanded({ rowId: row.id }),
+            row: restParams.tableRow.row,
+            expanded: isDetailRowExpanded(expandedRows, restParams.tableRow.id),
+            toggleExpanded: () => setDetailRowExpanded({ rowId: restParams.tableRow.id }),
           })}
         </Template>
 
@@ -63,15 +61,11 @@ export class TableRowDetail extends React.PureComponent {
             rowHeight,
           ]}
         />
-        <Template name="tableViewCell" predicate={({ row }) => isDetailTableRow(row)}>
-          {({
-            column,
-            row: { original: row },
-            ...params
-          }) => detailCellTemplate({
-            row,
-            template: () => template({ row }),
+        <Template name="tableViewCell" predicate={({ tableRow }) => isDetailTableRow(tableRow)}>
+          {params => detailCellTemplate({
             ...params,
+            row: params.tableRow.row,
+            template: () => template({ row: params.tableRow.row }),
           })}
         </Template>
       </PluginContainer>

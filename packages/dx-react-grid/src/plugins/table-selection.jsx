@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
-  tableBodyRowsWithSelection,
+  tableRowsWithSelection,
   tableExtraPropsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
@@ -36,7 +36,7 @@ export class TableSelection extends React.PureComponent {
         {highlightSelected && (
           <Getter
             name="tableBodyRows"
-            pureComputed={tableBodyRowsWithSelection}
+            pureComputed={tableRowsWithSelection}
             connectArgs={getter => [
               getter('tableBodyRows'),
               getter('selection'),
@@ -59,7 +59,7 @@ export class TableSelection extends React.PureComponent {
         {(showSelectionColumn && showSelectAll) && (
           <Template
             name="tableViewCell"
-            predicate={({ column, row }) => isSelectAllTableCell(row, column)}
+            predicate={({ tableRow, tableColumn }) => isSelectAllTableCell(tableRow, tableColumn)}
             connectGetters={(getter) => {
               const availableToSelect = getter('availableToSelect');
               const selection = getter('selection');
@@ -76,8 +76,6 @@ export class TableSelection extends React.PureComponent {
             })}
           >
             {({
-              row,
-              column,
               toggleAll,
               availableToSelect,
               ...restParams
@@ -90,7 +88,7 @@ export class TableSelection extends React.PureComponent {
         {showSelectionColumn && (
           <Template
             name="tableViewCell"
-            predicate={({ column, row }) => isSelectTableCell(row, column)}
+            predicate={({ tableRow, tableColumn }) => isSelectTableCell(tableRow, tableColumn)}
             connectGetters={getter => ({
               selection: getter('selection'),
             })}
@@ -99,14 +97,13 @@ export class TableSelection extends React.PureComponent {
             })}
           >
             {({
-              row: { id: rowId, original: row },
               selection,
               toggleSelected,
               ...restParams
             }) => selectCellTemplate({
-              row,
-              selected: selection.indexOf(rowId) > -1,
-              changeSelected: () => toggleSelected({ rowId }),
+              row: restParams.tableRow.row,
+              selected: selection.indexOf(restParams.tableRow.id) > -1,
+              changeSelected: () => toggleSelected({ rowId: restParams.tableRow.id }),
               ...restParams,
             })}
           </Template>

@@ -22,7 +22,7 @@ editCellTemplate | (args: [EditCellArgs](#edit-cell-args)) => ReactElement | | A
 
 Describes properties passed to the edit row's cell template.
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------

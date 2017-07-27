@@ -68,27 +68,27 @@ export class TableView extends React.PureComponent {
             headerRows: getter('tableHeaderRows'),
           })}
         >
-          {({ row, column, headerRows, ...restParams }) => (
-            isHeaderStubTableCell(row, headerRows)
+          {({ headerRows, ...restParams }) => (
+            isHeaderStubTableCell(restParams.tableRow, headerRows)
               ? tableStubHeaderCellTemplate(restParams)
               : tableStubCellTemplate(restParams)
           )}
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ row, column }) => isDataTableCell(row, column)}
+          predicate={({ tableRow, tableColumn }) => isDataTableCell(tableRow, tableColumn)}
         >
-          {({
-            row: { original: row },
-            column: { original: column },
-            ...restParams
-          }) => tableCellTemplate({ row, column, ...restParams })}
+          {params => tableCellTemplate({
+            ...params,
+            row: params.tableRow.row,
+            column: params.tableColumn.column,
+          })}
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ row }) => isNoDataTableRow(row)}
+          predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {({ row, column, ...restParams }) => tableNoDataCellTemplate(restParams)}
+          {params => tableNoDataCellTemplate(params)}
         </Template>
       </PluginContainer>
     );

@@ -1,17 +1,17 @@
 import { TABLE_ADDING_TYPE, TABLE_EDITING_TYPE } from './constants';
 
 // TODO: remove getRowId
-export const tableRowsWithEditing = (rows, editingRows, addedRows, getRowId, rowHeight) => {
+export const tableRowsWithEditing = (tableRows, editingRows, addedRows, getRowId, rowHeight) => {
   const rowIds = new Set(editingRows);
-  const tableRows = rows
-    .map(row => (
-      rowIds.has(getRowId(row.original))
+  const editedTableRows = tableRows
+    .map(tableRow => (
+      rowIds.has(getRowId(tableRow.row))
       ? {
-        ...row,
+        ...tableRow,
         type: TABLE_EDITING_TYPE,
         height: rowHeight,
       }
-      : row
+      : tableRow
     ));
 
   const addedTableRows = addedRows
@@ -19,11 +19,11 @@ export const tableRowsWithEditing = (rows, editingRows, addedRows, getRowId, row
       type: TABLE_ADDING_TYPE,
       id: rowIndex,
       height: rowHeight,
-      original: row,
+      row,
     }));
 
   return [
     ...addedTableRows,
-    ...tableRows,
+    ...editedTableRows,
   ];
 };

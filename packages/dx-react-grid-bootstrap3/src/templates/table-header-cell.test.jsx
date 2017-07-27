@@ -97,7 +97,7 @@ describe('TableHeaderCell', () => {
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
-        cursor: 'move',
+        cursor: 'pointer',
       });
   });
 

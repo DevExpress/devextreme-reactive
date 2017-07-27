@@ -58,7 +58,7 @@ export class TableLayout extends React.PureComponent {
         result.splice(targetColumnIndex, 0, sourceColumn);
       }
 
-      if (animationState) {
+      if (animationState.size) {
         result = result
           .map(column => (animationState.has(tableKeyGetter(column))
             ? { ...column, animationState: animationState.get(tableKeyGetter(column)) }

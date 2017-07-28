@@ -6,7 +6,7 @@ import {
   Getter, Template, TemplatePlaceholder, PluginHost,
 } from '@devexpress/dx-react-core';
 import {
-  getTableCellInfo,
+  getTableRowColumnsWithColSpan,
 } from '@devexpress/dx-grid-core';
 
 import { TableView } from './table-view';
@@ -186,15 +186,11 @@ describe('TableView', () => {
               <tbody>
                 {bodyRows.map(row => (
                   <tr key={row.id || row.type}>
-                    {columns.map((column, columnIndex) => {
-                      const info = getTableCellInfo({ row, column, columnIndex, columns });
-                      if (info.skip) return null;
-
-                      return React.cloneElement(
-                        cellTemplate({ row, column, colspan: info.colspan }),
-                        { key: column.name || column.type },
-                      );
-                    })}
+                    {getTableRowColumnsWithColSpan(columns, row.colSpanStart)
+                      .map(({ original: column, colspan }) => React.cloneElement(
+                        cellTemplate({ row, column, colspan }),
+                        { key: column.name },
+                      ))}
                   </tr>
                 ))}
               </tbody>

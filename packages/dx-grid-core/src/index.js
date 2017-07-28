@@ -35,6 +35,8 @@ export * from './plugins/table-filter-row/constants';
 export * from './plugins/table-filter-row/helpers';
 export * from './plugins/table-filter-row/computeds';
 
+export * from './plugins/table-group-row/constants';
+export * from './plugins/table-group-row/helpers';
 export * from './plugins/table-group-row/computeds';
 
 export * from './plugins/table-header-row/constants';

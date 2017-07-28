@@ -13,7 +13,7 @@ export const tableRowsWithDataRows = (rows, getRowId) => (
   ? [{
     type: TABLE_NODATA_TYPE,
     id: 0,
-    colspan: 0,
+    colSpanStart: 0,
   }]
   : rows.map(row => ({
     type: TABLE_DATA_TYPE,

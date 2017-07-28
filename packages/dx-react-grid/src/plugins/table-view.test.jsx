@@ -64,12 +64,7 @@ describe('TableView', () => {
 
   describe('table layout getters', () => {
     it('should provide tableBodyRows', () => {
-      const deps = {
-        checkGetter: (getter) => {
-          expect(getter('tableBodyRows'))
-            .toBe('tableRowsWithDataRows');
-        },
-      };
+      const deps = {};
 
       mount(
         <PluginHost>
@@ -82,6 +77,8 @@ describe('TableView', () => {
 
       expect(tableRowsWithDataRows)
         .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
+      expect(deps.computedGetter('tableBodyRows'))
+        .toBe('tableRowsWithDataRows');
     });
 
     it('should extend tableColumns', () => {
@@ -155,12 +152,7 @@ describe('TableView', () => {
     isHeaderStubTableCell.mockImplementation(() => true);
     const tableStubHeaderCellTemplate = jest.fn(() => null);
     const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
-    let tableHeaderRows;
-    const deps = {
-      checkGetter: (getter) => {
-        tableHeaderRows = getter('tableHeaderRows');
-      },
-    };
+    const deps = {};
 
     mount(
       <PluginHost>
@@ -174,7 +166,7 @@ describe('TableView', () => {
     );
 
     expect(isHeaderStubTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableHeaderRows);
+      .toBeCalledWith(tableCellArgs.tableRow, deps.computedGetter('tableHeaderRows'));
     expect(tableStubHeaderCellTemplate)
       .toBeCalledWith(tableCellArgs);
   });

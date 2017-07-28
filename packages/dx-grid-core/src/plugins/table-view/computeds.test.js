@@ -42,7 +42,7 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { type: TABLE_NODATA_TYPE, id: 0, colspan: 0 },
+          { type: TABLE_NODATA_TYPE, id: 0, colSpanStart: 0 },
         ]);
     });
   });

@@ -28,8 +28,10 @@ export const pluginDepsToComponents = (
     <Template
       key="check"
       name="root"
-      connectGetters={getter => depsOverrides.checkGetter && depsOverrides.checkGetter(getter)}
-      connectActions={action => depsOverrides.checkAction && depsOverrides.checkAction(action)}
+      // eslint-disable-next-line no-param-reassign
+      connectGetters={getter => (depsOverrides.computedGetter = getter)}
+      // eslint-disable-next-line no-param-reassign
+      connectActions={getter => (depsOverrides.computedAction = getter)}
     >
       {() => <TemplatePlaceholder />}
     </Template>

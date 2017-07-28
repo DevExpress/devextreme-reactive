@@ -23,7 +23,7 @@ groupIndentColumnWidth | number | | The group indent column's width
 
 Describes the properties passed to the template that renders a group row.
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -35,12 +35,11 @@ toggleGroupExpanded | () => void | Toggles the group row's expanded state
 
 Describes properties passed to the template that renders a group indent cell.
 
-A value with the following shape:
+Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | A row object
-column | [Column](grid.md#column) | A group indent column
+row | [GroupRow](#group-row) | A row object
 
 ### <a name="group-row"></a>GroupRow
 
@@ -50,7 +49,7 @@ Extends [Row](grid.md#row) with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | The column associated with the group
+row | [GroupRow](#group-row) | A row object
 value | any | The current group key value
 
 ## Plugin Developer Reference

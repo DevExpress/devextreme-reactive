@@ -69,12 +69,7 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableBodyRows', () => {
-      const deps = {
-        checkGetter: (getter) => {
-          expect(getter('tableBodyRows'))
-            .toBe('tableRowsWithSelection');
-        },
-      };
+      const deps = {};
 
       mount(
         <PluginHost>
@@ -86,17 +81,14 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
+      expect(deps.computedGetter('tableBodyRows'))
+        .toBe('tableRowsWithSelection');
       expect(tableRowsWithSelection)
         .toHaveBeenCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.selection);
     });
 
     it('should extend tableColumns', () => {
-      const deps = {
-        checkGetter: (getter) => {
-          expect(getter('tableColumns'))
-            .toBe('tableColumnsWithSelection');
-        },
-      };
+      const deps = {};
 
       mount(
         <PluginHost>
@@ -108,17 +100,14 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
+      expect(deps.computedGetter('tableColumns'))
+        .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
     });
 
     it('should extend tableExtraProps', () => {
-      const deps = {
-        checkGetter: (getter) => {
-          expect(getter('tableExtraProps'))
-            .toBe('tableExtraPropsWithSelection');
-        },
-      };
+      const deps = {};
 
       mount(
         <PluginHost>
@@ -130,6 +119,8 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
+      expect(deps.computedGetter('tableExtraProps'))
+        .toBe('tableExtraPropsWithSelection');
       expect(tableExtraPropsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableExtraProps, expect.any(Function));
     });

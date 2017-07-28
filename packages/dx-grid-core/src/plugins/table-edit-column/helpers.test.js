@@ -12,7 +12,10 @@ import {
 describe('TableEditColumn Plugin helpers', () => {
   describe('#isHeaderEditCommandsTableCell', () => {
     it('should work', () => {
-      expect(isHeaderEditCommandsTableCell({ type: TABLE_HEADING_TYPE }, { type: TABLE_EDIT_COMMAND_TYPE }))
+      expect(isHeaderEditCommandsTableCell(
+        { type: TABLE_HEADING_TYPE },
+        { type: TABLE_EDIT_COMMAND_TYPE },
+      ))
         .toBeTruthy();
       expect(isHeaderEditCommandsTableCell({ type: TABLE_HEADING_TYPE }, { type: 'undefined' }))
         .toBeFalsy();
@@ -22,7 +25,10 @@ describe('TableEditColumn Plugin helpers', () => {
   });
   describe('#isDataEditCommandsTableCell', () => {
     it('should work', () => {
-      expect(isDataEditCommandsTableCell({ type: TABLE_DATA_TYPE }, { type: TABLE_EDIT_COMMAND_TYPE }))
+      expect(isDataEditCommandsTableCell(
+        { type: TABLE_DATA_TYPE },
+        { type: TABLE_EDIT_COMMAND_TYPE },
+      ))
         .toBeTruthy();
       expect(isDataEditCommandsTableCell({ type: TABLE_DATA_TYPE }, { type: 'undefined' }))
         .toBeFalsy();
@@ -32,7 +38,10 @@ describe('TableEditColumn Plugin helpers', () => {
   });
   describe('#isEditNewRowCommandsTableCell', () => {
     it('should work', () => {
-      expect(isEditNewRowCommandsTableCell({ type: TABLE_ADDING_TYPE }, { type: TABLE_EDIT_COMMAND_TYPE }))
+      expect(isEditNewRowCommandsTableCell(
+        { type: TABLE_ADDING_TYPE },
+        { type: TABLE_EDIT_COMMAND_TYPE },
+      ))
         .toBeTruthy();
       expect(isEditNewRowCommandsTableCell({ type: TABLE_ADDING_TYPE }, { type: 'undefined' }))
         .toBeFalsy();
@@ -42,7 +51,10 @@ describe('TableEditColumn Plugin helpers', () => {
   });
   describe('#isEditExistingRowCommandsTableCell', () => {
     it('should work', () => {
-      expect(isEditExistingRowCommandsTableCell({ type: TABLE_EDITING_TYPE }, { type: TABLE_EDIT_COMMAND_TYPE }))
+      expect(isEditExistingRowCommandsTableCell(
+        { type: TABLE_EDITING_TYPE },
+        { type: TABLE_EDIT_COMMAND_TYPE },
+      ))
         .toBeTruthy();
       expect(isEditExistingRowCommandsTableCell({ type: TABLE_EDITING_TYPE }, { type: 'undefined' }))
         .toBeFalsy();

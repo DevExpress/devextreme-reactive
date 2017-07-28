@@ -53,7 +53,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | The column associated with the group
-value | any | A value that unites all the rows inside a group
+value | any | The current group key value
 
 ## Plugin Developer Reference
 

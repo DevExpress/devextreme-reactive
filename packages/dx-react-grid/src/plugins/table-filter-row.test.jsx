@@ -1,23 +1,36 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-  PluginHost,
-} from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableFilterRow } from './table-filter-row';
+import { pluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableHeaderRowsWithFilter: jest.fn(),
   isFilterTableCell: jest.fn(),
   getColumnFilterConfig: jest.fn(),
 }));
+
+const defaultDeps = {
+  getter: {
+    tableHeaderRows: [{ type: 'undefined', id: 1 }],
+    filters: [{ columnName: 'a', value: 'b' }],
+  },
+  action: {
+    setColumnFilter: jest.fn(),
+  },
+  template: {
+    tableViewCell: {
+      tableRow: { type: 'undefined', id: 1, row: 'row' },
+      tableColumn: { type: 'undefined', id: 1, column: 'column' },
+      style: {},
+    },
+  },
+};
 
 const defaultProps = {
   filterCellTemplate: () => null,
@@ -42,43 +55,31 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableHeaderRows', () => {
-      let tableHeaderRows = null;
+      const deps = {};
       mount(
         <PluginHost>
-          <Getter name="tableHeaderRows" value="tableHeaderRows" />
+          {pluginDepsToComponents(defaultDeps, deps)}
           <TableFilterRow
             {...defaultProps}
+            rowHeight={120}
           />
-          <Template
-            name="root"
-            connectGetters={getter => (tableHeaderRows = getter('tableHeaderRows'))}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(tableHeaderRowsWithFilter)
-        .toBeCalledWith('tableHeaderRows', undefined);
-      expect(tableHeaderRows)
+      expect(deps.computedGetter('tableHeaderRows'))
         .toBe('tableHeaderRowsWithFilter');
+      expect(tableHeaderRowsWithFilter)
+        .toBeCalledWith(defaultDeps.getter.tableHeaderRows, 120);
     });
   });
 
   it('should render heading cell on user-defined column and filter row intersection', () => {
     isFilterTableCell.mockImplementation(() => true);
-
     const filterCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
           filterCellTemplate={filterCellTemplate}
@@ -87,11 +88,14 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isFilterTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(filterCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
-        column: tableCellArgs.tableColumn.column,
+        ...defaultDeps.template.tableViewCell,
+        column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
 });

@@ -1,12 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-  PluginHost,
-} from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
   isDetailRowExpanded,
@@ -15,6 +10,7 @@ import {
   isDetailTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableRowDetail } from './table-row-detail';
+import { pluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithExpandedDetail: jest.fn(),
@@ -23,6 +19,24 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isDetailToggleTableCell: jest.fn(),
   isDetailTableRow: jest.fn(),
 }));
+
+const defaultDeps = {
+  getter: {
+    tableColumns: [{ type: 'undefined', id: 1, column: 'column' }],
+    tableBodyRows: [{ type: 'undefined', id: 1, row: 'row' }],
+    expandedRows: { onClick: () => {} },
+  },
+  action: {
+    setDetailRowExpanded: jest.fn(),
+  },
+  template: {
+    tableViewCell: {
+      tableRow: { type: 'undefined', id: 1, row: 'row' },
+      tableColumn: { type: 'undefined', id: 1, column: 'column' },
+      style: {},
+    },
+  },
+};
 
 const defaultProps = {
   detailToggleCellTemplate: () => null,
@@ -52,70 +66,49 @@ describe('TableRowDetail', () => {
 
   describe('table layout getters', () => {
     it('should extend tableBodyRows', () => {
-      let tableBodyRows = null;
+      const deps = {};
       mount(
         <PluginHost>
-          <Getter name="tableBodyRows" value="tableBodyRows" />
-          <Getter name="expandedRows" value="expandedRows" />
+          {pluginDepsToComponents(defaultDeps, deps)}
           <TableRowDetail
             {...defaultProps}
             rowHeight={120}
           />
-          <Template
-            name="root"
-            connectGetters={getter => (tableBodyRows = getter('tableBodyRows'))}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(tableRowsWithExpandedDetail)
-        .toBeCalledWith('tableBodyRows', 'expandedRows', 120);
-      expect(tableBodyRows)
+      expect(deps.computedGetter('tableBodyRows'))
         .toBe('tableRowsWithExpandedDetail');
+      expect(tableRowsWithExpandedDetail)
+        .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.expandedRows, 120);
     });
 
     it('should extend tableColumns', () => {
-      let tableColumns = null;
+      const deps = {};
       mount(
         <PluginHost>
-          <Getter name="tableColumns" value="tableColumns" />
-
+          {pluginDepsToComponents(defaultDeps, deps)}
           <TableRowDetail
             {...defaultProps}
             detailToggleCellWidth={120}
           />
-          <Template
-            name="root"
-            connectGetters={getter => (tableColumns = getter('tableColumns'))}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(tableColumnsWithDetail)
-        .toBeCalledWith('tableColumns', 120);
-      expect(tableColumns)
+      expect(deps.computedGetter('tableColumns'))
         .toBe('tableColumnsWithDetail');
+      expect(tableColumnsWithDetail)
+        .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
     });
   });
 
   it('should render detailToggle cell on detail column and user-defined row intersection', () => {
     isDetailToggleTableCell.mockImplementation(() => true);
-
     const detailToggleCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableRowDetail
           {...defaultProps}
           detailToggleCellTemplate={detailToggleCellTemplate}
@@ -124,28 +117,24 @@ describe('TableRowDetail', () => {
     );
 
     expect(isDetailToggleTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(detailToggleCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
-        row: tableCellArgs.tableRow.row,
+        ...defaultDeps.template.tableViewCell,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
       }));
   });
 
   it('should render detail cell on detail row', () => {
     isDetailTableRow.mockImplementation(() => true);
-
     const detailCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colspan: 4 };
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableRowDetail
           {...defaultProps}
           detailCellTemplate={detailCellTemplate}
@@ -154,11 +143,11 @@ describe('TableRowDetail', () => {
     );
 
     expect(isDetailTableRow)
-      .toBeCalledWith(tableCellArgs.tableRow);
+      .toBeCalledWith(defaultDeps.template.tableViewCell.tableRow);
     expect(detailCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
-        row: tableCellArgs.tableRow.row,
+        ...defaultDeps.template.tableViewCell,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
       }));
   });
 });

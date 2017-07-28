@@ -1,22 +1,32 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-  PluginHost,
-} from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableRowsWithHeading,
   isHeadingTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
+import { pluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),
   isHeadingTableCell: jest.fn(),
 }));
+
+const defaultDeps = {
+  getter: {
+    columns: [{ name: 'a' }],
+    tableHeaderRows: [{ type: 'undefined', id: 1 }],
+  },
+  template: {
+    tableViewCell: {
+      tableRow: { type: 'undefined', id: 1, row: 'row' },
+      tableColumn: { type: 'undefined', id: 1, column: 'column' },
+      style: {},
+    },
+  },
+};
 
 const defaultProps = {
   headerCellTemplate: () => null,
@@ -41,43 +51,30 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableHeaderRows', () => {
-      let tableHeaderRows = null;
+      const deps = {};
       mount(
         <PluginHost>
-          <Getter name="tableHeaderRows" value="tableHeaderRows" />
+          {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
             {...defaultProps}
           />
-          <Template
-            name="root"
-            connectGetters={getter => (tableHeaderRows = getter('tableHeaderRows'))}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(tableRowsWithHeading)
-        .toBeCalledWith('tableHeaderRows');
-      expect(tableHeaderRows)
+      expect(deps.computedGetter('tableHeaderRows'))
         .toBe('tableRowsWithHeading');
+      expect(tableRowsWithHeading)
+        .toBeCalledWith(defaultDeps.getter.tableHeaderRows);
     });
   });
 
   it('should render heading cell on user-defined column and heading row intersection', () => {
     isHeadingTableCell.mockImplementation(() => true);
-
     const headerCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableHeaderRow
           {...defaultProps}
           headerCellTemplate={headerCellTemplate}
@@ -86,11 +83,14 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isHeadingTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(headerCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
-        column: tableCellArgs.tableColumn.column,
+        ...defaultDeps.template.tableViewCell,
+        column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
 });

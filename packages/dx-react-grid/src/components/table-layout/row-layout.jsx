@@ -7,7 +7,7 @@ import {
 
 import {
   tableColumnKeyGetter,
-  getTableCellInfo,
+  getTableRowColumnsWithColSpan,
 } from '@devexpress/dx-grid-core';
 
 const getColumnStyle = ({ column, animationState = {} }) => ({
@@ -36,11 +36,9 @@ export class RowLayout extends React.PureComponent {
         style={getRowStyle({ row })}
       >
         {
-          columns
-            .filter((column, columnIndex) => !getTableCellInfo({ row, columns, columnIndex }).skip)
-            .map((column, columnIndex) => {
+          getTableRowColumnsWithColSpan(columns, row.colSpanStart)
+            .map(({ original: column, colspan }, columnIndex) => {
               const key = tableColumnKeyGetter(column, columnIndex);
-              const colspan = getTableCellInfo({ row, columns, columnIndex }).colspan;
               return (
                 <TemplateRenderer
                   key={key}

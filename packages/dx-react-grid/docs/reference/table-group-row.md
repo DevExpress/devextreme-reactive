@@ -1,6 +1,6 @@
 # TableGroupRow Plugin Reference
 
-A plugin that renders group rows with the capability to expand and collapse them.
+A plugin that renders group rows and provides the capability to expand and collapse them.
 
 ## User Reference
 
@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | | A component that renders a group row
 groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell
-groupIndentColumnWidth | number | | The group indent columns' width
+groupIndentColumnWidth | number | | The group indent column's width
 
 ## Interfaces
 
@@ -29,7 +29,7 @@ Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | A group row data object
 isExpanded | boolean | Specifies if a row is expanded
-toggleGroupExpanded | () => void | Toggles a group row's expanded state
+toggleGroupExpanded | () => void | Toggles the group row's expanded state
 
 ### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
 
@@ -44,7 +44,7 @@ column | [Column](grid.md#column) | A group indent column
 
 ### <a name="group-row"></a>GroupRow
 
-Describes a group row data structure.
+Describes the group row data structure.
 
 Extends [Row](grid.md#row)
 
@@ -53,7 +53,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | The column associated with the group
-value | any | A value that unites all the rows inside a group
+value | any | The current group key value
 
 ## Plugin Developer Reference
 
@@ -62,6 +62,7 @@ value | any | A value that unites all the rows inside a group
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table body rows
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups
@@ -72,4 +73,5 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the ones by which the table is grouped
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns, including the ones by which the table is grouped
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-column)&gt; | Table body rows with modified group rows

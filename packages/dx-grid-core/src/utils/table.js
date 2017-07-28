@@ -16,10 +16,20 @@ const getColumnId = column => column.name;
 export const tableColumnKeyGetter = (column, columnIndex) =>
   getTableKeyGetter(getColumnId, column, columnIndex);
 
-export const getTableCellInfo = ({ row, columnIndex, columns }) => {
-  if (row.colspan !== undefined && columnIndex > row.colspan) return { skip: true };
-  if (row.colspan === columnIndex) return { colspan: columns.length - row.colspan };
-  return {};
+export const getTableRowColumnsWithColSpan = (columns, colSpanStart) => {
+  if (colSpanStart === undefined) return columns.map(column => ({ original: column }));
+
+  let span = false;
+  return columns
+    .reduce((acc, column, columnIndex) => {
+      if (span) return acc;
+      if (columnIndex === colSpanStart ||
+        tableColumnKeyGetter(column, columnIndex) === colSpanStart) {
+        span = true;
+        return [...acc, { original: column, colspan: columns.length - columnIndex }];
+      }
+      return [...acc, { original: column }];
+    }, []);
 };
 
 export const findTableCellTarget = (e) => {

@@ -4,7 +4,7 @@ export const tableColumnsWithDataRows = columns =>
   columns.map(column => ({
     type: TABLE_DATA_TYPE,
     id: column.name,
-    width: column.width, // TODO: document it
+    width: column.width,
     column,
   }));
 

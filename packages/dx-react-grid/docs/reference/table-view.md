@@ -20,6 +20,16 @@ tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElemen
 tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
 allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it
 
+## Extensions
+
+### Column
+
+Extends [Column](grid.md#column) with the following shape:
+
+Field | Type | Description
+------|------|------------
+width? | number | Specifies the table column width.
+
 ## Interfaces
 
 ### <a name="table-args"></a>TableArgs
@@ -43,7 +53,7 @@ Field | Type | Description
 ------|------|------------
 type | string | Specifies the table row type. Defines a cell template used to render a row.
 id | number &#124; string | Specifies the table row id. Used to unique identify row of the given type.
-height? | number &#124; string | Specifies the table row height.
+height? | number | Specifies the table row height.
 row? | [Row](grid.md#row) | Specifies the associated row.
 
 Can be extended by other plugins. See the Extensions section.
@@ -58,7 +68,7 @@ Field | Type | Description
 ------|------|------------
 type | string | Specifies the table column type. Defines a cell template used to render a row.
 id | number &#124; string | Specifies the table column id. Used to unique identify column of the given type.
-width? | number &#124; string | Specifies the table column width.
+width? | number | Specifies the table column width.
 column? | [Column](grid.md#column) | Specifies the associated column.
 
 Can be extended by other plugins. See the Extensions section.

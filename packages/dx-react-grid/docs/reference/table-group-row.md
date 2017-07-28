@@ -1,6 +1,6 @@
 # TableGroupRow Plugin Reference
 
-A plugin that renders group rows and provides a capability to expand and collapse them.
+A plugin that renders group rows and provides the capability to expand and collapse them.
 
 ## User Reference
 
@@ -44,7 +44,7 @@ column | [Column](grid.md#column) | A group indent column
 
 ### <a name="group-row"></a>GroupRow
 
-Describes a group row data structure.
+Describes the group row data structure.
 
 Extends [Row](grid.md#row)
 
@@ -73,5 +73,5 @@ tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the ones by which the table is grouped
+tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns, including the ones by which the table is grouped
 tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-column)&gt; | Table body rows with modified group rows

@@ -36,14 +36,14 @@ export class RowLayout extends React.PureComponent {
       >
         {
           getTableRowColumnsWithColSpan(columns, row.colSpanStart)
-            .map(({ original: column, colspan }) => (
+            .map(column => (
               <TemplateRenderer
                 key={tableKeyGetter(column)}
                 template={cellTemplate}
                 tableRow={row}
                 tableColumn={column}
                 style={getColumnStyle({ column })}
-                {...colspan ? { colspan } : null}
+                {...column.colspan ? { colspan: column.colspan } : null}
               />
             ))
         }

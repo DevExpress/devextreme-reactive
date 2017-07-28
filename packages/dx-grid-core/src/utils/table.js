@@ -5,19 +5,19 @@ import { getTargetColumnGeometries } from './column-geometries';
 
 export const tableKeyGetter = object => `${object.type}_${object.id}`;
 
-export const getTableRowColumnsWithColSpan = (columns, colSpanStart) => {
-  if (colSpanStart === undefined) return columns.map(column => ({ original: column }));
+export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
+  if (colSpanStart === undefined) return tableColumns;
 
   let span = false;
-  return columns
-    .reduce((acc, column, columnIndex) => {
+  return tableColumns
+    .reduce((acc, tableColumn, columnIndex) => {
       if (span) return acc;
       if (columnIndex === colSpanStart ||
-        tableKeyGetter(column, columnIndex) === colSpanStart) {
+        tableKeyGetter(tableColumn, columnIndex) === colSpanStart) {
         span = true;
-        return [...acc, { original: column, colspan: columns.length - columnIndex }];
+        return [...acc, { ...tableColumn, colspan: tableColumns.length - columnIndex }];
       }
-      return [...acc, { original: column }];
+      return [...acc, tableColumn];
     }, []);
 };
 

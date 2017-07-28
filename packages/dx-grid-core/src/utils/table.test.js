@@ -17,28 +17,28 @@ describe('table utils', () => {
     it('should return correct columns without colspan', () => {
       const columns = [{ type: 'a', id: 1 }, { type: 'b', id: 2 }];
 
-      expect(getTableRowColumnsWithColSpan(columns, {}))
-        .toEqual(columns.map(column => ({ original: column })));
+      expect(getTableRowColumnsWithColSpan(columns, null))
+        .toEqual(columns);
     });
 
     it('should return correct columns with numeric colspan', () => {
       const columns = [{ type: 'a', id: 1 }, { type: 'b', id: 2 }, { type: 'c', id: 3 }];
 
       expect(getTableRowColumnsWithColSpan(columns, 0))
-        .toEqual([{ original: columns[0], colspan: 3 }]);
+        .toEqual([{ ...columns[0], colspan: 3 }]);
 
       expect(getTableRowColumnsWithColSpan(columns, 1))
-        .toEqual([{ original: columns[0] }, { original: columns[1], colspan: 2 }]);
+        .toEqual([columns[0], { ...columns[1], colspan: 2 }]);
     });
 
     it('should return correct columns with string colspan', () => {
       const columns = [{ type: 'a', id: 1 }, { type: 'b', id: 2 }, { type: 'c', id: 3 }];
 
       expect(getTableRowColumnsWithColSpan(columns, 'a_1'))
-        .toEqual([{ original: columns[0], colspan: 3 }]);
+        .toEqual([{ ...columns[0], colspan: 3 }]);
 
       expect(getTableRowColumnsWithColSpan(columns, 'b_2'))
-        .toEqual([{ original: columns[0] }, { original: columns[1], colspan: 2 }]);
+        .toEqual([columns[0], { ...columns[1], colspan: 2 }]);
     });
   });
 

@@ -1,5 +1,8 @@
 import { sortPlugins } from './utils';
 
+const getErrorMessage = (pluginName, dependencyName) =>
+  `The '${pluginName}' plugin requires '${dependencyName}' to be defined.`;
+
 export class PluginHost {
   constructor() {
     this.plugins = [];
@@ -13,6 +16,20 @@ export class PluginHost {
   unregisterPlugin(plugin) {
     this.plugins.splice(this.plugins.indexOf(plugin), 1);
     this.cleanPluginsCache();
+  }
+  registerPluginContainer(pluginContainer) {
+    const undefinedPluginName = pluginContainer.dependencies.reduce((acc, dep) => {
+      const isDependencyDefined = !dep.optional
+        && this.plugins.findIndex(p => p.pluginName === dep.pluginName) === -1;
+      const pluginName = isDependencyDefined && dep.pluginName;
+      return acc || pluginName;
+    }, null);
+
+    if (undefinedPluginName) {
+      throw (new Error(getErrorMessage(pluginContainer.pluginName, undefinedPluginName)));
+    }
+
+    this.registerPlugin(pluginContainer);
   }
   cleanPluginsCache() {
     this.unordered = true;

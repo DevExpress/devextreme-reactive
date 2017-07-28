@@ -133,4 +133,30 @@ describe('PluginHost', () => {
       expect(subscription1.onMessage.mock.calls.length).toBe(1);
     });
   });
+
+  describe('#registerPluginContainer', () => {
+    it('should throw an exception if dependencies of the pluginContainer registering are not met', () => {
+      const plugin1 = {
+        position: () => [0],
+        pluginName: 'plugin1',
+        dependencies: [],
+      };
+      const plugin2 = {
+        position: () => [2],
+        pluginName: 'plugin2',
+        dependencies: [
+          { pluginName: 'plugin1' },
+          { pluginName: 'plugin3' },
+          { pluginName: 'plugin4', optional: true },
+        ],
+      };
+
+      expect(() => {
+        host.registerPluginContainer(plugin1);
+      }).not.toThrow();
+      expect(() => {
+        host.registerPluginContainer(plugin2);
+      }).toThrow(/plugin2.*plugin3/);
+    });
+  });
 });

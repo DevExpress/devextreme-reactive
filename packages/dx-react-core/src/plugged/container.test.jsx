@@ -1,72 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
 
 import { PluginHost } from './host';
 import { PluginContainer } from './container';
-import { Getter } from './getter';
-import { Template } from './template';
 
 describe('PluginContainer', () => {
-  it('should correctly determine plugin position', () => {
-    const Test = ({ enableGetter }) => (
-      <PluginHost>
-        <Getter name="test" value={1} />
-        {enableGetter && <Getter name="test" value={2} />}
-        <Getter name="test" pureComputed={test => `text${test}`} connectArgs={getter => [getter('test')]} />
-
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            text: getter('test'),
-          })}
-        >
-          {({ text }) => <span>{text}</span>}
-        </Template>
-      </PluginHost>
-    );
-    Test.propTypes = {
-      enableGetter: PropTypes.bool.isRequired,
-    };
-
-    const tree = mount(
-      <Test enableGetter={false} />,
-    );
-
-    tree.setProps({ enableGetter: true });
-    expect(tree.find('span').text()).toBe('text2');
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole();
+  });
+  afterAll(() => {
+    resetConsole();
   });
 
-  it('should correctly determine plugin position within another component', () => {
-    const Test = ({ enableGetter }) => (
-      <PluginHost>
-        <div>
-          <PluginContainer>
-            <Getter name="test" value={1} />
-            {enableGetter && <Getter name="test" value={2} />}
-            <Getter name="test" pureComputed={test => `text${test}`} connectArgs={getter => [getter('test')]} />
-          </PluginContainer>
-        </div>
-
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            text: getter('test'),
-          })}
-        >
-          {({ text }) => <span>{text}</span>}
-        </Template>
-      </PluginHost>
-    );
-    Test.propTypes = {
-      enableGetter: PropTypes.bool.isRequired,
+  it('should register itself in the plugin host', () => {
+    let pluginHostInstance;
+    const Stub = (_, { pluginHost }) => {
+      pluginHostInstance = pluginHost;
+      pluginHostInstance.registerPluginContainer = jest.fn();
+      return null;
+    };
+    Stub.contextTypes = {
+      pluginHost: PropTypes.object.isRequired,
     };
 
-    const tree = mount(
-      <Test enableGetter={false} />,
+    mount(
+      <PluginHost>
+        <Stub />
+        <PluginContainer
+          pluginName="TestPlugin"
+          dependencies={[{
+            pluginName: 'Dep1',
+            optional: true,
+          }]}
+        >
+          <div />
+        </PluginContainer>
+      </PluginHost>,
     );
 
-    tree.setProps({ enableGetter: true });
-    expect(tree.find('span').text()).toBe('text2');
+    expect(pluginHostInstance.registerPluginContainer)
+      .toHaveBeenCalledTimes(1);
+    expect(pluginHostInstance.registerPluginContainer.mock.calls[0][0])
+      .toMatchObject({
+        position: expect.any(Function),
+        pluginName: 'TestPlugin',
+        dependencies: [{ pluginName: 'Dep1', optional: true }],
+      });
   });
 });

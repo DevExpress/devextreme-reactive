@@ -58,7 +58,6 @@ describe('TableHeaderRow', () => {
         <PluginHost>
           <Getter name="tableBodyRows" value="tableBodyRows" />
           <Getter name="selection" value="selection" />
-          <Getter name="getRowId" value="getRowId" />
           <TableSelection
             {...defaultPluginProps}
             highlightSelected
@@ -73,7 +72,7 @@ describe('TableHeaderRow', () => {
       );
 
       expect(tableRowsWithSelection)
-        .toBeCalledWith('tableBodyRows', 'selection', 'getRowId');
+        .toBeCalledWith('tableBodyRows', 'selection');
       expect(tableBodyRows)
         .toBe('tableRowsWithSelection');
     });
@@ -107,7 +106,6 @@ describe('TableHeaderRow', () => {
       mount(
         <PluginHost>
           <Getter name="tableExtraProps" value="tableExtraProps" />
-          <Getter name="getRowId" value="getRowId" />
           <TableSelection
             {...defaultPluginProps}
             selectByRowClick
@@ -122,7 +120,7 @@ describe('TableHeaderRow', () => {
       );
 
       expect(tableExtraPropsWithSelection)
-        .toBeCalledWith('tableExtraProps', expect.any(Function), 'getRowId');
+        .toBeCalledWith('tableExtraProps', expect.any(Function));
       expect(tableExtraProps)
         .toBe('tableExtraPropsWithSelection');
     });

@@ -20,7 +20,6 @@ export class TableEditRow extends React.PureComponent {
             getter('tableBodyRows'),
             getter('editingRows'),
             getter('addedRows'),
-            getter('getRowId'),
             rowHeight,
           ]}
         />

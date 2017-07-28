@@ -1,11 +1,11 @@
 import { TABLE_ADDING_TYPE, TABLE_EDITING_TYPE } from './constants';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
 
-// TODO: remove getRowId
-export const tableRowsWithEditing = (tableRows, editingRows, addedRows, getRowId, rowHeight) => {
+export const tableRowsWithEditing = (tableRows, editingRows, addedRows, rowHeight) => {
   const rowIds = new Set(editingRows);
   const editedTableRows = tableRows
     .map(tableRow => (
-      rowIds.has(getRowId(tableRow.row))
+      tableRow.type === TABLE_DATA_TYPE && rowIds.has(tableRow.id)
       ? {
         ...tableRow,
         type: TABLE_EDITING_TYPE,

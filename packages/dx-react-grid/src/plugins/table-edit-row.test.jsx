@@ -53,7 +53,6 @@ describe('TableHeaderRow', () => {
           <Getter name="tableBodyRows" value="tableBodyRows" />
           <Getter name="editingRows" value="editingRows" />
           <Getter name="addedRows" value="addedRows" />
-          <Getter name="getRowId" value="getRowId" />
           <TableEditRow
             {...defaultPluginProps}
             rowHeight={120}
@@ -68,7 +67,7 @@ describe('TableHeaderRow', () => {
       );
 
       expect(tableRowsWithEditing)
-        .toBeCalledWith('tableBodyRows', 'editingRows', 'addedRows', 'getRowId', 120);
+        .toBeCalledWith('tableBodyRows', 'editingRows', 'addedRows', 120);
       expect(tableBodyRows)
         .toBe('tableRowsWithEditing');
     });

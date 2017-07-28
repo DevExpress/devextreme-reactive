@@ -21,6 +21,16 @@ selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement
 selectAllCellTemplate | (args: [SelectAllCellArgs](#select-all-cell-args)) => ReactElement | | A component that renders the Select All checkbox
 selectionColumnWidth | number | | The selection column's width
 
+## Extensions
+
+### <a name="table-row"></a>TableRow
+
+Extends [TableRow](table-view.md#table-row) with the following shape:
+
+Field | Type | Description
+------|------|------------
+selected? | boolean | Specifies whether a row is selected
+
 ## Interfaces
 
 ### <a name="select-all-cell-args"></a>SelectAllCellArgs
@@ -57,17 +67,16 @@ Name | Plugin | Type | Description
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
 tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows
-getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
 tableExtraProps | Getter | { [key: string]: any } | Additional table properties that can be provided by other plugins
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Body rows to be rendered available for selection
 setRowSelection | Action | ({ rowId }) => void | Selects a row
 setRowsSelection | Action | ({ rowIds }) => void | Selects multiple rows
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
+tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the selection column
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered including the selected ones
+tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered including the selected ones
 tableExtraProps | Getter | { [key: string]: any } | Additional table properties extended with the row onClick event listener

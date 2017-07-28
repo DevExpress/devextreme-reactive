@@ -40,7 +40,6 @@ export class TableSelection extends React.PureComponent {
             connectArgs={getter => [
               getter('tableBodyRows'),
               getter('selection'),
-              getter('getRowId'),
             ]}
           />
         )}
@@ -51,7 +50,6 @@ export class TableSelection extends React.PureComponent {
             connectArgs={(getter, action) => [
               getter('tableExtraProps'),
               action('setRowSelection'),
-              getter('getRowId'),
             ]}
           />
         )}

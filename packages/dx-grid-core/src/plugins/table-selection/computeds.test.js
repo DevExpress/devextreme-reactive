@@ -1,4 +1,5 @@
 import { TABLE_SELECT_TYPE } from './constants';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
 import {
   tableColumnsWithSelection,
   tableRowsWithSelection,
@@ -24,32 +25,27 @@ describe('TableSelection Plugin computeds', () => {
 
   describe('#tableRowsWithSelection', () => {
     const bodyRows = [
-      { row: { field: 'a' } },
-      { row: { field: 'b' } },
-      { row: { field: 'c' } },
+      { type: TABLE_DATA_TYPE, id: 0, row: { field: 'a' } },
+      { type: TABLE_DATA_TYPE, id: 1, row: { field: 'b' } },
+      { type: TABLE_DATA_TYPE, id: 2, row: { field: 'c' } },
+      { type: 'undefined', id: 2, row: { field: 'c' } },
     ];
     const selection = [0, 2];
-    const getRowId = row => bodyRows.findIndex(item => item.row.field === row.field);
 
     it('should work', () => {
-      const selectedRows = tableRowsWithSelection(bodyRows, selection, getRowId);
+      const selectedRows = tableRowsWithSelection(bodyRows, selection);
 
       expect(selectedRows)
         .toEqual([
-          { selected: true, row: { field: 'a' } },
-          { row: { field: 'b' } },
-          { selected: true, row: { field: 'c' } },
+          { type: TABLE_DATA_TYPE, id: 0, row: { field: 'a' }, selected: true },
+          { type: TABLE_DATA_TYPE, id: 1, row: { field: 'b' } },
+          { type: TABLE_DATA_TYPE, id: 2, row: { field: 'c' }, selected: true },
+          { type: 'undefined', id: 2, row: { field: 'c' } },
         ]);
     });
   });
 
   describe('#tableExtraPropsWithSelection', () => {
-    const rows = [
-      { row: { field: 'a' } },
-      { row: { field: 'b' } },
-      { row: { field: 'c' } },
-    ];
-    const getRowId = row => rows.findIndex(item => item.row.field === row.field);
     const setRowSelectionMock = jest.fn();
     const setRowSelectionCalls = setRowSelectionMock.mock.calls;
     const existingExtraProps = { a: 1 };
@@ -58,12 +54,12 @@ describe('TableSelection Plugin computeds', () => {
       const extraProps = tableExtraPropsWithSelection(
         existingExtraProps,
         setRowSelectionMock,
-        getRowId,
       );
       const extraPropsKeys = Object.keys(extraProps);
 
-      extraProps.onClick({ tableRow: { row: { field: 'a' } } });
-      extraProps.onClick({ tableRow: { row: { field: 'c' } } });
+      extraProps.onClick({ tableRow: { type: TABLE_DATA_TYPE, id: 0, row: { field: 'a' } } });
+      extraProps.onClick({ tableRow: { type: TABLE_DATA_TYPE, id: 2, row: { field: 'c' } } });
+      extraProps.onClick({ tableRow: { type: 'undefined', id: 3, row: { field: 'c' } } });
 
       expect(extraPropsKeys).toHaveLength(2);
       expect(extraPropsKeys[0]).toBe('a');

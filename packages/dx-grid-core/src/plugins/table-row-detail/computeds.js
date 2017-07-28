@@ -1,27 +1,26 @@
 import { TABLE_DETAIL_TYPE } from './constants';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
 
-// TODO: remove getRowId
-export const tableRowsWithExpandedDetail = (tableRows, expandedRows, getRowId, rowHeight) => {
+export const tableRowsWithExpandedDetail = (tableRows, expandedRows, rowHeight) => {
   let result = tableRows;
   expandedRows
     .forEach((expandedRowId) => {
-      const index = result.findIndex(row => getRowId(row.row) === expandedRowId);
-      if (index !== -1) {
-        const rowIndex = result.findIndex(row => getRowId(row.row) === expandedRowId);
-        const insertIndex = rowIndex + 1;
-        const row = result[rowIndex];
-        result = [
-          ...result.slice(0, insertIndex),
-          {
-            type: TABLE_DETAIL_TYPE,
-            id: getRowId(row.row),
-            row: row.row,
-            colspan: 0,
-            height: rowHeight,
-          },
-          ...result.slice(insertIndex),
-        ];
-      }
+      const rowIndex = result.findIndex(tableRow =>
+        tableRow.type === TABLE_DATA_TYPE && tableRow.id === expandedRowId);
+      if (rowIndex === -1) return;
+      const insertIndex = rowIndex + 1;
+      const tableRow = result[rowIndex];
+      result = [
+        ...result.slice(0, insertIndex),
+        {
+          type: TABLE_DETAIL_TYPE,
+          id: tableRow.id,
+          row: tableRow.row,
+          colspan: 0,
+          height: rowHeight,
+        },
+        ...result.slice(insertIndex),
+      ];
     });
   return result;
 };

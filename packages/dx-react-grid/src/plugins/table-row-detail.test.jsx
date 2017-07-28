@@ -57,7 +57,6 @@ describe('TableRowDetail', () => {
         <PluginHost>
           <Getter name="tableBodyRows" value="tableBodyRows" />
           <Getter name="expandedRows" value="expandedRows" />
-          <Getter name="getRowId" value="getRowId" />
           <TableRowDetail
             {...defaultPluginProps}
             rowHeight={120}
@@ -72,7 +71,7 @@ describe('TableRowDetail', () => {
       );
 
       expect(tableRowsWithExpandedDetail)
-        .toBeCalledWith('tableBodyRows', 'expandedRows', 'getRowId', 120);
+        .toBeCalledWith('tableBodyRows', 'expandedRows', 120);
       expect(tableBodyRows)
         .toBe('tableRowsWithExpandedDetail');
     });

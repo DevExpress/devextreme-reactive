@@ -57,7 +57,6 @@ export class TableRowDetail extends React.PureComponent {
           connectArgs={getter => [
             getter('tableBodyRows'),
             getter('expandedRows'),
-            getter('getRowId'),
             rowHeight,
           ]}
         />

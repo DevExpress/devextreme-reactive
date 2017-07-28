@@ -7,42 +7,53 @@ import {
 describe('TableRowDetail Plugin computeds', () => {
   describe('#tableRowsWithExpandedDetail', () => {
     it('can expand one row', () => {
-      const rows = [{ row: { id: 1 } }, { row: { id: 2 } }];
+      const tableRows = [{ type: 'data', id: 1, row: 'row1' }, { type: 'data', id: 2, row: 'row2' }];
       const expandedRows = [2];
 
-      const rowsWithDetails = tableRowsWithExpandedDetail(rows, expandedRows, row => row.id, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
       expect(rowsWithDetails).toEqual([
-        { row: { id: 1 } },
-        { row: { id: 2 } },
+        { type: 'data', id: 1, row: 'row1' },
+        { type: 'data', id: 2, row: 'row2' },
         {
           type: TABLE_DETAIL_TYPE,
           id: 2,
-          row: { id: 2 },
+          row: 'row2',
           colspan: 0,
           height: 'auto',
         },
       ]);
     });
 
+    it('can\'t expand not data', () => {
+      const tableRows = [{ type: 'data', id: 1, row: 'row1' }, { type: 'undefined', id: 2, row: 'row2' }];
+      const expandedRows = [2];
+
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
+      expect(rowsWithDetails).toEqual([
+        { type: 'data', id: 1, row: 'row1' },
+        { type: 'undefined', id: 2, row: 'row2' },
+      ]);
+    });
+
     it('can expand several rows', () => {
-      const rows = [{ row: { id: 1 } }, { row: { id: 2 } }];
+      const tableRows = [{ type: 'data', id: 1, row: 'row1' }, { type: 'data', id: 2, row: 'row2' }];
       const expandedRows = [1, 2];
 
-      const rowsWithDetails = tableRowsWithExpandedDetail(rows, expandedRows, row => row.id, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
       expect(rowsWithDetails).toEqual([
-        { row: { id: 1 } },
+        { type: 'data', id: 1, row: 'row1' },
         {
           type: TABLE_DETAIL_TYPE,
           id: 1,
-          row: { id: 1 },
+          row: 'row1',
           colspan: 0,
           height: 'auto',
         },
-        { row: { id: 2 } },
+        { type: 'data', id: 2, row: 'row2' },
         {
           type: TABLE_DETAIL_TYPE,
           id: 2,
-          row: { id: 2 },
+          row: 'row2',
           colspan: 0,
           height: 'auto',
         },

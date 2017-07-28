@@ -133,8 +133,8 @@ describe('TableLayout', () => {
 
   it('should span columns if specified', () => {
     const rows = [
-      { type: TABLE_DATA_TYPE, id: 1, colspan: 0 },
-      { type: TABLE_DATA_TYPE, id: 2, colspan: 1 },
+      { type: TABLE_DATA_TYPE, id: 1, colSpanStart: 0 },
+      { type: TABLE_DATA_TYPE, id: 2, colSpanStart: 1 },
     ];
     const columns = [
       { type: TABLE_DATA_TYPE, id: 'a' },

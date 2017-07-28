@@ -56,7 +56,7 @@ export * from './plugins/table-view/computeds';
 
 export {
   tableKeyGetter,
-  getTableCellInfo,
+  getTableRowColumnsWithColSpan,
   findTableCellTarget,
   getTableColumnGeometries,
   getTableTargetColumnIndex,

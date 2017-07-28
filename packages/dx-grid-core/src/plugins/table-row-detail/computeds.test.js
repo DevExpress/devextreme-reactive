@@ -18,7 +18,7 @@ describe('TableRowDetail Plugin computeds', () => {
           type: TABLE_DETAIL_TYPE,
           id: 2,
           row: 'row2',
-          colspan: 0,
+          colSpanStart: 0,
           height: 'auto',
         },
       ]);
@@ -45,16 +45,26 @@ describe('TableRowDetail Plugin computeds', () => {
         {
           type: TABLE_DETAIL_TYPE,
           id: 1,
+<<<<<<< HEAD
           row: 'row1',
           colspan: 0,
+=======
+          for: { id: 1 },
+          colSpanStart: 0,
+>>>>>>> upstream/master
           height: 'auto',
         },
         { type: 'data', id: 2, row: 'row2' },
         {
           type: TABLE_DETAIL_TYPE,
           id: 2,
+<<<<<<< HEAD
           row: 'row2',
           colspan: 0,
+=======
+          for: { id: 2 },
+          colSpanStart: 0,
+>>>>>>> upstream/master
           height: 'auto',
         },
       ]);

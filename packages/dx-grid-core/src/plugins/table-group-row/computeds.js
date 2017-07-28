@@ -15,6 +15,13 @@ const tableColumnsWithDraftGrouping = (tableColumns, grouping) =>
 
 export const tableColumnsWithGrouping = (tableColumns, grouping,
   draftGrouping, groupIndentColumnWidth) => [
-    ...grouping.map(group => ({ type: 'groupColumn', group, width: groupIndentColumnWidth })),
+    ...grouping.map(group =>
+      ({ type: 'groupColumn', id: group.columnName, group, width: groupIndentColumnWidth })),
     ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping),
   ];
+
+export const tableRowsWithGrouping = tableRows =>
+  tableRows.map((tableRow) => {
+    if (tableRow.type !== 'groupRow') return tableRow;
+    return { ...tableRow, colSpanStart: `groupColumn_${tableRow.id}` };
+  });

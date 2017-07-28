@@ -1,12 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-  PluginHost,
-} from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithEditing,
   isHeaderEditCommandsTableCell,
@@ -15,6 +10,7 @@ import {
   isEditExistingRowCommandsTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableEditColumn } from './table-edit-column';
+import { pluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithEditing: jest.fn(),
@@ -23,6 +19,30 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isEditNewRowCommandsTableCell: jest.fn(),
   isEditExistingRowCommandsTableCell: jest.fn(),
 }));
+
+const defaultDeps = {
+  getter: {
+    tableColumns: [{ type: 'undefined', id: 1 }],
+  },
+  action: {
+    addRow: jest.fn(),
+    cancelAddedRows: jest.fn(),
+    commitAddedRows: jest.fn(),
+    startEditRows: jest.fn(),
+    stopEditRows: jest.fn(),
+    cancelChangedRows: jest.fn(),
+    commitChangedRows: jest.fn(),
+    deleteRows: jest.fn(),
+    commitDeletedRows: jest.fn(),
+  },
+  template: {
+    tableViewCell: {
+      tableRow: { type: 'undefined', id: 1, row: 'row' },
+      tableColumn: { type: 'undefined', id: 1, column: 'column' },
+      style: {},
+    },
+  },
+};
 
 const defaultProps = {
   cellTemplate: () => null,
@@ -52,44 +72,31 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableColumns', () => {
-      let tableColumns = null;
+      const deps = {};
       mount(
         <PluginHost>
-          <Getter name="tableColumns" value="tableColumns" />
+          {pluginDepsToComponents(defaultDeps, deps)}
           <TableEditColumn
             {...defaultProps}
             width={120}
           />
-          <Template
-            name="root"
-            connectGetters={getter => (tableColumns = getter('tableColumns'))}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(tableColumnsWithEditing)
-        .toBeCalledWith('tableColumns', 120);
-      expect(tableColumns)
+      expect(deps.computedGetter('tableColumns'))
         .toBe('tableColumnsWithEditing');
+      expect(tableColumnsWithEditing)
+        .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
     });
   });
 
   it('should render edit commands cell on edit-commands column and header row intersection', () => {
     isHeaderEditCommandsTableCell.mockImplementation(() => true);
-
     const headingCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
           headingCellTemplate={headingCellTemplate}
@@ -98,27 +105,23 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isHeaderEditCommandsTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(headingCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
+        ...defaultDeps.template.tableViewCell,
       }));
   });
 
   it('should render edit commands cell on edit-commands column and user-defined row intersection', () => {
     isDataEditCommandsTableCell.mockImplementation(() => true);
-
     const cellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
           cellTemplate={cellTemplate}
@@ -127,29 +130,25 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isHeaderEditCommandsTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
-        row: tableCellArgs.tableRow.row,
+        ...defaultDeps.template.tableViewCell,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
         isEditing: false,
       }));
   });
 
   it('should render edit commands cell on edit-commands column and added row intersection', () => {
     isEditNewRowCommandsTableCell.mockImplementation(() => true);
-
     const cellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
           cellTemplate={cellTemplate}
@@ -158,29 +157,25 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isEditNewRowCommandsTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
-        row: tableCellArgs.tableRow.row,
+        ...defaultDeps.template.tableViewCell,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
         isEditing: true,
       }));
   });
 
   it('should render edit commands cell on edit-commands column and editing row intersection', () => {
     isEditExistingRowCommandsTableCell.mockImplementation(() => true);
-
     const cellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
           cellTemplate={cellTemplate}
@@ -189,11 +184,14 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isEditExistingRowCommandsTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
-        row: tableCellArgs.tableRow.row,
+        ...defaultDeps.template.tableViewCell,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
         isEditing: true,
       }));
   });

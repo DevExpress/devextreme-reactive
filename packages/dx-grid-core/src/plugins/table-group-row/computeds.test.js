@@ -62,7 +62,7 @@ describe('TableGroupRow Plugin computeds', () => {
         ]);
     });
 
-    xit('should add a draft column when reordering groups', () => {
+    it('should add a draft column when reordering groups', () => {
       const draftGrouping = [
         { columnName: 'a' },
         { columnName: 'c', isDraft: true, mode: 'reorder' },

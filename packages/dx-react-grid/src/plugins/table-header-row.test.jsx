@@ -18,7 +18,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isHeadingTableCell: jest.fn(),
 }));
 
-const defaultPluginProps = {
+const defaultProps = {
   headerCellTemplate: () => null,
 };
 
@@ -46,7 +46,7 @@ describe('TableHeaderRow', () => {
         <PluginHost>
           <Getter name="tableHeaderRows" value="tableHeaderRows" />
           <TableHeaderRow
-            {...defaultPluginProps}
+            {...defaultProps}
           />
           <Template
             name="root"
@@ -79,7 +79,7 @@ describe('TableHeaderRow', () => {
           />
         </Template>
         <TableHeaderRow
-          {...defaultPluginProps}
+          {...defaultProps}
           headerCellTemplate={headerCellTemplate}
         />
       </PluginHost>,

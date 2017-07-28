@@ -1,12 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-  PluginHost,
-} from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
   tableRowsWithSelection,
@@ -15,6 +10,7 @@ import {
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableSelection } from './table-selection';
+import { pluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),
@@ -24,7 +20,28 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isSelectAllTableCell: jest.fn(),
 }));
 
-const defaultPluginProps = {
+const defaultDeps = {
+  getter: {
+    tableColumns: [{ type: 'undefined', id: 1, column: 'column' }],
+    tableBodyRows: [{ type: 'undefined', id: 1, row: 'row' }],
+    tableExtraProps: { onClick: () => {} },
+    selection: [1, 2],
+    availableToSelect: [1, 2, 3, 4],
+  },
+  action: {
+    setRowSelection: jest.fn(),
+    setRowsSelection: jest.fn(),
+  },
+  template: {
+    tableViewCell: {
+      tableRow: { type: 'undefined', id: 1, row: 'row' },
+      tableColumn: { type: 'undefined', id: 1, column: 'column' },
+      style: {},
+    },
+  },
+};
+
+const defaultProps = {
   selectAllCellTemplate: () => null,
   selectCellTemplate: () => null,
   selectionColumnWidth: 100,
@@ -52,138 +69,118 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableBodyRows', () => {
-      let tableBodyRows = null;
-      // TODO: extract plugin dependencies
+      const deps = {
+        checkGetter: (getter) => {
+          expect(getter('tableBodyRows'))
+            .toBe('tableRowsWithSelection');
+        },
+      };
+
       mount(
         <PluginHost>
-          <Getter name="tableBodyRows" value="tableBodyRows" />
-          <Getter name="selection" value="selection" />
+          {pluginDepsToComponents(defaultDeps, deps)}
           <TableSelection
-            {...defaultPluginProps}
+            {...defaultProps}
             highlightSelected
           />
-          <Template
-            name="root"
-            connectGetters={getter => (tableBodyRows = getter('tableBodyRows'))}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
       expect(tableRowsWithSelection)
-        .toBeCalledWith('tableBodyRows', 'selection');
-      expect(tableBodyRows)
-        .toBe('tableRowsWithSelection');
+        .toHaveBeenCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.selection);
     });
 
     it('should extend tableColumns', () => {
-      let tableColumns = null;
+      const deps = {
+        checkGetter: (getter) => {
+          expect(getter('tableColumns'))
+            .toBe('tableColumnsWithSelection');
+        },
+      };
+
       mount(
         <PluginHost>
-          <Getter name="tableColumns" value="tableColumns" />
+          {pluginDepsToComponents(defaultDeps, deps)}
           <TableSelection
-            {...defaultPluginProps}
+            {...defaultProps}
             selectionColumnWidth={120}
           />
-          <Template
-            name="root"
-            connectGetters={getter => (tableColumns = getter('tableColumns'))}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
       expect(tableColumnsWithSelection)
-        .toBeCalledWith('tableColumns', 120);
-      expect(tableColumns)
-        .toBe('tableColumnsWithSelection');
+        .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
     });
 
     it('should extend tableExtraProps', () => {
-      let tableExtraProps = null;
+      const deps = {
+        checkGetter: (getter) => {
+          expect(getter('tableExtraProps'))
+            .toBe('tableExtraPropsWithSelection');
+        },
+      };
+
       mount(
         <PluginHost>
-          <Getter name="tableExtraProps" value="tableExtraProps" />
+          {pluginDepsToComponents(defaultDeps, deps)}
           <TableSelection
-            {...defaultPluginProps}
+            {...defaultProps}
             selectByRowClick
           />
-          <Template
-            name="root"
-            connectGetters={getter => (tableExtraProps = getter('tableExtraProps'))}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
       expect(tableExtraPropsWithSelection)
-        .toBeCalledWith('tableExtraProps', expect.any(Function));
-      expect(tableExtraProps)
-        .toBe('tableExtraPropsWithSelection');
+        .toBeCalledWith(defaultDeps.getter.tableExtraProps, expect.any(Function));
     });
   });
 
   it('should render selectAll cell on select column and heading row intersection', () => {
     isSelectTableCell.mockImplementation(() => true);
-
     const selectCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Getter name="selection" value={[]} />
-        <Getter name="availableToSelect" value={[]} />
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableSelection
-          {...defaultPluginProps}
+          {...defaultProps}
           selectCellTemplate={selectCellTemplate}
         />
       </PluginHost>,
     );
 
     expect(isSelectTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(selectCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...tableCellArgs,
-        row: tableCellArgs.tableRow.row,
+        ...defaultDeps.template.tableViewCell,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
       }));
   });
 
   it('should render select cell on select column and user-defined row intersection', () => {
     isSelectAllTableCell.mockImplementation(() => true);
-
     const selectAllCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
-        <Getter name="selection" value={[]} />
-        <Getter name="availableToSelect" value={[]} />
-        <Template name="root">
-          <TemplatePlaceholder
-            name="tableViewCell"
-            params={tableCellArgs}
-          />
-        </Template>
+        {pluginDepsToComponents(defaultDeps)}
         <TableSelection
-          {...defaultPluginProps}
+          {...defaultProps}
           selectAllCellTemplate={selectAllCellTemplate}
         />
       </PluginHost>,
     );
 
     expect(isSelectTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(selectAllCellTemplate)
-      .toBeCalledWith(expect.objectContaining(tableCellArgs));
+      .toBeCalledWith(expect.objectContaining(defaultDeps.template.tableViewCell));
   });
 });

@@ -19,7 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getColumnFilterConfig: jest.fn(),
 }));
 
-const defaultPluginProps = {
+const defaultProps = {
   filterCellTemplate: () => null,
 };
 
@@ -47,7 +47,7 @@ describe('TableHeaderRow', () => {
         <PluginHost>
           <Getter name="tableHeaderRows" value="tableHeaderRows" />
           <TableFilterRow
-            {...defaultPluginProps}
+            {...defaultProps}
           />
           <Template
             name="root"
@@ -80,7 +80,7 @@ describe('TableHeaderRow', () => {
           />
         </Template>
         <TableFilterRow
-          {...defaultPluginProps}
+          {...defaultProps}
           filterCellTemplate={filterCellTemplate}
         />
       </PluginHost>,

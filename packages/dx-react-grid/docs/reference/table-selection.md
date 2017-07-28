@@ -66,9 +66,9 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
 tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered
-selection | Getter | Array&lt;number &#124; string&gt; | Selected rows
 tableExtraProps | Getter | { [key: string]: any } | Additional table properties that can be provided by other plugins
-availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Body rows to be rendered available for selection
+selection | Getter | Array&lt;number &#124; string&gt; | Selected rows
+availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection
 setRowSelection | Action | ({ rowId }) => void | Selects a row
 setRowsSelection | Action | ({ rowIds }) => void | Selects multiple rows
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell

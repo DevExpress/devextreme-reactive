@@ -24,7 +24,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isDetailTableRow: jest.fn(),
 }));
 
-const defaultPluginProps = {
+const defaultProps = {
   detailToggleCellTemplate: () => null,
   detailCellTemplate: () => null,
   detailToggleCellWidth: 100,
@@ -58,7 +58,7 @@ describe('TableRowDetail', () => {
           <Getter name="tableBodyRows" value="tableBodyRows" />
           <Getter name="expandedRows" value="expandedRows" />
           <TableRowDetail
-            {...defaultPluginProps}
+            {...defaultProps}
             rowHeight={120}
           />
           <Template
@@ -83,7 +83,7 @@ describe('TableRowDetail', () => {
           <Getter name="tableColumns" value="tableColumns" />
 
           <TableRowDetail
-            {...defaultPluginProps}
+            {...defaultProps}
             detailToggleCellWidth={120}
           />
           <Template
@@ -117,7 +117,7 @@ describe('TableRowDetail', () => {
           />
         </Template>
         <TableRowDetail
-          {...defaultPluginProps}
+          {...defaultProps}
           detailToggleCellTemplate={detailToggleCellTemplate}
         />
       </PluginHost>,
@@ -147,7 +147,7 @@ describe('TableRowDetail', () => {
           />
         </Template>
         <TableRowDetail
-          {...defaultPluginProps}
+          {...defaultProps}
           detailCellTemplate={detailCellTemplate}
         />
       </PluginHost>,

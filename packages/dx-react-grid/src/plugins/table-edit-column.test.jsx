@@ -24,7 +24,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isEditExistingRowCommandsTableCell: jest.fn(),
 }));
 
-const defaultPluginProps = {
+const defaultProps = {
   cellTemplate: () => null,
   headingCellTemplate: () => null,
   commandTemplate: () => null,
@@ -57,7 +57,7 @@ describe('TableHeaderRow', () => {
         <PluginHost>
           <Getter name="tableColumns" value="tableColumns" />
           <TableEditColumn
-            {...defaultPluginProps}
+            {...defaultProps}
             width={120}
           />
           <Template
@@ -91,7 +91,7 @@ describe('TableHeaderRow', () => {
           />
         </Template>
         <TableEditColumn
-          {...defaultPluginProps}
+          {...defaultProps}
           headingCellTemplate={headingCellTemplate}
         />
       </PluginHost>,
@@ -120,7 +120,7 @@ describe('TableHeaderRow', () => {
           />
         </Template>
         <TableEditColumn
-          {...defaultPluginProps}
+          {...defaultProps}
           cellTemplate={cellTemplate}
         />
       </PluginHost>,
@@ -151,7 +151,7 @@ describe('TableHeaderRow', () => {
           />
         </Template>
         <TableEditColumn
-          {...defaultPluginProps}
+          {...defaultProps}
           cellTemplate={cellTemplate}
         />
       </PluginHost>,
@@ -182,7 +182,7 @@ describe('TableHeaderRow', () => {
           />
         </Template>
         <TableEditColumn
-          {...defaultPluginProps}
+          {...defaultProps}
           cellTemplate={cellTemplate}
         />
       </PluginHost>,

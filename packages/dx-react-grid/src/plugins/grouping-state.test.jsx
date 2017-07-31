@@ -41,8 +41,8 @@ describe('GroupingState', () => {
         defaultGrouping: grouping,
         onGroupingChange,
       }, {
-        connectGetters: getter => (grouping = Array.from(getter('grouping'))),
-        connectActions: action => (groupByColumn = action('groupByColumn')),
+        connectGetters: (getter) => { grouping = Array.from(getter('grouping')); },
+        connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
       groupByColumn({ columnName: 'a', groupIndex: 0 });
@@ -62,8 +62,8 @@ describe('GroupingState', () => {
         grouping: [{ columnName: 'b' }],
         onGroupingChange,
       }, {
-        connectGetters: getter => (grouping = Array.from(getter('grouping'))),
-        connectActions: action => (groupByColumn = action('groupByColumn')),
+        connectGetters: (getter) => { grouping = Array.from(getter('grouping')); },
+        connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
       groupByColumn({ columnName: 'a', groupIndex: 0 });
@@ -83,8 +83,8 @@ describe('GroupingState', () => {
         defaultGrouping: grouping,
         onGroupingChange: groupingChange,
       }, {
-        connectGetters: getter => (grouping = Array.from(getter('grouping'))),
-        connectActions: action => (groupByColumn = action('groupByColumn')),
+        connectGetters: (getter) => { grouping = Array.from(getter('grouping')); },
+        connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
       groupByColumn({ columnName: 'a' });
@@ -105,8 +105,8 @@ describe('GroupingState', () => {
       mountPlugin({
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
-        connectActions: action => (toggleGroupExpanded = action('toggleGroupExpanded')),
+        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectActions: (action) => { toggleGroupExpanded = action('toggleGroupExpanded'); },
       });
 
       toggleGroupExpanded({ groupKey: 'a' });
@@ -126,8 +126,8 @@ describe('GroupingState', () => {
         expandedGroups: [],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
-        connectActions: action => (toggleGroupExpanded = action('toggleGroupExpanded')),
+        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectActions: (action) => { toggleGroupExpanded = action('toggleGroupExpanded'); },
       });
 
       toggleGroupExpanded({ groupKey: 'a' });
@@ -147,8 +147,8 @@ describe('GroupingState', () => {
         defaultExpandedGroups: ['a'],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
-        connectActions: action => (toggleGroupExpanded = action('toggleGroupExpanded')),
+        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectActions: (action) => { toggleGroupExpanded = action('toggleGroupExpanded'); },
       });
 
       toggleGroupExpanded({ groupKey: 'a' });
@@ -171,8 +171,8 @@ describe('GroupingState', () => {
         defaultExpandedGroups: ['John'],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
-        connectActions: action => (groupByColumn = action('groupByColumn')),
+        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
       groupByColumn({ columnName: 'name' });
@@ -193,8 +193,8 @@ describe('GroupingState', () => {
         defaultExpandedGroups: ['John', 'John|30', 'Mike'],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
-        connectActions: action => (groupByColumn = action('groupByColumn')),
+        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
       groupByColumn({ columnName: 'age' });
@@ -215,8 +215,8 @@ describe('GroupingState', () => {
         defaultExpandedGroups: ['John', 'Mike'],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: getter => (expandedGroups = Array.from(getter('expandedGroups'))),
-        connectActions: action => (groupByColumn = action('groupByColumn')),
+        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
       groupByColumn({ columnName: 'age' });
@@ -242,7 +242,7 @@ describe('GroupingState', () => {
           />
           <Template
             name="root"
-            connectActions={action => (groupByColumn = action('groupByColumn'))}
+            connectActions={(action) => { groupByColumn = action('groupByColumn'); }}
           >
             {() => <div />}
           </Template>
@@ -277,7 +277,7 @@ describe('GroupingState', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (groupedColumns = getter('groupedColumns'))}
+            connectGetters={(getter) => { groupedColumns = getter('groupedColumns'); }}
           >
             {() => <div />}
           </Template>
@@ -301,7 +301,7 @@ describe('GroupingState', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (groupedColumns = getter('groupedColumns'))}
+            connectGetters={(getter) => { groupedColumns = getter('groupedColumns'); }}
           >
             {() => <div />}
           </Template>
@@ -326,8 +326,8 @@ describe('GroupingState', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (groupedColumns = getter('groupedColumns'))}
-            connectActions={action => (groupByColumn = action('groupByColumn'))}
+            connectGetters={(getter) => { groupedColumns = getter('groupedColumns'); }}
+            connectActions={(action) => { groupByColumn = action('groupByColumn'); }}
           >
             {() => <div />}
           </Template>
@@ -348,8 +348,8 @@ describe('GroupingState', () => {
       mountPlugin(
         { grouping: [] },
         {
-          connectGetters: getter => (draftGrouping = getter('draftGrouping')),
-          connectActions: action => (draftGroupingChange = action('draftGroupingChange')),
+          connectGetters: (getter) => { draftGrouping = getter('draftGrouping'); },
+          connectActions: (action) => { draftGroupingChange = action('draftGroupingChange'); },
         },
       );
 
@@ -371,8 +371,8 @@ describe('GroupingState', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (draftGroupedColumns = getter('draftGroupedColumns'))}
-            connectActions={action => (draftGroupingChange = action('draftGroupingChange'))}
+            connectGetters={(getter) => { draftGroupedColumns = getter('draftGroupedColumns'); }}
+            connectActions={(action) => { draftGroupingChange = action('draftGroupingChange'); }}
           >
             {() => <div />}
           </Template>
@@ -396,7 +396,7 @@ describe('GroupingState', () => {
       mountPlugin(
         { grouping: [{ columnName: 'a' }] },
         {
-          connectGetters: getter => (draftGrouping = getter('draftGrouping')),
+          connectGetters: (getter) => { draftGrouping = getter('draftGrouping'); },
           connectActions: (action) => {
             draftGroupingChange = action('draftGroupingChange');
             cancelGroupingChange = action('cancelGroupingChange');
@@ -423,7 +423,7 @@ describe('GroupingState', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (draftGroupedColumns = getter('draftGroupedColumns'))}
+            connectGetters={(getter) => { draftGroupedColumns = getter('draftGroupedColumns'); }}
             connectActions={(action) => {
               draftGroupingChange = action('draftGroupingChange');
               cancelGroupingChange = action('cancelGroupingChange');

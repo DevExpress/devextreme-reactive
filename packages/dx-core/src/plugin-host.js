@@ -1,6 +1,6 @@
 import { insertWithSorting } from './utils';
 
-const getErrorMessage = (pluginName, dependencyName) =>
+const getDependencyErrorMessage = (pluginName, dependencyName) =>
   `The '${pluginName}' plugin requires '${dependencyName}' to be defined.`;
 
 export class PluginHost {
@@ -10,38 +10,35 @@ export class PluginHost {
     this.gettersCache = {};
   }
   registerPlugin(plugin) {
+    if (plugin.isContainer) {
+      const undefinedPluginName = plugin.dependencies.reduce((acc, dep) => {
+        const isDependencyDefined = !dep.optional
+          && this.plugins.findIndex(p => p.pluginName === dep.pluginName) === -1;
+        const pluginName = isDependencyDefined && dep.pluginName;
+        return acc || pluginName;
+      }, null);
+
+      if (undefinedPluginName) {
+        throw (new Error(getDependencyErrorMessage(plugin.pluginName, undefinedPluginName)));
+      }
+    }
+
     this.plugins = insertWithSorting(plugin, this.plugins);
     this.cleanPluginsCache();
   }
   unregisterPlugin(plugin) {
+    if (plugin.isContainer) {
+      const index = this.plugins.findIndex(p => p.pluginName === plugin.pluginName);
+      const firstDep = this.plugins.slice(index)
+        .filter(p => p.dependencies.findIndex(
+          d => d.pluginName === plugin.pluginName) !== -1)[0];
+
+      if (firstDep) {
+        throw (new Error(getDependencyErrorMessage(firstDep.pluginName, plugin.pluginName)));
+      }
+    }
     this.plugins.splice(this.plugins.indexOf(plugin), 1);
     this.cleanPluginsCache();
-  }
-  registerPluginContainer(pluginContainer) {
-    const undefinedPluginName = pluginContainer.dependencies.reduce((acc, dep) => {
-      const isDependencyDefined = !dep.optional
-        && this.plugins.findIndex(p => p.pluginName === dep.pluginName) === -1;
-      const pluginName = isDependencyDefined && dep.pluginName;
-      return acc || pluginName;
-    }, null);
-
-    if (undefinedPluginName) {
-      throw (new Error(getErrorMessage(pluginContainer.pluginName, undefinedPluginName)));
-    }
-
-    this.registerPlugin(pluginContainer);
-  }
-  unregisterPluginContainer(pluginContainer) {
-    const index = this.plugins.findIndex(p => p.pluginName === pluginContainer.pluginName);
-    const firstDep = this.plugins.slice(index)
-      .filter(p => p.dependencies.findIndex(
-        d => d.pluginName === pluginContainer.pluginName) !== -1)[0];
-
-    if (firstDep) {
-      throw (new Error(getErrorMessage(firstDep.pluginName, pluginContainer.pluginName)));
-    }
-
-    this.unregisterPlugin(pluginContainer);
   }
   cleanPluginsCache() {
     this.gettersCache = {};

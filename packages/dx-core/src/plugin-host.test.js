@@ -134,12 +134,13 @@ describe('PluginHost', () => {
     });
   });
 
-  describe('#registerPluginContainer', () => {
+  describe('#registerPlugin', () => {
     it('should throw an exception if dependencies of the pluginContainer registering are not met', () => {
       const plugin1 = {
         position: () => [0],
         pluginName: 'Plugin1',
         dependencies: [],
+        isContainer: true,
       };
       const plugin2 = {
         position: () => [2],
@@ -149,33 +150,38 @@ describe('PluginHost', () => {
           { pluginName: 'Plugin3' },
           { pluginName: 'Plugin4', optional: true },
         ],
+        isContainer: true,
       };
 
       expect(() => {
-        host.registerPluginContainer(plugin1);
+        host.registerPlugin(plugin1);
       }).not.toThrow();
       expect(() => {
-        host.registerPluginContainer(plugin2);
+        host.registerPlugin(plugin2);
       }).toThrow(/Plugin2.*Plugin3/);
     });
+  });
 
-    it('should work correctly if a plugin unregisters dynamically', () => {
+  describe('#unregisterPlugin', () => {
+    it('should throw an exception if dependencies are broken after a plugin is unregistered', () => {
       const plugin1 = {
         position: () => [0],
         pluginName: 'Plugin1',
         dependencies: [],
+        isContainer: true,
       };
       const plugin2 = {
         position: () => [1],
         pluginName: 'Plugin2',
         dependencies: [{ pluginName: 'Plugin1' }],
+        isContainer: true,
       };
 
-      host.registerPluginContainer(plugin1);
-      host.registerPluginContainer(plugin2);
+      host.registerPlugin(plugin1);
+      host.registerPlugin(plugin2);
 
       expect(() => {
-        host.unregisterPluginContainer(plugin1);
+        host.unregisterPlugin(plugin1);
       }).toThrow(/Plugin2.*Plugin1/);
     });
   });

@@ -19,7 +19,7 @@ describe('PluginContainer', () => {
     let pluginHostInstance;
     const Stub = (_, { pluginHost }) => {
       pluginHostInstance = pluginHost;
-      pluginHostInstance.registerPluginContainer = jest.fn();
+      pluginHostInstance.registerPlugin = jest.fn();
       return null;
     };
     Stub.contextTypes = {
@@ -41,13 +41,14 @@ describe('PluginContainer', () => {
       </PluginHost>,
     );
 
-    expect(pluginHostInstance.registerPluginContainer)
+    expect(pluginHostInstance.registerPlugin)
       .toHaveBeenCalledTimes(1);
-    expect(pluginHostInstance.registerPluginContainer.mock.calls[0][0])
+    expect(pluginHostInstance.registerPlugin.mock.calls[0][0])
       .toMatchObject({
         position: expect.any(Function),
         pluginName: 'TestPlugin',
         dependencies: [{ pluginName: 'Dep1', optional: true }],
+        isContainer: true,
       });
   });
 
@@ -55,7 +56,7 @@ describe('PluginContainer', () => {
     let pluginHostInstance;
     const Stub = (_, { pluginHost }) => {
       pluginHostInstance = pluginHost;
-      pluginHostInstance.unregisterPluginContainer = jest.fn();
+      pluginHostInstance.unregisterPlugin = jest.fn();
       return null;
     };
     Stub.contextTypes = {
@@ -79,13 +80,12 @@ describe('PluginContainer', () => {
 
     tree.unmount();
 
-    expect(pluginHostInstance.unregisterPluginContainer)
-      .toHaveBeenCalledTimes(1);
-    expect(pluginHostInstance.unregisterPluginContainer.mock.calls[0][0])
+    expect(pluginHostInstance.unregisterPlugin.mock.calls[1][0])
       .toMatchObject({
         position: expect.any(Function),
         pluginName: 'TestPlugin',
         dependencies: [{ pluginName: 'Dep1', optional: true }],
+        isContainer: true,
       });
   });
 });

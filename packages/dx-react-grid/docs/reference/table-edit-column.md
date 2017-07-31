@@ -1,6 +1,6 @@
 # TableEditColumn Plugin Reference
 
-A plugin that renders a command column (a column containing controls used for row editing/creating/deleting and commiting/canceling changes).
+A plugin that renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes).
 
 ## User Reference
 
@@ -25,7 +25,7 @@ width | number &#124; string | 140 | Specifies the width of the edit column
 
 ### <a name="command-cell-args"></a>CommandCellArgs
 
-Describes properties passed to the command cell template of a data row.
+Describes properties passed to a data row's command cell template.
 
 A value with the following shape:
 
@@ -40,11 +40,11 @@ deleteRow | () => void | Initiates row deletion
 allowEditing | boolean | Specifies if a row can be edited
 allowDeleting | boolean | Specifies if a row can be deleted
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
-style | Object | Styles that should be applied to the root cell element
+style? | Object | Styles that should be applied to the root cell element
 
 ### <a name="command-heading-cell-args"></a>CommandHeadingCellArgs
 
-Describes properties passed to the command cell template of a heading row.
+Describes properties passed to a heading row's command cell template.
 
 A value with the following shape:
 
@@ -55,7 +55,7 @@ column | [TableColumn](table-view.md#table-column) | Specifies a table column
 addRow | () => void | Creates a new row
 allowAdding | boolean | Specifies if a new row can be created
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
-style | Object | Styles that should be applied to the root cell element
+style? | Object | Styles that should be applied to the root cell element
 
 ### <a name="command-args"></a>CommandArgs
 
@@ -85,7 +85,7 @@ cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => 
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `changedRows` array
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows specified by the ID for deletion, adding them to the `deletedRows` array
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `deletedRows` array
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
+tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object } | A template that renders a table cell
 
 ### Exports
 

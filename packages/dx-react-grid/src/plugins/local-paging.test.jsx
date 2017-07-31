@@ -26,7 +26,7 @@ describe('LocalPaging', () => {
         <LocalPaging />
         <Template
           name="root"
-          connectGetters={getter => (totalCount = getter('totalCount'))}
+          connectGetters={(getter) => { totalCount = getter('totalCount'); }}
         >
           {() => <div />}
         </Template>
@@ -50,7 +50,7 @@ describe('LocalPaging', () => {
         <LocalPaging />
         <Template
           name="root"
-          connectGetters={getter => (paginatedRows = getter('rows'))}
+          connectGetters={(getter) => { paginatedRows = getter('rows'); }}
         >
           {() => <div />}
         </Template>
@@ -100,7 +100,10 @@ describe('LocalPaging', () => {
         <LocalPaging />
         <Template
           name="root"
-          connectGetters={getter => (paginatedRows = getter('rows')) && (totalCount = getter('totalCount'))}
+          connectGetters={(getter) => {
+            paginatedRows = getter('rows');
+            totalCount = getter('totalCount');
+          }}
         >
           {() => <div />}
         </Template>

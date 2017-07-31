@@ -1,4 +1,4 @@
-import { sortPlugins } from './utils';
+import { insertWithSorting } from './utils';
 
 const getErrorMessage = (pluginName, dependencyName) =>
   `The '${pluginName}' plugin requires '${dependencyName}' to be defined.`;
@@ -10,7 +10,7 @@ export class PluginHost {
     this.gettersCache = {};
   }
   registerPlugin(plugin) {
-    this.plugins.push(plugin);
+    this.plugins = insertWithSorting(plugin, this.plugins);
     this.cleanPluginsCache();
   }
   unregisterPlugin(plugin) {
@@ -31,15 +31,22 @@ export class PluginHost {
 
     this.registerPlugin(pluginContainer);
   }
+  unregisterPluginContainer(pluginContainer) {
+    const index = this.plugins.findIndex(p => p.pluginName === pluginContainer.pluginName);
+    const firstDep = this.plugins.slice(index)
+      .filter(p => p.dependencies.findIndex(
+        d => d.pluginName === pluginContainer.pluginName) !== -1)[0];
+
+    if (firstDep) {
+      throw (new Error(getErrorMessage(firstDep.pluginName, pluginContainer.pluginName)));
+    }
+
+    this.unregisterPlugin(pluginContainer);
+  }
   cleanPluginsCache() {
-    this.unordered = true;
     this.gettersCache = {};
   }
   collect(key, upTo) {
-    if (this.unordered) {
-      this.plugins = sortPlugins(this.plugins);
-      this.unordered = false;
-    }
     if (!this.gettersCache[key]) {
       this.gettersCache[key] = this.plugins.map(plugin => plugin[key]).filter(plugin => !!plugin);
     }

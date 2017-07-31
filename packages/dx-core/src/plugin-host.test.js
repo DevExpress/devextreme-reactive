@@ -138,16 +138,16 @@ describe('PluginHost', () => {
     it('should throw an exception if dependencies of the pluginContainer registering are not met', () => {
       const plugin1 = {
         position: () => [0],
-        pluginName: 'plugin1',
+        pluginName: 'Plugin1',
         dependencies: [],
       };
       const plugin2 = {
         position: () => [2],
-        pluginName: 'plugin2',
+        pluginName: 'Plugin2',
         dependencies: [
-          { pluginName: 'plugin1' },
-          { pluginName: 'plugin3' },
-          { pluginName: 'plugin4', optional: true },
+          { pluginName: 'Plugin1' },
+          { pluginName: 'Plugin3' },
+          { pluginName: 'Plugin4', optional: true },
         ],
       };
 
@@ -156,7 +156,27 @@ describe('PluginHost', () => {
       }).not.toThrow();
       expect(() => {
         host.registerPluginContainer(plugin2);
-      }).toThrow(/plugin2.*plugin3/);
+      }).toThrow(/Plugin2.*Plugin3/);
+    });
+
+    it('should work correctly if a plugin unregisters dynamically', () => {
+      const plugin1 = {
+        position: () => [0],
+        pluginName: 'Plugin1',
+        dependencies: [],
+      };
+      const plugin2 = {
+        position: () => [1],
+        pluginName: 'Plugin2',
+        dependencies: [{ pluginName: 'Plugin1' }],
+      };
+
+      host.registerPluginContainer(plugin1);
+      host.registerPluginContainer(plugin2);
+
+      expect(() => {
+        host.unregisterPluginContainer(plugin1);
+      }).toThrow(/Plugin2.*Plugin1/);
     });
   });
 });

@@ -1,26 +1,25 @@
-import { sortPlugins } from './utils';
+import { insertWithSorting } from './utils';
 
 describe('utils', () => {
-  describe('sortPlugins', () => {
-    it('should work', () => {
-      const plugins = [{
-        position: () => [1, 0],
-      }, {
-        position: () => [10],
-      }, {
-        position: () => [3],
-      }, {
-        position: () => [1, 1],
-      }, {
-        position: () => [2, 0, 12],
-      }, {
-        position: () => [2, 0, 0],
-      }, {
-        position: () => [0],
-      }];
+  describe('#insertWithSorting', () => {
+    const mapPlugins = plugins => plugins.map(p => p.position().join());
 
-      expect(sortPlugins(plugins).map(plugin => plugin.position().join()))
-        .toEqual(['0', '1,0', '1,1', '2,0,0', '2,0,12', '3', '10']);
+    it('should work correctly', () => {
+      const plugins = [
+        { position: () => [1] },
+        { position: () => [5, 3] },
+      ];
+
+      expect(mapPlugins(insertWithSorting({ position: () => [0] }, plugins)))
+        .toEqual(['0', '1', '5,3']);
+      expect(mapPlugins(insertWithSorting({ position: () => [3, 2, 0] }, plugins)))
+        .toEqual(['1', '3,2,0', '5,3']);
+      expect(mapPlugins(insertWithSorting({ position: () => [5, 2] }, plugins)))
+        .toEqual(['1', '5,2', '5,3']);
+      expect(mapPlugins(insertWithSorting({ position: () => [5, 3, 1] }, plugins)))
+        .toEqual(['1', '5,3', '5,3,1']);
+      expect(mapPlugins(insertWithSorting({ position: () => [7] }, plugins)))
+        .toEqual(['1', '5,3', '7']);
     });
   });
 });

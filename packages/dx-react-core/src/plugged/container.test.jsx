@@ -50,4 +50,42 @@ describe('PluginContainer', () => {
         dependencies: [{ pluginName: 'Dep1', optional: true }],
       });
   });
+
+  it('should unregister itself from the plugin host', () => {
+    let pluginHostInstance;
+    const Stub = (_, { pluginHost }) => {
+      pluginHostInstance = pluginHost;
+      pluginHostInstance.unregisterPluginContainer = jest.fn();
+      return null;
+    };
+    Stub.contextTypes = {
+      pluginHost: PropTypes.object.isRequired,
+    };
+
+    const tree = mount(
+      <PluginHost>
+        <Stub />
+        <PluginContainer
+          pluginName="TestPlugin"
+          dependencies={[{
+            pluginName: 'Dep1',
+            optional: true,
+          }]}
+        >
+          <div />
+        </PluginContainer>
+      </PluginHost>,
+    );
+
+    tree.unmount();
+
+    expect(pluginHostInstance.unregisterPluginContainer)
+      .toHaveBeenCalledTimes(1);
+    expect(pluginHostInstance.unregisterPluginContainer.mock.calls[0][0])
+      .toMatchObject({
+        position: expect.any(Function),
+        pluginName: 'TestPlugin',
+        dependencies: [{ pluginName: 'Dep1', optional: true }],
+      });
+  });
 });

@@ -49,8 +49,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-expanded | boolean | Specifies whether or not row details are displayed
-toggleExpanded | () => void | Toggles the expanded state for a row
+expanded | boolean | Specifies whether row details are displayed
+toggleExpanded | () => void | Toggles a row's expanded state
 
 ## Plugin Developer Reference
 
@@ -63,11 +63,11 @@ tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body
 expandedRows | Getter | Array&lt;number &#124; string&gt; | Expanded rows
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
 setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
+tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object, colspan?: number } | A template that renders a table cell
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the detail cell
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered including detailed rows
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered, including detailed rows

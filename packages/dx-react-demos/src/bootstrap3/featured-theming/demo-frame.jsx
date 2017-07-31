@@ -85,7 +85,7 @@ export default class DemoFrame extends React.PureComponent {
               <InputGroup>
                 <FormControl
                   type="text"
-                  inputRef={node => (this.customThemeLinkNode = node)}
+                  inputRef={(node) => { this.customThemeLinkNode = node; }}
                   defaultValue={customThemeLink}
                 />
                 <InputGroup.Button>

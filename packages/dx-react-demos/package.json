@@ -16,7 +16,7 @@
     "build": "webpack --env",
     "build:prod": "webpack --env.production",
     "build:watch": "webpack-dev-server --env",
-    "lint": "eslint src/**/*.{js,jsx}",
+    "lint": "eslint --ext js,jsx src",
     "lint:fix": "npm run -s lint -- --fix",
     "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-demos-lint.xml -f junit"
   },

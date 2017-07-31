@@ -116,7 +116,7 @@ describe('TableLayout', () => {
   });
 
   it('should span columns if specified', () => {
-    const rows = [{ id: 1, colspan: 0 }, { id: 2, colspan: 1 }];
+    const rows = [{ id: 1, colSpanStart: 0 }, { id: 2, colSpanStart: 1 }];
     const columns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
     const tree = mount(
       <TableLayout

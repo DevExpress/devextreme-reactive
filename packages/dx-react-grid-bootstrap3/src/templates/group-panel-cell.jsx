@@ -37,18 +37,21 @@ export const GroupPanelCell = ({
         </span>
       )}
     </span>
-    &nbsp;
+
     {allowUngroupingByClick && (
-      <i
-        className="glyphicon glyphicon-remove"
-        style={{
-          top: '0',
-          fontSize: '9px',
-          margin: '-5px',
-          padding: '5px',
-        }}
-        onClick={() => groupByColumn({ columnName: column.name })}
-      />)}
+      <span>
+        &nbsp;
+        <i
+          className="glyphicon glyphicon-remove"
+          style={{
+            top: '0',
+            fontSize: '9px',
+            margin: '-5px',
+            padding: '5px',
+          }}
+          onClick={() => groupByColumn({ columnName: column.name })}
+        />
+      </span>)}
   </div>
 );
 

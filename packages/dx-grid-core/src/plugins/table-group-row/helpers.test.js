@@ -9,6 +9,8 @@ describe('TableRowDetail Plugin helpers', () => {
     it('should work', () => {
       expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, id: 'a_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
         .toBeTruthy();
+      expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, id: 'aa_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
+        .toBeFalsy();
       expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, id: 'b_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
         .toBeFalsy();
       expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, id: 'b_A' }, { type: 'undefined', id: 'a' }))

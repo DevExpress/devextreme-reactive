@@ -1,6 +1,6 @@
 # TableGroupRow Plugin Reference
 
-A plugin that renders group rows and provides the capability to expand and collapse them.
+A plugin that renders group rows. Provides the capability to expand and collapse them.
 
 ## User Reference
 

@@ -1,6 +1,6 @@
 # PagingPanel Plugin Reference
 
-A plugin that renders a panel allowing an end-user to navigate through data pages if the Paging feature is enabled.
+A plugin that renders a panel, allowing end-users to navigate through data pages if Paging is enabled.
 
 ## User Reference
 

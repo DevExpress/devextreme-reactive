@@ -25,7 +25,7 @@ describe('GroupPanelCell', () => {
   });
 
   it('should not render the "TableSortLabel" component if sorting is disabled', () => {
-    const tree = mountWithStyles(
+    const tree = mount(
       <GroupPanelCell
         column={{
           name: 'Test',

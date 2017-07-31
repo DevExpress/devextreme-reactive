@@ -83,7 +83,7 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#table-row) | Specifies a table row
 tableColumn | [TableColumn](#table-column) | Specifies a table column
-style? | Object | Specifies cell styles
+style? | Object | Styles that should be applied to the root cell element
 colspan? | number | Specifies the number of columns the cell spans
 
 Can be extended by other plugins. See the Extensions section.
@@ -117,5 +117,4 @@ tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to 
 tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
 tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered
 tableExtraProps | Getter | { [key: string]: any } | Additional table properties that other plugins can provide
-tableView | Template | none | A template that renders a table
 tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell

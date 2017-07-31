@@ -1,6 +1,6 @@
 # DragDropContext Plugin Reference
 
-This plugin enables drag-and-drop feature and visualizes the dragging process.
+This plugin enables the drag-and-drop feature and visualizes the dragging process.
 
 ## User Reference
 
@@ -12,14 +12,14 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-containerTemplate | (args: [ContainerArgs](#container-args)) => ReactElement | | A template that renders a container for dragging items
-columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | | A template that renders a dragging column
+containerTemplate | (args: [ContainerArgs](#container-args)) => ReactElement | | A template that renders a container for dropping items
+columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | | A template that renders a column being dragged
 
 ## Interfaces
 
 ### <a name="container-args"></a>ContainerArgs
 
-Describes properties passed to the template that renders a container for dragging items.
+Describes properties passed to a template that renders a container for dropping items.
 
 A value with the following shape:
 
@@ -27,11 +27,11 @@ Field | Type | Description
 ------|------|------------
 clientOffset | { x: number, y: number } | Current screen offset of dragged items
 columns | Array&lt;[Column](grid.md#column)&gt; | Columns being dragged
-columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | A template that should be applied to dragging columns
+columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | A template applied to columns being dragged
 
 ### <a name="column-args"></a>ColumnArgs
 
-Describes properties passed to a template that renders a dragging column inside the container.
+Describes properties passed to a template that renders a column being dragged inside the container for dropping items.
 
 A value with the following shape:
 
@@ -45,7 +45,8 @@ column | [Column](grid.md#column) | Specifies a table column
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns that can be dragged
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging
+root | Template | Object? | A template that renders the grid's root layout
 
 ### Exports
 

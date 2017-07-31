@@ -51,7 +51,7 @@ Field | Type | Description
 ------|------|------------
 row | [Row](grid.md#row) | A row object
 expanded | boolean | Specifies whether or not row details are displayed
-toggleExpanded | () => void | Toggles the expanded state for a row
+toggleExpanded | () => void | Toggles a row's expanded state
 
 ## Plugin Developer Reference
 
@@ -70,4 +70,4 @@ tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A te
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the detail cell
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered including detailed rows
+tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered, including detailed rows

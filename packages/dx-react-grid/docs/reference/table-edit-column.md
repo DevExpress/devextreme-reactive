@@ -1,6 +1,6 @@
 # TableEditColumn Plugin Reference
 
-A plugin that renders a command column (a column containing controls used for row editing/creating/deleting and commiting/canceling changes).
+A plugin that renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes).
 
 ## User Reference
 
@@ -25,7 +25,7 @@ width | number &#124; string | 140 | Specifies the width of the edit column
 
 ### <a name="command-cell-args"></a>CommandCellArgs
 
-Describes properties passed to the command cell template of a data row.
+Describes properties passed to a data row's command cell template.
 
 Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
@@ -43,7 +43,7 @@ commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A compo
 
 ### <a name="command-heading-cell-args"></a>CommandHeadingCellArgs
 
-Describes properties passed to the command cell template of a heading row.
+Describes properties passed to a heading row's command cell template.
 
 Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 

@@ -9,16 +9,17 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 ### Dependencies
 
 - [SortingState](sorting-state.md) [Optional]
+- [DragDropContext](drag-drop-context.md) [Optional]
 - [GroupingState](grouping-state.md)
 
 ### Properties
 
 Name | Type | Default | Description
 -----|------|---------|------------
-allowSorting | boolean | false | Specifies whether an end-user can sort data by a column
-allowDragging | boolean | false | Specifies whether an end-user can change grouping state by dragging columns between the group panel and the table header
+allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
+allowDragging | boolean | false | Specifies whether an end-user can change grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by the column.
-groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel
+groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel.
 groupPanelCellTemplate? | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
 ## Interfaces

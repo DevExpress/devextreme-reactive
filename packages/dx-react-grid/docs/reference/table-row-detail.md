@@ -6,6 +6,7 @@ A plugin that renders a table detail row.
 
 ### Dependencies
 
+- [RowDetailState](row-detail-state.md)
 - [TableView](table-view.md)
 
 ### Properties

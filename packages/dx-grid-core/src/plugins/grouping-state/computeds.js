@@ -70,19 +70,6 @@ export const draftGroupedColumns = (columns, grouping) =>
     } : column;
   });
 
-export const nextExpandedGroups = (prevExpandedGroups, { groupKey }) => {
-  const expandedGroups = Array.from(prevExpandedGroups);
-  const groupKeyIndex = expandedGroups.indexOf(groupKey);
-
-  if (groupKeyIndex > -1) {
-    expandedGroups.splice(groupKeyIndex, 1);
-  } else {
-    expandedGroups.push(groupKey);
-  }
-
-  return expandedGroups;
-};
-
 export const draftGrouping = (grouping, groupingChange) => {
   if (!groupingChange) return grouping;
 

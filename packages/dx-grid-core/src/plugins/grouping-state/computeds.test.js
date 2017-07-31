@@ -1,10 +1,7 @@
-import Immutable from 'seamless-immutable';
-
 import {
     groupedRows,
     expandedGroupRows,
     groupedColumns,
-    nextExpandedGroups,
     draftGrouping,
     draftGroupedColumns,
 } from './computeds';
@@ -163,26 +160,6 @@ describe('GroupingPlugin computeds', () => {
         ...columns[2],
         isDraft: true,
       });
-    });
-  });
-
-  describe('#nextExpandedGroups', () => {
-    it('should add an opened group', () => {
-      const groups = nextExpandedGroups(['a', 'b'], { groupKey: 'c' });
-
-      expect(groups).toEqual(['a', 'b', 'c']);
-    });
-
-    it('should remove a closed group', () => {
-      const groups = nextExpandedGroups(['a', 'b', 'c'], { groupKey: 'c' });
-
-      expect(groups).toEqual(['a', 'b']);
-    });
-
-    it('should work with immutable groups', () => {
-      const groups = nextExpandedGroups(Immutable(['a']), { groupKey: 'b' });
-
-      expect(groups).toEqual(['a', 'b']);
     });
   });
 

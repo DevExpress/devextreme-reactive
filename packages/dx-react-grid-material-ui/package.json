@@ -83,7 +83,7 @@
     "jss": "^8.0.0",
     "jss-preset-default": "^3.0.0",
     "jss-theme-reactor": "^0.11.1",
-    "material-ui": "1.0.0-beta.2",
+    "material-ui": "1.0.0-beta.3",
     "material-ui-icons": "1.0.0-alpha.19",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",

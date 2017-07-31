@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
 import { WindowedScroller } from './virtual-table/windowed-scroller';
 import { VirtualBox } from './virtual-table/virtual-box';
 
@@ -49,8 +50,7 @@ export class VirtualTable extends React.Component {
     const scrollWidth = columnWidths.reduce((accum, width) => accum + width, 0);
 
     const tableRow = (row, position) => {
-      const colspan = row.colspan;
-      const columnLength = colspan !== undefined ? colspan + 1 : columns.length;
+      const columnsWithColSpan = getTableRowColumnsWithColSpan(columns, row.colSpanStart);
       return (
         <VirtualBox
           rootTag="tr"
@@ -58,11 +58,12 @@ export class VirtualTable extends React.Component {
           position={position}
           crossSize={this.rowHeight(row)}
           direction="horizontal"
-          itemCount={columnLength}
+          itemCount={columnsWithColSpan.length}
           itemInfo={(columnIndex) => {
-            const size = columnIndex !== colspan
+            const columnWithColSpan = columnsWithColSpan[columnIndex];
+            const size = !columnWithColSpan.colspan
               ? columnWidths[columnIndex]
-              : columns.slice(colspan).reduce(
+              : columns.slice(columnIndex).reduce(
                 (accum, column) => accum + columnWidths[columns.indexOf(column)],
                 0,
               );
@@ -73,7 +74,7 @@ export class VirtualTable extends React.Component {
             };
           }}
           itemTemplate={(columnIndex, _, style) =>
-            cellTemplate({ row, column: columns[columnIndex], style })}
+            cellTemplate({ row, column: columnsWithColSpan[columnIndex].original, style })}
         />
       );
     };

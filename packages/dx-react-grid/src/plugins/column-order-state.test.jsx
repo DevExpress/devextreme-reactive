@@ -28,7 +28,7 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={getter => (orderedColumns = getter('columns'))}
+          connectGetters={(getter) => { orderedColumns = getter('columns'); }}
         >
           {() => <div />}
         </Template>
@@ -52,7 +52,7 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={getter => (orderedColumns = getter('columns'))}
+          connectGetters={(getter) => { orderedColumns = getter('columns'); }}
         >
           {() => <div />}
         </Template>
@@ -79,8 +79,8 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={getter => (orderedColumns = getter('columns'))}
-          connectActions={action => (setColumnOrder = action('setColumnOrder'))}
+          connectGetters={(getter) => { orderedColumns = getter('columns'); }}
+          connectActions={(action) => { setColumnOrder = action('setColumnOrder'); }}
         >
           {() => <div />}
         </Template>
@@ -114,8 +114,8 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={getter => (orderedColumns = getter('columns'))}
-          connectActions={action => (setColumnOrder = action('setColumnOrder'))}
+          connectGetters={(getter) => { orderedColumns = getter('columns'); }}
+          connectActions={(action) => { setColumnOrder = action('setColumnOrder'); }}
         >
           {() => <div />}
         </Template>

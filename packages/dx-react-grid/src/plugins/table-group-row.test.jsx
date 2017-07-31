@@ -41,7 +41,7 @@ describe('TableGroupRow', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (tableBodyRows = getter('tableBodyRows'))}
+            connectGetters={(getter) => { tableBodyRows = getter('tableBodyRows'); }}
           >
             {() => <div />}
           </Template>
@@ -69,7 +69,7 @@ describe('TableGroupRow', () => {
           />
           <Template
             name="root"
-            connectGetters={getter => (tableColumns = getter('tableColumns'))}
+            connectGetters={(getter) => { tableColumns = getter('tableColumns'); }}
           >
             {() => <div />}
           </Template>

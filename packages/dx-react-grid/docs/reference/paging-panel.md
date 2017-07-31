@@ -1,6 +1,6 @@
 # PagingPanel Plugin Reference
 
-A plugin that renders a panel allowing an end-user to navigate through data pages if the Paging feature is enabled.
+A plugin that renders a panel, allowing end-users to navigate through data pages if Paging is enabled.
 
 ## User Reference
 
@@ -45,7 +45,7 @@ pageSize | Getter | number | The count of rows to be shown on a single page
 totalCount | Getter | number | The total row count
 setCurrentPage | Action | ({ page: number }) => void | Changes the current page
 setPageSize | Action | ({ size: number }) => void | Changes the page size
-footer | Template | none | A template that renders the grid footer
+footer | Template | Object? | A template that renders the grid footer
 
 ### Exports
 

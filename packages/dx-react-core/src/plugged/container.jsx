@@ -40,7 +40,7 @@ PluginContainer.propTypes = {
 };
 
 PluginContainer.defaultProps = {
-  pluginName: '', // TODO: Should be required
+  pluginName: '',
   dependencies: [],
 };
 

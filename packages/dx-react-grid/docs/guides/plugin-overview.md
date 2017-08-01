@@ -9,7 +9,7 @@ Plugins provide all the Grid functionality and can be divided into four logical 
 
 Note that the plugins are composable and can be nested into each other.
 
-Refer to the [Reference](reference) to see the complete plugin list.
+Refer to the [Reference](../reference) to see the complete plugin list.
 
 ## Plugin Order
 
@@ -58,5 +58,5 @@ NOTE: Refer to the plugin documentation for information on its requirements.
 ## UI Plugins
 
 It is required to specify a visual component for this type of plugins (not included by default). You can create your templates based on the plugin specification or use one of the predefined ones:
-- DevExtreme React Grid for [Bootstrap 3](http://getbootstrap.com/) (used in examples)
+- DevExtreme React Grid for [Bootstrap 3](http://getbootstrap.com) (used in examples)
 - DevExtreme React Grid for [Material UI](http://www.material-ui.com) (used in examples as an alternative)

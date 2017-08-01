@@ -2,7 +2,7 @@
 
 ## Overview
 
-DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out of the box.
+DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material UI rendering and theming out of the box.
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
 
-   Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. Check the [following link](https://react-bootstrap.github.io/getting-started.html) if you have not configured the React-Bootstrap yet.
+  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started) article for configuration details.
 
 - Material UI
 
@@ -30,7 +30,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-material-ui
   ```
 
-  Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article  for configuration details.
+  Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation/) article for configuration details.
 
 ### Polyfills
 
@@ -72,8 +72,8 @@ Follow the links below to try out the React Grid:
 
 ## Documentation
 
-[Guides](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides)
-[API Reference](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference)
+[Guides](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/)
+[API Reference](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/)
 
 ## License
 

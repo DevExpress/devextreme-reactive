@@ -1,6 +1,6 @@
 import React from 'react';
+import { createMount } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { mountWithStyles } from '../utils/testing';
 import {
   CommandButton,
   EditCommandHeadingCell,
@@ -9,19 +9,20 @@ import {
 
 describe('Table command column', () => {
   let resetConsole;
-
+  let mount;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    mount = createMount();
   });
-
   afterAll(() => {
     resetConsole();
+    mount.cleanUp();
   });
 
 
   describe('EditCommandHeadingCell', () => {
     it('should render without exceptions in view mode', () => {
-      const tree = mountWithStyles(
+      const tree = mount(
         <EditCommandHeadingCell
           allowAdding
           addCommandText="CustomAdd"
@@ -35,7 +36,7 @@ describe('Table command column', () => {
     });
 
     it('should take allowAdding into account', () => {
-      const tree = mountWithStyles(
+      const tree = mount(
         <EditCommandHeadingCell
           commandTemplate={props => <CommandButton {...props} />}
         />,
@@ -53,7 +54,7 @@ describe('Table command column', () => {
       const template = jest.fn();
       const addRow = () => {};
 
-      mountWithStyles(
+      mount(
         <EditCommandHeadingCell
           addRow={addRow}
           allowAdding
@@ -72,7 +73,7 @@ describe('Table command column', () => {
 
   describe('EditCommandCell', () => {
     it('should render without exceptions in view mode', () => {
-      const tree = mountWithStyles(
+      const tree = mount(
         <EditCommandCell
           allowEditing
           allowDeleting
@@ -89,7 +90,7 @@ describe('Table command column', () => {
     });
 
     it('should render without exceptions in edit mode', () => {
-      const tree = mountWithStyles(
+      const tree = mount(
         <EditCommandCell
           isEditing
           allowEditing
@@ -107,7 +108,7 @@ describe('Table command column', () => {
     });
 
     it('should take allowEditing and allowDeleting into account', () => {
-      const tree = mountWithStyles(
+      const tree = mount(
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
         />,
@@ -130,7 +131,7 @@ describe('Table command column', () => {
       const startEditing = () => {};
       const deleteRow = () => {};
 
-      mountWithStyles(
+      mount(
         <EditCommandCell
           startEditing={startEditing}
           deleteRow={deleteRow}
@@ -158,7 +159,7 @@ describe('Table command column', () => {
       const commitChanges = () => {};
       const cancelEditing = () => {};
 
-      mountWithStyles(
+      mount(
         <EditCommandCell
           isEditing
           commitChanges={commitChanges}

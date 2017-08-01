@@ -1,21 +1,22 @@
 import React from 'react';
+import { createMount } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { mountWithStyles } from '../utils/testing';
 import { TableFilterCell } from './table-filter-cell';
 
 describe('TableFilterCell', () => {
   let resetConsole;
-
+  let mount;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    mount = createMount();
   });
-
   afterAll(() => {
     resetConsole();
+    mount.cleanUp();
   });
 
   it('should use the \'Filter...\' placeholder', () => {
-    const tree = mountWithStyles(
+    const tree = mount(
       <TableFilterCell
         column={{
           name: 'Test',
@@ -28,7 +29,7 @@ describe('TableFilterCell', () => {
 
   it('should not set filter with an empty value', () => {
     const setFilterMock = jest.fn();
-    const tree = mountWithStyles(
+    const tree = mount(
       <TableFilterCell
         column={{
           name: 'Test',

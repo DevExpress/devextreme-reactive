@@ -26,7 +26,7 @@ export const setRowsSelection = (selection, { rowIds, selected }) => {
 
   let isRowsSelected = selected;
   if (isRowsSelected === undefined) {
-    const availableSelection = selection.filter(selectedId => rowIdsSet.has(selectedId)); // !!!
+    const availableSelection = selection.filter(rowId => rowIdsSet.has(rowId));
     isRowsSelected = availableSelection.length !== rowIdsSet.size;
   }
 
@@ -34,9 +34,9 @@ export const setRowsSelection = (selection, { rowIds, selected }) => {
     const selectionSet = new Set(selection);
     return [
       ...selection,
-      ...rowIds.filter(selectedId => !selectionSet.has(selectedId)),
+      ...rowIds.filter(rowId => !selectionSet.has(rowId)),
     ];
   }
 
-  return selection.filter(selectedId => !rowIdsSet.has(selectedId));
+  return selection.filter(rowId => !rowIdsSet.has(rowId));
 };

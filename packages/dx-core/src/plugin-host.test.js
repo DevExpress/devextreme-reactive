@@ -160,6 +160,30 @@ describe('PluginHost', () => {
         host.registerPlugin(plugin2);
       }).toThrow(/Plugin2.*Plugin3/);
     });
+
+    it('should throw an exception if optional dependencies of the pluginContainer registering are not met', () => {
+      const plugin1 = {
+        position: () => [1],
+        pluginName: 'Plugin1',
+        dependencies: [
+          { pluginName: 'Plugin2', optional: true },
+        ],
+        isContainer: true,
+      };
+      const plugin2 = {
+        position: () => [2],
+        pluginName: 'Plugin2',
+        dependencies: [],
+        isContainer: true,
+      };
+
+      expect(() => {
+        host.registerPlugin(plugin1);
+      }).not.toThrow();
+      expect(() => {
+        host.registerPlugin(plugin2);
+      }).toThrow(/Plugin1.*Plugin2/);
+    });
   });
 
   describe('#unregisterPlugin', () => {

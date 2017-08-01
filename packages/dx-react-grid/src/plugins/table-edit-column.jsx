@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithEditing,
-  isHeaderEditCommandsTableCell,
+  isHeadingEditCommandsTableCell,
   isDataEditCommandsTableCell,
   isEditNewRowCommandsTableCell,
   isEditExistingRowCommandsTableCell,
@@ -33,7 +33,7 @@ export class TableEditColumn extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) =>
-            isHeaderEditCommandsTableCell(tableRow, tableColumn)}
+            isHeadingEditCommandsTableCell(tableRow, tableColumn)}
           connectActions={action => ({
             addRow: () => action('addRow')(),
           })}

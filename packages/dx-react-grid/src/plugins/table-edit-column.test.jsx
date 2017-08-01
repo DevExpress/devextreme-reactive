@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithEditing,
-  isHeaderEditCommandsTableCell,
+  isHeadingEditCommandsTableCell,
   isDataEditCommandsTableCell,
   isEditNewRowCommandsTableCell,
   isEditExistingRowCommandsTableCell,
@@ -14,7 +14,7 @@ import { pluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithEditing: jest.fn(),
-  isHeaderEditCommandsTableCell: jest.fn(),
+  isHeadingEditCommandsTableCell: jest.fn(),
   isDataEditCommandsTableCell: jest.fn(),
   isEditNewRowCommandsTableCell: jest.fn(),
   isEditExistingRowCommandsTableCell: jest.fn(),
@@ -61,7 +61,7 @@ describe('TableHeaderRow', () => {
 
   beforeEach(() => {
     tableColumnsWithEditing.mockImplementation(() => 'tableColumnsWithEditing');
-    isHeaderEditCommandsTableCell.mockImplementation(() => false);
+    isHeadingEditCommandsTableCell.mockImplementation(() => false);
     isDataEditCommandsTableCell.mockImplementation(() => false);
     isEditNewRowCommandsTableCell.mockImplementation(() => false);
     isEditExistingRowCommandsTableCell.mockImplementation(() => false);
@@ -91,7 +91,7 @@ describe('TableHeaderRow', () => {
   });
 
   it('should render edit commands cell on edit-commands column and header row intersection', () => {
-    isHeaderEditCommandsTableCell.mockImplementation(() => true);
+    isHeadingEditCommandsTableCell.mockImplementation(() => true);
     const headingCellTemplate = jest.fn(() => null);
 
     mount(
@@ -104,7 +104,7 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
-    expect(isHeaderEditCommandsTableCell)
+    expect(isHeadingEditCommandsTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,
         defaultDeps.template.tableViewCell.tableColumn,
@@ -129,7 +129,7 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
-    expect(isHeaderEditCommandsTableCell)
+    expect(isHeadingEditCommandsTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,
         defaultDeps.template.tableViewCell.tableColumn,

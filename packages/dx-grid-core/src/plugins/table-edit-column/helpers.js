@@ -3,7 +3,7 @@ import { TABLE_DATA_TYPE } from '../table-view/constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import { TABLE_EDIT_COMMAND_TYPE } from './constants';
 
-export const isHeaderEditCommandsTableCell = (tableRow, tableColumn) =>
+export const isHeadingEditCommandsTableCell = (tableRow, tableColumn) =>
   tableRow.type === TABLE_HEADING_TYPE && tableColumn.type === TABLE_EDIT_COMMAND_TYPE;
 export const isEditNewRowCommandsTableCell = (tableRow, tableColumn) =>
   tableRow.type === TABLE_ADDING_TYPE && tableColumn.type === TABLE_EDIT_COMMAND_TYPE;

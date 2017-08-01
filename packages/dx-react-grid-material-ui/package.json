@@ -32,7 +32,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-react-grid-material-ui.umd.js",
+  "main": "dist/dx-react-grid-material-ui.cjs.js",
   "module": "dist/dx-react-grid-material-ui.es.js",
   "globalName": "DevExpress.DXReactGridMaterialUI",
   "files": [

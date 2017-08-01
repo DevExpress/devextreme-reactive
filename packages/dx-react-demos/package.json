@@ -39,7 +39,7 @@
     "@devexpress/dx-react-grid-bootstrap3": "1.0.0-alpha.6",
     "@devexpress/dx-react-grid-material-ui": "1.0.0-alpha.6",
     "core-js": "^2.4.1",
-    "material-ui": "1.0.0-alpha.21",
+    "material-ui": "1.0.0-beta.3",
     "material-ui-icons": "1.0.0-alpha.19",
     "prop-types": "^15.5.8",
     "react": "^15.6.1",

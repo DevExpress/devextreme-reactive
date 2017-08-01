@@ -1,22 +1,24 @@
 import React from 'react';
 import { Input } from 'material-ui';
+import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { mountWithStyles } from '../utils/testing';
 import { EditCell, styleSheet } from './table-edit-cell';
 
 describe('TableEditCell', () => {
   let resetConsole;
+  let mount;
 
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    mount = createMount();
   });
-
   afterAll(() => {
     resetConsole();
+    mount.cleanUp();
   });
 
   it('should render without exceptions', () => {
-    const tree = mountWithStyles(
+    const tree = mount(
       <EditCell
         column={{}}
         value={''}
@@ -29,7 +31,7 @@ describe('TableEditCell', () => {
 
   it('should work with editor properly', () => {
     const onValueChange = jest.fn();
-    const tree = mountWithStyles(
+    const tree = mount(
       <EditCell
         column={{}}
         value={'test'}
@@ -48,14 +50,14 @@ describe('TableEditCell', () => {
   });
 
   it('should take column align into account', () => {
-    const { tree, classes } = mountWithStyles(
+    const tree = mount(
       <EditCell
         column={{}}
         value={''}
         onValueChange={() => {}}
       />,
-      styleSheet,
     );
+    const classes = getClasses(styleSheet);
 
     const inputRoot = tree.find(Input);
     const input = inputRoot.find('input');

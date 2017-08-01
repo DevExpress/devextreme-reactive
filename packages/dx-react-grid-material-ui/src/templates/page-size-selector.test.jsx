@@ -1,19 +1,27 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { mountWithStyles } from '../utils/testing';
+import { createMount } from 'material-ui/test-utils';
 import { PageSizeSelector } from './page-size-selector';
 import { DropDownMenu } from './drop-down-menu';
 
 injectTapEventPlugin();
 
 describe('PageSizeSelector', () => {
+  let mount;
+  beforeAll(() => {
+    mount = createMount();
+  });
+  afterAll(() => {
+    mount.cleanUp();
+  });
+
   describe('#render', () => {
     const mountPageSizeSelector = ({
       pageSize,
       allowedPageSizes,
       showAllText,
       onPageSizeChange = () => {},
-    }) => mountWithStyles(
+    }) => mount(
       <PageSizeSelector
         pageSize={pageSize}
         allowedPageSizes={allowedPageSizes}

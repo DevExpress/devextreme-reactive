@@ -1,30 +1,38 @@
 import React from 'react';
-import { mountWithStyles } from '../utils/testing';
+import { createMount, getClasses } from 'material-ui/test-utils';
 import { Header, Footer, styleSheet } from './layout';
 
 describe('Layout', () => {
+  let mount;
+  beforeAll(() => {
+    mount = createMount();
+  });
+  afterAll(() => {
+    mount.cleanUp();
+  });
+
   describe('Header', () => {
     it('should have a correct css class', () => {
-      const mounted = mountWithStyles(
+      const tree = mount(
         <Header>
           <div />
         </Header>,
-        styleSheet,
       );
+      const classes = getClasses(styleSheet);
 
-      expect(mounted.tree.find(Header).hasClass(mounted.classes.headingPanel)).toBeTruthy();
+      expect(tree.find(Header).hasClass(classes.headingPanel)).toBeTruthy();
     });
   });
   describe('Footer', () => {
     it('should have a correct css class', () => {
-      const mounted = mountWithStyles(
+      const tree = mount(
         <Footer>
           <div />
         </Footer>,
-        styleSheet,
       );
+      const classes = getClasses(styleSheet);
 
-      expect(mounted.tree.find(Footer).hasClass(mounted.classes.footerPanel)).toBeTruthy();
+      expect(tree.find(Footer).hasClass(classes.footerPanel)).toBeTruthy();
     });
   });
 });

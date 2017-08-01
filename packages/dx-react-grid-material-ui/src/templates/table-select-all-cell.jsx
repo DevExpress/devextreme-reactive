@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import {
     Checkbox,
     TableCell,
 } from 'material-ui';
-
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('TableSelectAllCell', theme => ({
@@ -20,8 +18,8 @@ const styleSheet = createStyleSheet('TableSelectAllCell', theme => ({
   },
 }));
 
-export const TableSelectAllCellBase = (
-  { style, allSelected, selectionAvailable, toggleAll, classes },
+const TableSelectAllCellBase = (
+  { style, allSelected, someSelected, selectionAvailable, toggleAll, classes },
 ) => {
   const cellClasses = classNames(
     {
@@ -44,10 +42,20 @@ export const TableSelectAllCellBase = (
     >
       <Checkbox
         checked={allSelected}
+        indeterminate={someSelected}
         disabled={!selectionAvailable}
       />
     </TableCell>
   );
+};
+
+TableSelectAllCellBase.propTypes = {
+  style: PropTypes.shape(),
+  allSelected: PropTypes.bool,
+  someSelected: PropTypes.bool,
+  selectionAvailable: PropTypes.bool,
+  toggleAll: PropTypes.func,
+  classes: PropTypes.object.isRequired,
 };
 
 TableSelectAllCellBase.defaultProps = {
@@ -56,14 +64,6 @@ TableSelectAllCellBase.defaultProps = {
   someSelected: false,
   selectionAvailable: false,
   toggleAll: () => {},
-};
-
-TableSelectAllCellBase.propTypes = {
-  style: PropTypes.shape(),
-  allSelected: PropTypes.bool,
-  selectionAvailable: PropTypes.bool,
-  toggleAll: PropTypes.func,
-  classes: PropTypes.object.isRequired,
 };
 
 export const TableSelectAllCell = withStyles(styleSheet)(TableSelectAllCellBase);

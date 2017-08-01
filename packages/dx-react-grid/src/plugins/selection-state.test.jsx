@@ -6,7 +6,7 @@ import { Template, PluginHost } from '@devexpress/dx-react-core';
 
 import { SelectionState } from './selection-state';
 
-describe('GroupingState', () => {
+describe('SelectionState', () => {
   const mountPlugin = (pluginProps, templateProps) => {
     mount(
       <PluginHost>

@@ -34,7 +34,7 @@ const App = () => (
 );
 ```
 
-Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation/) article for configuration details.
+Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
 
 ## Getting started
 

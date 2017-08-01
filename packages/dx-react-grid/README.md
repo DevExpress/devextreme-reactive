@@ -22,7 +22,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
 
-  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started) article for configuration details.
+  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article for configuration details.
 
 - Material UI
 
@@ -30,7 +30,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-material-ui
   ```
 
-  Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation/) article for configuration details.
+  Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
 
 ### Polyfills
 

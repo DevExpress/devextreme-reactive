@@ -30,6 +30,6 @@ availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be render
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-setRowsSelection | Action | ({ rowIds }) => void | A function that selects rows. To select a single row, use an array with a single item as the `rowIds` argument
+setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | A function that selects rows. To select a single row, use an array with a single item as the `rowIds` argument
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered, which are available for selection
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows

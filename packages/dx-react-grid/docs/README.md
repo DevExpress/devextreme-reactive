@@ -1,12 +1,5 @@
 # DevExtreme React Grid
 
-- [Overview](#overview)
-- [Getting Started](#getting-started)
-- [Plugin Overview](plugin-overview)
-- [Controlled and Uncontrolled modes](controlled-and-uncontrolled-modes)
-- [Guides by Features](guides)
-- [Plugin Reference](reference)
-
 ## Overview
 
 DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap rendering and theming out of the box.
@@ -41,11 +34,7 @@ This package does not contain visual components. In the examples below, visual c
 
 ### Polyfills
 
-React Grid uses the latest web platform standards. This means that older browsers might not support all the modern features.
-
-You may need to include ES2015 (ES6) polyfill to support browsers like IE11 and Android 4.
-
-We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
+React Grid uses the latest web platform standards. Thus, it can not to support older browsers like IE11 and Andoid 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
 ### Using Grid component
 
@@ -77,7 +66,7 @@ const App = () => (
 
 ### Try Out The React Grid
 
-Following the links below to try out the React Grid:
+Follow the links below to try out the React Grid:
 - [WebpackBin for Bootstrap3](https://www.webpackbin.com/bins/-KoCcFwPPtps5fEN0PkI)
 - [WebpackBin for Material UI](https://www.webpackbin.com/bins/-KoCeS-_jZrZuTecv-wd)
 

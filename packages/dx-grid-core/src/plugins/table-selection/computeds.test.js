@@ -48,8 +48,8 @@ describe('TableSelection Plugin computeds', () => {
     ];
 
     const getRowId = row => rows.findIndex(item => row.name === item.name);
-    const setRowSelectionMock = jest.fn();
-    const setRowSelectionCalls = setRowSelectionMock.mock.calls;
+    const setRowsSelectionMock = jest.fn();
+    const setRowsSelectionCalls = setRowsSelectionMock.mock.calls;
     const existingExtraProps = { a: 1 };
     const availableToSelect = [0, 2];
 
@@ -57,7 +57,7 @@ describe('TableSelection Plugin computeds', () => {
       const extraProps = tableExtraProps(
         existingExtraProps,
         availableToSelect,
-        setRowSelectionMock,
+        setRowsSelectionMock,
         getRowId,
       );
       const extraPropsKeys = Object.keys(extraProps);
@@ -70,9 +70,9 @@ describe('TableSelection Plugin computeds', () => {
       expect(extraPropsKeys[0]).toBe('a');
       expect(extraProps[extraPropsKeys[0]]).toBe(1);
 
-      expect(setRowSelectionCalls).toHaveLength(2);
-      expect(setRowSelectionCalls[0][0]).toMatchObject({ rowId: 0 });
-      expect(setRowSelectionCalls[1][0]).toMatchObject({ rowId: 2 });
+      expect(setRowsSelectionCalls).toHaveLength(2);
+      expect(setRowsSelectionCalls[0][0]).toMatchObject({ rowIds: [0] });
+      expect(setRowsSelectionCalls[1][0]).toMatchObject({ rowIds: [2] });
     });
   });
 });

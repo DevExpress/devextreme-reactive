@@ -30,7 +30,6 @@ availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be render
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-setRowSelection | Action | ({ rowId }) => void | A function that selects a row
-setRowsSelection | Action | ({ rowIds }) => void | A function that selects multiple rows
+setRowsSelection | Action | ({ rowIds }) => void | A function that selects rows
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered, which are available for selection
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows

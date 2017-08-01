@@ -15,10 +15,10 @@ export const tableBodyRowsWithSelection = (bodyRows, selection, getRowId) => {
 export const tableExtraProps = (
     extraProps,
     availableToSelect,
-    setRowSelection,
+    setRowsSelection,
     getRowId,
   ) => extendWithEventListener(extraProps, 'onClick', ({ row }) => {
     const rowId = getRowId(row);
     if (availableToSelect.indexOf(rowId) === -1) return;
-    setRowSelection({ rowId });
+    setRowsSelection({ rowIds: [rowId] });
   });

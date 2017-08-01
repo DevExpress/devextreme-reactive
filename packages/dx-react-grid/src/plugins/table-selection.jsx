@@ -45,7 +45,7 @@ export class TableSelection extends React.PureComponent {
             connectArgs={(getter, action) => [
               getter('tableExtraProps'),
               getter('availableToSelect'),
-              action('setRowSelection'),
+              action('setRowsSelection'),
               getter('getRowId'),
             ]}
           />
@@ -85,7 +85,7 @@ export class TableSelection extends React.PureComponent {
               selection: getter('selection'),
             })}
             connectActions={action => ({
-              toggleSelected: ({ rowId }) => action('setRowSelection')({ rowId }),
+              toggleSelected: ({ rowId }) => action('setRowsSelection')({ rowIds: [rowId] }),
             })}
           >
             {({ rowId, selection, toggleSelected, ...restParams }) => selectCellTemplate({

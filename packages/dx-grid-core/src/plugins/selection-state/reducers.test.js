@@ -1,58 +1,8 @@
-import Immutable from 'seamless-immutable';
-
 import {
-    setRowSelection,
     setRowsSelection,
 } from './reducers';
 
 describe('SelectionState reducers', () => {
-  describe('#setRowSelection', () => {
-    it('can select row by toggling', () => {
-      const selection = [];
-      const payload = { rowId: 1 };
-
-      const nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([1]);
-    });
-
-    it('can deselect row by toggling', () => {
-      const selection = [1];
-      const payload = { rowId: 1 };
-
-      const nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([]);
-    });
-
-    it('does not deselect if isSelected is true', () => {
-      const selection = [1];
-      const payload = { rowId: 1, isSelected: true };
-
-      let nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([1]);
-
-      nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([1]);
-    });
-
-    it('does not select if isSelected is false', () => {
-      const selection = [];
-      const payload = { rowId: 1, isSelected: false };
-
-      let nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([]);
-
-      nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([]);
-    });
-
-    it('should work with immutable selection', () => {
-      const selection = Immutable([]);
-
-      const nextSelection = setRowSelection(selection, { rowId: 1 });
-      expect(nextSelection).toEqual([1]);
-    });
-  });
-
   describe('#setRowsSelection', () => {
     it('can select all', () => {
       const selection = [];

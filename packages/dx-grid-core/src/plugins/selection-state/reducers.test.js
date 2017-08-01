@@ -37,17 +37,17 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1, 2]);
     });
 
-    it('should add to selection if isSelected is true', () => {
+    it('should add to selection if selected is true', () => {
       const selection = [1, 2, 3, 4];
-      const payload = { rowIds: [3, 4], isSelected: true };
+      const payload = { rowIds: [3, 4], selected: true };
 
       const nextSelection = setRowsSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
-    it('should remove from selection if isSelected is false', () => {
+    it('should remove from selection if selected is false', () => {
       const selection = [1, 2, 3];
-      const payload = { rowIds: [3, 4], isSelected: false };
+      const payload = { rowIds: [3, 4], selected: false };
 
       const nextSelection = setRowsSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2]);
@@ -69,9 +69,9 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([]);
     });
 
-    it('does not deselect a single row if isSelected is true', () => {
+    it('does not deselect a single row if selected is true', () => {
       const selection = [1];
-      const payload = { rowIds: [1], isSelected: true };
+      const payload = { rowIds: [1], selected: true };
 
       let nextSelection = setRowsSelection(selection, payload);
       expect(nextSelection).toEqual([1]);
@@ -80,9 +80,9 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1]);
     });
 
-    it('does not select a single row if isSelected is false', () => {
+    it('does not select a single row if selected is false', () => {
       const selection = [];
-      const payload = { rowIds: [1], isSelected: false };
+      const payload = { rowIds: [1], selected: false };
 
       let nextSelection = setRowsSelection(selection, payload);
       expect(nextSelection).toEqual([]);

@@ -1,8 +1,8 @@
-const setRowSelection = (selection, { rowId, isSelected }) => {
+const setRowSelection = (selection, { rowId, selected }) => {
   const selectedRows = Array.from(selection);
   const selectedIndex = selectedRows.indexOf(rowId);
 
-  let isRowSelected = isSelected;
+  let isRowSelected = selected;
 
   if (isRowSelected === undefined) {
     isRowSelected = selectedIndex === -1;
@@ -17,16 +17,16 @@ const setRowSelection = (selection, { rowId, isSelected }) => {
   return selectedRows;
 };
 
-export const setRowsSelection = (selection, { rowIds, isSelected }) => {
+export const setRowsSelection = (selection, { rowIds, selected }) => {
   if (rowIds.length === 1) {
-    return setRowSelection(selection, { rowId: rowIds[0], isSelected });
+    return setRowSelection(selection, { rowId: rowIds[0], selected });
   }
 
   const rowIdsSet = new Set(rowIds);
 
-  let isRowsSelected = isSelected;
+  let isRowsSelected = selected;
   if (isRowsSelected === undefined) {
-    const availableSelection = selection.filter(selected => rowIdsSet.has(selected));
+    const availableSelection = selection.filter(selectedId => rowIdsSet.has(selectedId)); // !!!
     isRowsSelected = availableSelection.length !== rowIdsSet.size;
   }
 
@@ -34,9 +34,9 @@ export const setRowsSelection = (selection, { rowIds, isSelected }) => {
     const selectionSet = new Set(selection);
     return [
       ...selection,
-      ...rowIds.filter(selected => !selectionSet.has(selected)),
+      ...rowIds.filter(selectedId => !selectionSet.has(selectedId)),
     ];
   }
 
-  return selection.filter(selected => !rowIdsSet.has(selected));
+  return selection.filter(selectedId => !rowIdsSet.has(selectedId));
 };

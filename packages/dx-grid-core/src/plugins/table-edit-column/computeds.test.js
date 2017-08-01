@@ -11,8 +11,8 @@ describe('TableEditColumn Plugin computeds', () => {
       expect(tableColumnsWithEditing(columns, 100))
         .toEqual([
           {
+            key: TABLE_EDIT_COMMAND_TYPE,
             type: TABLE_EDIT_COMMAND_TYPE,
-            id: 0,
             width: 100,
           },
           { original: { id: 1 } },

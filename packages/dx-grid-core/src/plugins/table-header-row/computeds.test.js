@@ -9,7 +9,7 @@ describe('TableHeaderRow Plugin computeds', () => {
       const rows = tableRowsWithHeading([{}]);
 
       expect(rows)
-        .toEqual([{ type: TABLE_HEADING_TYPE, id: 0 }, {}]);
+        .toEqual([{ key: TABLE_HEADING_TYPE, type: TABLE_HEADING_TYPE }, {}]);
     });
   });
 });

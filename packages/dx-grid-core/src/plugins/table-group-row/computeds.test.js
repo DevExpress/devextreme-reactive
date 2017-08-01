@@ -8,11 +8,11 @@ import {
 describe('TableGroupRow Plugin computeds', () => {
   describe('#tableColumnsWithGrouping', () => {
     const tableColumns = [
-      { type: 'undefined', id: 'c', column: 'column_a' },
-      { type: TABLE_DATA_TYPE, id: 'a', column: 'column_a' },
-      { type: TABLE_DATA_TYPE, id: 'b', column: 'column_b' },
-      { type: TABLE_DATA_TYPE, id: 'c', column: 'column_c' },
-      { type: TABLE_DATA_TYPE, id: 'd', column: 'column_d' },
+      { type: 'undefined', columnId: 'c', column: 'column_a' },
+      { type: TABLE_DATA_TYPE, columnId: 'a', column: 'column_a' },
+      { type: TABLE_DATA_TYPE, columnId: 'b', column: 'column_b' },
+      { type: TABLE_DATA_TYPE, columnId: 'c', column: 'column_c' },
+      { type: TABLE_DATA_TYPE, columnId: 'd', column: 'column_d' },
     ];
     const grouping = [
       { columnName: 'a' },
@@ -22,11 +22,11 @@ describe('TableGroupRow Plugin computeds', () => {
     it('should work', () => {
       expect(tableColumnsWithGrouping(tableColumns, grouping, grouping, 123))
         .toEqual([
-          { type: TABLE_GROUP_TYPE, id: 'a', width: 123 },
-          { type: TABLE_GROUP_TYPE, id: 'c', width: 123 },
-          { type: 'undefined', id: 'c', column: 'column_a' },
-          { type: TABLE_DATA_TYPE, id: 'b', column: 'column_b' },
-          { type: TABLE_DATA_TYPE, id: 'd', column: 'column_d' },
+          { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, groupKey: 'a', width: 123 },
+          { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, groupKey: 'c', width: 123 },
+          { type: 'undefined', columnId: 'c', column: 'column_a' },
+          { type: TABLE_DATA_TYPE, columnId: 'b', column: 'column_b' },
+          { type: TABLE_DATA_TYPE, columnId: 'd', column: 'column_d' },
         ]);
     });
 
@@ -37,12 +37,12 @@ describe('TableGroupRow Plugin computeds', () => {
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([
-          { type: TABLE_GROUP_TYPE, id: 'a', width: 123 },
-          { type: TABLE_GROUP_TYPE, id: 'c', width: 123 },
-          { type: 'undefined', id: 'c', column: 'column_a' },
-          { type: TABLE_DATA_TYPE, id: 'b', column: 'column_b' },
-          { type: TABLE_DATA_TYPE, id: 'c', column: 'column_c', isDraft: true },
-          { type: TABLE_DATA_TYPE, id: 'd', column: 'column_d' },
+          { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, groupKey: 'a', width: 123 },
+          { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, groupKey: 'c', width: 123 },
+          { type: 'undefined', columnId: 'c', column: 'column_a' },
+          { type: TABLE_DATA_TYPE, columnId: 'b', column: 'column_b' },
+          { type: TABLE_DATA_TYPE, columnId: 'c', column: 'column_c', isDraft: true },
+          { type: TABLE_DATA_TYPE, columnId: 'd', column: 'column_d' },
         ]);
     });
 
@@ -53,12 +53,12 @@ describe('TableGroupRow Plugin computeds', () => {
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([
-          { type: TABLE_GROUP_TYPE, id: 'a', width: 123 },
-          { type: TABLE_GROUP_TYPE, id: 'c', width: 123 },
-          { type: 'undefined', id: 'c', column: 'column_a' },
-          { type: TABLE_DATA_TYPE, id: 'b', column: 'column_b' },
-          { type: TABLE_DATA_TYPE, id: 'c', column: 'column_c', isDraft: true },
-          { type: TABLE_DATA_TYPE, id: 'd', column: 'column_d' },
+          { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, groupKey: 'a', width: 123 },
+          { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, groupKey: 'c', width: 123 },
+          { type: 'undefined', columnId: 'c', column: 'column_a' },
+          { type: TABLE_DATA_TYPE, columnId: 'b', column: 'column_b' },
+          { type: TABLE_DATA_TYPE, columnId: 'c', column: 'column_c', isDraft: true },
+          { type: TABLE_DATA_TYPE, columnId: 'd', column: 'column_d' },
         ]);
     });
 
@@ -69,18 +69,18 @@ describe('TableGroupRow Plugin computeds', () => {
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([
-          { type: TABLE_GROUP_TYPE, id: 'a', width: 123 },
-          { type: TABLE_GROUP_TYPE, id: 'c', width: 123 },
-          { type: 'undefined', id: 'c', column: 'column_a' },
-          { type: TABLE_DATA_TYPE, id: 'b', column: 'column_b' },
-          { type: TABLE_DATA_TYPE, id: 'd', column: 'column_d' },
+          { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, groupKey: 'a', width: 123 },
+          { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, groupKey: 'c', width: 123 },
+          { type: 'undefined', columnId: 'c', column: 'column_a' },
+          { type: TABLE_DATA_TYPE, columnId: 'b', column: 'column_b' },
+          { type: TABLE_DATA_TYPE, columnId: 'd', column: 'column_d' },
         ]);
     });
   });
   describe('#tableRowsWithGrouping', () => {
     it('should add correct colSpanStart to group rows', () => {
       const tableRows = [
-        { type: TABLE_DATA_TYPE, row: { type: 'groupRow', key: 'B', column: { name: 'a' } } },
+        { type: TABLE_DATA_TYPE, row: { type: 'groupRow', value: 'B', column: { name: 'a' } } },
         { type: 'undefined', row: { column: { name: 'a' } } },
         { type: TABLE_DATA_TYPE, row: { column: { name: 'a' } } },
         { type: TABLE_DATA_TYPE, row: { column: { name: 'b' } } },
@@ -88,7 +88,14 @@ describe('TableGroupRow Plugin computeds', () => {
 
       expect(tableRowsWithGrouping(tableRows))
         .toEqual([
-          { type: TABLE_GROUP_TYPE, id: 'a_B', row: { type: 'groupRow', key: 'B', column: { name: 'a' } }, colSpanStart: `${TABLE_GROUP_TYPE}_a` },
+          {
+            key: `${TABLE_GROUP_TYPE}_a_B`,
+            type: TABLE_GROUP_TYPE,
+            groupKey: 'a',
+            groupValue: 'B',
+            row: { type: 'groupRow', value: 'B', column: { name: 'a' } },
+            colSpanStart: `${TABLE_GROUP_TYPE}_a`,
+          },
           { type: 'undefined', row: { column: { name: 'a' } } },
           { type: TABLE_DATA_TYPE, row: { column: { name: 'a' } } },
           { type: TABLE_DATA_TYPE, row: { column: { name: 'b' } } },

@@ -6,16 +6,17 @@ export const tableRowsWithExpandedDetail = (tableRows, expandedRows, rowHeight) 
   expandedRows
     .forEach((expandedRowId) => {
       const rowIndex = result.findIndex(tableRow =>
-        tableRow.type === TABLE_DATA_TYPE && tableRow.id === expandedRowId);
+        tableRow.type === TABLE_DATA_TYPE && tableRow.rowId === expandedRowId);
       if (rowIndex === -1) return;
       const insertIndex = rowIndex + 1;
-      const tableRow = result[rowIndex];
+      const { row, rowId } = result[rowIndex];
       result = [
         ...result.slice(0, insertIndex),
         {
+          key: `${TABLE_DETAIL_TYPE}_${rowId}`,
           type: TABLE_DETAIL_TYPE,
-          id: tableRow.id,
-          row: tableRow.row,
+          rowId,
+          row,
           colSpanStart: 0,
           height: rowHeight,
         },
@@ -25,5 +26,7 @@ export const tableRowsWithExpandedDetail = (tableRows, expandedRows, rowHeight) 
   return result;
 };
 
-export const tableColumnsWithDetail = (tableColumns, detailToggleCellWidth) =>
-  [{ type: TABLE_DETAIL_TYPE, width: detailToggleCellWidth }, ...tableColumns];
+export const tableColumnsWithDetail = (tableColumns, detailToggleCellWidth) => [
+  { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: detailToggleCellWidth },
+  ...tableColumns,
+];

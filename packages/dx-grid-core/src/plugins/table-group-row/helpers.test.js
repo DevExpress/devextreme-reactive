@@ -7,27 +7,25 @@ import {
 describe('TableRowDetail Plugin helpers', () => {
   describe('#isGroupTableCell', () => {
     it('should work', () => {
-      expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, id: 'a_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
+      expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, groupKey: 'a' }, { type: TABLE_GROUP_TYPE, groupKey: 'a' }))
         .toBeTruthy();
-      expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, id: 'aa_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
+      expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, groupKey: 'b' }, { type: TABLE_GROUP_TYPE, groupKey: 'a' }))
         .toBeFalsy();
-      expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, id: 'b_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
+      expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, groupKey: 'b' }, { type: 'undefined', groupKey: 'a' }))
         .toBeFalsy();
-      expect(isGroupTableCell({ type: TABLE_GROUP_TYPE, id: 'b_A' }, { type: 'undefined', id: 'a' }))
-        .toBeFalsy();
-      expect(isGroupTableCell({ type: 'undefined', id: 'b_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
+      expect(isGroupTableCell({ type: 'undefined', groupKey: 'b' }, { type: TABLE_GROUP_TYPE, groupKey: 'a' }))
         .toBeFalsy();
     });
   });
   describe('#isGroupIndentTableCell', () => {
     it('should work', () => {
-      expect(isGroupIndentTableCell({ type: TABLE_GROUP_TYPE, id: 'b_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
+      expect(isGroupIndentTableCell({ type: TABLE_GROUP_TYPE, groupKey: 'b' }, { type: TABLE_GROUP_TYPE, groupKey: 'a' }))
         .toBeTruthy();
-      expect(isGroupIndentTableCell({ type: TABLE_GROUP_TYPE, id: 'a_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
+      expect(isGroupIndentTableCell({ type: TABLE_GROUP_TYPE, groupKey: 'a' }, { type: TABLE_GROUP_TYPE, groupKey: 'a' }))
         .toBeFalsy();
-      expect(isGroupIndentTableCell({ type: TABLE_GROUP_TYPE, id: 'b_A' }, { type: 'undefined', id: 'a' }))
+      expect(isGroupIndentTableCell({ type: TABLE_GROUP_TYPE, groupKey: 'b' }, { type: 'undefined', groupKey: 'a' }))
         .toBeFalsy();
-      expect(isGroupIndentTableCell({ type: 'undefined', id: 'b_A' }, { type: TABLE_GROUP_TYPE, id: 'a' }))
+      expect(isGroupIndentTableCell({ type: 'undefined', groupKey: 'b' }, { type: TABLE_GROUP_TYPE, groupKey: 'a' }))
         .toBeFalsy();
     });
   });

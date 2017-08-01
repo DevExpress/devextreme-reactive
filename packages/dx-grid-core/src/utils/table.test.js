@@ -1,18 +1,10 @@
 import {
-  tableKeyGetter,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getTableRowColumnsWithColSpan,
 } from './table';
 
 describe('table utils', () => {
-  describe('#tableKeyGetter', () => {
-    it('should correctly return keys', () => {
-      expect(tableKeyGetter({ type: 'a', id: 0 }))
-        .toBe('a_0');
-    });
-  });
-
   describe('#getTableRowColumnsWithColSpan', () => {
     it('should return correct columns without colspan', () => {
       const columns = [{ type: 'a', id: 1 }, { type: 'b', id: 2 }];
@@ -32,7 +24,7 @@ describe('table utils', () => {
     });
 
     it('should return correct columns with string colspan', () => {
-      const columns = [{ type: 'a', id: 1 }, { type: 'b', id: 2 }, { type: 'c', id: 3 }];
+      const columns = [{ key: 'a_1' }, { key: 'b_2' }, { key: 'c_3' }];
 
       expect(getTableRowColumnsWithColSpan(columns, 'a_1'))
         .toEqual([{ ...columns[0], colspan: 3 }]);

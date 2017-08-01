@@ -1,13 +1,12 @@
 import { TABLE_DATA_TYPE } from '../table-view/constants';
 import { TABLE_GROUP_TYPE } from './constants';
-import { tableKeyGetter } from '../../utils/table';
 
 const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping) =>
   tableColumns
     .reduce((acc, tableColumn) => {
       const columnDraftGrouping = draftGrouping
         .find(grouping => (tableColumn.type === TABLE_DATA_TYPE
-          && grouping.columnName === tableColumn.id));
+          && grouping.columnName === tableColumn.columnId));
       if (!columnDraftGrouping) {
         return [...acc, tableColumn];
       } else if (columnDraftGrouping.mode === 'remove' || columnDraftGrouping.mode === 'add') {
@@ -23,17 +22,26 @@ export const tableColumnsWithGrouping = (
   tableColumns, grouping, draftGrouping, groupIndentColumnWidth,
 ) => [
   ...grouping.map(group =>
-    ({ type: TABLE_GROUP_TYPE, id: group.columnName, width: groupIndentColumnWidth })),
+    ({
+      key: `${TABLE_GROUP_TYPE}_${group.columnName}`,
+      type: TABLE_GROUP_TYPE,
+      groupKey: group.columnName,
+      width: groupIndentColumnWidth,
+    })),
   ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping),
 ];
 
 export const tableRowsWithGrouping = tableRows =>
   tableRows.map((tableRow) => {
     if (tableRow.type !== TABLE_DATA_TYPE || tableRow.row.type !== 'groupRow') return tableRow;
+    const groupKey = tableRow.row.column.name;
+    const groupValue = tableRow.row.value;
     return {
       ...tableRow,
-      id: `${tableRow.row.column.name}_${tableRow.row.key}`,
+      key: `${TABLE_GROUP_TYPE}_${groupKey}_${groupValue}`,
       type: TABLE_GROUP_TYPE,
-      colSpanStart: tableKeyGetter({ type: TABLE_GROUP_TYPE, id: tableRow.row.column.name }),
+      groupKey,
+      groupValue,
+      colSpanStart: `${TABLE_GROUP_TYPE}_${groupKey}`,
     };
   });

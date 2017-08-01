@@ -3,8 +3,6 @@ import { easeOutCubic } from '@devexpress/dx-core';
 import { querySelectorAll } from './dom-utils';
 import { getTargetColumnGeometries } from './column-geometries';
 
-export const tableKeyGetter = object => `${object.type}_${object.id}`;
-
 export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
   if (colSpanStart === undefined) return tableColumns;
 
@@ -12,8 +10,7 @@ export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
   return tableColumns
     .reduce((acc, tableColumn, columnIndex) => {
       if (span) return acc;
-      if (columnIndex === colSpanStart ||
-        tableKeyGetter(tableColumn, columnIndex) === colSpanStart) {
+      if (columnIndex === colSpanStart || tableColumn.key === colSpanStart) {
         span = true;
         return [...acc, { ...tableColumn, colspan: tableColumns.length - columnIndex }];
       }
@@ -71,7 +68,7 @@ export const getAnimations = (
   prevColumns, nextColumns, tableWidth, draggingColumnKey, prevAnimations,
 ) => {
   const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
-    .map((geometry, index) => [tableKeyGetter(prevColumns[index]), geometry])
+    .map((geometry, index) => [prevColumns[index].key, geometry])
     .map(([key, geometry]) => {
       const animation = prevAnimations.get(key);
       if (!animation) return [key, geometry];
@@ -84,7 +81,7 @@ export const getAnimations = (
     }));
 
   const nextColumnGeometries = new Map(getTableColumnGeometries(nextColumns, tableWidth)
-    .map((geometry, index) => [tableKeyGetter(nextColumns[index]), geometry]));
+    .map((geometry, index) => [nextColumns[index].key, geometry]));
 
   return new Map([...nextColumnGeometries.keys()]
     .map((key) => {

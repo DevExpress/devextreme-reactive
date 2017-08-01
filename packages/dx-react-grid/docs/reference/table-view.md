@@ -51,10 +51,11 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+key | string | A string used to unique identify table row.
 type | string | Specifies the table row type. Defines a cell template used to render a row.
-id | number &#124; string | Specifies the table row id. Used to unique identify row of the given type.
+rowId? | number &#124; string  | Specifies the associated user data row id.
+row? | [Row](grid.md#row) | Specifies the associated user data row.
 height? | number | Specifies the table row height.
-row? | [Row](grid.md#row) | Specifies the associated row.
 
 Can be extended by other plugins. See the Extensions section.
 
@@ -66,10 +67,11 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-type | string | Specifies the table column type. Defines a cell template used to render a row.
-id | number &#124; string | Specifies the table column id. Used to unique identify column of the given type.
+key | string | A string used to unique identify table column.
+type | string | Specifies the table column type. Defines a cell template used to render a column.
+columnId? | number &#124; string  | Specifies the associated user data column id.
+column? | [Column](grid.md#column) | Specifies the associated user data column.
 width? | number | Specifies the table column width.
-column? | [Column](grid.md#column) | Specifies the associated column.
 
 Can be extended by other plugins. See the Extensions section.
 

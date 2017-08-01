@@ -100,8 +100,8 @@ export class TableSelection extends React.PureComponent {
               ...restParams
             }) => selectCellTemplate({
               row: restParams.tableRow.row,
-              selected: selection.indexOf(restParams.tableRow.id) > -1,
-              changeSelected: () => toggleSelected({ rowId: restParams.tableRow.id }),
+              selected: selection.indexOf(restParams.tableRow.rowId) > -1,
+              changeSelected: () => toggleSelected({ rowId: restParams.tableRow.rowId }),
               ...restParams,
             })}
           </Template>

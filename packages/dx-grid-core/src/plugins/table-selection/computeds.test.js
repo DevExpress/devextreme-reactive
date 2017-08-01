@@ -8,27 +8,21 @@ import {
 
 describe('TableSelection Plugin computeds', () => {
   describe('#tableColumnsWithSelection', () => {
-    const tableColumns = [
-      { name: 'a' },
-      { name: 'b' },
-    ];
-
     it('should work', () => {
-      const columns = tableColumnsWithSelection(tableColumns, 123);
-
-      expect(columns).toHaveLength(3);
-      expect(columns[0]).toMatchObject({ type: TABLE_SELECT_TYPE, id: 0, width: 123 });
-      expect(columns[1]).toBe(tableColumns[0]);
-      expect(columns[2]).toBe(tableColumns[1]);
+      expect(tableColumnsWithSelection([{}], 123))
+        .toEqual([
+          { key: TABLE_SELECT_TYPE, type: TABLE_SELECT_TYPE, width: 123 },
+          {},
+        ]);
     });
   });
 
   describe('#tableRowsWithSelection', () => {
     const bodyRows = [
-      { type: TABLE_DATA_TYPE, id: 0, row: { field: 'a' } },
-      { type: TABLE_DATA_TYPE, id: 1, row: { field: 'b' } },
-      { type: TABLE_DATA_TYPE, id: 2, row: { field: 'c' } },
-      { type: 'undefined', id: 2, row: { field: 'c' } },
+      { type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' } },
+      { type: TABLE_DATA_TYPE, rowId: 1, row: { field: 'b' } },
+      { type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' } },
+      { type: 'undefined', rowId: 2, row: { field: 'c' } },
     ];
     const selection = [0, 2];
 
@@ -37,10 +31,10 @@ describe('TableSelection Plugin computeds', () => {
 
       expect(selectedRows)
         .toEqual([
-          { type: TABLE_DATA_TYPE, id: 0, row: { field: 'a' }, selected: true },
-          { type: TABLE_DATA_TYPE, id: 1, row: { field: 'b' } },
-          { type: TABLE_DATA_TYPE, id: 2, row: { field: 'c' }, selected: true },
-          { type: 'undefined', id: 2, row: { field: 'c' } },
+          { type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' }, selected: true },
+          { type: TABLE_DATA_TYPE, rowId: 1, row: { field: 'b' } },
+          { type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' }, selected: true },
+          { type: 'undefined', rowId: 2, row: { field: 'c' } },
         ]);
     });
   });
@@ -57,9 +51,9 @@ describe('TableSelection Plugin computeds', () => {
       );
       const extraPropsKeys = Object.keys(extraProps);
 
-      extraProps.onClick({ tableRow: { type: TABLE_DATA_TYPE, id: 0, row: { field: 'a' } } });
-      extraProps.onClick({ tableRow: { type: TABLE_DATA_TYPE, id: 2, row: { field: 'c' } } });
-      extraProps.onClick({ tableRow: { type: 'undefined', id: 3, row: { field: 'c' } } });
+      extraProps.onClick({ tableRow: { type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' } } });
+      extraProps.onClick({ tableRow: { type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' } } });
+      extraProps.onClick({ tableRow: { type: 'undefined', rowId: 3, row: { field: 'c' } } });
 
       expect(extraPropsKeys).toHaveLength(2);
       expect(extraPropsKeys[0]).toBe('a');

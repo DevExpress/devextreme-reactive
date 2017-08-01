@@ -11,8 +11,8 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableColumnsWithDataRows(columns))
         .toEqual([
-          { type: TABLE_DATA_TYPE, id: 'a', column: columns[0] },
-          { type: TABLE_DATA_TYPE, id: 'b', column: columns[1] },
+          { key: `${TABLE_DATA_TYPE}_a`, type: TABLE_DATA_TYPE, columnId: 'a', column: columns[0] },
+          { key: `${TABLE_DATA_TYPE}_b`, type: TABLE_DATA_TYPE, columnId: 'b', column: columns[1] },
         ]);
     });
 
@@ -31,8 +31,8 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { type: TABLE_DATA_TYPE, id: 1, row: rows[0] },
-          { type: TABLE_DATA_TYPE, id: 2, row: rows[1] },
+          { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, row: rows[0] },
+          { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2, row: rows[1] },
         ]);
     });
 
@@ -42,7 +42,7 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { type: TABLE_NODATA_TYPE, id: 0, colSpanStart: 0 },
+          { key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 },
         ]);
     });
   });

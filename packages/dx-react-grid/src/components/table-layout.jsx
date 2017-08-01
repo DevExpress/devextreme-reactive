@@ -9,7 +9,6 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   TABLE_DATA_TYPE,
-  tableKeyGetter,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,
@@ -47,7 +46,7 @@ export class TableLayout extends React.PureComponent {
       const isFixedWidth = columns.filter(column => column.width === undefined).length === 0;
       if (isFixedWidth) {
         result = result.slice();
-        result.push({ type: TABLE_FLEX_TYPE });
+        result.push({ key: TABLE_FLEX_TYPE, type: TABLE_FLEX_TYPE });
       }
 
       if (sourceColumnIndex !== -1 && targetColumnIndex !== -1) {
@@ -59,8 +58,8 @@ export class TableLayout extends React.PureComponent {
 
       if (animationState.size) {
         result = result
-          .map(column => (animationState.has(tableKeyGetter(column))
-            ? { ...column, animationState: animationState.get(tableKeyGetter(column)) }
+          .map(column => (animationState.has(column.key)
+            ? { ...column, animationState: animationState.get(column.key) }
             : column));
       }
 
@@ -74,7 +73,7 @@ export class TableLayout extends React.PureComponent {
       const targetColumnIndex = getTableTargetColumnIndex(
         columnGeometries,
         columns.findIndex(column =>
-          column.type === TABLE_DATA_TYPE && column.id === sourceColumnName),
+          column.type === TABLE_DATA_TYPE && column.columnId === sourceColumnName),
         clientOffset.x - tableRect.left);
 
       if (targetColumnIndex === -1 ||
@@ -85,13 +84,13 @@ export class TableLayout extends React.PureComponent {
       this.setState({
         sourceColumnIndex: sourceColumnIndex === -1
           ? columns.findIndex(column =>
-            column.type === TABLE_DATA_TYPE && column.id === sourceColumnName)
+            column.type === TABLE_DATA_TYPE && column.columnId === sourceColumnName)
           : sourceColumnIndex,
         targetColumnIndex,
       });
 
       this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
-        tableKeyGetter(this.props.columns[this.state.sourceColumnIndex]), this.animations);
+        this.props.columns[this.state.sourceColumnIndex].key, this.animations);
       this.processAnimationFrame();
     };
     this.onLeave = () => {
@@ -108,7 +107,7 @@ export class TableLayout extends React.PureComponent {
       if (sourceColumnIndex === -1) return;
 
       this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
-        tableKeyGetter(this.props.columns[sourceColumnIndex]), this.animations);
+        this.props.columns[sourceColumnIndex].key, this.animations);
       this.processAnimationFrame();
     };
     this.onDrop = () => {
@@ -116,8 +115,8 @@ export class TableLayout extends React.PureComponent {
       const { columns } = this.props;
 
       this.props.setColumnOrder({
-        sourceColumnName: columns[sourceColumnIndex].id,
-        targetColumnName: columns[targetColumnIndex].id,
+        sourceColumnName: columns[sourceColumnIndex].columnId,
+        targetColumnName: columns[targetColumnIndex].columnId,
       });
       this.setState({
         sourceColumnIndex: -1,

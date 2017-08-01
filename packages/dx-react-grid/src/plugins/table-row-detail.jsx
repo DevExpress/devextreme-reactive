@@ -46,8 +46,8 @@ export class TableRowDetail extends React.PureComponent {
           }) => detailToggleCellTemplate({
             ...restParams,
             row: restParams.tableRow.row,
-            expanded: isDetailRowExpanded(expandedRows, restParams.tableRow.id),
-            toggleExpanded: () => setDetailRowExpanded({ rowId: restParams.tableRow.id }),
+            expanded: isDetailRowExpanded(expandedRows, restParams.tableRow.rowId),
+            toggleExpanded: () => setDetailRowExpanded({ rowId: restParams.tableRow.rowId }),
           })}
         </Template>
 

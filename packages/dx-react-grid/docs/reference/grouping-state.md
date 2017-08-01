@@ -46,9 +46,7 @@ isDraft? | boolean | Indicates that the column should be displayed as grouped
 
 Describes a group that can be nested in another one
 
-A primitive value with the following type:
-
-string
+A primitive value with the following type: `string`
 
 This string consists of values by which rows are grouped. The `|` symbol merges values. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male|Audi` and so on.
 
@@ -64,7 +62,7 @@ columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state 
+grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state
 draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for preview
 expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
 groupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for grouping

@@ -34,9 +34,9 @@ export const pluginDepsToComponents = (
       key="check"
       name="root"
       // eslint-disable-next-line no-param-reassign
-      connectGetters={getter => (depsOverrides.computedGetter = getter)}
+      connectGetters={(getter) => { depsOverrides.computedGetter = getter; }}
       // eslint-disable-next-line no-param-reassign
-      connectActions={getter => (depsOverrides.computedAction = getter)}
+      connectActions={(action) => { depsOverrides.computedAction = action; }}
     >
       {() => <TemplatePlaceholder />}
     </Template>

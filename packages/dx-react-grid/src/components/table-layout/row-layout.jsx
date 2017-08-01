@@ -6,7 +6,6 @@ import {
 } from '@devexpress/dx-react-core';
 
 import {
-  tableKeyGetter,
   getTableRowColumnsWithColSpan,
 } from '@devexpress/dx-grid-core';
 
@@ -38,7 +37,7 @@ export class RowLayout extends React.PureComponent {
           getTableRowColumnsWithColSpan(columns, row.colSpanStart)
             .map(column => (
               <TemplateRenderer
-                key={tableKeyGetter(column)}
+                key={column.key}
                 template={cellTemplate}
                 tableRow={row}
                 tableColumn={column}

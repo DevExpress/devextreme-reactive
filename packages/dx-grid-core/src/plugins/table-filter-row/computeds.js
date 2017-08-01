@@ -1,4 +1,4 @@
 import { TABLE_FILTER_TYPE } from './constants';
 
 export const tableHeaderRowsWithFilter = (headerRows, rowHeight) =>
-  [...headerRows, { type: TABLE_FILTER_TYPE, id: 0, height: rowHeight }];
+  [...headerRows, { key: TABLE_FILTER_TYPE, type: TABLE_FILTER_TYPE, height: rowHeight }];

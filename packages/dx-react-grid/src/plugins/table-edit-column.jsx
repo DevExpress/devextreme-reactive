@@ -61,8 +61,8 @@ export class TableEditColumn extends React.PureComponent {
           {({ startEditRows, deleteRows, ...restParams }) =>
             cellTemplate({
               row: restParams.tableRow.row,
-              startEditing: () => startEditRows({ rowIds: [restParams.tableRow.id] }),
-              deleteRow: () => deleteRows({ rowIds: [restParams.tableRow.id] }),
+              startEditing: () => startEditRows({ rowIds: [restParams.tableRow.rowId] }),
+              deleteRow: () => deleteRows({ rowIds: [restParams.tableRow.rowId] }),
               commandTemplate,
               allowEditing,
               allowDeleting,
@@ -83,10 +83,10 @@ export class TableEditColumn extends React.PureComponent {
             cellTemplate({
               row: restParams.tableRow.row,
               cancelEditing: () => {
-                cancelAddedRows({ rowIds: [restParams.tableRow.id] });
+                cancelAddedRows({ rowIds: [restParams.tableRow.rowId] });
               },
               commitChanges: () => {
-                commitAddedRows({ rowIds: [restParams.tableRow.id] });
+                commitAddedRows({ rowIds: [restParams.tableRow.rowId] });
               },
               isEditing: true,
               commandTemplate,
@@ -113,12 +113,12 @@ export class TableEditColumn extends React.PureComponent {
             row: restParams.tableRow.row,
             column: restParams.tableColumn.column,
             cancelEditing: () => {
-              stopEditRows({ rowIds: [restParams.tableRow.id] });
-              cancelChangedRows({ rowIds: [restParams.tableRow.id] });
+              stopEditRows({ rowIds: [restParams.tableRow.rowId] });
+              cancelChangedRows({ rowIds: [restParams.tableRow.rowId] });
             },
             commitChanges: () => {
-              stopEditRows({ rowIds: [restParams.tableRow.id] });
-              commitChangedRows({ rowIds: [restParams.tableRow.id] });
+              stopEditRows({ rowIds: [restParams.tableRow.rowId] });
+              commitChangedRows({ rowIds: [restParams.tableRow.rowId] });
             },
             isEditing: true,
             commandTemplate,

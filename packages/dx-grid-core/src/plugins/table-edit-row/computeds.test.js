@@ -8,9 +8,9 @@ describe('TableEditRow Plugin computeds', () => {
   describe('#tableRowsWithEditing', () => {
     it('should work', () => {
       const tableRows = [
-        { type: TABLE_DATA_TYPE, id: 1, row: 'row1' },
-        { type: TABLE_DATA_TYPE, id: 2, row: 'row2' },
-        { type: 'undefined', id: 2, row: 'row2' },
+        { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
+        { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' },
+        { type: 'undefined', rowId: 2, row: 'row2' },
       ];
       const editingRows = [2];
       const addedRows = [{ id: 3 }];
@@ -18,19 +18,21 @@ describe('TableEditRow Plugin computeds', () => {
       expect(tableRowsWithEditing(tableRows, editingRows, addedRows, 100))
         .toEqual([
           {
+            key: `${TABLE_ADDING_TYPE}_0`,
             type: TABLE_ADDING_TYPE,
-            id: 0,
+            rowId: 0,
             row: { id: 3 },
             height: 100,
           },
-          { type: TABLE_DATA_TYPE, id: 1, row: 'row1' },
+          { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
           {
+            key: `${TABLE_EDITING_TYPE}_2`,
             type: TABLE_EDITING_TYPE,
-            id: 2,
+            rowId: 2,
             row: 'row2',
             height: 100,
           },
-          { type: 'undefined', id: 2, row: 'row2' },
+          { type: 'undefined', rowId: 2, row: 'row2' },
         ]);
     });
   });

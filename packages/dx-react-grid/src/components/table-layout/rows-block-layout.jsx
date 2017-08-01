@@ -6,7 +6,6 @@ import {
 } from '@devexpress/dx-react-core';
 
 import {
-  tableKeyGetter,
   findTableCellTarget,
 } from '@devexpress/dx-grid-core';
 
@@ -36,7 +35,7 @@ export class RowsBlockLayout extends React.PureComponent {
           rows
             .map(row => (
               <RowLayout
-                key={tableKeyGetter(row)}
+                key={row.key}
                 row={row}
                 columns={columns}
                 rowTemplate={rowTemplate}

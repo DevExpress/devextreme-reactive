@@ -39,17 +39,15 @@ Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | A row object
+row | [GroupRow](#group-row) | A group row data object
 
 ### <a name="group-row"></a>GroupRow
 
 Describes the group row data structure.
 
-Extends [Row](grid.md#row) with the following shape:
-
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | A row object
+column | [Column](grid.md#column) | The column associated with the group
 value | any | The current group key value
 
 ## Plugin Developer Reference

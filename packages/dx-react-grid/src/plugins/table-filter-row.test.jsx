@@ -17,7 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {
   getter: {
-    tableHeaderRows: [{ type: 'undefined', id: 1 }],
+    tableHeaderRows: [{ type: 'undefined', rowId: 1 }],
     filters: [{ columnName: 'a', value: 'b' }],
   },
   action: {
@@ -25,8 +25,8 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', id: 1, row: 'row' },
-      tableColumn: { type: 'undefined', id: 1, column: 'column' },
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableColumn: { type: 'undefined', columnId: 1, column: 'column' },
       style: {},
     },
   },

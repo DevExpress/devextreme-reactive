@@ -46,7 +46,7 @@ export class TableEditRow extends React.PureComponent {
               column: restParams.tableColumn.column,
               value,
               onValueChange: newValue => changeRow({
-                rowId: restParams.tableRow.id,
+                rowId: restParams.tableRow.rowId,
                 change: {
                   [restParams.tableColumn.column.name]: newValue,
                 },
@@ -74,7 +74,7 @@ export class TableEditRow extends React.PureComponent {
               column: restParams.tableColumn.column,
               value,
               onValueChange: newValue => changeAddedRow({
-                rowId: restParams.tableRow.id,
+                rowId: restParams.tableRow.rowId,
                 change: {
                   [restParams.tableColumn.column.name]: newValue,
                 },

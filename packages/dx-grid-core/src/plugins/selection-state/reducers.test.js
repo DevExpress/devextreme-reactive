@@ -1,3 +1,4 @@
+import Immutable from 'seamless-immutable';
 import {
     setRowsSelection,
 } from './reducers';
@@ -50,6 +51,51 @@ describe('SelectionState reducers', () => {
 
       const nextSelection = setRowsSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2]);
+    });
+
+    it('can select a single row by toggling', () => {
+      const selection = [];
+      const payload = { rowIds: [1] };
+
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1]);
+    });
+
+    it('can deselect a single row by toggling', () => {
+      const selection = [1];
+      const payload = { rowIds: [1] };
+
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([]);
+    });
+
+    it('does not deselect a single row if isSelected is true', () => {
+      const selection = [1];
+      const payload = { rowIds: [1], isSelected: true };
+
+      let nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1]);
+
+      nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1]);
+    });
+
+    it('does not select a single row if isSelected is false', () => {
+      const selection = [];
+      const payload = { rowIds: [1], isSelected: false };
+
+      let nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([]);
+
+      nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([]);
+    });
+
+    it('should work with immutable selection', () => {
+      const selection = Immutable([]);
+
+      const nextSelection = setRowsSelection(selection, { rowIds: [1] });
+      expect(nextSelection).toEqual([1]);
     });
   });
 });

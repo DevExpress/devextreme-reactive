@@ -35,3 +35,16 @@ export const removeOutdatedExpandedGroups = (prevExpandedGroups, { prevGrouping,
 
   return prevExpandedGroups.filter(group => group.split(SEPARATOR).length <= ungroupedColumnIndex);
 };
+
+export const toggleExpandedGroups = (prevExpandedGroups, { groupKey }) => {
+  const expandedGroups = Array.from(prevExpandedGroups);
+  const groupKeyIndex = expandedGroups.indexOf(groupKey);
+
+  if (groupKeyIndex > -1) {
+    expandedGroups.splice(groupKeyIndex, 1);
+  } else {
+    expandedGroups.push(groupKey);
+  }
+
+  return expandedGroups;
+};

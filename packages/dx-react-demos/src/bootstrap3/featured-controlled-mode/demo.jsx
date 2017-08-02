@@ -159,30 +159,21 @@ export default class Demo extends React.PureComponent {
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows.slice();
+      let rows = this.state.rows;
       if (added) {
+        const startAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [
           ...added.map((row, index) => ({
-            id: rows.length + index,
+            id: startAddedId + index,
             ...row,
           })),
           ...rows,
         ];
-        this.setState({ rows });
       }
       if (changed) {
-        Object.keys(changed).forEach((key) => {
-          const index = rows.findIndex(row => String(row.id) === key);
-          if (index > -1) {
-            const change = changed[key];
-            rows[index] = Object.assign({}, rows[index], change);
-          }
-        });
-        this.setState({ rows });
+        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      if (deleted) {
-        this.setState({ deletingRows: deleted });
-      }
+      this.setState({ rows, deletingRows: deleted || this.state.deletingRows });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = () => {

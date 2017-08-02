@@ -35,7 +35,7 @@ describe('EditingState reducers', () => {
       const payload = { row: { a: 2 } };
 
       const nextAddedRows = addRow(addedRows, payload);
-      expect(nextAddedRows).toEqual([{ a: 2 }, { a: 1 }]);
+      expect(nextAddedRows).toEqual([{ a: 1 }, { a: 2 }]);
     });
   });
   describe('#changeAddedRow', () => {

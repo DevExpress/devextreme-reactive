@@ -19,7 +19,7 @@ export const rowsWithEditing = (rows, editingRows, addedRows, getRowId, rowHeigh
     height: rowHeight,
   }));
   return [
-    ...addedTableRows,
+    ...addedTableRows.reverse(),
     ...tableRows,
   ];
 };

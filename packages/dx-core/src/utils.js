@@ -8,7 +8,7 @@ const compare = (a, b) => {
   return aPosition.length - bPosition.length;
 };
 
-export const insertWithSorting = (newItem, array) => {
+export const insertPlugin = (array, newItem) => {
   const result = array.slice();
   const targetIndex = array.findIndex(item => compare(newItem, item) < 0);
   result.splice(targetIndex < 0 ? array.length : targetIndex, 0, newItem);

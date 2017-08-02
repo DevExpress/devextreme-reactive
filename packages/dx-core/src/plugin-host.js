@@ -1,4 +1,4 @@
-import { insertWithSorting } from './utils';
+import { insertPlugin } from './utils';
 
 const getDependencyError = (pluginName, dependencyName) =>
   new Error(`The '${pluginName}' plugin requires '${dependencyName}' to be defined before it.`);
@@ -34,7 +34,7 @@ export class PluginHost {
     }
   }
   registerPlugin(plugin) {
-    this.plugins = insertWithSorting(plugin, this.plugins);
+    this.plugins = insertPlugin(this.plugins, plugin);
     this.cleanPluginsCache();
   }
   unregisterPlugin(plugin) {

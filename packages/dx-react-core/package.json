@@ -49,6 +49,7 @@
     "output": "../../shippable/testresults/dx-react-core.xml"
   },
   "devDependencies": {
+    "@devexpress/dx-testing": "1.0.0-alpha.5",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",

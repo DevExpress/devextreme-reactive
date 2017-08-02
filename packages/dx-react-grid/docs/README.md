@@ -70,11 +70,6 @@ Follow the links below to try out the React Grid:
 - [WebpackBin for Bootstrap3](https://www.webpackbin.com/bins/-KoCcFwPPtps5fEN0PkI)
 - [WebpackBin for Material UI](https://www.webpackbin.com/bins/-KoCeS-_jZrZuTecv-wd)
 
-## Documentation
-
-[Guides](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/)  
-[API Reference](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/)
-
 ## License
 
 [DevExtreme licensing](https://js.devexpress.com/licensing/).

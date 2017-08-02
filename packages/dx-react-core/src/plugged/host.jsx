@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
-import { PluginContainer } from './container';
+import { PluginIndexer } from './indexer';
 import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
 
@@ -21,24 +21,27 @@ export class PluginHost extends React.PureComponent {
 
     return (
       <div>
-        <PluginContainer>
+        <PluginIndexer>
           <Template name="root" />
           {children}
-        </PluginContainer>
+        </PluginIndexer>
         <TemplatePlaceholder name="root" />
       </div>
     );
   }
 }
-PluginHost.defaultProps = {
-  children: null,
-};
+
 PluginHost.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
 };
+
+PluginHost.defaultProps = {
+  children: null,
+};
+
 PluginHost.childContextTypes = {
   pluginHost: PropTypes.object.isRequired,
 };

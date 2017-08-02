@@ -24,7 +24,9 @@ export class FilteringState extends React.PureComponent {
     const filters = this.props.filters || this.state.filters;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="FilteringState"
+      >
         <Action
           name="setColumnFilter"
           action={({ columnName, config }) =>

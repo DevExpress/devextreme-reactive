@@ -8,7 +8,13 @@ export class TableFilterRow extends React.PureComponent {
     const { rowHeight, filterCellTemplate } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableFilterRow"
+        dependencies={[
+          { pluginName: 'SelectionState' },
+          { pluginName: 'TableView' },
+        ]}
+      >
         <Getter
           name="tableHeaderRows"
           pureComputed={tableHeaderRowsWithFilter}

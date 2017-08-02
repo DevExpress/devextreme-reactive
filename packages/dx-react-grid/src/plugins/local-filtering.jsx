@@ -8,7 +8,12 @@ export class LocalFiltering extends React.PureComponent {
     const { filterFn } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="LocalFiltering"
+        dependencies={[
+          { pluginName: 'FilteringState' },
+        ]}
+      >
         <Getter
           name="rows"
           pureComputed={filteredRows}

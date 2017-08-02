@@ -9,7 +9,12 @@ export class PagingPanel extends React.PureComponent {
   render() {
     const { pagerTemplate, allowedPageSizes } = this.props;
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="PagingPanel"
+        dependencies={[
+          { pluginName: 'PagingState' },
+        ]}
+      >
         <Template
           name="footer"
           connectGetters={(getter) => {

@@ -8,7 +8,15 @@ export class TableHeaderRow extends React.PureComponent {
     const { allowSorting, allowGroupingByClick, allowDragging, headerCellTemplate } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableHeaderRow"
+        dependencies={[
+          { pluginName: 'TableView' },
+          { pluginName: 'SortingState', optional: true },
+          { pluginName: 'GroupingState', optional: true },
+          { pluginName: 'DragDropContext', optional: true },
+        ]}
+      >
         <Getter
           name="tableHeaderRows"
           pureComputed={tableRowsWithHeading}

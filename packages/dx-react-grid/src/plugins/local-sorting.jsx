@@ -6,7 +6,12 @@ import { sortedRows } from '@devexpress/dx-grid-core';
 export class LocalSorting extends React.PureComponent {
   render() {
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="LocalSorting"
+        dependencies={[
+          { pluginName: 'SortingState' },
+        ]}
+      >
         <Getter
           name="rows"
           pureComputed={sortedRows}

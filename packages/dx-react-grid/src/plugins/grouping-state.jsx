@@ -79,7 +79,9 @@ export class GroupingState extends React.PureComponent {
     const expandedGroups = this._expandedGroups();
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="GroupingState"
+      >
         <Action
           name="toggleGroupExpanded"
           action={({ groupKey }) => {

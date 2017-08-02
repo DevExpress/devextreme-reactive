@@ -10,7 +10,13 @@ export class TableEditRow extends React.PureComponent {
   render() {
     const { editCellTemplate, rowHeight } = this.props;
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableEditRow"
+        dependencies={[
+          { pluginName: 'EditingState' },
+          { pluginName: 'TableView' },
+        ]}
+      >
         <Getter
           name="tableBodyRows"
           pureComputed={rowsWithEditing}

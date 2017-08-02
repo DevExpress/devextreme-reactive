@@ -6,7 +6,12 @@ import { groupedRows, expandedGroupRows } from '@devexpress/dx-grid-core';
 export class LocalGrouping extends React.PureComponent {
   render() {
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="LocalGrouping"
+        dependencies={[
+          { pluginName: 'GroupingState' },
+        ]}
+      >
         <Getter
           name="rows"
           pureComputed={groupedRows}

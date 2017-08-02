@@ -16,7 +16,13 @@ export class TableSelection extends React.PureComponent {
     } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableSelection"
+        dependencies={[
+          { pluginName: 'SelectionState' },
+          { pluginName: 'TableView' },
+        ]}
+      >
         {showSelectionColumn && (
           <Getter
             name="tableColumns"

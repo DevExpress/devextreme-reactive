@@ -16,7 +16,13 @@ export class TableEditColumn extends React.PureComponent {
       width,
     } = this.props;
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableEditColumn"
+        dependencies={[
+          { pluginName: 'EditingState' },
+          { pluginName: 'TableView' },
+        ]}
+      >
         <Getter
           name="tableColumns"
           pureComputed={withEditColumn}

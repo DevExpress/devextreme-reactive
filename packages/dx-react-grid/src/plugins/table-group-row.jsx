@@ -15,7 +15,13 @@ export class TableGroupRow extends React.PureComponent {
     } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableGroupRow"
+        dependencies={[
+          { pluginName: 'GroupingState' },
+          { pluginName: 'TableView' },
+        ]}
+      >
         <Getter
           name="tableColumns"
           pureComputed={tableColumnsWithGrouping}

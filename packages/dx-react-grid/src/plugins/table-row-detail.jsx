@@ -14,7 +14,12 @@ export class TableRowDetail extends React.PureComponent {
     } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableRowDetail"
+        dependencies={[
+          { pluginName: 'TableView' },
+        ]}
+      >
         <Getter
           name="tableColumns"
           pureComputed={tableColumnsWithDetail}

@@ -6,7 +6,12 @@ import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx
 export class LocalPaging extends React.PureComponent {
   render() {
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="LocalPaging"
+        dependencies={[
+          { pluginName: 'PagingState' },
+        ]}
+      >
         <Getter
           name="rows"
           pureComputed={ensurePageHeaders}

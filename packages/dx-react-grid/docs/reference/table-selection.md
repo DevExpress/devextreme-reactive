@@ -21,17 +21,15 @@ selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement
 selectAllCellTemplate | (args: [SelectAllCellArgs](#select-all-cell-args)) => ReactElement | | A component that renders the Select All checkbox
 selectionColumnWidth | number | | The selection column's width
 
-## Extensions
+## Interfaces 
 
-### <a name="table-row"></a>TableRow
+### <a name="table-row"></a>TableRow (Extension)
 
 Extends [TableRow](table-view.md#table-row) with the following shape:
 
 Field | Type | Description
 ------|------|------------
 selected? | boolean | Specifies whether a row is selected
-
-## Interfaces
 
 ### <a name="select-all-cell-args"></a>SelectAllCellArgs
 
@@ -65,7 +63,7 @@ changeSelected | () => void | Selects or deselects a row
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered
+tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
 tableExtraProps | Getter | { [key: string]: any } | Additional table properties that can be provided by other plugins
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows
 availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection

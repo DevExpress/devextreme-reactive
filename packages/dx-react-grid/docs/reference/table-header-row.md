@@ -22,17 +22,15 @@ allowSorting | boolean | false | If true, it allows an end-user to change sortin
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell
 allowGroupingByClick | boolean | false | If true, it renders a component that toggles a column's grouping state
 
-## Extensions
+## Interfaces
 
-### Column
+### <a name="column"></a>Column (Extension)
 
 Extends [Column](grid.md#column) with the following shape:
 
 Field | Type | Description
 ------|------|------------
 title? | string | Specifies a table column title
-
-## Interfaces
 
 ### <a name="header-cell-args"></a>HeaderCellArgs
 

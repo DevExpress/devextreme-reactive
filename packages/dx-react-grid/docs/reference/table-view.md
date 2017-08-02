@@ -20,17 +20,15 @@ tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElemen
 tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
 allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it
 
-## Extensions
+## Interfaces
 
-### Column
+### <a name="column"></a>Column (Extension)
 
 Extends [Column](grid.md#column) with the following shape:
 
 Field | Type | Description
 ------|------|------------
 width? | number | Specifies the table column width.
-
-## Interfaces
 
 ### <a name="table-args"></a>TableArgs
 
@@ -57,8 +55,6 @@ rowId? | number &#124; string  | Specifies the associated user data row id.
 row? | [Row](grid.md#row) | Specifies the associated user data row.
 height? | number | Specifies the table row height.
 
-Can be extended by other plugins. See the Extensions section.
-
 ### <a name="table-column"></a>TableColumn
 
 Describes table column properties that the TableView plugin takes into account.
@@ -70,10 +66,8 @@ Field | Type | Description
 key | string | A string used to unique identify table column.
 type | string | Specifies the table column type. Defines a cell template used to render a column.
 columnId? | number &#124; string  | Specifies the associated user data column id.
-column? | [Column](grid.md#column) | Specifies the associated user data column.
+column? | [Column](#column) | Specifies the associated user data column.
 width? | number | Specifies the table column width.
-
-Can be extended by other plugins. See the Extensions section.
 
 ### <a name="table-cell-args"></a>TableCellArgs
 
@@ -88,8 +82,6 @@ tableColumn | [TableColumn](#table-column) | Specifies a table column
 style? | Object | Styles that should be applied to the root cell element
 colspan? | number | Specifies the number of columns the cell spans
 
-Can be extended by other plugins. See the Extensions section.
-
 ### <a name="table-data-cell-args"></a>TableDataCellArgs
 
 Describes properties passed to the table cell template when it is being rendered.
@@ -99,7 +91,7 @@ Extends [TableCellArgs](#table-cell-args) with the following shape:
 Field | Type | Description
 ------|------|------------
 row | [Row](grid.md#row) | Specifies a table row
-column | [Column](grid.md#column) | Specifies a table column
+column | [Column](#column) | Specifies a table column
 
 ## Plugin Developer Reference
 
@@ -108,7 +100,7 @@ column | [Column](grid.md#column) | Specifies a table column
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view
+columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
 
 ### Exports

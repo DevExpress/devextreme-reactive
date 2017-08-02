@@ -47,11 +47,11 @@ export default class Demo extends React.PureComponent {
       if (added) {
         const startAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [
+          ...rows,
           ...added.map((row, index) => ({
             id: startAddedId + index,
             ...row,
           })),
-          ...rows,
         ];
       }
       if (changed) {

@@ -136,7 +136,7 @@ class DemoBase extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
-        length: 200,
+        length: 8,
       }),
       sorting: [],
       editingRows: [],
@@ -144,8 +144,8 @@ class DemoBase extends React.PureComponent {
       changedRows: {},
       currentPage: 0,
       deletingRows: [],
-      pageSize: 10,
-      allowedPageSizes: [5, 10, 15],
+      pageSize: 0,
+      allowedPageSizes: [5, 10, 15, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
@@ -170,11 +170,11 @@ class DemoBase extends React.PureComponent {
       if (added) {
         const startAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [
+          ...rows,
           ...added.map((row, index) => ({
             id: startAddedId + index,
             ...row,
           })),
-          ...rows,
         ];
       }
       if (changed) {

@@ -61,12 +61,7 @@ export class Getter extends React.PureComponent {
     return null;
   }
 }
-Getter.defaultProps = {
-  value: undefined,
-  pureComputed: null,
-  connectArgs: null,
-  position: () => NaN,
-};
+
 Getter.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
@@ -74,6 +69,14 @@ Getter.propTypes = {
   pureComputed: PropTypes.func,
   connectArgs: PropTypes.func,
 };
+
+Getter.defaultProps = {
+  value: undefined,
+  pureComputed: null,
+  connectArgs: null,
+  position: null,
+};
+
 Getter.contextTypes = {
   pluginHost: PropTypes.object.isRequired,
 };

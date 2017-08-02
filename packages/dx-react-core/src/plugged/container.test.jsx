@@ -48,7 +48,7 @@ describe('PluginContainer', () => {
         position: expect.any(Function),
         pluginName: 'TestPlugin',
         dependencies: [{ pluginName: 'Dep1', optional: true }],
-        isContainer: true,
+        container: true,
       });
   });
 
@@ -85,7 +85,7 @@ describe('PluginContainer', () => {
         position: expect.any(Function),
         pluginName: 'TestPlugin',
         dependencies: [{ pluginName: 'Dep1', optional: true }],
-        isContainer: true,
+        container: true,
       });
   });
 });

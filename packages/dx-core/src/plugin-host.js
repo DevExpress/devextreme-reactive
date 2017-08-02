@@ -36,17 +36,21 @@ export class PluginHost {
   registerPlugin(plugin) {
     this.plugins = insertWithSorting(plugin, this.plugins);
     this.cleanPluginsCache();
-    if (plugin.isContainer) this.ensureDependencies();
   }
   unregisterPlugin(plugin) {
     this.plugins.splice(this.plugins.indexOf(plugin), 1);
     this.cleanPluginsCache();
-    if (plugin.isContainer) this.ensureDependencies();
   }
   cleanPluginsCache() {
+    this.validationRequired = true;
     this.gettersCache = {};
   }
   collect(key, upTo) {
+    if (this.validationRequired) {
+      this.ensureDependencies();
+      this.validationRequired = false;
+    }
+
     if (!this.gettersCache[key]) {
       this.gettersCache[key] = this.plugins.map(plugin => plugin[key]).filter(plugin => !!plugin);
     }

@@ -10,7 +10,7 @@ export class PluginContainer extends React.PureComponent {
       position,
       pluginName,
       dependencies,
-      isContainer: true,
+      container: true,
     };
     pluginHost.registerPlugin(this.plugin);
   }

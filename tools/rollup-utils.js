@@ -42,17 +42,6 @@ const knownGlobals = {
   'react-dom': 'ReactDOM',
   'prop-types': 'PropTypes',
   'react-bootstrap': 'ReactBootstrap',
-  'material-ui': 'material-ui',
-  'classnames': 'classNames',
-  'material-ui/styles': 'material-ui.styles',
-  'material-ui/styles/palette': 'material-ui.styles.palette',
-  'material-ui-icons': 'material-ui-icons',
-  'material-ui-icons/Close': 'material-ui-icons.Close',
-  'material-ui-icons/List': 'material-ui-icons.List',
-  'material-ui-icons/ChevronRight': 'material-ui-icons.ChevronRight',
-  'material-ui-icons/ChevronLeft': 'material-ui-icons.ChevronLeft',
-  'material-ui-icons/ExpandMore': 'material-ui-icons.ExpandMore',
-  'material-ui-icons/ExpandLess': 'material-ui-icons.ExpandLess',
 };
 
 export const globals = (packageDirectory) => {

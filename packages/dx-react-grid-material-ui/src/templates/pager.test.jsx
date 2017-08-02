@@ -1,6 +1,6 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { mountWithStyles } from '../utils/testing';
+import { createMount } from 'material-ui/test-utils';
 import { Pager } from './pager';
 import { Pagination } from './pagination';
 import { PageSizeSelector } from './page-size-selector';
@@ -8,6 +8,14 @@ import { PageSizeSelector } from './page-size-selector';
 injectTapEventPlugin();
 
 describe('Pager', () => {
+  let mount;
+  beforeAll(() => {
+    mount = createMount();
+  });
+  afterAll(() => {
+    mount.cleanUp();
+  });
+
   describe('#render', () => {
     const mountPager = ({
       currentPage,
@@ -19,7 +27,7 @@ describe('Pager', () => {
       showAllText,
       onCurrentPageChange = () => {},
       onPageSizeChange = () => {},
-    }) => mountWithStyles(
+    }) => mount(
       <Pager
         currentPage={currentPage}
         allowedPageSizes={allowedPageSizes}

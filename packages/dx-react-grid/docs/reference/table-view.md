@@ -65,7 +65,6 @@ Field | Type | Description
 ------|------|------------
 key | string | A unique identifier of the table column.
 type | string | Specifies the table column type. The specified value affects which cell template is used to render the column.
-columnId? | number &#124; string  | Specifies the ID of the associated user data column.
 column? | [Column](#column) | Specifies the associated user data column.
 width? | number | Specifies the table column width.
 

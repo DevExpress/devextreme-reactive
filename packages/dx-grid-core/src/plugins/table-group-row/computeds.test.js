@@ -8,11 +8,11 @@ import {
 describe('TableGroupRow Plugin computeds', () => {
   describe('#tableColumnsWithGrouping', () => {
     const tableColumns = [
-      { type: 'undefined', columnId: 'c', column: { name: 'a' } },
-      { type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
-      { type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
-      { type: TABLE_DATA_TYPE, columnId: 'c', column: { name: 'c' } },
-      { type: TABLE_DATA_TYPE, columnId: 'd', column: { name: 'd' } },
+      { type: 'undefined', column: { name: 'a' } },
+      { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      { type: TABLE_DATA_TYPE, column: { name: 'c' } },
+      { type: TABLE_DATA_TYPE, column: { name: 'd' } },
     ];
     const grouping = [
       { columnName: 'a' },
@@ -24,9 +24,9 @@ describe('TableGroupRow Plugin computeds', () => {
         .toEqual([
           { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, groupKey: 'a', width: 123 },
           { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, groupKey: 'c', width: 123 },
-          { type: 'undefined', columnId: 'c', column: { name: 'a' } },
-          { type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, columnId: 'd', column: { name: 'd' } },
+          { type: 'undefined', column: { name: 'a' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
 
@@ -39,10 +39,10 @@ describe('TableGroupRow Plugin computeds', () => {
         .toEqual([
           { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, groupKey: 'a', width: 123 },
           { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, groupKey: 'c', width: 123 },
-          { type: 'undefined', columnId: 'c', column: { name: 'a' } },
-          { type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, columnId: 'c', column: { name: 'c' }, isDraft: true },
-          { type: TABLE_DATA_TYPE, columnId: 'd', column: { name: 'd' } },
+          { type: 'undefined', column: { name: 'a' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'c' }, isDraft: true },
+          { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
 
@@ -55,10 +55,10 @@ describe('TableGroupRow Plugin computeds', () => {
         .toEqual([
           { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, groupKey: 'a', width: 123 },
           { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, groupKey: 'c', width: 123 },
-          { type: 'undefined', columnId: 'c', column: { name: 'a' } },
-          { type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, columnId: 'c', column: { name: 'c' }, isDraft: true },
-          { type: TABLE_DATA_TYPE, columnId: 'd', column: { name: 'd' } },
+          { type: 'undefined', column: { name: 'a' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'c' }, isDraft: true },
+          { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
 
@@ -71,9 +71,9 @@ describe('TableGroupRow Plugin computeds', () => {
         .toEqual([
           { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, groupKey: 'a', width: 123 },
           { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, groupKey: 'c', width: 123 },
-          { type: 'undefined', columnId: 'c', column: { name: 'a' } },
-          { type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, columnId: 'd', column: { name: 'd' } },
+          { type: 'undefined', column: { name: 'a' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
   });

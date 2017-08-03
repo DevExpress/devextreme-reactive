@@ -22,7 +22,7 @@ const defaultDeps = {
   template: {
     tableViewCell: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
-      tableColumn: { type: 'undefined', columnId: 1, column: 'column' },
+      tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
   },

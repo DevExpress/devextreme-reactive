@@ -11,8 +11,8 @@ describe('TableView Plugin computeds', () => {
 
       expect(tableColumnsWithDataRows(columns))
         .toEqual([
-          { key: `${TABLE_DATA_TYPE}_a`, type: TABLE_DATA_TYPE, columnId: 'a', column: columns[0] },
-          { key: `${TABLE_DATA_TYPE}_b`, type: TABLE_DATA_TYPE, columnId: 'b', column: columns[1] },
+          { key: `${TABLE_DATA_TYPE}_a`, type: TABLE_DATA_TYPE, column: columns[0] },
+          { key: `${TABLE_DATA_TYPE}_b`, type: TABLE_DATA_TYPE, column: columns[1] },
         ]);
     });
 

@@ -4,7 +4,7 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   groupByColumn,
   groupedColumns,
-  nextExpandedGroups,
+  toggleExpandedGroups,
   draftGrouping,
   draftGroupingChange,
   cancelGroupingChange,
@@ -40,7 +40,7 @@ export class GroupingState extends React.PureComponent {
       }
     };
 
-    this._toggleGroupExpanded = this._reduceExpandedGroups(nextExpandedGroups);
+    this._toggleGroupExpanded = this._reduceExpandedGroups(toggleExpandedGroups);
     this._removeOutdatedExpandedGroups = this._reduceExpandedGroups(removeOutdatedExpandedGroups);
 
     this._groupByColumn = (prevGrouping, prevExpandedGroups, { columnName, groupIndex }) => {

@@ -61,7 +61,7 @@ tableExtraProps | Getter | { [key: string]: any } | Additional table properties 
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Body rows to be rendered available for selection
 setRowSelection | Action | ({ rowId }) => void | Selects a row
 setRowsSelection | Action | ({ rowIds }) => void | Selects multiple rows
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column) } | A template that renders a table cell
+tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object } | A template that renders a table cell
 
 ### Exports
 

@@ -7,7 +7,7 @@ import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import ChevronRight from 'material-ui-icons/ChevronRight';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 
-export const paginationStyleSheet = createStyleSheet('Pagination', theme => ({
+export const styleSheet = createStyleSheet('Pagination', theme => ({
   pagination: {
     float: 'right',
     margin: 0,
@@ -205,4 +205,4 @@ PaginationBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
 };
 
-export const Pagination = withStyles(paginationStyleSheet)(PaginationBase);
+export const Pagination = withStyles(styleSheet)(PaginationBase);

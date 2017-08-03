@@ -1,43 +1,43 @@
 import React from 'react';
 import { TableCell as TableCellMUI } from 'material-ui';
+import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { mountWithStyles } from '../utils/testing';
 import { styleSheet, TableCell } from './table-cell';
 
 describe('TableCell', () => {
   let resetConsole;
-
+  let mount;
+  let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    mount = createMount();
+    classes = getClasses(styleSheet);
   });
-
   afterAll(() => {
     resetConsole();
+    mount.cleanUp();
   });
 
   it('should have correct text alignment', () => {
-    let mounted = mountWithStyles(
+    let tree = mount(
       <TableCell
         column={{}}
       />,
-      styleSheet,
     );
-    expect(mounted.tree.find(TableCellMUI).hasClass(mounted.classes.cellRightAlign)).toBeFalsy();
+    expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
 
-    mounted = mountWithStyles(
+    tree = mount(
       <TableCell
         column={{ align: 'left' }}
       />,
-      styleSheet,
     );
-    expect(mounted.tree.find(TableCellMUI).hasClass(mounted.classes.cellRightAlign)).toBeFalsy();
+    expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
 
-    mounted = mountWithStyles(
+    tree = mount(
       <TableCell
         column={{ align: 'right' }}
       />,
-      styleSheet,
     );
-    expect(mounted.tree.find(TableCellMUI).hasClass(mounted.classes.cellRightAlign)).toBeTruthy();
+    expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeTruthy();
   });
 });

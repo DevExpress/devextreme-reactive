@@ -40,11 +40,12 @@ export class TableEditRow extends React.PureComponent {
             changeRow: ({ rowId, change }) => action('changeRow')({ rowId, change }),
           })}
         >
-          {({ rowId, row, column, value, changeRow }) =>
+          {({ rowId, row, column, value, changeRow, style }) =>
             editCellTemplate({
               row,
               column,
               value,
+              style,
               onValueChange: newValue => changeRow({
                 rowId,
                 change: {
@@ -68,11 +69,12 @@ export class TableEditRow extends React.PureComponent {
             changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),
           })}
         >
-          {({ row, rowId, column, value, changeAddedRow }) =>
+          {({ row, rowId, column, value, changeAddedRow, style }) =>
             editCellTemplate({
               row,
               column,
               value,
+              style,
               onValueChange: newValue => changeAddedRow({
                 rowId,
                 change: {

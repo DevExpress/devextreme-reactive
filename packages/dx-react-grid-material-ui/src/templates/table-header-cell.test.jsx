@@ -1,32 +1,31 @@
 import React from 'react';
-
 import { TableCell } from 'material-ui';
-
-import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
+import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-
-import { mountWithStyles } from '../utils/testing';
+import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell, styleSheet } from './table-header-cell';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
-
+  let mount;
+  let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    mount = createMount();
+    classes = getClasses(styleSheet);
   });
-
   afterAll(() => {
     resetConsole();
+    mount.cleanUp();
   });
 
   it('should use column name if title is not specified', () => {
-    const { tree, classes } = mountWithStyles(
+    const tree = mount(
       <TableHeaderCell
         column={{
           name: 'Test',
         }}
       />,
-      styleSheet,
     );
 
     expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
@@ -34,7 +33,7 @@ describe('TableHeaderCell', () => {
 
   it('should cancel sorting by using the Ctrl key', () => {
     const changeSortingDirection = jest.fn();
-    const tree = mountWithStyles(
+    const tree = mount(
       <TableHeaderCell
         column={{
           name: 'Test',
@@ -51,11 +50,10 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when user interaction disallowed', () => {
-    const { tree, classes } = mountWithStyles(
+    const tree = mount(
       <TableHeaderCell
         column={{}}
       />,
-      styleSheet,
     );
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeFalsy();
@@ -64,12 +62,11 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when sorting is allowed', () => {
-    const { tree, classes } = mountWithStyles(
+    const tree = mount(
       <TableHeaderCell
         column={{}}
         allowSorting
       />,
-      styleSheet,
     );
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
@@ -77,14 +74,13 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when dragging is allowed', () => {
-    const { tree, classes } = mountWithStyles(
+    const tree = mount(
       <DragDropContext>
         <TableHeaderCell
           column={{}}
           allowDragging
         />
       </DragDropContext>,
-      styleSheet,
     );
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
@@ -92,14 +88,13 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles while dragging', () => {
-    const { tree, classes } = mountWithStyles(
+    const tree = mount(
       <DragDropContext>
         <TableHeaderCell
           column={{}}
           allowDragging
         />
       </DragDropContext>,
-      styleSheet,
     );
 
     expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();

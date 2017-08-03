@@ -24,7 +24,7 @@ allowColumnReordering | boolean | false | If true, it allows end-users to change
 
 ### <a name="column"></a>Column (Extension)
 
-Extends [Column](grid.md#column) with the following shape:
+A value with the [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -49,9 +49,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A string used to unique identify table row.
-type | string | Specifies the table row type. Defines a cell template used to render a row.
-rowId? | number &#124; string  | Specifies the associated user data row id.
+key | string | A unique identifier of the table row.
+type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
+rowId? | number &#124; string  | Specifies the ID of the associated user data row.
 row? | [Row](grid.md#row) | Specifies the associated user data row.
 height? | number | Specifies the table row height.
 
@@ -63,9 +63,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A string used to unique identify table column.
-type | string | Specifies the table column type. Defines a cell template used to render a column.
-columnId? | number &#124; string  | Specifies the associated user data column id.
+key | string | A unique identifier of the table column.
+type | string | Specifies the table column type. The specified value affects which cell template is used to render the column.
+columnId? | number &#124; string  | Specifies the ID of the associated user data column.
 column? | [Column](#column) | Specifies the associated user data column.
 width? | number | Specifies the table column width.
 
@@ -86,7 +86,7 @@ colspan? | number | Specifies the number of columns the cell spans
 
 Describes properties passed to the table cell template when it is being rendered.
 
-Extends [TableCellArgs](#table-cell-args) with the following shape:
+A value with the [TableCellArgs](#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------

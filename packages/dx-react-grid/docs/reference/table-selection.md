@@ -25,17 +25,17 @@ selectionColumnWidth | number | | The selection column's width
 
 ### <a name="table-row"></a>TableRow (Extension)
 
-Extends [TableRow](table-view.md#table-row) with the following shape:
+A value with the [TableRow](table-view.md#table-row) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-selected? | boolean | Specifies whether a row is selected
+selected? | boolean | Specifies if a row is selected
 
 ### <a name="select-all-cell-args"></a>SelectAllCellArgs
 
 Describes properties passed to the template that renders a cell with a selection control.
 
-Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -48,7 +48,7 @@ toggleAll | () => void | Selects or deselects all rows
 
 Describes properties passed to a template that renders a cell with the selection control inside the heading row.
 
-Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------

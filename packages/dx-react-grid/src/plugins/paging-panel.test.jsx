@@ -60,6 +60,6 @@ describe('PagingPanel', () => {
 
     pagerTemplateMock.mock.calls[0][0].onPageSizeChange(3);
     expect(setPageSizeMock.mock.calls)
-      .toEqual([[{ size: 3 }]]);
+      .toEqual([[3]]);
   });
 });

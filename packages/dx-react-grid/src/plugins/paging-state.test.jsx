@@ -174,7 +174,7 @@ describe('PagingState', () => {
         </PluginHost>,
       );
 
-      setPageSize({ size: 3 });
+      setPageSize(3);
 
       expect(pageSize)
         .toEqual(3);
@@ -202,7 +202,7 @@ describe('PagingState', () => {
         </PluginHost>,
       );
 
-      setPageSize({ size: 3 });
+      setPageSize(3);
 
       expect(pageSize)
         .toEqual(2);

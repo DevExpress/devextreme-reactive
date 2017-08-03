@@ -4,8 +4,12 @@ react:
       items:
         - title: Getting Started
           path: /react/grid/docs
+        - title: Plugin Overview
+          path: /react/grid/docs/guides/plugin-overview
         - title: Immutability
           path: /react/grid/docs/guides/immutability
+        - title: Controlled and Uncontrolled Modes
+          path: /react/grid/docs/guides/controlled-and-uncontrolled-modes
         - title: Sorting
           path: /react/grid/docs/guides/sorting
         - title: Paging

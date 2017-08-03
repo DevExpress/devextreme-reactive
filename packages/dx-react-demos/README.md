@@ -1,16 +1,16 @@
 # DevExtreme React Demos
 
-[Demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) showing how to use DevExtreme React Grid.
+Check the [Demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for DevExtreme React Grid examples.
 
 ## Run locally
 
-To run demos locally, follow next steps:
+Follow the steps below to run demos locally:
 
 1. Clone repository
 
   `git clone https://github.com/DevExpress/devextreme-reactive.git`
 
-2. Clone repository
+2. Set the current directory to the cloned repository directory
 
   `cd devextreme-reactive`
 
@@ -18,17 +18,15 @@ To run demos locally, follow next steps:
 
   `npm install`
 
-4. Run demos
+4. Run the demos project
 
   `npm run watch`
 
-5. Open the following link in your browser: http://localhost:3002/
+5. Running demos are available by the **http://localhost:3002/** link.
 
 ## References
 
-For more information about components used in these demo cases follow the link:
-
-[DevExtreme for React](https://devexpress.github.io/devextreme-reactive/react/)
+Refer to [DevExtreme for React](https://devexpress.github.io/devextreme-reactive/react/) for more information about components used in the demos.
 
 ## License
 

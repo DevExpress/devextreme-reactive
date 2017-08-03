@@ -76,7 +76,7 @@ describe('PagingState', () => {
         </PluginHost>,
       );
 
-      setCurrentPage({ page: 3 });
+      setCurrentPage(3);
 
       expect(currentPage)
         .toEqual(3);
@@ -104,7 +104,7 @@ describe('PagingState', () => {
         </PluginHost>,
       );
 
-      setCurrentPage({ page: 3 });
+      setCurrentPage(3);
 
       expect(currentPage)
         .toEqual(2);

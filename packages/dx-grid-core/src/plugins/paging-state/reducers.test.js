@@ -6,9 +6,8 @@ describe('PagingState reducers', () => {
   describe('#setCurrentPage', () => {
     it('should work', () => {
       const state = 0;
-      const payload = { page: 1 };
 
-      const nextState = setCurrentPage(state, payload);
+      const nextState = setCurrentPage(state, 1);
       expect(nextState).toBe(1);
     });
   });

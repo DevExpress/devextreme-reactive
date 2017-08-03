@@ -12,9 +12,9 @@ export class PagingState extends React.PureComponent {
       pageSize: props.defaultPageSize,
     };
 
-    this._setCurrentPage = ({ page }) => {
+    this._setCurrentPage = (page) => {
       const { onCurrentPageChange } = this.props;
-      const currentPage = setCurrentPage(this.state.currentPage, { page });
+      const currentPage = setCurrentPage(this.state.currentPage, page);
       this.setState({ currentPage });
       if (onCurrentPageChange) {
         onCurrentPageChange(currentPage);
@@ -39,7 +39,7 @@ export class PagingState extends React.PureComponent {
 
     return (
       <PluginContainer>
-        <Action name="setCurrentPage" action={({ page }) => this._setCurrentPage({ page })} />
+        <Action name="setCurrentPage" action={page => this._setCurrentPage(page)} />
         <Action name="setPageSize" action={size => this._setPageSize(size)} />
 
         <Getter name="currentPage" value={currentPage} />

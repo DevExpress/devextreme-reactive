@@ -33,5 +33,5 @@ Name | Plugin | Type | Description
 pageSize | Getter | number | The page size
 setPageSize | Action | (size: number) => void | Changes the page size
 currentPage | Getter | number | The current page number
-setCurrentPage | Action | ({ page: number }) => void | Changes the current page number
+setCurrentPage | Action | (page: number) => void | Changes the current page number
 totalCount | Getter | number | The total row count

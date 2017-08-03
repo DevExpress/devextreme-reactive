@@ -56,7 +56,7 @@ describe('PagingPanel', () => {
 
     pagerTemplateMock.mock.calls[0][0].onCurrentPageChange(3);
     expect(setCurrentPageMock.mock.calls)
-      .toEqual([[{ page: 3 }]]);
+      .toEqual([[3]]);
 
     pagerTemplateMock.mock.calls[0][0].onPageSizeChange(3);
     expect(setPageSizeMock.mock.calls)

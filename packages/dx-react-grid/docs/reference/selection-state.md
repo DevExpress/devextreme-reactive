@@ -30,6 +30,6 @@ availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be render
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean  }) => void | A function that selects/deselects rows. To select/deselect a single row, use an array with a single item as the `rowIds` argument. The `selected` argument specifies whether selection should be added or removed
+setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean  }) => void | A function that selects/deselects rows. To select/deselect a single row, pass an array with a single item to the `rowIds` argument. The `isSelected` argument specifies whether the specified rows should be selected (true), deselected (false), or their selection status should be set to the opposite one (undefined). In the last case, the function selects unselected rows and deselects selected ones.
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered, which are available for selection
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows

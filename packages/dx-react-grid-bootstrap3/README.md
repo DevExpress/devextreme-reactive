@@ -1,10 +1,10 @@
 # DevExtreme React Grid Bootstrap3
 
-A template suite used to customize the React Grid with Bootstrap3 rendering.
+A template suite used to render the React Grid based on Bootstrap 3 components.
 
 ## Installation
 
-Install the main dx-react-grid package with its dependencies and templates for Bootstrap 3:
+Install the main dx-react-grid package with its dependencies and Bootstrap 3 templates:
 
 ```
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid @devexpress/dx-react-grid-bootstrap3
@@ -34,11 +34,11 @@ const App = () => (
 );
 ```
 
-Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article for configuration details. 
+Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article for configuration details. 
 
 ## Getting started
 
-This package provides components and plugins implementing Bootstrap 3 rendering for the React Grid, which you can use instead of the ones provided by the original React Grid package.
+This package provides components and plugins implementing Bootstrap 3 rendering for the React Grid, which you can use instead of the original React Grid package ones.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 
@@ -62,9 +62,7 @@ Plugins:
 - [PagingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/)
 - [DragDropContext](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-context/)
 
-Each plugin has properties with the 'Template' postfix. Components passed to such properties are templates.
-
-You can override templates by passing your component or rendering function, or return `undefined` from your custom template to render a UI item with a built-in template.
+The templates are defined via properties that end with the 'Template' postfix which accept a rendering function. Assign a custom function to the required property to override the default rendering function. The custom function should return `undefined` if you need to invoke the default behavior under certain conditions.
 
 ## License
 

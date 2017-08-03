@@ -1,73 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter } from './getter';
-import { Action } from './action';
-import { Template } from './template';
+import { PluginIndexer } from './indexer';
 
-const CONTAINER_CONTEXT = 'pluginContainerContext';
-
-export const PluginContainer = (
-  { children },
-  { [CONTAINER_CONTEXT]: containerContext },
-) => (
-  <div style={{ display: 'none' }}>
-    {
-      React.Children.map(children, (child, index) => {
-        if (!child || !child.type) return child;
-
-        const childPosition = () => {
-          const calculatedPosition =
-            (containerContext && containerContext()) || [];
-          return [...calculatedPosition, index];
-        };
-
-        if (child.type === Getter ||
-            child.type === Action ||
-            child.type === Template) {
-          return React.cloneElement(child, { position: childPosition });
-        }
-
-        return (
-          <PluginContainerContext position={childPosition}>
-            {child}
-          </PluginContainerContext>
-        );
-      })
-    }
-  </div>
-);
-
-PluginContainer.defaultProps = {
-  children: null,
-};
-
-PluginContainer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-};
-
-PluginContainer.contextTypes = {
-  [CONTAINER_CONTEXT]: PropTypes.func,
-};
-
-class PluginContainerContext extends React.Component {
-  getChildContext() {
-    return {
-      [CONTAINER_CONTEXT]: this.props.position,
+export class PluginContainer extends React.PureComponent {
+  componentWillMount() {
+    const { pluginHost, positionContext: position } = this.context;
+    const { pluginName, dependencies } = this.props;
+    this.plugin = {
+      position,
+      pluginName,
+      dependencies,
+      container: true,
     };
+    pluginHost.registerPlugin(this.plugin);
+  }
+  componentWillUnmount() {
+    const { pluginHost } = this.context;
+    pluginHost.unregisterPlugin(this.plugin);
   }
   render() {
-    return this.props.children;
+    const { children } = this.props;
+    return (
+      <PluginIndexer>
+        {children}
+      </PluginIndexer>
+    );
   }
 }
 
-PluginContainerContext.propTypes = {
-  position: PropTypes.func.isRequired,
+PluginContainer.propTypes = {
   children: PropTypes.node.isRequired,
+  pluginName: PropTypes.string,
+  dependencies: PropTypes.arrayOf(
+    PropTypes.shape({
+      pluginName: PropTypes.string,
+      optional: PropTypes.bool,
+    }),
+  ),
 };
 
-PluginContainerContext.childContextTypes = {
-  [CONTAINER_CONTEXT]: PropTypes.func,
+PluginContainer.defaultProps = {
+  pluginName: '',
+  dependencies: [],
+};
+
+PluginContainer.contextTypes = {
+  pluginHost: PropTypes.object.isRequired,
+  positionContext: PropTypes.func.isRequired,
 };

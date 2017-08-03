@@ -38,7 +38,7 @@ Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) depende
 
 ## Getting started
 
-This package provides components and plugins implementing Material UI rendering for the React Grid, which you can use instead of the ones the original React Grid package provides.
+This package provides components and plugins implementing Material UI rendering for the React Grid, which you can use instead of the original React Grid package ones.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 
@@ -62,7 +62,7 @@ Plugins:
 - [PagingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/)
 - [DragDropContext](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-context/)
 
-The templates are defined via properties that end with the 'Template' postfix, which accept a rendering function. Assign a custom function to the required property to override the default rendering function. If you need to invoke the default behavior on certain conditions, make the custom function return `undefined`.
+The templates are defined via properties that end with the 'Template' postfix which accept a rendering function. Assign a custom function to the required property to override the default rendering function. The custom function should return `undefined` if you need to invoke the default behavior under certain conditions.
 
 ## License
 

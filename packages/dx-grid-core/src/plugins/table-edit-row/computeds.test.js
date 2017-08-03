@@ -13,10 +13,17 @@ describe('TableEditRow Plugin computeds', () => {
         { type: 'undefined', rowId: 2, row: 'row2' },
       ];
       const editingRows = [2];
-      const addedRows = [{ id: 3 }];
+      const addedRows = [{ id: 3 }, { id: 4 }];
 
       expect(tableRowsWithEditing(tableRows, editingRows, addedRows, 100))
         .toEqual([
+          {
+            key: `${TABLE_ADDING_TYPE}_1`,
+            type: TABLE_ADDING_TYPE,
+            rowId: 1,
+            row: { id: 4 },
+            height: 100,
+          },
           {
             key: `${TABLE_ADDING_TYPE}_0`,
             type: TABLE_ADDING_TYPE,

@@ -25,7 +25,7 @@ export const tableRowsWithEditing = (tableRows, editingRows, addedRows, rowHeigh
     }));
 
   return [
-    ...addedTableRows,
+    ...addedTableRows.reverse(),
     ...editedTableRows,
   ];
 };

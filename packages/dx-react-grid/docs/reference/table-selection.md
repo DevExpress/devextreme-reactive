@@ -59,7 +59,7 @@ selection | Getter | Array&lt;number &#124; string&gt; | Selected rows
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
 tableExtraProps | Getter | { [key: string]: any } | Additional table properties that can be provided by other plugins
 availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Body rows to be rendered available for selection
-setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean }) => void | Selects/deselects rows. The `isSelected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
+setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean }) => void | Selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
 tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object } | A template that renders a table cell
 
 ### Exports

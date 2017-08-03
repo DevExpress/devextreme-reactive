@@ -84,10 +84,10 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE, rowId: 3 },
     ];
     const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a' },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
-      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, columnId: 'c' },
-      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, columnId: 'd' },
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
+      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, columnId: 'c', column: { name: 'c' } },
+      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, columnId: 'd', column: { name: 'd' } },
     ];
     const tree = mount(
       <TableLayout
@@ -110,10 +110,10 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE, rowId: 3 },
     ];
     const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a' },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
-      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, columnId: 'c' },
-      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, columnId: 'd' },
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
+      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, columnId: 'c', column: { name: 'c' } },
+      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, columnId: 'd', column: { name: 'd' } },
     ];
     const tree = mount(
       <TableLayout
@@ -137,10 +137,10 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2, colSpanStart: 1 },
     ];
     const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a' },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
-      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, columnId: 'c' },
-      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, columnId: 'd' },
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
+      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, columnId: 'c', column: { name: 'c' } },
+      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, columnId: 'd', column: { name: 'd' } },
     ];
     const tree = mount(
       <TableLayout
@@ -171,8 +171,8 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
     ];
     const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', width: 100 },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' }, width: 100 },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
     ];
     const tree = mount(
       <TableLayout
@@ -213,8 +213,8 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
     ];
     const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a' },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
     ];
     const onClick = jest.fn();
     const tree = mount(
@@ -242,8 +242,8 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
     ];
     const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a' },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
     ];
     const onClick = jest.fn();
     const tree = mount(
@@ -274,8 +274,8 @@ describe('TableLayout', () => {
         { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', width: 100 },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', width: 100 },
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' }, width: 100 },
+        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' }, width: 100 },
       ];
       const tree = mount(
         <TableLayout
@@ -321,8 +321,8 @@ describe('TableLayout', () => {
         { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a' },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
+        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
       ];
       const tree = mount(
         <DragDropContext>
@@ -353,8 +353,8 @@ describe('TableLayout', () => {
         { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a' },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
+        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
       ];
       const tree = mount(
         <DragDropContext>
@@ -386,8 +386,8 @@ describe('TableLayout', () => {
         { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a' },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b' },
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, columnId: 'a', column: { name: 'a' } },
+        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, columnId: 'b', column: { name: 'b' } },
       ];
       const setColumnOrder = jest.fn();
       const tree = mount(

@@ -73,7 +73,7 @@ export class TableLayout extends React.PureComponent {
       const targetColumnIndex = getTableTargetColumnIndex(
         columnGeometries,
         columns.findIndex(column =>
-          column.type === TABLE_DATA_TYPE && column.columnId === sourceColumnName),
+          column.type === TABLE_DATA_TYPE && column.column.name === sourceColumnName),
         clientOffset.x - tableRect.left);
 
       if (targetColumnIndex === -1 ||
@@ -84,7 +84,7 @@ export class TableLayout extends React.PureComponent {
       this.setState({
         sourceColumnIndex: sourceColumnIndex === -1
           ? columns.findIndex(column =>
-            column.type === TABLE_DATA_TYPE && column.columnId === sourceColumnName)
+            column.type === TABLE_DATA_TYPE && column.column.name === sourceColumnName)
           : sourceColumnIndex,
         targetColumnIndex,
       });
@@ -115,8 +115,8 @@ export class TableLayout extends React.PureComponent {
       const { columns } = this.props;
 
       this.props.setColumnOrder({
-        sourceColumnName: columns[sourceColumnIndex].columnId,
-        targetColumnName: columns[targetColumnIndex].columnId,
+        sourceColumnName: columns[sourceColumnIndex].column.name,
+        targetColumnName: columns[targetColumnIndex].column.name,
       });
       this.setState({
         sourceColumnIndex: -1,

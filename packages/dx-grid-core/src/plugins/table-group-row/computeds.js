@@ -6,7 +6,7 @@ const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping) =>
     .reduce((acc, tableColumn) => {
       const columnDraftGrouping = draftGrouping
         .find(grouping => (tableColumn.type === TABLE_DATA_TYPE
-          && grouping.columnName === tableColumn.columnId));
+          && grouping.columnName === tableColumn.column.name));
       if (!columnDraftGrouping) {
         return [...acc, tableColumn];
       } else if (columnDraftGrouping.mode === 'remove' || columnDraftGrouping.mode === 'add') {

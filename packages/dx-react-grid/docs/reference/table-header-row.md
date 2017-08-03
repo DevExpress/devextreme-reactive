@@ -26,7 +26,7 @@ allowGroupingByClick | boolean | false | If true, it renders a component that to
 
 ### <a name="column"></a>Column (Extension)
 
-Extends [Column](grid.md#column) with the following shape:
+A value with the [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -36,7 +36,7 @@ title? | string | Specifies a table column title
 
 Describes properties used to render a table header cell.
 
-Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------

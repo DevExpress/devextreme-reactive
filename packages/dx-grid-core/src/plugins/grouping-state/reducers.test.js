@@ -5,6 +5,7 @@ import {
     draftGroupingChange,
     cancelGroupingChange,
     removeOutdatedExpandedGroups,
+    toggleExpandedGroups,
 } from './reducers';
 
 describe('GroupingState reducers', () => {
@@ -78,6 +79,26 @@ describe('GroupingState reducers', () => {
       });
 
       expect(nextExpandedGroups).toBe(expandedGroups);
+    });
+  });
+
+  describe('#toggleExpandedGroups', () => {
+    it('should add an opened group', () => {
+      const groups = toggleExpandedGroups(['a', 'b'], { groupKey: 'c' });
+
+      expect(groups).toEqual(['a', 'b', 'c']);
+    });
+
+    it('should remove a closed group', () => {
+      const groups = toggleExpandedGroups(['a', 'b', 'c'], { groupKey: 'c' });
+
+      expect(groups).toEqual(['a', 'b']);
+    });
+
+    it('should work with immutable groups', () => {
+      const groups = toggleExpandedGroups(Immutable(['a']), { groupKey: 'b' });
+
+      expect(groups).toEqual(['a', 'b']);
     });
   });
 });

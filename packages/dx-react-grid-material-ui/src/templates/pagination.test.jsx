@@ -1,11 +1,22 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { mountWithStyles, triggerTouchTap } from '../utils/testing';
-import { Pagination, paginationStyleSheet } from './pagination';
+import { createMount, getClasses } from 'material-ui/test-utils';
+import { triggerTouchTap } from '../utils/testing';
+import { Pagination, styleSheet } from './pagination';
 
 injectTapEventPlugin();
 
 describe('Pagination', () => {
+  let mount;
+  let classes;
+  beforeAll(() => {
+    mount = createMount();
+    classes = getClasses(styleSheet);
+  });
+  afterAll(() => {
+    mount.cleanUp();
+  });
+
   describe('#render', () => {
     const mountPagination = ({
       totalPages,
@@ -13,7 +24,7 @@ describe('Pagination', () => {
       totalCount,
       pageSize,
       onCurrentPageChange = () => {},
-    }) => mountWithStyles(
+    }) => mount(
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
@@ -21,18 +32,17 @@ describe('Pagination', () => {
         pageSize={pageSize}
         onCurrentPageChange={onCurrentPageChange}
       />,
-      paginationStyleSheet,
     );
 
     it('can select the first item', () => {
-      const pagination = mountPagination({
+      const tree = mountPagination({
         totalPages: 10,
         currentPage: 0,
         totalCount: 10,
         pageSize: 5,
       });
-      const activeButtonClass = pagination.classes.activeButton;
-      const buttons = pagination.tree.find('Button');
+      const activeButtonClass = classes.activeButton;
+      const buttons = tree.find('Button');
       const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -40,19 +50,19 @@ describe('Pagination', () => {
       expect(activeItems).toHaveLength(1);
       expect(disabledItems).toHaveLength(1);
 
-      expect(buttons.at(0).hasClass(pagination.classes.activeButton)).toBeTruthy();
+      expect(buttons.at(0).hasClass(classes.activeButton)).toBeTruthy();
       expect(buttons.at(3).props().disabled).toBeTruthy();
     });
 
     it('can select an item in the middle', () => {
-      const pagination = mountPagination({
+      const tree = mountPagination({
         totalPages: 10,
         currentPage: 3,
         totalCount: 50,
         pageSize: 5,
       });
-      const activeButtonClass = pagination.classes.activeButton;
-      const buttons = pagination.tree.find('Button');
+      const activeButtonClass = classes.activeButton;
+      const buttons = tree.find('Button');
       const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -66,14 +76,14 @@ describe('Pagination', () => {
     });
 
     it('can select the last item', () => {
-      const pagination = mountPagination({
+      const tree = mountPagination({
         totalPages: 10,
         currentPage: 9,
         totalCount: 100,
         pageSize: 10,
       });
-      const activeButtonClass = pagination.classes.activeButton;
-      const buttons = pagination.tree.find('Button');
+      const activeButtonClass = classes.activeButton;
+      const buttons = tree.find('Button');
       const activeItems = buttons.filterWhere(b => b.hasClass(activeButtonClass) === true);
       const disabledItems = buttons.filterWhere(b => b.props().disabled === true);
 
@@ -91,7 +101,7 @@ describe('Pagination', () => {
         currentPage: 1,
         totalCount: 96,
         pageSize: 10,
-      }).tree;
+      });
 
       expect(tree.find('div > span').text()).toBe('11-20 of 96');
     });
@@ -104,7 +114,7 @@ describe('Pagination', () => {
         totalCount: 96,
         pageSize: 10,
         onCurrentPageChange,
-      }).tree.find('IconButton');
+      }).find('IconButton');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);
@@ -126,7 +136,7 @@ describe('Pagination', () => {
         totalCount: 96,
         pageSize: 10,
         onCurrentPageChange,
-      }).tree.find('IconButton');
+      }).find('IconButton');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);
@@ -147,7 +157,7 @@ describe('Pagination', () => {
         totalCount: 96,
         pageSize: 5,
         onCurrentPageChange,
-      }).tree.find('IconButton');
+      }).find('IconButton');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);

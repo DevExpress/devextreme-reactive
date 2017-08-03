@@ -1,24 +1,25 @@
 import React from 'react';
 import { Input } from 'material-ui';
+import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { mountWithStyles } from '../utils/testing';
 import { EditCell, styleSheet } from './table-edit-cell';
 
-describe('TableEditCell', () => {
+describe('EditCell', () => {
   let resetConsole;
+  let mount;
 
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    mount = createMount();
   });
-
   afterAll(() => {
     resetConsole();
+    mount.cleanUp();
   });
 
   it('should render without exceptions', () => {
-    const tree = mountWithStyles(
+    const tree = mount(
       <EditCell
-        column={{}}
         value={''}
         onValueChange={() => {}}
       />,
@@ -29,9 +30,8 @@ describe('TableEditCell', () => {
 
   it('should work with editor properly', () => {
     const onValueChange = jest.fn();
-    const tree = mountWithStyles(
+    const tree = mount(
       <EditCell
-        column={{}}
         value={'test'}
         onValueChange={onValueChange}
       />,
@@ -48,14 +48,13 @@ describe('TableEditCell', () => {
   });
 
   it('should take column align into account', () => {
-    const { tree, classes } = mountWithStyles(
+    const tree = mount(
       <EditCell
-        column={{}}
         value={''}
         onValueChange={() => {}}
       />,
-      styleSheet,
     );
+    const classes = getClasses(styleSheet);
 
     const inputRoot = tree.find(Input);
     const input = inputRoot.find('input');
@@ -65,5 +64,23 @@ describe('TableEditCell', () => {
     tree.setProps({ column: { align: 'right' } });
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
     expect(input.hasClass(classes.inputRight)).toBeTruthy();
+  });
+
+  it('should pass style to the root element', () => {
+    const tree = mount(
+      <EditCell
+        value={'a'}
+        onValueChange={() => {}}
+        style={{
+          width: '40px',
+          height: '10px',
+        }}
+      />,
+    );
+    expect(tree.find('td').prop('style'))
+      .toMatchObject({
+        width: '40px',
+        height: '10px',
+      });
   });
 });

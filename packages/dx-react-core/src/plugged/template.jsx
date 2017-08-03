@@ -39,13 +39,7 @@ export class Template extends React.PureComponent {
     return null;
   }
 }
-Template.defaultProps = {
-  predicate: null,
-  connectGetters: null,
-  connectActions: null,
-  children: null,
-  position: () => NaN,
-};
+
 Template.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
@@ -58,6 +52,15 @@ Template.propTypes = {
     PropTypes.node,
   ]),
 };
+
+Template.defaultProps = {
+  predicate: null,
+  connectGetters: null,
+  connectActions: null,
+  children: null,
+  position: null,
+};
+
 Template.contextTypes = {
   pluginHost: PropTypes.object.isRequired,
 };

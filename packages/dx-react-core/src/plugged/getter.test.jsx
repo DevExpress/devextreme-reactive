@@ -133,14 +133,16 @@ describe('Getter', () => {
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (
-          <Template
-            name="root"
-            connectGetters={getter => ({
-              prop: getter('test'),
-            })}
-          >
-            {({ prop }) => <h1>{prop}</h1>}
-          </Template>
+          <PluginContainer>
+            <Template
+              name="root"
+              connectGetters={getter => ({
+                prop: getter('test'),
+              })}
+            >
+              {({ prop }) => <h1>{prop}</h1>}
+            </Template>
+          </PluginContainer>
         );
       }
     }
@@ -158,7 +160,7 @@ describe('Getter', () => {
 
     const tree = mount(
       <Test text="extended" />,
-        );
+    );
     tree.setProps({ text: 'new' });
 
     expect(tree.find('h1').text()).toBe('new');

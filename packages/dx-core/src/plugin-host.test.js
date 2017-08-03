@@ -80,6 +80,81 @@ describe('PluginHost', () => {
       host.registerPlugin(plugin3);
       expect(host.collect('something')).toEqual([1, 2, 3]);
     });
+
+    it('should validate dependencies after a pluginContainer was registered', () => {
+      const plugin1 = {
+        position: () => [0],
+        pluginName: 'Plugin1',
+        dependencies: [],
+        container: true,
+      };
+      const plugin2 = {
+        position: () => [2],
+        pluginName: 'Plugin2',
+        dependencies: [
+          { pluginName: 'Plugin1' },
+          { pluginName: 'Plugin3' },
+          { pluginName: 'Plugin4', optional: true },
+        ],
+        container: true,
+      };
+
+      expect(() => {
+        host.registerPlugin(plugin1);
+        host.collect();
+      }).not.toThrow();
+      expect(() => {
+        host.registerPlugin(plugin2);
+        host.collect();
+      }).toThrow(/Plugin2.*Plugin3/);
+    });
+
+    it('should validate optional dependencies after a pluginContainer was registered', () => {
+      const plugin1 = {
+        position: () => [1],
+        pluginName: 'Plugin1',
+        dependencies: [
+          { pluginName: 'Plugin2', optional: true },
+        ],
+        container: true,
+      };
+      const plugin2 = {
+        position: () => [2],
+        pluginName: 'Plugin2',
+        dependencies: [],
+        container: true,
+      };
+
+      host.registerPlugin(plugin1);
+
+      expect(() => {
+        host.registerPlugin(plugin2);
+        host.collect();
+      }).toThrow(/Plugin1.*Plugin2/);
+    });
+
+    it('should validate dependencies after a pluginContainer was unregistered', () => {
+      const plugin1 = {
+        position: () => [0],
+        pluginName: 'Plugin1',
+        dependencies: [],
+        container: true,
+      };
+      const plugin2 = {
+        position: () => [1],
+        pluginName: 'Plugin2',
+        dependencies: [{ pluginName: 'Plugin1' }],
+        container: true,
+      };
+
+      host.registerPlugin(plugin1);
+      host.registerPlugin(plugin2);
+
+      expect(() => {
+        host.unregisterPlugin(plugin1);
+        host.collect();
+      }).toThrow(/Plugin2.*Plugin1/);
+    });
   });
 
   describe('#registerSubscription', () => {

@@ -129,7 +129,7 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
-        length: 8,
+        length: 12,
       }),
       sorting: [],
       editingRows: [],
@@ -138,7 +138,7 @@ export default class Demo extends React.PureComponent {
       currentPage: 0,
       deletingRows: [],
       pageSize: 0,
-      allowedPageSizes: [5, 10, 15, 0],
+      allowedPageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 

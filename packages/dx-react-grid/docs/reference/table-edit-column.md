@@ -27,7 +27,7 @@ width | number &#124; string | 140 | Specifies the width of the edit column
 
 Describes properties passed to a data row's command cell template.
 
-Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -45,7 +45,7 @@ commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A compo
 
 Describes properties passed to a heading row's command cell template.
 
-Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------

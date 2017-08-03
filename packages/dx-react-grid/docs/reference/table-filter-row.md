@@ -22,7 +22,7 @@ filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement
 
 Describes properties passed to the filter row cell template.
 
-Extends [TableCellArgs](table-view.md#table-cell-args) with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------

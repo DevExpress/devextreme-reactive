@@ -25,14 +25,17 @@ export class Action extends React.PureComponent {
     return null;
   }
 }
+
 Action.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
   action: PropTypes.func.isRequired,
 };
+
 Action.defaultProps = {
-  position: () => NaN,
+  position: null,
 };
+
 Action.contextTypes = {
   pluginHost: PropTypes.object.isRequired,
 };

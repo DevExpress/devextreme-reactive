@@ -14,7 +14,7 @@ Install the dx-react-grid package and its dependencies using the following comma
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following ones:
+This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following:
 
 - Bootstrap 3
 
@@ -34,7 +34,7 @@ This package does not contain visual components. In the examples below, visual c
 
 ### Polyfills
 
-React Grid uses the latest web platform standards. Thus, it can not to support older browsers like IE11 and Andoid 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
+React Grid uses the latest web platform standards. Thus, it cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
 ### Using Grid component
 

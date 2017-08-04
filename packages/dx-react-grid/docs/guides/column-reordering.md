@@ -24,12 +24,12 @@ Enable end-user interactions:
 
 ## Uncontrolled Mode
 
-In the [uncontrolled state mode](controlled-and-uncontrolled-modes), specify the initial column order by the `defaultOrder` property of the `ColumnOrderState` plugin.
+In the [uncontrolled state mode](controlled-and-uncontrolled-modes.md), specify the initial column order by the `defaultOrder` property of the `ColumnOrderState` plugin.
 
 .embedded-demo(column-reordering/uncontrolled)
 
 ## Controlled Mode
 
-In the [controlled state mode](controlled-and-uncontrolled-modes), pass the column order to the `order` property of the `ColumnOrderState` plugin and handle the `onOrderChange` event to control the column order state.
+In the [controlled state mode](controlled-and-uncontrolled-modes.md), pass the column order to the `order` property of the `ColumnOrderState` plugin and handle the `onOrderChange` event to control the column order state.
 
 .embedded-demo(column-reordering/controlled)

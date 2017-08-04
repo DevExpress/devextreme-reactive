@@ -112,7 +112,7 @@ describe('TableGroupRow', () => {
     it('should render indent cell in a group column intersection with a foreign group row', () => {
       testIndentCell({
         cellParams: {
-          column: { type: 'groupColumn', group: { columnName: 'a' } },
+          column: { type: 'groupColumn', column: { name: 'a' } },
           row: { type: 'groupRow', column: { name: 'b' } },
         },
         shouldRender: true,
@@ -122,7 +122,7 @@ describe('TableGroupRow', () => {
     it('should render indent cell in a group column intersection with a data row', () => {
       testIndentCell({
         cellParams: {
-          column: { type: 'groupColumn', group: { columnName: 'a' } },
+          column: { type: 'groupColumn', column: { name: 'a' } },
           row: { id: 1 },
         },
         shouldRender: true,
@@ -132,7 +132,7 @@ describe('TableGroupRow', () => {
     it('should not render indent cell if it is undefined', () => {
       testIndentCell({
         cellParams: {
-          column: { type: 'groupColumn', group: { columnName: 'a' } },
+          column: { type: 'groupColumn', column: { name: 'a' } },
           row: { id: 1 },
         },
         template: null,

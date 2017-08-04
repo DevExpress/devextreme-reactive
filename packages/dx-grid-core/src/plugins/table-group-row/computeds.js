@@ -13,13 +13,15 @@ const tableColumnsWithDraftGrouping = (columns, grouping) => columns.reduce((acc
 
 export const tableColumnsWithGrouping = (columns, grouping,
   draftGrouping, groupIndentColumnWidth) => [
-    ...grouping.map(group =>
-      ({ type: 'groupColumn', id: group.columnName, group, width: groupIndentColumnWidth })),
+    ...grouping.map((columnGrouping) => {
+      const groupedColumn = columns.find(column => column.name === columnGrouping.columnName);
+      return { type: 'groupColumn', id: groupedColumn.name, column: groupedColumn, width: groupIndentColumnWidth };
+    }),
     ...tableColumnsWithDraftGrouping(columns, draftGrouping),
   ];
 
 export const tableRowsWithGrouping = rows =>
   rows.map((row) => {
     if (row.type !== 'groupRow') return row;
-    return { ...row, colSpanStart: `groupColumn_${row.column.name}` };
+    return { ...row, colSpanStart: `groupColumn_${row.groupedBy}` };
   });

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import { groupedColumns } from '@devexpress/dx-grid-core';
 
 export class GroupingPanel extends React.PureComponent {
   render() {
@@ -17,7 +18,8 @@ export class GroupingPanel extends React.PureComponent {
         <Template
           name="header"
           connectGetters={getter => ({
-            groupedColumns: getter('draftGroupedColumns'),
+            columns: getter('columns'),
+            grouping: getter('draftGrouping'),
             sorting: getter('sorting'),
           })}
           connectActions={action => ({
@@ -28,13 +30,14 @@ export class GroupingPanel extends React.PureComponent {
             cancelGroupingChange: () => action('cancelGroupingChange')(),
           })}
         >
-          {params => (
+          {({ columns, grouping, ...restParams }) => (
             <div>
               {groupPanelTemplate({
                 allowSorting,
                 allowDragging,
                 allowUngroupingByClick,
-                ...params,
+                groupedColumns: groupedColumns(columns, grouping),
+                ...restParams,
               })}
               <TemplatePlaceholder />
             </div>

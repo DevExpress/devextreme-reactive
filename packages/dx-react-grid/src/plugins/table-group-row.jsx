@@ -38,12 +38,13 @@ export class TableGroupRow extends React.PureComponent {
           name="tableViewCell"
           predicate={({ column, row }) => row.type === 'groupRow'
             && column.type === 'groupColumn'
-            && row.column.name === column.group.columnName}
+            && row.groupedBy === column.column.name}
           connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
-          {({ expandedGroups, toggleGroupExpanded, ...params }) => groupCellTemplate({
+          {({ expandedGroups, toggleGroupExpanded, column, ...params }) => groupCellTemplate({
             ...params,
+            column: column.column,
             isExpanded: expandedGroups.has(params.row.key),
             toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.row.key }),
           })}
@@ -55,7 +56,7 @@ export class TableGroupRow extends React.PureComponent {
               column.type === 'groupColumn'
               && (
                 !row.type
-                || (row.type === 'groupRow' && row.column.name !== column.group.columnName)
+                || (row.type === 'groupRow' && row.groupedBy !== column.column.name)
               )
             )}
           >

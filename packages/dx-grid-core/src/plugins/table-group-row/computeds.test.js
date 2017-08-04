@@ -23,13 +23,13 @@ describe('TableGroupRow Plugin computeds', () => {
       expect(columns[0]).toMatchObject({
         type: 'groupColumn',
         id: 'a',
-        group: { columnName: 'a' },
+        column: { name: 'a' },
         width: 123,
       });
       expect(columns[1]).toMatchObject({
         type: 'groupColumn',
         id: 'c',
-        group: { columnName: 'c' },
+        column: { name: 'c' },
         width: 123,
       });
       expect(columns[2]).toBe(allColumns[0]);
@@ -85,14 +85,14 @@ describe('TableGroupRow Plugin computeds', () => {
   describe('#tableRowsWithGrouping', () => {
     it('should add correct colSpanStart to group rows', () => {
       const rows = [
-        { type: 'groupRow', column: { name: 'a' } },
+        { type: 'groupRow', groupedBy: 'a' },
         {},
         {},
       ];
 
       expect(tableRowsWithGrouping(rows))
         .toEqual([
-          { type: 'groupRow', column: { name: 'a' }, colSpanStart: 'groupColumn_a' },
+          { type: 'groupRow', groupedBy: 'a', colSpanStart: 'groupColumn_a' },
           ...rows.slice(1),
         ]);
     });

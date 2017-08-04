@@ -6,6 +6,10 @@ export * from './plugins/filtering-state/reducers';
 export * from './plugins/filtering-state/helpers';
 export * from './plugins/filtering-state/computeds';
 
+export * from './plugins/grouping-local/computeds';
+
+export * from './plugins/grouping-panel/helpers';
+
 export * from './plugins/grouping-state/reducers';
 export * from './plugins/grouping-state/helpers';
 export * from './plugins/grouping-state/computeds';

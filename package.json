@@ -26,7 +26,7 @@
     "semver": "^5.3.0"
   },
   "scripts": {
-    "check-versions": "check-node-version --quiet --node '^6.11.1 || ^8.2.1' --npm '^5.3.0'",
+    "check-versions": "check-node-version --quiet --node \"^6.11.1 || ^8.2.1\" --npm \"^5.3.0\"",
     "postinstall": "npm run -s check-versions && lerna bootstrap --concurrency=1",
     "build": "lerna run build",
     "build:site": "npm run -s build:site:demos && npm run -s build:site:docs",

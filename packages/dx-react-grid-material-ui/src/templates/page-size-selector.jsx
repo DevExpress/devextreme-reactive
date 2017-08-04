@@ -15,7 +15,10 @@ const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
   },
   pageSizes: {
     display: 'inline-block',
-    minWidth: theme.spacing.unit * 5,
+  },
+  pageSizeTitle: {
+    width: 'auto',
+    marginRight: theme.spacing.unit / 2,
   },
   '@media (max-width: 768px)': {
     label: {
@@ -47,6 +50,7 @@ const PageSizeSelectorBase = ({
         onPageSizeChange(item);
       }}
       className={classes.pageSizes}
+      titleClassName={classes.pageSizeTitle}
     />
   </div>
 );

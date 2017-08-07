@@ -12,6 +12,7 @@ import {
 
 import {
   generateRows,
+  defaultColumnValues,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -25,25 +26,30 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 14,
+      }),
     };
 
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows.slice();
+      let rows = this.state.rows;
       if (added) {
-        rows = [...added, ...rows];
+        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+        rows = [
+          ...rows,
+          ...added.map((row, index) => ({
+            id: startingAddedId + index,
+            ...row,
+          })),
+        ];
       }
       if (changed) {
-        Object.keys(changed).forEach((key) => {
-          const index = Number(key);
-          const change = changed[index];
-          rows[index] = Object.assign({}, rows[index], change);
-        });
+        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
       if (deleted) {
-        deleted.forEach((index) => {
-          rows.splice(index, 1);
-        });
+        const deletedSet = new Set(deleted);
+        rows = rows.filter(row => !deletedSet.has(row.id));
       }
       this.setState({ rows });
     };
@@ -55,6 +61,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
+        getRowId={row => row.id}
       >
         <EditingState
           onCommitChanges={this.commitChanges}

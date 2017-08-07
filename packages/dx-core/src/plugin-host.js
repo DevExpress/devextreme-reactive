@@ -1,4 +1,7 @@
-import { sortPlugins } from './utils';
+import { insertPlugin } from './utils';
+
+const getDependencyError = (pluginName, dependencyName) =>
+  new Error(`The '${pluginName}' plugin requires '${dependencyName}' to be defined before it.`);
 
 export class PluginHost {
   constructor() {
@@ -6,8 +9,32 @@ export class PluginHost {
     this.subscriptions = [];
     this.gettersCache = {};
   }
+  ensureDependencies() {
+    const defined = new Set();
+    const unresolved = this.plugins
+      .slice()
+      .reverse()
+      .reduce((acc, plugin) => {
+        if (!plugin.pluginName) return acc;
+
+        defined.add(plugin.pluginName);
+        return [
+          ...acc.filter(item => item.dependencyName !== plugin.pluginName),
+          ...plugin.dependencies
+            .filter(dependency => !dependency.optional || defined.has(dependency.pluginName))
+            .map(dependency => ({
+              pluginName: plugin.pluginName,
+              dependencyName: dependency.pluginName,
+            })),
+        ];
+      }, [])[0];
+
+    if (unresolved) {
+      throw (getDependencyError(unresolved.pluginName, unresolved.dependencyName));
+    }
+  }
   registerPlugin(plugin) {
-    this.plugins.push(plugin);
+    this.plugins = insertPlugin(this.plugins, plugin);
     this.cleanPluginsCache();
   }
   unregisterPlugin(plugin) {
@@ -15,14 +42,15 @@ export class PluginHost {
     this.cleanPluginsCache();
   }
   cleanPluginsCache() {
-    this.unordered = true;
+    this.validationRequired = true;
     this.gettersCache = {};
   }
   collect(key, upTo) {
-    if (this.unordered) {
-      this.plugins = sortPlugins(this.plugins);
-      this.unordered = false;
+    if (this.validationRequired) {
+      this.ensureDependencies();
+      this.validationRequired = false;
     }
+
     if (!this.gettersCache[key]) {
       this.gettersCache[key] = this.plugins.map(plugin => plugin[key]).filter(plugin => !!plugin);
     }

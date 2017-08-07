@@ -43,32 +43,23 @@ export default class Demo extends React.PureComponent {
       this.setState({ addedRows: initialized });
     };
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows.slice();
+      let rows = this.state.rows;
       if (added) {
+        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [
+          ...rows,
           ...added.map((row, index) => ({
-            id: rows.length + index,
+            id: startingAddedId + index,
             ...row,
           })),
-          ...rows,
         ];
       }
       if (changed) {
-        Object.keys(changed).forEach((key) => {
-          const index = rows.findIndex(row => String(row.id) === key);
-          const change = changed[index];
-          if (index > -1) {
-            rows[index] = Object.assign({}, rows[index], change);
-          }
-        });
+        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
       if (deleted) {
-        deleted.forEach((rowId) => {
-          const index = rows.findIndex(row => row.id === rowId);
-          if (index > -1) {
-            rows.splice(index, 1);
-          }
-        });
+        const deletedSet = new Set(deleted);
+        rows = rows.filter(row => !deletedSet.has(row.id));
       }
       this.setState({ rows });
     };

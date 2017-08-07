@@ -2,26 +2,27 @@
 
 ## Overview
 
-The DevExtreme React Grid component has a composable and extendable plugin-based architecture that allows you to display table data with a set of different transformations, such as paging, sorting, filtering, grouping, etc. It also allows row selection and data editing, supports the controlled and uncontrolled state modes, and can be used in either a regular or a Redux-based application. It comes with Twitter Bootstrap rendering and theming out of the box.
+DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material UI rendering and theming out of the box.
 
-## Installation
+## Getting Started
 
-#### Install package
+### Installation
 
-Install this package with its dependencies using the following command:
+Install the dx-react-grid package and its dependencies using the following command:
 
 ```
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-This package does not contain visual components. In the examples below, the DevExtreme React Grid uses the Bootstrap 3 package to render visual components. However, you can use any of the following ones:
+This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following:
 
 - Bootstrap 3
 
   ```
   npm i --save @devexpress/dx-react-grid-bootstrap3
   ```
-  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and configured. check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article For configuration details.
+
+  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article for configuration details.
 
 - Material UI
 
@@ -29,13 +30,17 @@ This package does not contain visual components. In the examples below, the DevE
   npm i --save @devexpress/dx-react-grid-material-ui
   ```
 
-  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and configured. Check the [following link](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) if you have not configured the Material UI yet.
+  Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
 
-#### Add a Grid to your app:
+### Polyfills
 
-The Grid renders nothing by default. Plugin components, nested into the root Grid component, implement its functionality. You should specify at least one plugin that visualizes the data provided for the grid.
+React Grid uses the latest web platform standards. Thus, it cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
-You can use the TableView plugin to display data as a simple table:
+### Using Grid component
+
+The Grid renders nothing by default. The root Grid component's nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid data.
+
+Use the TableView plugin to display the data as a simple table:
 
 ```js
 import {
@@ -59,9 +64,16 @@ const App = () => (
 );
 ```
 
+### Try Out The React Grid
+
+Follow the links below to try out the React Grid:
+- [WebpackBin for Bootstrap3](https://www.webpackbin.com/bins/-KoCcFwPPtps5fEN0PkI)
+- [WebpackBin for Material UI](https://www.webpackbin.com/bins/-KoCeS-_jZrZuTecv-wd)
+
 ## Documentation
 
-[React Grid Documentation](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
+[Guides](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/)  
+[API Reference](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/)
 
 ## License
 

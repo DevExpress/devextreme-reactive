@@ -1,25 +1,47 @@
-const tableColumnsWithDraftGrouping = (columns, grouping) => columns.reduce((acc, column) => {
-  const currentColumn = grouping.find(g => (g.columnName === column.name));
-  if (!currentColumn) {
-    acc.push(column);
-  } else if (currentColumn.mode === 'remove' || currentColumn.mode === 'add') {
-    acc.push({
-      ...column,
-      isDraft: true,
-    });
-  }
-  return acc;
-}, []);
+import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { TABLE_GROUP_TYPE } from './constants';
 
-export const tableColumnsWithGrouping = (columns, grouping,
-  draftGrouping, groupIndentColumnWidth) => [
-    ...grouping.map(group =>
-      ({ type: 'groupColumn', id: group.columnName, group, width: groupIndentColumnWidth })),
-    ...tableColumnsWithDraftGrouping(columns, draftGrouping),
-  ];
+const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping) =>
+  tableColumns
+    .reduce((acc, tableColumn) => {
+      const columnDraftGrouping = draftGrouping
+        .find(grouping => (tableColumn.type === TABLE_DATA_TYPE
+          && grouping.columnName === tableColumn.column.name));
+      if (!columnDraftGrouping) {
+        return [...acc, tableColumn];
+      } else if (columnDraftGrouping.mode === 'remove' || columnDraftGrouping.mode === 'add') {
+        return [...acc, {
+          ...tableColumn,
+          isDraft: true,
+        }];
+      }
+      return acc;
+    }, []);
 
-export const tableRowsWithGrouping = rows =>
-  rows.map((row) => {
-    if (row.type !== 'groupRow') return row;
-    return { ...row, colSpanStart: `groupColumn_${row.column.name}` };
+export const tableColumnsWithGrouping = (
+  tableColumns, grouping, draftGrouping, groupIndentColumnWidth,
+) => [
+  ...grouping.map(group =>
+    ({
+      key: `${TABLE_GROUP_TYPE}_${group.columnName}`,
+      type: TABLE_GROUP_TYPE,
+      groupKey: group.columnName,
+      width: groupIndentColumnWidth,
+    })),
+  ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping),
+];
+
+export const tableRowsWithGrouping = tableRows =>
+  tableRows.map((tableRow) => {
+    if (tableRow.type !== TABLE_DATA_TYPE || tableRow.row.type !== 'groupRow') return tableRow;
+    const groupKey = tableRow.row.column.name;
+    const groupValue = tableRow.row.value;
+    return {
+      ...tableRow,
+      key: `${TABLE_GROUP_TYPE}_${groupKey}_${groupValue}`,
+      type: TABLE_GROUP_TYPE,
+      groupKey,
+      groupValue,
+      colSpanStart: `${TABLE_GROUP_TYPE}_${groupKey}`,
+    };
   });

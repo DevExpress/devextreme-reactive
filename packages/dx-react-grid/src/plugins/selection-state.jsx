@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setRowSelection, setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-grid-core';
+import { setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-grid-core';
 
 export class SelectionState extends React.PureComponent {
   constructor(props) {
@@ -27,15 +27,9 @@ export class SelectionState extends React.PureComponent {
         pluginName="SelectionState"
       >
         <Action
-          name="setRowSelection"
-          action={({ rowId }) => {
-            this.changeSelection(setRowSelection(selection, { rowId }));
-          }}
-        />
-        <Action
           name="setRowsSelection"
-          action={({ rowIds }) => {
-            this.changeSelection(setRowsSelection(selection, { rowIds }));
+          action={({ rowIds, selected }) => {
+            this.changeSelection(setRowsSelection(selection, { rowIds, selected }));
           }}
         />
 

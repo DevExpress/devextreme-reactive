@@ -37,26 +37,18 @@ removeSync(GENERATED_SITE_DIRECTORY);
 console.log('Generating site...');
 execSync(`bundle exec jekyll build --source ${SITE_DIRECTORY} --destination ${GENERATED_SITE_DIRECTORY}`, { cwd: SITE_DIRECTORY, stdio: 'ignore' });
 
-console.log('Coping github staff...');
+console.log('Copying github staff...');
 copySync(join(__dirname, 'gh-pages-files'), GENERATED_SITE_DIRECTORY);
 
 console.log('Publishing...');
-publish(GENERATED_SITE_DIRECTORY, {
-  branch: BRANCH,
-  repo: `https://github.com/${REPO}.git`,
-  message: COMMIT_MESSAGE,
-  src: ['**/*', '.gitattributes'],
-}, (err) => {
-  if (err) {
-    console.log(String(err));
-    return;
-  }
+execSync(`git add ${GENERATED_SITE_DIRECTORY}`);
+execSync(`git commit -m "${COMMIT_MESSAGE}"`);
+execSync(`git subtree push --prefix ${GENERATED_SITE_DIRECTORY} https://github.com/${REPO}.git ${BRANCH}`);
 
-  console.log();
-  console.log('--------------------');
-  console.log('Done!');
-  console.log();
-  console.log(`You have to check that everething is good at https://devexpress.github.io/devextreme-reactive/`);
-  console.log('--------------------');
-  console.log();
-});
+console.log();
+console.log('--------------------');
+console.log('Done!');
+console.log();
+console.log(`You have to check that everything is good at https://devexpress.github.io/devextreme-reactive/`);
+console.log('--------------------');
+console.log();

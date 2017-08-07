@@ -1,6 +1,6 @@
 # SelectionState Plugin Reference
 
-A plugin that manages selection state.
+A plugin that manages the selection state.
 
 ## User Reference
 

@@ -1,13 +1,30 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { setupConsole } from '@devexpress/dx-testing';
-import {
-  Template, TemplatePlaceholder,
-  PluginHost, Getter, Action,
-} from '@devexpress/dx-react-core';
-
+import { pageCount } from '@devexpress/dx-grid-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import { PagingPanel } from './paging-panel';
+import { pluginDepsToComponents } from './test-utils';
+
+jest.mock('@devexpress/dx-grid-core', () => ({
+  pageCount: jest.fn(),
+}));
+
+const defaultDeps = {
+  getter: {
+    currentPage: 1,
+    pageSize: 2,
+    totalCount: 21,
+  },
+  action: {
+    setCurrentPage: jest.fn(),
+    setPageSize: jest.fn(),
+  },
+  template: {
+    footer: {},
+  },
+  plugins: ['PagingState'],
+};
 
 describe('PagingPanel', () => {
   let resetConsole;
@@ -18,34 +35,28 @@ describe('PagingPanel', () => {
     resetConsole();
   });
 
+  beforeEach(() => {
+    pageCount.mockImplementation(() => 11);
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it('should render the "pagerTemplate" template in the "footer" template placeholder', () => {
-    const pagerTemplateMock = jest.fn().mockReturnValue(null);
-    const setCurrentPageMock = jest.fn();
-    const setPageSizeMock = jest.fn();
+    const pagerTemplate = jest.fn().mockReturnValue(null);
+    const deps = {};
 
     mount(
       <PluginHost>
-        <Template name="root">
-          <TemplatePlaceholder
-            name="footer"
-          />
-        </Template>
-
-        <Getter name="currentPage" value={1} />
-        <Getter name="pageSize" value={2} />
-        <Getter name="totalCount" value={21} />
-
-        <Action name="setCurrentPage" action={setCurrentPageMock} />
-        <Action name="setPageSize" action={setPageSizeMock} />
-
+        {pluginDepsToComponents(defaultDeps, deps)}
         <PagingPanel
-          pagerTemplate={pagerTemplateMock}
+          pagerTemplate={pagerTemplate}
           allowedPageSizes={[3, 5, 0]}
         />
       </PluginHost>,
     );
 
-    expect(pagerTemplateMock.mock.calls[0][0])
+    expect(pagerTemplate.mock.calls[0][0])
       .toMatchObject({
         currentPage: 1,
         pageSize: 2,
@@ -54,12 +65,12 @@ describe('PagingPanel', () => {
         allowedPageSizes: [3, 5, 0],
       });
 
-    pagerTemplateMock.mock.calls[0][0].onCurrentPageChange(3);
-    expect(setCurrentPageMock.mock.calls)
+    pagerTemplate.mock.calls[0][0].onCurrentPageChange(3);
+    expect(defaultDeps.action.setCurrentPage.mock.calls)
       .toEqual([[3]]);
 
-    pagerTemplateMock.mock.calls[0][0].onPageSizeChange(3);
-    expect(setPageSizeMock.mock.calls)
+    pagerTemplate.mock.calls[0][0].onPageSizeChange(3);
+    expect(defaultDeps.action.setPageSize.mock.calls)
       .toEqual([[3]]);
   });
 });

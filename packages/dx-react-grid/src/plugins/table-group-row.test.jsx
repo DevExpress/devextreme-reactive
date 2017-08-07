@@ -36,6 +36,7 @@ const defaultDeps = {
       style: {},
     },
   },
+  plugins: ['GroupingState', 'TableView'],
 };
 
 const defaultProps = {
@@ -67,7 +68,6 @@ describe('TableGroupRow', () => {
 
   describe('table layout getters extending', () => {
     it('should extend tableBodyRows', () => {
-      tableRowsWithGrouping.mockImplementation(() => 'tableRowsWithGrouping');
       const deps = {};
 
       mount(
@@ -86,7 +86,6 @@ describe('TableGroupRow', () => {
     });
 
     it('should extend tableColumns', () => {
-      tableColumnsWithGrouping.mockImplementation(() => 'tableColumnsWithGrouping');
       const deps = {};
 
       mount(
@@ -110,7 +109,7 @@ describe('TableGroupRow', () => {
     });
   });
 
-  it('should render groupIndent cell on select group column and foregn group row intersection', () => {
+  it('should render groupIndent cell on select group column and foreign group row intersection', () => {
     isGroupIndentTableCell.mockImplementation(() => true);
     const groupIndentCellTemplate = jest.fn(() => null);
 

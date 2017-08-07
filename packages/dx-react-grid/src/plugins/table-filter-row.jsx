@@ -15,7 +15,7 @@ export class TableFilterRow extends React.PureComponent {
       <PluginContainer
         pluginName="TableFilterRow"
         dependencies={[
-          { pluginName: 'SelectionState' },
+          { pluginName: 'FilteringState' },
           { pluginName: 'TableView' },
         ]}
       >

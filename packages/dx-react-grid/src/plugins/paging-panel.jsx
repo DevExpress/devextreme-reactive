@@ -24,8 +24,8 @@ export class PagingPanel extends React.PureComponent {
             };
           }}
           connectActions={action => ({
-            onCurrentPageChange: page => action('setCurrentPage')({ page }),
-            onPageSizeChange: size => action('setPageSize')({ size }),
+            onCurrentPageChange: page => action('setCurrentPage')(page),
+            onPageSizeChange: size => action('setPageSize')(size),
           })}
         >
           {params => (

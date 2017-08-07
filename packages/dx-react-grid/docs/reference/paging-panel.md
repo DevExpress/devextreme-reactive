@@ -43,8 +43,8 @@ Name | Plugin | Type | Description
 currentPage | Getter | number | The current page
 pageSize | Getter | number | The count of rows to be shown on a single page
 totalCount | Getter | number | The total row count
-setCurrentPage | Action | ({ page: number }) => void | Changes the current page
-setPageSize | Action | ({ size: number }) => void | Changes the page size
+setCurrentPage | Action | (page: number) => void | Changes the current page
+setPageSize | Action | (size: number) => void | Changes the page size
 footer | Template | Object? | A template that renders the grid footer
 
 ### Exports

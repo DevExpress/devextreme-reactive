@@ -4,9 +4,9 @@ Use appropriate state management plugins (plugins that ends whith "...State", e.
 
 ## Controlled Mode
 
-In the controlled mode, the Grid's state is managed inside a Grid's parent component. Refer to the [React documnetation](https://facebook.github.io/react/docs/forms.html#controlled-components) for more information about controlled components concept.
+In the controlled mode, the Grid's state is managed outside of the Grid (e.g. in the parent component, Redux store, etc.). Refer to the [React documnetation](https://facebook.github.io/react/docs/forms.html#controlled-components) for more information about controlled components concept.
 
-The controlled mode enables you to access the Grid's state from another application parts, e.g. you can persist the state and restore it when required, or change it via an external UI.
+The controlled mode enables you to access the Grid's state from another application parts. For example, you can persist the state and restore it when required, or change it via an external UI.
 
 Use the appropriate state management plugin properties to set the Grid's configuration and handle configuration changes a user makes via the Grid's UI. In the example below, sorting configuration is passed to the the `SortingState` plugin's `sorting` property and sorting configuration changes are handled by the function passed to the `onSortingChanged` property.
 

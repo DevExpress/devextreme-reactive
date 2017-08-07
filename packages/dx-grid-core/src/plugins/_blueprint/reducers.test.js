@@ -1,5 +1,5 @@
 import {
-    pureReducer,
+  pureReducer,
 } from './reducers';
 
 describe('Plugin reducers', () => {

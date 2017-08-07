@@ -1,70 +1,59 @@
+import { TABLE_SELECT_TYPE } from './constants';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
 import {
-    tableColumnsWithSelection,
-    tableBodyRowsWithSelection,
-    tableExtraProps,
+  tableColumnsWithSelection,
+  tableRowsWithSelection,
+  tableExtraPropsWithSelection,
 } from './computeds';
 
 describe('TableSelection Plugin computeds', () => {
   describe('#tableColumnsWithSelection', () => {
-    const tableColumns = [
-      { name: 'a' },
-      { name: 'b' },
-    ];
-
     it('should work', () => {
-      const columns = tableColumnsWithSelection(tableColumns, 123);
-
-      expect(columns).toHaveLength(3);
-      expect(columns[0]).toMatchObject({ type: 'select', name: 'select', width: 123 });
-      expect(columns[1]).toBe(tableColumns[0]);
-      expect(columns[2]).toBe(tableColumns[1]);
+      expect(tableColumnsWithSelection([{}], 123))
+        .toEqual([
+          { key: TABLE_SELECT_TYPE, type: TABLE_SELECT_TYPE, width: 123 },
+          {},
+        ]);
     });
   });
 
-  describe('#tableBodyRowsWithSelection', () => {
+  describe('#tableRowsWithSelection', () => {
     const bodyRows = [
-      { field: 'a' },
-      { field: 'b' },
-      { field: 'c' },
+      { type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' } },
+      { type: TABLE_DATA_TYPE, rowId: 1, row: { field: 'b' } },
+      { type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' } },
+      { type: 'undefined', rowId: 2, row: { field: 'c' } },
     ];
     const selection = [0, 2];
-    const getRowId = row => bodyRows.findIndex(item => item.field === row.field);
 
     it('should work', () => {
-      const selectedRows = tableBodyRowsWithSelection(bodyRows, selection, getRowId);
+      const selectedRows = tableRowsWithSelection(bodyRows, selection);
 
-      expect(selectedRows).toHaveLength(3);
-      expect(selectedRows[0]).toMatchObject({ selected: true, _originalRow: bodyRows[0], field: 'a' });
-      expect(selectedRows[1]).toBe(bodyRows[1]);
-      expect(selectedRows[2]).toMatchObject({ selected: true, _originalRow: bodyRows[2], field: 'c' });
+      expect(selectedRows)
+        .toEqual([
+          { type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' }, selected: true },
+          { type: TABLE_DATA_TYPE, rowId: 1, row: { field: 'b' } },
+          { type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' }, selected: true },
+          { type: 'undefined', rowId: 2, row: { field: 'c' } },
+        ]);
     });
   });
 
-  describe('#tableExtraProps', () => {
-    const rows = [
-      { name: 'a' },
-      { name: 'b' },
-      { name: 'c' },
-    ];
-
-    const getRowId = row => rows.findIndex(item => row.name === item.name);
+  describe('#tableExtraPropsWithSelection', () => {
     const setRowSelectionMock = jest.fn();
     const setRowSelectionCalls = setRowSelectionMock.mock.calls;
     const existingExtraProps = { a: 1 };
-    const availableToSelect = [0, 2];
 
     it('should work', () => {
-      const extraProps = tableExtraProps(
+      const extraProps = tableExtraPropsWithSelection(
         existingExtraProps,
-        availableToSelect,
         setRowSelectionMock,
-        getRowId,
       );
       const extraPropsKeys = Object.keys(extraProps);
 
-      extraProps.onClick({ row: { name: 'a' } });
-      extraProps.onClick({ row: { name: 'b' } });
-      extraProps.onClick({ row: { name: 'c' } });
+      extraProps.onClick({ tableRow: { type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' } } });
+      extraProps.onClick({ tableRow: { type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' } } });
+      extraProps.onClick({ tableRow: { type: 'undefined', rowId: 3, row: { field: 'c' } } });
 
       expect(extraPropsKeys).toHaveLength(2);
       expect(extraPropsKeys[0]).toBe('a');

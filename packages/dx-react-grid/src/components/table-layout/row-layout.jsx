@@ -6,13 +6,12 @@ import {
 } from '@devexpress/dx-react-core';
 
 import {
-  tableColumnKeyGetter,
   getTableRowColumnsWithColSpan,
 } from '@devexpress/dx-grid-core';
 
-const getColumnStyle = ({ column, animationState = {} }) => ({
+const getColumnStyle = ({ column }) => ({
   width: column.width !== undefined ? `${column.width}px` : undefined,
-  ...animationState,
+  ...column.animationState,
 });
 
 const getRowStyle = ({ row }) => ({
@@ -26,7 +25,6 @@ export class RowLayout extends React.PureComponent {
       columns,
       rowTemplate,
       cellTemplate,
-      animationState,
     } = this.props;
 
     return (
@@ -37,19 +35,16 @@ export class RowLayout extends React.PureComponent {
       >
         {
           getTableRowColumnsWithColSpan(columns, row.colSpanStart)
-            .map(({ original: column, colspan }, columnIndex) => {
-              const key = tableColumnKeyGetter(column, columnIndex);
-              return (
-                <TemplateRenderer
-                  key={key}
-                  template={cellTemplate}
-                  row={row}
-                  column={column}
-                  style={getColumnStyle({ column, animationState: animationState.get(key) })}
-                  {...colspan ? { colspan } : null}
-                />
-              );
-            })
+            .map(column => (
+              <TemplateRenderer
+                key={column.key}
+                template={cellTemplate}
+                tableRow={row}
+                tableColumn={column}
+                style={getColumnStyle({ column })}
+                {...column.colspan ? { colspan: column.colspan } : null}
+              />
+            ))
         }
       </TemplateRenderer>
     );
@@ -61,5 +56,4 @@ RowLayout.propTypes = {
   columns: PropTypes.array.isRequired,
   rowTemplate: PropTypes.func.isRequired,
   cellTemplate: PropTypes.func.isRequired,
-  animationState: PropTypes.instanceOf(Map).isRequired,
 };

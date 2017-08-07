@@ -3,14 +3,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-
 import {
   DropTarget,
   TemplateRenderer,
 } from '@devexpress/dx-react-core';
-
 import {
-  tableColumnKeyGetter,
+  TABLE_DATA_TYPE,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,
@@ -20,7 +18,7 @@ import {
 
 import { RowsBlockLayout } from './table-layout/rows-block-layout';
 
-const FLEX_TYPE = 'flex';
+const TABLE_FLEX_TYPE = 'flex';
 
 export class TableLayout extends React.PureComponent {
   constructor(props) {
@@ -41,14 +39,14 @@ export class TableLayout extends React.PureComponent {
 
     this.getColumns = () => {
       const { columns } = this.props;
-      const { sourceColumnIndex, targetColumnIndex } = this.state;
+      const { sourceColumnIndex, targetColumnIndex, animationState } = this.state;
 
       let result = columns;
 
       const isFixedWidth = columns.filter(column => column.width === undefined).length === 0;
       if (isFixedWidth) {
         result = result.slice();
-        result.push({ type: FLEX_TYPE });
+        result.push({ key: TABLE_FLEX_TYPE, type: TABLE_FLEX_TYPE });
       }
 
       if (sourceColumnIndex !== -1 && targetColumnIndex !== -1) {
@@ -56,6 +54,13 @@ export class TableLayout extends React.PureComponent {
         const sourceColumn = columns[sourceColumnIndex];
         result.splice(sourceColumnIndex, 1);
         result.splice(targetColumnIndex, 0, sourceColumn);
+      }
+
+      if (animationState.size) {
+        result = result
+          .map(column => (animationState.has(column.key)
+            ? { ...column, animationState: animationState.get(column.key) }
+            : column));
       }
 
       return result;
@@ -67,23 +72,25 @@ export class TableLayout extends React.PureComponent {
       const columnGeometries = getTableColumnGeometries(columns, tableRect.width);
       const targetColumnIndex = getTableTargetColumnIndex(
         columnGeometries,
-        columns.findIndex(c => c.name === sourceColumnName),
+        columns.findIndex(column =>
+          column.type === TABLE_DATA_TYPE && column.column.name === sourceColumnName),
         clientOffset.x - tableRect.left);
 
       if (targetColumnIndex === -1 ||
-        columns[targetColumnIndex].type ||
+        columns[targetColumnIndex].type !== TABLE_DATA_TYPE ||
         targetColumnIndex === this.state.targetColumnIndex) return;
 
       const { sourceColumnIndex } = this.state;
       this.setState({
         sourceColumnIndex: sourceColumnIndex === -1
-          ? columns.findIndex(c => c.name === sourceColumnName)
+          ? columns.findIndex(column =>
+            column.type === TABLE_DATA_TYPE && column.column.name === sourceColumnName)
           : sourceColumnIndex,
         targetColumnIndex,
       });
 
       this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
-        tableColumnKeyGetter(this.props.columns[this.state.sourceColumnIndex]), this.animations);
+        this.props.columns[this.state.sourceColumnIndex].key, this.animations);
       this.processAnimationFrame();
     };
     this.onLeave = () => {
@@ -100,7 +107,7 @@ export class TableLayout extends React.PureComponent {
       if (sourceColumnIndex === -1) return;
 
       this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
-        tableColumnKeyGetter(this.props.columns[sourceColumnIndex]), this.animations);
+        this.props.columns[sourceColumnIndex].key, this.animations);
       this.processAnimationFrame();
     };
     this.onDrop = () => {
@@ -108,8 +115,8 @@ export class TableLayout extends React.PureComponent {
       const { columns } = this.props;
 
       this.props.setColumnOrder({
-        sourceColumnName: columns[sourceColumnIndex].name,
-        targetColumnName: columns[targetColumnIndex].name,
+        sourceColumnName: columns[sourceColumnIndex].column.name,
+        targetColumnName: columns[targetColumnIndex].column.name,
       });
       this.setState({
         sourceColumnIndex: -1,
@@ -144,7 +151,6 @@ export class TableLayout extends React.PureComponent {
     const {
       headerRows,
       rows,
-      getRowId,
       minColumnWidth,
       tableTemplate,
       headTemplate,
@@ -156,10 +162,9 @@ export class TableLayout extends React.PureComponent {
       className,
       style,
     } = this.props;
-    const { animationState } = this.state;
     const columns = this.getColumns();
     const minWidth = columns
-      .map(column => column.width || (column.type === FLEX_TYPE ? 0 : minColumnWidth))
+      .map(column => column.width || (column.type === TABLE_FLEX_TYPE ? 0 : minColumnWidth))
       .reduce((accum, width) => accum + width, 0);
 
     const table = (
@@ -178,26 +183,22 @@ export class TableLayout extends React.PureComponent {
               <RowsBlockLayout
                 key="head"
                 rows={headerRows}
-                getRowId={getRowId}
                 columns={columns}
                 blockTemplate={headTemplate}
                 rowTemplate={rowTemplate}
                 cellTemplate={cellTemplate}
                 onClick={onClick}
-                animationState={animationState}
               />
             )]
           ),
           <RowsBlockLayout
             key="body"
             rows={rows}
-            getRowId={getRowId}
             columns={columns}
             blockTemplate={bodyTemplate}
             rowTemplate={rowTemplate}
             cellTemplate={cellTemplate}
             onClick={onClick}
-            animationState={animationState}
           />,
         ]}
       </TemplateRenderer>
@@ -229,7 +230,6 @@ export class TableLayout extends React.PureComponent {
 TableLayout.propTypes = {
   headerRows: PropTypes.array,
   rows: PropTypes.array.isRequired,
-  getRowId: PropTypes.func.isRequired,
   columns: PropTypes.array.isRequired,
   minColumnWidth: PropTypes.number,
   tableTemplate: PropTypes.func.isRequired,

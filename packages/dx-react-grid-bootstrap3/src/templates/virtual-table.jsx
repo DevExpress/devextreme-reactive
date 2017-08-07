@@ -74,7 +74,7 @@ export class VirtualTable extends React.Component {
             };
           }}
           itemTemplate={(columnIndex, _, style) =>
-            cellTemplate({ row, column: columnsWithColSpan[columnIndex].original, style })}
+            cellTemplate({ tableRow: row, tableColumn: columnsWithColSpan[columnIndex], style })}
         />
       );
     };

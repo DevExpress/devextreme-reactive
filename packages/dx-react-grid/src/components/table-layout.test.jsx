@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { DragDropContext, DropTarget } from '@devexpress/dx-react-core';
+import { TABLE_DATA_TYPE } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableLayout } from './table-layout';
@@ -58,28 +58,37 @@ describe('TableLayout', () => {
 
   const testTablePart = ({ tree, rows, columns }) => {
     const rowWrappers = tree.find('tr');
-    expect(rowWrappers.length).toBe(rows.length);
+    expect(rowWrappers).toHaveLength(rows.length);
     rows.forEach((row, rowIndex) => {
       const rowWrapper = rowWrappers.at(rowIndex);
       const rowData = rowWrapper.children(PropsContainer).props();
 
-      expect(rowData.row).toBe(row);
+      expect(rowData.row).toMatchObject(row);
 
       const columnWrappers = rowWrapper.find('td');
-      expect(columnWrappers.length).toBe(columns.length);
+      expect(columnWrappers).toHaveLength(columns.length);
       columns.forEach((column, columnIndex) => {
         const columnWrapper = columnWrappers.at(columnIndex);
         const columnData = columnWrapper.children(PropsContainer).props();
 
-        expect(columnData.row).toBe(row);
-        expect(columnData.column).toBe(column);
+        expect(columnData.tableRow).toMatchObject(row);
+        expect(columnData.tableColumn).toMatchObject(column);
       });
     });
   };
 
   it('should render table with rows and columns', () => {
-    const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
-    const columns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
+    const rows = [
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+      { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE, rowId: 3 },
+    ];
+    const columns = [
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
+      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
+    ];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -88,7 +97,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
       />,
     );
 
@@ -96,8 +104,17 @@ describe('TableLayout', () => {
   });
 
   it('should render table with headerRows and columns', () => {
-    const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
-    const columns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
+    const rows = [
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+      { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE, rowId: 3 },
+    ];
+    const columns = [
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
+      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
+    ];
     const tree = mount(
       <TableLayout
         headerRows={rows}
@@ -108,7 +125,6 @@ describe('TableLayout', () => {
         headTemplate={headTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
       />,
     );
 
@@ -116,8 +132,16 @@ describe('TableLayout', () => {
   });
 
   it('should span columns if specified', () => {
-    const rows = [{ id: 1, colSpanStart: 0 }, { id: 2, colSpanStart: 1 }];
-    const columns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
+    const rows = [
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, colSpanStart: 0 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2, colSpanStart: 1 },
+    ];
+    const columns = [
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
+      { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
+    ];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -126,7 +150,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
       />,
     );
 
@@ -143,8 +166,14 @@ describe('TableLayout', () => {
   });
 
   it('should have correct styles', () => {
-    const rows = [{ id: 1, height: 100 }, { id: 2 }];
-    const columns = [{ name: 'a', width: 100 }, { name: 'b' }];
+    const rows = [
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+    ];
+    const columns = [
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+    ];
     const tree = mount(
       <TableLayout
         rows={rows}
@@ -154,7 +183,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
       />,
     );
 
@@ -180,8 +208,14 @@ describe('TableLayout', () => {
   });
 
   it('should handle click in body', () => {
-    const rows = [{ id: 1 }, { id: 2 }];
-    const columns = [{ name: 'a' }, { name: 'b' }];
+    const rows = [
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+    ];
+    const columns = [
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+    ];
     const onClick = jest.fn();
     const tree = mount(
       <TableLayout
@@ -192,7 +226,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
         onClick={onClick}
       />,
     );
@@ -200,12 +233,18 @@ describe('TableLayout', () => {
     tree.find('tr').at(1).find('td').at(1)
       .simulate('click');
     expect(onClick.mock.calls[0][0])
-      .toMatchObject({ row: rows[1], column: columns[1], e: {} });
+      .toMatchObject({ tableRow: rows[1], tableColumn: columns[1], e: {} });
   });
 
   it('should handle click in head', () => {
-    const rows = [{ id: 1 }, { id: 2 }];
-    const columns = [{ name: 'a' }, { name: 'b' }];
+    const rows = [
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+    ];
+    const columns = [
+      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+    ];
     const onClick = jest.fn();
     const tree = mount(
       <TableLayout
@@ -218,7 +257,6 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-        getRowId={row => row.id}
         onClick={onClick}
       />,
     );
@@ -226,13 +264,19 @@ describe('TableLayout', () => {
     tree.find('tr').at(1).find('td').at(1)
       .simulate('click');
     expect(onClick.mock.calls[0][0])
-      .toMatchObject({ row: rows[1], column: columns[1], e: {} });
+      .toMatchObject({ tableRow: rows[1], tableColumn: columns[1], e: {} });
   });
 
   describe('flex column', () => {
     it('should add flex column if all columns have fixed widths', () => {
-      const rows = [{ id: 1 }, { id: 2 }];
-      const columns = [{ name: 'a', width: 100 }, { name: 'b', width: 100 }];
+      const rows = [
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+      ];
+      const columns = [
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
+        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' }, width: 100 },
+      ];
       const tree = mount(
         <TableLayout
           rows={rows}
@@ -241,7 +285,6 @@ describe('TableLayout', () => {
           bodyTemplate={bodyTemplateMock}
           rowTemplate={rowTemplateMock}
           cellTemplate={cellTemplateMock}
-          getRowId={row => row.id}
         />,
       );
 
@@ -273,8 +316,14 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ id: 1 }, { id: 2 }];
-      const columns = [{ name: 'a' }, { name: 'b' }];
+      const rows = [
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+      ];
+      const columns = [
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      ];
       const tree = mount(
         <DragDropContext>
           <TableLayout
@@ -284,7 +333,6 @@ describe('TableLayout', () => {
             bodyTemplate={bodyTemplateMock}
             rowTemplate={rowTemplateMock}
             cellTemplate={cellTemplateMock}
-            getRowId={row => row.id}
             allowColumnReordering
           />
         </DragDropContext>,
@@ -300,8 +348,14 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ id: 1 }, { id: 2 }];
-      const columns = [{ name: 'a' }, { name: 'b' }];
+      const rows = [
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+      ];
+      const columns = [
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      ];
       const tree = mount(
         <DragDropContext>
           <TableLayout
@@ -311,7 +365,6 @@ describe('TableLayout', () => {
             bodyTemplate={bodyTemplateMock}
             rowTemplate={rowTemplateMock}
             cellTemplate={cellTemplateMock}
-            getRowId={row => row.id}
             allowColumnReordering
           />
         </DragDropContext>,
@@ -328,8 +381,14 @@ describe('TableLayout', () => {
       getRect.mockImplementation(() =>
         ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
 
-      const rows = [{ id: 1 }, { id: 2 }];
-      const columns = [{ name: 'a' }, { name: 'b' }];
+      const rows = [
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+      ];
+      const columns = [
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      ];
       const setColumnOrder = jest.fn();
       const tree = mount(
         <DragDropContext>
@@ -341,7 +400,6 @@ describe('TableLayout', () => {
             bodyTemplate={bodyTemplateMock}
             rowTemplate={rowTemplateMock}
             cellTemplate={cellTemplateMock}
-            getRowId={row => row.id}
             allowColumnReordering
             setColumnOrder={setColumnOrder}
           />

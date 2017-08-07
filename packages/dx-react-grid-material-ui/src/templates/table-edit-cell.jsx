@@ -26,7 +26,7 @@ export const styleSheet = createStyleSheet('EditCell', theme => ({
   },
 }));
 
-const EditCellBase = ({ column, value, onValueChange, classes }) => {
+const EditCellBase = ({ column, value, onValueChange, style, classes }) => {
   const inputClasses = classNames(
     {
       [classes.inputRight]: column.align === 'right',
@@ -36,6 +36,7 @@ const EditCellBase = ({ column, value, onValueChange, classes }) => {
   return (
     <TableCell
       className={classes.cell}
+      style={style}
     >
       <Input
         className={classes.inputRoot}
@@ -47,13 +48,16 @@ const EditCellBase = ({ column, value, onValueChange, classes }) => {
   );
 };
 EditCellBase.propTypes = {
-  column: PropTypes.object.isRequired,
+  column: PropTypes.object,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
+  style: PropTypes.object,
   classes: PropTypes.object.isRequired,
 };
 EditCellBase.defaultProps = {
-  value: undefined,
+  column: {},
+  value: '',
+  style: {},
 };
 
 export const EditCell = withStyles(styleSheet)(EditCellBase);

@@ -129,7 +129,7 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
-        length: 200,
+        length: 12,
       }),
       sorting: [],
       editingRows: [],
@@ -137,8 +137,8 @@ export default class Demo extends React.PureComponent {
       changedRows: {},
       currentPage: 0,
       deletingRows: [],
-      pageSize: 10,
-      allowedPageSizes: [5, 10, 15],
+      pageSize: 0,
+      allowedPageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
@@ -159,30 +159,21 @@ export default class Demo extends React.PureComponent {
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows.slice();
+      let rows = this.state.rows;
       if (added) {
+        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [
+          ...rows,
           ...added.map((row, index) => ({
-            id: rows.length + index,
+            id: startingAddedId + index,
             ...row,
           })),
-          ...rows,
         ];
-        this.setState({ rows });
       }
       if (changed) {
-        Object.keys(changed).forEach((key) => {
-          const index = rows.findIndex(row => String(row.id) === key);
-          if (index > -1) {
-            const change = changed[key];
-            rows[index] = Object.assign({}, rows[index], change);
-          }
-        });
-        this.setState({ rows });
+        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      if (deleted) {
-        this.setState({ deletingRows: deleted });
-      }
+      this.setState({ rows, deletingRows: deleted || this.state.deletingRows });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = () => {

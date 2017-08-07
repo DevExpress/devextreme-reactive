@@ -24,12 +24,11 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | A function used to get a unique row identifier
-availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered, which are available for selection
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean  }) => void | A function that selects/deselects rows. To select/deselect a single row, use an array with a single item as the `rowIds` argument. The `selected` argument specifies whether selection should be added or removed
-availableToSelect | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered, which are available for selection
+availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows

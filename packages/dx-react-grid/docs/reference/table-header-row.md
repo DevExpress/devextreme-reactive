@@ -24,13 +24,9 @@ allowGroupingByClick | boolean | false | If true, it renders a component that to
 
 ## Interfaces
 
-### Column
+### <a name="column"></a>Column (Extension)
 
-Describes properties used to render the table header row.
-
-Extends [Column](grid.md#column)
-
-A value with the following shape:
+A value with the [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -40,10 +36,11 @@ title? | string | Specifies a table column title
 
 Describes properties used to render a table header cell.
 
-A value with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
+column | [Column](#column) | A column object
 allowSorting | boolean | If true, an end-user can change sorting by a column
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the column sort order
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) | Changes column sort direction. Keeps the existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
@@ -60,11 +57,11 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Table columns
+columns | Getter | Array&lt;[Column](#column)&gt; | Table columns
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object } | A template that renders a table cell
+tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
 ### Exports
 

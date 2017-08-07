@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-
-const withEditColumn = (tableColumns, width) => [{ type: 'edit', width }, ...tableColumns];
+import {
+  tableColumnsWithEditing,
+  isHeadingEditCommandsTableCell,
+  isDataEditCommandsTableCell,
+  isEditNewRowCommandsTableCell,
+  isEditExistingRowCommandsTableCell,
+} from '@devexpress/dx-grid-core';
 
 export class TableEditColumn extends React.PureComponent {
   render() {
@@ -19,7 +24,7 @@ export class TableEditColumn extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableColumns"
-          pureComputed={withEditColumn}
+          pureComputed={tableColumnsWithEditing}
           connectArgs={getter => [
             getter('tableColumns'),
             width,
@@ -27,96 +32,24 @@ export class TableEditColumn extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'heading' && column.type === 'edit'}
+          predicate={({ tableRow, tableColumn }) =>
+            isHeadingEditCommandsTableCell(tableRow, tableColumn)}
           connectActions={action => ({
             addRow: () => action('addRow')(),
           })}
         >
-          {({ row, column, addRow, style }) =>
+          {({ addRow, ...restParams }) =>
             headingCellTemplate({
-              row,
-              column,
               addRow: () => addRow(),
               commandTemplate,
               allowAdding,
-              style,
+              ...restParams,
             })}
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && !row.isNew && column.type === 'edit'}
-          connectGetters={(getter, { row }) => {
-            const originalRow = row._originalRow;
-            const rowId = getter('getRowId')(row);
-            return {
-              rowId,
-              row: originalRow,
-            };
-          }}
-          connectActions={action => ({
-            stopEditRows: ({ rowIds }) => action('stopEditRows')({ rowIds }),
-            cancelChangedRows: ({ rowIds }) => action('cancelChangedRows')({ rowIds }),
-            commitChangedRows: ({ rowIds }) => action('commitChangedRows')({ rowIds }),
-          })}
-        >
-          {({
-              rowId,
-              row,
-              column,
-              stopEditRows,
-              cancelChangedRows,
-              commitChangedRows,
-              style,
-            }) =>
-            cellTemplate({
-              row,
-              column,
-              cancelEditing: () => {
-                stopEditRows({ rowIds: [rowId] });
-                cancelChangedRows({ rowIds: [rowId] });
-              },
-              commitChanges: () => {
-                stopEditRows({ rowIds: [rowId] });
-                commitChangedRows({ rowIds: [rowId] });
-              },
-              isEditing: true,
-              commandTemplate,
-              style,
-            })}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && row.isNew && column.type === 'edit'}
-          connectGetters={(_, { row }) => ({
-            rowId: row.index,
-            row: row._originalRow,
-          })}
-          connectActions={action => ({
-            cancelAddedRows: ({ rowIds }) => action('cancelAddedRows')({ rowIds }),
-            commitAddedRows: ({ rowIds }) => action('commitAddedRows')({ rowIds }),
-          })}
-        >
-          {({ rowId, row, column, cancelAddedRows, commitAddedRows, style }) =>
-            cellTemplate({
-              row,
-              column,
-              cancelEditing: () => {
-                cancelAddedRows({ rowIds: [rowId] });
-              },
-              commitChanges: () => {
-                commitAddedRows({ rowIds: [rowId] });
-              },
-              isEditing: true,
-              commandTemplate,
-              style,
-            })}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ column, row }) => !row.type && column.type === 'edit'}
-          connectGetters={(getter, { row }) => ({
-            rowId: getter('getRowId')(row),
-          })}
+          predicate={({ tableRow, tableColumn }) =>
+            isDataEditCommandsTableCell(tableRow, tableColumn)}
           connectActions={action => ({
             startEditRows: ({ rowIds }) => action('startEditRows')({ rowIds }),
             deleteRows: ({ rowIds }) => {
@@ -125,18 +58,72 @@ export class TableEditColumn extends React.PureComponent {
             },
           })}
         >
-          {({ rowId, row, column, startEditRows, deleteRows, style }) =>
+          {({ startEditRows, deleteRows, ...restParams }) =>
             cellTemplate({
-              row,
-              column,
-              startEditing: () => startEditRows({ rowIds: [rowId] }),
-              deleteRow: () => deleteRows({ rowIds: [rowId] }),
+              row: restParams.tableRow.row,
+              startEditing: () => startEditRows({ rowIds: [restParams.tableRow.rowId] }),
+              deleteRow: () => deleteRows({ rowIds: [restParams.tableRow.rowId] }),
               commandTemplate,
               allowEditing,
               allowDeleting,
               isEditing: false,
-              style,
+              ...restParams,
             })}
+        </Template>
+        <Template
+          name="tableViewCell"
+          predicate={({ tableRow, tableColumn }) =>
+            isEditNewRowCommandsTableCell(tableRow, tableColumn)}
+          connectActions={action => ({
+            cancelAddedRows: ({ rowIds }) => action('cancelAddedRows')({ rowIds }),
+            commitAddedRows: ({ rowIds }) => action('commitAddedRows')({ rowIds }),
+          })}
+        >
+          {({ cancelAddedRows, commitAddedRows, ...restParams }) =>
+            cellTemplate({
+              row: restParams.tableRow.row,
+              cancelEditing: () => {
+                cancelAddedRows({ rowIds: [restParams.tableRow.rowId] });
+              },
+              commitChanges: () => {
+                commitAddedRows({ rowIds: [restParams.tableRow.rowId] });
+              },
+              isEditing: true,
+              commandTemplate,
+              ...restParams,
+            })}
+        </Template>
+        <Template
+          name="tableViewCell"
+          predicate={({ tableRow, tableColumn }) =>
+            isEditExistingRowCommandsTableCell(tableRow, tableColumn)}
+          connectActions={action => ({
+            stopEditRows: ({ rowIds }) => action('stopEditRows')({ rowIds }),
+            cancelChangedRows: ({ rowIds }) => action('cancelChangedRows')({ rowIds }),
+            commitChangedRows: ({ rowIds }) => action('commitChangedRows')({ rowIds }),
+          })}
+        >
+          {({
+            stopEditRows,
+            cancelChangedRows,
+            commitChangedRows,
+            ...restParams
+          }) =>
+          cellTemplate({
+            row: restParams.tableRow.row,
+            column: restParams.tableColumn.column,
+            cancelEditing: () => {
+              stopEditRows({ rowIds: [restParams.tableRow.rowId] });
+              cancelChangedRows({ rowIds: [restParams.tableRow.rowId] });
+            },
+            commitChanges: () => {
+              stopEditRows({ rowIds: [restParams.tableRow.rowId] });
+              commitChangedRows({ rowIds: [restParams.tableRow.rowId] });
+            },
+            isEditing: true,
+            commandTemplate,
+            ...restParams,
+          })}
         </Template>
       </PluginContainer>
     );

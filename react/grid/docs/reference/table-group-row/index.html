@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1500896235">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1500896235">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -68,7 +68,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">Controlled and Uncontrolled Modes</a></li>
           
 
         
@@ -351,7 +367,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="tablegrouprow-plugin-reference">TableGroupRow Plugin Reference</h1>
 
-<p>A plugin that renders group rows with the capability to expand and collapse them.</p>
+<p>A plugin that renders group rows. Provides the capability to expand and collapse them.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -390,7 +406,7 @@
       <td>groupIndentColumnWidth</td>
       <td>number</td>
       <td> </td>
-      <td>The group indent columns’ width</td>
+      <td>The group indent column’s width</td>
     </tr>
   </tbody>
 </table>
@@ -425,7 +441,7 @@
     <tr>
       <td>toggleGroupExpanded</td>
       <td>() =&gt; void</td>
-      <td>Toggles a group row’s expanded state</td>
+      <td>Toggles the group row’s expanded state</td>
     </tr>
   </tbody>
 </table>
@@ -460,7 +476,7 @@
 
 <h3 id="grouprow"><a name="group-row"></a>GroupRow</h3>
 
-<p>Describes a group row data structure.</p>
+<p>Describes the group row data structure.</p>
 
 <p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></p>
 
@@ -483,7 +499,7 @@
     <tr>
       <td>value</td>
       <td>any</td>
-      <td>A value that unites all the rows inside a group</td>
+      <td>The current group key value</td>
     </tr>
   </tbody>
 </table>
@@ -507,6 +523,12 @@
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
       <td>Table columns</td>
+    </tr>
+    <tr>
+      <td>tableBodyRows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
+      <td>Table body rows</td>
     </tr>
     <tr>
       <td>grouping</td>
@@ -535,7 +557,7 @@
     <tr>
       <td>tableViewCell</td>
       <td>Template</td>
-      <td>{ row: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>, column: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a> }</td>
+      <td>{ row: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>, column: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>, style?: Object, colspan?: number }</td>
       <td>A template that renders a table cell</td>
     </tr>
   </tbody>
@@ -557,7 +579,13 @@
       <td>tableColumns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Table columns including the ones by which the table is grouped</td>
+      <td>Table columns, including the ones by which the table is grouped</td>
+    </tr>
+    <tr>
+      <td>tableBodyRows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableRow</a>&gt;</td>
+      <td>Table body rows with modified group rows</td>
     </tr>
   </tbody>
 </table>
@@ -566,7 +594,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1500896235"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
 
 
     <footer>
@@ -604,7 +632,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1500896235"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
     <script>
         trackingCookie.check();
     </script>

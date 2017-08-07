@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>PagingPanel Plugin Reference - DevExtreme Reactive Components</title>
+    <title>React Grid - Plugin Overview - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,7 +68,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          <li>Plugin Overview</li>
           
 
         
@@ -339,7 +339,7 @@
           
 
           
-          <li>PagingPanel</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
           
 
         
@@ -365,162 +365,71 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="pagingpanel-plugin-reference">PagingPanel Plugin Reference</h1>
+        <h1 id="react-grid---plugin-overview">React Grid - Plugin Overview</h1>
 
-<p>A plugin that renders a panel, allowing end-users to navigate through data pages if Paging is enabled.</p>
-
-<h2 id="user-reference">User Reference</h2>
-
-<h3 id="dependencies">Dependencies</h3>
+<p>Plugins provide all the Grid functionality and can be divided into four logical groups:</p>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-state/">PagingState</a></li>
+  <li><strong>State Management plugins</strong>. Contain a part of the Grid state or obtain it from outside and can change the state in response to  specified user actions.</li>
+  <li><strong>Data Processing plugins</strong>. Transform data passed to the Grid component before rendering it.</li>
+  <li><strong>UI Plugins</strong>. Render transformed data using the current state and configuration. Also, these plugins can invoke actions the state management plugins provide to change the Grid state.</li>
+  <li><strong>Core Plugins</strong>. These plugins are the base building blocks for the previous three plugin groups. They can also be used separately in certain customization scenarios.</li>
 </ul>
 
-<h3 id="properties">Properties</h3>
+<p>Note that the plugins are composable and can be nested into each other.</p>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>pagerTemplate</td>
-      <td>(args: <a href="#pager-args">PagerArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
-      <td>A component that renders a pager based on the supplied parameters</td>
-    </tr>
-    <tr>
-      <td>allowedPageSizes</td>
-      <td>Array&lt;number&gt;</td>
-      <td>[]</td>
-      <td>Specifies the page sizes that can be selected at runtime</td>
-    </tr>
-    <tr>
-      <td>showAllText</td>
-      <td>string</td>
-      <td> </td>
-      <td>Specifies a page size selector’s ‘All’ item text. Available for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3">Bootstrap3</a> and <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui">Material UI</a> template suites only.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Refer to the <a href="../reference">Reference</a> to see the complete plugin list.</p>
 
-<h2 id="interfaces">Interfaces</h2>
+<h2 id="plugin-order">Plugin Order</h2>
 
-<h3 id="pagerargs"><a name="pager-args"></a>PagerArgs</h3>
+<p>The plugins’ order is important because all Grid plugins consist of core plugins, each of which has a unique behavior. For example, if data processing is based on some state, it should be linked after an appropriate state plugin:</p>
 
-<p>Describes properties passed to a table template when rendered</p>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">FilteringState</span><span class="p">,</span> <span class="nx">LocalFiltering</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid'</span>
+<span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">TableView</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
 
-<p>A value with the following shape:</p>
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">defaultFilters</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">LocalFiltering</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">TableView</span><span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre>
+</div>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>totalPages</td>
-      <td>number</td>
-      <td>Specifies the total page count</td>
-    </tr>
-    <tr>
-      <td>currentPage</td>
-      <td>number</td>
-      <td>Specifies the current page</td>
-    </tr>
-    <tr>
-      <td>onCurrentPageChange</td>
-      <td>(page: number) =&gt; void</td>
-      <td>Changes the current page</td>
-    </tr>
-    <tr>
-      <td>pageSize</td>
-      <td>number</td>
-      <td>Specifies the page size</td>
-    </tr>
-    <tr>
-      <td>onPageSizeChange</td>
-      <td>(size: number) =&gt; void</td>
-      <td>Changes the page size</td>
-    </tr>
-    <tr>
-      <td>allowedPageSizes</td>
-      <td>Array&lt;number&gt;</td>
-      <td>Specifies the page sizes that can be selected at runtime</td>
-    </tr>
-    <tr>
-      <td>showAllText</td>
-      <td>string</td>
-      <td>Specifies a page size selector’s ‘All’ item text. Available for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3">Bootstrap3</a> and <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui">Material UI</a> template suites only.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Note that in the previous example, the TableView plugin is linked after the data processing one. The same rule applies to visualization plugins:</p>
 
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">FilteringState</span><span class="p">,</span> <span class="nx">LocalFiltering</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid'</span>
+<span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">TableView</span><span class="p">,</span> <span class="nx">TableFilterRow</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
 
-<h3 id="imports">Imports</h3>
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">defaultFilters</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">LocalFiltering</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">TableView</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">TableFilterRow</span> <span class="nx">filterCellTemplate</span><span class="o">=</span><span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span><span class="sr">/</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre>
+</div>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>currentPage</td>
-      <td>Getter</td>
-      <td>number</td>
-      <td>The current page</td>
-    </tr>
-    <tr>
-      <td>pageSize</td>
-      <td>Getter</td>
-      <td>number</td>
-      <td>The count of rows to be shown on a single page</td>
-    </tr>
-    <tr>
-      <td>totalCount</td>
-      <td>Getter</td>
-      <td>number</td>
-      <td>The total row count</td>
-    </tr>
-    <tr>
-      <td>setCurrentPage</td>
-      <td>Action</td>
-      <td>(page: number) =&gt; void</td>
-      <td>Changes the current page</td>
-    </tr>
-    <tr>
-      <td>setPageSize</td>
-      <td>Action</td>
-      <td>(size: number) =&gt; void</td>
-      <td>Changes the page size</td>
-    </tr>
-    <tr>
-      <td>footer</td>
-      <td>Template</td>
-      <td>Object?</td>
-      <td>A template that renders the grid footer</td>
-    </tr>
-  </tbody>
-</table>
+<p>NOTE: Refer to the plugin documentation for information on its requirements.</p>
 
-<h3 id="exports">Exports</h3>
+<h2 id="ui-plugins">UI Plugins</h2>
 
-<p>none</p>
+<p>It is required to specify a visual component for this type of plugins (not included by default). You can create your templates based on the plugin specification or use one of the predefined ones:</p>
+<ul>
+  <li>DevExtreme React Grid for <a href="http://getbootstrap.com/">Bootstrap 3</a> (used in examples)</li>
+  <li>DevExtreme React Grid for <a href="http://www.material-ui.com">Material UI</a> (used in examples as an alternative)</li>
+</ul>
 
     </div>
   </div>

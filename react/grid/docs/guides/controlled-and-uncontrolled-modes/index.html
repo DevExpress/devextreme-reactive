@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>PagingPanel Plugin Reference - DevExtreme Reactive Components</title>
+    <title>React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -84,7 +84,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">Controlled and Uncontrolled Modes</a></li>
+          <li>Controlled and Uncontrolled Modes</li>
           
 
         
@@ -339,7 +339,7 @@
           
 
           
-          <li>PagingPanel</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
           
 
         
@@ -365,162 +365,70 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="pagingpanel-plugin-reference">PagingPanel Plugin Reference</h1>
+        <h1 id="react-grid---controlled-stateless-and-uncontrolled-stateful-modes">React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes</h1>
 
-<p>A plugin that renders a panel, allowing end-users to navigate through data pages if Paging is enabled.</p>
+<p>You may need to control the Grid state or delegate state management to a component, for instance, when switching the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restoring it within the next app usage session. In this case, the Grid accepts the sorting configuration via the <a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the <a href="https://facebook.github.io/react/docs/forms.html#controlled-components">controlled components concept</a>.</p>
 
-<h2 id="user-reference">User Reference</h2>
+<p>In code, it looks as follows:</p>
 
-<h3 id="dependencies">Dependencies</h3>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyApp</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
 
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-state/">PagingState</a></li>
-</ul>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">columns</span><span class="p">:</span> <span class="p">[</span><span class="cm">/* ... */</span><span class="p">],</span>
+      <span class="na">rows</span><span class="p">:</span> <span class="p">[</span><span class="cm">/* ... */</span><span class="p">],</span>
+      <span class="na">sorting</span><span class="p">:</span> <span class="p">[{</span> <span class="na">columnName</span><span class="p">:</span> <span class="s1">'date'</span><span class="p">,</span> <span class="na">direction</span><span class="p">:</span> <span class="s1">'desc'</span> <span class="p">}],</span>
+    <span class="p">};</span>
 
-<h3 id="properties">Properties</h3>
+    <span class="k">this</span><span class="p">.</span><span class="nx">changeSorting</span> <span class="o">=</span> <span class="nx">sorting</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">sorting</span> <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="p">{</span> <span class="nx">rows</span><span class="p">,</span> <span class="nx">columns</span><span class="p">,</span> <span class="nx">sorting</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>pagerTemplate</td>
-      <td>(args: <a href="#pager-args">PagerArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
-      <td>A component that renders a pager based on the supplied parameters</td>
-    </tr>
-    <tr>
-      <td>allowedPageSizes</td>
-      <td>Array&lt;number&gt;</td>
-      <td>[]</td>
-      <td>Specifies the page sizes that can be selected at runtime</td>
-    </tr>
-    <tr>
-      <td>showAllText</td>
-      <td>string</td>
-      <td> </td>
-      <td>Specifies a page size selector’s ‘All’ item text. Available for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3">Bootstrap3</a> and <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui">Material UI</a> template suites only.</td>
-    </tr>
-  </tbody>
-</table>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="nx">sorting</span><span class="o">=</span><span class="p">{</span><span class="nx">sorting</span><span class="p">}</span> <span class="nx">onSortingChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">changeSorting</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
-<h2 id="interfaces">Interfaces</h2>
+<p><code class="highlighter-rouge">Sorting</code> represents the Grid sorting configuration, and the <code class="highlighter-rouge">changeSorting</code> function is a handler that is invoked every time the sorting configuration changes. Note that all the state management plugins work with the serializable state. This means that you can persist and restore it in <a href="https://developer.mozilla.org/en/docs/Web/API/Window/localStorage">localStorage</a> or any other storage that can store string values. The controlled state mode can also be helpful if you need to indicate the current state in your UI or bind controls existing outside the Grid, for example, to put a ComboBox with the available sort orders and let end-users use it for sorting Grid data.</p>
 
-<h3 id="pagerargs"><a name="pager-args"></a>PagerArgs</h3>
+<p>In the uncontrolled state mode, the Grid component manages its UI state internally. It is not necessary to specify the state value and state change handler properties. You can provide Grid with the initial state value using the property with the <code class="highlighter-rouge">default</code> prefix, for instance, converting the previous example into the uncontrolled mode:</p>
 
-<p>Describes properties passed to a table template when rendered</p>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="o">/&gt;</span>
+  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span></code></pre>
+</div>
 
-<p>A value with the following shape:</p>
+<p>Specify the default sorting configuration as follows:</p>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>totalPages</td>
-      <td>number</td>
-      <td>Specifies the total page count</td>
-    </tr>
-    <tr>
-      <td>currentPage</td>
-      <td>number</td>
-      <td>Specifies the current page</td>
-    </tr>
-    <tr>
-      <td>onCurrentPageChange</td>
-      <td>(page: number) =&gt; void</td>
-      <td>Changes the current page</td>
-    </tr>
-    <tr>
-      <td>pageSize</td>
-      <td>number</td>
-      <td>Specifies the page size</td>
-    </tr>
-    <tr>
-      <td>onPageSizeChange</td>
-      <td>(size: number) =&gt; void</td>
-      <td>Changes the page size</td>
-    </tr>
-    <tr>
-      <td>allowedPageSizes</td>
-      <td>Array&lt;number&gt;</td>
-      <td>Specifies the page sizes that can be selected at runtime</td>
-    </tr>
-    <tr>
-      <td>showAllText</td>
-      <td>string</td>
-      <td>Specifies a page size selector’s ‘All’ item text. Available for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3">Bootstrap3</a> and <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui">Material UI</a> template suites only.</td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="nx">defaultSorting</span><span class="o">=</span><span class="p">{[</span> <span class="na">columnName</span><span class="p">:</span> <span class="s1">'date'</span><span class="p">,</span> <span class="na">direction</span><span class="p">:</span> <span class="s1">'desc'</span> <span class="p">]}</span> <span class="sr">/</span><span class="err">&gt;
+</span>  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span></code></pre>
+</div>
 
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+<p>You can configure the Grid when you need to control its state partially, for example, to manage filters without managing sorting and grouping:</p>
 
-<h3 id="imports">Imports</h3>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">filters</span><span class="o">=</span><span class="p">{</span><span class="nx">filters</span><span class="p">}</span> <span class="nx">onFiltersChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">changeFilters</span><span class="p">}</span><span class="sr">/</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="nx">GroupingState</span> <span class="o">/&gt;</span>
+  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span></code></pre>
+</div>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>currentPage</td>
-      <td>Getter</td>
-      <td>number</td>
-      <td>The current page</td>
-    </tr>
-    <tr>
-      <td>pageSize</td>
-      <td>Getter</td>
-      <td>number</td>
-      <td>The count of rows to be shown on a single page</td>
-    </tr>
-    <tr>
-      <td>totalCount</td>
-      <td>Getter</td>
-      <td>number</td>
-      <td>The total row count</td>
-    </tr>
-    <tr>
-      <td>setCurrentPage</td>
-      <td>Action</td>
-      <td>(page: number) =&gt; void</td>
-      <td>Changes the current page</td>
-    </tr>
-    <tr>
-      <td>setPageSize</td>
-      <td>Action</td>
-      <td>(size: number) =&gt; void</td>
-      <td>Changes the page size</td>
-    </tr>
-    <tr>
-      <td>footer</td>
-      <td>Template</td>
-      <td>Object?</td>
-      <td>A template that renders the grid footer</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<p>none</p>
+<p>Note: We recommend using the fully-controlled state to avoid the side-effects the partially controlled state can cause when using Redux and performing time traveling.</p>
 
     </div>
   </div>

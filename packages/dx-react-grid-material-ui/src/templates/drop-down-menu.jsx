@@ -77,10 +77,11 @@ class DropDownMenuBase extends React.PureComponent {
   }
 
   render() {
-    const { items, classes, className, itemTemplate } = this.props;
+    const { items, classes, className, titleClassName, itemTemplate } = this.props;
     const { anchorEl, open, selectedIndex, title } = this.state;
     const titleClasses = classNames({
       [classes.title]: true,
+      [titleClassName]: true,
       [classes.selected]: selectedIndex > -1,
     });
     return (
@@ -136,10 +137,12 @@ DropDownMenuBase.propTypes = {
   onItemClick: PropTypes.func.isRequired,
   itemTemplate: PropTypes.func,
   className: PropTypes.string,
+  titleClassName: PropTypes.string,
 };
 
 DropDownMenuBase.defaultProps = {
   className: null,
+  titleClassName: null,
   selectedItem: undefined,
   defaultTitle: undefined,
   itemTemplate: undefined,

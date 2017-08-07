@@ -29,7 +29,6 @@ const defaultDeps = {
     availableToSelect: [1, 2, 3, 4],
   },
   action: {
-    setRowSelection: jest.fn(),
     setRowsSelection: jest.fn(),
   },
   template: {

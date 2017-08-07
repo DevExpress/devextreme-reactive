@@ -110,7 +110,7 @@ describe('TableGroupRow', () => {
     });
   });
 
-  it('should render groupIndent cell on select group column and foregn group row intersection', () => {
+  it('should render groupIndent cell on select group column and foreign group row intersection', () => {
     isGroupIndentTableCell.mockImplementation(() => true);
     const groupIndentCellTemplate = jest.fn(() => null);
 
@@ -133,7 +133,7 @@ describe('TableGroupRow', () => {
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
         row: defaultDeps.template.tableViewCell.tableRow.row,
-        column: defaultDeps.template.tableViewCell.tableRow.column,
+        column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
 
@@ -160,7 +160,7 @@ describe('TableGroupRow', () => {
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
         row: defaultDeps.template.tableViewCell.tableRow.row,
-        column: defaultDeps.template.tableViewCell.tableRow.column,
+        column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
 });

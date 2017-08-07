@@ -1,6 +1,6 @@
 # TableSelection Plugin Reference
 
-This plugin visualizes the selection state within a table by rendering selection checkboxes and highlighting selected rows.
+This plugin visualizes the selection state within a table by rendering selection checkboxes and highlighting the selected rows.
 
 ## User Reference
 
@@ -32,8 +32,8 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 selectionAvailable | boolean | True if at least one row can be selected
-allSelected | boolean | True if all the rows available to select are selected
-someSelected | boolean | True if at least one but not all rows available to select are selected
+allSelected | boolean | True if all the rows available for selection are selected
+someSelected | boolean | True if at least one but not all rows available for selection are selected
 toggleAll | () => void | Selects or deselects all rows
 
 ### <a name="select-cell-args"></a>SelectCellArgs

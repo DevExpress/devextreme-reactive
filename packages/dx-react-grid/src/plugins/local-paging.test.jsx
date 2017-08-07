@@ -83,7 +83,7 @@ describe('LocalPaging', () => {
     );
 
     expect(setCurrentPageMock.mock.calls)
-      .toEqual([[{ page: 2 }]]);
+      .toEqual([[2]]);
   });
 
   it('should ensure page headers are present on each page', () => {

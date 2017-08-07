@@ -76,7 +76,7 @@ describe('PagingState', () => {
         </PluginHost>,
       );
 
-      setCurrentPage({ page: 3 });
+      setCurrentPage(3);
 
       expect(currentPage)
         .toEqual(3);
@@ -104,7 +104,7 @@ describe('PagingState', () => {
         </PluginHost>,
       );
 
-      setCurrentPage({ page: 3 });
+      setCurrentPage(3);
 
       expect(currentPage)
         .toEqual(2);
@@ -174,7 +174,7 @@ describe('PagingState', () => {
         </PluginHost>,
       );
 
-      setPageSize({ size: 3 });
+      setPageSize(3);
 
       expect(pageSize)
         .toEqual(3);
@@ -202,7 +202,7 @@ describe('PagingState', () => {
         </PluginHost>,
       );
 
-      setPageSize({ size: 3 });
+      setPageSize(3);
 
       expect(pageSize)
         .toEqual(2);

@@ -98,7 +98,7 @@ class TableHeaderCellBase extends React.PureComponent {
   }
   render() {
     const {
-      style, column,
+      style, column, tableColumn,
       allowSorting, sortingDirection, changeSortingDirection,
       allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
@@ -121,11 +121,10 @@ class TableHeaderCellBase extends React.PureComponent {
       {
         [classes.cell]: true,
         [classes.cellRight]: align === 'right',
-        [classes.clearPadding]: !column.name,
         [classes.cellNoUserSelect]: allowDragging || allowSorting,
         [classes.cellDraggable]: allowDragging,
         [classes.cellClickable]: allowSorting,
-        [classes.cellDimmed]: dragging || column.isDraft,
+        [classes.cellDimmed]: dragging || tableColumn.isDraft,
       },
     );
 
@@ -212,6 +211,7 @@ class TableHeaderCellBase extends React.PureComponent {
 }
 
 TableHeaderCellBase.propTypes = {
+  tableColumn: PropTypes.object,
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
@@ -227,6 +227,7 @@ TableHeaderCellBase.propTypes = {
 };
 
 TableHeaderCellBase.defaultProps = {
+  tableColumn: {},
   style: null,
   allowSorting: false,
   sortingDirection: undefined,

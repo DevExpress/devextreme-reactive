@@ -23,7 +23,7 @@ groupIndentColumnWidth | number | | The group indent column's width
 
 Describes the properties passed to the template that renders a group row.
 
-A value with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -36,7 +36,7 @@ toggleGroupExpanded | () => void | Toggles the group row's expanded state
 
 Describes properties passed to the template that renders a group indent cell.
 
-A value with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -46,10 +46,6 @@ column | [Column](grid.md#column) | A column associated with the group
 ### <a name="group-row"></a>GroupRow
 
 Describes the group row data structure.
-
-Extends [Row](grid.md#row)
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -68,7 +64,7 @@ grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Column
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object, colspan?: number } | A template that renders a table cell
+tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
 ### Exports
 

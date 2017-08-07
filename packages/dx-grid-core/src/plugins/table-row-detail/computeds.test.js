@@ -1,47 +1,65 @@
+import { TABLE_DETAIL_TYPE } from './constants';
 import {
-    expandedDetailRows,
-    tableColumnsWithDetail,
+  tableRowsWithExpandedDetail,
+  tableColumnsWithDetail,
 } from './computeds';
 
-describe('DetailRow computeds', () => {
-  describe('#expandedDetailRows', () => {
+describe('TableRowDetail Plugin computeds', () => {
+  describe('#tableRowsWithExpandedDetail', () => {
     it('can expand one row', () => {
-      const rows = [{ id: 1 }, { id: 2 }];
+      const tableRows = [
+        { type: 'data', rowId: 1, row: 'row1' },
+        { type: 'data', rowId: 2, row: 'row2' },
+      ];
       const expandedRows = [2];
 
-      const rowsWithDetails = expandedDetailRows(rows, expandedRows, row => row.id, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
       expect(rowsWithDetails).toEqual([
-        { id: 1 },
-        { id: 2 },
+        { type: 'data', rowId: 1, row: 'row1' },
+        { type: 'data', rowId: 2, row: 'row2' },
         {
-          type: 'detailRow',
-          id: 2,
-          for: { id: 2 },
+          key: `${TABLE_DETAIL_TYPE}_2`,
+          type: TABLE_DETAIL_TYPE,
+          rowId: 2,
+          row: 'row2',
           colSpanStart: 0,
           height: 'auto',
         },
       ]);
     });
 
+    it('can\'t expand not data', () => {
+      const tableRows = [{ type: 'data', rowId: 1, row: 'row1' }, { type: 'undefined', rowId: 2, row: 'row2' }];
+      const expandedRows = [2];
+
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
+      expect(rowsWithDetails).toEqual([
+        { type: 'data', rowId: 1, row: 'row1' },
+        { type: 'undefined', rowId: 2, row: 'row2' },
+      ]);
+    });
+
     it('can expand several rows', () => {
-      const rows = [{ id: 1 }, { id: 2 }];
+      const tableRows = [{ type: 'data', rowId: 1, row: 'row1' }, { type: 'data', rowId: 2, row: 'row2' }];
       const expandedRows = [1, 2];
 
-      const rowsWithDetails = expandedDetailRows(rows, expandedRows, row => row.id, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
       expect(rowsWithDetails).toEqual([
-        { id: 1 },
+        { type: 'data', rowId: 1, row: 'row1' },
         {
-          type: 'detailRow',
-          id: 1,
-          for: { id: 1 },
+          key: `${TABLE_DETAIL_TYPE}_1`,
+          type: TABLE_DETAIL_TYPE,
+          rowId: 1,
+          row: 'row1',
           colSpanStart: 0,
           height: 'auto',
         },
-        { id: 2 },
+        { type: 'data', rowId: 2, row: 'row2' },
         {
-          type: 'detailRow',
-          id: 2,
-          for: { id: 2 },
+          key: `${TABLE_DETAIL_TYPE}_2`,
+          type: TABLE_DETAIL_TYPE,
+          rowId: 2,
+          row: 'row2',
           colSpanStart: 0,
           height: 'auto',
         },
@@ -50,18 +68,12 @@ describe('DetailRow computeds', () => {
   });
 
   describe('#tableColumnsWithDetail', () => {
-    const tableColumns = [
-      { name: 'a' },
-      { name: 'b' },
-    ];
-
     it('should work', () => {
-      const columns = tableColumnsWithDetail(tableColumns, 50);
-
-      expect(columns).toHaveLength(3);
-      expect(columns[0]).toMatchObject({ type: 'detail', width: 50 });
-      expect(columns[1]).toBe(tableColumns[0]);
-      expect(columns[2]).toBe(tableColumns[1]);
+      expect(tableColumnsWithDetail([{}], 50))
+        .toEqual([
+          { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: 50 },
+          {},
+        ]);
     });
   });
 });

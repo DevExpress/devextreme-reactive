@@ -1,5 +1,5 @@
 import {
-    pureComputed,
+  pureComputed,
 } from './computeds';
 
 describe('Plugin computeds', () => {

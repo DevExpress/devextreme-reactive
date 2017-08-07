@@ -4,7 +4,7 @@ import RemoteDataDemo from './demo';
 
 describe('BS3 featured: remote data demo', () => {
   beforeEach(() => {
-    window.fetch = jest.fn().mockImplementation(() => Promise.resolve());
+    window.fetch = jest.fn(() => Promise.resolve());
   });
 
   it('should work', () => {

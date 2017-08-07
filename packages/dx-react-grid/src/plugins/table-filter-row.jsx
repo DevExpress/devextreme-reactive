@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { getColumnFilterConfig, tableHeaderRowsWithFilter } from '@devexpress/dx-grid-core';
+import {
+  getColumnFilterConfig,
+  tableHeaderRowsWithFilter,
+  isFilterTableCell,
+} from '@devexpress/dx-grid-core';
 
 export class TableFilterRow extends React.PureComponent {
   render() {
@@ -20,15 +24,15 @@ export class TableFilterRow extends React.PureComponent {
 
         <Template
           name="tableViewCell"
-          predicate={({ row, column }) => row.type === 'filter' && !column.type}
-          connectGetters={(getter, { column }) => ({
+          predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
+          connectGetters={(getter, { tableColumn: { column } }) => ({
             filter: getColumnFilterConfig(getter('filters'), column.name),
           })}
-          connectActions={(action, { column }) => ({
+          connectActions={(action, { tableColumn: { column } }) => ({
             setFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
           })}
         >
-          {({ row, ...restParams }) => filterCellTemplate(restParams)}
+          {params => filterCellTemplate({ ...params, column: params.tableColumn.column })}
         </Template>
       </PluginContainer>
     );

@@ -29,28 +29,29 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | A row object for showing row details
+row | [Row](grid.md#row) | A row object for showing row details
 
 ### <a name="detail-cell-args"></a>DetailCellArgs
 
 Describes properties passed to the template that renders a detail cell for a row
 
-A value with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | A row object
+row | [Row](grid.md#row) | A row object
 template | () => ReactElement | A component that renders row details
 
 ### <a name="detail-toggle-args"></a>DetailToggleArgs
 
 Describes properties passed to the template that renders the detail toggle control
 
-A value with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-expanded | boolean | Specifies whether row details are displayed
+row | [Row](grid.md#row) | A row object
+expanded | boolean | Specifies if row details are displayed
 toggleExpanded | () => void | Toggles a row's expanded state
 
 ## Plugin Developer Reference
@@ -62,9 +63,8 @@ Name | Plugin | Type | Description
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
 tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered
 expandedRows | Getter | Array&lt;number &#124; string&gt; | Expanded rows
-getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
 setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object, colspan?: number } | A template that renders a table cell
+tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
 ### Exports
 

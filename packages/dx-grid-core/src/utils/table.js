@@ -3,32 +3,18 @@ import { easeOutCubic } from '@devexpress/dx-core';
 import { querySelectorAll } from './dom-utils';
 import { getTargetColumnGeometries } from './column-geometries';
 
-const getTableKeyGetter = (getIntrinsicKey, object, index) => {
-  const type = object.type || 'data';
-  const intrinsicKey = type === 'data' ? getIntrinsicKey(object) : object.id;
-  const key = intrinsicKey === undefined ? `$${index}` : intrinsicKey;
-  return `${type}_${key}`;
-};
-
-export const tableRowKeyGetter = getTableKeyGetter;
-
-const getColumnId = column => column.name;
-export const tableColumnKeyGetter = (column, columnIndex) =>
-  getTableKeyGetter(getColumnId, column, columnIndex);
-
-export const getTableRowColumnsWithColSpan = (columns, colSpanStart) => {
-  if (colSpanStart === undefined) return columns.map(column => ({ original: column }));
+export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
+  if (colSpanStart === undefined) return tableColumns;
 
   let span = false;
-  return columns
-    .reduce((acc, column, columnIndex) => {
+  return tableColumns
+    .reduce((acc, tableColumn, columnIndex) => {
       if (span) return acc;
-      if (columnIndex === colSpanStart ||
-        tableColumnKeyGetter(column, columnIndex) === colSpanStart) {
+      if (columnIndex === colSpanStart || tableColumn.key === colSpanStart) {
         span = true;
-        return [...acc, { original: column, colspan: columns.length - columnIndex }];
+        return [...acc, { ...tableColumn, colspan: tableColumns.length - columnIndex }];
       }
-      return [...acc, { original: column }];
+      return [...acc, tableColumn];
     }, []);
 };
 
@@ -82,7 +68,7 @@ export const getAnimations = (
   prevColumns, nextColumns, tableWidth, draggingColumnKey, prevAnimations,
 ) => {
   const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
-    .map((geometry, index) => [tableColumnKeyGetter(prevColumns[index], index), geometry])
+    .map((geometry, index) => [prevColumns[index].key, geometry])
     .map(([key, geometry]) => {
       const animation = prevAnimations.get(key);
       if (!animation) return [key, geometry];
@@ -95,7 +81,7 @@ export const getAnimations = (
     }));
 
   const nextColumnGeometries = new Map(getTableColumnGeometries(nextColumns, tableWidth)
-    .map((geometry, index) => [tableColumnKeyGetter(nextColumns[index], index), geometry]));
+    .map((geometry, index) => [nextColumns[index].key, geometry]));
 
   return new Map([...nextColumnGeometries.keys()]
     .map((key) => {

@@ -4,6 +4,8 @@ import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
+  isGroupTableCell,
+  isGroupIndentTableCell,
 } from '@devexpress/dx-grid-core';
 
 export class TableGroupRow extends React.PureComponent {
@@ -36,31 +38,28 @@ export class TableGroupRow extends React.PureComponent {
 
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'groupRow'
-            && column.type === 'groupColumn'
-            && row.groupedBy === column.column.name}
+          predicate={({ tableRow, tableColumn }) => isGroupTableCell(tableRow, tableColumn)}
           connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
           {({ expandedGroups, toggleGroupExpanded, column, ...params }) => groupCellTemplate({
             ...params,
-            column: column.column,
-            isExpanded: expandedGroups.has(params.row.key),
-            toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.row.key }),
+            row: params.tableRow.row,
+            column: params.tableColumn.column,
+            isExpanded: expandedGroups.has(params.tableRow.row.key),
+            toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
           })}
         </Template>
         {groupIndentCellTemplate && (
           <Template
             name="tableViewCell"
-            predicate={({ column, row }) => (
-              column.type === 'groupColumn'
-              && (
-                !row.type
-                || (row.type === 'groupRow' && row.groupedBy !== column.column.name)
-              )
-            )}
+            predicate={({ tableRow, tableColumn }) => isGroupIndentTableCell(tableRow, tableColumn)}
           >
-            {groupIndentCellTemplate}
+            {params => groupIndentCellTemplate({
+              ...params,
+              row: params.tableRow.row,
+              column: params.tableColumn.column,
+            })}
           </Template>
         )}
       </PluginContainer>

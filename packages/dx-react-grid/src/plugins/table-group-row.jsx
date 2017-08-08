@@ -42,7 +42,7 @@ export class TableGroupRow extends React.PureComponent {
           connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
-          {({ expandedGroups, toggleGroupExpanded, column, ...params }) => groupCellTemplate({
+          {({ expandedGroups, toggleGroupExpanded, ...params }) => groupCellTemplate({
             ...params,
             row: params.tableRow.row,
             column: params.tableColumn.column,

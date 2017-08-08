@@ -99,7 +99,7 @@ const renderPageButtons = (
   const pageButtons = [];
   const maxButtonCount = 3;
   let startPage = 1;
-  let endPage = totalPageCount;
+  let endPage = totalPageCount || 1;
 
   if (maxButtonCount < totalPageCount) {
     startPage = calculateStartPage(currentPage + 1, maxButtonCount, totalPageCount);
@@ -135,6 +135,7 @@ const renderPageButtons = (
         isActive={page === currentPage + 1}
         classes={classes}
         onClick={() => onCurrentPageChange(page - 1)}
+        isDisabled={startPage === endPage}
       />,
     );
   }
@@ -174,7 +175,7 @@ const PaginationBase = ({
 }) => (
   <div className={classes.pagination}>
     <span className={classes.rowsLabel}>
-      { String(firstRowOnPage(currentPage, pageSize)) }
+      { String(firstRowOnPage(currentPage, pageSize, totalCount)) }
       -
       { String(lastRowOnPage(currentPage, pageSize, totalCount)) } of {String(totalCount)}
     </span>
@@ -188,7 +189,7 @@ const PaginationBase = ({
     {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
     <IconButton
       className={classNames(classes.arrowButton, classes.next)}
-      disabled={currentPage === totalPages - 1}
+      disabled={currentPage === totalPages - 1 || totalCount === 0}
       onTouchTap={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
     >
       <ChevronRight />

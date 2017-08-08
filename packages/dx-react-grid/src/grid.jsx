@@ -5,10 +5,9 @@ import { PluginHost, Getter, Template, TemplatePlaceholder } from '@devexpress/d
 const rowIdGetter = (getRowId, rows) => {
   let rowsMap;
   return (row) => {
-    const originalRow = row._originalRow || row;
-    if (getRowId) return getRowId(originalRow);
+    if (getRowId) return getRowId(row);
     if (!rowsMap) rowsMap = new Map(rows.map((r, rowIndex) => [r, rowIndex]));
-    return rowsMap.get(originalRow);
+    return rowsMap.get(row);
   };
 };
 

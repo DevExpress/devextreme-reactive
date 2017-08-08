@@ -1,5 +1,5 @@
 import {
-    pureHelper,
+  pureHelper,
 } from './helpers';
 
 describe('Plugin helpers', () => {

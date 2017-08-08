@@ -1,19 +1,15 @@
+import { TABLE_HEADING_TYPE } from './constants';
 import {
-    tableRowsWithHeading,
+  tableRowsWithHeading,
 } from './computeds';
 
 describe('TableHeaderRow Plugin computeds', () => {
   describe('#tableRowsWithHeading', () => {
-    const existingRows = [
-      { type: 'filter' },
-    ];
-
     it('should work', () => {
-      const rows = tableRowsWithHeading(existingRows);
+      const rows = tableRowsWithHeading([{}]);
 
-      expect(rows).toHaveLength(2);
-      expect(rows[0]).toMatchObject({ type: 'heading' });
-      expect(rows[1]).toBe(existingRows[0]);
+      expect(rows)
+        .toEqual([{ key: TABLE_HEADING_TYPE, type: TABLE_HEADING_TYPE }, {}]);
     });
   });
 });

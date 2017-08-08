@@ -136,7 +136,7 @@ describe('Pager', () => {
 
       expect(arrows.at(0).hasClass('disabled')).toBeTruthy();
       expect(arrows.at(1).hasClass('disabled')).toBeTruthy();
-      expect(tree.find('div > span > span').text()).toBe('0-0 of 0');
+      expect(tree.find('div > span > span').text()).toBe('0 of 0');
       expect(tree.find(Pagination).prop('items')).toBe(1);
     });
   });

@@ -172,30 +172,33 @@ const PaginationBase = ({
   currentPage,
   onCurrentPageChange,
   classes,
-}) => (
-  <div className={classes.pagination}>
-    <span className={classes.rowsLabel}>
-      { String(firstRowOnPage(currentPage, pageSize, totalCount)) }
-      -
-      { String(lastRowOnPage(currentPage, pageSize, totalCount)) } of {String(totalCount)}
-    </span>
-    <IconButton
-      className={classNames(classes.arrowButton, classes.prev)}
-      disabled={currentPage === 0}
-      onTouchTap={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
-    >
-      <ChevronLeft />
-    </IconButton>
-    {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
-    <IconButton
-      className={classNames(classes.arrowButton, classes.next)}
-      disabled={currentPage === totalPages - 1 || totalCount === 0}
-      onTouchTap={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
-    >
-      <ChevronRight />
-    </IconButton>
-  </div>
-);
+}) => {
+  const firstRow = firstRowOnPage(currentPage, pageSize, totalCount);
+  const lastRow = lastRowOnPage(currentPage, pageSize, totalCount);
+
+  return (
+    <div className={classes.pagination}>
+      <span className={classes.rowsLabel}>
+        {`${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`}
+      </span>
+      <IconButton
+        className={classNames(classes.arrowButton, classes.prev)}
+        disabled={currentPage === 0}
+        onTouchTap={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
+      >
+        <ChevronLeft />
+      </IconButton>
+      {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
+      <IconButton
+        className={classNames(classes.arrowButton, classes.next)}
+        disabled={currentPage === totalPages - 1 || totalCount === 0}
+        onTouchTap={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
+      >
+        <ChevronRight />
+      </IconButton>
+    </div>
+  );
+};
 
 PaginationBase.propTypes = {
   totalPages: PropTypes.number.isRequired,

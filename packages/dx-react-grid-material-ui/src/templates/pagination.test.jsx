@@ -186,7 +186,7 @@ describe('Pagination', () => {
 
       expect(buttons).toHaveLength(1);
 
-      expect(tree.find('div > span').text()).toBe('0-0 of 0');
+      expect(tree.find('div > span').text()).toBe('0 of 0');
     });
   });
 });

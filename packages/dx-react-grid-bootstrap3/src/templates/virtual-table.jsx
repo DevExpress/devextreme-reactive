@@ -61,7 +61,7 @@ export class VirtualTable extends React.Component {
           itemCount={columnsWithColSpan.length}
           itemInfo={(columnIndex) => {
             const columnWithColSpan = columnsWithColSpan[columnIndex];
-            const size = !columnWithColSpan.colspan
+            const size = !columnWithColSpan.colSpan
               ? columnWidths[columnIndex]
               : columns.slice(columnIndex).reduce(
                 (accum, column) => accum + columnWidths[columns.indexOf(column)],

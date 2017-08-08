@@ -27,7 +27,7 @@ export const Pager = ({
         verticalAlign: 'bottom',
       }}
       className="pull-right hidden-xs"
-      items={totalPages}
+      items={totalPages || 1}
       activePage={currentPage + 1}
       boundaryLinks
       maxButtons={3}
@@ -45,7 +45,7 @@ export const Pager = ({
       </BootstrapPager.Item>
       {' '}
       <BootstrapPager.Item
-        disabled={currentPage === totalPages - 1}
+        disabled={currentPage === totalPages - 1 || totalCount === 0}
         onClick={() => onCurrentPageChange(currentPage + 1)}
       >
         &raquo;
@@ -53,7 +53,7 @@ export const Pager = ({
     </BootstrapPager>
     <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
       <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
-        { String(firstRowOnPage(currentPage, pageSize)) }
+        { String(firstRowOnPage(currentPage, pageSize, totalCount)) }
         -
         { String(lastRowOnPage(currentPage, pageSize, totalCount)) } of {String(totalCount)}
       </span>

@@ -27,12 +27,12 @@ width | number &#124; string | 140 | Specifies the width of the edit column
 
 Describes properties passed to a data row's command cell template.
 
-A value with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | Specifies an edited table row with applied changes
-column | [TableColumn](table-view.md#table-column) | Specifies a table column
+row | [Row](grid.md#row) | Specifies an edited table row with applied changes
+column | [Column](grid.md#column) | Specifies a table column
 startEditing | () => void | Switches a row to the editing mode
 cancelEditing | () => void | Switches a row to the read-only mode
 commitChanges | () => void | Initiates committing of row changes
@@ -40,22 +40,18 @@ deleteRow | () => void | Initiates row deletion
 allowEditing | boolean | Specifies if a row can be edited
 allowDeleting | boolean | Specifies if a row can be deleted
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
-style? | Object | Styles that should be applied to the root cell element
 
 ### <a name="command-heading-cell-args"></a>CommandHeadingCellArgs
 
 Describes properties passed to a heading row's command cell template.
 
-A value with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-row | [TableRow](table-view.md#table-row) | Specifies an editing table row with applied changes
-column | [TableColumn](table-view.md#table-column) | Specifies a table column
 addRow | () => void | Creates a new row
 allowAdding | boolean | Specifies if a new row can be created
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell
-style? | Object | Styles that should be applied to the root cell element
 
 ### <a name="command-args"></a>CommandArgs
 
@@ -75,7 +71,6 @@ text | string | Specifies the text to be rendered within the command control
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
-getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | A function used to get a unique row identifier
 addRow | Action | () => void | Creates a row
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array
 commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `addedRows` array
@@ -85,7 +80,7 @@ cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => 
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `changedRows` array
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows specified by the ID for deletion, adding them to the `deletedRows` array
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `deletedRows` array
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object } | A template that renders a table cell
+tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
 ### Exports
 

@@ -61,7 +61,7 @@ describe('GroupPanelLayout', () => {
   it('should pass correct sorting parameters to cell template', () => {
     const groupedColumns = [{ name: 'a' }, { name: 'b' }];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
-    const cellTemplate = jest.fn().mockImplementation(groupPanelCellTemplate);
+    const cellTemplate = jest.fn(groupPanelCellTemplate);
     mount(
       <GroupPanelLayout
         groupedColumns={groupedColumns}
@@ -85,7 +85,7 @@ describe('GroupPanelLayout', () => {
   it('should pass correct sorting parameters to cell template if sorting is disabled', () => {
     const groupedColumns = [{ name: 'a' }];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
-    const cellTemplate = jest.fn().mockImplementation(groupPanelCellTemplate);
+    const cellTemplate = jest.fn(groupPanelCellTemplate);
     mount(
       <GroupPanelLayout
         groupedColumns={groupedColumns}

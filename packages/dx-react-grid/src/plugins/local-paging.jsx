@@ -31,7 +31,7 @@ export class LocalPaging extends React.PureComponent {
           onChange={(action, totalCount, currentPage, pageSize) => {
             const totalPages = pageCount(totalCount, pageSize);
             if (totalPages - 1 < currentPage) {
-              action('setCurrentPage')({ page: Math.max(totalPages - 1, 0) });
+              action('setCurrentPage')(Math.max(totalPages - 1, 0));
             }
           }}
         />

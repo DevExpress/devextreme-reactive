@@ -1,58 +1,9 @@
 import Immutable from 'seamless-immutable';
-
 import {
-    setRowSelection,
     setRowsSelection,
 } from './reducers';
 
 describe('SelectionState reducers', () => {
-  describe('#setRowSelection', () => {
-    it('can select row by toggling', () => {
-      const selection = [];
-      const payload = { rowId: 1 };
-
-      const nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([1]);
-    });
-
-    it('can deselect row by toggling', () => {
-      const selection = [1];
-      const payload = { rowId: 1 };
-
-      const nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([]);
-    });
-
-    it('does not deselect if isSelected is true', () => {
-      const selection = [1];
-      const payload = { rowId: 1, isSelected: true };
-
-      let nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([1]);
-
-      nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([1]);
-    });
-
-    it('does not select if isSelected is false', () => {
-      const selection = [];
-      const payload = { rowId: 1, isSelected: false };
-
-      let nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([]);
-
-      nextSelection = setRowSelection(selection, payload);
-      expect(nextSelection).toEqual([]);
-    });
-
-    it('should work with immutable selection', () => {
-      const selection = Immutable([]);
-
-      const nextSelection = setRowSelection(selection, { rowId: 1 });
-      expect(nextSelection).toEqual([1]);
-    });
-  });
-
   describe('#setRowsSelection', () => {
     it('can select all', () => {
       const selection = [];
@@ -86,20 +37,65 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1, 2]);
     });
 
-    it('should add to selection if isSelected is true', () => {
+    it('should add to selection if selected is true', () => {
       const selection = [1, 2, 3, 4];
-      const payload = { rowIds: [3, 4], isSelected: true };
+      const payload = { rowIds: [3, 4], selected: true };
 
       const nextSelection = setRowsSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
-    it('should remove from selection if isSelected is false', () => {
+    it('should remove from selection if selected is false', () => {
       const selection = [1, 2, 3];
-      const payload = { rowIds: [3, 4], isSelected: false };
+      const payload = { rowIds: [3, 4], selected: false };
 
       const nextSelection = setRowsSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2]);
+    });
+
+    it('can select a single row by toggling', () => {
+      const selection = [];
+      const payload = { rowIds: [1] };
+
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1]);
+    });
+
+    it('can deselect a single row by toggling', () => {
+      const selection = [1];
+      const payload = { rowIds: [1] };
+
+      const nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([]);
+    });
+
+    it('does not deselect a single row if selected is true', () => {
+      const selection = [1];
+      const payload = { rowIds: [1], selected: true };
+
+      let nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1]);
+
+      nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([1]);
+    });
+
+    it('does not select a single row if selected is false', () => {
+      const selection = [];
+      const payload = { rowIds: [1], selected: false };
+
+      let nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([]);
+
+      nextSelection = setRowsSelection(selection, payload);
+      expect(nextSelection).toEqual([]);
+    });
+
+    it('should work with immutable selection', () => {
+      const selection = Immutable([]);
+
+      const nextSelection = setRowsSelection(selection, { rowIds: [1] });
+      expect(nextSelection).toEqual([1]);
     });
   });
 });

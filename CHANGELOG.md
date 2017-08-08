@@ -1,3 +1,49 @@
+<a name="1.0.0-alpha.7"></a>
+# [1.0.0-alpha.7](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2017-08-07)
+
+
+### Bug Fixes
+
+* **react-grid:** allow TableGroupRow to be placed before other table plugins ([#221](https://github.com/DevExpress/devextreme-reactive/issues/221)) ([bdc81a0](https://github.com/DevExpress/devextreme-reactive/commit/bdc81a0))
+* **react-grid:** correct 'All' page size text rendering in MUI ([#242](https://github.com/DevExpress/devextreme-reactive/issues/242)) ([6bde2dd](https://github.com/DevExpress/devextreme-reactive/commit/6bde2dd))
+* **react-grid:** fix grouping if TableGroupRow is placed before any other table plugin ([#218](https://github.com/DevExpress/devextreme-reactive/issues/218)) ([7e09c7e](https://github.com/DevExpress/devextreme-reactive/commit/7e09c7e))
+* **react-grid:** pass style field to editCellTemplate of TableEditRow ([#235](https://github.com/DevExpress/devextreme-reactive/issues/235)) ([c45ef85](https://github.com/DevExpress/devextreme-reactive/commit/c45ef85)), closes [#234](https://github.com/DevExpress/devextreme-reactive/issues/234)
+* **react-grid:** prevent group panel cells blinking while dragging ([#223](https://github.com/DevExpress/devextreme-reactive/issues/223)) ([786206d](https://github.com/DevExpress/devextreme-reactive/commit/786206d))
+* **react-grid:** remove extra space at the right of GroupPanelCell when sorting is disabled ([#220](https://github.com/DevExpress/devextreme-reactive/issues/220)) ([257a337](https://github.com/DevExpress/devextreme-reactive/commit/257a337))
+* **react-grid:** use correct cursors for dragging ([#224](https://github.com/DevExpress/devextreme-reactive/issues/224)) ([6269063](https://github.com/DevExpress/devextreme-reactive/commit/6269063))
+* **react-grid-material-ui:** support indeterminate state for the select all checkbox ([#231](https://github.com/DevExpress/devextreme-reactive/issues/231)) ([6a5aab3](https://github.com/DevExpress/devextreme-reactive/commit/6a5aab3))
+
+
+### Chores
+
+* **react-grid-material-ui:** swap UMD bundle with CJS one in package entry ([#232](https://github.com/DevExpress/devextreme-reactive/issues/232)) ([9dd4273](https://github.com/DevExpress/devextreme-reactive/commit/9dd4273))
+
+
+### Code Refactoring
+
+* **react-grid:** add the most recently added row to the end ([#238](https://github.com/DevExpress/devextreme-reactive/issues/238)) ([442bdbc](https://github.com/DevExpress/devextreme-reactive/commit/442bdbc))
+
+
+### Features
+
+* **react-core:** implement dependencies support for PluginContainer ([#237](https://github.com/DevExpress/devextreme-reactive/issues/237)) ([6ef3be6](https://github.com/DevExpress/devextreme-reactive/commit/6ef3be6))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** In order to improve API transparency, the most recently added row will be added to the end of the addedRows property of the EditingState plugin.
+* **react-grid-material-ui:** UMD bundle for the `@devexpress/dx-react-grid-material-ui` package is no longer provided
+* **react-grid:** Arguments of the `setPageSize` and `setCurrentPage` actions were simpilified. Now, to call these actions, a user can use `numbers` instead of `objects`. See the following code:
+  ```
+  setPageSize(5); // instead of setPageSize({ size: 5 })
+  ```
+  and
+  ```
+  setCurrentPage(1); // instead of setCurrentPage({ page: 1 })
+  ```
+
+
+
 <a name="1.0.0-alpha.6"></a>
 # [1.0.0-alpha.6](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2017-07-24)
 

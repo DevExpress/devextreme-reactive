@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getRowChange,
-  rowsWithEditing,
+  tableRowsWithEditing,
+  isEditNewTableCell,
+  isEditExistingTableCell,
 } from '@devexpress/dx-grid-core';
 
 export class TableEditRow extends React.PureComponent {
@@ -13,74 +15,68 @@ export class TableEditRow extends React.PureComponent {
       <PluginContainer>
         <Getter
           name="tableBodyRows"
-          pureComputed={rowsWithEditing}
+          pureComputed={tableRowsWithEditing}
           connectArgs={getter => [
             getter('tableBodyRows'),
             getter('editingRows'),
             getter('addedRows'),
-            getter('getRowId'),
             rowHeight,
           ]}
         />
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && !row.isNew && !column.type}
-          connectGetters={(getter, { column, row }) => {
-            const originalRow = row._originalRow;
-            const rowId = getter('getRowId')(row);
+          predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}
+          connectGetters={(getter, { tableColumn: { column }, tableRow: { rowId, row } }) => {
             const change = getRowChange(getter('changedRows'), rowId);
-            const changedRow = Object.assign({}, originalRow, change);
             return {
-              rowId,
-              row: originalRow,
-              value: changedRow[column.name],
+              value: column.name in change ? change[column.name] : row[column.name],
             };
           }}
           connectActions={action => ({
             changeRow: ({ rowId, change }) => action('changeRow')({ rowId, change }),
           })}
         >
-          {({ rowId, row, column, value, changeRow, style }) =>
+          {({
+            value,
+            changeRow,
+            ...restParams
+          }) =>
             editCellTemplate({
-              row,
-              column,
+              row: restParams.tableRow.row,
+              column: restParams.tableColumn.column,
               value,
-              style,
               onValueChange: newValue => changeRow({
-                rowId,
+                rowId: restParams.tableRow.rowId,
                 change: {
-                  [column.name]: newValue,
+                  [restParams.tableColumn.column.name]: newValue,
                 },
               }),
+              ...restParams,
             })}
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => row.type === 'edit' && row.isNew && !column.type}
-          connectGetters={(_, { column, row }) => {
-            const originalRow = row._originalRow;
-            return {
-              row: originalRow,
-              rowId: row.index,
-              value: originalRow[column.name],
-            };
-          }}
+          predicate={({ tableRow, tableColumn }) => isEditNewTableCell(tableRow, tableColumn)}
           connectActions={action => ({
             changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),
           })}
         >
-          {({ row, rowId, column, value, changeAddedRow, style }) =>
+          {({
+            value,
+            changeAddedRow,
+            ...restParams
+          }) =>
             editCellTemplate({
-              row,
-              column,
-              value,
-              style,
+              row: restParams.tableRow.row,
+              column: restParams.tableColumn.column,
+              value: restParams.tableRow.row[restParams.tableColumn.column.name],
               onValueChange: newValue => changeAddedRow({
-                rowId,
+                rowId: restParams.tableRow.rowId,
                 change: {
-                  [column.name]: newValue,
+                  [restParams.tableColumn.column.name]: newValue,
                 },
               }),
+              ...restParams,
             })}
         </Template>
       </PluginContainer>

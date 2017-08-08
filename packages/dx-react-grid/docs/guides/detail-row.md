@@ -1,12 +1,12 @@
 # React Grid Detail Row
 
-The "Detail Row" feature displays data row details on an expandable pane. The pane can be expanded and collapsed either programmatically or via the Grid UI.
+The "Detail Row" feature displays data row details on an expandable pane. The pane can be expanded and collapsed either programmatically or via the Grid's UI.
 
 ## Required Plugins
 
 The "Detail Row" feature requires the following plugins:
-- [RowDetailState](../reference/row-detail-state.md)
-- [TableRowDetail](../reference/table-row-detail.md)
+- [RowDetailState](../reference/row-detail-state.md) - controls the detail rows' expanded status
+- [TableRowDetail](../reference/table-row-detail.md) - visualizes detail rows
 
 Note that the [plugin order](../README.md#plugin-order) is important.
 

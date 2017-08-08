@@ -1,6 +1,6 @@
 # SelectionState Plugin Reference
 
-A plugin that manages selection state.
+A plugin that manages the selection state.
 
 ## User Reference
 
@@ -29,7 +29,6 @@ getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | A functi
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-setRowSelection | Action | ({ rowId }) => void | A function that selects a row
-setRowsSelection | Action | ({ rowIds }) => void | A function that selects multiple rows
+setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean  }) => void | A function that selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
 availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows

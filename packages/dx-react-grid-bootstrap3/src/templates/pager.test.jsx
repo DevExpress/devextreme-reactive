@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { Pagination } from 'react-bootstrap';
 import { Pager } from './pager';
 
 describe('Pager', () => {
@@ -122,6 +123,20 @@ describe('Pager', () => {
       }).find('PageSizeSelector');
 
       expect(pageSizeSelector).toHaveLength(0);
+    });
+
+    it('renders pager correctly if totalCount is 0', () => {
+      const tree = mountPager({
+        totalPages: 0,
+        currentPage: 0,
+        totalCount: 0,
+        pageSize: 5,
+      });
+      const arrows = tree.find('.pager li').filterWhere(a => a.hasClass('disabled'));
+
+      expect(arrows).toHaveLength(2);
+      expect(tree.find(Pagination).prop('items')).toBe(1);
+      expect(tree.find('div > span > span').text()).toBe('0 of 0');
     });
   });
 });

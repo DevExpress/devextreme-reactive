@@ -48,7 +48,7 @@ export const ThemeSelector = ({ selectedTheme, avaliableThemes, onThemeSelect })
             disabled={!avaliable}
             active={active}
           >
-            {title}{!avaliable && ' (not avaliable)'}
+            {title}{!avaliable && ' (coming soon)'}
           </MenuItem>
         );
       })}

@@ -21,7 +21,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be paged
 pageSize | Getter | number | Provides the page size
 currentPage | Getter | number | Provides the current page
-setCurrentPage | Action | ({ page: number }) => void | Changes the current page
+setCurrentPage | Action | (page: number) => void | Changes the current page
 
 ### Exports
 

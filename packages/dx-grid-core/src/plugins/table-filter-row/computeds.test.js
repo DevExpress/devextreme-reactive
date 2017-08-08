@@ -1,19 +1,16 @@
+import { TABLE_FILTER_TYPE } from './constants';
 import {
-    tableHeaderRowsWithFilter,
+  tableHeaderRowsWithFilter,
 } from './computeds';
 
 describe('TableFilterRow Plugin computeds', () => {
   describe('#tableHeaderRowsWithFilter', () => {
-    const headerRows = [
-      { type: 'heading' },
-    ];
-
     it('should work', () => {
-      const rows = tableHeaderRowsWithFilter(headerRows, 100);
-
-      expect(rows).toHaveLength(2);
-      expect(rows[0]).toBe(headerRows[0]);
-      expect(rows[1]).toMatchObject({ type: 'filter', height: 100 });
+      expect(tableHeaderRowsWithFilter([{}], 100))
+        .toEqual([
+          {},
+          { key: TABLE_FILTER_TYPE, type: TABLE_FILTER_TYPE, height: 100 },
+        ]);
     });
   });
 });

@@ -16,8 +16,8 @@ export const tableRowsWithSelection = (tableRows, selection) => {
     });
 };
 
-export const tableExtraPropsWithSelection = (extraProps, setRowSelection) =>
+export const tableExtraPropsWithSelection = (extraProps, setRowsSelection) =>
   extendWithEventListener(extraProps, 'onClick', ({ tableRow: { type, rowId } }) => {
     if (type !== TABLE_DATA_TYPE) return;
-    setRowSelection({ rowId });
+    setRowsSelection({ rowIds: [rowId] });
   });

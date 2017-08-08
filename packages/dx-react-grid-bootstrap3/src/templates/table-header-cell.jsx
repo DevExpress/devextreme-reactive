@@ -15,7 +15,7 @@ export class TableHeaderCell extends React.PureComponent {
   }
   render() {
     const {
-      style, column,
+      style, column, tableColumn,
       allowSorting, sortingDirection, changeSortingDirection,
       allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
@@ -84,7 +84,7 @@ export class TableHeaderCell extends React.PureComponent {
             WebkitUserSelect: 'none',
           } : {}),
           ...(allowSorting || allowDragging ? { cursor: 'pointer' } : null),
-          ...(dragging || column.isDraft ? { opacity: 0.3 } : null),
+          ...(dragging || tableColumn.isDraft ? { opacity: 0.3 } : null),
           ...style,
         }}
         onClick={(e) => {
@@ -128,6 +128,7 @@ export class TableHeaderCell extends React.PureComponent {
 }
 
 TableHeaderCell.propTypes = {
+  tableColumn: PropTypes.object,
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
@@ -142,6 +143,7 @@ TableHeaderCell.propTypes = {
 };
 
 TableHeaderCell.defaultProps = {
+  tableColumn: {},
   style: null,
   allowSorting: false,
   sortingDirection: undefined,

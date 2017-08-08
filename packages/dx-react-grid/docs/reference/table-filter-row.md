@@ -22,14 +22,13 @@ filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement
 
 Describes properties passed to the filter row cell template.
 
-A value with the following shape:
+A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
 filter | [Filter](filtering-state.md#filter) | A filter applied to a column
 setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Apply a new filter to a column
-column | [TableColumn](table-view.md#table-column) | Specifies a table column
-style? | Object | Specifies filter cell styles
+column | [Column](grid.md#column) | Specifies a column
 
 ## Plugin Developer Reference
 
@@ -40,7 +39,7 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters
 setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter. Removes the filter if config is `null`
-tableViewCell | Template | { row: [TableRow](table-view.md#table-row), column: [TableColumn](table-view.md#table-column), style?: Object } | A template that renders a table cell
+tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
 ### Exports
 

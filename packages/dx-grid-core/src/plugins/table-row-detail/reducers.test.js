@@ -4,7 +4,7 @@ import {
     setDetailRowExpanded,
 } from './reducers';
 
-describe('DetailRow reducers', () => {
+describe('TableRowDetail Plugin reducers', () => {
   describe('#setDetailRowExpanded', () => {
     it('can expand row by toggling', () => {
       const expandedRows = [];

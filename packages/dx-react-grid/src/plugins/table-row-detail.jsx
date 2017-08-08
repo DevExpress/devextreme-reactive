@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
-import { expandedDetailRows, isDetailRowExpanded, tableColumnsWithDetail } from '@devexpress/dx-grid-core';
+import {
+  tableRowsWithExpandedDetail,
+  isDetailRowExpanded,
+  tableColumnsWithDetail,
+  isDetailToggleTableCell,
+  isDetailTableRow,
+} from '@devexpress/dx-grid-core';
 
 export class TableRowDetail extends React.PureComponent {
   render() {
@@ -25,9 +31,8 @@ export class TableRowDetail extends React.PureComponent {
         />
         <Template
           name="tableViewCell"
-          predicate={({ column, row }) => column.type === 'detail' && !row.type}
+          predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
           connectGetters={getter => ({
-            getRowId: getter('getRowId'),
             expandedRows: getter('expandedRows'),
           })}
           connectActions={action => ({
@@ -35,33 +40,31 @@ export class TableRowDetail extends React.PureComponent {
           })}
         >
           {({
-              row,
-              getRowId,
-              expandedRows,
-              setDetailRowExpanded,
-              ...restParams
-            }) => detailToggleCellTemplate({
-              ...restParams,
-              expanded: isDetailRowExpanded(expandedRows, getRowId(row)),
-              toggleExpanded: () => setDetailRowExpanded({ rowId: getRowId(row) }),
-            })}
+            expandedRows,
+            setDetailRowExpanded,
+            ...restParams
+          }) => detailToggleCellTemplate({
+            ...restParams,
+            row: restParams.tableRow.row,
+            expanded: isDetailRowExpanded(expandedRows, restParams.tableRow.rowId),
+            toggleExpanded: () => setDetailRowExpanded({ rowId: restParams.tableRow.rowId }),
+          })}
         </Template>
 
         <Getter
           name="tableBodyRows"
-          pureComputed={expandedDetailRows}
+          pureComputed={tableRowsWithExpandedDetail}
           connectArgs={getter => [
             getter('tableBodyRows'),
             getter('expandedRows'),
-            getter('getRowId'),
             rowHeight,
           ]}
         />
-        <Template name="tableViewCell" predicate={({ row }) => row.type === 'detailRow'}>
-          {({ row, ...params }) => detailCellTemplate({
+        <Template name="tableViewCell" predicate={({ tableRow }) => isDetailTableRow(tableRow)}>
+          {params => detailCellTemplate({
             ...params,
-            row: row.for,
-            template: () => template({ row: row.for }),
+            row: params.tableRow.row,
+            template: () => template({ row: params.tableRow.row }),
           })}
         </Template>
       </PluginContainer>

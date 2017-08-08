@@ -1,7 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  tableColumnsWithDataRows,
+  tableRowsWithDataRows,
+  isNoDataTableRow,
+  isDataTableCell,
+  isHeaderStubTableCell,
+} from '@devexpress/dx-grid-core';
 
+const tableHeaderRows = [];
+const tableExtraProps = {};
 const cellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
 
@@ -18,22 +27,23 @@ export class TableView extends React.PureComponent {
 
     return (
       <PluginContainer>
-        <Getter name="tableHeaderRows" value={[]} />
+        <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter
           name="tableBodyRows"
-          pureComputed={rows => (rows.length ? rows : [{ type: 'nodata', colSpanStart: 0 }])}
+          pureComputed={tableRowsWithDataRows}
           connectArgs={getter => [
             getter('rows'),
+            getter('getRowId'),
           ]}
         />
         <Getter
           name="tableColumns"
-          pureComputed={columns => columns}
+          pureComputed={tableColumnsWithDataRows}
           connectArgs={getter => [
             getter('columns'),
           ]}
         />
-        <Getter name="tableExtraProps" value={{}} />
+        <Getter name="tableExtraProps" value={tableExtraProps} />
 
         <Template
           name="body"
@@ -58,23 +68,27 @@ export class TableView extends React.PureComponent {
             headerRows: getter('tableHeaderRows'),
           })}
         >
-          {({ row, column, headerRows, ...restParams }) => (
-            headerRows.indexOf(row) > -1
+          {({ headerRows, ...restParams }) => (
+            isHeaderStubTableCell(restParams.tableRow, headerRows)
               ? tableStubHeaderCellTemplate(restParams)
               : tableStubCellTemplate(restParams)
           )}
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ row, column }) => !column.type && !row.type}
+          predicate={({ tableRow, tableColumn }) => isDataTableCell(tableRow, tableColumn)}
         >
-          {tableCellTemplate}
+          {params => tableCellTemplate({
+            ...params,
+            row: params.tableRow.row,
+            column: params.tableColumn.column,
+          })}
         </Template>
         <Template
           name="tableViewCell"
-          predicate={({ row }) => row.type === 'nodata'}
+          predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {({ row, column, ...restParams }) => tableNoDataCellTemplate(restParams)}
+          {params => tableNoDataCellTemplate(params)}
         </Template>
       </PluginContainer>
     );

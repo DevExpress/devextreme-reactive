@@ -6,7 +6,7 @@ The "Detail Row" feature displays data row details on an expandable pane. The pa
 
 The "Detail Row" feature requires the following plugins:
 - [RowDetailState](../reference/row-detail-state.md) - controls the detail rows' expanded status
-- [TableRowDetail](../reference/table-row-detail.md) - visualizes detail rows
+- [TableRowDetail](../reference/table-row-detail.md) - renders detail rows
 
 Note that the [plugin order](../README.md#plugin-order) is important.
 

@@ -1,6 +1,5 @@
 const { join } = require('path');
 const { execSync } = require('child_process');
-const { publish } = require('gh-pages');
 const { copySync, removeSync } = require('fs-extra');
 const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
 
@@ -41,7 +40,7 @@ console.log('Copying github staff...');
 copySync(join(__dirname, 'gh-pages-files'), GENERATED_SITE_DIRECTORY);
 
 console.log('Publishing...');
-execSync(`git add ${GENERATED_SITE_DIRECTORY}`);
+execSync(`git add -f ${GENERATED_SITE_DIRECTORY}`);
 execSync(`git commit -m "${COMMIT_MESSAGE}"`);
 execSync(`git subtree push --prefix ${GENERATED_SITE_DIRECTORY} https://github.com/${REPO}.git ${BRANCH}`);
 

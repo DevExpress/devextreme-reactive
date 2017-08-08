@@ -77,6 +77,9 @@ export class TableView extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isDataTableCell(tableRow, tableColumn)}
+          connectGetters={getter => ({
+            getCellData: getter('getCellData'),
+          })}
         >
           {params => tableCellTemplate({
             ...params,

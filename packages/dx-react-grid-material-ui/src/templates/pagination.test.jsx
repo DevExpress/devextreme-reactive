@@ -177,15 +177,11 @@ describe('Pagination', () => {
         totalCount: 0,
         pageSize: 5,
       });
-      const arrows = tree.find('IconButton');
+      const arrows = tree.find('IconButton').filterWhere(a => a.props().disabled === true);
       const buttons = tree.find('Button').filterWhere(b => b.props().disabled === true);
 
       expect(arrows).toHaveLength(2);
-      expect(arrows.at(0).props().disabled).toBeTruthy();
-      expect(arrows.at(1).props().disabled).toBeTruthy();
-
       expect(buttons).toHaveLength(1);
-
       expect(tree.find('div > span').text()).toBe('0 of 0');
     });
   });

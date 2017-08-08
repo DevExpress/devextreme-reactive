@@ -132,12 +132,11 @@ describe('Pager', () => {
         totalCount: 0,
         pageSize: 5,
       });
-      const arrows = tree.find('.pager li');
+      const arrows = tree.find('.pager li').filterWhere(a => a.hasClass('disabled'));
 
-      expect(arrows.at(0).hasClass('disabled')).toBeTruthy();
-      expect(arrows.at(1).hasClass('disabled')).toBeTruthy();
-      expect(tree.find('div > span > span').text()).toBe('0 of 0');
+      expect(arrows).toHaveLength(2);
       expect(tree.find(Pagination).prop('items')).toBe(1);
+      expect(tree.find('div > span > span').text()).toBe('0 of 0');
     });
   });
 });

@@ -19,7 +19,7 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be grouped
-groupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns by which the grid is grouped
+grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The current grouping state
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded
 
 ### Exports

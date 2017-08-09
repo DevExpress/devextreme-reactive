@@ -63,8 +63,6 @@ Name | Plugin | Type | Description
 grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state
 draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for preview
 expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
-groupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for grouping
-draftGroupedColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns used for `draftGrouping`
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value

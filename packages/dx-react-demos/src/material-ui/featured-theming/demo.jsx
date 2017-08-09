@@ -185,11 +185,7 @@ export default class Demo extends React.PureComponent {
       >
         <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
 
-        <SortingState
-          defaultSorting={[
-            { columnName: 'product', direction: 'asc' },
-          ]}
-        />
+        <SortingState />
         <GroupingState />
         <PagingState
           defaultCurrentPage={0}

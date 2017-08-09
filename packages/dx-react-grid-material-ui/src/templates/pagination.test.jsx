@@ -169,5 +169,20 @@ describe('Pagination', () => {
       expect(next.props().disabled).toBeTruthy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
+
+    it('renders pagination correctly if totalCount is 0', () => {
+      const tree = mountPagination({
+        totalPages: 0,
+        currentPage: 0,
+        totalCount: 0,
+        pageSize: 5,
+      });
+      const arrows = tree.find('IconButton').filterWhere(a => a.props().disabled === true);
+      const buttons = tree.find('Button').filterWhere(b => b.props().disabled === true);
+
+      expect(arrows).toHaveLength(2);
+      expect(buttons).toHaveLength(1);
+      expect(tree.find('div > span').text()).toBe('0 of 0');
+    });
   });
 });

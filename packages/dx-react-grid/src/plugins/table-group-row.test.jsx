@@ -132,6 +132,7 @@ describe('TableGroupRow', () => {
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
         row: defaultDeps.template.tableViewCell.tableRow.row,
+        column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
 
@@ -158,6 +159,7 @@ describe('TableGroupRow', () => {
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
         row: defaultDeps.template.tableViewCell.tableRow.row,
+        column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
 });

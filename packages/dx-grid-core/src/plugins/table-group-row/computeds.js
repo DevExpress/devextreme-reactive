@@ -21,27 +21,29 @@ const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping) =>
 export const tableColumnsWithGrouping = (
   tableColumns, grouping, draftGrouping, groupIndentColumnWidth,
 ) => [
-  ...grouping.map(group =>
-    ({
-      key: `${TABLE_GROUP_TYPE}_${group.columnName}`,
+  ...grouping.map((columnGrouping) => {
+    const groupedColumn = tableColumns
+      .find(tableColumn =>
+        tableColumn.type === TABLE_DATA_TYPE &&
+        tableColumn.column.name === columnGrouping.columnName)
+      .column;
+    return {
+      key: `${TABLE_GROUP_TYPE}_${groupedColumn.name}`,
       type: TABLE_GROUP_TYPE,
-      groupKey: group.columnName,
+      column: groupedColumn,
       width: groupIndentColumnWidth,
-    })),
+    };
+  }),
   ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping),
 ];
 
 export const tableRowsWithGrouping = tableRows =>
   tableRows.map((tableRow) => {
     if (tableRow.type !== TABLE_DATA_TYPE || tableRow.row.type !== 'groupRow') return tableRow;
-    const groupKey = tableRow.row.column.name;
-    const groupValue = tableRow.row.value;
     return {
       ...tableRow,
-      key: `${TABLE_GROUP_TYPE}_${groupKey}_${groupValue}`,
+      key: `${TABLE_GROUP_TYPE}_${tableRow.row.key}`,
       type: TABLE_GROUP_TYPE,
-      groupKey,
-      groupValue,
-      colSpanStart: `${TABLE_GROUP_TYPE}_${groupKey}`,
+      colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.row.groupedBy}`,
     };
   });

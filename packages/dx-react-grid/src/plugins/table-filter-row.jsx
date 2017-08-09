@@ -11,16 +11,12 @@ export class TableFilterRow extends React.PureComponent {
   render() {
     const { rowHeight, filterCellTemplate } = this.props;
 
+    const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
+      tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
+
     return (
       <PluginContainer>
-        <Getter
-          name="tableHeaderRows"
-          pureComputed={tableHeaderRowsWithFilter}
-          connectArgs={getter => [
-            getter('tableHeaderRows'),
-            rowHeight,
-          ]}
-        />
+        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
         <Template
           name="tableViewCell"

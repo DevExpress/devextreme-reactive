@@ -9,6 +9,11 @@ import {
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
 
+const tableExtraPropsComputed = ({ tableExtraProps }, { setRowsSelection }) =>
+  tableExtraPropsWithSelection(tableExtraProps, setRowsSelection);
+const tableBodyRowsComputed = ({ tableBodyRows, selection }) =>
+  tableRowsWithSelection(tableBodyRows, selection);
+
 export class TableSelection extends React.PureComponent {
   render() {
     const {
@@ -21,37 +26,19 @@ export class TableSelection extends React.PureComponent {
       selectCellTemplate,
     } = this.props;
 
+    const tableColumnsComputed = ({ tableColumns }) =>
+      tableColumnsWithSelection(tableColumns, selectionColumnWidth);
+
     return (
       <PluginContainer>
         {showSelectionColumn && (
-          <Getter
-            name="tableColumns"
-            pureComputed={tableColumnsWithSelection}
-            connectArgs={getter => [
-              getter('tableColumns'),
-              selectionColumnWidth,
-            ]}
-          />
+          <Getter name="tableColumns" computed={tableColumnsComputed} />
         )}
         {highlightSelected && (
-          <Getter
-            name="tableBodyRows"
-            pureComputed={tableRowsWithSelection}
-            connectArgs={getter => [
-              getter('tableBodyRows'),
-              getter('selection'),
-            ]}
-          />
+          <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         )}
         {selectByRowClick && (
-          <Getter
-            name="tableExtraProps"
-            pureComputed={tableExtraPropsWithSelection}
-            connectArgs={(getter, action) => [
-              getter('tableExtraProps'),
-              action('setRowsSelection'),
-            ]}
-          />
+          <Getter name="tableExtraProps"computed={tableExtraPropsComputed} />
         )}
 
         {(showSelectionColumn && showSelectAll) && (

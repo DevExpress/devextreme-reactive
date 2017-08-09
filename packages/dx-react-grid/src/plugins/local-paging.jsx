@@ -2,26 +2,18 @@ import React from 'react';
 import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
 import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
+const rowsWithHeadersComputed = ({ rows, pageSize }) => ensurePageHeaders(rows, pageSize);
+const totalCountComputed = ({ rows }) => rowCount(rows);
+const paginatedRowsComputed = ({ rows, pageSize, currentPage }) =>
+  paginate(rows, pageSize, currentPage);
+
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalPaging extends React.PureComponent {
   render() {
     return (
       <PluginContainer>
-        <Getter
-          name="rows"
-          pureComputed={ensurePageHeaders}
-          connectArgs={getter => [
-            getter('rows'),
-            getter('pageSize'),
-          ]}
-        />
-        <Getter
-          name="totalCount"
-          pureComputed={rowCount}
-          connectArgs={getter => [
-            getter('rows'),
-          ]}
-        />
+        <Getter name="rows" computed={rowsWithHeadersComputed} />
+        <Getter name="totalCount" computed={totalCountComputed} />
         <Watcher
           watch={getter => [
             getter('totalCount'),
@@ -35,15 +27,7 @@ export class LocalPaging extends React.PureComponent {
             }
           }}
         />
-        <Getter
-          name="rows"
-          pureComputed={paginate}
-          connectArgs={getter => [
-            getter('rows'),
-            getter('pageSize'),
-            getter('currentPage'),
-          ]}
-        />
+        <Getter name="rows" computed={paginatedRowsComputed} />
       </PluginContainer>
     );
   }

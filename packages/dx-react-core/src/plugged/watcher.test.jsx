@@ -33,35 +33,26 @@ describe('Watcher', () => {
 
   it('should be invoked only if dependencies change', () => {
     const changeLogger = jest.fn();
-    let dependency = 'value';
-    const pureComputed = jest.fn(() => dependency);
 
-    const Test = ({ forceUpdate }) => (
+    const Test = ({ dependency }) => (
       <PluginHost>
-        <Getter name="test" connectArgs={() => [forceUpdate]} pureComputed={pureComputed} />
+        <Getter name="test" computed={() => dependency} />
         <Watcher watch={getter => ([getter('test')])} onChange={changeLogger} />
       </PluginHost>
     );
     Test.propTypes = {
-      forceUpdate: PropTypes.string.isRequired,
+      dependency: PropTypes.string.isRequired,
     };
 
     const tree = mount(
-      <Test forceUpdate="value" />,
+      <Test dependency="a" />,
     );
-
-    expect(pureComputed.mock.calls).toHaveLength(1);
     expect(changeLogger.mock.calls).toHaveLength(1);
 
-    tree.setProps({ forceUpdate: 'new' });
-
-    expect(pureComputed.mock.calls).toHaveLength(2);
+    tree.setProps({ dependency: 'a' });
     expect(changeLogger.mock.calls).toHaveLength(1);
 
-    dependency = 'changed';
-    tree.setProps({ forceUpdate: 'new2' });
-
-    expect(pureComputed.mock.calls).toHaveLength(3);
+    tree.setProps({ dependency: 'b' });
     expect(changeLogger.mock.calls).toHaveLength(2);
   });
 });

@@ -19,16 +19,14 @@ export class TableRowDetail extends React.PureComponent {
       detailToggleCellWidth,
     } = this.props;
 
+    const tableColumnsComputed = ({ tableColumns }) =>
+      tableColumnsWithDetail(tableColumns, detailToggleCellWidth);
+    const tableBodyRowsComputed = ({ tableBodyRows, expandedRows }) =>
+      tableRowsWithExpandedDetail(tableBodyRows, expandedRows, rowHeight);
+
     return (
       <PluginContainer>
-        <Getter
-          name="tableColumns"
-          pureComputed={tableColumnsWithDetail}
-          connectArgs={getter => [
-            getter('tableColumns'),
-            detailToggleCellWidth,
-          ]}
-        />
+        <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
@@ -51,15 +49,7 @@ export class TableRowDetail extends React.PureComponent {
           })}
         </Template>
 
-        <Getter
-          name="tableBodyRows"
-          pureComputed={tableRowsWithExpandedDetail}
-          connectArgs={getter => [
-            getter('tableBodyRows'),
-            getter('expandedRows'),
-            rowHeight,
-          ]}
-        />
+        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template name="tableViewCell" predicate={({ tableRow }) => isDetailTableRow(tableRow)}>
           {params => detailCellTemplate({
             ...params,

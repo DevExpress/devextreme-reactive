@@ -21,8 +21,7 @@ export const Grid = ({
     <Getter name="columns" value={columns} />
     <Getter
       name="getRowId"
-      pureComputed={rowIdGetter}
-      connectArgs={() => [getRowId, rows]}
+      computed={() => rowIdGetter(getRowId, rows)} // TODO: optimize
     />
     <Template name="header" />
     <Template name="body" />

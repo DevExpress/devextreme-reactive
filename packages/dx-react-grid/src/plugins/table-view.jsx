@@ -10,6 +10,8 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRows = [];
+const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
+const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 const tableExtraProps = {};
 const cellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
@@ -28,21 +30,8 @@ export class TableView extends React.PureComponent {
     return (
       <PluginContainer>
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
-        <Getter
-          name="tableBodyRows"
-          pureComputed={tableRowsWithDataRows}
-          connectArgs={getter => [
-            getter('rows'),
-            getter('getRowId'),
-          ]}
-        />
-        <Getter
-          name="tableColumns"
-          pureComputed={tableColumnsWithDataRows}
-          connectArgs={getter => [
-            getter('columns'),
-          ]}
-        />
+        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableExtraProps" value={tableExtraProps} />
 
         <Template

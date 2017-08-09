@@ -5,7 +5,7 @@ import {
   groupByColumn,
   groupedColumns,
   toggleExpandedGroups,
-  draftGrouping,
+  draftGrouping as draftGroupingComputed,
   draftGroupingChange,
   cancelGroupingChange,
   draftGroupedColumns,
@@ -76,6 +76,7 @@ export class GroupingState extends React.PureComponent {
   render() {
     const { groupingChange } = this.state;
     const grouping = this._grouping();
+    const draftGrouping = draftGroupingComputed(grouping, groupingChange);
     const expandedGroups = this._expandedGroups();
 
     return (
@@ -107,32 +108,19 @@ export class GroupingState extends React.PureComponent {
         />
         <Getter
           name="draftGrouping"
-          pureComputed={draftGrouping}
-          connectArgs={() => [
-            grouping,
-            groupingChange,
-          ]}
+          value={draftGrouping}
         />
         <Getter
           name="groupedColumns"
-          pureComputed={groupedColumns}
-          connectArgs={getter => [
-            getter('columns'),
-            grouping,
-          ]}
+          computed={({ columns }) => groupedColumns(columns, grouping)}
         />
         <Getter
           name="draftGroupedColumns"
-          pureComputed={draftGroupedColumns}
-          connectArgs={getter => [
-            getter('columns'),
-            getter('draftGrouping'),
-          ]}
+          computed={({ columns }) => draftGroupedColumns(columns, draftGrouping)}
         />
         <Getter
           name="expandedGroups"
-          pureComputed={arrayToSet}
-          connectArgs={() => [expandedGroups]}
+          value={arrayToSet(expandedGroups)}
         />
       </PluginContainer>
     );

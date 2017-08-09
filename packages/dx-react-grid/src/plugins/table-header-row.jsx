@@ -7,19 +7,15 @@ import {
   isHeadingTableCell,
 } from '@devexpress/dx-grid-core';
 
+const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
+
 export class TableHeaderRow extends React.PureComponent {
   render() {
     const { allowSorting, allowGroupingByClick, allowDragging, headerCellTemplate } = this.props;
 
     return (
       <PluginContainer>
-        <Getter
-          name="tableHeaderRows"
-          pureComputed={tableRowsWithHeading}
-          connectArgs={getter => [
-            getter('tableHeaderRows'),
-          ]}
-        />
+        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}

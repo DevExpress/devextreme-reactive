@@ -20,16 +20,12 @@ export class TableEditColumn extends React.PureComponent {
       allowDeleting,
       width,
     } = this.props;
+
+    const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
+
     return (
       <PluginContainer>
-        <Getter
-          name="tableColumns"
-          pureComputed={tableColumnsWithEditing}
-          connectArgs={getter => [
-            getter('tableColumns'),
-            width,
-          ]}
-        />
+        <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) =>

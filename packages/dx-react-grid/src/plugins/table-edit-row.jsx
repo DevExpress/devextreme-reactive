@@ -11,18 +11,13 @@ import {
 export class TableEditRow extends React.PureComponent {
   render() {
     const { editCellTemplate, rowHeight } = this.props;
+
+    const tableBodyRowsComputed = ({ tableBodyRows, editingRows, addedRows }) =>
+      tableRowsWithEditing(tableBodyRows, editingRows, addedRows, rowHeight);
+
     return (
       <PluginContainer>
-        <Getter
-          name="tableBodyRows"
-          pureComputed={tableRowsWithEditing}
-          connectArgs={getter => [
-            getter('tableBodyRows'),
-            getter('editingRows'),
-            getter('addedRows'),
-            rowHeight,
-          ]}
-        />
+        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}

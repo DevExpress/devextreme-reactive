@@ -46,6 +46,7 @@ export class PluginHost {
     this.gettersCache = {};
     this.knownKeysCache = {};
   }
+  // TODO: test me
   knownKeys(postfix) {
     if (!this.knownKeysCache[postfix]) {
       this.knownKeysCache[postfix] = Array.from(this.plugins

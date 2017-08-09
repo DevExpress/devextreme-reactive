@@ -10,37 +10,40 @@ export class Getter extends React.PureComponent {
     const { pluginHost } = this.context;
     const { name } = this.props;
 
-    let prevValue;
-    let prevComputed;
-    let prevGetterValues = {};
+    let lastComputed;
+    let lastGetterDependencies = {};
+    let lastResult;
 
     this.plugin = {
       position: () => this.props.position(),
+      // TODO: refactor me
       [`${name}Getter`]: (original) => {
         const { value, computed } = this.props;
         if (value !== undefined) return value;
 
-        const currentGetterValues = Object.keys(prevGetterValues)
+        const getGetterValue = getterName => ((getterName === name)
+          ? original
+          : pluginHost.get(`${getterName}Getter`, this.plugin));
+
+        const currentGetterDependencies = Object.keys(lastGetterDependencies)
           .reduce((acc, getterName) => Object.assign(acc, {
-            [getterName]: pluginHost.get(`${getterName}Getter`, this.plugin),
+            [getterName]: getGetterValue(getterName),
           }), {});
 
-        if (computed === prevComputed && shallowEqual(prevGetterValues, currentGetterValues)) {
-          return prevValue;
+        if (computed === lastComputed &&
+          shallowEqual(lastGetterDependencies, currentGetterDependencies)) {
+          return lastResult;
         }
 
-        prevComputed = computed;
-        prevGetterValues = {};
+        lastComputed = computed;
+        lastGetterDependencies = {};
 
         const getters = pluginHost.knownKeys('Getter')
           .reduce((acc, getterName) => {
             Object.defineProperty(acc, getterName, {
               get: () => {
-                const result = (getterName === name)
-                  ? original
-                  : pluginHost.get(`${getterName}Getter`, this.plugin);
-
-                prevGetterValues[getterName] = result;
+                const result = getGetterValue(getterName);
+                lastGetterDependencies[getterName] = result;
                 return result;
               },
             });
@@ -54,8 +57,8 @@ export class Getter extends React.PureComponent {
             return acc;
           }, {});
 
-        prevValue = computed(getters, actions);
-        return prevValue;
+        lastResult = computed(getters, actions);
+        return lastResult;
       },
     };
 

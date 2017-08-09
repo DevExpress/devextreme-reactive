@@ -38,7 +38,7 @@ export class TableSelection extends React.PureComponent {
           <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         )}
         {selectByRowClick && (
-          <Getter name="tableExtraProps"computed={tableExtraPropsComputed} />
+          <Getter name="tableExtraProps" computed={tableExtraPropsComputed} />
         )}
 
         {(showSelectionColumn && showSelectAll) && (

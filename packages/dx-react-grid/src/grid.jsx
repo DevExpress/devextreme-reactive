@@ -19,10 +19,7 @@ export const Grid = ({
   <PluginHost>
     <Getter name="rows" value={rows} />
     <Getter name="columns" value={columns} />
-    <Getter
-      name="getRowId"
-      computed={() => rowIdGetter(getRowId, rows)} // TODO: optimize
-    />
+    <Getter name="getRowId" value={rowIdGetter(getRowId, rows)} /* TODO: optimize me */ />
     <Template name="header" />
     <Template name="body" />
     <Template name="footer" />

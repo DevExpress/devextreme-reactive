@@ -42,7 +42,7 @@ export class RowLayout extends React.PureComponent {
                 tableRow={row}
                 tableColumn={column}
                 style={getColumnStyle({ column })}
-                {...column.colspan ? { colspan: column.colspan } : null}
+                {...column.colSpan ? { colSpan: column.colSpan } : null}
               />
             ))
         }

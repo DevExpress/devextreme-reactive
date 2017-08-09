@@ -1,4 +1,4 @@
-import { SEPARATOR } from './computeds';
+import { GROUP_KEY_SEPARATOR } from './constants';
 
 import { getFirstChangedGropingIndex } from './helpers';
 
@@ -33,7 +33,8 @@ export const removeOutdatedExpandedGroups = (prevExpandedGroups, { prevGrouping,
     return prevExpandedGroups;
   }
 
-  return prevExpandedGroups.filter(group => group.split(SEPARATOR).length <= ungroupedColumnIndex);
+  return prevExpandedGroups.filter(group =>
+    group.split(GROUP_KEY_SEPARATOR).length <= ungroupedColumnIndex);
 };
 
 export const toggleExpandedGroups = (prevExpandedGroups, { groupKey }) => {

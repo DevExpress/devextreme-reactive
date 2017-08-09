@@ -41,10 +41,10 @@ SaleAmountCellBase.propTypes = {
 
 const SaleAmountCell = withStyles(styleSheet)(SaleAmountCellBase);
 
-const NoDataCellBase = ({ loading, colspan, classes }) => (
+const NoDataCellBase = ({ loading, colSpan, classes }) => (
   <TableCell
     className={classes.noDataCell}
-    colSpan={colspan}
+    colSpan={colSpan}
   >
     <big>{loading ? '' : 'No data'}</big>
   </TableCell>
@@ -52,7 +52,7 @@ const NoDataCellBase = ({ loading, colspan, classes }) => (
 
 NoDataCellBase.propTypes = {
   loading: PropTypes.bool.isRequired,
-  colspan: PropTypes.number.isRequired,
+  colSpan: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -178,8 +178,8 @@ export default class Demo extends React.PureComponent {
               }
               return undefined;
             }}
-            tableNoDataCellTemplate={({ colspan }) => (
-              <NoDataCell loading={loading} colspan={colspan} />
+            tableNoDataCellTemplate={({ colSpan }) => (
+              <NoDataCell loading={loading} colSpan={colSpan} />
             )}
           />
           <TableHeaderRow allowSorting />

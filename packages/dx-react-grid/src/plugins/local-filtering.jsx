@@ -15,6 +15,8 @@ export class LocalFiltering extends React.PureComponent {
           connectArgs={getter => [
             getter('rows'),
             getter('filters'),
+            getter('columns'),
+            getter('getCellData'),
             filterFn,
           ]}
         />

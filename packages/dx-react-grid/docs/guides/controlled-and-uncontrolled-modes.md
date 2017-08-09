@@ -1,8 +1,14 @@
 # React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes
 
-You may need to control the Grid state or delegate state management to a component, for instance, when switching the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restoring it within the next app usage session. In this case, the Grid accepts the sorting configuration via the [SortingState](../reference/sorting-state.md) plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the [controlled components concept](https://facebook.github.io/react/docs/forms.html#controlled-components).
+Use appropriate state management plugins (plugins that end with "...State", for example, `SortingState`) to control the required Grid's functionality. For example, the [SortingState](../reference/sorting-state.md) plugin controls the sorting capabilities; the [FilteringState](../reference/filtering-state.md) plugin controls filtering features, etc. See [Reference](../reference/README.md) for the complete plugin list.
 
-In code, it looks as follows:
+## Controlled Mode
+
+In the controlled mode, the Grid's state is managed externally (for example, in the parent component, Redux store, etc.). Refer to the [React documentation](https://facebook.github.io/react/docs/forms.html#controlled-components) for more information about the controlled components concept.
+
+The controlled mode enables you to access the Grid's state from another application parts. For example, you can persist the state and restore it when required, or change it via an external UI.
+
+Use the appropriate state management plugin properties to set the Grid's configuration and handle configuration changes a user makes via the Grid's UI. In the example below, sorting configuration is passed to the the `SortingState` plugin's `sorting` property, and the function passed to the `onSortingChanged` property handles the sorting configuration changes.
 
 ```js
 export class MyApp extends React.PureComponent {
@@ -30,35 +36,36 @@ export class MyApp extends React.PureComponent {
 }
 ```
 
-`Sorting` represents the Grid sorting configuration, and the `changeSorting` function is a handler that is invoked every time the sorting configuration changes. Note that all the state management plugins work with the serializable state. This means that you can persist and restore it in [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values. The controlled state mode can also be helpful if you need to indicate the current state in your UI or bind controls existing outside the Grid, for example, to put a ComboBox with the available sort orders and let end-users use it for sorting Grid data.
+If you need to apply a new configuration to the Grid, update the parent component state using the `setState` method.
 
-In the uncontrolled state mode, the Grid component manages its UI state internally. It is not necessary to specify the state value and state change handler properties. You can provide Grid with the initial state value using the property with the `default` prefix, for instance, converting the previous example into the uncontrolled mode:
+Note that all the state management plugins use a serializable state. This means that you can persist it in a [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values.
 
-```js
-<Grid rows={[/* ... */]} columns={[/* ... */]}>
-  <SortingState />
-  { /* ... */ }
-</Grid>
-```
+## Uncontrolled Mode
 
-Specify the default sorting configuration as follows:
+In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the `default` prefix (for example, the `SortingState` plugin's `defaultSorting` property).
 
 ```js
 <Grid rows={[/* ... */]} columns={[/* ... */]}>
   <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
-  { /* ... */ }
-</Grid>
-```
-
-You can configure the Grid when you need to control its state partially, for example, to manage filters without managing sorting and grouping:
-
-```js
-<Grid rows={[/* ... */]} columns={[/* ... */]}>
-  <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
-  <SortingState />
   <GroupingState />
   { /* ... */ }
 </Grid>
 ```
 
-Note: We recommend using the fully-controlled state to avoid the side-effects the partially controlled state can cause when using Redux and performing time traveling.
+## Partially Controlled mode
+
+You can control only certain parts of the Grid's configuration. In this case, apply the [controlled mode](#controlled-mode) only to plugins whose state you want to control externally and the [uncontrolled mode](#uncontrolled-mode) to another plugins.
+
+```js
+<Grid rows={[/* ... */]} columns={[/* ... */]}>
+  <!--Filtering is controlled by the parent component-->
+  <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
+
+  <!--The following plugins are controlled internally-->
+  <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
+  <GroupingState />
+  { /* ... */ }
+</Grid>
+```
+
+Note: We recommend avoiding the partially controlled mode due to the side-effects it can cause when using Redux and performing time traveling.

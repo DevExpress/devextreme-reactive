@@ -17,10 +17,10 @@ export const pluginDepsToComponents = (
   depsOverrides = {},
 ) => (
   <PluginContainer>
-    {deps.plugins && deps.plugins.map(p => (
+    {deps.plugins && deps.plugins.map(plugin => (
       <PluginContainer
-        pluginName={p}
-        key={p}
+        pluginName={plugin}
+        key={plugin}
       >
         <div />
       </PluginContainer>

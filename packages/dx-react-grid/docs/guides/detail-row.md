@@ -22,6 +22,6 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 
 ## Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass an array of the expanded row IDs to the `RowDetailState` plugin's `expandedRows` property and handle the `onExpandedRowsChange` event to control the expanded state of detail rows externally.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass an array of the expanded row IDs to the `RowDetailState` plugin's `expandedRows` property and handle the `onExpandedRowsChange` event to control the detail rows' expanded state externally.
 
 .embedded-demo(detail-row/detail-row-controlled)

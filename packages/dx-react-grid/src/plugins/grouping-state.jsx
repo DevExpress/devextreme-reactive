@@ -10,8 +10,6 @@ import {
   removeOutdatedExpandedGroups,
 } from '@devexpress/dx-grid-core';
 
-const arrayToSet = array => new Set(array);
-
 export class GroupingState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -76,6 +74,7 @@ export class GroupingState extends React.PureComponent {
     const grouping = this._grouping();
     const draftGrouping = draftGroupingComputed(grouping, groupingChange);
     const expandedGroups = this._expandedGroups();
+    const expandedGroupsSet = new Set(expandedGroups);
 
     return (
       <PluginContainer>
@@ -100,18 +99,9 @@ export class GroupingState extends React.PureComponent {
           action={() => { this.cancelGroupingChange(); }}
         />
 
-        <Getter
-          name="grouping"
-          value={grouping}
-        />
-        <Getter
-          name="draftGrouping"
-          value={draftGrouping}
-        />
-        <Getter
-          name="expandedGroups"
-          value={arrayToSet(expandedGroups)}
-        />
+        <Getter name="grouping" value={grouping} />
+        <Getter name="draftGrouping" value={draftGrouping} />
+        <Getter name="expandedGroups" value={expandedGroupsSet} />
       </PluginContainer>
     );
   }

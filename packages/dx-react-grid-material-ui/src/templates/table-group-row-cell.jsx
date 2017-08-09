@@ -32,14 +32,15 @@ const styleSheet = createStyleSheet('TableGroupCell', theme => ({
 
 const TableGroupCellBase = ({
   style,
-  colspan,
+  colSpan,
   row,
+  column,
   isExpanded,
   toggleGroupExpanded,
   classes,
 }) => (
   <TableCell
-    colSpan={colspan}
+    colSpan={colSpan}
     style={style}
     className={classes.cell}
     onClick={toggleGroupExpanded}
@@ -52,15 +53,16 @@ const TableGroupCellBase = ({
       }
     </span>
     <strong className={classes.columnTitle}>
-      {row.column.title || row.column.name}: {row.value}
+      {column.title || column.name}: {row.value}
     </strong>
   </TableCell>
 );
 
 TableGroupCellBase.propTypes = {
   style: PropTypes.shape(),
-  colspan: PropTypes.number,
+  colSpan: PropTypes.number,
   row: PropTypes.shape(),
+  column: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
   classes: PropTypes.object.isRequired,
@@ -68,8 +70,9 @@ TableGroupCellBase.propTypes = {
 
 TableGroupCellBase.defaultProps = {
   style: null,
-  colspan: 1,
+  colSpan: 1,
   row: {},
+  column: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
 };

@@ -174,7 +174,7 @@ describe('TableView', () => {
   it('should render no data cell if rows are empty', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableNoDataCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colspan: 4 };
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4 };
 
     mount(
       <PluginHost>

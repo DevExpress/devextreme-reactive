@@ -42,7 +42,8 @@ copySync(join(__dirname, 'gh-pages-files'), GENERATED_SITE_DIRECTORY);
 console.log('Publishing...');
 execSync(`git add -f ${GENERATED_SITE_DIRECTORY}`);
 execSync(`git commit -m "${COMMIT_MESSAGE}"`);
-execSync(`git subtree push --prefix ${GENERATED_SITE_DIRECTORY} https://github.com/${REPO}.git ${BRANCH}`);
+execSync(`git subtree push --prefix ${GENERATED_SITE_DIRECTORY} upstream ${BRANCH}`);
+execSync('git reset HEAD^');
 
 console.log();
 console.log('--------------------');

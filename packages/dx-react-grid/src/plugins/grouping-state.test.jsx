@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { setupConsole } from '@devexpress/dx-testing';
-import { Template, Getter, PluginHost } from '@devexpress/dx-react-core';
+import { Template, PluginHost } from '@devexpress/dx-react-core';
 
 import { GroupingState } from './grouping-state';
 
@@ -263,84 +263,6 @@ describe('GroupingState', () => {
     });
   });
 
-  describe('groupedColumns', () => {
-    it('should be initially set depending on the "defaultGrouping" property in the uncontrolled mode', () => {
-      let groupedColumns;
-      mount(
-        <PluginHost>
-          <Getter
-            name="columns"
-            value={[{ name: 'a' }, { name: 'b' }]}
-          />
-          <GroupingState
-            defaultGrouping={[{ columnName: 'a' }]}
-          />
-          <Template
-            name="root"
-            connectGetters={(getter) => { groupedColumns = getter('groupedColumns'); }}
-          >
-            {() => <div />}
-          </Template>
-        </PluginHost>,
-      );
-
-      expect(groupedColumns)
-        .toEqual([{ name: 'a' }]);
-    });
-
-    it('should be applied depending on the "grouping" property in the controlled mode', () => {
-      let groupedColumns;
-      mount(
-        <PluginHost>
-          <Getter
-            name="columns"
-            value={[{ name: 'a' }, { name: 'b' }]}
-          />
-          <GroupingState
-            grouping={[{ columnName: 'a' }]}
-          />
-          <Template
-            name="root"
-            connectGetters={(getter) => { groupedColumns = getter('groupedColumns'); }}
-          >
-            {() => <div />}
-          </Template>
-        </PluginHost>,
-      );
-
-      expect(groupedColumns)
-        .toEqual([{ name: 'a' }]);
-    });
-
-    it('should be changed on grouping change', () => {
-      let groupedColumns;
-      let groupByColumn;
-      mount(
-        <PluginHost>
-          <Getter
-            name="columns"
-            value={[{ name: 'a' }, { name: 'b' }]}
-          />
-          <GroupingState
-            defaultGrouping={[{ columnName: 'a' }]}
-          />
-          <Template
-            name="root"
-            connectGetters={(getter) => { groupedColumns = getter('groupedColumns'); }}
-            connectActions={(action) => { groupByColumn = action('groupByColumn'); }}
-          >
-            {() => <div />}
-          </Template>
-        </PluginHost>,
-      );
-
-      groupByColumn({ columnName: 'b', groupIndex: 0 });
-
-      expect(groupedColumns)
-        .toEqual([{ name: 'b' }, { name: 'a' }]);
-    });
-  });
-
   describe('draftGroupingChange', () => {
     it('should add the column passed to draftGrouping', () => {
       let draftGrouping;
@@ -357,34 +279,6 @@ describe('GroupingState', () => {
 
       expect(draftGrouping)
         .toEqual([{ columnName: 'a', isDraft: true, mode: 'add' }]);
-    });
-
-    it('should add the column passed ot draftGroupedColumns', () => {
-      let draftGroupedColumns;
-      let draftGroupingChange;
-      mount(
-        <PluginHost>
-          <Getter name="columns" value={[{ name: 'a' }, { name: 'b' }, { name: 'c' }]} />
-          <GroupingState
-            grouping={[{ columnName: 'b' }]}
-            draftGroupingChange={draftGroupingChange}
-          />
-          <Template
-            name="root"
-            connectGetters={(getter) => { draftGroupedColumns = getter('draftGroupedColumns'); }}
-            connectActions={(action) => { draftGroupingChange = action('draftGroupingChange'); }}
-          >
-            {() => <div />}
-          </Template>
-        </PluginHost>,
-      );
-
-      draftGroupingChange({ columnName: 'a', groupIndex: 0 });
-      expect(draftGroupedColumns)
-        .toEqual([
-          { name: 'a', isDraft: true },
-          { name: 'b' },
-        ]);
     });
   });
 
@@ -409,36 +303,6 @@ describe('GroupingState', () => {
 
       expect(draftGrouping)
         .toEqual([{ columnName: 'a' }]);
-    });
-
-    it('should reset draftGroupedColumns', () => {
-      let draftGroupedColumns;
-      let draftGroupingChange;
-      let cancelGroupingChange;
-      mount(
-        <PluginHost>
-          <Getter name="columns" value={[{ name: 'a' }, { name: 'b' }, { name: 'c' }]} />
-          <GroupingState
-            grouping={[{ columnName: 'a' }]}
-          />
-          <Template
-            name="root"
-            connectGetters={(getter) => { draftGroupedColumns = getter('draftGroupedColumns'); }}
-            connectActions={(action) => {
-              draftGroupingChange = action('draftGroupingChange');
-              cancelGroupingChange = action('cancelGroupingChange');
-            }}
-          >
-            {() => <div />}
-          </Template>
-        </PluginHost>,
-      );
-
-      draftGroupingChange({ columnName: 'c', groupIndex: 1 });
-      cancelGroupingChange();
-
-      expect(draftGroupedColumns)
-        .toEqual([{ name: 'a' }]);
     });
   });
 });

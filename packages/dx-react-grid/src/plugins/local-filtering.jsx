@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { filteredRows } from '@devexpress/dx-grid-core';
 
+const PLUGIN_DEPENDENCIES = [
+  { pluginName: 'FilteringState' },
+];
+
 export class LocalFiltering extends React.PureComponent {
   render() {
     const { filterFn } = this.props;
@@ -10,9 +14,7 @@ export class LocalFiltering extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="LocalFiltering"
-        dependencies={[
-          { pluginName: 'FilteringState' },
-        ]}
+        dependencies={PLUGIN_DEPENDENCIES}
       >
         <Getter
           name="rows"

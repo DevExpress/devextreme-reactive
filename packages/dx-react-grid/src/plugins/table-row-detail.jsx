@@ -9,6 +9,10 @@ import {
   isDetailTableRow,
 } from '@devexpress/dx-grid-core';
 
+const PLUGIN_DEPENDENCIES = [
+  { pluginName: 'TableView' },
+];
+
 export class TableRowDetail extends React.PureComponent {
   render() {
     const {
@@ -22,9 +26,7 @@ export class TableRowDetail extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="TableRowDetail"
-        dependencies={[
-          { pluginName: 'TableView' },
-        ]}
+        dependencies={PLUGIN_DEPENDENCIES}
       >
         <Getter
           name="tableColumns"

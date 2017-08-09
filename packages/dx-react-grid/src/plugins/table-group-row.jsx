@@ -8,6 +8,11 @@ import {
   isGroupIndentTableCell,
 } from '@devexpress/dx-grid-core';
 
+const PLUGIN_DEPENDENCIES = [
+  { pluginName: 'GroupingState' },
+  { pluginName: 'TableView' },
+];
+
 export class TableGroupRow extends React.PureComponent {
   render() {
     const {
@@ -19,10 +24,7 @@ export class TableGroupRow extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="TableGroupRow"
-        dependencies={[
-          { pluginName: 'GroupingState' },
-          { pluginName: 'TableView' },
-        ]}
+        dependencies={PLUGIN_DEPENDENCIES}
       >
         <Getter
           name="tableColumns"

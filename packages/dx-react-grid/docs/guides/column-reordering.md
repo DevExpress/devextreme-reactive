@@ -22,7 +22,7 @@ Enable end-user interactions:
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial column order by the `ColumnOrderState` plugin's `defaultOrder` property.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial column order in the `ColumnOrderState` plugin's `defaultOrder` property.
 
 .embedded-demo(column-reordering/uncontrolled)
 

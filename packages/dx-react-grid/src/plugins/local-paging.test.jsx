@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
-import { Template, PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import { LocalPaging } from './local-paging';
 import { pluginDepsToComponents } from './test-utils';
 
@@ -44,42 +44,28 @@ describe('LocalPaging', () => {
   });
 
   it('should provide totalCount of rows passed into', () => {
-    let totalCount;
     const deps = {};
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-        <Template
-          name="root"
-          connectGetters={(getter) => { totalCount = getter('totalCount'); }}
-        >
-          {() => <div />}
-        </Template>
       </PluginHost>,
     );
 
-    expect(totalCount)
+    expect(deps.computedGetter('totalCount'))
       .toBe(6);
   });
 
   it('should paginate rows passed into based on the "currentPage" and "pageSize" getters', () => {
-    let paginatedRows;
     const deps = {};
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-        <Template
-          name="root"
-          connectGetters={(getter) => { paginatedRows = getter('rows'); }}
-        >
-          {() => <div />}
-        </Template>
       </PluginHost>,
     );
 
-    expect(paginatedRows)
+    expect(deps.computedGetter('rows'))
       .toEqual([{ id: 2 }, { id: 3 }]);
   });
 
@@ -93,12 +79,6 @@ describe('LocalPaging', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-        <Template
-          name="root"
-          connectGetters={getter => (getter('rows'))}
-        >
-          {() => <div />}
-        </Template>
       </PluginHost>,
     );
 

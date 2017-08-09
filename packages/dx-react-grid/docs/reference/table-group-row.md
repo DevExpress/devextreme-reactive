@@ -27,8 +27,9 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | A group row data object
-isExpanded | boolean | Specifies if a row is expanded
+row | [GroupRow](#group-row) | The group row's data object
+column | [Column](grid.md#column) | A column associated with the group
+isExpanded | boolean | Specifies if the row is expanded
 toggleGroupExpanded | () => void | Toggles the group row's expanded state
 
 ### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
@@ -39,7 +40,8 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | A group row data object
+row | [GroupRow](#group-row) | The group row's data object
+column | [Column](grid.md#column) | A column associated with the group
 
 ### <a name="group-row"></a>GroupRow
 
@@ -47,7 +49,7 @@ Describes the group row data structure.
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | The column associated with the group
+type | 'groupRow' | A string value that identifies the group row
 value | any | The current group key value
 
 ## Plugin Developer Reference

@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   groupByColumn,
-  groupedColumns,
   toggleExpandedGroups,
   draftGrouping,
   draftGroupingChange,
   cancelGroupingChange,
-  draftGroupedColumns,
   removeOutdatedExpandedGroups,
 } from '@devexpress/dx-grid-core';
 
@@ -111,22 +109,6 @@ export class GroupingState extends React.PureComponent {
           connectArgs={() => [
             grouping,
             groupingChange,
-          ]}
-        />
-        <Getter
-          name="groupedColumns"
-          pureComputed={groupedColumns}
-          connectArgs={getter => [
-            getter('columns'),
-            grouping,
-          ]}
-        />
-        <Getter
-          name="draftGroupedColumns"
-          pureComputed={draftGroupedColumns}
-          connectArgs={getter => [
-            getter('columns'),
-            getter('draftGrouping'),
           ]}
         />
         <Getter

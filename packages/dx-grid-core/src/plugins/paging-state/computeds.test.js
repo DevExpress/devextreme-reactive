@@ -194,11 +194,14 @@ describe('PagingState computeds', () => {
 
   describe('#firstRowOnPage', () => {
     it('should work', () => {
-      let count = firstRowOnPage(1, 5);
+      let count = firstRowOnPage(1, 5, 10);
       expect(count).toEqual(6);
 
-      count = firstRowOnPage(1, 0);
+      count = firstRowOnPage(1, 0, 10);
       expect(count).toEqual(1);
+
+      count = firstRowOnPage(1, 5, 0);
+      expect(count).toEqual(0);
     });
   });
 

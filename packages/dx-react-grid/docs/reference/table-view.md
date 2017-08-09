@@ -79,7 +79,7 @@ Field | Type | Description
 tableRow | [TableRow](#table-row) | Specifies a table row
 tableColumn | [TableColumn](#table-column) | Specifies a table column
 style? | Object | Styles that should be applied to the root cell element
-colspan? | number | Specifies the number of columns the cell spans
+colSpan? | number | Specifies the number of columns the cell spans
 
 ### <a name="table-data-cell-args"></a>TableDataCellArgs
 

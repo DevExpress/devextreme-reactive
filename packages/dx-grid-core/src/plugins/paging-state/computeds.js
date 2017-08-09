@@ -52,9 +52,12 @@ export const pageCount = (count, pageSize) => (
 
 export const rowCount = rows => rows.length;
 
-export const firstRowOnPage = (currentPage, pageSize) => (
-  pageSize ? (currentPage * pageSize) + 1 : 1
-);
+export const firstRowOnPage = (currentPage, pageSize, totalCount) => {
+  if (totalCount === 0) {
+    return 0;
+  }
+  return pageSize ? (currentPage * pageSize) + 1 : 1;
+};
 
 export const lastRowOnPage = (currentPage, pageSize, totalRowCount) => {
   let result = totalRowCount;

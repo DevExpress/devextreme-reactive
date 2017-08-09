@@ -12,7 +12,7 @@ export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
       if (span) return acc;
       if (columnIndex === colSpanStart || tableColumn.key === colSpanStart) {
         span = true;
-        return [...acc, { ...tableColumn, colspan: tableColumns.length - columnIndex }];
+        return [...acc, { ...tableColumn, colSpan: tableColumns.length - columnIndex }];
       }
       return [...acc, tableColumn];
     }, []);

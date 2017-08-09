@@ -2,7 +2,7 @@ import React from 'react';
 import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
 import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
-const PLUGIN_DEPENDENCIES = [
+const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
@@ -12,7 +12,7 @@ export class LocalPaging extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="LocalPaging"
-        dependencies={PLUGIN_DEPENDENCIES}
+        dependencies={pluginDependencies}
       >
         <Getter
           name="rows"

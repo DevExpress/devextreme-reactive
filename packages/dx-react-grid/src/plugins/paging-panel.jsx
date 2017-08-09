@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { pageCount } from '@devexpress/dx-grid-core';
 
-const PLUGIN_DEPENDENCIES = [
+const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
@@ -14,7 +14,7 @@ export class PagingPanel extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="PagingPanel"
-        dependencies={PLUGIN_DEPENDENCIES}
+        dependencies={pluginDependencies}
       >
         <Template
           name="footer"

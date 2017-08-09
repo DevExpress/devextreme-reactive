@@ -7,7 +7,7 @@ import {
   isFilterTableCell,
 } from '@devexpress/dx-grid-core';
 
-const PLUGIN_DEPENDENCIES = [
+const pluginDependencies = [
   { pluginName: 'FilteringState' },
   { pluginName: 'TableView' },
 ];
@@ -19,7 +19,7 @@ export class TableFilterRow extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="TableFilterRow"
-        dependencies={PLUGIN_DEPENDENCIES}
+        dependencies={pluginDependencies}
       >
         <Getter
           name="tableHeaderRows"

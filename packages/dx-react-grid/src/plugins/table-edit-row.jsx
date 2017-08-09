@@ -8,7 +8,7 @@ import {
   isEditExistingTableCell,
 } from '@devexpress/dx-grid-core';
 
-const PLUGIN_DEPENDENCIES = [
+const pluginDependencies = [
   { pluginName: 'EditingState' },
   { pluginName: 'TableView' },
 ];
@@ -19,7 +19,7 @@ export class TableEditRow extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="TableEditRow"
-        dependencies={PLUGIN_DEPENDENCIES}
+        dependencies={pluginDependencies}
       >
         <Getter
           name="tableBodyRows"

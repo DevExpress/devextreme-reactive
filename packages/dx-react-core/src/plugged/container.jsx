@@ -14,10 +14,8 @@ export class PluginContainer extends React.PureComponent {
     };
     pluginHost.registerPlugin(this.plugin);
   }
-  componentWillUpdate(nextProps) {
-    if (nextProps.dependencies !== this.props.dependencies) {
-      this.context.pluginHost.ensureDependencies();
-    }
+  componentWillUpdate() {
+    this.context.pluginHost.ensureDependencies();
   }
   componentWillUnmount() {
     const { pluginHost } = this.context;

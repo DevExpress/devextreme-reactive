@@ -2,7 +2,7 @@ import React from 'react';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { sortedRows } from '@devexpress/dx-grid-core';
 
-const PLUGIN_DEPENDENCIES = [
+const pluginDependencies = [
   { pluginName: 'SortingState' },
 ];
 
@@ -12,7 +12,7 @@ export class LocalSorting extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="LocalSorting"
-        dependencies={PLUGIN_DEPENDENCIES}
+        dependencies={pluginDependencies}
       >
         <Getter
           name="rows"

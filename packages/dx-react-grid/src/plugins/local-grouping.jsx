@@ -2,7 +2,7 @@ import React from 'react';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { groupedRows, expandedGroupRows } from '@devexpress/dx-grid-core';
 
-const PLUGIN_DEPENDENCIES = [
+const pluginDependencies = [
   { pluginName: 'GroupingState' },
 ];
 
@@ -12,7 +12,7 @@ export class LocalGrouping extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="LocalGrouping"
-        dependencies={PLUGIN_DEPENDENCIES}
+        dependencies={pluginDependencies}
       >
         <Getter
           name="rows"

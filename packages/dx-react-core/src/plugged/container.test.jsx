@@ -104,9 +104,32 @@ describe('PluginContainer', () => {
         optional: false,
       }],
     });
-    pluginContainer.update();
 
     expect(pluginHost.ensureDependencies)
       .toHaveBeenCalledTimes(1);
+  });
+
+  it('should not enforce dependencies check if the "dependencies" prop is not changed', () => {
+    const dependencies = [{
+      pluginName: 'Dep1',
+      optional: true,
+    }];
+    const pluginContainer = mount(
+      <PluginContainer
+        pluginName="TestPlugin"
+        dependencies={dependencies}
+      >
+        <div />
+      </PluginContainer>, {
+        context: {
+          pluginHost,
+          positionContext: () => {},
+        },
+      },
+    );
+    pluginContainer.setProps({ dependencies });
+
+    expect(pluginHost.ensureDependencies)
+      .not.toHaveBeenCalled();
   });
 });

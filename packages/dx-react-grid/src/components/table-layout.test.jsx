@@ -157,12 +157,12 @@ describe('TableLayout', () => {
 
     let rowColumn = rowWrappers.at(0).find('td');
     expect(rowColumn.length).toBe(1);
-    expect(rowColumn.at(0).children(PropsContainer).props().colspan).toBe(4);
+    expect(rowColumn.at(0).children(PropsContainer).props().colSpan).toBe(4);
 
     rowColumn = rowWrappers.at(1).find('td');
     expect(rowColumn.length).toBe(2);
-    expect(rowColumn.at(0).children(PropsContainer).props()).not.toHaveProperty('colspan');
-    expect(rowColumn.at(1).children(PropsContainer).props().colspan).toBe(3);
+    expect(rowColumn.at(0).children(PropsContainer).props()).not.toHaveProperty('colSpan');
+    expect(rowColumn.at(1).children(PropsContainer).props().colSpan).toBe(3);
   });
 
   it('should have correct styles', () => {

@@ -13,53 +13,56 @@ export const Pager = ({
   allowedPageSizes,
   totalCount,
   showAllText,
-}) => (
-  <div className="clearfix">
-    {!!allowedPageSizes.length && <PageSizeSelector
-      pageSize={pageSize}
-      onPageSizeChange={onPageSizeChange}
-      allowedPageSizes={allowedPageSizes}
-      showAllText={showAllText}
-    />}
-    <Pagination
-      style={{
-        margin: 0,
-        verticalAlign: 'bottom',
-      }}
-      className="pull-right hidden-xs"
-      items={totalPages}
-      activePage={currentPage + 1}
-      boundaryLinks
-      maxButtons={3}
-      onSelect={page => onCurrentPageChange(page - 1)}
-    />
-    <BootstrapPager
-      className="pull-right visible-xs"
-      style={{ margin: 0 }}
-    >
-      <BootstrapPager.Item
-        disabled={currentPage === 0}
-        onClick={() => onCurrentPageChange(currentPage - 1)}
+}) => {
+  const firstRow = firstRowOnPage(currentPage, pageSize, totalCount);
+  const lastRow = lastRowOnPage(currentPage, pageSize, totalCount);
+
+  return (
+    <div className="clearfix">
+      {!!allowedPageSizes.length && <PageSizeSelector
+        pageSize={pageSize}
+        onPageSizeChange={onPageSizeChange}
+        allowedPageSizes={allowedPageSizes}
+        showAllText={showAllText}
+      />}
+      <Pagination
+        style={{
+          margin: 0,
+          verticalAlign: 'bottom',
+        }}
+        className="pull-right hidden-xs"
+        items={totalPages || 1}
+        activePage={currentPage + 1}
+        boundaryLinks
+        maxButtons={3}
+        onSelect={page => onCurrentPageChange(page - 1)}
+      />
+      <BootstrapPager
+        className="pull-right visible-xs"
+        style={{ margin: 0 }}
       >
-        &laquo;
-      </BootstrapPager.Item>
-      {' '}
-      <BootstrapPager.Item
-        disabled={currentPage === totalPages - 1}
-        onClick={() => onCurrentPageChange(currentPage + 1)}
-      >
-        &raquo;
-      </BootstrapPager.Item>
-    </BootstrapPager>
-    <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
-      <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
-        { String(firstRowOnPage(currentPage, pageSize)) }
-        -
-        { String(lastRowOnPage(currentPage, pageSize, totalCount)) } of {String(totalCount)}
+        <BootstrapPager.Item
+          disabled={currentPage === 0}
+          onClick={() => onCurrentPageChange(currentPage - 1)}
+        >
+          &laquo;
+        </BootstrapPager.Item>
+        {' '}
+        <BootstrapPager.Item
+          disabled={currentPage === totalPages - 1 || totalCount === 0}
+          onClick={() => onCurrentPageChange(currentPage + 1)}
+        >
+          &raquo;
+        </BootstrapPager.Item>
+      </BootstrapPager>
+      <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
+        <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
+          {`${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`}
+        </span>
       </span>
-    </span>
-  </div>
-);
+    </div>
+  );
+};
 
 Pager.propTypes = {
   currentPage: PropTypes.number.isRequired,

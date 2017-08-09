@@ -1,10 +1,9 @@
 import mergeSort from '../../utils/merge-sort';
-
-const columnByName = (columns, name) => columns.find(column => column.name === name);
+import { getColumnByName } from '../../utils/columns';
 
 const createSortingCompare = (sorting, compareEqual, columns, getCellData) => (a, b) => {
   const inverse = sorting.direction === 'desc';
-  const column = columnByName(columns, sorting.columnName);
+  const column = getColumnByName(columns, sorting.columnName);
   const aValue = getCellData(a, column);
   const bValue = getCellData(b, column);
 

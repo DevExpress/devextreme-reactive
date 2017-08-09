@@ -1,9 +1,9 @@
+import { getColumnByName } from '../../utils/columns';
+
 const toString = value => String(value).toLowerCase();
 
-const columnByName = (columns, name) => columns.find(column => column.name === name);
-
 const applyRowFilter = (row, filter, columns, getCellData) => {
-  const column = columnByName(columns, filter.columnName);
+  const column = getColumnByName(columns, filter.columnName);
   const value = getCellData(row, column);
 
   return toString(value).indexOf(toString(filter.value)) > -1;

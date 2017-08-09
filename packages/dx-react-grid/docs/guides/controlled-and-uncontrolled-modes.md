@@ -1,14 +1,14 @@
 # React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes
 
-Use appropriate state management plugins (plugins that ends whith "...State", e.g. `SortingState`) to control the required Grid's functionality. For example, the [SortingState](../reference/sorting-state.md) plugin controls sorting capabilities, the [FilteringState](../reference/filtering-state.md) plugin controls filtering features etc. See [Reference](../reference/README.md) for the complete plugin list.
+Use appropriate state management plugins (plugins that end with "...State", for example, `SortingState`) to control the required Grid's functionality. For example, the [SortingState](../reference/sorting-state.md) plugin controls the sorting capabilities; the [FilteringState](../reference/filtering-state.md) plugin controls filtering features, etc. See [Reference](../reference/README.md) for the complete plugin list.
 
 ## Controlled Mode
 
-In the controlled mode, the Grid's state is managed outside of the Grid (e.g. in the parent component, Redux store, etc.). Refer to the [React documnetation](https://facebook.github.io/react/docs/forms.html#controlled-components) for more information about controlled components concept.
+In the controlled mode, the Grid's state is managed externally (for example, in the parent component, Redux store, etc.). Refer to the [React documentation](https://facebook.github.io/react/docs/forms.html#controlled-components) for more information about the controlled components concept.
 
 The controlled mode enables you to access the Grid's state from another application parts. For example, you can persist the state and restore it when required, or change it via an external UI.
 
-Use the appropriate state management plugin properties to set the Grid's configuration and handle configuration changes a user makes via the Grid's UI. In the example below, sorting configuration is passed to the the `SortingState` plugin's `sorting` property and sorting configuration changes are handled by the function passed to the `onSortingChanged` property.
+Use the appropriate state management plugin properties to set the Grid's configuration and handle configuration changes a user makes via the Grid's UI. In the example below, sorting configuration is passed to the the `SortingState` plugin's `sorting` property, and the function passed to the `onSortingChanged` property handles the sorting configuration changes.
 
 ```js
 export class MyApp extends React.PureComponent {
@@ -42,7 +42,7 @@ Note that all the state management plugins use a serializable state. This means 
 
 ## Uncontrolled Mode
 
-In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the `default` prefix (e.g. the `SortingState` plugin's `defaultSorting` property).
+In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the `default` prefix (for example, the `SortingState` plugin's `defaultSorting` property).
 
 ```js
 <Grid rows={[/* ... */]} columns={[/* ... */]}>
@@ -54,7 +54,7 @@ In the uncontrolled state mode, the Grid component manages its state internally.
 
 ## Partially Controlled mode
 
-You can control only the required parts of the Grid's configuration. In this case, apply the [controlled mode](#controlled-mode) only to plugins whose state you want to control externally and the [uncontrolled mode](#uncontrolled-mode) to another plugins.
+You can control only certain parts of the Grid's configuration. In this case, apply the [controlled mode](#controlled-mode) only to plugins whose state you want to control externally and the [uncontrolled mode](#uncontrolled-mode) to another plugins.
 
 ```js
 <Grid rows={[/* ... */]} columns={[/* ... */]}>
@@ -68,4 +68,4 @@ You can control only the required parts of the Grid's configuration. In this cas
 </Grid>
 ```
 
-Note: We recommend to avoid using of the partially controlled mode because of the side-effects it can cause when using Redux and performing time traveling.
+Note: We recommend avoiding the partially controlled mode due to the side-effects it can cause when using Redux and performing time traveling.

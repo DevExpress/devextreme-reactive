@@ -16,9 +16,9 @@ export class TableHeaderRow extends React.PureComponent {
         pluginName="TableHeaderRow"
         dependencies={[
           { pluginName: 'TableView' },
-          { pluginName: 'SortingState', optional: true },
-          { pluginName: 'GroupingState', optional: true },
-          { pluginName: 'DragDropContext', optional: true },
+          { pluginName: 'SortingState', optional: !allowSorting },
+          { pluginName: 'GroupingState', optional: !allowGroupingByClick },
+          { pluginName: 'DragDropContext', optional: !allowDragging },
         ]}
       >
         <Getter

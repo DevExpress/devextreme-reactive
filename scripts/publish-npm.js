@@ -34,7 +34,7 @@ new Promise((resolve) => {
       if(valid(input) === null)
         return 'Version is invalid';
       if(lt(input, currentVersion))
-        return 'New version should be greate than current';
+        return 'New version should be greater than current';
 
       return true;
     }
@@ -49,7 +49,7 @@ new Promise((resolve) => {
     console.log('Building...');
     execSync('npm run build', { stdio: 'ignore' });
 
-    console.log('Genereting CHANGELOG.md...');
+    console.log('Generating CHANGELOG.md...');
     const changelogFile = join(process.cwd(), 'CHANGELOG.md');
     execSync(`"./node_modules/.bin/conventional-changelog" -p ${CONVENTIONAL_CHANGELOG_PRESET} -i CHANGELOG.md -s`, { stdio: 'ignore' });
     writeFileSync(
@@ -99,21 +99,6 @@ new Promise((resolve) => {
       console.log(`Don\'t forget to create a release on GitHub!`);
       console.log('--------------------');
       console.log();
-
-      prompt({
-        message: 'It is a good point to publish site. Proceed?',
-        name: 'publishSite',
-        type: 'confirm',
-        default: false,
-      })
-      .then(({ publishSite }) => {
-        if (!publishSite) {
-          console.log('Site publishing is aborted...');
-          return;
-        }
-
-        execSync(`npm run publish:site`, { stdio: 'inherit' });
-      });
     });
   });
 });

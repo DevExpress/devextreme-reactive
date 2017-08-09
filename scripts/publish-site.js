@@ -36,7 +36,7 @@ removeSync(GENERATED_SITE_DIRECTORY);
 console.log('Generating site...');
 execSync(`bundle exec jekyll build --source ${SITE_DIRECTORY} --destination ${GENERATED_SITE_DIRECTORY}`, { cwd: SITE_DIRECTORY, stdio: 'ignore' });
 
-console.log('Copying github staff...');
+console.log('Copying github stuff...');
 copySync(join(__dirname, 'gh-pages-files'), GENERATED_SITE_DIRECTORY);
 
 console.log('Publishing...');

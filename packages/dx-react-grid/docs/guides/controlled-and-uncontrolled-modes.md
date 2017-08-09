@@ -36,7 +36,7 @@ export class MyApp extends React.PureComponent {
 }
 ```
 
-If you need to apply a new configuration to the Grid, update the parent component state using the `setState` method, which causes the component rendering with new state applied.
+If you need to apply a new configuration to the Grid, update the parent component state using the `setState` method.
 
 Note that all the state management plugins use a serializable state. This means that you can persist it in a [localStorage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) or any other storage that can store string values.
 

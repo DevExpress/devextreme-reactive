@@ -46,15 +46,13 @@ export class PluginHost {
     this.gettersCache = {};
     this.knownKeysCache = {};
   }
-  // TODO: test me
   knownKeys(postfix) {
     if (!this.knownKeysCache[postfix]) {
       this.knownKeysCache[postfix] = Array.from(this.plugins
         .map(plugin => Object.keys(plugin))
         .map(keys => keys.filter(key => key.endsWith(postfix))[0])
         .filter(key => !!key)
-        .reduce((acc, key) => acc.add(key), new Set())
-        .keys())
+        .reduce((acc, key) => acc.add(key), new Set()))
         .map(key => key.replace(postfix, ''));
     }
     return this.knownKeysCache[postfix];

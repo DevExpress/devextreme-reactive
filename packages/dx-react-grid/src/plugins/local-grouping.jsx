@@ -12,7 +12,9 @@ export class LocalGrouping extends React.PureComponent {
           pureComputed={groupedRows}
           connectArgs={getter => [
             getter('rows'),
+            getter('columns'),
             getter('grouping'),
+            getter('getCellData'),
           ]}
         />
         <Getter

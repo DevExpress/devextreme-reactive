@@ -28,8 +28,10 @@ export class TableEditRow extends React.PureComponent {
           predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}
           connectGetters={(getter, { tableColumn: { column }, tableRow: { rowId, row } }) => {
             const change = getRowChange(getter('changedRows'), rowId);
+            const getCellData = getter('getCellData');
+
             return {
-              value: column.name in change ? change[column.name] : row[column.name],
+              value: column.name in change ? change[column.name] : getCellData(row, column),
             };
           }}
           connectActions={action => ({

@@ -24,6 +24,7 @@ const defaultDeps = {
     editingRows: [1, 2],
     addedRows: [{ a: 'text' }, {}],
     changedRows: [{ 1: { a: 'text' } }],
+    getCellData: jest.fn(),
   },
   action: {
     changeAddRow: jest.fn(),
@@ -127,6 +128,10 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
+    expect(defaultDeps.getter.getCellData).toBeCalledWith(
+      defaultDeps.template.tableViewCell.tableRow.row,
+      defaultDeps.template.tableViewCell.tableColumn.column,
+    );
     expect(isEditExistingTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,

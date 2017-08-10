@@ -36,6 +36,7 @@ const defaultDeps = {
       style: {},
     },
   },
+  plugins: ['EditingState', 'TableView'],
 };
 
 const defaultProps = {

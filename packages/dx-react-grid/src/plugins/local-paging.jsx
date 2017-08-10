@@ -2,11 +2,18 @@ import React from 'react';
 import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
 import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'PagingState' },
+];
+
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalPaging extends React.PureComponent {
   render() {
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="LocalPaging"
+        dependencies={pluginDependencies}
+      >
         <Getter
           name="rows"
           pureComputed={ensurePageHeaders}

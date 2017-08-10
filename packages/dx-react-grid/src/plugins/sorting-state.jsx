@@ -24,7 +24,9 @@ export class SortingState extends React.PureComponent {
     const sorting = this.props.sorting || this.state.sorting;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="SortingState"
+      >
         <Action
           name="setColumnSorting"
           action={({ columnName, direction, keepOther, cancel }) => {

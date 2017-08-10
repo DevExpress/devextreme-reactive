@@ -7,12 +7,20 @@ import {
   isFilterTableCell,
 } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'FilteringState' },
+  { pluginName: 'TableView' },
+];
+
 export class TableFilterRow extends React.PureComponent {
   render() {
     const { rowHeight, filterCellTemplate } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableFilterRow"
+        dependencies={pluginDependencies}
+      >
         <Getter
           name="tableHeaderRows"
           pureComputed={tableHeaderRowsWithFilter}

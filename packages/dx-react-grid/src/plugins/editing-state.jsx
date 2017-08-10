@@ -107,7 +107,9 @@ export class EditingState extends React.PureComponent {
     const deletedRows = this.props.deletedRows || this.state.deletedRows;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="EditingState"
+      >
         <Action
           name="startEditRows"
           action={({ rowIds }) => this._startEditRows(editingRows, { rowIds })}

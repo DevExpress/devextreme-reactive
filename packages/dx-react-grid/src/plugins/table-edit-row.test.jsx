@@ -101,6 +101,10 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
+    expect(defaultDeps.getter.getCellData).toBeCalledWith(
+      defaultDeps.template.tableViewCell.tableRow.row,
+      defaultDeps.template.tableViewCell.tableColumn.column,
+    );
     expect(isEditNewTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,

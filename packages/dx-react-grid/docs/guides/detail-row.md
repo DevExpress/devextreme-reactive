@@ -1,25 +1,27 @@
 # React Grid Detail Row
 
-## Overview
+The "Detail Row" feature displays data row details on an expandable pane. The pane can be expanded and collapsed either programmatically or via the Grid's UI.
 
-The 'Detail Row' feature allows you to display extended representation of a data row that can be expanded/collapsed either programmatically or via an end-user interaction with the Grid UI.
+## Required Plugins
 
-## Plugin List
+The "Detail Row" feature requires the following plugins:
+- [RowDetailState](../reference/row-detail-state.md) - controls the detail rows' expanded status
+- [TableRowDetail](../reference/table-row-detail.md) - renders detail rows
 
-Two plugins are required to enable this feature:
-- [RowDetailState](../reference/row-detail-state.md)
-- [TableRowDetail](../reference/table-row-detail.md)
-
-Note that the [plugin order](../README.md#plugin-order) is very important.
+Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Detail Row Setup
 
-To set up a simple Grid with detail rows, you need to use the `RowDetailState` and `TableRowDetail` plugins. Specify the detail row template via the `template` property of the `TableRowDetail` plugin. In uncontrolled state mode, you can also pass IDs of rows that should be initially expanded into the `defaultExpandedRows` property of the `RowDetailState` plugin, and the expanded state will be managed by the plugin internally.
+Add the required plugins listed above to the Grid and specify the detail row template via the `TableRowDetail` plugin's `template` property to set up a simple Grid with detail rows.
+
+## Uncontrolled Mode
+
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initially expanded detail rows using the `RowDetailState` plugins's `defaultExpandedRows` property.
 
 .embedded-demo(detail-row/simple-detail-row)
 
-## Controlled Expanded State Mode
+## Controlled Mode
 
-To control the expanded state of the detail rows from the outside, pass an array of the expanded row IDs to the `expandedRows` property of the `RowDetailState` plugin and handle the `onExpandedRowsChange` event of the same plugin.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass an array of the expanded row IDs to the `RowDetailState` plugin's `expandedRows` property and handle the `onExpandedRowsChange` event to control the detail rows' expanded state externally.
 
 .embedded-demo(detail-row/detail-row-controlled)

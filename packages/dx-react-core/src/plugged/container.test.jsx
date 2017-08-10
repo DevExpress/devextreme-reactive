@@ -1,9 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-
-import { PluginHost } from './host';
 import { PluginContainer } from './container';
 
 describe('PluginContainer', () => {
@@ -15,35 +12,36 @@ describe('PluginContainer', () => {
     resetConsole();
   });
 
-  it('should register itself in the plugin host', () => {
-    let pluginHostInstance;
-    const Stub = (_, { pluginHost }) => {
-      pluginHostInstance = pluginHost;
-      pluginHostInstance.registerPlugin = jest.fn();
-      return null;
+  let pluginHost;
+  beforeEach(() => {
+    pluginHost = {
+      registerPlugin: jest.fn(),
+      unregisterPlugin: jest.fn(),
+      ensureDependencies: jest.fn(),
     };
-    Stub.contextTypes = {
-      pluginHost: PropTypes.object.isRequired,
-    };
+  });
 
+  it('should register itself in the plugin host', () => {
     mount(
-      <PluginHost>
-        <Stub />
-        <PluginContainer
-          pluginName="TestPlugin"
-          dependencies={[{
-            pluginName: 'Dep1',
-            optional: true,
-          }]}
-        >
-          <div />
-        </PluginContainer>
-      </PluginHost>,
+      <PluginContainer
+        pluginName="TestPlugin"
+        dependencies={[{
+          pluginName: 'Dep1',
+          optional: true,
+        }]}
+      >
+        <div />
+      </PluginContainer>, {
+        context: {
+          pluginHost,
+          positionContext: () => {},
+        },
+      },
     );
 
-    expect(pluginHostInstance.registerPlugin)
+    expect(pluginHost.registerPlugin)
       .toHaveBeenCalledTimes(1);
-    expect(pluginHostInstance.registerPlugin.mock.calls[0][0])
+    expect(pluginHost.registerPlugin.mock.calls[0][0])
       .toMatchObject({
         position: expect.any(Function),
         pluginName: 'TestPlugin',
@@ -53,39 +51,85 @@ describe('PluginContainer', () => {
   });
 
   it('should unregister itself from the plugin host', () => {
-    let pluginHostInstance;
-    const Stub = (_, { pluginHost }) => {
-      pluginHostInstance = pluginHost;
-      pluginHostInstance.unregisterPlugin = jest.fn();
-      return null;
-    };
-    Stub.contextTypes = {
-      pluginHost: PropTypes.object.isRequired,
-    };
-
     const tree = mount(
-      <PluginHost>
-        <Stub />
-        <PluginContainer
-          pluginName="TestPlugin"
-          dependencies={[{
-            pluginName: 'Dep1',
-            optional: true,
-          }]}
-        >
-          <div />
-        </PluginContainer>
-      </PluginHost>,
+      <PluginContainer
+        pluginName="TestPlugin"
+        dependencies={[{
+          pluginName: 'Dep1',
+          optional: true,
+        }]}
+      >
+        <div />
+      </PluginContainer>, {
+        context: {
+          pluginHost,
+          positionContext: () => {},
+        },
+      },
     );
 
     tree.unmount();
 
-    expect(pluginHostInstance.unregisterPlugin.mock.calls[1][0])
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(1);
+    expect(pluginHost.unregisterPlugin.mock.calls[0][0])
       .toMatchObject({
         position: expect.any(Function),
         pluginName: 'TestPlugin',
         dependencies: [{ pluginName: 'Dep1', optional: true }],
         container: true,
       });
+  });
+
+  it('should enforce dependencies check after optional is changed', () => {
+    const pluginContainer = mount(
+      <PluginContainer
+        pluginName="TestPlugin"
+        dependencies={[{
+          pluginName: 'Dep1',
+          optional: true,
+        }]}
+      >
+        <div />
+      </PluginContainer>, {
+        context: {
+          pluginHost,
+          positionContext: () => {},
+        },
+      },
+    );
+    pluginContainer.setProps({
+      dependencies: [{
+        pluginName: 'Dep1',
+        optional: false,
+      }],
+    });
+
+    expect(pluginHost.ensureDependencies)
+      .toHaveBeenCalledTimes(1);
+  });
+
+  it('should not enforce dependencies check if the "dependencies" prop is not changed', () => {
+    const dependencies = [{
+      pluginName: 'Dep1',
+      optional: true,
+    }];
+    const pluginContainer = mount(
+      <PluginContainer
+        pluginName="TestPlugin"
+        dependencies={dependencies}
+      >
+        <div />
+      </PluginContainer>, {
+        context: {
+          pluginHost,
+          positionContext: () => {},
+        },
+      },
+    );
+    pluginContainer.setProps({ dependencies });
+
+    expect(pluginHost.ensureDependencies)
+      .not.toHaveBeenCalled();
   });
 });

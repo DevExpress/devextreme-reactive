@@ -14,11 +14,11 @@ const styleSheet = createStyleSheet('TableNoDataCell', theme => ({
   },
 }));
 
-export const TableNoDataCellBase = ({ style, colspan, classes }) => (
+export const TableNoDataCellBase = ({ style, colSpan, classes }) => (
   <TableCell
     style={style}
     className={classes.cell}
-    colSpan={colspan}
+    colSpan={colSpan}
   >
     <big className="text-muted">No data</big>
   </TableCell>
@@ -26,13 +26,13 @@ export const TableNoDataCellBase = ({ style, colspan, classes }) => (
 
 TableNoDataCellBase.propTypes = {
   style: PropTypes.shape(),
-  colspan: PropTypes.number,
+  colSpan: PropTypes.number,
   classes: PropTypes.object.isRequired,
 };
 
 TableNoDataCellBase.defaultProps = {
   style: null,
-  colspan: 1,
+  colSpan: 1,
 };
 
 export const TableNoDataCell = withStyles(styleSheet)(TableNoDataCellBase);

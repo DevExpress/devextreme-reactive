@@ -8,6 +8,11 @@ import {
   isGroupIndentTableCell,
 } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'GroupingState' },
+  { pluginName: 'TableView' },
+];
+
 export class TableGroupRow extends React.PureComponent {
   render() {
     const {
@@ -17,7 +22,10 @@ export class TableGroupRow extends React.PureComponent {
     } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableGroupRow"
+        dependencies={pluginDependencies}
+      >
         <Getter
           name="tableColumns"
           pureComputed={tableColumnsWithGrouping}
@@ -45,6 +53,7 @@ export class TableGroupRow extends React.PureComponent {
           {({ expandedGroups, toggleGroupExpanded, ...params }) => groupCellTemplate({
             ...params,
             row: params.tableRow.row,
+            column: params.tableColumn.column,
             isExpanded: expandedGroups.has(params.tableRow.row.key),
             toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
           })}
@@ -54,7 +63,11 @@ export class TableGroupRow extends React.PureComponent {
             name="tableViewCell"
             predicate={({ tableRow, tableColumn }) => isGroupIndentTableCell(tableRow, tableColumn)}
           >
-            {params => groupIndentCellTemplate({ row: params.tableRow.row, ...params })}
+            {params => groupIndentCellTemplate({
+              ...params,
+              row: params.tableRow.row,
+              column: params.tableColumn.column,
+            })}
           </Template>
         )}
       </PluginContainer>

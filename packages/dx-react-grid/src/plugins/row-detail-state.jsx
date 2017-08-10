@@ -25,7 +25,9 @@ export class RowDetailState extends React.PureComponent {
   render() {
     const expandedRows = this.props.expandedRows || this.state.expandedRows;
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="RowDetailState"
+      >
         <Action
           name="setDetailRowExpanded"
           action={({ rowId }) => this._setDetailRowExpanded({ rowId })}

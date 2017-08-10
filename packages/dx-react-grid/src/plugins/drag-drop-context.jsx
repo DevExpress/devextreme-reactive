@@ -27,7 +27,9 @@ export class DragDropContext extends React.PureComponent {
     } = this.state;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="DragDropContext"
+      >
         <Template
           name="root"
           connectGetters={getter => ({

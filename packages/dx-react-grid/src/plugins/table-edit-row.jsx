@@ -31,7 +31,8 @@ export class TableEditRow extends React.PureComponent {
             const getCellData = getter('getCellData');
 
             return {
-              value: column.name in change ? change[column.name] : getCellData(row, column),
+              value: getCellData(change, column) || getCellData(row, column),
+              setCellData: getter('setCellData'),
             };
           }}
           connectActions={action => ({
@@ -41,18 +42,22 @@ export class TableEditRow extends React.PureComponent {
           {({
             value,
             changeRow,
+            setCellData,
             ...restParams
           }) =>
             editCellTemplate({
               row: restParams.tableRow.row,
               column: restParams.tableColumn.column,
               value,
-              onValueChange: newValue => changeRow({
-                rowId: restParams.tableRow.rowId,
-                change: {
-                  [restParams.tableColumn.column.name]: newValue,
-                },
-              }),
+              onValueChange: newValue =>
+                changeRow({
+                  rowId: restParams.tableRow.rowId,
+                  change: setCellData(
+                    restParams.tableRow.row,
+                    restParams.tableColumn.column,
+                    newValue,
+                  ),
+                }),
               ...restParams,
             })}
         </Template>

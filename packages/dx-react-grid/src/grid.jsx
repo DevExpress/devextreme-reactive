@@ -18,10 +18,17 @@ const getCellDataGetter = getCellData => (
   }
 );
 
+const setCellDataGetter = setCellData => (
+  (row, column, value) => {
+    if (setCellData) return setCellData(row, column, value);
+    return { [column.name]: value };
+  }
+);
+
 export const Grid = ({
   rows, getRowId, columns,
   rootTemplate, headerPlaceholderTemplate, footerPlaceholderTemplate,
-  children, getCellData,
+  children, getCellData, setCellData,
 }) => (
   <PluginHost>
     <Getter name="rows" value={rows} />
@@ -35,6 +42,11 @@ export const Grid = ({
       name="getCellData"
       pureComputed={getCellDataGetter}
       connectArgs={() => [getCellData]}
+    />
+    <Getter
+      name="setCellData"
+      pureComputed={setCellDataGetter}
+      connectArgs={() => [setCellData]}
     />
     <Template name="header" />
     <Template name="body" />
@@ -66,6 +78,7 @@ Grid.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellData: PropTypes.func,
+  setCellData: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
   headerPlaceholderTemplate: PropTypes.func,
@@ -79,6 +92,7 @@ Grid.propTypes = {
 Grid.defaultProps = {
   getRowId: null,
   getCellData: null,
+  setCellData: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,
   children: null,

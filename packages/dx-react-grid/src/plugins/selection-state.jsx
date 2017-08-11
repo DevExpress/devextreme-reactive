@@ -23,7 +23,9 @@ export class SelectionState extends React.PureComponent {
     const selection = this.props.selection || this.state.selection;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="SelectionState"
+      >
         <Action
           name="setRowsSelection"
           action={({ rowIds, selected }) => {

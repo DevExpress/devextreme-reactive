@@ -38,7 +38,9 @@ export class PagingState extends React.PureComponent {
     } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="PagingState"
+      >
         <Action name="setCurrentPage" action={page => this._setCurrentPage(page)} />
         <Action name="setPageSize" action={size => this._setPageSize(size)} />
 

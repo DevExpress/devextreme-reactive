@@ -26,7 +26,13 @@ export class TableView extends React.PureComponent {
     } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableView"
+        dependencies={[
+          { pluginName: 'ColumnOrderState', optional: !allowColumnReordering },
+          { pluginName: 'DragDropContext', optional: !allowColumnReordering },
+        ]}
+      >
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter
           name="tableBodyRows"

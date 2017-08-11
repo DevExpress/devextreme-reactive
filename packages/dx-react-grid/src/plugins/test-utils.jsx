@@ -17,6 +17,14 @@ export const pluginDepsToComponents = (
   depsOverrides = {},
 ) => (
   <PluginContainer>
+    {deps.plugins && deps.plugins.map(plugin => (
+      <PluginContainer
+        pluginName={plugin}
+        key={plugin}
+      >
+        <div />
+      </PluginContainer>
+    ))}
     {entries({ ...deps.getter, ...depsOverrides.getter })
       .map(([name, value]) => <Getter key={`getter_${name}`} name={name} value={value} />)}
     {entries({ ...deps.action, ...depsOverrides.action })

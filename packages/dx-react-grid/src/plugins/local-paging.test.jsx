@@ -1,10 +1,29 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { setupConsole } from '@devexpress/dx-testing';
-import { Template, Getter, Action, PluginHost } from '@devexpress/dx-react-core';
-
+import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import { LocalPaging } from './local-paging';
+import { pluginDepsToComponents } from './test-utils';
+
+jest.mock('@devexpress/dx-grid-core', () => ({
+  paginate: jest.fn(),
+  ensurePageHeaders: jest.fn(),
+  pageCount: jest.fn(),
+  rowCount: jest.fn(),
+}));
+
+const defaultDeps = {
+  getter: {
+    rows: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
+    currentPage: 1,
+    pageSize: 2,
+  },
+  action: {
+    setCurrentPage: jest.fn(),
+  },
+  plugins: ['PagingState'],
+};
 
 describe('LocalPaging', () => {
   let resetConsole;
@@ -15,104 +34,68 @@ describe('LocalPaging', () => {
     resetConsole();
   });
 
+  beforeEach(() => {
+    paginate.mockImplementation(() => [{ id: 2 }, { id: 3 }]);
+    pageCount.mockImplementation(() => 3);
+    rowCount.mockImplementation(() => 6);
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it('should provide totalCount of rows passed into', () => {
-    let totalCount;
+    const deps = {};
     mount(
       <PluginHost>
-        <Getter
-          name="rows"
-          value={[{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
-        />
+        {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-        <Template
-          name="root"
-          connectGetters={(getter) => { totalCount = getter('totalCount'); }}
-        >
-          {() => <div />}
-        </Template>
       </PluginHost>,
     );
 
-    expect(totalCount)
+    expect(deps.computedGetter('totalCount'))
       .toBe(6);
   });
 
   it('should paginate rows passed into based on the "currentPage" and "pageSize" getters', () => {
-    let paginatedRows;
+    const deps = {};
     mount(
       <PluginHost>
-        <Getter
-          name="rows"
-          value={[{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
-        />
-        <Getter name="currentPage" value={1} />
-        <Getter name="pageSize" value={2} />
+        {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-        <Template
-          name="root"
-          connectGetters={(getter) => { paginatedRows = getter('rows'); }}
-        >
-          {() => <div />}
-        </Template>
       </PluginHost>,
     );
 
-    expect(paginatedRows)
+    expect(deps.computedGetter('rows'))
       .toEqual([{ id: 2 }, { id: 3 }]);
   });
 
-  it('should change the "currentPage" if starting row index exeeds the rows count', () => {
-    const setCurrentPageMock = jest.fn();
+  it('should change the "currentPage" if starting row index exceeds the rows count', () => {
+    const deps = {
+      getter: {
+        currentPage: 4,
+      },
+    };
     mount(
       <PluginHost>
-        <Getter
-          name="rows"
-          value={[{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
-        />
-        <Getter name="currentPage" value={4} />
-        <Getter name="pageSize" value={2} />
-        <Action name="setCurrentPage" action={setCurrentPageMock} />
+        {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-        <Template
-          name="root"
-          connectGetters={getter => (getter('rows'))}
-        >
-          {() => <div />}
-        </Template>
       </PluginHost>,
     );
 
-    expect(setCurrentPageMock.mock.calls)
+    expect(defaultDeps.action.setCurrentPage.mock.calls)
       .toEqual([[2]]);
   });
 
   it('should ensure page headers are present on each page', () => {
-    let paginatedRows;
-    let totalCount;
+    const deps = {};
     mount(
       <PluginHost>
-        <Getter
-          name="rows"
-          value={[{ id: 0, _headerKey: 'a' }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]}
-        />
-        <Getter name="currentPage" value={1} />
-        <Getter name="pageSize" value={2} />
+        {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-        <Template
-          name="root"
-          connectGetters={(getter) => {
-            paginatedRows = getter('rows');
-            totalCount = getter('totalCount');
-          }}
-        >
-          {() => <div />}
-        </Template>
       </PluginHost>,
     );
 
-    expect(paginatedRows)
-      .toEqual([{ id: 0, _headerKey: 'a' }, { id: 2 }]);
-    expect(totalCount)
-      .toEqual(10);
+    expect(ensurePageHeaders)
+      .toHaveBeenCalledWith(defaultDeps.getter.rows, defaultDeps.getter.pageSize);
   });
 });

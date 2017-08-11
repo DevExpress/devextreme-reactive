@@ -9,6 +9,11 @@ import {
   isEditExistingRowCommandsTableCell,
 } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'EditingState' },
+  { pluginName: 'TableView' },
+];
+
 export class TableEditColumn extends React.PureComponent {
   render() {
     const {
@@ -21,7 +26,10 @@ export class TableEditColumn extends React.PureComponent {
       width,
     } = this.props;
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableEditColumn"
+        dependencies={pluginDependencies}
+      >
         <Getter
           name="tableColumns"
           pureComputed={tableColumnsWithEditing}

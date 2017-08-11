@@ -39,7 +39,7 @@ changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: str
 groupedColumns | Array&lt;[Column](grid.md#column)&gt; | Columns by which the grid data is currently grouped
 groupByColumnText | string | The text displayed in the group panel if the grid is not grouped
 groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
-draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the passed value 
+draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value
 cancelGroupingChange | () => void | Resets the groupingChange state
 allowUngroupingByClick | boolean | Specifies whether column headers display a button that cancels grouping by the column
 groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | Renders a group panel cell. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
@@ -65,7 +65,8 @@ allowUngroupingByClick | boolean | Specifies whether to display the button that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-draftGroupedColumns | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns by which the grid is grouped
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns
+draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
 groupByColumn | Action | ({ columnName: string }) => void | Toggles a column's grouping state
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting

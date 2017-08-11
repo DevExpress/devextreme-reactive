@@ -1,11 +1,10 @@
 import mergeSort from '../../utils/merge-sort';
-import { getColumnByName } from '../../utils/columns';
 
-const createSortingCompare = (sorting, compareEqual, columns, getCellData) => (a, b) => {
+const createSortingCompare = (sorting, compareEqual, getCellData) => (a, b) => {
   const inverse = sorting.direction === 'desc';
-  const column = getColumnByName(columns, sorting.columnName);
-  const aValue = getCellData(a, column);
-  const bValue = getCellData(b, column);
+  const columnName = sorting.columnName;
+  const aValue = getCellData(a, columnName);
+  const bValue = getCellData(b, columnName);
 
   if (aValue === bValue) {
     return (compareEqual && compareEqual(a, b)) || 0;
@@ -14,13 +13,13 @@ const createSortingCompare = (sorting, compareEqual, columns, getCellData) => (a
   return (aValue < bValue) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
 };
 
-export const sortedRows = (rows, columns, sorting, getCellData) => {
+export const sortedRows = (rows, sorting, getCellData) => {
   if (!sorting.length) return rows;
 
   const compare = Array.from(sorting)
     .reverse()
     .reduce((prevCompare, columnSorting) =>
-      createSortingCompare(columnSorting, prevCompare, columns, getCellData), () => 0);
+      createSortingCompare(columnSorting, prevCompare, getCellData), () => 0);
 
   return mergeSort(Array.from(rows), compare);
 };

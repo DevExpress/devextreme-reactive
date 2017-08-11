@@ -1,6 +1,6 @@
 import React from 'react';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
-import { sortedRows } from '@devexpress/dx-grid-core';
+import { sortedRows, getColumnByName } from '@devexpress/dx-grid-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalSorting extends React.PureComponent {
@@ -12,9 +12,13 @@ export class LocalSorting extends React.PureComponent {
           pureComputed={sortedRows}
           connectArgs={getter => [
             getter('rows'),
-            getter('columns'),
             getter('sorting'),
-            getter('getCellData'),
+            (row, columnName) => (
+              getter('getCellData')(
+                row,
+                getColumnByName(getter('columns'), columnName),
+              )
+            ),
           ]}
         />
       </PluginContainer>

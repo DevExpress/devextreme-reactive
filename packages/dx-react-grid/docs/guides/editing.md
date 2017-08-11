@@ -1,8 +1,8 @@
 # React Grid Data Editing
 
-The Grid supports creating, updating and deleting rows. Use the editing state to manage these operations. The editing state contains information about rows being added, deleted and updated, and about rows containing uncommitted changes. Once the changes held in the editing state have been commited, the Grid applies them and resets the editing state.
+The Grid supports editing features that include creating, updating and deleting rows. Use the corresponding plugins to manage the editing state and perform editing operations programmatically or via the UI controls. The editing state contains information about rows currently being edited, changes applied to a particular row, and rows that have been deleted and created but not yet committed. Once a user accepts row addition or deletion, or changes made to a row (clicking the Save or Delete button), the Grid fires the `EditingState` plugin's `onCommitChanges` event and resets the row's editing state.
 
-## Required Plugins
+## Related Plugins
 
 The following plugins implement editing features:
 - [EditingState](../reference/editing-state.md) - controls the editing state  
@@ -15,7 +15,7 @@ Note that the [plugin order](../README.md#plugin-order) is important.
 
 Add the plugins listed above to the Grid to set up a simple Grid supporting editing features.
 
-Process the committed changes and send them to the data source using the `EditingState` plugin's `onCommitChanges` event.
+Handle the `EditingState` plugin's `onCommitChanges` event to commit changes made by an end-user to your data store.
 
 ## Uncontrolled Mode
 

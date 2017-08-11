@@ -31,6 +31,8 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filteri
 
 Define a filter row cell template using the `TableFilterRow` plugin's `filterCellTemplate` property to use a custom editor instead of the built-in one. Pass a function that renders a custom component to the `filterCellTemplate` property. Define the component's state and handle its changes using the `filter` and `setFilter` arguments respectively to delegate the component's state control to the `TableFilterRow` plugin. In this case, the `FilteringState` plugin handles changes internally, which allows you to use the Grid in both controlled and uncontrolled modes.
 
+## Custom Filtering Algorithm
+
 You can also specify a filtering prdicate using the `LocalFiltering` plugin's `filterFn` property to implement a custom filtering logic.
 
 .embedded-demo(filtering/custom-filter-row)

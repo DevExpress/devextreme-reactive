@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { shallowEqual } from '../utils/shallow-equal';
+import { shallowEqual } from '@devexpress/dx-core';
 import { getAction } from '../utils/plugin-helpers';
 
 export const UPDATE_CONNECTION = 'updateConnection';
@@ -16,7 +16,6 @@ export class Getter extends React.PureComponent {
 
     this.plugin = {
       position: () => this.props.position(),
-      // TODO: refactor me
       [`${name}Getter`]: (original) => {
         const { value, computed } = this.props;
         if (value !== undefined) return value;

@@ -60,8 +60,6 @@ export * from './plugins/table-view/constants';
 export * from './plugins/table-view/helpers';
 export * from './plugins/table-view/computeds';
 
-export * from './utils/columns';
-
 export {
   getTableRowColumnsWithColSpan,
   findTableCellTarget,

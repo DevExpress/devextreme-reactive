@@ -103,7 +103,7 @@ describe('TableHeaderRow', () => {
 
     expect(defaultDeps.getter.getCellData).toBeCalledWith(
       defaultDeps.template.tableViewCell.tableRow.row,
-      defaultDeps.template.tableViewCell.tableColumn.column,
+      defaultDeps.template.tableViewCell.tableColumn.column.name,
     );
     expect(isEditNewTableCell)
       .toBeCalledWith(
@@ -134,7 +134,7 @@ describe('TableHeaderRow', () => {
 
     expect(defaultDeps.getter.getCellData).toBeCalledWith(
       defaultDeps.template.tableViewCell.tableRow.row,
-      defaultDeps.template.tableViewCell.tableColumn.column,
+      defaultDeps.template.tableViewCell.tableColumn.column.name,
     );
     expect(isEditExistingTableCell)
       .toBeCalledWith(

@@ -31,7 +31,7 @@ export class TableEditRow extends React.PureComponent {
             const getCellData = getter('getCellData');
 
             return {
-              value: getCellData(change, column) || getCellData(row, column),
+              value: getCellData(change, column.name) || getCellData(row, column.name),
               setCellData: getter('setCellData'),
             };
           }}
@@ -82,7 +82,7 @@ export class TableEditRow extends React.PureComponent {
             editCellTemplate({
               row: restParams.tableRow.row,
               column: restParams.tableColumn.column,
-              value: getCellData(restParams.tableRow.row, restParams.tableColumn.column),
+              value: getCellData(restParams.tableRow.row, restParams.tableColumn.column.name),
               onValueChange: newValue => changeAddedRow({
                 rowId: restParams.tableRow.rowId,
                 change: setCellData(

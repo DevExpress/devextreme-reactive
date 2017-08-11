@@ -30,7 +30,7 @@ const TableCellBase = ({ style, row, column, getCellData, classes }) => (
       [classes.cellRightAlign]: column.align === 'right',
     })}
   >
-    {getCellData(row, column)}
+    {getCellData(row, column.name)}
   </TableCellMUI>
 );
 

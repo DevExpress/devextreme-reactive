@@ -11,12 +11,7 @@ const rowIdGetter = (getRowId, rows) => {
   };
 };
 
-const getCellDataGetter = getCellData => (
-  (row, column) => {
-    if (getCellData) return getCellData(row, column);
-    return row[column.name];
-  }
-);
+const getCellDataGetter = getCellData => getCellData || ((row, columnName) => row[columnName]);
 
 const setCellDataGetter = setCellData => (
   (row, column, value) => {

@@ -11,7 +11,7 @@ export const TableCell = ({ style, row, column, getCellData }) => (
       ...style,
     }}
   >
-    {getCellData(row, column)}
+    {getCellData(row, column.name)}
   </td>
 );
 

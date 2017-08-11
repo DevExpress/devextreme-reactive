@@ -13,8 +13,8 @@ Name | Type | Default | Description
 rows | Array&lt;[Row](#row)&gt; | | Specifies rows with data to be rendered
 columns | Array&lt;[Column](#column)&gt; | | Specifies row fields to be rendered as columns
 getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies the function used to get a unique row identifier
-getCellData | (row: [Row](#row), column: [Column](#column)) => string &#124; number | null | Specifies the function used to get a cell data
-setCellData | (row: [Row](#row), column: [Column](#column), value: string &#124; number) => object | null | Specifies the function used to set a cell data
+getCellData | (row: [Row](#row), columnName: string) => string &#124; number | null | Specifies the function used to get a cell data
+setCellData | (row: [Row](#row), columnName: string, value: string &#124; number) => object | null | Specifies the function used to set a cell data
 rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | Renders a root layout using the specified parameters
 headerPlaceholderTemplate | (args: [HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | Renders a heading placeholder using the specified parameters
 footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | Renders a footer placeholder using the specified parameters

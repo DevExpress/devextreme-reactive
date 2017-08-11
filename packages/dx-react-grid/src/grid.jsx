@@ -12,13 +12,8 @@ const rowIdGetter = (getRowId, rows) => {
 };
 
 const getCellDataGetter = getCellData => getCellData || ((row, columnName) => row[columnName]);
-
-const setCellDataGetter = setCellData => (
-  (row, column, value) => {
-    if (setCellData) return setCellData(row, column, value);
-    return { [column.name]: value };
-  }
-);
+const setCellDataGetter = setCellData => setCellData ||
+  ((row, columnName, value) => ({ [columnName]: value }));
 
 export const Grid = ({
   rows, getRowId, columns,

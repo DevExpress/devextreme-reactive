@@ -54,7 +54,7 @@ export class TableEditRow extends React.PureComponent {
                   rowId: restParams.tableRow.rowId,
                   change: setCellData(
                     restParams.tableRow.row,
-                    restParams.tableColumn.column,
+                    restParams.tableColumn.column.name,
                     newValue,
                   ),
                 }),
@@ -87,7 +87,7 @@ export class TableEditRow extends React.PureComponent {
                 rowId: restParams.tableRow.rowId,
                 change: setCellData(
                   restParams.tableRow.row,
-                  restParams.tableColumn.column,
+                  restParams.tableColumn.column.name,
                   newValue,
                 ),
               }),

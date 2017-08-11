@@ -194,7 +194,7 @@ describe('Grid', () => {
       <Template
         name="root"
         connectGetters={(getter) => {
-          cellData = getter('setCellData')(rows[1], columns[1], 3);
+          cellData = getter('setCellData')(rows[1], columns[1].name, 3);
         }}
       >
         {() => <div />}
@@ -218,13 +218,13 @@ describe('Grid', () => {
       <Template
         name="root"
         connectGetters={(getter) => {
-          getter('setCellData')(rows[0], columns[0], 3);
+          getter('setCellData')(rows[0], columns[0].name, 3);
         }}
       >
         {() => <div />}
       </Template>
     </Grid>);
 
-    expect(setCellData).toBeCalledWith(rows[0], columns[0], 3);
+    expect(setCellData).toBeCalledWith(rows[0], columns[0].name, 3);
   });
 });

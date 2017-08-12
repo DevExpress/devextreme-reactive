@@ -1,6 +1,6 @@
 # React Grid Data Editing
 
-The Grid supports editing features that include creating, updating and deleting rows. Use the corresponding plugins to manage the editing state and perform editing operations programmatically or via the UI controls. The editing state contains information about rows currently being edited, changes applied to a particular row, and rows that have been deleted and created but not yet committed. Once a user accepts row addition or deletion, or changes made to a row (clicking the Save or Delete button), the Grid fires the `EditingState` plugin's `onCommitChanges` event and resets the row's editing state.
+The Grid supports editing features including creating, updating and deleting rows. Use the corresponding plugins to manage the editing state and perform editing operations programmatically or via the UI controls. The editing state contains information about rows currently being edited, changes applied to a particular row, and rows that have been deleted and created but not yet committed. Once a user accepts row addition or deletion, or changes made to a row (clicking the Save or Delete button), the Grid fires the `EditingState` plugin's `onCommitChanges` event and resets the row's editing state.
 
 ## Related Plugins
 
@@ -19,7 +19,7 @@ Handle the `EditingState` plugin's `onCommitChanges` event to commit changes mad
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initial editing state values using the following `EditingState` plugins's properties:
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initial editing state values using the following `EditingState` plugin's properties:
 
 - `defaultEditingRows` - the rows being edited  
 - `defaultAddedRows` - the rows being added  
@@ -30,7 +30,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 
 ## Controlled State
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes respectively:
+In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes:
 
 - `editingRows` and `onEditingRowsChange` - the rows being edited  
 - `addedRows` and `onAddedRowsChange` - the rows being added  

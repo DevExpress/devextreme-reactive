@@ -1,6 +1,6 @@
 # React Grid Data Filtering
 
-The Grid component supports filtering data by a column value programmatically or using the value an end-user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering and filtering logic are implemented in the following plugins.
+The Grid component supports filtering data by a column value programmatically or using the value an end-user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering, and filtering logic are implemented in the following plugins:
 
 ## Related Plugins
 
@@ -33,17 +33,17 @@ Define a filter row cell template using the `TableFilterRow` plugin's `filterCel
 
 ## Custom Filtering Algorithm
 
-You can also specify a filtering prdicate using the `LocalFiltering` plugin's `filterFn` property to implement a custom filtering logic.
+You can also specify a filtering predicate using the `LocalFiltering` plugin's `filterFn` property to implement a custom filtering logic.
 
 .embedded-demo(filtering/custom-filter-row)
 
 ## Remote Filtering
 
-If your data service supports filtering operations, you can handle the Grid filtering state changes in order to request data from the server with the corresponding filters applied.
+You can handle the Grid filtering state changes to request data from the server with the corresponding filters applied if your data service supports filtering operations.
 
 Filtering options are updated once an end-user modifies a text within a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
 
-Note that in the case of remote filtering, you don't need to use the `LocalFiltering` plugin.
+Note that in the case of remote filtering, you do not need to use the `LocalFiltering` plugin.
 
 ## Using Filtering with Other Data Processing Plugins
 

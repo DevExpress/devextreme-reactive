@@ -28,7 +28,9 @@ export class SelectionState extends React.PureComponent {
       getAvailableSelection(selection, availableToSelect);
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="SelectionState"
+      >
         <Action
           name="setRowsSelection"
           action={({ rowIds, selected }) => {

@@ -1,35 +1,43 @@
 # React Grid Data Editing
 
-## Overview
+The Grid supports editing features including creating, updating and deleting rows. Use the corresponding plugins to manage the editing state and perform editing operations programmatically or via the UI controls. The editing state contains information about rows currently being edited, changes applied to a particular row, and rows that have been deleted and created but not yet committed. Once a user accepts row addition or deletion, or changes made to a row (clicking the Save or Delete button), the Grid fires the `EditingState` plugin's `onCommitChanges` event and resets the row's editing state.
 
-The Grid component supports the create, update and delete editing features. Editing state management and UI controls are implemented as a set of corresponding plugins. The editing state contains information about rows that are currently being edited, changes applied to a particular row, which rows have been deleted or created but not committed yet. Once a particular change is commited, the change is reset.
+## Related Plugins
 
-## Plugin List
+The following plugins implement editing features:
+- [EditingState](../reference/editing-state.md) - controls the editing state  
+- [TableEditRow](../reference/table-edit-row.md) - renders a row being edited  
+- [TableEditColumn](../reference/table-edit-column.md) - renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes)
 
-There are several plugins that implement filtering features:
-- [EditingState](../reference/editing-state.md)
-- [TableEditRow](../reference/table-edit-row.md)
-- [TableEditColumn](../reference/table-edit-column.md)
-
-Note that the [plugin order](../README.md#plugin-order) is very important.
+Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Set up a Simple Editable Grid
 
-To set up basic editing, use the `EditingState`, `TableEditRow` and `TableEditColumn` plugins.
+Add the plugins listed above to the Grid to set up a simple Grid supporting editing features.
 
-In this example, we use the uncontrolled mode and can optionally specify only the initial editing state via the `defaultAddedRows` and `defaultEditingRows` properties of the `EditingState` plugin. After that, the grid will manage thet editing state internally.
+Handle the `EditingState` plugin's `onCommitChanges` event to commit changes made by an end-user to your data store.
 
-To show editors for the rows being edited, we use the `TableEditRow` plugin. To add a column with a set of editing controls such as the New/Edit/Save/Cancel/Delete buttons, we use the `TableEditColumn` plugin.
+## Uncontrolled Mode
 
-To apply the changes introduced by an end-user to your data source (no matter local or remote), handle the `onCommitChanges` event of the `EditingState` plugin.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initial editing state values using the following `EditingState` plugin's properties:
+
+- `defaultEditingRows` - the rows being edited  
+- `defaultAddedRows` - the rows being added  
+- `defaultChangedRows` - the changed rows  
+- `defaultDeletedRows` - the rows being deleted
 
 .embedded-demo(editing/edit-row)
 
-## Controlled Editing State
+## Controlled State
 
-To fully control the editing state, you need to specify three pairs of the `EditingState` plugin properties. These are `editingState` and `editingStateChange`, `changedRows` and `onChangedRowsChange`, `addedRows` and `onAddedRowsChange`.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes:
 
-Note, the `onAddedRowsChange` event can also be used to initialize a newly created row with some default property values.
+- `editingRows` and `onEditingRowsChange` - the rows being edited  
+- `addedRows` and `onAddedRowsChange` - the rows being added  
+- `changedRows` and `onChangedRowsChange` - the changed rows  
+- `deletedRows` and `onDeletedRowsChange` - the rows being deleted
+
+Note, you can also use the `onAddedRowsChange` event to initialize a created row with default property values.
 
 .embedded-demo(editing/edit-row-controlled)
 

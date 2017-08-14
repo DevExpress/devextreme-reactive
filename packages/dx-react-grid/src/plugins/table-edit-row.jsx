@@ -8,6 +8,11 @@ import {
   isEditExistingTableCell,
 } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'EditingState' },
+  { pluginName: 'TableView' },
+];
+
 export class TableEditRow extends React.PureComponent {
   render() {
     const { editCellTemplate, rowHeight } = this.props;
@@ -16,7 +21,10 @@ export class TableEditRow extends React.PureComponent {
       tableRowsWithEditing(tableBodyRows, editingRows, addedRows, rowHeight);
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableEditRow"
+        dependencies={pluginDependencies}
+      >
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
           name="tableViewCell"

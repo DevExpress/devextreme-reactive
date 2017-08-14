@@ -2,6 +2,10 @@ import React from 'react';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { groupedRows, expandedGroupRows } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'GroupingState' },
+];
+
 const groupedRowsComputed = ({ rows, grouping }) =>
   groupedRows(rows, grouping);
 const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
@@ -11,7 +15,10 @@ const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
 export class LocalGrouping extends React.PureComponent {
   render() {
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="LocalGrouping"
+        dependencies={pluginDependencies}
+      >
         <Getter name="rows" computed={groupedRowsComputed} />
         <Getter name="rows" computed={expandedGroupedRowsComputed} />
       </PluginContainer>

@@ -2,6 +2,10 @@ import React from 'react';
 import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
 import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'PagingState' },
+];
+
 const rowsWithHeadersComputed = ({ rows, pageSize }) => ensurePageHeaders(rows, pageSize);
 const totalCountComputed = ({ rows }) => rowCount(rows);
 const paginatedRowsComputed = ({ rows, pageSize, currentPage }) =>
@@ -11,7 +15,11 @@ const paginatedRowsComputed = ({ rows, pageSize, currentPage }) =>
 export class LocalPaging extends React.PureComponent {
   render() {
     return (
-      <PluginContainer>
+
+      <PluginContainer
+        pluginName="LocalPaging"
+        dependencies={pluginDependencies}
+      >
         <Getter name="rows" computed={rowsWithHeadersComputed} />
         <Getter name="totalCount" computed={totalCountComputed} />
         <Watcher

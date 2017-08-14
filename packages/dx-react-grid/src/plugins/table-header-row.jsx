@@ -14,8 +14,17 @@ export class TableHeaderRow extends React.PureComponent {
     const { allowSorting, allowGroupingByClick, allowDragging, headerCellTemplate } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableHeaderRow"
+        dependencies={[
+          { pluginName: 'TableView' },
+          { pluginName: 'SortingState', optional: !allowSorting },
+          { pluginName: 'GroupingState', optional: !allowGroupingByClick },
+          { pluginName: 'DragDropContext', optional: !allowDragging },
+        ]}
+      >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}

@@ -11,27 +11,28 @@ export class PluginHost {
   }
   ensureDependencies() {
     const defined = new Set();
-    const unresolved = this.plugins
-      .slice()
-      .reverse()
-      .reduce((acc, plugin) => {
-        if (!plugin.pluginName) return acc;
+    const knownOptionals = new Map();
+    this.plugins
+      .filter(plugin => plugin.container)
+      .forEach((plugin) => {
+        if (knownOptionals.has(plugin.pluginName)) {
+          throw (getDependencyError(knownOptionals.get(plugin.pluginName), plugin.pluginName));
+        }
+
+        plugin.dependencies
+          .forEach((dependency) => {
+            if (defined.has(dependency.pluginName)) return;
+            if (dependency.optional) {
+              if (!knownOptionals.has(dependency.pluginName)) {
+                knownOptionals.set(dependency.pluginName, plugin.pluginName);
+              }
+              return;
+            }
+            throw (getDependencyError(plugin.pluginName, dependency.pluginName));
+          });
 
         defined.add(plugin.pluginName);
-        return [
-          ...acc.filter(item => item.dependencyName !== plugin.pluginName),
-          ...plugin.dependencies
-            .filter(dependency => !dependency.optional || defined.has(dependency.pluginName))
-            .map(dependency => ({
-              pluginName: plugin.pluginName,
-              dependencyName: dependency.pluginName,
-            })),
-        ];
-      }, [])[0];
-
-    if (unresolved) {
-      throw (getDependencyError(unresolved.pluginName, unresolved.dependencyName));
-    }
+      });
   }
   registerPlugin(plugin) {
     this.plugins = insertPlugin(this.plugins, plugin);

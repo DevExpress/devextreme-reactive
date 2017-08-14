@@ -9,6 +9,11 @@ import {
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'SelectionState' },
+  { pluginName: 'TableView' },
+];
+
 const tableExtraPropsComputed = ({ tableExtraProps }, { setRowsSelection }) =>
   tableExtraPropsWithSelection(tableExtraProps, setRowsSelection);
 const tableBodyRowsComputed = ({ tableBodyRows, selection }) =>
@@ -30,7 +35,10 @@ export class TableSelection extends React.PureComponent {
       tableColumnsWithSelection(tableColumns, selectionColumnWidth);
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableSelection"
+        dependencies={pluginDependencies}
+      >
         {showSelectionColumn && (
           <Getter name="tableColumns" computed={tableColumnsComputed} />
         )}
@@ -98,12 +106,6 @@ export class TableSelection extends React.PureComponent {
   }
 }
 
-TableSelection.defaultProps = {
-  highlightSelected: false,
-  selectByRowClick: false,
-  showSelectAll: true,
-  showSelectionColumn: true,
-};
 TableSelection.propTypes = {
   selectAllCellTemplate: PropTypes.func.isRequired,
   selectCellTemplate: PropTypes.func.isRequired,
@@ -112,4 +114,11 @@ TableSelection.propTypes = {
   showSelectAll: PropTypes.bool,
   showSelectionColumn: PropTypes.bool,
   selectionColumnWidth: PropTypes.number.isRequired,
+};
+
+TableSelection.defaultProps = {
+  highlightSelected: false,
+  selectByRowClick: false,
+  showSelectAll: true,
+  showSelectionColumn: true,
 };

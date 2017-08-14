@@ -28,7 +28,9 @@ export class ColumnOrderState extends React.PureComponent {
     const columnsComputed = ({ columns }) => orderedColumns(columns, order);
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="ColumnOrderState"
+      >
         <Getter name="columns" computed={columnsComputed} />
         <Action
           name="setColumnOrder"

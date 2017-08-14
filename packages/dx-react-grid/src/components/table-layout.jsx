@@ -70,15 +70,18 @@ export class TableLayout extends React.PureComponent {
       const tableRect = this.tableRect();
       const columns = this.getColumns();
       const columnGeometries = getTableColumnGeometries(columns, tableRect.width);
-      const targetColumnIndex = getTableTargetColumnIndex(
+      let targetColumnIndex = getTableTargetColumnIndex(
         columnGeometries,
         columns.findIndex(column =>
           column.type === TABLE_DATA_TYPE && column.column.name === sourceColumnName),
         clientOffset.x - tableRect.left);
 
       if (targetColumnIndex === -1 ||
-        columns[targetColumnIndex].type !== TABLE_DATA_TYPE ||
         targetColumnIndex === this.state.targetColumnIndex) return;
+
+      if (columns[targetColumnIndex].type !== TABLE_DATA_TYPE) {
+        targetColumnIndex = columns.findIndex(column => column.type === TABLE_DATA_TYPE);
+      }
 
       const { sourceColumnIndex } = this.state;
       this.setState({

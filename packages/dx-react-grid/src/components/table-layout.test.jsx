@@ -413,5 +413,40 @@ describe('TableLayout', () => {
       expect(setColumnOrder)
         .toBeCalledWith({ sourceColumnName: 'a', targetColumnName: 'b' });
     });
+
+    it('should not crush when the dragging column is dropped on a non-data column', () => {
+      getRect.mockImplementation(() =>
+        ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+
+      const rows = [
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+      ];
+      const columns = [
+        { key: 'something_a', type: 'something' },
+        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      ];
+      const setColumnOrder = jest.fn();
+      const tree = mount(
+        <DragDropContext>
+          <TableLayout
+            rows={rows}
+            columns={columns}
+            minColumnWidth={150}
+            tableTemplate={tableTemplateMock}
+            bodyTemplate={bodyTemplateMock}
+            rowTemplate={rowTemplateMock}
+            cellTemplate={cellTemplateMock}
+            allowColumnReordering
+            setColumnOrder={setColumnOrder}
+          />
+        </DragDropContext>,
+      );
+
+      const targetWrapper = tree.find(DropTarget);
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 130, y: 100 } });
+      expect(() => {
+        targetWrapper.prop('onDrop')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 130, y: 100 } });
+      }).not.toThrow();
+    });
   });
 });

@@ -12,6 +12,7 @@ const styleSheet = createStyleSheet('GroupPanel', theme => ({
     width: '100%',
   },
   groupInfo: {
+    padding: '6px 0',
     marginBottom: '12px',
     display: 'inline-block',
     color: theme.typography.title.color,

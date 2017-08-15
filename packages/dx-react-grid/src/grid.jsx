@@ -11,7 +11,24 @@ const rowIdGetter = (getRowId, rows) => {
   };
 };
 
-const getCellDataGetter = getCellData => getCellData || ((row, columnName) => row[columnName]);
+const getCellDataGetter = (getCellData, columns) => {
+  if (getCellData) {
+    return getCellData;
+  }
+  const map = {};
+  let useFastGetter = true;
+  columns.forEach((column) => {
+    if (column.getCellData) {
+      useFastGetter = false;
+      map[column.name] = column.getCellData;
+    }
+  });
+
+  return useFastGetter ?
+    (row, columnName) => row[columnName] :
+    (row, columnName) => (map[columnName] ? map[columnName](row) : row[columnName]);
+};
+
 const setCellDataGetter = setCellData => setCellData ||
   ((row, columnName, value) => ({ [columnName]: value }));
 
@@ -31,7 +48,7 @@ export const Grid = ({
     <Getter
       name="getCellData"
       pureComputed={getCellDataGetter}
-      connectArgs={() => [getCellData]}
+      connectArgs={() => [getCellData, columns]}
     />
     <Getter
       name="setCellData"

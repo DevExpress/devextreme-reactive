@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { TableSortLabel, Chip } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
+const styleSheet = createStyleSheet('GroupPanelItem', theme => ({
   button: {
     marginRight: theme.spacing.unit,
     marginBottom: '12px',
@@ -29,7 +29,7 @@ const label = (allowSorting, sortingDirection, column) => {
 };
 
 
-const GroupPanelCellBase = ({
+const GroupPanelItemBase = ({
   column, draft,
   groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
@@ -60,7 +60,7 @@ const GroupPanelCellBase = ({
   />);
 };
 
-GroupPanelCellBase.propTypes = {
+GroupPanelItemBase.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
@@ -73,7 +73,7 @@ GroupPanelCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-GroupPanelCellBase.defaultProps = {
+GroupPanelItemBase.defaultProps = {
   draft: false,
   allowSorting: false,
   sortingDirection: undefined,
@@ -82,4 +82,4 @@ GroupPanelCellBase.defaultProps = {
   allowUngroupingByClick: false,
 };
 
-export const GroupPanelCell = withStyles(styleSheet)(GroupPanelCellBase);
+export const GroupPanelItem = withStyles(styleSheet)(GroupPanelItemBase);

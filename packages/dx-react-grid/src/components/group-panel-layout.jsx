@@ -79,12 +79,12 @@ export class GroupPanelLayout extends React.PureComponent {
     };
   }
 
-  getCells() {
+  getItems() {
     const {
       allowSorting, sorting, changeSortingDirection,
       groupedColumns,
       groupByColumn,
-      groupPanelCellTemplate,
+      groupPanelItemTemplate,
       allowDragging,
       allowUngroupingByClick,
     } = this.props;
@@ -92,7 +92,7 @@ export class GroupPanelLayout extends React.PureComponent {
     this.itemRefs = [];
     return groupedColumns.map(({ column, draft }) => {
       const { sortingSupported, sortingDirection } = getSortingConfig(sorting, column);
-      const cell = groupPanelCellTemplate({
+      const item = groupPanelItemTemplate({
         column,
         draft,
         allowSorting: allowSorting && sortingSupported,
@@ -113,7 +113,7 @@ export class GroupPanelLayout extends React.PureComponent {
               ref={element => element && this.itemRefs.push(element)}
               style={{ display: 'inline-block' }}
             >
-              {cell}
+              {item}
             </div>
           </DragSource>
         )
@@ -123,7 +123,7 @@ export class GroupPanelLayout extends React.PureComponent {
             key={column.name}
             style={{ display: 'inline-block' }}
           >
-            {cell}
+            {item}
           </div>
       );
     });
@@ -145,11 +145,11 @@ export class GroupPanelLayout extends React.PureComponent {
       allowDragging,
     } = this.props;
 
-    const cells = this.getCells();
+    const items = this.getItems();
 
     const groupPanel = (
-      cells.length
-        ? panelTemplate({ cells })
+      items.length
+        ? panelTemplate({ items })
         : <span>{groupByColumnText}</span>
     );
 
@@ -179,7 +179,7 @@ GroupPanelLayout.propTypes = {
   groupByColumn: PropTypes.func,
   groupByColumnText: PropTypes.any,
   allowUngroupingByClick: PropTypes.bool,
-  groupPanelCellTemplate: PropTypes.func.isRequired,
+  groupPanelItemTemplate: PropTypes.func.isRequired,
   panelTemplate: PropTypes.func.isRequired,
   allowDragging: PropTypes.bool,
   draftGroupingChange: PropTypes.func,

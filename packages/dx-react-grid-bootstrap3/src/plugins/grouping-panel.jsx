@@ -5,18 +5,18 @@ import { combineTemplates } from '@devexpress/dx-react-core';
 import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-grid';
 
 import { GroupPanel } from '../templates/group-panel';
-import { GroupPanelCell } from '../templates/group-panel-cell';
+import { GroupPanelItem } from '../templates/group-panel-item';
 
-const defaultCellTemplate = props => <GroupPanelCell {...props} />;
+const defaultCellTemplate = props => <GroupPanelItem {...props} />;
 
-export const GroupingPanel = ({ groupByColumnText, groupPanelCellTemplate, ...restProps }) => (
+export const GroupingPanel = ({ groupByColumnText, groupPanelItemTemplate, ...restProps }) => (
   <GroupingPanelBase
     groupPanelTemplate={
       props => (
         <GroupPanel
           groupByColumnText={groupByColumnText}
-          groupPanelCellTemplate={combineTemplates(
-            groupPanelCellTemplate,
+          groupPanelItemTemplate={combineTemplates(
+            groupPanelItemTemplate,
             defaultCellTemplate,
           )}
           {...props}
@@ -30,11 +30,11 @@ export const GroupingPanel = ({ groupByColumnText, groupPanelCellTemplate, ...re
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
   groupByColumnText: PropTypes.string,
-  groupPanelCellTemplate: PropTypes.func,
+  groupPanelItemTemplate: PropTypes.func,
 };
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
   groupByColumnText: undefined,
-  groupPanelCellTemplate: undefined,
+  groupPanelItemTemplate: undefined,
 };

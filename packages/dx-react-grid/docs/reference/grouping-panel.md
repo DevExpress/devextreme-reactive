@@ -20,7 +20,7 @@ allowSorting | boolean | false | Specifies whether an end-user can sort data by 
 allowDragging | boolean | false | Specifies whether an end-user can change grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel.
-groupPanelCellTemplate? | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | | Renders a group panel cell. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
+groupPanelItemTemplate? | (args: [GroupPanelItemProps](#group-panel-item-props)) => ReactElement | | Renders a group panel item. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
 ## Interfaces
 
@@ -42,17 +42,17 @@ groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping s
 draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value
 cancelGroupingChange | () => void | Resets the groupingChange state
 allowUngroupingByClick | boolean | Specifies whether column headers display a button that cancels grouping by the column
-groupPanelCellTemplate | (args: [GroupPanelCellProps](#group-panel-cell-props)) => ReactElement | Renders a group panel cell. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
+groupPanelItemTemplate | (args: [GroupPanelItemProps](#group-panel-item-props)) => ReactElement | Renders a group panel item. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
-### <a name="group-panel-cell-props"></a>GroupPanelCellProps
+### <a name="group-panel-item-props"></a>GroupPanelItemProps
 
-Describes properties passed to the group panel cell template when it is being rendered.
+Describes properties passed to the group panel item template when it is being rendered.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | Specifies the column associated with the cell
+column | [Column](grid.md#column) | Specifies the column associated with the item
 allowSorting | boolean | Specifies whether an end-user can sort data by the column
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column using the `columnName` argument. Keeps the current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.

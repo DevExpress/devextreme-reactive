@@ -30,6 +30,7 @@ const defaultDeps = {
       style: {},
     },
   },
+  plugins: ['FilteringState', 'TableView'],
 };
 
 const defaultProps = {

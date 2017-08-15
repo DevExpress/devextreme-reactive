@@ -6,7 +6,7 @@ A plugin that renders a filter row.
 
 ### Dependencies
 
-- [SelectionState](selection-state.md)
+- [FilteringState](filtering-state.md)
 - [TableView](table-view.md)
 
 ### Properties

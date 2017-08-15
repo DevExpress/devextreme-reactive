@@ -20,6 +20,7 @@ export const demos = {
   'data-processing': {
     'custom-data-processing': {
       bootstrap3: require('./bootstrap3/data-processing/custom-data-accessors').default,
+      'material-ui': require('./material-ui/data-processing/custom-data-accessors').default,
     },
   },
   'column-reordering': {

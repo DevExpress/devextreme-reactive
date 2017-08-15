@@ -31,10 +31,10 @@ export class GroupPanelLayout extends React.PureComponent {
       });
     };
     this.onOver = ({ clientOffset }) => {
-      const { draftGroupingChange, groupedColumns } = this.props;
+      const { draftGroupingChange, groupingPanelItems } = this.props;
       const { sourceColumnName, targetColumnIndex: prevTargetColumnIndex } = this.state;
       const itemGeometries = this.itemRefs.map(element => element.getBoundingClientRect());
-      const sourceColumnIndex = groupedColumns.findIndex(
+      const sourceColumnIndex = groupingPanelItems.findIndex(
         column => column.name === sourceColumnName);
       const targetColumnIndex = getGroupCellTargetIndex(
         itemGeometries, sourceColumnIndex, clientOffset);
@@ -82,7 +82,7 @@ export class GroupPanelLayout extends React.PureComponent {
   getItems() {
     const {
       allowSorting, sorting, changeSortingDirection,
-      groupedColumns,
+      groupingPanelItems,
       groupByColumn,
       groupPanelItemTemplate,
       allowDragging,
@@ -90,7 +90,7 @@ export class GroupPanelLayout extends React.PureComponent {
     } = this.props;
 
     this.itemRefs = [];
-    return groupedColumns.map(({ column, draft }) => {
+    return groupingPanelItems.map(({ column, draft }) => {
       const { sortingSupported, sortingDirection } = getSortingConfig(sorting, column);
       const item = groupPanelItemTemplate({
         column,
@@ -172,7 +172,7 @@ GroupPanelLayout.propTypes = {
   allowSorting: PropTypes.bool,
   sorting: PropTypes.any,
   changeSortingDirection: PropTypes.func,
-  groupedColumns: PropTypes.arrayOf(PropTypes.shape({
+  groupingPanelItems: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.shape(),
     draft: PropTypes.bool,
   })).isRequired,

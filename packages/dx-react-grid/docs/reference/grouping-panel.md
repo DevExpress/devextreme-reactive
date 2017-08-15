@@ -24,6 +24,17 @@ groupPanelItemTemplate? | (args: [GroupPanelItemProps](#group-panel-item-props))
 
 ## Interfaces
 
+### <a name="grouping-panel-item"></a>GroupingPanelItem
+
+Describes grouping panel item properties that the GroupingPanel plugin works with
+
+A value of the following shape:
+
+Field | Type | Description
+------|------|------------
+column | [Column](grid.md#column) | Specifies the user column associated with the item
+draft | boolean | Specifies whether the item should be rendered as preview
+
 ### <a name="group-panel-props"></a>GroupPanelProps
 
 Describes properties passed to the group panel template when it is being rendered.
@@ -36,7 +47,7 @@ allowSorting | boolean | Specifies whether an end-user can sort data by a column
 allowDragging | boolean | Specifies whether an end-user can change grouping state by dragging columns between the group panel and the table header
 sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column using the `columnName` argument. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
-groupedColumns | Array&lt;[Column](grid.md#column)&gt; | Columns by which the grid data is currently grouped
+groupingPanelItems | Array&lt;[GroupingPanelItem](#grouping-panel-item)&gt; | GroupingPanel items representing the columns by which the grid data is currently grouped
 groupByColumnText | string | The text displayed in the group panel if the grid is not grouped
 groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state
 draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value
@@ -53,6 +64,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | Specifies the column associated with the item
+draft | boolean | Specifies whether the item passed should be rendered as preview
 allowSorting | boolean | Specifies whether an end-user can sort data by the column
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column using the `columnName` argument. Keeps the current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.

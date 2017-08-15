@@ -23,7 +23,7 @@ describe('GroupPanelLayout', () => {
 
 
   it('should render group panel with items', () => {
-    const groupedColumns = [
+    const groupingPanelItems = [
       { column: { name: 'a' } },
       { column: { name: 'b' } },
       { column: { name: 'c' } },
@@ -31,21 +31,21 @@ describe('GroupPanelLayout', () => {
     ];
     const tree = mount(
       <GroupPanelLayout
-        groupedColumns={groupedColumns}
+        groupingPanelItems={groupingPanelItems}
         groupPanelItemTemplate={groupPanelItemTemplate}
         panelTemplate={panelTemplate}
       />,
     );
 
     expect(tree.find('.item').length)
-      .toBe(groupedColumns.length);
+      .toBe(groupingPanelItems.length);
   });
 
   it('should render group panel with text when no grouping is specified', () => {
     const groupByColumnText = 'no items';
     const tree = mount(
       <GroupPanelLayout
-        groupedColumns={[]}
+        groupingPanelItems={[]}
         groupByColumnText={groupByColumnText}
         groupPanelItemTemplate={groupPanelItemTemplate}
         panelTemplate={panelTemplate}
@@ -57,7 +57,7 @@ describe('GroupPanelLayout', () => {
   });
 
   it('should pass correct sorting parameters to item template', () => {
-    const groupedColumns = [
+    const groupingPanelItems = [
       { column: { name: 'a' } },
       { column: { name: 'b' } },
     ];
@@ -65,7 +65,7 @@ describe('GroupPanelLayout', () => {
     const itemTemplate = jest.fn(groupPanelItemTemplate);
     mount(
       <GroupPanelLayout
-        groupedColumns={groupedColumns}
+        groupingPanelItems={groupingPanelItems}
         allowSorting
         sorting={sorting}
         groupPanelItemTemplate={itemTemplate}
@@ -84,12 +84,12 @@ describe('GroupPanelLayout', () => {
   });
 
   it('should pass correct sorting parameters to item template if sorting is disabled', () => {
-    const groupedColumns = [{ column: { name: 'a' } }];
+    const groupingPanelItems = [{ column: { name: 'a' } }];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
     const itemTemplate = jest.fn(groupPanelItemTemplate);
     mount(
       <GroupPanelLayout
-        groupedColumns={groupedColumns}
+        groupingPanelItems={groupingPanelItems}
         allowSorting={false}
         sorting={sorting}
         groupPanelItemTemplate={itemTemplate}
@@ -105,7 +105,7 @@ describe('GroupPanelLayout', () => {
 
   describe('drag\'n\'drop grouping', () => {
     it('should render DropTarget if allowDragging property is true', () => {
-      const groupedColumns = [
+      const groupingPanelItems = [
         { column: { name: 'a' } },
         { column: { name: 'b' } },
         { column: { name: 'c' } },
@@ -114,7 +114,7 @@ describe('GroupPanelLayout', () => {
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={groupedColumns}
+            groupingPanelItems={groupingPanelItems}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             allowDragging
@@ -127,7 +127,7 @@ describe('GroupPanelLayout', () => {
     });
 
     it('should render DragSource for each item of allowDragging is true', () => {
-      const groupedColumns = [
+      const groupingPanelItems = [
         { column: { name: 'a' } },
         { column: { name: 'b' } },
         { column: { name: 'c' } },
@@ -136,7 +136,7 @@ describe('GroupPanelLayout', () => {
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={groupedColumns}
+            groupingPanelItems={groupingPanelItems}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             allowDragging
@@ -145,7 +145,7 @@ describe('GroupPanelLayout', () => {
       );
 
       expect(tree.find('DragSource > .item').length)
-        .toBe(groupedColumns.length);
+        .toBe(groupingPanelItems.length);
     });
 
     it('should call draftGroupingChange when dragging a column over the group panel', () => {
@@ -154,7 +154,7 @@ describe('GroupPanelLayout', () => {
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={[]}
+            groupingPanelItems={[]}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
@@ -187,7 +187,7 @@ describe('GroupPanelLayout', () => {
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={[]}
+            groupingPanelItems={[]}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
@@ -222,7 +222,7 @@ describe('GroupPanelLayout', () => {
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={[]}
+            groupingPanelItems={[]}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
@@ -264,7 +264,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             columns={[column]}
-            groupedColumns={[{ column }]}
+            groupingPanelItems={[{ column }]}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             groupByColumn={groupByColumn}

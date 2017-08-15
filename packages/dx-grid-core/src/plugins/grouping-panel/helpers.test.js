@@ -1,22 +1,22 @@
 import {
-  groupedColumns,
+  groupingPanelItems,
 } from './helpers';
 
 describe('Plugin helpers', () => {
-  describe('#groupedColumns', () => {
+  describe('#groupingPanelItems', () => {
     const columns = [
       { name: 'a' },
       { name: 'b' },
       { name: 'c' },
       { name: 'd' },
     ];
-    const visGrouping = [
+    const draftGrouping = [
       { columnName: 'a' },
       { columnName: 'c', draft: true },
     ];
 
     it('should work', () => {
-      const processedColumns = groupedColumns(columns, visGrouping);
+      const processedColumns = groupingPanelItems(columns, draftGrouping);
 
       expect(processedColumns).toHaveLength(2);
       expect(processedColumns[0].column).toBe(columns[0]);

@@ -7,7 +7,7 @@ The Grid component supports data paging. You can specify the page size and switc
 The following plugins implement filtering features:
 
 - [PagingState](../reference/paging-state.md) - controls the paging state
-- [LocalPaging](../reference/local-paging.md) - implements the paging logic
+- [LocalPaging](../reference/local-paging.md) - performs local data paging
 - [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
 
 Note that the [plugin order](../README.md#plugin-order) is important.
@@ -18,7 +18,7 @@ Import the plugins listed above to set up a Grid with basic paging.
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial active page index in the `GroupingState` plugin's `defaultCurrentPage` property. 
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial active page index in the `PagingState` plugin's `defaultCurrentPage` property. 
 
 In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is typical for the controlled mode. However, the `onPageSizeChange` event handler is not specified because page size is not supposed to be changed internally as the Page Size Selector is not available.
 

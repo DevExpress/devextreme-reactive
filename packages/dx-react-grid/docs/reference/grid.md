@@ -36,6 +36,8 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 name | string | Specifies the field name in the data row to obtain a column value. A unique key can also be used to identify a column
+getCellData | (row: [Row](#row)) => number &#124; string | Specifies the function used to get a cell data
+setCellData | (row: [Row](#row), value: string &#124; number) => object | Specifies the function used to set a cell data
 
 ### <a name="root-args"></a>RootArgs
 

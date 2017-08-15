@@ -19,11 +19,10 @@ describe('Plugin helpers', () => {
       const processedColumns = groupedColumns(columns, visGrouping);
 
       expect(processedColumns).toHaveLength(2);
-      expect(processedColumns[0]).toBe(columns[0]);
-      expect(processedColumns[1]).toEqual({
-        ...columns[2],
-        isDraft: true,
-      });
+      expect(processedColumns[0].column).toBe(columns[0]);
+      expect(processedColumns[0].isDraft).toBeUndefined();
+      expect(processedColumns[1].column).toBe(columns[2]);
+      expect(processedColumns[1].isDraft).toBeTruthy();
     });
   });
 });

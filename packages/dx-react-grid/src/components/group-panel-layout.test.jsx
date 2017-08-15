@@ -1,9 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext } from '@devexpress/dx-react-core';
-
 import { GroupPanelLayout } from './group-panel-layout';
 
 const groupPanelCellTemplate = () => (
@@ -26,10 +24,10 @@ describe('GroupPanelLayout', () => {
 
   it('should render group panel with cells', () => {
     const groupedColumns = [
-      { name: 'a' },
-      { name: 'b' },
-      { name: 'c' },
-      { name: 'd' },
+      { column: { name: 'a' } },
+      { column: { name: 'b' } },
+      { column: { name: 'c' } },
+      { column: { name: 'd' } },
     ];
     const tree = mount(
       <GroupPanelLayout
@@ -59,7 +57,10 @@ describe('GroupPanelLayout', () => {
   });
 
   it('should pass correct sorting parameters to cell template', () => {
-    const groupedColumns = [{ name: 'a' }, { name: 'b' }];
+    const groupedColumns = [
+      { column: { name: 'a' } },
+      { column: { name: 'b' } },
+    ];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
     const cellTemplate = jest.fn(groupPanelCellTemplate);
     mount(
@@ -83,7 +84,7 @@ describe('GroupPanelLayout', () => {
   });
 
   it('should pass correct sorting parameters to cell template if sorting is disabled', () => {
-    const groupedColumns = [{ name: 'a' }];
+    const groupedColumns = [{ column: { name: 'a' } }];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
     const cellTemplate = jest.fn(groupPanelCellTemplate);
     mount(
@@ -105,10 +106,10 @@ describe('GroupPanelLayout', () => {
   describe('drag\'n\'drop grouping', () => {
     it('should render DropTarget if allowDragging property is true', () => {
       const groupedColumns = [
-        { name: 'a' },
-        { name: 'b' },
-        { name: 'c' },
-        { name: 'd' },
+        { column: { name: 'a' } },
+        { column: { name: 'b' } },
+        { column: { name: 'c' } },
+        { column: { name: 'd' } },
       ];
       const tree = mount(
         <DragDropContext>
@@ -127,10 +128,10 @@ describe('GroupPanelLayout', () => {
 
     it('should render DragSource for each cell of allowDragging is true', () => {
       const groupedColumns = [
-        { name: 'a' },
-        { name: 'b' },
-        { name: 'c' },
-        { name: 'd' },
+        { column: { name: 'a' } },
+        { column: { name: 'b' } },
+        { column: { name: 'c' } },
+        { column: { name: 'd' } },
       ];
       const tree = mount(
         <DragDropContext>
@@ -263,7 +264,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             columns={[column]}
-            groupedColumns={[column]}
+            groupedColumns={[{ column }]}
             groupPanelCellTemplate={groupPanelCellTemplate}
             panelTemplate={panelTemplate}
             groupByColumn={groupByColumn}

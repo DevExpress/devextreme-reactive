@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { SortingIndicator } from './parts/sorting-indicator';
 
 export const GroupPanelCell = ({
-  column,
+  column, isDraft,
   groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
 }) => (
@@ -13,7 +12,7 @@ export const GroupPanelCell = ({
     style={{
       marginRight: '5px',
       marginBottom: '5px',
-      ...column.isDraft ? { opacity: 0.3 } : null,
+      ...isDraft ? { opacity: 0.3 } : null,
     }}
   >
     <span
@@ -59,6 +58,7 @@ GroupPanelCell.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
+  isDraft: PropTypes.bool,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
@@ -67,6 +67,7 @@ GroupPanelCell.propTypes = {
 };
 
 GroupPanelCell.defaultProps = {
+  isDraft: false,
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,

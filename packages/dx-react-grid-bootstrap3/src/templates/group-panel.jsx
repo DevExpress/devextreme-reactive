@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
 const defaultText = (
-  <span style={{ marginBottom: '5px', display: 'inline-block' }}>
+  <span
+    style={{
+      padding: '7px 0',
+      marginBottom: '5px',
+      display: 'inline-block',
+    }}
+  >
     Drag a column header here to group by that column
   </span>
 );

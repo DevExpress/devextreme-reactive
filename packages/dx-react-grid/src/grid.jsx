@@ -11,27 +11,47 @@ const rowIdGetter = (getRowId, rows) => {
   };
 };
 
+const getColumnsDataAccessorMap = (columns, accessorName) => {
+  const result = {
+    accessors: {},
+    useFastAccessor: true,
+  };
+  columns.forEach((column) => {
+    if (column[accessorName]) {
+      result.useFastAccessor = false;
+      result.accessors[column.name] = column[accessorName];
+    }
+  });
+
+  return result;
+};
+
 const getCellDataGetter = (getCellData, columns) => {
   if (getCellData) {
     return getCellData;
   }
-  const map = {};
-  let useFastGetter = true;
-  columns.forEach((column) => {
-    if (column.getCellData) {
-      useFastGetter = false;
-      map[column.name] = column.getCellData;
-    }
-  });
+  const map = getColumnsDataAccessorMap(columns, 'getCellData');
+  const getters = map.accessors;
 
-  return useFastGetter ?
+  return map.useFastAccessor ?
     (row, columnName) => row[columnName] :
-    (row, columnName) => (map[columnName] ? map[columnName](row) : row[columnName]);
+    (row, columnName) => (getters[columnName] ? getters[columnName](row) : row[columnName]);
 };
 
-const setCellDataGetter = setCellData => setCellData ||
-  ((row, columnName, value) => ({ [columnName]: value }));
+const setCellDataGetter = (setCellData, columns) => {
+  if (setCellData) {
+    return setCellData;
+  }
 
+  const map = getColumnsDataAccessorMap(columns, 'setCellData');
+  const setters = map.accessors;
+
+  return map.useFastAccessor ?
+    (row, columnName, value) => ({ [columnName]: value }) :
+    (row, columnName, value) => (setters[columnName] ?
+      setters[columnName](row, value) :
+      { [columnName]: value });
+};
 export const Grid = ({
   rows, getRowId, columns,
   rootTemplate, headerPlaceholderTemplate, footerPlaceholderTemplate,
@@ -53,7 +73,7 @@ export const Grid = ({
     <Getter
       name="setCellData"
       pureComputed={setCellDataGetter}
-      connectArgs={() => [setCellData]}
+      connectArgs={() => [setCellData, columns]}
     />
     <Template name="header" />
     <Template name="body" />

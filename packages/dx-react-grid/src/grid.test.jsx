@@ -250,4 +250,27 @@ describe('Grid', () => {
 
     expect(setCellData).toBeCalledWith(rows[0], columns[0].name, 3);
   });
+
+  it('should create a cell data by using a custom function within column config', () => {
+    const rows = [{ a: 1 }];
+    const setCellData = jest.fn();
+    const columns = [{ name: 'a', setCellData }];
+
+    mount(<Grid
+      rows={rows}
+      columns={columns}
+      rootTemplate={() => <div />}
+    >
+      <Template
+        name="root"
+        connectGetters={(getter) => {
+          getter('setCellData')(rows[0], columns[0].name, 3);
+        }}
+      >
+        {() => <div />}
+      </Template>
+    </Grid>);
+
+    expect(setCellData).toBeCalledWith(rows[0], 3);
+  });
 });

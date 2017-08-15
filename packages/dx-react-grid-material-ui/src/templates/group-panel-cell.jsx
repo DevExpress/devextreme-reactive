@@ -30,7 +30,7 @@ const label = (allowSorting, sortingDirection, column) => {
 
 
 const GroupPanelCellBase = ({
-  column, isDraft,
+  column, draft,
   groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
   classes,
@@ -38,7 +38,7 @@ const GroupPanelCellBase = ({
   const chipClassNames = classNames(
     {
       [classes.button]: true,
-      [classes.draftCell]: isDraft,
+      [classes.draftCell]: draft,
     },
   );
 
@@ -64,7 +64,7 @@ GroupPanelCellBase.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
-  isDraft: PropTypes.bool,
+  draft: PropTypes.bool,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
@@ -74,7 +74,7 @@ GroupPanelCellBase.propTypes = {
 };
 
 GroupPanelCellBase.defaultProps = {
-  isDraft: false,
+  draft: false,
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,

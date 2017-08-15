@@ -12,7 +12,7 @@ describe('Plugin helpers', () => {
     ];
     const visGrouping = [
       { columnName: 'a' },
-      { columnName: 'c', isDraft: true },
+      { columnName: 'c', draft: true },
     ];
 
     it('should work', () => {
@@ -20,9 +20,9 @@ describe('Plugin helpers', () => {
 
       expect(processedColumns).toHaveLength(2);
       expect(processedColumns[0].column).toBe(columns[0]);
-      expect(processedColumns[0].isDraft).toBeUndefined();
+      expect(processedColumns[0].draft).toBeUndefined();
       expect(processedColumns[1].column).toBe(columns[2]);
-      expect(processedColumns[1].isDraft).toBeTruthy();
+      expect(processedColumns[1].draft).toBeTruthy();
     });
   });
 });

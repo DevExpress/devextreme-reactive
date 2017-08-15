@@ -90,11 +90,11 @@ export class GroupPanelLayout extends React.PureComponent {
     } = this.props;
 
     this.itemRefs = [];
-    return groupedColumns.map(({ column, isDraft }) => {
+    return groupedColumns.map(({ column, draft }) => {
       const { sortingSupported, sortingDirection } = getSortingConfig(sorting, column);
       const cell = groupPanelCellTemplate({
         column,
-        isDraft,
+        draft,
         allowSorting: allowSorting && sortingSupported,
         sortingDirection,
         changeSortingDirection,
@@ -174,7 +174,7 @@ GroupPanelLayout.propTypes = {
   changeSortingDirection: PropTypes.func,
   groupedColumns: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.shape(),
-    isDraft: PropTypes.bool,
+    draft: PropTypes.bool,
   })).isRequired,
   groupByColumn: PropTypes.func,
   groupByColumnText: PropTypes.any,

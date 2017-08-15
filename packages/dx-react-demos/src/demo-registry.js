@@ -18,9 +18,13 @@ export const demos = {
     },
   },
   'data-processing': {
-    'custom-data-processing': {
+    'custom-data-accessors': {
       bootstrap3: require('./bootstrap3/data-processing/custom-data-accessors').default,
       'material-ui': require('./material-ui/data-processing/custom-data-accessors').default,
+    },
+    'custom-data-accessors-in-columns': {
+      bootstrap3: require('./bootstrap3/data-processing/custom-data-accessors-in-columns').default,
+      'material-ui': require('./material-ui/data-processing/custom-data-accessors-in-columns').default,
     },
   },
   'column-reordering': {

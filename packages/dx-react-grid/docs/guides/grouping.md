@@ -18,13 +18,13 @@ Note that [plugin order](../README.md#plugin-order) is important.
 
 Use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins to set up a Grid with simple static grouping. 
 
-In the following example, the grouping options are specified using the `GroupingState` plugin's `grouping` property, which is typical for the controlled mode. However, the `onGroupingChange` event handler is not specified because grouping option are not supposed to be changed internally due to the grouping UI disability. Read below how to configure the grouping UI.
+In the following example, the grouping options are specified using the `GroupingState` plugin's `grouping` property, which is typical for the controlled mode. However, the `onGroupingChange` event handler is not specified because the grouping option is not supposed to be changed internally due to the grouping UI disability.
 
 .embedded-demo(grouping/local-grouping-static)
 
 ## Configure the Grouping UI
 
-Use the `GroupPanel` and `TableHeaderRow` plugins in addition to those used for basic setup to enable the grouping UI. You can configure the UI to allow a user to use any of the following methods to specify grouping options:
+Use the `GroupPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to allow a user to use any of the following methods to specify grouping options:
 
 - Drag a column header to or from the Group Panel  
  Set the `TableHeaderRow` and `GroupingPanel` plugins' `allowDragging` properties to true.

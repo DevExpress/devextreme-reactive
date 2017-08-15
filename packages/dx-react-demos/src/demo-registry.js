@@ -17,6 +17,11 @@ export const demos = {
       'material-ui': require('./material-ui/basic/basic').default,
     },
   },
+  'data-processing': {
+    'custom-data-processing': {
+      bootstrap3: require('./bootstrap3/data-processing/custom-data-accessors').default,
+    },
+  },
   'column-reordering': {
     uncontrolled: {
       bootstrap3: require('./bootstrap3/column-reordering/uncontrolled').default,

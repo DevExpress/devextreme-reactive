@@ -63,6 +63,9 @@ const usStates = [
   { name: 'Wisconsin', abbr: 'WI' },
   { name: 'Wyoming', abbr: 'WY' },
 ];
+const cities = ['New York', 'Los Angeles', 'Chicago', 'Las Vegas', 'Austin', 'Tokyo', 'Rio de Janeiro', 'London', 'Paris'];
+const cars = ['Honda Civic', 'Toyota Corolla', 'Chevrolet Cruze', 'Honda Accord', 'Nissan Altima', 'Kia Optima', 'Audi A4', 'BMW 750'];
+const positions = ['CEO', 'IT Manager', 'Ombudsman', 'CMO', 'Controller', 'HR Manager', 'Shipping Manager', 'Sales Assistant', 'HR Assistant'];
 
 const generateDate = ({
   random,
@@ -84,8 +87,19 @@ export const defaultColumnValues = {
       Female: femaleFirstNames,
     },
   ],
-  city: ['New York', 'Los Angeles', 'Chicago', 'Las Vegas', 'Austin', 'Tokyo', 'Rio de Janeiro', 'London', 'Paris'],
-  car: ['Honda Civic', 'Toyota Corolla', 'Chevrolet Cruze', 'Honda Accord', 'Nissan Altima', 'Kia Optima', 'Audi A4', 'BMW 750'],
+  city: cities,
+  car: cars,
+};
+
+export const defaultNestedColumnValues = {
+  user: [
+    ...[...maleFirstNames, ...femaleFirstNames].map(name => ({
+      firstName: name,
+    })),
+  ],
+  position: positions,
+  city: cities,
+  car: cars.map(car => ({ model: car })),
 };
 
 export const globalSalesValues = {
@@ -127,7 +141,7 @@ export const employeeValues = {
     'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Johnson', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson',
     'Thomas', 'Jackson', 'Williams', 'White', 'Harris', 'Davis', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson', 'Clark',
   ],
-  position: ['CEO', 'IT Manager', 'Ombudsman', 'CMO', 'Controller', 'HR Manager', 'Shipping Manager', 'Sales Assistant', 'HR Assistant'],
+  position: positions,
   state: usStates.map(state => state.name),
   birthDate: ({ random }) => generateDate({
     random,

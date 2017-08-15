@@ -20,7 +20,7 @@ Import the plugins listed above to set up a Grid with basic paging.
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial active page index in the `GroupingState` plugin's `defaultCurrentPage` property. 
 
-In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is typical for the controlled mode. However, the `onPageSizeChange` event handler is not specified because page size is not supposed to be changed internally due to the Page Size Selector disability. Read below how to configure page size selection.
+In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is typical for the controlled mode. However, the `onPageSizeChange` event handler is not specified because page size is not supposed to be changed internally if the Page Size Selector is not available.
 
 .embedded-demo(paging/local-paging)
 

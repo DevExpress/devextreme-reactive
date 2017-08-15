@@ -2,7 +2,7 @@
 
 Plugins provide all the Grid functionality and can be divided into four logical groups:
 
-- **State Management plugins**. Contain a part of the Grid state or provide properties for external state management and change the state in response to user actions.
+- **State Management plugins**. Controls a part of the Grid state internally or provide properties for external state management (see [controlled and uncontrolled modes](controlled-and-uncontrolled-modes.md)).
 - **Data Processing plugins**. Transform data passed to the Grid component before rendering.
 - **UI Plugins**. Render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid's state.
 - **Core Plugins**. The base building blocks for the plugins relating to the first three groups. These plugins can also be used separately in certain scenarios.

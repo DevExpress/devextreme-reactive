@@ -6,6 +6,8 @@ react:
           path: /react/grid/docs
         - title: Plugin Overview
           path: /react/grid/docs/guides/plugin-overview
+        - title: Data Processing
+          path: /react/grid/docs/guides/data-processing
         - title: Immutability
           path: /react/grid/docs/guides/immutability
         - title: Controlled and Uncontrolled Modes

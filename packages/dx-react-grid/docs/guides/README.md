@@ -1,12 +1,15 @@
 # React Grid Guides
 
-- [Paging](paging.md)
+- [Plugin Overview](plugin-overview.md)
+- [Using the Immutable Data](immutability.md)
+- [Controlled and Uncontrolled Modes](controlled-and-uncontrolled-modes.md)
 - [Sorting](sorting.md)
-- [Grouping](grouping.md)
+- [Paging](paging.md)
 - [Filtering](filtering.md)
-- [Detail Row](detail-row.md)
+- [Grouping](grouping.md)
 - [Selection](selection.md)
 - [Editing](editing.md)
+- [Detail Row](detail-row.md)
 - [Virtual Scrolling](virtual-scrolling.md)
 - [Column Reordering](column-reordering.md)
 

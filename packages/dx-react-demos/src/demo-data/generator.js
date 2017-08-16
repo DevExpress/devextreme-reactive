@@ -221,7 +221,12 @@ export function generateRows({
         values = values[1][record[values[0]]];
       }
 
-      record[column] = values[Math.floor(random() * values.length)];
+      const value = values[Math.floor(random() * values.length)];
+      if (typeof value === 'object') {
+        record[column] = Object.assign({}, value);
+      } else {
+        record[column] = value;
+      }
     });
 
     data.push(record);

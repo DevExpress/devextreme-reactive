@@ -66,6 +66,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
+        getRowId={row => row.id}
         getCellData={(row, columnName) => {
           if (columnName.indexOf('.') > -1) {
             const { rootField, nestedField } = this.splitColumnName(columnName);

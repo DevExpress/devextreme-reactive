@@ -2,7 +2,7 @@
 
 Plugins provide all the Grid functionality and can be divided into four logical groups:
 
-- **State Management plugins**. Controls a part of the Grid state internally or provide properties for external state management (see [controlled and uncontrolled modes](controlled-and-uncontrolled-modes.md)).
+- **State Management plugins**. Control a part of the Grid state internally or provide properties for external state management (see [controlled and uncontrolled modes](controlled-and-uncontrolled-modes.md)).
 - **Data Processing plugins**. Transform data passed to the Grid component before rendering.
 - **UI Plugins**. Render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid's state.
 - **Core Plugins**. The base building blocks for the plugins relating to the first three groups. These plugins can also be used separately in certain scenarios.
@@ -13,8 +13,7 @@ Refer to the [Reference](../reference) to see the complete plugin list.
 
 ## Plugin Order
 
-The plugin order is important. A plugin should be linked after the plugins it depends on. For example, a data processing plugin is based on some state. Thus, it should follow the appropriate state plugin:
-
+The plugin order is important. A plugin should be linked after the plugins implementing interfaces it uses. For example, a data processing plugin is based on some state. Thus, it should follow the appropriate state plugin:
 
 ```js
 import {
@@ -33,7 +32,7 @@ const App = () => (
 );
 ```
 
-Visualization plugins depend on the `TableView` one. That is why, they should follow it in the code as demonstrated in the following example:
+Some visualization plugins extend the `TableView` one's functionality. That is why, they should follow it in the code as demonstrated in the following example:
 
 ```js
 import {
@@ -54,6 +53,8 @@ const App = () => (
 ```
 
 NOTE: Refer to the plugin's reference for the information on its dependencies.
+
+The order of state management plugins is also important because they invoke data transformation in the same order they appear in the code. For example, if the `PagingState` plugin precedes the `FilteringState` one, the Grid filters the current page data. Swap the plugins with each other to paginate filtered data.
 
 ## UI Plugins
 

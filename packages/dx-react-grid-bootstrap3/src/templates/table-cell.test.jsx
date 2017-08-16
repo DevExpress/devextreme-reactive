@@ -8,7 +8,7 @@ describe('TableCell', () => {
     mount(
       <TableCell
         column={column}
-        getCellData={() => 'text'}
+        value={'text'}
       />,
     )
   );

@@ -78,7 +78,7 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#table-row) | Specifies a table row
 tableColumn | [TableColumn](#table-column) | Specifies a table column
-getCellData | Getter | The function used to get a cell data
+value | any | The value to be rendered within a cell
 style? | Object | Styles that should be applied to the root cell element
 colSpan? | number | Specifies the number of columns the cell spans
 
@@ -102,7 +102,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
 columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
-getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => number &#124; string | The function used to get a cell data
+getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell data
 
 ### Exports
 

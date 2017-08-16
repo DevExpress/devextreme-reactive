@@ -20,7 +20,7 @@ export const styleSheet = createStyleSheet('TableCell', theme => ({
   },
 }));
 
-const TableCellBase = ({ style, row, column, getCellData, classes }) => (
+const TableCellBase = ({ style, column, value, classes }) => (
   <TableCellMUI
     style={{
       ...style,
@@ -30,21 +30,20 @@ const TableCellBase = ({ style, row, column, getCellData, classes }) => (
       [classes.cellRightAlign]: column.align === 'right',
     })}
   >
-    {getCellData(row, column.name)}
+    {value}
   </TableCellMUI>
 );
 
 TableCellBase.propTypes = {
   style: PropTypes.shape(),
-  row: PropTypes.shape(),
+  value: PropTypes.any,
   column: PropTypes.shape(),
-  getCellData: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 TableCellBase.defaultProps = {
   style: null,
-  row: {},
+  value: undefined,
   column: {},
 };
 

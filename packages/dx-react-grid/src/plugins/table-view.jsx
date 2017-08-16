@@ -87,10 +87,11 @@ export class TableView extends React.PureComponent {
             getCellData: getter('getCellData'),
           })}
         >
-          {params => tableCellTemplate({
+          {({ getCellData, ...params }) => tableCellTemplate({
             ...params,
             row: params.tableRow.row,
             column: params.tableColumn.column,
+            value: getCellData(params.tableRow.row, params.tableColumn.column.name),
           })}
         </Template>
         <Template

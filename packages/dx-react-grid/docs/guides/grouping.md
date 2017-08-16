@@ -18,7 +18,7 @@ Note that [plugin order](../README.md#plugin-order) is important.
 
 Use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins to set up a Grid with simple static grouping. 
 
-In the following example, the grouping options are specified using the `GroupingState` plugin's `grouping` property, which is typical for the controlled mode. However, the `onGroupingChange` event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.
+In the following example, the grouping options are specified using the `GroupingState` plugin's `grouping` property, which is usual for the controlled mode. However, the `onGroupingChange` event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.
 
 .embedded-demo(grouping/local-grouping-static)
 

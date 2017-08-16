@@ -1,48 +1,58 @@
-# React Grid Data Paging
+# React Grid - Data Paging
 
-## Overview
+The Grid component supports data paging. You can specify the page size and switch pages programmatically or via the Paging Panel's UI controls. The paging state management, Paging Panel rendering, and local paging logic are implemented in the corresponding plugins. You can also configure the Grid to use server-side paging if your data service supports it.
 
-The Grid's paging features are used to divide data into pages on the client side. However, if your data service supports server-side paging, you can handle the Grid's paging state changes (current page, page size) and pass this data to the server. There are also plugins that display paging controls that enable end-user interaction, for instance, page switching.
+## Related Plugins
 
-## Plugin List
+The following plugins implement filtering features:
 
-Several plugins implement sorting features:
-- [PagingState](../reference/paging-state.md)
-- [LocalPaging](../reference/local-paging.md)
-- [PagingPanel](../reference/paging-panel.md)
+- [PagingState](../reference/paging-state.md) - controls the paging state
+- [LocalPaging](../reference/local-paging.md) - performs local data paging
+- [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
 
 Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Local Paging Setup
 
-Use the `PagingState`, `LocalPaging`, and `PagingPanel` plugins to set up a common paging configuration.
+Import the plugins listed above to set up a Grid with basic paging.
 
-In the following example, we use the uncontrolled mode and specify only the initial active page number via the `defaultCurrentPage` property of the `PagingState` plugin. In this case, the grid manages paging state changes internally.
+## Uncontrolled Mode
+
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial active page index in the `PagingState` plugin's `defaultCurrentPage` property. 
+
+In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is usual for the controlled mode. However, the `onPageSizeChange` event handler is not specified because page size is not supposed to be changed internally as the Page Size Selector is not available.
 
 .embedded-demo(paging/local-paging)
 
 ## Page Size Selection
 
-Assign an array of available page sizes to the `allowedPageSizes` property of the `PagingPanel` plugin to enable page size selection. The page size selector contains the 'All' item if one of array values is 0. Use the `showAllText` property of the `PagingPanel` plugin to change its text.
+Assign an array of available page sizes to the `PagingPanel` plugin's `allowedPageSizes` property to enable page size selection via the UI. The Page Size Selector displays the 'All' item if the specified array contains an item whose value is 0. You can specify a custom text for this Page Size Selector item using the `showAllText` property.
 
-The example below demonstrates the basic configuration for the uncontrolled mode. The `PagingState` plugin's `defaultPageSize` property is used to define the initial page size.
+The example below demonstrates the basic configuration for the uncontrolled mode. The `PagingState` plugin's `defaultPageSize` property defines the initial page size.
 
 .embedded-demo(paging/page-size-selector)
 
-## Controlled Paging State
+## Controlled Mode
 
-Specify the `PagingState` plugin's `currentPage` and `pageSize` properties and handle the `onCurrentPageChange` event to control the paging state. Specify the `PagingPanel` plugin's `allowedPageSizes` property and define the `PagingState` plugin's `onPageSizeChanged` event handler to enable page size selection.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `PagingState` plugin property pairs to set a state value and handle its changes:
+
+- `currentPage` and `onCurrentPageChange` - the currently displayed page's index  
+- `pageSize` and `onPageSizeChange` - the page size
+
+Note that the `onPageSizeChange` handler makes sense only if the `allowedPageSizes` option is specified. Otherwise, a user is not able to change the page size.
 
 .embedded-demo(paging/local-paging-controlled)
 
 ## Remote Paging
 
-You can handle the Grid's paging state changes to request a page from the server according to the active page number and size if your data service supports paging operations.
+You can handle the Grid's paging state changes to request a page data from the server according to the current page index and page size if your data service supports paging.
 
-Handle the `PagingState` plugin's `onCurrentPageChange` event to receive updates on the current page number changes instead of using the `LocalSorting` plugin to configure remote paging. Pass the data page received from the server to the `Grid` component's `rows` property.
+Paging options are updated once an end-user interacts with Paging Panel controls. Handle paging option changes using the `PagingState` plugin's `onCurrentPageChange` and `onPageSizeChange` events and request data from the server using the applied paging options. Once the page data is received from the server, pass it to the `Grid` component's `rows` property.
+
+Note that in the case of remote paging, you do not need to use the `LocalPaging` plugin.
 
 .embedded-demo(paging/remote-paging)
 
 ## Using Paging with Other Data Processing Plugins
 
-Paging features are often used side by side with other features such as sorting, grouping, etc. Note that plugins are applied in the order in which they appear inside the Grid container. If you are using paging and sorting together and you put the `LocalSorting` plugin before the `LocalPaging` one,  data is sorted and then paginated. Once you change the order, unsorted rows are paginated, and only the current page is sorted after that.
+When you use paging features with sorting, grouping, or filtering, take a note of the order in which the plugins appear in the Grid's container. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `LocalFiltering` plugin before the `LocalPaging` one. Otherwise, inverse the plugins' order.

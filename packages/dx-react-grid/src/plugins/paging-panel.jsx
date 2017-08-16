@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import { pageCount } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'PagingState' },
+];
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class PagingPanel extends React.PureComponent {
   render() {
     const { pagerTemplate, allowedPageSizes } = this.props;
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="PagingPanel"
+        dependencies={pluginDependencies}
+      >
         <Template
           name="footer"
           connectGetters={(getter) => {

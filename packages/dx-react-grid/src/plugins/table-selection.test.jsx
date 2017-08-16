@@ -38,6 +38,7 @@ const defaultDeps = {
       style: {},
     },
   },
+  plugins: ['SelectionState', 'TableView'],
 };
 
 const defaultProps = {

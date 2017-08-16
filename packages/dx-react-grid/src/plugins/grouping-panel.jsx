@@ -14,7 +14,13 @@ export class GroupingPanel extends React.PureComponent {
     } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="GroupingPanel"
+        dependencies={[
+          { pluginName: 'GroupingState' },
+          { pluginName: 'SortingState', optional: !allowSorting },
+        ]}
+      >
         <Template
           name="header"
           connectGetters={getter => ({

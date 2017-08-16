@@ -9,6 +9,11 @@ import {
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'SelectionState' },
+  { pluginName: 'TableView' },
+];
+
 export class TableSelection extends React.PureComponent {
   render() {
     const {
@@ -22,7 +27,10 @@ export class TableSelection extends React.PureComponent {
     } = this.props;
 
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="TableSelection"
+        dependencies={pluginDependencies}
+      >
         {showSelectionColumn && (
           <Getter
             name="tableColumns"

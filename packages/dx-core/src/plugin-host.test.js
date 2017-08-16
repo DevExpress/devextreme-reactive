@@ -114,23 +114,32 @@ describe('PluginHost', () => {
         position: () => [1],
         pluginName: 'Plugin1',
         dependencies: [
-          { pluginName: 'Plugin2', optional: true },
+          { pluginName: 'Plugin3', optional: true },
         ],
         container: true,
       };
       const plugin2 = {
         position: () => [2],
         pluginName: 'Plugin2',
+        dependencies: [
+          { pluginName: 'Plugin3', optional: true },
+        ],
+        container: true,
+      };
+      const plugin3 = {
+        position: () => [3],
+        pluginName: 'Plugin3',
         dependencies: [],
         container: true,
       };
 
       host.registerPlugin(plugin1);
+      host.registerPlugin(plugin2);
 
       expect(() => {
-        host.registerPlugin(plugin2);
+        host.registerPlugin(plugin3);
         host.collect();
-      }).toThrow(/Plugin1.*Plugin2/);
+      }).toThrow(/Plugin1.*Plugin3/);
     });
 
     it('should validate dependencies after a pluginContainer was unregistered', () => {

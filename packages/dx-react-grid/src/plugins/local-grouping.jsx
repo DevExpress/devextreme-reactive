@@ -2,11 +2,18 @@ import React from 'react';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { groupedRows, expandedGroupRows } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'GroupingState' },
+];
+
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalGrouping extends React.PureComponent {
   render() {
     return (
-      <PluginContainer>
+      <PluginContainer
+        pluginName="LocalGrouping"
+        dependencies={pluginDependencies}
+      >
         <Getter
           name="rows"
           pureComputed={groupedRows}

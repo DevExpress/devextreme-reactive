@@ -1,41 +1,45 @@
 # React Grid Data Grouping
 
-## Overview
+The Grid component supports grouping data by one or several column values. Use the corresponding plugins to manage the grouping state and group data programmatically or via the UI (Group Panel and column headers).
 
-The grouping feature allows you to display data grouped by one or several column values. We also provide plugins that allow end-users to group grid data using the Grid's UI (group panel or column headers).
+## Related Plugins
 
-## Plugin List
+The following plugins implement grouping features:
 
-There are several plugins that implement grouping features:
-- [GroupingState](../reference/grouping-state.md)
-- [LocalGrouping](../reference/local-grouping.md)
-- [TableGroupRow](../reference/table-group-row.md)
-- [TableHeaderRow](../reference/table-header-row.md)
-- [GroupingPanel](../reference/grouping-panel.md)
+- [GroupingState](../reference/grouping-state.md) - controls the grouping state  
+- [LocalGrouping](../reference/local-grouping.md) - implements the grouping logic  
+- [TableGroupRow](../reference/table-group-row.md) - renders group rows  
+- [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging  
+- [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
 
 Note that [plugin order](../README.md#plugin-order) is important.
 
 ## Basic setup
 
-Use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins to set up a simple static Grid grouping.
+Use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins to set up a Grid with simple static grouping. 
 
-In the following example, the controlled mode is enabled using the `grouping` property of the `GroupingState` plugin. You do not have to handle the `onGroupingChange` event because an end-user can not change grouping state via the UI.
+In the following example, the grouping options are specified using the `GroupingState` plugin's `grouping` property, which is usual for the controlled mode. However, the `onGroupingChange` event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.
 
 .embedded-demo(grouping/local-grouping-static)
 
-## Grouping UI for an end-user
+## Configure the Grouping UI
 
-Use the `GroupPanel` and `TableHeaderRow` plugins to enable an end-user to group data by a certain column.
+Use the `GroupPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to allow a user to use any of the following methods to specify grouping options:
 
-Set the `TableHeaderRow` plugin's `allowDragging` property and the `GroupingPanel` plugin's `allowDragging` property to true to allow changing grouping state by dragging column headers to or from the group panel. Alternatively, you can set the `TableHeaderRow` plugin's `allowGroupingByClick` property and the `GroupingPanel` plugin's `allowUngroupingByClick` property to true to allow an end-user to change grouping state via the UI. In this case, the plugins add the appropriate buttons to header cells located in the table header row and on the grouping panel.
+- Drag a column header to or from the Group Panel  
+ Set the `TableHeaderRow` and `GroupingPanel` plugins' `allowDragging` properties to true.
 
-Define the `GroupingPanel` plugin's `allowSorting` option to enable sorting data by grouped columns.
+- Use the corresponding button in a header cell  
+ Assign true to the `TableHeaderRow` plugin's `allowGroupingByClick` and the `GroupingPanel` plugin's `allowUngroupingByClick` properties.
+
+You can also set the `GroupingPanel` plugin's `allowSorting` option to true to enable sorting data by a grouped column.
+
+In the following example the Grid functions in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). It means that the Grid controls the grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
 
 .embedded-demo(grouping/local-grouping-with-ui)
 
-## Grouping Controlled Mode
+## Controlled Mode
 
-Pass the appropriate array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grouping state.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grouping state.
 
 .embedded-demo(grouping/local-grouping-controlled)
-

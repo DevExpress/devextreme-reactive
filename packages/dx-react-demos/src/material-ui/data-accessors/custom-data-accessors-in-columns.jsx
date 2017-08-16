@@ -8,7 +8,7 @@ import {
   TableHeaderRow,
   TableEditRow,
   TableEditColumn,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-material-ui';
 
 import {
   generateRows,
@@ -23,9 +23,17 @@ export default class Demo extends React.PureComponent {
       columns: [
         {
           name: 'name',
-          title: 'Name',
+          title: 'First Name',
           getCellData: row => (row.user ? row.user.firstName : undefined),
-          createRowChange: (row, value) => ({ user: { firstName: value } }),
+          createRowChange: (row, value) =>
+            (Object.assign(row.user || { user: {} }, { firstName: value })),
+        },
+        {
+          name: 'lastName',
+          title: 'Last Name',
+          getCellData: row => (row.user ? row.user.lastName : undefined),
+          createRowChange: (row, value) =>
+            (Object.assign(row.user || { user: {} }, { lastName: value })),
         },
         {
           name: 'car',

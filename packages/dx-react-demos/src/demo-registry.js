@@ -17,14 +17,14 @@ export const demos = {
       'material-ui': require('./material-ui/basic/basic').default,
     },
   },
-  'data-processing': {
+  'data-accessors': {
     'custom-data-accessors': {
-      bootstrap3: require('./bootstrap3/data-processing/custom-data-accessors').default,
-      'material-ui': require('./material-ui/data-processing/custom-data-accessors').default,
+      bootstrap3: require('./bootstrap3/data-accessors/custom-data-accessors').default,
+      'material-ui': require('./material-ui/data-accessors/custom-data-accessors').default,
     },
     'custom-data-accessors-in-columns': {
-      bootstrap3: require('./bootstrap3/data-processing/custom-data-accessors-in-columns').default,
-      'material-ui': require('./material-ui/data-processing/custom-data-accessors-in-columns').default,
+      bootstrap3: require('./bootstrap3/data-accessors/custom-data-accessors-in-columns').default,
+      'material-ui': require('./material-ui/data-accessors/custom-data-accessors-in-columns').default,
     },
   },
   'column-reordering': {

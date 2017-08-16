@@ -2,6 +2,10 @@ import randomSeed from './random';
 
 const femaleFirstNames = ['Mary', 'Linda', 'Barbara', 'Maria', 'Lisa', 'Nancy', 'Betty', 'Sandra', 'Sharon'];
 const maleFirstNames = ['James', 'John', 'Robert', 'William', 'David', 'Richard', 'Thomas', 'Paul', 'Mark'];
+const lastNames = [
+  'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Johnson', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson',
+  'Thomas', 'Jackson', 'Williams', 'White', 'Harris', 'Davis', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson', 'Clark',
+];
 const usStates = [
   { name: 'Alabama', abbr: 'AL' },
   { name: 'Alaska', abbr: 'AK' },
@@ -93,8 +97,9 @@ export const defaultColumnValues = {
 
 export const defaultNestedColumnValues = {
   user: [
-    ...[...maleFirstNames, ...femaleFirstNames].map(name => ({
+    ...[...maleFirstNames, ...femaleFirstNames].map((name, i) => ({
       firstName: name,
+      lastName: lastNames[i],
     })),
   ],
   position: positions,
@@ -137,10 +142,7 @@ export const employeeValues = {
       Female: femaleFirstNames,
     },
   ],
-  lastName: [
-    'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Johnson', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson',
-    'Thomas', 'Jackson', 'Williams', 'White', 'Harris', 'Davis', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson', 'Clark',
-  ],
+  lastName: lastNames,
   position: positions,
   state: usStates.map(state => state.name),
   birthDate: ({ random }) => generateDate({

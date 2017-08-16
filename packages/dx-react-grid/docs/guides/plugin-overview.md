@@ -54,7 +54,7 @@ const App = () => (
 
 NOTE: Refer to the plugin's reference for the information on its dependencies.
 
-The order of state management plugins is also important because they invoke data transformation in the same order they appear in the code. For example, if the `PagingState` plugin precedes the `FilteringState` one, the Grid filters the current page data. Swap the plugins with each other to paginate filtered data.
+The order of data processing plugins is also important because they transform data in the same order they appear in the code. For example, if the `LocalPaging` plugin precedes the `LocalFiltering` one, the Grid filters the current page data. Swap the plugins with each other to paginate filtered data.
 
 ## UI Plugins
 

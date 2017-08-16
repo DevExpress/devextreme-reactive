@@ -38,12 +38,12 @@ const getCellDataGetter = (getCellData, columns) => {
     (row, columnName) => (getters[columnName] ? getters[columnName](row) : row[columnName]);
 };
 
-const setCellDataGetter = (setCellData, columns) => {
-  if (setCellData) {
-    return setCellData;
+const createRowChangeGetter = (createRowChange, columns) => {
+  if (createRowChange) {
+    return createRowChange;
   }
 
-  const map = getColumnsDataAccessorMap(columns, 'setCellData');
+  const map = getColumnsDataAccessorMap(columns, 'createRowChange');
   const setters = map.accessors;
 
   return map.useFastAccessor ?
@@ -55,7 +55,7 @@ const setCellDataGetter = (setCellData, columns) => {
 export const Grid = ({
   rows, getRowId, columns,
   rootTemplate, headerPlaceholderTemplate, footerPlaceholderTemplate,
-  children, getCellData, setCellData,
+  children, getCellData, createRowChange,
 }) => (
   <PluginHost>
     <Getter name="rows" value={rows} />
@@ -71,9 +71,9 @@ export const Grid = ({
       connectArgs={() => [getCellData, columns]}
     />
     <Getter
-      name="setCellData"
-      pureComputed={setCellDataGetter}
-      connectArgs={() => [setCellData, columns]}
+      name="createRowChange"
+      pureComputed={createRowChangeGetter}
+      connectArgs={() => [createRowChange, columns]}
     />
     <Template name="header" />
     <Template name="body" />
@@ -105,7 +105,7 @@ Grid.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellData: PropTypes.func,
-  setCellData: PropTypes.func,
+  createRowChange: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
   headerPlaceholderTemplate: PropTypes.func,
@@ -119,7 +119,7 @@ Grid.propTypes = {
 Grid.defaultProps = {
   getRowId: null,
   getCellData: null,
-  setCellData: null,
+  createRowChange: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,
   children: null,

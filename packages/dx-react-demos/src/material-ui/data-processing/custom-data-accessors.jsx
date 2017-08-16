@@ -68,7 +68,7 @@ export default class Demo extends React.PureComponent {
             default: return row[columnName];
           }
         }}
-        setCellData={(row, columnName, value) => {
+        createRowChange={(row, columnName, value) => {
           switch (columnName) {
             case 'name': return { user: { firstName: value } };
             case 'car': return { car: { model: value } };

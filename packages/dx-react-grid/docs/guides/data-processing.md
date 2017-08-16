@@ -61,7 +61,7 @@ Moreover, it's possible to use the similar way to set a cell data when the editi
     { name: 'lastName', title: 'Last Name' },
     ...
   ]},
-  setCellData={(row, columnName, value) => {
+  createRowChange={(row, columnName, value) => {
     switch (columnName) {
       case 'firstName': return { user: { firstName: value } };
       case 'lastName': return { user: { lastName: value } };
@@ -85,13 +85,13 @@ Pay attention, you can use the column configuration to implement the same functi
       name: 'firstName',
       title: 'First Name',
       getCellData: row => (row.user ? row.user.firstName : undefined),
-      setCellData: (row, value) => ({ user: { firstName: value } }),
+      createRowChange: (row, value) => ({ user: { firstName: value } }),
     },
     {
       name: 'lastName',
       title: 'Last Name',
       getCellData: row => (row.user ? row.user.lastName : undefined),
-      setCellData: (row, value) => ({ user: { lastName: value } }),
+      createRowChange: (row, value) => ({ user: { lastName: value } }),
     },
     ...
   ],

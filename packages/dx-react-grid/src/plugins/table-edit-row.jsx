@@ -32,7 +32,7 @@ export class TableEditRow extends React.PureComponent {
 
             return {
               value: getCellData(change, column.name) || getCellData(row, column.name),
-              setCellData: getter('setCellData'),
+              createRowChange: getter('createRowChange'),
             };
           }}
           connectActions={action => ({
@@ -42,7 +42,7 @@ export class TableEditRow extends React.PureComponent {
           {({
             value,
             changeRow,
-            setCellData,
+            createRowChange,
             ...restParams
           }) =>
             editCellTemplate({
@@ -52,7 +52,7 @@ export class TableEditRow extends React.PureComponent {
               onValueChange: newValue =>
                 changeRow({
                   rowId: restParams.tableRow.rowId,
-                  change: setCellData(
+                  change: createRowChange(
                     restParams.tableRow.row,
                     restParams.tableColumn.column.name,
                     newValue,
@@ -66,7 +66,7 @@ export class TableEditRow extends React.PureComponent {
           predicate={({ tableRow, tableColumn }) => isEditNewTableCell(tableRow, tableColumn)}
           connectGetters={getter => ({
             getCellData: getter('getCellData'),
-            setCellData: getter('setCellData'),
+            createRowChange: getter('createRowChange'),
           })}
           connectActions={action => ({
             changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),
@@ -76,7 +76,7 @@ export class TableEditRow extends React.PureComponent {
             value,
             changeAddedRow,
             getCellData,
-            setCellData,
+            createRowChange,
             ...restParams
           }) =>
             editCellTemplate({
@@ -85,7 +85,7 @@ export class TableEditRow extends React.PureComponent {
               value: getCellData(restParams.tableRow.row, restParams.tableColumn.column.name),
               onValueChange: newValue => changeAddedRow({
                 rowId: restParams.tableRow.rowId,
-                change: setCellData(
+                change: createRowChange(
                   restParams.tableRow.row,
                   restParams.tableColumn.column.name,
                   newValue,

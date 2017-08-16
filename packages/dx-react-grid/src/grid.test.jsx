@@ -198,7 +198,7 @@ describe('Grid', () => {
     expect(getCellData).toBeCalledWith(rows[0]);
   });
 
-  it('should create a cell data', () => {
+  it('should create a row change', () => {
     const rows = [
       { a: 1, b: 1 },
       { a: 2, b: 2 },
@@ -207,7 +207,7 @@ describe('Grid', () => {
       { name: 'a' },
       { name: 'b' },
     ];
-    let cellData;
+    let rowChange;
 
     mount(<Grid
       rows={rows}
@@ -217,44 +217,44 @@ describe('Grid', () => {
       <Template
         name="root"
         connectGetters={(getter) => {
-          cellData = getter('setCellData')(rows[1], columns[1].name, 3);
+          rowChange = getter('createRowChange')(rows[1], columns[1].name, 3);
         }}
       >
         {() => <div />}
       </Template>
     </Grid>);
 
-    expect(cellData).toEqual({ b: 3 });
+    expect(rowChange).toEqual({ b: 3 });
   });
 
-  it('should create a cell data by using a custom function', () => {
+  it('should create a row change by using a custom function', () => {
     const rows = [{ a: 1 }];
     const columns = [{ name: 'a' }];
-    const setCellData = jest.fn();
+    const createRowChange = jest.fn();
 
     mount(<Grid
       rows={rows}
       columns={columns}
       rootTemplate={() => <div />}
-      setCellData={setCellData}
+      createRowChange={createRowChange}
     >
       <Template
         name="root"
         connectGetters={(getter) => {
-          getter('setCellData')(rows[0], columns[0].name, 3);
+          getter('createRowChange')(rows[0], columns[0].name, 3);
         }}
       >
         {() => <div />}
       </Template>
     </Grid>);
 
-    expect(setCellData).toBeCalledWith(rows[0], columns[0].name, 3);
+    expect(createRowChange).toBeCalledWith(rows[0], columns[0].name, 3);
   });
 
-  it('should create a cell data by using a custom function within column config', () => {
+  it('should create a row change by using a custom function within column config', () => {
     const rows = [{ a: 1 }];
-    const setCellData = jest.fn();
-    const columns = [{ name: 'a', setCellData }];
+    const createRowChange = jest.fn();
+    const columns = [{ name: 'a', createRowChange }];
 
     mount(<Grid
       rows={rows}
@@ -264,13 +264,13 @@ describe('Grid', () => {
       <Template
         name="root"
         connectGetters={(getter) => {
-          getter('setCellData')(rows[0], columns[0].name, 3);
+          getter('createRowChange')(rows[0], columns[0].name, 3);
         }}
       >
         {() => <div />}
       </Template>
     </Grid>);
 
-    expect(setCellData).toBeCalledWith(rows[0], 3);
+    expect(createRowChange).toBeCalledWith(rows[0], 3);
   });
 });

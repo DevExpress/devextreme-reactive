@@ -90,7 +90,7 @@ const rows = [
 const columns: [
   {
     ...
-    createRowChange: (row, value) =>
+    createRowChange: (row, columnName, value) =>
       (Object.assign(row.user || { user: {} }, { firstName: value })),
   },
   ...

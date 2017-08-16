@@ -30,5 +30,5 @@ export const rowChange = (columns, createRowChange) => {
   }, {});
 
   return (row, columnName, value) =>
-    (map[columnName] ? map[columnName](row, value) : { [columnName]: value });
+    (map[columnName] ? map[columnName](row, columnName, value) : { [columnName]: value });
 };

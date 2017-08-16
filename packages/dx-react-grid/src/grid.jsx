@@ -28,7 +28,7 @@ const getCellDataGetter = (getCellData, columns) => {
 
   return useFastAccessor ?
     (row, columnName) => row[columnName] :
-    (row, columnName) => (map[columnName] ? map[columnName](row) : row[columnName]);
+    (row, columnName) => (map[columnName] ? map[columnName](row, columnName) : row[columnName]);
 };
 
 export const Grid = ({

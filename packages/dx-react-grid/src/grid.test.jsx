@@ -195,6 +195,6 @@ describe('Grid', () => {
       </Template>
     </Grid>);
 
-    expect(getCellData).toBeCalledWith(rows[0]);
+    expect(getCellData).toBeCalledWith(rows[0], columns[0].name);
   });
 });

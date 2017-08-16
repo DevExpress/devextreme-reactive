@@ -21,10 +21,11 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'name', title: 'Name' },
+        { name: 'user.firstName', title: 'First Name' },
+        { name: 'user.lastName', title: 'Last Name' },
+        { name: 'car.model', title: 'Car' },
         { name: 'position', title: 'Position' },
         { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
@@ -53,6 +54,10 @@ export default class Demo extends React.PureComponent {
       }
       this.setState({ rows });
     };
+    this.splitColumnName = (columnName) => {
+      const parts = columnName.split('.');
+      return { rootField: parts[0], nestedField: parts[1] };
+    };
   }
   render() {
     const { rows, columns } = this.state;
@@ -62,18 +67,18 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
         getCellData={(row, columnName) => {
-          switch (columnName) {
-            case 'name': return row.user ? row.user.firstName : undefined;
-            case 'car': return row.car ? row.car.model : undefined;
-            default: return row[columnName];
+          if (columnName.indexOf('.') > -1) {
+            const { rootField, nestedField } = this.splitColumnName(columnName);
+            return row[rootField] ? row[rootField][nestedField] : undefined;
           }
+          return row[columnName];
         }}
         createRowChange={(row, columnName, value) => {
-          switch (columnName) {
-            case 'name': return { user: { firstName: value } };
-            case 'car': return { car: { model: value } };
-            default: return { [columnName]: value };
+          if (columnName.indexOf('.') > -1) {
+            const { rootField, nestedField } = this.splitColumnName(columnName);
+            return Object.assign(row[rootField] || { [rootField]: {} }, { [nestedField]: value });
           }
+          return { [columnName]: value };
         }}
       >
         <EditingState

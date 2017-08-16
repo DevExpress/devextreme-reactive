@@ -1,16 +1,16 @@
 # Data Accessors
 
-## Overview
+## Cell Data Access
 
 In order, to specify the field name in the data row to obtain a column value a user can use the `column.name` field. It's enough for common scenarios, when a data structure is quite simple. For example:
 
 ```js
 const rows = [
-  { firstName: 'John', lastName: 'Smith', age: 23 },
+  { firstName: 'John', lastName: 'Smith' },
   ...
 ];
 const columns = [
-  { name: 'firstName', title: 'Last Name' },
+  { name: 'firstName', title: 'First Name' },
   { name: 'lastName', title: 'Last Name' },
   ...
 ];
@@ -24,58 +24,12 @@ But, in case when a data has a nested structure this approach doesn't work. Let'
 
 ```js
 const rows = [
-  { user: { firstName: 'John', lastName: 'Smith', age: 23 } },
+  { user: { firstName: 'John', lastName: 'Smith' } },
   ...
 ];
 ```
 
-To tell the Grid how to work with this data you can use the `getCellData` function:
-
-```js
-<Grid
-  rows={rows},
-  columns={[
-    { name: 'firstName', title: 'First Name' },
-    { name: 'lastName', title: 'Last Name' },
-    ...
-  ]},
-  getCellData={(row, columnName) => {
-    switch (columnName) {
-      case 'firstName': return row.user ? row.user.firstName : undefined;
-      case 'lastName': return row.user ? row.user.lastName : undefined;
-      default: return row[columnName];
-    }
-  }}
-/>
-```
-
-This piece of code demonstrates how to use a nested object field to get a cell data. Of course, a user can implement more complex logic there.
-
-Moreover, it's possible to use the similar way to set a cell data when the editing features are enabled:
-
-```js
-<Grid
-  rows={rows},
-  columns={[
-    { name: 'firstName', title: 'First Name' },
-    { name: 'lastName', title: 'Last Name' },
-    ...
-  ]},
-  createRowChange={(row, columnName, value) => {
-    switch (columnName) {
-      case 'firstName': return { user: { firstName: value } };
-      case 'lastName': return { user: { lastName: value } };
-      default: return { [columnName]: value };
-    }
-  }}
-/>
-```
-
-The following demo shows these approaches in action.
-
-.embedded-demo(data-processing/custom-data-accessors)
-
-Pay attention, you can use the column configuration to implement the same functionality:
+To tell the Grid how to work with this data you can use the `column.getCellData` function like below:
 
 ```js
 <Grid
@@ -85,17 +39,76 @@ Pay attention, you can use the column configuration to implement the same functi
       name: 'firstName',
       title: 'First Name',
       getCellData: row => (row.user ? row.user.firstName : undefined),
-      createRowChange: (row, value) => ({ user: { firstName: value } }),
     },
     {
       name: 'lastName',
       title: 'Last Name',
       getCellData: row => (row.user ? row.user.lastName : undefined),
-      createRowChange: (row, value) => ({ user: { lastName: value } }),
     },
     ...
   ],
 />
 ```
 
-.embedded-demo(data-processing/custom-data-accessors-in-columns)
+.embedded-demo(data-accessors/custom-data-accessors-in-columns)
+
+In case when you have a common algorithm for cell data calculation, it's possible to use the similar `getCellData` property of the Grid.
+
+Let's say, there are rows like `{ user: { firstName: 'John', lastName: '...' } }`. In order to avoid copying the `getCellData` function for an each column, you can use the dot notation for column name like `{ name: 'user.firstName' }`. Then, the code can look like this:
+
+```js
+ <Grid
+  rows={rows}
+  columns={columns}
+  getCellData={(row, columnName) => {
+    if (columnName.indexOf('.') > -1) {
+      const { rootField, nestedField } = this.splitColumnName(columnName);
+      return row[rootField] ? row[rootField][nestedField] : undefined;
+    }
+    return row[columnName];
+  }}
+>
+```
+
+The following demo shows this approach in action.
+
+.embedded-demo(data-accessors/custom-data-accessors)
+
+
+Pay attention, the `getCellData` property of the Grid has a higher priority than the `column.getCellData` one.
+
+## Cell Data Editing
+
+ When the editing features are enabled you can use the `column.createRowChange` function and manually create a row change:
+
+```js
+const rows = [
+  { user: { firstName: 'John', lastName: 'Smith' } },
+  ...
+];
+
+const columns: [
+  {
+    ...
+    createRowChange: (row, value) =>
+      (Object.assign(row.user || { user: {} }, { firstName: value })),
+  },
+  ...
+]
+```
+
+Of course, you should not define the similar functions for an each column. There is the `createRowChange` property of the `EditingState` plugin that allows to implement the same functionality:
+
+```js
+<Grid
+  ...
+>
+  <EditingState
+    createRowChange={(row, columnName, value) => {
+      // ...
+    }}
+  />
+/>
+```
+
+Pay attention, the `createRowChange` property of the `EditingState` plugin has a higher priority than the `column.createRowChange` one.

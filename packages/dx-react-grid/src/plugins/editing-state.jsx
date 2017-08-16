@@ -13,6 +13,7 @@ import {
   changeRow,
   cancelChanges,
   changedRowsByIds,
+  rowChange,
 
   deleteRows,
   cancelDeletedRows,
@@ -105,6 +106,7 @@ export class EditingState extends React.PureComponent {
     const changedRows = this.props.changedRows || this.state.changedRows;
     const addedRows = this.props.addedRows || this.state.addedRows;
     const deletedRows = this.props.deletedRows || this.state.deletedRows;
+    const createRowChange = this.props.createRowChange || this.state.createRowChange;
 
     return (
       <PluginContainer
@@ -166,6 +168,14 @@ export class EditingState extends React.PureComponent {
         <Getter name="changedRows" value={changedRows} />
         <Getter name="addedRows" value={addedRows} />
         <Getter name="deletedRows" value={deletedRows} />
+        <Getter
+          name="createRowChange"
+          pureComputed={rowChange}
+          connectArgs={getter => [
+            getter('columns'),
+            createRowChange,
+          ]}
+        />
       </PluginContainer>
     );
   }
@@ -183,6 +193,7 @@ EditingState.propTypes = {
   changedRows: PropTypes.object,
   defaultChangedRows: PropTypes.object,
   onChangedRowsChange: PropTypes.func,
+  createRowChange: PropTypes.func,
 
   deletedRows: PropTypes.array,
   defaultDeletedRows: PropTypes.array,
@@ -207,4 +218,5 @@ EditingState.defaultProps = {
   changedRows: undefined,
   defaultChangedRows: undefined,
   onChangedRowsChange: undefined,
+  createRowChange: undefined,
 };

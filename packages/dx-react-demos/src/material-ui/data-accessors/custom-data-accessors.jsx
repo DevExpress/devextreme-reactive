@@ -73,16 +73,16 @@ export default class Demo extends React.PureComponent {
           }
           return row[columnName];
         }}
-        createRowChange={(row, columnName, value) => {
-          if (columnName.indexOf('.') > -1) {
-            const { rootField, nestedField } = this.splitColumnName(columnName);
-            return Object.assign(row[rootField] || { [rootField]: {} }, { [nestedField]: value });
-          }
-          return { [columnName]: value };
-        }}
       >
         <EditingState
           onCommitChanges={this.commitChanges}
+          createRowChange={(row, columnName, value) => {
+            if (columnName.indexOf('.') > -1) {
+              const { rootField, nestedField } = this.splitColumnName(columnName);
+              return Object.assign(row[rootField] || { [rootField]: {} }, { [nestedField]: value });
+            }
+            return { [columnName]: value };
+          }}
         />
         <TableView />
         <TableHeaderRow />

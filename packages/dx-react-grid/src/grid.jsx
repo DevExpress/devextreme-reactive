@@ -11,51 +11,30 @@ const rowIdGetter = (getRowId, rows) => {
   };
 };
 
-const getColumnsDataAccessorMap = (columns, accessorName) => {
-  const result = {
-    accessors: {},
-    useFastAccessor: true,
-  };
-  columns.forEach((column) => {
-    if (column[accessorName]) {
-      result.useFastAccessor = false;
-      result.accessors[column.name] = column[accessorName];
-    }
-  });
-
-  return result;
-};
-
 const getCellDataGetter = (getCellData, columns) => {
   if (getCellData) {
     return getCellData;
   }
-  const map = getColumnsDataAccessorMap(columns, 'getCellData');
-  const getters = map.accessors;
 
-  return map.useFastAccessor ?
+  let useFastAccessor = true;
+
+  const map = columns.reduce((acc, column) => {
+    if (column.getCellData) {
+      useFastAccessor = false;
+      acc[column.name] = column.getCellData;
+    }
+    return acc;
+  }, {});
+
+  return useFastAccessor ?
     (row, columnName) => row[columnName] :
-    (row, columnName) => (getters[columnName] ? getters[columnName](row) : row[columnName]);
+    (row, columnName) => (map[columnName] ? map[columnName](row) : row[columnName]);
 };
 
-const createRowChangeGetter = (createRowChange, columns) => {
-  if (createRowChange) {
-    return createRowChange;
-  }
-
-  const map = getColumnsDataAccessorMap(columns, 'createRowChange');
-  const setters = map.accessors;
-
-  return map.useFastAccessor ?
-    (row, columnName, value) => ({ [columnName]: value }) :
-    (row, columnName, value) => (setters[columnName] ?
-      setters[columnName](row, value) :
-      { [columnName]: value });
-};
 export const Grid = ({
   rows, getRowId, columns,
   rootTemplate, headerPlaceholderTemplate, footerPlaceholderTemplate,
-  children, getCellData, createRowChange,
+  children, getCellData,
 }) => (
   <PluginHost>
     <Getter name="rows" value={rows} />
@@ -69,11 +48,6 @@ export const Grid = ({
       name="getCellData"
       pureComputed={getCellDataGetter}
       connectArgs={() => [getCellData, columns]}
-    />
-    <Getter
-      name="createRowChange"
-      pureComputed={createRowChangeGetter}
-      connectArgs={() => [createRowChange, columns]}
     />
     <Template name="header" />
     <Template name="body" />
@@ -105,7 +79,6 @@ Grid.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellData: PropTypes.func,
-  createRowChange: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
   headerPlaceholderTemplate: PropTypes.func,
@@ -119,7 +92,6 @@ Grid.propTypes = {
 Grid.defaultProps = {
   getRowId: null,
   getCellData: null,
-  createRowChange: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,
   children: null,

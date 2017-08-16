@@ -1,6 +1,7 @@
 import {
     changedRowsByIds,
     addedRowsByIds,
+    rowChange,
 } from './computeds';
 
 describe('EditingState computeds', () => {
@@ -31,6 +32,44 @@ describe('EditingState computeds', () => {
       expect(computed).toEqual([
         { b: 1 },
       ]);
+    });
+  });
+  describe('#createRowChange', () => {
+    it('should create a row change', () => {
+      const rows = [
+        { a: 1, b: 1 },
+        { a: 2, b: 2 },
+      ];
+      const columns = [
+        { name: 'a' },
+        { name: 'b' },
+      ];
+      const createRowChange = rowChange(columns);
+      const change = createRowChange(rows[1], columns[1].name, 3);
+
+      expect(change).toEqual({ b: 3 });
+    });
+
+    it('should create a row change by using a custom function', () => {
+      const rows = [{ a: 1 }];
+      const columns = [{ name: 'a' }];
+      const createRowChangeMock = jest.fn();
+
+      const createRowChange = rowChange(columns, createRowChangeMock);
+      createRowChange(rows[0], columns[0].name, 3);
+
+      expect(createRowChangeMock).toBeCalledWith(rows[0], columns[0].name, 3);
+    });
+
+    it('should create a row change by using a custom function within column config', () => {
+      const rows = [{ a: 1 }];
+      const createRowChangeMock = jest.fn();
+      const columns = [{ name: 'a', createRowChange: createRowChangeMock }];
+
+      const createRowChange = rowChange(columns);
+      createRowChange(rows[0], columns[0].name, 3);
+
+      expect(createRowChangeMock).toBeCalledWith(rows[0], 3);
     });
   });
 });

@@ -4,13 +4,11 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   groupByColumn,
   toggleExpandedGroups,
-  draftGrouping,
+  draftGrouping as draftGroupingComputed,
   draftGroupingChange,
   cancelGroupingChange,
   removeOutdatedExpandedGroups,
 } from '@devexpress/dx-grid-core';
-
-const arrayToSet = array => new Set(array);
 
 export class GroupingState extends React.PureComponent {
   constructor(props) {
@@ -74,7 +72,9 @@ export class GroupingState extends React.PureComponent {
   render() {
     const { groupingChange } = this.state;
     const grouping = this._grouping();
+    const draftGrouping = draftGroupingComputed(grouping, groupingChange);
     const expandedGroups = this._expandedGroups();
+    const expandedGroupsSet = new Set(expandedGroups);
 
     return (
       <PluginContainer
@@ -101,23 +101,9 @@ export class GroupingState extends React.PureComponent {
           action={() => { this.cancelGroupingChange(); }}
         />
 
-        <Getter
-          name="grouping"
-          value={grouping}
-        />
-        <Getter
-          name="draftGrouping"
-          pureComputed={draftGrouping}
-          connectArgs={() => [
-            grouping,
-            groupingChange,
-          ]}
-        />
-        <Getter
-          name="expandedGroups"
-          pureComputed={arrayToSet}
-          connectArgs={() => [expandedGroups]}
-        />
+        <Getter name="grouping" value={grouping} />
+        <Getter name="draftGrouping" value={draftGrouping} />
+        <Getter name="expandedGroups" value={expandedGroupsSet} />
       </PluginContainer>
     );
   }

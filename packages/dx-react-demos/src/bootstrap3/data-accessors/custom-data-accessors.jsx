@@ -80,7 +80,13 @@ export default class Demo extends React.PureComponent {
           createRowChange={(row, columnName, value) => {
             if (columnName.indexOf('.') > -1) {
               const { rootField, nestedField } = this.splitColumnName(columnName);
-              return Object.assign(row[rootField] || { [rootField]: {} }, { [nestedField]: value });
+
+              return {
+                [rootField]: {
+                  ...row[rootField],
+                  [nestedField]: value,
+                },
+              };
             }
             return { [columnName]: value };
           }}

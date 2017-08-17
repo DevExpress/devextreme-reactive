@@ -36,6 +36,7 @@ export class TableEditRow extends React.PureComponent {
             return {
               value: getCellData(change, column.name) || getCellData(row, column.name),
               createRowChange: getter('createRowChange'),
+              change,
             };
           }}
           connectActions={action => ({
@@ -46,6 +47,7 @@ export class TableEditRow extends React.PureComponent {
             value,
             changeRow,
             createRowChange,
+            change,
             ...restParams
           }) =>
             editCellTemplate({
@@ -56,7 +58,7 @@ export class TableEditRow extends React.PureComponent {
                 changeRow({
                   rowId: restParams.tableRow.rowId,
                   change: createRowChange(
-                    restParams.tableRow.row,
+                    Object.assign({}, restParams.tableRow.row, change),
                     restParams.tableColumn.column.name,
                     newValue,
                   ),

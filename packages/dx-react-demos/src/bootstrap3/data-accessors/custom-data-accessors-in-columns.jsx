@@ -25,21 +25,33 @@ export default class Demo extends React.PureComponent {
           name: 'name',
           title: 'First Name',
           getCellData: row => (row.user ? row.user.firstName : undefined),
-          createRowChange: (row, columnName, value) =>
-            (Object.assign(row.user || { user: {} }, { firstName: value })),
+          createRowChange: (row, columnName, value) => ({
+            user: {
+              ...row.user,
+              firstName: value,
+            },
+          }),
         },
         {
           name: 'lastName',
           title: 'Last Name',
           getCellData: row => (row.user ? row.user.lastName : undefined),
-          createRowChange: (row, columnName, value) =>
-            (Object.assign(row.user || { user: {} }, { lastName: value })),
+          createRowChange: (row, columnName, value) => ({
+            user: {
+              ...row.user,
+              lastName: value,
+            },
+          }),
         },
         {
           name: 'car',
           title: 'Car',
           getCellData: row => (row.car ? row.car.model : undefined),
-          createRowChange: (row, columnName, value) => ({ car: { model: value } }),
+          createRowChange: (row, columnName, value) => ({
+            car: {
+              model: value,
+            },
+          }),
         },
         { name: 'position', title: 'Position' },
         { name: 'city', title: 'City' },

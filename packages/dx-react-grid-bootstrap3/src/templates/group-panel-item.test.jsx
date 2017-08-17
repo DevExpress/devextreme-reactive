@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { GroupPanelCell } from './group-panel-cell';
+import { GroupPanelItem } from './group-panel-item';
 
-describe('GroupPanelCell', () => {
+describe('GroupPanelItem', () => {
   it('should use column name if title is not specified', () => {
     const tree = mount(
-      <GroupPanelCell
+      <GroupPanelItem
         column={{
           name: 'Test',
         }}
@@ -17,7 +17,7 @@ describe('GroupPanelCell', () => {
 
   it('can render the ungroup button', () => {
     const tree = mount(
-      <GroupPanelCell
+      <GroupPanelItem
         column={{
           name: 'test',
         }}

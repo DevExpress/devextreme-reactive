@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-grid-core';
 
+const availableToSelectComputed = ({ rows, getRowId }) => getAvailableToSelect(rows, getRowId);
+
 export class SelectionState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -22,6 +24,9 @@ export class SelectionState extends React.PureComponent {
   render() {
     const selection = this.props.selection || this.state.selection;
 
+    const selectionComputed = ({ availableToSelect }) =>
+      getAvailableSelection(selection, availableToSelect);
+
     return (
       <PluginContainer
         pluginName="SelectionState"
@@ -33,22 +38,8 @@ export class SelectionState extends React.PureComponent {
           }}
         />
 
-        <Getter
-          name="availableToSelect"
-          pureComputed={getAvailableToSelect}
-          connectArgs={getter => [
-            getter('rows'),
-            getter('getRowId'),
-          ]}
-        />
-        <Getter
-          name="selection"
-          pureComputed={getAvailableSelection}
-          connectArgs={getter => [
-            selection,
-            getter('availableToSelect'),
-          ]}
-        />
+        <Getter name="availableToSelect" computed={availableToSelectComputed} />
+        <Getter name="selection" computed={selectionComputed} />
       </PluginContainer>
     );
   }

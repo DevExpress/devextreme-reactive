@@ -33,10 +33,7 @@ describe('Getter', () => {
         <Getter name="dep" value={'dep'} />
         <Getter
           name="test"
-          pureComputed={dep => dep}
-          connectArgs={getter => [
-            getter('dep'),
-          ]}
+          computed={getters => getters.dep}
         />
 
         <Template
@@ -59,10 +56,7 @@ describe('Getter', () => {
         <Getter name="dep" value={'base'} />
         <Getter
           name="test"
-          pureComputed={dep => dep}
-          connectArgs={getter => [
-            getter('dep'),
-          ]}
+          computed={getters => getters.dep}
         />
 
         <Getter name="dep" value={'overriden'} />
@@ -108,10 +102,7 @@ describe('Getter', () => {
         <Getter name="test" value={'base'} />
         <Getter
           name="test"
-          pureComputed={original => `${original}_extended`}
-          connectArgs={getter => [
-            getter('test'),
-          ]}
+          computed={getters => `${getters.test}_extended`}
         />
 
         <Template
@@ -168,8 +159,8 @@ describe('Getter', () => {
 
   // This test is not correct enough. Rewrite it in future
   it('should be memoized based on args', () => {
-    const staticValue = {};
     const log = [];
+    const staticComputed = ({ test }) => ({ test });
 
     // eslint-disable-next-line
     class EncapsulatedPlugin extends React.PureComponent {
@@ -178,10 +169,7 @@ describe('Getter', () => {
           <PluginContainer>
             <Getter
               name="test"
-              pureComputed={() => ({})}
-              connectArgs={getter => [
-                getter('test'),
-              ]}
+              computed={staticComputed}
             />
 
             <Template
@@ -207,10 +195,10 @@ describe('Getter', () => {
     };
 
     const tree = mount(
-      <Test value={staticValue} />,
+      <Test value={1} />,
     );
-    tree.setProps({ value: staticValue });
-    tree.setProps({ value: {} });
+    tree.setProps({ value: 1 });
+    tree.setProps({ value: 2 });
 
     expect(log).toHaveLength(3);
     expect(log[0]).toBe(log[1]);

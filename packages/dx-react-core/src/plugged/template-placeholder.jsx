@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { shallowEqual } from '../utils/shallow-equal';
+import { shallowEqual } from '@devexpress/dx-core';
 import { RERENDER_TEMPLATE } from './template';
 import { TemplateConnector } from './template-connector';
 

@@ -1,47 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { argumentsShallowEqual } from '../utils/shallow-equal';
+import { shallowEqual } from '@devexpress/dx-core';
 import { getAction } from '../utils/plugin-helpers';
-
-function getterMemoize(func) {
-  let lastArg = null;
-  let lastResult = null;
-  return (...args) => {
-    if (
-      lastArg === null ||
-      !argumentsShallowEqual(lastArg, args)
-    ) {
-      lastResult = func(...args);
-    }
-    lastArg = args;
-    return lastResult;
-  };
-}
 
 export const UPDATE_CONNECTION = 'updateConnection';
 
 export class Getter extends React.PureComponent {
   componentWillMount() {
     const { pluginHost } = this.context;
-    const { name, pureComputed } = this.props;
-    const pureComputedMemoized = getterMemoize(pureComputed);
+    const { name } = this.props;
+
+    let lastComputed;
+    let lastGetterDependencies = {};
+    let lastResult;
 
     this.plugin = {
       position: () => this.props.position(),
       [`${name}Getter`]: (original) => {
-        const { value, connectArgs } = this.props;
+        const { value, computed } = this.props;
         if (value !== undefined) return value;
 
-        let args = [];
-        if (connectArgs) {
-          const getter = (getterName) => {
-            if (getterName === name) return original;
+        const getGetterValue = getterName => ((getterName === name)
+          ? original
+          : pluginHost.get(`${getterName}Getter`, this.plugin));
 
-            return pluginHost.get(`${getterName}Getter`, this.plugin);
-          };
-          args = connectArgs(getter, actionName => getAction(pluginHost, actionName));
+        const currentGetterDependencies = Object.keys(lastGetterDependencies)
+          .reduce((acc, getterName) => Object.assign(acc, {
+            [getterName]: getGetterValue(getterName),
+          }), {});
+
+        if (computed === lastComputed &&
+          shallowEqual(lastGetterDependencies, currentGetterDependencies)) {
+          return lastResult;
         }
-        return pureComputedMemoized(...args);
+
+        lastComputed = computed;
+        lastGetterDependencies = {};
+
+        const getters = pluginHost.knownKeys('Getter')
+          .reduce((acc, getterName) => {
+            Object.defineProperty(acc, getterName, {
+              get: () => {
+                const result = getGetterValue(getterName);
+                lastGetterDependencies[getterName] = result;
+                return result;
+              },
+            });
+            return acc;
+          }, {});
+        const actions = pluginHost.knownKeys('Action')
+          .reduce((acc, actionName) => {
+            Object.defineProperty(acc, actionName, {
+              get: () => getAction(pluginHost, actionName),
+            });
+            return acc;
+          }, {});
+
+        lastResult = computed(getters, actions);
+        return lastResult;
       },
     };
 
@@ -66,14 +82,12 @@ Getter.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
   value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
-  pureComputed: PropTypes.func,
-  connectArgs: PropTypes.func,
+  computed: PropTypes.func,
 };
 
 Getter.defaultProps = {
   value: undefined,
-  pureComputed: null,
-  connectArgs: null,
+  computed: null,
   position: null,
 };
 

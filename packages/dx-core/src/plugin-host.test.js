@@ -217,4 +217,30 @@ describe('PluginHost', () => {
       expect(subscription1.onMessage.mock.calls.length).toBe(1);
     });
   });
+
+  describe('#knownKeys', () => {
+    it('should return knownKeys correctly', () => {
+      host.registerPlugin({
+        position: () => 1,
+        plugin1Postfix1: () => 1,
+      });
+      host.registerPlugin({
+        position: () => 2,
+        plugin2Postfix2: () => 2,
+      });
+      host.registerPlugin({
+        position: () => 3,
+        plugin3Postfix1: () => 3,
+      });
+      host.registerPlugin({
+        position: () => 4,
+        plugin2Postfix2: () => 4,
+      });
+
+      expect(host.knownKeys('Postfix1'))
+        .toEqual(['plugin1', 'plugin3']);
+      expect(host.knownKeys('Postfix2'))
+        .toEqual(['plugin2']);
+    });
+  });
 });

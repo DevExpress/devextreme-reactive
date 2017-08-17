@@ -13,6 +13,8 @@ const pluginDependencies = [
   { pluginName: 'TableView' },
 ];
 
+const tableBodyRowsComputed = ({ tableBodyRows }) => tableRowsWithGrouping(tableBodyRows);
+
 export class TableGroupRow extends React.PureComponent {
   render() {
     const {
@@ -21,28 +23,16 @@ export class TableGroupRow extends React.PureComponent {
       groupIndentColumnWidth,
     } = this.props;
 
+    const tableColumnsComputed = ({ tableColumns, grouping, draftGrouping }) =>
+      tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, groupIndentColumnWidth);
+
     return (
       <PluginContainer
         pluginName="TableGroupRow"
         dependencies={pluginDependencies}
       >
-        <Getter
-          name="tableColumns"
-          pureComputed={tableColumnsWithGrouping}
-          connectArgs={getter => [
-            getter('tableColumns'),
-            getter('grouping'),
-            getter('draftGrouping'),
-            groupIndentColumnWidth,
-          ]}
-        />
-        <Getter
-          name="tableBodyRows"
-          pureComputed={tableRowsWithGrouping}
-          connectArgs={getter => [
-            getter('tableBodyRows'),
-          ]}
-        />
+        <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
 
         <Template
           name="tableViewCell"

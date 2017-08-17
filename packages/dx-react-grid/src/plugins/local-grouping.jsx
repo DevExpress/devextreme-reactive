@@ -6,6 +6,11 @@ const pluginDependencies = [
   { pluginName: 'GroupingState' },
 ];
 
+const groupedRowsComputed = ({ rows, grouping }) =>
+  groupedRows(rows, grouping);
+const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
+  expandedGroupRows(rows, grouping, expandedGroups);
+
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalGrouping extends React.PureComponent {
   render() {
@@ -14,23 +19,8 @@ export class LocalGrouping extends React.PureComponent {
         pluginName="LocalGrouping"
         dependencies={pluginDependencies}
       >
-        <Getter
-          name="rows"
-          pureComputed={groupedRows}
-          connectArgs={getter => [
-            getter('rows'),
-            getter('grouping'),
-          ]}
-        />
-        <Getter
-          name="rows"
-          pureComputed={expandedGroupRows}
-          connectArgs={getter => [
-            getter('rows'),
-            getter('grouping'),
-            getter('expandedGroups'),
-          ]}
-        />
+        <Getter name="rows" computed={groupedRowsComputed} />
+        <Getter name="rows" computed={expandedGroupedRowsComputed} />
       </PluginContainer>
     );
   }

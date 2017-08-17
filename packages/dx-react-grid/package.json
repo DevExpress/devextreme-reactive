@@ -53,6 +53,7 @@
     "output": "../../shippable/testresults/dx-react-grid.xml"
   },
   "devDependencies": {
+    "@devexpress/dx-core": "1.0.0-alpha.7",
     "@devexpress/dx-react-core": "1.0.0-alpha.7",
     "@devexpress/dx-testing": "1.0.0-alpha.7",
     "babel-cli": "^6.24.1",
@@ -89,6 +90,7 @@
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
+    "@devexpress/dx-core": "1.0.0-alpha.7",
     "@devexpress/dx-react-core": "1.0.0-alpha.7",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"

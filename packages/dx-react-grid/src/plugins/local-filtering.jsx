@@ -11,20 +11,14 @@ export class LocalFiltering extends React.PureComponent {
   render() {
     const { filterFn } = this.props;
 
+    const rowsComputed = ({ rows, filters }) => filteredRows(rows, filters, filterFn);
+
     return (
       <PluginContainer
         pluginName="LocalFiltering"
         dependencies={pluginDependencies}
       >
-        <Getter
-          name="rows"
-          pureComputed={filteredRows}
-          connectArgs={getter => [
-            getter('rows'),
-            getter('filters'),
-            filterFn,
-          ]}
-        />
+        <Getter name="rows" computed={rowsComputed} />
       </PluginContainer>
     );
   }

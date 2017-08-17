@@ -31,12 +31,14 @@ export class TableEditRow extends React.PureComponent {
           predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}
           connectGetters={(getter, { tableColumn: { column }, tableRow: { rowId, row } }) => {
             const change = getRowChange(getter('changedRows'), rowId);
+            const changedRow = { ...row, ...change };
             const getCellData = getter('getCellData');
+            const value = getCellData(changedRow, column.name);
 
             return {
-              value: getCellData(change, column.name) || getCellData(row, column.name),
               createRowChange: getter('createRowChange'),
-              change,
+              value,
+              changedRow,
             };
           }}
           connectActions={action => ({
@@ -47,7 +49,7 @@ export class TableEditRow extends React.PureComponent {
             value,
             changeRow,
             createRowChange,
-            change,
+            changedRow,
             ...restParams
           }) =>
             editCellTemplate({
@@ -58,7 +60,7 @@ export class TableEditRow extends React.PureComponent {
                 changeRow({
                   rowId: restParams.tableRow.rowId,
                   change: createRowChange(
-                    Object.assign({}, restParams.tableRow.row, change),
+                    changedRow,
                     restParams.tableColumn.column.name,
                     newValue,
                   ),

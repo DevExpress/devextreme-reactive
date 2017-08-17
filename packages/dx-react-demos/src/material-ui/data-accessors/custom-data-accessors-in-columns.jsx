@@ -22,7 +22,7 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         {
-          name: 'name',
+          name: 'firstName',
           title: 'First Name',
           getCellData: row => (row.user ? row.user.firstName : undefined),
           createRowChange: (row, columnName, value) => ({

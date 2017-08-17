@@ -32,7 +32,7 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
@@ -120,7 +120,9 @@ describe('TableHeaderRow', () => {
   });
 
   it('should render edit cell on user-defined column and edit row intersection', () => {
+    const change = { a: undefined };
     isEditExistingTableCell.mockImplementation(() => true);
+    getRowChange.mockImplementation(() => change);
     const editCellTemplate = jest.fn(() => null);
 
     mount(
@@ -134,7 +136,7 @@ describe('TableHeaderRow', () => {
     );
 
     expect(defaultDeps.getter.getCellData).toBeCalledWith(
-      defaultDeps.template.tableViewCell.tableRow.row,
+      { ...defaultDeps.template.tableViewCell.tableRow.row, ...change },
       defaultDeps.template.tableViewCell.tableColumn.column.name,
     );
     expect(isEditExistingTableCell)

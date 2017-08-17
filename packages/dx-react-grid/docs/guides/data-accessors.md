@@ -77,6 +77,8 @@ The following demo shows this approach in action.
 
 Pay attention, the `getCellData` property of the Grid has a higher priority than the `column.getCellData` one.
 
+Since the `getCellData` method is called lots of times it should be implemented in an optimal way. This demo code shouldn't be used in productions apps with a large amount of data.
+
 ## Cell Data Editing
 
  When the editing features are enabled you can use the `column.createRowChange` function and manually create a row change:

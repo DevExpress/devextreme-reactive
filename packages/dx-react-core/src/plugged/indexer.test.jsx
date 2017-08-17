@@ -22,7 +22,7 @@ describe('PluginIndexer', () => {
       <PluginHost>
         <Getter name="test" value={1} />
         {enableGetter && <Getter name="test" value={2} />}
-        <Getter name="test" pureComputed={test => `text${test}`} connectArgs={getter => [getter('test')]} />
+        <Getter name="test" computed={({ test }) => `text${test}`} />
 
         <Template
           name="root"
@@ -53,7 +53,7 @@ describe('PluginIndexer', () => {
           <PluginIndexer>
             <Getter name="test" value={1} />
             {enableGetter && <Getter name="test" value={2} />}
-            <Getter name="test" pureComputed={test => `text${test}`} connectArgs={getter => [getter('test')]} />
+            <Getter name="test" computed={({ test }) => `text${test}`} />
           </PluginIndexer>
         </div>
 

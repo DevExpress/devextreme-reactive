@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { argumentsShallowEqual } from '../utils/shallow-equal';
+import { argumentsShallowEqual } from '@devexpress/dx-core';
 import { UPDATE_CONNECTION } from './getter';
 import { getAction } from '../utils/plugin-helpers';
 

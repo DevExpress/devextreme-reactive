@@ -50,17 +50,6 @@ describe('EditingState computeds', () => {
       expect(change).toEqual({ b: 3 });
     });
 
-    it('should create a row change by using a custom function', () => {
-      const rows = [{ a: 1 }];
-      const columns = [{ name: 'a' }];
-      const createRowChangeMock = jest.fn();
-
-      const createRowChange = rowChange(columns, createRowChangeMock);
-      createRowChange(rows[0], columns[0].name, 3);
-
-      expect(createRowChangeMock).toBeCalledWith(rows[0], columns[0].name, 3);
-    });
-
     it('should create a row change by using a custom function within column config', () => {
       const rows = [{ a: 1 }];
       const createRowChangeMock = jest.fn();

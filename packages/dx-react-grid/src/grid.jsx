@@ -12,11 +12,7 @@ const rowIdGetter = (getRowId, rows) => {
   };
 };
 
-const getCellDataGetter = (getCellData, columns) => {
-  if (getCellData) {
-    return getCellData;
-  }
-
+const getCellDataGetter = (columns) => {
   let useFastAccessor = true;
 
   const map = columns.reduce((acc, column) => {
@@ -49,7 +45,7 @@ export class Grid extends React.PureComponent {
         <Getter name="rows" value={rows} />
         <Getter name="columns" value={columns} />
         <Getter name="getRowId" value={this.memoizedRowIdGetter(getRowId, rows)} />
-        <Getter name="getCellData" value={this.memoizedGetCellDataGetter(getCellData, columns)} />
+        <Getter name="getCellData" value={getCellData || this.memoizedGetCellDataGetter(columns)} />
         <Template name="header" />
         <Template name="body" />
         <Template name="footer" />

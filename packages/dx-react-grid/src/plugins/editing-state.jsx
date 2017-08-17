@@ -101,11 +101,7 @@ export class EditingState extends React.PureComponent {
       }
     };
 
-    this.createRowChangeComputed = createRowChange => (
-      createRowChange ?
-        () => createRowChange :
-        ({ columns }) => rowChange(columns)
-    );
+    this.createRowChangeComputed = ({ columns }) => rowChange(columns);
   }
   render() {
     const editingRows = this.props.editingRows || this.state.editingRows;
@@ -174,7 +170,13 @@ export class EditingState extends React.PureComponent {
         <Getter name="changedRows" value={changedRows} />
         <Getter name="addedRows" value={addedRows} />
         <Getter name="deletedRows" value={deletedRows} />
-        <Getter name="createRowChange" computed={this.createRowChangeComputed(createRowChange)} />
+        <Getter
+          name="createRowChange"
+          computed={createRowChange ?
+          () => createRowChange :
+          this.createRowChangeComputed
+          }
+        />
       </PluginContainer>
     );
   }

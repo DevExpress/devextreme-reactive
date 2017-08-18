@@ -25,7 +25,7 @@ export default class Demo extends React.PureComponent {
           name: 'firstName',
           title: 'First Name',
           getCellData: row => (row.user ? row.user.firstName : undefined),
-          createRowChange: (row, columnName, value) => ({
+          createRowChange: (row, value) => ({
             user: {
               ...row.user,
               firstName: value,
@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
           name: 'lastName',
           title: 'Last Name',
           getCellData: row => (row.user ? row.user.lastName : undefined),
-          createRowChange: (row, columnName, value) => ({
+          createRowChange: (row, value) => ({
             user: {
               ...row.user,
               lastName: value,
@@ -47,7 +47,7 @@ export default class Demo extends React.PureComponent {
           name: 'car',
           title: 'Car',
           getCellData: row => (row.car ? row.car.model : undefined),
-          createRowChange: (row, columnName, value) => ({
+          createRowChange: (row, value) => ({
             car: {
               model: value,
             },

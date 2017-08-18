@@ -92,7 +92,7 @@ const rows = [
 const columns: [
   {
     ...
-    createRowChange: (row, columnName, value) => ({
+    createRowChange: (row, value) => ({
       user: {
         ...row.user,
         firstName: value,

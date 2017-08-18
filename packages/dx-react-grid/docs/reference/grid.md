@@ -36,6 +36,7 @@ Field | Type | Description
 ------|------|------------
 name | string | Specifies the field name in the data row to obtain a column value. A unique key can also be used to identify a column
 getCellData | (row: [Row](#row), columnName: string) => any | Specifies the function used to get a cell data
+createRowChange | (row: [Row](#row), value: string &#124; number, columnName: string) => object | Specifies the function used to create a row change
 
 ### <a name="root-args"></a>RootArgs
 

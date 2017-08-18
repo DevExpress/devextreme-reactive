@@ -26,5 +26,5 @@ export const computedCreateRowChange = (columns) => {
   }, {});
 
   return (row, columnName, value) =>
-    (map[columnName] ? map[columnName](row, columnName, value) : { [columnName]: value });
+    (map[columnName] ? map[columnName](row, value, columnName) : { [columnName]: value });
 };

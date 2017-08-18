@@ -58,7 +58,7 @@ describe('EditingState computeds', () => {
       const createRowChange = computedCreateRowChange(columns);
       createRowChange(rows[0], columns[0].name, 3);
 
-      expect(createRowChangeMock).toBeCalledWith(rows[0], columns[0].name, 3);
+      expect(createRowChangeMock).toBeCalledWith(rows[0], 3, columns[0].name);
     });
   });
 });

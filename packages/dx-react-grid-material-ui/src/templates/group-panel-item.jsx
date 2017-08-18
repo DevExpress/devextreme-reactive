@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import { TableSortLabel, Chip } from 'material-ui';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('GroupPanelCell', theme => ({
+const styleSheet = createStyleSheet('GroupPanelItem', theme => ({
   button: {
     marginRight: theme.spacing.unit,
     marginBottom: '12px',
@@ -30,8 +29,8 @@ const label = (allowSorting, sortingDirection, column) => {
 };
 
 
-const GroupPanelCellBase = ({
-  column,
+const GroupPanelItemBase = ({
+  column, draft,
   groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
   classes,
@@ -39,7 +38,7 @@ const GroupPanelCellBase = ({
   const chipClassNames = classNames(
     {
       [classes.button]: true,
-      [classes.draftCell]: column.isDraft,
+      [classes.draftCell]: draft,
     },
   );
 
@@ -61,10 +60,11 @@ const GroupPanelCellBase = ({
   />);
 };
 
-GroupPanelCellBase.propTypes = {
+GroupPanelItemBase.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
+  draft: PropTypes.bool,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
@@ -73,7 +73,8 @@ GroupPanelCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-GroupPanelCellBase.defaultProps = {
+GroupPanelItemBase.defaultProps = {
+  draft: false,
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,
@@ -81,4 +82,4 @@ GroupPanelCellBase.defaultProps = {
   allowUngroupingByClick: false,
 };
 
-export const GroupPanelCell = withStyles(styleSheet)(GroupPanelCellBase);
+export const GroupPanelItem = withStyles(styleSheet)(GroupPanelItemBase);

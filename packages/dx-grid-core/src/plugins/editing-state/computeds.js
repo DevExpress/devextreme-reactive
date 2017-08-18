@@ -17,7 +17,7 @@ export const addedRowsByIds = (addedRows, rowIds) => {
   return result;
 };
 
-export const rowChange = (columns) => {
+export const computedCreateRowChange = (columns) => {
   const map = columns.reduce((acc, column) => {
     if (column.createRowChange) {
       acc[column.name] = column.createRowChange;

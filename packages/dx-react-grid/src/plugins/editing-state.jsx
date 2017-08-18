@@ -13,7 +13,7 @@ import {
   changeRow,
   cancelChanges,
   changedRowsByIds,
-  rowChange,
+  computedCreateRowChange,
 
   deleteRows,
   cancelDeletedRows,
@@ -101,7 +101,7 @@ export class EditingState extends React.PureComponent {
       }
     };
 
-    this.createRowChangeComputed = ({ columns }) => rowChange(columns);
+    this.createRowChangeComputed = ({ columns }) => computedCreateRowChange(columns);
   }
   render() {
     const editingRows = this.props.editingRows || this.state.editingRows;

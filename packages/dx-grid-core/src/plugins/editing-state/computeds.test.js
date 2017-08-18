@@ -1,7 +1,7 @@
 import {
     changedRowsByIds,
     addedRowsByIds,
-    rowChange,
+    computedCreateRowChange,
 } from './computeds';
 
 describe('EditingState computeds', () => {
@@ -34,7 +34,7 @@ describe('EditingState computeds', () => {
       ]);
     });
   });
-  describe('#createRowChange', () => {
+  describe('#computedCreateRowChange', () => {
     it('should create a row change', () => {
       const rows = [
         { a: 1, b: 1 },
@@ -44,7 +44,7 @@ describe('EditingState computeds', () => {
         { name: 'a' },
         { name: 'b' },
       ];
-      const createRowChange = rowChange(columns);
+      const createRowChange = computedCreateRowChange(columns);
       const change = createRowChange(rows[1], columns[1].name, 3);
 
       expect(change).toEqual({ b: 3 });
@@ -55,7 +55,7 @@ describe('EditingState computeds', () => {
       const createRowChangeMock = jest.fn();
       const columns = [{ name: 'a', createRowChange: createRowChangeMock }];
 
-      const createRowChange = rowChange(columns);
+      const createRowChange = computedCreateRowChange(columns);
       createRowChange(rows[0], columns[0].name, 3);
 
       expect(createRowChangeMock).toBeCalledWith(rows[0], columns[0].name, 3);

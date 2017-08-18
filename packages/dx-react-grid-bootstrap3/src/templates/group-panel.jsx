@@ -15,10 +15,10 @@ const defaultText = (
   </span>
 );
 
-const PanelTemplate = ({ cells }) => <div>{cells}</div>;
+const PanelTemplate = ({ items }) => <div>{items}</div>;
 
 PanelTemplate.propTypes = {
-  cells: PropTypes.arrayOf(PropTypes.node).isRequired,
+  items: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 
 const panelTemplate = props => <PanelTemplate {...props} />;

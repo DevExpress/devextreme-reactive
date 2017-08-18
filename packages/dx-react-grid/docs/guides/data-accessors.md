@@ -2,7 +2,7 @@
 
 ## Cell Data Access
 
-In order, to specify the field name in the data row to obtain a column value a user can use the `column.name` field. It's enough for common scenarios, when a data structure is quite simple. For example:
+In a common scenario with a simple data structure, you can associate a column with a row field using the column's `name` field as shown in the following example:
 
 ```js
 const rows = [
@@ -20,18 +20,13 @@ const columns = [
 />
 ```
 
-But, in case when a data has a nested structure this approach doesn't work. Let's look at this data set:
+In the case of nested data structure, use the `getCellData` function to calculate a column value as demonstrated below:
 
 ```js
 const rows = [
   { user: { firstName: 'John', lastName: 'Smith' } },
   ...
 ];
-```
-
-To tell the Grid how to work with this data you can use the `column.getCellData` function like below:
-
-```js
 <Grid
   rows={rows},
   columns: [
@@ -52,9 +47,9 @@ To tell the Grid how to work with this data you can use the `column.getCellData`
 
 .embedded-demo(data-accessors/custom-data-accessors-in-columns)
 
-In case when you have a common algorithm for cell data calculation, it's possible to use the similar `getCellData` property of the Grid.
+If you use a common data calculation algorithm for all columns, specify the `getCellData` function on the Grid's level.
 
-Let's say, there are rows like `{ user: { firstName: 'John', lastName: '...' } }`. In order to avoid copying the `getCellData` function for an each column, you can use the dot notation for column name like `{ name: 'user.firstName' }`. Then, the code can look like this:
+For example, you can implement dot notation support for columns like `{ name: 'user.firstName' }`. In this case, the function code looks as follows:
 
 ```js
  <Grid
@@ -70,18 +65,17 @@ Let's say, there are rows like `{ user: { firstName: 'John', lastName: '...' } }
 >
 ```
 
-The following demo shows this approach in action.
+The following demo shows this approach in action:
 
 .embedded-demo(data-accessors/custom-data-accessors)
 
+Note that the Grid's `getCellData` property has a higher priority than the column's property.
 
-Pay attention, the `getCellData` property of the Grid has a higher priority than the `column.getCellData` one.
-
-Since the `getCellData` method is called lots of times it should be implemented in an optimal way. This demo code shouldn't be used in productions apps with a large amount of data.
+The `getCellData` implementation presented in this demo is not optimized for frequent invocation. Avoid using it in production apps operating with large amounts of data.
 
 ## Cell Data Editing
 
- When the editing features are enabled you can use the `column.createRowChange` function and manually create a row change:
+If editing features are enabled, you can use the column's `createRowChange` function to create a row changes object:
 
 ```js
 const rows = [
@@ -103,7 +97,7 @@ const columns: [
 ]
 ```
 
-Of course, you should not define the similar functions for an each column. There is the `createRowChange` property of the `EditingState` plugin that allows to implement the same functionality:
+Specify the `EditingState` plugin's `createRowChange` property if you use a common algorithm for all columns.
 
 ```js
 <Grid
@@ -117,4 +111,4 @@ Of course, you should not define the similar functions for an each column. There
 />
 ```
 
-Pay attention, the `createRowChange` property of the `EditingState` plugin has a higher priority than the `column.createRowChange` one.
+Note that the `EditingState` plugin's `createRowChange` property has a higher priority than the column's property.

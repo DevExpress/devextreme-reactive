@@ -1,6 +1,6 @@
 # EditingState Plugin Reference
 
-A plugin that manages the editing state of grid rows. It arranges grid rows by different lists depending on a row's state.
+A plugin that manages grid rows' editing state. It arranges grid rows by different lists depending on a row's state.
 
 ## User Reference
 

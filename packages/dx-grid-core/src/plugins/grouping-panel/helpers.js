@@ -1,8 +1,8 @@
-export const groupedColumns = (columns, grouping) =>
-  grouping.map(({ columnName, isDraft }) => {
+export const groupingPanelItems = (columns, grouping) =>
+  grouping.map(({ columnName, draft }) => {
     const column = columns.find(c => c.name === columnName);
-    return isDraft ? {
-      ...column,
-      isDraft,
-    } : column;
+    return {
+      column,
+      draft,
+    };
   });

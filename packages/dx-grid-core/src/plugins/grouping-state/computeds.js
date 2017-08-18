@@ -8,12 +8,12 @@ export const draftGrouping = (grouping, groupingChange) => {
     result = result.filter(g => g.columnName !== columnName);
     result.splice(groupIndex, 0, {
       columnName,
-      isDraft: true,
+      draft: true,
       mode: grouping.length > result.length ? 'reorder' : 'add',
     });
   } else {
     result = result.map(g => (g.columnName === columnName
-      ? { columnName, isDraft: true, mode: 'remove' }
+      ? { columnName, draft: true, mode: 'remove' }
       : g));
   }
 

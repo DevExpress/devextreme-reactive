@@ -31,15 +31,15 @@ DefaultTextBase.propTypes = {
 
 const DefaultText = withStyles(styleSheet)(DefaultTextBase);
 
-const PanelTemplateBase = ({ classes, cells }) => (
+const PanelTemplateBase = ({ classes, items }) => (
   <div className={classes.panel}>
-    {cells}
+    {items}
   </div>
 );
 
 PanelTemplateBase.propTypes = {
   classes: PropTypes.shape().isRequired,
-  cells: PropTypes.arrayOf(PropTypes.node).isRequired,
+  items: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 
 const PanelTemplate = withStyles(styleSheet)(PanelTemplateBase);

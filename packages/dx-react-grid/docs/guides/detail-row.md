@@ -16,7 +16,7 @@ Add the required plugins listed above to the Grid and specify the detail row tem
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initially expanded detail rows using the `RowDetailState` plugins's `defaultExpandedRows` property.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initially expanded detail rows using the `RowDetailState` plugin's `defaultExpandedRows` property.
 
 .embedded-demo(detail-row/simple-detail-row)
 

@@ -121,4 +121,80 @@ describe('Grid', () => {
 
     expect(!tree.find('.footer-placeholder').exists()).toBeTruthy();
   });
+
+  it('should calculate cell data', () => {
+    const rows = [
+      { a: 1, b: 1 },
+      { a: 2, b: 2 },
+    ];
+    const columns = [
+      { name: 'a' },
+      { name: 'b' },
+    ];
+    let cellData;
+
+    mount(<Grid
+      rows={rows}
+      columns={columns}
+      rootTemplate={() => <div />}
+    >
+      <Template
+        name="root"
+        connectGetters={(getter) => {
+          cellData = getter('getCellData')(rows[1], columns[1].name);
+        }}
+      >
+        {() => <div />}
+      </Template>
+    </Grid>);
+
+    expect(cellData).toBe(2);
+  });
+
+  it('should calculate cell data by using a custom function', () => {
+    const rows = [{ a: 1 }];
+    const columns = [{ name: 'a' }];
+    const getCellData = jest.fn();
+
+    mount(<Grid
+      rows={rows}
+      columns={columns}
+      rootTemplate={() => <div />}
+      getCellData={getCellData}
+    >
+      <Template
+        name="root"
+        connectGetters={(getter) => {
+          getter('getCellData')(rows[0], columns[0].name);
+        }}
+      >
+        {() => <div />}
+      </Template>
+    </Grid>);
+
+    expect(getCellData).toBeCalledWith(rows[0], columns[0].name);
+  });
+
+  it('should calculate cell data by using a custom function within column config', () => {
+    const rows = [{ a: 1 }];
+    const getCellData = jest.fn();
+    const columns = [{ name: 'a', getCellData }];
+
+    mount(<Grid
+      rows={rows}
+      columns={columns}
+      rootTemplate={() => <div />}
+    >
+      <Template
+        name="root"
+        connectGetters={(getter) => {
+          getter('getCellData')(rows[0], columns[0].name);
+        }}
+      >
+        {() => <div />}
+      </Template>
+    </Grid>);
+
+    expect(getCellData).toBeCalledWith(rows[0], columns[0].name);
+  });
 });

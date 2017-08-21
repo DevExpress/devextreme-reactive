@@ -11,7 +11,8 @@ export class LocalFiltering extends React.PureComponent {
   render() {
     const { filterFn } = this.props;
 
-    const rowsComputed = ({ rows, filters }) => filteredRows(rows, filters, filterFn);
+    const rowsComputed = ({ rows, filters, getCellData }) =>
+      filteredRows(rows, filters, getCellData, filterFn);
 
     return (
       <PluginContainer

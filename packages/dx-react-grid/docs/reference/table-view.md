@@ -51,7 +51,7 @@ Field | Type | Description
 ------|------|------------
 key | string | A unique identifier of the table row.
 type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
-rowId? | number &#124; string  | Specifies the ID of the associated user data row.
+rowId? | number &#124; string  | Specifies the associated user data row's ID.
 row? | [Row](grid.md#row) | Specifies the associated user data row.
 height? | number | Specifies the table row height.
 
@@ -78,6 +78,7 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#table-row) | Specifies a table row
 tableColumn | [TableColumn](#table-column) | Specifies a table column
+value | any | The value to be rendered within a cell
 style? | Object | Styles that should be applied to the root cell element
 colSpan? | number | Specifies the number of columns the cell spans
 
@@ -101,6 +102,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
 columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
+getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell data
 
 ### Exports
 

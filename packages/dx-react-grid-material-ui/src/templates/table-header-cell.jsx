@@ -124,7 +124,7 @@ class TableHeaderCellBase extends React.PureComponent {
         [classes.cellNoUserSelect]: allowDragging || allowSorting,
         [classes.cellDraggable]: allowDragging,
         [classes.cellClickable]: allowSorting,
-        [classes.cellDimmed]: dragging || tableColumn.isDraft,
+        [classes.cellDimmed]: dragging || tableColumn.draft,
       },
     );
 

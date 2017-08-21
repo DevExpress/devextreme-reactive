@@ -1,3 +1,92 @@
+<a name="1.0.0-alpha.8"></a>
+# [1.0.0-alpha.8](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2017-08-21)
+
+
+### Bug Fixes
+
+* **react-grid:** correct pager rendering within an empty grid ([#251](https://github.com/DevExpress/devextreme-reactive/issues/251)) ([eb13a8b](https://github.com/DevExpress/devextreme-reactive/commit/eb13a8b))
+* **react-grid:** get rid of the exception thrown on a column ungrouping by drag and drop ([#260](https://github.com/DevExpress/devextreme-reactive/issues/260)) ([8fc2990](https://github.com/DevExpress/devextreme-reactive/commit/8fc2990))
+* **react-grid:** preserve group panel height when no grouping is specified ([#261](https://github.com/DevExpress/devextreme-reactive/issues/261)) ([9116e92](https://github.com/DevExpress/devextreme-reactive/commit/9116e92))
+
+
+### Code Refactoring
+
+* **react-grid:** change TableRow and TableColumn interfaces structure ([#227](https://github.com/DevExpress/devextreme-reactive/issues/227)) ([5288a9f](https://github.com/DevExpress/devextreme-reactive/commit/5288a9f))
+* **react-grid:** merge the setRowSelection and setRowsSelection actions ([#233](https://github.com/DevExpress/devextreme-reactive/issues/233)) ([876a2c6](https://github.com/DevExpress/devextreme-reactive/commit/876a2c6))
+* **react-grid:** remove redundant getters from GroupingState ([#244](https://github.com/DevExpress/devextreme-reactive/issues/244)) ([1fb21ca](https://github.com/DevExpress/devextreme-reactive/commit/1fb21ca))
+* **react-grid:** rename colspan to colSpan ([#248](https://github.com/DevExpress/devextreme-reactive/issues/248)) ([afc69e9](https://github.com/DevExpress/devextreme-reactive/commit/afc69e9))
+* **react-grid:** wrap group panel column data ([#267](https://github.com/DevExpress/devextreme-reactive/issues/267)) ([156392b](https://github.com/DevExpress/devextreme-reactive/commit/156392b))
+
+
+### Features
+
+* **react-core:** rework Getter ([#259](https://github.com/DevExpress/devextreme-reactive/issues/259)) ([4fd5f9b](https://github.com/DevExpress/devextreme-reactive/commit/4fd5f9b))
+* **react-grid:** adopt PluginContainer dependencies in Grid plugins ([#249](https://github.com/DevExpress/devextreme-reactive/issues/249)) ([016f618](https://github.com/DevExpress/devextreme-reactive/commit/016f618))
+* **react-grid:** provide the custom data accessors capability ([#264](https://github.com/DevExpress/devextreme-reactive/issues/264)) ([5f699bf](https://github.com/DevExpress/devextreme-reactive/commit/5f699bf)), closes [#176](https://github.com/DevExpress/devextreme-reactive/issues/176)
+
+
+### Performance Improvements
+
+* **react-grid:** optimize plugin dependencies check ([#253](https://github.com/DevExpress/devextreme-reactive/issues/253)) ([640c124](https://github.com/DevExpress/devextreme-reactive/commit/640c124))
+
+
+### BREAKING CHANGES
+
+* **react-grid:**
+The following changes have been made in the GroupingPanel plugin:
+  - the `groupPanelCellTemplate` property has been renamed to `groupPanelItemTemplate`;
+  - the `groupedColumns` property has been renamed to `groupingPanelItems` and now contains an array of objects which conform the GroupingPanelItem interface.
+
+  The `isDraft` property of the DraftGrouping interface has been renamed to `draft`.
+* **react-grid:**  
+In order to reduce API verbosity, the `groupedColumns` and `draftGroupedColumns` getters are no longer exported from the GroupingState plugin.
+ 
+The `column` field is no longer present in the GroupRow interface. So, to access the `column` field in groupCellTemplate and groupIndentCellTemplate of the TableGroupRow plugin, it is necessary to use `args.column` instead of `args.row.column`.
+* **react-grid:** The `colspan` field passed to tableNoDataCellTemplate (the TableView plugin), detailCellTemplate (the TableRowDetail plugin) and groupCellTemplate (the TableGroupRow plugin) has been renamed to `colSpan`.
+* **react-grid:** To simplify the Grid plugins API the `setRowSelection` action was removed from the `SelectionState` and `TableSelection` plugins.
+
+  For now, to select a single row you can use the `setRowsSelection`  action in the following manner:
+
+    ```js
+    setRowsSelection({ rowIds: [/* rowId */] })
+    ```
+* **react-grid:**  
+`TableRow` and `TableColumn` interfaces structure has been changed. Now, it wraps original rows and columns of the Grid component instead of patching it.
+
+  Before:
+
+  ```ts
+  interface TableRow extends Row {
+    type?: string;
+  }
+  interface TableColumn extends Column {
+    type?: string;
+  }
+  ```
+
+  After:
+
+  ```ts
+  interface TableRow {
+    key: string;
+    type: string;
+    rowId?: number | string;
+    row?: Row;
+    height?: number;
+  }
+  interface TableColumn {
+    key: string;
+    type: string;
+    column?: Column;
+    width?: number;
+  }
+  ```
+
+
+  The `CommandHeadingCellArgs` interface related to the TableEditColumn plugin no longer has `column` and `row` fields.
+
+
+
 <a name="1.0.0-alpha.7"></a>
 # [1.0.0-alpha.7](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2017-08-07)
 

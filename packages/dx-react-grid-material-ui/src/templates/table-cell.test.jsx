@@ -8,6 +8,14 @@ describe('TableCell', () => {
   let resetConsole;
   let mount;
   let classes;
+  const mountTableCell = column => (
+    mount(
+      <TableCell
+        column={column}
+        value={'text'}
+      />,
+    )
+  );
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     mount = createMount();
@@ -19,25 +27,18 @@ describe('TableCell', () => {
   });
 
   it('should have correct text alignment', () => {
-    let tree = mount(
-      <TableCell
-        column={{}}
-      />,
-    );
+    let tree = mountTableCell({});
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
 
-    tree = mount(
-      <TableCell
-        column={{ align: 'left' }}
-      />,
-    );
+    tree = mountTableCell({ align: 'left' });
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
 
-    tree = mount(
-      <TableCell
-        column={{ align: 'right' }}
-      />,
-    );
+    tree = mountTableCell({ align: 'right' });
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeTruthy();
+  });
+
+  it('should have correct text', () => {
+    const tree = mountTableCell({});
+    expect(tree.find(TableCellMUI).text()).toBe('text');
   });
 });

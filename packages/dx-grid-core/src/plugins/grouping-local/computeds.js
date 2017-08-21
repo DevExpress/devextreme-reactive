@@ -1,11 +1,11 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 
-export const groupedRows = (rows, grouping) => {
+export const groupedRows = (rows, grouping, getCellData) => {
   if (!grouping.length) return rows;
 
   const groups = rows
     .reduce((acc, row) => {
-      const value = row[grouping[0].columnName];
+      const value = getCellData(row, grouping[0].columnName);
       const key = String(value);
       const sameKeyItems = acc.get(key);
       if (!sameKeyItems) {
@@ -20,7 +20,7 @@ export const groupedRows = (rows, grouping) => {
   return [...groups.values()]
     .map(([value, items]) => ({
       value,
-      items: groupedRows(items, nestedGrouping),
+      items: groupedRows(items, nestedGrouping, getCellData),
     }));
 };
 

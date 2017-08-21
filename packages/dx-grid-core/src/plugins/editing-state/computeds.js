@@ -16,3 +16,15 @@ export const addedRowsByIds = (addedRows, rowIds) => {
   });
   return result;
 };
+
+export const computedCreateRowChange = (columns) => {
+  const map = columns.reduce((acc, column) => {
+    if (column.createRowChange) {
+      acc[column.name] = column.createRowChange;
+    }
+    return acc;
+  }, {});
+
+  return (row, columnName, value) =>
+    (map[columnName] ? map[columnName](row, value, columnName) : { [columnName]: value });
+};

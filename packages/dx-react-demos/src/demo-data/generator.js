@@ -2,6 +2,10 @@ import randomSeed from './random';
 
 const femaleFirstNames = ['Mary', 'Linda', 'Barbara', 'Maria', 'Lisa', 'Nancy', 'Betty', 'Sandra', 'Sharon'];
 const maleFirstNames = ['James', 'John', 'Robert', 'William', 'David', 'Richard', 'Thomas', 'Paul', 'Mark'];
+const lastNames = [
+  'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Johnson', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson',
+  'Thomas', 'Jackson', 'Williams', 'White', 'Harris', 'Davis', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson', 'Clark',
+];
 const usStates = [
   { name: 'Alabama', abbr: 'AL' },
   { name: 'Alaska', abbr: 'AK' },
@@ -63,6 +67,9 @@ const usStates = [
   { name: 'Wisconsin', abbr: 'WI' },
   { name: 'Wyoming', abbr: 'WY' },
 ];
+const cities = ['New York', 'Los Angeles', 'Chicago', 'Las Vegas', 'Austin', 'Tokyo', 'Rio de Janeiro', 'London', 'Paris'];
+const cars = ['Honda Civic', 'Toyota Corolla', 'Chevrolet Cruze', 'Honda Accord', 'Nissan Altima', 'Kia Optima', 'Audi A4', 'BMW 750'];
+const positions = ['CEO', 'IT Manager', 'Ombudsman', 'CMO', 'Controller', 'HR Manager', 'Shipping Manager', 'Sales Assistant', 'HR Assistant'];
 
 const generateDate = ({
   random,
@@ -84,8 +91,20 @@ export const defaultColumnValues = {
       Female: femaleFirstNames,
     },
   ],
-  city: ['New York', 'Los Angeles', 'Chicago', 'Las Vegas', 'Austin', 'Tokyo', 'Rio de Janeiro', 'London', 'Paris'],
-  car: ['Honda Civic', 'Toyota Corolla', 'Chevrolet Cruze', 'Honda Accord', 'Nissan Altima', 'Kia Optima', 'Audi A4', 'BMW 750'],
+  city: cities,
+  car: cars,
+};
+
+export const defaultNestedColumnValues = {
+  user: [
+    ...[...maleFirstNames, ...femaleFirstNames].map((name, i) => ({
+      firstName: name,
+      lastName: lastNames[i],
+    })),
+  ],
+  position: positions,
+  city: cities,
+  car: cars.map(car => ({ model: car })),
 };
 
 export const globalSalesValues = {
@@ -123,11 +142,8 @@ export const employeeValues = {
       Female: femaleFirstNames,
     },
   ],
-  lastName: [
-    'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Johnson', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson',
-    'Thomas', 'Jackson', 'Williams', 'White', 'Harris', 'Davis', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson', 'Clark',
-  ],
-  position: ['CEO', 'IT Manager', 'Ombudsman', 'CMO', 'Controller', 'HR Manager', 'Shipping Manager', 'Sales Assistant', 'HR Assistant'],
+  lastName: lastNames,
+  position: positions,
   state: usStates.map(state => state.name),
   birthDate: ({ random }) => generateDate({
     random,
@@ -205,7 +221,12 @@ export function generateRows({
         values = values[1][record[values[0]]];
       }
 
-      record[column] = values[Math.floor(random() * values.length)];
+      const value = values[Math.floor(random() * values.length)];
+      if (typeof value === 'object') {
+        record[column] = Object.assign({}, value);
+      } else {
+        record[column] = value;
+      }
     });
 
     data.push(record);

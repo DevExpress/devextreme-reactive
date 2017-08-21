@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableCell = ({ style, row, column }) => (
+export const TableCell = ({ style, column, value }) => (
   <td
     style={{
       whiteSpace: 'nowrap',
@@ -11,18 +11,18 @@ export const TableCell = ({ style, row, column }) => (
       ...style,
     }}
   >
-    {row[column.name]}
+    {value}
   </td>
 );
 
 TableCell.propTypes = {
   style: PropTypes.shape(),
-  row: PropTypes.shape(),
+  value: PropTypes.any,
   column: PropTypes.shape(),
 };
 
 TableCell.defaultProps = {
   style: null,
-  row: {},
+  value: undefined,
   column: {},
 };

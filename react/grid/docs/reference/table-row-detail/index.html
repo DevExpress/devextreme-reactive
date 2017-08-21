@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +76,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -442,7 +450,7 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
       <td>A row object for showing row details</td>
     </tr>
   </tbody>
@@ -452,7 +460,7 @@
 
 <p>Describes properties passed to the template that renders a detail cell for a row</p>
 
-<p>A value with the following shape:</p>
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -465,7 +473,7 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
       <td>A row object</td>
     </tr>
     <tr>
@@ -480,7 +488,7 @@
 
 <p>Describes properties passed to the template that renders the detail toggle control</p>
 
-<p>A value with the following shape:</p>
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -492,9 +500,14 @@
   </thead>
   <tbody>
     <tr>
+      <td>row</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
+      <td>A row object</td>
+    </tr>
+    <tr>
       <td>expanded</td>
       <td>boolean</td>
-      <td>Specifies whether row details are displayed</td>
+      <td>Specifies if row details are displayed</td>
     </tr>
     <tr>
       <td>toggleExpanded</td>
@@ -537,12 +550,6 @@
       <td>Expanded rows</td>
     </tr>
     <tr>
-      <td>getRowId</td>
-      <td>Getter</td>
-      <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>) =&gt; number | string</td>
-      <td>The function used to get a unique row identifier</td>
-    </tr>
-    <tr>
       <td>setDetailRowExpanded</td>
       <td>Action</td>
       <td>({ rowId }) =&gt; void</td>
@@ -551,7 +558,7 @@
     <tr>
       <td>tableViewCell</td>
       <td>Template</td>
-      <td>{ row: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>, column: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>, style?: Object, colspan?: number }</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
       <td>A template that renders a table cell</td>
     </tr>
   </tbody>
@@ -588,7 +595,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
 
 
     <footer>
@@ -626,7 +633,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
     <script>
         trackingCookie.check();
     </script>

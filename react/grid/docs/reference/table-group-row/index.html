@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +76,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -417,7 +425,7 @@
 
 <p>Describes the properties passed to the template that renders a group row.</p>
 
-<p>A value with the following shape:</p>
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -431,12 +439,17 @@
     <tr>
       <td>row</td>
       <td><a href="#group-row">GroupRow</a></td>
-      <td>A group row data object</td>
+      <td>The group row’s data object</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A column associated with the group</td>
     </tr>
     <tr>
       <td>isExpanded</td>
       <td>boolean</td>
-      <td>Specifies if a row is expanded</td>
+      <td>Specifies if the row is expanded</td>
     </tr>
     <tr>
       <td>toggleGroupExpanded</td>
@@ -450,7 +463,7 @@
 
 <p>Describes properties passed to the template that renders a group indent cell.</p>
 
-<p>A value with the following shape:</p>
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -463,13 +476,13 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
-      <td>A row object</td>
+      <td><a href="#group-row">GroupRow</a></td>
+      <td>The group row’s data object</td>
     </tr>
     <tr>
       <td>column</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>A group indent column</td>
+      <td>A column associated with the group</td>
     </tr>
   </tbody>
 </table>
@@ -477,10 +490,6 @@
 <h3 id="grouprow"><a name="group-row"></a>GroupRow</h3>
 
 <p>Describes the group row data structure.</p>
-
-<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></p>
-
-<p>A value with the following shape:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -492,9 +501,9 @@
   </thead>
   <tbody>
     <tr>
-      <td>column</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>The column associated with the group</td>
+      <td>type</td>
+      <td>‘groupRow’</td>
+      <td>A string value that identifies the group row</td>
     </tr>
     <tr>
       <td>value</td>
@@ -557,7 +566,7 @@
     <tr>
       <td>tableViewCell</td>
       <td>Template</td>
-      <td>{ row: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>, column: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>, style?: Object, colspan?: number }</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
       <td>A template that renders a table cell</td>
     </tr>
   </tbody>
@@ -594,7 +603,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
 
 
     <footer>
@@ -632,7 +641,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
     <script>
         trackingCookie.check();
     </script>

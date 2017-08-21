@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +76,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -367,9 +375,15 @@
     <div class="col-md-9 docs-content">
         <h1 id="react-grid---controlled-stateless-and-uncontrolled-stateful-modes">React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes</h1>
 
-<p>You may need to control the Grid state or delegate state management to a component, for instance, when switching the sorting state to the controlled mode to persist the Grid sorting an end-user configured and restoring it within the next app usage session. In this case, the Grid accepts the sorting configuration via the <a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> plugin properties and notifies you once an end-user has changed the sorting configuration, similar to the <a href="https://facebook.github.io/react/docs/forms.html#controlled-components">controlled components concept</a>.</p>
+<p>Use appropriate state management plugins (plugins that end with “…State”, for example, <code class="highlighter-rouge">SortingState</code>) to control the required Grid’s functionality. For example, the <a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> plugin controls the sorting capabilities; the <a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a> plugin controls filtering features, etc. See <a href="../reference/../">Reference</a> for the complete plugin list.</p>
 
-<p>In code, it looks as follows:</p>
+<h2 id="controlled-mode">Controlled Mode</h2>
+
+<p>In the controlled mode, the Grid’s state is managed externally (for example, in the parent component, Redux store, etc.). Refer to the <a href="https://facebook.github.io/react/docs/forms.html#controlled-components">React documentation</a> for more information about the controlled components concept.</p>
+
+<p>The controlled mode enables you to access the Grid’s state from another application parts. For example, you can persist the state and restore it when required, or change it via an external UI.</p>
+
+<p>Use the appropriate state management plugin properties to set the Grid’s configuration and handle configuration changes a user makes via the Grid’s UI. In the example below, sorting configuration is passed to the the <code class="highlighter-rouge">SortingState</code> plugin’s <code class="highlighter-rouge">sorting</code> property, and the function passed to the <code class="highlighter-rouge">onSortingChanged</code> property handles the sorting configuration changes.</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyApp</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PureComponent</span> <span class="p">{</span>
   <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -397,44 +411,45 @@
 </code></pre>
 </div>
 
-<p><code class="highlighter-rouge">Sorting</code> represents the Grid sorting configuration, and the <code class="highlighter-rouge">changeSorting</code> function is a handler that is invoked every time the sorting configuration changes. Note that all the state management plugins work with the serializable state. This means that you can persist and restore it in <a href="https://developer.mozilla.org/en/docs/Web/API/Window/localStorage">localStorage</a> or any other storage that can store string values. The controlled state mode can also be helpful if you need to indicate the current state in your UI or bind controls existing outside the Grid, for example, to put a ComboBox with the available sort orders and let end-users use it for sorting Grid data.</p>
+<p>If you need to apply a new configuration to the Grid, update the parent component state using the <code class="highlighter-rouge">setState</code> method.</p>
 
-<p>In the uncontrolled state mode, the Grid component manages its UI state internally. It is not necessary to specify the state value and state change handler properties. You can provide Grid with the initial state value using the property with the <code class="highlighter-rouge">default</code> prefix, for instance, converting the previous example into the uncontrolled mode:</p>
+<p>Note that all the state management plugins use a serializable state. This means that you can persist it in a <a href="https://developer.mozilla.org/en/docs/Web/API/Window/localStorage">localStorage</a> or any other storage that can store string values.</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="o">/&gt;</span>
-  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
-<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span></code></pre>
-</div>
+<h2 id="uncontrolled-mode">Uncontrolled Mode</h2>
 
-<p>Specify the default sorting configuration as follows:</p>
+<p>In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the <code class="highlighter-rouge">default</code> prefix (for example, the <code class="highlighter-rouge">SortingState</code> plugin’s <code class="highlighter-rouge">defaultSorting</code> property).</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="nx">defaultSorting</span><span class="o">=</span><span class="p">{[</span> <span class="na">columnName</span><span class="p">:</span> <span class="s1">'date'</span><span class="p">,</span> <span class="na">direction</span><span class="p">:</span> <span class="s1">'desc'</span> <span class="p">]}</span> <span class="sr">/</span><span class="err">&gt;
-</span>  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
-<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span></code></pre>
-</div>
-
-<p>You can configure the Grid when you need to control its state partially, for example, to manage filters without managing sorting and grouping:</p>
-
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">filters</span><span class="o">=</span><span class="p">{</span><span class="nx">filters</span><span class="p">}</span> <span class="nx">onFiltersChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">changeFilters</span><span class="p">}</span><span class="sr">/</span><span class="err">&gt;
-</span>  <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="o">/&gt;</span>
-  <span class="o">&lt;</span><span class="nx">GroupingState</span> <span class="o">/&gt;</span>
+</span>  <span class="o">&lt;</span><span class="nx">GroupingState</span> <span class="o">/&gt;</span>
   <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span></code></pre>
 </div>
 
-<p>Note: We recommend using the fully-controlled state to avoid the side-effects the partially controlled state can cause when using Redux and performing time traveling.</p>
+<h2 id="partially-controlled-mode">Partially Controlled mode</h2>
+
+<p>You can control only certain parts of the Grid’s configuration. In this case, apply the <a href="#controlled-mode">controlled mode</a> only to plugins whose state you want to control externally and the <a href="#uncontrolled-mode">uncontrolled mode</a> to another plugins.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
+  <span class="c">&lt;!--</span><span class="nx">Filtering</span> <span class="nx">is</span> <span class="nx">controlled</span> <span class="nx">by</span> <span class="nx">the</span> <span class="nx">parent</span> <span class="nx">component</span><span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">filters</span><span class="o">=</span><span class="p">{</span><span class="nx">filters</span><span class="p">}</span> <span class="nx">onFiltersChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">changeFilters</span><span class="p">}</span><span class="sr">/</span><span class="err">&gt;
+</span>
+  <span class="c">&lt;!--</span><span class="nx">The</span> <span class="nx">following</span> <span class="nx">plugins</span> <span class="nx">are</span> <span class="nx">controlled</span> <span class="nx">internally</span><span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="nx">SortingState</span> <span class="nx">defaultSorting</span><span class="o">=</span><span class="p">{[</span> <span class="na">columnName</span><span class="p">:</span> <span class="s1">'date'</span><span class="p">,</span> <span class="na">direction</span><span class="p">:</span> <span class="s1">'desc'</span> <span class="p">]}</span> <span class="sr">/</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="nx">GroupingState</span> <span class="o">/&gt;</span>
+  <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span></code></pre>
+</div>
+
+<p>Note: We recommend avoiding the partially controlled mode due to the side-effects it can cause when using Redux and performing time traveling.</p>
 
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
 
 
     <footer>
@@ -472,7 +487,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
     <script>
         trackingCookie.check();
     </script>

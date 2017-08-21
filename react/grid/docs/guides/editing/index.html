@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +76,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -367,51 +375,63 @@
     <div class="col-md-9 docs-content">
         <h1 id="react-grid-data-editing">React Grid Data Editing</h1>
 
-<h2 id="overview">Overview</h2>
+<p>The Grid supports editing features including creating, updating and deleting rows. Use the corresponding plugins to manage the editing state and perform editing operations programmatically or via the UI controls. The editing state contains information about rows currently being edited, changes applied to a particular row, and rows that have been deleted and created but not yet committed. Once a user accepts row addition or deletion, or changes made to a row (clicking the Save or Delete button), the Grid fires the <code class="highlighter-rouge">EditingState</code> plugin’s <code class="highlighter-rouge">onCommitChanges</code> event and resets the row’s editing state.</p>
 
-<p>The Grid component supports the create, update and delete editing features. Editing state management and UI controls are implemented as a set of corresponding plugins. The editing state contains information about rows that are currently being edited, changes applied to a particular row, which rows have been deleted or created but not committed yet. Once a particular change is commited, the change is reset.</p>
+<h2 id="related-plugins">Related Plugins</h2>
 
-<h2 id="plugin-list">Plugin List</h2>
-
-<p>There are several plugins that implement filtering features:</p>
+<p>The following plugins implement editing features:</p>
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/editing-state/">EditingState</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/editing-state/">EditingState</a> - controls the editing state</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a> - renders a row being edited</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a> - renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes)</li>
 </ul>
 
-<p>Note that the <a href="../../#plugin-order">plugin order</a> is very important.</p>
+<p>Note that the <a href="../../#plugin-order">plugin order</a> is important.</p>
 
 <h2 id="set-up-a-simple-editable-grid">Set up a Simple Editable Grid</h2>
 
-<p>To set up basic editing, use the <code class="highlighter-rouge">EditingState</code>, <code class="highlighter-rouge">TableEditRow</code> and <code class="highlighter-rouge">TableEditColumn</code> plugins.</p>
+<p>Add the plugins listed above to the Grid to set up a simple Grid supporting editing features.</p>
 
-<p>In this example, we use the uncontrolled mode and can optionally specify only the initial editing state via the <code class="highlighter-rouge">defaultAddedRows</code> and <code class="highlighter-rouge">defaultEditingRows</code> properties of the <code class="highlighter-rouge">EditingState</code> plugin. After that, the grid will manage thet editing state internally.</p>
+<p>Handle the <code class="highlighter-rouge">EditingState</code> plugin’s <code class="highlighter-rouge">onCommitChanges</code> event to commit changes made by an end-user to your data store.</p>
 
-<p>To show editors for the rows being edited, we use the <code class="highlighter-rouge">TableEditRow</code> plugin. To add a column with a set of editing controls such as the New/Edit/Save/Cancel/Delete buttons, we use the <code class="highlighter-rouge">TableEditColumn</code> plugin.</p>
+<h2 id="uncontrolled-mode">Uncontrolled Mode</h2>
 
-<p>To apply the changes introduced by an end-user to your data source (no matter local or remote), handle the <code class="highlighter-rouge">onCommitChanges</code> event of the <code class="highlighter-rouge">EditingState</code> plugin.</p>
+<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>, you can specify the initial editing state values using the following <code class="highlighter-rouge">EditingState</code> plugin’s properties:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">defaultEditingRows</code> - the rows being edited</li>
+  <li><code class="highlighter-rouge">defaultAddedRows</code> - the rows being added</li>
+  <li><code class="highlighter-rouge">defaultChangedRows</code> - the changed rows</li>
+  <li><code class="highlighter-rouge">defaultDeletedRows</code> - the rows being deleted</li>
+</ul>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.7&quot;,
+          
           &quot;path&quot;: &quot;/demo/editing/edit-row&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097552323&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306028978&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
         </div>
       </div>
 
-<h2 id="controlled-editing-state">Controlled Editing State</h2>
+<h2 id="controlled-state">Controlled State</h2>
 
-<p>To fully control the editing state, you need to specify three pairs of the <code class="highlighter-rouge">EditingState</code> plugin properties. These are <code class="highlighter-rouge">editingState</code> and <code class="highlighter-rouge">editingStateChange</code>, <code class="highlighter-rouge">changedRows</code> and <code class="highlighter-rouge">onChangedRowsChange</code>, <code class="highlighter-rouge">addedRows</code> and <code class="highlighter-rouge">onAddedRowsChange</code>.</p>
+<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, specify the following <code class="highlighter-rouge">EditingState</code> plugin’s property pairs to set a state value and handle its changes:</p>
 
-<p>Note, the <code class="highlighter-rouge">onAddedRowsChange</code> event can also be used to initialize a newly created row with some default property values.</p>
+<ul>
+  <li><code class="highlighter-rouge">editingRows</code> and <code class="highlighter-rouge">onEditingRowsChange</code> - the rows being edited</li>
+  <li><code class="highlighter-rouge">addedRows</code> and <code class="highlighter-rouge">onAddedRowsChange</code> - the rows being added</li>
+  <li><code class="highlighter-rouge">changedRows</code> and <code class="highlighter-rouge">onChangedRowsChange</code> - the changed rows</li>
+  <li><code class="highlighter-rouge">deletedRows</code> and <code class="highlighter-rouge">onDeletedRowsChange</code> - the rows being deleted</li>
+</ul>
+
+<p>Note, you can also use the <code class="highlighter-rouge">onAddedRowsChange</code> event to initialize a created row with default property values.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.7&quot;,
+          
           &quot;path&quot;: &quot;/demo/editing/edit-row-controlled&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097552323&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306028978&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -423,7 +443,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
 
 
     <footer>
@@ -461,7 +481,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
     <script>
         trackingCookie.check();
     </script>

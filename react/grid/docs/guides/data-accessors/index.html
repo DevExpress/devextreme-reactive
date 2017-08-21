@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Using the Immutable Data - DevExtreme Reactive Components</title>
+    <title>Data Accessors - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,7 +76,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          <li>Data Accessors</li>
           
 
         
@@ -84,7 +84,7 @@
           
 
           
-          <li>Using the Immutable Data</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -373,34 +373,136 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="using-the-immutable-data">Using the Immutable Data</h1>
+        <h1 id="data-accessors">Data Accessors</h1>
 
-<p>DevExpress Data Grid for React conforms to the React <a href="https://facebook.github.io/react/docs/optimizing-performance.html">optimization principles</a>. According to these principles, the Grid does not mutate data passed through a state and uses memoization and <a href="https://facebook.github.io/react/docs/react-api.html#react.purecomponent">React.PureComponents</a>. A <code class="highlighter-rouge">React.PureComponent</code> compares old and new state values using a simple comparison. In this case, if you update a state object field, React does not update the component because it compares two references to the same object. Immutable data structures <a href="https://facebook.github.io/react/docs/optimizing-performance.html#the-power-of-not-mutating-data">help</a> to solve this problem.</p>
+<h2 id="cell-data-access">Cell Data Access</h2>
 
-<p>You can use the <a href="https://github.com/rtfeldman/seamless-immutable">seamless-immutable</a> library to make a React Grid state immutable.
-The following example demonstrates how to initialize an immutable state:</p>
+<p>In a common scenario with a simple data structure, you can associate a column with a row field using the column’s <code class="highlighter-rouge">name</code> field as shown in the following example:</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">data</span><span class="p">:</span> <span class="nx">Immutable</span><span class="p">({</span>
-    <span class="c1">// the state fields</span>
-  <span class="p">})</span>
-<span class="p">};</span>
-</code></pre>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">firstName</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="na">lastName</span><span class="p">:</span> <span class="s1">'Smith'</span> <span class="p">},</span>
+  <span class="p">...</span>
+<span class="p">];</span>
+<span class="kr">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'firstName'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'First Name'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'lastName'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Last Name'</span> <span class="p">},</span>
+  <span class="p">...</span>
+<span class="p">];</span>
+<span class="o">&lt;</span><span class="nx">Grid</span>
+  <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">},</span>
+  <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
+<span class="sr">/</span><span class="err">&gt;
+</span></code></pre>
 </div>
 
-<p>Then you can use the state in a usual way because <code class="highlighter-rouge">seamless-immutable</code> keeps backwards-compatibility with normal Arrays and Objects.</p>
+<p>In the case of nested data structure, use the <code class="highlighter-rouge">getCellData</code> function to calculate a column value as demonstrated below:</p>
 
-<p>The following demo demonstrates the React Grid with <code class="highlighter-rouge">seamless-immutable</code> in action:</p>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">user</span><span class="p">:</span> <span class="p">{</span> <span class="na">firstName</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="na">lastName</span><span class="p">:</span> <span class="s1">'Smith'</span> <span class="p">}</span> <span class="p">},</span>
+  <span class="p">...</span>
+<span class="p">];</span>
+<span class="o">&lt;</span><span class="nx">Grid</span>
+  <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">},</span>
+  <span class="na">columns</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="s1">'firstName'</span><span class="p">,</span>
+      <span class="na">title</span><span class="p">:</span> <span class="s1">'First Name'</span><span class="p">,</span>
+      <span class="na">getCellData</span><span class="p">:</span> <span class="nx">row</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">row</span><span class="p">.</span><span class="nx">user</span> <span class="p">?</span> <span class="nx">row</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">firstName</span> <span class="p">:</span> <span class="kc">undefined</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="s1">'lastName'</span><span class="p">,</span>
+      <span class="na">title</span><span class="p">:</span> <span class="s1">'Last Name'</span><span class="p">,</span>
+      <span class="na">getCellData</span><span class="p">:</span> <span class="nx">row</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">row</span><span class="p">.</span><span class="nx">user</span> <span class="p">?</span> <span class="nx">row</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">lastName</span> <span class="p">:</span> <span class="kc">undefined</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+  <span class="p">],</span>
+<span class="sr">/</span><span class="err">&gt;
+</span></code></pre>
+</div>
 
 <div class="embedded-demo" data-options="{
           
-          &quot;path&quot;: &quot;/demo/immutability/seamless-immutable&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306028983&quot;
+          &quot;path&quot;: &quot;/demo/data-accessors/custom-data-accessors-in-columns&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306028975&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
         </div>
       </div>
+
+<p>If you use a common data calculation algorithm for all columns, specify the <code class="highlighter-rouge">getCellData</code> function on the Grid’s level.</p>
+
+<p>For example, you can implement dot notation support for columns like <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="err">'user.firstName'</span><span class="w"> </span><span class="p">}</span></code>. In this case, the function code looks as follows:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code> <span class="o">&lt;</span><span class="nx">Grid</span>
+  <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">}</span>
+  <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
+  <span class="nx">getCellData</span><span class="o">=</span><span class="p">{(</span><span class="nx">row</span><span class="p">,</span> <span class="nx">columnName</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">columnName</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="p">{</span> <span class="nx">rootField</span><span class="p">,</span> <span class="nx">nestedField</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">splitColumnName</span><span class="p">(</span><span class="nx">columnName</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">row</span><span class="p">[</span><span class="nx">rootField</span><span class="p">]</span> <span class="p">?</span> <span class="nx">row</span><span class="p">[</span><span class="nx">rootField</span><span class="p">][</span><span class="nx">nestedField</span><span class="p">]</span> <span class="p">:</span> <span class="kc">undefined</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">row</span><span class="p">[</span><span class="nx">columnName</span><span class="p">];</span>
+  <span class="p">}}</span>
+<span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p>The following demo shows this approach in action:</p>
+
+<div class="embedded-demo" data-options="{
+          
+          &quot;path&quot;: &quot;/demo/data-accessors/custom-data-accessors&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306028975&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
+<p>Note that the Grid’s <code class="highlighter-rouge">getCellData</code> property has a higher priority than the column’s property.</p>
+
+<p>The <code class="highlighter-rouge">getCellData</code> implementation presented in this demo is not optimized for frequent invocation. Avoid using it in production apps operating with large amounts of data.</p>
+
+<h2 id="cell-data-editing">Cell Data Editing</h2>
+
+<p>If editing features are enabled, you can use the column’s <code class="highlighter-rouge">createRowChange</code> function to create a row changes object:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">user</span><span class="p">:</span> <span class="p">{</span> <span class="na">firstName</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="na">lastName</span><span class="p">:</span> <span class="s1">'Smith'</span> <span class="p">}</span> <span class="p">},</span>
+  <span class="p">...</span>
+<span class="p">];</span>
+
+<span class="kr">const</span> <span class="na">columns</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="na">createRowChange</span><span class="p">:</span> <span class="p">(</span><span class="nx">row</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">user</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span><span class="nx">row</span><span class="p">.</span><span class="nx">user</span><span class="p">,</span>
+        <span class="na">firstName</span><span class="p">:</span> <span class="nx">value</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">}),</span>
+  <span class="p">},</span>
+  <span class="p">...</span>
+<span class="p">]</span>
+</code></pre>
+</div>
+
+<p>Specify the <code class="highlighter-rouge">EditingState</code> plugin’s <code class="highlighter-rouge">createRowChange</code> property if you use a common algorithm for all columns.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span>
+  <span class="p">...</span>
+<span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">EditingState</span>
+    <span class="nx">createRowChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">row</span><span class="p">,</span> <span class="nx">columnName</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// ...</span>
+    <span class="p">}}</span>
+  <span class="sr">/</span><span class="err">&gt;
+</span><span class="o">/&gt;</span>
+</code></pre>
+</div>
+
+<p>Note that the <code class="highlighter-rouge">EditingState</code> plugin’s <code class="highlighter-rouge">createRowChange</code> property has a higher priority than the column’s property.</p>
 
     </div>
   </div>

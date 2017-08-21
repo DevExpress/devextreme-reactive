@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +76,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -367,7 +375,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="tableselection-plugin-reference">TableSelection Plugin Reference</h1>
 
-<p>This plugin visualizes the selection state within a table by rendering selection checkboxes and highlighting selected rows.</p>
+<p>This plugin visualizes the selection state within a table by rendering selection checkboxes and highlighting the selected rows.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -437,11 +445,32 @@
 
 <h2 id="interfaces">Interfaces</h2>
 
+<h3 id="tablerow-extension"><a name="table-row"></a>TableRow (Extension)</h3>
+
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a> shape extended by the following fields:</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>selected?</td>
+      <td>boolean</td>
+      <td>Specifies if a row is selected</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3 id="selectallcellargs"><a name="select-all-cell-args"></a>SelectAllCellArgs</h3>
 
 <p>Describes properties passed to the template that renders a cell with a selection control.</p>
 
-<p>A value with the following shape:</p>
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -460,12 +489,12 @@
     <tr>
       <td>allSelected</td>
       <td>boolean</td>
-      <td>True if all the rows available to select are selected</td>
+      <td>True if all the rows available for selection are selected</td>
     </tr>
     <tr>
       <td>someSelected</td>
       <td>boolean</td>
-      <td>True if at least one but not all rows available to select are selected</td>
+      <td>True if at least one but not all rows available for selection are selected</td>
     </tr>
     <tr>
       <td>toggleAll</td>
@@ -479,7 +508,7 @@
 
 <p>Describes properties passed to a template that renders a cell with the selection control inside the heading row.</p>
 
-<p>A value with the following shape:</p>
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -490,6 +519,11 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>row</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
+      <td>A row object</td>
+    </tr>
     <tr>
       <td>selected</td>
       <td>boolean</td>
@@ -526,20 +560,8 @@
     <tr>
       <td>tableBodyRows</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
+      <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
       <td>Body rows to be rendered</td>
-    </tr>
-    <tr>
-      <td>selection</td>
-      <td>Getter</td>
-      <td>Array&lt;number | string&gt;</td>
-      <td>Selected rows</td>
-    </tr>
-    <tr>
-      <td>getRowId</td>
-      <td>Getter</td>
-      <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>) =&gt; number | string</td>
-      <td>The function used to get a unique row identifier</td>
     </tr>
     <tr>
       <td>tableExtraProps</td>
@@ -548,27 +570,27 @@
       <td>Additional table properties that can be provided by other plugins</td>
     </tr>
     <tr>
-      <td>availableToSelect</td>
+      <td>selection</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
-      <td>Body rows to be rendered available for selection</td>
+      <td>Array&lt;number | string&gt;</td>
+      <td>Selected rows</td>
     </tr>
     <tr>
-      <td>setRowSelection</td>
-      <td>Action</td>
-      <td>({ rowId }) =&gt; void</td>
-      <td>Selects a row</td>
+      <td>availableToSelect</td>
+      <td>Getter</td>
+      <td>Array&lt;number | string&gt;</td>
+      <td>Rows to be rendered, which are available for selection</td>
     </tr>
     <tr>
       <td>setRowsSelection</td>
       <td>Action</td>
-      <td>({ rowIds }) =&gt; void</td>
-      <td>Selects multiple rows</td>
+      <td>({ rowIds: Array&lt;number | string&gt;, selected?: boolean }) =&gt; void</td>
+      <td>Selects/deselects rows. The <code class="highlighter-rouge">selected</code> argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the <code class="highlighter-rouge">rowIds</code> argument.</td>
     </tr>
     <tr>
       <td>tableViewCell</td>
       <td>Template</td>
-      <td>{ row: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>, column: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>, style?: Object }</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
       <td>A template that renders a table cell</td>
     </tr>
   </tbody>
@@ -595,7 +617,7 @@
     <tr>
       <td>tableBodyRows</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
+      <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
       <td>Body rows to be rendered including the selected ones</td>
     </tr>
     <tr>
@@ -611,7 +633,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
 
 
     <footer>
@@ -649,7 +671,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
     <script>
         trackingCookie.check();
     </script>

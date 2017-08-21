@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +76,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -374,7 +382,7 @@
 <h3 id="dependencies">Dependencies</h3>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a></li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
 </ul>
 
@@ -411,7 +419,7 @@
 
 <p>Describes properties passed to the filter row cell template.</p>
 
-<p>A value with the following shape:</p>
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -434,13 +442,8 @@
     </tr>
     <tr>
       <td>column</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a></td>
-      <td>Specifies a table column</td>
-    </tr>
-    <tr>
-      <td>style?</td>
-      <td>Object</td>
-      <td>Specifies filter cell styles</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>Specifies a column</td>
     </tr>
   </tbody>
 </table>
@@ -480,7 +483,7 @@
     <tr>
       <td>tableViewCell</td>
       <td>Template</td>
-      <td>{ row: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>, column: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>, style?: Object }</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
       <td>A template that renders a table cell</td>
     </tr>
   </tbody>
@@ -511,7 +514,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
 
 
     <footer>
@@ -549,7 +552,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
     <script>
         trackingCookie.check();
     </script>

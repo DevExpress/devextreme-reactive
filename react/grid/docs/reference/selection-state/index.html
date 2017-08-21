@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +76,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -367,7 +375,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="selectionstate-plugin-reference">SelectionState Plugin Reference</h1>
 
-<p>A plugin that manages selection state.</p>
+<p>A plugin that manages the selection state.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -434,12 +442,6 @@
       <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>) =&gt; number | string</td>
       <td>A function used to get a unique row identifier</td>
     </tr>
-    <tr>
-      <td>availableToSelect</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
-      <td>Rows to be rendered, which are available for selection</td>
-    </tr>
   </tbody>
 </table>
 
@@ -456,21 +458,15 @@
   </thead>
   <tbody>
     <tr>
-      <td>setRowSelection</td>
-      <td>Action</td>
-      <td>({ rowId }) =&gt; void</td>
-      <td>A function that selects a row</td>
-    </tr>
-    <tr>
       <td>setRowsSelection</td>
       <td>Action</td>
-      <td>({ rowIds }) =&gt; void</td>
-      <td>A function that selects multiple rows</td>
+      <td>({ rowIds: Array&lt;number | string&gt;, selected?: boolean  }) =&gt; void</td>
+      <td>A function that selects/deselects rows. The <code class="highlighter-rouge">selected</code> argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the <code class="highlighter-rouge">rowIds</code> argument.</td>
     </tr>
     <tr>
       <td>availableToSelect</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
+      <td>Array&lt;number | string&gt;</td>
       <td>Rows to be rendered, which are available for selection</td>
     </tr>
     <tr>
@@ -486,7 +482,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
 
 
     <footer>
@@ -524,7 +520,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
     <script>
         trackingCookie.check();
     </script>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1502097553">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1502097553">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +76,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Immutability</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
         
@@ -367,42 +375,44 @@
     <div class="col-md-9 docs-content">
         <h1 id="react-grid-detail-row">React Grid Detail Row</h1>
 
-<h2 id="overview">Overview</h2>
+<p>The “Detail Row” feature displays data row details on an expandable pane. The pane can be expanded and collapsed either programmatically or via the Grid’s UI.</p>
 
-<p>The ‘Detail Row’ feature allows you to display extended representation of a data row that can be expanded/collapsed either programmatically or via an end-user interaction with the Grid UI.</p>
+<h2 id="required-plugins">Required Plugins</h2>
 
-<h2 id="plugin-list">Plugin List</h2>
-
-<p>Two plugins are required to enable this feature:</p>
+<p>The “Detail Row” feature requires the following plugins:</p>
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a> - controls the detail rows’ expanded status</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a> - renders detail rows</li>
 </ul>
 
-<p>Note that the <a href="../../#plugin-order">plugin order</a> is very important.</p>
+<p>Note that the <a href="../../#plugin-order">plugin order</a> is important.</p>
 
 <h2 id="detail-row-setup">Detail Row Setup</h2>
 
-<p>To set up a simple Grid with detail rows, you need to use the <code class="highlighter-rouge">RowDetailState</code> and <code class="highlighter-rouge">TableRowDetail</code> plugins. Specify the detail row template via the <code class="highlighter-rouge">template</code> property of the <code class="highlighter-rouge">TableRowDetail</code> plugin. In uncontrolled state mode, you can also pass IDs of rows that should be initially expanded into the <code class="highlighter-rouge">defaultExpandedRows</code> property of the <code class="highlighter-rouge">RowDetailState</code> plugin, and the expanded state will be managed by the plugin internally.</p>
+<p>Add the required plugins listed above to the Grid and specify the detail row template via the <code class="highlighter-rouge">TableRowDetail</code> plugin’s <code class="highlighter-rouge">template</code> property to set up a simple Grid with detail rows.</p>
+
+<h2 id="uncontrolled-mode">Uncontrolled Mode</h2>
+
+<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>, you can specify the initially expanded detail rows using the <code class="highlighter-rouge">RowDetailState</code> plugins’s <code class="highlighter-rouge">defaultExpandedRows</code> property.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.7&quot;,
+          
           &quot;path&quot;: &quot;/demo/detail-row/simple-detail-row&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097552323&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306028976&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
         </div>
       </div>
 
-<h2 id="controlled-expanded-state-mode">Controlled Expanded State Mode</h2>
+<h2 id="controlled-mode">Controlled Mode</h2>
 
-<p>To control the expanded state of the detail rows from the outside, pass an array of the expanded row IDs to the <code class="highlighter-rouge">expandedRows</code> property of the <code class="highlighter-rouge">RowDetailState</code> plugin and handle the <code class="highlighter-rouge">onExpandedRowsChange</code> event of the same plugin.</p>
+<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, pass an array of the expanded row IDs to the <code class="highlighter-rouge">RowDetailState</code> plugin’s <code class="highlighter-rouge">expandedRows</code> property and handle the <code class="highlighter-rouge">onExpandedRowsChange</code> event to control the detail rows’ expanded state externally.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.7&quot;,
+          
           &quot;path&quot;: &quot;/demo/detail-row/detail-row-controlled&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097552323&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306028976&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -413,7 +423,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1502097553"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
 
 
     <footer>
@@ -451,7 +461,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1502097553"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
     <script>
         trackingCookie.check();
     </script>

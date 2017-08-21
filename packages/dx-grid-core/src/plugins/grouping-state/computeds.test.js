@@ -14,7 +14,7 @@ describe('GroupingPlugin computeds', () => {
       expect(processedGrouping)
         .toEqual([
           { columnName: 'a' },
-          { columnName: 'b', isDraft: true, mode: 'add' },
+          { columnName: 'b', draft: true, mode: 'add' },
           { columnName: 'c' },
         ]);
     });
@@ -36,13 +36,13 @@ describe('GroupingPlugin computeds', () => {
 
       expect(draftGrouping(grouping, { columnName: 'a', groupIndex: -1 }))
         .toEqual([
-          { columnName: 'a', isDraft: true, mode: 'remove' },
+          { columnName: 'a', draft: true, mode: 'remove' },
           { columnName: 'b' },
         ]);
       expect(draftGrouping(grouping, { columnName: 'b', groupIndex: -1 }))
         .toEqual([
           { columnName: 'a' },
-          { columnName: 'b', isDraft: true, mode: 'remove' },
+          { columnName: 'b', draft: true, mode: 'remove' },
         ]);
     });
 
@@ -55,7 +55,7 @@ describe('GroupingPlugin computeds', () => {
       expect(draftGrouping(grouping, { columnName: 'a', groupIndex: 1 }))
         .toEqual([
           { columnName: 'b' },
-          { columnName: 'a', isDraft: true, mode: 'reorder' },
+          { columnName: 'a', draft: true, mode: 'reorder' },
         ]);
     });
   });

@@ -12,7 +12,7 @@ const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping) =>
       } else if (columnDraftGrouping.mode === 'remove' || columnDraftGrouping.mode === 'add') {
         return [...acc, {
           ...tableColumn,
-          isDraft: true,
+          draft: true,
         }];
       }
       return acc;

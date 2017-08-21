@@ -6,6 +6,8 @@ react:
           path: /react/grid/docs
         - title: Plugin Overview
           path: /react/grid/docs/guides/plugin-overview
+        - title: Data Accessors
+          path: /react/grid/docs/guides/data-accessors
         - title: Using the Immutable Data
           path: /react/grid/docs/guides/immutability
         - title: Controlled and Uncontrolled Modes

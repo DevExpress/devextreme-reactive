@@ -278,7 +278,7 @@ describe('GroupingState', () => {
       draftGroupingChange({ columnName: 'a', groupIndex: 0 });
 
       expect(draftGrouping)
-        .toEqual([{ columnName: 'a', isDraft: true, mode: 'add' }]);
+        .toEqual([{ columnName: 'a', draft: true, mode: 'add' }]);
     });
   });
 

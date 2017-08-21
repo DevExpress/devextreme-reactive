@@ -4,6 +4,15 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
+  const mountTableCell = column => (
+    mount(
+      <TableCell
+        column={column}
+        value={'text'}
+      />,
+    )
+  );
+
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -14,25 +23,18 @@ describe('TableCell', () => {
   });
 
   it('should have correct text alignment', () => {
-    let tree = mount(
-      <TableCell
-        column={{}}
-      />,
-    );
+    let tree = mountTableCell({});
     expect(tree.find('td').prop('style').textAlign).toBe('left');
 
-    tree = mount(
-      <TableCell
-        column={{ align: 'left' }}
-      />,
-    );
+    tree = mountTableCell({ align: 'left' });
     expect(tree.find('td').prop('style').textAlign).toBe('left');
 
-    tree = mount(
-      <TableCell
-        column={{ align: 'right' }}
-      />,
-    );
+    tree = mountTableCell({ align: 'right' });
     expect(tree.find('td').prop('style').textAlign).toBe('right');
+  });
+
+  it('should have correct text', () => {
+    const tree = mountTableCell({});
+    expect(tree.find('td').text()).toBe('text');
   });
 });

@@ -1,23 +1,25 @@
 import mergeSort from '../../utils/merge-sort';
 
-const createSortingCompare = (sorting, compareEqual) => (a, b) => {
-  const sortColumn = sorting.columnName;
+const createSortingCompare = (sorting, compareEqual, getCellData) => (a, b) => {
   const inverse = sorting.direction === 'desc';
+  const columnName = sorting.columnName;
+  const aValue = getCellData(a, columnName);
+  const bValue = getCellData(b, columnName);
 
-  if (a[sortColumn] === b[sortColumn]) {
+  if (aValue === bValue) {
     return (compareEqual && compareEqual(a, b)) || 0;
   }
 
-  return (a[sortColumn] < b[sortColumn]) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
+  return (aValue < bValue) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
 };
 
-export const sortedRows = (rows, sorting) => {
+export const sortedRows = (rows, sorting, getCellData) => {
   if (!sorting.length) return rows;
 
   const compare = Array.from(sorting)
     .reverse()
     .reduce((prevCompare, columnSorting) =>
-      createSortingCompare(columnSorting, prevCompare), () => 0);
+      createSortingCompare(columnSorting, prevCompare, getCellData), () => 0);
 
   return mergeSort(Array.from(rows), compare);
 };

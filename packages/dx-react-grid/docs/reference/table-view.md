@@ -51,7 +51,7 @@ Field | Type | Description
 ------|------|------------
 key | string | A unique identifier of the table row.
 type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
-rowId? | number &#124; string  | Specifies the ID of the associated user data row.
+rowId? | number &#124; string  | Specifies the associated user data row's ID.
 row? | [Row](grid.md#row) | Specifies the associated user data row.
 height? | number | Specifies the table row height.
 

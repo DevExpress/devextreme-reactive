@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { TableSortLabel, Chip } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('GroupPanelItem', theme => ({
+const styles = theme => ({
   button: {
     marginRight: theme.spacing.unit,
     marginBottom: '12px',
@@ -12,7 +12,7 @@ const styleSheet = createStyleSheet('GroupPanelItem', theme => ({
   draftCell: {
     opacity: 0.3,
   },
-}));
+});
 
 const label = (allowSorting, sortingDirection, column) => {
   const title = column.title || column.name;
@@ -82,4 +82,4 @@ GroupPanelItemBase.defaultProps = {
   allowUngroupingByClick: false,
 };
 
-export const GroupPanelItem = withStyles(styleSheet)(GroupPanelItemBase);
+export const GroupPanelItem = withStyles(styles, { name: 'GroupPanelItem' })(GroupPanelItemBase);

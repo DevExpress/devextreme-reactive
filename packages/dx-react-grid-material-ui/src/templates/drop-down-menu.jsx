@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Typography, Menu, MenuItem } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 
-const styleSheet = createStyleSheet('DropDownMenu', theme => ({
+const styles = theme => ({
   button: {
     cursor: 'pointer',
     textTransform: 'none',
@@ -29,7 +29,7 @@ const styleSheet = createStyleSheet('DropDownMenu', theme => ({
   selected: {
     color: theme.palette.text.primary,
   },
-}));
+});
 
 class DropDownMenuBase extends React.PureComponent {
 
@@ -148,4 +148,4 @@ DropDownMenuBase.defaultProps = {
   itemTemplate: undefined,
 };
 
-export const DropDownMenu = withStyles(styleSheet)(DropDownMenuBase);
+export const DropDownMenu = withStyles(styles, { name: 'DropDownMenu' })(DropDownMenuBase);

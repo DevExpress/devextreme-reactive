@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import ChevronRight from 'material-ui-icons/ChevronRight';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
-const styleSheet = createStyleSheet('TableDetailToggleCell', theme => ({
+const styles = theme => ({
   toggleCell: {
     textAlign: 'center',
     cursor: 'pointer',
@@ -18,7 +18,7 @@ const styleSheet = createStyleSheet('TableDetailToggleCell', theme => ({
     height: theme.spacing.unit * 3,
     marginLeft: '-6px',
   },
-}));
+});
 
 const TableDetailToggleCellBase = ({ style, expanded, classes, toggleExpanded }) => (
   <TableCell
@@ -52,4 +52,4 @@ TableDetailToggleCellBase.defaultProps = {
   toggleExpanded: () => {},
 };
 
-export const TableDetailToggleCell = withStyles(styleSheet)(TableDetailToggleCellBase);
+export const TableDetailToggleCell = withStyles(styles, { name: 'TableDetailToggleCell' })(TableDetailToggleCellBase);

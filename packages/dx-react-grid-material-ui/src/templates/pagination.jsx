@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Button, IconButton } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import ChevronRight from 'material-ui-icons/ChevronRight';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 
-export const styleSheet = createStyleSheet('Pagination', theme => ({
+export const styles = theme => ({
   pagination: {
     float: 'right',
     margin: 0,
@@ -50,7 +50,7 @@ export const styleSheet = createStyleSheet('Pagination', theme => ({
       paddingRight: theme.spacing.unit * 2,
     },
   },
-}));
+});
 
 const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => {
   const buttonClasses = classNames({
@@ -209,4 +209,4 @@ PaginationBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
 };
 
-export const Pagination = withStyles(styleSheet)(PaginationBase);
+export const Pagination = withStyles(styles, { name: 'Pagination' })(PaginationBase);

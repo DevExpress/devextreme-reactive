@@ -19,7 +19,7 @@ import DoneIcon from 'material-ui-icons/Done';
 import PauseIcon from 'material-ui-icons/PauseCircleOutline';
 import LoopIcon from 'material-ui-icons/Loop';
 import HelpIcon from 'material-ui-icons/HelpOutline';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import {
   generateRows,
@@ -27,7 +27,7 @@ import {
   employeeTaskValues,
 } from '../../demo-data/generator';
 
-const styleSheet = createStyleSheet('ThemingDemo', theme => ({
+const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '100%',
@@ -38,7 +38,7 @@ const styleSheet = createStyleSheet('ThemingDemo', theme => ({
     marginBottom: theme.spacing.unit * 2,
     marginLeft: 0,
   },
-}));
+});
 
 const TaskIcon = ({ status }) => {
   switch (status) {
@@ -146,7 +146,7 @@ GridDetailContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const GridDetailContainer = withStyles(styleSheet)(GridDetailContainerBase);
+const GridDetailContainer = withStyles(styles, { name: 'ThemingDemo' })(GridDetailContainerBase);
 
 // eslint-disable-next-line
 export default class Demo extends React.PureComponent {

@@ -61,7 +61,7 @@ const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => {
   return (<Button
     className={buttonClasses}
     disabled={isDisabled}
-    onTouchTap={onClick}
+    onClick={onClick}
   >
     {text}
   </Button>);
@@ -184,7 +184,7 @@ const PaginationBase = ({
       <IconButton
         className={classNames(classes.arrowButton, classes.prev)}
         disabled={currentPage === 0}
-        onTouchTap={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
+        onClick={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
       >
         <ChevronLeft />
       </IconButton>
@@ -192,7 +192,7 @@ const PaginationBase = ({
       <IconButton
         className={classNames(classes.arrowButton, classes.next)}
         disabled={currentPage === totalPages - 1 || totalCount === 0}
-        onTouchTap={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
+        onClick={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
       >
         <ChevronRight />
       </IconButton>

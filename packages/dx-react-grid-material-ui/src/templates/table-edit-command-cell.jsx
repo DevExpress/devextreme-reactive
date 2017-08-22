@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import {
     Button,
     TableCell,
 } from 'material-ui';
 
-export const styleSheet = createStyleSheet('EditColumn', theme => ({
+const styles = theme => ({
   button: {
     padding: theme.spacing.unit,
     minWidth: 40,
@@ -25,9 +24,9 @@ export const styleSheet = createStyleSheet('EditColumn', theme => ({
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: 0,
   },
-}));
+});
 
-const withEditColumnStyles = withStyles(styleSheet);
+const withEditColumnStyles = withStyles(styles, { name: 'EditColumn' });
 
 const CommandButtonBase = ({ executeCommand, text, classes }) => (
   <Button

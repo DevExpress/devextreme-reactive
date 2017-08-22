@@ -11,9 +11,9 @@ import {
 
 import List from 'material-ui-icons/List';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
+const styles = theme => ({
   groupingControl: {
     cursor: 'pointer',
     paddingLeft: 0,
@@ -86,7 +86,7 @@ export const styleSheet = createStyleSheet('TableHeaderCell', theme => ({
     textAlign: 'left',
     marginRight: (theme.spacing.unit * 2) - 2,
   },
-}));
+});
 
 class TableHeaderCellBase extends React.PureComponent {
   constructor(props) {
@@ -124,7 +124,7 @@ class TableHeaderCellBase extends React.PureComponent {
         [classes.cellNoUserSelect]: allowDragging || allowSorting,
         [classes.cellDraggable]: allowDragging,
         [classes.cellClickable]: allowSorting,
-        [classes.cellDimmed]: dragging || tableColumn.isDraft,
+        [classes.cellDimmed]: dragging || tableColumn.draft,
       },
     );
 
@@ -238,4 +238,4 @@ TableHeaderCellBase.defaultProps = {
   dragPayload: null,
 };
 
-export const TableHeaderCell = withStyles(styleSheet)(TableHeaderCellBase);
+export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

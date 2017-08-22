@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
 
-const styleSheet = createStyleSheet('Pager', () => ({
+const styles = {
   pager: {
     overflow: 'hidden',
   },
-}));
+};
 
 const PagerBase = ({
   currentPage,
@@ -54,4 +54,4 @@ PagerBase.defaultProps = {
   showAllText: undefined,
 };
 
-export const Pager = withStyles(styleSheet)(PagerBase);
+export const Pager = withStyles(styles, { name: 'Pager' })(PagerBase);

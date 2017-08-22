@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Paper, Typography } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-export const styleSheet = createStyleSheet('DragDrop', theme => ({
+const styles = theme => ({
   container: {
     cursor: 'move',
     position: 'fixed',
@@ -20,7 +19,7 @@ export const styleSheet = createStyleSheet('DragDrop', theme => ({
     paddingRight: theme.spacing.unit * 2,
     float: 'right',
   },
-}));
+});
 
 const ContainerBase = ({
   clientOffset, columns, columnTemplate, classes,
@@ -49,7 +48,7 @@ ContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export const Container = withStyles(styleSheet)(ContainerBase);
+export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase);
 
 const ColumnBase = ({ column, classes }) => (
   <Typography
@@ -66,4 +65,4 @@ ColumnBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export const Column = withStyles(styleSheet)(ColumnBase);
+export const Column = withStyles(styles, { name: 'DragDrop' })(ColumnBase);

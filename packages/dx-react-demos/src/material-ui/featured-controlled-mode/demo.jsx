@@ -26,8 +26,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import EditIcon from 'material-ui-icons/Edit';
 import SaveIcon from 'material-ui-icons/Save';
 import CancelIcon from 'material-ui-icons/Cancel';
-
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import {
     ProgressBarCell,
@@ -41,7 +40,7 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const styleSheet = createStyleSheet('ControlledModeDemo', theme => ({
+const styles = theme => ({
   commandButton: {
     minWidth: '40px',
   },
@@ -55,7 +54,7 @@ const styleSheet = createStyleSheet('ControlledModeDemo', theme => ({
   dialog: {
     width: 'calc(100% - 16px)',
   },
-}));
+});
 
 const commandTemplates = {
   add: (onClick, allowAdding) => (
@@ -113,7 +112,7 @@ LookupEditCellBase.defaultProps = {
   value: undefined,
 };
 
-export const LookupEditCell = withStyles(styleSheet)(LookupEditCellBase);
+export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
 const availableValues = {
   product: globalSalesValues.product,
@@ -342,4 +341,4 @@ DemoBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styleSheet)(DemoBase);
+export default withStyles(styles, { name: 'ControlledModeDemo' })(DemoBase);

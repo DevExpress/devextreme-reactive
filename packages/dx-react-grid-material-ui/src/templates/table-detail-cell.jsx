@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableDetailCell', theme => ({
+const styles = theme => ({
   active: {
     backgroundColor: theme.palette.background.contentFrame,
   },
-}));
+});
 
 const TableDetailCellBase = ({ colSpan, style, template, classes }) => (
   <TableCell
@@ -31,4 +31,4 @@ TableDetailCellBase.defaultProps = {
   colSpan: 1,
 };
 
-export const TableDetailCell = withStyles(styleSheet)(TableDetailCellBase);
+export const TableDetailCell = withStyles(styles, { name: 'TableDetailCell' })(TableDetailCellBase);

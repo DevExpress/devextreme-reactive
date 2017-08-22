@@ -1,6 +1,6 @@
 # React Grid Virtual Scrolling
 
-The Grid component can process a large amount of data (thousands of records). You can divide data by pages, or use the virtual mode for single-page data presentation.
+The Grid component can process a large amount of data (thousands of records). You can divide data by hundreds of pages, or use the virtual mode for single-page data presentation.
 
 ## Plugin List
 

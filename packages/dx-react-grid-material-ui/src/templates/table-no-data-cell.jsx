@@ -5,14 +5,14 @@ import {
     TableCell,
 } from 'material-ui';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableNoDataCell', theme => ({
+const styles = theme => ({
   cell: {
     textAlign: 'center',
     padding: `${theme.spacing.unit * 5}px 0`,
   },
-}));
+});
 
 export const TableNoDataCellBase = ({ style, colSpan, classes }) => (
   <TableCell
@@ -35,4 +35,4 @@ TableNoDataCellBase.defaultProps = {
   colSpan: 1,
 };
 
-export const TableNoDataCell = withStyles(styleSheet)(TableNoDataCellBase);
+export const TableNoDataCell = withStyles(styles, { name: 'TableNoDataCell' })(TableNoDataCellBase);

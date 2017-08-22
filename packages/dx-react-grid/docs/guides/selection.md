@@ -1,59 +1,58 @@
 # React Grid Row Selection
 
-## Introduction
+The Grid component supports selecting/deselecting rows programmatically or via the UI. It seamlessly integrates with paging, sorting, filtering, and grouping.
 
-Grid allows users to select/deselect rows. It seamlessly integrates with paging, sorting, filtering and grouping.
+## Related Plugins
 
-## Plugin List
+The following plugins implement selection features:
 
-There are several plugins that implement selection. Here is the list:
-- [SelectionState](../reference/selection-state.md)
-- [TableSelection](../reference/table-selection.md)
+- [SelectionState](../reference/selection-state.md) - controls the selection state  
+- [TableSelection](../reference/table-selection.md) - renders selection check boxes or highlights the selected rows
 
-Note that [plugin order](../README.md#plugin-order) is very important.
+Note that [plugin order](../README.md#plugin-order) is important.
 
 ## Basic setup
 
-The following example demonstrates the basic Grid selection setup:
+Import the plugins listed above to set up a simple Grid with selection enabled. The following example demonstrates how to configure selection in the [controlled mode](controlled-and-uncontrolled-modes.md). Pass the initially selected rows to the `SelectionState` plugin's `selection` property and handle the `onSelectionChange` event to control the selection.
 
 .embedded-demo(selection/basic)
 
-As you can see, in this example we use controlled mode by specifying the `selection` and `onSelectionChange` options for the `SelectionState` plugin.
-
 ## Select by Row Click
 
-By default, rows can be selected by ticking a check box. In some cases, it may be convenient to allow users to select rows by clicking on the whole item. The following example demonstrates this scenario:
+A user can select a row using a check box click by default. Set the `TableSelection` plugin's `selectByRowClick` property to true to check/uncheck a check box by a row click as demonstrated in the following example:
 
 .embedded-demo(selection/select-by-row-click)
 
-In some scenarios, it is useful to hide check boxes completely and highlight selected rows. Here is a demo:
+In some scenarios, it is useful to highlight selected rows instead of using check boxes. For this, hide check boxes setting the `TableSelection` plugin's `showSelectionColumn` property to false and assign true to the `selectByRowClick` and `highlightSelected` properties as demonstrated in the following demo:
 
 .embedded-demo(selection/hidden-checkboxes)
 
 ## Select All
 
-If your Grid configuration has the `TableHeaderRow` plugin, you can see a check box inside a header row. This check box provides a capability to select/deselect all rows.
+If your Grid configuration includes the `TableHeaderRow` plugin and the `TableSelection` plugin's `showSelectionColumn` property is set to true, the header row displays the Select All check box that provides the capability to select/deselect all rows.
 
 ### Without Paging
 
-In the following example, we are using TableView with virtual mode. It allow us to demonstrate the Select All behavior with multiple rows:
+The following example demonstrates selection without paging. We increase the row count using the TableView's [virtual mode](virtual-scrolling.md).
 
 .embedded-demo(selection/select-all-virtual)
 
 ### With Paging
 
-If you are using the `LocalPaging` plugin, it is easy to integrate the Select All behavior with the `PagingState` plugin.
+If you are using the `LocalPaging` plugin, you can integrate the Select All behavior with the `PagingState` plugin.
 
-In the following example, we have implemented the Select All behavior within a visible page. You can achieve this result by placing the `SelectionState` plugin after `LocalPaging`:
+The Select All check box selects/deselects all rows on a page or all pages depending on the `SelectionState` and `LocalPaging` plugin's order.
+
+Place the `SelectionState` plugin after `LocalPaging` to implement the Select All behavior within a visible page:
 
 .embedded-demo(selection/select-all-by-page)
 
-If you place the `SelectionState` plugin before `LocalPaging`, it will be possible to select rows on all pages:
+Place the `SelectionState` plugin before `LocalPaging` to select/deselect all rows on all pages:
 
 .embedded-demo(selection/select-all-by-all-pages)
 
-### Hidden Select All
+### Hide Select All Check Box
 
-It is also possible to hide the Select All check box:
+Hide the Select All check box by assigning false to the `TableSelection` plugin's `showSelectAll` property:
 
 .embedded-demo(selection/hidden-select-all)

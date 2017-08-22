@@ -5,10 +5,9 @@ import classNames from 'classnames';
 import {
   TableCell as TableCellMUI,
 } from 'material-ui';
+import { withStyles } from 'material-ui/styles';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-
-export const styleSheet = createStyleSheet('TableCell', theme => ({
+const styles = theme => ({
   cell: {
     paddingRight: theme.spacing.unit,
     '& ~ $cell': {
@@ -18,9 +17,9 @@ export const styleSheet = createStyleSheet('TableCell', theme => ({
   cellRightAlign: {
     textAlign: 'right',
   },
-}));
+});
 
-const TableCellBase = ({ style, row, column, classes }) => (
+const TableCellBase = ({ style, column, value, classes }) => (
   <TableCellMUI
     style={{
       ...style,
@@ -30,21 +29,21 @@ const TableCellBase = ({ style, row, column, classes }) => (
       [classes.cellRightAlign]: column.align === 'right',
     })}
   >
-    {row[column.name]}
+    {value}
   </TableCellMUI>
 );
 
 TableCellBase.propTypes = {
   style: PropTypes.shape(),
-  row: PropTypes.shape(),
+  value: PropTypes.any,
   column: PropTypes.shape(),
   classes: PropTypes.object.isRequired,
 };
 
 TableCellBase.defaultProps = {
   style: null,
-  row: {},
+  value: undefined,
   column: {},
 };
 
-export const TableCell = withStyles(styleSheet)(TableCellBase);
+export const TableCell = withStyles(styles, { name: 'TableCell' })(TableCellBase);

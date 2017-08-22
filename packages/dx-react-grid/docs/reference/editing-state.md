@@ -1,6 +1,6 @@
 # EditingState Plugin Reference
 
-A plugin that manages the editing state of grid rows. It arranges grid rows by different lists depending on a row's state.
+A plugin that manages grid rows' editing state. It arranges grid rows by different lists depending on a row's state.
 
 ## User Reference
 
@@ -25,6 +25,7 @@ deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows pr
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRows` array in the uncontrolled mode
 onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row from the `deletedRows` array
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing
+createRowChange | (row: [Row](grid.md#row), columnName: string, value: string &#124; number) => object | | Specifies the function used to create a row change
 
 ## Interfaces
 
@@ -44,7 +45,9 @@ deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing rows
 
 ### Imports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns
 
 ### Exports
 

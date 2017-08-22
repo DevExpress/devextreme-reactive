@@ -33,7 +33,7 @@ describe('TableGroupRow Plugin computeds', () => {
     it('should not remove column when grouping', () => {
       const draftGrouping = [
         { columnName: 'a' },
-        { columnName: 'c', isDraft: true, mode: 'add' },
+        { columnName: 'c', draft: true, mode: 'add' },
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([
@@ -41,7 +41,7 @@ describe('TableGroupRow Plugin computeds', () => {
           { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123 },
           { type: 'undefined', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'c' }, isDraft: true },
+          { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
           { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
@@ -49,7 +49,7 @@ describe('TableGroupRow Plugin computeds', () => {
     it('should add a draft column when ungrouping', () => {
       const draftGrouping = [
         { columnName: 'a' },
-        { columnName: 'c', isDraft: true, mode: 'remove' },
+        { columnName: 'c', draft: true, mode: 'remove' },
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([
@@ -57,7 +57,7 @@ describe('TableGroupRow Plugin computeds', () => {
           { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123 },
           { type: 'undefined', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'c' }, isDraft: true },
+          { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
           { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
@@ -65,7 +65,7 @@ describe('TableGroupRow Plugin computeds', () => {
     it('should add a draft column when reordering groups', () => {
       const draftGrouping = [
         { columnName: 'a' },
-        { columnName: 'c', isDraft: true, mode: 'reorder' },
+        { columnName: 'c', draft: true, mode: 'reorder' },
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([

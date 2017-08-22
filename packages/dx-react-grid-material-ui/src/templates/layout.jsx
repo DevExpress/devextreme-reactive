@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import { Paper } from 'material-ui';
 
-export const styleSheet = createStyleSheet('GridLayout', theme => ({
+const styles = theme => ({
   headingPanel: {
     paddingLeft: '12px',
     paddingRight: '12px',
@@ -13,7 +13,7 @@ export const styleSheet = createStyleSheet('GridLayout', theme => ({
   footerPanel: {
     padding: '12px',
   },
-}));
+});
 
 export const Root = ({
   headerTemplate,
@@ -45,7 +45,7 @@ HeaderBase.defaultProps = {
   children: null,
 };
 
-export const Header = withStyles(styleSheet)(HeaderBase);
+export const Header = withStyles(styles, { name: 'GridLayout' })(HeaderBase);
 
 const FooterBase = ({ children, classes }) =>
   children && <div className={classes.footerPanel}>{children}</div>;
@@ -59,4 +59,4 @@ FooterBase.defaultProps = {
   children: null,
 };
 
-export const Footer = withStyles(styleSheet)(FooterBase);
+export const Footer = withStyles(styles, { name: 'GridLayout' })(FooterBase);

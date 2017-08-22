@@ -31,8 +31,14 @@ export class TableEditRow extends React.PureComponent {
           predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}
           connectGetters={(getter, { tableColumn: { column }, tableRow: { rowId, row } }) => {
             const change = getRowChange(getter('changedRows'), rowId);
+            const changedRow = { ...row, ...change };
+            const getCellData = getter('getCellData');
+            const value = getCellData(changedRow, column.name);
+
             return {
-              value: column.name in change ? change[column.name] : row[column.name],
+              createRowChange: getter('createRowChange'),
+              value,
+              changedRow,
             };
           }}
           connectActions={action => ({
@@ -42,24 +48,33 @@ export class TableEditRow extends React.PureComponent {
           {({
             value,
             changeRow,
+            createRowChange,
+            changedRow,
             ...restParams
           }) =>
             editCellTemplate({
               row: restParams.tableRow.row,
               column: restParams.tableColumn.column,
               value,
-              onValueChange: newValue => changeRow({
-                rowId: restParams.tableRow.rowId,
-                change: {
-                  [restParams.tableColumn.column.name]: newValue,
-                },
-              }),
+              onValueChange: newValue =>
+                changeRow({
+                  rowId: restParams.tableRow.rowId,
+                  change: createRowChange(
+                    changedRow,
+                    restParams.tableColumn.column.name,
+                    newValue,
+                  ),
+                }),
               ...restParams,
             })}
         </Template>
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isEditNewTableCell(tableRow, tableColumn)}
+          connectGetters={getter => ({
+            getCellData: getter('getCellData'),
+            createRowChange: getter('createRowChange'),
+          })}
           connectActions={action => ({
             changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),
           })}
@@ -67,17 +82,21 @@ export class TableEditRow extends React.PureComponent {
           {({
             value,
             changeAddedRow,
+            getCellData,
+            createRowChange,
             ...restParams
           }) =>
             editCellTemplate({
               row: restParams.tableRow.row,
               column: restParams.tableColumn.column,
-              value: restParams.tableRow.row[restParams.tableColumn.column.name],
+              value: getCellData(restParams.tableRow.row, restParams.tableColumn.column.name),
               onValueChange: newValue => changeAddedRow({
                 rowId: restParams.tableRow.rowId,
-                change: {
-                  [restParams.tableColumn.column.name]: newValue,
-                },
+                change: createRowChange(
+                  restParams.tableRow.row,
+                  restParams.tableColumn.column.name,
+                  newValue,
+                ),
               }),
               ...restParams,
             })}

@@ -25,6 +25,7 @@ const defaultDeps = {
     columns: [{ name: 'field' }],
     rows: [{ field: 1 }],
     getRowId: () => {},
+    getCellData: () => {},
   },
   action: {
     setColumnOrder: jest.fn(),
@@ -106,7 +107,12 @@ describe('TableView', () => {
   it('should render data cell on user-defined column and row intersection', () => {
     isDataTableCell.mockImplementation(() => true);
     const tableCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
+    const tableCellArgs = {
+      tableRow: { row: 'row' },
+      tableColumn: { column: 'column' },
+      style: {},
+      value: undefined,
+    };
 
     mount(
       <PluginHost>

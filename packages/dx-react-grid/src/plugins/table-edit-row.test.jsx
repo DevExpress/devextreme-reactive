@@ -24,6 +24,8 @@ const defaultDeps = {
     editingRows: [1, 2],
     addedRows: [{ a: 'text' }, {}],
     changedRows: [{ 1: { a: 'text' } }],
+    getCellData: jest.fn(),
+    createRowChange: jest.fn(),
   },
   action: {
     changeAddRow: jest.fn(),
@@ -31,7 +33,7 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
@@ -101,6 +103,10 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
+    expect(defaultDeps.getter.getCellData).toBeCalledWith(
+      defaultDeps.template.tableViewCell.tableRow.row,
+      defaultDeps.template.tableViewCell.tableColumn.column.name,
+    );
     expect(isEditNewTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,
@@ -128,6 +134,10 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
+    expect(defaultDeps.getter.getCellData).toBeCalledWith(
+      { ...defaultDeps.template.tableViewCell.tableRow.row },
+      defaultDeps.template.tableViewCell.tableColumn.column.name,
+    );
     expect(isEditExistingTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,
@@ -139,5 +149,34 @@ describe('TableHeaderRow', () => {
         row: defaultDeps.template.tableViewCell.tableRow.row,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
+  });
+  it('should handle edit cell onValueChange event', () => {
+    isEditExistingTableCell.mockImplementation(() => true);
+    getRowChange.mockImplementation(() => ({ a: undefined }));
+    defaultDeps.template.tableViewCell.tableRow.row = { a: 'a1', b: 'b1' };
+    defaultDeps.template.tableViewCell.tableColumn.column = { name: 'column' };
+    const editCellTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditRow
+          {...defaultProps}
+          editCellTemplate={editCellTemplate}
+        />
+      </PluginHost>,
+    );
+
+    const onValueChange = editCellTemplate.mock.calls[0][0].onValueChange;
+    onValueChange('test');
+
+    const createRowChangeArgs = defaultDeps.getter.createRowChange.mock.calls[0];
+
+    expect(createRowChangeArgs[0]).toEqual({
+      a: undefined,
+      b: 'b1',
+    });
+    expect(createRowChangeArgs[1]).toBe('column');
+    expect(createRowChangeArgs[2]).toBe('test');
   });
 });

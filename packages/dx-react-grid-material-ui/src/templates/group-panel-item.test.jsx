@@ -1,9 +1,9 @@
 import React from 'react';
 import { Chip } from 'material-ui';
 import { createMount } from 'material-ui/test-utils';
-import { GroupPanelCell } from './group-panel-cell';
+import { GroupPanelItem } from './group-panel-item';
 
-describe('GroupPanelCell', () => {
+describe('GroupPanelItem', () => {
   let mount;
   beforeAll(() => {
     mount = createMount();
@@ -14,7 +14,7 @@ describe('GroupPanelCell', () => {
 
   it('should use column name if title is not specified', () => {
     const tree = mount(
-      <GroupPanelCell
+      <GroupPanelItem
         column={{
           name: 'Test',
         }}
@@ -26,7 +26,7 @@ describe('GroupPanelCell', () => {
 
   it('should not render the "TableSortLabel" component if sorting is disabled', () => {
     const tree = mount(
-      <GroupPanelCell
+      <GroupPanelItem
         column={{
           name: 'Test',
         }}
@@ -39,7 +39,7 @@ describe('GroupPanelCell', () => {
   it('should cancel sorting by using the Ctrl key', () => {
     const changeSortingDirection = jest.fn();
     const tree = mount(
-      <GroupPanelCell
+      <GroupPanelItem
         column={{
           name: 'Test',
         }}
@@ -57,7 +57,7 @@ describe('GroupPanelCell', () => {
   it('should use column name for sorting', () => {
     const changeSortingDirection = jest.fn();
     const tree = mount(
-      <GroupPanelCell
+      <GroupPanelItem
         column={{
           name: 'Test',
         }}
@@ -73,7 +73,7 @@ describe('GroupPanelCell', () => {
 
   it('can render the ungroup button', () => {
     const tree = mount(
-      <GroupPanelCell
+      <GroupPanelItem
         column={{
           name: 'test',
         }}

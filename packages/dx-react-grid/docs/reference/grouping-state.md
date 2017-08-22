@@ -40,7 +40,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 columnName | string | Specifies the name of the column by which the data is grouped
-isDraft? | boolean | Indicates that the column should be displayed as grouped
+draft? | boolean | Indicates that the column should be displayed as grouped
 
 ### <a name="group-key"></a>GroupKey
 

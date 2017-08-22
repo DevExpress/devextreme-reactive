@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import { DropDownMenu } from './drop-down-menu';
 
-const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
+const styles = theme => ({
   pageSizeSelector: {
     ...theme.typography.caption,
     float: 'right',
@@ -29,7 +29,7 @@ const styleSheet = createStyleSheet('PageSizeSelector', theme => ({
       marginTop: theme.spacing.unit,
     },
   },
-}));
+});
 
 const PageSizeSelectorBase = ({
   pageSize,
@@ -67,4 +67,4 @@ PageSizeSelectorBase.defaultProps = {
   showAllText: 'All',
 };
 
-export const PageSizeSelector = withStyles(styleSheet)(PageSizeSelectorBase);
+export const PageSizeSelector = withStyles(styles, { name: 'PageSizeSelector' })(PageSizeSelectorBase);

@@ -1,18 +1,16 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext } from '@devexpress/dx-react-core';
-
 import { GroupPanelLayout } from './group-panel-layout';
 
-const groupPanelCellTemplate = () => (
+const groupPanelItemTemplate = () => (
   <div
-    className="cell"
+    className="item"
   />
 );
 // eslint-disable-next-line react/prop-types
-const panelTemplate = ({ cells }) => <div>{cells}</div>;
+const panelTemplate = ({ items }) => <div>{items}</div>;
 
 describe('GroupPanelLayout', () => {
   let resetConsole;
@@ -24,32 +22,32 @@ describe('GroupPanelLayout', () => {
   });
 
 
-  it('should render group panel with cells', () => {
-    const groupedColumns = [
-      { name: 'a' },
-      { name: 'b' },
-      { name: 'c' },
-      { name: 'd' },
+  it('should render group panel with items', () => {
+    const groupingPanelItems = [
+      { column: { name: 'a' } },
+      { column: { name: 'b' } },
+      { column: { name: 'c' } },
+      { column: { name: 'd' } },
     ];
     const tree = mount(
       <GroupPanelLayout
-        groupedColumns={groupedColumns}
-        groupPanelCellTemplate={groupPanelCellTemplate}
+        groupingPanelItems={groupingPanelItems}
+        groupPanelItemTemplate={groupPanelItemTemplate}
         panelTemplate={panelTemplate}
       />,
     );
 
-    expect(tree.find('.cell').length)
-      .toBe(groupedColumns.length);
+    expect(tree.find('.item').length)
+      .toBe(groupingPanelItems.length);
   });
 
   it('should render group panel with text when no grouping is specified', () => {
     const groupByColumnText = 'no items';
     const tree = mount(
       <GroupPanelLayout
-        groupedColumns={[]}
+        groupingPanelItems={[]}
         groupByColumnText={groupByColumnText}
-        groupPanelCellTemplate={groupPanelCellTemplate}
+        groupPanelItemTemplate={groupPanelItemTemplate}
         panelTemplate={panelTemplate}
       />,
     );
@@ -58,63 +56,66 @@ describe('GroupPanelLayout', () => {
       .toBe(groupByColumnText);
   });
 
-  it('should pass correct sorting parameters to cell template', () => {
-    const groupedColumns = [{ name: 'a' }, { name: 'b' }];
+  it('should pass correct sorting parameters to item template', () => {
+    const groupingPanelItems = [
+      { column: { name: 'a' } },
+      { column: { name: 'b' } },
+    ];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
-    const cellTemplate = jest.fn(groupPanelCellTemplate);
+    const itemTemplate = jest.fn(groupPanelItemTemplate);
     mount(
       <GroupPanelLayout
-        groupedColumns={groupedColumns}
+        groupingPanelItems={groupingPanelItems}
         allowSorting
         sorting={sorting}
-        groupPanelCellTemplate={cellTemplate}
+        groupPanelItemTemplate={itemTemplate}
         panelTemplate={panelTemplate}
       />,
     );
 
-    expect(cellTemplate.mock.calls[0][0].sortingDirection)
+    expect(itemTemplate.mock.calls[0][0].sortingDirection)
       .toBe('desc');
-    expect(cellTemplate.mock.calls[0][0].allowSorting)
+    expect(itemTemplate.mock.calls[0][0].allowSorting)
       .toBeTruthy();
-    expect(cellTemplate.mock.calls[1][0].sortingDirection)
+    expect(itemTemplate.mock.calls[1][0].sortingDirection)
       .toBeNull();
-    expect(cellTemplate.mock.calls[1][0].allowSorting)
+    expect(itemTemplate.mock.calls[1][0].allowSorting)
       .toBeTruthy();
   });
 
-  it('should pass correct sorting parameters to cell template if sorting is disabled', () => {
-    const groupedColumns = [{ name: 'a' }];
+  it('should pass correct sorting parameters to item template if sorting is disabled', () => {
+    const groupingPanelItems = [{ column: { name: 'a' } }];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
-    const cellTemplate = jest.fn(groupPanelCellTemplate);
+    const itemTemplate = jest.fn(groupPanelItemTemplate);
     mount(
       <GroupPanelLayout
-        groupedColumns={groupedColumns}
+        groupingPanelItems={groupingPanelItems}
         allowSorting={false}
         sorting={sorting}
-        groupPanelCellTemplate={cellTemplate}
+        groupPanelItemTemplate={itemTemplate}
         panelTemplate={panelTemplate}
       />,
     );
 
-    expect(cellTemplate.mock.calls[0][0].sortingDirection)
+    expect(itemTemplate.mock.calls[0][0].sortingDirection)
       .toBe('desc');
-    expect(cellTemplate.mock.calls[0][0].allowSorting)
+    expect(itemTemplate.mock.calls[0][0].allowSorting)
       .toBeFalsy();
   });
 
   describe('drag\'n\'drop grouping', () => {
     it('should render DropTarget if allowDragging property is true', () => {
-      const groupedColumns = [
-        { name: 'a' },
-        { name: 'b' },
-        { name: 'c' },
-        { name: 'd' },
+      const groupingPanelItems = [
+        { column: { name: 'a' } },
+        { column: { name: 'b' } },
+        { column: { name: 'c' } },
+        { column: { name: 'd' } },
       ];
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={groupedColumns}
-            groupPanelCellTemplate={groupPanelCellTemplate}
+            groupingPanelItems={groupingPanelItems}
+            groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             allowDragging
           />
@@ -125,26 +126,26 @@ describe('GroupPanelLayout', () => {
         .toBeTruthy();
     });
 
-    it('should render DragSource for each cell of allowDragging is true', () => {
-      const groupedColumns = [
-        { name: 'a' },
-        { name: 'b' },
-        { name: 'c' },
-        { name: 'd' },
+    it('should render DragSource for each item of allowDragging is true', () => {
+      const groupingPanelItems = [
+        { column: { name: 'a' } },
+        { column: { name: 'b' } },
+        { column: { name: 'c' } },
+        { column: { name: 'd' } },
       ];
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={groupedColumns}
-            groupPanelCellTemplate={groupPanelCellTemplate}
+            groupingPanelItems={groupingPanelItems}
+            groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             allowDragging
           />
         </DragDropContext>,
       );
 
-      expect(tree.find('DragSource > .cell').length)
-        .toBe(groupedColumns.length);
+      expect(tree.find('DragSource > .item').length)
+        .toBe(groupingPanelItems.length);
     });
 
     it('should call draftGroupingChange when dragging a column over the group panel', () => {
@@ -153,8 +154,8 @@ describe('GroupPanelLayout', () => {
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={[]}
-            groupPanelCellTemplate={groupPanelCellTemplate}
+            groupingPanelItems={[]}
+            groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
             draftGroupingChange={draftGroupingChange}
@@ -186,8 +187,8 @@ describe('GroupPanelLayout', () => {
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={[]}
-            groupPanelCellTemplate={groupPanelCellTemplate}
+            groupingPanelItems={[]}
+            groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
             draftGroupingChange={draftGroupingChange}
@@ -221,8 +222,8 @@ describe('GroupPanelLayout', () => {
       const tree = mount(
         <DragDropContext>
           <GroupPanelLayout
-            groupedColumns={[]}
-            groupPanelCellTemplate={groupPanelCellTemplate}
+            groupingPanelItems={[]}
+            groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
             groupByColumn={groupByColumn}
@@ -263,8 +264,8 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             columns={[column]}
-            groupedColumns={[column]}
-            groupPanelCellTemplate={groupPanelCellTemplate}
+            groupingPanelItems={[{ column }]}
+            groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             groupByColumn={groupByColumn}
             cancelGroupingChange={cancelGroupingChange}

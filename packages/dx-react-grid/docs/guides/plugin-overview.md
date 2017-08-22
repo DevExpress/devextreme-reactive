@@ -9,7 +9,7 @@ Plugins provide all the Grid functionality and can be divided into four logical 
 
 Note that the plugins are composable and can be nested into each other.
 
-Refer to the [Reference](../reference) to see the complete plugin list.
+Refer to the [Reference](../../reference) to see the complete plugin list.
 
 ## Plugin Order
 

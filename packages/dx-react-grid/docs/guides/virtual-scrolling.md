@@ -4,13 +4,13 @@ The Grid component can process a large amount of data (thousands of records). Yo
 
 ## Plugin List
 
-Virtual mode is implemented in the `VirtualTableView` plugin that should be used instead of the [TableView](../../table-view.md) one.
+Virtual mode is implemented in the `VirtualTableView` plugin that should be used instead of the [TableView](../../table-view.md) one as it implements the same interfaces.
 
 Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Setup
 
-Note that the virtual mode requires cell size definition. By default, row height is adapted for a typical Bootstrap table. If you use custom templates for rows or cells specify row/cell size in the corresponding plugins.
+The virtual mode requires cell size definition. By default, row height is adapted for a typical Bootstrap table. If you use custom templates for rows or cells specify row/cell size in the corresponding plugins.
 
 The following example demonstrates the basic Grid with virtual scrolling:
 

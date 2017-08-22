@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('ProgressBarCell', theme => ({
+const styles = theme => ({
   progressBarCell: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
@@ -14,7 +14,7 @@ const styleSheet = createStyleSheet('ProgressBarCell', theme => ({
     float: 'left',
     height: theme.spacing.unit,
   },
-}));
+});
 
 export const ProgressBarCellBase = ({ value, classes, style }) => (
   <TableCell
@@ -37,4 +37,4 @@ ProgressBarCellBase.defaultProps = {
   style: {},
 };
 
-export const ProgressBarCell = withStyles(styleSheet)(ProgressBarCellBase);
+export const ProgressBarCell = withStyles(styles, { name: 'ProgressBarCell' })(ProgressBarCellBase);

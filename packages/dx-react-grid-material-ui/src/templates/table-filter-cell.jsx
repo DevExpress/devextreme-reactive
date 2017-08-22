@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell, Input } from 'material-ui';
+import { withStyles } from 'material-ui/styles';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-
-const styleSheet = createStyleSheet('TableFilterCell', theme => ({
+const styles = theme => ({
   cell: {
     verticalAlign: 'top',
     paddingTop: theme.spacing.unit + 4,
@@ -16,7 +15,7 @@ const styleSheet = createStyleSheet('TableFilterCell', theme => ({
   input: {
     width: '100%',
   },
-}));
+});
 
 const TableFilterCellBase = ({ style, filter, setFilter, classes }) => (
   <TableCell
@@ -45,4 +44,4 @@ TableFilterCellBase.defaultProps = {
   setFilter: () => {},
 };
 
-export const TableFilterCell = withStyles(styleSheet)(TableFilterCellBase);
+export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

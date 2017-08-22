@@ -8,9 +8,9 @@ import {
   TableCell,
 } from 'material-ui';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableGroupCell', theme => ({
+const styles = theme => ({
   cell: {
     cursor: 'pointer',
     paddingLeft: theme.spacing.unit * 2,
@@ -28,7 +28,7 @@ const styleSheet = createStyleSheet('TableGroupCell', theme => ({
   columnTitle: {
     verticalAlign: 'middle',
   },
-}));
+});
 
 const TableGroupCellBase = ({
   style,
@@ -77,4 +77,4 @@ TableGroupCellBase.defaultProps = {
   toggleGroupExpanded: () => {},
 };
 
-export const TableGroupCell = withStyles(styleSheet)(TableGroupCellBase);
+export const TableGroupCell = withStyles(styles, { name: 'TableGroupCell' })(TableGroupCellBase);

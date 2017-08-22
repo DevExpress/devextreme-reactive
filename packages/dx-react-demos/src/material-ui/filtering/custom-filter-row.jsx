@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import {
   FilteringState,
@@ -27,13 +27,13 @@ const filterFn = (row, filter) => {
   return toLowerCase(row[filter.columnName]).indexOf(toLowerCase(filter.value)) > -1;
 };
 
-const styleSheet = createStyleSheet('SexFilterCell', theme => ({
+const styles = theme => ({
   cell: {
     width: '100%',
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
-}));
+});
 
 const SexFilterCellBase = ({ setFilter, classes }) => (
   <TableCell className={classes.cell}>
@@ -54,7 +54,7 @@ SexFilterCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const SexFilterCell = withStyles(styleSheet)(SexFilterCellBase);
+const SexFilterCell = withStyles(styles, { name: 'SexFilterCell' })(SexFilterCellBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

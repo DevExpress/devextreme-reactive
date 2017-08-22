@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 const getColor = (amount) => {
   if (amount < 3000) {
@@ -16,13 +16,13 @@ const getColor = (amount) => {
   return '#009688';
 };
 
-const styleSheet = createStyleSheet('HighlightedCell', theme => ({
+const styles = theme => ({
   highlightedCell: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
   },
-}));
+});
 
 const HighlightedCellBase = ({ align, value, classes, style }) => (
   <TableCell
@@ -47,4 +47,4 @@ HighlightedCellBase.defaultProps = {
   style: {},
 };
 
-export const HighlightedCell = withStyles(styleSheet)(HighlightedCellBase);
+export const HighlightedCell = withStyles(styles, { name: 'HighlightedCell' })(HighlightedCellBase);

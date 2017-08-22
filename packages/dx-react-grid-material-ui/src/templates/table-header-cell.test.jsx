@@ -3,7 +3,7 @@ import { TableCell } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
-import { TableHeaderCell, styleSheet } from './table-header-cell';
+import { TableHeaderCell } from './table-header-cell';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -12,7 +12,7 @@ describe('TableHeaderCell', () => {
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     mount = createMount();
-    classes = getClasses(styleSheet);
+    classes = getClasses(<TableHeaderCell column={{}} />);
   });
   afterAll(() => {
     resetConsole();

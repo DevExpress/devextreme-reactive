@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableStubCell', () => ({
+const styles = {
   cell: {
     padding: 0,
   },
-}));
+};
 
 const TableStubCellBase = ({ style, classes }) => (
   <TableCell
@@ -25,4 +25,4 @@ TableStubCellBase.defaultProps = {
   style: {},
 };
 
-export const TableStubCell = withStyles(styleSheet)(TableStubCellBase);
+export const TableStubCell = withStyles(styles, { name: 'TableStubCell' })(TableStubCellBase);

@@ -6,15 +6,15 @@ import {
     TableCell,
 } from 'material-ui';
 
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableSelectCell', theme => ({
+const styles = theme => ({
   cell: {
     overflow: 'visible',
     paddingRight: 0,
     paddingLeft: theme.spacing.unit,
   },
-}));
+});
 
 export const TableSelectCellBase = ({ style, selected, changeSelected, classes }) => (
   <TableCell
@@ -43,4 +43,4 @@ TableSelectCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export const TableSelectCell = withStyles(styleSheet)(TableSelectCellBase);
+export const TableSelectCell = withStyles(styles, { name: 'TableSelectCell' })(TableSelectCellBase);

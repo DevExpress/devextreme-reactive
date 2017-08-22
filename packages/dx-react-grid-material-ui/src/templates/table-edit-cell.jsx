@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import {
     TableCell,
     Input,
 } from 'material-ui';
 
-export const styleSheet = createStyleSheet('EditCell', theme => ({
+const styles = theme => ({
   cell: {
     verticalAlign: 'top',
     paddingTop: theme.spacing.unit + 2,
@@ -24,7 +23,7 @@ export const styleSheet = createStyleSheet('EditCell', theme => ({
   inputRight: {
     textAlign: 'right',
   },
-}));
+});
 
 const EditCellBase = ({ column, value, onValueChange, style, classes }) => {
   const inputClasses = classNames(
@@ -60,4 +59,4 @@ EditCellBase.defaultProps = {
   style: {},
 };
 
-export const EditCell = withStyles(styleSheet)(EditCellBase);
+export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

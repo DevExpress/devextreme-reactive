@@ -1,8 +1,7 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createMount, getClasses } from 'material-ui/test-utils';
-import { triggerTouchTap } from '../utils/testing';
-import { Pagination, styleSheet } from './pagination';
+import { Pagination } from './pagination';
 
 injectTapEventPlugin();
 
@@ -11,7 +10,13 @@ describe('Pagination', () => {
   let classes;
   beforeAll(() => {
     mount = createMount();
-    classes = getClasses(styleSheet);
+    classes = getClasses(<Pagination
+      totalPages={1}
+      currentPage={0}
+      totalCount={10}
+      pageSize={10}
+      onCurrentPageChange={() => {}}
+    />);
   });
   afterAll(() => {
     mount.cleanUp();
@@ -119,8 +124,8 @@ describe('Pagination', () => {
       const prew = arrows.at(0);
       const next = arrows.at(1);
 
-      triggerTouchTap(prew.node);
-      triggerTouchTap(next.node);
+      prew.simulate('click');
+      next.simulate('click');
 
       expect(arrows).toHaveLength(2);
       expect(prew.props().disabled).toBeFalsy();
@@ -141,8 +146,8 @@ describe('Pagination', () => {
       const prew = arrows.at(0);
       const next = arrows.at(1);
 
-      triggerTouchTap(prew.node);
-      triggerTouchTap(next.node);
+      prew.simulate('click');
+      next.simulate('click');
 
       expect(prew.props().disabled).toBeTruthy();
       expect(next.props().disabled).toBeFalsy();
@@ -162,8 +167,8 @@ describe('Pagination', () => {
       const prew = arrows.at(0);
       const next = arrows.at(1);
 
-      triggerTouchTap(prew.node);
-      triggerTouchTap(next.node);
+      prew.simulate('click');
+      next.simulate('click');
 
       expect(prew.props().disabled).toBeFalsy();
       expect(next.props().disabled).toBeTruthy();

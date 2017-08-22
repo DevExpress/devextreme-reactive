@@ -1,45 +1,52 @@
 # React Grid Data Sorting
 
-## Overview
+The Grid component supports sorting data by one or several column values. Use the corresponding plugins to manage the sorting state and sort data programmatically or via the UI (column headers and Group Panel).
 
-The Grid component supports sorting data by any number of columns. It also includes plugins that enable an end-user to specify sorting criteria via the UI (by clicking column headers). An arrow glyph in the header of a column indicates the selected sort order. The grid also supports multiple column sorting. Click column headers with the `Shift` key held down to select several columns for sorting. To clear sorting by a column, click the column header with the `Ctrl` key held down or with the `Cmd` key if you are using MacOS.
+Click several columns while holding `Shift` to sort data by these columns. Clicking a column while holding `Ctrl` (`Cmd` for MacOS) stops sorting by this column.
 
-## Plugin List
+## Related Plugins
 
-There are several plugins that implement sorting features:
-- [SortingState](../reference/sorting-state.md)
-- [LocalSorting](../reference/local-sorting.md)
-- [TableHeaderRow](../reference/table-header-row.md)
-- [GroupingPanel](../reference/grouping-panel.md)
+The following plugins implement sorting features:
 
-Note that the [plugin order](../README.md#plugin-order) is very important.
+- [SortingState](../reference/sorting-state.md) - controls the sorting state  
+- [LocalSorting](../reference/local-sorting.md) - performs local data sorting  
+- [TableHeaderRow](../reference/table-header-row.md) - renders the header row with sorting indicators  
+- [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel with sorting indicators
+
+Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Local Sorting Setup
 
-Use the `SortingState`, `LocalSorting` and `TableHeaderRow` plugins to show a grid with interactive sorting features.
+Use the `SortingState`, `LocalSorting` and `TableHeaderRow` plugins to set up a Grid with simple static sorting.
 
-In this example, we use the uncontrolled mode and specify only the initial sorting configuration via the `defaultSorting` property of the `SortingState` plugin.
+Set the `TableHeaderRow` plugin's `allowSorting` property to true to enable changing the sorting criteria in the header row.
 
-The `TableHeaderRow` plugin is not configured to allow an end-user to change sorting criteria by default. Set the `allowSorting` property to true to enable this feature.
+## Uncontrolled Mode
+
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `SortingState` plugin's `defaultSorting` property. 
 
 .embedded-demo(sorting/local-header-sorting)
 
-## Using Sorting with Grouping
+## Controlled Mode
 
-You can use the Grid's sorting and grouping features simultaneously. When using sorting and grouping plugins together, pay attention to the order of plugins in the Grid container component. Set the `allowSorting` property of the `GroupingPanel` plugin to true to allow an end-user to change sorting options of grouped columns by clicking the group panel's items.
-
-.embedded-demo(sorting/local-group-sorting)
-
-## Controlled Sorting State
-
-Pass the appropriate array to the `sorting` property of the `SortingState` plugin and handle the `onSortingChange` event of the same plugin to control the sorting state.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `SortingState` plugin's `sorting` property and handle the `onSortingChange` event to control the sorting state externally.
 
 .embedded-demo(sorting/local-sorting-controlled)
 
+## Using Sorting with Grouping
+
+If you use grouping features, the Grid allows you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `allowSorting` property to true, which enables sorting UI for Group Panel's column headers.
+
+Note that the `LocalGrouping` plugin should follow the `LocalSorting` to provide the correct group row sorting.
+
+.embedded-demo(sorting/local-group-sorting)
+
 ## Remote Sorting
 
-You can handle the Grid's sorting state changes to request data from the server with the corresponding sorting applied if your data service supports sorting operations.
+You can handle the Grid sorting state changes to request data from the server with the corresponding sorting applied if your data service supports sorting operations.
 
-Do not use the `LocalSorting` plugin to configure remote sorting. Handle the `sortingChange` event of the `SortingState` plugin to process sorting criteria updates. These updates are applied when end-users change sorting options via the UI. When sorted data was received from the server, pass it to the `Grid` component's `rows` property.
+Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `SortingState` plugin's `onSortingChange` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `Grid` component's `rows` property.
+
+Note that in the case of remote sorting, you do not need to use the `LocalSorting` plugin.
 
 .embedded-demo(sorting/remote-sorting)

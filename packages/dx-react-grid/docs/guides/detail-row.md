@@ -2,7 +2,7 @@
 
 The "Detail Row" feature displays data row details on an expandable pane. The pane can be expanded and collapsed either programmatically or via the Grid's UI.
 
-## Required Plugins
+## Related Plugins
 
 The "Detail Row" feature requires the following plugins:
 - [RowDetailState](../reference/row-detail-state.md) - controls the detail rows' expanded status
@@ -16,7 +16,7 @@ Add the required plugins listed above to the Grid and specify the detail row tem
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initially expanded detail rows using the `RowDetailState` plugins's `defaultExpandedRows` property.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initially expanded detail rows using the `RowDetailState` plugin's `defaultExpandedRows` property.
 
 .embedded-demo(detail-row/simple-detail-row)
 

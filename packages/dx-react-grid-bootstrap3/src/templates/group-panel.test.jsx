@@ -26,6 +26,17 @@ describe('GroupPanel', () => {
     );
 
     expect(tree.find(GroupPanelLayout).text())
+      .toBe('Grouping is not available');
+  });
+
+  it('should pass correct default groupByColumnText if the "allowUngroupingByClick" property is true', () => {
+    const tree = mount(
+      <GroupPanel
+        allowUngroupingByClick
+      />,
+    );
+
+    expect(tree.find(GroupPanelLayout).text())
       .toContain('icon in the column header');
   });
 
@@ -37,6 +48,18 @@ describe('GroupPanel', () => {
     );
 
     expect(tree.find(GroupPanelLayout).text())
-      .toContain('Drag a column header here to group by that column');
+      .toBe('Drag a column header here to group by that column');
+  });
+
+  it('should pass correct default groupByColumnText if both "allowDragging" and "allowUngroupingByClick" properties are true', () => {
+    const tree = mount(
+      <GroupPanel
+        allowDragging
+        allowUngroupingByClick
+      />,
+    );
+
+    expect(tree.find(GroupPanelLayout).text())
+      .toBe('Drag a column header here to group by that column');
   });
 });

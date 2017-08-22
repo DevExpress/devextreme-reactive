@@ -22,14 +22,16 @@ const styles = theme => ({
   },
 });
 
-const DefaultTextBase = ({ classes, allowDragging }) => (
-  allowDragging
-    ? (
+const DefaultTextBase = ({ classes, allowDragging, allowUngroupingByClick }) => {
+  if (allowDragging) {
+    return (
       <span className={classes.groupInfo}>
         Drag a column header here to group by that column
       </span>
-    )
-    : (
+    );
+  }
+  if (allowUngroupingByClick) {
+    return (
       <span className={classes.groupInfo}>
         Click
         &nbsp;
@@ -39,16 +41,24 @@ const DefaultTextBase = ({ classes, allowDragging }) => (
         &nbsp;
         icon in the column header to group by that column
       </span>
-    )
-);
+    );
+  }
+  return (
+    <span className={classes.groupInfo}>
+      Grouping is not available
+    </span>
+  );
+};
 
 DefaultTextBase.propTypes = {
   classes: PropTypes.shape().isRequired,
   allowDragging: PropTypes.bool,
+  allowUngroupingByClick: PropTypes.bool,
 };
 
 DefaultTextBase.defaultProps = {
   allowDragging: false,
+  allowUngroupingByClick: false,
 };
 
 const DefaultText = withStyles(styles, { name: 'GroupPanel' })(DefaultTextBase);
@@ -68,16 +78,22 @@ const PanelTemplate = withStyles(styles, { name: 'GroupPanel' })(PanelTemplateBa
 
 const panelTemplate = props => <PanelTemplate {...props} />;
 
-const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => (
-  <div className={classes.panel}>
-    <GroupPanelLayout
-      groupByColumnText={groupByColumnText
-        || <DefaultText allowDragging={restProps.allowDragging} />}
-      panelTemplate={panelTemplate}
-      {...restProps}
-    />
-  </div>
-);
+const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => {
+  const text = groupByColumnText || (
+    <DefaultText
+      allowDragging={restProps.allowDragging}
+      allowUngroupingByClick={restProps.allowUngroupingByClick}
+    />);
+  return (
+    <div className={classes.panel}>
+      <GroupPanelLayout
+        groupByColumnText={text}
+        panelTemplate={panelTemplate}
+        {...restProps}
+      />
+    </div>
+  );
+};
 
 GroupPanelBase.propTypes = {
   groupByColumnText: PropTypes.string,

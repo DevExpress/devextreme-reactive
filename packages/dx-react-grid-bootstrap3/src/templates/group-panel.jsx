@@ -8,29 +8,37 @@ const defaultTextStyle = {
   display: 'inline-block',
 };
 
-const getDefaultText = allowDragging => (
-  allowDragging
-  ? (
+const getDefaultText = (allowDragging, allowUngroupingByClick) => {
+  if (allowDragging) {
+    return (
+      <span style={defaultTextStyle}>
+        Drag a column header here to group by that column
+      </span>
+    );
+  }
+  if (allowUngroupingByClick) {
+    return (
+      <span style={defaultTextStyle}>
+        Click
+        &nbsp;
+        <i
+          className="glyphicon glyphicon-th-list"
+          style={{
+            top: '0',
+            fontSize: '9px',
+          }}
+        />
+        &nbsp;
+        icon in the column header to group by that column
+      </span>
+    );
+  }
+  return (
     <span style={defaultTextStyle}>
-      Drag a column header here to group by that column
+      Grouping is not available
     </span>
-  )
-  : (
-    <span style={defaultTextStyle}>
-      Click
-      &nbsp;
-      <i
-        className="glyphicon glyphicon-th-list"
-        style={{
-          top: '0',
-          fontSize: '9px',
-        }}
-      />
-      &nbsp;
-      icon in the column header to group by that column
-    </span>
-  )
-);
+  );
+};
 
 const PanelTemplate = ({ items }) => <div>{items}</div>;
 
@@ -42,7 +50,8 @@ const panelTemplate = props => <PanelTemplate {...props} />;
 
 export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
   <GroupPanelLayout
-    groupByColumnText={groupByColumnText || getDefaultText(restProps.allowDragging)}
+    groupByColumnText={groupByColumnText
+      || getDefaultText(restProps.allowDragging, restProps.allowUngroupingByClick)}
     panelTemplate={panelTemplate}
     {...restProps}
   />

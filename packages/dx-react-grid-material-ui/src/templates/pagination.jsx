@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Button, IconButton } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import ChevronRight from 'material-ui-icons/ChevronRight';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 
-export const styleSheet = createStyleSheet('Pagination', theme => ({
+const styles = theme => ({
   pagination: {
     float: 'right',
     margin: 0,
@@ -50,7 +50,7 @@ export const styleSheet = createStyleSheet('Pagination', theme => ({
       paddingRight: theme.spacing.unit * 2,
     },
   },
-}));
+});
 
 const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => {
   const buttonClasses = classNames({
@@ -61,7 +61,7 @@ const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => {
   return (<Button
     className={buttonClasses}
     disabled={isDisabled}
-    onTouchTap={onClick}
+    onClick={onClick}
   >
     {text}
   </Button>);
@@ -184,7 +184,7 @@ const PaginationBase = ({
       <IconButton
         className={classNames(classes.arrowButton, classes.prev)}
         disabled={currentPage === 0}
-        onTouchTap={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
+        onClick={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
       >
         <ChevronLeft />
       </IconButton>
@@ -192,7 +192,7 @@ const PaginationBase = ({
       <IconButton
         className={classNames(classes.arrowButton, classes.next)}
         disabled={currentPage === totalPages - 1 || totalCount === 0}
-        onTouchTap={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
+        onClick={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
       >
         <ChevronRight />
       </IconButton>
@@ -209,4 +209,4 @@ PaginationBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
 };
 
-export const Pagination = withStyles(styleSheet)(PaginationBase);
+export const Pagination = withStyles(styles, { name: 'Pagination' })(PaginationBase);

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import List from 'material-ui-icons/List';
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
-const styleSheet = createStyleSheet('GroupPanel', theme => ({
+const styles = theme => ({
   panel: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -20,7 +20,7 @@ const styleSheet = createStyleSheet('GroupPanel', theme => ({
     display: 'inline-block',
     verticalAlign: 'middle',
   },
-}));
+});
 
 const DefaultTextBase = ({ classes, allowDragging }) => (
   allowDragging
@@ -51,7 +51,7 @@ DefaultTextBase.defaultProps = {
   allowDragging: false,
 };
 
-const DefaultText = withStyles(styleSheet)(DefaultTextBase);
+const DefaultText = withStyles(styles, { name: 'GroupPanel' })(DefaultTextBase);
 
 const PanelTemplateBase = ({ classes, items }) => (
   <div className={classes.panel}>
@@ -64,7 +64,7 @@ PanelTemplateBase.propTypes = {
   items: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 
-const PanelTemplate = withStyles(styleSheet)(PanelTemplateBase);
+const PanelTemplate = withStyles(styles, { name: 'GroupPanel' })(PanelTemplateBase);
 
 const panelTemplate = props => <PanelTemplate {...props} />;
 
@@ -88,4 +88,4 @@ GroupPanelBase.defaultProps = {
   groupByColumnText: undefined,
 };
 
-export const GroupPanel = withStyles(styleSheet)(GroupPanelBase);
+export const GroupPanel = withStyles(styles, { name: 'GroupPanel' })(GroupPanelBase);

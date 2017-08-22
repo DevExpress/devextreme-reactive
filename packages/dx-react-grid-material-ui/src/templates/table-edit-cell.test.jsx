@@ -2,15 +2,17 @@ import React from 'react';
 import { Input } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { EditCell, styleSheet } from './table-edit-cell';
+import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {
   let resetConsole;
   let mount;
+  let classes;
 
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     mount = createMount();
+    classes = getClasses(<EditCell onValueChange={() => {}} />);
   });
   afterAll(() => {
     resetConsole();
@@ -54,7 +56,6 @@ describe('EditCell', () => {
         onValueChange={() => {}}
       />,
     );
-    const classes = getClasses(styleSheet);
 
     const inputRoot = tree.find(Input);
     const input = inputRoot.find('input');

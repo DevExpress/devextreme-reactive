@@ -11,12 +11,12 @@ import {
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
 import { TableCell } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
 
-const styleSheet = createStyleSheet('RemoteDataDemo', () => ({
+const styles = {
   saleAmountCell: {
     textAlign: 'right',
   },
@@ -24,7 +24,7 @@ const styleSheet = createStyleSheet('RemoteDataDemo', () => ({
     textAlign: 'center',
     padding: '40px 0',
   },
-}));
+};
 
 const SaleAmountCellBase = ({ row, classes }) => (
   <TableCell
@@ -39,7 +39,7 @@ SaleAmountCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const SaleAmountCell = withStyles(styleSheet)(SaleAmountCellBase);
+const SaleAmountCell = withStyles(styles)(SaleAmountCellBase);
 
 const NoDataCellBase = ({ loading, colSpan, classes }) => (
   <TableCell
@@ -56,7 +56,7 @@ NoDataCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const NoDataCell = withStyles(styleSheet)(NoDataCellBase);
+const NoDataCell = withStyles(styles, { name: 'RemoteDataDemo' })(NoDataCellBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

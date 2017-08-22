@@ -5,9 +5,9 @@ import {
     Checkbox,
     TableCell,
 } from 'material-ui';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('TableSelectAllCell', theme => ({
+const styles = theme => ({
   cell: {
     overflow: 'visible',
     paddingRight: 0,
@@ -16,7 +16,7 @@ const styleSheet = createStyleSheet('TableSelectAllCell', theme => ({
   pointer: {
     cursor: 'pointer',
   },
-}));
+});
 
 const TableSelectAllCellBase = (
   { style, allSelected, someSelected, selectionAvailable, toggleAll, classes },
@@ -66,4 +66,4 @@ TableSelectAllCellBase.defaultProps = {
   toggleAll: () => {},
 };
 
-export const TableSelectAllCell = withStyles(styleSheet)(TableSelectAllCellBase);
+export const TableSelectAllCell = withStyles(styles, { name: 'TableSelectAllCell' })(TableSelectAllCellBase);

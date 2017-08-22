@@ -92,13 +92,13 @@ class GridDetailContainerBase extends React.PureComponent {
       normalPriorityTasks: this.findTasks('Normal'),
       highPriorityTasks: this.findTasks('High'),
     };
-    this.state.index = this.firstSelectedIndex();
+    this.state.value = this.firstSelectedItem();
     this.handleChange = this.handleChange.bind(this);
   }
   findTasks(priority) {
     return this.props.data.tasks.filter(task => task.priority === priority);
   }
-  firstSelectedIndex() {
+  firstSelectedItem() {
     let result = 0;
     const { lowPriorityTasks, normalPriorityTasks } = this.state;
 
@@ -108,11 +108,11 @@ class GridDetailContainerBase extends React.PureComponent {
 
     return result;
   }
-  handleChange(event, index) {
-    this.setState({ index });
+  handleChange(event, value) {
+    this.setState({ value });
   }
   render() {
-    const { lowPriorityTasks, normalPriorityTasks, highPriorityTasks, index } = this.state;
+    const { lowPriorityTasks, normalPriorityTasks, highPriorityTasks, value } = this.state;
     const { data, classes } = this.props;
 
     return (
@@ -123,7 +123,7 @@ class GridDetailContainerBase extends React.PureComponent {
         <Paper>
           <AppBar position="static" color="inherit">
             <Tabs
-              index={index}
+              value={value}
               onChange={this.handleChange}
               fullWidth
             >
@@ -132,9 +132,9 @@ class GridDetailContainerBase extends React.PureComponent {
               <Tab label={`High (${highPriorityTasks.length})`} disabled={!highPriorityTasks.length} />
             </Tabs>
           </AppBar>
-          {index === 0 && <TabContainer rows={lowPriorityTasks} />}
-          {index === 1 && <TabContainer rows={normalPriorityTasks} />}
-          {index === 2 && <TabContainer rows={highPriorityTasks} />}
+          {value === 0 && <TabContainer rows={lowPriorityTasks} />}
+          {value === 1 && <TabContainer rows={normalPriorityTasks} />}
+          {value === 2 && <TabContainer rows={highPriorityTasks} />}
         </Paper>
       </div>
     );

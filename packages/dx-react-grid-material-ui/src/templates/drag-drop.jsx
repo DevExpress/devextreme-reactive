@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Paper, Typography } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
-export const styles = theme => ({
+const styles = theme => ({
   container: {
     cursor: 'move',
     position: 'fixed',

@@ -7,7 +7,7 @@ import {
     TableCell,
 } from 'material-ui';
 
-export const styles = theme => ({
+const styles = theme => ({
   button: {
     padding: theme.spacing.unit,
     minWidth: 40,

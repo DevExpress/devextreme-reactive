@@ -7,7 +7,7 @@ import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import ChevronRight from 'material-ui-icons/ChevronRight';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 
-export const styles = theme => ({
+const styles = theme => ({
   pagination: {
     float: 'right',
     margin: 0,

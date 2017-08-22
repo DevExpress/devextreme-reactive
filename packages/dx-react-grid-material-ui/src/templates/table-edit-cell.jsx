@@ -8,7 +8,7 @@ import {
     Input,
 } from 'material-ui';
 
-export const styles = theme => ({
+const styles = theme => ({
   cell: {
     verticalAlign: 'top',
     paddingTop: theme.spacing.unit + 2,

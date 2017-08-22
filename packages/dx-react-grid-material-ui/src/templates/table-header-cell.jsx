@@ -13,7 +13,7 @@ import List from 'material-ui-icons/List';
 
 import { withStyles } from 'material-ui/styles';
 
-export const styles = theme => ({
+const styles = theme => ({
   groupingControl: {
     cursor: 'pointer',
     paddingLeft: 0,

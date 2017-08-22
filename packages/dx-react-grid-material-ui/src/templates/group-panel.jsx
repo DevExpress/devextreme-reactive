@@ -44,7 +44,11 @@ const DefaultTextBase = ({ classes, allowDragging }) => (
 
 DefaultTextBase.propTypes = {
   classes: PropTypes.shape().isRequired,
-  allowDragging: PropTypes.bool.isRequired,
+  allowDragging: PropTypes.bool,
+};
+
+DefaultTextBase.defaultProps = {
+  allowDragging: false,
 };
 
 const DefaultText = withStyles(styleSheet)(DefaultTextBase);

@@ -2,7 +2,7 @@
 
 The Grid component allows reordering grid columns programmatically or using the drag-and-drop feature.
 
-## Required Plugins
+## Related Plugins
 
 The following plugins implement column reordering features:
 - [ColumnOrderState](../reference/column-order-state.md) - controls the column order

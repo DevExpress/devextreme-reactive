@@ -4,13 +4,13 @@ The Grid component can process a large amount of data (thousands of records). Yo
 
 ## Plugin List
 
-Virtual mode is implemented in the `VirtualTableView` plugin that should be used instead of the [TableView](../../table-view.md) one as it implements the same interfaces.
+The `VirtualTableView` plugin implements the virtual mode, and it should be used instead of the [TableView](../../table-view.md) (they implement the same interfaces).
 
 Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Setup
 
-The virtual mode requires cell size definition. By default, row height is adapted for a typical Bootstrap table. If you use custom templates, specify custom height for the required row or custom width for the required column in the corresponding plugins.
+The virtual mode requires cell size definition. By default, row height is adapted for a typical Bootstrap table. If you use custom templates, specify the required row's height or column's width in the corresponding plugins.
 
 The following example demonstrates the basic Grid with virtual scrolling:
 
@@ -20,6 +20,6 @@ The following example demonstrates the basic Grid with virtual scrolling:
 
 A virtual table supports other Grid features (filtering, sorting, etc.).
 
-If you show a Detail Row, you have to specify it's height depending on its contents using the `TableRowDetail` plugin's `rowHeight` property to provide correct Grid rendering.
+If you show a Detail Row, you have to specify its height depending on its contents using the `TableRowDetail` plugin's `rowHeight` property to provide the correct Grid rendering.
 
 .embedded-demo(virtual-scrolling/integration-with-other-plugins)

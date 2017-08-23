@@ -1,6 +1,6 @@
 # React Grid Virtual Scrolling
 
-The Grid component can process a large amount of data (thousands of records). You can divide data by hundreds of pages, or use the virtual mode for single-page data presentation.
+The Grid component can process a large amount of data (thousands of records). You can use the virtual mode for single-page data presentation as an alternative to paging.
 
 ## Plugin List
 
@@ -10,7 +10,7 @@ Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Setup
 
-The virtual mode requires cell size definition. By default, row height is adapted for a typical Bootstrap table. If you use custom templates for rows or cells specify row/cell size in the corresponding plugins.
+The virtual mode requires cell size definition. By default, row height is adapted for a typical Bootstrap table. If you use custom templates, specify custom height for the required row or custom width for the required column in the corresponding plugins.
 
 The following example demonstrates the basic Grid with virtual scrolling:
 

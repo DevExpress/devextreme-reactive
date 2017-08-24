@@ -23,10 +23,10 @@ export class GroupingPanel extends React.PureComponent {
       >
         <Template
           name="header"
-          connectGetters={getter => ({
-            columns: getter('columns'),
-            grouping: getter('draftGrouping'),
-            sorting: getter('sorting'),
+          connectProperties={property => ({
+            columns: property('columns'),
+            grouping: property('draftGrouping'),
+            sorting: property('sorting'),
           })}
           connectActions={action => ({
             groupByColumn: action('groupByColumn'),

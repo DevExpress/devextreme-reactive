@@ -58,11 +58,11 @@ value | any | The current group key value
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table body rows
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
-draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
-expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups
+tableColumns | Property | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+tableBodyRows | Property | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table body rows
+grouping | Property | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
+draftGrouping | Property | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
+expandedGroups | Property | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
@@ -70,5 +70,5 @@ tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A te
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns, including the ones by which the table is grouped
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-column)&gt; | Table body rows with modified group rows
+tableColumns | Property | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns, including the ones by which the table is grouped
+tableBodyRows | Property | Array&lt;[TableRow](table-view.md#table-column)&gt; | Table body rows with modified group rows

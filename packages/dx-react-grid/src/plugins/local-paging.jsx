@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Watcher, PluginContainer } from '@devexpress/dx-react-core';
 import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -20,13 +20,13 @@ export class LocalPaging extends React.PureComponent {
         pluginName="LocalPaging"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsWithHeadersComputed} />
-        <Getter name="totalCount" computed={totalCountComputed} />
+        <Property name="rows" computed={rowsWithHeadersComputed} />
+        <Property name="totalCount" computed={totalCountComputed} />
         <Watcher
-          watch={getter => [
-            getter('totalCount'),
-            getter('currentPage'),
-            getter('pageSize'),
+          watch={property => [
+            property('totalCount'),
+            property('currentPage'),
+            property('pageSize'),
           ]}
           onChange={(action, totalCount, currentPage, pageSize) => {
             const totalPages = pageCount(totalCount, pageSize);
@@ -35,7 +35,7 @@ export class LocalPaging extends React.PureComponent {
             }
           }}
         />
-        <Getter name="rows" computed={paginatedRowsComputed} />
+        <Property name="rows" computed={paginatedRowsComputed} />
       </PluginContainer>
     );
   }

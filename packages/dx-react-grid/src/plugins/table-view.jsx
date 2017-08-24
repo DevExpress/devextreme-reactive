@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
@@ -35,21 +35,21 @@ export class TableView extends React.PureComponent {
           { pluginName: 'DragDropContext', optional: !allowColumnReordering },
         ]}
       >
-        <Getter name="tableHeaderRows" value={tableHeaderRows} />
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Getter name="tableExtraProps" value={tableExtraProps} />
+        <Property name="tableHeaderRows" value={tableHeaderRows} />
+        <Property name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Property name="tableColumns" computed={tableColumnsComputed} />
+        <Property name="tableExtraProps" value={tableExtraProps} />
 
         <Template
           name="body"
-          connectGetters={getter => ({
-            headerRows: getter('tableHeaderRows'),
-            bodyRows: getter('tableBodyRows'),
-            columns: getter('tableColumns'),
-            getRowId: getter('getRowId'),
+          connectProperties={property => ({
+            headerRows: property('tableHeaderRows'),
+            bodyRows: property('tableBodyRows'),
+            columns: property('tableColumns'),
+            getRowId: property('getRowId'),
             cellTemplate,
             allowColumnReordering,
-            ...getter('tableExtraProps'),
+            ...property('tableExtraProps'),
           })}
           connectActions={action => ({
             setColumnOrder: action('setColumnOrder'),
@@ -59,8 +59,8 @@ export class TableView extends React.PureComponent {
         </Template>
         <Template
           name="tableViewCell"
-          connectGetters={getter => ({
-            headerRows: getter('tableHeaderRows'),
+          connectProperties={property => ({
+            headerRows: property('tableHeaderRows'),
           })}
         >
           {({ headerRows, ...restParams }) => (
@@ -72,8 +72,8 @@ export class TableView extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isDataTableCell(tableRow, tableColumn)}
-          connectGetters={getter => ({
-            getCellData: getter('getCellData'),
+          connectProperties={property => ({
+            getCellData: property('getCellData'),
           })}
         >
           {({ getCellData, ...params }) => tableCellTemplate({

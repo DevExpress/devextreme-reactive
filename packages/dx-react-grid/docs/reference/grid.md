@@ -70,8 +70,8 @@ children? | ReactElement | A markup to be placed into the footer
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](#row)&gt; | Grid rows
-columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns
+rows | Property | Array&lt;[Row](#row)&gt; | Grid rows
+columns | Property | Array&lt;[Column](#column)&gt; | Grid columns
 root | Template | Object? | A template that renders the grid root layout
 header | Template | Object? | A template that renders the grid header
 body | Template | Object? | A template that renders the grid body

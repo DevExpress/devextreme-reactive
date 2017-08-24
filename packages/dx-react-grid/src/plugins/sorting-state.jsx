@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnSorting } from '@devexpress/dx-grid-core';
 
 export class SortingState extends React.PureComponent {
@@ -34,7 +34,7 @@ export class SortingState extends React.PureComponent {
           }}
         />
 
-        <Getter name="sorting" value={sorting} />
+        <Property name="sorting" value={sorting} />
       </PluginContainer>
     );
   }

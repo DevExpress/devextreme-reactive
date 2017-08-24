@@ -25,7 +25,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { currentPage = getter('currentPage'); }}
+            connectProperties={(property) => { currentPage = property('currentPage'); }}
           >
             {() => <div />}
           </Template>
@@ -45,7 +45,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { currentPage = getter('currentPage'); }}
+            connectProperties={(property) => { currentPage = property('currentPage'); }}
           >
             {() => <div />}
           </Template>
@@ -68,7 +68,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { currentPage = getter('currentPage'); }}
+            connectProperties={(property) => { currentPage = property('currentPage'); }}
             connectActions={(action) => { setCurrentPage = action('setCurrentPage'); }}
           >
             {() => <div />}
@@ -96,7 +96,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { currentPage = getter('currentPage'); }}
+            connectProperties={(property) => { currentPage = property('currentPage'); }}
             connectActions={(action) => { setCurrentPage = action('setCurrentPage'); }}
           >
             {() => <div />}
@@ -123,7 +123,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { pageSize = getter('pageSize'); }}
+            connectProperties={(property) => { pageSize = property('pageSize'); }}
           >
             {() => <div />}
           </Template>
@@ -143,7 +143,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { pageSize = getter('pageSize'); }}
+            connectProperties={(property) => { pageSize = property('pageSize'); }}
           >
             {() => <div />}
           </Template>
@@ -166,7 +166,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { pageSize = getter('pageSize'); }}
+            connectProperties={(property) => { pageSize = property('pageSize'); }}
             connectActions={(action) => { setPageSize = action('setPageSize'); }}
           >
             {() => <div />}
@@ -194,7 +194,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { pageSize = getter('pageSize'); }}
+            connectProperties={(property) => { pageSize = property('pageSize'); }}
             connectActions={(action) => { setPageSize = action('setPageSize'); }}
           >
             {() => <div />}
@@ -221,7 +221,7 @@ describe('PagingState', () => {
           />
           <Template
             name="root"
-            connectGetters={(getter) => { totalCount = getter('totalCount'); }}
+            connectProperties={(property) => { totalCount = property('totalCount'); }}
           >
             {() => <div />}
           </Template>
@@ -239,7 +239,7 @@ describe('PagingState', () => {
           <PagingState />
           <Template
             name="root"
-            connectGetters={(getter) => { totalCount = getter('totalCount'); }}
+            connectProperties={(property) => { totalCount = property('totalCount'); }}
           >
             {() => <div />}
           </Template>

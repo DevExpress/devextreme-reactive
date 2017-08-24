@@ -20,13 +20,13 @@ filterFn | (row: [Row](grid.md#row), filter: [Filter](filtering-state.md#filter)
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be filtered
-filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Column filters to be applied
-getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get cell data
+rows | Property | Array&lt;[Row](grid.md#row)&gt; | Rows to be filtered
+filters | Property | Array&lt;[Filter](filtering-state.md#filter)&gt; | Column filters to be applied
+getCellData | Property | (row: [Row](grid.md#row), columnName: string) => any | The function used to get cell data
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied filtering
+rows | Property | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied filtering
 

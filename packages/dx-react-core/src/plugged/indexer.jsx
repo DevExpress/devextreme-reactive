@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter } from './getter';
+import { Property } from './property';
 import { Action } from './action';
 import { Template } from './template';
 
@@ -19,7 +19,7 @@ export const PluginIndexer = (
           return [...calculatedPosition, index];
         };
 
-        if (child.type === Getter ||
+        if (child.type === Property ||
             child.type === Action ||
             child.type === Template) {
           return React.cloneElement(child, { position: childPosition });

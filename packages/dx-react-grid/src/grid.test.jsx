@@ -140,8 +140,8 @@ describe('Grid', () => {
     >
       <Template
         name="root"
-        connectGetters={(getter) => {
-          cellData = getter('getCellData')(rows[1], columns[1].name);
+        connectProperties={(property) => {
+          cellData = property('getCellData')(rows[1], columns[1].name);
         }}
       >
         {() => <div />}
@@ -164,8 +164,8 @@ describe('Grid', () => {
     >
       <Template
         name="root"
-        connectGetters={(getter) => {
-          getter('getCellData')(rows[0], columns[0].name);
+        connectProperties={(property) => {
+          property('getCellData')(rows[0], columns[0].name);
         }}
       >
         {() => <div />}
@@ -187,8 +187,8 @@ describe('Grid', () => {
     >
       <Template
         name="root"
-        connectGetters={(getter) => {
-          getter('getCellData')(rows[0], columns[0].name);
+        connectProperties={(property) => {
+          property('getCellData')(rows[0], columns[0].name);
         }}
       >
         {() => <div />}

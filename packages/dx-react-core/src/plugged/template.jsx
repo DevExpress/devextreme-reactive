@@ -13,13 +13,13 @@ export class Template extends React.PureComponent {
   }
   componentWillMount() {
     const { pluginHost } = this.context;
-    const { name, predicate, connectGetters, connectActions } = this.props;
+    const { name, predicate, connectProperties, connectActions } = this.props;
 
     this.plugin = {
       position: () => this.props.position(),
       [`${name}Template`]: {
         predicate,
-        connectGetters,
+        connectProperties,
         connectActions,
         children: () => this.props.children,
         id: this.id,
@@ -44,7 +44,7 @@ Template.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
   predicate: PropTypes.func,
-  connectGetters: PropTypes.func,
+  connectProperties: PropTypes.func,
   connectActions: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.func,
@@ -55,7 +55,7 @@ Template.propTypes = {
 
 Template.defaultProps = {
   predicate: null,
-  connectGetters: null,
+  connectProperties: null,
   connectActions: null,
   children: null,
   position: null,

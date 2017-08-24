@@ -37,12 +37,12 @@ onValueChange | (newValue: any) => void | Handles value changes
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
-editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows being edited
-addedRows | Getter | Array&lt;Object&gt; | The created rows
-changedRows | Getter | { [key: string]: Object } | Uncommitted changed rows
-getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell data
-createRowChange | Getter | (row: [Row](grid.md#row), columnName: string, value: string &#124; string) => Object | The function used to set a cell data
+tableBodyRows | Property | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows to be rendered inside the table body
+editingRows | Property | Array&lt;number &#124; string&gt; | IDs of the rows being edited
+addedRows | Property | Array&lt;Object&gt; | The created rows
+changedRows | Property | { [key: string]: Object } | Uncommitted changed rows
+getCellData | Property | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell data
+createRowChange | Property | (row: [Row](grid.md#row), columnName: string, value: string &#124; string) => Object | The function used to set a cell data
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row
 changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is a row index within the `addedRows` array
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
@@ -51,4 +51,4 @@ tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A te
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table data rows including editing rows
+tableBodyRows | Property | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table data rows including editing rows

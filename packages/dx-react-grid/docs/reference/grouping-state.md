@@ -54,15 +54,15 @@ A string value that consists of values by which rows are grouped, separated by t
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns
+columns | Property | Array&lt;[Column](grid.md#column)&gt; | The grid columns
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state
-draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for preview
-expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
+grouping | Property | Array&lt;[Grouping](#grouping)&gt; | The current grouping state
+draftGrouping | Property | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for preview
+expandedGroups | Property | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value

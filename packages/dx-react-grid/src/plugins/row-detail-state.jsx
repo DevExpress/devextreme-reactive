@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setDetailRowExpanded } from '@devexpress/dx-grid-core';
 
 export class RowDetailState extends React.PureComponent {
@@ -33,7 +33,7 @@ export class RowDetailState extends React.PureComponent {
           action={({ rowId }) => this._setDetailRowExpanded({ rowId })}
         />
 
-        <Getter name="expandedRows" value={expandedRows} />
+        <Property name="expandedRows" value={expandedRows} />
       </PluginContainer>
     );
   }

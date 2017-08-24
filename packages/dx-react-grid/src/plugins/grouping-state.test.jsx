@@ -41,7 +41,7 @@ describe('GroupingState', () => {
         defaultGrouping: grouping,
         onGroupingChange,
       }, {
-        connectGetters: (getter) => { grouping = Array.from(getter('grouping')); },
+        connectProperties: (property) => { grouping = Array.from(property('grouping')); },
         connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
@@ -62,7 +62,7 @@ describe('GroupingState', () => {
         grouping: [{ columnName: 'b' }],
         onGroupingChange,
       }, {
-        connectGetters: (getter) => { grouping = Array.from(getter('grouping')); },
+        connectProperties: (property) => { grouping = Array.from(property('grouping')); },
         connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
@@ -83,7 +83,7 @@ describe('GroupingState', () => {
         defaultGrouping: grouping,
         onGroupingChange: groupingChange,
       }, {
-        connectGetters: (getter) => { grouping = Array.from(getter('grouping')); },
+        connectProperties: (property) => { grouping = Array.from(property('grouping')); },
         connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
@@ -105,7 +105,7 @@ describe('GroupingState', () => {
       mountPlugin({
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectProperties: (property) => { expandedGroups = Array.from(property('expandedGroups')); },
         connectActions: (action) => { toggleGroupExpanded = action('toggleGroupExpanded'); },
       });
 
@@ -126,7 +126,7 @@ describe('GroupingState', () => {
         expandedGroups: [],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectProperties: (property) => { expandedGroups = Array.from(property('expandedGroups')); },
         connectActions: (action) => { toggleGroupExpanded = action('toggleGroupExpanded'); },
       });
 
@@ -147,7 +147,7 @@ describe('GroupingState', () => {
         defaultExpandedGroups: ['a'],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectProperties: (property) => { expandedGroups = Array.from(property('expandedGroups')); },
         connectActions: (action) => { toggleGroupExpanded = action('toggleGroupExpanded'); },
       });
 
@@ -171,7 +171,7 @@ describe('GroupingState', () => {
         defaultExpandedGroups: ['John'],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectProperties: (property) => { expandedGroups = Array.from(property('expandedGroups')); },
         connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
@@ -193,7 +193,7 @@ describe('GroupingState', () => {
         defaultExpandedGroups: ['John', 'John|30', 'Mike'],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectProperties: (property) => { expandedGroups = Array.from(property('expandedGroups')); },
         connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
@@ -215,7 +215,7 @@ describe('GroupingState', () => {
         defaultExpandedGroups: ['John', 'Mike'],
         onExpandedGroupsChange: expandedGroupsChangeMock,
       }, {
-        connectGetters: (getter) => { expandedGroups = Array.from(getter('expandedGroups')); },
+        connectProperties: (property) => { expandedGroups = Array.from(property('expandedGroups')); },
         connectActions: (action) => { groupByColumn = action('groupByColumn'); },
       });
 
@@ -270,7 +270,7 @@ describe('GroupingState', () => {
       mountPlugin(
         { grouping: [] },
         {
-          connectGetters: (getter) => { draftGrouping = getter('draftGrouping'); },
+          connectProperties: (property) => { draftGrouping = property('draftGrouping'); },
           connectActions: (action) => { draftGroupingChange = action('draftGroupingChange'); },
         },
       );
@@ -290,7 +290,7 @@ describe('GroupingState', () => {
       mountPlugin(
         { grouping: [{ columnName: 'a' }] },
         {
-          connectGetters: (getter) => { draftGrouping = getter('draftGrouping'); },
+          connectProperties: (property) => { draftGrouping = property('draftGrouping'); },
           connectActions: (action) => {
             draftGroupingChange = action('draftGroupingChange');
             cancelGroupingChange = action('cancelGroupingChange');

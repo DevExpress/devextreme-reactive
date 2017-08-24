@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnFilter } from '@devexpress/dx-grid-core';
 
 export class FilteringState extends React.PureComponent {
@@ -34,7 +34,7 @@ export class FilteringState extends React.PureComponent {
           }
         />
 
-        <Getter name="filters" value={filters} />
+        <Property name="filters" value={filters} />
       </PluginContainer>
     );
   }

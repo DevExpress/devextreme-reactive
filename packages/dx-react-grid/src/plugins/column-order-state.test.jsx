@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { setupConsole } from '@devexpress/dx-testing';
-import { Template, Getter, PluginHost } from '@devexpress/dx-react-core';
+import { Template, Property, PluginHost } from '@devexpress/dx-react-core';
 
 import { ColumnOrderState } from './column-order-state';
 
@@ -19,7 +19,7 @@ describe('ColumnOrderState', () => {
     let orderedColumns;
     mount(
       <PluginHost>
-        <Getter
+        <Property
           name="columns"
           value={[{ name: 'a' }, { name: 'b' }]}
         />
@@ -28,7 +28,7 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={(getter) => { orderedColumns = getter('columns'); }}
+          connectProperties={(property) => { orderedColumns = property('columns'); }}
         >
           {() => <div />}
         </Template>
@@ -43,7 +43,7 @@ describe('ColumnOrderState', () => {
     let orderedColumns;
     mount(
       <PluginHost>
-        <Getter
+        <Property
           name="columns"
           value={[{ name: 'a' }, { name: 'b' }]}
         />
@@ -52,7 +52,7 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={(getter) => { orderedColumns = getter('columns'); }}
+          connectProperties={(property) => { orderedColumns = property('columns'); }}
         >
           {() => <div />}
         </Template>
@@ -69,7 +69,7 @@ describe('ColumnOrderState', () => {
     let setColumnOrder;
     mount(
       <PluginHost>
-        <Getter
+        <Property
           name="columns"
           value={[{ name: 'a' }, { name: 'b' }]}
         />
@@ -79,7 +79,7 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={(getter) => { orderedColumns = getter('columns'); }}
+          connectProperties={(property) => { orderedColumns = property('columns'); }}
           connectActions={(action) => { setColumnOrder = action('setColumnOrder'); }}
         >
           {() => <div />}
@@ -104,7 +104,7 @@ describe('ColumnOrderState', () => {
     let setColumnOrder;
     mount(
       <PluginHost>
-        <Getter
+        <Property
           name="columns"
           value={[{ name: 'a' }, { name: 'b' }]}
         />
@@ -114,7 +114,7 @@ describe('ColumnOrderState', () => {
         />
         <Template
           name="root"
-          connectGetters={(getter) => { orderedColumns = getter('columns'); }}
+          connectProperties={(property) => { orderedColumns = property('columns'); }}
           connectActions={(action) => { setColumnOrder = action('setColumnOrder'); }}
         >
           {() => <div />}

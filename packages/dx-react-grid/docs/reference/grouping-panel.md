@@ -77,9 +77,9 @@ allowUngroupingByClick | boolean | Specifies whether to display the button that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns
-draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
-sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
+columns | Property | Array&lt;[Column](grid.md#column)&gt; | Grid columns
+draftGrouping | Property | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
+sorting | Property | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
 groupByColumn | Action | ({ columnName: string }) => void | Toggles a column's grouping state
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value

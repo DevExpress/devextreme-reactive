@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { memoize } from '@devexpress/dx-core';
-import { PluginHost, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { PluginHost, Property, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 const rowIdGetter = (getRowId, rows) => {
   let rowsMap;
@@ -42,10 +42,10 @@ export class Grid extends React.PureComponent {
     } = this.props;
     return (
       <PluginHost>
-        <Getter name="rows" value={rows} />
-        <Getter name="columns" value={columns} />
-        <Getter name="getRowId" value={this.memoizedRowIdGetter(getRowId, rows)} />
-        <Getter name="getCellData" value={getCellData || this.memoizedGetCellDataGetter(columns)} />
+        <Property name="rows" value={rows} />
+        <Property name="columns" value={columns} />
+        <Property name="getRowId" value={this.memoizedRowIdGetter(getRowId, rows)} />
+        <Property name="getCellData" value={getCellData || this.memoizedGetCellDataGetter(columns)} />
         <Template name="header" />
         <Template name="body" />
         <Template name="footer" />

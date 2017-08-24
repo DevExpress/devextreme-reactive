@@ -62,11 +62,11 @@ changeSelected | () => void | Selects or deselects a row
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
-tableExtraProps | Getter | { [key: string]: any } | Additional table properties that can be provided by other plugins
-selection | Getter | Array&lt;number &#124; string&gt; | Selected rows
-availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection
+tableColumns | Property | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+tableBodyRows | Property | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
+tableExtraProps | Property | { [key: string]: any } | Additional table properties that can be provided by other plugins
+selection | Property | Array&lt;number &#124; string&gt; | Selected rows
+availableToSelect | Property | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection
 setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean }) => void | Selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
@@ -74,6 +74,6 @@ tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A te
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the selection column
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered including the selected ones
-tableExtraProps | Getter | { [key: string]: any } | Additional table properties extended with the row onClick event listener
+tableColumns | Property | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the selection column
+tableBodyRows | Property | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered including the selected ones
+tableExtraProps | Property | { [key: string]: any } | Additional table properties extended with the row onClick event listener

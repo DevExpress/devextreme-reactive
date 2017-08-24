@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
   tableRowsWithHeading,
@@ -23,15 +23,15 @@ export class TableHeaderRow extends React.PureComponent {
           { pluginName: 'DragDropContext', optional: !allowDragging },
         ]}
       >
-        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <Property name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
-          connectGetters={(getter, { tableColumn: { column } }) => {
-            const sorting = getter('sorting');
-            const columns = getter('columns');
-            const grouping = getter('grouping');
+          connectProperties={(property, { tableColumn: { column } }) => {
+            const sorting = property('sorting');
+            const columns = property('columns');
+            const grouping = property('grouping');
 
             const groupingSupported = grouping !== undefined &&
                 grouping.length < columns.length - 1;

@@ -21,7 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultDeps = {
-  getter: {
+  property: {
     tableColumns: [{ type: 'undefined' }],
   },
   action: {
@@ -71,7 +71,7 @@ describe('TableHeaderRow', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters', () => {
+  describe('table layout properties', () => {
     it('should extend tableColumns', () => {
       const deps = {};
       mount(
@@ -84,10 +84,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableColumns'))
+      expect(deps.computedProperty('tableColumns'))
         .toBe('tableColumnsWithEditing');
       expect(tableColumnsWithEditing)
-        .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
+        .toBeCalledWith(defaultDeps.property.tableColumns, 120);
     });
   });
 

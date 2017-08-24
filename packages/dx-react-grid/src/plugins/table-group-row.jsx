@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
@@ -31,13 +31,13 @@ export class TableGroupRow extends React.PureComponent {
         pluginName="TableGroupRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Property name="tableColumns" computed={tableColumnsComputed} />
+        <Property name="tableBodyRows" computed={tableBodyRowsComputed} />
 
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isGroupTableCell(tableRow, tableColumn)}
-          connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
+          connectProperties={property => ({ expandedGroups: property('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
           {({ expandedGroups, toggleGroupExpanded, ...params }) => groupCellTemplate({

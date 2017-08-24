@@ -21,7 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultDeps = {
-  getter: {
+  property: {
     tableColumns: [{ type: 'undefined', column: 'column' }],
     tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
     tableExtraProps: { onClick: () => {} },
@@ -67,7 +67,7 @@ describe('TableHeaderRow', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters', () => {
+  describe('table layout properties', () => {
     it('should extend tableBodyRows', () => {
       const deps = {};
 
@@ -81,10 +81,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableBodyRows'))
+      expect(deps.computedProperty('tableBodyRows'))
         .toBe('tableRowsWithSelection');
       expect(tableRowsWithSelection)
-        .toHaveBeenCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.selection);
+        .toHaveBeenCalledWith(defaultDeps.property.tableBodyRows, defaultDeps.property.selection);
     });
 
     it('should extend tableColumns', () => {
@@ -100,10 +100,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableColumns'))
+      expect(deps.computedProperty('tableColumns'))
         .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
-        .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
+        .toBeCalledWith(defaultDeps.property.tableColumns, 120);
     });
 
     it('should extend tableExtraProps', () => {
@@ -119,10 +119,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableExtraProps'))
+      expect(deps.computedProperty('tableExtraProps'))
         .toBe('tableExtraPropsWithSelection');
       expect(tableExtraPropsWithSelection)
-        .toBeCalledWith(defaultDeps.getter.tableExtraProps, expect.any(Function));
+        .toBeCalledWith(defaultDeps.property.tableExtraProps, expect.any(Function));
     });
   });
 

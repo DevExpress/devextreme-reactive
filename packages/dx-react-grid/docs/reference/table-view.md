@@ -99,17 +99,17 @@ column | [Column](#column) | Specifies a table column
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
-columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
-getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
-getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell data
+rows | Property | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
+columns | Property | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
+getRowId | Property | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
+getCellData | Property | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell data
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
-tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered
-tableExtraProps | Getter | { [key: string]: any } | Additional table properties that other plugins can provide
+tableHeaderRows | Property | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered
+tableBodyRows | Property | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
+tableColumns | Property | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered
+tableExtraProps | Property | { [key: string]: any } | Additional table properties that other plugins can provide
 tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell

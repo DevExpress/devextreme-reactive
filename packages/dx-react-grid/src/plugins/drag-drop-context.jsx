@@ -32,8 +32,8 @@ export class DragDropContext extends React.PureComponent {
       >
         <Template
           name="root"
-          connectGetters={getter => ({
-            columns: getter('columns'),
+          connectProperties={property => ({
+            columns: property('columns'),
           })}
         >
           {({ columns }) => (

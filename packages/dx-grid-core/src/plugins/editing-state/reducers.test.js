@@ -40,7 +40,7 @@ describe('EditingState reducers', () => {
   });
   describe('#changeAddedRow', () => {
     it('should work', () => {
-      const addedRows = [{ a: 1 }, { a: 2 }];
+      const addedRows = [Object.freeze({ a: 1 }), Object.freeze({ a: 2 })];
       const payload = { rowId: 0, change: { a: 3 } };
 
       const nextAddedRows = changeAddedRow(addedRows, payload);
@@ -83,10 +83,10 @@ describe('EditingState reducers', () => {
   });
   describe('#cancelChanges', () => {
     it('should work', () => {
-      const changedRows = {
+      const changedRows = Object.freeze({
         o1: { a: 1 },
         o2: { a: 2 },
-      };
+      });
       const payload = { rowIds: ['o2'] };
 
       const nextChangedRows = cancelChanges(changedRows, payload);

@@ -1,20 +1,16 @@
 # React Grid Virtual Scrolling
 
-## Overview
-
-The Grid component can process a large amount of data. In some cases, it may be required to show thousands of records. As an alternative to dividing data by hundreds of pages, we provide the virtual mode for single-page data presentation.
+The Grid component can process a large amount of data (thousands of records). You can use the virtual mode for single-page data presentation as an alternative to paging.
 
 ## Plugin List
 
-The `VirtualTableView` plugin is available for the Bootstrap 3 theme. It can be used instead of the `TableView` plugin.
-
-There are no base plugins that implement virtual scrolling. It is designed as an alternative to an ordinary table template for the [TableView](table-view.md) plugin.
+The `VirtualTableView` plugin implements the virtual mode, and it should be used instead of the [TableView](../../table-view.md) (they implement the same interfaces).
 
 Note that the [plugin order](../README.md#plugin-order) is important.
 
 ## Basic Setup
 
-Unlike the ordinary mode, the virtual mode requires cell size to be defined. By default, row height is adapted for a typical Bootstrap table.
+The virtual mode requires cell size definition. By default, row height is adapted for a typical Bootstrap table. If you use custom templates, specify the required row's height or column's width in the corresponding plugins.
 
 The following example demonstrates the basic Grid with virtual scrolling:
 
@@ -22,10 +18,8 @@ The following example demonstrates the basic Grid with virtual scrolling:
 
 ## Integration with Other Plugins
 
-A virtual table also operates with other Grid features like filtering, sorting, etc.
+A virtual table supports other Grid features (filtering, sorting, etc.).
 
-The `TableRowDetail` plugin renders rows with auto height. It is impossible to handle row height changes at runtime. So you need to  specify the row height using the `rowHeight` property.
-
-Here is an example:
+If you show a Detail Row, you have to specify its height depending on its contents using the `TableRowDetail` plugin's `rowHeight` property to provide the correct Grid rendering.
 
 .embedded-demo(virtual-scrolling/integration-with-other-plugins)

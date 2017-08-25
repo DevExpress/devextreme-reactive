@@ -28,7 +28,7 @@ export const cancelAddedRows = (addedRows, { rowIds }) => {
 export const changeRow = (prevChangedRows, { rowId, change }) => {
   const prevChange = prevChangedRows[rowId] || {};
   const result = Object.assign({}, prevChangedRows);
-  result[rowId] = Object.assign(prevChange, change);
+  result[rowId] = { ...prevChange, ...change };
   return result;
 };
 

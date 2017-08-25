@@ -59,7 +59,7 @@ describe('EditingState reducers', () => {
   describe('#changeRow', () => {
     it('should work on the first change', () => {
       const changedRows = {
-        o1: { a: 1 },
+        o1: Object.freeze({ a: 1 }),
       };
       const payload = { rowId: 'o2', change: { a: 2 } };
 
@@ -71,7 +71,7 @@ describe('EditingState reducers', () => {
     });
     it('should work on the second change', () => {
       const changedRows = {
-        o1: { a: 1 },
+        o1: Object.freeze({ a: 1 }),
       };
       const payload = { rowId: 'o1', change: { a: 2 } };
 

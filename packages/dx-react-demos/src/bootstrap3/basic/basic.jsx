@@ -34,7 +34,11 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <TableView />
+        <TableView
+          onRowClick={(row, e) => {
+            debugger
+          }}
+        />
         <TableHeaderRow />
       </Grid>
     );

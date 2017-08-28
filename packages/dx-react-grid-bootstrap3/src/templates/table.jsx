@@ -23,14 +23,14 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <tbody {...restProps}>{children}</tbody>
 );
-const rowTemplate = ({ children, row, ...restProps }) => (
-  <tr
-    className={row.selected ? 'active' : ''}
-    {...restProps}
-  >
-    {children}
-  </tr>
-);
+const rowTemplate = ({ children, row, onClick, ...restProps }) => (<tr
+  className={row.selected ? 'active' : ''}
+  onClick={e => (row.type === 'data' && onClick(row.row, e))}
+  {...restProps}
+>
+  {children}
+</tr>);
+
 /* eslint-enable react/prop-types */
 
 export const Table = ({
@@ -38,6 +38,7 @@ export const Table = ({
   columns,
   cellTemplate,
   onClick,
+  onRowClick,
   allowColumnReordering, setColumnOrder,
 }) => (
   <TableLayout
@@ -53,13 +54,12 @@ export const Table = ({
     rowTemplate={rowTemplate}
     cellTemplate={cellTemplate}
     onClick={onClick}
+    onRowClick={onRowClick}
     allowColumnReordering={allowColumnReordering}
     setColumnOrder={setColumnOrder}
   />
 );
-Table.defaultProps = {
-  onClick: () => {},
-};
+
 Table.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
@@ -67,10 +67,12 @@ Table.propTypes = {
   cellTemplate: PropTypes.func.isRequired,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
+  onRowClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,
   setColumnOrder: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {
   onClick: () => {},
+  onRowClick: () => {},
 };

@@ -25,6 +25,7 @@ export class TableView extends React.PureComponent {
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
       allowColumnReordering,
+      onRowClick,
     } = this.props;
 
     return (
@@ -49,6 +50,7 @@ export class TableView extends React.PureComponent {
             getRowId: getter('getRowId'),
             cellTemplate,
             allowColumnReordering,
+            onRowClick,
             ...getter('tableExtraProps'),
           })}
           connectActions={action => ({
@@ -101,8 +103,10 @@ TableView.propTypes = {
   tableStubCellTemplate: PropTypes.func.isRequired,
   tableStubHeaderCellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,
+  onRowClick: PropTypes.func,
 };
 
 TableView.defaultProps = {
   allowColumnReordering: false,
+  onRowClick: () => {},
 };

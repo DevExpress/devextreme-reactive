@@ -161,6 +161,7 @@ export class TableLayout extends React.PureComponent {
       rowTemplate,
       cellTemplate,
       onClick,
+      onRowClick,
       allowColumnReordering,
       className,
       style,
@@ -202,6 +203,7 @@ export class TableLayout extends React.PureComponent {
             rowTemplate={rowTemplate}
             cellTemplate={cellTemplate}
             onClick={onClick}
+            onRowClick={onRowClick}
           />,
         ]}
       </TemplateRenderer>
@@ -241,6 +243,7 @@ TableLayout.propTypes = {
   rowTemplate: PropTypes.func.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   onClick: PropTypes.func,
+  onRowClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool,
   setColumnOrder: PropTypes.func,
   className: PropTypes.string,
@@ -252,6 +255,7 @@ TableLayout.defaultProps = {
   headTemplate: () => null,
   minColumnWidth: 120,
   onClick: () => {},
+  onRowClick: () => {},
   allowColumnReordering: false,
   setColumnOrder: () => {},
   className: undefined,

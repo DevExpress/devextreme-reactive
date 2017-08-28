@@ -25,12 +25,14 @@ export class RowLayout extends React.PureComponent {
       columns,
       rowTemplate,
       cellTemplate,
+      onClick,
     } = this.props;
 
     return (
       <TemplateRenderer
         template={rowTemplate}
         row={row}
+        onClick={onClick}
         style={getRowStyle({ row })}
       >
         {
@@ -56,4 +58,9 @@ RowLayout.propTypes = {
   columns: PropTypes.array.isRequired,
   rowTemplate: PropTypes.func.isRequired,
   cellTemplate: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+};
+
+RowLayout.defaultProps = {
+  onClick: () => {},
 };

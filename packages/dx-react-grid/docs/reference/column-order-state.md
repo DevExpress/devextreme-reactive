@@ -30,4 +30,4 @@ columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be ordered
 Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Ordered columns
-setColumnOrder | Action | ({ sourceColumnName, targetColumnName }) => void | Moves the `sourceColumnName` column to the `targetColumnName` column's position.
+setColumnOrder | Action | ({ sourceColumnName, targetColumnName }) => void | Moves the specified column to another column's position.

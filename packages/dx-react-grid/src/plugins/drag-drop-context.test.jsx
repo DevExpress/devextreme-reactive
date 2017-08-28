@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import { setupConsole } from '@devexpress/dx-testing';
 import {
-  Getter, PluginHost,
+  Property, PluginHost,
   DragDropContext as DragDropContextCore,
 } from '@devexpress/dx-react-core';
 
@@ -21,7 +21,7 @@ describe('DragDropContext', () => {
   it('should not render container if dragging is not started', () => {
     const tree = mount(
       <PluginHost>
-        <Getter
+        <Property
           name="columns"
           value={[{ name: 'a' }, { name: 'b' }]}
         />
@@ -39,7 +39,7 @@ describe('DragDropContext', () => {
   it('should render container while dragging', () => {
     const tree = mount(
       <PluginHost>
-        <Getter
+        <Property
           name="columns"
           value={[{ name: 'a', title: 'A' }, { name: 'b', title: 'B' }]}
         />

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Getter,
+  Property,
   Action,
   Template,
   TemplatePlaceholder,
@@ -25,8 +25,8 @@ export const pluginDepsToComponents = (
         <div />
       </PluginContainer>
     ))}
-    {entries({ ...deps.getter, ...depsOverrides.getter })
-      .map(([name, value]) => <Getter key={`getter_${name}`} name={name} value={value} />)}
+    {entries({ ...deps.property, ...depsOverrides.property })
+      .map(([name, value]) => <Property key={`property_${name}`} name={name} value={value} />)}
     {entries({ ...deps.action, ...depsOverrides.action })
       .map(([name, action]) => <Action key={`action_${name}`} name={name} action={action} />)}
     {entries({ ...deps.template, ...depsOverrides.template })
@@ -42,7 +42,7 @@ export const pluginDepsToComponents = (
       key="check"
       name="root"
       // eslint-disable-next-line no-param-reassign
-      connectGetters={(getter) => { depsOverrides.computedGetter = getter; }}
+      connectProperties={(property) => { depsOverrides.computedProperty = property; }}
       // eslint-disable-next-line no-param-reassign
       connectActions={(action) => { depsOverrides.computedAction = action; }}
     >

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   startEditRows,
   stopEditRows,
@@ -166,11 +166,11 @@ export class EditingState extends React.PureComponent {
           action={({ rowIds }) => this._commitDeletedRows(deletedRows, { rowIds })}
         />
 
-        <Getter name="editingRows" value={editingRows} />
-        <Getter name="changedRows" value={changedRows} />
-        <Getter name="addedRows" value={addedRows} />
-        <Getter name="deletedRows" value={deletedRows} />
-        <Getter
+        <Property name="editingRows" value={editingRows} />
+        <Property name="changedRows" value={changedRows} />
+        <Property name="addedRows" value={addedRows} />
+        <Property name="deletedRows" value={deletedRows} />
+        <Property
           name="createRowChange"
           computed={createRowChange ?
           () => createRowChange :

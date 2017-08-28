@@ -60,14 +60,14 @@ export class TemplatePlaceholder extends React.Component {
 
     this.setupSubscription();
 
-    const { children: template, connectGetters, connectActions } = this.template;
+    const { children: template, connectProperties, connectActions } = this.template;
     const { children: placeholder } = this.props;
 
     const renderedTemplate = template();
     const content = renderedTemplate ? (
       <TemplateConnector
         params={this.params}
-        mapProps={connectGetters}
+        mapProps={connectProperties}
         mapActions={connectActions}
         content={renderedTemplate}
       />

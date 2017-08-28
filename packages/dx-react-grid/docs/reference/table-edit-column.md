@@ -70,7 +70,7 @@ text | string | Specifies the text to be rendered within the command control
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+tableColumns | Property | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
 addRow | Action | () => void | Creates a row
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array
 commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `addedRows` array
@@ -86,4 +86,4 @@ tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A te
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the edit column
+tableColumns | Property | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the edit column

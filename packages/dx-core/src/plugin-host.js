@@ -7,7 +7,7 @@ export class PluginHost {
   constructor() {
     this.plugins = [];
     this.subscriptions = [];
-    this.gettersCache = {};
+    this.propertiesCache = {};
   }
   ensureDependencies() {
     const defined = new Set();
@@ -44,7 +44,7 @@ export class PluginHost {
   }
   cleanPluginsCache() {
     this.validationRequired = true;
-    this.gettersCache = {};
+    this.propertiesCache = {};
     this.knownKeysCache = {};
   }
   knownKeys(postfix) {
@@ -64,14 +64,16 @@ export class PluginHost {
       this.validationRequired = false;
     }
 
-    if (!this.gettersCache[key]) {
-      this.gettersCache[key] = this.plugins.map(plugin => plugin[key]).filter(plugin => !!plugin);
+    if (!this.propertiesCache[key]) {
+      this.propertiesCache[key] = this.plugins
+        .map(plugin => plugin[key])
+        .filter(plugin => !!plugin);
     }
-    if (!upTo) return this.gettersCache[key];
+    if (!upTo) return this.propertiesCache[key];
 
     const upToIndex = this.plugins.indexOf(upTo);
-    return this.gettersCache[key].filter((getter) => {
-      const pluginIndex = this.plugins.findIndex(plugin => plugin[key] === getter);
+    return this.propertiesCache[key].filter((property) => {
+      const pluginIndex = this.plugins.findIndex(plugin => plugin[key] === property);
       return pluginIndex < upToIndex;
     });
   }

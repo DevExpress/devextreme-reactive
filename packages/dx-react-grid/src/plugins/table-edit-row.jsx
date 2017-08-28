@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -25,18 +25,18 @@ export class TableEditRow extends React.PureComponent {
         pluginName="TableEditRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Property name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}
-          connectGetters={(getter, { tableColumn: { column }, tableRow: { rowId, row } }) => {
-            const change = getRowChange(getter('changedRows'), rowId);
+          connectProperties={(property, { tableColumn: { column }, tableRow: { rowId, row } }) => {
+            const change = getRowChange(property('changedRows'), rowId);
             const changedRow = { ...row, ...change };
-            const getCellData = getter('getCellData');
+            const getCellData = property('getCellData');
             const value = getCellData(changedRow, column.name);
 
             return {
-              createRowChange: getter('createRowChange'),
+              createRowChange: property('createRowChange'),
               value,
               changedRow,
             };
@@ -71,9 +71,9 @@ export class TableEditRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isEditNewTableCell(tableRow, tableColumn)}
-          connectGetters={getter => ({
-            getCellData: getter('getCellData'),
-            createRowChange: getter('createRowChange'),
+          connectProperties={property => ({
+            getCellData: property('getCellData'),
+            createRowChange: property('createRowChange'),
           })}
           connectActions={action => ({
             changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { orderedColumns, setColumnOrder } from '@devexpress/dx-grid-core';
 
 export class ColumnOrderState extends React.PureComponent {
@@ -31,7 +31,7 @@ export class ColumnOrderState extends React.PureComponent {
       <PluginContainer
         pluginName="ColumnOrderState"
       >
-        <Getter name="columns" computed={columnsComputed} />
+        <Property name="columns" computed={columnsComputed} />
         <Action
           name="setColumnOrder"
           action={({ sourceColumnName, targetColumnName }) =>

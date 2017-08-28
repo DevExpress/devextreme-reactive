@@ -6,7 +6,7 @@ import { PluginHost } from './host';
 import { PluginContainer } from './container';
 import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
-import { Getter } from './getter';
+import { Property } from './property';
 
 describe('TemplatePlaceholder', () => {
   it('should be a place for template rendering', () => {
@@ -179,10 +179,10 @@ describe('TemplatePlaceholder', () => {
   });
 
   it('should supply correct element with connected properties when templates are chained', () => {
-    const getterValue = 'test value';
+    const propertyValue = 'test value';
     const tree = mount(
       <PluginHost>
-        <Getter name="testGetter" value={getterValue} />
+        <Property name="testProperty" value={propertyValue} />
 
         <Template name="root">
           <TemplatePlaceholder name="test">
@@ -192,8 +192,8 @@ describe('TemplatePlaceholder', () => {
 
         <Template
           name="test"
-          connectGetters={getter => ({
-            value: getter('testGetter'),
+          connectProperties={property => ({
+            value: property('testProperty'),
           })}
         >
           {({ value }) => (<div className="test" >{value}</div>)}
@@ -202,6 +202,6 @@ describe('TemplatePlaceholder', () => {
     );
 
     expect(tree.find('.test').text())
-      .toBe(getterValue);
+      .toBe(propertyValue);
   });
 });

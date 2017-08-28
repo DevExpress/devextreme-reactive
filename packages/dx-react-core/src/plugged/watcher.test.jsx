@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './host';
-import { Getter } from './getter';
+import { Property } from './property';
 import { Action } from './action';
 import { Watcher } from './watcher';
 
@@ -13,9 +13,9 @@ describe('Watcher', () => {
     const actionLogger = jest.fn();
     mount(
       <PluginHost>
-        <Getter name="test" value={'arg'} />
+        <Property name="test" value={'arg'} />
         <Action name="test" action={actionLogger} />
-        <Watcher watch={getter => ([getter('test')])} onChange={changeLogger} />
+        <Watcher watch={property => ([property('test')])} onChange={changeLogger} />
       </PluginHost>,
     );
 
@@ -36,8 +36,8 @@ describe('Watcher', () => {
 
     const Test = ({ dependency }) => (
       <PluginHost>
-        <Getter name="test" computed={() => dependency} />
-        <Watcher watch={getter => ([getter('test')])} onChange={changeLogger} />
+        <Property name="test" computed={() => dependency} />
+        <Watcher watch={property => ([property('test')])} onChange={changeLogger} />
       </PluginHost>
     );
     Test.propTypes = {

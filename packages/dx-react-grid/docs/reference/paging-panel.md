@@ -40,9 +40,9 @@ showAllText | string | Specifies a page size selector's 'All' item text. Availab
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-currentPage | Getter | number | The current page
-pageSize | Getter | number | The count of rows to be shown on a single page
-totalCount | Getter | number | The total row count
+currentPage | Property | number | The current page
+pageSize | Property | number | The count of rows to be shown on a single page
+totalCount | Property | number | The total row count
 setCurrentPage | Action | (page: number) => void | Changes the current page
 setPageSize | Action | (size: number) => void | Changes the page size
 footer | Template | Object? | A template that renders the grid footer

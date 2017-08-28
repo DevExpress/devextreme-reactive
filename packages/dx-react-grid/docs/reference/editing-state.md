@@ -47,25 +47,25 @@ deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing rows
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns
+columns | Property | Array&lt;[Column](grid.md#column)&gt; | The grid columns
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-editingRows | Getter | Array&lt;number &#124; string&gt; | Rows being edited
+editingRows | Property | Array&lt;number &#124; string&gt; | Rows being edited
 startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches rows specified by the ID to the edit mode
 stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches rows specified by the ID to the read-only mode
-addedRows | Getter | Array&lt;Object&gt; | Created rows
+addedRows | Property | Array&lt;Object&gt; | Created rows
 addRow | Action | () => void | Creates a row
 changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is a row index within the `addedRows` array
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes new rows specified by index from the `addedRows` array
 commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `addedRows` array
-changedRows | Getter | { [key: string]: Object } | Uncommitted changed rows
+changedRows | Property | { [key: string]: Object } | Uncommitted changed rows
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row
 cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels rows' uncommitted changes specified by the ID
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `changedRows` array
-deletedRows | Getter | Array&lt;number &#124; string&gt; | Rows prepared for deletion
+deletedRows | Property | Array&lt;number &#124; string&gt; | Rows prepared for deletion
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows specified by the ID to the `deletedRows` array
 cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels rows' deletion specified by the ID removing them from the `deletedRows` array
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `deletedRows` array

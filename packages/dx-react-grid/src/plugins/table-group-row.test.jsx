@@ -19,7 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultDeps = {
-  getter: {
+  property: {
     tableColumns: [{ type: 'undefined', id: 1, column: 'column' }],
     tableBodyRows: [{ type: 'undefined', id: 1, row: 'row' }],
     grouping: [{ columnName: 'a' }],
@@ -66,7 +66,7 @@ describe('TableGroupRow', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters extending', () => {
+  describe('table layout properties extending', () => {
     it('should extend tableBodyRows', () => {
       const deps = {};
 
@@ -79,10 +79,10 @@ describe('TableGroupRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableBodyRows'))
+      expect(deps.computedProperty('tableBodyRows'))
         .toBe('tableRowsWithGrouping');
       expect(tableRowsWithGrouping)
-        .toBeCalledWith(defaultDeps.getter.tableBodyRows);
+        .toBeCalledWith(defaultDeps.property.tableBodyRows);
     });
 
     it('should extend tableColumns', () => {
@@ -97,13 +97,13 @@ describe('TableGroupRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableColumns'))
+      expect(deps.computedProperty('tableColumns'))
         .toBe('tableColumnsWithGrouping');
       expect(tableColumnsWithGrouping)
         .toBeCalledWith(
-          defaultDeps.getter.tableColumns,
-          defaultDeps.getter.grouping,
-          defaultDeps.getter.draftGrouping,
+          defaultDeps.property.tableColumns,
+          defaultDeps.property.grouping,
+          defaultDeps.property.draftGrouping,
           defaultProps.groupIndentColumnWidth,
         );
     });

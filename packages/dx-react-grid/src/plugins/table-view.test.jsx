@@ -21,7 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultDeps = {
-  getter: {
+  property: {
     columns: [{ name: 'field' }],
     rows: [{ field: 1 }],
     getRowId: () => {},
@@ -63,7 +63,7 @@ describe('TableView', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters', () => {
+  describe('table layout properties', () => {
     it('should provide tableBodyRows', () => {
       const deps = {};
 
@@ -77,15 +77,15 @@ describe('TableView', () => {
       );
 
       expect(tableRowsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
-      expect(deps.computedGetter('tableBodyRows'))
+        .toBeCalledWith(defaultDeps.property.rows, defaultDeps.property.getRowId);
+      expect(deps.computedProperty('tableBodyRows'))
         .toBe('tableRowsWithDataRows');
     });
 
     it('should extend tableColumns', () => {
       const deps = {
-        checkGetter: (getter) => {
-          expect(getter('tableColumns'))
+        checkProperty: (property) => {
+          expect(property('tableColumns'))
             .toBe('tableColumnsWithDataRows');
         },
       };
@@ -100,7 +100,7 @@ describe('TableView', () => {
       );
 
       expect(tableColumnsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.columns);
+        .toBeCalledWith(defaultDeps.property.columns);
     });
   });
 
@@ -172,7 +172,7 @@ describe('TableView', () => {
     );
 
     expect(isHeaderStubTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, deps.computedGetter('tableHeaderRows'));
+      .toBeCalledWith(tableCellArgs.tableRow, deps.computedProperty('tableHeaderRows'));
     expect(tableStubHeaderCellTemplate)
       .toBeCalledWith(tableCellArgs);
   });

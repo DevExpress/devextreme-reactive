@@ -5,18 +5,18 @@ import { mount } from 'enzyme';
 import { PluginHost } from './host';
 import { PluginContainer } from './container';
 import { Template } from './template';
-import { Getter } from './getter';
+import { Property } from './property';
 
-describe('Getter', () => {
+describe('Property', () => {
   it('should return value', () => {
     const tree = mount(
       <PluginHost>
-        <Getter name="test" value={'arg'} />
+        <Property name="test" value={'arg'} />
 
         <Template
           name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
+          connectProperties={property => ({
+            prop: property('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -27,19 +27,19 @@ describe('Getter', () => {
     expect(tree.find('h1').text()).toBe('arg');
   });
 
-  it('can use other getters', () => {
+  it('can use other properties', () => {
     const tree = mount(
       <PluginHost>
-        <Getter name="dep" value={'dep'} />
-        <Getter
+        <Property name="dep" value={'dep'} />
+        <Property
           name="test"
-          computed={getters => getters.dep}
+          computed={properties => properties.dep}
         />
 
         <Template
           name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
+          connectProperties={property => ({
+            prop: property('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -50,21 +50,21 @@ describe('Getter', () => {
     expect(tree.find('h1').text()).toBe('dep');
   });
 
-  it('should preserve the order if used after another getter', () => {
+  it('should preserve the order if used after another property', () => {
     const tree = mount(
       <PluginHost>
-        <Getter name="dep" value={'base'} />
-        <Getter
+        <Property name="dep" value={'base'} />
+        <Property
           name="test"
-          computed={getters => getters.dep}
+          computed={properties => properties.dep}
         />
 
-        <Getter name="dep" value={'overriden'} />
+        <Property name="dep" value={'overriden'} />
 
         <Template
           name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
+          connectProperties={property => ({
+            prop: property('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -78,37 +78,37 @@ describe('Getter', () => {
   it('should pass the latest result to the template', () => {
     const tree = mount(
       <PluginHost>
-        <Getter name="dep" value={'base'} />
+        <Property name="dep" value={'base'} />
 
         <Template
           name="root"
-          connectGetters={getter => ({
-            prop: getter('dep'),
+          connectProperties={property => ({
+            prop: property('dep'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
         </Template>
 
-        <Getter name="dep" value={'overriden'} />
+        <Property name="dep" value={'overriden'} />
       </PluginHost>,
     );
 
     expect(tree.find('h1').text()).toBe('overriden');
   });
 
-  it('can extend getter with same name', () => {
+  it('can extend property with same name', () => {
     const tree = mount(
       <PluginHost>
-        <Getter name="test" value={'base'} />
-        <Getter
+        <Property name="test" value={'base'} />
+        <Property
           name="test"
-          computed={getters => `${getters.test}_extended`}
+          computed={properties => `${properties.test}_extended`}
         />
 
         <Template
           name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
+          connectProperties={property => ({
+            prop: property('test'),
           })}
         >
           {({ prop }) => <h1>{prop}</h1>}
@@ -127,8 +127,8 @@ describe('Getter', () => {
           <PluginContainer>
             <Template
               name="root"
-              connectGetters={getter => ({
-                prop: getter('test'),
+              connectProperties={property => ({
+                prop: property('test'),
               })}
             >
               {({ prop }) => <h1>{prop}</h1>}
@@ -142,7 +142,7 @@ describe('Getter', () => {
       <PluginHost>
         <EncapsulatedPlugin />
 
-        <Getter name="test" value={text} />
+        <Property name="test" value={text} />
       </PluginHost>
     );
     Test.propTypes = {
@@ -167,15 +167,15 @@ describe('Getter', () => {
       render() {
         return (
           <PluginContainer>
-            <Getter
+            <Property
               name="test"
               computed={staticComputed}
             />
 
             <Template
               name="root"
-              connectGetters={(getter) => {
-                log.push(getter('test'));
+              connectProperties={(property) => {
+                log.push(property('test'));
               }}
             >
               <div />
@@ -186,7 +186,7 @@ describe('Getter', () => {
     }
     const Test = ({ value }) => (
       <PluginHost>
-        <Getter name="test" value={value} force={{}} />
+        <Property name="test" value={value} force={{}} />
         <EncapsulatedPlugin />
       </PluginHost>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-grid-core';
 
 const availableToSelectComputed = ({ rows, getRowId }) => getAvailableToSelect(rows, getRowId);
@@ -38,8 +38,8 @@ export class SelectionState extends React.PureComponent {
           }}
         />
 
-        <Getter name="availableToSelect" computed={availableToSelectComputed} />
-        <Getter name="selection" computed={selectionComputed} />
+        <Property name="availableToSelect" computed={availableToSelectComputed} />
+        <Property name="selection" computed={selectionComputed} />
       </PluginContainer>
     );
   }

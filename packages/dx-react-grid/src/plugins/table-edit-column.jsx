@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
@@ -33,7 +33,7 @@ export class TableEditColumn extends React.PureComponent {
         pluginName="TableEditColumn"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Property name="tableColumns" computed={tableColumnsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) =>

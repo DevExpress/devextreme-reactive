@@ -14,7 +14,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultDeps = {
-  getter: {
+  property: {
     rows: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
     currentPage: 1,
     pageSize: 2,
@@ -52,11 +52,11 @@ describe('LocalPaging', () => {
       </PluginHost>,
     );
 
-    expect(deps.computedGetter('totalCount'))
+    expect(deps.computedProperty('totalCount'))
       .toBe(6);
   });
 
-  it('should paginate rows passed into based on the "currentPage" and "pageSize" getters', () => {
+  it('should paginate rows passed into based on the "currentPage" and "pageSize" properties', () => {
     const deps = {};
     mount(
       <PluginHost>
@@ -65,13 +65,13 @@ describe('LocalPaging', () => {
       </PluginHost>,
     );
 
-    expect(deps.computedGetter('rows'))
+    expect(deps.computedProperty('rows'))
       .toEqual([{ id: 2 }, { id: 3 }]);
   });
 
   it('should change the "currentPage" if starting row index exceeds the rows count', () => {
     const deps = {
-      getter: {
+      property: {
         currentPage: 4,
       },
     };
@@ -96,6 +96,6 @@ describe('LocalPaging', () => {
     );
 
     expect(ensurePageHeaders)
-      .toHaveBeenCalledWith(defaultDeps.getter.rows, defaultDeps.getter.pageSize);
+      .toHaveBeenCalledWith(defaultDeps.property.rows, defaultDeps.property.pageSize);
   });
 });

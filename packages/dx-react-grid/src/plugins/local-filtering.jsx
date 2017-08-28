@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, PluginContainer } from '@devexpress/dx-react-core';
 import { filteredRows } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -19,7 +19,7 @@ export class LocalFiltering extends React.PureComponent {
         pluginName="LocalFiltering"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsComputed} />
+        <Property name="rows" computed={rowsComputed} />
       </PluginContainer>
     );
   }

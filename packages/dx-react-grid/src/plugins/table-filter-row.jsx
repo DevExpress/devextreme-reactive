@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -24,12 +24,12 @@ export class TableFilterRow extends React.PureComponent {
         pluginName="TableFilterRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <Property name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
-          connectGetters={(getter, { tableColumn: { column } }) => ({
-            filter: getColumnFilterConfig(getter('filters'), column.name),
+          connectProperties={(property, { tableColumn: { column } }) => ({
+            filter: getColumnFilterConfig(property('filters'), column.name),
           })}
           connectActions={(action, { tableColumn: { column } }) => ({
             setFilter: config => action('setColumnFilter')({ columnName: column.name, config }),

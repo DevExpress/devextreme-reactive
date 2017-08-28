@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
   tableRowsWithSelection,
@@ -40,22 +40,22 @@ export class TableSelection extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         {showSelectionColumn && (
-          <Getter name="tableColumns" computed={tableColumnsComputed} />
+          <Property name="tableColumns" computed={tableColumnsComputed} />
         )}
         {highlightSelected && (
-          <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+          <Property name="tableBodyRows" computed={tableBodyRowsComputed} />
         )}
         {selectByRowClick && (
-          <Getter name="tableExtraProps" computed={tableExtraPropsComputed} />
+          <Property name="tableExtraProps" computed={tableExtraPropsComputed} />
         )}
 
         {(showSelectionColumn && showSelectAll) && (
           <Template
             name="tableViewCell"
             predicate={({ tableRow, tableColumn }) => isSelectAllTableCell(tableRow, tableColumn)}
-            connectGetters={(getter) => {
-              const availableToSelect = getter('availableToSelect');
-              const selection = getter('selection');
+            connectProperties={(property) => {
+              const availableToSelect = property('availableToSelect');
+              const selection = property('selection');
               const selectionExists = selection.length !== 0;
               return {
                 availableToSelect,
@@ -82,8 +82,8 @@ export class TableSelection extends React.PureComponent {
           <Template
             name="tableViewCell"
             predicate={({ tableRow, tableColumn }) => isSelectTableCell(tableRow, tableColumn)}
-            connectGetters={getter => ({
-              selection: getter('selection'),
+            connectProperties={property => ({
+              selection: property('selection'),
             })}
             connectActions={action => ({
               toggleSelected: ({ rowId }) => action('setRowsSelection')({ rowIds: [rowId] }),

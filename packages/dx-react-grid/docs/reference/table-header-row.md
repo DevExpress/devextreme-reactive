@@ -55,10 +55,10 @@ dragPayload | any | A data object that identifies the corresponding column in th
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered
-sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting
-columns | Getter | Array&lt;[Column](#column)&gt; | Table columns
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
+tableHeaderRows | Property | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered
+sorting | Property | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting
+columns | Property | Array&lt;[Column](#column)&gt; | Table columns
+grouping | Property | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
@@ -67,4 +67,4 @@ tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A te
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table rows including header rows
+tableHeaderRows | Property | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table rows including header rows

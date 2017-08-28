@@ -11,7 +11,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultDeps = {
-  getter: {
+  property: {
     currentPage: 1,
     pageSize: 2,
     totalCount: 21,

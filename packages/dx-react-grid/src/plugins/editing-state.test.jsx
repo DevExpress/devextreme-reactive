@@ -42,7 +42,7 @@ describe('EditingState', () => {
         createRowChange: createRowChangeMock,
         onCommitChanges: () => {},
       }, {
-        connectGetters: (getter) => { createRowChange = getter('createRowChange'); },
+        connectProperties: (property) => { createRowChange = property('createRowChange'); },
       });
 
       createRowChange(rows[0], columns[0].name, 3);

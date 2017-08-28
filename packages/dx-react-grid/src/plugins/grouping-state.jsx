@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   groupByColumn,
   toggleExpandedGroups,
@@ -101,9 +101,9 @@ export class GroupingState extends React.PureComponent {
           action={() => { this.cancelGroupingChange(); }}
         />
 
-        <Getter name="grouping" value={grouping} />
-        <Getter name="draftGrouping" value={draftGrouping} />
-        <Getter name="expandedGroups" value={expandedGroupsSet} />
+        <Property name="grouping" value={grouping} />
+        <Property name="draftGrouping" value={draftGrouping} />
+        <Property name="expandedGroups" value={expandedGroupsSet} />
       </PluginContainer>
     );
   }

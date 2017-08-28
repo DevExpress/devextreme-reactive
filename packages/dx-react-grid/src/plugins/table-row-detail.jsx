@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import { Property, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
   isDetailRowExpanded,
@@ -33,12 +33,12 @@ export class TableRowDetail extends React.PureComponent {
         pluginName="TableRowDetail"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Property name="tableColumns" computed={tableColumnsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
-          connectGetters={getter => ({
-            expandedRows: getter('expandedRows'),
+          connectProperties={property => ({
+            expandedRows: property('expandedRows'),
           })}
           connectActions={action => ({
             setDetailRowExpanded: action('setDetailRowExpanded'),
@@ -56,7 +56,7 @@ export class TableRowDetail extends React.PureComponent {
           })}
         </Template>
 
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Property name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template name="tableViewCell" predicate={({ tableRow }) => isDetailTableRow(tableRow)}>
           {params => detailCellTemplate({
             ...params,

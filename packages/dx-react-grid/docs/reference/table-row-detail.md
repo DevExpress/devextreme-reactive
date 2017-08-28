@@ -60,9 +60,9 @@ toggleExpanded | () => void | Toggles a row's expanded state
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered
-expandedRows | Getter | Array&lt;number &#124; string&gt; | Expanded rows
+tableColumns | Property | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
+tableBodyRows | Property | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered
+expandedRows | Property | Array&lt;number &#124; string&gt; | Expanded rows
 setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
@@ -70,5 +70,5 @@ tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A te
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the detail cell
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered, including detailed rows
+tableColumns | Property | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the detail cell
+tableBodyRows | Property | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered, including detailed rows

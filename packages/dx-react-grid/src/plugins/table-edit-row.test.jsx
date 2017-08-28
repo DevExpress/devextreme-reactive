@@ -19,7 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultDeps = {
-  getter: {
+  property: {
     tableBodyRows: [{ type: 'undefined', rowId: 1 }],
     editingRows: [1, 2],
     addedRows: [{ a: 'text' }, {}],
@@ -64,7 +64,7 @@ describe('TableHeaderRow', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters', () => {
+  describe('table layout properties', () => {
     it('should extend tableBodyRows', () => {
       const deps = {};
       mount(
@@ -77,13 +77,13 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableBodyRows'))
+      expect(deps.computedProperty('tableBodyRows'))
         .toBe('tableRowsWithEditing');
       expect(tableRowsWithEditing)
         .toBeCalledWith(
-          defaultDeps.getter.tableBodyRows,
-          defaultDeps.getter.editingRows,
-          defaultDeps.getter.addedRows,
+          defaultDeps.property.tableBodyRows,
+          defaultDeps.property.editingRows,
+          defaultDeps.property.addedRows,
           120,
         );
     });
@@ -103,7 +103,7 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
-    expect(defaultDeps.getter.getCellData).toBeCalledWith(
+    expect(defaultDeps.property.getCellData).toBeCalledWith(
       defaultDeps.template.tableViewCell.tableRow.row,
       defaultDeps.template.tableViewCell.tableColumn.column.name,
     );
@@ -134,7 +134,7 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
-    expect(defaultDeps.getter.getCellData).toBeCalledWith(
+    expect(defaultDeps.property.getCellData).toBeCalledWith(
       { ...defaultDeps.template.tableViewCell.tableRow.row },
       defaultDeps.template.tableViewCell.tableColumn.column.name,
     );
@@ -170,7 +170,7 @@ describe('TableHeaderRow', () => {
     const onValueChange = editCellTemplate.mock.calls[0][0].onValueChange;
     onValueChange('test');
 
-    const createRowChangeArgs = defaultDeps.getter.createRowChange.mock.calls[0];
+    const createRowChangeArgs = defaultDeps.property.createRowChange.mock.calls[0];
 
     expect(createRowChangeArgs[0]).toEqual({
       a: undefined,

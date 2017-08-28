@@ -5,44 +5,44 @@ import { getAction } from '../utils/plugin-helpers';
 
 export const UPDATE_CONNECTION = 'updateConnection';
 
-export class Getter extends React.PureComponent {
+export class Property extends React.PureComponent {
   componentWillMount() {
     const { pluginHost } = this.context;
     const { name } = this.props;
 
     let lastComputed;
-    let lastGetterDependencies = {};
+    let lastPropertyDependencies = {};
     let lastResult;
 
     this.plugin = {
       position: () => this.props.position(),
-      [`${name}Getter`]: (original) => {
+      [`${name}Property`]: (original) => {
         const { value, computed } = this.props;
         if (value !== undefined) return value;
 
-        const getGetterValue = getterName => ((getterName === name)
+        const getPropertyValue = propertyName => ((propertyName === name)
           ? original
-          : pluginHost.get(`${getterName}Getter`, this.plugin));
+          : pluginHost.get(`${propertyName}Property`, this.plugin));
 
-        const currentGetterDependencies = Object.keys(lastGetterDependencies)
-          .reduce((acc, getterName) => Object.assign(acc, {
-            [getterName]: getGetterValue(getterName),
+        const currentPropertyDependencies = Object.keys(lastPropertyDependencies)
+          .reduce((acc, propertyName) => Object.assign(acc, {
+            [propertyName]: getPropertyValue(propertyName),
           }), {});
 
         if (computed === lastComputed &&
-          shallowEqual(lastGetterDependencies, currentGetterDependencies)) {
+          shallowEqual(lastPropertyDependencies, currentPropertyDependencies)) {
           return lastResult;
         }
 
         lastComputed = computed;
-        lastGetterDependencies = {};
+        lastPropertyDependencies = {};
 
-        const getters = pluginHost.knownKeys('Getter')
-          .reduce((acc, getterName) => {
-            Object.defineProperty(acc, getterName, {
+        const properties = pluginHost.knownKeys('Property')
+          .reduce((acc, propertyName) => {
+            Object.defineProperty(acc, propertyName, {
               get: () => {
-                const result = getGetterValue(getterName);
-                lastGetterDependencies[getterName] = result;
+                const result = getPropertyValue(propertyName);
+                lastPropertyDependencies[propertyName] = result;
                 return result;
               },
             });
@@ -56,7 +56,7 @@ export class Getter extends React.PureComponent {
             return acc;
           }, {});
 
-        lastResult = computed(getters, actions);
+        lastResult = computed(properties, actions);
         return lastResult;
       },
     };
@@ -78,19 +78,19 @@ export class Getter extends React.PureComponent {
   }
 }
 
-Getter.propTypes = {
+Property.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
   value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
   computed: PropTypes.func,
 };
 
-Getter.defaultProps = {
+Property.defaultProps = {
   value: undefined,
   computed: null,
   position: null,
 };
 
-Getter.contextTypes = {
+Property.contextTypes = {
   pluginHost: PropTypes.object.isRequired,
 };

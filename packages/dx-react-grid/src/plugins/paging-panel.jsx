@@ -18,11 +18,11 @@ export class PagingPanel extends React.PureComponent {
       >
         <Template
           name="footer"
-          connectGetters={(getter) => {
-            const pageSize = getter('pageSize');
-            const totalCount = getter('totalCount');
+          connectProperties={(property) => {
+            const pageSize = property('pageSize');
+            const totalCount = property('totalCount');
             return {
-              currentPage: getter('currentPage'),
+              currentPage: property('currentPage'),
               totalPages: pageCount(totalCount, pageSize),
               pageSize,
               totalCount,

@@ -45,7 +45,7 @@ column | [Column](grid.md#column) | Specifies a table column
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging
+columns | Property | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging
 root | Template | Object? | A template that renders the grid's root layout
 
 ### Exports

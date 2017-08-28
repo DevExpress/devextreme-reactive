@@ -5,7 +5,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 
 import { PluginHost } from './host';
 import { PluginIndexer } from './indexer';
-import { Getter } from './getter';
+import { Property } from './property';
 import { Template } from './template';
 
 describe('PluginIndexer', () => {
@@ -18,16 +18,16 @@ describe('PluginIndexer', () => {
   });
 
   it('should correctly determine plugin position', () => {
-    const Test = ({ enableGetter }) => (
+    const Test = ({ enableProperty }) => (
       <PluginHost>
-        <Getter name="test" value={1} />
-        {enableGetter && <Getter name="test" value={2} />}
-        <Getter name="test" computed={({ test }) => `text${test}`} />
+        <Property name="test" value={1} />
+        {enableProperty && <Property name="test" value={2} />}
+        <Property name="test" computed={({ test }) => `text${test}`} />
 
         <Template
           name="root"
-          connectGetters={getter => ({
-            text: getter('test'),
+          connectProperties={property => ({
+            text: property('test'),
           })}
         >
           {({ text }) => <span>{text}</span>}
@@ -35,32 +35,32 @@ describe('PluginIndexer', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      enableGetter: PropTypes.bool.isRequired,
+      enableProperty: PropTypes.bool.isRequired,
     };
 
     const tree = mount(
-      <Test enableGetter={false} />,
+      <Test enableProperty={false} />,
     );
 
-    tree.setProps({ enableGetter: true });
+    tree.setProps({ enableProperty: true });
     expect(tree.find('span').text()).toBe('text2');
   });
 
   it('should correctly determine plugin position within another component', () => {
-    const Test = ({ enableGetter }) => (
+    const Test = ({ enableProperty }) => (
       <PluginHost>
         <div>
           <PluginIndexer>
-            <Getter name="test" value={1} />
-            {enableGetter && <Getter name="test" value={2} />}
-            <Getter name="test" computed={({ test }) => `text${test}`} />
+            <Property name="test" value={1} />
+            {enableProperty && <Property name="test" value={2} />}
+            <Property name="test" computed={({ test }) => `text${test}`} />
           </PluginIndexer>
         </div>
 
         <Template
           name="root"
-          connectGetters={getter => ({
-            text: getter('test'),
+          connectProperties={property => ({
+            text: property('test'),
           })}
         >
           {({ text }) => <span>{text}</span>}
@@ -68,14 +68,14 @@ describe('PluginIndexer', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      enableGetter: PropTypes.bool.isRequired,
+      enableProperty: PropTypes.bool.isRequired,
     };
 
     const tree = mount(
-      <Test enableGetter={false} />,
+      <Test enableProperty={false} />,
     );
 
-    tree.setProps({ enableGetter: true });
+    tree.setProps({ enableProperty: true });
     expect(tree.find('span').text()).toBe('text2');
   });
 });

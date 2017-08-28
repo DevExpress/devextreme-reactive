@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { shallowEqual } from '@devexpress/dx-core';
-import { UPDATE_CONNECTION } from './getter';
+import { UPDATE_CONNECTION } from './property';
 import { getAction } from '../utils/plugin-helpers';
 
 export class TemplateConnector extends React.Component {
@@ -46,7 +46,7 @@ export class TemplateConnector extends React.Component {
 
     let mappedProps = {};
     if (mapProps) {
-      mappedProps = mapProps(name => pluginHost.get(`${name}Getter`), params);
+      mappedProps = mapProps(name => pluginHost.get(`${name}Property`), params);
     }
 
     let mappedActions = {};

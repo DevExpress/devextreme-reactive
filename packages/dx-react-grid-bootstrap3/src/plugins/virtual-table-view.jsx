@@ -8,7 +8,19 @@ import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 
-const tableTemplate = props => <VirtualTable {...props} />;
+// eslint-disable-next-line
+const rowTemplate = ({ children, row, ...restProps }) => (<tr
+  className={row.selected ? 'active' : ''}
+  {...restProps}
+>
+  {children}
+</tr>);
+
+// eslint-disable-next-line
+const tableTemplate = ({ rowComponentTemplate, ...props }) => {
+  return (<VirtualTable rowComponentTemplate={rowComponentTemplate} {...props} />);
+};
+
 const defaultCellTemplate = props => <TableCell {...props} />;
 const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 const stubCellTemplate = props => <TableStubCell {...props} />;
@@ -21,6 +33,7 @@ export const VirtualTableView = ({ tableCellTemplate, ...props }) => (
       tableCellTemplate,
       defaultCellTemplate,
     )}
+    rowComponentTemplate={rowTemplate}
     tableNoDataCellTemplate={noDataCellTemplate}
     tableStubCellTemplate={stubCellTemplate}
     tableStubHeaderCellTemplate={stubHeaderCellTemplate}

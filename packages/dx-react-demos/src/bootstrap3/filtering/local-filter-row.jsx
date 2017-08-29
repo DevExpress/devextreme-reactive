@@ -38,7 +38,17 @@ export default class Demo extends React.PureComponent {
       >
         <FilteringState defaultFilters={[]} />
         <LocalFiltering />
-        <TableView />
+        <TableView
+          rowComponentTemplate={({ children, row, ...restProps }) => (<tr
+            className={row.selected ? 'active' : ''}
+            onClick={() => {
+              alert(JSON.stringify(row.type));
+            }}
+            {...restProps}
+          >
+            {children}
+          </tr>)}
+        />
         <TableHeaderRow />
         <TableFilterRow />
       </Grid>

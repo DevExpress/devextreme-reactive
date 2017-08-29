@@ -41,7 +41,17 @@ export default class Demo extends React.PureComponent {
         <RowDetailState
           defaultExpandedRows={[2, 5]}
         />
-        <TableView />
+        <TableView
+          rowComponentTemplate={({ children, row, ...restProps }) => (<tr
+            className={row.selected ? 'active' : ''}
+            onClick={() => {
+              alert(JSON.stringify(row.type));
+            }}
+            {...restProps}
+          >
+            {children}
+          </tr>)}
+        />
         <TableHeaderRow />
         <TableRowDetail
           template={this.rowTemplate}

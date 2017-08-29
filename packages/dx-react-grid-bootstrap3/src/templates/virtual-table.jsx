@@ -44,17 +44,20 @@ export class VirtualTable extends React.Component {
     };
   }
   render() {
-    const { headerRows, bodyRows, columns, cellTemplate } = this.props;
+    const { headerRows, bodyRows, columns, cellTemplate, rowComponentTemplate } = this.props;
 
     const columnWidths = calculateColumnWidths(columns, this.state.viewportWidth);
     const scrollWidth = columnWidths.reduce((accum, width) => accum + width, 0);
 
     const tableRow = (row, position) => {
       const columnsWithColSpan = getTableRowColumnsWithColSpan(columns, row.colSpanStart);
+
       return (
         <VirtualBox
           rootTag="tr"
-
+          rootTagTmplt={args => {
+            return (rowComponentTemplate && rowComponentTemplate({ row, ...args }));
+          }}
           position={position}
           crossSize={this.rowHeight(row)}
           direction="horizontal"
@@ -159,4 +162,9 @@ VirtualTable.propTypes = {
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
+  rowComponentTemplate: PropTypes.func,
+};
+
+VirtualTable.defaultProps = {
+  rowComponentTemplate: undefined,
 };

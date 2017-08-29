@@ -20,7 +20,6 @@ export class RowsBlockLayout extends React.PureComponent {
       rowTemplate,
       cellTemplate,
       onClick,
-      onRowClick,
     } = this.props;
 
     return (
@@ -41,7 +40,6 @@ export class RowsBlockLayout extends React.PureComponent {
                 columns={columns}
                 rowTemplate={rowTemplate}
                 cellTemplate={cellTemplate}
-                onClick={onRowClick}
               />
             ))
         }
@@ -57,9 +55,4 @@ RowsBlockLayout.propTypes = {
   rowTemplate: PropTypes.func.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  onRowClick: PropTypes.func,
-};
-
-RowsBlockLayout.defaultProps = {
-  onRowClick: () => {},
 };

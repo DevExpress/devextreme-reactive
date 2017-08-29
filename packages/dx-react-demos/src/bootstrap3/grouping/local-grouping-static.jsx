@@ -40,7 +40,17 @@ export default class Demo extends React.PureComponent {
           grouping={[{ columnName: 'city' }]}
         />
         <LocalGrouping />
-        <TableView />
+        <TableView
+          rowComponentTemplate={({ children, row, ...restProps }) => (<tr
+            className={row.selected ? 'active' : ''}
+            onClick={() => {
+              alert(JSON.stringify(row.type));
+            }}
+            {...restProps}
+          >
+            {children}
+          </tr>)}
+        />
         <TableHeaderRow />
         <TableGroupRow />
       </Grid>

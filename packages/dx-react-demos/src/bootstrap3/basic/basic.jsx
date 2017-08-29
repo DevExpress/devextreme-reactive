@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Grid,
-  TableView,
+  VirtualTableView,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -34,10 +34,19 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <TableView
-          onRowClick={(row, e) => {
-            debugger
-          }}
+        <VirtualTableView
+          rowComponentTemplate={({ children, row, style, ...restProps }) => (<tr
+            className={row.selected ? 'active' : ''}
+            style={row.type === 'data' ?
+              { ...{ color: 'red' }, ...style } : null
+            }
+            onClick={() => {
+              alert(JSON.stringify(row.row));
+            }}
+            {...restProps}
+          >
+            {children}
+          </tr>)}
         />
         <TableHeaderRow />
       </Grid>

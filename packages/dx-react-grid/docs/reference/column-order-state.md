@@ -22,12 +22,12 @@ onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column orde
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be ordered
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be ordered.
 
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Ordered columns
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Ordered columns.
 setColumnOrder | Action | ({ sourceColumnName, targetColumnName }) => void | Moves the specified column to another column's position.

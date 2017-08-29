@@ -12,8 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-containerTemplate | (args: [ContainerArgs](#container-args)) => ReactElement | | A template that renders a container for columns being dragged
-columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | | A template that renders a column being dragged
+containerTemplate | (args: [ContainerArgs](#container-args)) => ReactElement | | A template that renders a container for columns being dragged.
+columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | | A template that renders a column being dragged.
 
 ## Interfaces
 
@@ -25,9 +25,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-clientOffset | { x: number, y: number } | The current offset of a column being dragged, against the application's client area
-columns | Array&lt;[Column](grid.md#column)&gt; | Columns being dragged
-columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | A template rendering columns being dragged
+clientOffset | { x: number, y: number } | The current offset of a column being dragged, against the application's client area.
+columns | Array&lt;[Column](grid.md#column)&gt; | Columns being dragged.
+columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | A template rendering columns being dragged.
 
 ### <a name="column-args"></a>ColumnArgs
 
@@ -45,8 +45,8 @@ column | [Column](grid.md#column) | Specifies a column being dragged.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging
-root | Template | Object? | A template that renders the grid's root layout
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging.
+root | Template | Object? | A template that renders the grid's root layout.
 
 ### Exports
 

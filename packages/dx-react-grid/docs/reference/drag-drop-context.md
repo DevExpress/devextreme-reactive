@@ -37,7 +37,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | Specifies a table column being dragged.
+column | [Column](grid.md#column) | Specifies a column being dragged.
 
 ## Plugin Developer Reference
 

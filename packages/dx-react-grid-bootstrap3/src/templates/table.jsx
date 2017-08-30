@@ -39,7 +39,7 @@ export const Table = ({
   onClick,
   allowColumnReordering,
   setColumnOrder,
-  rowComponentTemplate,
+  tableRowComponentTemplate,
 }) => (
   <TableLayout
     className="table-responsive"
@@ -52,8 +52,8 @@ export const Table = ({
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}
     rowTemplate={({ row, ...restParams }) => (
-      rowComponentTemplate && row.type === 'data' ?
-        rowComponentTemplate({ row, ...restParams }) :
+      tableRowComponentTemplate && row.type === 'data' ?
+        tableRowComponentTemplate({ row, ...restParams }) :
         rowTemplate({ row, ...restParams })
     )}
     cellTemplate={cellTemplate}
@@ -68,7 +68,7 @@ Table.propTypes = {
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
-  rowComponentTemplate: PropTypes.func.isRequired,
+  tableRowComponentTemplate: PropTypes.func.isRequired,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,

@@ -14,14 +14,14 @@ const stubCellTemplate = props => <TableStubCell {...props} />;
 const stubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 
-export const TableView = ({ tableCellTemplate, rowComponentTemplate, ...props }) => (
+export const TableView = ({ tableCellTemplate, tableRowComponentTemplate, ...props }) => (
   <TableViewBase
     tableTemplate={tableTemplate}
     tableCellTemplate={combineTemplates(
       tableCellTemplate,
       defaultCellTemplate,
     )}
-    rowComponentTemplate={rowComponentTemplate}
+    tableRowComponentTemplate={tableRowComponentTemplate}
     tableStubCellTemplate={stubCellTemplate}
     tableStubHeaderCellTemplate={stubHeaderCellTemplate}
     tableNoDataCellTemplate={noDataCellTemplate}
@@ -31,10 +31,10 @@ export const TableView = ({ tableCellTemplate, rowComponentTemplate, ...props })
 
 TableView.propTypes = {
   tableCellTemplate: PropTypes.func,
-  rowComponentTemplate: PropTypes.func,
+  tableRowComponentTemplate: PropTypes.func,
 };
 
 TableView.defaultProps = {
   tableCellTemplate: undefined,
-  rowComponentTemplate: undefined,
+  tableRowComponentTemplate: undefined,
 };

@@ -67,7 +67,7 @@ export default class Demo extends React.PureComponent {
           onCommitChanges={this.commitChanges}
         />
         <TableView
-          rowComponentTemplate={({ children, row, ...restProps }) => (<tr
+          tableRowComponentTemplate={({ children, row, ...restProps }) => (<tr
             className={row.selected ? 'active' : ''}
             onClick={() => {
               alert(JSON.stringify(row.type));

@@ -17,8 +17,8 @@ const rowTemplate = ({ children, row, ...restProps }) => (<tr
 </tr>);
 
 // eslint-disable-next-line
-const tableTemplate = ({ rowComponentTemplate, ...props }) => {
-  return (<VirtualTable rowComponentTemplate={rowComponentTemplate} {...props} />);
+const tableTemplate = ({ tableRowComponentTemplate, ...props }) => {
+  return (<VirtualTable tableRowComponentTemplate={tableRowComponentTemplate} {...props} />);
 };
 
 const defaultCellTemplate = props => <TableCell {...props} />;
@@ -33,7 +33,7 @@ export const VirtualTableView = ({ tableCellTemplate, ...props }) => (
       tableCellTemplate,
       defaultCellTemplate,
     )}
-    rowComponentTemplate={rowTemplate}
+    tableRowComponentTemplate={rowTemplate}
     tableNoDataCellTemplate={noDataCellTemplate}
     tableStubCellTemplate={stubCellTemplate}
     tableStubHeaderCellTemplate={stubHeaderCellTemplate}

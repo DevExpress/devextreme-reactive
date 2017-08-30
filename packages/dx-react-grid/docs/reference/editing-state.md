@@ -25,7 +25,7 @@ deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows pr
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRows` array in the uncontrolled mode.
 onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRows` array.
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
-createRowChange | (row: [Row](grid.md#row), columnName: string, value: string &#124; number) => object | | A function that returns an object specifying row changes depending on the values or row's editors. This function is called before firing the `onCommitChanges` event.
+createRowChange | (row: [Row](grid.md#row), columnName: string, value: string &#124; number) => object | | A function that returns an object specifying row changes depending on the values or row's editors. This function is called each time a value of a row's editor has been changed.
 
 ## Interfaces
 

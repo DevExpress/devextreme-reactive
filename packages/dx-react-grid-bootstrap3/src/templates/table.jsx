@@ -51,7 +51,7 @@ export const Table = ({
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}
-    rowTemplate={({ row, ...restParams }) =>(
+    rowTemplate={({ row, ...restParams }) => (
       tableRowComponentTemplate && row.type === 'data' ?
         tableRowComponentTemplate({ tableRow: row, ...restParams }) :
         rowTemplate({ tableRow: row, ...restParams })

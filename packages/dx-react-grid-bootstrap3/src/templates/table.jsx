@@ -24,14 +24,22 @@ const bodyTemplate = ({ children, ...restProps }) => (
   <tbody {...restProps}>{children}</tbody>
 );
 
-/* eslint-enable react/prop-types */
+// eslint-disable-next-line
+const rowTemplate = ({ children, row, ...restProps }) => (<tr
+  className={row.selected ? 'active' : ''}
+  {...restProps}
+>
+  {children}
+</tr>);
 
 export const Table = ({
   headerRows, bodyRows, getRowId,
   columns,
   cellTemplate,
   onClick,
-  allowColumnReordering, setColumnOrder, rowComponentTemplate,
+  allowColumnReordering,
+  setColumnOrder,
+  rowComponentTemplate,
 }) => (
   <TableLayout
     className="table-responsive"
@@ -43,7 +51,11 @@ export const Table = ({
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}
-    rowTemplate={rowComponentTemplate}
+    rowTemplate={({ row, ...restParams }) => (
+      rowComponentTemplate && row.type === 'data' ?
+        rowComponentTemplate({ row, ...restParams }) :
+        rowTemplate({ row, ...restParams })
+    )}
     cellTemplate={cellTemplate}
     onClick={onClick}
     allowColumnReordering={allowColumnReordering}

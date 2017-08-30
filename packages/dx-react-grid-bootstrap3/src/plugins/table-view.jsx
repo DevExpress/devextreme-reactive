@@ -14,22 +14,14 @@ const stubCellTemplate = props => <TableStubCell {...props} />;
 const stubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 
-// eslint-disable-next-line
-const rowTemplate = ({ children, row, ...restProps }) => (<tr
-  className={row.selected ? 'active' : ''}
-  {...restProps}
->
-  {children}
-</tr>);
-
-export const TableView = ({ tableCellTemplate, ...props }) => (
+export const TableView = ({ tableCellTemplate, rowComponentTemplate, ...props }) => (
   <TableViewBase
     tableTemplate={tableTemplate}
     tableCellTemplate={combineTemplates(
       tableCellTemplate,
       defaultCellTemplate,
     )}
-    rowComponentTemplate={rowTemplate}
+    rowComponentTemplate={rowComponentTemplate}
     tableStubCellTemplate={stubCellTemplate}
     tableStubHeaderCellTemplate={stubHeaderCellTemplate}
     tableNoDataCellTemplate={noDataCellTemplate}
@@ -39,8 +31,10 @@ export const TableView = ({ tableCellTemplate, ...props }) => (
 
 TableView.propTypes = {
   tableCellTemplate: PropTypes.func,
+  rowComponentTemplate: PropTypes.func,
 };
 
 TableView.defaultProps = {
   tableCellTemplate: undefined,
+  rowComponentTemplate: undefined,
 };

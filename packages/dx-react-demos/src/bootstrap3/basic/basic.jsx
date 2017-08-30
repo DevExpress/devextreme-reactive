@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Grid,
   VirtualTableView,
+  TableView,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 

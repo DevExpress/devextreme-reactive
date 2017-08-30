@@ -166,7 +166,6 @@ export class VirtualBox extends React.Component {
     });
 
     const RootTag = this.props.rootTag;
-debugger
     if (rootTagTmplt) {
       return rootTagTmplt({
         className: this.props.className,

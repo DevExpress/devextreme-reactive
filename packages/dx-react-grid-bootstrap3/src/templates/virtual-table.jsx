@@ -55,9 +55,11 @@ export class VirtualTable extends React.Component {
       return (
         <VirtualBox
           rootTag="tr"
-          rootTagTmplt={args => {
-            return (rowComponentTemplate && rowComponentTemplate({ row, ...args }));
-          }}
+          rootTagTmplt={
+            (rowComponentTemplate && row.type === 'data') ?
+              args => (rowComponentTemplate({ row, ...args })) :
+              undefined
+          }
           position={position}
           crossSize={this.rowHeight(row)}
           direction="horizontal"

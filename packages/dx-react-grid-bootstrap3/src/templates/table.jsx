@@ -23,14 +23,14 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <tbody {...restProps}>{children}</tbody>
 );
-
-// eslint-disable-next-line
-const rowTemplate = ({ children, tableRow, ...restProps }) => (<tr
-  className={tableRow.selected ? 'active' : ''}
-  {...restProps}
->
-  {children}
-</tr>);
+const rowTemplate = ({ children, tableRow, ...restProps }) => (
+  <tr
+    className={tableRow.selected ? 'active' : ''}
+    {...restProps}
+  >
+    {children}
+  </tr>
+);
 
 export const Table = ({
   headerRows, bodyRows, getRowId,
@@ -62,19 +62,18 @@ export const Table = ({
     setColumnOrder={setColumnOrder}
   />
 );
-
+Table.defaultProps = {
+  onClick: () => {},
+  tableRowComponentTemplate: undefined,
+};
 Table.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
-  tableRowComponentTemplate: PropTypes.func.isRequired,
+  tableRowComponentTemplate: PropTypes.func,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,
   setColumnOrder: PropTypes.func.isRequired,
-};
-
-Table.defaultProps = {
-  onClick: () => {},
 };

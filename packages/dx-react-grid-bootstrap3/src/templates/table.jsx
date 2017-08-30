@@ -25,8 +25,8 @@ const bodyTemplate = ({ children, ...restProps }) => (
 );
 
 // eslint-disable-next-line
-const rowTemplate = ({ children, row, ...restProps }) => (<tr
-  className={row.selected ? 'active' : ''}
+const rowTemplate = ({ children, tableRow, ...restProps }) => (<tr
+  className={tableRow.selected ? 'active' : ''}
   {...restProps}
 >
   {children}
@@ -51,10 +51,10 @@ export const Table = ({
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}
-    rowTemplate={({ row, ...restParams }) => (
+    rowTemplate={({ row, ...restParams }) =>(
       tableRowComponentTemplate && row.type === 'data' ?
-        tableRowComponentTemplate({ row, ...restParams }) :
-        rowTemplate({ row, ...restParams })
+        tableRowComponentTemplate({ tableRow: row, ...restParams }) :
+        rowTemplate({ tableRow: row, ...restParams })
     )}
     cellTemplate={cellTemplate}
     onClick={onClick}

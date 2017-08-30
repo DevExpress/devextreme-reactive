@@ -9,8 +9,8 @@ import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 
 // eslint-disable-next-line
-const rowTemplate = ({ children, row, ...restProps }) => (<tr
-  className={row.selected ? 'active' : ''}
+const rowTemplate = ({ children, tableRow, ...restProps }) => (<tr
+  className={tableRow.selected ? 'active' : ''}
   {...restProps}
 >
   {children}

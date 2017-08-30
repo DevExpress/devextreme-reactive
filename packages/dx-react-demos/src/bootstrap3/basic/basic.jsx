@@ -36,13 +36,13 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <VirtualTableView
-          tableRowComponentTemplate={({ children, row, style, ...restProps }) => (<tr
-            className={row.selected ? 'active' : ''}
-            style={row.type === 'data' ?
+          tableRowComponentTemplate={({ children, tableRow, style, ...restProps }) => (<tr
+            className={tableRow.selected ? 'active' : ''}
+            style={tableRow.type === 'data' ?
               { ...{ color: 'red' }, ...style } : null
             }
             onClick={() => {
-              alert(JSON.stringify(row.row));
+              alert(JSON.stringify(tableRow.row));
             }}
             {...restProps}
           >

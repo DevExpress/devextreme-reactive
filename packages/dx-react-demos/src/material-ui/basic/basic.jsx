@@ -5,6 +5,8 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
+import { TableRow } from 'material-ui';
+
 import {
   generateRows,
   globalSalesValues,
@@ -34,7 +36,16 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <TableView />
+        <TableView
+          tableRowComponentTemplate={({ children, tableRow, style, ...restProps }) => (<TableRow
+            className={tableRow.selected ? 'active' : ''}
+            style={{ ...{ color: 'red' }, ...style }}
+            onClick={() => { }}
+            {...restProps}
+          >
+            {children}
+          </TableRow>)}
+        />
         <TableHeaderRow />
       </Grid>
     );

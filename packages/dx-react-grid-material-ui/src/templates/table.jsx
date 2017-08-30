@@ -24,10 +24,9 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
 );
-const rowTemplate = ({ children, row, onClick, ...restProps }) => (
+const rowTemplate = ({ children, tableRow, onClick, ...restProps }) => (
   <TableRowMUI
-    onClick={e => (row.type === 'data' && onClick(row.row, e))}
-    selected={row.selected}
+    selected={tableRow.selected}
     {...restProps}
   >
     {children}
@@ -40,7 +39,9 @@ export const Table = ({
   columns,
   cellTemplate,
   onClick,
-  allowColumnReordering, setColumnOrder,
+  allowColumnReordering,
+  setColumnOrder,
+  tableRowComponentTemplate,
 }) => (
   <TableLayout
     headerRows={headerRows}
@@ -51,7 +52,11 @@ export const Table = ({
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}
-    rowTemplate={rowTemplate}
+    rowTemplate={({ row, ...restParams }) => (
+      tableRowComponentTemplate && row.type === 'data' ?
+        tableRowComponentTemplate({ tableRow: row, ...restParams }) :
+        rowTemplate({ tableRow: row, ...restParams })
+    )}
     cellTemplate={cellTemplate}
     onClick={onClick}
     allowColumnReordering={allowColumnReordering}
@@ -64,6 +69,7 @@ Table.propTypes = {
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
+  tableRowComponentTemplate: PropTypes.func,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,
@@ -72,4 +78,5 @@ Table.propTypes = {
 
 Table.defaultProps = {
   onClick: () => {},
+  tableRowComponentTemplate: undefined,
 };

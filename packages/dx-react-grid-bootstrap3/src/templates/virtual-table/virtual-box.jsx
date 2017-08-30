@@ -166,28 +166,31 @@ export class VirtualBox extends React.Component {
     });
 
     const RootTag = this.props.rootTag;
+
+    const rootTagProps = {
+      style: {
+        position: 'relative',
+        ...this.props.style,
+        [sizeProp]: `${fullSize}px`,
+        display: 'block',
+      },
+      className: this.props.className,
+    };
+
     if (rootTagTemplate) {
       return rootTagTemplate({
-        className: this.props.className,
+        ...rootTagProps,
         children: visibleItems,
-        style: {
-          position: 'relative',
-          ...this.props.style,
-          [sizeProp]: `${fullSize}px`,
-          display: 'block',
-        },
       });
     }
     return (
       <RootTag
-        className={this.props.className}
-        style={{
-          position: 'relative',
-          ...this.props.style,
-          [sizeProp]: `${fullSize}px`,
-          display: 'block',
-        }}
-        {...(iref ? { ref: iref } : {})}
+        {
+          ...{
+            ...(iref ? { ref: iref } : {}),
+            ...rootTagProps,
+          }
+        }
       >
         {visibleItems}
       </RootTag>

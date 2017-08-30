@@ -55,7 +55,7 @@ export class VirtualTable extends React.Component {
       return (
         <VirtualBox
           rootTag="tr"
-          rootTagTmplt={
+          rootTagTemplate={
             (tableRowComponentTemplate && row.type === 'data') ?
               args => (tableRowComponentTemplate({ tableRow: row, ...args })) :
               undefined

@@ -16,12 +16,11 @@ const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 
 export const TableView = ({ tableCellTemplate, tableRowComponentTemplate, ...props }) => (
   <TableViewBase
-    tableTemplate={tableTemplate}
+    tableTemplate={args => tableTemplate({ tableRowComponentTemplate, ...args })}
     tableCellTemplate={combineTemplates(
       tableCellTemplate,
       defaultCellTemplate,
     )}
-    tableRowComponentTemplate={tableRowComponentTemplate}
     tableStubCellTemplate={stubCellTemplate}
     tableStubHeaderCellTemplate={stubHeaderCellTemplate}
     tableNoDataCellTemplate={noDataCellTemplate}

@@ -27,18 +27,27 @@ export class GroupingPanel extends React.PureComponent {
             columns: getter('columns'),
             grouping: getter('draftGrouping'),
             sorting: getter('sorting'),
+            sortingScope: getter('draftGrouping').map(groupElement => groupElement.columnName),
           })}
           connectActions={action => ({
             groupByColumn: action('groupByColumn'),
-            changeSortingDirection: ({ columnName, keepOther, cancel }) =>
-              action('setColumnSorting')({ columnName, keepOther, cancel }),
+            changeSortingDirection: ({ columnName, keepOther, cancel, scope }) =>
+              action('setColumnSorting')({ columnName, keepOther, cancel, scope }),
             draftGroupingChange: groupingChange => action('draftGroupingChange')(groupingChange),
             cancelGroupingChange: () => action('cancelGroupingChange')(),
           })}
         >
-          {({ columns, grouping, ...restParams }) => (
-            <div>
+          {({ columns,
+              grouping,
+              changeSortingDirection,
+              sortingScope,
+               ...restParams
+            }) => (<div>
               {groupPanelTemplate({
+                changeSortingDirection: params => changeSortingDirection({
+                  ...params,
+                  scope: sortingScope,
+                }),
                 allowSorting,
                 allowDragging,
                 allowUngroupingByClick,
@@ -47,7 +56,7 @@ export class GroupingPanel extends React.PureComponent {
               })}
               <TemplatePlaceholder />
             </div>
-          )}
+            )}
         </Template>
       </PluginContainer>
     );

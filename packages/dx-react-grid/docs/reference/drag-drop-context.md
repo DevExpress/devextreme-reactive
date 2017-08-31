@@ -1,6 +1,6 @@
 # DragDropContext Plugin Reference
 
-This plugin enables the drag-and-drop feature and visualizes the dragging process.
+This plugin implements the drag-and-drop functionality and visualizes columns being dragged.
 
 ## User Reference
 
@@ -12,32 +12,32 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-containerTemplate | (args: [ContainerArgs](#container-args)) => ReactElement | | A template that renders a container for dropping items
-columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | | A template that renders a column being dragged
+containerTemplate | (args: [ContainerArgs](#container-args)) => ReactElement | | A template that renders a container for columns being dragged.
+columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | | A template that renders a column being dragged.
 
 ## Interfaces
 
 ### <a name="container-args"></a>ContainerArgs
 
-Describes properties passed to a template that renders a container for dropping items.
+Describes properties passed to a template that renders a container for columns being dragged.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-clientOffset | { x: number, y: number } | Current screen offset of dragged items
-columns | Array&lt;[Column](grid.md#column)&gt; | Columns being dragged
-columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | A template applied to columns being dragged
+clientOffset | { x: number, y: number } | The current offset of a column being dragged, against the application's client area.
+columns | Array&lt;[Column](grid.md#column)&gt; | Columns being dragged.
+columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | A template rendering columns being dragged.
 
 ### <a name="column-args"></a>ColumnArgs
 
-Describes properties passed to a template that renders a column being dragged inside the container for dropping items.
+Describes properties passed to a template rendering a column being dragged.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | Specifies a table column
+column | [Column](grid.md#column) | Specifies a column being dragged.
 
 ## Plugin Developer Reference
 
@@ -45,8 +45,8 @@ column | [Column](grid.md#column) | Specifies a table column
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging
-root | Template | Object? | A template that renders the grid's root layout
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging.
+root | Template | Object? | A template that renders the grid's root layout.
 
 ### Exports
 

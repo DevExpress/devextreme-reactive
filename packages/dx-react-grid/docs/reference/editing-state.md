@@ -55,7 +55,7 @@ deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing the 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns.
+columns | Getter | Array&lt;[Column](#column)&gt; | The grid columns.
 
 ### Exports
 

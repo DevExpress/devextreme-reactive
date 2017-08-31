@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
+import { DragDropContext, DragSource, Draggable } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
@@ -133,5 +133,41 @@ describe('TableHeaderCell', () => {
       .not.toMatchObject({
         opacity: 0.3,
       });
+  });
+
+  describe('resizing', () => {
+    it('should trigger changeColumnWidth with correct change on resize end', () => {
+      const changeColumnWidth = jest.fn();
+      const tree = mount(
+        <TableHeaderCell
+          column={{}}
+          allowResizing
+          changeColumnWidth={changeColumnWidth}
+        />,
+      );
+
+      tree.find(Draggable).prop('onStart')({ x: 0 });
+
+      tree.find(Draggable).prop('onEnd')({ x: 10 });
+      expect(changeColumnWidth)
+        .toBeCalledWith({ shift: 10 });
+    });
+
+    it('should trigger changeDraftColumnWidth with correct change on resize update', () => {
+      const changeDraftColumnWidth = jest.fn();
+      const tree = mount(
+        <TableHeaderCell
+          column={{}}
+          allowResizing
+          changeDraftColumnWidth={changeDraftColumnWidth}
+        />,
+      );
+
+      tree.find(Draggable).prop('onStart')({ x: 0 });
+
+      tree.find(Draggable).prop('onUpdate')({ x: 10 });
+      expect(changeDraftColumnWidth)
+        .toBeCalledWith({ shift: 10 });
+    });
   });
 });

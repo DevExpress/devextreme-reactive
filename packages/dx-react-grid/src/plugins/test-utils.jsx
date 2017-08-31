@@ -17,7 +17,7 @@ export const pluginDepsToComponents = (
   depsOverrides = {},
 ) => (
   <PluginContainer>
-    {deps.plugins && deps.plugins.map(plugin => (
+    {[...(deps.plugins || []), ...(depsOverrides.plugins || [])].map(plugin => (
       <PluginContainer
         pluginName={plugin}
         key={plugin}

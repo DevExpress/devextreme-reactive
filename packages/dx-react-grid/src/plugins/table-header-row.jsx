@@ -35,7 +35,8 @@ export class TableHeaderRow extends React.PureComponent {
             const grouping = getter('grouping');
             const sortingScope = getter('tableColumns')
               .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE
-                && !grouping.find(group => group.columnName === tableColumn.column.name),
+                && (!grouping
+                || !grouping.find(group => group.columnName === tableColumn.column.name)),
               )
               .map(tableColumn => tableColumn.column.name);
 

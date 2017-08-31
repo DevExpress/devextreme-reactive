@@ -101,7 +101,6 @@ Describes properties passed to the table row component template when it is being
 Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#table-row) | Specifies a table row
-selected | Boolean | Specifies if a row is selected
 children | ReactElement | A markup to be placed into the row
 style? | Object | Styles that should be applied to the root row element
 

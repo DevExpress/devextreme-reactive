@@ -32,10 +32,12 @@ export class TableHeaderRow extends React.PureComponent {
           connectGetters={(getter, { tableColumn: { column } }) => {
             const sorting = getter('sorting');
             const columns = getter('columns');
-            const sortingScope = getter('tableColumns')
-              .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
-              .map(c => c.column.name);
             const grouping = getter('grouping');
+            const sortingScope = getter('tableColumns')
+              .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE
+                && !grouping.find(group => group.columnName === tableColumn.column.name),
+              )
+              .map(tableColumn => tableColumn.column.name);
 
             const groupingSupported = grouping !== undefined &&
                 grouping.length < columns.length - 1;

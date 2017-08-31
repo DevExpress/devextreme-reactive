@@ -2,7 +2,6 @@ const { join } = require('path');
 const { execSync } = require('child_process');
 const { copySync, removeSync } = require('fs-extra');
 const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
-
 const COLORS = {
   reset: "\x1b[0m",
   bright: "\x1b[1m",
@@ -28,7 +27,7 @@ console.log('====================');
 console.log();
 
 console.log('Building site content...');
-execSync(`npm run build:site -- -- --versionTag "${demosRevision}"`, { stdio: 'ignore' });
+execSync('npm run build:site', { stdio: 'ignore', env: { ...process.env, VERSION_TAG: demosRevision } });
 
 console.log('Cleaning generated site...');
 removeSync(GENERATED_SITE_DIRECTORY);

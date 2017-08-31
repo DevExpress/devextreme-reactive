@@ -1,15 +1,14 @@
 import React from 'react';
 import { Nav, NavItem } from 'react-bootstrap';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import createPalette from 'material-ui/styles/palette';
 import { blue } from 'material-ui/colors';
 import Demo from './demo';
 
 const createTheme = theme => createMuiTheme({
-  palette: createPalette({
+  palette: {
     type: theme,
     primary: blue,
-  }),
+  },
 });
 
 export default class DemoFrame extends React.PureComponent {

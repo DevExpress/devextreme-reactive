@@ -61,10 +61,6 @@ children? | ReactElement | A React element to be placed into the footer.
 
 ## Plugin Developer Reference
 
-### Imports
-
-none
-
 ### Exports
 
 Name | Plugin | Type | Description

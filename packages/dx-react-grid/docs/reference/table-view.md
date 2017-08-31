@@ -18,6 +18,7 @@ tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactE
 tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
 tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided
 tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
+tableRowComponentTemplate | (args: [TableRowComponentArgs](#table-row-component-args)) => ReactElement | | Renders a table row component using the specified parameters. Available for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it. Requires the [ColumnOrderState](column-order-state.md) and the [DragDropContext](drag-drop-context.md) dependencies.
 
 ## Interfaces
@@ -92,6 +93,17 @@ Field | Type | Description
 ------|------|------------
 row | [Row](grid.md#row) | Specifies a table row
 column | [Column](#column) | Specifies a table column
+
+### <a name="table-row-component-args"></a>TableRowComponentArgs
+
+Describes properties passed to the table row component template when it is being rendered.
+
+Field | Type | Description
+------|------|------------
+tableRow | [TableRow](#table-row) | Specifies a table row
+selected | Boolean | Specifies if a row is selected
+children | ReactElement | A markup to be placed into the row
+style? | Object | Styles that should be applied to the root row element
 
 ## Plugin Developer Reference
 

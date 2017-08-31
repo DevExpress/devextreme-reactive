@@ -7,14 +7,19 @@ import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 
-const tableTemplate = props => <Table {...props} />;
+const tableTemplate = tableRowComponentTemplate => props => (
+  <Table
+    tableRowComponentTemplate={tableRowComponentTemplate}
+    {...props}
+  />
+);
 const defaultCellTemplate = props => <TableCell {...props} />;
 const stubCellTemplate = props => <TableStubCell {...props} />;
 const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 
 export const TableView = ({ tableCellTemplate, tableRowComponentTemplate, ...props }) => (
   <TableViewBase
-    tableTemplate={args => tableTemplate({ tableRowComponentTemplate, ...args })}
+    tableTemplate={tableTemplate(tableRowComponentTemplate)}
     tableCellTemplate={combineTemplates(
       tableCellTemplate,
       defaultCellTemplate,

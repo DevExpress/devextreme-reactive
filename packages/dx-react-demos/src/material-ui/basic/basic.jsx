@@ -36,16 +36,7 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <TableView
-          tableRowComponentTemplate={({ children, tableRow, style, ...restProps }) => (<TableRow
-            className={tableRow.selected ? 'active' : ''}
-            style={{ ...{ color: 'red' }, ...style }}
-            onClick={() => { }}
-            {...restProps}
-          >
-            {children}
-          </TableRow>)}
-        />
+        <TableView />
         <TableHeaderRow />
       </Grid>
     );

@@ -25,9 +25,17 @@ deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows pr
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRows` array in the uncontrolled mode.
 onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRows` array.
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
-createRowChange | (row: [Row](grid.md#row), columnName: string, value: string &#124; number) => object | | A function that returns an object specifying row changes depending on the values or row's editors. This function is called each time a row editor's value changes.
+createRowChange | (row: [Row](grid.md#row), columnName: string, value: string &#124; number) => object | | A function that returns an object specifying row changes depending on the values of row's editors. This function is called each time a row editor's value changes.
 
 ## Interfaces
+
+### <a name="column"></a>Column (Extension)
+
+A value with the [Column](grid.md#column) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+createRowChange | (row: [Row](#row), value: string &#124; number, columnName: string) => object | A function that returns an object specifying row changes depending on the values of the column's editor for the current row. This function is called each time the editor's value changes.
 
 ### <a name="change-set"></a>ChangeSet
 

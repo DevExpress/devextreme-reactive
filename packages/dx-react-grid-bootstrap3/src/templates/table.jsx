@@ -23,13 +23,15 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <tbody {...restProps}>{children}</tbody>
 );
-const rowTemplate = ({ children, tableRow, ...restProps }) => (
-  <tr
-    className={tableRow.selected ? 'active' : ''}
-    {...restProps}
-  >
-    {children}
-  </tr>
+const rowTemplate = tableRowComponentTemplate => ({ children, row, ...restParams }) => (
+  tableRowComponentTemplate && row.type === 'data' ?
+    tableRowComponentTemplate({ tableRow: row, children, ...restParams }) :
+    <tr
+      className={row.selected ? 'active' : ''}
+      {...restParams}
+    >
+      {children}
+    </tr>
 );
 
 export const Table = ({
@@ -51,11 +53,7 @@ export const Table = ({
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}
-    rowTemplate={({ row, ...restParams }) => (
-      tableRowComponentTemplate && row.type === 'data' ?
-        tableRowComponentTemplate({ tableRow: row, ...restParams }) :
-        rowTemplate({ tableRow: row, ...restParams })
-    )}
+    rowTemplate={rowTemplate(tableRowComponentTemplate)}
     cellTemplate={cellTemplate}
     onClick={onClick}
     allowColumnReordering={allowColumnReordering}

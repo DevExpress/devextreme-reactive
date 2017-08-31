@@ -24,15 +24,16 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
 );
-const rowTemplate = ({ children, tableRow, onClick, ...restProps }) => (
-  <TableRowMUI
-    selected={tableRow.selected}
-    {...restProps}
-  >
-    {children}
-  </TableRowMUI>
+const rowTemplate = tableRowComponentTemplate => ({ row, children, ...restParams }) => (
+  tableRowComponentTemplate && row.type === 'data' ?
+    tableRowComponentTemplate({ tableRow: row, children, ...restParams }) :
+    <TableRowMUI
+      selected={row.selected}
+      {...restParams}
+    >
+      {children}
+    </TableRowMUI>
 );
-/* eslint-enable react/prop-types */
 
 export const Table = ({
   headerRows, bodyRows, getRowId,
@@ -52,11 +53,7 @@ export const Table = ({
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}
-    rowTemplate={({ row, ...restParams }) => (
-      tableRowComponentTemplate && row.type === 'data' ?
-        tableRowComponentTemplate({ tableRow: row, ...restParams }) :
-        rowTemplate({ tableRow: row, ...restParams })
-    )}
+    rowTemplate={rowTemplate(tableRowComponentTemplate)}
     cellTemplate={cellTemplate}
     onClick={onClick}
     allowColumnReordering={allowColumnReordering}

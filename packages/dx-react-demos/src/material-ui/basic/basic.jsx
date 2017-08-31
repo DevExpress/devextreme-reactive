@@ -5,8 +5,6 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { TableRow } from 'material-ui';
-
 import {
   generateRows,
   globalSalesValues,

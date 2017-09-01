@@ -33,15 +33,19 @@ export class TableHeaderRow extends React.PureComponent {
             const sorting = getter('sorting');
             const columns = getter('columns');
             const grouping = getter('grouping');
-            const sortingScope = getter('tableColumns')
-              .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE
-                && (!grouping
-                || !grouping.find(group => group.columnName === tableColumn.column.name)),
-              )
-              .map(tableColumn => tableColumn.column.name);
+            const tableColumns = getter('tableColumns')
+              .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE);
+            let sortingScope;
+
+            if (grouping) {
+              sortingScope = tableColumns
+                .filter(tableColumn => grouping
+                  .find(group => group.columnName !== tableColumn.column.name))
+                .map(tableColumn => tableColumn.column.name);
+            }
 
             const groupingSupported = grouping !== undefined &&
-                grouping.length < columns.length - 1;
+              grouping.length < columns.length - 1;
 
             const result = {
               sortingSupported: sorting !== undefined,
@@ -63,8 +67,8 @@ export class TableHeaderRow extends React.PureComponent {
           connectActions={(action, { tableColumn: { column } }) => ({
             changeSortingDirection: ({
                 keepOther,
-                cancel,
-                scope,
+              cancel,
+              scope,
               }) => action('setColumnSorting')({
                 columnName: column.name,
                 keepOther,

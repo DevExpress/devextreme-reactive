@@ -1,18 +1,16 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
-import { DragDropContext, DragSource, Draggable } from '@devexpress/dx-react-core';
+import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
+import { ResizingControl } from './table-header-cell/resizing-control';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
-
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
-
   afterAll(() => {
     resetConsole();
   });
@@ -135,41 +133,23 @@ describe('TableHeaderCell', () => {
       });
   });
 
-  describe('resizing', () => {
-    it('should trigger changeColumnWidth with correct change on resize end', () => {
-      const changeColumnWidth = jest.fn();
-      const tree = mount(
-        <TableHeaderCell
-          column={{}}
-          allowResizing
-          changeDraftColumnWidth={() => {}}
-          changeColumnWidth={changeColumnWidth}
-        />,
-      );
+  it('should render resize control if resize allowed', () => {
+    const changeColumnWidth = () => {};
+    const changeDraftColumnWidth = () => {};
+    const tree = mount(
+      <TableHeaderCell
+        column={{}}
+        allowResizing
+        changeDraftColumnWidth={changeDraftColumnWidth}
+        changeColumnWidth={changeColumnWidth}
+      />,
+    );
 
-      tree.find(Draggable).prop('onStart')({ x: 0 });
-
-      tree.find(Draggable).prop('onEnd')({ x: 10 });
-      expect(changeColumnWidth)
-        .toBeCalledWith({ shift: 10 });
-    });
-
-    it('should trigger changeDraftColumnWidth with correct change on resize update', () => {
-      const changeDraftColumnWidth = jest.fn();
-      const tree = mount(
-        <TableHeaderCell
-          column={{}}
-          allowResizing
-          changeDraftColumnWidth={changeDraftColumnWidth}
-          changeColumnWidth={() => {}}
-        />,
-      );
-
-      tree.find(Draggable).prop('onStart')({ x: 0 });
-
-      tree.find(Draggable).prop('onUpdate')({ x: 10 });
-      expect(changeDraftColumnWidth)
-        .toBeCalledWith({ shift: 10 });
-    });
+    expect(tree.find(ResizingControl).exists())
+      .toBeTruthy();
+    expect(tree.find(ResizingControl).prop('changeDraftColumnWidth'))
+      .toBe(changeDraftColumnWidth);
+    expect(tree.find(ResizingControl).prop('changeColumnWidth'))
+      .toBe(changeColumnWidth);
   });
 });

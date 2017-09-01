@@ -2,8 +2,9 @@ import React from 'react';
 import { TableCell } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { DragDropContext, DragSource, Draggable } from '@devexpress/dx-react-core';
+import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
+import { ResizingControl } from './table-header-cell/resizing-control';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -106,61 +107,23 @@ describe('TableHeaderCell', () => {
     expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
   });
 
-  describe('resizing', () => {
-    it('should have correct styles while resizing', () => {
-      const tree = mount(
-        <TableHeaderCell
-          column={{}}
-          allowResizing
-          changeDraftColumnWidth={() => {}}
-          changeColumnWidth={() => {}}
-        />,
-      );
+  it('should render resize control if resize allowed', () => {
+    const changeColumnWidth = () => {};
+    const changeDraftColumnWidth = () => {};
+    const tree = mount(
+      <TableHeaderCell
+        column={{}}
+        allowResizing
+        changeDraftColumnWidth={changeDraftColumnWidth}
+        changeColumnWidth={changeColumnWidth}
+      />,
+    );
 
-      const handle = tree.find(`.${classes.resizeHandle}`);
-      expect(handle.exists()).toBeTruthy();
-
-      tree.find(Draggable).prop('onStart')({ x: 0, y: 0 });
-      expect(handle.hasClass(classes.resizeHandleActive)).toBeTruthy();
-
-      tree.find(Draggable).prop('onEnd')({ x: 0, y: 0 });
-      expect(handle.hasClass(classes.resizeHandleActive)).toBeFalsy();
-    });
-
-    it('should trigger changeColumnWidth with correct change on resize end', () => {
-      const changeColumnWidth = jest.fn();
-      const tree = mount(
-        <TableHeaderCell
-          column={{}}
-          allowResizing
-          changeDraftColumnWidth={() => {}}
-          changeColumnWidth={changeColumnWidth}
-        />,
-      );
-
-      tree.find(Draggable).prop('onStart')({ x: 0 });
-
-      tree.find(Draggable).prop('onEnd')({ x: 10 });
-      expect(changeColumnWidth)
-        .toBeCalledWith({ shift: 10 });
-    });
-
-    it('should trigger changeDraftColumnWidth with correct change on resize update', () => {
-      const changeDraftColumnWidth = jest.fn();
-      const tree = mount(
-        <TableHeaderCell
-          column={{}}
-          allowResizing
-          changeDraftColumnWidth={changeDraftColumnWidth}
-          changeColumnWidth={() => {}}
-        />,
-      );
-
-      tree.find(Draggable).prop('onStart')({ x: 0 });
-
-      tree.find(Draggable).prop('onUpdate')({ x: 10 });
-      expect(changeDraftColumnWidth)
-        .toBeCalledWith({ shift: 10 });
-    });
+    expect(tree.find(ResizingControl).exists())
+      .toBeTruthy();
+    expect(tree.find(ResizingControl).prop('changeDraftColumnWidth'))
+      .toBe(changeDraftColumnWidth);
+    expect(tree.find(ResizingControl).prop('changeColumnWidth'))
+      .toBe(changeColumnWidth);
   });
 });

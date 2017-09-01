@@ -2,7 +2,6 @@ const { join } = require('path');
 const { execSync } = require('child_process');
 const { copySync, removeSync } = require('fs-extra');
 const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
-
 const COLORS = {
   reset: "\x1b[0m",
   bright: "\x1b[1m",
@@ -28,22 +27,30 @@ console.log('====================');
 console.log();
 
 console.log('Building site content...');
-execSync(`npm run build:site -- -- --versionTag "${demosRevision}"`, { stdio: 'ignore' });
+execSync('npm run build:site', { stdio: 'ignore', env: { ...process.env, VERSION_TAG: demosRevision } });
 
 console.log('Cleaning generated site...');
 removeSync(GENERATED_SITE_DIRECTORY);
 
+console.log('Preparing output directory...');
+execSync(`git worktree add -B ${BRANCH} ${GENERATED_SITE_DIRECTORY} upstream/${BRANCH}`, { stdio: 'ignore' });
+
 console.log('Generating site...');
+execSync('bundle install', { cwd: SITE_DIRECTORY, stdio: 'ignore' });
 execSync(`bundle exec jekyll build --source ${SITE_DIRECTORY} --destination ${GENERATED_SITE_DIRECTORY}`, { cwd: SITE_DIRECTORY, stdio: 'ignore' });
 
 console.log('Copying github stuff...');
 copySync(join(__dirname, 'gh-pages-files'), GENERATED_SITE_DIRECTORY);
 
 console.log('Publishing...');
-execSync(`git add -f ${GENERATED_SITE_DIRECTORY}`);
-execSync(`git commit -m "${COMMIT_MESSAGE}"`);
-execSync(`git subtree push --prefix ${GENERATED_SITE_DIRECTORY} upstream ${BRANCH}`);
-execSync('git reset HEAD^');
+execSync('git add --all', { cwd: GENERATED_SITE_DIRECTORY });
+execSync(`git commit -m "${COMMIT_MESSAGE}"`, { cwd: GENERATED_SITE_DIRECTORY });
+execSync(`git push upstream ${BRANCH}`, { cwd: GENERATED_SITE_DIRECTORY });
+
+console.log('Cleaning up...');
+removeSync(GENERATED_SITE_DIRECTORY);
+execSync('git worktree prune');
+execSync('git checkout -- .');
 
 console.log();
 console.log('--------------------');

@@ -1,6 +1,6 @@
 # Grid Reference
 
-The Grid is a root container component designed to process and display data specified via the `rows` property. You can provide the columns configuration via the `columns` property. The Grid functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../README.md#plugins-overview) for details.
+The Grid is a root container component designed to process and display data specified via the `rows` property. You can provide the columns configuration using the `columns` property. The Grid functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../README.md#plugins-overview) for details.
 
 ## User reference
 
@@ -20,7 +20,7 @@ footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-a
 
 ### Row
 
-A data object representing a Grid row. This object can contain any fields. The grid creates columns for those of them that are listed in the `columns` property.
+A data object representing a Grid row. This object can contain any field. The grid creates columns for the ones listed in the `columns` property.
 
 ### Column
 

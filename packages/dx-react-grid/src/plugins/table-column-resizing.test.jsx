@@ -6,7 +6,6 @@ import {
   tableColumnsWithWidths,
   changeTableColumnWidths,
   changeDraftTableColumnWidths,
-  cancelTableColumnWidth,
 } from '@devexpress/dx-grid-core';
 import { TableColumnResizing } from './table-column-resizing';
 import { pluginDepsToComponents } from './test-utils';
@@ -15,7 +14,6 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithWidths: jest.fn(),
   changeTableColumnWidths: jest.fn(),
   changeDraftTableColumnWidths: jest.fn(),
-  cancelTableColumnWidth: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -40,7 +38,6 @@ describe('ColumnOrderState', () => {
     tableColumnsWithWidths.mockImplementation(() => 'tableColumnsWithWidths');
     changeTableColumnWidths.mockImplementation(() => ({}));
     changeDraftTableColumnWidths.mockImplementation(() => ({}));
-    cancelTableColumnWidth.mockImplementation(() => ({}));
   });
   afterEach(() => {
     jest.resetAllMocks();

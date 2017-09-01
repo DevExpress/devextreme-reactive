@@ -78,9 +78,8 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#table-row) | Specifies a table row
 tableColumn | [TableColumn](#table-column) | Specifies a table column
-value | any | The value to be rendered within a cell
 style? | Object | Styles that should be applied to the root cell element
-colSpan? | number | Specifies the number of columns the cell spans
+colSpan? | number | The number of columns the cell spans that should be applied to the root cell element
 
 ### <a name="table-data-cell-args"></a>TableDataCellArgs
 
@@ -90,6 +89,7 @@ A value with the [TableCellArgs](#table-cell-args) shape extended by the followi
 
 Field | Type | Description
 ------|------|------------
+value | any | The value to be rendered within a cell
 row | [Row](grid.md#row) | Specifies a table row
 column | [Column](#column) | Specifies a table column
 

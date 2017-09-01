@@ -102,7 +102,7 @@ export class TableHeaderCell extends React.PureComponent {
       )
     );
 
-    const sesizingControlLineBody = resizing && (
+    const resizingControlLineBody = resizing && (
       <div
         className="bg-primary"
         style={{
@@ -145,7 +145,7 @@ export class TableHeaderCell extends React.PureComponent {
               top: '25%',
             }}
           >
-            {sesizingControlLineBody}
+            {resizingControlLineBody}
           </div>
           <div
             style={{
@@ -157,7 +157,7 @@ export class TableHeaderCell extends React.PureComponent {
               top: '25%',
             }}
           >
-            {sesizingControlLineBody}
+            {resizingControlLineBody}
           </div>
         </div>
       </Draggable>

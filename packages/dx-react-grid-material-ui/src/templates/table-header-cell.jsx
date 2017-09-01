@@ -93,9 +93,9 @@ const styles = theme => ({
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
-    width: '16px',
+    width: `${theme.spacing.unit * 2}px`,
     top: 0,
-    right: '-8px',
+    right: `-${theme.spacing.unit}px`,
     height: '100%',
     cursor: 'col-resize',
     zIndex: 100,
@@ -107,6 +107,12 @@ const styles = theme => ({
     width: '1px',
     top: '25%',
     transition: 'all linear 100ms',
+  },
+  resizeHandleFirstLine: {
+    left: `${theme.spacing.unit - 3}px`,
+  },
+  resizeHandleSecondLine: {
+    left: `${theme.spacing.unit - 1}px`,
   },
   resizeHandleActive: {
     '& $resizeHandleLine': {
@@ -254,12 +260,16 @@ class TableHeaderCellBase extends React.PureComponent {
           })}
         >
           <div
-            className={classes.resizeHandleLine}
-            style={{ left: '5px' }}
+            className={classNames({
+              [classes.resizeHandleLine]: true,
+              [classes.resizeHandleFirstLine]: true,
+            })}
           />
           <div
-            className={classes.resizeHandleLine}
-            style={{ left: '7px' }}
+            className={classNames({
+              [classes.resizeHandleLine]: true,
+              [classes.resizeHandleSecondLine]: true,
+            })}
           />
         </div>
       </Draggable>

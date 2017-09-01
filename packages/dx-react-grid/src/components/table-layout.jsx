@@ -173,11 +173,11 @@ export class TableLayout extends React.PureComponent {
     const table = (
       <TemplateRenderer
         template={tableTemplate}
+        templateRef={(node) => { if (node) this.tableNode = node; }}
         style={{
           tableLayout: 'fixed',
           minWidth: `${minWidth}px`,
         }}
-        tableRef={(node) => { if (node) this.tableNode = node; }}
       >
         {[
           ...(!headerRows.length

@@ -89,7 +89,7 @@ A value with the [TableCellArgs](#table-cell-args) shape extended by the followi
 
 Field | Type | Description
 ------|------|------------
-value | any | The value to be rendered within a cell
+value | any | The value to be rendered within the cell
 row | [Row](grid.md#row) | Specifies a table row
 column | [Column](#column) | Specifies a table column
 

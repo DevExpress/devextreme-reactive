@@ -5,9 +5,7 @@ var gulp = require('gulp'),
     intercept = require('gulp-intercept');
 
 var distPath = 'site/';
-
-var versionTagIndex = process.argv.indexOf('--versionTag');
-var versionTag = versionTagIndex > -1 ? process.argv[versionTagIndex + 1] : undefined;
+var versionTag = process.env.VERSION_TAG;
 
 var splitNameToPath = function(path) {
   // dx-react-grid-bs3\... ==> react\grid\bs3\...

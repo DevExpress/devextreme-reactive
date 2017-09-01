@@ -70,7 +70,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         });
     });
 
-    it('should reset size whel null passed', () => {
+    it('should reset size when null passed', () => {
       const state = {
         columnWidths: { a: 40, b: 60 },
         draftColumnWidths: { b: 45 },

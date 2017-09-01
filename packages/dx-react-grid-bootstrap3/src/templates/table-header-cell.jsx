@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Draggable, DragSource } from '@devexpress/dx-react-core';
+import { DragSource } from '@devexpress/dx-react-core';
 
-import { SortingIndicator } from './parts/sorting-indicator';
+import { ResizingControl } from './table-header-cell/resizing-control';
+import { GroupingControl } from './table-header-cell/grouping-control';
+import { SortingControl } from './table-header-cell/sorting-control';
 
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
@@ -11,7 +13,6 @@ export class TableHeaderCell extends React.PureComponent {
 
     this.state = {
       dragging: false,
-      resizing: false,
     };
 
     this.onCellClick = (e) => {
@@ -24,20 +25,6 @@ export class TableHeaderCell extends React.PureComponent {
         cancel: cancelSortingRelatedKey,
       });
     };
-
-    this.onResizeStart = ({ x }) => {
-      this.resizeStartingX = x;
-      this.setState({ resizing: true });
-    };
-    this.onResizeUpdate = ({ x }) => {
-      const { changeDraftColumnWidth } = this.props;
-      changeDraftColumnWidth({ shift: x - this.resizeStartingX });
-    };
-    this.onResizeEnd = ({ x }) => {
-      const { changeColumnWidth } = this.props;
-      changeColumnWidth({ shift: x - this.resizeStartingX });
-      this.setState({ resizing: false });
-    };
   }
   render() {
     const {
@@ -45,123 +32,11 @@ export class TableHeaderCell extends React.PureComponent {
       allowSorting, sortingDirection,
       allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
-      allowResizing,
+      allowResizing, changeColumnWidth, changeDraftColumnWidth,
     } = this.props;
-    const { dragging, resizing } = this.state;
+    const { dragging } = this.state;
     const align = column.align || 'left';
-    const invertedAlign = align === 'left' ? 'right' : 'left';
     const columnTitle = column.title || column.name;
-
-    const groupingControl = allowGroupingByClick && (
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          groupByColumn(e);
-        }}
-        style={{
-          float: invertedAlign,
-          textAlign: invertedAlign,
-          width: '14px',
-        }}
-      >
-        <i
-          className="glyphicon glyphicon-th-list"
-          style={{
-            top: '0',
-            fontSize: '9px',
-            margin: '-5px',
-            padding: '5px',
-          }}
-        />
-      </div>
-    );
-
-    const sortingControl = allowSorting && (
-      align === 'right' ? (
-        <span
-          className={sortingDirection ? 'text-primary' : ''}
-        >
-          <SortingIndicator
-            direction={sortingDirection}
-            style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
-          />
-          &nbsp;
-          {columnTitle}
-        </span>
-      ) : (
-        <span
-          className={sortingDirection ? 'text-primary' : ''}
-        >
-          {columnTitle}
-          &nbsp;
-          <SortingIndicator
-            direction={sortingDirection}
-            style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
-          />
-        </span>
-      )
-    );
-
-    const resizingControlLineBody = resizing && (
-      <div
-        className="bg-primary"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          height: '100%',
-          width: '100%',
-        }}
-      />
-    );
-
-    const resizingControl = allowResizing && (
-      <Draggable
-        onStart={this.onResizeStart}
-        onUpdate={this.onResizeUpdate}
-        onEnd={this.onResizeEnd}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            userSelect: 'none',
-            MozUserSelect: 'none',
-            WebkitUserSelect: 'none',
-            top: 0,
-            right: '-8px',
-            width: '16px',
-            height: '100%',
-            cursor: 'col-resize',
-            zIndex: 100,
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              backgroundColor: '#ddd',
-              height: '50%',
-              width: '1px',
-              left: '5px',
-              top: '25%',
-            }}
-          >
-            {resizingControlLineBody}
-          </div>
-          <div
-            style={{
-              position: 'absolute',
-              backgroundColor: '#ddd',
-              height: '50%',
-              width: '1px',
-              left: '7px',
-              top: '25%',
-            }}
-          >
-            {resizingControlLineBody}
-          </div>
-        </div>
-      </Draggable>
-    );
 
     const cellLayout = (
       <th
@@ -178,7 +53,12 @@ export class TableHeaderCell extends React.PureComponent {
         }}
         onClick={this.onCellClick}
       >
-        {groupingControl}
+        {allowGroupingByClick && (
+          <GroupingControl
+            align={align}
+            groupByColumn={groupByColumn}
+          />
+        )}
         <div
           style={{
             [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',
@@ -188,11 +68,22 @@ export class TableHeaderCell extends React.PureComponent {
             textOverflow: 'ellipsis',
           }}
         >
-          {allowSorting ? sortingControl : (
+          {allowSorting ? (
+            <SortingControl
+              align={align}
+              sortingDirection={sortingDirection}
+              columnTitle={columnTitle}
+            />
+          ) : (
             columnTitle
           )}
         </div>
-        {resizingControl}
+        {allowResizing && (
+          <ResizingControl
+            changeColumnWidth={changeColumnWidth}
+            changeDraftColumnWidth={changeDraftColumnWidth}
+          />
+        )}
       </th>
     );
 

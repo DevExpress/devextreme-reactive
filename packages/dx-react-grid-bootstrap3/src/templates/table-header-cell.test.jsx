@@ -59,7 +59,7 @@ describe('TableHeaderCell', () => {
         <thead>
           <tr>
             <TableHeaderCell
-              column={{}}
+              column={{ name: 'a' }}
               allowSorting
             />
           </tr>
@@ -142,6 +142,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           column={{}}
           allowResizing
+          changeDraftColumnWidth={() => {}}
           changeColumnWidth={changeColumnWidth}
         />,
       );
@@ -160,6 +161,7 @@ describe('TableHeaderCell', () => {
           column={{}}
           allowResizing
           changeDraftColumnWidth={changeDraftColumnWidth}
+          changeColumnWidth={() => {}}
         />,
       );
 

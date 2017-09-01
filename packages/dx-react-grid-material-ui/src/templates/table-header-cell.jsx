@@ -2,46 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { Draggable, DragSource } from '@devexpress/dx-react-core';
+import { DragSource } from '@devexpress/dx-react-core';
 
-import {
-  TableCell,
-  TableSortLabel,
-} from 'material-ui';
-
-import List from 'material-ui-icons/List';
-
+import { TableCell } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
+import { GroupingControl } from './table-header-cell/grouping-control';
+import { ResizingControl } from './table-header-cell/resizing-control';
+import { SortingControl } from './table-header-cell/sorting-control';
+
 const styles = theme => ({
-  groupingControl: {
-    cursor: 'pointer',
-    paddingLeft: 0,
-    height: theme.spacing.unit * 3,
-  },
-  sortingControl: {
-    cursor: 'pointer',
-    display: 'inline-block',
-    paddingTop: theme.spacing.unit / 2,
-  },
-  sortingTitle: {
-    lineHeight: '18px',
-    display: 'inline-block',
-    verticalAlign: 'top',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-  },
   plainTitle: {
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-  },
-  floatLeft: {
-    float: 'left',
-    textAlign: 'left',
-  },
-  floatRight: {
-    float: 'right',
-    textAlign: 'right',
   },
   cell: {
     position: 'relative',
@@ -88,52 +61,6 @@ const styles = theme => ({
     textAlign: 'left',
     marginRight: (theme.spacing.unit * 2) - 2,
   },
-  resizeHandle: {
-    position: 'absolute',
-    userSelect: 'none',
-    MozUserSelect: 'none',
-    WebkitUserSelect: 'none',
-    width: `${theme.spacing.unit * 2}px`,
-    top: 0,
-    right: `-${theme.spacing.unit}px`,
-    height: '100%',
-    cursor: 'col-resize',
-    zIndex: 100,
-  },
-  resizeHandleLine: {
-    position: 'absolute',
-    backgroundColor: theme.palette.grey[300],
-    height: '50%',
-    width: '1px',
-    top: '25%',
-    transition: 'all linear 100ms',
-  },
-  resizeHandleFirstLine: {
-    left: `${theme.spacing.unit - 3}px`,
-  },
-  resizeHandleSecondLine: {
-    left: `${theme.spacing.unit - 1}px`,
-  },
-  resizeHandleActive: {
-    '& $resizeHandleLine': {
-      backgroundColor: theme.palette.primary[300],
-    },
-  },
-  '@media (pointer: fine)': {
-    resizeHandleLine: {
-      opacity: 0,
-    },
-    resizeHandleActive: {
-      '& $resizeHandleLine': {
-        opacity: 1,
-      },
-    },
-    cell: {
-      '&:hover $resizeHandleLine': {
-        opacity: 1,
-      },
-    },
-  },
 });
 
 class TableHeaderCellBase extends React.PureComponent {
@@ -142,7 +69,6 @@ class TableHeaderCellBase extends React.PureComponent {
 
     this.state = {
       dragging: false,
-      resizing: false,
     };
 
     this.onCellClick = (e) => {
@@ -155,20 +81,6 @@ class TableHeaderCellBase extends React.PureComponent {
         cancel: cancelSortingRelatedKey,
       });
     };
-
-    this.onResizeStart = ({ x }) => {
-      this.resizeStartingX = x;
-      this.setState({ resizing: true });
-    };
-    this.onResizeUpdate = ({ x }) => {
-      const { changeDraftColumnWidth } = this.props;
-      changeDraftColumnWidth({ shift: x - this.resizeStartingX });
-    };
-    this.onResizeEnd = ({ x }) => {
-      const { changeColumnWidth } = this.props;
-      changeColumnWidth({ shift: x - this.resizeStartingX });
-      this.setState({ resizing: false });
-    };
   }
   render() {
     const {
@@ -176,104 +88,27 @@ class TableHeaderCellBase extends React.PureComponent {
       allowSorting, sortingDirection,
       allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
-      allowResizing,
+      allowResizing, changeColumnWidth, changeDraftColumnWidth,
       classes,
     } = this.props;
-    const { dragging, resizing } = this.state;
+    const { dragging } = this.state;
     const align = column.align || 'left';
-    const invertedAlign = align === 'left' ? 'right' : 'left';
     const columnTitle = column.title || column.name;
 
-    const groupingControlClasses = classNames(
-      {
-        [classes.groupingControl]: true,
-        [classes.floatLeft]: invertedAlign === 'left',
-        [classes.floatRight]: invertedAlign === 'right',
-      },
-    );
+    const tableCellClasses = classNames({
+      [classes.cell]: true,
+      [classes.cellRight]: align === 'right',
+      [classes.cellNoUserSelect]: allowDragging || allowSorting,
+      [classes.cellDraggable]: allowDragging,
+      [classes.cellClickable]: allowSorting,
+      [classes.cellDimmed]: dragging || tableColumn.draft,
+    });
 
-    const tableCellClasses = classNames(
-      {
-        [classes.cell]: true,
-        [classes.cellRight]: align === 'right',
-        [classes.cellNoUserSelect]: allowDragging || allowSorting,
-        [classes.cellDraggable]: allowDragging,
-        [classes.cellClickable]: allowSorting,
-        [classes.cellDimmed]: dragging || tableColumn.draft,
-      },
-    );
-
-    const titleClasses = classNames(
-      {
-        [classes.title]: true,
-        [classes.titleRight]: align === 'right',
-        [classes.titleLeft]: align === 'left',
-      },
-    );
-
-    const groupingControl = allowGroupingByClick && (
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          groupByColumn(e);
-        }}
-        className={groupingControlClasses}
-      >
-        <List />
-      </div>
-    );
-
-    const sortingControl = allowSorting && (
-      align === 'right' ? (
-        <span className={classes.sortingControl}>
-          {!!sortingDirection && <TableSortLabel
-            active={!!sortingDirection}
-            direction={sortingDirection}
-          />}
-          <span className={classes.sortingTitle}>
-            {columnTitle}
-          </span>
-        </span>
-      ) : (
-        <span className={classes.sortingControl}>
-          <span className={classes.sortingTitle}>
-            {columnTitle}
-          </span>
-          <TableSortLabel
-            active={!!sortingDirection}
-            direction={sortingDirection}
-          />
-        </span>
-      )
-    );
-
-    const resizingControl = allowResizing && (
-      <Draggable
-        onStart={this.onResizeStart}
-        onUpdate={this.onResizeUpdate}
-        onEnd={this.onResizeEnd}
-      >
-        <div
-          className={classNames({
-            [classes.resizeHandle]: true,
-            [classes.resizeHandleActive]: resizing,
-          })}
-        >
-          <div
-            className={classNames({
-              [classes.resizeHandleLine]: true,
-              [classes.resizeHandleFirstLine]: true,
-            })}
-          />
-          <div
-            className={classNames({
-              [classes.resizeHandleLine]: true,
-              [classes.resizeHandleSecondLine]: true,
-            })}
-          />
-        </div>
-      </Draggable>
-    );
+    const titleClasses = classNames({
+      [classes.title]: true,
+      [classes.titleRight]: align === 'right',
+      [classes.titleLeft]: align === 'left',
+    });
 
     const cellLayout = (
       <TableCell
@@ -281,15 +116,31 @@ class TableHeaderCellBase extends React.PureComponent {
         style={style}
         className={tableCellClasses}
       >
-        {groupingControl}
+        {allowGroupingByClick && (
+          <GroupingControl
+            align={align}
+            groupByColumn={groupByColumn}
+          />
+        )}
         <div className={titleClasses}>
-          {allowSorting ? sortingControl : (
+          {allowSorting ? (
+            <SortingControl
+              align={align}
+              sortingDirection={sortingDirection}
+              columnTitle={columnTitle}
+            />
+          ) : (
             <div className={classes.plainTitle}>
               {columnTitle}
             </div>
           )}
         </div>
-        {resizingControl}
+        {allowResizing && (
+          <ResizingControl
+            changeColumnWidth={changeColumnWidth}
+            changeDraftColumnWidth={changeDraftColumnWidth}
+          />
+        )}
       </TableCell>
     );
 

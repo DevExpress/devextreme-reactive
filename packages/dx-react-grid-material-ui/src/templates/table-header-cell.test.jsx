@@ -64,7 +64,7 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when sorting is allowed', () => {
     const tree = mount(
       <TableHeaderCell
-        column={{}}
+        column={{ name: 'a' }}
         allowSorting
       />,
     );
@@ -112,6 +112,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           column={{}}
           allowResizing
+          changeDraftColumnWidth={() => {}}
           changeColumnWidth={() => {}}
         />,
       );
@@ -132,6 +133,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           column={{}}
           allowResizing
+          changeDraftColumnWidth={() => {}}
           changeColumnWidth={changeColumnWidth}
         />,
       );
@@ -150,6 +152,7 @@ describe('TableHeaderCell', () => {
           column={{}}
           allowResizing
           changeDraftColumnWidth={changeDraftColumnWidth}
+          changeColumnWidth={() => {}}
         />,
       );
 

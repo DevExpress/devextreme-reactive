@@ -4,16 +4,15 @@ import PropTypes from 'prop-types';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import createPalette from 'material-ui/styles/palette';
 import { blue } from 'material-ui/colors';
 
 injectTapEventPlugin();
 
 const theme = createMuiTheme({
-  palette: createPalette({
+  palette: {
     type: 'light',
     primary: blue,
-  }),
+  },
 });
 
 const DemoContainer = ({ children }) => (

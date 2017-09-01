@@ -25,9 +25,17 @@ deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows pr
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRows` array in the uncontrolled mode.
 onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRows` array.
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
-createRowChange | (row: [Row](grid.md#row), columnName: string, value: string &#124; number) => object | | A function that returns an object specifying row changes depending on the values or row's editors. This function is called each time a row editor's value changes.
+createRowChange | (row: [Row](grid.md#row), columnName: string, value: string &#124; number) => object | | A function that returns an object specifying row changes depending on row's editor values. This function is called each time a row editor's value changes.
 
 ## Interfaces
+
+### <a name="column"></a>Column (Extension)
+
+A value with the [Column](grid.md#column) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+createRowChange | (row: [Row](#row), value: string &#124; number, columnName: string) => object | A function that returns an object specifying row changes depending on the column's editor values for the current row. This function is called each time the editor's value changes.
 
 ### <a name="change-set"></a>ChangeSet
 
@@ -47,15 +55,15 @@ deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing the 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns.
+columns | Getter | Array&lt;[Column](#column)&gt; | The grid columns.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 editingRows | Getter | Array&lt;number &#124; string&gt; | The rows being edited.
-startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Enables the edit mode for the rows specified by the ID.
-stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Disables the edit mode for the rows specified by the ID.
+startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Enables the edit mode for the rows the ID specifies.
+stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Disables the edit mode for the rows the ID specifies.
 addedRows | Getter | Array&lt;Object&gt; | Created but not committed rows.
 addRow | Action | () => void | Adds an item to the `addedRows` array.
 changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
@@ -66,7 +74,7 @@ changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void |
 cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows' data from the `changedRows` array.
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `changedRows` array.
 deletedRows | Getter | Array&lt;number &#124; string&gt; | Rows prepared for deletion.
-deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows specified by the ID to the `deletedRows` array.
+deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows the ID specifies to the `deletedRows` array.
 cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows from the `deletedRows` array.
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `deletedRows` array.
 

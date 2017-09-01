@@ -70,19 +70,6 @@ describe('TableColumnResizing Plugin reducers', () => {
         });
     });
 
-    it('should stick size to the min', () => {
-      const state = {
-        columnWidths: { a: 40, b: 60 },
-        draftColumnWidths: {},
-      };
-
-      expect(changeDraftTableColumnWidths(state, { shifts: { b: -25 } }))
-        .toEqual({
-          columnWidths: { a: 40, b: 60 },
-          draftColumnWidths: { b: 40 },
-        });
-    });
-
     it('should reset size whel null passed', () => {
       const state = {
         columnWidths: { a: 40, b: 60 },

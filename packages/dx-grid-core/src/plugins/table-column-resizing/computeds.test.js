@@ -21,7 +21,7 @@ describe('TableColumnResizing Plugin computeds', () => {
         ]);
     });
 
-    it('should work', () => {
+    it('should throw error if width for column is not specified', () => {
       const tableColumns = [
         { type: TABLE_DATA_TYPE, column: { name: 'a' } },
         { type: TABLE_DATA_TYPE, column: { name: 'b' } },

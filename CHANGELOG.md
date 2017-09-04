@@ -1,3 +1,16 @@
+<a name="1.0.0-alpha.9"></a>
+# [1.0.0-alpha.9](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2017-09-04)
+
+
+### Bug Fixes
+
+* **react-grid:** display a correct message in an empty grouping panel ([#274](https://github.com/DevExpress/devextreme-reactive/issues/274)) ([46b5291](https://github.com/DevExpress/devextreme-reactive/commit/46b5291))
+* **react-grid:** fix the editing state mutation ([#279](https://github.com/DevExpress/devextreme-reactive/issues/279)) ([a120730](https://github.com/DevExpress/devextreme-reactive/commit/a120730))
+* **react-grid:** update MUI to the 1.0.0-beta.6 version ([#275](https://github.com/DevExpress/devextreme-reactive/issues/275)) ([9032c34](https://github.com/DevExpress/devextreme-reactive/commit/9032c34)), closes [#271](https://github.com/DevExpress/devextreme-reactive/issues/271)
+* **react-grid:** update MUI to the 1.0.0-beta.7 version ([#296](https://github.com/DevExpress/devextreme-reactive/issues/296)) ([7d7d649](https://github.com/DevExpress/devextreme-reactive/commit/7d7d649))
+
+
+
 <a name="1.0.0-alpha.8"></a>
 # [1.0.0-alpha.8](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2017-08-21)
 

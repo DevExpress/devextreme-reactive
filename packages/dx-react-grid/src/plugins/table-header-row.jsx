@@ -67,8 +67,8 @@ export class TableHeaderRow extends React.PureComponent {
           connectActions={(action, { tableColumn: { column } }) => ({
             changeSortingDirection: ({
                 keepOther,
-              cancel,
-              scope,
+                cancel,
+                scope,
               }) => action('setColumnSorting')({
                 columnName: column.name,
                 keepOther,

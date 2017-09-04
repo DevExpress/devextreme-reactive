@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1503306064">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1503306064">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1504515199">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1504515199">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -375,9 +375,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="grid-reference">Grid Reference</h1>
 
-<p>The Grid is a root container component that accepts data via the <code class="highlighter-rouge">rows</code> property. It provides this data to the hosted plugins specified as child components to preprocess and display it as a table representation. It also accepts the table columns description via the <code class="highlighter-rouge">columns</code> property.</p>
-
-<p>You should specify plugins to display data as it does not contain any by default. See the <a href="../../#plugins-overview">plugins concept</a> for more details.</p>
+<p>The Grid is a root container component designed to process and display data specified via the <code class="highlighter-rouge">rows</code> property. You can provide the columns configuration using the <code class="highlighter-rouge">columns</code> property. The Grid functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the <a href="../../#plugins-overview">plugins concept</a> for details.</p>
 
 <h2 id="user-reference">User reference</h2>
 
@@ -397,43 +395,43 @@
       <td>rows</td>
       <td>Array&lt;<a href="#row">Row</a>&gt;</td>
       <td> </td>
-      <td>Specifies rows with data to be rendered</td>
+      <td>Specifies data to be displayed by the Grid.</td>
     </tr>
     <tr>
       <td>columns</td>
       <td>Array&lt;<a href="#column">Column</a>&gt;</td>
       <td> </td>
-      <td>Specifies row fields to be rendered as columns</td>
+      <td>Specifies for which row object fields columns are created.</td>
     </tr>
     <tr>
       <td>getRowId</td>
       <td>(row: <a href="#row">Row</a>) =&gt; number | string</td>
       <td>null</td>
-      <td>Specifies the function used to get a unique row identifier</td>
+      <td>Specifies the function used to get a row ID.</td>
     </tr>
     <tr>
       <td>getCellData</td>
       <td>(row: <a href="#row">Row</a>, columnName: string) =&gt; any</td>
       <td>null</td>
-      <td>Specifies the function used to get a cell data</td>
+      <td>Specifies the function used to get a cell data.</td>
     </tr>
     <tr>
       <td>rootTemplate</td>
       <td>(args: <a href="#root-args">RootArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a root layout using the specified parameters</td>
+      <td>A template rendering the grid root layout.</td>
     </tr>
     <tr>
       <td>headerPlaceholderTemplate</td>
       <td>(args: <a href="#header-placeholder-args">HeaderPlaceholderArgs</a>) =&gt; ReactElement</td>
       <td>null</td>
-      <td>Renders a heading placeholder using the specified parameters</td>
+      <td>A template that renders the header placeholder.</td>
     </tr>
     <tr>
       <td>footerPlaceholderTemplate</td>
       <td>(args: <a href="#footer-placeholder-args">FooterPlaceholderArgs</a>) =&gt; ReactElement</td>
       <td>null</td>
-      <td>Renders a footer placeholder using the specified parameters</td>
+      <td>A template that renders the footer placeholder.</td>
     </tr>
   </tbody>
 </table>
@@ -442,13 +440,11 @@
 
 <h3 id="row">Row</h3>
 
-<p>A data object to be represented as a Grid row</p>
-
-<p>Note that multiple fields can be specified. These fields are displayed as data within the Grid.</p>
+<p>A data object representing a Grid row. This object can contain any field. The grid creates columns for the ones listed in the <code class="highlighter-rouge">columns</code> property.</p>
 
 <h3 id="column">Column</h3>
 
-<p>Describes the column interface</p>
+<p>Describes the column interface.</p>
 
 <p>A value with the following shape:</p>
 
@@ -464,24 +460,19 @@
     <tr>
       <td>name</td>
       <td>string</td>
-      <td>Specifies the field name in the data row to obtain a column value. A unique key can also be used to identify a column</td>
+      <td>Specifies the column name or the name of a row object field whose value the column displays. If the column name does not match any field name, specify the <code class="highlighter-rouge">getCellData</code> function.</td>
     </tr>
     <tr>
       <td>getCellData</td>
       <td>(row: <a href="#row">Row</a>, columnName: string) =&gt; any</td>
-      <td>Specifies the function used to get a cell data</td>
-    </tr>
-    <tr>
-      <td>createRowChange</td>
-      <td>(row: <a href="#row">Row</a>, value: string | number, columnName: string) =&gt; object</td>
-      <td>Specifies the function used to create a row change</td>
+      <td>Specifies the function used to get the column data for a given row.</td>
     </tr>
   </tbody>
 </table>
 
 <h3 id="rootargs"><a name="root-args"></a>RootArgs</h3>
 
-<p>Describes properties passed to the root template when it is being rendered</p>
+<p>Describes properties passed to the root template when it is being rendered.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -495,24 +486,24 @@
     <tr>
       <td>headerTemplate</td>
       <td>() =&gt; ReactElement</td>
-      <td>A template for rendering the header</td>
+      <td>A template that renders the grid header.</td>
     </tr>
     <tr>
       <td>bodyTemplate</td>
       <td>() =&gt; ReactElement</td>
-      <td>A template for rendering the body</td>
+      <td>A template that renders the grid body.</td>
     </tr>
     <tr>
       <td>footerTemplate</td>
       <td>() =&gt; ReactElement</td>
-      <td>A template for rendering body the footer</td>
+      <td>A template that renders the grid footer.</td>
     </tr>
   </tbody>
 </table>
 
 <h3 id="headerplaceholderargs"><a name="header-placeholder-args"></a>HeaderPlaceholderArgs</h3>
 
-<p>Describes properties passed to the header placeholder template when it is being rendered</p>
+<p>Describes properties passed to the header placeholder template when it is being rendered.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -526,14 +517,14 @@
     <tr>
       <td>children?</td>
       <td>ReactElement</td>
-      <td>A markup to be placed into the header</td>
+      <td>A React element to be placed into the header.</td>
     </tr>
   </tbody>
 </table>
 
 <h3 id="footerplaceholderargs"><a name="footer-placeholder-args"></a>FooterPlaceholderArgs</h3>
 
-<p>Describes properties passed to the footer placeholder template when it is being rendered</p>
+<p>Describes properties passed to the footer placeholder template when it is being rendered.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -547,7 +538,7 @@
     <tr>
       <td>children?</td>
       <td>ReactElement</td>
-      <td>A markup to be placed into the footer</td>
+      <td>A React element to be placed into the footer.</td>
     </tr>
   </tbody>
 </table>
@@ -570,37 +561,37 @@
       <td>rows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#row">Row</a>&gt;</td>
-      <td>Grid rows</td>
+      <td>Grid rows.</td>
     </tr>
     <tr>
       <td>columns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#column">Column</a>&gt;</td>
-      <td>Grid columns</td>
+      <td>Grid columns.</td>
     </tr>
     <tr>
       <td>root</td>
       <td>Template</td>
       <td>Object?</td>
-      <td>A template that renders the grid root layout</td>
+      <td>A template that renders the grid root layout.</td>
     </tr>
     <tr>
       <td>header</td>
       <td>Template</td>
       <td>Object?</td>
-      <td>A template that renders the grid header</td>
+      <td>A template that renders the grid header.</td>
     </tr>
     <tr>
       <td>body</td>
       <td>Template</td>
       <td>Object?</td>
-      <td>A template that renders the grid body</td>
+      <td>A template that renders the grid body.</td>
     </tr>
     <tr>
       <td>footer</td>
       <td>Template</td>
       <td>Object?</td>
-      <td>A template that renders the grid footer</td>
+      <td>A template that renders the grid footer.</td>
     </tr>
   </tbody>
 </table>
@@ -609,7 +600,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1503306064"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1504515199"></script>
 
 
     <footer>
@@ -647,7 +638,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1503306064"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1504515199"></script>
     <script>
         trackingCookie.check();
     </script>

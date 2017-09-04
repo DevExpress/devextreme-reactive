@@ -40,7 +40,6 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  tableTemplate: () => null,
   groupCellTemplate: () => null,
   groupIndentCellTemplate: () => null,
   groupIndentColumnWidth: 100,

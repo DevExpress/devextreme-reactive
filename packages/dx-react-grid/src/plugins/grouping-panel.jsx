@@ -27,7 +27,7 @@ export class GroupingPanel extends React.PureComponent {
             columns: getter('columns'),
             grouping: getter('draftGrouping'),
             sorting: getter('sorting'),
-            columnGrouping: getter('draftGrouping').map(groupElement => groupElement.columnName),
+            sortingScope: getter('draftGrouping').map(columnGrouping => columnGrouping.columnName),
           })}
           connectActions={action => ({
             groupByColumn: action('groupByColumn'),
@@ -40,13 +40,13 @@ export class GroupingPanel extends React.PureComponent {
           {({ columns,
               grouping,
               changeSortingDirection,
-              columnGrouping,
+              sortingScope,
                ...restParams
             }) => (<div>
               {groupPanelTemplate({
                 changeSortingDirection: params => changeSortingDirection({
                   ...params,
-                  scope: columnGrouping,
+                  scope: sortingScope,
                 }),
                 allowSorting,
                 allowDragging,

@@ -24,22 +24,25 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
 );
-const rowTemplate = ({ children, row, ...restProps }) => (
-  <TableRowMUI
-    selected={row.selected}
-    {...restProps}
-  >
-    {children}
-  </TableRowMUI>
+const rowTemplate = tableRowComponentTemplate => ({ row, children, ...restParams }) => (
+  tableRowComponentTemplate && row.type === 'data' ?
+    tableRowComponentTemplate({ tableRow: row, children, ...restParams }) :
+    <TableRowMUI
+      selected={row.selected}
+      {...restParams}
+    >
+      {children}
+    </TableRowMUI>
 );
-/* eslint-enable react/prop-types */
 
 export const Table = ({
   headerRows, bodyRows, getRowId,
   columns,
   cellTemplate,
   onClick,
-  allowColumnReordering, setColumnOrder,
+  allowColumnReordering,
+  setColumnOrder,
+  tableRowComponentTemplate,
 }) => (
   <TableLayout
     headerRows={headerRows}
@@ -50,23 +53,27 @@ export const Table = ({
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}
-    rowTemplate={rowTemplate}
+    rowTemplate={rowTemplate(tableRowComponentTemplate)}
     cellTemplate={cellTemplate}
     onClick={onClick}
     allowColumnReordering={allowColumnReordering}
     setColumnOrder={setColumnOrder}
   />
 );
-Table.defaultProps = {
-  onClick: () => {},
-};
+
 Table.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
+  tableRowComponentTemplate: PropTypes.func,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,
   setColumnOrder: PropTypes.func.isRequired,
+};
+
+Table.defaultProps = {
+  onClick: () => {},
+  tableRowComponentTemplate: undefined,
 };

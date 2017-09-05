@@ -8,15 +8,21 @@ import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 
-const tableTemplate = props => <Table {...props} />;
+const tableTemplate = tableRowComponentTemplate => props => (
+  <Table
+    tableRowComponentTemplate={tableRowComponentTemplate}
+    {...props}
+  />
+);
+
 const defaultCellTemplate = props => <TableCell {...props} />;
 const stubCellTemplate = props => <TableStubCell {...props} />;
 const stubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 
-export const TableView = ({ tableCellTemplate, ...props }) => (
+export const TableView = ({ tableCellTemplate, tableRowComponentTemplate, ...props }) => (
   <TableViewBase
-    tableTemplate={tableTemplate}
+    tableTemplate={tableTemplate(tableRowComponentTemplate)}
     tableCellTemplate={combineTemplates(
       tableCellTemplate,
       defaultCellTemplate,
@@ -30,8 +36,10 @@ export const TableView = ({ tableCellTemplate, ...props }) => (
 
 TableView.propTypes = {
   tableCellTemplate: PropTypes.func,
+  tableRowComponentTemplate: PropTypes.func,
 };
 
 TableView.defaultProps = {
   tableCellTemplate: undefined,
+  tableRowComponentTemplate: undefined,
 };

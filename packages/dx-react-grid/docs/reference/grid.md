@@ -12,7 +12,7 @@ rows | Array&lt;[Row](#row)&gt; | | Specifies data to be displayed by the Grid.
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row object fields columns are created.
 getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies the function used to get a row ID.
 getCellData | (row: [Row](#row), columnName: string) => any | null | Specifies the function used to get a cell data.
-rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | A template rendering the grid root layout.
+rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | A template that renders the grid root layout.
 headerPlaceholderTemplate | (args: [HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | A template that renders the header placeholder.
 footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | A template that renders the footer placeholder.
 
@@ -20,11 +20,11 @@ footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-a
 
 ### Row
 
-A data object representing a Grid row. This object can contain any field. The grid creates columns for the ones listed in the `columns` property.
+The object containing any custom data. The access to this data is defined by a user.
 
 ### Column
 
-Describes the column interface.
+Defines the column configuration object. Used to display the data stored in a row. Can be extended by plugins.
 
 A value with the following shape:
 

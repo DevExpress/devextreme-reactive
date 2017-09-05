@@ -12,7 +12,7 @@ import { TableLayout } from './table-layout';
 const PropsContainer = () => null;
 const tableTemplateMock = ({ children, ...props }) => (
   <table
-    ref={props.tableRef}
+    ref={props.ref}
   >
     <PropsContainer {...props} />
     {children}

@@ -37,25 +37,27 @@ export class GroupingPanel extends React.PureComponent {
             cancelGroupingChange: () => action('cancelGroupingChange')(),
           })}
         >
-          {({ columns,
-              grouping,
-              changeSortingDirection,
-              sortingScope,
-               ...restParams
-            }) => (<div>
-              {groupPanelTemplate({
-                changeSortingDirection: params => changeSortingDirection({
-                  ...params,
-                  scope: sortingScope,
-                }),
-                allowSorting,
-                allowDragging,
-                allowUngroupingByClick,
-                groupingPanelItems: groupingPanelItems(columns, grouping),
-                ...restParams,
-              })}
-              <TemplatePlaceholder />
-            </div>
+          {({
+            columns,
+            grouping,
+            changeSortingDirection,
+            sortingScope,
+            ...restParams
+            }) => (
+              <div>
+                {groupPanelTemplate({
+                  changeSortingDirection: params => changeSortingDirection({
+                    ...params,
+                    scope: sortingScope,
+                  }),
+                  allowSorting,
+                  allowDragging,
+                  allowUngroupingByClick,
+                  groupingPanelItems: groupingPanelItems(columns, grouping),
+                  ...restParams,
+                })}
+                <TemplatePlaceholder />
+              </div>
             )}
         </Template>
       </PluginContainer>

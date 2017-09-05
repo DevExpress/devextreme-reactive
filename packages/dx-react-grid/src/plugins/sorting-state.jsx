@@ -13,16 +13,13 @@ export class SortingState extends React.PureComponent {
 
     this._setColumnSorting = (sorting, { columnName, direction, keepOther, cancel, scope }) => {
       const { onSortingChange } = this.props;
-      const nextSorting = setColumnSorting(
-        sorting,
-        {
-          columnName,
-          direction,
-          keepOther,
-          cancel,
-          scope,
-        },
-      );
+      const nextSorting = setColumnSorting(sorting, {
+        columnName,
+        direction,
+        keepOther,
+        cancel,
+        scope,
+      });
       this.setState({ sorting: nextSorting });
       if (onSortingChange) {
         onSortingChange(nextSorting);

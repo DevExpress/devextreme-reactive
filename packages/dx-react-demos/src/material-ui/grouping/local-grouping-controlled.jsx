@@ -46,7 +46,16 @@ export default class Demo extends React.PureComponent {
           grouping={this.state.grouping}
           onGroupingChange={this.changeGrouping}
         />
-        <LocalGrouping />
+        <LocalGrouping groupFn={() => {
+          return {
+            name: value => value, // 'Moscow' => 'Moscow'
+            city: value => value.substr(0, 1), // 'Moscow' => 'M'
+            car: value => value.substr(0, 1), // 'Moscow' => 'M'
+            birthDate: value => value.getYear(),
+          };
+        }}
+        />
+
         <TableView />
         <TableHeaderRow allowDragging allowGroupingByClick />
         <TableGroupRow />

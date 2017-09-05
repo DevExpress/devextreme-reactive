@@ -18,7 +18,6 @@ export const getAllAvaliableGetters = (
           trackedDependencies[getterName] = result;
           return result;
         },
-        enumerable: true, // TODO: remove it?
       });
       return acc;
     }, {});
@@ -44,7 +43,6 @@ export const getAllAvaliableActions = pluginHost =>
     .reduce((acc, actionName) => {
       Object.defineProperty(acc, actionName, {
         get: () => getAction(pluginHost, actionName),
-        enumerable: true, // TODO: remove it?
       });
       return acc;
     }, {});

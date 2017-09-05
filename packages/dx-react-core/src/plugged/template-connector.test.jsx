@@ -90,7 +90,9 @@ describe('TemplateConnector', () => {
       });
 
       expect(connected)
-        .toBeCalledWith({ a: 1, b: 2 }, { a: expect.any(Function), b: expect.any(Function) });
+        .toBeCalledWith(
+          expect.objectContaining({ a: 1, b: 2 }),
+          expect.objectContaining({ a: expect.any(Function), b: expect.any(Function) }));
     });
 
     it('should render content when dependent getter value changed', () => {

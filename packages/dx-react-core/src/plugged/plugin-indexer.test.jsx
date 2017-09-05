@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginHost } from './host';
-import { PluginIndexer } from './indexer';
+import { PluginHost } from './plugin-host';
+import { PluginIndexer } from './plugin-indexer';
 import { Getter } from './getter';
 import { Template } from './template';
 

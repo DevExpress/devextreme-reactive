@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
-import { PluginIndexer } from './indexer';
+import { PluginIndexer } from './plugin-indexer';
 import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
 

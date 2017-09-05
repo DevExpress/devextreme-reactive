@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
-import { PluginHost } from './host';
-import { PluginContainer } from './container';
+import { PluginHost } from './plugin-host';
+import { PluginContainer } from './plugin-container';
 import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
 import { Getter } from './getter';

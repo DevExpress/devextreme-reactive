@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PluginIndexer } from './indexer';
+import { PluginIndexer } from './plugin-indexer';
 
 export class PluginContainer extends React.PureComponent {
   componentWillMount() {

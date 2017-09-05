@@ -40,5 +40,6 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 sorting | Getter | Array&lt;[Sorting](#sorting)&gt; | Applied column sorting
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean, scope: Array&lt;String&gt; }) => void | Changes column sort direction. Keeps the existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true. `scope` is an array which contains `columnName` among that sorting is carried out.
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean, scope: Array&lt;String&gt; }) => void | Changes a column's sort direction. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to `true`. The `scope` array contains the names of columns taken into account when sorting.
+
 

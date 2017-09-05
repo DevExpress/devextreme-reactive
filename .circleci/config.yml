@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.4
+
+    steps:
+      - checkout
+      - run: npm i
+      - run: npm run build
+      - run: npm run test -- -- -- --maxWorkers=2
+      - run: npm run lint:ci

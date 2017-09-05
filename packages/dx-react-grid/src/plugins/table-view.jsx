@@ -19,7 +19,7 @@ const cellTemplate = params =>
 export class TableView extends React.PureComponent {
   render() {
     const {
-      tableLayoutTemplate,
+      tableTemplate,
       tableCellTemplate,
       tableNoDataCellTemplate,
       tableStubCellTemplate,
@@ -55,7 +55,7 @@ export class TableView extends React.PureComponent {
             setColumnOrder: action('setColumnOrder'),
           })}
         >
-          {tableLayoutTemplate}
+          {tableTemplate}
         </Template>
         <Template
           name="tableViewCell"
@@ -95,7 +95,7 @@ export class TableView extends React.PureComponent {
 }
 
 TableView.propTypes = {
-  tableLayoutTemplate: PropTypes.func.isRequired,
+  tableTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
   tableNoDataCellTemplate: PropTypes.func.isRequired,
   tableStubCellTemplate: PropTypes.func.isRequired,

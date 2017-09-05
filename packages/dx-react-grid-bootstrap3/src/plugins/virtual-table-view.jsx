@@ -8,7 +8,7 @@ import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 
-const tableLayoutTemplate = props => <VirtualTable {...props} />;
+const tableTemplate = props => <VirtualTable {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
 const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 const stubCellTemplate = props => <TableStubCell {...props} />;
@@ -16,7 +16,7 @@ const stubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 
 export const VirtualTableView = ({ tableCellTemplate, ...props }) => (
   <TableViewBase
-    tableLayoutTemplate={tableLayoutTemplate}
+    tableTemplate={tableTemplate}
     tableCellTemplate={combineTemplates(
       tableCellTemplate,
       defaultCellTemplate,

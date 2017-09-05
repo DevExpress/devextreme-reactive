@@ -13,7 +13,7 @@ This plugin renders the Grid data as a table. It contains the Table View and Tab
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tableLayoutTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table layout using the specified parameters
+tableTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table using the specified parameters
 tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
 tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
 tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided

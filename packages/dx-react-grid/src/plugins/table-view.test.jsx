@@ -36,7 +36,7 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  tableLayoutTemplate: () => null,
+  tableTemplate: () => null,
   tableCellTemplate: () => null,
   tableStubCellTemplate: () => null,
   tableStubHeaderCellTemplate: () => null,
@@ -119,7 +119,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableCellTemplate={tableCellTemplate}
         />
       </PluginHost>,
@@ -144,7 +144,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubCellTemplate={tableStubCellTemplate}
         />
       </PluginHost>,
@@ -165,7 +165,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableView
           {...defaultProps}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubHeaderCellTemplate={tableStubHeaderCellTemplate}
         />
       </PluginHost>,
@@ -187,7 +187,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableNoDataCellTemplate={tableNoDataCellTemplate}
         />
       </PluginHost>,

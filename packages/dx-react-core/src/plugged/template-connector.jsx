@@ -1,32 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { shallowEqual } from '@devexpress/dx-core';
 import { UPDATE_CONNECTION } from './getter';
-import { getAction } from '../utils/plugin-helpers';
+import {
+  isTrackedDependenciesChanged,
+  getAvaliableGetters,
+  getAvaliableActions,
+} from '../utils/plugin-helpers';
 
 export class TemplateConnector extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = this.mappedBindings(props);
-
+    this.trackedDependencies = {};
     this.subscription = {
-      [UPDATE_CONNECTION]: () => this.setState(this.mappedBindings(this.props)),
+      [UPDATE_CONNECTION]: () => this.updateConnection(),
     };
   }
-  componentDidMount() {
-    this.updateConnection();
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.mappedBindings(nextProps));
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    return !shallowEqual(this.props.params, nextProps.params)
-        || !shallowEqual(this.state.props, nextState.props)
-        || this.props.content !== nextProps.content;
-  }
-  componentDidUpdate() {
-    this.updateConnection();
+  componentWillMount() {
+    const { pluginHost } = this.context;
+    pluginHost.registerSubscription(this.subscription);
   }
   componentWillUnmount() {
     const { pluginHost } = this.context;
@@ -34,55 +26,31 @@ export class TemplateConnector extends React.Component {
   }
   updateConnection() {
     const { pluginHost } = this.context;
-    if (this.props.mapProps) {
-      pluginHost.registerSubscription(this.subscription);
-    } else {
-      pluginHost.unregisterSubscription(this.subscription);
-    }
-  }
-  mappedBindings(props) {
-    const { mapProps, mapActions, params } = props;
-    const { pluginHost } = this.context;
 
-    let mappedProps = {};
-    if (mapProps) {
-      mappedProps = mapProps(name => pluginHost.get(`${name}Getter`), params);
+    if (isTrackedDependenciesChanged(pluginHost, this.trackedDependencies)) {
+      this.forceUpdate();
     }
-
-    let mappedActions = {};
-    if (mapActions) {
-      mappedActions = mapActions(name => getAction(pluginHost, name), params);
-    }
-
-    return {
-      props: mappedProps,
-      actions: mappedActions,
-    };
   }
   render() {
-    const { content, params } = this.props;
-    const { props, actions } = this.state;
+    const { children } = this.props;
+    const { pluginHost } = this.context;
 
-    const mapped = Object.assign({}, params, props, actions);
-    if (React.isValidElement(content)) {
-      return React.cloneElement(content, mapped);
-    }
-    return content ? content(mapped) : null;
+    const { getters, trackedDependencies } = getAvaliableGetters(pluginHost);
+    this.trackedDependencies = trackedDependencies;
+    const actions = getAvaliableActions(pluginHost);
+
+    return children(getters, actions);
   }
 }
-TemplateConnector.defaultProps = {
-  name: null,
-  params: null,
-  mapProps: null,
-  mapActions: null,
-  content: null,
-};
+
 TemplateConnector.propTypes = {
-  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  mapProps: PropTypes.func,
-  mapActions: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
-  content: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  children: PropTypes.func.isRequired,
 };
+
+TemplateConnector.defaultProps = {
+  children: null,
+};
+
 TemplateConnector.contextTypes = {
   pluginHost: PropTypes.object.isRequired,
 };

@@ -1,6 +1,6 @@
 # TableView Plugin Reference
 
-This plugin renders the Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
+This plugin renders Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
 
 ## User Reference
 
@@ -24,7 +24,7 @@ allowColumnReordering | boolean | false | If true, it allows end-users to change
 
 ### <a name="column"></a>Column (Extension)
 
-A value with the [Column](grid.md#column) shape extended by the following fields:
+A value with a [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -43,13 +43,13 @@ cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The t
 
 ### <a name="table-row"></a>TableRow
 
-Describes properties of a table row rendered by the TableView plugin.
+Describes the properties of a table row the TableView plugin renders.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A unique identifier of the table row.
+key | string | A table row's unique identifier.
 type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
 rowId? | number &#124; string  | Specifies the associated user data row's ID.
 row? | [Row](grid.md#row) | Specifies the associated user data row.
@@ -63,7 +63,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A unique identifier of the table column.
+key | string | A table column's unique identifier.
 type | string | Specifies the table column type. The specified value affects which cell template is used to render the column.
 column? | [Column](#column) | Specifies the associated user data column.
 width? | number | Specifies the table column width.
@@ -78,9 +78,8 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#table-row) | Specifies a table row
 tableColumn | [TableColumn](#table-column) | Specifies a table column
-value | any | The value to be rendered within a cell
 style? | Object | Styles that should be applied to the root cell element
-colSpan? | number | Specifies the number of columns the cell spans
+colSpan? | number | The number of columns the cell spans that should be applied to the root cell element
 
 ### <a name="table-data-cell-args"></a>TableDataCellArgs
 
@@ -90,6 +89,7 @@ A value with the [TableCellArgs](#table-cell-args) shape extended by the followi
 
 Field | Type | Description
 ------|------|------------
+value | any | The value to be rendered within the cell
 row | [Row](grid.md#row) | Specifies a table row
 column | [Column](#column) | Specifies a table column
 
@@ -102,7 +102,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
 columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
-getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell data
+getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell's data
 
 ### Exports
 

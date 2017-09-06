@@ -6,9 +6,9 @@ import {
 } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
-const TableRowBase = ({ children, row, ...restProps }) => (
+const TableRowBase = ({ children, tableRow, ...restProps }) => (
   <TableRowMUI
-    selected={row.selected}
+    selected={tableRow.selected}
     {...restProps}
   >
     {children}
@@ -16,7 +16,7 @@ const TableRowBase = ({ children, row, ...restProps }) => (
 );
 
 TableRowBase.propTypes = {
-  row: PropTypes.object.isRequired,
+  tableRow: PropTypes.object.isRequired,
   children: PropTypes.node,
 };
 

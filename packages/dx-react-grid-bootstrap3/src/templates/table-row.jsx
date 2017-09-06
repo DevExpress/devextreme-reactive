@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableRow = ({ children, row, ...restProps }) => (
+export const TableRow = ({ children, tableRow, ...restProps }) => (
   <tr
-    className={row.selected ? 'active' : ''}
+    className={tableRow.selected ? 'active' : ''}
     {...restProps}
   >
     {children}
@@ -11,7 +11,7 @@ export const TableRow = ({ children, row, ...restProps }) => (
 );
 
 TableRow.propTypes = {
-  row: PropTypes.object.isRequired,
+  tableRow: PropTypes.object.isRequired,
   children: PropTypes.node,
 };
 

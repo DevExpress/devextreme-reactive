@@ -95,7 +95,10 @@ export class TableView extends React.PureComponent {
           {params => tableNoDataCellTemplate(params)}
         </Template>
         <Template name="tableViewRow">
-          {tableRowTemplate}
+          {({ row, ...restParams }) => tableRowTemplate({
+            tableRow: row,
+            ...restParams,
+          })}
         </Template>
       </PluginContainer>
     );

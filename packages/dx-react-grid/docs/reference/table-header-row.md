@@ -50,8 +50,8 @@ allowGroupingByClick | boolean | If true, a component that toggles a column's gr
 groupByColumn | () => void | Toggles grouping for a column
 allowDragging | boolean | If true, an end-user can start dragging a column by the header cell
 dragPayload | any | A data object that identifies the corresponding column in the drag-and-drop context
-changeColumnWidth | ({ shift: number }) => void | Changes column width. A shift is added to the original column width value.
-changeDraftColumnWidth | ({ shift: number }) => void | Changes draft column width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column will be cleaned.
+changeColumnWidth | ({ shift: number }) => void | Changes the column width. A shift is added to the original column width value.
+changeDraftColumnWidth | ({ shift: number }) => void | Changes the draft column width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column will be cleared.
 
 ## Plugin Developer Reference
 
@@ -66,7 +66,7 @@ grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Column
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. Each shift is added to the original column width value.
-changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column will be cleaned.
+changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column will be cleared.
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
 ### Exports

@@ -1,6 +1,6 @@
 # React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes
 
-Use appropriate state management plugins (plugins that end with "...State", for example, `SortingState`) to control the required Grid's functionality. For example, the [SortingState](../reference/sorting-state.md) plugin controls the sorting capabilities; the [FilteringState](../reference/filtering-state.md) plugin controls filtering features, etc. See [Reference](../reference/README.md) for the complete plugin list.
+Use appropriate plugins with state management capabilities (typically these plugin names end with "...State", for example, `SortingState`) to control the required Grid's functionality. For example, the [SortingState](../reference/sorting-state.md) plugin controls the sorting capabilities; the [FilteringState](../reference/filtering-state.md) plugin controls filtering features, etc. See [Reference](../reference/README.md) for the complete plugin list.
 
 ## Controlled Mode
 

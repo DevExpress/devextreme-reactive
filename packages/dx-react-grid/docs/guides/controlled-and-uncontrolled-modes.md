@@ -1,6 +1,6 @@
 # React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes
 
-The Grid UI plugins typically render a particular piece of the whole Grid state. This piece of state is managed by the same plugins or by the separate state plugins which names end with "...State". In controlled mode this state is supposed to be passed via the plugins props. As opposite, in uncontrolled mode the state is managed by that plugins internally.
+The Grid UI plugins typically render only a part of the whole Grid's state. The plugins can manage that part of the state themselves, which corresponds to the uncontrolled (stateful) mode. Alternatively, other plugins whose names end with "...State" can do this. In this case, the Grid UI plugins work in controlled (stateless) mode, and their state is supposed to be managed via their props.
 
 ## Controlled Mode
 

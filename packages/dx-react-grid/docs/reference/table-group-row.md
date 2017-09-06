@@ -36,7 +36,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | The group row's data object
-column | [Column](#column) | A column associated with the group
+column | [Column](#column) | The column associated with the group
 isExpanded | boolean | Specifies if the row is expanded
 toggleGroupExpanded | () => void | Toggles the group row's expanded state
 
@@ -49,7 +49,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | The group row's data object
-column | [Column](#column) | A column associated with the group
+column | [Column](#column) | The column associated with the group
 
 ### <a name="group-row"></a>GroupRow
 

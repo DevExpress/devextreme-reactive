@@ -5,7 +5,6 @@ import { Draggable } from '@devexpress/dx-react-core';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
-  // cell: {},
   resizeHandle: {
     position: 'absolute',
     userSelect: 'none',

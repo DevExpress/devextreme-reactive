@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { shallowEqual } from '@devexpress/dx-core';
 import { RERENDER_TEMPLATE } from './template';
-import { TemplateConnector } from './template-connector';
+import { TemplateConnectorEmbedded } from './template-connector-embedded';
 
 export class TemplatePlaceholder extends React.Component {
   constructor(props, context) {
@@ -65,7 +65,7 @@ export class TemplatePlaceholder extends React.Component {
 
     const renderedTemplate = template();
     const content = renderedTemplate ? (
-      <TemplateConnector
+      <TemplateConnectorEmbedded
         params={this.params}
         mapProps={connectGetters}
         mapActions={connectActions}

@@ -66,6 +66,75 @@ describe('GroupingPlugin computeds', () => {
       expect(groupedRows(rowsSource, secondLevelGroupings, getCellData))
         .toEqual(secondLevelGroupedRows);
     });
+
+    it('should use custom getGroupValue argument', () => {
+      const getGroupValue = jest.fn(value => `${value}_test`);
+
+      expect(groupedRows(rowsSource, firstLevelGroupings, getCellData, getGroupValue))
+        .toEqual([{
+          value: '1_test',
+          items: [
+            { a: 1, b: 1 },
+            { a: 1, b: 2 },
+          ],
+        }, {
+          value: '2_test',
+          items: [
+            { a: 2, b: 1 },
+            { a: 2, b: 2 },
+          ],
+        }]);
+    });
+
+    it('should use custom getGroupValue argument for each grouping', () => {
+      const getGroupValue = jest.fn(value => `${value}_test`);
+
+      expect(groupedRows(rowsSource, secondLevelGroupings, getCellData, getGroupValue))
+        .toEqual([{
+          value: '1_test',
+          items: [{
+            value: '1_test',
+            items: [
+              { a: 1, b: 1 },
+            ],
+          }, {
+            value: '2_test',
+            items: [
+              { a: 1, b: 2 },
+            ],
+          }],
+        }, {
+          value: '2_test',
+          items: [{
+            value: '1_test',
+            items: [
+              { a: 2, b: 1 },
+            ],
+          }, {
+            value: '2_test',
+            items: [
+              { a: 2, b: 2 },
+            ],
+          }],
+        }]);
+    });
+
+    it('should pass the row argument to custom getGroupValue', () => {
+      const getGroupValue = jest.fn(value => value);
+
+      groupedRows(rowsSource, firstLevelGroupings, getCellData, getGroupValue);
+
+      expect(getGroupValue)
+        .toHaveBeenCalledTimes(rowsSource.length);
+      expect(getGroupValue)
+        .toHaveBeenCalledWith(rowsSource[0].a, firstLevelGroupings[0], rowsSource[0]);
+      expect(getGroupValue)
+        .toHaveBeenCalledWith(rowsSource[1].a, firstLevelGroupings[0], rowsSource[1]);
+      expect(getGroupValue)
+        .toHaveBeenCalledWith(rowsSource[2].a, firstLevelGroupings[0], rowsSource[2]);
+      expect(getGroupValue)
+        .toHaveBeenCalledWith(rowsSource[3].a, firstLevelGroupings[0], rowsSource[3]);
+    });
   });
 
   describe('#expandedGroupRows', () => {

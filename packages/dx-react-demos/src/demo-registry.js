@@ -123,6 +123,10 @@ export const demos = {
       bootstrap3: require('./bootstrap3/grouping/local-grouping-controlled').default,
       'material-ui': require('./material-ui/grouping/local-grouping-controlled').default,
     },
+    'local-grouping-custom': {
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-custom').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-custom').default,
+    },
   },
   immutability: {
     'seamless-immutable': {

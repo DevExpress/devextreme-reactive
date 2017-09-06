@@ -10,7 +10,9 @@ A plugin that performs local grouping and group expanding/collapsing.
 
 ### Properties
 
-none
+Name | Type | Default | Description
+-----|------|---------|------------
+getGroupValue | (value: any, grouping: [Grouping](grouping-state.md#grouping), row: [Row](grid.md#row)) => any | value => value | A function used to get a column group value.
 
 ## Plugin Developer Reference
 

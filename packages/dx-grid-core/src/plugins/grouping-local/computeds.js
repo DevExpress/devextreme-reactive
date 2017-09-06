@@ -1,20 +1,18 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 
-export const groupedRows = (rows, grouping, getCellData, userGroupFn) => {
-  debugger;
+const defaultGetGroupValue = value => value;
 
+export const groupedRows = (rows, grouping, getCellData, getGroupValue = defaultGetGroupValue) => {
   if (!grouping.length) return rows;
 
-  const columnName = grouping[0].columnName;
-  const groupFn = userGroupFn &&
-    userGroupFn()[columnName] ? userGroupFn()[columnName] : value => value;
-
+  const groupingFirstElem = grouping[0];
   const groups = rows
     .reduce((acc, row) => {
-      const value = groupFn(getCellData(row, grouping[0].columnName)); // added groupFn()
-
+      const value = getGroupValue(getCellData(row, groupingFirstElem.columnName),
+        groupingFirstElem, row);
       const key = String(value);
       const sameKeyItems = acc.get(key);
+
       if (!sameKeyItems) {
         acc.set(key, [value, [row]]);
       } else {
@@ -27,7 +25,7 @@ export const groupedRows = (rows, grouping, getCellData, userGroupFn) => {
   return [...groups.values()]
     .map(([value, items]) => ({
       value,
-      items: groupedRows(items, nestedGrouping, getCellData, userGroupFn),
+      items: groupedRows(items, nestedGrouping, getCellData, getGroupValue),
     }));
 };
 

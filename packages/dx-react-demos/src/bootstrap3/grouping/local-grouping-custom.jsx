@@ -8,9 +8,7 @@ import {
   TableView,
   TableHeaderRow,
   TableGroupRow,
-  GroupingPanel,
-  DragDropContext,
-} from '@devexpress/dx-react-grid-material-ui';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -41,16 +39,21 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <DragDropContext />
         <GroupingState
           grouping={this.state.grouping}
-          onGroupingChange={this.changeGrouping}
         />
-        <LocalGrouping />
+        <LocalGrouping
+          getGroupValue={(value, grouping) => {
+            const { columnName } = grouping;
+            if (columnName === 'city') {
+              return value.substr(0, 1);
+            }
+            return value;
+          }}
+        />
         <TableView />
-        <TableHeaderRow allowDragging allowGroupingByClick />
+        <TableHeaderRow />
         <TableGroupRow />
-        <GroupingPanel allowDragging allowUngroupingByClick />
       </Grid>
     );
   }

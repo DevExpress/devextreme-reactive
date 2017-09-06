@@ -20,13 +20,11 @@ footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-a
 
 ### Row
 
-The object containing any custom data. The access to this data is defined by a user.
-
-Read to the following guide for more details: [Data Accessors](../guides/data-accessors.md).
+An object containing any custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
 
 ### Column
 
-Defines the column configuration object. Used to display the data stored in a row. Can be extended by plugins.
+Defines the column configuration object. Used to display data stored in a row. Can be extended by plugins.
 
 A value with the following shape:
 

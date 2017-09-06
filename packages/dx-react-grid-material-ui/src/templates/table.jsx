@@ -5,7 +5,6 @@ import {
   Table as TableMUI,
   TableBody as TableBodyMUI,
   TableHead as TableHeadMUI,
-  TableRow as TableRowMUI,
 } from 'material-ui';
 
 import {

@@ -5,7 +5,7 @@ export const getAction = (pluginHost, actionName) => {
   return params => actions.forEach(action => action(params));
 };
 
-export const getAllAvaliableGetters = (
+export const getAvaliableGetters = (
   pluginHost,
   getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
 ) => {
@@ -27,18 +27,18 @@ export const getAllAvaliableGetters = (
 
 export const isTrackedDependenciesChanged = (
   pluginHost,
-  previousTrackedDependencies,
+  prevTrackedDependencies,
   getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
 ) => {
-  const trackedDependencies = Object.keys(previousTrackedDependencies)
+  const trackedDependencies = Object.keys(prevTrackedDependencies)
     .reduce((acc, getterName) => Object.assign(acc, {
       [getterName]: getGetterValue(getterName),
     }), {});
 
-  return !shallowEqual(previousTrackedDependencies, trackedDependencies);
+  return !shallowEqual(prevTrackedDependencies, trackedDependencies);
 };
 
-export const getAllAvaliableActions = pluginHost =>
+export const getAvaliableActions = pluginHost =>
   pluginHost.knownKeys('Action')
     .reduce((acc, actionName) => {
       Object.defineProperty(acc, actionName, {

@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-material-ui",
-  "version": "1.0.0-alpha.8",
+  "version": "1.0.0-alpha.9",
   "description": "Material UI templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -56,9 +56,9 @@
     "output": "../../shippable/testresults/dx-react-grid-material-ui.xml"
   },
   "devDependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-alpha.8",
-    "@devexpress/dx-react-core": "1.0.0-alpha.8",
-    "@devexpress/dx-react-grid": "1.0.0-alpha.8",
+    "@devexpress/dx-grid-core": "1.0.0-alpha.9",
+    "@devexpress/dx-react-core": "1.0.0-alpha.9",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.9",
     "@devexpress/dx-testing": "1.0.0-alpha.8",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
@@ -101,9 +101,9 @@
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-alpha.8",
-    "@devexpress/dx-react-core": "1.0.0-alpha.8",
-    "@devexpress/dx-react-grid": "1.0.0-alpha.8",
+    "@devexpress/dx-grid-core": "1.0.0-alpha.9",
+    "@devexpress/dx-react-core": "1.0.0-alpha.9",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.9",
     "material-ui": "1.0.0-beta.7",
     "material-ui-icons": "1.0.0-beta.5",
     "react": "^15.5.4"

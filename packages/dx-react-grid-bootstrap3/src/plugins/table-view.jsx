@@ -8,7 +8,7 @@ import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 
-const tableTemplate = props => <Table {...props} />;
+const tableLayoutTemplate = props => <Table {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
 const stubCellTemplate = props => <TableStubCell {...props} />;
 const stubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
@@ -16,7 +16,7 @@ const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 
 export const TableView = ({ tableCellTemplate, ...props }) => (
   <TableViewBase
-    tableTemplate={tableTemplate}
+    tableLayoutTemplate={tableLayoutTemplate}
     tableCellTemplate={combineTemplates(
       tableCellTemplate,
       defaultCellTemplate,

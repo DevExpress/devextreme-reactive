@@ -28,7 +28,7 @@ A value with the [Column](grid.md#column) shape extended by the following fields
 
 Field | Type | Description
 ------|------|------------
-align? | 'left' &#124; 'right' | Specifies the table column align.
+align? | 'left' &#124; 'right' | Specifies the table column alignment.
 width? | number | Specifies the table column width in pixels.
 
 ### <a name="table-args"></a>TableArgs

@@ -1,6 +1,6 @@
 # React Grid - Controlled (stateless) and Uncontrolled (stateful) Modes
 
-Use appropriate plugins with state management capabilities (typically these plugin names end with "...State", for example, `SortingState`) to control the required Grid's functionality. For example, the [SortingState](../reference/sorting-state.md) plugin controls the sorting capabilities; the [FilteringState](../reference/filtering-state.md) plugin controls filtering features, etc. See [Reference](../reference/README.md) for the complete plugin list.
+The Grid UI plugins typically render a particular piece of the whole Grid state. This piece of state is managed by the same plugins or by the separate state plugins which names end with "...State". In controlled mode this state is supposed to be passed via the plugins props. As opposite, in uncontrolled mode the state is managed by that plugins internally.
 
 ## Controlled Mode
 

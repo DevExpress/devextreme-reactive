@@ -40,7 +40,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column) | Specifies a user column associated with the item
+column | [Column](#column) | Specifies the user column associated with the item
 draft | boolean | Specifies whether the item should be rendered for the preview
 
 ### <a name="group-panel-props"></a>GroupPanelProps

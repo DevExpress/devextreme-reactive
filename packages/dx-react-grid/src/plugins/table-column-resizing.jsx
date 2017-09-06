@@ -41,9 +41,8 @@ export class TableColumnResizing extends React.PureComponent {
       }
     };
 
-    this.changeDraftTableColumnWidthsAction = (payload) => {
+    this.changeDraftTableColumnWidthsAction = payload =>
       this.setState(changeDraftTableColumnWidths(this.getState(), payload));
-    };
   }
   render() {
     const { columnWidths, draftColumnWidths } = this.getState();

@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import {
   TableRow as TableRowMUI,
 } from 'material-ui';
-import { withStyles } from 'material-ui/styles';
 
-const TableRowBase = ({ children, tableRow, ...restProps }) => (
+export const TableRow = ({ children, tableRow, ...restProps }) => (
   <TableRowMUI
     selected={tableRow.selected}
     {...restProps}
@@ -15,13 +14,11 @@ const TableRowBase = ({ children, tableRow, ...restProps }) => (
   </TableRowMUI>
 );
 
-TableRowBase.propTypes = {
+TableRow.propTypes = {
   tableRow: PropTypes.object.isRequired,
   children: PropTypes.node,
 };
 
-TableRowBase.defaultProps = {
+TableRow.defaultProps = {
   children: null,
 };
-
-export const TableRow = withStyles({}, { name: 'TableRow' })(TableRowBase);

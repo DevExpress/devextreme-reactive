@@ -57,9 +57,7 @@ export const Table = ({
     setColumnOrder={setColumnOrder}
   />
 );
-Table.defaultProps = {
-  onClick: () => {},
-};
+
 Table.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
@@ -68,5 +66,10 @@ Table.propTypes = {
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,
-  setColumnOrder: PropTypes.func.isRequired,
+  setColumnOrder: PropTypes.func,
+};
+
+Table.defaultProps = {
+  onClick: () => {},
+  setColumnOrder: () => {},
 };

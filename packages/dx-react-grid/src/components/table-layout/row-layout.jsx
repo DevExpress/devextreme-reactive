@@ -30,7 +30,7 @@ export class RowLayout extends React.PureComponent {
     return (
       <TemplateRenderer
         template={rowTemplate}
-        row={row}
+        tableRow={row}
         style={getRowStyle({ row })}
       >
         {

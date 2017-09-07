@@ -22,20 +22,12 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <tbody {...restProps}>{children}</tbody>
 );
-const rowTemplate = ({ children, row, ...restProps }) => (
-  <tr
-    className={row.selected ? 'active' : ''}
-    {...restProps}
-  >
-    {children}
-  </tr>
-);
-/* eslint-enable react/prop-types */
 
 export const Table = ({
   headerRows, bodyRows, getRowId,
   columns,
   cellTemplate,
+  rowTemplate,
   onClick,
   allowColumnReordering, setColumnOrder,
 }) => (
@@ -62,6 +54,7 @@ Table.propTypes = {
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
+  rowTemplate: PropTypes.func.isRequired,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,

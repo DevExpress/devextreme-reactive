@@ -5,7 +5,6 @@ import {
   Table as TableMUI,
   TableBody as TableBodyMUI,
   TableHead as TableHeadMUI,
-  TableRow as TableRowMUI,
 } from 'material-ui';
 
 import {
@@ -24,20 +23,12 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
 );
-const rowTemplate = ({ children, row, ...restProps }) => (
-  <TableRowMUI
-    selected={row.selected}
-    {...restProps}
-  >
-    {children}
-  </TableRowMUI>
-);
-/* eslint-enable react/prop-types */
 
 export const Table = ({
   headerRows, bodyRows, getRowId,
   columns,
   cellTemplate,
+  rowTemplate,
   onClick,
   allowColumnReordering, setColumnOrder,
 }) => (
@@ -63,6 +54,7 @@ Table.propTypes = {
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
+  rowTemplate: PropTypes.func.isRequired,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,

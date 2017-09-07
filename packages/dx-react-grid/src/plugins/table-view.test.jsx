@@ -38,6 +38,7 @@ const defaultDeps = {
 const defaultProps = {
   tableLayoutTemplate: () => null,
   tableCellTemplate: () => null,
+  tableRowTemplate: () => null,
   tableStubCellTemplate: () => null,
   tableStubHeaderCellTemplate: () => null,
   tableNoDataCellTemplate: () => null,
@@ -197,5 +198,27 @@ describe('TableView', () => {
       .toBeCalledWith(tableCellArgs.tableRow);
     expect(tableNoDataCellTemplate)
       .toBeCalledWith(tableCellArgs);
+  });
+
+  it('should render row by using tableRowTemplate', () => {
+    const tableRowTemplate = jest.fn(() => null);
+    const tableRowArgs = {
+      tableRow: { row: 'row' },
+      style: {},
+      children: null,
+    };
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableView
+          {...defaultProps}
+          tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
+          tableRowTemplate={tableRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(tableRowTemplate).toBeCalledWith(tableRowArgs);
   });
 });

@@ -5,6 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableRowsWithHeading,
   isHeadingTableCell,
+  isHeadingTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
 import { pluginDepsToComponents } from './test-utils';
@@ -12,6 +13,7 @@ import { pluginDepsToComponents } from './test-utils';
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),
   isHeadingTableCell: jest.fn(),
+  isHeadingTableRow: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -25,12 +27,17 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
+    tableViewRow: {
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      style: {},
+    },
   },
   plugins: ['TableView'],
 };
 
 const defaultProps = {
   headerCellTemplate: () => null,
+  headerRowTemplate: () => null,
 };
 
 describe('TableHeaderRow', () => {
@@ -45,6 +52,7 @@ describe('TableHeaderRow', () => {
   beforeEach(() => {
     tableRowsWithHeading.mockImplementation(() => 'tableRowsWithHeading');
     isHeadingTableCell.mockImplementation(() => false);
+    isHeadingTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -93,5 +101,25 @@ describe('TableHeaderRow', () => {
         ...defaultDeps.template.tableViewCell,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
+  });
+
+  it('should render row by using headerRowTemplate', () => {
+    isHeadingTableRow.mockImplementation(() => true);
+    const headerRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableHeaderRow
+          {...defaultProps}
+          headerRowTemplate={headerRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(isHeadingTableRow)
+      .toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(headerRowTemplate)
+      .toBeCalledWith(defaultDeps.template.tableViewRow);
   });
 });

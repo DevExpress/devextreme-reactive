@@ -7,6 +7,7 @@ import {
   isNoDataTableRow,
   isDataTableCell,
   isHeaderStubTableCell,
+  isDataTableRow,
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRows = [];
@@ -94,7 +95,10 @@ export class TableView extends React.PureComponent {
         >
           {params => tableNoDataCellTemplate(params)}
         </Template>
-        <Template name="tableViewRow">
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isDataTableRow(tableRow)}
+        >
           {params => tableRowTemplate(params)}
         </Template>
       </PluginContainer>

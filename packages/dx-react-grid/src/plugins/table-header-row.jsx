@@ -5,13 +5,20 @@ import {
   getColumnSortingDirection,
   tableRowsWithHeading,
   isHeadingTableCell,
+  isHeadingTableRow,
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
-    const { allowSorting, allowGroupingByClick, allowDragging, headerCellTemplate } = this.props;
+    const {
+      allowSorting,
+      allowGroupingByClick,
+      allowDragging,
+      headerCellTemplate,
+      headerRowTemplate,
+    } = this.props;
 
     return (
       <PluginContainer
@@ -70,6 +77,12 @@ export class TableHeaderRow extends React.PureComponent {
             column: restParams.tableColumn.column,
           })}
         </Template>
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
+        >
+          {params => headerRowTemplate(params)}
+        </Template>
       </PluginContainer>
     );
   }
@@ -80,6 +93,7 @@ TableHeaderRow.propTypes = {
   allowGroupingByClick: PropTypes.bool,
   allowDragging: PropTypes.bool,
   headerCellTemplate: PropTypes.func.isRequired,
+  headerRowTemplate: PropTypes.func.isRequired,
 };
 
 TableHeaderRow.defaultProps = {

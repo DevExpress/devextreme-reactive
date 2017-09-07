@@ -8,6 +8,7 @@ import {
   isNoDataTableRow,
   isDataTableCell,
   isHeaderStubTableCell,
+  isDataTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableView } from './table-view';
 import { pluginDepsToComponents } from './test-utils';
@@ -18,6 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isNoDataTableRow: jest.fn(),
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
+  isDataTableRow: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -59,6 +61,7 @@ describe('TableView', () => {
     isNoDataTableRow.mockImplementation(() => false);
     isDataTableCell.mockImplementation(() => false);
     isHeaderStubTableCell.mockImplementation(() => false);
+    isDataTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -201,9 +204,10 @@ describe('TableView', () => {
   });
 
   it('should render row by using tableRowTemplate', () => {
+    isDataTableRow.mockImplementation(() => true);
     const tableRowTemplate = jest.fn(() => null);
     const tableRowArgs = {
-      tableRow: { row: 'row' },
+      tableRow: { row: 'row', type: 'data' },
       style: {},
       children: null,
     };
@@ -219,6 +223,8 @@ describe('TableView', () => {
       </PluginHost>,
     );
 
+    expect(isDataTableRow)
+      .toBeCalledWith(tableRowArgs.tableRow);
     expect(tableRowTemplate).toBeCalledWith(tableRowArgs);
   });
 });

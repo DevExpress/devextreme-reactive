@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { shallowEqual } from '@devexpress/dx-core';
-import { getAction } from '../utils/plugin-helpers';
+import {
+  isTrackedDependenciesChanged,
+  getAvaliableGetters,
+  getAvaliableActions,
+} from '../utils/plugin-helpers';
 
 export const UPDATE_CONNECTION = 'updateConnection';
 
@@ -11,7 +14,7 @@ export class Getter extends React.PureComponent {
     const { name } = this.props;
 
     let lastComputed;
-    let lastGetterDependencies = {};
+    let lastTrackedDependencies = {};
     let lastResult;
 
     this.plugin = {
@@ -24,38 +27,16 @@ export class Getter extends React.PureComponent {
           ? original
           : pluginHost.get(`${getterName}Getter`, this.plugin));
 
-        const currentGetterDependencies = Object.keys(lastGetterDependencies)
-          .reduce((acc, getterName) => Object.assign(acc, {
-            [getterName]: getGetterValue(getterName),
-          }), {});
-
         if (computed === lastComputed &&
-          shallowEqual(lastGetterDependencies, currentGetterDependencies)) {
+          !isTrackedDependenciesChanged(pluginHost, lastTrackedDependencies, getGetterValue)) {
           return lastResult;
         }
 
+        const { getters, trackedDependencies } = getAvaliableGetters(pluginHost, getGetterValue);
+        const actions = getAvaliableActions(pluginHost);
+
         lastComputed = computed;
-        lastGetterDependencies = {};
-
-        const getters = pluginHost.knownKeys('Getter')
-          .reduce((acc, getterName) => {
-            Object.defineProperty(acc, getterName, {
-              get: () => {
-                const result = getGetterValue(getterName);
-                lastGetterDependencies[getterName] = result;
-                return result;
-              },
-            });
-            return acc;
-          }, {});
-        const actions = pluginHost.knownKeys('Action')
-          .reduce((acc, actionName) => {
-            Object.defineProperty(acc, actionName, {
-              get: () => getAction(pluginHost, actionName),
-            });
-            return acc;
-          }, {});
-
+        lastTrackedDependencies = trackedDependencies;
         lastResult = computed(getters, actions);
         return lastResult;
       },
@@ -81,7 +62,7 @@ export class Getter extends React.PureComponent {
 Getter.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
-  value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  value: PropTypes.any,
   computed: PropTypes.func,
 };
 

@@ -1,10 +1,11 @@
-export { PluginHost } from './plugged/host';
-export { PluginContainer } from './plugged/container';
+export { PluginHost } from './plugged/plugin-host';
+export { PluginContainer } from './plugged/plugin-container';
 export { Action } from './plugged/action';
 export { Getter } from './plugged/getter';
 export { Watcher } from './plugged/watcher';
 export { Template } from './plugged/template';
 export { TemplatePlaceholder } from './plugged/template-placeholder';
+export { TemplateConnector } from './plugged/template-connector';
 
 export { DragDropContext } from './drag-drop/context';
 export { DragSource } from './drag-drop/source';

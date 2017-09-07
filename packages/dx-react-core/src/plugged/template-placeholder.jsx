@@ -63,15 +63,21 @@ export class TemplatePlaceholder extends React.Component {
     const { children: template, connectGetters, connectActions } = this.template;
     const { children: placeholder } = this.props;
 
-    const renderedTemplate = template();
-    const content = renderedTemplate ? (
-      <TemplateConnectorEmbedded
-        params={this.params}
-        mapProps={connectGetters}
-        mapActions={connectActions}
-        content={renderedTemplate}
-      />
-    ) : null;
+    let content = template();
+    if (content) {
+      if (connectGetters || connectActions) {
+        content = (
+          <TemplateConnectorEmbedded
+            params={this.params}
+            mapProps={connectGetters}
+            mapActions={connectActions}
+            content={content}
+          />
+        );
+      } else if (content instanceof Function) {
+        content = content(this.params);
+      }
+    }
 
     return placeholder ? placeholder(content) : content;
   }
@@ -79,14 +85,14 @@ export class TemplatePlaceholder extends React.Component {
 
 TemplatePlaceholder.propTypes = {
   name: PropTypes.string,
-  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  params: PropTypes.object,
   children: PropTypes.func,
 };
 
 TemplatePlaceholder.defaultProps = {
-  name: null,
-  params: null,
-  children: null,
+  name: undefined,
+  params: undefined,
+  children: undefined,
 };
 
 TemplatePlaceholder.contextTypes = {

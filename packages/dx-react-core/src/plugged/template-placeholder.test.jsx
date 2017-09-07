@@ -154,8 +154,8 @@ describe('TemplatePlaceholder', () => {
     const tree = mount(
       <PluginHost>
         <Template name="testNested">
-          {({ text }) => (
-            <h1>{text}</h1>
+          {params => (
+            <h1>{params && params.text}</h1>
           )}
         </Template>
 

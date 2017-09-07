@@ -8,7 +8,7 @@ describe('TemplateRenderer', () => {
     const tree = mount(
       <TemplateRenderer
         template={({ test, children }) => <div className={test}>{children}</div>}
-        test={'test'}
+        params={{ test: 'test' }}
       >
         <div className="content" />
       </TemplateRenderer>,
@@ -16,19 +16,5 @@ describe('TemplateRenderer', () => {
 
     expect(tree.find('.test > .content').exists())
       .toBe(true);
-  });
-
-  it('should pass templateRef as ref', () => {
-    const templateRef = jest.fn();
-    mount(
-      <TemplateRenderer
-        template={({ ref }) => <div ref={ref} />}
-        templateRef={templateRef}
-        test={'test'}
-      />,
-    );
-
-    expect(templateRef)
-      .toBeCalled();
   });
 });

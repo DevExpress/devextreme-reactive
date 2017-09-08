@@ -44,6 +44,7 @@ const defaultProps = {
   tableStubCellTemplate: () => null,
   tableStubHeaderCellTemplate: () => null,
   tableNoDataCellTemplate: () => null,
+  tableNoDataRowTemplate: () => null,
 };
 
 describe('TableView', () => {
@@ -226,5 +227,28 @@ describe('TableView', () => {
     expect(isDataTableRow)
       .toBeCalledWith(tableRowArgs.tableRow);
     expect(tableRowTemplate).toBeCalledWith(tableRowArgs);
+  });
+  it('should render empty row by using tableNoDataRowTemplate', () => {
+    isNoDataTableRow.mockImplementation(() => true);
+    const tableNoDataRowTemplate = jest.fn(() => null);
+    const tableRowArgs = {
+      tableRow: { row: 'row', type: 'nodata' },
+      style: {},
+      children: null,
+    };
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableView
+          {...defaultProps}
+          tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
+          tableNoDataRowTemplate={tableNoDataRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(isNoDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
+    expect(tableNoDataRowTemplate).toBeCalledWith(tableRowArgs);
   });
 });

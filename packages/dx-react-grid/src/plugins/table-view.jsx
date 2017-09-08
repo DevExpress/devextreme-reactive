@@ -26,6 +26,7 @@ export class TableView extends React.PureComponent {
       tableLayoutTemplate,
       tableCellTemplate,
       tableRowTemplate,
+      tableNoDataRowTemplate,
       tableNoDataCellTemplate,
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
@@ -101,6 +102,12 @@ export class TableView extends React.PureComponent {
         >
           {params => tableRowTemplate(params)}
         </Template>
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
+        >
+          {params => tableNoDataRowTemplate(params)}
+        </Template>
       </PluginContainer>
     );
   }
@@ -111,6 +118,7 @@ TableView.propTypes = {
   tableCellTemplate: PropTypes.func.isRequired,
   tableRowTemplate: PropTypes.func.isRequired,
   tableNoDataCellTemplate: PropTypes.func.isRequired,
+  tableNoDataRowTemplate: PropTypes.func.isRequired,
   tableStubCellTemplate: PropTypes.func.isRequired,
   tableStubHeaderCellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,

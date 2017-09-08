@@ -45,15 +45,7 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint src/**/*",
-    "lint:fix": "npm run -s lint -- --fix",
-    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-datatgrid-bootstrap3-lint.xml -f junit"
-  },
-  "jest": {
-    "testResultsProcessor": "./node_modules/jest-junit"
-  },
-  "jest-junit": {
-    "suiteName": "React Grid Bootstrap3",
-    "output": "../../shippable/testresults/dx-react-grid-bootstrap3.xml"
+    "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
     "@devexpress/dx-grid-core": "1.0.0-alpha.9",
@@ -75,7 +67,6 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.1.0",
     "jest": "^20.0.4",

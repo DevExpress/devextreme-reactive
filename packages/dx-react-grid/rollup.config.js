@@ -17,7 +17,7 @@ export default {
     },
   ],
   moduleName: moduleName(__dirname),
-  globals: globals(__dirname),
+  globals: globals(),
   external: external(__dirname),
   plugins: [
     resolve({

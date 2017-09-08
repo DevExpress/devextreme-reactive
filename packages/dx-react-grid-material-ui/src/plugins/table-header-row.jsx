@@ -1,10 +1,13 @@
 import React from 'react';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
-import { TableHeaderRow as TableHeaderRowTemplate } from '../templates/table-header-row';
+import { TableRow } from 'material-ui';
 import { TableHeaderCell } from '../templates/table-header-cell';
 
 const headerCellTemplate = props => <TableHeaderCell {...props} />;
-const headerRowTemplate = props => <TableHeaderRowTemplate {...props} />;
+/* eslint-disable react/prop-types */
+const headerRowTemplate = ({ tableRow, children, ...restProps }) => (
+  <TableRow {...restProps}>{children}</TableRow>
+);
 
 export const TableHeaderRow = props => (
   <TableHeaderRowBase

@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, PluginContainer,
+  TemplateConnector, TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
@@ -8,6 +11,74 @@ import {
   isEditNewRowCommandsTableCell,
   isEditExistingRowCommandsTableCell,
 } from '@devexpress/dx-grid-core';
+
+const getHeadingEditCommandsTableCellTemplateArgs = ({
+  params,
+  actions: { addRow },
+  scope: { allowAdding, commandTemplate },
+}) => ({
+  ...params,
+  addRow: () => addRow(),
+  commandTemplate,
+  allowAdding,
+});
+
+const getDataEditCommandsTableCellTemplateArgs = ({
+  params,
+  actions: { startEditRows, deleteRows, commitDeletedRows },
+  scope: { allowEditing, allowDeleting, commandTemplate },
+}) => ({
+  ...params,
+  row: params.tableRow.row,
+  startEditing: () => startEditRows({ rowIds: [params.tableRow.rowId] }),
+  deleteRow: () => {
+    const rowIds = [params.tableRow.rowId];
+    deleteRows({ rowIds });
+    commitDeletedRows({ rowIds });
+  },
+  commandTemplate,
+  allowEditing,
+  allowDeleting,
+  isEditing: false,
+});
+
+const getEditNewRowCommandsTableCellTemplateArgs = ({
+  params,
+  actions: { cancelAddedRows, commitAddedRows },
+  scope: { commandTemplate },
+}) => ({
+  ...params,
+  row: params.tableRow.row,
+  cancelEditing: () => {
+    cancelAddedRows({ rowIds: [params.tableRow.rowId] });
+  },
+  commitChanges: () => {
+    commitAddedRows({ rowIds: [params.tableRow.rowId] });
+  },
+  isEditing: true,
+  commandTemplate,
+});
+
+const getEditExistingRowCommandsTableCellTemplateArgs = ({
+  params,
+  actions: { stopEditRows, cancelChangedRows, commitChangedRows },
+  scope: { commandTemplate },
+}) => ({
+  ...params,
+  row: params.tableRow.row,
+  cancelEditing: () => {
+    const rowIds = [params.tableRow.rowId];
+    stopEditRows({ rowIds });
+    cancelChangedRows({ rowIds });
+  },
+  commitChanges: () => {
+    const rowIds = [params.tableRow.rowId];
+    stopEditRows({ rowIds });
+    commitChangedRows({ rowIds });
+  },
+  isEditing: true,
+  commandTemplate,
+});
 
 const pluginDependencies = [
   { pluginName: 'EditingState' },
@@ -34,100 +105,86 @@ export class TableEditColumn extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) =>
             isHeadingEditCommandsTableCell(tableRow, tableColumn)}
-          connectActions={action => ({
-            addRow: () => action('addRow')(),
-          })}
         >
-          {({ addRow, ...restParams }) =>
-            headingCellTemplate({
-              addRow: () => addRow(),
-              commandTemplate,
-              allowAdding,
-              ...restParams,
-            })}
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={headingCellTemplate}
+                  params={getHeadingEditCommandsTableCellTemplateArgs({
+                    params,
+                    actions,
+                    scope: { allowAdding, commandTemplate },
+                  })}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) =>
             isDataEditCommandsTableCell(tableRow, tableColumn)}
-          connectActions={action => ({
-            startEditRows: ({ rowIds }) => action('startEditRows')({ rowIds }),
-            deleteRows: ({ rowIds }) => {
-              action('deleteRows')({ rowIds });
-              action('commitDeletedRows')({ rowIds });
-            },
-          })}
         >
-          {({ startEditRows, deleteRows, ...restParams }) =>
-            cellTemplate({
-              row: restParams.tableRow.row,
-              startEditing: () => startEditRows({ rowIds: [restParams.tableRow.rowId] }),
-              deleteRow: () => deleteRows({ rowIds: [restParams.tableRow.rowId] }),
-              commandTemplate,
-              allowEditing,
-              allowDeleting,
-              isEditing: false,
-              ...restParams,
-            })}
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={cellTemplate}
+                  params={getDataEditCommandsTableCellTemplateArgs({
+                    params,
+                    actions,
+                    scope: { allowEditing, allowDeleting, commandTemplate },
+                  })}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) =>
             isEditNewRowCommandsTableCell(tableRow, tableColumn)}
-          connectActions={action => ({
-            cancelAddedRows: ({ rowIds }) => action('cancelAddedRows')({ rowIds }),
-            commitAddedRows: ({ rowIds }) => action('commitAddedRows')({ rowIds }),
-          })}
         >
-          {({ cancelAddedRows, commitAddedRows, ...restParams }) =>
-            cellTemplate({
-              row: restParams.tableRow.row,
-              cancelEditing: () => {
-                cancelAddedRows({ rowIds: [restParams.tableRow.rowId] });
-              },
-              commitChanges: () => {
-                commitAddedRows({ rowIds: [restParams.tableRow.rowId] });
-              },
-              isEditing: true,
-              commandTemplate,
-              ...restParams,
-            })}
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={cellTemplate}
+                  params={getEditNewRowCommandsTableCellTemplateArgs({
+                    params,
+                    actions,
+                    scope: { commandTemplate },
+                  })}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) =>
             isEditExistingRowCommandsTableCell(tableRow, tableColumn)}
-          connectActions={action => ({
-            stopEditRows: ({ rowIds }) => action('stopEditRows')({ rowIds }),
-            cancelChangedRows: ({ rowIds }) => action('cancelChangedRows')({ rowIds }),
-            commitChangedRows: ({ rowIds }) => action('commitChangedRows')({ rowIds }),
-          })}
         >
-          {({
-            stopEditRows,
-            cancelChangedRows,
-            commitChangedRows,
-            ...restParams
-          }) =>
-          cellTemplate({
-            row: restParams.tableRow.row,
-            column: restParams.tableColumn.column,
-            cancelEditing: () => {
-              stopEditRows({ rowIds: [restParams.tableRow.rowId] });
-              cancelChangedRows({ rowIds: [restParams.tableRow.rowId] });
-            },
-            commitChanges: () => {
-              stopEditRows({ rowIds: [restParams.tableRow.rowId] });
-              commitChangedRows({ rowIds: [restParams.tableRow.rowId] });
-            },
-            isEditing: true,
-            commandTemplate,
-            ...restParams,
-          })}
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={cellTemplate}
+                  params={getEditExistingRowCommandsTableCellTemplateArgs({
+                    params,
+                    actions,
+                    scope: { commandTemplate },
+                  })}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
       </PluginContainer>
     );

@@ -1,45 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Template, TemplatePlaceholder, PluginContainer,
+  TemplateConnector, TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import { pageCount } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
-// eslint-disable-next-line react/prefer-stateless-function
+const getPagerTemplateArgs = ({
+  getters: { currentPage, pageSize, totalCount },
+  actions: { setCurrentPage, setPageSize },
+  scope: { allowedPageSizes },
+}) => ({
+  currentPage,
+  totalPages: pageCount(totalCount, pageSize),
+  pageSize,
+  totalCount,
+  allowedPageSizes,
+  onCurrentPageChange: setCurrentPage,
+  onPageSizeChange: setPageSize,
+});
+
+
 export class PagingPanel extends React.PureComponent {
   render() {
     const { pagerTemplate, allowedPageSizes } = this.props;
+
     return (
       <PluginContainer
         pluginName="PagingPanel"
         dependencies={pluginDependencies}
       >
-        <Template
-          name="footer"
-          connectGetters={(getter) => {
-            const pageSize = getter('pageSize');
-            const totalCount = getter('totalCount');
-            return {
-              currentPage: getter('currentPage'),
-              totalPages: pageCount(totalCount, pageSize),
-              pageSize,
-              totalCount,
-              allowedPageSizes,
-            };
-          }}
-          connectActions={action => ({
-            onCurrentPageChange: page => action('setCurrentPage')(page),
-            onPageSizeChange: size => action('setPageSize')(size),
-          })}
-        >
-          {params => (
-            <div>
-              <TemplatePlaceholder />
-              {pagerTemplate(params)}
-            </div>
-          )}
+        <Template name="footer">
+          <div>
+            <TemplatePlaceholder />
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={pagerTemplate}
+                  params={getPagerTemplateArgs({ getters, actions, scope: { allowedPageSizes } })}
+                />
+              )}
+            </TemplateConnector>
+          </div>
         </Template>
       </PluginContainer>
     );

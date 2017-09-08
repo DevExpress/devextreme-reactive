@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter,
+  Template,
+  TemplatePlaceholder,
+  TemplateRenderer,
+  PluginContainer,
+} from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -35,7 +41,28 @@ export class TableFilterRow extends React.PureComponent {
             setFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
           })}
         >
-          {params => filterCellTemplate({ ...params, column: params.tableColumn.column })}
+          {params => (
+            <TemplatePlaceholder
+              name="valueEditor"
+              params={{
+                column: params.tableColumn.column,
+                filter: params.filter,
+                setFilter: params.setFilter,
+              }}
+            >
+              {content => (
+                <TemplateRenderer
+                  template={filterCellTemplate}
+                  {...{
+                    ...params,
+                    column: params.tableColumn.column,
+                  }}
+                >
+                  {content}
+                </TemplateRenderer>
+              )}
+            </TemplatePlaceholder>
+          )}
         </Template>
       </PluginContainer>
     );

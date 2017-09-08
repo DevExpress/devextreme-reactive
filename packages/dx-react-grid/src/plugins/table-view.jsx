@@ -85,7 +85,7 @@ export class TableView extends React.PureComponent {
                 value: getCellData(params.tableRow.row, params.tableColumn.column.name),
               }}
             >
-              {content => (content ? (
+              {content => (
                 <TemplateRenderer
                   template={tableCellTemplate}
                   {...{
@@ -97,17 +97,7 @@ export class TableView extends React.PureComponent {
                 >
                   {content}
                 </TemplateRenderer>
-              ) : (
-                <TemplateRenderer
-                  template={tableCellTemplate}
-                  {...{
-                    ...params,
-                    row: params.tableRow.row,
-                    column: params.tableColumn.column,
-                    value: getCellData(params.tableRow.row, params.tableColumn.column.name),
-                  }}
-                />
-              ))}
+              )}
             </TemplatePlaceholder>
           )}
         </Template>

@@ -58,7 +58,7 @@ export class TemplatePlaceholder extends React.Component {
     this.teardownSubscription();
     this.prepareTemplates();
 
-    if (!this.template) return placeholder(null);
+    if (!this.template) return placeholder ? placeholder(null) : null;
 
     this.setupSubscription();
 

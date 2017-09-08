@@ -1,9 +1,14 @@
 import React from 'react';
-import { DataTypeProvider } from '@devexpress/dx-react-grid';
+import {
+  DataTypeProvider,
+  FilteringState,
+  LocalFiltering,
+} from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView,
   TableHeaderRow,
+  TableFilterRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -14,7 +19,20 @@ import {
 const CurrencyTypeProvider = () => (
   <DataTypeProvider
     type="currency"
-    formatterTemplate={({ value }) => <span><b className="text-muted">$</b>{value}</span>}
+    formatterTemplate={({ value }) => (
+      <div className="text-right">
+        <b className="text-muted">$</b>{value}
+      </div>
+    )}
+    editorTemplate={({ filter, setFilter }) => (
+      <input
+        type="text"
+        className="form-control text-right"
+        placeholder="$"
+        value={filter ? filter.value : ''}
+        onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+      />
+    )}
   />
 );
 
@@ -27,8 +45,8 @@ export default class Demo extends React.PureComponent {
         { name: 'region', title: 'Region' },
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
         { name: 'saleDate', title: 'Sale Date' },
+        { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
@@ -42,8 +60,11 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <CurrencyTypeProvider />
+        <FilteringState defaultFilters={[]} />
+        <LocalFiltering />
         <TableView />
         <TableHeaderRow />
+        <TableFilterRow />
       </Grid>
     );
   }

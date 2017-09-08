@@ -18,7 +18,7 @@ export class DataTypeProvider extends React.PureComponent {
           name="valueEditor"
           predicate={({ column }) => column.dataType === type}
         >
-          {editorTemplate()}
+          {params => editorTemplate(params)}
         </Template>
       </PluginContainer>
     );

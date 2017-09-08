@@ -1,6 +1,6 @@
 # SortingState Plugin Reference
 
-A plugin that manages sorting state. It controls the list of columns that are used to sort the passed rows and their sort order.
+A plugin that manages the sorting state. It controls the list of columns that are used to sort the passed rows and their sort order.
 
 ## User Reference
 
@@ -20,13 +20,13 @@ onSortingChange | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handle
 
 ### Sorting
 
-Describes a sorting applied to a column
+Describes the sorting applied to a column
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-columnName | string | Specifies a column name to which the sorting is applied
+columnName | string | Specifies a column's name to which the sorting is applied
 direction | 'asc' &#124; 'desc' | Specifies a column's sort order
 
 ## Plugin Developer Reference

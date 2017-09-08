@@ -1,6 +1,6 @@
 # SortingState Plugin Reference
 
-A plugin that manages the sorting state. It controls the list of columns that are used to sort the passed rows and their sort order.
+A plugin that manages the sorting state. It controls the list of columns that participate in sorting.
 
 ## User Reference
 

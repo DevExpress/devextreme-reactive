@@ -20,6 +20,7 @@ export class TableRowDetail extends React.PureComponent {
       template,
       detailToggleCellTemplate,
       detailCellTemplate,
+      detailRowTemplate,
       detailToggleCellWidth,
     } = this.props;
 
@@ -64,6 +65,12 @@ export class TableRowDetail extends React.PureComponent {
             template: () => template({ row: params.tableRow.row }),
           })}
         </Template>
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isDetailTableRow(tableRow)}
+        >
+          {params => detailRowTemplate(params)}
+        </Template>
       </PluginContainer>
     );
   }
@@ -73,6 +80,7 @@ TableRowDetail.propTypes = {
   template: PropTypes.func,
   detailToggleCellTemplate: PropTypes.func.isRequired,
   detailCellTemplate: PropTypes.func.isRequired,
+  detailRowTemplate: PropTypes.func.isRequired,
   detailToggleCellWidth: PropTypes.number.isRequired,
   rowHeight: PropTypes.oneOfType([
     PropTypes.number,

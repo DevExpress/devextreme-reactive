@@ -35,6 +35,10 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
+    tableViewRow: {
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      style: {},
+    },
   },
   plugins: ['TableView'],
 };
@@ -42,6 +46,7 @@ const defaultDeps = {
 const defaultProps = {
   detailToggleCellTemplate: () => null,
   detailCellTemplate: () => null,
+  detailRowTemplate: () => null,
   detailToggleCellWidth: 100,
 };
 
@@ -150,5 +155,22 @@ describe('TableRowDetail', () => {
         ...defaultDeps.template.tableViewCell,
         row: defaultDeps.template.tableViewCell.tableRow.row,
       }));
+  });
+  it('should render row by using detailRowTemplate', () => {
+    isDetailTableRow.mockImplementation(() => true);
+    const detailRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableRowDetail
+          {...defaultProps}
+          detailRowTemplate={detailRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(isDetailTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(detailRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
   });
 });

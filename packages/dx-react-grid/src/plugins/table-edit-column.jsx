@@ -7,9 +7,9 @@ import {
 import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
-  isDataEditCommandsTableCell,
-  isEditNewRowCommandsTableCell,
-  isEditExistingRowCommandsTableCell,
+  isEditCommandsTableCell,
+  isAddedTableRow,
+  isEditTableRow,
 } from '@devexpress/dx-grid-core';
 
 const getHeadingEditCommandsTableCellTemplateArgs = ({
@@ -19,66 +19,51 @@ const getHeadingEditCommandsTableCellTemplateArgs = ({
 }) => ({
   ...params,
   addRow: () => addRow(),
-  commandTemplate,
   allowAdding,
+  commandTemplate,
 });
 
-const getDataEditCommandsTableCellTemplateArgs = ({
+const getEditCommandsTableCellTemplateArgs = ({
   params,
-  actions: { startEditRows, deleteRows, commitDeletedRows },
+  actions: {
+    startEditRows, stopEditRows, cancelChangedRows, commitChangedRows,
+    deleteRows, commitDeletedRows, cancelAddedRows, commitAddedRows,
+  },
   scope: { allowEditing, allowDeleting, commandTemplate },
-}) => ({
-  ...params,
-  row: params.tableRow.row,
-  startEditing: () => startEditRows({ rowIds: [params.tableRow.rowId] }),
-  deleteRow: () => {
-    const rowIds = [params.tableRow.rowId];
-    deleteRows({ rowIds });
-    commitDeletedRows({ rowIds });
-  },
-  commandTemplate,
-  allowEditing,
-  allowDeleting,
-  isEditing: false,
-});
-
-const getEditNewRowCommandsTableCellTemplateArgs = ({
-  params,
-  actions: { cancelAddedRows, commitAddedRows },
-  scope: { commandTemplate },
-}) => ({
-  ...params,
-  row: params.tableRow.row,
-  cancelEditing: () => {
-    cancelAddedRows({ rowIds: [params.tableRow.rowId] });
-  },
-  commitChanges: () => {
-    commitAddedRows({ rowIds: [params.tableRow.rowId] });
-  },
-  isEditing: true,
-  commandTemplate,
-});
-
-const getEditExistingRowCommandsTableCellTemplateArgs = ({
-  params,
-  actions: { stopEditRows, cancelChangedRows, commitChangedRows },
-  scope: { commandTemplate },
-}) => ({
-  ...params,
-  row: params.tableRow.row,
-  cancelEditing: () => {
-    const rowIds = [params.tableRow.rowId];
-    stopEditRows({ rowIds });
-    cancelChangedRows({ rowIds });
-  },
-  commitChanges: () => {
-    const rowIds = [params.tableRow.rowId];
-    stopEditRows({ rowIds });
-    commitChangedRows({ rowIds });
-  },
-  isEditing: true,
-  commandTemplate,
-});
+}) => {
+  const isEdit = isEditTableRow(params.tableRow);
+  const isNew = isAddedTableRow(params.tableRow);
+  const rowIds = [params.tableRow.rowId];
+  return {
+    ...params,
+    row: params.tableRow.row,
+    allowEditing,
+    allowDeleting,
+    isEditing: isEdit || isNew,
+    startEditing: () => startEditRows({ rowIds: [params.tableRow.rowId] }),
+    deleteRow: () => {
+      deleteRows({ rowIds });
+      commitDeletedRows({ rowIds });
+    },
+    cancelEditing: () => {
+      if (isNew) {
+        cancelAddedRows({ rowIds });
+      } else {
+        stopEditRows({ rowIds });
+        cancelChangedRows({ rowIds });
+      }
+    },
+    commitChanges: () => {
+      if (isNew) {
+        commitAddedRows({ rowIds });
+      } else {
+        stopEditRows({ rowIds });
+        commitChangedRows({ rowIds });
+      }
+    },
+    commandTemplate,
+  };
+};
 
 const pluginDependencies = [
   { pluginName: 'EditingState' },
@@ -129,57 +114,17 @@ export class TableEditColumn extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) =>
-            isDataEditCommandsTableCell(tableRow, tableColumn)}
+            isEditCommandsTableCell(tableRow, tableColumn)}
         >
           {params => (
             <TemplateConnector>
               {(getters, actions) => (
                 <TemplateRenderer
                   template={cellTemplate}
-                  params={getDataEditCommandsTableCellTemplateArgs({
+                  params={getEditCommandsTableCellTemplateArgs({
                     params,
                     actions,
                     scope: { allowEditing, allowDeleting, commandTemplate },
-                  })}
-                />
-              )}
-            </TemplateConnector>
-          )}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ tableRow, tableColumn }) =>
-            isEditNewRowCommandsTableCell(tableRow, tableColumn)}
-        >
-          {params => (
-            <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={cellTemplate}
-                  params={getEditNewRowCommandsTableCellTemplateArgs({
-                    params,
-                    actions,
-                    scope: { commandTemplate },
-                  })}
-                />
-              )}
-            </TemplateConnector>
-          )}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ tableRow, tableColumn }) =>
-            isEditExistingRowCommandsTableCell(tableRow, tableColumn)}
-        >
-          {params => (
-            <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={cellTemplate}
-                  params={getEditExistingRowCommandsTableCellTemplateArgs({
-                    params,
-                    actions,
-                    scope: { commandTemplate },
                   })}
                 />
               )}

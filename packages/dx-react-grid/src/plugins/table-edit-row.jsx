@@ -7,48 +7,38 @@ import {
 import {
   getRowChange,
   tableRowsWithEditing,
-  isEditNewTableCell,
-  isEditExistingTableCell,
+  isAddedTableRow,
+  isEditTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getEditExistingTableCellTemplateArgs = ({
+const getEditTableCellTemplateArgs = ({
   params,
-  getters: { changedRows, getCellData, createRowChange },
-  actions: { changeRow },
+  getters,
+  actions: { changeRow, changeAddedRow },
 }) => {
+  const { getCellData, createRowChange } = getters;
+  const isNew = isAddedTableRow(params.tableRow);
   const { rowId, row } = params.tableRow;
   const { column } = params.tableColumn;
-  const changedRow = { ...row, ...getRowChange(changedRows, rowId) };
+  const changedRow = isNew
+    ? row
+    : { ...row, ...getRowChange(getters.changedRows, rowId) };
   return {
     ...params,
     row,
     column,
     value: getCellData(changedRow, column.name),
-    onValueChange: newValue =>
-      changeRow({
+    onValueChange: (newValue) => {
+      const changeArgs = {
         rowId,
         change: createRowChange(changedRow, column.name, newValue),
-      }),
-  };
-};
-
-const getEditNewTableCellTemplateArgs = ({
-  params,
-  getters: { getCellData, createRowChange },
-  actions: { changeAddedRow },
-}) => {
-  const { rowId, row } = params.tableRow;
-  const { column } = params.tableColumn;
-  return {
-    ...params,
-    row,
-    column,
-    value: getCellData(row, column.name),
-    onValueChange: newValue =>
-      changeAddedRow({
-        rowId,
-        change: createRowChange(row, column.name, newValue),
-      }),
+      };
+      if (isNew) {
+        changeAddedRow(changeArgs);
+      } else {
+        changeRow(changeArgs);
+      }
+    },
   };
 };
 
@@ -72,33 +62,14 @@ export class TableEditRow extends React.PureComponent {
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
           name="tableViewCell"
-          predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}
+          predicate={({ tableRow, tableColumn }) => isEditTableCell(tableRow, tableColumn)}
         >
           {params => (
             <TemplateConnector>
               {(getters, actions) => (
                 <TemplateRenderer
                   template={editCellTemplate}
-                  params={getEditExistingTableCellTemplateArgs({
-                    params,
-                    getters,
-                    actions,
-                  })}
-                />
-              )}
-            </TemplateConnector>
-          )}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ tableRow, tableColumn }) => isEditNewTableCell(tableRow, tableColumn)}
-        >
-          {params => (
-            <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={editCellTemplate}
-                  params={getEditNewTableCellTemplateArgs({
+                  params={getEditTableCellTemplateArgs({
                     params,
                     getters,
                     actions,

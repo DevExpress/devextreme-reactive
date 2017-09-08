@@ -53,15 +53,16 @@ export class TemplatePlaceholder extends React.Component {
     this.restTemplates = templates.slice(1);
   }
   render() {
+    const { children: placeholder } = this.props;
+
     this.teardownSubscription();
     this.prepareTemplates();
 
-    if (!this.template) return null;
+    if (!this.template) return placeholder(null);
 
     this.setupSubscription();
 
     const { children: template, connectGetters, connectActions } = this.template;
-    const { children: placeholder } = this.props;
 
     let content = template();
     if (content) {

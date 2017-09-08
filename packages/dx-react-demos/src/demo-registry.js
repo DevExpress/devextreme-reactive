@@ -27,6 +27,12 @@ export const demos = {
       'material-ui': require('./material-ui/data-accessors/custom-data-accessors-in-columns').default,
     },
   },
+  'data-types': {
+    basic: {
+      bootstrap3: require('./bootstrap3/data-types/basic').default,
+      'material-ui': require('./material-ui/data-types/basic').default,
+    },
+  },
   'column-reordering': {
     uncontrolled: {
       bootstrap3: require('./bootstrap3/column-reordering/uncontrolled').default,

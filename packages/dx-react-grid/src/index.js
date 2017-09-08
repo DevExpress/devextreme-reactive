@@ -35,5 +35,7 @@ export { TableEditColumn } from './plugins/table-edit-column';
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 
+export { DataTypeProvider } from './plugins/data-type-provider';
+
 export { TableLayout } from './components/table-layout';
 export { GroupPanelLayout } from './components/group-panel-layout';

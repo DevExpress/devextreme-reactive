@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Template, TemplatePlaceholder, PluginContainer, TemplateRenderer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
@@ -76,12 +76,40 @@ export class TableView extends React.PureComponent {
             getCellData: getter('getCellData'),
           })}
         >
-          {({ getCellData, ...params }) => tableCellTemplate({
-            ...params,
-            row: params.tableRow.row,
-            column: params.tableColumn.column,
-            value: getCellData(params.tableRow.row, params.tableColumn.column.name),
-          })}
+          {({ getCellData, ...params }) => (
+            <TemplatePlaceholder
+              name="valueFormatter"
+              params={{
+                row: params.tableRow.row,
+                column: params.tableColumn.column,
+                value: getCellData(params.tableRow.row, params.tableColumn.column.name),
+              }}
+            >
+              {content => (content ? (
+                <TemplateRenderer
+                  template={tableCellTemplate}
+                  {...{
+                    ...params,
+                    row: params.tableRow.row,
+                    column: params.tableColumn.column,
+                    value: getCellData(params.tableRow.row, params.tableColumn.column.name),
+                  }}
+                >
+                  {content}
+                </TemplateRenderer>
+              ) : (
+                <TemplateRenderer
+                  template={tableCellTemplate}
+                  {...{
+                    ...params,
+                    row: params.tableRow.row,
+                    column: params.tableColumn.column,
+                    value: getCellData(params.tableRow.row, params.tableColumn.column.name),
+                  }}
+                />
+              ))}
+            </TemplatePlaceholder>
+          )}
         </Template>
         <Template
           name="tableViewCell"

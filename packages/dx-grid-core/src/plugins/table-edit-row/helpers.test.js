@@ -3,6 +3,7 @@ import { TABLE_DATA_TYPE } from '../table-view/constants';
 import {
   isEditNewTableCell,
   isEditExistingTableCell,
+  isEditTableRow,
 } from './helpers';
 
 describe('TableEditRow Plugin helpers', () => {
@@ -24,6 +25,13 @@ describe('TableEditRow Plugin helpers', () => {
         .toBeFalsy();
       expect(isEditExistingTableCell({ type: 'undefined' }, { type: 'undefined' }))
         .toBeFalsy();
+    });
+  });
+  describe('#isEditTableRow', () => {
+    it('should work', () => {
+      expect(isEditTableRow({ type: TABLE_ADDING_TYPE })).toBeTruthy();
+      expect(isEditTableRow({ type: TABLE_EDITING_TYPE })).toBeTruthy();
+      expect(isEditTableRow({ type: 'undefined' })).toBeFalsy();
     });
   });
 });

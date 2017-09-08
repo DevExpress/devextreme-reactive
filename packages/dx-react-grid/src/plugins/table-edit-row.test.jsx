@@ -7,6 +7,7 @@ import {
   tableRowsWithEditing,
   isEditNewTableCell,
   isEditExistingTableCell,
+  isEditTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableEditRow } from './table-edit-row';
 import { pluginDepsToComponents } from './test-utils';
@@ -16,6 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithEditing: jest.fn(),
   isEditNewTableCell: jest.fn(),
   isEditExistingTableCell: jest.fn(),
+  isEditTableRow: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -37,12 +39,17 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
+    tableViewRow: {
+      tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
+      style: {},
+    },
   },
   plugins: ['EditingState', 'TableView'],
 };
 
 const defaultProps = {
   editCellTemplate: () => null,
+  editRowTemplate: () => null,
 };
 
 describe('TableHeaderRow', () => {
@@ -59,6 +66,7 @@ describe('TableHeaderRow', () => {
     tableRowsWithEditing.mockImplementation(() => 'tableRowsWithEditing');
     isEditNewTableCell.mockImplementation(() => false);
     isEditExistingTableCell.mockImplementation(() => false);
+    isEditTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -149,6 +157,23 @@ describe('TableHeaderRow', () => {
         row: defaultDeps.template.tableViewCell.tableRow.row,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
+  });
+  it('should render row by using editRowTemplate', () => {
+    isEditTableRow.mockImplementation(() => true);
+    const editRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditRow
+          {...defaultProps}
+          editRowTemplate={editRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(isEditTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(editRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
   });
   it('should handle edit cell onValueChange event', () => {
     isEditExistingTableCell.mockImplementation(() => true);

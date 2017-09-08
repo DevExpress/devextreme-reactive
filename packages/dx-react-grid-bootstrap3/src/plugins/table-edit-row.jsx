@@ -5,9 +5,14 @@ import { TableEditRow as TableEditRowBase } from '@devexpress/dx-react-grid';
 import { EditCell } from '../templates/table-edit-cell';
 
 const defaultEditCellTemplate = props => <EditCell {...props} />;
+// eslint-disable-next-line react/prop-types
+const defaultEditRowTemplate = ({ tableRow, children, ...restProps }) => (
+  <tr {...restProps}>{children}</tr>
+);
 
 export const TableEditRow = ({
   editCellTemplate,
+  editRowTemplate,
   ...restProps
 }) => (
   <TableEditRowBase
@@ -15,12 +20,18 @@ export const TableEditRow = ({
       editCellTemplate,
       defaultEditCellTemplate,
     )}
+    editRowTemplate={combineTemplates(
+      editRowTemplate,
+      defaultEditRowTemplate,
+    )}
     {...restProps}
   />
 );
 TableEditRow.propTypes = {
   editCellTemplate: PropTypes.func,
+  editRowTemplate: PropTypes.func,
 };
 TableEditRow.defaultProps = {
   editCellTemplate: undefined,
+  editRowTemplate: undefined,
 };

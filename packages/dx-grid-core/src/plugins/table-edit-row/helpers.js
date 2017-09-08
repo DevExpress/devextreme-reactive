@@ -5,3 +5,5 @@ export const isEditNewTableCell = (tableRow, tableColumn) =>
   tableRow.type === TABLE_ADDING_TYPE && tableColumn.type === TABLE_DATA_TYPE;
 export const isEditExistingTableCell = (tableRow, tableColumn) =>
   tableRow.type === TABLE_EDITING_TYPE && tableColumn.type === TABLE_DATA_TYPE;
+export const isEditTableRow = tableRow =>
+  tableRow.type === TABLE_ADDING_TYPE || tableRow.type === TABLE_EDITING_TYPE;

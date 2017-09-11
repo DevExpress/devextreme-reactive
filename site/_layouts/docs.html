@@ -9,7 +9,12 @@ layout: default
         <h3>{{ group.title }}</h3>
 
         <ul class="list-unstyled">
-        {% for item in group.items %}
+        {% if group.title == 'API Reference' %}
+          {% assign groupItems = group.items | sort: 'title' %}
+        {% else %}
+          {% assign groupItems = group.items %}
+        {% endif %}
+        {% for item in groupItems %}
           {% assign url1 = item.path | append: '.html' %}
           {% assign url2 = item.path | append: '/' %}
 

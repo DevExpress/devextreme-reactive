@@ -1,27 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { setupConsole } from '@devexpress/dx-testing';
-import { Template, PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 import { EditingState } from './editing-state';
 
+const defaultDeps = {};
+
 describe('EditingState', () => {
-  const mountPlugin = (pluginProps, templateProps) => {
-    mount(
-      <PluginHost>
-        <EditingState
-          {...pluginProps}
-        />
-        <Template
-          name="root"
-          {...templateProps}
-        >
-          {() => <div />}
-        </Template>
-      </PluginHost>,
-    );
-  };
   let resetConsole;
 
   beforeAll(() => {
@@ -34,19 +21,23 @@ describe('EditingState', () => {
   describe('editing', () => {
     it('should create a row change by using a custom function', () => {
       const createRowChangeMock = jest.fn();
-      const rows = [{ a: 1 }];
-      const columns = [{ name: 'a' }];
-      let createRowChange;
+      const row = { a: 1 };
+      const column = { name: 'a' };
 
-      mountPlugin({
-        createRowChange: createRowChangeMock,
-        onCommitChanges: () => {},
-      }, {
-        connectGetters: (getter) => { createRowChange = getter('createRowChange'); },
-      });
+      const tree = mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <EditingState
+            createRowChange={createRowChangeMock}
+            onCommitChanges={() => {}}
+          />
+        </PluginHost>,
+      );
 
-      createRowChange(rows[0], columns[0].name, 3);
-      expect(createRowChangeMock).toBeCalledWith(rows[0], columns[0].name, 3);
+      getComputedState(tree).getters.createRowChange(row, column.name, 3);
+
+      expect(createRowChangeMock)
+        .toBeCalledWith(row, column.name, 3);
     });
   });
 });

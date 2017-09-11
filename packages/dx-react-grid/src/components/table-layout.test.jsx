@@ -63,7 +63,7 @@ describe('TableLayout', () => {
       const rowWrapper = rowWrappers.at(rowIndex);
       const rowData = rowWrapper.children(PropsContainer).props();
 
-      expect(rowData.row).toMatchObject(row);
+      expect(rowData.tableRow).toMatchObject(row);
 
       const columnWrappers = rowWrapper.find('td');
       expect(columnWrappers).toHaveLength(columns.length);

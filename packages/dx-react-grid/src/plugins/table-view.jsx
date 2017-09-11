@@ -13,14 +13,18 @@ const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 const tableExtraProps = {};
+
 const cellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
+const rowTemplate = params =>
+  <TemplatePlaceholder name="tableViewRow" params={params} />;
 
 export class TableView extends React.PureComponent {
   render() {
     const {
-      tableTemplate,
+      tableLayoutTemplate,
       tableCellTemplate,
+      tableRowTemplate,
       tableNoDataCellTemplate,
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
@@ -48,6 +52,7 @@ export class TableView extends React.PureComponent {
             columns: getter('tableColumns'),
             getRowId: getter('getRowId'),
             cellTemplate,
+            rowTemplate,
             allowColumnReordering,
             ...getter('tableExtraProps'),
           })}
@@ -55,7 +60,7 @@ export class TableView extends React.PureComponent {
             setColumnOrder: action('setColumnOrder'),
           })}
         >
-          {tableTemplate}
+          {tableLayoutTemplate}
         </Template>
         <Template
           name="tableViewCell"
@@ -89,14 +94,18 @@ export class TableView extends React.PureComponent {
         >
           {params => tableNoDataCellTemplate(params)}
         </Template>
+        <Template name="tableViewRow">
+          {params => tableRowTemplate(params)}
+        </Template>
       </PluginContainer>
     );
   }
 }
 
 TableView.propTypes = {
-  tableTemplate: PropTypes.func.isRequired,
+  tableLayoutTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
+  tableRowTemplate: PropTypes.func.isRequired,
   tableNoDataCellTemplate: PropTypes.func.isRequired,
   tableStubCellTemplate: PropTypes.func.isRequired,
   tableStubHeaderCellTemplate: PropTypes.func.isRequired,

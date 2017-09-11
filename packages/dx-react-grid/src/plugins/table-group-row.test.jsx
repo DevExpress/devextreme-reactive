@@ -9,7 +9,7 @@ import {
   isGroupIndentTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableGroupRow } from './table-group-row';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithGrouping: jest.fn(),
@@ -40,7 +40,6 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  tableTemplate: () => null,
   groupCellTemplate: () => null,
   groupIndentCellTemplate: () => null,
   groupIndentColumnWidth: 100,
@@ -69,22 +68,21 @@ describe('TableGroupRow', () => {
 
   describe('table layout getters extending', () => {
     it('should extend tableBodyRows', () => {
-      const deps = {};
-
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
             {...defaultProps}
           />
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableBodyRows'))
+      expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithGrouping');
       expect(tableRowsWithGrouping)
         .toBeCalledWith(defaultDeps.getter.tableBodyRows);
     });
+
 
     it('keep default grouping', () => {
       const deps = {
@@ -125,6 +123,29 @@ describe('TableGroupRow', () => {
       );
 
       expect(deps.computedGetter('tableColumns'))
+        .toBe('tableColumnsWithGrouping');
+      expect(tableColumnsWithGrouping)
+        .toBeCalledWith(
+        defaultDeps.getter.tableColumns,
+        defaultDeps.getter.grouping,
+        defaultDeps.getter.draftGrouping,
+        defaultProps.groupIndentColumnWidth,
+        defaultProps.showColumnWhenGrouped,
+      );
+    });
+    
+    it('should extend tableColumns', () => {
+      const tree = mount(
+
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>,
+      );
+
+      expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithGrouping');
       expect(tableColumnsWithGrouping)
         .toBeCalledWith(

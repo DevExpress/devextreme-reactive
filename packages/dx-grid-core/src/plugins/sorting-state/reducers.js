@@ -1,7 +1,16 @@
-export const setColumnSorting = (sorting, { columnName, direction, keepOther, cancel }) => {
+export const setColumnSorting = (sorting, { columnName, direction, keepOther, cancel, scope }) => {
   const sortingIndex = sorting.findIndex(s => s.columnName === columnName);
   const columnSorting = sorting[sortingIndex];
-  const nextSorting = keepOther ? sorting.slice() : [];
+  let nextSorting = keepOther ? sorting.slice() : [];
+
+  if (scope) {
+    nextSorting = [
+      ...nextSorting,
+      ...sorting.filter(sort =>
+        scope.indexOf(sort.columnName) === -1 &&
+        sort.columnName !== columnName),
+    ];
+  }
 
   if (columnSorting) {
     const updatedSorting = {

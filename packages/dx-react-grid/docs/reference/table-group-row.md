@@ -1,6 +1,6 @@
 # TableGroupRow Plugin Reference
 
-A plugin that renders group rows. Provides the capability to expand and collapse them.
+A plugin that renders group rows. Enables expanding and collapsing them.
 
 ## User Reference
 
@@ -27,7 +27,7 @@ A value with the [Column](grid.md#column) shape extended by the following fields
 Field | Type | Description
 ------|------|------------
 showWhenGrouped? | boolean | Specifies whether or not to display the column when grid records are grouped by it.
-{: .table.table-bordered.table-striped }
+title? | string | Specifies a table column title.
 
 ### <a name="group-cell-args"></a>GroupCellArgs
 
@@ -38,7 +38,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | The group row's data object
-column | [Column](grid.md#column) | A column associated with the group
+column | [Column](#column) | The column associated with the group
 isExpanded | boolean | Specifies if the row is expanded
 toggleGroupExpanded | () => void | Toggles the group row's expanded state
 
@@ -51,7 +51,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#group-row) | The group row's data object
-column | [Column](grid.md#column) | A column associated with the group
+column | [Column](#column) | The column associated with the group
 
 ### <a name="group-row"></a>GroupRow
 

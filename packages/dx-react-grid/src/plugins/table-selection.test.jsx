@@ -10,7 +10,7 @@ import {
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableSelection } from './table-selection';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),
@@ -69,11 +69,9 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableBodyRows', () => {
-      const deps = {};
-
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableSelection
             {...defaultProps}
             highlightSelected
@@ -81,18 +79,16 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableBodyRows'))
+      expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithSelection');
       expect(tableRowsWithSelection)
         .toHaveBeenCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.selection);
     });
 
     it('should extend tableColumns', () => {
-      const deps = {};
-
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableSelection
             {...defaultProps}
             selectionColumnWidth={120}
@@ -100,18 +96,16 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableColumns'))
+      expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
     });
 
     it('should extend tableExtraProps', () => {
-      const deps = {};
-
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableSelection
             {...defaultProps}
             selectByRowClick
@@ -119,7 +113,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableExtraProps'))
+      expect(getComputedState(tree).getters.tableExtraProps)
         .toBe('tableExtraPropsWithSelection');
       expect(tableExtraPropsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableExtraProps, expect.any(Function));

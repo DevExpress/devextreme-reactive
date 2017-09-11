@@ -14,14 +14,17 @@ const tableLayoutTemplate = props => <VirtualTable {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
 const defaultNoDataRowTemplate = props => <DefaultTableRowTemplate {...props} />;
-const noDataCellTemplate = props => <TableNoDataCell {...props} />;
-const stubCellTemplate = props => <TableStubCell {...props} />;
-const stubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
+const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
+const defaultStubCellTemplate = props => <TableStubCell {...props} />;
+const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 
 export const VirtualTableView = ({
   tableCellTemplate,
   tableRowTemplate,
   tableNoDataRowTemplate,
+  noDataCellTemplate,
+  stubCellTemplate,
+  stubHeaderCellTemplate,
   ...props }) => (
     <TableViewBase
       tableLayoutTemplate={tableLayoutTemplate}
@@ -37,9 +40,18 @@ export const VirtualTableView = ({
         tableCellTemplate,
         defaultCellTemplate,
       )}
-      tableNoDataCellTemplate={noDataCellTemplate}
-      tableStubCellTemplate={stubCellTemplate}
-      tableStubHeaderCellTemplate={stubHeaderCellTemplate}
+      tableNoDataCellTemplate={combineTemplates(
+        noDataCellTemplate,
+        defaultNoDataCellTemplate,
+      )}
+      tableStubCellTemplate={combineTemplates(
+        stubCellTemplate,
+        defaultStubCellTemplate,
+      )}
+      tableStubHeaderCellTemplate={combineTemplates(
+        stubHeaderCellTemplate,
+        defaultStubHeaderCellTemplate,
+      )}
       {...props}
     />
 );
@@ -47,9 +59,15 @@ VirtualTableView.propTypes = {
   tableCellTemplate: PropTypes.func,
   tableRowTemplate: PropTypes.func,
   tableNoDataRowTemplate: PropTypes.func,
+  noDataCellTemplate: PropTypes.func,
+  stubCellTemplate: PropTypes.func,
+  stubHeaderCellTemplate: PropTypes.func,
 };
 VirtualTableView.defaultProps = {
   tableCellTemplate: undefined,
   tableRowTemplate: undefined,
   tableNoDataRowTemplate: undefined,
+  noDataCellTemplate: undefined,
+  stubCellTemplate: undefined,
+  stubHeaderCellTemplate: undefined,
 };

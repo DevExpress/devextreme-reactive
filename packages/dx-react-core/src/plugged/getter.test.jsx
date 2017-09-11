@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
-import { PluginHost } from './host';
-import { PluginContainer } from './container';
+import { PluginHost } from './plugin-host';
+import { PluginContainer } from './plugin-container';
 import { Template } from './template';
 import { Getter } from './getter';
 
@@ -191,7 +191,7 @@ describe('Getter', () => {
       </PluginHost>
     );
     Test.propTypes = {
-      value: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
+      value: PropTypes.any.isRequired,
     };
 
     const tree = mount(

@@ -137,7 +137,7 @@ export class VirtualBox extends React.Component {
     };
   }
   render() {
-    const { direction, position, stick, iref } = this.props;
+    const { direction, position, stick, iref, rootTagTemplate } = this.props;
     const viewport = this.context.virtualHost.viewport;
 
     const positionProp = direction === 'horizontal' ? 'left' : 'top';
@@ -166,17 +166,31 @@ export class VirtualBox extends React.Component {
     });
 
     const RootTag = this.props.rootTag;
+    const rootTagProps = {
+      style: {
+        position: 'relative',
+        ...this.props.style,
+        [sizeProp]: `${fullSize}px`,
+        display: 'block',
+      },
+      className: this.props.className,
+    };
+
+    if (rootTagTemplate) {
+      return rootTagTemplate({
+        ...rootTagProps,
+        children: visibleItems,
+      });
+    }
 
     return (
       <RootTag
-        className={this.props.className}
-        style={{
-          position: 'relative',
-          ...this.props.style,
-          [sizeProp]: `${fullSize}px`,
-          display: 'block',
-        }}
-        {...(iref ? { ref: iref } : {})}
+        {
+          ...{
+            ...(iref ? { ref: iref } : {}),
+            ...rootTagProps,
+          }
+        }
       >
         {visibleItems}
       </RootTag>
@@ -185,6 +199,7 @@ export class VirtualBox extends React.Component {
 }
 VirtualBox.defaultProps = {
   rootTag: 'div',
+  rootTagTemplate: undefined,
   className: '',
   style: {},
   position: 0,
@@ -194,6 +209,7 @@ VirtualBox.defaultProps = {
 };
 VirtualBox.propTypes = {
   rootTag: PropTypes.string,
+  rootTagTemplate: PropTypes.func,
   className: PropTypes.string,
   style: PropTypes.object,
   position: PropTypes.number,

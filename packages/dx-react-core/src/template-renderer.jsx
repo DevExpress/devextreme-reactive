@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 
-export const TemplateRenderer = ({ template, templateRef, ...restProps }) =>
-  template({ ...restProps, ref: templateRef });
+export const TemplateRenderer = ({ template, params, children }) =>
+  template(children ? { ...params, children } : params);
 
 TemplateRenderer.propTypes = {
   template: PropTypes.func.isRequired,
-  templateRef: PropTypes.func,
+  params: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };

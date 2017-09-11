@@ -7,7 +7,7 @@ import {
   isHeadingTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),
@@ -52,17 +52,16 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableHeaderRows', () => {
-      const deps = {};
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableHeaderRow
             {...defaultProps}
           />
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableHeaderRows'))
+      expect(getComputedState(tree).getters.tableHeaderRows)
         .toBe('tableRowsWithHeading');
       expect(tableRowsWithHeading)
         .toBeCalledWith(defaultDeps.getter.tableHeaderRows);

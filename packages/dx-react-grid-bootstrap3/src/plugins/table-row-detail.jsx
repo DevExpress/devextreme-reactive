@@ -5,8 +5,8 @@ import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-react-grid'
 import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
 import { TableDetailCell } from '../templates/table-detail-cell';
 
-const detailToggleCellTemplate = props => <TableDetailToggleCell {...props} />;
-const detailCellTemplate = props => <TableDetailCell {...props} />;
+const defaultDetailToggleCellTemplate = props => <TableDetailToggleCell {...props} />;
+const defaultDetailCellTemplate = props => <TableDetailCell {...props} />;
 // eslint-disable-next-line react/prop-types
 const defaultDetailRowTemplate = ({ tableRow, children, ...restProps }) => (
   <tr {...restProps}>
@@ -14,10 +14,21 @@ const defaultDetailRowTemplate = ({ tableRow, children, ...restProps }) => (
   </tr>
 );
 
-export const TableRowDetail = ({ detailRowTemplate, ...restProps }) => (
+export const TableRowDetail = ({
+  detailCellTemplate,
+  detailRowTemplate,
+  detailToggleCellTemplate,
+  ...restProps
+}) => (
   <TableRowDetailBase
-    detailToggleCellTemplate={detailToggleCellTemplate}
-    detailCellTemplate={detailCellTemplate}
+    detailToggleCellTemplate={combineTemplates(
+      detailToggleCellTemplate,
+      defaultDetailToggleCellTemplate,
+    )}
+    detailCellTemplate={combineTemplates(
+      detailCellTemplate,
+      defaultDetailCellTemplate,
+    )}
     detailRowTemplate={combineTemplates(
       detailRowTemplate,
       defaultDetailRowTemplate,
@@ -29,7 +40,11 @@ export const TableRowDetail = ({ detailRowTemplate, ...restProps }) => (
 
 TableRowDetail.propTypes = {
   detailRowTemplate: PropTypes.func,
+  detailCellTemplate: PropTypes.func,
+  detailToggleCellTemplate: PropTypes.func,
 };
 TableRowDetail.defaultProps = {
   detailRowTemplate: undefined,
+  detailCellTemplate: undefined,
+  detailToggleCellTemplate: undefined,
 };

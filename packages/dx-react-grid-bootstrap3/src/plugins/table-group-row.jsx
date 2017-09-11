@@ -4,15 +4,18 @@ import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableGroupRow as TableGroupRowBase } from '@devexpress/dx-react-grid';
 import { TableGroupCell } from '../templates/table-group-row-cell';
 
-const groupCellTemplate = props => <TableGroupCell {...props} />;
+const defaultGroupCellTemplate = props => <TableGroupCell {...props} />;
 // eslint-disable-next-line react/prop-types
 const defaultGroupRowTemplate = ({ tableRow, children, ...restProps }) => (
   <tr {...restProps}>{children}</tr>
 );
 
-export const TableGroupRow = ({ groupRowTemplate, ...restProps }) => (
+export const TableGroupRow = ({ groupCellTemplate, groupRowTemplate, ...restProps }) => (
   <TableGroupRowBase
-    groupCellTemplate={groupCellTemplate}
+    groupCellTemplate={combineTemplates(
+      groupCellTemplate,
+      defaultGroupCellTemplate,
+    )}
     groupRowTemplate={combineTemplates(
       groupRowTemplate,
       defaultGroupRowTemplate,
@@ -24,7 +27,9 @@ export const TableGroupRow = ({ groupRowTemplate, ...restProps }) => (
 
 TableGroupRow.propTypes = {
   groupRowTemplate: PropTypes.func,
+  groupCellTemplate: PropTypes.func,
 };
 TableGroupRow.defaultProps = {
   groupRowTemplate: undefined,
+  groupCellTemplate: undefined,
 };

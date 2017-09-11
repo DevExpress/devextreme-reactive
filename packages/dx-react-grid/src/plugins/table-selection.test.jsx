@@ -44,6 +44,7 @@ const defaultDeps = {
 const defaultProps = {
   selectAllCellTemplate: () => null,
   selectCellTemplate: () => null,
+  selectRowTemplate: () => null,
   selectionColumnWidth: 100,
 };
 

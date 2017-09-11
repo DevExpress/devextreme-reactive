@@ -29,6 +29,7 @@ export class TableSelection extends React.PureComponent {
       selectionColumnWidth,
       selectAllCellTemplate,
       selectCellTemplate,
+      selectRowTemplate,
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) =>
@@ -101,6 +102,27 @@ export class TableSelection extends React.PureComponent {
             })}
           </Template>
         )}
+        {(selectByRowClick && !showSelectionColumn) && (
+          <Template
+            name="tableViewRow"
+            connectGetters={getter => ({
+              selection: getter('selection'),
+            })}
+            connectActions={action => ({
+              toggleSelected: ({ rowId }) => action('setRowsSelection')({ rowIds: [rowId] }),
+            })}
+          >
+            {({
+              selection,
+              toggleSelected,
+              ...restParams
+            }) => selectRowTemplate({
+              selected: selection.indexOf(restParams.tableRow.rowId) > -1,
+              changeSelected: () => toggleSelected({ rowId: restParams.tableRow.rowId }),
+              ...restParams,
+            })}
+          </Template>
+        )}
       </PluginContainer>
     );
   }
@@ -109,6 +131,7 @@ export class TableSelection extends React.PureComponent {
 TableSelection.propTypes = {
   selectAllCellTemplate: PropTypes.func.isRequired,
   selectCellTemplate: PropTypes.func.isRequired,
+  selectRowTemplate: PropTypes.func.isRequired,
   highlightSelected: PropTypes.bool,
   selectByRowClick: PropTypes.bool,
   showSelectAll: PropTypes.bool,

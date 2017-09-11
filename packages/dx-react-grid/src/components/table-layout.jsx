@@ -160,7 +160,6 @@ export class TableLayout extends React.PureComponent {
       bodyTemplate,
       rowTemplate,
       cellTemplate,
-      onClick,
       allowColumnReordering,
       className,
       style,
@@ -190,7 +189,6 @@ export class TableLayout extends React.PureComponent {
                 blockTemplate={headTemplate}
                 rowTemplate={rowTemplate}
                 cellTemplate={cellTemplate}
-                onClick={onClick}
               />
             )]
           ),
@@ -201,7 +199,6 @@ export class TableLayout extends React.PureComponent {
             blockTemplate={bodyTemplate}
             rowTemplate={rowTemplate}
             cellTemplate={cellTemplate}
-            onClick={onClick}
           />,
         ]}
       </TemplateRenderer>
@@ -240,7 +237,6 @@ TableLayout.propTypes = {
   bodyTemplate: PropTypes.func.isRequired,
   rowTemplate: PropTypes.func.isRequired,
   cellTemplate: PropTypes.func.isRequired,
-  onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool,
   setColumnOrder: PropTypes.func,
   className: PropTypes.string,
@@ -251,7 +247,6 @@ TableLayout.defaultProps = {
   headerRows: [],
   headTemplate: () => null,
   minColumnWidth: 120,
-  onClick: () => {},
   allowColumnReordering: false,
   setColumnOrder: () => {},
   className: undefined,

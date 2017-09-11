@@ -67,5 +67,32 @@ describe('SortingState reducers', () => {
       const nextSorting = setColumnSorting(sorting, payload);
       expect(nextSorting).toHaveLength(0);
     });
+
+    it('should not affect columns out of the passed scope', () => {
+      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
+      const payload = { columnName: 'test2', scope: ['test2'] };
+
+      const nextSorting = setColumnSorting(sorting, payload);
+      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'desc' }]);
+    });
+
+    it('should reset sorting in the passed scope', () => {
+      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
+      const payload = { columnName: 'test2', scope: ['test', 'test2'] };
+
+      const nextSorting = setColumnSorting(sorting, payload);
+      expect(nextSorting).toEqual([{ columnName: 'test2', direction: 'desc' }]);
+    });
+
+    it('can toggle sorting in the passed scope', () => {
+      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
+      const payload = { columnName: 'test3', scope: ['test2', 'test3'] };
+
+      const nextSorting = setColumnSorting(sorting, payload);
+      expect(nextSorting).toEqual([
+        { columnName: 'test', direction: 'asc' },
+        { columnName: 'test3', direction: 'asc' },
+      ]);
+    });
   });
 });

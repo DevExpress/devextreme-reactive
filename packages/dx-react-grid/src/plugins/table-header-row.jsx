@@ -5,6 +5,7 @@ import {
   getColumnSortingDirection,
   tableRowsWithHeading,
   isHeadingTableCell,
+  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
@@ -32,14 +33,25 @@ export class TableHeaderRow extends React.PureComponent {
             const sorting = getter('sorting');
             const columns = getter('columns');
             const grouping = getter('grouping');
+            const tableColumns = getter('tableColumns')
+              .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE);
+            let sortingScope;
+
+            if (grouping) {
+              sortingScope = tableColumns
+                .filter(tableColumn => grouping
+                  .find(group => group.columnName !== tableColumn.column.name))
+                .map(tableColumn => tableColumn.column.name);
+            }
 
             const groupingSupported = grouping !== undefined &&
-                grouping.length < columns.length - 1;
+              grouping.length < columns.length - 1;
 
             const result = {
               sortingSupported: sorting !== undefined,
               groupingSupported,
               draggingSupported: !grouping || groupingSupported,
+              sortingScope,
             };
 
             if (result.sortingSupported) {
@@ -53,7 +65,16 @@ export class TableHeaderRow extends React.PureComponent {
             return result;
           }}
           connectActions={(action, { tableColumn: { column } }) => ({
-            changeSortingDirection: ({ keepOther, cancel }) => action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
+            changeSortingDirection: ({
+                keepOther,
+                cancel,
+                scope,
+              }) => action('setColumnSorting')({
+                columnName: column.name,
+                keepOther,
+                cancel,
+                scope,
+              }),
             groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
           })}
         >
@@ -61,9 +82,15 @@ export class TableHeaderRow extends React.PureComponent {
             sortingSupported,
             groupingSupported,
             draggingSupported,
+            sortingScope,
+            changeSortingDirection,
             ...restParams
           }) => headerCellTemplate({
             ...restParams,
+            changeSortingDirection: params => changeSortingDirection({
+              ...params,
+              scope: sortingScope,
+            }),
             allowSorting: allowSorting && sortingSupported,
             allowGroupingByClick: allowGroupingByClick && groupingSupported,
             allowDragging: allowDragging && draggingSupported,

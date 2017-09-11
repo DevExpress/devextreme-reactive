@@ -10,7 +10,7 @@ import {
   isDetailTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableRowDetail } from './table-row-detail';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithExpandedDetail: jest.fn(),
@@ -67,10 +67,9 @@ describe('TableRowDetail', () => {
 
   describe('table layout getters', () => {
     it('should extend tableBodyRows', () => {
-      const deps = {};
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableRowDetail
             {...defaultProps}
             rowHeight={120}
@@ -78,17 +77,16 @@ describe('TableRowDetail', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableBodyRows'))
+      expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithExpandedDetail');
       expect(tableRowsWithExpandedDetail)
         .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.expandedRows, 120);
     });
 
     it('should extend tableColumns', () => {
-      const deps = {};
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableRowDetail
             {...defaultProps}
             detailToggleCellWidth={120}
@@ -96,7 +94,7 @@ describe('TableRowDetail', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableColumns'))
+      expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithDetail');
       expect(tableColumnsWithDetail)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);

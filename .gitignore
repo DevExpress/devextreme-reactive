@@ -8,9 +8,8 @@
 **/node_modules
 /packages/*/*.tgz
 
-# Shippable
+# Tesing
 **/coverage
-/shippable
 
 # Site
 /site/_site

@@ -1,6 +1,6 @@
 # DevExtreme Reactive
 
-[![Shippable](https://api.shippable.com/projects/58cf6adb35d7240600ba9bbb/badge?branch=master)](https://app.shippable.com/github/DevExpress/devextreme-reactive/)
+[![CircleCI](https://img.shields.io/circleci/project/github/DevExpress/devextreme-reactive.svg)](https://circleci.com/gh/DevExpress/devextreme-reactive)
 
 Project Status: **CTP**
 

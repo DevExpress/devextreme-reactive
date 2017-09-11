@@ -9,7 +9,7 @@ import {
   isEditExistingTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableEditRow } from './table-edit-row';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   getRowChange: jest.fn(),
@@ -66,10 +66,9 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableBodyRows', () => {
-      const deps = {};
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableEditRow
             {...defaultProps}
             rowHeight={120}
@@ -77,7 +76,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableBodyRows'))
+      expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithEditing');
       expect(tableRowsWithEditing)
         .toBeCalledWith(

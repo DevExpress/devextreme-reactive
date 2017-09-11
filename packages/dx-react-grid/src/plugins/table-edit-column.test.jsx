@@ -10,7 +10,7 @@ import {
   isEditExistingRowCommandsTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableEditColumn } from './table-edit-column';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithEditing: jest.fn(),
@@ -73,10 +73,9 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableColumns', () => {
-      const deps = {};
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
             width={120}
@@ -84,7 +83,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableColumns'))
+      expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithEditing');
       expect(tableColumnsWithEditing)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);

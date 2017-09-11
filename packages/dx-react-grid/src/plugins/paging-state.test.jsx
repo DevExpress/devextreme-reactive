@@ -1,10 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { setupConsole } from '@devexpress/dx-testing';
-import { Template, PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 import { PagingState } from './paging-state';
+
+const defaultDeps = {};
 
 describe('PagingState', () => {
   let resetConsole;
@@ -17,236 +19,172 @@ describe('PagingState', () => {
 
   describe('current page', () => {
     it('should provide value from the "defaultCurrentPage" property in uncontrolled mode', () => {
-      let currentPage;
-      mount(
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
             defaultCurrentPage={2}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { currentPage = getter('currentPage'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(currentPage)
+      expect(getComputedState(tree).getters.currentPage)
         .toBe(2);
     });
 
     it('should provide value from the "currentPage" property in controlled mode', () => {
-      let currentPage;
-      mount(
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
             currentPage={3}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { currentPage = getter('currentPage'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(currentPage)
+      expect(getComputedState(tree).getters.currentPage)
         .toBe(3);
     });
 
     it('should fire the "onCurrentPageChange" callback and provide new value in uncontrolled mode after the "setCurrentPage" action is fired', () => {
       const currentPageChangeMock = jest.fn();
-      let currentPage;
-      let setCurrentPage;
-      mount(
+
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
             defaultCurrentPage={2}
             onCurrentPageChange={currentPageChangeMock}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { currentPage = getter('currentPage'); }}
-            connectActions={(action) => { setCurrentPage = action('setCurrentPage'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      setCurrentPage(3);
+      getComputedState(tree).actions.setCurrentPage(3);
 
-      expect(currentPage)
+      expect(getComputedState(tree).getters.currentPage)
         .toEqual(3);
-      expect(currentPageChangeMock.mock.calls[0][0])
-        .toEqual(3);
+      expect(currentPageChangeMock)
+        .toBeCalledWith(3);
     });
 
     it('should fire the "onCurrentPageChange" callback and provide value from the "currentPage" property in controlled mode after the "setCurrentPage" action is fired', () => {
       const currentPageChangeMock = jest.fn();
-      let currentPage;
-      let setCurrentPage;
-      mount(
+
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
             currentPage={2}
             onCurrentPageChange={currentPageChangeMock}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { currentPage = getter('currentPage'); }}
-            connectActions={(action) => { setCurrentPage = action('setCurrentPage'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      setCurrentPage(3);
+      getComputedState(tree).actions.setCurrentPage(3);
 
-      expect(currentPage)
+      expect(getComputedState(tree).getters.currentPage)
         .toEqual(2);
-      expect(currentPageChangeMock.mock.calls[0][0])
-        .toEqual(3);
+      expect(currentPageChangeMock)
+        .toBeCalledWith(3);
     });
   });
 
   describe('page size', () => {
     it('should provide value from the "defaultPageSize" property in uncontrolled mode', () => {
-      let pageSize;
-      mount(
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
             defaultPageSize={2}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { pageSize = getter('pageSize'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(pageSize)
+      expect(getComputedState(tree).getters.pageSize)
         .toBe(2);
     });
 
     it('should provide value from the "pageSize" property in controlled mode', () => {
-      let pageSize;
-      mount(
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
-            pageSize={3}
+            pageSize={2}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { pageSize = getter('pageSize'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(pageSize)
-        .toBe(3);
+      expect(getComputedState(tree).getters.pageSize)
+        .toBe(2);
     });
 
     it('should fire the "onPageSizeChange" callback and provide new value in uncontrolled mode after the "setPageSize" action is fired', () => {
       const pageSizeChangeMock = jest.fn();
-      let pageSize;
-      let setPageSize;
-      mount(
+
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
             defaultPageSize={2}
             onPageSizeChange={pageSizeChangeMock}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { pageSize = getter('pageSize'); }}
-            connectActions={(action) => { setPageSize = action('setPageSize'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      setPageSize(3);
+      getComputedState(tree).actions.setPageSize(3);
 
-      expect(pageSize)
+      expect(getComputedState(tree).getters.pageSize)
         .toEqual(3);
-      expect(pageSizeChangeMock.mock.calls[0][0])
-        .toEqual(3);
+      expect(pageSizeChangeMock)
+        .toBeCalledWith(3);
     });
 
     it('should fire the "onPageSizeChange" callback and provide value from the "pageSize" property in controlled mode after the "setPageSize" action is fired', () => {
       const pageSizeChangeMock = jest.fn();
-      let pageSize;
-      let setPageSize;
-      mount(
+
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
             pageSize={2}
             onPageSizeChange={pageSizeChangeMock}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { pageSize = getter('pageSize'); }}
-            connectActions={(action) => { setPageSize = action('setPageSize'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      setPageSize(3);
+      getComputedState(tree).actions.setPageSize(3);
 
-      expect(pageSize)
+      expect(getComputedState(tree).getters.pageSize)
         .toEqual(2);
-      expect(pageSizeChangeMock.mock.calls[0][0])
-        .toEqual(3);
+      expect(pageSizeChangeMock)
+        .toBeCalledWith(3);
     });
   });
 
   describe('total count', () => {
     it('should provide value from the "totalCount" property', () => {
-      let totalCount;
-      mount(
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState
             totalCount={100}
           />
-          <Template
-            name="root"
-            connectGetters={(getter) => { totalCount = getter('totalCount'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(totalCount)
+      expect(getComputedState(tree).getters.totalCount)
         .toBe(100);
     });
 
     it('should provide \'0\' if a value for the "totalCount" property undefined', () => {
-      let totalCount;
-      mount(
+      const tree = mount(
         <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
           <PagingState />
-          <Template
-            name="root"
-            connectGetters={(getter) => { totalCount = getter('totalCount'); }}
-          >
-            {() => <div />}
-          </Template>
         </PluginHost>,
       );
 
-      expect(totalCount)
+      expect(getComputedState(tree).getters.totalCount)
         .toBe(0);
     });
   });

@@ -1,9 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { Template } from '@devexpress/dx-react-core';
-
 import { Grid } from './grid';
+import { pluginDepsToComponents, getComputedState } from './plugins/test-utils';
+
+const defaultDeps = {};
 
 describe('Grid', () => {
   it('should render root template', () => {
@@ -131,24 +132,19 @@ describe('Grid', () => {
       { name: 'a' },
       { name: 'b' },
     ];
-    let cellData;
 
-    mount(<Grid
-      rows={rows}
-      columns={columns}
-      rootTemplate={() => <div />}
-    >
-      <Template
-        name="root"
-        connectGetters={(getter) => {
-          cellData = getter('getCellData')(rows[1], columns[1].name);
-        }}
+    const tree = mount(
+      <Grid
+        rows={rows}
+        columns={columns}
+        rootTemplate={() => <div />}
       >
-        {() => <div />}
-      </Template>
-    </Grid>);
+        {pluginDepsToComponents(defaultDeps)}
+      </Grid>,
+    );
 
-    expect(cellData).toBe(2);
+    expect(getComputedState(tree).getters.getCellData(rows[1], columns[1].name))
+      .toBe(2);
   });
 
   it('should calculate cell data by using a custom function', () => {
@@ -156,23 +152,20 @@ describe('Grid', () => {
     const columns = [{ name: 'a' }];
     const getCellData = jest.fn();
 
-    mount(<Grid
-      rows={rows}
-      columns={columns}
-      rootTemplate={() => <div />}
-      getCellData={getCellData}
-    >
-      <Template
-        name="root"
-        connectGetters={(getter) => {
-          getter('getCellData')(rows[0], columns[0].name);
-        }}
+    const tree = mount(
+      <Grid
+        rows={rows}
+        columns={columns}
+        rootTemplate={() => <div />}
+        getCellData={getCellData}
       >
-        {() => <div />}
-      </Template>
-    </Grid>);
+        {pluginDepsToComponents(defaultDeps)}
+      </Grid>,
+    );
 
-    expect(getCellData).toBeCalledWith(rows[0], columns[0].name);
+    expect(getComputedState(tree).getters.getCellData(rows[0], columns[0].name));
+    expect(getCellData)
+      .toBeCalledWith(rows[0], columns[0].name);
   });
 
   it('should calculate cell data by using a custom function within column config', () => {
@@ -180,21 +173,18 @@ describe('Grid', () => {
     const getCellData = jest.fn();
     const columns = [{ name: 'a', getCellData }];
 
-    mount(<Grid
-      rows={rows}
-      columns={columns}
-      rootTemplate={() => <div />}
-    >
-      <Template
-        name="root"
-        connectGetters={(getter) => {
-          getter('getCellData')(rows[0], columns[0].name);
-        }}
+    const tree = mount(
+      <Grid
+        rows={rows}
+        columns={columns}
+        rootTemplate={() => <div />}
       >
-        {() => <div />}
-      </Template>
-    </Grid>);
+        {pluginDepsToComponents(defaultDeps)}
+      </Grid>,
+    );
 
-    expect(getCellData).toBeCalledWith(rows[0], columns[0].name);
+    expect(getComputedState(tree).getters.getCellData(rows[0], columns[0].name));
+    expect(getCellData)
+      .toBeCalledWith(rows[0], columns[0].name);
   });
 });

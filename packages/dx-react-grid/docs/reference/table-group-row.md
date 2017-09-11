@@ -16,8 +16,18 @@ Name | Type | Default | Description
 groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | | A component that renders a group row
 groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell
 groupIndentColumnWidth | number | | The group indent column's width
+showColumnWhenGrouped | (args: columnName ) => boolean | null | Custom function to save the grouped columns in the table.
 
 ## Interfaces
+
+### <a name="column"></a>Column (Extension)
+
+A value with the [Column](grid.md#column) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+showWhenGrouped | boolean | Keep column visible in the table when grouping.
+{: .table.table-bordered.table-striped }
 
 ### <a name="group-cell-args"></a>GroupCellArgs
 

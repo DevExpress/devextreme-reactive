@@ -76,7 +76,20 @@ describe('TableGroupRow Plugin computeds', () => {
           { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
+
+    it('can keep grouped columns in table', () => {
+      expect(tableColumnsWithGrouping(tableColumns, grouping, grouping, 123, columnName => columnName === 'c'))
+      .toEqual([
+        { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123 },
+        { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123 },
+        { type: 'undefined', column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'c' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
+      ]);
+    });
   });
+
   describe('#tableRowsWithGrouping', () => {
     it('should add correct colSpanStart to group rows', () => {
       const tableRows = [

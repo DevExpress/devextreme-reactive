@@ -22,7 +22,7 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
+        { name: 'city', title: 'City', showWhenGrouped: true },
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 14 }),

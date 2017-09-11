@@ -44,6 +44,7 @@ const defaultProps = {
   groupCellTemplate: () => null,
   groupIndentCellTemplate: () => null,
   groupIndentColumnWidth: 100,
+  showColumnWhenGrouped: jest.fn(),
 };
 
 describe('TableGroupRow', () => {
@@ -85,7 +86,33 @@ describe('TableGroupRow', () => {
         .toBeCalledWith(defaultDeps.getter.tableBodyRows);
     });
 
-    it('should extend tableColumns', () => {
+    it('keep default grouping', () => {
+      const deps = {
+        getter: {
+          columns: [
+            { name: 'A' },
+            { name: 'B' },
+          ],
+        },
+      };
+
+      mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableGroupRow
+            {...defaultProps}
+            showColumnWhenGrouped={null}
+          />
+        </PluginHost>,
+      );
+
+      deps.computedGetter('tableColumns');
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      expect(showColumnWhenGrouped('A')).toBe(false);
+      expect(showColumnWhenGrouped('B')).toBe(false);
+    });
+
+    it('keep grouping with property func', () => {
       const deps = {};
 
       mount(
@@ -101,11 +128,68 @@ describe('TableGroupRow', () => {
         .toBe('tableColumnsWithGrouping');
       expect(tableColumnsWithGrouping)
         .toBeCalledWith(
-          defaultDeps.getter.tableColumns,
-          defaultDeps.getter.grouping,
-          defaultDeps.getter.draftGrouping,
-          defaultProps.groupIndentColumnWidth,
-        );
+        defaultDeps.getter.tableColumns,
+        defaultDeps.getter.grouping,
+        defaultDeps.getter.draftGrouping,
+        defaultProps.groupIndentColumnWidth,
+        defaultProps.showColumnWhenGrouped,
+      );
+    });
+
+    it('keep grouping with colomns values', () => {
+      const deps = {
+        getter: {
+          columns: [
+            { name: 'A', showWhenGrouped: true },
+            { name: 'B' },
+          ],
+        },
+      };
+
+      mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableGroupRow
+            {...defaultProps}
+            showColumnWhenGrouped={null}
+          />
+        </PluginHost>,
+      );
+
+      deps.computedGetter('tableColumns');
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      expect(showColumnWhenGrouped('A')).toBe(true);
+      expect(showColumnWhenGrouped('B')).toBe(false);
+    });
+
+    it('keep grouping with colomns values and property func', () => {
+      const deps = {
+        getter: {
+          columns: [
+            { name: 'A', showWhenGrouped: true },
+            { name: 'B' },
+          ],
+        },
+      };
+
+      mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableGroupRow
+            {...defaultProps}
+            showColumnWhenGrouped={(columnName) => {
+              if (columnName === 'B') {
+                return true;
+              } return false;
+            }}
+          />
+        </PluginHost>,
+      );
+
+      deps.computedGetter('tableColumns');
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      expect(showColumnWhenGrouped('A')).toBe(false);
+      expect(showColumnWhenGrouped('B')).toBe(true);
     });
   });
 
@@ -125,9 +209,9 @@ describe('TableGroupRow', () => {
 
     expect(isGroupIndentTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
-      );
+      defaultDeps.template.tableViewCell.tableRow,
+      defaultDeps.template.tableViewCell.tableColumn,
+    );
     expect(groupIndentCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
@@ -152,9 +236,9 @@ describe('TableGroupRow', () => {
 
     expect(isGroupTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
-      );
+      defaultDeps.template.tableViewCell.tableRow,
+      defaultDeps.template.tableViewCell.tableColumn,
+    );
     expect(groupCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,

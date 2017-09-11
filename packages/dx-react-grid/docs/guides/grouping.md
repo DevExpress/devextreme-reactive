@@ -46,6 +46,18 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping 
 
 ## Custom Grouping Values
 
-If you want to provide a custom group value pass your grouping function to the `LocalGrouping` plugin’s `getGroupValue` property. For instance, in the following example, we use the first letter of the `city` column as a group value.
+If you want to provide a custom group value for a column, pass your grouping function to the `LocalGrouping` plugin’s `getGroupValue` property. Usually, when using a custom grouping function, you want to see the grouped column in the table (by default it is hidden when grouped). To do this, add the `showWhenGrouped` field to the particular column configuration object and set its value to `true`. For instance, in the following example, we use the first letter of the `city` column as a group value and keep this column visible in the table.
 
 .embedded-demo(grouping/local-grouping-custom)
+
+Also, to save the grouped columns in the table, you can specify a custom function in the `showColumnWhenGrouped` property of the `TableGroupRow` plugin:
+
+```js
+  <Grid
+    ...
+    <TableGroupRow
+      showColumnWhenGrouped={columnName => columnName === 'city' || columnName === 'car'}
+    />
+    ...
+  </Grid>
+```

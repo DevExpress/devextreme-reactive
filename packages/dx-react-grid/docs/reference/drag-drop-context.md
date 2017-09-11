@@ -23,7 +23,7 @@ A value with the [Column](grid.md#column) shape extended by the following fields
 
 Field | Type | Description
 ------|------|------------
-title? | string | Specifies a table column title
+title? | string | Specifies a table column title.
 
 ### <a name="container-args"></a>ContainerArgs
 

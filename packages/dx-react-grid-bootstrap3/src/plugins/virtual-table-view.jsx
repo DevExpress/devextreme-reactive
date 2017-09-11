@@ -8,14 +8,12 @@ import { TableRow } from '../templates/table-row';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
+import { DefaultTableRowTemplate } from '../templates/default-table-row';
 
 const tableLayoutTemplate = props => <VirtualTable {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
-// eslint-disable-next-line react/prop-types
-const defaultNoDataRowTemplate = ({ tableRow, children, ...restProps }) => (
-  <tr {...restProps}>{children}</tr>
-);
+const defaultNoDataRowTemplate = props => <DefaultTableRowTemplate {...props} />;
 const noDataCellTemplate = props => <TableNoDataCell {...props} />;
 const stubCellTemplate = props => <TableStubCell {...props} />;
 const stubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;

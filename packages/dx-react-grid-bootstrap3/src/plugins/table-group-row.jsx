@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableGroupRow as TableGroupRowBase } from '@devexpress/dx-react-grid';
 import { TableGroupCell } from '../templates/table-group-row-cell';
+import { DefaultTableRowTemplate } from '../templates/default-table-row';
 
 const defaultGroupCellTemplate = props => <TableGroupCell {...props} />;
-// eslint-disable-next-line react/prop-types
-const defaultGroupRowTemplate = ({ tableRow, children, ...restProps }) => (
-  <tr {...restProps}>{children}</tr>
-);
+const defaultGroupRowTemplate = props => <DefaultTableRowTemplate {...props} />;
 
 export const TableGroupRow = ({ groupCellTemplate, groupRowTemplate, ...restProps }) => (
   <TableGroupRowBase

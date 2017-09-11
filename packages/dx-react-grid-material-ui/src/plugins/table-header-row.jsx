@@ -2,14 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
-import { TableRow } from 'material-ui';
 import { TableHeaderCell } from '../templates/table-header-cell';
+import { DefaultTableRowTemplate } from '../templates/default-table-row';
 
 const defaultHeaderCellTemplate = props => <TableHeaderCell {...props} />;
-// eslint-disable-next-line react/prop-types
-const defaultHeaderRowTemplate = ({ tableRow, children, ...restProps }) => (
-  <TableRow {...restProps}>{children}</TableRow>
-);
+const defaultHeaderRowTemplate = props => <DefaultTableRowTemplate {...props} />;
 
 export const TableHeaderRow = ({ headerCellTemplate, headerRowTemplate, ...restProps }) => (
   <TableHeaderRowBase

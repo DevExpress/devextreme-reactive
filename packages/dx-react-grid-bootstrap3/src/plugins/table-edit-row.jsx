@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableEditRow as TableEditRowBase } from '@devexpress/dx-react-grid';
 import { EditCell } from '../templates/table-edit-cell';
+import { DefaultTableRowTemplate } from '../templates/default-table-row';
 
 const defaultEditCellTemplate = props => <EditCell {...props} />;
-// eslint-disable-next-line react/prop-types
-const defaultEditRowTemplate = ({ tableRow, children, ...restProps }) => (
-  <tr {...restProps}>{children}</tr>
-);
+const defaultEditRowTemplate = props => <DefaultTableRowTemplate {...props} />;
 
 export const TableEditRow = ({
   editCellTemplate,

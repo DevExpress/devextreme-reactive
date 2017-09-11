@@ -2,18 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-react-grid';
-import { TableRow } from 'material-ui';
 import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
 import { TableDetailCell } from '../templates/table-detail-cell';
+import { DefaultTableRowTemplate } from '../templates/default-table-row';
 
 const defaultDetailToggleCellTemplate = props => <TableDetailToggleCell {...props} />;
 const defaultDetailCellTemplate = props => <TableDetailCell {...props} />;
-// eslint-disable-next-line react/prop-types
-const defaultDetailRowTemplate = ({ tableRow, children, ...restProps }) => (
-  <TableRow {...restProps}>
-    {children}
-  </TableRow>
-);
+const defaultDetailRowTemplate = props => <DefaultTableRowTemplate {...props} />;
 
 export const TableRowDetail = ({
   detailCellTemplate,

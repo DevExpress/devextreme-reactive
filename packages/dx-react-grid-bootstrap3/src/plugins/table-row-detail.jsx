@@ -4,15 +4,11 @@ import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-react-grid';
 import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
 import { TableDetailCell } from '../templates/table-detail-cell';
+import { DefaultTableRowTemplate } from '../templates/default-table-row';
 
 const defaultDetailToggleCellTemplate = props => <TableDetailToggleCell {...props} />;
 const defaultDetailCellTemplate = props => <TableDetailCell {...props} />;
-// eslint-disable-next-line react/prop-types
-const defaultDetailRowTemplate = ({ tableRow, children, ...restProps }) => (
-  <tr {...restProps}>
-    {children}
-  </tr>
-);
+const defaultDetailRowTemplate = props => <DefaultTableRowTemplate {...props} />;
 
 export const TableRowDetail = ({
   detailCellTemplate,

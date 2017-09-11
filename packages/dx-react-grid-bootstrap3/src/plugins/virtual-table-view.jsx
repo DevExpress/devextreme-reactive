@@ -8,12 +8,11 @@ import { TableRow } from '../templates/table-row';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
-import { DefaultTableRowTemplate } from '../templates/default-table-row';
 
 const tableLayoutTemplate = props => <VirtualTable {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
-const defaultNoDataRowTemplate = props => <DefaultTableRowTemplate {...props} />;
+const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 const defaultStubCellTemplate = props => <TableStubCell {...props} />;
 const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;

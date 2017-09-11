@@ -7,11 +7,11 @@ import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
-import { DefaultTableRowTemplate } from '../templates/default-table-row';
+import { TableRow } from '../templates/table-row';
 
 const tableLayoutTemplate = props => <Table {...props} />;
-const defaultRowTemplate = props => <DefaultTableRowTemplate {...props} />;
-const defaultNoDataRowTemplate = props => <DefaultTableRowTemplate {...props} />;
+const defaultRowTemplate = props => <TableRow {...props} />;
+const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
 const stubCellTemplate = props => <TableStubCell {...props} />;
 const stubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;

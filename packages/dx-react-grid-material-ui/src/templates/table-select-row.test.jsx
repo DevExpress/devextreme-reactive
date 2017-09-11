@@ -2,16 +2,17 @@ import React from 'react';
 import { TableRow as TableRowMUI } from 'material-ui';
 import { createMount } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { TableRow } from './table-row';
+import { TableSelectRow } from './table-select-row';
 
-describe('TableRow', () => {
+describe('TableSelectRow', () => {
   let resetConsole;
   let mount;
 
-  const mountTableCell = ({ tableRow }) => (
+  const mountTableRow = ({ selected, changeSelected }) => (
     mount(
-      <TableRow
-        tableRow={tableRow}
+      <TableSelectRow
+        selected={selected}
+        changeSelected={changeSelected}
       />,
     )
   );
@@ -25,10 +26,19 @@ describe('TableRow', () => {
   });
 
   it('should have correct selected prop', () => {
-    let tree = mountTableCell({ tableRow: { } });
+    let tree = mountTableRow({ selected: false });
     expect(tree.find(TableRowMUI).prop('selected')).toBeFalsy();
 
-    tree = mountTableCell({ tableRow: { selected: true } });
+    tree = mountTableRow({ selected: true });
     expect(tree.find(TableRowMUI).prop('selected')).toBeTruthy();
+  });
+
+  it('should handle row click', () => {
+    const changeSelectedMock = jest.fn();
+    const tree = mountTableRow({ changeSelected: changeSelectedMock });
+
+    tree.find(TableRowMUI).simulate('click');
+
+    expect(changeSelectedMock).toBeCalled();
   });
 });

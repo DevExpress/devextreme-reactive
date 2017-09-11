@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter,
+  Template,
+  TemplatePlaceholder,
+  TemplateRenderer,
+  PluginContainer,
+} from '@devexpress/dx-react-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -51,22 +57,47 @@ export class TableEditRow extends React.PureComponent {
             createRowChange,
             changedRow,
             ...restParams
-          }) =>
-            editCellTemplate({
-              row: restParams.tableRow.row,
-              column: restParams.tableColumn.column,
-              value,
-              onValueChange: newValue =>
-                changeRow({
-                  rowId: restParams.tableRow.rowId,
-                  change: createRowChange(
-                    changedRow,
-                    restParams.tableColumn.column.name,
-                    newValue,
-                  ),
-                }),
-              ...restParams,
-            })}
+          }) => (
+            <TemplatePlaceholder
+              name="valueEditor"
+              params={{
+                column: restParams.tableColumn.column,
+                value,
+                onValueChange: newValue =>
+                  changeRow({
+                    rowId: restParams.tableRow.rowId,
+                    change: createRowChange(
+                      changedRow,
+                      restParams.tableColumn.column.name,
+                      newValue,
+                    ),
+                  }),
+              }}
+            >
+              {content => (
+                <TemplateRenderer
+                  template={editCellTemplate}
+                  {...{
+                    row: restParams.tableRow.row,
+                    column: restParams.tableColumn.column,
+                    value,
+                    onValueChange: newValue =>
+                      changeRow({
+                        rowId: restParams.tableRow.rowId,
+                        change: createRowChange(
+                          changedRow,
+                          restParams.tableColumn.column.name,
+                          newValue,
+                        ),
+                      }),
+                    ...restParams,
+                  }}
+                >
+                  {content}
+                </TemplateRenderer>
+              )}
+            </TemplatePlaceholder>
+          )}
         </Template>
         <Template
           name="tableViewCell"
@@ -85,21 +116,45 @@ export class TableEditRow extends React.PureComponent {
             getCellData,
             createRowChange,
             ...restParams
-          }) =>
-            editCellTemplate({
-              row: restParams.tableRow.row,
-              column: restParams.tableColumn.column,
-              value: getCellData(restParams.tableRow.row, restParams.tableColumn.column.name),
-              onValueChange: newValue => changeAddedRow({
-                rowId: restParams.tableRow.rowId,
-                change: createRowChange(
-                  restParams.tableRow.row,
-                  restParams.tableColumn.column.name,
-                  newValue,
-                ),
-              }),
-              ...restParams,
-            })}
+          }) => (
+            <TemplatePlaceholder
+              name="valueEditor"
+              params={{
+                column: restParams.tableColumn.column,
+                value: getCellData(restParams.tableRow.row, restParams.tableColumn.column.name),
+                onValueChange: newValue => changeAddedRow({
+                  rowId: restParams.tableRow.rowId,
+                  change: createRowChange(
+                    restParams.tableRow.row,
+                    restParams.tableColumn.column.name,
+                    newValue,
+                  ),
+                }),
+              }}
+            >
+              {content => (
+                <TemplateRenderer
+                  template={editCellTemplate}
+                  {...{
+                    row: restParams.tableRow.row,
+                    column: restParams.tableColumn.column,
+                    value: getCellData(restParams.tableRow.row, restParams.tableColumn.column.name),
+                    onValueChange: newValue => changeAddedRow({
+                      rowId: restParams.tableRow.rowId,
+                      change: createRowChange(
+                        restParams.tableRow.row,
+                        restParams.tableColumn.column.name,
+                        newValue,
+                      ),
+                    }),
+                    ...restParams,
+                  }}
+                >
+                  {content}
+                </TemplateRenderer>
+              )}
+            </TemplatePlaceholder>
+          )}
         </Template>
       </PluginContainer>
     );

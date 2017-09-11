@@ -46,8 +46,8 @@ export class TableFilterRow extends React.PureComponent {
               name="valueEditor"
               params={{
                 column: params.tableColumn.column,
-                filter: params.filter,
-                setFilter: params.setFilter,
+                value: params.filter ? params.filter.value : '',
+                onValueChange: newValue => params.setFilter(newValue ? { value: newValue } : null),
               }}
             >
               {content => (

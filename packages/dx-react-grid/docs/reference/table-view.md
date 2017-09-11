@@ -44,13 +44,13 @@ cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The t
 
 ### <a name="table-row"></a>TableRow
 
-Describes properties of a table row rendered by the TableView plugin.
+Describes properties of a table row the TableView plugin renders.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A unique identifier of the table row.
+key | string | A table row's unique identifier.
 type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
 rowId? | number &#124; string  | Specifies the associated user data row's ID.
 row? | [Row](grid.md#row) | Specifies the associated user data row.

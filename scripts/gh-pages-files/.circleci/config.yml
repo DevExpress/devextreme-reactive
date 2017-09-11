@@ -1,0 +1,6 @@
+version: 2
+
+jobs:
+  build:
+    ignore:
+      - gh-pages

@@ -9,8 +9,8 @@ export const stopEditRows = (prevEditingRows, { rowIds }) => {
 export const addRow = (addedRows, { row }) => [...addedRows, row];
 
 export const changeAddedRow = (addedRows, { rowId, change }) => {
-  const result = addedRows.slice();
-  result[rowId] = Object.assign({}, result[rowId], change);
+  const result = Array.from(addedRows);
+  result[rowId] = { ...result[rowId], ...change };
   return result;
 };
 
@@ -27,13 +27,17 @@ export const cancelAddedRows = (addedRows, { rowIds }) => {
 
 export const changeRow = (prevChangedRows, { rowId, change }) => {
   const prevChange = prevChangedRows[rowId] || {};
-  const result = Object.assign({}, prevChangedRows);
-  result[rowId] = Object.assign(prevChange, change);
-  return result;
+  return {
+    ...prevChangedRows,
+    [rowId]: {
+      ...prevChange,
+      ...change,
+    },
+  };
 };
 
 export const cancelChanges = (prevChangedRows, { rowIds }) => {
-  const result = Object.assign({}, prevChangedRows);
+  const result = { ...prevChangedRows };
   rowIds.forEach((rowId) => {
     delete result[rowId];
   });

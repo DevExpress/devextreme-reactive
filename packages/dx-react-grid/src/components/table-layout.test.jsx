@@ -12,7 +12,7 @@ import { TableLayout } from './table-layout';
 const PropsContainer = () => null;
 const tableTemplateMock = ({ children, ...props }) => (
   <table
-    ref={props.tableRef}
+    ref={props.ref}
   >
     <PropsContainer {...props} />
     {children}
@@ -63,7 +63,7 @@ describe('TableLayout', () => {
       const rowWrapper = rowWrappers.at(rowIndex);
       const rowData = rowWrapper.children(PropsContainer).props();
 
-      expect(rowData.row).toMatchObject(row);
+      expect(rowData.tableRow).toMatchObject(row);
 
       const columnWrappers = rowWrapper.find('td');
       expect(columnWrappers).toHaveLength(columns.length);

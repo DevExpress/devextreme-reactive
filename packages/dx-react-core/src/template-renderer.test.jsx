@@ -1,14 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { TemplateRenderer } from './template-component';
+import { TemplateRenderer } from './template-renderer';
 
 describe('TemplateRenderer', () => {
   it('should work', () => {
     const tree = mount(
       <TemplateRenderer
         template={({ test, children }) => <div className={test}>{children}</div>}
-        test={'test'}
+        params={{ test: 'test' }}
       >
         <div className="content" />
       </TemplateRenderer>,

@@ -10,7 +10,7 @@ import {
   isHeaderStubTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableView } from './table-view';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithDataRows: jest.fn(),
@@ -36,8 +36,9 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  tableTemplate: () => null,
+  tableLayoutTemplate: () => null,
   tableCellTemplate: () => null,
+  tableRowTemplate: () => null,
   tableStubCellTemplate: () => null,
   tableStubHeaderCellTemplate: () => null,
   tableNoDataCellTemplate: () => null,
@@ -65,11 +66,9 @@ describe('TableView', () => {
 
   describe('table layout getters', () => {
     it('should provide tableBodyRows', () => {
-      const deps = {};
-
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableView
             {...defaultProps}
           />
@@ -78,21 +77,14 @@ describe('TableView', () => {
 
       expect(tableRowsWithDataRows)
         .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
-      expect(deps.computedGetter('tableBodyRows'))
+      expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithDataRows');
     });
 
     it('should extend tableColumns', () => {
-      const deps = {
-        checkGetter: (getter) => {
-          expect(getter('tableColumns'))
-            .toBe('tableColumnsWithDataRows');
-        },
-      };
-
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableView
             {...defaultProps}
           />
@@ -101,6 +93,8 @@ describe('TableView', () => {
 
       expect(tableColumnsWithDataRows)
         .toBeCalledWith(defaultDeps.getter.columns);
+      expect(getComputedState(tree).getters.tableColumns)
+        .toBe('tableColumnsWithDataRows');
     });
   });
 
@@ -119,7 +113,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableCellTemplate={tableCellTemplate}
         />
       </PluginHost>,
@@ -144,7 +138,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubCellTemplate={tableStubCellTemplate}
         />
       </PluginHost>,
@@ -158,21 +152,20 @@ describe('TableView', () => {
     isHeaderStubTableCell.mockImplementation(() => true);
     const tableStubHeaderCellTemplate = jest.fn(() => null);
     const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
-    const deps = {};
 
-    mount(
+    const tree = mount(
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubHeaderCellTemplate={tableStubHeaderCellTemplate}
         />
       </PluginHost>,
     );
 
     expect(isHeaderStubTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, deps.computedGetter('tableHeaderRows'));
+      .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).getters.tableHeaderRows);
     expect(tableStubHeaderCellTemplate)
       .toBeCalledWith(tableCellArgs);
   });
@@ -187,7 +180,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          tableTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableNoDataCellTemplate={tableNoDataCellTemplate}
         />
       </PluginHost>,
@@ -197,5 +190,27 @@ describe('TableView', () => {
       .toBeCalledWith(tableCellArgs.tableRow);
     expect(tableNoDataCellTemplate)
       .toBeCalledWith(tableCellArgs);
+  });
+
+  it('should render row by using tableRowTemplate', () => {
+    const tableRowTemplate = jest.fn(() => null);
+    const tableRowArgs = {
+      tableRow: { row: 'row' },
+      style: {},
+      children: null,
+    };
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableView
+          {...defaultProps}
+          tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
+          tableRowTemplate={tableRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(tableRowTemplate).toBeCalledWith(tableRowArgs);
   });
 });

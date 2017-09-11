@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
-import { PluginHost } from './host';
+import { PluginHost } from './plugin-host';
 import { Template } from './template';
 
 describe('Template', () => {

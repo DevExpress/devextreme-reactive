@@ -1,3 +1,5 @@
+import Immutable from 'seamless-immutable';
+
 import {
     startEditRows,
     stopEditRows,
@@ -13,7 +15,7 @@ import {
 describe('EditingState reducers', () => {
   describe('#startEditRows', () => {
     it('should work', () => {
-      const editingRows = [1];
+      const editingRows = Immutable([1]);
       const payload = { rowIds: [2, 3] };
 
       const nextEditingRows = startEditRows(editingRows, payload);
@@ -22,7 +24,7 @@ describe('EditingState reducers', () => {
   });
   describe('#stopEditRows', () => {
     it('should work', () => {
-      const editingRows = [1, 2, 3];
+      const editingRows = Immutable([1, 2, 3]);
       const payload = { rowIds: [2] };
 
       const nextEditingRows = stopEditRows(editingRows, payload);
@@ -31,7 +33,7 @@ describe('EditingState reducers', () => {
   });
   describe('#addRow', () => {
     it('should work', () => {
-      const addedRows = [{ a: 1 }];
+      const addedRows = Immutable([{ a: 1 }]);
       const payload = { row: { a: 2 } };
 
       const nextAddedRows = addRow(addedRows, payload);
@@ -40,7 +42,7 @@ describe('EditingState reducers', () => {
   });
   describe('#changeAddedRow', () => {
     it('should work', () => {
-      const addedRows = [{ a: 1 }, { a: 2 }];
+      const addedRows = Immutable([{ a: 1 }, { a: 2 }]);
       const payload = { rowId: 0, change: { a: 3 } };
 
       const nextAddedRows = changeAddedRow(addedRows, payload);
@@ -49,7 +51,7 @@ describe('EditingState reducers', () => {
   });
   describe('#cancelAddedRows', () => {
     it('should work', () => {
-      const addedRows = [{ a: 1 }, { a: 2 }];
+      const addedRows = Immutable([{ a: 1 }, { a: 2 }]);
       const payload = { rowIds: [0] };
 
       const nextAddedRows = cancelAddedRows(addedRows, payload);
@@ -58,9 +60,9 @@ describe('EditingState reducers', () => {
   });
   describe('#changeRow', () => {
     it('should work on the first change', () => {
-      const changedRows = {
+      const changedRows = Immutable({
         o1: { a: 1 },
-      };
+      });
       const payload = { rowId: 'o2', change: { a: 2 } };
 
       const nextChangedRows = changeRow(changedRows, payload);
@@ -70,9 +72,9 @@ describe('EditingState reducers', () => {
       });
     });
     it('should work on the second change', () => {
-      const changedRows = {
+      const changedRows = Immutable({
         o1: { a: 1 },
-      };
+      });
       const payload = { rowId: 'o1', change: { a: 2 } };
 
       const nextChangedRows = changeRow(changedRows, payload);
@@ -83,10 +85,10 @@ describe('EditingState reducers', () => {
   });
   describe('#cancelChanges', () => {
     it('should work', () => {
-      const changedRows = {
+      const changedRows = Immutable({
         o1: { a: 1 },
         o2: { a: 2 },
-      };
+      });
       const payload = { rowIds: ['o2'] };
 
       const nextChangedRows = cancelChanges(changedRows, payload);
@@ -97,7 +99,7 @@ describe('EditingState reducers', () => {
   });
   describe('#deleteRows', () => {
     it('should work', () => {
-      const deletedRows = [1];
+      const deletedRows = Immutable([1]);
       const payload = { rowIds: [2] };
 
       const nextDeletedRows = deleteRows(deletedRows, payload);
@@ -106,7 +108,7 @@ describe('EditingState reducers', () => {
   });
   describe('#cancelDeletedRows', () => {
     it('should work', () => {
-      const deletedRows = [1, 2];
+      const deletedRows = Immutable([1, 2]);
       const payload = { rowIds: [2] };
 
       const nextDeletedRows = cancelDeletedRows(deletedRows, payload);

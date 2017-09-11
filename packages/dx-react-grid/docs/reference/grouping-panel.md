@@ -24,6 +24,14 @@ groupPanelItemTemplate? | (args: [GroupPanelItemProps](#group-panel-item-props))
 
 ## Interfaces
 
+### <a name="column"></a>Column (Extension)
+
+A value with the [Column](grid.md#column) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+title? | string | Specifies a table column title.
+
 ### <a name="grouping-panel-item"></a>GroupingPanelItem
 
 Describes grouping panel item properties.
@@ -32,7 +40,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | Specifies a user column associated with the item
+column | [Column](#column) | Specifies the user column associated with the item
 draft | boolean | Specifies whether the item should be rendered for the preview
 
 ### <a name="group-panel-props"></a>GroupPanelProps
@@ -63,7 +71,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | Specifies the column associated with the item
+column | [Column](#column) | Specifies the column associated with the item
 draft | boolean | Specifies whether the item should be rendered for the preview
 allowSorting | boolean | Specifies whether an end-user can sort data by the column
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction
@@ -77,7 +85,7 @@ allowUngroupingByClick | boolean | Specifies whether to display the button that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns
+columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state
 groupByColumn | Action | ({ columnName: string }) => void | Toggles a column's grouping state

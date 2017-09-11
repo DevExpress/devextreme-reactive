@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { LocalPaging } from './local-paging';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   paginate: jest.fn(),
@@ -44,28 +44,26 @@ describe('LocalPaging', () => {
   });
 
   it('should provide totalCount of rows passed into', () => {
-    const deps = {};
-    mount(
+    const tree = mount(
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <LocalPaging />
       </PluginHost>,
     );
 
-    expect(deps.computedGetter('totalCount'))
+    expect(getComputedState(tree).getters.totalCount)
       .toBe(6);
   });
 
   it('should paginate rows passed into based on the "currentPage" and "pageSize" getters', () => {
-    const deps = {};
-    mount(
+    const tree = mount(
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <LocalPaging />
       </PluginHost>,
     );
 
-    expect(deps.computedGetter('rows'))
+    expect(getComputedState(tree).getters.rows)
       .toEqual([{ id: 2 }, { id: 3 }]);
   });
 

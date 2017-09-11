@@ -8,10 +8,9 @@ import {
 const MINIMAL_COLUMN_WIDTH = 120;
 
 /* eslint-disable react/prop-types */
-const tableTemplate = ({ children, tableRef, ...restProps }) => (
+const tableTemplate = ({ children, ...restProps }) => (
   <table
     className="table"
-    ref={tableRef}
     {...restProps}
   >
     {children}
@@ -23,20 +22,12 @@ const headTemplate = ({ children, ...restProps }) => (
 const bodyTemplate = ({ children, ...restProps }) => (
   <tbody {...restProps}>{children}</tbody>
 );
-const rowTemplate = ({ children, row, ...restProps }) => (
-  <tr
-    className={row.selected ? 'active' : ''}
-    {...restProps}
-  >
-    {children}
-  </tr>
-);
-/* eslint-enable react/prop-types */
 
 export const Table = ({
   headerRows, bodyRows, getRowId,
   columns,
   cellTemplate,
+  rowTemplate,
   onClick,
   allowColumnReordering, setColumnOrder,
 }) => (
@@ -57,20 +48,20 @@ export const Table = ({
     setColumnOrder={setColumnOrder}
   />
 );
-Table.defaultProps = {
-  onClick: () => {},
-};
+
 Table.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
+  rowTemplate: PropTypes.func.isRequired,
   getRowId: PropTypes.func.isRequired,
   onClick: PropTypes.func,
   allowColumnReordering: PropTypes.bool.isRequired,
-  setColumnOrder: PropTypes.func.isRequired,
+  setColumnOrder: PropTypes.func,
 };
 
 Table.defaultProps = {
   onClick: () => {},
+  setColumnOrder: () => {},
 };

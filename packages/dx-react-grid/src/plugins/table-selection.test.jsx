@@ -5,7 +5,6 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
   tableRowsWithSelection,
-  tableExtraPropsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
@@ -15,7 +14,6 @@ import { pluginDepsToComponents } from './test-utils';
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),
   tableRowsWithSelection: jest.fn(),
-  tableExtraPropsWithSelection: jest.fn(),
   isSelectTableCell: jest.fn(),
   isSelectAllTableCell: jest.fn(),
 }));
@@ -24,7 +22,6 @@ const defaultDeps = {
   getter: {
     tableColumns: [{ type: 'undefined', column: 'column' }],
     tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
-    tableExtraProps: { onClick: () => {} },
     selection: [1, 2],
     availableToSelect: [1, 2, 3, 4],
   },
@@ -60,7 +57,6 @@ describe('TableHeaderRow', () => {
   beforeEach(() => {
     tableColumnsWithSelection.mockImplementation(() => 'tableColumnsWithSelection');
     tableRowsWithSelection.mockImplementation(() => 'tableRowsWithSelection');
-    tableExtraPropsWithSelection.mockImplementation(() => 'tableExtraPropsWithSelection');
     isSelectTableCell.mockImplementation(() => false);
     isSelectAllTableCell.mockImplementation(() => false);
   });
@@ -105,25 +101,6 @@ describe('TableHeaderRow', () => {
         .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
-    });
-
-    it('should extend tableExtraProps', () => {
-      const deps = {};
-
-      mount(
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <TableSelection
-            {...defaultProps}
-            selectByRowClick
-          />
-        </PluginHost>,
-      );
-
-      expect(deps.computedGetter('tableExtraProps'))
-        .toBe('tableExtraPropsWithSelection');
-      expect(tableExtraPropsWithSelection)
-        .toBeCalledWith(defaultDeps.getter.tableExtraProps, expect.any(Function));
     });
   });
 

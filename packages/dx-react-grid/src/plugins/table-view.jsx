@@ -13,7 +13,6 @@ import {
 const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
-const tableExtraProps = {};
 
 const cellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
@@ -44,7 +43,6 @@ export class TableView extends React.PureComponent {
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Getter name="tableExtraProps" value={tableExtraProps} />
 
         <Template
           name="body"
@@ -56,7 +54,6 @@ export class TableView extends React.PureComponent {
             cellTemplate,
             rowTemplate,
             allowColumnReordering,
-            ...getter('tableExtraProps'),
           })}
           connectActions={action => ({
             setColumnOrder: action('setColumnOrder'),

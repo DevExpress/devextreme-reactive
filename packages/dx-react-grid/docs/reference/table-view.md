@@ -111,5 +111,4 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered
 tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
 tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered
-tableExtraProps | Getter | { [key: string]: any } | Additional table properties that other plugins can provide
 tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell

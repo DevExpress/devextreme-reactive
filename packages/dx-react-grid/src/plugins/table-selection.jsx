@@ -4,7 +4,6 @@ import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
   tableRowsWithSelection,
-  tableExtraPropsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
@@ -14,8 +13,6 @@ const pluginDependencies = [
   { pluginName: 'TableView' },
 ];
 
-const tableExtraPropsComputed = ({ tableExtraProps }, { setRowsSelection }) =>
-  tableExtraPropsWithSelection(tableExtraProps, setRowsSelection);
 const tableBodyRowsComputed = ({ tableBodyRows, selection }) =>
   tableRowsWithSelection(tableBodyRows, selection);
 
@@ -45,9 +42,6 @@ export class TableSelection extends React.PureComponent {
         )}
         {highlightSelected && (
           <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        )}
-        {selectByRowClick && (
-          <Getter name="tableExtraProps" computed={tableExtraPropsComputed} />
         )}
 
         {(showSelectionColumn && showSelectAll) && (

@@ -5,6 +5,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from './plugin-host';
 import { PluginContainer } from './plugin-container';
 import { Template } from './template';
+import { TemplateConnector } from './template-connector';
 import { TemplatePlaceholder } from './template-placeholder';
 import { Getter } from './getter';
 
@@ -47,9 +48,7 @@ describe('TemplatePlaceholder', () => {
     const tree = mount(
       <PluginHost>
         <Template name="test">
-          {({ text }) => (
-            <h1>{text}</h1>
-          )}
+          {({ text }) => <h1>{text}</h1>}
         </Template>
 
         <Template name="root">
@@ -252,13 +251,10 @@ describe('TemplatePlaceholder', () => {
           </TemplatePlaceholder>
         </Template>
 
-        <Template
-          name="test"
-          connectGetters={getter => ({
-            value: getter('testGetter'),
-          })}
-        >
-          {({ value }) => (<div className="test" >{value}</div>)}
+        <Template name="test">
+          <TemplateConnector>
+            {({ testGetter }) => <div className="test" >{testGetter}</div>}
+          </TemplateConnector>
         </Template>
       </PluginHost>,
     );

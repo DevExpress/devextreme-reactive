@@ -15,6 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 rowHeight | number | | Specifies the edit row height
 editCellTemplate | (args: [EditCellArgs](#edit-cell-args)) => ReactElement | | A component that renders an editable cell
+editRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders an editable row
 
 ## Interfaces
 

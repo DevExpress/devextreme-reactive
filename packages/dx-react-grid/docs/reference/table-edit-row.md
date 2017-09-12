@@ -47,6 +47,7 @@ createRowChange | Getter | (row: [Row](grid.md#row), columnName: string, value: 
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row
 changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is a row index within the `addedRows` array
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
+tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row
 
 ### Exports
 

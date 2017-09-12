@@ -66,6 +66,7 @@ tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body
 expandedRows | Getter | Array&lt;number &#124; string&gt; | Expanded rows
 setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
+tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row
 
 ### Exports
 

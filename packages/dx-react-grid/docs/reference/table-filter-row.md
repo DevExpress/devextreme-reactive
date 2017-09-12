@@ -41,6 +41,7 @@ tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | He
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters
 setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter. Removes the filter if config is `null`
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
+tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row
 
 ### Exports
 

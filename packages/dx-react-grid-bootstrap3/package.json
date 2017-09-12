@@ -15,18 +15,12 @@
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
   "keywords": [
-    "js",
-    "javascript",
-    "widget",
-    "component",
     "react",
+    "data",
     "grid",
     "table",
-    "datagrid",
-    "data-grid",
     "bootstrap",
-    "bootstrap3",
-    "twitter-bootstrap"
+    "react-component"
   ],
   "license": "SEE LICENSE IN README.md",
   "publishConfig": {

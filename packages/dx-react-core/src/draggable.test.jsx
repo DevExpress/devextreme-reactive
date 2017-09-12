@@ -1,4 +1,4 @@
-/* globals document:true Event:true */
+/* globals window:true document:true Event:true */
 
 import React from 'react';
 import { mount } from 'enzyme';
@@ -29,6 +29,17 @@ describe('Draggable', () => {
   });
 
   describe('mouse', () => {
+    const elementFromPoint = document.elementFromPoint;
+    const getComputedStyle = window.getComputedStyle;
+    beforeEach(() => {
+      document.elementFromPoint = jest.fn();
+      window.getComputedStyle = jest.fn().mockImplementation(() => ({ style: { cursor: '' } }));
+    });
+    afterEach(() => {
+      document.elementFromPoint = elementFromPoint;
+      window.getComputedStyle = getComputedStyle;
+    });
+
     it('should fire the "onStart" callback on first mousemove that cross bound', () => {
       const onStart = jest.fn();
 
@@ -118,6 +129,27 @@ describe('Draggable', () => {
         .toHaveLength(1);
       expect(onEnd.mock.calls[0][0])
         .toEqual({ x: 30, y: 30 });
+    });
+
+    it('should enable gesture cover while dragging', () => {
+      tree = mount(
+        <Draggable>
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggable = tree.find('div');
+      draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
+
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+      const bodyNodes = document.body.childNodes;
+      expect(bodyNodes[bodyNodes.length - 1].style.pointerEvents)
+        .toBe('all');
+
+      dispatchEvent('mouseup', { clientX: 30, clientY: 30 });
+      expect(bodyNodes[bodyNodes.length - 1].style.pointerEvents)
+        .toBe('none');
     });
   });
 

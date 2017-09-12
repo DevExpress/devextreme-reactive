@@ -15,12 +15,9 @@
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
   "keywords": [
-    "js",
-    "javascript",
+    "data",
     "grid",
-    "table",
-    "datagrid",
-    "data-grid"
+    "table"
   ],
   "license": "SEE LICENSE IN README.md",
   "publishConfig": {

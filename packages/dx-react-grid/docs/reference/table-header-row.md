@@ -12,6 +12,7 @@ The plugin also allows an end-user to manage a column's sorting and grouping sta
 - [GroupingState](grouping-state.md) [Optional]
 - [DragDropContext](drag-drop-context.md) [Optional]
 - [TableView](table-view.md)
+- [TableColumnResizing](table-column-resizing.md) [Optional]
 
 ### Properties
 
@@ -21,6 +22,7 @@ headerCellTemplate | (args: [HeaderCellArgs](#header-cell-args)) => ReactElement
 allowSorting | boolean | false | If true, it allows an end-user to change sorting by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowGroupingByClick | boolean | false | If true, it renders a component that toggles a column's grouping state. Requires the [GroupingState](grouping-state.md) dependency.
+allowResizing | boolean | false | If true, it allows an end-user to change a column width. Requires the [TableColumnResizing](table-column-resizing.md) dependency.
 
 ## Interfaces
 
@@ -48,6 +50,8 @@ allowGroupingByClick | boolean | If true, a component that toggles a column's gr
 groupByColumn | () => void | Toggles grouping for a column
 allowDragging | boolean | If true, an end-user can start dragging a column by the header cell
 dragPayload | any | A data object that identifies the corresponding column in the drag-and-drop context
+changeColumnWidth | ({ shift: number }) => void | Changes the column width. A shift is added to the original column width value.
+changeDraftColumnWidth | ({ shift: number }) => void | Changes the draft column width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
 
 ## Plugin Developer Reference
 
@@ -61,6 +65,8 @@ columns | Getter | Array&lt;[Column](#column)&gt; | Table columns
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
+changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. Each shift is added to the original column width value.
+changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column will be cleared.
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
 
 ### Exports

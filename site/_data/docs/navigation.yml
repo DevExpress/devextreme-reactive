@@ -30,6 +30,8 @@ react:
           path: /react/grid/docs/guides/virtual-scrolling
         - title: Column Reordering
           path: /react/grid/docs/guides/column-reordering
+        - title: Column Resizing
+          path: /react/grid/docs/guides/column-resizing
     - title: API Reference
       items:
         - title: Grid
@@ -74,6 +76,8 @@ react:
           path: /react/grid/docs/reference/table-edit-row
         - title: TableEditColumn
           path: /react/grid/docs/reference/table-edit-column
+        - title: TableColumnResizing
+          path: /react/grid/docs/reference/table-column-resizing
         - title: PagingPanel
           path: /react/grid/docs/reference/paging-panel
         - title: GroupingPanel

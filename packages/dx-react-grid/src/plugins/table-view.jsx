@@ -87,11 +87,6 @@ export class TableView extends React.PureComponent {
             )}
           </TemplateConnector>
         </Template>
-
-        <Template name="tableViewRow">
-          {params => tableRowTemplate(params)}
-        </Template>
-
         <Template name="tableViewCell">
           {params => (
             <TemplateConnector>

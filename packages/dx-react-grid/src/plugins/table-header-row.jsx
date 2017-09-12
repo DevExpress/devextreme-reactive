@@ -99,7 +99,12 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableViewRow"
           predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
         >
-          {params => headerRowTemplate(params)}
+          {params => (
+            <TemplateRenderer
+              template={headerRowTemplate}
+              params={params}
+            />
+          )}
         </Template>
       </PluginContainer>
     );

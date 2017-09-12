@@ -89,7 +89,12 @@ export class TableGroupRow extends React.PureComponent {
           name="tableViewRow"
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
-          {params => groupRowTemplate(params)}
+          {params => (
+            <TemplateRenderer
+              template={groupRowTemplate}
+              params={params}
+            />
+          )}
         </Template>
       </PluginContainer>
     );

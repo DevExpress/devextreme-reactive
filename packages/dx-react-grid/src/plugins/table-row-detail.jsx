@@ -88,7 +88,12 @@ export class TableRowDetail extends React.PureComponent {
           name="tableViewRow"
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
-          {params => detailRowTemplate(params)}
+          {params => (
+            <TemplateRenderer
+              template={detailRowTemplate}
+              params={params}
+            />
+          )}
         </Template>
       </PluginContainer>
     );

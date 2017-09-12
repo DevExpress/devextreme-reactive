@@ -59,7 +59,12 @@ export class TableFilterRow extends React.PureComponent {
           name="tableViewRow"
           predicate={({ tableRow }) => isFilterTableRow(tableRow)}
         >
-          {params => filterRowTemplate(params)}
+          {params => (
+            <TemplateRenderer
+              template={filterRowTemplate}
+              params={params}
+            />
+          )}
         </Template>
       </PluginContainer>
     );

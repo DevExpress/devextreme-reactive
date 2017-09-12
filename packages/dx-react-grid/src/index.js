@@ -31,6 +31,7 @@ export { TableHeaderRow } from './plugins/table-header-row';
 export { TableFilterRow } from './plugins/table-filter-row';
 export { TableEditRow } from './plugins/table-edit-row';
 export { TableEditColumn } from './plugins/table-edit-column';
+export { TableColumnResizing } from './plugins/table-column-resizing';
 
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';

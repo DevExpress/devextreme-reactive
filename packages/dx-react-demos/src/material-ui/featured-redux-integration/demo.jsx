@@ -7,7 +7,7 @@ import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-  ColumnOrderState,
+  ColumnOrderState, TableColumnResizing,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -81,6 +81,8 @@ const GridContainer = ({
   allowedPageSizes,
   columnOrder,
   onColumnOrderChange,
+  columnWidths,
+  onColumnWidthsChange,
 }) => (
   <Grid
     rows={rows}
@@ -129,8 +131,11 @@ const GridContainer = ({
     <DragDropContext />
 
     <TableView allowColumnReordering />
-
-    <TableHeaderRow allowSorting allowDragging />
+    <TableColumnResizing
+      columnWidths={columnWidths}
+      onColumnWidthsChange={onColumnWidthsChange}
+    />
+    <TableHeaderRow allowSorting allowDragging allowResizing />
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
@@ -172,6 +177,8 @@ GridContainer.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   columnOrder: PropTypes.array.isRequired,
   onColumnOrderChange: PropTypes.func.isRequired,
+  columnWidths: PropTypes.objectOf(PropTypes.number).isRequired,
+  onColumnWidthsChange: PropTypes.func.isRequired,
 };
 
 const gridInitialState = {
@@ -211,6 +218,14 @@ const gridInitialState = {
   pageSize: 10,
   allowedPageSizes: [5, 10, 15],
   columnOrder: ['prefix', 'firstName', 'lastName', 'position', 'state', 'birthDate'],
+  columnWidths: {
+    prefix: 75,
+    firstName: 130,
+    lastName: 130,
+    position: 170,
+    state: 125,
+    birthDate: 115,
+  },
 };
 
 const gridReducer = (state = gridInitialState, action) => {
@@ -245,6 +260,7 @@ const mapDispatchToProps = dispatch => ({
   onCurrentPageChange: currentPage => dispatch(createGridAction('currentPage', currentPage)),
   onPageSizeChange: pageSize => dispatch(createGridAction('pageSize', pageSize)),
   onColumnOrderChange: order => dispatch(createGridAction('columnOrder', order)),
+  onColumnWidthsChange: widths => dispatch(createGridAction('columnWidths', widths)),
 });
 
 const ReduxGridContainer = connect(mapStateToProps, mapDispatchToProps)(GridContainer);

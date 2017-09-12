@@ -32,6 +32,7 @@ UI Plugins:
 - [TableGroupRow](table-group-row.md)
 - [TableEditRow](table-edit-row.md)
 - [TableEditColumn](table-edit-column.md)
+- [TableColumnReordering](table-column-reordering.md)
 - [GroupingPanel](grouping-panel.md)
 - [PagingPanel](paging-panel.md)
 - [DragDropContext](drag-drop-context.md)

@@ -41,7 +41,7 @@ const getSelectTableRowTemplateArgs = (
 ) => ({
   ...params,
   selected: selection.indexOf(params.tableRow.rowId) > -1,
-  changeSelected: () => setRowsSelection({ rowId: params.tableRow.rowId }),
+  changeSelected: () => setRowsSelection({ rowIds: [params.tableRow.rowId] }),
 });
 
 const pluginDependencies = [

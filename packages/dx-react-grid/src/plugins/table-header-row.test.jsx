@@ -143,6 +143,7 @@ describe('TableHeaderRow', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableHeaderRow
           headerCellTemplate={headerCellTemplate}
+          headerRowTemplate={() => null}
         />
       </PluginHost>,
     );

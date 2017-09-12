@@ -52,7 +52,7 @@ const defaultProps = {
   editRowTemplate: () => null,
 };
 
-describe('TableHeaderRow', () => {
+describe('TableEditRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -127,9 +127,8 @@ describe('TableHeaderRow', () => {
       }));
   });
 
-  it('should render row by using editRowTemplate', () => {
+  it('should render edit row by using editRowTemplate', () => {
     isEditTableRow.mockImplementation(() => true);
-    isAddedTableRow.mockImplementation(() => true);
     const editRowTemplate = jest.fn(() => null);
 
     mount(
@@ -143,6 +142,23 @@ describe('TableHeaderRow', () => {
     );
 
     expect(isEditTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(editRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+  });
+
+  it('should render new row by using editRowTemplate', () => {
+    isAddedTableRow.mockImplementation(() => true);
+    const editRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditRow
+          {...defaultProps}
+          editRowTemplate={editRowTemplate}
+        />
+      </PluginHost>,
+    );
+
     expect(isAddedTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(editRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
   });

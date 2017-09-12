@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const TableGroupCell = ({
-  style, colSpan, row, column, isExpanded, toggleGroupExpanded,
+  style, colSpan, column, isExpanded, toggleGroupExpanded, children, value,
 }) => (
   <td
     colSpan={colSpan}
@@ -20,17 +20,20 @@ export const TableGroupCell = ({
         marginRight: '10px',
       }}
     />
-    <strong>{column.title || column.name}: {row.value}</strong>
+    <strong>{column.title || column.name}: </strong>
+    {children || value}
   </td>
 );
 
 TableGroupCell.propTypes = {
   style: PropTypes.shape(),
   colSpan: PropTypes.number,
-  row: PropTypes.shape(),
+  row: PropTypes.shape(), // eslint-disable-line react/no-unused-prop-types
   column: PropTypes.shape(),
+  value: PropTypes.any,
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
+  children: PropTypes.node,
 };
 
 TableGroupCell.defaultProps = {
@@ -38,6 +41,8 @@ TableGroupCell.defaultProps = {
   colSpan: 1,
   row: {},
   column: {},
+  value: '',
   isExpanded: false,
   toggleGroupExpanded: () => {},
+  children: undefined,
 };

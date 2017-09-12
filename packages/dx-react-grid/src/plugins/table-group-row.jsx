@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter,
+  Template,
+  PluginContainer,
+  TemplatePlaceholder,
+  TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
@@ -40,13 +46,35 @@ export class TableGroupRow extends React.PureComponent {
           connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
           connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
-          {({ expandedGroups, toggleGroupExpanded, ...params }) => groupCellTemplate({
-            ...params,
-            row: params.tableRow.row,
-            column: params.tableColumn.column,
-            isExpanded: expandedGroups.has(params.tableRow.row.key),
-            toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
-          })}
+          {({ expandedGroups, toggleGroupExpanded, ...params }) => {
+            const { tableColumn: { column }, tableRow: { row } } = params;
+            return (
+              <TemplatePlaceholder
+                name="valueFormatter"
+                params={{
+                  row,
+                  column,
+                  value: row.value,
+                }}
+              >
+                {content => (
+                  <TemplateRenderer
+                    template={groupCellTemplate}
+                    {...{
+                      ...params,
+                      row,
+                      column,
+                      value: row.value,
+                      isExpanded: expandedGroups.has(row.key),
+                      toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: row.key }),
+                    }}
+                  >
+                    {content}
+                  </TemplateRenderer>
+                )}
+              </TemplatePlaceholder>
+            );
+          }}
         </Template>
         {groupIndentCellTemplate && (
           <Template

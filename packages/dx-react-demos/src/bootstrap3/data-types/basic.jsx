@@ -4,6 +4,8 @@ import {
   FilteringState,
   LocalFiltering,
   EditingState,
+  GroupingState,
+  LocalGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -12,6 +14,8 @@ import {
   TableFilterRow,
   TableEditRow,
   TableEditColumn,
+  TableGroupRow,
+  GroupingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -23,9 +27,7 @@ const CurrencyTypeProvider = () => (
   <DataTypeProvider
     type="currency"
     formatterTemplate={({ value }) => (
-      <div className="text-right">
-        <b className="text-muted">$</b>{value}
-      </div>
+      <span><b className="text-muted">$</b>{value}</span>
     )}
     editorTemplate={({ value, onValueChange }) => (
       <input
@@ -38,6 +40,14 @@ const CurrencyTypeProvider = () => (
     )}
   />
 );
+const NameTypeProvider = () => (
+  <DataTypeProvider
+    type="customerName"
+    formatterTemplate={({ value }) => (
+      <b className="text-danger">{value}</b>
+    )}
+  />
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -45,10 +55,10 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'customer', title: 'Customer' },
+        { name: 'customer', title: 'Customer', dataType: 'customerName' },
         { name: 'product', title: 'Product' },
         { name: 'saleDate', title: 'Sale Date' },
-        { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
+        { name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
@@ -84,14 +94,22 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <CurrencyTypeProvider />
+        <NameTypeProvider />
         <FilteringState defaultFilters={[]} />
         <LocalFiltering />
         <EditingState onCommitChanges={this.commitChanges} />
+        <GroupingState
+          defaultGrouping={[{ columnName: 'customer' }]}
+          defaultExpandedGroups={['Beacon Systems', 'Apollo Inc', 'Renewable Supplies']}
+        />
+        <LocalGrouping />
         <TableView />
-        <TableHeaderRow />
+        <TableHeaderRow allowGroupingByClick />
         <TableFilterRow />
         <TableEditRow />
         <TableEditColumn allowAdding allowEditing allowDeleting />
+        <TableGroupRow />
+        <GroupingPanel allowUngroupingByClick />
       </Grid>
     );
   }

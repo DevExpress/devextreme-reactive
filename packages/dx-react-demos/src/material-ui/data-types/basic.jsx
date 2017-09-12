@@ -6,6 +6,8 @@ import {
   FilteringState,
   LocalFiltering,
   EditingState,
+  GroupingState,
+  LocalGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -14,6 +16,8 @@ import {
   TableFilterRow,
   TableEditRow,
   TableEditColumn,
+  TableGroupRow,
+  GroupingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
@@ -53,15 +57,21 @@ const CurrencyTypeProvider = () => (
   <DataTypeProvider
     type="currency"
     formatterTemplate={({ value }) => (
-      <div className="text-right">
-        <b className="text-muted">$</b>{value}
-      </div>
+      <span><b>$</b>{value}</span>
     )}
     editorTemplate={({ value, onValueChange }) => (
       <CurrencyInput
         value={value}
         onChange={e => onValueChange(e.target.value)}
       />
+    )}
+  />
+);
+const NameTypeProvider = () => (
+  <DataTypeProvider
+    type="customerName"
+    formatterTemplate={({ value }) => (
+      <b style={{ color: 'darkred' }}>{value}</b>
     )}
   />
 );
@@ -72,7 +82,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'customer', title: 'Customer' },
+        { name: 'customer', title: 'Customer', dataType: 'customerName' },
         { name: 'product', title: 'Product' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
@@ -111,14 +121,22 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <CurrencyTypeProvider />
+        <NameTypeProvider />
         <FilteringState defaultFilters={[]} />
         <EditingState onCommitChanges={this.commitChanges} />
         <LocalFiltering />
+        <GroupingState
+          defaultGrouping={[{ columnName: 'customer' }]}
+          defaultExpandedGroups={['Beacon Systems', 'Apollo Inc', 'Renewable Supplies']}
+        />
+        <LocalGrouping />
         <TableView />
         <TableHeaderRow />
         <TableFilterRow />
         <TableEditRow />
         <TableEditColumn allowAdding allowEditing allowDeleting />
+        <TableGroupRow />
+        <GroupingPanel allowUngroupingByClick />
       </Grid>
     );
   }

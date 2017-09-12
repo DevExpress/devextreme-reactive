@@ -6,6 +6,7 @@ import { PluginHost } from './plugin-host';
 import { PluginContainer } from './plugin-container';
 import { Template } from './template';
 import { Getter } from './getter';
+import { TemplateConnector } from './template-connector';
 
 describe('Getter', () => {
   it('should return value', () => {
@@ -13,13 +14,10 @@ describe('Getter', () => {
       <PluginHost>
         <Getter name="test" value={'arg'} />
 
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
-          })}
-        >
-          {({ prop }) => <h1>{prop}</h1>}
+        <Template name="root">
+          <TemplateConnector>
+            {({ test }) => <h1>{test}</h1>}
+          </TemplateConnector>
         </Template>
       </PluginHost>,
     );
@@ -36,13 +34,10 @@ describe('Getter', () => {
           computed={getters => getters.dep}
         />
 
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
-          })}
-        >
-          {({ prop }) => <h1>{prop}</h1>}
+        <Template name="root">
+          <TemplateConnector>
+            {({ test }) => <h1>{test}</h1>}
+          </TemplateConnector>
         </Template>
       </PluginHost>,
     );
@@ -61,13 +56,10 @@ describe('Getter', () => {
 
         <Getter name="dep" value={'overriden'} />
 
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
-          })}
-        >
-          {({ prop }) => <h1>{prop}</h1>}
+        <Template name="root">
+          <TemplateConnector>
+            {({ test }) => <h1>{test}</h1>}
+          </TemplateConnector>
         </Template>
       </PluginHost>,
     );
@@ -80,13 +72,10 @@ describe('Getter', () => {
       <PluginHost>
         <Getter name="dep" value={'base'} />
 
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            prop: getter('dep'),
-          })}
-        >
-          {({ prop }) => <h1>{prop}</h1>}
+        <Template name="root">
+          <TemplateConnector>
+            {({ dep }) => <h1>{dep}</h1>}
+          </TemplateConnector>
         </Template>
 
         <Getter name="dep" value={'overriden'} />
@@ -105,13 +94,10 @@ describe('Getter', () => {
           computed={getters => `${getters.test}_extended`}
         />
 
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            prop: getter('test'),
-          })}
-        >
-          {({ prop }) => <h1>{prop}</h1>}
+        <Template name="root">
+          <TemplateConnector>
+            {({ test }) => <h1>{test}</h1>}
+          </TemplateConnector>
         </Template>
       </PluginHost>,
     );
@@ -125,13 +111,10 @@ describe('Getter', () => {
       render() {
         return (
           <PluginContainer>
-            <Template
-              name="root"
-              connectGetters={getter => ({
-                prop: getter('test'),
-              })}
-            >
-              {({ prop }) => <h1>{prop}</h1>}
+            <Template name="root">
+              <TemplateConnector>
+                {({ test }) => <h1>{test}</h1>}
+              </TemplateConnector>
             </Template>
           </PluginContainer>
         );
@@ -172,13 +155,13 @@ describe('Getter', () => {
               computed={staticComputed}
             />
 
-            <Template
-              name="root"
-              connectGetters={(getter) => {
-                log.push(getter('test'));
-              }}
-            >
-              <div />
+            <Template name="root">
+              <TemplateConnector>
+                {({ test }) => {
+                  log.push(test);
+                  return null;
+                }}
+              </TemplateConnector>
             </Template>
           </PluginContainer>
         );
@@ -200,8 +183,7 @@ describe('Getter', () => {
     tree.setProps({ value: 1 });
     tree.setProps({ value: 2 });
 
-    expect(log).toHaveLength(3);
-    expect(log[0]).toBe(log[1]);
-    expect(log[1]).not.toBe(log[2]);
+    expect(log).toHaveLength(2);
+    expect(log[0]).not.toBe(log[1]);
   });
 });

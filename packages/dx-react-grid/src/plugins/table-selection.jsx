@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, PluginContainer,
+  TemplateConnector, TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
   tableRowsWithSelection,
@@ -8,6 +11,29 @@ import {
   isSelectTableCell,
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
+
+const getSelectTableCellTemplateArgs = (
+  params,
+  { selection },
+  { setRowsSelection },
+) => ({
+  ...params,
+  row: params.tableRow.row,
+  selected: selection.indexOf(params.tableRow.rowId) > -1,
+  changeSelected: () => setRowsSelection({ rowIds: [params.tableRow.rowId] }),
+});
+
+const getSelectAllTableCellTemplateArgs = (
+  params,
+  { availableToSelect, selection },
+  { setRowsSelection },
+) => ({
+  ...params,
+  selectionAvailable: !!availableToSelect.length,
+  allSelected: selection.length === availableToSelect.length && selection.length !== 0,
+  someSelected: selection.length !== availableToSelect.length && selection.length !== 0,
+  toggleAll: () => setRowsSelection({ rowIds: availableToSelect }),
+});
 
 const pluginDependencies = [
   { pluginName: 'SelectionState' },
@@ -53,52 +79,34 @@ export class TableSelection extends React.PureComponent {
           <Template
             name="tableViewCell"
             predicate={({ tableRow, tableColumn }) => isSelectAllTableCell(tableRow, tableColumn)}
-            connectGetters={(getter) => {
-              const availableToSelect = getter('availableToSelect');
-              const selection = getter('selection');
-              const selectionExists = selection.length !== 0;
-              return {
-                availableToSelect,
-                selectionAvailable: !!availableToSelect.length,
-                allSelected: selection.length === availableToSelect.length && selectionExists,
-                someSelected: selection.length !== availableToSelect.length && selectionExists,
-              };
-            }}
-            connectActions={action => ({
-              toggleAll: availableToSelect => action('setRowsSelection')({ rowIds: availableToSelect }),
-            })}
           >
-            {({
-              toggleAll,
-              availableToSelect,
-              ...restParams
-            }) => selectAllCellTemplate({
-              ...restParams,
-              toggleAll: () => toggleAll(availableToSelect),
-            })}
+            {params => (
+              <TemplateConnector>
+                {(getters, actions) => (
+                  <TemplateRenderer
+                    template={selectAllCellTemplate}
+                    params={getSelectAllTableCellTemplateArgs(params, getters, actions)}
+                  />
+                )}
+              </TemplateConnector>
+            )}
           </Template>
         )}
         {showSelectionColumn && (
           <Template
             name="tableViewCell"
             predicate={({ tableRow, tableColumn }) => isSelectTableCell(tableRow, tableColumn)}
-            connectGetters={getter => ({
-              selection: getter('selection'),
-            })}
-            connectActions={action => ({
-              toggleSelected: ({ rowId }) => action('setRowsSelection')({ rowIds: [rowId] }),
-            })}
           >
-            {({
-              selection,
-              toggleSelected,
-              ...restParams
-            }) => selectCellTemplate({
-              row: restParams.tableRow.row,
-              selected: selection.indexOf(restParams.tableRow.rowId) > -1,
-              changeSelected: () => toggleSelected({ rowId: restParams.tableRow.rowId }),
-              ...restParams,
-            })}
+            {params => (
+              <TemplateConnector>
+                {(getters, actions) => (
+                  <TemplateRenderer
+                    template={selectCellTemplate}
+                    params={getSelectTableCellTemplateArgs(params, getters, actions)}
+                  />
+                )}
+              </TemplateConnector>
+            )}
           </Template>
         )}
       </PluginContainer>

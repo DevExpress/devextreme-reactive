@@ -17,21 +17,15 @@
     "build:prod": "webpack --env.production",
     "build:watch": "webpack-dev-server --env",
     "lint": "eslint --ext js,jsx src",
-    "lint:fix": "npm run -s lint -- --fix",
-    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-demos-lint.xml -f junit"
+    "lint:fix": "npm run -s lint -- --fix"
   },
   "jest": {
-    "testResultsProcessor": "./node_modules/jest-junit",
     "moduleNameMapper": {
       "\\.css$": "<rootDir>/css-stub.js"
     },
     "setupFiles": [
       "babel-polyfill"
     ]
-  },
-  "jest-junit": {
-    "suiteName": "React Grid Demos",
-    "output": "../../shippable/testresults/dx-react-grid-demos.xml"
   },
   "dependencies": {
     "@devexpress/dx-react-core": "1.0.0-alpha.9",
@@ -54,7 +48,6 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.0",
@@ -73,7 +66,6 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.1.0",
     "jest": "^20.0.4",
-    "jest-junit": "^1.5.1",
     "node-static": "^0.7.9",
     "react-test-renderer": "^15.6.1",
     "source-map-loader": "^0.2.1",

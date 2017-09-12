@@ -1,7 +1,10 @@
-import { TABLE_ADDING_TYPE, TABLE_EDITING_TYPE } from './constants';
+import { TABLE_ADDED_TYPE, TABLE_EDIT_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table-view/constants';
 
-export const isEditNewTableCell = (tableRow, tableColumn) =>
-  tableRow.type === TABLE_ADDING_TYPE && tableColumn.type === TABLE_DATA_TYPE;
-export const isEditExistingTableCell = (tableRow, tableColumn) =>
-  tableRow.type === TABLE_EDITING_TYPE && tableColumn.type === TABLE_DATA_TYPE;
+export const isEditTableCell = (tableRow, tableColumn) =>
+  (tableRow.type === TABLE_ADDED_TYPE || tableRow.type === TABLE_EDIT_TYPE)
+  && tableColumn.type === TABLE_DATA_TYPE;
+export const isAddedTableRow = tableRow =>
+  tableRow.type === TABLE_ADDED_TYPE;
+export const isEditTableRow = tableRow =>
+  tableRow.type === TABLE_EDIT_TYPE;

@@ -120,7 +120,7 @@ describe('TableHeaderRow', () => {
     );
 
     const templateParams = headerCellTemplate.mock.calls[0][0];
-    templateParams.changeSortingDirection();
+    templateParams.changeSortingDirection({});
 
     expect(setColumnSorting.mock.calls[0][0].scope)
       .toEqual(['b']);

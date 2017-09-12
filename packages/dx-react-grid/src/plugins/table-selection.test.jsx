@@ -49,7 +49,7 @@ const defaultProps = {
   selectionColumnWidth: 100,
 };
 
-describe('TableHeaderRow', () => {
+describe('Table Selection', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -163,7 +163,7 @@ describe('TableHeaderRow', () => {
           {...defaultProps}
           selectRowTemplate={selectRowTemplate}
           selectByRowClick
-          showSelectionColumn={false}
+          highlightSelected
         />
       </PluginHost>,
     );
@@ -172,7 +172,7 @@ describe('TableHeaderRow', () => {
     expect(selectRowTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewRow,
-        selected: true,
+        selectByRowClick: true,
       }));
 
     expect(defaultDeps.action.setRowsSelection)

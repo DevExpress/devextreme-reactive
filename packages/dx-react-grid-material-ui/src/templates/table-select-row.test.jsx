@@ -8,11 +8,12 @@ describe('TableSelectRow', () => {
   let resetConsole;
   let mount;
 
-  const mountTableRow = ({ selected, changeSelected }) => (
+  const mountTableRow = ({ tableRow, changeSelected, selectByRowClick }) => (
     mount(
       <TableSelectRow
-        selected={selected}
+        tableRow={tableRow}
         changeSelected={changeSelected}
+        selectByRowClick={selectByRowClick}
       />,
     )
   );
@@ -26,16 +27,16 @@ describe('TableSelectRow', () => {
   });
 
   it('should have correct selected prop', () => {
-    let tree = mountTableRow({ selected: false });
+    let tree = mountTableRow({ tableRow: { selected: false } });
     expect(tree.find(TableRowMUI).prop('selected')).toBeFalsy();
 
-    tree = mountTableRow({ selected: true });
+    tree = mountTableRow({ tableRow: { selected: true } });
     expect(tree.find(TableRowMUI).prop('selected')).toBeTruthy();
   });
 
   it('should handle row click', () => {
     const changeSelectedMock = jest.fn();
-    const tree = mountTableRow({ changeSelected: changeSelectedMock });
+    const tree = mountTableRow({ changeSelected: changeSelectedMock, selectByRowClick: true });
 
     tree.find(TableRowMUI).simulate('click');
 

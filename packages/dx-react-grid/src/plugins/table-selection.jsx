@@ -35,13 +35,13 @@ const getSelectAllTableCellTemplateArgs = (
 });
 
 const getSelectTableRowTemplateArgs = (
-  params,
+  { selectByRowClick, ...restParams },
   { selection },
   { setRowsSelection },
 ) => ({
-  ...params,
-  selected: selection.indexOf(params.tableRow.rowId) > -1,
-  changeSelected: () => setRowsSelection({ rowIds: [params.tableRow.rowId] }),
+  ...restParams,
+  selectByRowClick,
+  changeSelected: () => setRowsSelection({ rowIds: [restParams.tableRow.rowId] }),
 });
 
 const pluginDependencies = [
@@ -56,13 +56,13 @@ export class TableSelection extends React.PureComponent {
   render() {
     const {
       highlightSelected,
-      selectByRowClick,
       showSelectionColumn,
       showSelectAll,
       selectionColumnWidth,
       selectAllCellTemplate,
       selectCellTemplate,
       selectRowTemplate,
+      selectByRowClick,
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) =>
@@ -114,7 +114,7 @@ export class TableSelection extends React.PureComponent {
             )}
           </Template>
         )}
-        {(selectByRowClick && !showSelectionColumn) && (
+        {(highlightSelected || selectByRowClick) && (
           <Template
             name="tableViewRow"
           >
@@ -123,7 +123,12 @@ export class TableSelection extends React.PureComponent {
                 {(getters, actions) => (
                   <TemplateRenderer
                     template={selectRowTemplate}
-                    params={getSelectTableRowTemplateArgs(params, getters, actions)}
+                    params={
+                      getSelectTableRowTemplateArgs({
+                        selectByRowClick,
+                        ...params,
+                      }, getters, actions)
+                    }
                   />
                 )}
               </TemplateConnector>

@@ -3,12 +3,13 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectRow } from './table-select-row';
 
-describe('TableRow', () => {
-  const mountTableRow = ({ selected, changeSelected }) => (
+describe('Table Select Row', () => {
+  const mountTableRow = ({ tableRow, changeSelected, selectByRowClick }) => (
     mount(
       <TableSelectRow
-        selected={selected}
+        tableRow={tableRow}
         changeSelected={changeSelected}
+        selectByRowClick={selectByRowClick}
       />,
     )
   );
@@ -23,16 +24,16 @@ describe('TableRow', () => {
   });
 
   it('should have correct className', () => {
-    let tree = mountTableRow({ selected: false });
+    let tree = mountTableRow({ tableRow: { selected: false } });
     expect(tree.find('tr').hasClass('active')).toBeFalsy();
 
-    tree = mountTableRow({ selected: true });
+    tree = mountTableRow({ tableRow: { selected: true } });
     expect(tree.find('tr').hasClass('active')).toBeTruthy();
   });
 
   it('should handle row click', () => {
     const changeSelectedMock = jest.fn();
-    const tree = mountTableRow({ changeSelected: changeSelectedMock });
+    const tree = mountTableRow({ changeSelected: changeSelectedMock, selectByRowClick: true });
 
     tree.find('tr').simulate('click');
 

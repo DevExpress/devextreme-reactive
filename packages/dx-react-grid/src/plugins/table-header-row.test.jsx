@@ -23,7 +23,7 @@ const defaultDeps = {
   template: {
     tableViewCell: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
-      tableColumn: { type: 'undefined', column: 'column' },
+      tableColumn: { type: 'undefined', column: { name: 'a' } },
       style: {},
     },
   },
@@ -93,6 +93,101 @@ describe('TableHeaderRow', () => {
         ...defaultDeps.template.tableViewCell,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
+  });
+
+  describe('resizing', () => {
+    it('should require TableColumnResizing plugin', () => {
+      expect(() => {
+        mount(
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <TableHeaderRow
+              {...defaultProps}
+              allowResizing
+            />
+          </PluginHost>,
+        );
+      })
+        .toThrow();
+    });
+
+    it('should pass correct props to headerCellTemplate', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+      const headerCellTemplate = jest.fn(() => null);
+
+      const deps = {
+        plugins: ['TableColumnResizing'],
+      };
+      mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+            allowResizing
+            headerCellTemplate={headerCellTemplate}
+          />
+        </PluginHost>,
+      );
+
+      expect(headerCellTemplate)
+        .toBeCalledWith(expect.objectContaining({
+          allowResizing: true,
+          changeColumnWidth: expect.any(Function),
+          changeDraftColumnWidth: expect.any(Function),
+        }));
+    });
+
+    it('should call correct action when on changeColumnWidth', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+      const headerCellTemplate = jest.fn(() => null);
+
+      const deps = {
+        plugins: ['TableColumnResizing'],
+        action: {
+          changeTableColumnWidths: jest.fn(),
+        },
+      };
+      mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+            allowResizing
+            headerCellTemplate={headerCellTemplate}
+          />
+        </PluginHost>,
+      );
+
+      headerCellTemplate.mock.calls[0][0].changeColumnWidth({ shift: 10 });
+      expect(deps.action.changeTableColumnWidths)
+        .toBeCalledWith({ shifts: { a: 10 } });
+    });
+
+    it('should call correct action when on changeDraftColumnWidth', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+      const headerCellTemplate = jest.fn(() => null);
+
+      const deps = {
+        plugins: ['TableColumnResizing'],
+        action: {
+          changeDraftTableColumnWidths: jest.fn(),
+        },
+      };
+      mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+            allowResizing
+            headerCellTemplate={headerCellTemplate}
+          />
+        </PluginHost>,
+      );
+
+      headerCellTemplate.mock.calls[0][0].changeDraftColumnWidth({ shift: 10 });
+      expect(deps.action.changeDraftTableColumnWidths)
+        .toBeCalledWith({ shifts: { a: 10 } });
+    });
   });
 
   it('should not add grouped columns to sortingScope', () => {

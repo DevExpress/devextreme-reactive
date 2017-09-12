@@ -83,57 +83,6 @@ describe('TableGroupRow', () => {
         .toBeCalledWith(defaultDeps.getter.tableBodyRows);
     });
 
-
-    it('keep default grouping', () => {
-      const deps = {
-        getter: {
-          columns: [
-            { name: 'A' },
-            { name: 'B' },
-          ],
-        },
-      };
-
-      mount(
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <TableGroupRow
-            {...defaultProps}
-            showColumnWhenGrouped={null}
-          />
-        </PluginHost>,
-      );
-
-      deps.computedGetter('tableColumns');
-      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
-      expect(showColumnWhenGrouped('A')).toBe(false);
-      expect(showColumnWhenGrouped('B')).toBe(false);
-    });
-
-    it('keep grouping with property func', () => {
-      const deps = {};
-
-      mount(
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <TableGroupRow
-            {...defaultProps}
-          />
-        </PluginHost>,
-      );
-
-      expect(deps.computedGetter('tableColumns'))
-        .toBe('tableColumnsWithGrouping');
-      expect(tableColumnsWithGrouping)
-        .toBeCalledWith(
-        defaultDeps.getter.tableColumns,
-        defaultDeps.getter.grouping,
-        defaultDeps.getter.draftGrouping,
-        defaultProps.groupIndentColumnWidth,
-        defaultProps.showColumnWhenGrouped,
-      );
-    });
-    
     it('should extend tableColumns', () => {
       const tree = mount(
 
@@ -156,18 +105,20 @@ describe('TableGroupRow', () => {
         defaultProps.showColumnWhenGrouped,
       );
     });
+  });
 
-    it('keep grouping with colomns values', () => {
+  describe('custom grouping', () => {
+    it('default grouping without colomns values and property func', () => {
       const deps = {
         getter: {
           columns: [
-            { name: 'A', showWhenGrouped: true },
+            { name: 'A' },
             { name: 'B' },
           ],
         },
       };
 
-      mount(
+      const tree = mount(
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableGroupRow
@@ -177,13 +128,14 @@ describe('TableGroupRow', () => {
         </PluginHost>,
       );
 
-      deps.computedGetter('tableColumns');
+      expect(getComputedState(tree).getters.tableColumns)
+        .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
-      expect(showColumnWhenGrouped('A')).toBe(true);
+      expect(showColumnWhenGrouped('A')).toBe(false);
       expect(showColumnWhenGrouped('B')).toBe(false);
     });
 
-    it('keep grouping with colomns values and property func', () => {
+    it('grouping with colomns values', () => {
       const deps = {
         getter: {
           columns: [
@@ -193,7 +145,34 @@ describe('TableGroupRow', () => {
         },
       };
 
-      mount(
+      const tree = mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableGroupRow
+            {...defaultProps}
+            showColumnWhenGrouped={null}
+          />
+        </PluginHost>,
+      );
+
+      expect(getComputedState(tree).getters.tableColumns)
+        .toBe('tableColumnsWithGrouping');
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      expect(showColumnWhenGrouped('A')).toBe(true);
+      expect(showColumnWhenGrouped('B')).toBe(false);
+    });
+
+    it('grouping with colomns values and property func', () => {
+      const deps = {
+        getter: {
+          columns: [
+            { name: 'A', showWhenGrouped: true },
+            { name: 'B' },
+          ],
+        },
+      };
+
+      const tree = mount(
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableGroupRow
@@ -207,7 +186,8 @@ describe('TableGroupRow', () => {
         </PluginHost>,
       );
 
-      deps.computedGetter('tableColumns');
+      expect(getComputedState(tree).getters.tableColumns)
+        .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
       expect(showColumnWhenGrouped('A')).toBe(false);
       expect(showColumnWhenGrouped('B')).toBe(true);
@@ -230,9 +210,9 @@ describe('TableGroupRow', () => {
 
     expect(isGroupIndentTableCell)
       .toBeCalledWith(
-      defaultDeps.template.tableViewCell.tableRow,
-      defaultDeps.template.tableViewCell.tableColumn,
-    );
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(groupIndentCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
@@ -257,9 +237,9 @@ describe('TableGroupRow', () => {
 
     expect(isGroupTableCell)
       .toBeCalledWith(
-      defaultDeps.template.tableViewCell.tableRow,
-      defaultDeps.template.tableViewCell.tableColumn,
-    );
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
     expect(groupCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,

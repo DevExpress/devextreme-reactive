@@ -9,8 +9,7 @@ const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping, showColumnWh
       const columnDraftGrouping = draftGrouping
         .find(grouping => grouping.columnName === tableColumnName);
 
-      if (!columnDraftGrouping ||
-        (showColumnWhenGrouped && showColumnWhenGrouped(tableColumnName))) {
+      if (!columnDraftGrouping || showColumnWhenGrouped(tableColumnName)) {
         return [...acc, tableColumn];
       } else if (columnDraftGrouping.mode === 'remove' || columnDraftGrouping.mode === 'add') {
         return [...acc, {

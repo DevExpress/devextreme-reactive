@@ -5,11 +5,11 @@ const defaultGetGroupValue = value => value;
 export const groupedRows = (rows, grouping, getCellData, getGroupValue = defaultGetGroupValue) => {
   if (!grouping.length) return rows;
 
-  const groupingFirstElem = grouping[0];
+  const columnGrouping = grouping[0];
   const groups = rows
     .reduce((acc, row) => {
-      const value = getGroupValue(getCellData(row, groupingFirstElem.columnName),
-        groupingFirstElem, row);
+      const value = getGroupValue(getCellData(row, columnGrouping.columnName),
+        columnGrouping, row);
       const key = String(value);
       const sameKeyItems = acc.get(key);
 

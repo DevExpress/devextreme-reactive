@@ -53,11 +53,13 @@ If you want to provide a custom group value for a column, pass your grouping fun
 Also, to save the grouped columns in the table, you can specify a custom function in the `showColumnWhenGrouped` property of the `TableGroupRow` plugin:
 
 ```js
-  <Grid
-    ...
-    <TableGroupRow
-      showColumnWhenGrouped={columnName => columnName === 'city' || columnName === 'car'}
+  <Grid>
+    <GroupingState
+      grouping={[{ columnName: 'city' }, { columnName: 'car' }]}
     />
-    ...
+    <LocalGrouping />
+    <TableView />
+    <TableHeaderRow showColumnWhenGrouped={columnName => columnName === 'city' || columnName === 'car'}/>
+    <TableGroupRow />
   </Grid>
 ```

@@ -34,6 +34,10 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
+    tableViewRow: {
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      style: {},
+    },
   },
   plugins: ['SelectionState', 'TableView'],
 };
@@ -151,5 +155,33 @@ describe('TableHeaderRow', () => {
       );
     expect(selectAllCellTemplate)
       .toBeCalledWith(expect.objectContaining(defaultDeps.template.tableViewCell));
+  });
+
+  it('should render row by using selectRowTemplate', () => {
+    const selectRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSelection
+          {...defaultProps}
+          selectRowTemplate={selectRowTemplate}
+          selectByRowClick
+          showSelectionColumn={false}
+        />
+      </PluginHost>,
+    );
+    selectRowTemplate.mock.calls[0][0].changeSelected();
+
+    expect(selectRowTemplate)
+      .toBeCalledWith(expect.objectContaining({
+        ...defaultDeps.template.tableViewRow,
+        selected: true,
+      }));
+
+    expect(defaultDeps.action.setRowsSelection)
+      .toBeCalledWith({
+        rowIds: [defaultDeps.template.tableViewRow.tableRow.rowId],
+      });
   });
 });

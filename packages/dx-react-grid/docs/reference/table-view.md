@@ -28,7 +28,8 @@ A value with a [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-width? | number | Specifies the table column width.
+align? | 'left' &#124; 'right' | Specifies the table column alignment.
+width? | number | Specifies the table column width in pixels.
 
 ### <a name="table-args"></a>TableArgs
 
@@ -43,7 +44,7 @@ cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The t
 
 ### <a name="table-row"></a>TableRow
 
-Describes the properties of a table row the TableView plugin renders.
+Describes properties of a table row the TableView plugin renders.
 
 A value with the following shape:
 

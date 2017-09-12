@@ -34,4 +34,4 @@ jobs:
 
       - run: npm run build
       - run: npm run test -- -- -- --maxWorkers=2
-      - run: npm run lint:ci
+      - run: npm run lint

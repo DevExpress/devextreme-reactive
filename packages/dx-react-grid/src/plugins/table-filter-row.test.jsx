@@ -8,7 +8,7 @@ import {
   isFilterTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableFilterRow } from './table-filter-row';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableHeaderRowsWithFilter: jest.fn(),
@@ -64,10 +64,9 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableHeaderRows', () => {
-      const deps = {};
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableFilterRow
             {...defaultProps}
             rowHeight={120}
@@ -75,7 +74,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableHeaderRows'))
+      expect(getComputedState(tree).getters.tableHeaderRows)
         .toBe('tableHeaderRowsWithFilter');
       expect(tableHeaderRowsWithFilter)
         .toBeCalledWith(defaultDeps.getter.tableHeaderRows, 120);

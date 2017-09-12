@@ -17,13 +17,16 @@ export class TemplatePlaceholder extends React.Component {
   getChildContext() {
     return {
       templateHost: {
-        templates: this.restTemplates,
-        params: this.params,
+        templates: () => this.restTemplates,
+        params: () => this.params,
       },
     };
   }
   shouldComponentUpdate(nextProps) {
-    return !shallowEqual(this.props.params, nextProps.params);
+    const { templateHost } = this.context;
+    const params = this.props.params || this.params;
+    const nextParams = nextProps.params || (templateHost && templateHost.params());
+    return !shallowEqual(params, nextParams);
   }
   componentWillUnmount() {
     this.teardownSubscription();
@@ -41,13 +44,13 @@ export class TemplatePlaceholder extends React.Component {
     const { name, params } = this.props;
 
     this.params = params;
-    if (!name && this.context.templateHost) this.params = this.context.templateHost.params;
+    if (!name && !params && templateHost) this.params = templateHost.params();
 
     const templates = name
       ? pluginHost.collect(`${name}Template`)
         .filter(template => (template.predicate ? template.predicate(params) : true))
         .reverse()
-      : templateHost.templates;
+      : templateHost.templates();
 
     this.template = templates[0];
     this.restTemplates = templates.slice(1);

@@ -1,12 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, PluginContainer,
+  TemplateConnector, TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
+  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
+
+const getHeaderTableCellTemplateArgs = (
+  { allowSorting, allowDragging, allowGroupingByClick, ...params },
+  { tableColumns, sorting, columns, grouping },
+  { setColumnSorting, groupByColumn },
+) => {
+  const { column } = params.tableColumn;
+  const groupingSupported = grouping !== undefined &&
+      grouping.length < columns.length - 1;
+
+  let sortingScope;
+  if (grouping) {
+    sortingScope = tableColumns
+      .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
+      .filter(tableColumn => grouping
+        .find(group => group.columnName !== tableColumn.column.name))
+      .map(tableColumn => tableColumn.column.name);
+  }
+
+  const result = {
+    ...params,
+    allowSorting: allowSorting && sorting !== undefined,
+    allowGroupingByClick: allowGroupingByClick && groupingSupported,
+    allowDragging: allowDragging && (!grouping || groupingSupported),
+    column: params.tableColumn.column,
+    changeSortingDirection: ({ keepOther, cancel }) =>
+      setColumnSorting({ columnName: column.name, keepOther, cancel, scope: sortingScope }),
+    groupByColumn: () => groupByColumn({ columnName: column.name }),
+  };
+
+  if (result.allowSorting) {
+    result.sortingDirection = getColumnSortingDirection(sorting, column.name);
+  }
+
+  if (result.allowDragging) {
+    result.dragPayload = [{ type: 'column', columnName: column.name }];
+  }
+
+  return result;
+};
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
@@ -35,47 +79,21 @@ export class TableHeaderRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
-          connectGetters={(getter, { tableColumn: { column } }) => {
-            const sorting = getter('sorting');
-            const columns = getter('columns');
-            const grouping = getter('grouping');
-
-            const groupingSupported = grouping !== undefined &&
-                grouping.length < columns.length - 1;
-
-            const result = {
-              sortingSupported: sorting !== undefined,
-              groupingSupported,
-              draggingSupported: !grouping || groupingSupported,
-            };
-
-            if (result.sortingSupported) {
-              result.sortingDirection = getColumnSortingDirection(sorting, column.name);
-            }
-
-            if (result.draggingSupported) {
-              result.dragPayload = [{ type: 'column', columnName: column.name }];
-            }
-
-            return result;
-          }}
-          connectActions={(action, { tableColumn: { column } }) => ({
-            changeSortingDirection: ({ keepOther, cancel }) => action('setColumnSorting')({ columnName: column.name, keepOther, cancel }),
-            groupByColumn: () => action('groupByColumn')({ columnName: column.name }),
-          })}
         >
-          {({
-            sortingSupported,
-            groupingSupported,
-            draggingSupported,
-            ...restParams
-          }) => headerCellTemplate({
-            ...restParams,
-            allowSorting: allowSorting && sortingSupported,
-            allowGroupingByClick: allowGroupingByClick && groupingSupported,
-            allowDragging: allowDragging && draggingSupported,
-            column: restParams.tableColumn.column,
-          })}
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={headerCellTemplate}
+                  params={getHeaderTableCellTemplateArgs(
+                    { allowDragging, allowGroupingByClick, allowSorting, ...params },
+                    getters,
+                    actions,
+                  )}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
         <Template
           name="tableViewRow"

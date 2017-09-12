@@ -61,7 +61,7 @@ describe('TemplatePlaceholder', () => {
     expect(tree.find('h1').text()).toBe('param');
   });
 
-  it('should support automatic template update on params change', () => {
+  it('should support template update on params change', () => {
     // eslint-disable-next-line
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
@@ -132,11 +132,8 @@ describe('TemplatePlaceholder', () => {
         </Template>
 
         <Template name="test">
-          {({ text }) => (
-            <div> {/* TODO: Wrapper required for multiple children */}
-              <TemplatePlaceholder />
-              <h2>{text}</h2>
-            </div>
+          {() => (
+            <TemplatePlaceholder />
           )}
         </Template>
 
@@ -147,7 +144,72 @@ describe('TemplatePlaceholder', () => {
     );
 
     expect(tree.find('h1').text()).toBe('param');
-    expect(tree.find('h2').text()).toBe('param');
+  });
+
+  it('should allow to override params in the template chain', () => {
+    const tree = mount(
+      <PluginHost>
+        <Template name="test">
+          {({ text }) => (
+            <h1>{text}</h1>
+          )}
+        </Template>
+
+        <Template name="test">
+          {() => (
+            <TemplatePlaceholder params={{ text: 'overriden' }} />
+          )}
+        </Template>
+
+        <Template name="root">
+          <TemplatePlaceholder name="test" params={{ text: 'param' }} />
+        </Template>
+      </PluginHost>,
+    );
+
+    expect(tree.find('h1').text()).toBe('overriden');
+  });
+
+  it('should support templates chain update on params change', () => {
+    // eslint-disable-next-line
+    class EncapsulatedPlugin extends React.PureComponent {
+      render() {
+        return (
+          <PluginContainer>
+            <Template name="test">
+              {({ text }) => (
+                <h1>{text}</h1>
+              )}
+            </Template>
+          </PluginContainer>
+        );
+      }
+    }
+
+    const Test = ({ param }) => (
+      <PluginHost>
+        <EncapsulatedPlugin />
+
+        <Template name="test">
+          {() => (
+            <TemplatePlaceholder />
+          )}
+        </Template>
+        <Template name="root">
+          <TemplatePlaceholder name="test" params={{ text: param }} />
+        </Template>
+      </PluginHost>
+    );
+    Test.propTypes = {
+      param: PropTypes.string.isRequired,
+    };
+
+    const tree = mount(
+      <Test param={'text'} />,
+    );
+    tree.setProps({ param: 'new' });
+
+    expect(tree.find('h1').text()).toBe('new');
   });
 
   it('should supply correct params for different template chains', () => {

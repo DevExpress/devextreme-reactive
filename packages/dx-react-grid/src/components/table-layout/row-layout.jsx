@@ -30,8 +30,10 @@ export class RowLayout extends React.PureComponent {
     return (
       <TemplateRenderer
         template={rowTemplate}
-        tableRow={row}
-        style={getRowStyle({ row })}
+        params={{
+          tableRow: row,
+          style: getRowStyle({ row }),
+        }}
       >
         {
           getTableRowColumnsWithColSpan(columns, row.colSpanStart)
@@ -39,10 +41,12 @@ export class RowLayout extends React.PureComponent {
               <TemplateRenderer
                 key={column.key}
                 template={cellTemplate}
-                tableRow={row}
-                tableColumn={column}
-                style={getColumnStyle({ column })}
-                {...column.colSpan ? { colSpan: column.colSpan } : null}
+                params={{
+                  tableRow: row,
+                  tableColumn: column,
+                  style: getColumnStyle({ column }),
+                  ...column.colSpan ? { colSpan: column.colSpan } : null,
+                }}
               />
             ))
         }

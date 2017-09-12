@@ -8,7 +8,7 @@ import {
   isHeadingTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),
@@ -20,6 +20,7 @@ const defaultDeps = {
   getter: {
     columns: [{ name: 'a' }],
     tableHeaderRows: [{ type: 'undefined', rowId: 1 }],
+    tableColumns: [],
   },
   template: {
     tableViewCell: {
@@ -60,17 +61,16 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableHeaderRows', () => {
-      const deps = {};
-      mount(
+      const tree = mount(
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableHeaderRow
             {...defaultProps}
           />
         </PluginHost>,
       );
 
-      expect(deps.computedGetter('tableHeaderRows'))
+      expect(getComputedState(tree).getters.tableHeaderRows)
         .toBe('tableRowsWithHeading');
       expect(tableRowsWithHeading)
         .toBeCalledWith(defaultDeps.getter.tableHeaderRows);
@@ -121,5 +121,36 @@ describe('TableHeaderRow', () => {
       .toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(headerRowTemplate)
       .toBeCalledWith(defaultDeps.template.tableViewRow);
+  });
+
+  it('should not add grouped columns to sortingScope', () => {
+    isHeadingTableCell.mockImplementation(() => true);
+    const headerCellTemplate = jest.fn(() => null);
+    const setColumnSorting = jest.fn();
+
+    const deps = {
+      getter: {
+        tableColumns: [{ column: { name: 'a' } }, { column: { name: 'b' } }],
+        grouping: [{ columnName: 'a' }],
+      },
+      action: {
+        setColumnSorting,
+      },
+    };
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <TableHeaderRow
+          headerCellTemplate={headerCellTemplate}
+        />
+      </PluginHost>,
+    );
+
+    const templateParams = headerCellTemplate.mock.calls[0][0];
+    templateParams.changeSortingDirection({});
+
+    expect(setColumnSorting.mock.calls[0][0].scope)
+      .toEqual(['b']);
   });
 });

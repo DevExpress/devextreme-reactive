@@ -1,6 +1,6 @@
 # Grid Reference
 
-The Grid is a root container component designed to process and display data specified via the `rows` property. You can provide the columns configuration using the `columns` property. The Grid functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../README.md#plugins-overview) for details.
+The Grid is a root container component designed to process and display data specified via the `rows` property. You can configure columns using the `columns` property. The Grid's functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../README.md#plugins-overview) for details.
 
 ## User reference
 
@@ -8,11 +8,11 @@ The Grid is a root container component designed to process and display data spec
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rows | Array&lt;[Row](#row)&gt; | | Specifies data to be displayed by the Grid.
+rows | Array&lt;[Row](#row)&gt; | | Specifies the data the Grid displays.
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row object fields columns are created.
 getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies the function used to get a row ID.
-getCellData | (row: [Row](#row), columnName: string) => any | null | Specifies the function used to get a cell data.
-rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | A template rendering the grid root layout.
+getCellData | (row: [Row](#row), columnName: string) => any | null | Specifies the function used to get a cell's data.
+rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | A template that renders the grid root layout.
 headerPlaceholderTemplate | (args: [HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | A template that renders the header placeholder.
 footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | A template that renders the footer placeholder.
 
@@ -20,11 +20,11 @@ footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-a
 
 ### Row
 
-A data object representing a Grid row. This object can contain any field. The grid creates columns for the ones listed in the `columns` property.
+An object containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
 
 ### Column
 
-Describes the column interface.
+Defines the column configuration object. Used to display data stored in a row. Can be extended by plugins.
 
 A value with the following shape:
 

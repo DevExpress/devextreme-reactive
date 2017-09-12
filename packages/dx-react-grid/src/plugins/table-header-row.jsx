@@ -8,16 +8,26 @@ import {
   getColumnSortingDirection,
   tableRowsWithHeading,
   isHeadingTableCell,
+  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const getHeaderTableCellTemplateArgs = (
   { allowSorting, allowDragging, allowGroupingByClick, ...params },
-  { sorting, columns, grouping },
+  { tableColumns, sorting, columns, grouping },
   { setColumnSorting, groupByColumn },
 ) => {
   const { column } = params.tableColumn;
   const groupingSupported = grouping !== undefined &&
       grouping.length < columns.length - 1;
+
+  let sortingScope;
+  if (grouping) {
+    sortingScope = tableColumns
+      .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
+      .filter(tableColumn => grouping
+        .find(group => group.columnName !== tableColumn.column.name))
+      .map(tableColumn => tableColumn.column.name);
+  }
 
   const result = {
     ...params,
@@ -26,7 +36,7 @@ const getHeaderTableCellTemplateArgs = (
     allowDragging: allowDragging && (!grouping || groupingSupported),
     column: params.tableColumn.column,
     changeSortingDirection: ({ keepOther, cancel }) =>
-      setColumnSorting({ columnName: column.name, keepOther, cancel }),
+      setColumnSorting({ columnName: column.name, keepOther, cancel, scope: sortingScope }),
     groupByColumn: () => groupByColumn({ columnName: column.name }),
   };
 

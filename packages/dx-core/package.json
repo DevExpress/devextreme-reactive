@@ -35,18 +35,9 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint src/**/*",
-    "lint:fix": "npm run -s lint -- --fix",
-    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-core-lint.xml -f junit"
-  },
-  "jest": {
-    "testResultsProcessor": "./node_modules/jest-junit"
-  },
-  "jest-junit": {
-    "suiteName": "Core",
-    "output": "../../shippable/testresults/dx-core.xml"
+    "lint:fix": "npm run -s lint -- --fix"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -60,7 +51,6 @@
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jest": "^20.0.3",
     "jest": "^20.0.4",
-    "jest-junit": "^1.5.1",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-license": "^0.4.0",

@@ -45,22 +45,13 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint src/**/*",
-    "lint:fix": "npm run -s lint -- --fix",
-    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-datatgrid-material-ui-lint.xml -f junit"
-  },
-  "jest": {
-    "testResultsProcessor": "./node_modules/jest-junit"
-  },
-  "jest-junit": {
-    "suiteName": "React Grid Material UI",
-    "output": "../../shippable/testresults/dx-react-grid-material-ui.xml"
+    "lint:fix": "npm run -s lint -- --fix"
   },
   "devDependencies": {
     "@devexpress/dx-grid-core": "1.0.0-alpha.9",
     "@devexpress/dx-react-core": "1.0.0-alpha.9",
     "@devexpress/dx-react-grid": "1.0.0-alpha.9",
     "@devexpress/dx-testing": "1.0.0-alpha.8",
-    "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -79,7 +70,6 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.1.0",
     "jest": "^20.0.4",
-    "jest-junit": "^1.5.1",
     "jss": "^8.0.0",
     "jss-preset-default": "^3.0.0",
     "jss-theme-reactor": "^0.11.1",

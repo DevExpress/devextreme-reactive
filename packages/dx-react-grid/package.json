@@ -42,21 +42,12 @@
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint src/**/*",
-    "lint:fix": "npm run -s lint -- --fix",
-    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-react-grid-lint.xml -f junit"
-  },
-  "jest": {
-    "testResultsProcessor": "./node_modules/jest-junit"
-  },
-  "jest-junit": {
-    "suiteName": "React Grid",
-    "output": "../../shippable/testresults/dx-react-grid.xml"
+    "lint:fix": "npm run -s lint -- --fix"
   },
   "devDependencies": {
     "@devexpress/dx-core": "1.0.0-alpha.8",
     "@devexpress/dx-react-core": "1.0.0-alpha.9",
     "@devexpress/dx-testing": "1.0.0-alpha.8",
-    "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -75,7 +66,6 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.1.0",
     "jest": "^20.0.4",
-    "jest-junit": "^1.5.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",

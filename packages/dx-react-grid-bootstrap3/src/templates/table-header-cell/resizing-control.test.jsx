@@ -4,11 +4,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { Draggable } from '@devexpress/dx-react-core';
 import { ResizingControl } from './resizing-control';
 
-const defaultProps = {
-  changeColumnWidth: () => {},
-  changeDraftColumnWidth: () => {},
-};
-
 describe('ResizingControl', () => {
   let resetConsole;
   beforeAll(() => {

@@ -6,7 +6,11 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 import { SelectionState } from './selection-state';
 
-const defaultDeps = {};
+const defaultDeps = {
+  getter: {
+    rows: [],
+  },
+};
 
 describe('SelectionState', () => {
   let resetConsole;

@@ -13,32 +13,37 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const getHeaderTableCellTemplateArgs = (
-  { allowSorting, allowDragging, allowGroupingByClick, ...params },
+  { allowSorting, allowDragging, allowGroupingByClick, allowResizing, ...params },
   { tableColumns, sorting, columns, grouping },
-  { setColumnSorting, groupByColumn },
+  { setColumnSorting, groupByColumn, changeTableColumnWidths, changeDraftTableColumnWidths },
 ) => {
   const { column } = params.tableColumn;
   const groupingSupported = grouping !== undefined &&
       grouping.length < columns.length - 1;
-
-  let sortingScope;
-  if (grouping) {
-    sortingScope = tableColumns
-      .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
-      .filter(tableColumn => grouping
-        .find(group => group.columnName !== tableColumn.column.name))
-      .map(tableColumn => tableColumn.column.name);
-  }
 
   const result = {
     ...params,
     allowSorting: allowSorting && sorting !== undefined,
     allowGroupingByClick: allowGroupingByClick && groupingSupported,
     allowDragging: allowDragging && (!grouping || groupingSupported),
+    allowResizing,
     column: params.tableColumn.column,
-    changeSortingDirection: ({ keepOther, cancel }) =>
-      setColumnSorting({ columnName: column.name, keepOther, cancel, scope: sortingScope }),
-    groupByColumn: () => groupByColumn({ columnName: column.name }),
+    changeSortingDirection: ({ keepOther, cancel }) => {
+      const scope = grouping
+        ? tableColumns
+            .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
+            .filter(tableColumn => grouping
+              .find(group => group.columnName !== tableColumn.column.name))
+            .map(tableColumn => tableColumn.column.name)
+        : null;
+      setColumnSorting({ columnName: column.name, keepOther, cancel, scope });
+    },
+    groupByColumn: () =>
+      groupByColumn({ columnName: column.name }),
+    changeColumnWidth: ({ shift }) =>
+      changeTableColumnWidths({ shifts: { [column.name]: shift } }),
+    changeDraftColumnWidth: ({ shift }) =>
+      changeDraftTableColumnWidths({ shifts: { [column.name]: shift } }),
   };
 
   if (result.allowSorting) {
@@ -60,6 +65,7 @@ export class TableHeaderRow extends React.PureComponent {
       allowSorting,
       allowGroupingByClick,
       allowDragging,
+      allowResizing,
       headerCellTemplate,
       headerRowTemplate,
     } = this.props;
@@ -72,6 +78,7 @@ export class TableHeaderRow extends React.PureComponent {
           { pluginName: 'SortingState', optional: !allowSorting },
           { pluginName: 'GroupingState', optional: !allowGroupingByClick },
           { pluginName: 'DragDropContext', optional: !allowDragging },
+          { pluginName: 'TableColumnResizing', optional: !allowResizing },
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
@@ -86,7 +93,7 @@ export class TableHeaderRow extends React.PureComponent {
                 <TemplateRenderer
                   template={headerCellTemplate}
                   params={getHeaderTableCellTemplateArgs(
-                    { allowDragging, allowGroupingByClick, allowSorting, ...params },
+                    { allowDragging, allowGroupingByClick, allowSorting, allowResizing, ...params },
                     getters,
                     actions,
                   )}
@@ -115,6 +122,7 @@ TableHeaderRow.propTypes = {
   allowSorting: PropTypes.bool,
   allowGroupingByClick: PropTypes.bool,
   allowDragging: PropTypes.bool,
+  allowResizing: PropTypes.bool,
   headerCellTemplate: PropTypes.func.isRequired,
   headerRowTemplate: PropTypes.func.isRequired,
 };
@@ -123,4 +131,5 @@ TableHeaderRow.defaultProps = {
   allowSorting: false,
   allowGroupingByClick: false,
   allowDragging: false,
+  allowResizing: false,
 };

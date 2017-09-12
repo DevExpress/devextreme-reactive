@@ -13,6 +13,9 @@ const entries = object =>
   Object.keys(object)
     .reduce((acc, key) => [...acc, [key, object[key]]], []);
 
+const computedEntries = object => Object.getOwnPropertyNames(object)
+  .reduce((acc, key) => Object.assign(acc, { [key]: object[key] }), {});
+
 const ComputedStateContainer = () => null;
 
 export const pluginDepsToComponents = (
@@ -20,7 +23,7 @@ export const pluginDepsToComponents = (
   depsOverrides = {},
 ) => (
   <PluginContainer>
-    {deps.plugins && deps.plugins.map(plugin => (
+    {[...(deps.plugins || []), ...(depsOverrides.plugins || [])].map(plugin => (
       <PluginContainer
         pluginName={plugin}
         key={plugin}
@@ -45,8 +48,12 @@ export const pluginDepsToComponents = (
       {() => (
         <div>
           <TemplateConnector>
-            {(getters, actions) =>
-              <ComputedStateContainer getters={getters} actions={actions} />}
+            {(getters, actions) => (
+              <ComputedStateContainer
+                getters={computedEntries(getters)}
+                actions={computedEntries(actions)}
+              />
+            )}
           </TemplateConnector>
           <TemplatePlaceholder />
         </div>

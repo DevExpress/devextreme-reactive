@@ -51,7 +51,7 @@ groupByColumn | () => void | Toggles grouping for a column
 allowDragging | boolean | If true, an end-user can start dragging a column by the header cell
 dragPayload | any | A data object that identifies the corresponding column in the drag-and-drop context
 changeColumnWidth | ({ shift: number }) => void | Changes the column width. A shift is added to the original column width value.
-changeDraftColumnWidth | ({ shift: number }) => void | Changes the draft column width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column will be cleared.
+changeDraftColumnWidth | ({ shift: number }) => void | Changes the draft column width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
 
 ## Plugin Developer Reference
 

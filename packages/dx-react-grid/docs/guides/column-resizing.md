@@ -13,7 +13,7 @@ The [plugin's order](../README.md#plugin-order) is important.
 
 ## Column Resizing Setup
 
-Import the plugins listed above to set up a simple Grid with enabled column resizing.
+Import the plugins listed above to set up a simple Grid with column resizing enabled.
 
 Enable end-user interactions:
 - set the `TableHeaderRow` plugin's `allowResizing` property to `true`.
@@ -26,6 +26,6 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), use the `Table
 
 ## Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the column widths to the `TableColumnResizing` plugin's `columnWidths` property, and handle the `onColumnWidthsChange` event to control the column widths' state.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the column widths to the `TableColumnResizing` plugin's `columnWidths` property, and handle the `onColumnWidthsChange` event to control the column width state.
 
 .embedded-demo(column-resizing/controlled)

@@ -10,11 +10,11 @@ const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
-const getPagerTemplateArgs = ({
-  getters: { currentPage, pageSize, totalCount },
-  actions: { setCurrentPage, setPageSize },
-  scope: { allowedPageSizes },
-}) => ({
+const getPagerTemplateArgs = (
+  { allowedPageSizes },
+  { currentPage, pageSize, totalCount },
+  { setCurrentPage, setPageSize },
+) => ({
   currentPage,
   totalPages: pageCount(totalCount, pageSize),
   pageSize,
@@ -41,7 +41,7 @@ export class PagingPanel extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={pagerTemplate}
-                  params={getPagerTemplateArgs({ getters, actions, scope: { allowedPageSizes } })}
+                  params={getPagerTemplateArgs({ allowedPageSizes }, getters, actions)}
                 />
               )}
             </TemplateConnector>

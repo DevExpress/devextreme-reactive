@@ -6,10 +6,10 @@ import {
   DragDropContext as DragDropContextCore,
 } from '@devexpress/dx-react-core';
 
-const getContainerTemplateArgs = ({
-  getters: { columns },
-  scope: { payload, clientOffset, columnTemplate },
-}) => ({
+const getContainerTemplateArgs = (
+  { payload, clientOffset, columnTemplate },
+  { columns },
+) => ({
   clientOffset,
   columns: payload
     .filter(item => item.type === 'column')
@@ -54,10 +54,10 @@ export class DragDropContext extends React.PureComponent {
                 {getters => (
                   <TemplateRenderer
                     template={containerTemplate}
-                    params={getContainerTemplateArgs({
+                    params={getContainerTemplateArgs(
+                      { payload, clientOffset, columnTemplate },
                       getters,
-                      scope: { payload, clientOffset, columnTemplate },
-                    })}
+                    )}
                   />
                 )}
               </TemplateConnector>

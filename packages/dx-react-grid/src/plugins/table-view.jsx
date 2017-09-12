@@ -12,11 +12,11 @@ import {
   isHeaderStubTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getTableLayoutTemplateArgs = ({
-  getters: { tableHeaderRows, tableBodyRows, tableColumns, getRowId, tableExtraProps },
-  actions: { setColumnOrder },
-  scope: { allowColumnReordering, rowTemplate, cellTemplate },
-}) => ({
+const getTableLayoutTemplateArgs = (
+  { allowColumnReordering, rowTemplate, cellTemplate },
+  { tableHeaderRows, tableBodyRows, tableColumns, getRowId, tableExtraProps },
+  { setColumnOrder },
+) => ({
   headerRows: tableHeaderRows,
   bodyRows: tableBodyRows,
   columns: tableColumns,
@@ -28,10 +28,10 @@ const getTableLayoutTemplateArgs = ({
   setColumnOrder,
 });
 
-const getDataTableCellTemplateArgs = ({
+const getDataTableCellTemplateArgs = (
   params,
-  getters: { getCellData },
-}) => ({
+  { getCellData },
+) => ({
   ...params,
   row: params.tableRow.row,
   column: params.tableColumn.column,
@@ -78,11 +78,11 @@ export class TableView extends React.PureComponent {
             {(getters, actions) => (
               <TemplateRenderer
                 template={tableLayoutTemplate}
-                params={getTableLayoutTemplateArgs({
+                params={getTableLayoutTemplateArgs(
+                  { allowColumnReordering, rowTemplate, cellTemplate },
                   getters,
                   actions,
-                  scope: { allowColumnReordering, rowTemplate, cellTemplate },
-                })}
+                )}
               />
             )}
           </TemplateConnector>
@@ -120,7 +120,7 @@ export class TableView extends React.PureComponent {
               {getters => (
                 <TemplateRenderer
                   template={tableCellTemplate}
-                  params={getDataTableCellTemplateArgs({ params, getters })}
+                  params={getDataTableCellTemplateArgs(params, getters)}
                 />
               )}
             </TemplateConnector>

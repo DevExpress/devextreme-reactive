@@ -11,11 +11,11 @@ import {
   isEditTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getEditTableCellTemplateArgs = ({
+const getEditTableCellTemplateArgs = (
   params,
   getters,
-  actions: { changeRow, changeAddedRow },
-}) => {
+  { changeRow, changeAddedRow },
+) => {
   const { getCellData, createRowChange } = getters;
   const isNew = isAddedTableRow(params.tableRow);
   const { rowId, row } = params.tableRow;
@@ -69,11 +69,11 @@ export class TableEditRow extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={editCellTemplate}
-                  params={getEditTableCellTemplateArgs({
+                  params={getEditTableCellTemplateArgs(
                     params,
                     getters,
                     actions,
-                  })}
+                  )}
                 />
               )}
             </TemplateConnector>

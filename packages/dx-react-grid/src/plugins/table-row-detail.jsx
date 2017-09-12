@@ -12,21 +12,20 @@ import {
   isDetailTableRow,
 } from '@devexpress/dx-grid-core';
 
-const getDetailToggleTableCellTemplateArgs = ({
+const getDetailToggleTableCellTemplateArgs = (
   params,
-  getters: { expandedRows },
-  actions: { setDetailRowExpanded },
-}) => ({
+  { expandedRows },
+  { setDetailRowExpanded },
+) => ({
   ...params,
   row: params.tableRow.row,
   expanded: isDetailRowExpanded(expandedRows, params.tableRow.rowId),
   toggleExpanded: () => setDetailRowExpanded({ rowId: params.tableRow.rowId }),
 });
 
-const getDetailTableCellTemplateArgs = ({
-  params,
-  scope: { template },
-}) => ({
+const getDetailTableCellTemplateArgs = (
+  { template, ...params },
+) => ({
   ...params,
   row: params.tableRow.row,
   template: () => template({ row: params.tableRow.row }),
@@ -67,7 +66,7 @@ export class TableRowDetail extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={detailToggleCellTemplate}
-                  params={getDetailToggleTableCellTemplateArgs({ params, getters, actions })}
+                  params={getDetailToggleTableCellTemplateArgs(params, getters, actions)}
                 />
               )}
             </TemplateConnector>
@@ -80,7 +79,7 @@ export class TableRowDetail extends React.PureComponent {
           {params => (
             <TemplateRenderer
               template={detailCellTemplate}
-              params={getDetailTableCellTemplateArgs({ params, scope: { template } })}
+              params={getDetailTableCellTemplateArgs({ template, ...params })}
             />
           )}
         </Template>

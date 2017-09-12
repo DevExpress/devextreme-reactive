@@ -12,22 +12,22 @@ import {
   isSelectAllTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getSelectTableCellTemplateArgs = ({
+const getSelectTableCellTemplateArgs = (
   params,
-  getters: { selection },
-  actions: { setRowsSelection },
-}) => ({
+  { selection },
+  { setRowsSelection },
+) => ({
   ...params,
   row: params.tableRow.row,
   selected: selection.indexOf(params.tableRow.rowId) > -1,
   changeSelected: () => setRowsSelection({ rowIds: [params.tableRow.rowId] }),
 });
 
-const getSelectAllTableCellTemplateArgs = ({
+const getSelectAllTableCellTemplateArgs = (
   params,
-  getters: { availableToSelect, selection },
-  actions: { setRowsSelection },
-}) => ({
+  { availableToSelect, selection },
+  { setRowsSelection },
+) => ({
   ...params,
   selectionAvailable: !!availableToSelect.length,
   allSelected: selection.length === availableToSelect.length && selection.length !== 0,
@@ -85,7 +85,7 @@ export class TableSelection extends React.PureComponent {
                 {(getters, actions) => (
                   <TemplateRenderer
                     template={selectAllCellTemplate}
-                    params={getSelectAllTableCellTemplateArgs({ params, getters, actions })}
+                    params={getSelectAllTableCellTemplateArgs(params, getters, actions)}
                   />
                 )}
               </TemplateConnector>
@@ -102,7 +102,7 @@ export class TableSelection extends React.PureComponent {
                 {(getters, actions) => (
                   <TemplateRenderer
                     template={selectCellTemplate}
-                    params={getSelectTableCellTemplateArgs({ params, getters, actions })}
+                    params={getSelectTableCellTemplateArgs(params, getters, actions)}
                   />
                 )}
               </TemplateConnector>

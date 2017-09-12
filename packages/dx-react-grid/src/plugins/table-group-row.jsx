@@ -17,11 +17,11 @@ const getGroupIndentTableCellTemplateArgs = ({ params }) => ({
   column: params.tableColumn.column,
 });
 
-const getGroupTableCellTemplateArgs = ({
+const getGroupTableCellTemplateArgs = (
   params,
-  getters: { expandedGroups },
-  actions: { toggleGroupExpanded },
-}) => ({
+  { expandedGroups },
+  { toggleGroupExpanded },
+) => ({
   ...params,
   row: params.tableRow.row,
   column: params.tableColumn.column,
@@ -64,7 +64,7 @@ export class TableGroupRow extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={groupCellTemplate}
-                  params={getGroupTableCellTemplateArgs({ params, getters, actions })}
+                  params={getGroupTableCellTemplateArgs(params, getters, actions)}
                 />
               )}
             </TemplateConnector>

@@ -12,33 +12,29 @@ import {
   isEditTableRow,
 } from '@devexpress/dx-grid-core';
 
-const getHeadingEditCommandsTableCellTemplateArgs = ({
+const getHeadingEditCommandsTableCellTemplateArgs = (
   params,
-  actions: { addRow },
-  scope: { allowAdding, commandTemplate },
-}) => ({
+  getters,
+  { addRow },
+) => ({
   ...params,
   addRow: () => addRow(),
-  allowAdding,
-  commandTemplate,
 });
 
-const getEditCommandsTableCellTemplateArgs = ({
+const getEditCommandsTableCellTemplateArgs = (
   params,
-  actions: {
+  getters,
+  {
     startEditRows, stopEditRows, cancelChangedRows, commitChangedRows,
     deleteRows, commitDeletedRows, cancelAddedRows, commitAddedRows,
   },
-  scope: { allowEditing, allowDeleting, commandTemplate },
-}) => {
+) => {
   const isEdit = isEditTableRow(params.tableRow);
   const isNew = isAddedTableRow(params.tableRow);
   const rowIds = [params.tableRow.rowId];
   return {
     ...params,
     row: params.tableRow.row,
-    allowEditing,
-    allowDeleting,
     isEditing: isEdit || isNew,
     startEditing: () => startEditRows({ rowIds: [params.tableRow.rowId] }),
     deleteRow: () => {
@@ -61,7 +57,6 @@ const getEditCommandsTableCellTemplateArgs = ({
         commitChangedRows({ rowIds });
       }
     },
-    commandTemplate,
   };
 };
 
@@ -101,11 +96,11 @@ export class TableEditColumn extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={headingCellTemplate}
-                  params={getHeadingEditCommandsTableCellTemplateArgs({
-                    params,
+                  params={getHeadingEditCommandsTableCellTemplateArgs(
+                    { allowAdding, commandTemplate, ...params },
+                    getters,
                     actions,
-                    scope: { allowAdding, commandTemplate },
-                  })}
+                  )}
                 />
               )}
             </TemplateConnector>
@@ -121,11 +116,11 @@ export class TableEditColumn extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={cellTemplate}
-                  params={getEditCommandsTableCellTemplateArgs({
-                    params,
+                  params={getEditCommandsTableCellTemplateArgs(
+                    { allowEditing, allowDeleting, commandTemplate, ...params },
+                    getters,
                     actions,
-                    scope: { allowEditing, allowDeleting, commandTemplate },
-                  })}
+                  )}
                 />
               )}
             </TemplateConnector>

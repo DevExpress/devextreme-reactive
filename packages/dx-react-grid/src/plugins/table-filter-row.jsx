@@ -10,11 +10,11 @@ import {
   isFilterTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getFilterTableCellTemplateArgs = ({
+const getFilterTableCellTemplateArgs = (
   params,
-  getters: { filters },
-  actions: { setColumnFilter },
-}) => ({
+  { filters },
+  { setColumnFilter },
+) => ({
   ...params,
   column: params.tableColumn.column,
   filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
@@ -48,7 +48,7 @@ export class TableFilterRow extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={filterCellTemplate}
-                  params={getFilterTableCellTemplateArgs({ params, getters, actions })}
+                  params={getFilterTableCellTemplateArgs(params, getters, actions)}
                 />
               )}
             </TemplateConnector>

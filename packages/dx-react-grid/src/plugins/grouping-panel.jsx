@@ -7,11 +7,11 @@ import {
 } from '@devexpress/dx-react-core';
 import { groupingPanelItems } from '@devexpress/dx-grid-core';
 
-const getGroupPanelTemplateArgs = ({
-  getters: { columns, draftGrouping, sorting },
-  actions: { groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange },
-  scope: { allowDragging, allowSorting, allowUngroupingByClick },
-}) => ({
+const getGroupPanelTemplateArgs = (
+  { allowDragging, allowSorting, allowUngroupingByClick },
+  { columns, draftGrouping, sorting },
+  { groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange },
+) => ({
   allowSorting,
   allowDragging,
   allowUngroupingByClick,
@@ -47,11 +47,11 @@ export class GroupingPanel extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={groupPanelTemplate}
-                  params={getGroupPanelTemplateArgs({
+                  params={getGroupPanelTemplateArgs(
+                    { allowDragging, allowSorting, allowUngroupingByClick },
                     getters,
                     actions,
-                    scope: { allowDragging, allowSorting, allowUngroupingByClick },
-                  })}
+                  )}
                 />
               )}
             </TemplateConnector>

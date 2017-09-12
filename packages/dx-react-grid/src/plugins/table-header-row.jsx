@@ -10,12 +10,11 @@ import {
   isHeadingTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getHeaderTableCellTemplateArgs = ({
-  params,
-  getters: { sorting, columns, grouping },
-  actions: { setColumnSorting, groupByColumn },
-  scope: { allowSorting, allowDragging, allowGroupingByClick },
-}) => {
+const getHeaderTableCellTemplateArgs = (
+  { allowSorting, allowDragging, allowGroupingByClick, ...params },
+  { sorting, columns, grouping },
+  { setColumnSorting, groupByColumn },
+) => {
   const { column } = params.tableColumn;
   const groupingSupported = grouping !== undefined &&
       grouping.length < columns.length - 1;
@@ -69,12 +68,11 @@ export class TableHeaderRow extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={headerCellTemplate}
-                  params={getHeaderTableCellTemplateArgs({
-                    params,
+                  params={getHeaderTableCellTemplateArgs(
+                    { allowDragging, allowGroupingByClick, allowSorting, ...params },
                     getters,
                     actions,
-                    scope: { allowDragging, allowGroupingByClick, allowSorting },
-                  })}
+                  )}
                 />
               )}
             </TemplateConnector>

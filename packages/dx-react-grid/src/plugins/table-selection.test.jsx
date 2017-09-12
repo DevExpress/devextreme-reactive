@@ -7,6 +7,7 @@ import {
   tableRowsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
+  isDataTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableSelection } from './table-selection';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -16,6 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithSelection: jest.fn(),
   isSelectTableCell: jest.fn(),
   isSelectAllTableCell: jest.fn(),
+  isDataTableRow: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -63,6 +65,7 @@ describe('Table Selection', () => {
     tableRowsWithSelection.mockImplementation(() => 'tableRowsWithSelection');
     isSelectTableCell.mockImplementation(() => false);
     isSelectAllTableCell.mockImplementation(() => false);
+    isDataTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -155,6 +158,7 @@ describe('Table Selection', () => {
 
   it('should render row by using selectRowTemplate', () => {
     const selectRowTemplate = jest.fn(() => null);
+    isDataTableRow.mockImplementation(() => true);
 
     mount(
       <PluginHost>
@@ -163,11 +167,12 @@ describe('Table Selection', () => {
           {...defaultProps}
           selectRowTemplate={selectRowTemplate}
           selectByRowClick
-          highlightSelected
         />
       </PluginHost>,
     );
     selectRowTemplate.mock.calls[0][0].changeSelected();
+
+    expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
 
     expect(selectRowTemplate)
       .toBeCalledWith(expect.objectContaining({

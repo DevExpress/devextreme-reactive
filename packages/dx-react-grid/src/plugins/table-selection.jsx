@@ -9,6 +9,7 @@ import {
   tableRowsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
+  isDataTableRow,
 } from '@devexpress/dx-grid-core';
 
 const getSelectTableCellTemplateArgs = (
@@ -114,27 +115,26 @@ export class TableSelection extends React.PureComponent {
             )}
           </Template>
         )}
-        {(highlightSelected || selectByRowClick) && (
-          <Template
-            name="tableViewRow"
-          >
-            {params => (
-              <TemplateConnector>
-                {(getters, actions) => (
-                  <TemplateRenderer
-                    template={selectRowTemplate}
-                    params={
-                      getSelectTableRowTemplateArgs({
-                        selectByRowClick,
-                        ...params,
-                      }, getters, actions)
-                    }
-                  />
-                )}
-              </TemplateConnector>
-            )}
-          </Template>
-        )}
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isDataTableRow(tableRow)}
+        >
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={selectRowTemplate}
+                  params={
+                    getSelectTableRowTemplateArgs({
+                      selectByRowClick,
+                      ...params,
+                    }, getters, actions)
+                  }
+                />
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
       </PluginContainer>
     );
   }

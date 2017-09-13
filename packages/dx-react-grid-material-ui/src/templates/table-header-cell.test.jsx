@@ -4,6 +4,7 @@ import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
+import { ResizingControl } from './table-header-cell/resizing-control';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -64,7 +65,7 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when sorting is allowed', () => {
     const tree = mount(
       <TableHeaderCell
-        column={{}}
+        column={{ name: 'a' }}
         allowSorting
       />,
     );
@@ -104,5 +105,25 @@ describe('TableHeaderCell', () => {
 
     tree.find(DragSource).prop('onEnd')();
     expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
+  });
+
+  it('should render resize control if resize allowed', () => {
+    const changeColumnWidth = () => {};
+    const changeDraftColumnWidth = () => {};
+    const tree = mount(
+      <TableHeaderCell
+        column={{}}
+        allowResizing
+        changeDraftColumnWidth={changeDraftColumnWidth}
+        changeColumnWidth={changeColumnWidth}
+      />,
+    );
+
+    expect(tree.find(ResizingControl).exists())
+      .toBeTruthy();
+    expect(tree.find(ResizingControl).prop('changeDraftColumnWidth'))
+      .toBe(changeDraftColumnWidth);
+    expect(tree.find(ResizingControl).prop('changeColumnWidth'))
+      .toBe(changeColumnWidth);
   });
 });

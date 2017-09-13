@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { shallowEqual } from '@devexpress/dx-core';
 import { RERENDER_TEMPLATE } from './template';
-import { TemplateConnectorEmbedded } from './template-connector-embedded';
 
 export class TemplatePlaceholder extends React.Component {
   constructor(props, context) {
@@ -10,83 +9,74 @@ export class TemplatePlaceholder extends React.Component {
 
     this.subscription = {
       [RERENDER_TEMPLATE]: (id) => {
-        if (this.template.id === id) { this.forceUpdate(); }
+        if (this.template && this.template.id === id) {
+          this.forceUpdate();
+        }
       },
     };
   }
   getChildContext() {
     return {
       templateHost: {
-        templates: this.restTemplates,
-        params: this.params,
+        templates: () => this.restTemplates,
+        params: () => this.params,
       },
     };
   }
-  shouldComponentUpdate(nextProps) {
-    return !shallowEqual(this.props.params, nextProps.params);
-  }
-  componentWillUnmount() {
-    this.teardownSubscription();
-  }
-  setupSubscription() {
+  componentWillMount() {
     const { pluginHost } = this.context;
     pluginHost.registerSubscription(this.subscription);
   }
-  teardownSubscription() {
+  shouldComponentUpdate(nextProps) {
+    const { params } = this.getRenderingData(nextProps);
+    return !shallowEqual(params, this.params);
+  }
+  componentWillUnmount() {
     const { pluginHost } = this.context;
     pluginHost.unregisterSubscription(this.subscription);
   }
-  prepareTemplates() {
-    const { pluginHost, templateHost } = this.context;
-    const { name, params } = this.props;
-
-    this.params = params;
-    if (!name && this.context.templateHost) this.params = this.context.templateHost.params;
-
-    const templates = name
-      ? pluginHost.collect(`${name}Template`)
-        .filter(template => (template.predicate ? template.predicate(params) : true))
-        .reverse()
-      : templateHost.templates;
-
-    this.template = templates[0];
-    this.restTemplates = templates.slice(1);
+  getRenderingData(props) {
+    const { name, params } = props;
+    if (name) {
+      const { pluginHost } = this.context;
+      return {
+        params,
+        templates: pluginHost.collect(`${name}Template`)
+          .filter(template => template.predicate(params))
+          .reverse(),
+      };
+    }
+    const { templateHost } = this.context;
+    return {
+      params: params || templateHost.params(),
+      templates: templateHost.templates(),
+    };
   }
   render() {
-    const { children: placeholder } = this.props;
+    const { params, templates } = this.getRenderingData(this.props);
 
-    this.teardownSubscription();
-    this.prepareTemplates();
+    this.params = params;
+    this.template = templates[0];
+    this.restTemplates = templates.slice(1);
 
-    if (!this.template) return placeholder ? placeholder(null) : null;
+    let content = null;
+    if (this.template) {
+      const { children: templateContent } = this.template;
 
-    this.setupSubscription();
-
-    const { children: template, connectGetters, connectActions } = this.template;
-
-    let content = template();
-    if (content) {
-      if (connectGetters || connectActions) {
-        content = (
-          <TemplateConnectorEmbedded
-            params={this.params}
-            mapProps={connectGetters}
-            mapActions={connectActions}
-            content={content}
-          />
-        );
-      } else if (content instanceof Function) {
-        content = content(this.params);
+      content = templateContent();
+      if (content && content instanceof Function) {
+        content = content(params);
       }
     }
 
-    return placeholder ? placeholder(content) : content;
+    const { children: templatePlaceholder } = this.props;
+    return templatePlaceholder ? templatePlaceholder(content) : content;
   }
 }
 
 TemplatePlaceholder.propTypes = {
-  name: PropTypes.string,
-  params: PropTypes.object,
+  name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  params: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
   children: PropTypes.func,
 };
 

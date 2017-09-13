@@ -4,15 +4,47 @@ import {
   Getter,
   Template,
   TemplatePlaceholder,
+  TemplateConnector,
   TemplateRenderer,
   PluginContainer,
 } from '@devexpress/dx-react-core';
 import {
   getRowChange,
   tableRowsWithEditing,
-  isEditNewTableCell,
-  isEditExistingTableCell,
+  isAddedTableRow,
+  isEditTableCell,
 } from '@devexpress/dx-grid-core';
+
+const getEditTableCellTemplateArgs = (
+  params,
+  getters,
+  { changeRow, changeAddedRow },
+) => {
+  const { getCellData, createRowChange } = getters;
+  const isNew = isAddedTableRow(params.tableRow);
+  const { rowId, row } = params.tableRow;
+  const { column } = params.tableColumn;
+  const changedRow = isNew
+    ? row
+    : { ...row, ...getRowChange(getters.changedRows, rowId) };
+  return {
+    ...params,
+    row,
+    column,
+    value: getCellData(changedRow, column.name),
+    onValueChange: (newValue) => {
+      const changeArgs = {
+        rowId,
+        change: createRowChange(changedRow, column.name, newValue),
+      };
+      if (isNew) {
+        changeAddedRow(changeArgs);
+      } else {
+        changeRow(changeArgs);
+      }
+    },
+  };
+};
 
 const pluginDependencies = [
   { pluginName: 'EditingState' },
@@ -34,126 +66,34 @@ export class TableEditRow extends React.PureComponent {
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
           name="tableViewCell"
-          predicate={({ tableRow, tableColumn }) => isEditExistingTableCell(tableRow, tableColumn)}
-          connectGetters={(getter, { tableColumn: { column }, tableRow: { rowId, row } }) => {
-            const change = getRowChange(getter('changedRows'), rowId);
-            const changedRow = { ...row, ...change };
-            const getCellData = getter('getCellData');
-            const value = getCellData(changedRow, column.name);
-
-            return {
-              createRowChange: getter('createRowChange'),
-              value,
-              changedRow,
-            };
-          }}
-          connectActions={action => ({
-            changeRow: ({ rowId, change }) => action('changeRow')({ rowId, change }),
-          })}
+          predicate={({ tableRow, tableColumn }) => isEditTableCell(tableRow, tableColumn)}
         >
-          {({
-            value,
-            changeRow,
-            createRowChange,
-            changedRow,
-            ...restParams
-          }) => (
-            <TemplatePlaceholder
-              name="valueEditor"
-              params={{
-                column: restParams.tableColumn.column,
-                value,
-                onValueChange: newValue =>
-                  changeRow({
-                    rowId: restParams.tableRow.rowId,
-                    change: createRowChange(
-                      changedRow,
-                      restParams.tableColumn.column.name,
-                      newValue,
-                    ),
-                  }),
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => {
+                const templateArgs = getEditTableCellTemplateArgs(params, getters, actions);
+                return (
+                  <TemplatePlaceholder
+                    name="valueEditor"
+                    params={{
+                      column: templateArgs.column,
+                      row: templateArgs.row,
+                      value: templateArgs.value,
+                      onValueChange: templateArgs.onValueChange,
+                    }}
+                  >
+                    {content => (
+                      <TemplateRenderer
+                        template={editCellTemplate}
+                        params={templateArgs}
+                      >
+                        {content}
+                      </TemplateRenderer>
+                    )}
+                  </TemplatePlaceholder>
+                );
               }}
-            >
-              {content => (
-                <TemplateRenderer
-                  template={editCellTemplate}
-                  {...{
-                    row: restParams.tableRow.row,
-                    column: restParams.tableColumn.column,
-                    value,
-                    onValueChange: newValue =>
-                      changeRow({
-                        rowId: restParams.tableRow.rowId,
-                        change: createRowChange(
-                          changedRow,
-                          restParams.tableColumn.column.name,
-                          newValue,
-                        ),
-                      }),
-                    ...restParams,
-                  }}
-                >
-                  {content}
-                </TemplateRenderer>
-              )}
-            </TemplatePlaceholder>
-          )}
-        </Template>
-        <Template
-          name="tableViewCell"
-          predicate={({ tableRow, tableColumn }) => isEditNewTableCell(tableRow, tableColumn)}
-          connectGetters={getter => ({
-            getCellData: getter('getCellData'),
-            createRowChange: getter('createRowChange'),
-          })}
-          connectActions={action => ({
-            changeAddedRow: ({ rowId, change }) => action('changeAddedRow')({ rowId, change }),
-          })}
-        >
-          {({
-            value,
-            changeAddedRow,
-            getCellData,
-            createRowChange,
-            ...restParams
-          }) => (
-            <TemplatePlaceholder
-              name="valueEditor"
-              params={{
-                column: restParams.tableColumn.column,
-                value: getCellData(restParams.tableRow.row, restParams.tableColumn.column.name),
-                onValueChange: newValue => changeAddedRow({
-                  rowId: restParams.tableRow.rowId,
-                  change: createRowChange(
-                    restParams.tableRow.row,
-                    restParams.tableColumn.column.name,
-                    newValue,
-                  ),
-                }),
-              }}
-            >
-              {content => (
-                <TemplateRenderer
-                  template={editCellTemplate}
-                  {...{
-                    row: restParams.tableRow.row,
-                    column: restParams.tableColumn.column,
-                    value: getCellData(restParams.tableRow.row, restParams.tableColumn.column.name),
-                    onValueChange: newValue => changeAddedRow({
-                      rowId: restParams.tableRow.rowId,
-                      change: createRowChange(
-                        restParams.tableRow.row,
-                        restParams.tableColumn.column.name,
-                        newValue,
-                      ),
-                    }),
-                    ...restParams,
-                  }}
-                >
-                  {content}
-                </TemplateRenderer>
-              )}
-            </TemplatePlaceholder>
+            </TemplateConnector>
           )}
         </Template>
       </PluginContainer>

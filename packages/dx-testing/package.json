@@ -11,8 +11,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.js",
-    "lint:fix": "npm run -s lint -- --fix",
-    "lint:ci": "npm run -s lint -- -o ../../shippable/testresults/dx-tesitng-lint.xml -f junit"
+    "lint:fix": "npm run -s lint -- --fix"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

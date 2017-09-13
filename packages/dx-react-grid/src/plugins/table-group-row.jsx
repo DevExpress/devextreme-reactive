@@ -5,6 +5,7 @@ import {
   Template,
   PluginContainer,
   TemplatePlaceholder,
+  TemplateConnector,
   TemplateRenderer,
 } from '@devexpress/dx-react-core';
 import {
@@ -13,6 +14,24 @@ import {
   isGroupTableCell,
   isGroupIndentTableCell,
 } from '@devexpress/dx-grid-core';
+
+const getGroupIndentTableCellTemplateArgs = ({ params }) => ({
+  ...params,
+  row: params.tableRow.row,
+  column: params.tableColumn.column,
+});
+
+const getGroupTableCellTemplateArgs = (
+  params,
+  { expandedGroups },
+  { toggleGroupExpanded },
+) => ({
+  ...params,
+  row: params.tableRow.row,
+  column: params.tableColumn.column,
+  isExpanded: expandedGroups.has(params.tableRow.row.key),
+  toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
+});
 
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
@@ -43,49 +62,45 @@ export class TableGroupRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isGroupTableCell(tableRow, tableColumn)}
-          connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
-          connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
-          {({ expandedGroups, toggleGroupExpanded, ...params }) => {
-            const { tableColumn: { column }, tableRow: { row } } = params;
-            return (
-              <TemplatePlaceholder
-                name="valueFormatter"
-                params={{
-                  row,
-                  column,
-                  value: row.value,
-                }}
-              >
-                {content => (
-                  <TemplateRenderer
-                    template={groupCellTemplate}
-                    {...{
-                      ...params,
-                      row,
-                      column,
-                      value: row.value,
-                      isExpanded: expandedGroups.has(row.key),
-                      toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: row.key }),
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => {
+                const templateArgs = getGroupTableCellTemplateArgs(params, getters, actions);
+                return (
+                  <TemplatePlaceholder
+                    name="valueFormatter"
+                    params={{
+                      row: templateArgs.row,
+                      column: templateArgs.column,
+                      value: templateArgs.row.value,
                     }}
                   >
-                    {content}
-                  </TemplateRenderer>
-                )}
-              </TemplatePlaceholder>
-            );
-          }}
+                    {content => (
+                      <TemplateRenderer
+                        template={groupCellTemplate}
+                        params={templateArgs}
+                      >
+                        {content}
+                      </TemplateRenderer>
+                    )}
+                  </TemplatePlaceholder>
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
         {groupIndentCellTemplate && (
           <Template
             name="tableViewCell"
             predicate={({ tableRow, tableColumn }) => isGroupIndentTableCell(tableRow, tableColumn)}
           >
-            {params => groupIndentCellTemplate({
-              ...params,
-              row: params.tableRow.row,
-              column: params.tableColumn.column,
-            })}
+            {params => (
+              <TemplateRenderer
+                template={groupIndentCellTemplate}
+                params={getGroupIndentTableCellTemplateArgs({ params })}
+              />
+            )}
           </Template>
         )}
       </PluginContainer>

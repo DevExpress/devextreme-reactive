@@ -2,8 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   PluginContainer, Template, TemplatePlaceholder,
+  TemplateConnector, TemplateRenderer,
   DragDropContext as DragDropContextCore,
 } from '@devexpress/dx-react-core';
+
+const getContainerTemplateArgs = (
+  { payload, clientOffset, columnTemplate },
+  { columns },
+) => ({
+  clientOffset,
+  columns: payload
+    .filter(item => item.type === 'column')
+    .map(item => columns.find(column => column.name === item.columnName)),
+  columnTemplate,
+});
 
 export class DragDropContext extends React.PureComponent {
   constructor(props) {
@@ -30,28 +42,27 @@ export class DragDropContext extends React.PureComponent {
       <PluginContainer
         pluginName="DragDropContext"
       >
-        <Template
-          name="root"
-          connectGetters={getter => ({
-            columns: getter('columns'),
-          })}
-        >
-          {({ columns }) => (
-            <div>
-              <DragDropContextCore
-                onChange={this.change}
-              >
-                <TemplatePlaceholder />
-              </DragDropContextCore>
-              {payload && containerTemplate({
-                clientOffset,
-                columns: payload
-                  .filter(item => item.type === 'column')
-                  .map(item => columns.find(column => column.name === item.columnName)),
-                columnTemplate,
-              })}
-            </div>
-          )}
+        <Template name="root">
+          <div>
+            <DragDropContextCore
+              onChange={this.change}
+            >
+              <TemplatePlaceholder />
+            </DragDropContextCore>
+            {payload && (
+              <TemplateConnector>
+                {getters => (
+                  <TemplateRenderer
+                    template={containerTemplate}
+                    params={getContainerTemplateArgs(
+                      { payload, clientOffset, columnTemplate },
+                      getters,
+                    )}
+                  />
+                )}
+              </TemplateConnector>
+            )}
+          </div>
         </Template>
       </PluginContainer>
     );

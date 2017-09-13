@@ -124,7 +124,6 @@ export const globalSalesValues = {
     year: 2016,
     month: () => Math.floor(random() * 3) + 1,
   }),
-  shipped: [true, false],
 };
 
 export const employeeValues = {

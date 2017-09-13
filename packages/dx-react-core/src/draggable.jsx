@@ -63,9 +63,11 @@ export class Draggable extends React.Component {
         onMouseDown: (e) => {
           if (touchEventsSupported()) return;
           this.mouseStrategy.start(e);
+          e.stopPropagation();
         },
         onTouchStart: (e) => {
           this.touchStrategy.start(e);
+          e.stopPropagation();
         },
       },
     );

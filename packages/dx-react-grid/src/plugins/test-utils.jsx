@@ -4,6 +4,7 @@ import {
   Action,
   Template,
   TemplatePlaceholder,
+  TemplateConnector,
   PluginContainer,
 } from '@devexpress/dx-react-core';
 
@@ -12,12 +13,17 @@ const entries = object =>
   Object.keys(object)
     .reduce((acc, key) => [...acc, [key, object[key]]], []);
 
+const computedEntries = object => Object.getOwnPropertyNames(object)
+  .reduce((acc, key) => Object.assign(acc, { [key]: object[key] }), {});
+
+const ComputedStateContainer = () => null;
+
 export const pluginDepsToComponents = (
   deps,
   depsOverrides = {},
 ) => (
   <PluginContainer>
-    {deps.plugins && deps.plugins.map(plugin => (
+    {[...(deps.plugins || []), ...(depsOverrides.plugins || [])].map(plugin => (
       <PluginContainer
         pluginName={plugin}
         key={plugin}
@@ -38,15 +44,22 @@ export const pluginDepsToComponents = (
           </div>
         </Template>
       ))}
-    <Template
-      key="check"
-      name="root"
-      // eslint-disable-next-line no-param-reassign
-      connectGetters={(getter) => { depsOverrides.computedGetter = getter; }}
-      // eslint-disable-next-line no-param-reassign
-      connectActions={(action) => { depsOverrides.computedAction = action; }}
-    >
-      {() => <TemplatePlaceholder />}
+    <Template name="root">
+      {() => (
+        <div>
+          <TemplateConnector>
+            {(getters, actions) => (
+              <ComputedStateContainer
+                getters={computedEntries(getters)}
+                actions={computedEntries(actions)}
+              />
+            )}
+          </TemplateConnector>
+          <TemplatePlaceholder />
+        </div>
+      )}
     </Template>
   </PluginContainer>
 );
+
+export const getComputedState = tree => tree.find(ComputedStateContainer).props();

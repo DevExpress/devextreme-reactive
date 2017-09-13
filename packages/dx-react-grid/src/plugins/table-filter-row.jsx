@@ -4,6 +4,7 @@ import {
   Getter,
   Template,
   TemplatePlaceholder,
+  TemplateConnector,
   TemplateRenderer,
   PluginContainer,
 } from '@devexpress/dx-react-core';
@@ -12,6 +13,17 @@ import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
 } from '@devexpress/dx-grid-core';
+
+const getFilterTableCellTemplateArgs = (
+  params,
+  { filters },
+  { setColumnFilter },
+) => ({
+  ...params,
+  column: params.tableColumn.column,
+  filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
+  setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
+});
 
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
@@ -34,34 +46,33 @@ export class TableFilterRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
-          connectGetters={(getter, { tableColumn: { column } }) => ({
-            filter: getColumnFilterConfig(getter('filters'), column.name),
-          })}
-          connectActions={(action, { tableColumn: { column } }) => ({
-            setFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
-          })}
         >
           {params => (
-            <TemplatePlaceholder
-              name="valueEditor"
-              params={{
-                column: params.tableColumn.column,
-                value: params.filter ? params.filter.value : '',
-                onValueChange: newValue => params.setFilter(newValue ? { value: newValue } : null),
+            <TemplateConnector>
+              {(getters, actions) => {
+                const templateArgs = getFilterTableCellTemplateArgs(params, getters, actions);
+                return (
+                  <TemplatePlaceholder
+                    name="valueEditor"
+                    params={{
+                      column: templateArgs.column,
+                      value: templateArgs.filter ? templateArgs.filter.value : '',
+                      onValueChange: newValue =>
+                        templateArgs.setFilter(newValue ? { value: newValue } : null),
+                    }}
+                  >
+                    {content => (
+                      <TemplateRenderer
+                        template={filterCellTemplate}
+                        params={templateArgs}
+                      >
+                        {content}
+                      </TemplateRenderer>
+                    )}
+                  </TemplatePlaceholder>
+                );
               }}
-            >
-              {content => (
-                <TemplateRenderer
-                  template={filterCellTemplate}
-                  {...{
-                    ...params,
-                    column: params.tableColumn.column,
-                  }}
-                >
-                  {content}
-                </TemplateRenderer>
-              )}
-            </TemplatePlaceholder>
+            </TemplateConnector>
           )}
         </Template>
       </PluginContainer>

@@ -156,7 +156,7 @@ describe('Table Selection', () => {
       .toBeCalledWith(expect.objectContaining(defaultDeps.template.tableViewCell));
   });
 
-  it('should render row by using selectRowTemplate', () => {
+  it('should render row by using selectRowTemplate if selectByRowClick is true', () => {
     const selectRowTemplate = jest.fn(() => null);
     isDataTableRow.mockImplementation(() => true);
 
@@ -184,5 +184,41 @@ describe('Table Selection', () => {
       .toBeCalledWith({
         rowIds: [defaultDeps.template.tableViewRow.tableRow.rowId],
       });
+  });
+
+  it('should render row by using selectRowTemplate if highlightSelected is true', () => {
+    const selectRowTemplate = jest.fn(() => null);
+    isDataTableRow.mockImplementation(() => true);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSelection
+          {...defaultProps}
+          selectRowTemplate={selectRowTemplate}
+          highlightSelected
+        />
+      </PluginHost>,
+    );
+
+    expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(selectRowTemplate)
+      .toBeCalledWith(expect.objectContaining(defaultDeps.template.tableViewRow));
+  });
+
+  it('should not use selectRowTemplate if highlightSelected & selectByRowClick are false', () => {
+    const selectRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSelection
+          {...defaultProps}
+          selectRowTemplate={selectRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(selectRowTemplate.mock.calls).toHaveLength(0);
   });
 });

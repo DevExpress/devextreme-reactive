@@ -13,13 +13,12 @@ This plugin visualizes the selection state within a table by rendering selection
 
 Name | Type | Default | Description
 -----|------|---------|------------
-highlightSelected | boolean | false | If true, selected rows are highlighted
-selectByRowClick | boolean | false | If true, a selected row is toggled by click
+highlightSelected | boolean | false | If true, selected rows are highlighted. Pay attention, the `tableRowTemplate` of the `TableView` plugin will be ignored in this case.
+selectByRowClick | boolean | false | If true, a selected row is toggled by click. Pay attention, the `tableRowTemplate` of the `TableView` plugin will be ignored in this case.
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row
 showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row
 selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox
 selectAllCellTemplate | (args: [SelectAllCellArgs](#select-all-cell-args)) => ReactElement | | A component that renders the Select All checkbox
-selectRowTemplate | (args: [SelectRowArgs](#select-row-args)) => ReactElement | | A component that renders a data row when selection is enabled
 selectionColumnWidth | number | | The selection column's width
 
 ## Interfaces
@@ -55,17 +54,6 @@ Field | Type | Description
 ------|------|------------
 row | [Row](grid.md#row) | A row object
 selected | boolean | Specifies whether a row is selected
-changeSelected | () => void | Selects or deselects a row
-
-### <a name="select-row-args"></a>SelectRowArgs
-
-Describes properties passed to a template that renders a row when selection is enabled
-
-A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-selectByRowClick | boolean | Specifies whether a row can be selected by row click
 changeSelected | () => void | Selects or deselects a row
 
 ## Plugin Developer Reference

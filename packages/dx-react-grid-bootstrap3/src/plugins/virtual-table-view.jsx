@@ -24,35 +24,36 @@ export const VirtualTableView = ({
   noDataCellTemplate,
   stubCellTemplate,
   stubHeaderCellTemplate,
-  ...props }) => (
-    <TableViewBase
-      tableLayoutTemplate={tableLayoutTemplate}
-      tableRowTemplate={combineTemplates(
-        tableRowTemplate,
-        defaultRowTemplate,
-      )}
-      tableNoDataRowTemplate={combineTemplates(
-        tableNoDataRowTemplate,
-        defaultNoDataRowTemplate,
-      )}
-      tableCellTemplate={combineTemplates(
-        tableCellTemplate,
-        defaultCellTemplate,
-      )}
-      tableNoDataCellTemplate={combineTemplates(
-        noDataCellTemplate,
-        defaultNoDataCellTemplate,
-      )}
-      tableStubCellTemplate={combineTemplates(
-        stubCellTemplate,
-        defaultStubCellTemplate,
-      )}
-      tableStubHeaderCellTemplate={combineTemplates(
-        stubHeaderCellTemplate,
-        defaultStubHeaderCellTemplate,
-      )}
-      {...props}
-    />
+  ...props
+}) => (
+  <TableViewBase
+    tableLayoutTemplate={tableLayoutTemplate}
+    tableRowTemplate={combineTemplates(
+      tableRowTemplate,
+      defaultRowTemplate,
+    )}
+    tableNoDataRowTemplate={combineTemplates(
+      tableNoDataRowTemplate,
+      defaultNoDataRowTemplate,
+    )}
+    tableCellTemplate={combineTemplates(
+      tableCellTemplate,
+      defaultCellTemplate,
+    )}
+    tableNoDataCellTemplate={combineTemplates(
+      noDataCellTemplate,
+      defaultNoDataCellTemplate,
+    )}
+    tableStubCellTemplate={combineTemplates(
+      stubCellTemplate,
+      defaultStubCellTemplate,
+    )}
+    tableStubHeaderCellTemplate={combineTemplates(
+      stubHeaderCellTemplate,
+      defaultStubHeaderCellTemplate,
+    )}
+    {...props}
+  />
 );
 VirtualTableView.propTypes = {
   tableCellTemplate: PropTypes.func,

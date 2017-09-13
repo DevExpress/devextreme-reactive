@@ -115,26 +115,28 @@ export class TableSelection extends React.PureComponent {
             )}
           </Template>
         )}
-        <Template
-          name="tableViewRow"
-          predicate={({ tableRow }) => isDataTableRow(tableRow)}
-        >
-          {params => (
-            <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={selectRowTemplate}
-                  params={
-                    getSelectTableRowTemplateArgs({
-                      selectByRowClick,
-                      ...params,
-                    }, getters, actions)
-                  }
-                />
-              )}
-            </TemplateConnector>
-          )}
-        </Template>
+        {(highlightSelected || selectByRowClick) && (
+          <Template
+            name="tableViewRow"
+            predicate={({ tableRow }) => isDataTableRow(tableRow)}
+          >
+            {params => (
+              <TemplateConnector>
+                {(getters, actions) => (
+                  <TemplateRenderer
+                    template={selectRowTemplate}
+                    params={
+                      getSelectTableRowTemplateArgs({
+                        selectByRowClick,
+                        ...params,
+                      }, getters, actions)
+                    }
+                  />
+                )}
+              </TemplateConnector>
+            )}
+          </Template>
+        )}
       </PluginContainer>
     );
   }

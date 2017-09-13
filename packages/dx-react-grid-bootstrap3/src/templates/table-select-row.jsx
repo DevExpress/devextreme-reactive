@@ -10,10 +10,12 @@ export const TableSelectRow = ({
 }) => (
   <tr
     className={tableRow.selected ? 'active' : ''}
-    onClick={selectByRowClick ? (e) => {
-      e.stopPropagation();
-      changeSelected();
-    } : () => {}}
+    onClick={
+      selectByRowClick ? (e) => {
+        e.stopPropagation();
+        changeSelected();
+      } : undefined
+    }
     {...restProps}
   >
     {children}

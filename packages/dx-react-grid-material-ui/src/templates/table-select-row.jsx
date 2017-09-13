@@ -11,10 +11,12 @@ export const TableSelectRow = ({
 }) => (
   <TableRow
     selected={tableRow.selected}
-    onClick={selectByRowClick ? (e) => {
-      e.stopPropagation();
-      changeSelected();
-    } : () => {}}
+    onClick={
+      selectByRowClick ? (e) => {
+        e.stopPropagation();
+        changeSelected();
+      } : undefined
+    }
     {...restProps}
   >
     {children}

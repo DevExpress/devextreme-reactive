@@ -33,6 +33,12 @@ const getGroupTableCellTemplateArgs = (
   toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
 });
 
+const getValueEditorArgs = params => ({
+  row: params.row,
+  column: params.column,
+  value: params.row.value,
+});
+
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
   { pluginName: 'TableView' },
@@ -70,11 +76,7 @@ export class TableGroupRow extends React.PureComponent {
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
-                    params={{
-                      row: templateArgs.row,
-                      column: templateArgs.column,
-                      value: templateArgs.row.value,
-                    }}
+                    params={getValueEditorArgs(templateArgs)}
                   >
                     {content => (
                       <TemplateRenderer

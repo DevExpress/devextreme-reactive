@@ -42,6 +42,12 @@ const getDataTableCellTemplateArgs = (
   value: getCellData(params.tableRow.row, params.tableColumn.column.name),
 });
 
+const getValueFormatterArgs = params => ({
+  row: params.row,
+  column: params.column,
+  value: params.value,
+});
+
 const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
@@ -126,11 +132,7 @@ export class TableView extends React.PureComponent {
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
-                    params={{
-                      row: templateArgs.row,
-                      column: templateArgs.column,
-                      value: templateArgs.value,
-                    }}
+                    params={getValueFormatterArgs(templateArgs)}
                   >
                     {content => (
                       <TemplateRenderer

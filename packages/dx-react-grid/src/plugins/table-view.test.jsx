@@ -10,6 +10,7 @@ import {
   isHeaderStubTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableView } from './table-view';
+import { DataTypeProvider } from './data-type-provider';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -127,6 +128,42 @@ describe('TableView', () => {
         row: tableCellArgs.tableRow.row,
         column: tableCellArgs.tableColumn.column,
       });
+  });
+
+  it('can render custom formatted data in table cell', () => {
+    isDataTableCell.mockImplementation(() => true);
+    const tableCellTemplate = jest.fn(() => null);
+    const valueFormatter = jest.fn(() => <span />);
+    const tableCellArgs = {
+      tableRow: { row: 'row' },
+      tableColumn: { column: { name: 'column', dataType: 'column' } },
+      style: {},
+      value: undefined,
+    };
+
+    mount(
+      <PluginHost>
+        <DataTypeProvider
+          type="column"
+          formatterTemplate={valueFormatter}
+        />
+        {pluginDepsToComponents(defaultDeps)}
+        <TableView
+          {...defaultProps}
+          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
+          tableCellTemplate={tableCellTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(valueFormatter)
+      .toHaveBeenCalledWith({
+        column: tableCellArgs.tableColumn.column,
+        row: tableCellArgs.tableRow.row,
+        value: tableCellArgs.value,
+      });
+    expect(tableCellTemplate.mock.calls[0][0])
+      .toHaveProperty('children');
   });
 
   it('should render stub cell on plugin-defined column and row intersection', () => {

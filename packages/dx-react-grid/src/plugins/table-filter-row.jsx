@@ -21,8 +21,16 @@ const getFilterTableCellTemplateArgs = (
 ) => ({
   ...params,
   column: params.tableColumn.column,
+  row: params.tableRow.row,
   filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
   setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
+});
+
+const getValueEditorArgs = params => ({
+  column: params.column,
+  row: params.row,
+  value: params.filter ? params.filter.value : null,
+  onValueChange: newValue => params.setFilter(newValue ? { value: newValue } : null),
 });
 
 const pluginDependencies = [
@@ -54,12 +62,7 @@ export class TableFilterRow extends React.PureComponent {
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
-                    params={{
-                      column: templateArgs.column,
-                      value: templateArgs.filter ? templateArgs.filter.value : '',
-                      onValueChange: newValue =>
-                        templateArgs.setFilter(newValue ? { value: newValue } : null),
-                    }}
+                    params={getValueEditorArgs(templateArgs)}
                   >
                     {content => (
                       <TemplateRenderer

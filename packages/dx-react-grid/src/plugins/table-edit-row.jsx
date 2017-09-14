@@ -46,6 +46,13 @@ const getEditTableCellTemplateArgs = (
   };
 };
 
+const getValueEditorArgs = params => ({
+  column: params.column,
+  row: params.row,
+  value: params.value,
+  onValueChange: params.onValueChange,
+});
+
 const pluginDependencies = [
   { pluginName: 'EditingState' },
   { pluginName: 'TableView' },
@@ -75,12 +82,7 @@ export class TableEditRow extends React.PureComponent {
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
-                    params={{
-                      column: templateArgs.column,
-                      row: templateArgs.row,
-                      value: templateArgs.value,
-                      onValueChange: templateArgs.onValueChange,
-                    }}
+                    params={getValueEditorArgs(templateArgs)}
                   >
                     {content => (
                       <TemplateRenderer
@@ -100,10 +102,12 @@ export class TableEditRow extends React.PureComponent {
     );
   }
 }
+
 TableEditRow.propTypes = {
   rowHeight: PropTypes.any,
   editCellTemplate: PropTypes.func.isRequired,
 };
+
 TableEditRow.defaultProps = {
   rowHeight: undefined,
 };

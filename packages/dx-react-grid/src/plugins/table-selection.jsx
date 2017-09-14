@@ -42,6 +42,7 @@ const getSelectTableRowTemplateArgs = (
 ) => ({
   ...restParams,
   selectByRowClick,
+  selected: restParams.tableRow.selected,
   changeSelected: () => setRowsSelection({ rowIds: [restParams.tableRow.rowId] }),
 });
 

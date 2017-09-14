@@ -3,21 +3,19 @@ import PropTypes from 'prop-types';
 import { TableRow } from 'material-ui';
 
 export const TableSelectRow = ({
-  tableRow,
+  selected,
   children,
   changeSelected,
   selectByRowClick,
-  ...restProps
 }) => (
   <TableRow
-    selected={tableRow.selected}
+    selected={selected}
     onClick={
       selectByRowClick ? (e) => {
         e.stopPropagation();
         changeSelected();
       } : undefined
     }
-    {...restProps}
   >
     {children}
   </TableRow>
@@ -26,13 +24,13 @@ export const TableSelectRow = ({
 TableSelectRow.propTypes = {
   children: PropTypes.node,
   changeSelected: PropTypes.func,
-  tableRow: PropTypes.object,
+  selected: PropTypes.bool,
   selectByRowClick: PropTypes.bool,
 };
 
 TableSelectRow.defaultProps = {
   children: null,
   changeSelected: () => {},
-  tableRow: {},
+  selected: false,
   selectByRowClick: false,
 };

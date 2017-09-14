@@ -8,10 +8,10 @@ describe('TableSelectRow', () => {
   let resetConsole;
   let mount;
 
-  const mountTableRow = ({ tableRow, changeSelected, selectByRowClick }) => (
+  const mountTableRow = ({ selected, changeSelected, selectByRowClick }) => (
     mount(
       <TableSelectRow
-        tableRow={tableRow}
+        selected={selected}
         changeSelected={changeSelected}
         selectByRowClick={selectByRowClick}
       />,
@@ -27,10 +27,10 @@ describe('TableSelectRow', () => {
   });
 
   it('should have correct selected prop', () => {
-    let tree = mountTableRow({ tableRow: { selected: false } });
+    let tree = mountTableRow({ selected: false });
     expect(tree.find(TableRowMUI).prop('selected')).toBeFalsy();
 
-    tree = mountTableRow({ tableRow: { selected: true } });
+    tree = mountTableRow({ selected: true });
     expect(tree.find(TableRowMUI).prop('selected')).toBeTruthy();
   });
 

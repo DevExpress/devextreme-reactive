@@ -2,28 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const TableSelectRow = ({
-  tableRow,
+  selected,
   children,
   changeSelected,
   selectByRowClick,
-  ...restProps
 }) => (
   <tr
-    className={tableRow.selected ? 'active' : ''}
+    className={selected ? 'active' : ''}
     onClick={
       selectByRowClick ? (e) => {
         e.stopPropagation();
         changeSelected();
       } : undefined
     }
-    {...restProps}
   >
     {children}
   </tr>
 );
 
 TableSelectRow.propTypes = {
-  tableRow: PropTypes.object,
+  selected: PropTypes.bool,
   children: PropTypes.node,
   changeSelected: PropTypes.func,
   selectByRowClick: PropTypes.bool,
@@ -32,6 +30,6 @@ TableSelectRow.propTypes = {
 TableSelectRow.defaultProps = {
   children: null,
   changeSelected: () => {},
-  tableRow: {},
+  selected: false,
   selectByRowClick: false,
 };

@@ -4,10 +4,10 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectRow } from './table-select-row';
 
 describe('Table Select Row', () => {
-  const mountTableRow = ({ tableRow, changeSelected, selectByRowClick }) => (
+  const mountTableRow = ({ selected, changeSelected, selectByRowClick }) => (
     mount(
       <TableSelectRow
-        tableRow={tableRow}
+        selected={selected}
         changeSelected={changeSelected}
         selectByRowClick={selectByRowClick}
       />,
@@ -24,10 +24,10 @@ describe('Table Select Row', () => {
   });
 
   it('should have correct className', () => {
-    let tree = mountTableRow({ tableRow: { selected: false } });
+    let tree = mountTableRow({ selected: false });
     expect(tree.find('tr').hasClass('active')).toBeFalsy();
 
-    tree = mountTableRow({ tableRow: { selected: true } });
+    tree = mountTableRow({ selected: true });
     expect(tree.find('tr').hasClass('active')).toBeTruthy();
   });
 

@@ -142,7 +142,10 @@ describe('TableEditRow', () => {
     );
 
     expect(isEditTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
-    expect(editRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+    expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
+      ...defaultDeps.template.tableViewRow,
+      row: defaultDeps.template.tableViewRow.tableRow.row,
+    }));
   });
 
   it('should render new row by using editRowTemplate', () => {
@@ -160,7 +163,10 @@ describe('TableEditRow', () => {
     );
 
     expect(isAddedTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
-    expect(editRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+    expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
+      ...defaultDeps.template.tableViewRow,
+      row: defaultDeps.template.tableViewRow.tableRow.row,
+    }));
   });
 
   it('should handle edit cell onValueChange event', () => {

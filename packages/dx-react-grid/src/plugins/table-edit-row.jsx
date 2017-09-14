@@ -43,6 +43,11 @@ const getEditTableCellTemplateArgs = (
   };
 };
 
+const getEditTableRowTemplateArgs = params => ({
+  ...params,
+  row: params.tableRow.row,
+});
+
 const pluginDependencies = [
   { pluginName: 'EditingState' },
   { pluginName: 'TableView' },
@@ -85,10 +90,14 @@ export class TableEditRow extends React.PureComponent {
           predicate={({ tableRow }) => (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
         >
           {params => (
-            <TemplateRenderer
-              template={editRowTemplate}
-              params={params}
-            />
+            <TemplateConnector>
+              {() => (
+                <TemplateRenderer
+                  template={editRowTemplate}
+                  params={getEditTableRowTemplateArgs(params)}
+                />
+              )}
+            </TemplateConnector>
           )}
         </Template>
       </PluginContainer>

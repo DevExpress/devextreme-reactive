@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 rowHeight | number | | Specifies the edit row height
 editCellTemplate | (args: [EditCellArgs](#edit-cell-args)) => ReactElement | | A component that renders an editable cell
-editRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders an editable row
+editRowTemplate | (args: [EditRowArgs](#edit-row-args)) => ReactElement | | A component that renders an editable row
 
 ## Interfaces
 
@@ -31,6 +31,16 @@ row | [Row](grid.md#row) | Specifies the initial row
 column | [Column](grid.md#column) | Specifies a column
 value | any | Specifies a value to be edited
 onValueChange | (newValue: any) => void | Handles value changes
+
+### <a name="edit-row-args"></a>EditRowArgs
+
+Describes properties passed to the edit row template.
+
+A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+row | [Row](grid.md#row) | Specifies the initial row
 
 ## Plugin Developer Reference
 

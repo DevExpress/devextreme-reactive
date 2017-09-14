@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableRow = ({ tableRow, children, ...restProps }) => (
-  <tr {...restProps}>{children}</tr>
+export const TableRow = ({ children, style }) => (
+  <tr
+    style={{
+      ...style,
+    }}
+  >
+    {children}
+  </tr>
 );
 
 TableRow.propTypes = {
-  tableRow: PropTypes.object,
   children: PropTypes.node,
+  style: PropTypes.shape(),
 };
 
 TableRow.defaultProps = {
-  tableRow: {},
   children: null,
+  style: null,
 };

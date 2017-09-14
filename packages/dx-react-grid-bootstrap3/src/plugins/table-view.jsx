@@ -5,6 +5,7 @@ import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
 import { Table } from '../templates/table';
 import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
+import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableRow } from '../templates/table-row';
 
@@ -14,6 +15,7 @@ const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
 
 const defaultStubCellTemplate = props => <TableStubCell {...props} />;
+const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 
 export const TableView = ({
@@ -45,7 +47,7 @@ export const TableView = ({
     )}
     tableStubHeaderCellTemplate={combineTemplates(
       tableStubHeaderCellTemplate,
-      defaultStubCellTemplate,
+      defaultStubHeaderCellTemplate,
     )}
     tableNoDataCellTemplate={combineTemplates(
       tableNoDataCellTemplate,

@@ -7,6 +7,7 @@ import { TableCell } from '../templates/table-cell';
 import { TableRow } from '../templates/table-row';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
+import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 
 const tableLayoutTemplate = props => <VirtualTable {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
@@ -14,6 +15,8 @@ const defaultCellTemplate = props => <TableCell {...props} />;
 const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 const defaultStubCellTemplate = props => <TableStubCell {...props} />;
+const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
+
 
 export const VirtualTableView = ({
   tableCellTemplate,
@@ -48,7 +51,7 @@ export const VirtualTableView = ({
     )}
     tableStubHeaderCellTemplate={combineTemplates(
       stubHeaderCellTemplate,
-      defaultStubCellTemplate,
+      defaultStubHeaderCellTemplate,
     )}
     {...props}
   />

@@ -13,16 +13,14 @@ export class Template extends React.PureComponent {
   }
   componentWillMount() {
     const { pluginHost } = this.context;
-    const { name, predicate, connectGetters, connectActions } = this.props;
+    const { name } = this.props;
 
     this.plugin = {
       position: () => this.props.position(),
       [`${name}Template`]: {
-        predicate,
-        connectGetters,
-        connectActions,
-        children: () => this.props.children,
         id: this.id,
+        predicate: params => (this.props.predicate ? this.props.predicate(params) : true),
+        children: () => this.props.children,
       },
     };
     pluginHost.registerPlugin(this.plugin);
@@ -44,19 +42,14 @@ Template.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
   predicate: PropTypes.func,
-  connectGetters: PropTypes.func,
-  connectActions: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
 };
 
 Template.defaultProps = {
   predicate: null,
-  connectGetters: null,
-  connectActions: null,
   children: null,
   position: null,
 };

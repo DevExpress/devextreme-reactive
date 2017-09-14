@@ -48,9 +48,13 @@ export const demos = {
     },
   },
   'data-types': {
-    basic: {
-      bootstrap3: require('./bootstrap3/data-types/basic').default,
-      'material-ui': require('./material-ui/data-types/basic').default,
+    formatters: {
+      bootstrap3: require('./bootstrap3/data-types/formatters').default,
+      'material-ui': require('./material-ui/data-types/formatters').default,
+    },
+    editors: {
+      bootstrap3: require('./bootstrap3/data-types/editors').default,
+      'material-ui': require('./material-ui/data-types/editors').default,
     },
   },
   'detail-row': {

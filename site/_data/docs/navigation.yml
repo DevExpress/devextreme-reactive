@@ -8,6 +8,8 @@ react:
           path: /react/grid/docs/guides/plugin-overview
         - title: Data Accessors
           path: /react/grid/docs/guides/data-accessors
+        - title: Data Types
+          path: /react/grid/docs/guides/data-types
         - title: Using the Immutable Data
           path: /react/grid/docs/guides/immutability
         - title: Controlled and Uncontrolled Modes
@@ -84,3 +86,5 @@ react:
           path: /react/grid/docs/reference/grouping-panel
         - title: DragDropContext
           path: /react/grid/docs/reference/drag-drop-context
+        - title: DataTypeProvider
+          path: /react/grid/docs/reference/data-type-provider

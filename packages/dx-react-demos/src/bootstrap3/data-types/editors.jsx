@@ -1,21 +1,14 @@
 import React from 'react';
 import {
   DataTypeProvider,
-  FilteringState,
-  LocalFiltering,
   EditingState,
-  GroupingState,
-  LocalGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView,
   TableHeaderRow,
-  TableFilterRow,
   TableEditRow,
   TableEditColumn,
-  TableGroupRow,
-  GroupingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -23,28 +16,20 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const CurrencyTypeProvider = () => (
+const BooleanTypeProvider = () => (
   <DataTypeProvider
-    type="currency"
-    formatterTemplate={({ value }) => (
-      <span><b className="text-muted">$</b>{value}</span>
-    )}
+    type="boolean"
+    formatterTemplate={({ value }) =>
+      <span className="label label-default">{value ? 'Yes' : 'No'}</span>}
     editorTemplate={({ value, onValueChange }) => (
-      <input
-        type="text"
-        className="form-control text-right"
-        placeholder="$"
+      <select
+        className="form-control"
         value={value}
-        onChange={e => onValueChange(e.target.value)}
-      />
-    )}
-  />
-);
-const NameTypeProvider = () => (
-  <DataTypeProvider
-    type="customerName"
-    formatterTemplate={({ value }) => (
-      <b className="text-danger">{value}</b>
+        onChange={e => onValueChange(e.target.value === 'true')}
+      >
+        <option value={false}>No</option>
+        <option value>Yes</option>
+      </select>
     )}
   />
 );
@@ -55,12 +40,15 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'customer', title: 'Customer', dataType: 'customerName' },
+        { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
         { name: 'saleDate', title: 'Sale Date' },
-        { name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right' },
+        { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...globalSalesValues },
+        length: 14,
+      }),
     };
 
     this.commitChanges = ({ added, changed, deleted }) => {
@@ -93,23 +81,19 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <CurrencyTypeProvider />
-        <NameTypeProvider />
-        <FilteringState defaultFilters={[]} />
-        <LocalFiltering />
-        <EditingState onCommitChanges={this.commitChanges} />
-        <GroupingState
-          defaultGrouping={[{ columnName: 'customer' }]}
-          defaultExpandedGroups={['Beacon Systems', 'Apollo Inc', 'Renewable Supplies']}
+        <BooleanTypeProvider />
+        <EditingState
+          onCommitChanges={this.commitChanges}
+          defaultEditingRows={[0]}
         />
-        <LocalGrouping />
         <TableView />
-        <TableHeaderRow allowGroupingByClick />
-        <TableFilterRow />
+        <TableHeaderRow />
         <TableEditRow />
-        <TableEditColumn allowAdding allowEditing allowDeleting />
-        <TableGroupRow />
-        <GroupingPanel allowUngroupingByClick />
+        <TableEditColumn
+          allowAdding
+          allowEditing
+          allowDeleting
+        />
       </Grid>
     );
   }

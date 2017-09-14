@@ -5,17 +5,18 @@ import { TableRow } from 'material-ui';
 export const TableSelectRow = ({
   selected,
   children,
+  style,
   changeSelected,
   selectByRowClick,
 }) => (
   <TableRow
+    style={style}
     selected={selected}
-    onClick={
-      selectByRowClick ? (e) => {
-        e.stopPropagation();
-        changeSelected();
-      } : undefined
-    }
+    onClick={(e) => {
+      if (!selectByRowClick) return;
+      e.stopPropagation();
+      changeSelected();
+    }}
   >
     {children}
   </TableRow>
@@ -26,6 +27,7 @@ TableSelectRow.propTypes = {
   changeSelected: PropTypes.func,
   selected: PropTypes.bool,
   selectByRowClick: PropTypes.bool,
+  style: PropTypes.shape(),
 };
 
 TableSelectRow.defaultProps = {
@@ -33,4 +35,5 @@ TableSelectRow.defaultProps = {
   changeSelected: () => {},
   selected: false,
   selectByRowClick: false,
+  style: null,
 };

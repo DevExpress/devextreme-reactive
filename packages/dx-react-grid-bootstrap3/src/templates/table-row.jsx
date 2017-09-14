@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 export const TableRow = ({ children, style }) => (
   <tr
-    style={{
-      ...style,
-    }}
+    style={style}
   >
     {children}
   </tr>

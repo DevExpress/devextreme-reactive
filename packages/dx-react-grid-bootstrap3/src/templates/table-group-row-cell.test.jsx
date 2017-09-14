@@ -17,7 +17,7 @@ describe('TableCell', () => {
     const tree = mount(
       <TableGroupCell
         column={{ title: 'Title' }}
-        value="Value"
+        row={{ value: 'Value' }}
       />,
     );
 

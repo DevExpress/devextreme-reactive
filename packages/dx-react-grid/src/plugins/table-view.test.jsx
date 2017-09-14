@@ -201,6 +201,7 @@ describe('TableView', () => {
     const tableRowTemplate = jest.fn(() => null);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'data' },
+      row: 'row',
       style: {},
       children: null,
     };

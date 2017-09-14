@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tableLayoutTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table layout using the specified parameters
 tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
-tableRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters
+tableRowTemplate | (args: [TableDataRowArgs](#table-data-row-args)) => ReactElement | | Renders a table row using the specified parameters
 tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
 tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty
 tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided
@@ -107,6 +107,16 @@ Field | Type | Description
 tableRow | [TableRow](#table-row) | Specifies a table row
 children | ReactElement | A React element used to render a table row.
 style? | Object | Styles that should be applied to the root row element
+
+### <a name="table-data-row-args"></a>TableDataRowArgs
+
+Describes properties passed to the table row template when it is being rendered.
+
+A value with the [TableRowArgs](#table-row-args) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+row | [Row](grid.md#row) | Specifies a table row
 
 ## Plugin Developer Reference
 

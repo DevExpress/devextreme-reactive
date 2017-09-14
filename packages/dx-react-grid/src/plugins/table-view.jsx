@@ -39,6 +39,11 @@ const getDataTableCellTemplateArgs = (
   value: getCellData(params.tableRow.row, params.tableColumn.column.name),
 });
 
+const getDataTableRowTemplateArgs = params => ({
+  ...params,
+  row: params.tableRow.row,
+});
+
 const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
@@ -137,10 +142,14 @@ export class TableView extends React.PureComponent {
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
           {params => (
-            <TemplateRenderer
-              template={tableRowTemplate}
-              params={params}
-            />
+            <TemplateConnector>
+              {() => (
+                <TemplateRenderer
+                  template={tableRowTemplate}
+                  params={getDataTableRowTemplateArgs(params)}
+                />
+              )}
+            </TemplateConnector>
           )}
         </Template>
         <Template

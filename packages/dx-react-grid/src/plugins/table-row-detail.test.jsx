@@ -169,6 +169,9 @@ describe('TableRowDetail', () => {
     );
 
     expect(isDetailTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
-    expect(detailRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+    expect(detailRowTemplate).toBeCalledWith(expect.objectContaining({
+      ...defaultDeps.template.tableViewRow,
+      row: defaultDeps.template.tableViewRow.tableRow.row,
+    }));
   });
 });

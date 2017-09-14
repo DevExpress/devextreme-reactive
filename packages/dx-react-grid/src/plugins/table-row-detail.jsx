@@ -31,6 +31,11 @@ const getDetailTableCellTemplateArgs = (
   template: () => template({ row: params.tableRow.row }),
 });
 
+const getDetailTableRowTemplateArgs = params => ({
+  ...params,
+  row: params.tableRow.row,
+});
+
 const pluginDependencies = [
   { pluginName: 'TableView' },
 ];
@@ -89,10 +94,14 @@ export class TableRowDetail extends React.PureComponent {
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (
-            <TemplateRenderer
-              template={detailRowTemplate}
-              params={params}
-            />
+            <TemplateConnector>
+              {() => (
+                <TemplateRenderer
+                  template={detailRowTemplate}
+                  params={getDetailTableRowTemplateArgs(params)}
+                />
+              )}
+            </TemplateConnector>
           )}
         </Template>
       </PluginContainer>

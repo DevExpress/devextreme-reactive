@@ -16,7 +16,7 @@ Name | Type | Default | Description
 template | (args: [DetailContentArgs](#detail-content-args)) => ReactElement | | A component that renders row details
 detailCellTemplate | (args: [DetailCellArgs](#detail-cell-args)) => ReactElement | | A component that renders a detail cell
 detailToggleCellTemplate | (args: [DetailToggleArgs](#detail-toggle-args)) => ReactElement | | A component that renders the detail toggle control
-detailRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a detail row
+detailRowTemplate | (args: [DetailRowArgs](#detail-row-args)) => ReactElement | | A component that renders a detail row
 detailToggleCellWidth | number | | Specifies the detail toggle cell width
 rowHeight | number &#124; string | 'auto' | Specifies the detail row height
 
@@ -42,6 +42,16 @@ Field | Type | Description
 ------|------|------------
 row | [Row](grid.md#row) | A row object
 template | () => ReactElement | A component that renders row details
+
+### <a name="detail-row-args"></a>DetailRowArgs
+
+Describes properties passed to the template that renders a detail row
+
+A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+row | [Row](grid.md#row) | A row object
 
 ### <a name="detail-toggle-args"></a>DetailToggleArgs
 

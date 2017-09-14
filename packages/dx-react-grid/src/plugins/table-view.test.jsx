@@ -201,7 +201,6 @@ describe('TableView', () => {
     const tableRowTemplate = jest.fn(() => null);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'data' },
-      row: 'row',
       style: {},
       children: null,
     };
@@ -217,9 +216,11 @@ describe('TableView', () => {
       </PluginHost>,
     );
 
-    expect(isDataTableRow)
-      .toBeCalledWith(tableRowArgs.tableRow);
-    expect(tableRowTemplate).toBeCalledWith(tableRowArgs);
+    expect(isDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
+    expect(tableRowTemplate).toBeCalledWith(expect.objectContaining({
+      ...tableRowArgs,
+      row: tableRowArgs.tableRow.row,
+    }));
   });
   it('should render empty row by using tableNoDataRowTemplate', () => {
     isNoDataTableRow.mockImplementation(() => true);

@@ -30,6 +30,11 @@ const getGroupTableCellTemplateArgs = (
   toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
 });
 
+const getGroupTableRowTemplateArgs = params => ({
+  ...params,
+  row: params.tableRow.row,
+});
+
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
   { pluginName: 'TableView' },
@@ -90,10 +95,14 @@ export class TableGroupRow extends React.PureComponent {
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
           {params => (
-            <TemplateRenderer
-              template={groupRowTemplate}
-              params={params}
-            />
+            <TemplateConnector>
+              {() => (
+                <TemplateRenderer
+                  template={groupRowTemplate}
+                  params={getGroupTableRowTemplateArgs(params)}
+                />
+              )}
+            </TemplateConnector>
           )}
         </Template>
       </PluginContainer>

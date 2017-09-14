@@ -180,6 +180,9 @@ describe('TableGroupRow', () => {
     );
 
     expect(isGroupTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
-    expect(groupRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+    expect(groupRowTemplate).toBeCalledWith(expect.objectContaining({
+      ...defaultDeps.template.tableViewRow,
+      row: defaultDeps.template.tableViewRow.tableRow.row,
+    }));
   });
 });

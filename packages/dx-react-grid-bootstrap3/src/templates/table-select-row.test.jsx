@@ -4,15 +4,11 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectRow } from './table-select-row';
 
 describe('Table Select Row', () => {
-  const mountTableRow = ({ selected, changeSelected, selectByRowClick }) => (
-    mount(
-      <TableSelectRow
-        selected={selected}
-        changeSelected={changeSelected}
-        selectByRowClick={selectByRowClick}
-      />,
-    )
-  );
+  const defaultProps = {
+    selected: false,
+    selectByRowClick: false,
+    changeSelected: () => {},
+  };
 
   let resetConsole;
   beforeAll(() => {
@@ -24,19 +20,27 @@ describe('Table Select Row', () => {
   });
 
   it('should have correct className', () => {
-    let tree = mountTableRow({ selected: false });
+    let tree = mount(<TableSelectRow
+      {...defaultProps}
+    />);
     expect(tree.find('tr').hasClass('active')).toBeFalsy();
 
-    tree = mountTableRow({ selected: true });
+    tree = mount(<TableSelectRow
+      {...defaultProps}
+      selected
+    />);
     expect(tree.find('tr').hasClass('active')).toBeTruthy();
   });
 
   it('should handle row click', () => {
     const changeSelectedMock = jest.fn();
-    const tree = mountTableRow({ changeSelected: changeSelectedMock, selectByRowClick: true });
+    const tree = mount(<TableSelectRow
+      {...defaultProps}
+      changeSelected={changeSelectedMock}
+      selectByRowClick
+    />);
 
     tree.find('tr').simulate('click');
-
     expect(changeSelectedMock).toBeCalled();
   });
 });

@@ -32,8 +32,8 @@ const TableDetailToggleCellBase = ({ style, expanded, classes, toggleExpanded })
     <span className={classes.toggleCellIcon}>
       {
         expanded
-        ? <ExpandMore />
-        : <ChevronRight />
+          ? <ExpandMore />
+          : <ChevronRight />
       }
     </span>
   </TableCell>

@@ -1,8 +1,15 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 
 const defaultGetGroupValue = value => value;
+const defaultGetGroupKey = key => String(key);
 
-export const groupedRows = (rows, grouping, getCellData, getGroupValue = defaultGetGroupValue) => {
+export const groupedRows = (
+  rows,
+  grouping,
+  getCellData,
+  getGroupValue = defaultGetGroupValue,
+  getGroupKey = defaultGetGroupKey,
+) => {
   if (!grouping.length) return rows;
 
   const columnGrouping = grouping[0];
@@ -10,22 +17,23 @@ export const groupedRows = (rows, grouping, getCellData, getGroupValue = default
     .reduce((acc, row) => {
       const value = getGroupValue(getCellData(row, columnGrouping.columnName),
         columnGrouping, row);
-      const key = String(value);
+      const key = getGroupKey(value, columnGrouping, row);
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
-        acc.set(key, [value, [row]]);
+        acc.set(key, [value, key, [row]]);
       } else {
-        sameKeyItems[1].push(row);
+        sameKeyItems[2].push(row);
       }
       return acc;
     }, new Map());
 
   const nestedGrouping = grouping.slice(1);
   return [...groups.values()]
-    .map(([value, items]) => ({
+    .map(([value, key, items]) => ({
       value,
-      items: groupedRows(items, nestedGrouping, getCellData, getGroupValue),
+      key,
+      items: groupedRows(items, nestedGrouping, getCellData, getGroupValue, getGroupKey),
     }));
 };
 
@@ -33,9 +41,9 @@ export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = ''
   if (!grouping.length) return rows;
 
   const nestedGrouping = grouping.slice(1);
-  return rows.reduce((acc, { value, items }) => {
+  return rows.reduce((acc, { value, key: groupKey, items }) => {
     const groupedBy = grouping[0].columnName;
-    const key = `${keyPrefix}${String(value)}`;
+    const key = `${keyPrefix}${groupKey}`;
     const expanded = expandedGroups.has(key);
     return [
       ...acc,

@@ -10,9 +10,10 @@ A plugin that performs local grouping and group expanding/collapsing.
 
 ### Properties
 
-Name | Type | Default | Description
------|------|---------|------------
-getGroupValue | (value: any, grouping: [Grouping](grouping-state.md#grouping), row: [Row](grid.md#row)) => any | value => value | A function used to get a column group value.
+Name | Type | Description
+-----|------|------------
+getGroupValue | (value: any, grouping: [Grouping](grouping-state.md#grouping), row: [Row](grid.md#row)) => any | A function used to get a column group value.
+getGroupKey | (value: any, grouping: [Grouping](grouping-state.md#grouping), row: [Row](grid.md#row)) => String | A function used to get a column group key.
 
 ## Plugin Developer Reference
 

@@ -50,7 +50,7 @@ If you want to provide a custom group value for a column, pass your grouping fun
 
 .embedded-demo(grouping/local-grouping-custom)
 
-Also, to save the grouped columns in the table, you can specify a custom function in the `showColumnWhenGrouped` property of the `TableGroupRow` plugin:
+For more complex scenarios, you can also specify a custom function in the `showColumnWhenGrouped` property of the `TableGroupRow` plugin to save the grouped columns in the table:
 
 ```js
   <Grid>
@@ -63,3 +63,6 @@ Also, to save the grouped columns in the table, you can specify a custom functio
     <TableGroupRow />
   </Grid>
 ```
+For complex groupings scenarios, pass your grouping function to the `LocalGrouping` plugin’s `getGroupKey` property. This function should return the custom key value by which the rows will be grouped. In the following example, all records are divided into two groups by the first letter of the `name` column. Also the `groupCellTemplate` property of the `TableGroupRow` is used to provide a custom appearance for the group rows.
+
+.embedded-demo(grouping/local-grouping-custom-advanced)

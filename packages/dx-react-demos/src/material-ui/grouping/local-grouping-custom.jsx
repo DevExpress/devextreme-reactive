@@ -39,7 +39,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, grouping, getGroupValue } = this.state;
+    const { rows, columns, grouping } = this.state;
 
     return (
       <Grid
@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
           grouping={grouping}
         />
         <LocalGrouping
-          getGroupValue={getGroupValue}
+          getGroupValue={this.getGroupValue}
         />
         <TableView />
         <TableHeaderRow />

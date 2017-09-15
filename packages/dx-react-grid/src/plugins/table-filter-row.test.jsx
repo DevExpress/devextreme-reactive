@@ -136,7 +136,6 @@ describe('TableHeaderRow', () => {
     expect(valueEditor)
       .toHaveBeenCalledWith({
         column: deps.template.tableViewCell.tableColumn.column,
-        row: deps.template.tableViewCell.tableRow.row,
         value: deps.getter.filters[0].value,
         onValueChange: expect.any(Function),
       });

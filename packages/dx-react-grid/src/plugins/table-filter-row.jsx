@@ -21,7 +21,6 @@ const getFilterTableCellTemplateArgs = (
 ) => ({
   ...params,
   column: params.tableColumn.column,
-  row: params.tableRow.row,
   filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
   setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
 });

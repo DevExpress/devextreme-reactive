@@ -120,7 +120,7 @@ describe('TableHeaderRow', () => {
     });
   });
 
-  it('should render selectAll cell on select column and heading row intersection', () => {
+  it('should render select cell on select column and user-defined row intersection', () => {
     isSelectTableCell.mockImplementation(() => true);
     const selectCellTemplate = jest.fn(() => null);
 
@@ -146,7 +146,7 @@ describe('TableHeaderRow', () => {
       }));
   });
 
-  it('should render select cell on select column and user-defined row intersection', () => {
+  it('should render selectAll cell on select column and heading row intersection', () => {
     isSelectAllTableCell.mockImplementation(() => true);
     const selectAllCellTemplate = jest.fn(() => null);
 
@@ -160,7 +160,7 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
-    expect(isSelectTableCell)
+    expect(isSelectAllTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,
         defaultDeps.template.tableViewCell.tableColumn,

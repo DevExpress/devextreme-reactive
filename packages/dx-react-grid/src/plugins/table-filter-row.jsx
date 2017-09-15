@@ -1,11 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, PluginContainer,
+  TemplateConnector, TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
   isFilterTableCell,
 } from '@devexpress/dx-grid-core';
+
+const getFilterTableCellTemplateArgs = (
+  params,
+  { filters },
+  { setColumnFilter },
+) => ({
+  ...params,
+  column: params.tableColumn.column,
+  filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
+  setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
+});
 
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
@@ -28,14 +42,17 @@ export class TableFilterRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
-          connectGetters={(getter, { tableColumn: { column } }) => ({
-            filter: getColumnFilterConfig(getter('filters'), column.name),
-          })}
-          connectActions={(action, { tableColumn: { column } }) => ({
-            setFilter: config => action('setColumnFilter')({ columnName: column.name, config }),
-          })}
         >
-          {params => filterCellTemplate({ ...params, column: params.tableColumn.column })}
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={filterCellTemplate}
+                  params={getFilterTableCellTemplateArgs(params, getters, actions)}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
       </PluginContainer>
     );

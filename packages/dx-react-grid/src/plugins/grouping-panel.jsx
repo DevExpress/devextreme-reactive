@@ -1,8 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Template, TemplatePlaceholder, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Template, TemplatePlaceholder, PluginContainer,
+  TemplateConnector, TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import { groupingPanelItems } from '@devexpress/dx-grid-core';
+
+const getGroupPanelTemplateArgs = (
+  { allowDragging, allowSorting, allowUngroupingByClick },
+  { columns, draftGrouping, sorting },
+  { groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange },
+) => ({
+  allowSorting,
+  allowDragging,
+  allowUngroupingByClick,
+  groupingPanelItems: groupingPanelItems(columns, draftGrouping),
+  sorting,
+  groupByColumn,
+  changeSortingDirection: ({ columnName, keepOther, cancel }) =>
+    setColumnSorting({
+      columnName,
+      keepOther,
+      cancel,
+      scope: draftGrouping.map(columnGrouping => columnGrouping.columnName),
+    }),
+  draftGroupingChange: groupingChange => draftGroupingChange(groupingChange),
+  cancelGroupingChange: () => cancelGroupingChange(),
+});
 
 export class GroupingPanel extends React.PureComponent {
   render() {
@@ -21,44 +46,22 @@ export class GroupingPanel extends React.PureComponent {
           { pluginName: 'SortingState', optional: !allowSorting },
         ]}
       >
-        <Template
-          name="header"
-          connectGetters={getter => ({
-            columns: getter('columns'),
-            grouping: getter('draftGrouping'),
-            sorting: getter('sorting'),
-            sortingScope: getter('draftGrouping').map(columnGrouping => columnGrouping.columnName),
-          })}
-          connectActions={action => ({
-            groupByColumn: action('groupByColumn'),
-            changeSortingDirection: ({ columnName, keepOther, cancel, scope }) =>
-              action('setColumnSorting')({ columnName, keepOther, cancel, scope }),
-            draftGroupingChange: groupingChange => action('draftGroupingChange')(groupingChange),
-            cancelGroupingChange: () => action('cancelGroupingChange')(),
-          })}
-        >
-          {({
-            columns,
-            grouping,
-            changeSortingDirection,
-            sortingScope,
-            ...restParams
-            }) => (
-              <div>
-                {groupPanelTemplate({
-                  changeSortingDirection: params => changeSortingDirection({
-                    ...params,
-                    scope: sortingScope,
-                  }),
-                  allowSorting,
-                  allowDragging,
-                  allowUngroupingByClick,
-                  groupingPanelItems: groupingPanelItems(columns, grouping),
-                  ...restParams,
-                })}
-                <TemplatePlaceholder />
-              </div>
-            )}
+        <Template name="header">
+          <div>
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={groupPanelTemplate}
+                  params={getGroupPanelTemplateArgs(
+                    { allowDragging, allowSorting, allowUngroupingByClick },
+                    getters,
+                    actions,
+                  )}
+                />
+              )}
+            </TemplateConnector>
+            <TemplatePlaceholder />
+          </div>
         </Template>
       </PluginContainer>
     );

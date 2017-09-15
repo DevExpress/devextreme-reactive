@@ -12,6 +12,10 @@ const tableTemplate = ({ children, ...restProps }) => (
   <table
     className="table"
     {...restProps}
+    style={{
+      ...restProps.style,
+      overflow: 'hidden',
+    }}
   >
     {children}
   </table>

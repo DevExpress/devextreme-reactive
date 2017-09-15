@@ -13,12 +13,10 @@ To format values in cells of a particular column add the [DataTypeProvider](../r
 ```js
 const rows = [
   { product: 'SolarOne', price: '3039' },
-  ...
 ];
 const columns = [
   { name: 'product', title: 'Product' },
   { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
-  ...
 ];
 <Grid
   rows={rows}
@@ -28,7 +26,6 @@ const columns = [
     type="currency"
     formatterTemplate={({ value }) => <span>${value}</span>}
   />
-  ...
 </Grid>
 ```
 
@@ -40,13 +37,11 @@ To use custom editors for editing values in a particular column add the [DataTyp
 
 ```js
 const rows = [
-  { product: 'SolarOne', shipped: true, ... },
-  ...
+  { product: 'SolarOne', shipped: true },
 ];
 const columns = [
   { name: 'product', title: 'Product' },
   { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
-  ...
 ];
 <Grid
   rows={rows}
@@ -60,9 +55,7 @@ const columns = [
         <option value={false}>No</option>
       </select>
     )}
-    {...}
   />
-  ...
 </Grid>
 ```
 

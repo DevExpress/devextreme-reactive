@@ -33,7 +33,7 @@ const getGroupTableCellTemplateArgs = (
   toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
 });
 
-const getValueEditorArgs = params => ({
+const getValueFormatterArgs = params => ({
   row: params.row,
   column: params.column,
   value: params.row.value,
@@ -76,7 +76,7 @@ export class TableGroupRow extends React.PureComponent {
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
-                    params={getValueEditorArgs(templateArgs)}
+                    params={getValueFormatterArgs(templateArgs)}
                   >
                     {content => (
                       <TemplateRenderer

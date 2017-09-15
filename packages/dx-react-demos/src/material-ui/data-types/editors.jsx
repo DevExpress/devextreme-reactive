@@ -78,6 +78,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
+        getRowId={row => row.id}
       >
         <BooleanTypeProvider />
         <EditingState

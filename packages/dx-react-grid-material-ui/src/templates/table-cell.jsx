@@ -38,7 +38,10 @@ TableCellBase.propTypes = {
   value: PropTypes.any,
   column: PropTypes.shape(),
   classes: PropTypes.object.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 TableCellBase.defaultProps = {

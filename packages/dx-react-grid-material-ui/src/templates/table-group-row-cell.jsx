@@ -68,7 +68,10 @@ TableGroupCellBase.propTypes = {
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 TableGroupCellBase.defaultProps = {

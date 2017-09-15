@@ -38,7 +38,10 @@ TableFilterCellBase.propTypes = {
   filter: PropTypes.object,
   setFilter: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 TableFilterCellBase.defaultProps = {

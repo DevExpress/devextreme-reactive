@@ -23,7 +23,10 @@ TableFilterCell.propTypes = {
   style: PropTypes.object,
   filter: PropTypes.object,
   setFilter: PropTypes.func,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 TableFilterCell.defaultProps = {

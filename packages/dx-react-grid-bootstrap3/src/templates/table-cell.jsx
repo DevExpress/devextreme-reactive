@@ -19,7 +19,10 @@ TableCell.propTypes = {
   style: PropTypes.shape(),
   value: PropTypes.any,
   column: PropTypes.shape(),
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 TableCell.defaultProps = {

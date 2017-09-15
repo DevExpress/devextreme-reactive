@@ -1,4 +1,4 @@
-const format = require('util').format;
+const { format } = require('util');
 
 module.exports = {
   setupConsole: (config = {}) => {

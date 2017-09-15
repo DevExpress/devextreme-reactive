@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import {
-    orderedColumns,
+  orderedColumns,
 } from './computeds';
 
 describe('ColumnOrderState computeds', () => {

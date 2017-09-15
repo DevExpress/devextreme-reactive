@@ -1,10 +1,10 @@
 import {
-    paginate,
-    ensurePageHeaders,
-    pageCount,
-    rowCount,
-    firstRowOnPage,
-    lastRowOnPage,
+  paginate,
+  ensurePageHeaders,
+  pageCount,
+  rowCount,
+  firstRowOnPage,
+  lastRowOnPage,
 } from './computeds';
 
 describe('PagingState computeds', () => {

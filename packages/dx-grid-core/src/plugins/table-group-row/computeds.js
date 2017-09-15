@@ -19,7 +19,10 @@ const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping) =>
     }, []);
 
 export const tableColumnsWithGrouping = (
-  tableColumns, grouping, draftGrouping, groupIndentColumnWidth,
+  tableColumns,
+  grouping,
+  draftGrouping,
+  groupIndentColumnWidth,
 ) => [
   ...grouping.map((columnGrouping) => {
     const groupedColumn = tableColumns

@@ -1,5 +1,5 @@
 import {
-    getRowChange,
+  getRowChange,
 } from './helpers';
 
 describe('EditingState helpers', () => {

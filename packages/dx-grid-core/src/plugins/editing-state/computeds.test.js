@@ -1,7 +1,7 @@
 import {
-    changedRowsByIds,
-    addedRowsByIds,
-    computedCreateRowChange,
+  changedRowsByIds,
+  addedRowsByIds,
+  computedCreateRowChange,
 } from './computeds';
 
 describe('EditingState computeds', () => {

@@ -1,5 +1,5 @@
 import {
-    filteredRows,
+  filteredRows,
 } from './computeds';
 
 describe('FilteringState computeds', () => {

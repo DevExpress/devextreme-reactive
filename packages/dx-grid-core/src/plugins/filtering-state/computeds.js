@@ -8,8 +8,6 @@ export const filteredRows = (rows, filters, getCellData, userFilterFn) => {
   const filterFn = userFilterFn ||
     ((row, filter) => applyFilter(filter, getCellData(row, filter.columnName)));
 
-  return rows.filter(
-    row => filters.reduce(
-      (accumulator, filter) =>
-        accumulator && filterFn(row, filter), true));
+  return rows.filter(row => filters.reduce((accumulator, filter) =>
+    accumulator && filterFn(row, filter), true));
 };

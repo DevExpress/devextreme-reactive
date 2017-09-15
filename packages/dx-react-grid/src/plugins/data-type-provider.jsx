@@ -8,18 +8,28 @@ export class DataTypeProvider extends React.PureComponent {
     const { formatterTemplate, editorTemplate, type } = this.props;
     return (
       <PluginContainer name="DataTypeProvider">
-        <Template
-          name="valueFormatter"
-          predicate={({ column }) => column.dataType === type}
-        >
-          {params => formatterTemplate(params)}
-        </Template>
-        <Template
-          name="valueEditor"
-          predicate={({ column }) => column.dataType === type}
-        >
-          {params => editorTemplate(params)}
-        </Template>
+        {formatterTemplate
+          ? (
+            <Template
+              name="valueFormatter"
+              predicate={({ column }) => column.dataType === type}
+            >
+              {params => formatterTemplate(params)}
+            </Template>
+          )
+          : null
+        }
+        {editorTemplate
+          ? (
+            <Template
+              name="valueEditor"
+              predicate={({ column }) => column.dataType === type}
+            >
+              {params => editorTemplate(params)}
+            </Template>
+          )
+          : null
+        }
       </PluginContainer>
     );
   }
@@ -33,6 +43,6 @@ DataTypeProvider.propTypes = {
 
 DataTypeProvider.defaultProps = {
   type: undefined,
-  formatterTemplate: () => null,
-  editorTemplate: () => null,
+  formatterTemplate: undefined,
+  editorTemplate: undefined,
 };

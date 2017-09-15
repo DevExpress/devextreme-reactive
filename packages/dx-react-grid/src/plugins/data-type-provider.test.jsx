@@ -13,38 +13,47 @@ describe('DataTypeProvider', () => {
     resetConsole();
   });
 
-  it('should define the "valueFormatter" and the "valueEditor" templates', () => {
+  it('should define the "valueFormatter" with correct predicate if "formatterTemplate" is specified', () => {
     const tree = mount(
       <PluginHost>
-        <DataTypeProvider />
+        <DataTypeProvider
+          type="test"
+          formatterTemplate={() => null}
+        />
       </PluginHost>,
     );
 
-    expect(tree.findWhere(n => n.prop('name') === 'valueFormatter').length)
-      .toBe(1);
-    expect(tree.findWhere(n => n.prop('name') === 'valueEditor').length)
-      .toBe(1);
+    const valueFormatter = tree.findWhere(n => n.prop('name') === 'valueFormatter');
+
+    expect(valueFormatter.exists())
+      .toBeTruthy();
+    expect(tree.findWhere(n => n.prop('name') === 'valueEditor').exists())
+      .toBeFalsy();
+    expect(valueFormatter.prop('predicate')({ column: { dataType: 'test' } }))
+      .toBeTruthy();
+    expect(valueFormatter.prop('predicate')({ column: { dataType: 'value' } }))
+      .toBeFalsy();
   });
 
-  it('should define templates with correct predicates', () => {
+  it('should define the "valueEditor" with correct predicate if "editorTemplate" is specified', () => {
     const tree = mount(
       <PluginHost>
-        <DataTypeProvider type="test" />
+        <DataTypeProvider
+          type="test"
+          editorTemplate={() => null}
+        />
       </PluginHost>,
     );
 
-    const valueFormatterPredicate = tree.findWhere(n => n.prop('name') === 'valueFormatter')
-      .prop('predicate');
-    expect(valueFormatterPredicate({ column: { dataType: 'test' } }))
-      .toBeTruthy();
-    expect(valueFormatterPredicate({ column: { dataType: 'value' } }))
-      .toBeFalsy();
+    const valueEditor = tree.findWhere(n => n.prop('name') === 'valueEditor');
 
-    const valueEditorPredicate = tree.findWhere(n => n.prop('name') === 'valueEditor')
-      .prop('predicate');
-    expect(valueEditorPredicate({ column: { dataType: 'test' } }))
+    expect(valueEditor.exists())
       .toBeTruthy();
-    expect(valueEditorPredicate({ column: { dataType: 'value' } }))
+    expect(tree.findWhere(n => n.prop('name') === 'valueFormatter').exists())
+      .toBeFalsy();
+    expect(valueEditor.prop('predicate')({ column: { dataType: 'test' } }))
+      .toBeTruthy();
+    expect(valueEditor.prop('predicate')({ column: { dataType: 'value' } }))
       .toBeFalsy();
   });
 });

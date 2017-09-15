@@ -50,9 +50,12 @@ const columns = [
   <DataTypeProvider
     type="boolean"
     editorTemplate={({ value, onValueChange }) => (
-      <select value={value} onChange={e => onValueChange(e.target.value)}>
-        <option value={true}>Yes</option>
-        <option value={false}>No</option>
+      <select
+        value={value}
+        onChange={e => onValueChange(e.target.value === 'true')}
+      >
+        <option value={false}>No</options>
+        <option value>Yes</option>
       </select>
     )}
   />

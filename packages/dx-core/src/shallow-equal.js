@@ -34,9 +34,7 @@ export function argumentsShallowEqual(prev, next) {
     return false;
   }
 
-  const length = prev.length;
-
-  for (let i = 0; i < length; i += 1) {
+  for (let i = 0; i < prev.length; i += 1) {
     if (prev[i] !== next[i]) {
       return false;
     }

@@ -125,7 +125,7 @@ export class GroupPanelLayout extends React.PureComponent {
           >
             {item}
           </div>
-      );
+        );
     });
   }
 

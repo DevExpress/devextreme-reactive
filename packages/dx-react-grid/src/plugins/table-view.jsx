@@ -107,7 +107,7 @@ export class TableView extends React.PureComponent {
                     params={params}
                   />
                 )
-              )}
+                )}
             </TemplateConnector>
           )}
         </Template>

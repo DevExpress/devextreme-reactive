@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
-        { name: 'saleDate', title: 'Sale Date' },
+        { name: 'units', title: 'Units' },
         { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
       ],
       rows: generateRows({

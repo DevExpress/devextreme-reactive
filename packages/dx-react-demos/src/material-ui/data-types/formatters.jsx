@@ -21,6 +21,13 @@ const CurrencyTypeProvider = () => (
     )}
   />
 );
+const DateTypeProvider = () => (
+  <DataTypeProvider
+    type="date"
+    formatterTemplate={({ value }) =>
+      value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3.$2.$1')}
+  />
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -30,7 +37,7 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
-        { name: 'saleDate', title: 'Sale Date' },
+        { name: 'saleDate', title: 'Sale Date', dataType: 'date' },
         { name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
@@ -45,6 +52,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <CurrencyTypeProvider />
+        <DateTypeProvider />
         <TableView />
         <TableHeaderRow />
       </Grid>

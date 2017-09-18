@@ -13,8 +13,8 @@ This plugin visualizes the selection state within a table by rendering selection
 
 Name | Type | Default | Description
 -----|------|---------|------------
-highlightSelected | boolean | false | If true, selected rows are highlighted. Note that the `tableRowTemplate` of the `TableView` plugin will be ignored in this case.
-selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `tableRowTemplate` of the `TableView` plugin will be ignored in this case.
+highlightSelected | boolean | false | If true, selected rows are highlighted. Note that the `TableView` plugin's `tableRowTemplate` is ignored in this case.
+selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `TableView` plugin's `tableRowTemplate` is ignored in this case.
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row
 showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row
 selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox
@@ -33,7 +33,7 @@ selected? | boolean | Specifies if a row is selected
 
 ### <a name="select-all-cell-args"></a>SelectAllCellArgs
 
-Describes properties passed to the template that renders a cell with a selection control.
+Describes properties passed to the template that renders a cell with selection control.
 
 A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 

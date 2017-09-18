@@ -28,7 +28,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 Field | Type | Description
 ------|------|------------
 filter | [Filter](filtering-state.md#filter) | A filter applied to a column
-setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Apply a new filter to a column
+setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Applies a new filter to a column
 column | [Column](grid.md#column) | Specifies a column
 
 ## Plugin Developer Reference

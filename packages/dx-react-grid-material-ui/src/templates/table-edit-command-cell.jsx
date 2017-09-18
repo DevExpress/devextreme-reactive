@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
 import {
-    Button,
-    TableCell,
+  Button,
+  TableCell,
 } from 'material-ui';
 
 const styles = theme => ({
@@ -49,23 +49,23 @@ CommandButtonBase.propTypes = {
 export const CommandButton = withEditColumnStyles(CommandButtonBase);
 
 const EditCommandHeadingCellBase = ({
-    addRow,
-    commandTemplate,
-    allowAdding,
-    style = {},
-    addCommandText,
-    classes,
-  }) => (
-    <TableCell
-      className={classes.headingCell}
-      style={style}
-    >
-      {allowAdding && commandTemplate({
-        id: 'add',
-        executeCommand: addRow,
-        text: addCommandText,
-      })}
-    </TableCell>
+  addRow,
+  commandTemplate,
+  allowAdding,
+  style = {},
+  addCommandText,
+  classes,
+}) => (
+  <TableCell
+    className={classes.headingCell}
+    style={style}
+  >
+    {allowAdding && commandTemplate({
+      id: 'add',
+      executeCommand: addRow,
+      text: addCommandText,
+    })}
+  </TableCell>
 );
 EditCommandHeadingCellBase.propTypes = {
   addRow: PropTypes.func,
@@ -85,21 +85,21 @@ EditCommandHeadingCellBase.defaultProps = {
 export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
 
 const EditCommandCellBase = ({
-    startEditing,
-    deleteRow,
-    cancelEditing,
-    commitChanges,
-    isEditing,
-    commandTemplate,
-    allowEditing,
-    allowDeleting,
-    style = {},
-    classes,
-    editCommandText,
-    deleteCommandText,
-    commitCommandText,
-    cancelCommandText,
-  }) => {
+  startEditing,
+  deleteRow,
+  cancelEditing,
+  commitChanges,
+  isEditing,
+  commandTemplate,
+  allowEditing,
+  allowDeleting,
+  style = {},
+  classes,
+  editCommandText,
+  deleteCommandText,
+  commitCommandText,
+  cancelCommandText,
+}) => {
   let commands = [];
   if (!isEditing) {
     if (allowEditing) {

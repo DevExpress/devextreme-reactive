@@ -1,6 +1,6 @@
 import {
-    getAvailableToSelect,
-    getAvailableSelection,
+  getAvailableToSelect,
+  getAvailableSelection,
 } from './computeds';
 
 describe('PagingState computeds', () => {

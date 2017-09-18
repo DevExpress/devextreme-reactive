@@ -1,5 +1,5 @@
 import {
-    getFirstChangedGropingIndex,
+  getFirstChangedGropingIndex,
 } from './helpers';
 
 describe('GroupingPlugin helpers', () => {

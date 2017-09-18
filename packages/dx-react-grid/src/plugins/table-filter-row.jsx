@@ -12,6 +12,7 @@ import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
   isFilterTableCell,
+  isFilterTableRow,
 } from '@devexpress/dx-grid-core';
 
 const getFilterTableCellTemplateArgs = (
@@ -39,7 +40,7 @@ const pluginDependencies = [
 
 export class TableFilterRow extends React.PureComponent {
   render() {
-    const { rowHeight, filterCellTemplate } = this.props;
+    const { rowHeight, filterCellTemplate, filterRowTemplate } = this.props;
 
     const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
       tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
@@ -77,6 +78,17 @@ export class TableFilterRow extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isFilterTableRow(tableRow)}
+        >
+          {params => (
+            <TemplateRenderer
+              template={filterRowTemplate}
+              params={params}
+            />
+          )}
+        </Template>
       </PluginContainer>
     );
   }
@@ -85,6 +97,7 @@ export class TableFilterRow extends React.PureComponent {
 TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
   filterCellTemplate: PropTypes.func.isRequired,
+  filterRowTemplate: PropTypes.func.isRequired,
 };
 
 TableFilterRow.defaultProps = {

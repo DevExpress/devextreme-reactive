@@ -49,8 +49,8 @@ const TableGroupCellBase = ({
     <span className={classes.groupIcon}>
       {
         isExpanded
-        ? <ExpandMore />
-        : <ChevronRight />
+          ? <ExpandMore />
+          : <ChevronRight />
       }
     </span>
     <span className={classes.columnTitle}>

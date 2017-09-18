@@ -20,22 +20,22 @@ const PagerBase = ({
   onPageSizeChange,
   totalCount,
   showAllText,
-  }) => (
-    <div className={classes.pager}>
-      <Pagination
-        totalPages={totalPages}
-        totalCount={totalCount}
-        currentPage={currentPage}
-        onCurrentPageChange={page => onCurrentPageChange(page)}
-        pageSize={pageSize}
-      />
-      {!!allowedPageSizes.length && <PageSizeSelector
-        pageSize={pageSize}
-        onPageSizeChange={onPageSizeChange}
-        allowedPageSizes={allowedPageSizes}
-        showAllText={showAllText}
-      />}
-    </div>
+}) => (
+  <div className={classes.pager}>
+    <Pagination
+      totalPages={totalPages}
+      totalCount={totalCount}
+      currentPage={currentPage}
+      onCurrentPageChange={page => onCurrentPageChange(page)}
+      pageSize={pageSize}
+    />
+    {!!allowedPageSizes.length && <PageSizeSelector
+      pageSize={pageSize}
+      onPageSizeChange={onPageSizeChange}
+      allowedPageSizes={allowedPageSizes}
+      showAllText={showAllText}
+    />}
+  </div>
 );
 
 PagerBase.propTypes = {

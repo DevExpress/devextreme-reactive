@@ -1,5 +1,5 @@
 import {
-    getColumnFilterConfig,
+  getColumnFilterConfig,
 } from './helpers';
 
 describe('FilteringPlugin helpers', () => {

@@ -8,6 +8,7 @@ import {
   isNoDataTableRow,
   isDataTableCell,
   isHeaderStubTableCell,
+  isDataTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableView } from './table-view';
 import { DataTypeProvider } from './data-type-provider';
@@ -19,6 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isNoDataTableRow: jest.fn(),
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
+  isDataTableRow: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -43,6 +45,7 @@ const defaultProps = {
   tableStubCellTemplate: () => null,
   tableStubHeaderCellTemplate: () => null,
   tableNoDataCellTemplate: () => null,
+  tableNoDataRowTemplate: () => null,
 };
 
 describe('TableView', () => {
@@ -60,6 +63,7 @@ describe('TableView', () => {
     isNoDataTableRow.mockImplementation(() => false);
     isDataTableCell.mockImplementation(() => false);
     isHeaderStubTableCell.mockImplementation(() => false);
+    isDataTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -230,9 +234,10 @@ describe('TableView', () => {
   });
 
   it('should render row by using tableRowTemplate', () => {
+    isDataTableRow.mockImplementation(() => true);
     const tableRowTemplate = jest.fn(() => null);
     const tableRowArgs = {
-      tableRow: { row: 'row' },
+      tableRow: { row: 'row', type: 'data' },
       style: {},
       children: null,
     };
@@ -248,6 +253,33 @@ describe('TableView', () => {
       </PluginHost>,
     );
 
-    expect(tableRowTemplate).toBeCalledWith(tableRowArgs);
+    expect(isDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
+    expect(tableRowTemplate).toBeCalledWith(expect.objectContaining({
+      ...tableRowArgs,
+      row: tableRowArgs.tableRow.row,
+    }));
+  });
+  it('should render empty row by using tableNoDataRowTemplate', () => {
+    isNoDataTableRow.mockImplementation(() => true);
+    const tableNoDataRowTemplate = jest.fn(() => null);
+    const tableRowArgs = {
+      tableRow: { row: 'row', type: 'nodata' },
+      style: {},
+      children: null,
+    };
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableView
+          {...defaultProps}
+          tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
+          tableNoDataRowTemplate={tableNoDataRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(isNoDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
+    expect(tableNoDataRowTemplate).toBeCalledWith(tableRowArgs);
   });
 });

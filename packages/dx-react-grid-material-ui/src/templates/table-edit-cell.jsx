@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 
 import {
-    TableCell,
-    Input,
+  TableCell,
+  Input,
 } from 'material-ui';
 
 const styles = theme => ({

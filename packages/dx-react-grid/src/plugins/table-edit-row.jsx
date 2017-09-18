@@ -11,6 +11,7 @@ import {
 import {
   getRowChange,
   tableRowsWithEditing,
+  isEditTableRow,
   isAddedTableRow,
   isEditTableCell,
 } from '@devexpress/dx-grid-core';
@@ -53,6 +54,11 @@ const getValueEditorArgs = params => ({
   onValueChange: params.onValueChange,
 });
 
+const getEditTableRowTemplateArgs = params => ({
+  ...params,
+  row: params.tableRow.row,
+});
+
 const pluginDependencies = [
   { pluginName: 'EditingState' },
   { pluginName: 'TableView' },
@@ -60,7 +66,7 @@ const pluginDependencies = [
 
 export class TableEditRow extends React.PureComponent {
   render() {
-    const { editCellTemplate, rowHeight } = this.props;
+    const { editCellTemplate, editRowTemplate, rowHeight } = this.props;
 
     const tableBodyRowsComputed = ({ tableBodyRows, editingRows, addedRows }) =>
       tableRowsWithEditing(tableBodyRows, editingRows, addedRows, rowHeight);
@@ -98,6 +104,21 @@ export class TableEditRow extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
+        >
+          {params => (
+            <TemplateConnector>
+              {() => (
+                <TemplateRenderer
+                  template={editRowTemplate}
+                  params={getEditTableRowTemplateArgs(params)}
+                />
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
       </PluginContainer>
     );
   }
@@ -106,6 +127,7 @@ export class TableEditRow extends React.PureComponent {
 TableEditRow.propTypes = {
   rowHeight: PropTypes.any,
   editCellTemplate: PropTypes.func.isRequired,
+  editRowTemplate: PropTypes.func.isRequired,
 };
 
 TableEditRow.defaultProps = {

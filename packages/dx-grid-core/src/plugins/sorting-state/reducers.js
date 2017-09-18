@@ -1,4 +1,6 @@
-export const setColumnSorting = (sorting, { columnName, direction, keepOther, cancel, scope }) => {
+export const setColumnSorting = (sorting, {
+  columnName, direction, keepOther, cancel, scope,
+}) => {
   const sortingIndex = sorting.findIndex(s => s.columnName === columnName);
   const columnSorting = sorting[sortingIndex];
   let nextSorting = keepOther ? sorting.slice() : [];

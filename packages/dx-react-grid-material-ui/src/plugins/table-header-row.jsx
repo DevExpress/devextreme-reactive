@@ -1,12 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
 import { TableHeaderCell } from '../templates/table-header-cell';
+import { TableRow } from '../templates/table-row';
 
-const headerCellTemplate = props => <TableHeaderCell {...props} />;
+const defaultHeaderCellTemplate = props => <TableHeaderCell {...props} />;
+const defaultHeaderRowTemplate = props => <TableRow {...props} />;
 
-export const TableHeaderRow = props => (
+export const TableHeaderRow = ({ headerCellTemplate, headerRowTemplate, ...restProps }) => (
   <TableHeaderRowBase
-    headerCellTemplate={headerCellTemplate}
-    {...props}
+    headerCellTemplate={combineTemplates(
+      headerCellTemplate,
+      defaultHeaderCellTemplate,
+    )}
+    headerRowTemplate={combineTemplates(
+      headerRowTemplate,
+      defaultHeaderRowTemplate,
+    )}
+    {...restProps}
   />
 );
+
+TableHeaderRow.propTypes = {
+  headerCellTemplate: PropTypes.func,
+  headerRowTemplate: PropTypes.func,
+};
+TableHeaderRow.defaultProps = {
+  headerCellTemplate: undefined,
+  headerRowTemplate: undefined,
+};

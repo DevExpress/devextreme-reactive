@@ -6,6 +6,7 @@ import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   getColumnFilterConfig,
+  isFilterTableRow,
 } from '@devexpress/dx-grid-core';
 import { DataTypeProvider } from './data-type-provider';
 import { TableFilterRow } from './table-filter-row';
@@ -14,6 +15,7 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableHeaderRowsWithFilter: jest.fn(),
   isFilterTableCell: jest.fn(),
+  isFilterTableRow: jest.fn(),
   getColumnFilterConfig: jest.fn(),
 }));
 
@@ -31,12 +33,17 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
+    tableViewRow: {
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      style: {},
+    },
   },
   plugins: ['FilteringState', 'TableView'],
 };
 
 const defaultProps = {
   filterCellTemplate: () => null,
+  filterRowTemplate: () => null,
 };
 
 describe('TableHeaderRow', () => {
@@ -51,6 +58,7 @@ describe('TableHeaderRow', () => {
   beforeEach(() => {
     tableHeaderRowsWithFilter.mockImplementation(() => 'tableHeaderRowsWithFilter');
     isFilterTableCell.mockImplementation(() => false);
+    isFilterTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -141,5 +149,22 @@ describe('TableHeaderRow', () => {
       });
     expect(filterCellTemplate.mock.calls[0][0])
       .toHaveProperty('children');
+  });
+
+  it('should render row by using filterRowTemplate', () => {
+    isFilterTableRow.mockImplementation(() => true);
+    const filterRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+          filterRowTemplate={filterRowTemplate}
+        />
+      </PluginHost>,
+    );
+    expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
   });
 });

@@ -2,7 +2,7 @@ import mergeSort from '../../utils/merge-sort';
 
 const createSortingCompare = (sorting, compareEqual, getCellData) => (a, b) => {
   const inverse = sorting.direction === 'desc';
-  const columnName = sorting.columnName;
+  const { columnName } = sorting;
   const aValue = getCellData(a, columnName);
   const bValue = getCellData(b, columnName);
 

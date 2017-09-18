@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import {
-    setColumnFilter,
+  setColumnFilter,
 } from './reducers';
 
 describe('SortingState reducers', () => {

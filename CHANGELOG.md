@@ -1,3 +1,56 @@
+<a name="1.0.0-alpha.10"></a>
+# [1.0.0-alpha.10](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2017-09-18)
+
+
+### Bug Fixes
+
+* **react-core:** use correct params within template chain ([#322](https://github.com/DevExpress/devextreme-reactive/issues/322)) ([64a9991](https://github.com/DevExpress/devextreme-reactive/commit/64a9991))
+
+
+### Code Refactoring
+
+* **react-core:** remove embedded Template connection ([#331](https://github.com/DevExpress/devextreme-reactive/issues/331)) ([f90955d](https://github.com/DevExpress/devextreme-reactive/commit/f90955d))
+* **react-grid:** rename tableTemplate to tableLayoutTemplate ([#310](https://github.com/DevExpress/devextreme-reactive/issues/310)) ([def4a97](https://github.com/DevExpress/devextreme-reactive/commit/def4a97))
+
+
+### Features
+
+* **react-core:** implement TemplateConnector ([#314](https://github.com/DevExpress/devextreme-reactive/issues/314)) ([1e9bcfc](https://github.com/DevExpress/devextreme-reactive/commit/1e9bcfc))
+* **react-grid:** add tableRowTemplate to the TableView plugin ([#317](https://github.com/DevExpress/devextreme-reactive/issues/317)) ([24d9446](https://github.com/DevExpress/devextreme-reactive/commit/24d9446))
+* **react-grid:** implement row templates ([#333](https://github.com/DevExpress/devextreme-reactive/issues/333)) ([bc960d4](https://github.com/DevExpress/devextreme-reactive/commit/bc960d4))
+* **react-grid:** implement table column resizing ([#297](https://github.com/DevExpress/devextreme-reactive/issues/297)) ([a377d3c](https://github.com/DevExpress/devextreme-reactive/commit/a377d3c))
+* **react-grid:** make grouped and ungrouped column sorting independent ([#292](https://github.com/DevExpress/devextreme-reactive/issues/292)) ([c812fa3](https://github.com/DevExpress/devextreme-reactive/commit/c812fa3))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** The `tableExtraProps` getter was removed from the `TableView` and `TableSelection` plugins.
+* **react-core:** `connectGetters` and `connectActions` properties have been removed from the Template component. From now on, you can connect Getters and Actions using the TemplateConnector component.
+
+Before:
+
+```jsx
+<Template name="templateName" 
+  connectGetters={getter => ({ value: getter('value') })}
+  connectActions={action => ({ changeValue: action('changeValue') })}
+>
+  {({ value, changeValue }) => /* ... */}
+</Template>
+```
+
+After:
+
+```jsx
+<Template name="templateName">
+  <TemplateConnector>
+    {({ value }, { changeValue }) =>  /* ... */}
+  </TemplateConnector>
+</Template>
+```
+* **react-grid:** The `tableTemplate` property has been renamed to `tableLayoutTemplate` to make the `TableView` plugin API more eloquent.
+
+
+
 <a name="1.0.0-alpha.9"></a>
 # [1.0.0-alpha.9](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2017-09-04)
 

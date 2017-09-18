@@ -7,6 +7,7 @@ import {
   tableRowsWithGrouping,
   isGroupTableCell,
   isGroupIndentTableCell,
+  isGroupTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableGroupRow } from './table-group-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -16,6 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithGrouping: jest.fn(),
   isGroupTableCell: jest.fn(),
   isGroupIndentTableCell: jest.fn(),
+  isGroupTableRow: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -35,6 +37,10 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', id: 1, column: 'column' },
       style: {},
     },
+    tableViewRow: {
+      tableRow: { type: 'undefined', id: 1, row: 'row' },
+      style: {},
+    },
   },
   plugins: ['GroupingState', 'TableView'],
 };
@@ -42,6 +48,7 @@ const defaultDeps = {
 const defaultProps = {
   groupCellTemplate: () => null,
   groupIndentCellTemplate: () => null,
+  groupRowTemplate: () => null,
   groupIndentColumnWidth: 100,
 };
 
@@ -60,6 +67,7 @@ describe('TableGroupRow', () => {
     tableRowsWithGrouping.mockImplementation(() => 'tableRowsWithGrouping');
     isGroupTableCell.mockImplementation(() => false);
     isGroupIndentTableCell.mockImplementation(() => false);
+    isGroupTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -156,5 +164,25 @@ describe('TableGroupRow', () => {
         row: defaultDeps.template.tableViewCell.tableRow.row,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
+  });
+  it('should render row by using groupRowTemplate', () => {
+    isGroupTableRow.mockImplementation(() => true);
+    const groupRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableGroupRow
+          {...defaultProps}
+          groupRowTemplate={groupRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(isGroupTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(groupRowTemplate).toBeCalledWith(expect.objectContaining({
+      ...defaultDeps.template.tableViewRow,
+      row: defaultDeps.template.tableViewRow.tableRow.row,
+    }));
   });
 });

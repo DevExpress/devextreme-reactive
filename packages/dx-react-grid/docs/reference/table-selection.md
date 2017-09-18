@@ -13,8 +13,8 @@ This plugin visualizes the selection state within a table by rendering selection
 
 Name | Type | Default | Description
 -----|------|---------|------------
-highlightSelected | boolean | false | If true, selected rows are highlighted
-selectByRowClick | boolean | false | If true, a selected row is toggled by click
+highlightSelected | boolean | false | If true, selected rows are highlighted. Note that the `TableView` plugin's `tableRowTemplate` is ignored in this case.
+selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `TableView` plugin's `tableRowTemplate` is ignored in this case.
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row
 showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row
 selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox
@@ -33,7 +33,7 @@ selected? | boolean | Specifies if a row is selected
 
 ### <a name="select-all-cell-args"></a>SelectAllCellArgs
 
-Describes properties passed to the template that renders a cell with a selection control.
+Describes properties passed to the template that renders a cell with selection control.
 
 A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
 
@@ -64,11 +64,11 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns
 tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
-tableExtraProps | Getter | { [key: string]: any } | Additional table properties that can be provided by other plugins
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows
 availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection
 setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean }) => void | Selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
+tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row
 
 ### Exports
 
@@ -76,4 +76,3 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns including the selection column
 tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered including the selected ones
-tableExtraProps | Getter | { [key: string]: any } | Additional table properties extended with the row onClick event listener

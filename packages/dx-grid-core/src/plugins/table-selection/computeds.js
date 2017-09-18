@@ -1,6 +1,5 @@
 import { TABLE_SELECT_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table-view/constants';
-import extendWithEventListener from '../../utils/extend-with-event-listener';
 
 export const tableColumnsWithSelection = (tableColumns, selectionColumnWidth) => [
   { key: TABLE_SELECT_TYPE, type: TABLE_SELECT_TYPE, width: selectionColumnWidth },
@@ -15,9 +14,3 @@ export const tableRowsWithSelection = (tableRows, selection) => {
       return { selected: true, ...tableRow };
     });
 };
-
-export const tableExtraPropsWithSelection = (extraProps, setRowsSelection) =>
-  extendWithEventListener(extraProps, 'onClick', ({ tableRow: { type, rowId } }) => {
-    if (type !== TABLE_DATA_TYPE) return;
-    setRowsSelection({ rowIds: [rowId] });
-  });

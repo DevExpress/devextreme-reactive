@@ -9,6 +9,7 @@ import {
   tableRowsWithGrouping,
   isGroupTableCell,
   isGroupIndentTableCell,
+  isGroupTableRow,
 } from '@devexpress/dx-grid-core';
 
 const getGroupIndentTableCellTemplateArgs = ({ params }) => ({
@@ -29,6 +30,11 @@ const getGroupTableCellTemplateArgs = (
   toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
 });
 
+const getGroupTableRowTemplateArgs = params => ({
+  ...params,
+  row: params.tableRow.row,
+});
+
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
   { pluginName: 'TableView' },
@@ -40,6 +46,7 @@ export class TableGroupRow extends React.PureComponent {
   render() {
     const {
       groupCellTemplate,
+      groupRowTemplate,
       groupIndentCellTemplate,
       groupIndentColumnWidth,
     } = this.props;
@@ -83,6 +90,21 @@ export class TableGroupRow extends React.PureComponent {
             )}
           </Template>
         )}
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isGroupTableRow(tableRow)}
+        >
+          {params => (
+            <TemplateConnector>
+              {() => (
+                <TemplateRenderer
+                  template={groupRowTemplate}
+                  params={getGroupTableRowTemplateArgs(params)}
+                />
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
       </PluginContainer>
     );
   }
@@ -90,6 +112,7 @@ export class TableGroupRow extends React.PureComponent {
 
 TableGroupRow.propTypes = {
   groupCellTemplate: PropTypes.func.isRequired,
+  groupRowTemplate: PropTypes.func.isRequired,
   groupIndentCellTemplate: PropTypes.func,
   groupIndentColumnWidth: PropTypes.number.isRequired,
 };

@@ -15,7 +15,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 tableLayoutTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table layout using the specified parameters
 tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
+tableRowTemplate | (args: [TableDataRowArgs](#table-data-row-args)) => ReactElement | | Renders a table row using the specified parameters
 tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
+tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty
 tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided
 tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
 allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it. Requires the [ColumnOrderState](column-order-state.md) and the [DragDropContext](drag-drop-context.md) dependencies.
@@ -94,6 +96,28 @@ value | any | The value to be rendered within the cell
 row | [Row](grid.md#row) | Specifies a table row
 column | [Column](#column) | Specifies a table column
 
+### <a name="table-row-args"></a>TableRowArgs
+
+Describes properties passed to a row template when it is being rendered.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+tableRow | [TableRow](#table-row) | Specifies a table row
+children | ReactElement | A React element used to render a table row.
+style? | Object | Styles that should be applied to the root row element
+
+### <a name="table-data-row-args"></a>TableDataRowArgs
+
+Describes properties passed to the table row template when it is being rendered.
+
+A value with the [TableRowArgs](#table-row-args) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+row | [Row](grid.md#row) | Specifies a table row
+
 ## Plugin Developer Reference
 
 ### Imports
@@ -112,5 +136,5 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered
 tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
 tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered
-tableExtraProps | Getter | { [key: string]: any } | Additional table properties that other plugins can provide
 tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell
+tableViewRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row

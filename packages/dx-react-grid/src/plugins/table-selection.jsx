@@ -37,7 +37,7 @@ const getSelectAllTableCellTemplateArgs = (
 
 const getSelectTableRowTemplateArgs = (
   { selectByRowClick, ...restParams },
-  { selection },
+  getters,
   { setRowsSelection },
 ) => ({
   ...restParams,

@@ -8,6 +8,7 @@ import {
   getColumnSortingDirection,
   tableRowsWithHeading,
   isHeadingTableCell,
+  isHeadingTableRow,
   TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
@@ -66,6 +67,7 @@ export class TableHeaderRow extends React.PureComponent {
       allowDragging,
       allowResizing,
       headerCellTemplate,
+      headerRowTemplate,
     } = this.props;
 
     return (
@@ -100,6 +102,17 @@ export class TableHeaderRow extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
+        >
+          {params => (
+            <TemplateRenderer
+              template={headerRowTemplate}
+              params={params}
+            />
+          )}
+        </Template>
       </PluginContainer>
     );
   }
@@ -111,6 +124,7 @@ TableHeaderRow.propTypes = {
   allowDragging: PropTypes.bool,
   allowResizing: PropTypes.bool,
   headerCellTemplate: PropTypes.func.isRequired,
+  headerRowTemplate: PropTypes.func.isRequired,
 };
 
 TableHeaderRow.defaultProps = {

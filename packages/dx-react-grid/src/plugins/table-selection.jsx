@@ -7,9 +7,9 @@ import {
 import {
   tableColumnsWithSelection,
   tableRowsWithSelection,
-  tableExtraPropsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
+  isDataTableRow,
 } from '@devexpress/dx-grid-core';
 
 const getSelectTableCellTemplateArgs = (
@@ -35,13 +35,22 @@ const getSelectAllTableCellTemplateArgs = (
   toggleAll: () => setRowsSelection({ rowIds: availableToSelect }),
 });
 
+const getSelectTableRowTemplateArgs = (
+  { selectByRowClick, ...restParams },
+  { selection },
+  { setRowsSelection },
+) => ({
+  ...restParams,
+  selectByRowClick,
+  selected: restParams.tableRow.selected,
+  changeSelected: () => setRowsSelection({ rowIds: [restParams.tableRow.rowId] }),
+});
+
 const pluginDependencies = [
   { pluginName: 'SelectionState' },
   { pluginName: 'TableView' },
 ];
 
-const tableExtraPropsComputed = ({ tableExtraProps }, { setRowsSelection }) =>
-  tableExtraPropsWithSelection(tableExtraProps, setRowsSelection);
 const tableBodyRowsComputed = ({ tableBodyRows, selection }) =>
   tableRowsWithSelection(tableBodyRows, selection);
 
@@ -49,12 +58,13 @@ export class TableSelection extends React.PureComponent {
   render() {
     const {
       highlightSelected,
-      selectByRowClick,
       showSelectionColumn,
       showSelectAll,
       selectionColumnWidth,
       selectAllCellTemplate,
       selectCellTemplate,
+      selectRowTemplate,
+      selectByRowClick,
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) =>
@@ -70,9 +80,6 @@ export class TableSelection extends React.PureComponent {
         )}
         {highlightSelected && (
           <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        )}
-        {selectByRowClick && (
-          <Getter name="tableExtraProps" computed={tableExtraPropsComputed} />
         )}
 
         {(showSelectionColumn && showSelectAll) && (
@@ -109,6 +116,28 @@ export class TableSelection extends React.PureComponent {
             )}
           </Template>
         )}
+        {(highlightSelected || selectByRowClick) && (
+          <Template
+            name="tableViewRow"
+            predicate={({ tableRow }) => isDataTableRow(tableRow)}
+          >
+            {params => (
+              <TemplateConnector>
+                {(getters, actions) => (
+                  <TemplateRenderer
+                    template={selectRowTemplate}
+                    params={
+                      getSelectTableRowTemplateArgs({
+                        selectByRowClick,
+                        ...params,
+                      }, getters, actions)
+                    }
+                  />
+                )}
+              </TemplateConnector>
+            )}
+          </Template>
+        )}
       </PluginContainer>
     );
   }
@@ -117,6 +146,7 @@ export class TableSelection extends React.PureComponent {
 TableSelection.propTypes = {
   selectAllCellTemplate: PropTypes.func.isRequired,
   selectCellTemplate: PropTypes.func.isRequired,
+  selectRowTemplate: PropTypes.func.isRequired,
   highlightSelected: PropTypes.bool,
   selectByRowClick: PropTypes.bool,
   showSelectAll: PropTypes.bool,

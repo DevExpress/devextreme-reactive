@@ -3,6 +3,7 @@ import {
   isNoDataTableRow,
   isDataTableCell,
   isHeaderStubTableCell,
+  isDataTableRow,
 } from './helpers';
 
 describe('TableView Plugin helpers', () => {
@@ -32,6 +33,14 @@ describe('TableView Plugin helpers', () => {
       expect(isHeaderStubTableCell(row, [row]))
         .toBeTruthy();
       expect(isHeaderStubTableCell(row, []))
+        .toBeFalsy();
+    });
+  });
+  describe('#isDataTableRow', () => {
+    it('should work', () => {
+      expect(isDataTableRow({ type: 'data' }))
+        .toBeTruthy();
+      expect(isDataTableRow({ type: 'undefined' }))
         .toBeFalsy();
     });
   });

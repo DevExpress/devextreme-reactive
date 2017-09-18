@@ -1,6 +1,4 @@
 import { easeOutCubic } from '@devexpress/dx-core';
-
-import { querySelectorAll } from './dom-utils';
 import { getTargetColumnGeometries } from './column-geometries';
 
 export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
@@ -16,19 +14,6 @@ export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
       }
       return [...acc, tableColumn];
     }, []);
-};
-
-export const findTableCellTarget = (e) => {
-  const { target, currentTarget } = e;
-
-  const rowsEls = querySelectorAll(currentTarget, ':scope > tr, :scope > tr');
-  const rowIndex = [...rowsEls].findIndex(rowEl => rowEl.contains(target));
-  if (rowIndex === -1) return { rowIndex: -1, columnIndex: -1 };
-  const cellEls = querySelectorAll(rowsEls[rowIndex], ':scope > th, :scope > td');
-  const columnIndex = [...cellEls].findIndex(cellEl => cellEl.contains(target));
-  if (columnIndex === -1) return { rowIndex: -1, columnIndex: -1 };
-
-  return { rowIndex, columnIndex };
 };
 
 export const getTableColumnGeometries = (columns, tableWidth) => {

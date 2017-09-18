@@ -58,10 +58,10 @@ You can control only certain parts of the Grid's configuration. In this case, ap
 
 ```js
 <Grid rows={[/* ... */]} columns={[/* ... */]}>
-  <!--Filtering is controlled by the parent component-->
+  { /* Filtering is controlled by the parent component */ }
   <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
 
-  <!--The following plugins are controlled internally-->
+  { /* The following plugins are controlled internally */ }
   <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
   <GroupingState />
   { /* ... */ }

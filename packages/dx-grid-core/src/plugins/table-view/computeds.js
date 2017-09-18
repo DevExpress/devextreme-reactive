@@ -10,13 +10,13 @@ export const tableColumnsWithDataRows = columns =>
 
 export const tableRowsWithDataRows = (rows, getRowId) => (
   !rows.length
-  ? [{ key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 }]
-  : rows.map((row) => {
-    const rowId = getRowId(row);
-    return {
-      key: `${TABLE_DATA_TYPE}_${rowId}`,
-      type: TABLE_DATA_TYPE,
-      rowId,
-      row,
-    };
-  }));
+    ? [{ key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 }]
+    : rows.map((row) => {
+      const rowId = getRowId(row);
+      return {
+        key: `${TABLE_DATA_TYPE}_${rowId}`,
+        type: TABLE_DATA_TYPE,
+        rowId,
+        row,
+      };
+    }));

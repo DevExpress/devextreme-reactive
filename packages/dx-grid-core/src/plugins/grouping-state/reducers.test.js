@@ -1,11 +1,11 @@
 import Immutable from 'seamless-immutable';
 
 import {
-    groupByColumn,
-    draftGroupingChange,
-    cancelGroupingChange,
-    removeOutdatedExpandedGroups,
-    toggleExpandedGroups,
+  groupByColumn,
+  draftGroupingChange,
+  cancelGroupingChange,
+  removeOutdatedExpandedGroups,
+  toggleExpandedGroups,
 } from './reducers';
 
 describe('GroupingState reducers', () => {

@@ -31,10 +31,10 @@ const getHeaderTableCellTemplateArgs = (
     changeSortingDirection: ({ keepOther, cancel }) => {
       const scope = grouping
         ? tableColumns
-            .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
-            .filter(tableColumn => grouping
-              .find(group => group.columnName !== tableColumn.column.name))
-            .map(tableColumn => tableColumn.column.name)
+          .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
+          .filter(tableColumn => grouping
+            .find(group => group.columnName !== tableColumn.column.name))
+          .map(tableColumn => tableColumn.column.name)
         : null;
       setColumnSorting({ columnName: column.name, keepOther, cancel, scope });
     },

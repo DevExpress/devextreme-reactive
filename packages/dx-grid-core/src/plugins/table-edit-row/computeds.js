@@ -6,13 +6,13 @@ export const tableRowsWithEditing = (tableRows, editingRows, addedRows, rowHeigh
   const editedTableRows = tableRows
     .map(tableRow => (
       tableRow.type === TABLE_DATA_TYPE && rowIds.has(tableRow.rowId)
-      ? {
-        ...tableRow,
-        key: `${TABLE_EDIT_TYPE}_${tableRow.rowId}`,
-        type: TABLE_EDIT_TYPE,
-        height: rowHeight,
-      }
-      : tableRow
+        ? {
+          ...tableRow,
+          key: `${TABLE_EDIT_TYPE}_${tableRow.rowId}`,
+          type: TABLE_EDIT_TYPE,
+          height: rowHeight,
+        }
+        : tableRow
     ));
 
   const addedTableRows = addedRows

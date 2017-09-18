@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import {
-    sortedRows,
+  sortedRows,
 } from './computeds';
 
 describe('SortingState computeds', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    TableCell,
+  TableCell,
 } from 'material-ui';
 
 import { withStyles } from 'material-ui/styles';

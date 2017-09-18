@@ -29,10 +29,10 @@ import CancelIcon from 'material-ui-icons/Cancel';
 import { withStyles } from 'material-ui/styles';
 
 import {
-    ProgressBarCell,
+  ProgressBarCell,
 } from '../templates/progress-bar-cell';
 import {
-    HighlightedCell,
+  HighlightedCell,
 } from '../templates/highlighted-cell';
 
 import {

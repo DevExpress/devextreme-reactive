@@ -30,9 +30,13 @@ describe('TableSelection Plugin computeds', () => {
 
       expect(selectedRows)
         .toEqual([
-          { type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' }, selected: true },
+          {
+            type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' }, selected: true,
+          },
           { type: TABLE_DATA_TYPE, rowId: 1, row: { field: 'b' } },
-          { type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' }, selected: true },
+          {
+            type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' }, selected: true,
+          },
           { type: 'undefined', rowId: 2, row: { field: 'c' } },
         ]);
     });

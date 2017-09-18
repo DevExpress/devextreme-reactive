@@ -137,8 +137,8 @@ export class VirtualTable extends React.Component {
             itemCount={2}
             itemInfo={(rowIndex) => {
               const size = rowIndex === 0
-                    ? headerRows.reduce((accum, row) => accum + this.rowHeight(row), 0)
-                    : bodyRows.reduce((accum, row) => accum + this.rowHeight(row), 0);
+                ? headerRows.reduce((accum, row) => accum + this.rowHeight(row), 0)
+                : bodyRows.reduce((accum, row) => accum + this.rowHeight(row), 0);
 
               return {
                 size,

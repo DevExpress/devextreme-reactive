@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import {
-    setRowsSelection,
+  setRowsSelection,
 } from './reducers';
 
 describe('SelectionState reducers', () => {

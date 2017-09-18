@@ -50,7 +50,11 @@ const getAnimationProgress = animation =>
   (new Date().getTime() - animation.startTime) / ANIMATION_DURATION;
 
 export const getAnimations = (
-  prevColumns, nextColumns, tableWidth, draggingColumnKey, prevAnimations,
+  prevColumns,
+  nextColumns,
+  tableWidth,
+  draggingColumnKey,
+  prevAnimations,
 ) => {
   const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
     .map((geometry, index) => [prevColumns[index].key, geometry])

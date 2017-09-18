@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import {
-    setColumnOrder,
+  setColumnOrder,
 } from './reducers';
 
 describe('ColumnOrderState reducers', () => {

@@ -1,5 +1,5 @@
 import {
-    setColumnSorting,
+  setColumnSorting,
 } from './reducers';
 
 describe('SortingState reducers', () => {

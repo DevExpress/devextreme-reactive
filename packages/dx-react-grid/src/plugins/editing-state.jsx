@@ -173,8 +173,8 @@ export class EditingState extends React.PureComponent {
         <Getter
           name="createRowChange"
           computed={createRowChange ?
-          () => createRowChange :
-          this.createRowChangeComputed
+            () => createRowChange :
+            this.createRowChangeComputed
           }
         />
       </PluginContainer>

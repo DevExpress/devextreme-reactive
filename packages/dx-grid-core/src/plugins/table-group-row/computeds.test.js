@@ -22,8 +22,12 @@ describe('TableGroupRow Plugin computeds', () => {
     it('should work', () => {
       expect(tableColumnsWithGrouping(tableColumns, grouping, grouping, 123))
         .toEqual([
-          { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123 },
-          { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123 },
+          {
+            key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
+          },
+          {
+            key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
+          },
           { type: 'undefined', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
           { type: TABLE_DATA_TYPE, column: { name: 'd' } },
@@ -37,8 +41,12 @@ describe('TableGroupRow Plugin computeds', () => {
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([
-          { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123 },
-          { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123 },
+          {
+            key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
+          },
+          {
+            key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
+          },
           { type: 'undefined', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
           { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
@@ -53,8 +61,12 @@ describe('TableGroupRow Plugin computeds', () => {
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([
-          { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123 },
-          { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123 },
+          {
+            key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
+          },
+          {
+            key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
+          },
           { type: 'undefined', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
           { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
@@ -69,8 +81,12 @@ describe('TableGroupRow Plugin computeds', () => {
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123))
         .toEqual([
-          { key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123 },
-          { key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123 },
+          {
+            key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
+          },
+          {
+            key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
+          },
           { type: 'undefined', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
           { type: TABLE_DATA_TYPE, column: { name: 'd' } },

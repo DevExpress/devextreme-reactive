@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    OverlayTrigger,
-    Tooltip,
+  OverlayTrigger,
+  Tooltip,
 } from 'react-bootstrap';
 
 export const ProgressBarCell = ({ value, style }) => (

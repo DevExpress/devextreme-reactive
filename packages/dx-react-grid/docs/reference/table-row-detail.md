@@ -30,7 +30,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | A row object for showing row details
+row | [Row](grid.md#row) | A row object that shows row details
 
 ### <a name="detail-cell-args"></a>DetailCellArgs
 

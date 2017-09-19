@@ -9,7 +9,7 @@ The following plugins implement selection features:
 - [SelectionState](../reference/selection-state.md) - controls the selection state  
 - [TableSelection](../reference/table-selection.md) - renders selection check boxes or highlights the selected rows
 
-Note that [plugin order](../README.md#plugin-order) is important.
+Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic setup
 

@@ -8,7 +8,7 @@ The "Detail Row" feature requires the following plugins:
 - [RowDetailState](../reference/row-detail-state.md) - controls the detail rows' expanded status
 - [TableRowDetail](../reference/table-row-detail.md) - renders detail rows
 
-Note that the [plugin order](../README.md#plugin-order) is important.
+Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Detail Row Setup
 

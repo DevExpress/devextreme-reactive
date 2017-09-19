@@ -12,45 +12,26 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { TableCell } from 'material-ui';
-import { withStyles } from 'material-ui/styles';
-import Remove from 'material-ui-icons/Remove';
-import Add from 'material-ui-icons/Add';
-
 import {
   generateRows,
 } from '../../demo-data/generator';
 
-const styles = theme => ({
-  cell: {
-    cursor: 'pointer',
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit,
-  },
-  groupIcon: {
-    verticalAlign: 'middle',
-    display: 'inline-block',
-    marginRight: '6px',
-    height: theme.spacing.unit * 3.2,
-  },
-});
-
-const GroupCellTemplateBase = ({
+const GroupCellTemplate = ({
   colSpan,
   row,
   isExpanded,
   toggleGroupExpanded,
-  classes,
 }) => (
   <TableCell
     colSpan={colSpan}
-    className={classes.cell}
+    style={{ cursor: 'pointer' }}
     onClick={toggleGroupExpanded}
   >
-    <span className={classes.groupIcon}>
+    <span>
       {
         isExpanded
-        ? <Remove />
-        : <Add />
+        ? '- '
+        : '+ '
       }
     </span>
     <strong>
@@ -59,22 +40,19 @@ const GroupCellTemplateBase = ({
   </TableCell>
 );
 
-GroupCellTemplateBase.propTypes = {
+GroupCellTemplate.propTypes = {
   colSpan: PropTypes.number,
   row: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
-  classes: PropTypes.object.isRequired,
 };
 
-GroupCellTemplateBase.defaultProps = {
+GroupCellTemplate.defaultProps = {
   colSpan: 1,
   row: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
 };
-
-const GroupCellTemplate = withStyles(styles, { name: 'GroupCellTemplate' })(GroupCellTemplateBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

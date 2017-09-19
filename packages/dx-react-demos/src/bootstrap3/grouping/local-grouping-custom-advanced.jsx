@@ -25,15 +25,7 @@ const GroupCellTemplate = ({
       ...style,
     }}
     onClick={toggleGroupExpanded}
-  >
-    <i
-      className={`glyphicon glyphicon glyphicon-${isExpanded ? 'minus' : 'plus'}`}
-      style={{
-        fontSize: '9px',
-        top: 0,
-        marginRight: '10px',
-      }}
-    />
+  >{ isExpanded ? '- ' : '+ ' }
     <strong>Names from {row.value.from} to {row.value.to}</strong>
   </td>
 );

@@ -107,8 +107,8 @@ describe('TableGroupRow', () => {
     });
   });
 
-  describe('custom grouping', () => {
-    it('default grouping without colomns values and property func', () => {
+  describe('hide grouping column', () => {
+    it('should all columns be hidden', () => {
       const deps = {
         getter: {
           columns: [
@@ -135,7 +135,7 @@ describe('TableGroupRow', () => {
       expect(showColumnWhenGrouped('B')).toBe(false);
     });
 
-    it('grouping with colomns values', () => {
+    it('should keep column in table if column value specified', () => {
       const deps = {
         getter: {
           columns: [
@@ -162,7 +162,7 @@ describe('TableGroupRow', () => {
       expect(showColumnWhenGrouped('B')).toBe(false);
     });
 
-    it('grouping with colomns values and property func', () => {
+    it('should keep column in table if custom func specified', () => {
       const deps = {
         getter: {
           columns: [

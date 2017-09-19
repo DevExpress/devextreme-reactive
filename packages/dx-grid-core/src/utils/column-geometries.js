@@ -4,7 +4,9 @@ export const getTargetColumnGeometries = (columnGeometries, sourceIndex) => {
     columnGeometries[index].right - columnGeometries[index].left - sourceWidth;
 
   return columnGeometries
-    .map(({ top, right, bottom, left }, targetIndex) => {
+    .map(({
+      top, right, bottom, left,
+    }, targetIndex) => {
       let leftBorder = left;
       if (targetIndex > 0 && targetIndex <= sourceIndex) {
         leftBorder = Math.min(leftBorder, leftBorder - getWidthDifference(targetIndex - 1));

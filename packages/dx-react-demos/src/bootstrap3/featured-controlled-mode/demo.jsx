@@ -279,8 +279,8 @@ export default class Demo extends React.PureComponent {
             allowDeleting
             commandTemplate={({ executeCommand, id }) => (
               commands[id]
-              ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
-              : undefined
+                ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
+                : undefined
             )}
           />
           <PagingPanel

@@ -1,15 +1,15 @@
 import Immutable from 'seamless-immutable';
 
 import {
-    startEditRows,
-    stopEditRows,
-    addRow,
-    changeAddedRow,
-    cancelAddedRows,
-    changeRow,
-    cancelChanges,
-    deleteRows,
-    cancelDeletedRows,
+  startEditRows,
+  stopEditRows,
+  addRow,
+  changeAddedRow,
+  cancelAddedRows,
+  changeRow,
+  cancelChanges,
+  deleteRows,
+  cancelDeletedRows,
 } from './reducers';
 
 describe('EditingState reducers', () => {

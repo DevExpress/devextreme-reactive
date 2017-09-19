@@ -19,6 +19,7 @@ The plugin also allows an end-user to manage a column's sorting and grouping sta
 Name | Type | Default | Description
 -----|------|---------|------------
 headerCellTemplate | (args: [HeaderCellArgs](#header-cell-args)) => ReactElement | | A component that renders a header cell
+headerRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a header row
 allowSorting | boolean | false | If true, it allows an end-user to change sorting by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowGroupingByClick | boolean | false | If true, it renders a component that toggles a column's grouping state. Requires the [GroupingState](grouping-state.md) dependency.
@@ -66,8 +67,9 @@ grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Column
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. Each shift is added to the original column width value.
-changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column will be cleared.
+changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
+tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row
 
 ### Exports
 

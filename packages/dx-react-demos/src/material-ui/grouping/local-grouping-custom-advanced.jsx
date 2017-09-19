@@ -28,11 +28,7 @@ const GroupCellTemplate = ({
     onClick={toggleGroupExpanded}
   >
     <span>
-      {
-        isExpanded
-        ? '- '
-        : '+ '
-      }
+      { isExpanded ? '- ' : '+ ' }
     </span>
     <strong>
       Names from {row.value.from} to {row.value.to}

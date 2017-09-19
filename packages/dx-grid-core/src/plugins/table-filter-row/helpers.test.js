@@ -2,6 +2,7 @@ import { TABLE_FILTER_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table-view/constants';
 import {
   isFilterTableCell,
+  isFilterTableRow,
 } from './helpers';
 
 describe('TableFilterRow Plugin helpers', () => {
@@ -13,6 +14,12 @@ describe('TableFilterRow Plugin helpers', () => {
         .toBeFalsy();
       expect(isFilterTableCell({ type: 'undefined' }, { type: 'undefined' }))
         .toBeFalsy();
+    });
+  });
+  describe('#isFilterTableRow', () => {
+    it('should work', () => {
+      expect(isFilterTableRow({ type: TABLE_FILTER_TYPE })).toBeTruthy();
+      expect(isFilterTableRow({ type: 'undefined' })).toBeFalsy();
     });
   });
 });

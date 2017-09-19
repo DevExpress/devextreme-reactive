@@ -65,7 +65,6 @@ export * from './plugins/table-view/computeds';
 
 export {
   getTableRowColumnsWithColSpan,
-  findTableCellTarget,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,

@@ -15,8 +15,11 @@ export const groupedRows = (
   const columnGrouping = grouping[0];
   const groups = rows
     .reduce((acc, row) => {
-      const value = getGroupValue(getCellData(row, columnGrouping.columnName),
-        columnGrouping, row);
+      const value = getGroupValue(
+        getCellData(row, columnGrouping.columnName),
+        columnGrouping,
+        row,
+      );
       const key = getGroupKey(value, columnGrouping, row);
       const sameKeyItems = acc.get(key);
 

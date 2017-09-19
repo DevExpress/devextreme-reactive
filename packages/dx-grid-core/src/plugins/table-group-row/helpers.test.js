@@ -2,6 +2,7 @@ import { TABLE_GROUP_TYPE } from './constants';
 import {
   isGroupTableCell,
   isGroupIndentTableCell,
+  isGroupTableRow,
 } from './helpers';
 
 describe('TableRowDetail Plugin helpers', () => {
@@ -27,6 +28,12 @@ describe('TableRowDetail Plugin helpers', () => {
         .toBeFalsy();
       expect(isGroupIndentTableCell({ type: 'undefined', row: { groupedBy: 'b' } }, { type: TABLE_GROUP_TYPE, column: { name: 'a' } }))
         .toBeFalsy();
+    });
+  });
+  describe('#isGroupTableRow', () => {
+    it('should work', () => {
+      expect(isGroupTableRow({ type: TABLE_GROUP_TYPE })).toBeTruthy();
+      expect(isGroupTableRow({ type: 'undefined' })).toBeFalsy();
     });
   });
 });

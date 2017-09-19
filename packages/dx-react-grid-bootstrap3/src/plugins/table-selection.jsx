@@ -3,13 +3,16 @@ import React from 'react';
 import { TableSelection as TableSelectionBase } from '@devexpress/dx-react-grid';
 import { TableSelectAllCell } from '../templates/table-select-all-cell';
 import { TableSelectCell } from '../templates/table-select-cell';
+import { TableSelectRow } from '../templates/table-select-row';
 
 const selectCellTemplate = props => <TableSelectCell {...props} />;
 const selectAllCellTemplate = props => <TableSelectAllCell {...props} />;
+const selectRowTemplate = props => <TableSelectRow {...props} />;
 
 export const TableSelection = props => (
   <TableSelectionBase
     selectCellTemplate={selectCellTemplate}
+    selectRowTemplate={selectRowTemplate}
     selectAllCellTemplate={selectAllCellTemplate}
     selectionColumnWidth={30}
     {...props}

@@ -1,5 +1,5 @@
 import {
-    getColumnSortingDirection,
+  getColumnSortingDirection,
 } from './helpers';
 
 describe('SortingState helpers', () => {

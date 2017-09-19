@@ -5,6 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
+  isFilterTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableFilterRow } from './table-filter-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -12,6 +13,7 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableHeaderRowsWithFilter: jest.fn(),
   isFilterTableCell: jest.fn(),
+  isFilterTableRow: jest.fn(),
   getColumnFilterConfig: jest.fn(),
 }));
 
@@ -29,12 +31,17 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
+    tableViewRow: {
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      style: {},
+    },
   },
   plugins: ['FilteringState', 'TableView'],
 };
 
 const defaultProps = {
   filterCellTemplate: () => null,
+  filterRowTemplate: () => null,
 };
 
 describe('TableHeaderRow', () => {
@@ -49,6 +56,7 @@ describe('TableHeaderRow', () => {
   beforeEach(() => {
     tableHeaderRowsWithFilter.mockImplementation(() => 'tableHeaderRowsWithFilter');
     isFilterTableCell.mockImplementation(() => false);
+    isFilterTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -97,5 +105,22 @@ describe('TableHeaderRow', () => {
         ...defaultDeps.template.tableViewCell,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
+  });
+  it('should render row by using filterRowTemplate', () => {
+    isFilterTableRow.mockImplementation(() => true);
+    const filterRowTemplate = jest.fn(() => null);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+          filterRowTemplate={filterRowTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
   });
 });

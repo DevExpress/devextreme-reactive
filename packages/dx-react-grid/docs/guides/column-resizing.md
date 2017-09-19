@@ -9,7 +9,7 @@ The following plugins implement column resizing features:
 - [TableColumnResizing](../reference/table-column-resizing.md) - controls table column widths
 - [TableHeaderRow](../reference/table-header-row.md) - renders the table columns' resize handles
 
-The [plugin's order](../README.md#plugin-order) is important.
+The [plugin's order](./plugin-overview.md#plugin-order) is important.
 
 ## Column Resizing Setup
 

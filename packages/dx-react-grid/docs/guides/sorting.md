@@ -13,7 +13,7 @@ The following plugins implement sorting features:
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row with sorting indicators  
 - [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel with sorting indicators
 
-Note that the [plugin order](../README.md#plugin-order) is important.
+Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Local Sorting Setup
 

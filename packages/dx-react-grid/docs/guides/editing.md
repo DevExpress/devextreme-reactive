@@ -5,11 +5,11 @@ The Grid supports editing features including creating, updating and deleting row
 ## Related Plugins
 
 The following plugins implement editing features:
-- [EditingState](../reference/editing-state.md) - controls the editing state  
-- [TableEditRow](../reference/table-edit-row.md) - renders a row being edited  
+- [EditingState](../reference/editing-state.md) - controls the editing state
+- [TableEditRow](../reference/table-edit-row.md) - renders a row being edited
 - [TableEditColumn](../reference/table-edit-column.md) - renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes)
 
-Note that the [plugin order](../README.md#plugin-order) is important.
+Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Set up a Simple Editable Grid
 
@@ -21,9 +21,9 @@ Handle the `EditingState` plugin's `onCommitChanges` event to commit changes mad
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initial editing state values using the following `EditingState` plugin's properties:
 
-- `defaultEditingRows` - the rows being edited  
-- `defaultAddedRows` - the rows being added  
-- `defaultChangedRows` - the changed rows  
+- `defaultEditingRows` - the rows being edited
+- `defaultAddedRows` - the rows being added
+- `defaultChangedRows` - the changed rows
 - `defaultDeletedRows` - the rows being deleted
 
 .embedded-demo(editing/edit-row)
@@ -32,9 +32,9 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes:
 
-- `editingRows` and `onEditingRowsChange` - the rows being edited  
-- `addedRows` and `onAddedRowsChange` - the rows being added  
-- `changedRows` and `onChangedRowsChange` - the changed rows  
+- `editingRows` and `onEditingRowsChange` - the rows being edited
+- `addedRows` and `onAddedRowsChange` - the rows being added
+- `changedRows` and `onChangedRowsChange` - the changed rows
 - `deletedRows` and `onDeletedRowsChange` - the rows being deleted
 
 Note, you can also use the `onAddedRowsChange` event to initialize a created row with default property values.

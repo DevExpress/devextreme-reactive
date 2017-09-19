@@ -12,7 +12,7 @@ The following plugins implement grouping features:
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging  
 - [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
 
-Note that [plugin order](../README.md#plugin-order) is important.
+Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic setup
 

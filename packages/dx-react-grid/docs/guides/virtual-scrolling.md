@@ -6,7 +6,7 @@ The Grid component can process a large amount of data (thousands of records). Yo
 
 The `VirtualTableView` plugin implements the virtual mode, and it should be used instead of the [TableView](../../table-view.md) (they implement the same interfaces).
 
-Note that the [plugin order](../README.md#plugin-order) is important.
+Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Setup
 

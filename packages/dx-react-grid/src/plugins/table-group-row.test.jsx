@@ -98,11 +98,11 @@ describe('TableGroupRow', () => {
         .toBe('tableColumnsWithGrouping');
       expect(tableColumnsWithGrouping)
         .toBeCalledWith(
-        defaultDeps.getter.tableColumns,
-        defaultDeps.getter.grouping,
-        defaultDeps.getter.draftGrouping,
-        defaultProps.groupIndentColumnWidth,
-        defaultProps.showColumnWhenGrouped,
+          defaultDeps.getter.tableColumns,
+          defaultDeps.getter.grouping,
+          defaultDeps.getter.draftGrouping,
+          defaultProps.groupIndentColumnWidth,
+          defaultProps.showColumnWhenGrouped,
       );
     });
   });

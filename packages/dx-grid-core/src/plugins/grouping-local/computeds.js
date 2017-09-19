@@ -1,7 +1,7 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 
 const defaultGetGroupValue = value => value;
-const defaultGetGroupKey = key => String(key);
+const defaultGetGroupKey = value => String(value);
 
 export const groupedRows = (
   rows,

@@ -16,12 +16,13 @@ import {
 } from '../../demo-data/generator';
 
 const GroupCellTemplate = ({
-  colSpan, row, isExpanded, toggleGroupExpanded,
+  style, colSpan, row, isExpanded, toggleGroupExpanded,
 }) => (
   <td
     colSpan={colSpan}
     style={{
       cursor: 'pointer',
+      ...style,
     }}
     onClick={toggleGroupExpanded}
   >
@@ -38,6 +39,7 @@ const GroupCellTemplate = ({
 );
 
 GroupCellTemplate.propTypes = {
+  style: PropTypes.shape(),
   colSpan: PropTypes.number,
   row: PropTypes.shape(),
   isExpanded: PropTypes.bool,
@@ -45,6 +47,7 @@ GroupCellTemplate.propTypes = {
 };
 
 GroupCellTemplate.defaultProps = {
+  style: null,
   colSpan: 1,
   row: {},
   isExpanded: false,

@@ -63,6 +63,6 @@ For more complex scenarios, you can also specify a custom function in the `showC
     <TableGroupRow />
   </Grid>
 ```
-For complex groupings scenarios, pass your grouping function to the `LocalGrouping` plugin’s `getGroupKey` property. This function should return the custom key value by which the rows will be grouped. In the following example, all records are divided into two groups by the first letter of the `name` column. Also the `groupCellTemplate` property of the `TableGroupRow` is used to provide a custom appearance for the group rows.
+When a returned value from the `getGroupValue` is not primitive, it is needed to define a custom `getGroupKey` function. This function is needed to get a string from a non-primitive value returned by the `getGroupValue` function in order to check groups equality. In other words, the `getGroupKey` function is a hash function used to identify equality of complex objects. This function should return the custom key value by which the rows will be grouped. In the following example, all records are divided into two groups by the first letter of the `name` column. Also, the `groupCellTemplate` property of the `TableGroupRow` is used to provide a custom appearance for the group rows.
 
 .embedded-demo(grouping/local-grouping-custom-advanced)

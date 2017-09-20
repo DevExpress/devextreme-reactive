@@ -33,6 +33,27 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
+    this.getRowId = row => row.id;
+    this.getCellValue = (row, columnName) => {
+      if (columnName.indexOf('.') > -1) {
+        const { rootField, nestedField } = this.splitColumnName(columnName);
+        return row[rootField] ? row[rootField][nestedField] : undefined;
+      }
+      return row[columnName];
+    };
+    this.createRowChange = (row, columnName, value) => {
+      if (columnName.indexOf('.') > -1) {
+        const { rootField, nestedField } = this.splitColumnName(columnName);
+
+        return {
+          [rootField]: {
+            ...row[rootField],
+            [nestedField]: value,
+          },
+        };
+      }
+      return { [columnName]: value };
+    };
     this.commitChanges = ({ added, changed, deleted }) => {
       let rows = this.state.rows;
       if (added) {
@@ -66,39 +87,17 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
-        getCellData={(row, columnName) => {
-          if (columnName.indexOf('.') > -1) {
-            const { rootField, nestedField } = this.splitColumnName(columnName);
-            return row[rootField] ? row[rootField][nestedField] : undefined;
-          }
-          return row[columnName];
-        }}
+        getRowId={this.getRowId}
+        getCellValue={this.getCellValue}
       >
         <EditingState
+          createRowChange={this.createRowChange}
           onCommitChanges={this.commitChanges}
-          createRowChange={(row, columnName, value) => {
-            if (columnName.indexOf('.') > -1) {
-              const { rootField, nestedField } = this.splitColumnName(columnName);
-
-              return {
-                [rootField]: {
-                  ...row[rootField],
-                  [nestedField]: value,
-                },
-              };
-            }
-            return { [columnName]: value };
-          }}
         />
         <TableView />
         <TableHeaderRow />
         <TableEditRow />
-        <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
-        />
+        <TableEditColumn allowAdding allowEditing allowDeleting />
       </Grid>
     );
   }

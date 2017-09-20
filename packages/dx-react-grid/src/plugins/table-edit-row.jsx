@@ -17,7 +17,7 @@ const getEditTableCellTemplateArgs = (
   getters,
   { changeRow, changeAddedRow },
 ) => {
-  const { getCellData, createRowChange } = getters;
+  const { getCellValue, createRowChange } = getters;
   const isNew = isAddedTableRow(params.tableRow);
   const { rowId, row } = params.tableRow;
   const { column } = params.tableColumn;
@@ -28,7 +28,7 @@ const getEditTableCellTemplateArgs = (
     ...params,
     row,
     column,
-    value: getCellData(changedRow, column.name),
+    value: getCellValue(changedRow, column.name),
     onValueChange: (newValue) => {
       const changeArgs = {
         rowId,

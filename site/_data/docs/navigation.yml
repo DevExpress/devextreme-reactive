@@ -3,7 +3,7 @@ react:
     - title: Guides
       items:
         - title: Getting Started
-          path: /react/grid/docs
+          path: /react/grid/docs/guides/getting-started
         - title: Plugin Overview
           path: /react/grid/docs/guides/plugin-overview
         - title: Data Accessors

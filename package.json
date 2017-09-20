@@ -5,7 +5,6 @@
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
-  "version": "1.0.0-alpha.9",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"

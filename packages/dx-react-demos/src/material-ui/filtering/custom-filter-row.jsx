@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableCell } from 'material-ui';
+import { TableCell, Input } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
-
 import {
   FilteringState,
   LocalFiltering,
@@ -12,49 +11,59 @@ import {
   TableView,
   TableHeaderRow,
   TableFilterRow,
-  DropDownMenu,
 } from '@devexpress/dx-react-grid-material-ui';
+
 import {
   generateRows,
+  globalSalesValues,
 } from '../../demo-data/generator';
-
-const filterFn = (row, filter) => {
-  const toLowerCase = value => String(value).toLowerCase();
-
-  if (filter.columnName === 'sex') {
-    return toLowerCase(row[filter.columnName]) === toLowerCase(filter.value);
-  }
-  return toLowerCase(row[filter.columnName]).indexOf(toLowerCase(filter.value)) > -1;
-};
 
 const styles = theme => ({
   cell: {
+    verticalAlign: 'top',
     width: '100%',
+    paddingTop: theme.spacing.unit + 4,
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
+  input: {
+    width: '100%',
+  },
 });
 
-const SexFilterCellBase = ({ setFilter, classes }) => (
+const UnitsFilterCellBase = ({ filter, setFilter, classes }) => (
   <TableCell className={classes.cell}>
-    <DropDownMenu
-      onItemClick={(item, index) => setFilter(index ? { value: item } : null)}
-      defaultTitle={'Sex'}
-      items={[
-        '-',
-        'Male',
-        'Female',
-      ]}
+    <Input
+      className={classes.input}
+      type="number"
+      value={filter ? filter.value : ''}
+      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+      placeholder="Filter..."
+      inputProps={{
+        style: { textAlign: 'right' },
+        min: 1,
+        max: 4,
+      }}
     />
   </TableCell>
 );
 
-SexFilterCellBase.propTypes = {
+UnitsFilterCellBase.propTypes = {
+  filter: PropTypes.shape({
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
+  }),
   setFilter: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-const SexFilterCell = withStyles(styles, { name: 'SexFilterCell' })(SexFilterCellBase);
+UnitsFilterCellBase.defaultProps = {
+  filter: null,
+};
+
+const UnitsFilterCell = withStyles(styles, { name: 'SexFilterCell' })(UnitsFilterCellBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -62,12 +71,12 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
+        { name: 'product', title: 'Product' },
+        { name: 'region', title: 'Region' },
+        { name: 'sector', title: 'Sector' },
+        { name: 'units', title: 'Quantity', align: 'right' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
@@ -78,14 +87,14 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <FilteringState defaultFilters={[]} />
-        <LocalFiltering filterFn={filterFn} />
+        <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
+        <LocalFiltering />
         <TableView />
         <TableHeaderRow />
         <TableFilterRow
-          filterCellTemplate={({ column, setFilter }) => {
-            if (column.name === 'sex') {
-              return <SexFilterCell setFilter={setFilter} />;
+          filterCellTemplate={({ column, filter, setFilter }) => {
+            if (column.name === 'units') {
+              return <UnitsFilterCell filter={filter} setFilter={setFilter} />;
             }
 
             return undefined;

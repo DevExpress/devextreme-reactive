@@ -11,12 +11,12 @@ The next basic property of Data Grid is `columns`. It defines what row fields sh
   rows: [
     { region: 'South America', 'sector': 'Banking' },
     { region: 'Africa', 'sector': 'Manufacturing' },
-    // ...
+    /* ... */
   ],
   columns: [
     { name: 'region', title: 'Region' },
     { name: 'sector', title: 'Sector' },
-    // ...
+    /* ... */
   ],
 >
 </Grid>
@@ -90,7 +90,7 @@ NOTE: the following code uses Bootstrap 3 templates. If you'd like to use Materi
 
 Here we use a custom text color depend on some condition. Otherwise, we return `undefined` to use a default table cell template.
 
-// demo
+.embedded-demo(basic/table-cell-template)
 
 The second popular scenario is handling row events like `onClick`, `onContextMenu` etc. The `tableRowTemplate` helps to implement such functionality.
 
@@ -99,20 +99,40 @@ For example, let's look how to highlight table rows on hover.
 NOTE: the following code uses Bootstrap 3 templates. If you'd like to use Material UI, replace the `tr` tag to `TableRow`.
 
 ```js
-<TableView
-  tableRowTemplate={({ children }) => (
-    <tr
-      onMouseEnter={(e) => {
-        e.currentTarget.className = 'active';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.className = null;
-      }}
-    >
-      {children}
-    </tr>
-  )}
-/>
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    /* ... */
+     this.state = {
+       hoveredRowId: null,
+       /* ... */
+     };
+  }
+  render() {
+    const { rows, columns, hoveredRowId } = this.state;
+
+    return (
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <TableView
+          tableRowTemplate={({ children, tableRow }) => (
+            <tr
+              onMouseEnter={() => this.setState({ hoveredRowId: tableRow.rowId })}
+              onMouseLeave={() => this.setState({ hoveredRowId: null })}
+              className={hoveredRowId === tableRow.rowId ? 'active' : null}
+            >
+              {children}
+            </tr>
+          )}
+        />
+        /* ... */
+    </Grid>
+    );
+  }
+}
 ```
 
-// demo
+.embedded-demo(basic/table-row-template)
+
+Other plugins like [TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md) contain the similar API for templates customization.

@@ -18,6 +18,14 @@ editorTemplate | (args: [ValueEditorArgs](#value-editor-args)) => ReactElement |
 
 ## Interfaces
 
+### <a name="column"></a>Column (Extension)
+
+A value with the [Column](grid.md#column) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+dataType | string | Specifies the data type of the column.
+
 ### <a name="value-formatter-args"></a>ValueFormatterArgs
 
 Describes properties passed to the formatter template.
@@ -26,7 +34,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | A column object.
+column | [Column](#column) | A column object.
 row | [Row](grid.md#row) | A row object.
 value | any | Specifies the value to be formatted.
 
@@ -38,7 +46,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | A column object.
+column | [Column](#column) | A column object.
 row | [Row](grid.md#row) | A row object.
 value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.

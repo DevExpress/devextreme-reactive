@@ -95,7 +95,7 @@ const renderPageButtons = (
   totalPageCount,
   classes,
   onCurrentPageChange,
-  ) => {
+) => {
   const pageButtons = [];
   const maxButtonCount = 3;
   let startPage = 1;

@@ -1,6 +1,6 @@
 # SortingState Plugin Reference
 
-A plugin that manages sorting state. It controls the list of columns that are used to sort the passed rows and their sort order.
+A plugin that manages the sorting state. It controls the list of columns that participate in sorting.
 
 ## User Reference
 
@@ -20,13 +20,13 @@ onSortingChange | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handle
 
 ### Sorting
 
-Describes a sorting applied to a column
+Describes the sorting applied to a column
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-columnName | string | Specifies a column name to which the sorting is applied
+columnName | string | Specifies a column's name to which the sorting is applied
 direction | 'asc' &#124; 'desc' | Specifies a column's sort order
 
 ## Plugin Developer Reference
@@ -40,5 +40,6 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 sorting | Getter | Array&lt;[Sorting](#sorting)&gt; | Applied column sorting
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean, scope: Array&lt;String&gt; }) => void | Changes a column's sort direction. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to `true`. The `scope` array contains the names of columns taken into account when sorting.
+
 

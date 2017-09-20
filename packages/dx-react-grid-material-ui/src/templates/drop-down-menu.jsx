@@ -32,7 +32,6 @@ const styles = theme => ({
 });
 
 class DropDownMenuBase extends React.PureComponent {
-
   constructor(props) {
     super(props);
     const { selectedItem, items, defaultTitle, itemTemplate } = this.props;
@@ -96,8 +95,8 @@ class DropDownMenuBase extends React.PureComponent {
           </span>
           {
             open
-            ? <ExpandLess className={classes.buttonIcon} />
-            : <ExpandMore className={classes.buttonIcon} />
+              ? <ExpandLess className={classes.buttonIcon} />
+              : <ExpandMore className={classes.buttonIcon} />
           }
         </Typography>
         <Menu

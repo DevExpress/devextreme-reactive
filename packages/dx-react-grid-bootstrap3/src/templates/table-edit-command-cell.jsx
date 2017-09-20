@@ -18,26 +18,26 @@ CommandButton.propTypes = {
 };
 
 export const EditCommandHeadingCell = ({
-    addRow,
-    commandTemplate,
-    allowAdding,
-    style = {},
-    addCommandText = 'New',
-  }) => (
-    <th
-      style={{
-        whiteSpace: 'nowrap',
-        textAlign: 'center',
-        padding: 0,
-        ...style,
-      }}
-    >
-      {allowAdding && commandTemplate({
-        id: 'add',
-        executeCommand: addRow,
-        text: addCommandText,
-      })}
-    </th>
+  addRow,
+  commandTemplate,
+  allowAdding,
+  style = {},
+  addCommandText = 'New',
+}) => (
+  <th
+    style={{
+      whiteSpace: 'nowrap',
+      textAlign: 'center',
+      padding: 0,
+      ...style,
+    }}
+  >
+    {allowAdding && commandTemplate({
+      id: 'add',
+      executeCommand: addRow,
+      text: addCommandText,
+    })}
+  </th>
 );
 EditCommandHeadingCell.propTypes = {
   addRow: PropTypes.func.isRequired,
@@ -51,20 +51,20 @@ EditCommandHeadingCell.defaultProps = {
 };
 
 export const EditCommandCell = ({
-    startEditing,
-    deleteRow,
-    cancelEditing,
-    commitChanges,
-    isEditing,
-    commandTemplate,
-    allowEditing,
-    allowDeleting,
-    style = {},
-    editCommandText = 'Edit',
-    deleteCommandText = 'Delete',
-    commitCommandText = 'Save',
-    cancelCommandText = 'Cancel',
-  }) => {
+  startEditing,
+  deleteRow,
+  cancelEditing,
+  commitChanges,
+  isEditing,
+  commandTemplate,
+  allowEditing,
+  allowDeleting,
+  style = {},
+  editCommandText = 'Edit',
+  deleteCommandText = 'Delete',
+  commitCommandText = 'Save',
+  cancelCommandText = 'Cancel',
+}) => {
   let commands = [];
   if (!isEditing) {
     if (allowEditing) {

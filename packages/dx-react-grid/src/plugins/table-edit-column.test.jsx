@@ -6,8 +6,9 @@ import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
   isDataEditCommandsTableCell,
-  isEditNewRowCommandsTableCell,
-  isEditExistingRowCommandsTableCell,
+  isEditCommandsTableCell,
+  isAddedTableRow,
+  isEditTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableEditColumn } from './table-edit-column';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -16,8 +17,9 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithEditing: jest.fn(),
   isHeadingEditCommandsTableCell: jest.fn(),
   isDataEditCommandsTableCell: jest.fn(),
-  isEditNewRowCommandsTableCell: jest.fn(),
-  isEditExistingRowCommandsTableCell: jest.fn(),
+  isEditCommandsTableCell: jest.fn(),
+  isAddedTableRow: jest.fn(),
+  isEditTableRow: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -64,8 +66,9 @@ describe('TableHeaderRow', () => {
     tableColumnsWithEditing.mockImplementation(() => 'tableColumnsWithEditing');
     isHeadingEditCommandsTableCell.mockImplementation(() => false);
     isDataEditCommandsTableCell.mockImplementation(() => false);
-    isEditNewRowCommandsTableCell.mockImplementation(() => false);
-    isEditExistingRowCommandsTableCell.mockImplementation(() => false);
+    isEditCommandsTableCell.mockImplementation(() => false);
+    isAddedTableRow.mockImplementation(() => false);
+    isEditTableRow.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -115,8 +118,8 @@ describe('TableHeaderRow', () => {
       }));
   });
 
-  it('should render edit commands cell on edit-commands column and user-defined row intersection', () => {
-    isDataEditCommandsTableCell.mockImplementation(() => true);
+  it('should render edit commands cell on edit-commands column and added row intersection', () => {
+    isEditCommandsTableCell.mockImplementation(() => true);
     const cellTemplate = jest.fn(() => null);
 
     mount(
@@ -129,7 +132,7 @@ describe('TableHeaderRow', () => {
       </PluginHost>,
     );
 
-    expect(isHeadingEditCommandsTableCell)
+    expect(isEditCommandsTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,
         defaultDeps.template.tableViewCell.tableColumn,
@@ -139,60 +142,6 @@ describe('TableHeaderRow', () => {
         ...defaultDeps.template.tableViewCell,
         row: defaultDeps.template.tableViewCell.tableRow.row,
         isEditing: false,
-      }));
-  });
-
-  it('should render edit commands cell on edit-commands column and added row intersection', () => {
-    isEditNewRowCommandsTableCell.mockImplementation(() => true);
-    const cellTemplate = jest.fn(() => null);
-
-    mount(
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableEditColumn
-          {...defaultProps}
-          cellTemplate={cellTemplate}
-        />
-      </PluginHost>,
-    );
-
-    expect(isEditNewRowCommandsTableCell)
-      .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
-      );
-    expect(cellTemplate)
-      .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
-        isEditing: true,
-      }));
-  });
-
-  it('should render edit commands cell on edit-commands column and editing row intersection', () => {
-    isEditExistingRowCommandsTableCell.mockImplementation(() => true);
-    const cellTemplate = jest.fn(() => null);
-
-    mount(
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableEditColumn
-          {...defaultProps}
-          cellTemplate={cellTemplate}
-        />
-      </PluginHost>,
-    );
-
-    expect(isEditExistingRowCommandsTableCell)
-      .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
-      );
-    expect(cellTemplate)
-      .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
-        isEditing: true,
       }));
   });
 });

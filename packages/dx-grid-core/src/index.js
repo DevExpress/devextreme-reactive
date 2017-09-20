@@ -27,6 +27,9 @@ export * from './plugins/editing-state/helpers';
 export * from './plugins/column-order-state/reducers';
 export * from './plugins/column-order-state/computeds';
 
+export * from './plugins/table-column-resizing/computeds';
+export * from './plugins/table-column-resizing/reducers';
+
 export * from './plugins/table-edit-column/constants';
 export * from './plugins/table-edit-column/helpers';
 export * from './plugins/table-edit-column/computeds';
@@ -62,7 +65,6 @@ export * from './plugins/table-view/computeds';
 
 export {
   getTableRowColumnsWithColSpan,
-  findTableCellTarget,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,

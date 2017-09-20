@@ -1,28 +1,43 @@
-import { TABLE_ADDING_TYPE, TABLE_EDITING_TYPE } from './constants';
+import { TABLE_ADDED_TYPE, TABLE_EDIT_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table-view/constants';
 import {
-  isEditNewTableCell,
-  isEditExistingTableCell,
+  isEditTableCell,
+  isAddedTableRow,
+  isEditTableRow,
 } from './helpers';
 
 describe('TableEditRow Plugin helpers', () => {
-  describe('#isEditNewTableCell', () => {
+  describe('#isEditTableCell', () => {
     it('should work', () => {
-      expect(isEditNewTableCell({ type: TABLE_ADDING_TYPE }, { type: TABLE_DATA_TYPE }))
+      expect(isEditTableCell({ type: TABLE_ADDED_TYPE }, { type: TABLE_DATA_TYPE }))
         .toBeTruthy();
-      expect(isEditNewTableCell({ type: TABLE_ADDING_TYPE }, { type: 'undefined' }))
+      expect(isEditTableCell({ type: TABLE_EDIT_TYPE }, { type: TABLE_DATA_TYPE }))
+        .toBeTruthy();
+      expect(isEditTableCell({ type: TABLE_ADDED_TYPE }, { type: 'undefined' }))
         .toBeFalsy();
-      expect(isEditNewTableCell({ type: 'undefined' }, { type: 'undefined' }))
+      expect(isEditTableCell({ type: TABLE_EDIT_TYPE }, { type: 'undefined' }))
+        .toBeFalsy();
+      expect(isEditTableCell({ type: 'undefined' }, { type: 'undefined' }))
         .toBeFalsy();
     });
   });
-  describe('#isEditExistingTableCell', () => {
+  describe('#isAddedTableRow', () => {
     it('should work', () => {
-      expect(isEditExistingTableCell({ type: TABLE_EDITING_TYPE }, { type: TABLE_DATA_TYPE }))
+      expect(isAddedTableRow({ type: TABLE_ADDED_TYPE }))
         .toBeTruthy();
-      expect(isEditExistingTableCell({ type: TABLE_EDITING_TYPE }, { type: 'undefined' }))
+      expect(isAddedTableRow({ type: TABLE_EDIT_TYPE }))
         .toBeFalsy();
-      expect(isEditExistingTableCell({ type: 'undefined' }, { type: 'undefined' }))
+      expect(isAddedTableRow({ type: 'undefined' }))
+        .toBeFalsy();
+    });
+  });
+  describe('#isEditTableRow', () => {
+    it('should work', () => {
+      expect(isEditTableRow({ type: TABLE_EDIT_TYPE }))
+        .toBeTruthy();
+      expect(isEditTableRow({ type: TABLE_ADDED_TYPE }))
+        .toBeFalsy();
+      expect(isEditTableRow({ type: 'undefined' }))
         .toBeFalsy();
     });
   });

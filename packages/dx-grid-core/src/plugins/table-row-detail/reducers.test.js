@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 import {
-    setDetailRowExpanded,
+  setDetailRowExpanded,
 } from './reducers';
 
 describe('TableRowDetail Plugin reducers', () => {

@@ -1,18 +1,16 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
+import { ResizingControl } from './table-header-cell/resizing-control';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
-
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
-
   afterAll(() => {
     resetConsole();
   });
@@ -59,7 +57,7 @@ describe('TableHeaderCell', () => {
         <thead>
           <tr>
             <TableHeaderCell
-              column={{}}
+              column={{ name: 'a' }}
               allowSorting
             />
           </tr>
@@ -133,5 +131,25 @@ describe('TableHeaderCell', () => {
       .not.toMatchObject({
         opacity: 0.3,
       });
+  });
+
+  it('should render resize control if resize allowed', () => {
+    const changeColumnWidth = () => {};
+    const changeDraftColumnWidth = () => {};
+    const tree = mount(
+      <TableHeaderCell
+        column={{}}
+        allowResizing
+        changeDraftColumnWidth={changeDraftColumnWidth}
+        changeColumnWidth={changeColumnWidth}
+      />,
+    );
+
+    expect(tree.find(ResizingControl).exists())
+      .toBeTruthy();
+    expect(tree.find(ResizingControl).prop('changeDraftColumnWidth'))
+      .toBe(changeDraftColumnWidth);
+    expect(tree.find(ResizingControl).prop('changeColumnWidth'))
+      .toBe(changeColumnWidth);
   });
 });

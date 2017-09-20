@@ -10,7 +10,7 @@ The following plugins implement column reordering features:
 - [TableView](../reference/table-view.md) - visualizes table column reordering
 - [TableHeaderRow](../reference/table-header-row.md) - visualizes header row column reordering
 
-Note that the [plugin order](../README.md#plugin-order) is important.
+Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Column Reordering Setup
 

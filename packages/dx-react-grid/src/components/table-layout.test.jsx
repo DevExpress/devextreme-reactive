@@ -207,66 +207,6 @@ describe('TableLayout', () => {
       .toMatchObject({ width: undefined });
   });
 
-  it('should handle click in body', () => {
-    const rows = [
-      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
-    ];
-    const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
-    ];
-    const onClick = jest.fn();
-    const tree = mount(
-      <TableLayout
-        rows={rows}
-        columns={columns}
-        minColumnWidth={150}
-        tableTemplate={tableTemplateMock}
-        bodyTemplate={bodyTemplateMock}
-        rowTemplate={rowTemplateMock}
-        cellTemplate={cellTemplateMock}
-        onClick={onClick}
-      />,
-    );
-
-    tree.find('tr').at(1).find('td').at(1)
-      .simulate('click');
-    expect(onClick.mock.calls[0][0])
-      .toMatchObject({ tableRow: rows[1], tableColumn: columns[1], e: {} });
-  });
-
-  it('should handle click in head', () => {
-    const rows = [
-      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
-    ];
-    const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
-    ];
-    const onClick = jest.fn();
-    const tree = mount(
-      <TableLayout
-        headerRows={rows}
-        rows={[]}
-        columns={columns}
-        minColumnWidth={150}
-        tableTemplate={tableTemplateMock}
-        headTemplate={headTemplateMock}
-        bodyTemplate={bodyTemplateMock}
-        rowTemplate={rowTemplateMock}
-        cellTemplate={cellTemplateMock}
-        onClick={onClick}
-      />,
-    );
-
-    tree.find('tr').at(1).find('td').at(1)
-      .simulate('click');
-    expect(onClick.mock.calls[0][0])
-      .toMatchObject({ tableRow: rows[1], tableColumn: columns[1], e: {} });
-  });
-
   describe('flex column', () => {
     it('should add flex column if all columns have fixed widths', () => {
       const rows = [

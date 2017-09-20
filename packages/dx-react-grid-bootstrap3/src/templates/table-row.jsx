@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableRow = ({ children, tableRow, ...restProps }) => (
+export const TableRow = ({ children, style }) => (
   <tr
-    className={tableRow.selected ? 'active' : ''}
-    {...restProps}
+    style={style}
   >
     {children}
   </tr>
 );
 
 TableRow.propTypes = {
-  tableRow: PropTypes.object.isRequired,
   children: PropTypes.node,
+  style: PropTypes.shape(),
 };
 
 TableRow.defaultProps = {
   children: null,
+  style: null,
 };

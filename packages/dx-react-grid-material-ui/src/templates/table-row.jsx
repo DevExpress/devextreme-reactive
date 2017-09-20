@@ -1,27 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TableRow as TableRowMUI } from 'material-ui';
 
-import {
-  TableRow as TableRowMUI,
-} from 'material-ui';
-import { withStyles } from 'material-ui/styles';
-
-const TableRowBase = ({ children, tableRow, ...restProps }) => (
+export const TableRow = ({ children, style }) => (
   <TableRowMUI
-    selected={tableRow.selected}
-    {...restProps}
+    style={style}
   >
     {children}
   </TableRowMUI>
 );
 
-TableRowBase.propTypes = {
-  tableRow: PropTypes.object.isRequired,
+TableRow.propTypes = {
   children: PropTypes.node,
+  style: PropTypes.shape(),
 };
 
-TableRowBase.defaultProps = {
+TableRow.defaultProps = {
   children: null,
+  style: null,
 };
-
-export const TableRow = withStyles({}, { name: 'TableRow' })(TableRowBase);

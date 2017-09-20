@@ -15,6 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | | A component that renders a group row
 groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell
+groupRowTemplate | (args: [GroupRowArgs](#group-row-args)) => ReactElement | | A component that renders a group row
 groupIndentColumnWidth | number | | The group indent column's width
 
 ## Interfaces
@@ -39,6 +40,16 @@ row | [GroupRow](#group-row) | The group row's data object
 column | [Column](#column) | The column associated with the group
 isExpanded | boolean | Specifies if the row is expanded
 toggleGroupExpanded | () => void | Toggles the group row's expanded state
+
+### <a name="group-row-args"></a>GroupRowArgs
+
+Describes the properties passed to the template that renders a group row.
+
+A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by the following fields:
+
+Field | Type | Description
+------|------|------------
+row | [GroupRow](#group-row) | The group row's data object
 
 ### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
 
@@ -73,6 +84,7 @@ draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-groupi
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell
+tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row
 
 ### Exports
 

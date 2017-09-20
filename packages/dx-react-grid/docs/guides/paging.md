@@ -10,7 +10,7 @@ The following plugins implement filtering features:
 - [LocalPaging](../reference/local-paging.md) - performs local data paging
 - [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
 
-Note that the [plugin order](../README.md#plugin-order) is important.
+Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Local Paging Setup
 

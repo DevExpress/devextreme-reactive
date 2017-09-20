@@ -1,12 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, PluginContainer,
+  TemplateConnector, TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
   isGroupTableCell,
   isGroupIndentTableCell,
+  isGroupTableRow,
 } from '@devexpress/dx-grid-core';
+
+const getGroupIndentTableCellTemplateArgs = ({ params }) => ({
+  ...params,
+  row: params.tableRow.row,
+  column: params.tableColumn.column,
+});
+
+const getGroupTableCellTemplateArgs = (
+  params,
+  { expandedGroups },
+  { toggleGroupExpanded },
+) => ({
+  ...params,
+  row: params.tableRow.row,
+  column: params.tableColumn.column,
+  isExpanded: expandedGroups.has(params.tableRow.row.key),
+  toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
+});
+
+const getGroupTableRowTemplateArgs = params => ({
+  ...params,
+  row: params.tableRow.row,
+});
 
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
@@ -19,6 +46,7 @@ export class TableGroupRow extends React.PureComponent {
   render() {
     const {
       groupCellTemplate,
+      groupRowTemplate,
       groupIndentCellTemplate,
       groupIndentColumnWidth,
     } = this.props;
@@ -37,29 +65,46 @@ export class TableGroupRow extends React.PureComponent {
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isGroupTableCell(tableRow, tableColumn)}
-          connectGetters={getter => ({ expandedGroups: getter('expandedGroups') })}
-          connectActions={action => ({ toggleGroupExpanded: action('toggleGroupExpanded') })}
         >
-          {({ expandedGroups, toggleGroupExpanded, ...params }) => groupCellTemplate({
-            ...params,
-            row: params.tableRow.row,
-            column: params.tableColumn.column,
-            isExpanded: expandedGroups.has(params.tableRow.row.key),
-            toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
-          })}
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={groupCellTemplate}
+                  params={getGroupTableCellTemplateArgs(params, getters, actions)}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
         {groupIndentCellTemplate && (
           <Template
             name="tableViewCell"
             predicate={({ tableRow, tableColumn }) => isGroupIndentTableCell(tableRow, tableColumn)}
           >
-            {params => groupIndentCellTemplate({
-              ...params,
-              row: params.tableRow.row,
-              column: params.tableColumn.column,
-            })}
+            {params => (
+              <TemplateRenderer
+                template={groupIndentCellTemplate}
+                params={getGroupIndentTableCellTemplateArgs({ params })}
+              />
+            )}
           </Template>
         )}
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isGroupTableRow(tableRow)}
+        >
+          {params => (
+            <TemplateConnector>
+              {() => (
+                <TemplateRenderer
+                  template={groupRowTemplate}
+                  params={getGroupTableRowTemplateArgs(params)}
+                />
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
       </PluginContainer>
     );
   }
@@ -67,6 +112,7 @@ export class TableGroupRow extends React.PureComponent {
 
 TableGroupRow.propTypes = {
   groupCellTemplate: PropTypes.func.isRequired,
+  groupRowTemplate: PropTypes.func.isRequired,
   groupIndentCellTemplate: PropTypes.func,
   groupIndentColumnWidth: PropTypes.number.isRequired,
 };

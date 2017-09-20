@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Template, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, PluginContainer,
+  TemplateConnector, TemplateRenderer,
+} from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
   isDetailRowExpanded,
@@ -8,6 +11,30 @@ import {
   isDetailToggleTableCell,
   isDetailTableRow,
 } from '@devexpress/dx-grid-core';
+
+const getDetailToggleTableCellTemplateArgs = (
+  params,
+  { expandedRows },
+  { setDetailRowExpanded },
+) => ({
+  ...params,
+  row: params.tableRow.row,
+  expanded: isDetailRowExpanded(expandedRows, params.tableRow.rowId),
+  toggleExpanded: () => setDetailRowExpanded({ rowId: params.tableRow.rowId }),
+});
+
+const getDetailTableCellTemplateArgs = (
+  { template, ...params },
+) => ({
+  ...params,
+  row: params.tableRow.row,
+  template: () => template({ row: params.tableRow.row }),
+});
+
+const getDetailTableRowTemplateArgs = params => ({
+  ...params,
+  row: params.tableRow.row,
+});
 
 const pluginDependencies = [
   { pluginName: 'TableView' },
@@ -20,6 +47,7 @@ export class TableRowDetail extends React.PureComponent {
       template,
       detailToggleCellTemplate,
       detailCellTemplate,
+      detailRowTemplate,
       detailToggleCellWidth,
     } = this.props;
 
@@ -34,35 +62,47 @@ export class TableRowDetail extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
-          connectGetters={getter => ({
-            expandedRows: getter('expandedRows'),
-          })}
-          connectActions={action => ({
-            setDetailRowExpanded: action('setDetailRowExpanded'),
-          })}
         >
-          {({
-            expandedRows,
-            setDetailRowExpanded,
-            ...restParams
-          }) => detailToggleCellTemplate({
-            ...restParams,
-            row: restParams.tableRow.row,
-            expanded: isDetailRowExpanded(expandedRows, restParams.tableRow.rowId),
-            toggleExpanded: () => setDetailRowExpanded({ rowId: restParams.tableRow.rowId }),
-          })}
+          {params => (
+            <TemplateConnector>
+              {(getters, actions) => (
+                <TemplateRenderer
+                  template={detailToggleCellTemplate}
+                  params={getDetailToggleTableCellTemplateArgs(params, getters, actions)}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
-
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Template name="tableViewCell" predicate={({ tableRow }) => isDetailTableRow(tableRow)}>
-          {params => detailCellTemplate({
-            ...params,
-            row: params.tableRow.row,
-            template: () => template({ row: params.tableRow.row }),
-          })}
+        <Template
+          name="tableViewCell"
+          predicate={({ tableRow }) => isDetailTableRow(tableRow)}
+        >
+          {params => (
+            <TemplateRenderer
+              template={detailCellTemplate}
+              params={getDetailTableCellTemplateArgs({ template, ...params })}
+            />
+          )}
+        </Template>
+        <Template
+          name="tableViewRow"
+          predicate={({ tableRow }) => isDetailTableRow(tableRow)}
+        >
+          {params => (
+            <TemplateConnector>
+              {() => (
+                <TemplateRenderer
+                  template={detailRowTemplate}
+                  params={getDetailTableRowTemplateArgs(params)}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
       </PluginContainer>
     );
@@ -73,6 +113,7 @@ TableRowDetail.propTypes = {
   template: PropTypes.func,
   detailToggleCellTemplate: PropTypes.func.isRequired,
   detailCellTemplate: PropTypes.func.isRequired,
+  detailRowTemplate: PropTypes.func.isRequired,
   detailToggleCellWidth: PropTypes.number.isRequired,
   rowHeight: PropTypes.oneOfType([
     PropTypes.number,

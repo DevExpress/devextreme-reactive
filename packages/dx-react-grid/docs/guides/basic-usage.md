@@ -9,8 +9,8 @@ The next basic property of Data Grid is `columns`. It defines what row fields sh
 ```js
 <Grid
   rows={[
-    { region: 'South America', 'sector': 'Banking' },
-    { region: 'Africa', 'sector': 'Manufacturing' },
+    { region: 'South America', sector: 'Banking' },
+    { region: 'Africa', sector: 'Manufacturing' },
     /* ... */
   ]},
   columns={[

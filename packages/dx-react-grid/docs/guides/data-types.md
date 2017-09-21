@@ -2,13 +2,13 @@
 
 The Grid component supports custom value formatting and the use of a custom editor for cell value editing depending on column's data type.
 
-The [DataTypeProvider](../reference/data-type-provider.md) plugin holds the `type`, `formatterTemplate` and `editorTemplate` properties that enable you to associate the data type provider with a data type, specify custom formatting options and specify a custom editor respectively.
+The [DataTypeProvider](../reference/data-type-provider.md) plugin holds the `type`, `formatterTemplate` and `editorTemplate` properties that enable you to associate the data type provider with a data type, specify custom formatting and a custom editor respectively.
 
 Associate a column with a data type using the `Column` object's `dataType` field.
 
 ## Related Plugins
 
-- [DataTypeProvider](../reference/data-type-provider.md) - provides capabilities to customize formatting options and editors depending on the data type
+- [DataTypeProvider](../reference/data-type-provider.md) - provides capabilities to customize formatting and editors depending on the data type
 
 ## Value Formatting
 

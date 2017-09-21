@@ -1,6 +1,6 @@
 # DataTypeProvider Plugin Reference
 
-A plugin that allows data formatting and editors customization.
+A plugin that provides capabilities to customize formatting options and editors depending on the data type.
 
 ## User Reference
 
@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-type | string | | Specifies the column dataType to which templates will be applied.
-formatterTemplate | (args: [ValueFormatterArgs](#value-formatter-args)) => ReactElement | | Specifies the template to be used for data formatting.
-editorTemplate | (args: [ValueEditorArgs](#value-editor-args)) => ReactElement | | Specifies editor template.
+type | string | | Specifies the data type to which the templates are applied.
+formatterTemplate | (args: [ValueFormatterArgs](#value-formatter-args)) => ReactElement | | Specifies the formatted value template.
+editorTemplate | (args: [ValueEditorArgs](#value-editor-args)) => ReactElement | | Specifies the editor template.
 
 ## Interfaces
 
@@ -24,7 +24,7 @@ A value with the [Column](grid.md#column) shape extended by the following fields
 
 Field | Type | Description
 ------|------|------------
-dataType | string | Specifies the data type of the column.
+dataType | string | Specifies the column's data type.
 
 ### <a name="value-formatter-args"></a>ValueFormatterArgs
 

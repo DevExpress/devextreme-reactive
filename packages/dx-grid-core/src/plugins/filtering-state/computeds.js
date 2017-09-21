@@ -1,13 +1,15 @@
-const toString = value => String(value).toLowerCase();
+const toLowerCase = value => String(value).toLowerCase();
 
-const applyFilter = (filter, value) => (toString(value).indexOf(toString(filter.value)) > -1);
-
-export const filteredRows = (rows, filters, getCellData, userFilterFn) => {
+export const filteredRows = (
+  rows,
+  filters,
+  getCellData,
+  predicate = (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1,
+) => {
   if (!filters.length) return rows;
 
-  const filterFn = userFilterFn ||
-    ((row, filter) => applyFilter(filter, getCellData(row, filter.columnName)));
-
-  return rows.filter(row => filters.reduce((accumulator, filter) =>
-    accumulator && filterFn(row, filter), true));
+  return rows.filter(row => filters.reduce(
+    (acc, filter) => acc && predicate(getCellData(row, filter.columnName), filter, row),
+    true,
+  ));
 };

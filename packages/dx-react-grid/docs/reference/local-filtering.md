@@ -12,7 +12,7 @@ Plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-filterFn | (row: [Row](grid.md#row), filter: [Filter](filtering-state.md#filter)) => boolean | | A function used to apply the filter to the data row
+predicate | (value: any, filter: [Filter](filtering-state.md#filter), row: [Row](grid.md#row)) => boolean | | A function used to apply the filter to the cell value
 
 ## Plugin Developer Reference
 

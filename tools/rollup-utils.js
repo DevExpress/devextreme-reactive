@@ -31,12 +31,6 @@ export const babelrc = (packageDirectory) => {
   return config;
 };
 
-export const moduleName = (packageDirectory) => {
-  const pkg = JSON.parse(readFileSync(join(packageDirectory, 'package.json')));
-
-  return pkg.globalName;
-};
-
 const knownGlobals = {
   react: 'React',
   'react-dom': 'ReactDOM',

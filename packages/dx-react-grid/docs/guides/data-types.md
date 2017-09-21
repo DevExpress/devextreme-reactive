@@ -1,4 +1,4 @@
-# Custom Data Types
+# Data Types
 
 The Grid component supports custom value formatting and the use of a custom editor for cell value editing depending on column's data type.
 

@@ -8,16 +8,16 @@ The next basic property of Data Grid is `columns`. It defines what row fields sh
 
 ```js
 <Grid
-  rows: [
+  rows={[
     { region: 'South America', 'sector': 'Banking' },
     { region: 'Africa', 'sector': 'Manufacturing' },
     /* ... */
-  ],
-  columns: [
+  ]},
+  columns={[
     { name: 'region', title: 'Region' },
     { name: 'sector', title: 'Sector' },
     /* ... */
-  ],
+  ]},
 >
 </Grid>
 ```
@@ -31,8 +31,8 @@ The first one is the [TableView](../reference/table-view.md). It renders data as
 
 ```js
 <Grid
-  rows: [/* ... */],
-  columns: [/* ... */],
+  rows={rows},
+  columns={columns},
 >
   <TableView />
 </Grid>
@@ -42,8 +42,8 @@ The second is the [TableHeaderRow](../reference/table-header-row.md) plugin. Pay
 
 ```js
 <Grid
-  rows: [/* ... */],
-  columns: [/* ... */],
+  rows={rows},
+  columns={columns},
 >
   <TableView />
   <TableHeaderRow />
@@ -64,6 +64,7 @@ Let's look how to achieve it by using the `tableCellTemplate` property of the `T
 
 NOTE: the following code uses Bootstrap 3 templates. If you'd like to use Material UI, replace the `td` tag to `TableCell`.
 
+{% raw %}
 ```js
 <Grid
   rows={rows}
@@ -87,6 +88,7 @@ NOTE: the following code uses Bootstrap 3 templates. If you'd like to use Materi
   <TableHeaderRow />
 </Grid>
 ```
+{% endraw %}
 
 Here we use a custom text color depend on some condition. Otherwise, we return `undefined` to use a default table cell template.
 
@@ -132,6 +134,8 @@ export default class Demo extends React.PureComponent {
   }
 }
 ```
+
+Pay attention, you can use the `children` argument field to avoid manual cells rendering.
 
 .embedded-demo(basic/table-row-template)
 

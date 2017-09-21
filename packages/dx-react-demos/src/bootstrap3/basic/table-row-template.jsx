@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import {
   Grid,
@@ -24,28 +25,25 @@ export default class Demo extends React.PureComponent {
         { name: 'amount', title: 'Sale Amount' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
-      hoveredRowId: null,
     };
+
+    this.tableRowTemplate = ({ children, row }) => (
+      <tr
+        onClick={() => alert(JSON.stringify(row))}
+      >
+        {children}
+      </tr>
+    );
   }
   render() {
-    const { rows, columns, hoveredRowId } = this.state;
+    const { rows, columns } = this.state;
 
     return (
       <Grid
         rows={rows}
         columns={columns}
       >
-        <TableView
-          tableRowTemplate={({ children, tableRow }) => (
-            <tr
-              onMouseEnter={() => this.setState({ hoveredRowId: tableRow.rowId })}
-              onMouseLeave={() => this.setState({ hoveredRowId: null })}
-              className={hoveredRowId === tableRow.rowId ? 'active' : null}
-            >
-              {children}
-            </tr>
-          )}
-        />
+        <TableView tableRowTemplate={this.tableRowTemplate} />
         <TableHeaderRow />
       </Grid>
     );

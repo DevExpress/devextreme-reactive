@@ -11,7 +11,7 @@ Note that the plugins are composable and can be nested into each other.
 
 Refer to the [Reference](../../reference) to see the complete plugin list.
 
-## Plugin Order
+## <a name="plugin-order">Plugin Order
 
 The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state. Thus, it should follow the appropriate state plugin:
 

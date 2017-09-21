@@ -13,49 +13,54 @@ const tableLayoutTemplate = props => <Table {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
-
 const defaultStubCellTemplate = props => <TableStubCell {...props} />;
 const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 
-export const TableView = ({
-  tableCellTemplate,
-  tableRowTemplate,
-  tableNoDataRowTemplate,
-  tableStubCellTemplate,
-  tableStubHeaderCellTemplate,
-  tableNoDataCellTemplate,
-  ...props
-}) => (
-  <TableViewBase
-    tableLayoutTemplate={tableLayoutTemplate}
-    tableRowTemplate={combineTemplates(
-      tableRowTemplate,
-      defaultRowTemplate,
-    )}
-    tableNoDataRowTemplate={combineTemplates(
-      tableNoDataRowTemplate,
-      defaultNoDataRowTemplate,
-    )}
-    tableCellTemplate={combineTemplates(
+export class TableView extends React.PureComponent {
+  render() {
+    const {
       tableCellTemplate,
-      defaultCellTemplate,
-    )}
-    tableStubCellTemplate={combineTemplates(
+      tableRowTemplate,
+      tableNoDataRowTemplate,
       tableStubCellTemplate,
-      defaultStubCellTemplate,
-    )}
-    tableStubHeaderCellTemplate={combineTemplates(
       tableStubHeaderCellTemplate,
-      defaultStubHeaderCellTemplate,
-    )}
-    tableNoDataCellTemplate={combineTemplates(
       tableNoDataCellTemplate,
-      defaultNoDataCellTemplate,
-    )}
-    {...props}
-  />
-);
+      ...restProps
+    } = this.props;
+
+    return (
+      <TableViewBase
+        tableLayoutTemplate={tableLayoutTemplate}
+        tableRowTemplate={combineTemplates(
+          tableRowTemplate,
+          defaultRowTemplate,
+        )}
+        tableNoDataRowTemplate={combineTemplates(
+          tableNoDataRowTemplate,
+          defaultNoDataRowTemplate,
+        )}
+        tableCellTemplate={combineTemplates(
+          tableCellTemplate,
+          defaultCellTemplate,
+        )}
+        tableStubCellTemplate={combineTemplates(
+          tableStubCellTemplate,
+          defaultStubCellTemplate,
+        )}
+        tableStubHeaderCellTemplate={combineTemplates(
+          tableStubHeaderCellTemplate,
+          defaultStubHeaderCellTemplate,
+        )}
+        tableNoDataCellTemplate={combineTemplates(
+          tableNoDataCellTemplate,
+          defaultNoDataCellTemplate,
+        )}
+        {...restProps}
+      />
+    );
+  }
+}
 
 TableView.propTypes = {
   tableCellTemplate: PropTypes.func,

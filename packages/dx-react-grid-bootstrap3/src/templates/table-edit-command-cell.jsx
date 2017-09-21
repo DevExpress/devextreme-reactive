@@ -14,15 +14,15 @@ export const CommandButton = ({ executeCommand, text }) => (
 );
 CommandButton.propTypes = {
   executeCommand: PropTypes.func.isRequired,
-  text: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
 };
 
 export const EditCommandHeadingCell = ({
   addRow,
   commandTemplate,
   allowAdding,
-  style = {},
-  addCommandText = 'New',
+  style,
+  addCommandText,
 }) => (
   <th
     style={{
@@ -42,12 +42,13 @@ export const EditCommandHeadingCell = ({
 EditCommandHeadingCell.propTypes = {
   addRow: PropTypes.func.isRequired,
   commandTemplate: PropTypes.func.isRequired,
-  addCommandText: PropTypes.string.isRequired,
+  addCommandText: PropTypes.string,
   allowAdding: PropTypes.bool.isRequired,
   style: PropTypes.object,
 };
 EditCommandHeadingCell.defaultProps = {
-  style: undefined,
+  style: {},
+  addCommandText: 'New',
 };
 
 export const EditCommandCell = ({
@@ -59,11 +60,11 @@ export const EditCommandCell = ({
   commandTemplate,
   allowEditing,
   allowDeleting,
-  style = {},
-  editCommandText = 'Edit',
-  deleteCommandText = 'Delete',
-  commitCommandText = 'Save',
-  cancelCommandText = 'Cancel',
+  style,
+  editCommandText,
+  deleteCommandText,
+  commitCommandText,
+  cancelCommandText,
 }) => {
   let commands = [];
   if (!isEditing) {
@@ -117,12 +118,16 @@ EditCommandCell.propTypes = {
   allowEditing: PropTypes.bool.isRequired,
   allowDeleting: PropTypes.bool.isRequired,
   commandTemplate: PropTypes.func.isRequired,
-  editCommandText: PropTypes.string.isRequired,
-  deleteCommandText: PropTypes.string.isRequired,
-  commitCommandText: PropTypes.string.isRequired,
-  cancelCommandText: PropTypes.string.isRequired,
+  editCommandText: PropTypes.string,
+  deleteCommandText: PropTypes.string,
+  commitCommandText: PropTypes.string,
+  cancelCommandText: PropTypes.string,
   style: PropTypes.object,
 };
 EditCommandCell.defaultProps = {
-  style: undefined,
+  style: {},
+  editCommandText: 'Edit',
+  deleteCommandText: 'Delete',
+  commitCommandText: 'Save',
+  cancelCommandText: 'Cancel',
 };

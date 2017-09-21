@@ -8,24 +8,31 @@ import { TableRow } from '../templates/table-row';
 const defaultFilterCellTemplate = props => <TableFilterCell {...props} />;
 const defaultFilterRowTemplate = props => <TableRow {...props} />;
 
-export const TableFilterRow = ({ filterCellTemplate, filterRowTemplate, ...restProps }) => (
-  <TableFilterRowBase
-    filterCellTemplate={combineTemplates(
-      filterCellTemplate,
-      defaultFilterCellTemplate,
-    )}
-    filterRowTemplate={combineTemplates(
-      filterRowTemplate,
-      defaultFilterRowTemplate,
-    )}
-    {...restProps}
-  />
-);
+export class TableFilterRow extends React.PureComponent {
+  render() {
+    const { filterCellTemplate, filterRowTemplate, ...restProps } = this.props;
+
+    return (
+      <TableFilterRowBase
+        filterCellTemplate={combineTemplates(
+          filterCellTemplate,
+          defaultFilterCellTemplate,
+        )}
+        filterRowTemplate={combineTemplates(
+          filterRowTemplate,
+          defaultFilterRowTemplate,
+        )}
+        {...restProps}
+      />
+    );
+  }
+}
 
 TableFilterRow.propTypes = {
   filterCellTemplate: PropTypes.func,
   filterRowTemplate: PropTypes.func,
 };
+
 TableFilterRow.defaultProps = {
   filterCellTemplate: undefined,
   filterRowTemplate: undefined,

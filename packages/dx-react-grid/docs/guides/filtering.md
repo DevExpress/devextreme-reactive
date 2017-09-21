@@ -9,7 +9,7 @@ The following plugins implement filtering features:
 - [LocalFiltering](../reference/local-filtering.md) - performs local data filtering
 - [TableFilterRow](../reference/table-filter-row.md) - renders a filter row
 
-Note that [plugin order](../README.md#plugin-order) is important.
+Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Set up Local Filtering with the Filter Row
 

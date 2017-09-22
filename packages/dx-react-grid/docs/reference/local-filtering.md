@@ -22,7 +22,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be filtered
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Column filters to be applied
-getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell's value
+getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value
 
 ### Exports
 

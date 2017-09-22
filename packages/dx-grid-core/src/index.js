@@ -63,6 +63,8 @@ export * from './plugins/table-view/constants';
 export * from './plugins/table-view/helpers';
 export * from './plugins/table-view/computeds';
 
+export * from './plugins/hidden-table-columns/computeds';
+
 export {
   getTableRowColumnsWithColSpan,
   getTableColumnGeometries,

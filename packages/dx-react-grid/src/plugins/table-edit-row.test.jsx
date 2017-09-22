@@ -26,7 +26,7 @@ const defaultDeps = {
     editingRows: [1, 2],
     addedRows: [{ a: 'text' }, {}],
     changedRows: [{ 1: { a: 'text' } }],
-    getCellData: jest.fn(),
+    getCellValue: jest.fn(),
     createRowChange: jest.fn(),
   },
   action: {
@@ -110,7 +110,7 @@ describe('TableEditRow', () => {
       </PluginHost>,
     );
 
-    expect(defaultDeps.getter.getCellData).toBeCalledWith(
+    expect(defaultDeps.getter.getCellValue).toBeCalledWith(
       { ...defaultDeps.template.tableViewCell.tableRow.row },
       defaultDeps.template.tableViewCell.tableColumn.column.name,
     );

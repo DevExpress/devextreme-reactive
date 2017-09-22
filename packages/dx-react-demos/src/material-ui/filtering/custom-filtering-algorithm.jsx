@@ -14,7 +14,7 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const filterFn = (row, filter) => {
+const predicate = (row, filter) => {
   const toLowerCase = value => String(value).toLowerCase();
   return toLowerCase(row[filter.columnName]).startsWith(toLowerCase(filter.value));
 };
@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <FilteringState defaultFilters={[{ columnName: 'city', value: 'Paris' }]} />
-        <LocalFiltering filterFn={filterFn} />
+        <LocalFiltering predicate={predicate} />
         <TableView />
         <TableHeaderRow />
         <TableFilterRow />

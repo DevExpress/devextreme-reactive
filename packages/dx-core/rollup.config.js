@@ -10,7 +10,7 @@ export default {
     { file: pkg.main, format: 'umd', name: pkg.globalName },
     { file: pkg.module, format: 'es' },
   ],
-  globals: globals(__dirname),
+  globals: globals(),
   external: external(__dirname),
   plugins: [
     babel(Object.assign({

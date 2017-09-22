@@ -29,7 +29,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filteri
 
 ### Using Custom Filtering Algorithms
 
-You can also specify a filtering predicate using the `LocalFiltering` plugin's `filterFn` property to implement a custom filtering logic.
+You can also specify a filtering predicate using the `LocalFiltering` plugin's `predicate` property to implement a custom filtering logic.
 
 .embedded-demo(filtering/custom-filtering-algorithm)
 

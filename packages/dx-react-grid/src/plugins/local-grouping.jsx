@@ -6,8 +6,8 @@ const pluginDependencies = [
   { pluginName: 'GroupingState' },
 ];
 
-const groupedRowsComputed = ({ rows, grouping, getCellData }) =>
-  groupedRows(rows, grouping, getCellData);
+const groupedRowsComputed = ({ rows, grouping, getCellValue }) =>
+  groupedRows(rows, grouping, getCellValue);
 const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
   expandedGroupRows(rows, grouping, expandedGroups);
 

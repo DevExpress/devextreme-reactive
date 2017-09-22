@@ -8,13 +8,13 @@ const rowIdGetter = (rows) => {
   return row => rowsMap.get(row);
 };
 
-const getCellDataGetter = (columns) => {
+const getCellValueGetter = (columns) => {
   let useFastAccessor = true;
 
   const map = columns.reduce((acc, column) => {
-    if (column.getCellData) {
+    if (column.getCellValue) {
       useFastAccessor = false;
-      acc[column.name] = column.getCellData;
+      acc[column.name] = column.getCellValue;
     }
     return acc;
   }, {});
@@ -28,14 +28,14 @@ export class GridCore extends React.PureComponent {
   constructor(props) {
     super(props);
     this.memoizedRowIdGetter = memoize(rowIdGetter);
-    this.memoizedGetCellDataGetter = memoize(getCellDataGetter);
+    this.memoizedCellValueGetter = memoize(getCellValueGetter);
   }
   render() {
     const {
       rows,
       columns,
       getRowId,
-      getCellData,
+      getCellValue,
       rootTemplate,
       headerPlaceholderTemplate,
       footerPlaceholderTemplate,
@@ -46,7 +46,7 @@ export class GridCore extends React.PureComponent {
         <Getter name="rows" value={rows} />
         <Getter name="columns" value={columns} />
         <Getter name="getRowId" value={getRowId || this.memoizedRowIdGetter(rows)} />
-        <Getter name="getCellData" value={getCellData || this.memoizedGetCellDataGetter(columns)} />
+        <Getter name="getCellValue" value={getCellValue || this.memoizedCellValueGetter(columns)} />
         <Template name="root">
           {() => rootTemplate({
             headerTemplate: () => (
@@ -74,7 +74,7 @@ export class GridCore extends React.PureComponent {
 GridCore.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
-  getCellData: PropTypes.func,
+  getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
   headerPlaceholderTemplate: PropTypes.func,
@@ -83,7 +83,7 @@ GridCore.propTypes = {
 
 GridCore.defaultProps = {
   getRowId: null,
-  getCellData: null,
+  getCellValue: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,
 };

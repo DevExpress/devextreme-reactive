@@ -9,7 +9,7 @@ export class Grid extends React.PureComponent {
       rows,
       columns,
       getRowId,
-      getCellData,
+      getCellValue,
       rootTemplate,
       headerPlaceholderTemplate,
       footerPlaceholderTemplate,
@@ -22,7 +22,7 @@ export class Grid extends React.PureComponent {
           rows={rows}
           columns={columns}
           getRowId={getRowId}
-          getCellData={getCellData}
+          getCellValue={getCellValue}
           rootTemplate={rootTemplate}
           headerPlaceholderTemplate={headerPlaceholderTemplate}
           footerPlaceholderTemplate={footerPlaceholderTemplate}
@@ -36,7 +36,7 @@ export class Grid extends React.PureComponent {
 Grid.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
-  getCellData: PropTypes.func,
+  getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
   headerPlaceholderTemplate: PropTypes.func,
@@ -49,7 +49,7 @@ Grid.propTypes = {
 
 Grid.defaultProps = {
   getRowId: null,
-  getCellData: null,
+  getCellValue: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,
   children: null,

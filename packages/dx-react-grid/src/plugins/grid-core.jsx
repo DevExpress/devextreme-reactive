@@ -47,6 +47,9 @@ export class GridCore extends React.PureComponent {
         <Getter name="columns" value={columns} />
         <Getter name="getRowId" value={getRowId || this.memoizedRowIdGetter(rows)} />
         <Getter name="getCellValue" value={getCellValue || this.memoizedCellValueGetter(columns)} />
+        <Template name="header" />
+        <Template name="body" />
+        <Template name="footer" />
         <Template name="root">
           {() => rootTemplate({
             headerTemplate: () => (

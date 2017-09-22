@@ -9,6 +9,7 @@ import {
   isEditTableRow,
   isAddedTableRow,
 } from '@devexpress/dx-grid-core';
+import { DataTypeProvider } from './data-type-provider';
 import { TableEditRow } from './table-edit-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -200,5 +201,46 @@ describe('TableEditRow', () => {
         a: undefined,
         b: 'b1',
       }, 'column', 'test');
+  });
+
+  it('can render custom editors', () => {
+    isEditTableCell.mockImplementation(() => true);
+    const deps = {
+      getter: {
+        getCellValue: jest.fn(() => 'a2'),
+      },
+      template: {
+        tableViewCell: {
+          tableRow: { row: { a: 'a1', b: 'b1' } },
+          tableColumn: { column: { name: 'column', dataType: 'column' } },
+        },
+      },
+    };
+    const editCellTemplate = jest.fn(() => null);
+    const valueEditor = jest.fn(() => <input />);
+
+    mount(
+      <PluginHost>
+        <DataTypeProvider
+          type="column"
+          editorTemplate={valueEditor}
+        />
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <TableEditRow
+          {...defaultProps}
+          editCellTemplate={editCellTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(valueEditor)
+      .toHaveBeenCalledWith({
+        column: deps.template.tableViewCell.tableColumn.column,
+        row: deps.template.tableViewCell.tableRow.row,
+        value: deps.getter.getCellValue(),
+        onValueChange: expect.any(Function),
+      });
+    expect(editCellTemplate.mock.calls[0][0])
+      .toHaveProperty('children');
   });
 });

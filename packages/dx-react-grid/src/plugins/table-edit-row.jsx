@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Getter,
+  Template,
+  TemplatePlaceholder,
+  TemplateConnector,
+  TemplateRenderer,
+  PluginContainer,
 } from '@devexpress/dx-react-core';
 import {
   getRowChange,
@@ -43,6 +47,13 @@ const getEditTableCellTemplateArgs = (
   };
 };
 
+const getValueEditorArgs = params => ({
+  column: params.column,
+  row: params.row,
+  value: params.value,
+  onValueChange: params.onValueChange,
+});
+
 const getEditTableRowTemplateArgs = params => ({
   ...params,
   row: params.tableRow.row,
@@ -72,16 +83,24 @@ export class TableEditRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={editCellTemplate}
-                  params={getEditTableCellTemplateArgs(
-                    params,
-                    getters,
-                    actions,
-                  )}
-                />
-              )}
+              {(getters, actions) => {
+                const templateArgs = getEditTableCellTemplateArgs(params, getters, actions);
+                return (
+                  <TemplatePlaceholder
+                    name="valueEditor"
+                    params={getValueEditorArgs(templateArgs)}
+                  >
+                    {content => (
+                      <TemplateRenderer
+                        template={editCellTemplate}
+                        params={templateArgs}
+                      >
+                        {content}
+                      </TemplateRenderer>
+                    )}
+                  </TemplatePlaceholder>
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>
@@ -104,11 +123,13 @@ export class TableEditRow extends React.PureComponent {
     );
   }
 }
+
 TableEditRow.propTypes = {
   rowHeight: PropTypes.any,
   editCellTemplate: PropTypes.func.isRequired,
   editRowTemplate: PropTypes.func.isRequired,
 };
+
 TableEditRow.defaultProps = {
   rowHeight: undefined,
 };

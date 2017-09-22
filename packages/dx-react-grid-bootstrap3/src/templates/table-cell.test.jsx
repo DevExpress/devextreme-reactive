@@ -37,4 +37,15 @@ describe('TableCell', () => {
     const tree = mountTableCell({});
     expect(tree.find('td').text()).toBe('text');
   });
+
+  it('should render children if passed', () => {
+    const tree = mount(
+      <TableCell>
+        <span className="test" />
+      </TableCell>,
+    );
+
+    expect(tree.find('.test').exists())
+      .toBeTruthy();
+  });
 });

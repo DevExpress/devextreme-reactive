@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Getter,
+  Template,
+  PluginContainer,
+  TemplatePlaceholder,
+  TemplateConnector,
+  TemplateRenderer,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
@@ -28,6 +32,12 @@ const getGroupTableCellTemplateArgs = (
   column: params.tableColumn.column,
   isExpanded: expandedGroups.has(params.tableRow.row.key),
   toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
+});
+
+const getValueFormatterArgs = params => ({
+  row: params.row,
+  column: params.column,
+  value: params.row.value,
 });
 
 const getGroupTableRowTemplateArgs = params => ({
@@ -68,12 +78,24 @@ export class TableGroupRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={groupCellTemplate}
-                  params={getGroupTableCellTemplateArgs(params, getters, actions)}
-                />
-              )}
+              {(getters, actions) => {
+                const templateArgs = getGroupTableCellTemplateArgs(params, getters, actions);
+                return (
+                  <TemplatePlaceholder
+                    name="valueFormatter"
+                    params={getValueFormatterArgs(templateArgs)}
+                  >
+                    {content => (
+                      <TemplateRenderer
+                        template={groupCellTemplate}
+                        params={templateArgs}
+                      >
+                        {content}
+                      </TemplateRenderer>
+                    )}
+                  </TemplatePlaceholder>
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>

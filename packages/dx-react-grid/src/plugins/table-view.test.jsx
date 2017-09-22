@@ -27,7 +27,7 @@ const defaultDeps = {
     columns: [{ name: 'field' }],
     rows: [{ field: 1 }],
     getRowId: () => {},
-    getCellData: () => {},
+    getCellValue: () => {},
   },
   action: {
     setColumnOrder: jest.fn(),

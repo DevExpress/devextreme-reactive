@@ -17,17 +17,19 @@ const styles = theme => ({
   },
 });
 
-const TableFilterCellBase = ({ style, filter, setFilter, classes }) => (
+const TableFilterCellBase = ({ style, filter, setFilter, classes, children }) => (
   <TableCell
     className={classes.cell}
     style={style}
   >
-    <Input
-      className={classes.input}
-      value={filter ? filter.value : ''}
-      placeholder={'Filter...'}
-      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
-    />
+    {children || (
+      <Input
+        className={classes.input}
+        value={filter ? filter.value : ''}
+        placeholder={'Filter...'}
+        onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+      />
+    )}
   </TableCell>
 );
 
@@ -36,12 +38,17 @@ TableFilterCellBase.propTypes = {
   filter: PropTypes.object,
   setFilter: PropTypes.func,
   classes: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 TableFilterCellBase.defaultProps = {
   style: null,
   filter: null,
   setFilter: () => {},
+  children: undefined,
 };
 
 export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

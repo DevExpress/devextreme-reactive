@@ -127,7 +127,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
 columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
-getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell's value
+getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value
 
 ### Exports
 

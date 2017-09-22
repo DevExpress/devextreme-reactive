@@ -11,7 +11,7 @@ Name | Type | Default | Description
 rows | Array&lt;[Row](#row)&gt; | | Specifies the data the Grid displays.
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row object fields columns are created.
 getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies the function used to get a row ID.
-getCellData | (row: [Row](#row), columnName: string) => any | null | Specifies the function used to get a cell's data.
+getCellValue | (row: [Row](#row), columnName: string) => any | null | Specifies the function used to get a cell's value.
 rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | A template that renders the grid root layout.
 headerPlaceholderTemplate | (args: [HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | A template that renders the header placeholder.
 footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | A template that renders the footer placeholder.
@@ -30,8 +30,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-name | string | Specifies the column name or the name of a row object field whose value the column displays. If the column name does not match any field name, specify the `getCellData` function.
-getCellData | (row: [Row](#row), columnName: string) => any | Specifies the function used to get the column data for a given row.
+name | string | Specifies the column name or the name of a row object field whose value the column displays. If the column name does not match any field name, specify the `getCellValue` function.
+getCellValue | (row: [Row](#row), columnName: string) => any | Specifies the function used to get the column data for a given row.
 
 ### <a name="root-args"></a>RootArgs
 

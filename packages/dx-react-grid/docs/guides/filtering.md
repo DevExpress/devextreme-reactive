@@ -33,7 +33,7 @@ Define a filter row cell template using the `TableFilterRow` plugin's `filterCel
 
 ## Custom Filtering Algorithm
 
-You can also specify a filtering predicate using the `LocalFiltering` plugin's `filterFn` property to implement a custom filtering logic.
+You can also specify a filtering predicate using the `LocalFiltering` plugin's `predicate` property to implement a custom filtering logic.
 
 .embedded-demo(filtering/custom-filter-row)
 

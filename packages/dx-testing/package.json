@@ -11,7 +11,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint **/*.js",
-    "lint:fix": "npm run -s lint -- --fix"
+    "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
     "eslint": "^4.7.0",

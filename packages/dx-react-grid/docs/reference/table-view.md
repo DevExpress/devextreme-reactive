@@ -18,8 +18,8 @@ tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactE
 tableRowTemplate | (args: [TableDataRowArgs](#table-data-row-args)) => ReactElement | | Renders a table row using the specified parameters
 tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
 tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty
-tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell data is not provided
-tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell data is not provided
+tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided
+tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided
 allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it. Requires the [ColumnOrderState](column-order-state.md) and the [DragDropContext](drag-drop-context.md) dependencies.
 
 ## Interfaces
@@ -127,7 +127,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
 columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
 getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
-getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell's data
+getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value
 
 ### Exports
 

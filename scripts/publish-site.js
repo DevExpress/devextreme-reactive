@@ -27,7 +27,7 @@ console.log('====================');
 console.log();
 
 console.log('Building site content...');
-execSync('npm run build:site', { stdio: 'ignore', env: { ...process.env, VERSION_TAG: demosRevision } });
+execSync('yarn run build:site', { stdio: 'ignore', env: { ...process.env, VERSION_TAG: demosRevision } });
 
 console.log('Cleaning generated site...');
 removeSync(GENERATED_SITE_DIRECTORY);

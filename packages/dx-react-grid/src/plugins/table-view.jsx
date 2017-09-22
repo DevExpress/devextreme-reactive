@@ -35,12 +35,12 @@ const getTableLayoutTemplateArgs = (
 
 const getDataTableCellTemplateArgs = (
   params,
-  { getCellData },
+  { getCellValue },
 ) => ({
   ...params,
   row: params.tableRow.row,
   column: params.tableColumn.column,
-  value: getCellData(params.tableRow.row, params.tableColumn.column.name),
+  value: getCellValue(params.tableRow.row, params.tableColumn.column.name),
 });
 
 const getValueFormatterArgs = params => ({

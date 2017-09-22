@@ -6,7 +6,7 @@ const pluginDependencies = [
   { pluginName: 'SortingState' },
 ];
 
-const rowsComputed = ({ rows, sorting, getCellData }) => sortedRows(rows, sorting, getCellData);
+const rowsComputed = ({ rows, sorting, getCellValue }) => sortedRows(rows, sorting, getCellValue);
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalSorting extends React.PureComponent {

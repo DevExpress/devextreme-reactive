@@ -123,7 +123,7 @@ describe('Grid', () => {
     expect(!tree.find('.footer-placeholder').exists()).toBeTruthy();
   });
 
-  it('should calculate cell data', () => {
+  it('should calculate cell value', () => {
     const rows = [
       { a: 1, b: 1 },
       { a: 2, b: 2 },
@@ -143,35 +143,35 @@ describe('Grid', () => {
       </Grid>,
     );
 
-    expect(getComputedState(tree).getters.getCellData(rows[1], columns[1].name))
+    expect(getComputedState(tree).getters.getCellValue(rows[1], columns[1].name))
       .toBe(2);
   });
 
-  it('should calculate cell data by using a custom function', () => {
+  it('should calculate cell value by using a custom function', () => {
     const rows = [{ a: 1 }];
     const columns = [{ name: 'a' }];
-    const getCellData = jest.fn();
+    const getCellValue = jest.fn();
 
     const tree = mount(
       <Grid
         rows={rows}
         columns={columns}
         rootTemplate={() => <div />}
-        getCellData={getCellData}
+        getCellValue={getCellValue}
       >
         {pluginDepsToComponents(defaultDeps)}
       </Grid>,
     );
 
-    expect(getComputedState(tree).getters.getCellData(rows[0], columns[0].name));
-    expect(getCellData)
+    expect(getComputedState(tree).getters.getCellValue(rows[0], columns[0].name));
+    expect(getCellValue)
       .toBeCalledWith(rows[0], columns[0].name);
   });
 
-  it('should calculate cell data by using a custom function within column config', () => {
+  it('should calculate cell value by using a custom function within column config', () => {
     const rows = [{ a: 1 }];
-    const getCellData = jest.fn();
-    const columns = [{ name: 'a', getCellData }];
+    const getCellValue = jest.fn();
+    const columns = [{ name: 'a', getCellValue }];
 
     const tree = mount(
       <Grid
@@ -183,8 +183,8 @@ describe('Grid', () => {
       </Grid>,
     );
 
-    expect(getComputedState(tree).getters.getCellData(rows[0], columns[0].name));
-    expect(getCellData)
+    expect(getComputedState(tree).getters.getCellValue(rows[0], columns[0].name));
+    expect(getCellValue)
       .toBeCalledWith(rows[0], columns[0].name);
   });
 });

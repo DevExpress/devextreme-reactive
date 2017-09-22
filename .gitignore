@@ -4,7 +4,7 @@
 # IDE
 .vscode
 
-# Node & npm
+# Node
 **/node_modules
 /packages/*/*.tgz
 

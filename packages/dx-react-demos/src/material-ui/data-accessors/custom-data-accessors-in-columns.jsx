@@ -24,7 +24,7 @@ export default class Demo extends React.PureComponent {
         {
           name: 'firstName',
           title: 'First Name',
-          getCellData: row => (row.user ? row.user.firstName : undefined),
+          getCellValue: row => (row.user ? row.user.firstName : undefined),
           createRowChange: (row, value) => ({
             user: {
               ...row.user,
@@ -35,7 +35,7 @@ export default class Demo extends React.PureComponent {
         {
           name: 'lastName',
           title: 'Last Name',
-          getCellData: row => (row.user ? row.user.lastName : undefined),
+          getCellValue: row => (row.user ? row.user.lastName : undefined),
           createRowChange: (row, value) => ({
             user: {
               ...row.user,
@@ -46,7 +46,7 @@ export default class Demo extends React.PureComponent {
         {
           name: 'car',
           title: 'Car',
-          getCellData: row => (row.car ? row.car.model : undefined),
+          getCellValue: row => (row.car ? row.car.model : undefined),
           createRowChange: (row, value) => ({
             car: {
               model: value,
@@ -62,6 +62,7 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
+    this.getRowId = row => row.id;
     this.commitChanges = ({ added, changed, deleted }) => {
       let rows = this.state.rows;
       if (added) {
@@ -91,7 +92,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
+        getRowId={this.getRowId}
       >
         <EditingState
           onCommitChanges={this.commitChanges}
@@ -99,11 +100,7 @@ export default class Demo extends React.PureComponent {
         <TableView />
         <TableHeaderRow />
         <TableEditRow />
-        <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
-        />
+        <TableEditColumn allowAdding allowEditing allowDeleting />
       </Grid>
     );
   }

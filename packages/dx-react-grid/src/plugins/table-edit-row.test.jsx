@@ -207,7 +207,7 @@ describe('TableEditRow', () => {
     isEditTableCell.mockImplementation(() => true);
     const deps = {
       getter: {
-        getCellData: jest.fn(() => 'a2'),
+        getCellValue: jest.fn(() => 'a2'),
       },
       template: {
         tableViewCell: {
@@ -237,7 +237,7 @@ describe('TableEditRow', () => {
       .toHaveBeenCalledWith({
         column: deps.template.tableViewCell.tableColumn.column,
         row: deps.template.tableViewCell.tableRow.row,
-        value: deps.getter.getCellData(),
+        value: deps.getter.getCellValue(),
         onValueChange: expect.any(Function),
       });
     expect(editCellTemplate.mock.calls[0][0])

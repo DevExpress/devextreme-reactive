@@ -12,13 +12,13 @@ const rowIdGetter = (getRowId, rows) => {
   };
 };
 
-const getCellDataGetter = (columns) => {
+const getCellValueGetter = (columns) => {
   let useFastAccessor = true;
 
   const map = columns.reduce((acc, column) => {
-    if (column.getCellData) {
+    if (column.getCellValue) {
       useFastAccessor = false;
-      acc[column.name] = column.getCellData;
+      acc[column.name] = column.getCellValue;
     }
     return acc;
   }, {});
@@ -32,20 +32,20 @@ export class Grid extends React.PureComponent {
   constructor(props) {
     super(props);
     this.memoizedRowIdGetter = memoize(rowIdGetter);
-    this.memoizedGetCellDataGetter = memoize(getCellDataGetter);
+    this.memoizedCellValueGetter = memoize(getCellValueGetter);
   }
   render() {
     const {
       rows, getRowId, columns,
       rootTemplate, headerPlaceholderTemplate, footerPlaceholderTemplate,
-      children, getCellData,
+      children, getCellValue,
     } = this.props;
     return (
       <PluginHost>
         <Getter name="rows" value={rows} />
         <Getter name="columns" value={columns} />
         <Getter name="getRowId" value={this.memoizedRowIdGetter(getRowId, rows)} />
-        <Getter name="getCellData" value={getCellData || this.memoizedGetCellDataGetter(columns)} />
+        <Getter name="getCellValue" value={getCellValue || this.memoizedCellValueGetter(columns)} />
         <Template name="header" />
         <Template name="body" />
         <Template name="footer" />
@@ -77,7 +77,7 @@ export class Grid extends React.PureComponent {
 Grid.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
-  getCellData: PropTypes.func,
+  getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
   headerPlaceholderTemplate: PropTypes.func,
@@ -90,7 +90,7 @@ Grid.propTypes = {
 
 Grid.defaultProps = {
   getRowId: null,
-  getCellData: null,
+  getCellValue: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,
   children: null,

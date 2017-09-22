@@ -37,6 +37,7 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
+    this.getRowId = row => row.id;
     this.rowTemplate = ({ row }) => (
       <div>
         <div>Detail for {row.name} ({row.sex})</div>
@@ -52,7 +53,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
+        getRowId={this.getRowId}
       >
         <FilteringState defaultFilters={[]} />
         <SortingState defaultSorting={[{ columnName: 'city', direction: 'asc' }]} />

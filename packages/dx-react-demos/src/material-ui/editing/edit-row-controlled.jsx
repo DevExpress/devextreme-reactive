@@ -36,6 +36,7 @@ export default class Demo extends React.PureComponent {
       changedRows: {},
     };
 
+    this.getRowId = row => row.id;
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeChangedRows = changedRows => this.setState({ changedRows });
     this.changeAddedRows = (addedRows) => {
@@ -71,7 +72,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
+        getRowId={this.getRowId}
       >
         <EditingState
           editingRows={this.state.editingRows}

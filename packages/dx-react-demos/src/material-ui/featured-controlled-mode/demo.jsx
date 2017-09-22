@@ -148,6 +148,7 @@ class DemoBase extends React.PureComponent {
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
+    this.getRowId = row => row.id;
     this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeAddedRows = addedRows => this.setState({
@@ -208,6 +209,35 @@ class DemoBase extends React.PureComponent {
       }
       return undefined;
     };
+    this.editCellTemplate = ({ column, value, onValueChange }) => {
+      const columnValues = availableValues[column.name];
+      if (columnValues) {
+        return (
+          <LookupEditCell
+            column={column}
+            value={value}
+            onValueChange={onValueChange}
+            availableValues={columnValues}
+          />
+        );
+      }
+      return undefined;
+    };
+    this.commandTemplate = ({ executeCommand, id }) => {
+      const template = commandTemplates[id];
+      if (template) {
+        const allowAdding = !this.state.addedRows.length;
+        const onClick = (e) => {
+          executeCommand();
+          e.stopPropagation();
+        };
+        return template(
+          onClick,
+          allowAdding,
+        );
+      }
+      return undefined;
+    };
   }
   render() {
     const {
@@ -232,7 +262,7 @@ class DemoBase extends React.PureComponent {
         <Grid
           rows={rows}
           columns={columns}
-          getRowId={row => row.id}
+          getRowId={this.getRowId}
         >
           <ColumnOrderState
             order={columnOrder}
@@ -272,35 +302,14 @@ class DemoBase extends React.PureComponent {
 
           <TableHeaderRow allowSorting allowDragging />
           <TableEditRow
-            editCellTemplate={(props) => {
-              const { column } = props;
-              const columnValues = availableValues[column.name];
-              if (columnValues) {
-                return <LookupEditCell {...props} availableValues={columnValues} />;
-              }
-              return undefined;
-            }}
+            editCellTemplate={this.editCellTemplate}
           />
           <TableEditColumn
             width={120}
             allowAdding
             allowEditing
             allowDeleting
-            commandTemplate={({ executeCommand, id }) => {
-              const template = commandTemplates[id];
-              if (template) {
-                const allowAdding = !this.state.addedRows.length;
-                const onClick = (e) => {
-                  executeCommand();
-                  e.stopPropagation();
-                };
-                return template(
-                  onClick,
-                  allowAdding,
-                );
-              }
-              return undefined;
-            }}
+            commandTemplate={this.commandTemplate}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}

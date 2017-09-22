@@ -33,6 +33,7 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
+    this.getRowId = row => row.id;
     this.commitChanges = ({ added, changed, deleted }) => {
       let rows = this.state.rows;
       if (added) {
@@ -66,7 +67,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
+        getRowId={this.getRowId}
         getCellData={(row, columnName) => {
           if (columnName.indexOf('.') > -1) {
             const { rootField, nestedField } = this.splitColumnName(columnName);

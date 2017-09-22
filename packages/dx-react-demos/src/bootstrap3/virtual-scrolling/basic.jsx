@@ -27,6 +27,8 @@ export default class Demo extends React.PureComponent {
         length: 100000,
       }),
     };
+
+    this.getRowId = row => row.id;
   }
   render() {
     const { rows, columns } = this.state;
@@ -35,7 +37,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
+        getRowId={this.getRowId}
       >
         <VirtualTableView />
         <TableHeaderRow />

@@ -12,6 +12,7 @@ export const CommandButton = ({ executeCommand, text }) => (
     {text}
   </button>
 );
+
 CommandButton.propTypes = {
   executeCommand: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
@@ -39,6 +40,7 @@ export const EditCommandHeadingCell = ({
     })}
   </th>
 );
+
 EditCommandHeadingCell.propTypes = {
   addRow: PropTypes.func.isRequired,
   commandTemplate: PropTypes.func.isRequired,
@@ -46,6 +48,7 @@ EditCommandHeadingCell.propTypes = {
   allowAdding: PropTypes.bool.isRequired,
   style: PropTypes.object,
 };
+
 EditCommandHeadingCell.defaultProps = {
   style: {},
   addCommandText: 'New',
@@ -109,6 +112,7 @@ export const EditCommandCell = ({
     </td>
   );
 };
+
 EditCommandCell.propTypes = {
   startEditing: PropTypes.func.isRequired,
   deleteRow: PropTypes.func.isRequired,
@@ -124,6 +128,7 @@ EditCommandCell.propTypes = {
   cancelCommandText: PropTypes.string,
   style: PropTypes.object,
 };
+
 EditCommandCell.defaultProps = {
   style: {},
   editCommandText: 'Edit',

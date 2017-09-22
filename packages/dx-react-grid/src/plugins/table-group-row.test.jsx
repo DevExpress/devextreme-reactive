@@ -9,6 +9,7 @@ import {
   isGroupIndentTableCell,
   isGroupTableRow,
 } from '@devexpress/dx-grid-core';
+import { DataTypeProvider } from './data-type-provider';
 import { TableGroupRow } from './table-group-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -165,6 +166,45 @@ describe('TableGroupRow', () => {
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
+
+  it('can render custom formatted data in table cell', () => {
+    isGroupTableCell.mockImplementation(() => true);
+    const groupCellTemplate = jest.fn(() => null);
+    const valueFormatter = jest.fn(() => <span />);
+    const deps = {
+      template: {
+        tableViewCell: {
+          tableRow: { type: 'undefined', id: 1, row: { value: 'row' } },
+          tableColumn: { type: 'undefined', id: 1, column: { name: 'column', dataType: 'column' } },
+          style: {},
+        },
+      },
+    };
+
+    mount(
+      <PluginHost>
+        <DataTypeProvider
+          type="column"
+          formatterTemplate={valueFormatter}
+        />
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <TableGroupRow
+          {...defaultProps}
+          groupCellTemplate={groupCellTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(valueFormatter)
+      .toHaveBeenCalledWith({
+        column: deps.template.tableViewCell.tableColumn.column,
+        row: deps.template.tableViewCell.tableRow.row,
+        value: deps.template.tableViewCell.tableRow.row.value,
+      });
+    expect(groupCellTemplate.mock.calls[0][0])
+      .toHaveProperty('children');
+  });
+
   it('should render row by using groupRowTemplate', () => {
     isGroupTableRow.mockImplementation(() => true);
     const groupRowTemplate = jest.fn(() => null);

@@ -10,7 +10,7 @@ describe('GroupingPlugin computeds', () => {
     { a: 2, b: 1 },
     { a: 2, b: 2 },
   ];
-  const getCellData = (row, columnName) => row[columnName];
+  const getCellValue = (row, columnName) => row[columnName];
 
   const firstLevelGroupings = [{ columnName: 'a' }];
   const firstLevelGroupedRows = [{
@@ -58,12 +58,12 @@ describe('GroupingPlugin computeds', () => {
 
   describe('#groupedRows', () => {
     it('can group by one column', () => {
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellData))
+      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue))
         .toEqual(firstLevelGroupedRows);
     });
 
     it('can group by several columns', () => {
-      expect(groupedRows(rowsSource, secondLevelGroupings, getCellData))
+      expect(groupedRows(rowsSource, secondLevelGroupings, getCellValue))
         .toEqual(secondLevelGroupedRows);
     });
   });

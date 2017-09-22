@@ -16,11 +16,11 @@ Follow the steps below to run demos locally:
 
 3. Install project dependencies
 
-  `npm install`
+  `yarn`
 
 4. Run the demos project
 
-  `npm run watch`
+  `yarn run build:watch`
 
 5. Running demos are available by the **http://localhost:3002/** link.
 

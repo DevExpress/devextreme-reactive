@@ -46,11 +46,11 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping 
 
 ## Custom Grouping Values
 
-If you want to provide a custom group value for a column, pass your grouping function to the `LocalGrouping` plugin’s `getGroupValue` property. Usually, when using a custom grouping function, you want to see the grouped column in the table (by default it is hidden when grouped). To do this, add the `showWhenGrouped` field to the particular column configuration object and set its value to `true`. For instance, in the following example, we use the first letter of the `city` column as a group value and keep this column visible in the table.
+Pass a grouping function to the `LocalGrouping` plugin’s `getGroupValue` property to group data by a custom value based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hidding of the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column value while the "city" column remains visible.
 
 .embedded-demo(grouping/local-grouping-custom)
 
-For more complex scenarios, you can also specify a custom function in the `showColumnWhenGrouped` property of the `TableGroupRow` plugin to save the grouped columns in the table:
+You can also assign a function that returns a Boolean value depending on the `columnName` parameter value to the `TableGroupRow` plugin's `showColumnWhenGrouped` property to define which columns should remain visible when data is grouped by them.
 
 ```js
   <Grid>
@@ -63,6 +63,7 @@ For more complex scenarios, you can also specify a custom function in the `showC
     <TableGroupRow />
   </Grid>
 ```
-When a returned value from the `getGroupValue` is not primitive, it is needed to define a custom `getGroupKey` function. This function is needed to get a string from a non-primitive value returned by the `getGroupValue` function in order to check groups equality. In other words, the `getGroupKey` function is a hash function used to identify equality of complex objects. This function should return the custom key value by which the rows will be grouped. In the following example, all records are divided into two groups by the first letter of the `name` column. Also, the `groupCellTemplate` property of the `TableGroupRow` is used to provide a custom appearance for the group rows.
+
+If the `getGroupValue` function returns an object, you should also assign a function that returns a group key to the `getGroupKey` property. In this case, data is grouped by the group key. Note that if group value is an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `groupCellTemplate` property as demonstrated in the following example.
 
 .embedded-demo(grouping/local-grouping-custom-advanced)

@@ -1,12 +1,15 @@
 import React from 'react';
 import {
   FilteringState,
+  PagingState,
+  LocalPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView,
   TableHeaderRow,
   TableFilterRow,
+  PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import { Loading } from '../components/loading';
@@ -53,7 +56,7 @@ export default class Demo extends React.PureComponent {
       filter = `[${filter}]`;
     }
 
-    return `${URL}?take=15&skip=0&filter=${filter}`;
+    return `${URL}?filter=${filter}`;
   }
   loadData() {
     const queryString = this.queryString();
@@ -86,9 +89,15 @@ export default class Demo extends React.PureComponent {
           <FilteringState
             onFiltersChange={this.changeFilters}
           />
+          <PagingState
+            defaultCurrentPage={0}
+            pageSize={10}
+          />
+          <LocalPaging />
           <TableView />
           <TableHeaderRow />
           <TableFilterRow />
+          <PagingPanel />
         </Grid>
         {loading && <Loading />}
       </div>

@@ -19,14 +19,12 @@ import {
 
 const getTableLayoutTemplateArgs = (
   { allowColumnReordering, rowTemplate, cellTemplate },
-  { tableHeaderRows, tableBodyRows, tableColumns, getRowId, tableExtraProps },
+  { tableHeaderRows, tableBodyRows, tableColumns },
   { setColumnOrder },
 ) => ({
   headerRows: tableHeaderRows,
   bodyRows: tableBodyRows,
   columns: tableColumns,
-  getRowId,
-  ...tableExtraProps,
   allowColumnReordering,
   rowTemplate,
   cellTemplate,

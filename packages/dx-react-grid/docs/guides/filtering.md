@@ -45,6 +45,8 @@ Filtering options are updated once an end-user modifies a text within a Filter R
 
 Note that in the case of remote filtering, you do not need to use the `LocalFiltering` plugin.
 
+.embedded-demo(filtering/remote-filtering)
+
 ## Using Filtering with Other Data Processing Plugins
 
 When you use filtering features with paging or grouping, take a note of the order in which the plugins appear in the Grid's container. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `LocalFiltering` plugin before the `LocalPaging` one. Otherwise, inverse the plugins' order.

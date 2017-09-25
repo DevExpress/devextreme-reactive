@@ -40,7 +40,6 @@ describe('Table', () => {
         bodyRows={[]}
         columns={[]}
         cellTemplate={() => {}}
-        getRowId={() => {}}
         allowColumnReordering={false}
         setColumnOrder={() => {}}
       />,

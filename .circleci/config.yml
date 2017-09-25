@@ -1,17 +1,5 @@
 version: 2
 
-cache_defaults: &cache_defaults
-  paths:
-    - node_modules
-    - packages/dx-core/node_modules
-    - packages/dx-grid-core/node_modules
-    - packages/dx-react-core/node_modules
-    - packages/dx-react-grid/node_modules
-    - packages/dx-react-grid-bootstrap3/node_modules
-    - packages/dx-react-grid-material-ui/node_modules
-    - packages/dx-react-demos/node_modules
-    - packages/dx-testing/node_modules
-
 jobs:
   build:
     docker:
@@ -20,18 +8,22 @@ jobs:
     steps:
       - checkout
 
+      - run: sudo npm i -g yarn
+
       - restore_cache:
           keys:
-            - npm-cache-{{ .Branch }}
-            - npm-cache
-      - run: npm i
+            - node-modules-cache-{{ checksum "yarn.lock" }}
+            - node-modules-cache
+      - run: yarn --no-progress
       - save_cache:
-          <<: *cache_defaults
-          key: npm-cache-{{ .Branch }}
+          key: node-modules-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
       - save_cache:
-          <<: *cache_defaults
-          key: npm-cache
+          key: node-modules-cache
+          paths:
+            - node_modules
 
-      - run: npm run build
-      - run: npm run test -- -- -- --maxWorkers=2
-      - run: npm run lint
+      - run: yarn run build
+      - run: yarn run test -- -- -- --maxWorkers=2
+      - run: yarn run lint

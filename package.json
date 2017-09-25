@@ -25,17 +25,19 @@
     "semver": "^5.4.1"
   },
   "scripts": {
-    "check-versions": "check-node-version --quiet --node \"^6.11.1 || ^8.2.1\" --npm \"^5.3.0\"",
-    "postinstall": "npm run -s check-versions && lerna bootstrap --concurrency=1",
+    "postinstall": "check-node-version --quiet --node \"^6.11.1 || ^8.2.1\" --npm \"^5.3.0\" --yarn \"^1.0.0\"",
     "build": "lerna run build",
-    "build:site": "npm run -s build:site:demos && npm run -s build:site:docs",
+    "build:watch": "lerna run --parallel build:watch",
+    "build:site": "yarn run build:site:demos && yarn run build:site:docs",
     "build:site:demos": "lerna run build --ignore @devexpress/dx-react-demos && lerna run build:prod --scope @devexpress/dx-react-demos",
     "build:site:docs": "gulp site",
-    "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test",
-    "publish:npm": "npm install && node ./scripts/publish-npm.js",
-    "publish:site": "npm install && node ./scripts/publish-site.js"
-  }
+    "publish:npm": "yarn && node ./scripts/publish-npm.js",
+    "publish:site": "yarn && node ./scripts/publish-site.js"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

@@ -31,12 +31,6 @@ export const babelrc = (packageDirectory) => {
   return config;
 };
 
-export const moduleName = (packageDirectory) => {
-  const pkg = JSON.parse(readFileSync(join(packageDirectory, 'package.json')));
-
-  return pkg.globalName;
-};
-
 const knownGlobals = {
   react: 'React',
   'react-dom': 'ReactDOM',
@@ -44,11 +38,11 @@ const knownGlobals = {
   'react-bootstrap': 'ReactBootstrap',
 };
 
-export const globals = (packageDirectory) => {
+export const globals = () => {
   return (moduleId) => {
       if (knownGlobals[moduleId]) return knownGlobals[moduleId];
 
-      const modulePkg = JSON.parse(readFileSync(join(packageDirectory, 'node_modules', moduleId, 'package.json')));
+      const modulePkg = JSON.parse(readFileSync(require.resolve(join(moduleId, 'package.json'))));
       return modulePkg.globalName;
     }
 };

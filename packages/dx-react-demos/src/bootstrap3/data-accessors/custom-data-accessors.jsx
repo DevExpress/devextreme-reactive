@@ -15,6 +15,35 @@ import {
   defaultNestedColumnValues,
 } from '../../demo-data/generator';
 
+const getRowId = row => row.id;
+
+const splitColumnName = (columnName) => {
+  const parts = columnName.split('.');
+  return { rootField: parts[0], nestedField: parts[1] };
+};
+
+const getCellValue = (row, columnName) => {
+  if (columnName.indexOf('.') > -1) {
+    const { rootField, nestedField } = splitColumnName(columnName);
+    return row[rootField] ? row[rootField][nestedField] : undefined;
+  }
+  return row[columnName];
+};
+
+const createRowChange = (row, columnName, value) => {
+  if (columnName.indexOf('.') > -1) {
+    const { rootField, nestedField } = splitColumnName(columnName);
+
+    return {
+      [rootField]: {
+        ...row[rootField],
+        [nestedField]: value,
+      },
+    };
+  }
+  return { [columnName]: value };
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -33,31 +62,28 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
-    this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows;
-      if (added) {
-        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
-        rows = [
-          ...rows,
-          ...added.map((row, index) => ({
-            id: startingAddedId + index,
-            ...row,
-          })),
-        ];
-      }
-      if (changed) {
-        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
-      }
-      if (deleted) {
-        const deletedSet = new Set(deleted);
-        rows = rows.filter(row => !deletedSet.has(row.id));
-      }
-      this.setState({ rows });
-    };
-    this.splitColumnName = (columnName) => {
-      const parts = columnName.split('.');
-      return { rootField: parts[0], nestedField: parts[1] };
-    };
+    this.commitChanges = this.commitChanges.bind(this);
+  }
+  commitChanges({ added, changed, deleted }) {
+    let rows = this.state.rows;
+    if (added) {
+      const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+      rows = [
+        ...rows,
+        ...added.map((row, index) => ({
+          id: startingAddedId + index,
+          ...row,
+        })),
+      ];
+    }
+    if (changed) {
+      rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    }
+    if (deleted) {
+      const deletedSet = new Set(deleted);
+      rows = rows.filter(row => !deletedSet.has(row.id));
+    }
+    this.setState({ rows });
   }
   render() {
     const { rows, columns } = this.state;
@@ -66,39 +92,17 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
-        getCellData={(row, columnName) => {
-          if (columnName.indexOf('.') > -1) {
-            const { rootField, nestedField } = this.splitColumnName(columnName);
-            return row[rootField] ? row[rootField][nestedField] : undefined;
-          }
-          return row[columnName];
-        }}
+        getRowId={getRowId}
+        getCellValue={getCellValue}
       >
         <EditingState
+          createRowChange={createRowChange}
           onCommitChanges={this.commitChanges}
-          createRowChange={(row, columnName, value) => {
-            if (columnName.indexOf('.') > -1) {
-              const { rootField, nestedField } = this.splitColumnName(columnName);
-
-              return {
-                [rootField]: {
-                  ...row[rootField],
-                  [nestedField]: value,
-                },
-              };
-            }
-            return { [columnName]: value };
-          }}
         />
         <TableView />
         <TableHeaderRow />
         <TableEditRow />
-        <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
-        />
+        <TableEditColumn allowAdding allowEditing allowDeleting />
       </Grid>
     );
   }

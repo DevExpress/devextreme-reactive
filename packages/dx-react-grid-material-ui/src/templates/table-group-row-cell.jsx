@@ -38,6 +38,7 @@ const TableGroupCellBase = ({
   isExpanded,
   toggleGroupExpanded,
   classes,
+  children,
 }) => (
   <TableCell
     colSpan={colSpan}
@@ -52,9 +53,10 @@ const TableGroupCellBase = ({
           : <ChevronRight />
       }
     </span>
-    <strong className={classes.columnTitle}>
-      {column.title || column.name}: {row.value}
-    </strong>
+    <span className={classes.columnTitle}>
+      <strong>{column.title || column.name}: </strong>
+      {children || row.value}
+    </span>
   </TableCell>
 );
 
@@ -66,6 +68,10 @@ TableGroupCellBase.propTypes = {
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
   classes: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 TableGroupCellBase.defaultProps = {
@@ -75,6 +81,7 @@ TableGroupCellBase.defaultProps = {
   column: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
+  children: undefined,
 };
 
 export const TableGroupCell = withStyles(styles, { name: 'TableGroupCell' })(TableGroupCellBase);

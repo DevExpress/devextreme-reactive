@@ -52,8 +52,8 @@ tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows
 editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows being edited
 addedRows | Getter | Array&lt;Object&gt; | The created rows
 changedRows | Getter | { [key: string]: Object } | Uncommitted changed rows
-getCellData | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell's data
-createRowChange | Getter | (row: [Row](grid.md#row), columnName: string, value: string &#124; string) => Object | The function used to set a cell's data
+getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value
+createRowChange | Getter | (row: [Row](grid.md#row), columnName: string, value: string &#124; string) => Object | The function used to set a cell's value
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row
 changeAddedRow | Action | ({ rowId: number, change: Object }) => void | Applies a change to a new row. Note: `rowId` is a row index within the `addedRows` array
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell

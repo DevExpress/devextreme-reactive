@@ -15,6 +15,8 @@ import {
   defaultNestedColumnValues,
 } from '../../demo-data/generator';
 
+const getRowId = row => row.id;
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -24,7 +26,7 @@ export default class Demo extends React.PureComponent {
         {
           name: 'firstName',
           title: 'First Name',
-          getCellData: row => (row.user ? row.user.firstName : undefined),
+          getCellValue: row => (row.user ? row.user.firstName : undefined),
           createRowChange: (row, value) => ({
             user: {
               ...row.user,
@@ -35,7 +37,7 @@ export default class Demo extends React.PureComponent {
         {
           name: 'lastName',
           title: 'Last Name',
-          getCellData: row => (row.user ? row.user.lastName : undefined),
+          getCellValue: row => (row.user ? row.user.lastName : undefined),
           createRowChange: (row, value) => ({
             user: {
               ...row.user,
@@ -46,7 +48,7 @@ export default class Demo extends React.PureComponent {
         {
           name: 'car',
           title: 'Car',
-          getCellData: row => (row.car ? row.car.model : undefined),
+          getCellValue: row => (row.car ? row.car.model : undefined),
           createRowChange: (row, value) => ({
             car: {
               model: value,
@@ -62,27 +64,28 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
-    this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows;
-      if (added) {
-        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
-        rows = [
-          ...rows,
-          ...added.map((row, index) => ({
-            id: startingAddedId + index,
-            ...row,
-          })),
-        ];
-      }
-      if (changed) {
-        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
-      }
-      if (deleted) {
-        const deletedSet = new Set(deleted);
-        rows = rows.filter(row => !deletedSet.has(row.id));
-      }
-      this.setState({ rows });
-    };
+    this.commitChanges = this.commitChanges.bind(this);
+  }
+  commitChanges({ added, changed, deleted }) {
+    let rows = this.state.rows;
+    if (added) {
+      const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+      rows = [
+        ...rows,
+        ...added.map((row, index) => ({
+          id: startingAddedId + index,
+          ...row,
+        })),
+      ];
+    }
+    if (changed) {
+      rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    }
+    if (deleted) {
+      const deletedSet = new Set(deleted);
+      rows = rows.filter(row => !deletedSet.has(row.id));
+    }
+    this.setState({ rows });
   }
   render() {
     const { rows, columns } = this.state;
@@ -91,7 +94,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
+        getRowId={getRowId}
       >
         <EditingState
           onCommitChanges={this.commitChanges}
@@ -99,11 +102,7 @@ export default class Demo extends React.PureComponent {
         <TableView />
         <TableHeaderRow />
         <TableEditRow />
-        <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
-        />
+        <TableEditColumn allowAdding allowEditing allowDeleting />
       </Grid>
     );
   }

@@ -18,13 +18,12 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const filterFn = (row, filter) => {
-  const toLowerCase = value => String(value).toLowerCase();
-
+const toLowerCase = value => String(value).toLowerCase();
+const predicate = (value, filter) => {
   if (filter.columnName === 'sex') {
-    return toLowerCase(row[filter.columnName]) === toLowerCase(filter.value);
+    return toLowerCase(value) === toLowerCase(filter.value);
   }
-  return toLowerCase(row[filter.columnName]).indexOf(toLowerCase(filter.value)) > -1;
+  return toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
 };
 
 const styles = theme => ({
@@ -79,7 +78,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <FilteringState defaultFilters={[]} />
-        <LocalFiltering filterFn={filterFn} />
+        <LocalFiltering predicate={predicate} />
         <TableView />
         <TableHeaderRow />
         <TableFilterRow

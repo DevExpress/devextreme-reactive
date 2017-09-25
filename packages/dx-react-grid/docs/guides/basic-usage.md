@@ -23,7 +23,7 @@ For basic data visualization, the grid reqires the following plugns:
 - [TableView](../reference/table-view.md)  
  Renders a data table.
 
-- [TableHeaderRow](../reference/table-header-row.md)
+- [TableHeaderRow](../reference/table-header-row.md)  
  Renders the table's header row.
  
 ```js
@@ -36,13 +36,17 @@ For basic data visualization, the grid reqires the following plugns:
 </Grid>
 ```
 
-Pay attention that the `TableHeaderRow` plugin should follow the `TableView` one.
+Pay attention that the `TableHeaderRow` plugin should follow the `TableView` one. See the [Plugin Order](plugin-overview.md#plugin-order) article for details.
 
 .embedded-demo(basic/basic)
 
 ## Appearance Customization
 
+The Grid's visualization plugins provide rich API for appearance customization. Most common customization scenarios are described below.
+
 The `TableView` plugin enables you to customize table cell appearance using the `tableCellTemplate` property. For instance, you can implement conditional cell formatting as demonstrated in the following example.
+
+Note that you can pass **undefined** to the `tableCellTemplate` property to restore the default template.
 
 .embedded-demo(basic/table-cell-template)
 

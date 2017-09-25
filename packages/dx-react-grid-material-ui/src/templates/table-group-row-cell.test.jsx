@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { EditCell } from './table-edit-cell';
+import { TableGroupCell } from './table-group-row-cell';
 
-describe('EditCell', () => {
+describe('TableCell', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -13,31 +13,23 @@ describe('EditCell', () => {
     resetConsole();
   });
 
-  it('should pass style to the root element', () => {
+  it('should render column title and value', () => {
     const tree = mount(
-      <EditCell
-        value={'a'}
-        onValueChange={() => {}}
-        style={{
-          width: '40px',
-          height: '10px',
-        }}
+      <TableGroupCell
+        column={{ title: 'Title' }}
+        row={{ value: 'Value' }}
       />,
     );
-    expect(tree.find('td').prop('style'))
-      .toMatchObject({
-        width: '40px',
-        height: '10px',
-      });
+
+    expect(tree.text())
+      .toMatch(/Title.*Value/);
   });
 
   it('should render children if passed', () => {
     const tree = mount(
-      <EditCell
-        onValueChange={() => {}}
-      >
+      <TableGroupCell>
         <span className="test" />
-      </EditCell>,
+      </TableGroupCell>,
     );
 
     expect(tree.find('.test').exists())

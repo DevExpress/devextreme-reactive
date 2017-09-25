@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const TableGroupCell = ({
-  style, colSpan, row, column, isExpanded, toggleGroupExpanded,
+  style, colSpan, row, column, isExpanded, toggleGroupExpanded, children,
 }) => (
   <td
     colSpan={colSpan}
@@ -20,7 +20,8 @@ export const TableGroupCell = ({
         marginRight: '10px',
       }}
     />
-    <strong>{column.title || column.name}: {row.value}</strong>
+    <strong>{column.title || column.name}: </strong>
+    {children || row.value}
   </td>
 );
 
@@ -31,6 +32,10 @@ TableGroupCell.propTypes = {
   column: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 TableGroupCell.defaultProps = {
@@ -40,4 +45,5 @@ TableGroupCell.defaultProps = {
   column: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
+  children: undefined,
 };

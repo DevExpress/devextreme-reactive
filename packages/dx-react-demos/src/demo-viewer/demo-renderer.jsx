@@ -10,7 +10,7 @@ export const DemoRenderer = ({
 }) => {
   const Component = demos[currentSection][currentDemo][currentTheme];
 
-  if (!Component) return <div>&gt; DEMO NOT AVALIABLE &lt;</div>;
+  if (!Component) return <div>&gt; DEMO IS NOT AVAILABLE &lt;</div>;
 
   const DemoContainer = themes
     .find(({ name: theme }) => theme === currentTheme)

@@ -9,12 +9,16 @@ const selectCellTemplate = props => <TableSelectCell {...props} />;
 const selectAllCellTemplate = props => <TableSelectAllCell {...props} />;
 const selectRowTemplate = props => <TableSelectRow {...props} />;
 
-export const TableSelection = props => (
-  <TableSelectionBase
-    selectCellTemplate={selectCellTemplate}
-    selectRowTemplate={selectRowTemplate}
-    selectAllCellTemplate={selectAllCellTemplate}
-    selectionColumnWidth={40}
-    {...props}
-  />
-);
+export class TableSelection extends React.PureComponent {
+  render() {
+    return (
+      <TableSelectionBase
+        selectCellTemplate={selectCellTemplate}
+        selectRowTemplate={selectRowTemplate}
+        selectAllCellTemplate={selectAllCellTemplate}
+        selectionColumnWidth={40}
+        {...this.props}
+      />
+    );
+  }
+}

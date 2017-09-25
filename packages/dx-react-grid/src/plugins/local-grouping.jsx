@@ -15,8 +15,8 @@ export class LocalGrouping extends React.PureComponent {
   render() {
     const { getGroupValue, getGroupKey } = this.props;
 
-    const groupedRowsComputed = ({ rows, grouping, getCellData }) =>
-      groupedRows(rows, grouping, getCellData, getGroupValue, getGroupKey);
+    const groupedRowsComputed = ({ rows, grouping, getCellValue }) =>
+      groupedRows(rows, grouping, getCellValue, getGroupValue, getGroupKey);
 
     return (
       <PluginContainer

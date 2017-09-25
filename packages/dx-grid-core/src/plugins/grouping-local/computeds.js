@@ -6,7 +6,7 @@ const defaultGetGroupKey = value => String(value);
 export const groupedRows = (
   rows,
   grouping,
-  getCellData,
+  getCellValue,
   getGroupValue = defaultGetGroupValue,
   getGroupKey = defaultGetGroupKey,
 ) => {
@@ -16,7 +16,7 @@ export const groupedRows = (
   const groups = rows
     .reduce((acc, row) => {
       const value = getGroupValue(
-        getCellData(row, columnGrouping.columnName),
+        getCellValue(row, columnGrouping.columnName),
         columnGrouping,
         row,
       );
@@ -36,7 +36,7 @@ export const groupedRows = (
     .map(([value, key, items]) => ({
       value,
       key,
-      items: groupedRows(items, nestedGrouping, getCellData, getGroupValue, getGroupKey),
+      items: groupedRows(items, nestedGrouping, getCellValue, getGroupValue, getGroupKey),
     }));
 };
 

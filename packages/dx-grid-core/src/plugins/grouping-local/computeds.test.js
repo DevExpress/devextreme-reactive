@@ -79,7 +79,7 @@ describe('GroupingPlugin computeds', () => {
       const getGroupValue = jest.fn(value => `${value}_test`);
       const getGroupKey = jest.fn(value => value.substr(0, 1));
 
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellData, getGroupValue, getGroupKey))
+      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue, getGroupKey))
         .toEqual([{
           value: '1_test',
           key: '1',
@@ -100,7 +100,7 @@ describe('GroupingPlugin computeds', () => {
     it('should use custom getGroupValue argument for each grouping', () => {
       const getGroupValue = jest.fn(value => `${value}_test`);
 
-      expect(groupedRows(rowsSource, secondLevelGroupings, getCellData, getGroupValue))
+      expect(groupedRows(rowsSource, secondLevelGroupings, getCellValue, getGroupValue))
         .toEqual([{
           value: '1_test',
           key: '1_test',
@@ -139,7 +139,7 @@ describe('GroupingPlugin computeds', () => {
     it('should pass the row argument to custom getGroupValue', () => {
       const getGroupValue = jest.fn(value => value);
 
-      groupedRows(rowsSource, firstLevelGroupings, getCellData, getGroupValue);
+      groupedRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue);
 
       expect(getGroupValue)
         .toHaveBeenCalledTimes(rowsSource.length);
@@ -157,7 +157,7 @@ describe('GroupingPlugin computeds', () => {
       const getGroupValue = jest.fn(value => value);
       const getGroupKey = jest.fn(value => value);
 
-      groupedRows(rowsSource, firstLevelGroupings, getCellData, getGroupValue, getGroupKey);
+      groupedRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue, getGroupKey);
 
       expect(getGroupKey)
         .toHaveBeenCalledTimes(rowsSource.length);

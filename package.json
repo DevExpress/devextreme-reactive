@@ -2,12 +2,12 @@
   "private": true,
   "name": "devextreme-reactive",
   "author": {
-    "name": "Developer Express Inc.",
-    "url": "https://www.devexpress.com/"
+    "name": "mistertemp",
+    "url": "www.mistertemp.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+    "url": "git+https://github.com/mistertemp/devextreme-reactive.git"
   },
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {

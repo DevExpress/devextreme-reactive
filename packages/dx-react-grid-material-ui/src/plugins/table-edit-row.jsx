@@ -8,27 +8,35 @@ import { TableRow } from '../templates/table-row';
 const defaultEditCellTemplate = props => <EditCell {...props} />;
 const defaultEditRowTemplate = props => <TableRow {...props} />;
 
-export const TableEditRow = ({
-  editCellTemplate,
-  editRowTemplate,
-  ...restProps
-}) => (
-  <TableEditRowBase
-    editCellTemplate={combineTemplates(
+export class TableEditRow extends React.PureComponent {
+  render() {
+    const {
       editCellTemplate,
-      defaultEditCellTemplate,
-    )}
-    editRowTemplate={combineTemplates(
       editRowTemplate,
-      defaultEditRowTemplate,
-    )}
-    {...restProps}
-  />
-);
+      ...restProps
+    } = this.props;
+
+    return (
+      <TableEditRowBase
+        editCellTemplate={combineTemplates(
+          editCellTemplate,
+          defaultEditCellTemplate,
+        )}
+        editRowTemplate={combineTemplates(
+          editRowTemplate,
+          defaultEditRowTemplate,
+        )}
+        {...restProps}
+      />
+    );
+  }
+}
+
 TableEditRow.propTypes = {
   editCellTemplate: PropTypes.func,
   editRowTemplate: PropTypes.func,
 };
+
 TableEditRow.defaultProps = {
   editCellTemplate: undefined,
   editRowTemplate: undefined,

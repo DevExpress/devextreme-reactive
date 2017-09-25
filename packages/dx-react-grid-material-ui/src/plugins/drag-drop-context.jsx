@@ -6,10 +6,14 @@ import { Container, Column } from '../templates/drag-drop';
 const containerTemplate = props => <Container {...props} />;
 const columnTemplate = props => <Column {...props} />;
 
-export const DragDropContext = props => (
-  <DragDropContextBase
-    containerTemplate={containerTemplate}
-    columnTemplate={columnTemplate}
-    {...props}
-  />
-);
+export class DragDropContext extends React.PureComponent {
+  render() {
+    return (
+      <DragDropContextBase
+        containerTemplate={containerTemplate}
+        columnTemplate={columnTemplate}
+        {...this.props}
+      />
+    );
+  }
+}

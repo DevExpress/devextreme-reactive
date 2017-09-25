@@ -36,5 +36,7 @@ export { TableColumnResizing } from './plugins/table-column-resizing';
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 
+export { DataTypeProvider } from './plugins/data-type-provider';
+
 export { TableLayout } from './components/table-layout';
 export { GroupPanelLayout } from './components/group-panel-layout';

@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplatePlaceholder, TemplateConnector, TemplateRenderer,
+  Getter,
+  Template,
+  TemplatePlaceholder,
+  TemplateConnector,
+  TemplateRenderer,
+  PluginContainer,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithDataRows,
@@ -15,14 +19,12 @@ import {
 
 const getTableLayoutTemplateArgs = (
   { allowColumnReordering, rowTemplate, cellTemplate },
-  { tableHeaderRows, tableBodyRows, tableColumns, getRowId, tableExtraProps },
+  { tableHeaderRows, tableBodyRows, tableColumns },
   { setColumnOrder },
 ) => ({
   headerRows: tableHeaderRows,
   bodyRows: tableBodyRows,
   columns: tableColumns,
-  getRowId,
-  ...tableExtraProps,
   allowColumnReordering,
   rowTemplate,
   cellTemplate,
@@ -37,6 +39,12 @@ const getDataTableCellTemplateArgs = (
   row: params.tableRow.row,
   column: params.tableColumn.column,
   value: getCellValue(params.tableRow.row, params.tableColumn.column.name),
+});
+
+const getValueFormatterArgs = params => ({
+  row: params.row,
+  column: params.column,
+  value: params.value,
 });
 
 const getDataTableRowTemplateArgs = params => ({
@@ -117,12 +125,24 @@ export class TableView extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {getters => (
-                <TemplateRenderer
-                  template={tableCellTemplate}
-                  params={getDataTableCellTemplateArgs(params, getters)}
-                />
-              )}
+              {(getters) => {
+                const templateArgs = getDataTableCellTemplateArgs(params, getters);
+                return (
+                  <TemplatePlaceholder
+                    name="valueFormatter"
+                    params={getValueFormatterArgs(templateArgs)}
+                  >
+                    {content => (
+                      <TemplateRenderer
+                        template={tableCellTemplate}
+                        params={templateArgs}
+                      >
+                        {content}
+                      </TemplateRenderer>
+                    )}
+                  </TemplatePlaceholder>
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>

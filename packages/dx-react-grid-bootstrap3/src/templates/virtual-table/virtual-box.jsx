@@ -185,10 +185,12 @@ export class VirtualBox extends React.Component {
 
     return (
       <RootTag
-        {...{
+        {
+        ...{
           ...(iref ? { ref: iref } : {}),
           ...rootTagProps,
-        }}
+        }
+        }
       >
         {visibleItems}
       </RootTag>

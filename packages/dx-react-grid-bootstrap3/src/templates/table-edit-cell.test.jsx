@@ -30,4 +30,17 @@ describe('EditCell', () => {
         height: '10px',
       });
   });
+
+  it('should render children if passed', () => {
+    const tree = mount(
+      <EditCell
+        onValueChange={() => {}}
+      >
+        <span className="test" />
+      </EditCell>,
+    );
+
+    expect(tree.find('.test').exists())
+      .toBeTruthy();
+  });
 });

@@ -8,25 +8,32 @@ import { TableRow } from '../templates/table-row';
 const defaultGroupCellTemplate = props => <TableGroupCell {...props} />;
 const defaultGroupRowTemplate = props => <TableRow {...props} />;
 
-export const TableGroupRow = ({ groupCellTemplate, groupRowTemplate, ...restProps }) => (
-  <TableGroupRowBase
-    groupCellTemplate={combineTemplates(
-      groupCellTemplate,
-      defaultGroupCellTemplate,
-    )}
-    groupRowTemplate={combineTemplates(
-      groupRowTemplate,
-      defaultGroupRowTemplate,
-    )}
-    groupIndentColumnWidth={20}
-    {...restProps}
-  />
-);
+export class TableGroupRow extends React.PureComponent {
+  render() {
+    const { groupCellTemplate, groupRowTemplate, ...restProps } = this.props;
+
+    return (
+      <TableGroupRowBase
+        groupCellTemplate={combineTemplates(
+          groupCellTemplate,
+          defaultGroupCellTemplate,
+        )}
+        groupRowTemplate={combineTemplates(
+          groupRowTemplate,
+          defaultGroupRowTemplate,
+        )}
+        groupIndentColumnWidth={20}
+        {...restProps}
+      />
+    );
+  }
+}
 
 TableGroupRow.propTypes = {
   groupRowTemplate: PropTypes.func,
   groupCellTemplate: PropTypes.func,
 };
+
 TableGroupRow.defaultProps = {
   groupRowTemplate: undefined,
   groupCellTemplate: undefined,

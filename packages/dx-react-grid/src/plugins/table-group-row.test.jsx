@@ -9,6 +9,7 @@ import {
   isGroupIndentTableCell,
   isGroupTableRow,
 } from '@devexpress/dx-grid-core';
+import { DataTypeProvider } from './data-type-provider';
 import { TableGroupRow } from './table-group-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -50,6 +51,7 @@ const defaultProps = {
   groupIndentCellTemplate: () => null,
   groupRowTemplate: () => null,
   groupIndentColumnWidth: 100,
+  showColumnWhenGrouped: jest.fn(),
 };
 
 describe('TableGroupRow', () => {
@@ -92,6 +94,7 @@ describe('TableGroupRow', () => {
 
     it('should extend tableColumns', () => {
       const tree = mount(
+
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
@@ -108,7 +111,95 @@ describe('TableGroupRow', () => {
           defaultDeps.getter.grouping,
           defaultDeps.getter.draftGrouping,
           defaultProps.groupIndentColumnWidth,
+          defaultProps.showColumnWhenGrouped,
         );
+    });
+  });
+
+  describe('hide grouping column', () => {
+    it('should all columns be hidden', () => {
+      const deps = {
+        getter: {
+          columns: [
+            { name: 'A' },
+            { name: 'B' },
+          ],
+        },
+      };
+
+      const tree = mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableGroupRow
+            {...defaultProps}
+            showColumnWhenGrouped={null}
+          />
+        </PluginHost>,
+      );
+
+      expect(getComputedState(tree).getters.tableColumns)
+        .toBe('tableColumnsWithGrouping');
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      expect(showColumnWhenGrouped('A')).toBe(false);
+      expect(showColumnWhenGrouped('B')).toBe(false);
+    });
+
+    it('should keep column in table if column value specified', () => {
+      const deps = {
+        getter: {
+          columns: [
+            { name: 'A', showWhenGrouped: true },
+            { name: 'B' },
+          ],
+        },
+      };
+
+      const tree = mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableGroupRow
+            {...defaultProps}
+            showColumnWhenGrouped={null}
+          />
+        </PluginHost>,
+      );
+
+      expect(getComputedState(tree).getters.tableColumns)
+        .toBe('tableColumnsWithGrouping');
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      expect(showColumnWhenGrouped('A')).toBe(true);
+      expect(showColumnWhenGrouped('B')).toBe(false);
+    });
+
+    it('should keep column in table if custom func specified', () => {
+      const deps = {
+        getter: {
+          columns: [
+            { name: 'A', showWhenGrouped: true },
+            { name: 'B' },
+          ],
+        },
+      };
+
+      const tree = mount(
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableGroupRow
+            {...defaultProps}
+            showColumnWhenGrouped={(columnName) => {
+              if (columnName === 'B') {
+                return true;
+              } return false;
+            }}
+          />
+        </PluginHost>,
+      );
+
+      expect(getComputedState(tree).getters.tableColumns)
+        .toBe('tableColumnsWithGrouping');
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      expect(showColumnWhenGrouped('A')).toBe(false);
+      expect(showColumnWhenGrouped('B')).toBe(true);
     });
   });
 
@@ -165,6 +256,45 @@ describe('TableGroupRow', () => {
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
+
+  it('can render custom formatted data in table cell', () => {
+    isGroupTableCell.mockImplementation(() => true);
+    const groupCellTemplate = jest.fn(() => null);
+    const valueFormatter = jest.fn(() => <span />);
+    const deps = {
+      template: {
+        tableViewCell: {
+          tableRow: { type: 'undefined', id: 1, row: { value: 'row' } },
+          tableColumn: { type: 'undefined', id: 1, column: { name: 'column', dataType: 'column' } },
+          style: {},
+        },
+      },
+    };
+
+    mount(
+      <PluginHost>
+        <DataTypeProvider
+          type="column"
+          formatterTemplate={valueFormatter}
+        />
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <TableGroupRow
+          {...defaultProps}
+          groupCellTemplate={groupCellTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(valueFormatter)
+      .toHaveBeenCalledWith({
+        column: deps.template.tableViewCell.tableColumn.column,
+        row: deps.template.tableViewCell.tableRow.row,
+        value: deps.template.tableViewCell.tableRow.row.value,
+      });
+    expect(groupCellTemplate.mock.calls[0][0])
+      .toHaveProperty('children');
+  });
+
   it('should render row by using groupRowTemplate', () => {
     isGroupTableRow.mockImplementation(() => true);
     const groupRowTemplate = jest.fn(() => null);

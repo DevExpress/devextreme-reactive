@@ -1,4 +1,5 @@
 export { Grid } from './grid';
+export { ColumnChooser } from './column-chooser';
 export { DragDropContext } from './plugins/drag-drop-context';
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';

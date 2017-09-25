@@ -1,3 +1,6 @@
+export * from './column-chooser/computeds';
+export * from './column-chooser/reducers';
+
 export * from './plugins/sorting-state/reducers';
 export * from './plugins/sorting-state/helpers';
 export * from './plugins/sorting-state/computeds';

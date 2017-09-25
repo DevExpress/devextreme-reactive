@@ -222,4 +222,9 @@ export const demos = {
       bootstrap3: require('./bootstrap3/virtual-scrolling/integration-with-other-plugins').default,
     },
   },
+  'column-chooser': {
+    basic: {
+      bootstrap3: require('./bootstrap3/column-chooser/basic').default,
+    },
+  },
 };

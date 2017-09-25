@@ -121,7 +121,6 @@ export const demos = {
     },
     'remote-filtering': {
       bootstrap3: require('./bootstrap3/filtering/remote-filtering').default,
-      'material-ui': require('./material-ui/filtering/remote-filtering').default,
     },
   },
   grouping: {

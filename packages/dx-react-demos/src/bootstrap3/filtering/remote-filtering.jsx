@@ -1,20 +1,18 @@
 import React from 'react';
 import {
   FilteringState,
-  PagingState,
-  LocalPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  VirtualTableView,
   TableHeaderRow,
   TableFilterRow,
-  PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi';
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -89,15 +87,9 @@ export default class Demo extends React.PureComponent {
           <FilteringState
             onFiltersChange={this.changeFilters}
           />
-          <PagingState
-            defaultCurrentPage={0}
-            pageSize={10}
-          />
-          <LocalPaging />
-          <TableView />
+          <VirtualTableView />
           <TableHeaderRow />
-          <TableFilterRow />
-          <PagingPanel />
+          <TableFilterRow rowHeight={51} />
         </Grid>
         {loading && <Loading />}
       </div>

@@ -22,7 +22,7 @@ import HelpIcon from 'material-ui-icons/HelpOutline';
 import { withStyles } from 'material-ui/styles';
 
 import {
-  generateRows,
+  generateData,
   employeeValues,
   employeeTaskValues,
 } from '../../demo-data/generator';
@@ -53,12 +53,12 @@ TaskIcon.propTypes = {
   status: PropTypes.string.isRequired,
 };
 
-const TabContainer = ({ rows }) => {
-  const lastItemIndex = rows.length - 1;
+const TabContainer = ({ data }) => {
+  const lastItemIndex = data.length - 1;
 
   return (
     <List style={{ height: 180 }}>
-      {rows.map((item, index) => {
+      {data.map((item, index) => {
         const key = index;
         const status = item.status;
         return (
@@ -80,7 +80,7 @@ const TabContainer = ({ rows }) => {
 };
 
 TabContainer.propTypes = {
-  rows: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
 };
 
 class GridDetailContainerBase extends React.PureComponent {
@@ -132,9 +132,9 @@ class GridDetailContainerBase extends React.PureComponent {
               <Tab label={`High (${highPriorityTasks.length})`} disabled={!highPriorityTasks.length} />
             </Tabs>
           </AppBar>
-          {value === 0 && <TabContainer rows={lowPriorityTasks} />}
-          {value === 1 && <TabContainer rows={normalPriorityTasks} />}
-          {value === 2 && <TabContainer rows={highPriorityTasks} />}
+          {value === 0 && <TabContainer data={lowPriorityTasks} />}
+          {value === 1 && <TabContainer data={normalPriorityTasks} />}
+          {value === 2 && <TabContainer data={highPriorityTasks} />}
         </Paper>
       </div>
     );
@@ -161,10 +161,10 @@ export default class Demo extends React.PureComponent {
         { name: 'position', title: 'Position', width: 170 },
         { name: 'state', title: 'State', width: 125 },
       ],
-      rows: generateRows({
+      data: generateData({
         columnValues: {
           ...employeeValues,
-          tasks: ({ random }) => generateRows({
+          tasks: ({ random }) => generateData({
             columnValues: employeeTaskValues,
             length: Math.floor(random() * 4) + 5,
             random,
@@ -176,11 +176,11 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const { data, columns, allowedPageSizes } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
@@ -213,9 +213,9 @@ export default class Demo extends React.PureComponent {
         />
         <TableSelection />
         <TableRowDetail
-          template={({ row }) => (
+          template={({ rowData }) => (
             <GridDetailContainer
-              data={row}
+              data={rowData}
             />
           )}
         />

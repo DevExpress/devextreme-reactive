@@ -113,10 +113,10 @@ describe('TableGroupRow Plugin computeds', () => {
   describe('#tableRowsWithGrouping', () => {
     it('should add correct colSpanStart to group rows', () => {
       const tableRows = [
-        { type: TABLE_DATA_TYPE, row: { type: 'groupRow', key: 'B', groupedBy: 'a' } },
-        { type: 'undefined', row: { column: { name: 'a' } } },
-        { type: TABLE_DATA_TYPE, row: { column: { name: 'a' } } },
-        { type: TABLE_DATA_TYPE, row: { column: { name: 'b' } } },
+        { type: TABLE_DATA_TYPE, rowData: { type: 'groupRow', key: 'B', groupedBy: 'a' } },
+        { type: 'undefined', rowData: { column: { name: 'a' } } },
+        { type: TABLE_DATA_TYPE, rowData: { column: { name: 'a' } } },
+        { type: TABLE_DATA_TYPE, rowData: { column: { name: 'b' } } },
       ];
 
       expect(tableRowsWithGrouping(tableRows))
@@ -124,12 +124,12 @@ describe('TableGroupRow Plugin computeds', () => {
           {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
-            row: { type: 'groupRow', key: 'B', groupedBy: 'a' },
+            rowData: { type: 'groupRow', key: 'B', groupedBy: 'a' },
             colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
-          { type: 'undefined', row: { column: { name: 'a' } } },
-          { type: TABLE_DATA_TYPE, row: { column: { name: 'a' } } },
-          { type: TABLE_DATA_TYPE, row: { column: { name: 'b' } } },
+          { type: 'undefined', rowData: { column: { name: 'a' } } },
+          { type: TABLE_DATA_TYPE, rowData: { column: { name: 'a' } } },
+          { type: TABLE_DATA_TYPE, rowData: { column: { name: 'b' } } },
         ]);
     });
   });

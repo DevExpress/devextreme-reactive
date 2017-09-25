@@ -27,24 +27,24 @@ describe('TableView Plugin computeds', () => {
   describe('#tableRowsWithDataRows', () => {
     it('should work', () => {
       const rows = [{ id: 1 }, { id: 2 }];
-      const getRowId = row => row.id;
+      const getRowDataId = row => row.id;
 
-      expect(tableRowsWithDataRows(rows, getRowId))
+      expect(tableRowsWithDataRows(rows, getRowDataId))
         .toEqual([
           {
-            key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, row: rows[0],
+            key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, rowData: rows[0],
           },
           {
-            key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2, row: rows[1],
+            key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2, rowData: rows[1],
           },
         ]);
     });
 
     it('should add nodata row if rows are empty', () => {
       const rows = [];
-      const getRowId = row => row.id;
+      const getRowDataId = row => row.id;
 
-      expect(tableRowsWithDataRows(rows, getRowId))
+      expect(tableRowsWithDataRows(rows, getRowDataId))
         .toEqual([
           { key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 },
         ]);

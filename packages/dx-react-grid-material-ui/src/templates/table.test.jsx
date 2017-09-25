@@ -24,7 +24,7 @@ describe('Table', () => {
   it('should pass rowTemplate to TableLayout', () => {
     const rowTemplateMock = jest.fn();
     const rowTemplateArgs = {
-      row: 'row',
+      rowData: 'row',
       children: null,
     };
     TableLayout.mockImplementation(({ rowTemplate }) => (

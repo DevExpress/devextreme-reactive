@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateRows,
+  generateData,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -24,7 +24,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 6 }),
+      data: generateData({ length: 6 }),
       columnOrder: ['city', 'sex', 'car', 'name'],
     };
 
@@ -34,11 +34,11 @@ export default class Demo extends React.PureComponent {
     this.setState({ columnOrder: newOrder });
   }
   render() {
-    const { rows, columns, columnOrder } = this.state;
+    const { data, columns, columnOrder } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <ColumnOrderState

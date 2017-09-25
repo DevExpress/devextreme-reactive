@@ -11,7 +11,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
-  generateRows,
+  generateData,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -25,7 +25,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      data: generateData({ length: 14 }),
       currentPage: 0,
       pageSize: 5,
       allowedPageSizes: [5, 10, 15],
@@ -35,11 +35,11 @@ export default class Demo extends React.PureComponent {
     this.changePageSize = pageSize => this.setState({ pageSize });
   }
   render() {
-    const { rows, columns, pageSize, allowedPageSizes } = this.state;
+    const { data, columns, pageSize, allowedPageSizes } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <PagingState

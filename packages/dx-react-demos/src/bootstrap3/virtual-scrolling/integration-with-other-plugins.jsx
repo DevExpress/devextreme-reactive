@@ -15,11 +15,11 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateRows,
+  generateData,
   defaultColumnValues,
 } from '../../demo-data/generator';
 
-const getRowId = row => row.id;
+const getRowDataId = rowData => rowData.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -33,28 +33,28 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({
+      data: generateData({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
         length: 100000,
       }),
     };
 
-    this.rowTemplate = ({ row }) => (
+    this.rowTemplate = ({ rowData }) => (
       <div>
-        <div>Detail for {row.name} ({row.sex})</div>
-        <div>City: {row.city}</div>
-        <div>Car: {row.car}</div>
+        <div>Detail for {rowData.name} ({rowData.sex})</div>
+        <div>City: {rowData.city}</div>
+        <div>Car: {rowData.car}</div>
       </div>
     );
   }
   render() {
-    const { rows, columns } = this.state;
+    const { data, columns } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
-        getRowId={getRowId}
+        getRowDataId={getRowDataId}
       >
         <FilteringState defaultFilters={[]} />
         <SortingState defaultSorting={[{ columnName: 'city', direction: 'asc' }]} />

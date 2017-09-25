@@ -34,7 +34,7 @@ const getEditCommandsTableCellTemplateArgs = (
   const rowIds = [params.tableRow.rowId];
   return {
     ...params,
-    row: params.tableRow.row,
+    rowData: params.tableRow.rowData,
     isEditing: isEdit || isNew,
     startEditing: () => startEditRows({ rowIds: [params.tableRow.rowId] }),
     deleteRow: () => {

@@ -9,14 +9,14 @@ export const tableRowsWithExpandedDetail = (tableRows, expandedRows, rowHeight) 
         tableRow.type === TABLE_DATA_TYPE && tableRow.rowId === expandedRowId);
       if (rowIndex === -1) return;
       const insertIndex = rowIndex + 1;
-      const { row, rowId } = result[rowIndex];
+      const { rowData, rowId } = result[rowIndex];
       result = [
         ...result.slice(0, insertIndex),
         {
           key: `${TABLE_DETAIL_TYPE}_${rowId}`,
           type: TABLE_DETAIL_TYPE,
           rowId,
-          row,
+          rowData,
           colSpanStart: 0,
           height: rowHeight,
         },

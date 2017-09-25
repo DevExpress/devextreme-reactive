@@ -36,7 +36,7 @@ import {
 } from '../templates/highlighted-cell';
 
 import {
-  generateRows,
+  generateData,
   globalSalesValues,
 } from '../../demo-data/generator';
 
@@ -62,7 +62,7 @@ const commandTemplates = {
       <Button
         color="primary"
         onClick={onClick}
-        title="Create new row"
+        title="Create new rowData"
         disabled={!allowAdding}
       >
         New
@@ -70,12 +70,12 @@ const commandTemplates = {
     </div>
   ),
   edit: onClick => (
-    <IconButton onClick={onClick} title="Edit row">
+    <IconButton onClick={onClick} title="Edit rowData">
       <EditIcon />
     </IconButton>
   ),
   delete: onClick => (
-    <IconButton onClick={onClick} title="Delete row">
+    <IconButton onClick={onClick} title="Delete rowData">
       <DeleteIcon />
     </IconButton>
   ),
@@ -120,7 +120,7 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
-const getRowId = row => row.id;
+const getRowDataId = rowData => rowData.id;
 
 class DemoBase extends React.PureComponent {
   constructor(props) {
@@ -135,7 +135,7 @@ class DemoBase extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      rows: generateRows({
+      data: generateData({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 12,
       }),
@@ -153,7 +153,7 @@ class DemoBase extends React.PureComponent {
     this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeAddedRows = addedRows => this.setState({
-      addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
+      addedRows: addedRows.map(rowData => (Object.keys(rowData).length ? rowData : {
         amount: 0,
         discount: 0,
         saleDate: new Date().toISOString().split('T')[0],
@@ -167,45 +167,46 @@ class DemoBase extends React.PureComponent {
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows;
+      let data = this.state.data;
       if (added) {
-        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
-        rows = [
-          ...rows,
-          ...added.map((row, index) => ({
+        const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
+        data = [
+          ...data,
+          ...added.map((rowData, index) => ({
             id: startingAddedId + index,
-            ...row,
+            ...rowData,
           })),
         ];
       }
       if (changed) {
-        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+        data = data.map(rowData =>
+          (changed[rowData.id] ? { ...rowData, ...changed[rowData.id] } : rowData));
       }
-      this.setState({ rows, deletingRows: deleted || this.state.deletingRows });
+      this.setState({ data, deletingRows: deleted || this.state.deletingRows });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = () => {
-      const rows = this.state.rows.slice();
+      const data = this.state.data.slice();
       this.state.deletingRows.forEach((rowId) => {
-        const index = rows.findIndex(row => row.id === rowId);
+        const index = data.findIndex(rowData => rowData.id === rowId);
         if (index > -1) {
-          rows.splice(index, 1);
+          data.splice(index, 1);
         }
       });
-      this.setState({ rows, deletingRows: [] });
+      this.setState({ data, deletingRows: [] });
     };
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
     };
 
-    this.tableCellTemplate = ({ row, column, style }) => {
+    this.tableCellTemplate = ({ rowData, column, style }) => {
       if (column.name === 'discount') {
         return (
-          <ProgressBarCell value={row.discount * 100} style={style} />
+          <ProgressBarCell value={rowData.discount * 100} style={style} />
         );
       } else if (column.name === 'amount') {
         return (
-          <HighlightedCell align={column.align} value={row.amount} style={style} />
+          <HighlightedCell align={column.align} value={rowData.amount} style={style} />
         );
       }
       return undefined;
@@ -245,7 +246,7 @@ class DemoBase extends React.PureComponent {
       classes,
     } = this.props;
     const {
-      rows,
+      data,
       columns,
       sorting,
       editingRows,
@@ -261,9 +262,9 @@ class DemoBase extends React.PureComponent {
     return (
       <div>
         <Grid
-          rows={rows}
+          data={data}
           columns={columns}
-          getRowId={getRowId}
+          getRowDataId={getRowDataId}
         >
           <ColumnOrderState
             order={columnOrder}
@@ -325,10 +326,10 @@ class DemoBase extends React.PureComponent {
           <DialogTitle>Delete Row</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Are you sure to delete the following row?
+              Are you sure to delete the following rowData?
             </DialogContentText>
             <Grid
-              rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
+              data={data.filter(rowData => deletingRows.indexOf(rowData.id) > -1)}
               columns={columns}
             >
               <TableView

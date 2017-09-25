@@ -49,7 +49,7 @@ import {
 
 const App = () => (
   <Grid
-    rows={[
+    data={[
       { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
       { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
     ]}
@@ -67,6 +67,7 @@ const App = () => (
 ### Try Out The React Grid
 
 Follow the links below to try out the React Grid:
+
 - [WebpackBin for Bootstrap3](https://www.webpackbin.com/bins/-KoCcFwPPtps5fEN0PkI)
 - [WebpackBin for Material UI](https://www.webpackbin.com/bins/-KoCeS-_jZrZuTecv-wd)
 

@@ -12,11 +12,11 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateRows,
+  generateData,
 } from '../../demo-data/generator';
 
 const GroupCellTemplate = ({
-  style, colSpan, row, isExpanded, toggleGroupExpanded,
+  style, colSpan, rowData, isExpanded, toggleGroupExpanded,
 }) => (
   <td
     colSpan={colSpan}
@@ -26,14 +26,14 @@ const GroupCellTemplate = ({
     }}
     onClick={toggleGroupExpanded}
   >{ isExpanded ? '- ' : '+ ' }
-    <strong>Names from {row.value.from} to {row.value.to}</strong>
+    <strong>Names from {rowData.value.from} to {rowData.value.to}</strong>
   </td>
 );
 
 GroupCellTemplate.propTypes = {
   style: PropTypes.shape(),
   colSpan: PropTypes.number,
-  row: PropTypes.shape(),
+  rowData: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
 };
@@ -41,7 +41,7 @@ GroupCellTemplate.propTypes = {
 GroupCellTemplate.defaultProps = {
   style: null,
   colSpan: 1,
-  row: {},
+  rowData: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
 };
@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      data: generateData({ length: 14 }),
       grouping: [{ columnName: 'name' }],
     };
 
@@ -79,11 +79,11 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { rows, columns, grouping } = this.state;
+    const { data, columns, grouping } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <GroupingState

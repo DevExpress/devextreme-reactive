@@ -36,12 +36,12 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
+      tableRow: { type: 'undefined', rowId: 1, rowData: { a: 'a' } },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
     tableViewRow: {
-      tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
+      tableRow: { type: 'undefined', rowId: 1, rowData: { a: 'a' } },
       style: {},
     },
   },
@@ -112,7 +112,7 @@ describe('TableEditRow', () => {
     );
 
     expect(defaultDeps.getter.getCellValue).toBeCalledWith(
-      { ...defaultDeps.template.tableViewCell.tableRow.row },
+      { ...defaultDeps.template.tableViewCell.tableRow.rowData },
       defaultDeps.template.tableViewCell.tableColumn.column.name,
     );
     expect(isEditTableCell)
@@ -123,7 +123,7 @@ describe('TableEditRow', () => {
     expect(editCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        rowData: defaultDeps.template.tableViewCell.tableRow.rowData,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
@@ -145,7 +145,7 @@ describe('TableEditRow', () => {
     expect(isEditTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
       ...defaultDeps.template.tableViewRow,
-      row: defaultDeps.template.tableViewRow.tableRow.row,
+      rowData: defaultDeps.template.tableViewRow.tableRow.rowData,
     }));
   });
 
@@ -166,7 +166,7 @@ describe('TableEditRow', () => {
     expect(isAddedTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
       ...defaultDeps.template.tableViewRow,
-      row: defaultDeps.template.tableViewRow.tableRow.row,
+      rowData: defaultDeps.template.tableViewRow.tableRow.rowData,
     }));
   });
 
@@ -176,7 +176,7 @@ describe('TableEditRow', () => {
     const deps = {
       template: {
         tableViewCell: {
-          tableRow: { row: { a: 'a1', b: 'b1' } },
+          tableRow: { rowData: { a: 'a1', b: 'b1' } },
           tableColumn: { column: { name: 'column' } },
         },
       },
@@ -211,7 +211,7 @@ describe('TableEditRow', () => {
       },
       template: {
         tableViewCell: {
-          tableRow: { row: { a: 'a1', b: 'b1' } },
+          tableRow: { rowData: { a: 'a1', b: 'b1' } },
           tableColumn: { column: { name: 'column', dataType: 'column' } },
         },
       },
@@ -236,7 +236,7 @@ describe('TableEditRow', () => {
     expect(valueEditor)
       .toHaveBeenCalledWith({
         column: deps.template.tableViewCell.tableColumn.column,
-        row: deps.template.tableViewCell.tableRow.row,
+        rowData: deps.template.tableViewCell.tableRow.rowData,
         value: deps.getter.getCellValue(),
         onValueChange: expect.any(Function),
       });

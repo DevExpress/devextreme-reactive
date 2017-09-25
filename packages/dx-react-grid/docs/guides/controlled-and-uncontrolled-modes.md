@@ -17,17 +17,17 @@ export class MyApp extends React.PureComponent {
 
     this.state = {
       columns: [/* ... */],
-      rows: [/* ... */],
+      data: [/* ... */],
       sorting: [{ columnName: 'date', direction: 'desc' }],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
   }
   render() {
-    const { rows, columns, sorting } = this.state;
+    const { data, columns, sorting } = this.state;
 
     return (
-      <Grid rows={rows} columns={columns}>
+      <Grid data={data} columns={columns}>
         <SortingState sorting={sorting} onSortingChange={this.changeSorting} />
         { /* ... */ }
       </Grid>
@@ -45,7 +45,7 @@ Note that all the state management plugins use a serializable state. This means 
 In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the `default` prefix (for example, the `SortingState` plugin's `defaultSorting` property).
 
 ```js
-<Grid rows={[/* ... */]} columns={[/* ... */]}>
+<Grid data={[/* ... */]} columns={[/* ... */]}>
   <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
   <GroupingState />
   { /* ... */ }
@@ -57,7 +57,7 @@ In the uncontrolled state mode, the Grid component manages its state internally.
 You can control only certain parts of the Grid's configuration. In this case, apply the [controlled mode](#controlled-mode) only to plugins whose state you want to control externally and the [uncontrolled mode](#uncontrolled-mode) to other plugins.
 
 ```js
-<Grid rows={[/* ... */]} columns={[/* ... */]}>
+<Grid data={[/* ... */]} columns={[/* ... */]}>
   { /* Filtering is controlled by the parent component */ }
   <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>
 

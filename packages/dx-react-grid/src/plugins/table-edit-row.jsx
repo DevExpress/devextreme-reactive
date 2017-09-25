@@ -23,14 +23,14 @@ const getEditTableCellTemplateArgs = (
 ) => {
   const { getCellValue, createRowChange } = getters;
   const isNew = isAddedTableRow(params.tableRow);
-  const { rowId, row } = params.tableRow;
+  const { rowId, rowData } = params.tableRow;
   const { column } = params.tableColumn;
   const changedRow = isNew
-    ? row
-    : { ...row, ...getRowChange(getters.changedRows, rowId) };
+    ? rowData
+    : { ...rowData, ...getRowChange(getters.changedRows, rowId) };
   return {
     ...params,
-    row,
+    rowData,
     column,
     value: getCellValue(changedRow, column.name),
     onValueChange: (newValue) => {
@@ -49,14 +49,14 @@ const getEditTableCellTemplateArgs = (
 
 const getValueEditorArgs = params => ({
   column: params.column,
-  row: params.row,
+  rowData: params.rowData,
   value: params.value,
   onValueChange: params.onValueChange,
 });
 
 const getEditTableRowTemplateArgs = params => ({
   ...params,
-  row: params.tableRow.row,
+  rowData: params.tableRow.rowData,
 });
 
 const pluginDependencies = [

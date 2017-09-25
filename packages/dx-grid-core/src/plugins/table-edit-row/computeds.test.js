@@ -8,9 +8,9 @@ describe('TableEditRow Plugin computeds', () => {
   describe('#tableRowsWithEditing', () => {
     it('should work', () => {
       const tableRows = [
-        { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
-        { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' },
-        { type: 'undefined', rowId: 2, row: 'row2' },
+        { type: TABLE_DATA_TYPE, rowId: 1, rowData: 'row1' },
+        { type: TABLE_DATA_TYPE, rowId: 2, rowData: 'row2' },
+        { type: 'undefined', rowId: 2, rowData: 'row2' },
       ];
       const editingRows = [2];
       const addedRows = [{ id: 3 }, { id: 4 }];
@@ -21,25 +21,25 @@ describe('TableEditRow Plugin computeds', () => {
             key: `${TABLE_ADDED_TYPE}_1`,
             type: TABLE_ADDED_TYPE,
             rowId: 1,
-            row: { id: 4 },
+            rowData: { id: 4 },
             height: 100,
           },
           {
             key: `${TABLE_ADDED_TYPE}_0`,
             type: TABLE_ADDED_TYPE,
             rowId: 0,
-            row: { id: 3 },
+            rowData: { id: 3 },
             height: 100,
           },
-          { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
+          { type: TABLE_DATA_TYPE, rowId: 1, rowData: 'row1' },
           {
             key: `${TABLE_EDIT_TYPE}_2`,
             type: TABLE_EDIT_TYPE,
             rowId: 2,
-            row: 'row2',
+            rowData: 'row2',
             height: 100,
           },
-          { type: 'undefined', rowId: 2, row: 'row2' },
+          { type: 'undefined', rowId: 2, rowData: 'row2' },
         ]);
     });
   });

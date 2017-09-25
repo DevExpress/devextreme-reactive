@@ -26,16 +26,16 @@ const styles = {
   },
 };
 
-const SaleAmountCellBase = ({ row, classes }) => (
+const SaleAmountCellBase = ({ rowData, classes }) => (
   <TableCell
     className={classes.saleAmountCell}
   >
-    ${row.SaleAmount}
+    ${rowData.SaleAmount}
   </TableCell>
 );
 
 SaleAmountCellBase.propTypes = {
-  row: PropTypes.object.isRequired,
+  rowData: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -71,7 +71,7 @@ export default class Demo extends React.PureComponent {
         { name: 'Employee', title: 'Employee' },
         { name: 'SaleAmount', title: 'Sale Amount', align: 'right' },
       ],
-      rows: [],
+      data: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
       pageSize: 10,
@@ -135,7 +135,7 @@ export default class Demo extends React.PureComponent {
     fetch(queryString)
       .then(response => response.json())
       .then(data => this.setState({
-        rows: data.items,
+        data: data.items,
         totalCount: data.totalCount,
         loading: false,
       }))
@@ -144,7 +144,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows,
+      data,
       columns,
       sorting,
       pageSize,
@@ -157,7 +157,7 @@ export default class Demo extends React.PureComponent {
     return (
       <div style={{ position: 'relative' }}>
         <Grid
-          rows={rows}
+          data={data}
           columns={columns}
         >
           <SortingState
@@ -172,9 +172,9 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <TableView
-            tableCellTemplate={({ row, column }) => {
+            tableCellTemplate={({ rowData, column }) => {
               if (column.name === 'SaleAmount') {
-                return <SaleAmountCell row={row} />;
+                return <SaleAmountCell rowData={rowData} />;
               }
               return undefined;
             }}

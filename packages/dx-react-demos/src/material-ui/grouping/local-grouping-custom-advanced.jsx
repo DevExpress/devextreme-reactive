@@ -13,12 +13,12 @@ import {
 
 import { TableCell } from 'material-ui';
 import {
-  generateRows,
+  generateData,
 } from '../../demo-data/generator';
 
 const GroupCellTemplate = ({
   colSpan,
-  row,
+  rowData,
   isExpanded,
   toggleGroupExpanded,
 }) => (
@@ -31,21 +31,21 @@ const GroupCellTemplate = ({
       { isExpanded ? '- ' : '+ ' }
     </span>
     <strong>
-      Names from {row.value.from} to {row.value.to}
+      Names from {rowData.value.from} to {rowData.value.to}
     </strong>
   </TableCell>
 );
 
 GroupCellTemplate.propTypes = {
   colSpan: PropTypes.number,
-  row: PropTypes.shape(),
+  rowData: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
 };
 
 GroupCellTemplate.defaultProps = {
   colSpan: 1,
-  row: {},
+  rowData: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
 };
@@ -61,7 +61,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      data: generateData({ length: 14 }),
       grouping: [{ columnName: 'name' }],
     };
 
@@ -83,11 +83,11 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { rows, columns, grouping } = this.state;
+    const { data, columns, grouping } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <GroupingState

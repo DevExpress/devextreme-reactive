@@ -25,7 +25,7 @@ export default class Demo extends React.PureComponent {
         { name: 'Employee', title: 'Employee' },
         { name: 'SaleAmount', title: 'Sale Amount' },
       ],
-      rows: [],
+      data: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       loading: true,
     };
@@ -64,19 +64,19 @@ export default class Demo extends React.PureComponent {
     fetch(queryString)
       .then(response => response.json())
       .then(data => this.setState({
-        rows: data.items,
+        data: data.items,
         loading: false,
       }))
       .catch(() => this.setState({ loading: false }));
     this.lastQuery = queryString;
   }
   render() {
-    const { rows, columns, sorting, loading } = this.state;
+    const { data, columns, sorting, loading } = this.state;
 
     return (
       <div style={{ position: 'relative' }}>
         <Grid
-          rows={rows}
+          data={data}
           columns={columns}
         >
           <SortingState

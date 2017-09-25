@@ -34,10 +34,9 @@ describe('EditingState reducers', () => {
   describe('#addRow', () => {
     it('should work', () => {
       const addedRows = Immutable([{ a: 1 }]);
-      const payload = { row: { a: 2 } };
 
-      const nextAddedRows = addRow(addedRows, payload);
-      expect(nextAddedRows).toEqual([{ a: 1 }, { a: 2 }]);
+      const nextAddedRows = addRow(addedRows);
+      expect(nextAddedRows).toEqual([{ a: 1 }, {}]);
     });
   });
   describe('#changeAddedRow', () => {

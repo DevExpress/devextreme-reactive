@@ -18,13 +18,12 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be sorted
-sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting to be applied
-getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be sorted.
+sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting to be applied.
+getCellValue | Getter | (rowData: any, columnName: string) => any | A function used to get the column value for a given row data.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied sorting
-
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied sorting.

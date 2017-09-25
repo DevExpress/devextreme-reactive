@@ -18,10 +18,10 @@ describe('TableSelection Plugin computeds', () => {
 
   describe('#tableRowsWithSelection', () => {
     const bodyRows = [
-      { type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' } },
-      { type: TABLE_DATA_TYPE, rowId: 1, row: { field: 'b' } },
-      { type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' } },
-      { type: 'undefined', rowId: 2, row: { field: 'c' } },
+      { type: TABLE_DATA_TYPE, rowId: 0, rowData: { field: 'a' } },
+      { type: TABLE_DATA_TYPE, rowId: 1, rowData: { field: 'b' } },
+      { type: TABLE_DATA_TYPE, rowId: 2, rowData: { field: 'c' } },
+      { type: 'undefined', rowId: 2, rowData: { field: 'c' } },
     ];
     const selection = [0, 2];
 
@@ -31,13 +31,13 @@ describe('TableSelection Plugin computeds', () => {
       expect(selectedRows)
         .toEqual([
           {
-            type: TABLE_DATA_TYPE, rowId: 0, row: { field: 'a' }, selected: true,
+            type: TABLE_DATA_TYPE, rowId: 0, rowData: { field: 'a' }, selected: true,
           },
-          { type: TABLE_DATA_TYPE, rowId: 1, row: { field: 'b' } },
+          { type: TABLE_DATA_TYPE, rowId: 1, rowData: { field: 'b' } },
           {
-            type: TABLE_DATA_TYPE, rowId: 2, row: { field: 'c' }, selected: true,
+            type: TABLE_DATA_TYPE, rowId: 2, rowData: { field: 'c' }, selected: true,
           },
-          { type: 'undefined', rowId: 2, row: { field: 'c' } },
+          { type: 'undefined', rowId: 2, rowData: { field: 'c' } },
         ]);
     });
   });

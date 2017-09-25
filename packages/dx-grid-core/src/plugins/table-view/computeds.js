@@ -8,15 +8,15 @@ export const tableColumnsWithDataRows = columns =>
     column,
   }));
 
-export const tableRowsWithDataRows = (rows, getRowId) => (
+export const tableRowsWithDataRows = (rows, getRowDataId) => (
   !rows.length
     ? [{ key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 }]
     : rows.map((row) => {
-      const rowId = getRowId(row);
+      const rowId = getRowDataId(row);
       return {
         key: `${TABLE_DATA_TYPE}_${rowId}`,
         type: TABLE_DATA_TYPE,
         rowId,
-        row,
+        rowData: row,
       };
     }));

@@ -18,7 +18,7 @@ import {
 
 const getGroupIndentTableCellTemplateArgs = ({ params }) => ({
   ...params,
-  row: params.tableRow.row,
+  rowData: params.tableRow.rowData,
   column: params.tableColumn.column,
 });
 
@@ -28,21 +28,21 @@ const getGroupTableCellTemplateArgs = (
   { toggleGroupExpanded },
 ) => ({
   ...params,
-  row: params.tableRow.row,
+  rowData: params.tableRow.rowData,
   column: params.tableColumn.column,
-  isExpanded: expandedGroups.has(params.tableRow.row.key),
-  toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
+  isExpanded: expandedGroups.has(params.tableRow.rowData.key),
+  toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.rowData.key }),
 });
 
 const getValueFormatterArgs = params => ({
-  row: params.row,
+  rowData: params.rowData,
   column: params.column,
-  value: params.row.value,
+  value: params.rowData.value,
 });
 
 const getGroupTableRowTemplateArgs = params => ({
   ...params,
-  row: params.tableRow.row,
+  rowData: params.tableRow.rowData,
 });
 
 const pluginDependencies = [

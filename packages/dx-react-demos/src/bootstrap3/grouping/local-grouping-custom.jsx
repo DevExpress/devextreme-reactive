@@ -11,7 +11,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateRows,
+  generateData,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -25,7 +25,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City', showWhenGrouped: true },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      data: generateData({ length: 14 }),
       grouping: [{ columnName: 'city' }],
     };
 
@@ -39,11 +39,11 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, grouping } = this.state;
+    const { data, columns, grouping } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <GroupingState

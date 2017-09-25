@@ -39,7 +39,7 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
@@ -140,7 +140,7 @@ describe('TableHeaderRow', () => {
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        rowData: defaultDeps.template.tableViewCell.tableRow.rowData,
         isEditing: false,
       }));
   });

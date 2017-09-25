@@ -5,6 +5,7 @@ The Grid component supports filtering data by a column value programmatically or
 ## Related Plugins
 
 The following plugins implement filtering features:
+
 - [FilteringState](../reference/filtering-state.md) - controls the filtering state
 - [LocalFiltering](../reference/local-filtering.md) - performs local data filtering
 - [TableFilterRow](../reference/table-filter-row.md) - renders a filter row
@@ -41,11 +42,10 @@ You can also specify a filtering predicate using the `LocalFiltering` plugin's `
 
 You can handle the Grid filtering state changes to request data from the server with the corresponding filters applied if your data service supports filtering operations.
 
-Filtering options are updated once an end-user modifies a text within a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
+Filtering options are updated once an end-user modifies a text within a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `data` property.
 
 Note that in the case of remote filtering, you do not need to use the `LocalFiltering` plugin.
 
 ## Using Filtering with Other Data Processing Plugins
 
 When you use filtering features with paging or grouping, take a note of the order in which the plugins appear in the Grid's container. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `LocalFiltering` plugin before the `LocalPaging` one. Otherwise, inverse the plugins' order.
-

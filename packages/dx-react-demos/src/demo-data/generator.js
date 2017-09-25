@@ -199,7 +199,7 @@ export const employeeTaskValues = {
   }),
 };
 
-export function generateRows({
+export function generateData({
   columnValues = defaultColumnValues,
   length,
   random = randomSeed(329972281),

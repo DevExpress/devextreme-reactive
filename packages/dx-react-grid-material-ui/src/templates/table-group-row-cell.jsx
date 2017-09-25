@@ -33,7 +33,7 @@ const styles = theme => ({
 const TableGroupCellBase = ({
   style,
   colSpan,
-  row,
+  rowData,
   column,
   isExpanded,
   toggleGroupExpanded,
@@ -55,7 +55,7 @@ const TableGroupCellBase = ({
     </span>
     <span className={classes.columnTitle}>
       <strong>{column.title || column.name}: </strong>
-      {children || row.value}
+      {children || rowData.value}
     </span>
   </TableCell>
 );
@@ -63,7 +63,7 @@ const TableGroupCellBase = ({
 TableGroupCellBase.propTypes = {
   style: PropTypes.shape(),
   colSpan: PropTypes.number,
-  row: PropTypes.shape(),
+  rowData: PropTypes.shape(),
   column: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
@@ -77,7 +77,7 @@ TableGroupCellBase.propTypes = {
 TableGroupCellBase.defaultProps = {
   style: null,
   colSpan: 1,
-  row: {},
+  rowData: {},
   column: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},

@@ -20,8 +20,9 @@ const getCellValueGetter = (columns) => {
   }, {});
 
   return useFastAccessor ?
-    (row, columnName) => row[columnName] :
-    (row, columnName) => (map[columnName] ? map[columnName](row, columnName) : row[columnName]);
+    (rowData, columnName) => rowData[columnName] :
+    (rowData, columnName) => (map[columnName]
+      ? map[columnName](rowData, columnName) : rowData[columnName]);
 };
 
 export class GridCore extends React.PureComponent {
@@ -32,9 +33,9 @@ export class GridCore extends React.PureComponent {
   }
   render() {
     const {
-      rows,
+      data,
       columns,
-      getRowId,
+      getRowDataId,
       getCellValue,
       rootTemplate,
       headerPlaceholderTemplate,
@@ -43,9 +44,9 @@ export class GridCore extends React.PureComponent {
 
     return (
       <PluginContainer>
-        <Getter name="rows" value={rows} />
+        <Getter name="rows" value={data} />
         <Getter name="columns" value={columns} />
-        <Getter name="getRowId" value={getRowId || this.memoizedRowIdGetter(rows)} />
+        <Getter name="getRowDataId" value={getRowDataId || this.memoizedRowIdGetter(data)} />
         <Getter name="getCellValue" value={getCellValue || this.memoizedCellValueGetter(columns)} />
         <Template name="header" />
         <Template name="body" />
@@ -75,8 +76,8 @@ export class GridCore extends React.PureComponent {
 }
 
 GridCore.propTypes = {
-  rows: PropTypes.array.isRequired,
-  getRowId: PropTypes.func,
+  data: PropTypes.array.isRequired,
+  getRowDataId: PropTypes.func,
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
@@ -85,7 +86,7 @@ GridCore.propTypes = {
 };
 
 GridCore.defaultProps = {
-  getRowId: null,
+  getRowDataId: null,
   getCellValue: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,

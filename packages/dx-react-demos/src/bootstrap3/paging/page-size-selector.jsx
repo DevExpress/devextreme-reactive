@@ -10,7 +10,7 @@ import {
   PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
-import { generateRows } from '../../demo-data/generator';
+import { generateData } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -23,17 +23,17 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 60 }),
+      data: generateData({ length: 60 }),
       allowedPageSizes: [5, 10, 15, 0],
     };
   }
 
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const { data, columns, allowedPageSizes } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <PagingState

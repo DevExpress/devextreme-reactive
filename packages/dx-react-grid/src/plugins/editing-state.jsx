@@ -125,7 +125,7 @@ export class EditingState extends React.PureComponent {
 
         <Action
           name="addRow"
-          action={() => this._addRow(addedRows, { row: {} })}
+          action={() => this._addRow(addedRows)}
         />
         <Action
           name="changeAddedRow"

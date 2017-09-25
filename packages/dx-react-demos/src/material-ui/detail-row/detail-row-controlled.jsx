@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
-  generateRows,
+  generateData,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -24,19 +24,19 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 7 }),
+      data: generateData({ length: 7 }),
       expandedRows: [2, 5],
     };
 
     this.changeExpandedDetails = expandedRows => this.setState({ expandedRows });
-    this.rowTemplate = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
+    this.rowTemplate = ({ rowData }) => <div>Details for {rowData.name} from {rowData.city}</div>;
   }
   render() {
-    const { rows, columns, expandedRows } = this.state;
+    const { data, columns, expandedRows } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <RowDetailState

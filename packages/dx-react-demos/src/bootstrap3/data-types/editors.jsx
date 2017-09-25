@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateRows,
+  generateData,
   globalSalesValues,
 } from '../../demo-data/generator';
 
@@ -45,42 +45,43 @@ export default class Demo extends React.PureComponent {
         { name: 'units', title: 'Units' },
         { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
       ],
-      rows: generateRows({
+      data: generateData({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 14,
       }),
     };
 
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows;
+      let data = this.state.data;
       if (added) {
-        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
-        rows = [
-          ...rows,
-          ...added.map((row, index) => ({
+        const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
+        data = [
+          ...data,
+          ...added.map((rowData, index) => ({
             id: startingAddedId + index,
-            ...row,
+            ...rowData,
           })),
         ];
       }
       if (changed) {
-        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+        data = data.map(rowData =>
+          (changed[rowData.id] ? { ...rowData, ...changed[rowData.id] } : rowData));
       }
       if (deleted) {
         const deletedSet = new Set(deleted);
-        rows = rows.filter(row => !deletedSet.has(row.id));
+        data = data.filter(rowData => !deletedSet.has(rowData.id));
       }
-      this.setState({ rows });
+      this.setState({ data });
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { data, columns } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
-        getRowId={row => row.id}
+        getRowDataId={rowData => rowData.id}
       >
         <BooleanTypeProvider />
         <EditingState

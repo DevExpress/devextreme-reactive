@@ -26,7 +26,7 @@ export default class Demo extends React.PureComponent {
         { name: 'Employee', title: 'Employee' },
         { name: 'SaleAmount', title: 'Sale Amount' },
       ],
-      rows: [],
+      data: [],
       totalCount: 0,
       pageSize: 6,
       currentPage: 0,
@@ -62,7 +62,7 @@ export default class Demo extends React.PureComponent {
     fetch(queryString)
       .then(response => response.json())
       .then(data => this.setState({
-        rows: data.items,
+        data: data.items,
         totalCount: data.totalCount,
         loading: false,
       }))
@@ -70,12 +70,12 @@ export default class Demo extends React.PureComponent {
     this.lastQuery = queryString;
   }
   render() {
-    const { rows, columns, pageSize, currentPage, totalCount, loading } = this.state;
+    const { data, columns, pageSize, currentPage, totalCount, loading } = this.state;
 
     return (
       <div style={{ position: 'relative' }}>
         <Grid
-          rows={rows}
+          data={data}
           columns={columns}
         >
           <PagingState

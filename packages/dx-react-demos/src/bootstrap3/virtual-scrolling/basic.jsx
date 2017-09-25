@@ -6,11 +6,11 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateRows,
+  generateData,
   defaultColumnValues,
 } from '../../demo-data/generator';
 
-const getRowId = row => row.id;
+const getRowDataId = rowData => rowData.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -24,20 +24,20 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({
+      data: generateData({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
         length: 100000,
       }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { data, columns } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
-        getRowId={getRowId}
+        getRowDataId={getRowDataId}
       >
         <VirtualTableView />
         <TableHeaderRow />

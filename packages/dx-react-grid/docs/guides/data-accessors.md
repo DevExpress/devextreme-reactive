@@ -2,10 +2,10 @@
 
 ## Cell Value Access
 
-In a common scenario with a simple data structure, you can associate a column with a row field using the column's `name` field as shown in the following example:
+In a common scenario with a simple data structure, you can associate a column with a row data field using the column's `name` field as shown in the following example:
 
 ```js
-const rows = [
+const data = [
   { firstName: 'John', lastName: 'Smith' },
   /* ... */
 ];
@@ -16,7 +16,7 @@ const columns = [
 ];
 
 <Grid
-  rows={rows}
+  data={data}
   columns={columns}
 />
 ```
@@ -24,7 +24,7 @@ const columns = [
 In the case of nested data structure, use the `getCellValue` function to calculate a column value as demonstrated below:
 
 ```js
-const rows = [
+const data = [
   { user: { firstName: 'John', lastName: 'Smith' } },
   /* ... */
 ];
@@ -32,18 +32,18 @@ const columns = [
   {
     name: 'firstName',
     title: 'First Name',
-    getCellValue: row => (row.user ? row.user.firstName : undefined),
+    getCellValue: rowData => (rowData.user ? rowData.user.firstName : undefined),
   },
   {
     name: 'lastName',
     title: 'Last Name',
-    getCellValue: row => (row.user ? row.user.lastName : undefined),
+    getCellValue: rowData => (rowData.user ? rowData.user.lastName : undefined),
   },
   /* ... */
 ];
 
 <Grid
-  rows={rows}
+  data={data}
   columns={columns}
 />
 ```
@@ -55,16 +55,16 @@ If you use a common value calculation algorithm for all columns, specify the `ge
 For example, you can implement dot notation support for columns like `{ name: 'user.firstName' }`. In this case, the function code looks as follows:
 
 ```js
-const getCellValue = (row, columnName) => {
+const getCellValue = (rowData, columnName) => {
   if (columnName.indexOf('.') > -1) {
     const { rootField, nestedField } = this.splitColumnName(columnName);
-    return row[rootField] ? row[rootField][nestedField] : undefined;
+    return rowData[rootField] ? rowData[rootField][nestedField] : undefined;
   }
-  return row[columnName];
+  return rowData[columnName];
 };
 
 <Grid
-  rows={rows}
+  data={data}
   columns={columns}
   getCellValue={getCellValue}
 >
@@ -80,19 +80,19 @@ The `getCellValue` implementation presented in this demo is not optimized for fr
 
 ## Cell Value Editing
 
-If editing features are enabled, you can use the column's `createRowChange` function to create a row changes object:
+If editing features are enabled, you can use the column's `createRowChange` function to create a row data changes object:
 
 ```js
-const rows = [
+const data = [
   { user: { firstName: 'John', lastName: 'Smith' } },
   /* ... */
 ];
 const columns = [
   {
     /* ... */
-    createRowChange: (row, value) => ({
+    createRowChange: (rowData, value) => ({
       user: {
-        ...row.user,
+        ...rowData.user,
         firstName: value,
       },
     }),
@@ -104,7 +104,7 @@ const columns = [
 Specify the `EditingState` plugin's `createRowChange` property if you use a common algorithm for all columns.
 
 ```js
-const createRowChange = (row, columnName, value) => {
+const createRowChange = (rowData, columnName, value) => {
   /* ... */
 };
 

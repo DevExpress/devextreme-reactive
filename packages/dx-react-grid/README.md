@@ -49,7 +49,7 @@ import {
 
 const App = () => (
   <Grid
-    rows={[
+    data={[
       { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
       { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
     ]}
@@ -72,7 +72,7 @@ Follow the links below to try out the React Grid:
 
 ## Documentation
 
-[Guides](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/)  
+[Guides](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/)
 [API Reference](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/)
 
 ## License

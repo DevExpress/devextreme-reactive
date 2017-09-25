@@ -14,7 +14,7 @@ import {
 import Immutable from 'seamless-immutable';
 
 import {
-  generateRows,
+  generateData,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -27,11 +27,11 @@ export default class Demo extends React.PureComponent {
       { name: 'city', title: 'City' },
       { name: 'car', title: 'Car' },
     ];
-    const rows = generateRows({ length: 14 });
+    const data = generateData({ length: 14 });
     this.state = {
       data: Immutable({
         columns,
-        rows,
+        data,
         sorting: [],
         selection: [],
       }),
@@ -50,11 +50,11 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, sorting, selection } = this.state.data;
+    const { data, columns, sorting, selection } = this.state.data;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <SortingState

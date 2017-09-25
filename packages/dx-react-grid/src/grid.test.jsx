@@ -10,7 +10,7 @@ describe('Grid', () => {
   it('should render root template', () => {
     const tree = mount(
       <Grid
-        rows={[]}
+        data={[]}
         columns={[]}
         rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
           <div className="root">
@@ -42,7 +42,7 @@ describe('Grid', () => {
   it('should render header placeholder', () => {
     const tree = mount(
       <Grid
-        rows={[]}
+        data={[]}
         columns={[]}
         rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
           <div>
@@ -64,7 +64,7 @@ describe('Grid', () => {
   it('should render footer placeholder with null children if there are no header elements', () => {
     const tree = mount(
       <Grid
-        rows={[]}
+        data={[]}
         columns={[]}
         rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
           <div>
@@ -84,7 +84,7 @@ describe('Grid', () => {
   it('should render footer placeholder', () => {
     const tree = mount(
       <Grid
-        rows={[]}
+        data={[]}
         columns={[]}
         rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
           <div>
@@ -106,7 +106,7 @@ describe('Grid', () => {
   it('should render footer placeholder with null children if there are no footer elements', () => {
     const tree = mount(
       <Grid
-        rows={[]}
+        data={[]}
         columns={[]}
         rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
           <div>
@@ -124,7 +124,7 @@ describe('Grid', () => {
   });
 
   it('should calculate cell value', () => {
-    const rows = [
+    const data = [
       { a: 1, b: 1 },
       { a: 2, b: 2 },
     ];
@@ -135,7 +135,7 @@ describe('Grid', () => {
 
     const tree = mount(
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
         rootTemplate={() => <div />}
       >
@@ -143,18 +143,18 @@ describe('Grid', () => {
       </Grid>,
     );
 
-    expect(getComputedState(tree).getters.getCellValue(rows[1], columns[1].name))
+    expect(getComputedState(tree).getters.getCellValue(data[1], columns[1].name))
       .toBe(2);
   });
 
   it('should calculate cell value by using a custom function', () => {
-    const rows = [{ a: 1 }];
+    const data = [{ a: 1 }];
     const columns = [{ name: 'a' }];
     const getCellValue = jest.fn();
 
     const tree = mount(
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
         rootTemplate={() => <div />}
         getCellValue={getCellValue}
@@ -163,19 +163,19 @@ describe('Grid', () => {
       </Grid>,
     );
 
-    expect(getComputedState(tree).getters.getCellValue(rows[0], columns[0].name));
+    expect(getComputedState(tree).getters.getCellValue(data[0], columns[0].name));
     expect(getCellValue)
-      .toBeCalledWith(rows[0], columns[0].name);
+      .toBeCalledWith(data[0], columns[0].name);
   });
 
   it('should calculate cell value by using a custom function within column config', () => {
-    const rows = [{ a: 1 }];
+    const data = [{ a: 1 }];
     const getCellValue = jest.fn();
     const columns = [{ name: 'a', getCellValue }];
 
     const tree = mount(
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
         rootTemplate={() => <div />}
       >
@@ -183,8 +183,8 @@ describe('Grid', () => {
       </Grid>,
     );
 
-    expect(getComputedState(tree).getters.getCellValue(rows[0], columns[0].name));
+    expect(getComputedState(tree).getters.getCellValue(data[0], columns[0].name));
     expect(getCellValue)
-      .toBeCalledWith(rows[0], columns[0].name);
+      .toBeCalledWith(data[0], columns[0].name);
   });
 });

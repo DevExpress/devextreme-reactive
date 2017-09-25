@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-grid-core';
 
-const availableToSelectComputed = ({ rows, getRowId }) => getAvailableToSelect(rows, getRowId);
+const availableToSelectComputed = ({ rows, getRowDataId }) =>
+  getAvailableToSelect(rows, getRowDataId);
 
 export class SelectionState extends React.PureComponent {
   constructor(props) {

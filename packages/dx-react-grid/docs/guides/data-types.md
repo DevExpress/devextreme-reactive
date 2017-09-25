@@ -15,7 +15,7 @@ Associate a column with a data type using the `Column` object's `dataType` field
 Assign a function rendering the formatted value to the `DataTypeProvider` plugin's `formatterTemplate` property to apply the required formatting to cells of a column associated with the specified type.
 
 ```js
-const rows = [
+const data = [
   { product: 'SolarOne', price: '3039' },
 ];
 const columns = [
@@ -23,7 +23,7 @@ const columns = [
   { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
 ];
 <Grid
-  rows={rows}
+  data={data}
   columns={columns}
 >
   <DataTypeProvider
@@ -40,7 +40,7 @@ const columns = [
 If the grid supports editing or header row filtering, assign a function rendering the required editor to the `DataTypeProvider` plugin's `editorTemplate` property. In this case, the Grid uses the specified editor to edit all values of the specified type.
 
 ```js
-const rows = [
+const data = [
   { product: 'SolarOne', shipped: true },
 ];
 const columns = [
@@ -48,7 +48,7 @@ const columns = [
   { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
 ];
 <Grid
-  rows={rows}
+  data={data}
   columns={columns}
 >
   <DataTypeProvider

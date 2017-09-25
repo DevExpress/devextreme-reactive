@@ -17,7 +17,7 @@ import {
 } from '../templates/highlighted-cell';
 
 import {
-  generateRows,
+  generateData,
   globalSalesValues,
 } from '../../demo-data/generator';
 
@@ -34,16 +34,16 @@ export default class Demo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
+      data: generateData({ columnValues: globalSalesValues, length: 1000 }),
       allowedPageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const { data, columns, allowedPageSizes } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
@@ -78,14 +78,14 @@ export default class Demo extends React.PureComponent {
         <DragDropContext />
 
         <TableView
-          tableCellTemplate={({ row, column, style }) => {
+          tableCellTemplate={({ rowData, column, style }) => {
             if (column.name === 'discount') {
               return (
-                <ProgressBarCell value={row.discount * 100} style={style} />
+                <ProgressBarCell value={rowData.discount * 100} style={style} />
               );
             } else if (column.name === 'amount') {
               return (
-                <HighlightedCell align={column.align} value={row.amount} style={style} />
+                <HighlightedCell align={column.align} value={rowData.amount} style={style} />
               );
             }
             return undefined;

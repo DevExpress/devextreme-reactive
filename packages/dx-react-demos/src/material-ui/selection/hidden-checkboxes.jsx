@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
-  generateRows,
+  generateData,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -23,18 +23,18 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 6 }),
+      data: generateData({ length: 6 }),
       selection: [1],
     };
 
     this.changeSelection = selection => this.setState({ selection });
   }
   render() {
-    const { rows, columns, selection } = this.state;
+    const { data, columns, selection } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
       >
         <SelectionState

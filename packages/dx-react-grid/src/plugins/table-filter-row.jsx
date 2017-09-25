@@ -28,7 +28,7 @@ const getFilterTableCellTemplateArgs = (
 
 const getValueEditorArgs = params => ({
   column: params.column,
-  row: params.row,
+  rowData: params.rowData, // filter row has no assotiated data with
   value: params.filter ? params.filter.value : null,
   onValueChange: newValue => params.setFilter(newValue ? { value: newValue } : null),
 });

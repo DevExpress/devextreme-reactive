@@ -16,11 +16,11 @@ import {
 } from '../templates/highlighted-cell';
 
 import {
-  generateRows,
+  generateData,
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const getRowId = row => row.id;
+const getRowDataId = rowData => rowData.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -35,20 +35,20 @@ export default class Demo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      rows: generateRows({
+      data: generateData({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200000,
       }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { data, columns } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
-        getRowId={getRowId}
+        getRowDataId={getRowDataId}
       >
 
         <DragDropContext />
@@ -74,14 +74,14 @@ export default class Demo extends React.PureComponent {
         <SelectionState />
 
         <VirtualTableView
-          tableCellTemplate={({ row, column, style }) => {
+          tableCellTemplate={({ rowData, column, style }) => {
             if (column.name === 'discount') {
               return (
-                <ProgressBarCell value={row.discount * 100} style={style} />
+                <ProgressBarCell value={rowData.discount * 100} style={style} />
               );
             } else if (column.name === 'amount') {
               return (
-                <HighlightedCell align={column.align} value={row.amount} style={style} />
+                <HighlightedCell align={column.align} value={rowData.amount} style={style} />
               );
             }
             return undefined;

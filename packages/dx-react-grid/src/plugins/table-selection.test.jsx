@@ -23,7 +23,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     tableColumns: [{ type: 'undefined', column: 'column' }],
-    tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
+    tableBodyRows: [{ type: 'undefined', rowId: 1, rowData: 'row' }],
     selection: [1, 2],
     availableToSelect: [1, 2, 3, 4],
   },
@@ -32,12 +32,12 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
     tableViewRow: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
       style: {},
     },
   },
@@ -129,7 +129,7 @@ describe('Table Selection', () => {
     expect(selectCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        rowData: defaultDeps.template.tableViewCell.tableRow.rowData,
       }));
   });
 

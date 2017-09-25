@@ -29,12 +29,12 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
     tableViewRow: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
       style: {},
     },
   },
@@ -120,7 +120,7 @@ describe('TableHeaderRow', () => {
       },
       template: {
         tableViewCell: {
-          tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+          tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
           tableColumn: { type: 'undefined', column: { name: 'column', dataType: 'column' } },
           style: {},
         },

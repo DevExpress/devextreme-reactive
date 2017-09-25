@@ -23,7 +23,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     tableColumns: [{ type: 'undefined', column: 'column' }],
-    tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
+    tableBodyRows: [{ type: 'undefined', rowId: 1, rowData: 'row' }],
     expandedRows: { onClick: () => {} },
   },
   action: {
@@ -31,12 +31,12 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
     tableViewRow: {
-      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
       style: {},
     },
   },
@@ -128,7 +128,7 @@ describe('TableRowDetail', () => {
     expect(detailToggleCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        rowData: defaultDeps.template.tableViewCell.tableRow.rowData,
       }));
   });
 
@@ -151,7 +151,7 @@ describe('TableRowDetail', () => {
     expect(detailCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        rowData: defaultDeps.template.tableViewCell.tableRow.rowData,
       }));
   });
   it('should render row by using detailRowTemplate', () => {
@@ -171,7 +171,7 @@ describe('TableRowDetail', () => {
     expect(isDetailTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(detailRowTemplate).toBeCalledWith(expect.objectContaining({
       ...defaultDeps.template.tableViewRow,
-      row: defaultDeps.template.tableViewRow.tableRow.row,
+      rowData: defaultDeps.template.tableViewRow.tableRow.rowData,
     }));
   });
 });

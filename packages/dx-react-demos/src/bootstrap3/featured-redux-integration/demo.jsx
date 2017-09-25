@@ -16,7 +16,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateRows,
+  generateData,
   employeeValues,
   employeeTaskValues,
 } from '../../demo-data/generator';
@@ -32,7 +32,7 @@ const GridDetailContainer = ({
       <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
     </div>
     <Grid
-      rows={data.tasks}
+      data={data.tasks}
       columns={columns}
     >
       <TableView />
@@ -46,7 +46,7 @@ GridDetailContainer.propTypes = {
 };
 
 const GridContainer = ({
-  rows,
+  data,
   columns,
   detailColumns,
 
@@ -73,7 +73,7 @@ const GridContainer = ({
   onColumnWidthsChange,
 }) => (
   <Grid
-    rows={rows}
+    data={data}
     columns={columns}
   >
     <ColumnOrderState
@@ -127,9 +127,9 @@ const GridContainer = ({
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
-      template={({ row }) => (
+      template={({ rowData }) => (
         <GridDetailContainer
-          data={row}
+          data={rowData}
           columns={detailColumns}
         />
       )}
@@ -143,7 +143,7 @@ const GridContainer = ({
   </Grid>
 );
 GridContainer.propTypes = {
-  rows: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   detailColumns: PropTypes.array.isRequired,
   sorting: PropTypes.array.isRequired,
@@ -185,10 +185,10 @@ const gridInitialState = {
     { name: 'priority', title: 'Priority', width: 100 },
     { name: 'status', title: 'Status', caption: 'Completed', width: 125 },
   ],
-  rows: generateRows({
+  data: generateData({
     columnValues: {
       ...employeeValues,
-      tasks: ({ random }) => generateRows({
+      tasks: ({ random }) => generateData({
         columnValues: employeeTaskValues,
         length: Math.floor(random() * 3) + 4,
         random,

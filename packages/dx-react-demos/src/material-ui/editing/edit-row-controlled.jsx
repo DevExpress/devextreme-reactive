@@ -11,11 +11,11 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
-  generateRows,
+  generateData,
   defaultColumnValues,
 } from '../../demo-data/generator';
 
-const getRowId = row => row.id;
+const getRowDataId = rowData => rowData.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -29,7 +29,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({
+      data: generateData({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
         length: 14,
       }),
@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
   }
   changeAddedRows(addedRows) {
-    const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
+    const initialized = addedRows.map(rowData => (Object.keys(rowData).length ? rowData : { city: 'Tokio' }));
     this.setState({ addedRows: initialized });
   }
   changeEditingRows(editingRows) {
@@ -54,34 +54,35 @@ export default class Demo extends React.PureComponent {
     this.setState({ changedRows });
   }
   commitChanges({ added, changed, deleted }) {
-    let rows = this.state.rows;
+    let data = this.state.data;
     if (added) {
-      const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
-      rows = [
-        ...rows,
-        ...added.map((row, index) => ({
+      const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
+      data = [
+        ...data,
+        ...added.map((rowData, index) => ({
           id: startingAddedId + index,
-          ...row,
+          ...rowData,
         })),
       ];
     }
     if (changed) {
-      rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      data = data.map(rowData =>
+        (changed[rowData.id] ? { ...rowData, ...changed[rowData.id] } : rowData));
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      rows = rows.filter(row => !deletedSet.has(row.id));
+      data = data.filter(rowData => !deletedSet.has(rowData.id));
     }
-    this.setState({ rows });
+    this.setState({ data });
   }
   render() {
-    const { rows, columns, editingRows, changedRows, addedRows } = this.state;
+    const { data, columns, editingRows, changedRows, addedRows } = this.state;
 
     return (
       <Grid
-        rows={rows}
+        data={data}
         columns={columns}
-        getRowId={getRowId}
+        getRowDataId={getRowDataId}
       >
         <EditingState
           editingRows={editingRows}

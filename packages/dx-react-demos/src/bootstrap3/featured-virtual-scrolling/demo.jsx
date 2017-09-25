@@ -20,6 +20,8 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
+const getRowId = row => row.id;
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -38,8 +40,6 @@ export default class Demo extends React.PureComponent {
         length: 200000,
       }),
     };
-
-    this.getRowId = row => row.id;
   }
   render() {
     const { rows, columns } = this.state;
@@ -48,7 +48,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={this.getRowId}
+        getRowId={getRowId}
       >
 
         <DragDropContext />

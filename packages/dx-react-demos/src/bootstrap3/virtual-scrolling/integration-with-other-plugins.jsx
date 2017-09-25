@@ -19,6 +19,8 @@ import {
   defaultColumnValues,
 } from '../../demo-data/generator';
 
+const getRowId = row => row.id;
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -37,7 +39,6 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
-    this.getRowId = row => row.id;
     this.rowTemplate = ({ row }) => (
       <div>
         <div>Detail for {row.name} ({row.sex})</div>
@@ -53,7 +54,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={this.getRowId}
+        getRowId={getRowId}
       >
         <FilteringState defaultFilters={[]} />
         <SortingState defaultSorting={[{ columnName: 'city', direction: 'asc' }]} />

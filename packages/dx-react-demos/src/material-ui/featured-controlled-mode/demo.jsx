@@ -120,6 +120,8 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
+const getRowId = row => row.id;
+
 class DemoBase extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -148,7 +150,6 @@ class DemoBase extends React.PureComponent {
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
-    this.getRowId = row => row.id;
     this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeAddedRows = addedRows => this.setState({
@@ -262,7 +263,7 @@ class DemoBase extends React.PureComponent {
         <Grid
           rows={rows}
           columns={columns}
-          getRowId={this.getRowId}
+          getRowId={getRowId}
         >
           <ColumnOrderState
             order={columnOrder}

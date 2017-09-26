@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 
-export const ColumnChooserPanel = ({ columnChooserItems, onHiddenColumnNamesChange }) => (
+export const ColumnChooserPanel = ({ columnChooserItems, onColumnToggle }) => (
   <List dense>
     {columnChooserItems.map(item => (
       <ListItem
         key={item.column.name}
         button
         dense
-        onClick={() => onHiddenColumnNamesChange(item.column.name)}
+        onClick={() => onColumnToggle(item.column.name)}
       >
         <Checkbox
           checked={!item.hidden}
@@ -25,10 +25,10 @@ export const ColumnChooserPanel = ({ columnChooserItems, onHiddenColumnNamesChan
 
 ColumnChooserPanel.propTypes = {
   columnChooserItems: PropTypes.arrayOf(PropTypes.shape()),
-  onHiddenColumnNamesChange: PropTypes.func,
+  onColumnToggle: PropTypes.func,
 };
 
 ColumnChooserPanel.defaultProps = {
   columnChooserItems: [],
-  onHiddenColumnNamesChange: undefined,
+  onColumnToggle: undefined,
 };

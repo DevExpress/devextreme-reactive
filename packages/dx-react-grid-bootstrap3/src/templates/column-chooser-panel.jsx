@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ColumnChooserPanel = ({ columnChooserItems, onHiddenColumnNamesChange }) => (
+export const ColumnChooserPanel = ({ columnChooserItems, onColumnToggle }) => (
   <div className="list-group">
     {columnChooserItems.map((item) => {
-      const handleChange = () => onHiddenColumnNamesChange(item.column.name);
+      const handleChange = () => onColumnToggle(item.column.name);
       return (
         <button
           key={item.column.name}
@@ -28,10 +28,10 @@ export const ColumnChooserPanel = ({ columnChooserItems, onHiddenColumnNamesChan
 
 ColumnChooserPanel.propTypes = {
   columnChooserItems: PropTypes.arrayOf(PropTypes.shape()),
-  onHiddenColumnNamesChange: PropTypes.func,
+  onColumnToggle: PropTypes.func,
 };
 
 ColumnChooserPanel.defaultProps = {
   columnChooserItems: [],
-  onHiddenColumnNamesChange: undefined,
+  onColumnToggle: undefined,
 };

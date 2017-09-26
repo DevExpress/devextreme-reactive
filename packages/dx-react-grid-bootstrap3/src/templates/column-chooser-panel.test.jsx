@@ -20,15 +20,15 @@ describe('ColumnChooserPanel', () => {
       .toBe(false);
   });
 
-  it('should call the "onHiddenColumnNamesChange" on the checkbox "onChange" event', () => {
-    const hiddenColumnNamesChange = jest.fn();
+  it('should call the "onColumnToggle" on the checkbox "onChange" event', () => {
+    const columnToggleHandler = jest.fn();
     const tree = mount(
       <ColumnChooserPanel
         columnChooserItems={[
           { column: { name: 'a', title: 'A' }, hidden: false },
           { column: { name: 'b' }, hidden: true },
         ]}
-        onHiddenColumnNamesChange={hiddenColumnNamesChange}
+        onColumnToggle={columnToggleHandler}
       />,
     );
 
@@ -36,21 +36,21 @@ describe('ColumnChooserPanel', () => {
       .first()
       .prop('onChange')('a');
 
-    expect(hiddenColumnNamesChange)
+    expect(columnToggleHandler)
       .toHaveBeenCalledTimes(1);
-    expect(hiddenColumnNamesChange)
+    expect(columnToggleHandler)
       .toHaveBeenCalledWith('a');
   });
 
-  it('should call the "onHiddenColumnNamesChange" on the list item "onClick" event', () => {
-    const hiddenColumnNamesChange = jest.fn();
+  it('should call the "onColumnToggle" on the list item "onClick" event', () => {
+    const columnToggleHandler = jest.fn();
     const tree = mount(
       <ColumnChooserPanel
         columnChooserItems={[
           { column: { name: 'a', title: 'A' }, hidden: false },
           { column: { name: 'b' }, hidden: true },
         ]}
-        onHiddenColumnNamesChange={hiddenColumnNamesChange}
+        onColumnToggle={columnToggleHandler}
       />,
     );
 
@@ -58,9 +58,9 @@ describe('ColumnChooserPanel', () => {
       .first()
       .prop('onClick')('a');
 
-    expect(hiddenColumnNamesChange)
+    expect(columnToggleHandler)
       .toHaveBeenCalledTimes(1);
-    expect(hiddenColumnNamesChange)
+    expect(columnToggleHandler)
       .toHaveBeenCalledWith('a');
   });
 

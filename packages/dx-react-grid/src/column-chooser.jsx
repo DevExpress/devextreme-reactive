@@ -12,12 +12,12 @@ export class ColumnChooser extends React.PureComponent {
 
     const { onHiddenColumnNamesChange } = props;
 
-    this.hiddenColumnNamesChange = (columnName) => {
+    this.handleColumnToggle = (columnName) => {
       if (!onHiddenColumnNamesChange) return;
 
       const { hiddenColumnNames } = this.props;
-      const newHiddenColumnNames = toggleColumn(hiddenColumnNames, columnName);
-      onHiddenColumnNamesChange(newHiddenColumnNames);
+      const nextHiddenColumnNames = toggleColumn(hiddenColumnNames, columnName);
+      onHiddenColumnNamesChange(nextHiddenColumnNames);
     };
   }
   render() {
@@ -29,7 +29,7 @@ export class ColumnChooser extends React.PureComponent {
         template={rootTemplate}
         params={{
           columnChooserItems: columnChooserItemsComputeds,
-          onHiddenColumnNamesChange: this.hiddenColumnNamesChange,
+          onColumnToggle: this.handleColumnToggle,
         }}
       />
     );

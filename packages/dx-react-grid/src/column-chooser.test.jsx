@@ -27,7 +27,7 @@ describe('ColumnChooser', () => {
     expect(rootTemplate.mock.calls[0][0])
       .toMatchObject({
         columnChooserItems: expect.any(Array),
-        onHiddenColumnNamesChange: expect.any(Function),
+        onColumnToggle: expect.any(Function),
       });
   });
 

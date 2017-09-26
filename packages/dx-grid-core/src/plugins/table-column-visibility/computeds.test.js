@@ -9,8 +9,9 @@ describe('TableColumnVisibility computeds', () => {
         { column: { name: 'c' } },
         { column: { name: 'd' } },
       ];
-      const hiddenColumnNames = ['a', 'c', 'd'];
-      expect(visibleTableColumns(tableColumns, hiddenColumnNames))
+      const hiddenColumns = ['a', 'c', 'd'];
+
+      expect(visibleTableColumns(tableColumns, hiddenColumns))
         .toEqual([{ column: { name: 'b' } }]);
     });
   });

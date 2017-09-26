@@ -18,7 +18,7 @@ describe('ColumnChooser', () => {
       <ColumnChooser
         columns={[{ name: 'a' }, { name: 'b' }]}
         contentTemplate={contentTemplate}
-        onHiddenColumnNamesChange={() => {}}
+        onHiddenColumnsChange={() => {}}
       />,
     );
 
@@ -33,11 +33,11 @@ describe('ColumnChooser', () => {
 
   it('should calculate items via the "columnChooserItems" computed', () => {
     const columns = [{ name: 'a' }, { name: 'b' }];
-    const hiddenColumnNames = ['a'];
+    const hiddenColumns = ['a'];
     mount(
       <ColumnChooser
         columns={columns}
-        hiddenColumnNames={hiddenColumnNames}
+        hiddenColumns={hiddenColumns}
         contentTemplate={() => null}
       />,
     );
@@ -45,6 +45,6 @@ describe('ColumnChooser', () => {
     expect(columnChooserItems)
       .toHaveBeenCalledTimes(1);
     expect(columnChooserItems)
-      .toHaveBeenCalledWith(columns, hiddenColumnNames);
+      .toHaveBeenCalledWith(columns, hiddenColumns);
   });
 });

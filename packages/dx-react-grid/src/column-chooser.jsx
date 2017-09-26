@@ -10,19 +10,19 @@ export class ColumnChooser extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { onHiddenColumnNamesChange } = props;
+    const { onHiddenColumnsChange } = props;
 
     this.handleColumnToggle = (columnName) => {
-      if (!onHiddenColumnNamesChange) return;
+      if (!onHiddenColumnsChange) return;
 
-      const { hiddenColumnNames } = this.props;
-      const nextHiddenColumnNames = toggleColumn(hiddenColumnNames, columnName);
-      onHiddenColumnNamesChange(nextHiddenColumnNames);
+      const { hiddenColumns } = this.props;
+      const nextHiddenColumnNames = toggleColumn(hiddenColumns, columnName);
+      onHiddenColumnsChange(nextHiddenColumnNames);
     };
   }
   render() {
-    const { columns, hiddenColumnNames, contentTemplate } = this.props;
-    const columnChooserItemsComputeds = columnChooserItems(columns, hiddenColumnNames);
+    const { columns, hiddenColumns, contentTemplate } = this.props;
+    const columnChooserItemsComputeds = columnChooserItems(columns, hiddenColumns);
 
     return (
       <TemplateRenderer
@@ -38,12 +38,12 @@ export class ColumnChooser extends React.PureComponent {
 
 ColumnChooser.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  hiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
-  onHiddenColumnNamesChange: PropTypes.func,
+  hiddenColumns: PropTypes.arrayOf(PropTypes.string),
+  onHiddenColumnsChange: PropTypes.func,
   contentTemplate: PropTypes.func.isRequired,
 };
 
 ColumnChooser.defaultProps = {
-  hiddenColumnNames: [],
-  onHiddenColumnNamesChange: undefined,
+  hiddenColumns: [],
+  onHiddenColumnsChange: undefined,
 };

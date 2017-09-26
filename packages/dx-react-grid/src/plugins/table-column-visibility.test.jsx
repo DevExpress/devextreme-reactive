@@ -38,27 +38,27 @@ describe('TableColumnVisibility', () => {
   });
 
   it('should call the visibleTableColumns computed with correct arguments', () => {
-    const hiddenColumnNames = ['b', 'a'];
+    const hiddenColumns = ['b', 'a'];
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
-          hiddenColumnNames={hiddenColumnNames}
+          hiddenColumns={hiddenColumns}
         />
       </PluginHost>,
     );
 
     expect(visibleTableColumns)
-      .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, hiddenColumnNames);
+      .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, hiddenColumns);
   });
 
   it('should remove hidden columns from tableColumns', () => {
-    const hiddenColumnNames = ['b', 'a'];
+    const hiddenColumns = ['b', 'a'];
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
-          hiddenColumnNames={hiddenColumnNames}
+          hiddenColumns={hiddenColumns}
         />
       </PluginHost>,
     );

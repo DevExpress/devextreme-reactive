@@ -1,2 +1,2 @@
-export const visibleTableColumns = (tableColumns, hiddenColumnNames) =>
-  tableColumns.filter(tableColumn => hiddenColumnNames.indexOf(tableColumn.column.name) === -1);
+export const visibleTableColumns = (tableColumns, hiddenColumns) =>
+  tableColumns.filter(tableColumn => hiddenColumns.indexOf(tableColumn.column.name) === -1);

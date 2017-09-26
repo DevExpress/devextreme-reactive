@@ -26,16 +26,16 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ length: 6 }),
       columnOrder: ['city', 'sex', 'car', 'name'],
-      hiddenColumnNames: ['sex', 'car'],
+      hiddenColumns: ['sex', 'car'],
     };
 
-    this.hiddenColumnNamesChange = (hiddenColumnNames) => {
-      this.setState({ hiddenColumnNames });
+    this.hiddenColumnsChange = (hiddenColumns) => {
+      this.setState({ hiddenColumns });
     };
   }
 
   render() {
-    const { columns, rows, hiddenColumnNames } = this.state;
+    const { columns, rows, hiddenColumns } = this.state;
     return (
       <Row>
         <Col xs={12} sm={9}>
@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
           >
             <TableView />
             <TableColumnVisibility
-              hiddenColumnNames={hiddenColumnNames}
+              hiddenColumns={hiddenColumns}
             />
             <TableHeaderRow />
           </Grid>
@@ -55,8 +55,8 @@ export default class Demo extends React.PureComponent {
             <div className="panel-heading">Column Chooser</div>
             <ColumnChooser
               columns={columns}
-              hiddenColumnNames={hiddenColumnNames}
-              onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
+              hiddenColumns={hiddenColumns}
+              onHiddenColumnsChange={this.hiddenColumnsChange}
             />
           </div>
         </Col>

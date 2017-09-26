@@ -9,8 +9,8 @@ ColumnChooser is a component designed to work along with Grid. It displays all a
 Name | Type | Default | Description
 -----|------|---------|------------
 columns | Array&lt;[Column](grid.md#column)&gt; | | Specifies for which row object fields columns are created.
-hiddenColumnNames | Array&lt;string&gt; | [] | An array containing the names of the columns to be hidden.
-onHiddenColumnNamesChange | (nextHiddenColumnNames: Array&lt;string&gt;) => void | | Handles column visibility change.
+hiddenColumns | Array&lt;string&gt; | [] | An array containing the names of the columns to be hidden.
+onHiddenColumnsChange | (nextHiddenColumns: Array&lt;string&gt;) => void | | Handles column visibility change.
 contentTemplate | (args: [ColumnChooserRootArgs](#column-chooser-root-args)) => ReactElement | | A template that renders the column chooser markup.
 
 ## Interfaces

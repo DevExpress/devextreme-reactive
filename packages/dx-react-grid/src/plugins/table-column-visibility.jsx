@@ -9,9 +9,9 @@ const pluginDependencies = [
 
 export class TableColumnVisibility extends React.PureComponent {
   render() {
-    const { hiddenColumnNames } = this.props;
+    const { hiddenColumns } = this.props;
     const visibleTableColumnsComputed = ({ tableColumns }) =>
-      visibleTableColumns(tableColumns, hiddenColumnNames);
+      visibleTableColumns(tableColumns, hiddenColumns);
 
     return (
       <PluginContainer
@@ -25,9 +25,9 @@ export class TableColumnVisibility extends React.PureComponent {
 }
 
 TableColumnVisibility.propTypes = {
-  hiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
+  hiddenColumns: PropTypes.arrayOf(PropTypes.string),
 };
 
 TableColumnVisibility.defaultProps = {
-  hiddenColumnNames: [],
+  hiddenColumns: [],
 };

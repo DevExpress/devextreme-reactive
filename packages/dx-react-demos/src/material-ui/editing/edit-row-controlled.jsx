@@ -15,6 +15,8 @@ import {
   defaultColumnValues,
 } from '../../demo-data/generator';
 
+const getRowId = row => row.id;
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -36,49 +38,57 @@ export default class Demo extends React.PureComponent {
       changedRows: {},
     };
 
-    this.changeEditingRows = editingRows => this.setState({ editingRows });
-    this.changeChangedRows = changedRows => this.setState({ changedRows });
-    this.changeAddedRows = (addedRows) => {
-      const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
-      this.setState({ addedRows: initialized });
-    };
-    this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows;
-      if (added) {
-        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
-        rows = [
-          ...rows,
-          ...added.map((row, index) => ({
-            id: startingAddedId + index,
-            ...row,
-          })),
-        ];
-      }
-      if (changed) {
-        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
-      }
-      if (deleted) {
-        const deletedSet = new Set(deleted);
-        rows = rows.filter(row => !deletedSet.has(row.id));
-      }
-      this.setState({ rows });
-    };
+    this.changeAddedRows = this.changeAddedRows.bind(this);
+    this.changeEditingRows = this.changeEditingRows.bind(this);
+    this.changeChangedRows = this.changeChangedRows.bind(this);
+    this.commitChanges = this.commitChanges.bind(this);
+  }
+  changeAddedRows(addedRows) {
+    const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
+    this.setState({ addedRows: initialized });
+  }
+  changeEditingRows(editingRows) {
+    this.setState({ editingRows });
+  }
+  changeChangedRows(changedRows) {
+    this.setState({ changedRows });
+  }
+  commitChanges({ added, changed, deleted }) {
+    let rows = this.state.rows;
+    if (added) {
+      const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+      rows = [
+        ...rows,
+        ...added.map((row, index) => ({
+          id: startingAddedId + index,
+          ...row,
+        })),
+      ];
+    }
+    if (changed) {
+      rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    }
+    if (deleted) {
+      const deletedSet = new Set(deleted);
+      rows = rows.filter(row => !deletedSet.has(row.id));
+    }
+    this.setState({ rows });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, editingRows, changedRows, addedRows } = this.state;
 
     return (
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
+        getRowId={getRowId}
       >
         <EditingState
-          editingRows={this.state.editingRows}
+          editingRows={editingRows}
           onEditingRowsChange={this.changeEditingRows}
-          changedRows={this.state.changedRows}
+          changedRows={changedRows}
           onChangedRowsChange={this.changeChangedRows}
-          addedRows={this.state.addedRows}
+          addedRows={addedRows}
           onAddedRowsChange={this.changeAddedRows}
           onCommitChanges={this.commitChanges}
         />
@@ -86,7 +96,7 @@ export default class Demo extends React.PureComponent {
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn
-          allowAdding={!this.state.addedRows.length}
+          allowAdding={!addedRows.length}
           allowEditing
           allowDeleting
         />

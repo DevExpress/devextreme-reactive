@@ -47,6 +47,16 @@ export const demos = {
       'material-ui': require('./material-ui/data-accessors/custom-data-accessors-in-columns').default,
     },
   },
+  'data-types': {
+    formatters: {
+      bootstrap3: require('./bootstrap3/data-types/formatters').default,
+      'material-ui': require('./material-ui/data-types/formatters').default,
+    },
+    editors: {
+      bootstrap3: require('./bootstrap3/data-types/editors').default,
+      'material-ui': require('./material-ui/data-types/editors').default,
+    },
+  },
   'detail-row': {
     'simple-detail-row': {
       bootstrap3: require('./bootstrap3/detail-row/simple-detail-row').default,
@@ -135,6 +145,14 @@ export const demos = {
     'local-grouping-controlled': {
       bootstrap3: require('./bootstrap3/grouping/local-grouping-controlled').default,
       'material-ui': require('./material-ui/grouping/local-grouping-controlled').default,
+    },
+    'local-grouping-custom': {
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-custom').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-custom').default,
+    },
+    'local-grouping-custom-advanced': {
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-custom-advanced').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-custom-advanced').default,
     },
   },
   immutability: {

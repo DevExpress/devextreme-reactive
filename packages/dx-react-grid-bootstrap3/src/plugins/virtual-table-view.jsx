@@ -11,64 +11,71 @@ import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 
 const tableLayoutTemplate = props => <VirtualTable {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
-const defaultCellTemplate = props => <TableCell {...props} />;
 const defaultNoDataRowTemplate = props => <TableRow {...props} />;
-const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
+const defaultCellTemplate = props => <TableCell {...props} />;
 const defaultStubCellTemplate = props => <TableStubCell {...props} />;
 const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
+const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 
-
-export const VirtualTableView = ({
-  tableCellTemplate,
-  tableRowTemplate,
-  tableNoDataRowTemplate,
-  noDataCellTemplate,
-  stubCellTemplate,
-  stubHeaderCellTemplate,
-  ...props
-}) => (
-  <TableViewBase
-    tableLayoutTemplate={tableLayoutTemplate}
-    tableRowTemplate={combineTemplates(
-      tableRowTemplate,
-      defaultRowTemplate,
-    )}
-    tableNoDataRowTemplate={combineTemplates(
-      tableNoDataRowTemplate,
-      defaultNoDataRowTemplate,
-    )}
-    tableCellTemplate={combineTemplates(
+export class VirtualTableView extends React.PureComponent {
+  render() {
+    const {
       tableCellTemplate,
-      defaultCellTemplate,
-    )}
-    tableNoDataCellTemplate={combineTemplates(
-      noDataCellTemplate,
-      defaultNoDataCellTemplate,
-    )}
-    tableStubCellTemplate={combineTemplates(
-      stubCellTemplate,
-      defaultStubCellTemplate,
-    )}
-    tableStubHeaderCellTemplate={combineTemplates(
-      stubHeaderCellTemplate,
-      defaultStubHeaderCellTemplate,
-    )}
-    {...props}
-  />
-);
+      tableRowTemplate,
+      tableNoDataRowTemplate,
+      tableStubCellTemplate,
+      tableStubHeaderCellTemplate,
+      tableNoDataCellTemplate,
+      ...restProps
+    } = this.props;
+
+    return (
+      <TableViewBase
+        tableLayoutTemplate={tableLayoutTemplate}
+        tableRowTemplate={combineTemplates(
+          tableRowTemplate,
+          defaultRowTemplate,
+        )}
+        tableNoDataRowTemplate={combineTemplates(
+          tableNoDataRowTemplate,
+          defaultNoDataRowTemplate,
+        )}
+        tableCellTemplate={combineTemplates(
+          tableCellTemplate,
+          defaultCellTemplate,
+        )}
+        tableStubCellTemplate={combineTemplates(
+          tableStubCellTemplate,
+          defaultStubCellTemplate,
+        )}
+        tableStubHeaderCellTemplate={combineTemplates(
+          tableStubHeaderCellTemplate,
+          defaultStubHeaderCellTemplate,
+        )}
+        tableNoDataCellTemplate={combineTemplates(
+          tableNoDataCellTemplate,
+          defaultNoDataCellTemplate,
+        )}
+        {...restProps}
+      />
+    );
+  }
+}
+
 VirtualTableView.propTypes = {
   tableCellTemplate: PropTypes.func,
   tableRowTemplate: PropTypes.func,
   tableNoDataRowTemplate: PropTypes.func,
-  noDataCellTemplate: PropTypes.func,
-  stubCellTemplate: PropTypes.func,
-  stubHeaderCellTemplate: PropTypes.func,
+  tableStubCellTemplate: PropTypes.func,
+  tableStubHeaderCellTemplate: PropTypes.func,
+  tableNoDataCellTemplate: PropTypes.func,
 };
+
 VirtualTableView.defaultProps = {
   tableCellTemplate: undefined,
   tableRowTemplate: undefined,
   tableNoDataRowTemplate: undefined,
-  noDataCellTemplate: undefined,
-  stubCellTemplate: undefined,
-  stubHeaderCellTemplate: undefined,
+  tableStubCellTemplate: undefined,
+  tableStubHeaderCellTemplate: undefined,
+  tableNoDataCellTemplate: undefined,
 };

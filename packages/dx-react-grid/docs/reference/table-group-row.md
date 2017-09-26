@@ -17,6 +17,7 @@ groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | 
 groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell
 groupRowTemplate | (args: [GroupRowArgs](#group-row-args)) => ReactElement | | A component that renders a group row
 groupIndentColumnWidth | number | | The group indent column's width
+showColumnWhenGrouped | (args: columnName) => boolean | null | A custom function that returns a boolean value defining if the grid displays the column by which data is grouped.
 
 ## Interfaces
 
@@ -26,6 +27,7 @@ A value with the [Column](grid.md#column) shape extended by the following fields
 
 Field | Type | Description
 ------|------|------------
+showWhenGrouped? | boolean | Specifies if the grid displays the column by which data is grouped.
 title? | string | Specifies a table column title.
 
 ### <a name="group-cell-args"></a>GroupCellArgs

@@ -42,4 +42,15 @@ describe('TableFilterCell', () => {
     tree.find('input').simulate('change', { target: { value: '' } });
     expect(setFilterMock.mock.calls[0][0]).toBeNull();
   });
+
+  it('should render children if passed', () => {
+    const tree = mount(
+      <TableFilterCell>
+        <span className="test" />
+      </TableFilterCell>,
+    );
+
+    expect(tree.find('.test').exists())
+      .toBeTruthy();
+  });
 });

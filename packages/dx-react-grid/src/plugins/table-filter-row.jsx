@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Getter,
+  Template,
+  TemplatePlaceholder,
+  TemplateConnector,
+  TemplateRenderer,
+  PluginContainer,
 } from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
@@ -20,6 +24,13 @@ const getFilterTableCellTemplateArgs = (
   column: params.tableColumn.column,
   filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
   setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
+});
+
+const getValueEditorArgs = params => ({
+  column: params.column,
+  row: params.row,
+  value: params.filter ? params.filter.value : null,
+  onValueChange: newValue => params.setFilter(newValue ? { value: newValue } : null),
 });
 
 const pluginDependencies = [
@@ -46,12 +57,24 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={filterCellTemplate}
-                  params={getFilterTableCellTemplateArgs(params, getters, actions)}
-                />
-              )}
+              {(getters, actions) => {
+                const templateArgs = getFilterTableCellTemplateArgs(params, getters, actions);
+                return (
+                  <TemplatePlaceholder
+                    name="valueEditor"
+                    params={getValueEditorArgs(templateArgs)}
+                  >
+                    {content => (
+                      <TemplateRenderer
+                        template={filterCellTemplate}
+                        params={templateArgs}
+                      >
+                        {content}
+                      </TemplateRenderer>
+                    )}
+                  </TemplatePlaceholder>
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>

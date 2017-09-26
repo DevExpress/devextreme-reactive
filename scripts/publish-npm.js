@@ -48,7 +48,7 @@ new Promise((resolve) => {
     execSync(`"./node_modules/.bin/lerna" publish ${commonPublishArgs} --skip-npm`, { stdio: 'ignore' });
 
     console.log('Building...');
-    execSync('npm run build', { stdio: 'ignore' });
+    execSync('yarn run build', { stdio: 'ignore' });
 
     console.log('Generating CHANGELOG.md...');
     const changelogFile = join(process.cwd(), 'CHANGELOG.md');

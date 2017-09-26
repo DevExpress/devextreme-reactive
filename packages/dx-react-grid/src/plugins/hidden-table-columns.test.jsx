@@ -18,6 +18,7 @@ const defaultDeps = {
       { column: { name: 'c' } },
     ],
   },
+  plugins: ['TableView'],
 };
 
 describe('HiddenTableColumns', () => {

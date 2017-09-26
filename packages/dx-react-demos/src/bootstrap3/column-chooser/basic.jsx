@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import {
-  HiddenTableColumns,
+  TableColumnVisibility,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
             columns={columns}
           >
             <TableView />
-            <HiddenTableColumns
+            <TableColumnVisibility
               hiddenColumnNames={hiddenColumnNames}
             />
             <TableHeaderRow />

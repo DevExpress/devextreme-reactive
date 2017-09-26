@@ -1,6 +1,6 @@
 # Grid Reference
 
-ColumnChooser is a component designed to work along with Grid. It displays all available columns and in a combination with the [HiddenTableColumns](hidden-table-columns.md) Grid plugin enables an end-user to control which columns should be displayed.
+ColumnChooser is a component designed to work along with Grid. It displays all available columns and in a combination with the [TableColumnVisibility](table-column-visibility.md) Grid plugin enables an end-user to control which columns should be displayed.
 
 ## User reference
 

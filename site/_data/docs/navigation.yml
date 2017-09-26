@@ -92,5 +92,5 @@ react:
           path: /react/grid/docs/reference/data-type-provider
         - title: ColumnChooser
           path: /react/grid/docs/reference/column-chooser
-        - title: HiddenTableColumns
-          path: /react/grid/docs/reference/hidden-table-columns
+        - title: TableColumnVisibility
+          path: /react/grid/docs/reference/table-column-visibility

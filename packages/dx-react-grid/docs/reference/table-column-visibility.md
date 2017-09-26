@@ -1,4 +1,4 @@
-# HiddenTableColumns Plugin Reference
+# TableColumnVisibility Plugin Reference
 
 Plugin that manages Grid columns visibility. Enables Grid to work along with [ColumnChooser](column-chooser.md).
 

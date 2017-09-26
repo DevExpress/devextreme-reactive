@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import {
-  HiddenTableColumns,
+  TableColumnVisibility,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -47,7 +47,7 @@ export default class Demo extends React.PureComponent {
             columns={columns}
           >
             <TableView />
-            <HiddenTableColumns
+            <TableColumnVisibility
               hiddenColumnNames={hiddenColumnNames}
             />
             <TableHeaderRow />

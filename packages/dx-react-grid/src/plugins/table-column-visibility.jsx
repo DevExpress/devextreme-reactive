@@ -7,7 +7,7 @@ const pluginDependencies = [
   { pluginName: 'TableView' },
 ];
 
-export class HiddenTableColumns extends React.PureComponent {
+export class TableColumnVisibility extends React.PureComponent {
   render() {
     const { hiddenColumnNames } = this.props;
     const visibleTableColumnsComputed = ({ tableColumns }) =>
@@ -15,7 +15,7 @@ export class HiddenTableColumns extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="HiddenTableColumns"
+        pluginName="TableColumnVisibility"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
@@ -24,10 +24,10 @@ export class HiddenTableColumns extends React.PureComponent {
   }
 }
 
-HiddenTableColumns.propTypes = {
+TableColumnVisibility.propTypes = {
   hiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
 };
 
-HiddenTableColumns.defaultProps = {
+TableColumnVisibility.defaultProps = {
   hiddenColumnNames: [],
 };

@@ -1,6 +1,6 @@
 # React Grid - Controlling Column Visibility
 
-The Grid component has builtin powers for an end-user to control which columns should be displayed. This ability is achieved by a combination of the [HiddenTableColumns](../reference/hidden-table-columns.md) Grid plugin and the [ColumnChooser](../reference/column-chooser.md) component.
+The Grid component has builtin powers for an end-user to control which columns should be displayed. This ability is achieved by a combination of the [TableColumnVisibility](../reference/table-column-visibility.md) Grid plugin and the [ColumnChooser](../reference/column-chooser.md) component.
 
 ## Basic configuration
 
@@ -10,7 +10,7 @@ To enable end-user control on the visible Grid columns it is required to complet
 
 ### HiddenTableColumn configuration
 
-The [HiddenTableColumns](../reference/hidden-table-columns.md) plugin is required to enable columns hiding. Add it to your Grid. Then pass the array of names of the columns to be hidden which is stored in the state of your application to the plugin's `hiddenColumnNames` property.
+The [TableColumnVisibility](../reference/table-column-visibility.md) plugin is required to enable columns hiding. Add it to your Grid. Then pass the array of names of the columns to be hidden which is stored in the state of your application to the plugin's `hiddenColumnNames` property.
 
 
 ### Adding ColumnChooser

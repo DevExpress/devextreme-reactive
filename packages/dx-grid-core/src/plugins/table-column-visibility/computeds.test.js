@@ -1,6 +1,6 @@
 import { visibleTableColumns } from './computeds';
 
-describe('HiddenTableColumns computeds', () => {
+describe('TableColumnVisibility computeds', () => {
   describe('#visibleTableColumns', () => {
     it('should return a correct array of visible table columns', () => {
       const tableColumns = [

@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { visibleTableColumns } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
-import { HiddenTableColumns } from './hidden-table-columns';
+import { TableColumnVisibility } from './table-column-visibility';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   visibleTableColumns: jest.fn(),
@@ -21,7 +21,7 @@ const defaultDeps = {
   plugins: ['TableView'],
 };
 
-describe('HiddenTableColumns', () => {
+describe('TableColumnVisibility', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -42,7 +42,7 @@ describe('HiddenTableColumns', () => {
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <HiddenTableColumns
+        <TableColumnVisibility
           hiddenColumnNames={hiddenColumnNames}
         />
       </PluginHost>,
@@ -57,7 +57,7 @@ describe('HiddenTableColumns', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <HiddenTableColumns
+        <TableColumnVisibility
           hiddenColumnNames={hiddenColumnNames}
         />
       </PluginHost>,

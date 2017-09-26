@@ -39,7 +39,7 @@ export { GroupingPanel } from './plugins/grouping-panel';
 
 export { DataTypeProvider } from './plugins/data-type-provider';
 
-export { HiddenTableColumns } from './plugins/hidden-table-columns';
+export { TableColumnVisibility } from './plugins/table-column-visibility';
 
 export { TableLayout } from './components/table-layout';
 export { GroupPanelLayout } from './components/group-panel-layout';

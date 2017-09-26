@@ -1,4 +1,4 @@
-import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE, TABLE_UNKNOWN_TYPE } from '../table-view/constants';
 import { TABLE_GROUP_TYPE } from './constants';
 
 const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping, showColumnWhenGrouped) =>
@@ -45,11 +45,12 @@ export const tableColumnsWithGrouping = (
 
 export const tableRowsWithGrouping = tableRows =>
   tableRows.map((tableRow) => {
-    if (tableRow.type !== TABLE_DATA_TYPE || tableRow.rowData.type !== 'groupRow') return tableRow;
+    if (tableRow.type !== TABLE_UNKNOWN_TYPE || tableRow.row.type !== 'groupRow') return tableRow;
     return {
       ...tableRow,
-      key: `${TABLE_GROUP_TYPE}_${tableRow.rowData.key}`,
+      key: `${TABLE_GROUP_TYPE}_${tableRow.row.rowData.key}`,
       type: TABLE_GROUP_TYPE,
-      colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.rowData.groupedBy}`,
+      colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.row.groupedBy}`,
+      rowData: tableRow.row.rowData,
     };
   });

@@ -27,7 +27,7 @@ const defaultDeps = {
   getter: {
     columns: [{ name: 'field' }],
     rows: [{ field: 1 }],
-    getRowDataId: () => {},
+    getRowId: () => {},
     getCellValue: () => {},
   },
   action: {
@@ -81,7 +81,7 @@ describe('TableView', () => {
       );
 
       expect(tableRowsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowDataId);
+        .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
       expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithDataRows');
     });

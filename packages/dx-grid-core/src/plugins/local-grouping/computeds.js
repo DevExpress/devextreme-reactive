@@ -15,12 +15,13 @@ export const groupedRows = (
   const columnGrouping = grouping[0];
   const groups = rows
     .reduce((acc, row) => {
+      const { rowData } = row;
       const value = getGroupValue(
-        getCellValue(row, columnGrouping.columnName),
+        getCellValue(rowData, columnGrouping.columnName),
         columnGrouping,
-        row,
+        rowData,
       );
-      const key = getGroupKey(value, columnGrouping, row);
+      const key = getGroupKey(value, columnGrouping, rowData);
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
@@ -51,11 +52,10 @@ export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = ''
     return [
       ...acc,
       {
-        _headerKey: `groupRow_${groupedBy}`,
+        headerKey: `groupRow_${groupedBy}`,
         type: 'groupRow',
         groupedBy,
-        key,
-        value,
+        rowData: { key, value },
       },
       ...expanded
         ? expandedGroupRows(items, nestedGrouping, expandedGroups, `${key}${GROUP_KEY_SEPARATOR}`)

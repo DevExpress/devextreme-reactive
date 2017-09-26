@@ -20,8 +20,6 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const getRowDataId = rowData => rowData.id;
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -48,9 +46,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         data={data}
         columns={columns}
-        getRowDataId={getRowDataId}
       >
-
         <DragDropContext />
 
         <FilteringState
@@ -93,7 +89,6 @@ export default class Demo extends React.PureComponent {
         <TableSelection />
         <TableGroupRow />
         <GroupingPanel allowSorting allowDragging />
-
       </Grid>
     );
   }

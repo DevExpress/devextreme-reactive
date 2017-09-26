@@ -20,7 +20,15 @@ footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-a
 
 ### Row
 
-An object containing custom data.
+Describes properties of an abstract grid row.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+rowData | any | A row data.
+defaultRowId | number | Specifies a default row data ID. Used if the `getRowDataId` is not set.
+type? | string | A row type.
 
 ### Column
 
@@ -66,7 +74,7 @@ children? | ReactElement | A React element to be placed into the footer.
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;[Row](#row)&gt; | Grid rows.
-getRowDataId | Getter | (row: [Row](#row)) => number &#124; string | A function used to get the row data ID.
+getRowId | Getter | (row: [Row](#row)) => number &#124; string | A function used to get the row data ID.
 columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns.
 getCellValue | Getter | (rowData: any, columnName: string) => any | A function used to get the column value for a given row data.
 root | Template | Object? | A template that renders the grid root layout.

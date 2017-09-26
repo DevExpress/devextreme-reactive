@@ -5,10 +5,10 @@ import {
 describe('FilteringState computeds', () => {
   describe('#filteredRows', () => {
     const rows = [
-      { a: 1, b: 1 },
-      { a: 1, b: 2 },
-      { a: 2, b: 1 },
-      { a: 2, b: 2 },
+      { rowData: { a: 1, b: 1 } },
+      { rowData: { a: 1, b: 2 } },
+      { rowData: { a: 2, b: 1 } },
+      { rowData: { a: 2, b: 2 } },
     ];
 
     const getCellValue = (row, columnName) => row[columnName];
@@ -25,8 +25,8 @@ describe('FilteringState computeds', () => {
 
       const filtered = filteredRows(rows, filters, getCellValue);
       expect(filtered).toEqual([
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
+        { rowData: { a: 1, b: 1 } },
+        { rowData: { a: 1, b: 2 } },
       ]);
     });
 
@@ -35,7 +35,7 @@ describe('FilteringState computeds', () => {
 
       const filtered = filteredRows(rows, filters, getCellValue);
       expect(filtered).toEqual([
-        { a: 1, b: 2 },
+        { rowData: { a: 1, b: 2 } },
       ]);
     });
   });

@@ -7,10 +7,10 @@ import {
 describe('SortingState computeds', () => {
   describe('#sortedRows', () => {
     const rows = [
-      { a: 2, b: 2 },
-      { a: 1, b: 1 },
-      { a: 2, b: 1 },
-      { a: 1, b: 2 },
+      { rowData: { a: 2, b: 2 } },
+      { rowData: { a: 1, b: 1 } },
+      { rowData: { a: 2, b: 1 } },
+      { rowData: { a: 1, b: 2 } },
     ];
 
     const getCellValue = (row, columnName) => row[columnName];
@@ -27,10 +27,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(rows, sorting, getCellValue);
       expect(sorted).toEqual([
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
-        { a: 2, b: 2 },
-        { a: 2, b: 1 },
+        { rowData: { a: 1, b: 1 } },
+        { rowData: { a: 1, b: 2 } },
+        { rowData: { a: 2, b: 2 } },
+        { rowData: { a: 2, b: 1 } },
       ]);
     });
 
@@ -39,10 +39,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(rows, sorting, getCellValue);
       expect(sorted).toEqual([
-        { a: 2, b: 2 },
-        { a: 2, b: 1 },
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
+        { rowData: { a: 2, b: 2 } },
+        { rowData: { a: 2, b: 1 } },
+        { rowData: { a: 1, b: 1 } },
+        { rowData: { a: 1, b: 2 } },
       ]);
     });
 
@@ -51,10 +51,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(rows, sorting, getCellValue);
       expect(sorted).toEqual([
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
-        { a: 2, b: 1 },
-        { a: 2, b: 2 },
+        { rowData: { a: 1, b: 1 } },
+        { rowData: { a: 1, b: 2 } },
+        { rowData: { a: 2, b: 1 } },
+        { rowData: { a: 2, b: 2 } },
       ]);
     });
 
@@ -63,23 +63,22 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(rows, sorting, getCellValue);
       expect(sorted).toEqual([
-        { a: 1, b: 2 },
-        { a: 1, b: 1 },
-        { a: 2, b: 2 },
-        { a: 2, b: 1 },
+        { rowData: { a: 1, b: 2 } },
+        { rowData: { a: 1, b: 1 } },
+        { rowData: { a: 2, b: 2 } },
+        { rowData: { a: 2, b: 1 } },
       ]);
     });
 
     it('should work with immutable data', () => {
-      const immutableRows = Immutable(rows);
       const immutableSorting = Immutable([{ columnName: 'a', direction: 'desc' }]);
 
-      const sorted = sortedRows(immutableRows, immutableSorting, getCellValue);
+      const sorted = sortedRows(rows, immutableSorting, getCellValue);
       expect(sorted).toEqual([
-        { a: 2, b: 2 },
-        { a: 2, b: 1 },
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
+        { rowData: { a: 2, b: 2 } },
+        { rowData: { a: 2, b: 1 } },
+        { rowData: { a: 1, b: 1 } },
+        { rowData: { a: 1, b: 2 } },
       ]);
     });
   });

@@ -1,4 +1,4 @@
-import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE, TABLE_UNKNOWN_TYPE } from '../table-view/constants';
 import { TABLE_GROUP_TYPE } from './constants';
 import {
   tableColumnsWithGrouping,
@@ -113,10 +113,10 @@ describe('TableGroupRow Plugin computeds', () => {
   describe('#tableRowsWithGrouping', () => {
     it('should add correct colSpanStart to group rows', () => {
       const tableRows = [
-        { type: TABLE_DATA_TYPE, rowData: { type: 'groupRow', key: 'B', groupedBy: 'a' } },
-        { type: 'undefined', rowData: { column: { name: 'a' } } },
-        { type: TABLE_DATA_TYPE, rowData: { column: { name: 'a' } } },
-        { type: TABLE_DATA_TYPE, rowData: { column: { name: 'b' } } },
+        { type: TABLE_UNKNOWN_TYPE, row: { type: 'groupRow', groupedBy: 'a', rowData: { key: 'B', value: 'B' } } },
+        { type: TABLE_UNKNOWN_TYPE, row: { rowData: { id: 0 } } },
+        { type: TABLE_DATA_TYPE, row: {}, rowData: { id: 1 } },
+        { type: TABLE_DATA_TYPE, row: {}, rowData: { id: 2 } },
       ];
 
       expect(tableRowsWithGrouping(tableRows))
@@ -124,12 +124,13 @@ describe('TableGroupRow Plugin computeds', () => {
           {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
-            rowData: { type: 'groupRow', key: 'B', groupedBy: 'a' },
+            row: { type: 'groupRow', groupedBy: 'a', rowData: { key: 'B', value: 'B' } },
+            rowData: { key: 'B', value: 'B' },
             colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
-          { type: 'undefined', rowData: { column: { name: 'a' } } },
-          { type: TABLE_DATA_TYPE, rowData: { column: { name: 'a' } } },
-          { type: TABLE_DATA_TYPE, rowData: { column: { name: 'b' } } },
+          { type: TABLE_UNKNOWN_TYPE, row: { rowData: { id: 0 } } },
+          { type: TABLE_DATA_TYPE, row: {}, rowData: { id: 1 } },
+          { type: TABLE_DATA_TYPE, row: {}, rowData: { id: 2 } },
         ]);
     });
   });

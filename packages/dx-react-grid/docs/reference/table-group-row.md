@@ -70,8 +70,8 @@ Describes the group row data structure.
 
 Field | Type | Description
 ------|------|------------
-type | 'groupRow' | A string value that identifies the group row.
-value | any | The current group key value.
+key | string | The current group key.
+value | any | The current group value.
 
 ## Plugin Developer Reference
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+
+import Select from 'material-ui/Select';
 import { createMount } from 'material-ui/test-utils';
 import { PageSizeSelector } from './page-size-selector';
-import { DropDownMenu } from './drop-down-menu';
 
 injectTapEventPlugin();
 
@@ -35,14 +36,14 @@ describe('PageSizeSelector', () => {
         pageSize: 10,
         allowedPageSizes,
       });
-      const ddMenu = pageSizeSelector.find(DropDownMenu);
-      const ddMenuItems = ddMenu.prop('items');
+      const select = pageSizeSelector.find(Select);
+      const selectItems = select.prop('children');
 
-      expect(ddMenu).toHaveLength(1);
-      expect(ddMenu.prop('selectedItem')).toBe(10);
-      expect(ddMenuItems).toHaveLength(2);
-      expect(ddMenuItems[0]).toBe(allowedPageSizes[0]);
-      expect(ddMenuItems[1]).toBe(allowedPageSizes[1]);
+      expect(select).toHaveLength(1);
+      expect(select.prop('value')).toBe(10);
+      expect(selectItems).toHaveLength(2);
+      expect(selectItems[0].props.value).toBe(allowedPageSizes[0]);
+      expect(selectItems[1].props.value).toBe(allowedPageSizes[1]);
     });
 
     it('can render the \'All\' item', () => {
@@ -50,20 +51,22 @@ describe('PageSizeSelector', () => {
         pageSize: 0,
         allowedPageSizes: [5, 10, 0],
       });
-      const ddMenu = pageSizeSelector.find(DropDownMenu);
+      const select = pageSizeSelector.find(Select);
+      const selectItems = select.prop('children');
 
-      expect(ddMenu.find('span').at(0).text()).toBe('All');
+      expect(selectItems[2].props.children).toBe('All');
     });
 
     it('can customize the \'All\' item text', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
-        allowedPageSizes: [5, 10, 0],
+        allowedPageSizes: [5, 10, 15, 0],
         showAllText: 'Show all',
       });
-      const ddMenu = pageSizeSelector.find(DropDownMenu);
+      const select = pageSizeSelector.find(Select);
+      const selectItems = select.prop('children');
 
-      expect(ddMenu.find('span').at(0).text()).toBe('Show all');
+      expect(selectItems[3].props.children).toBe('Show all');
     });
 
     it('can handle the \'onPageSizeChange\' event', () => {
@@ -73,9 +76,10 @@ describe('PageSizeSelector', () => {
         allowedPageSizes: [5, 10],
         onPageSizeChange,
       });
-      const ddMenu = pageSizeSelector.find(DropDownMenu);
+      const select = pageSizeSelector.find(Select);
+      const onChange = select.prop('onChange');
 
-      ddMenu.prop('onItemClick')(10);
+      onChange({ target: { value: 10 } });
 
       expect(onPageSizeChange.mock.calls[0][0]).toBe(10);
     });

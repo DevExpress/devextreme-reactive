@@ -2,11 +2,11 @@ import React from 'react';
 import { ColumnChooser as ColumnChooserBase } from '@devexpress/dx-react-grid';
 import { ColumnChooserPanel } from './templates/column-chooser-panel';
 
-const rootTemplate = props => <ColumnChooserPanel {...props} />;
+const contentTemplate = props => <ColumnChooserPanel {...props} />;
 
 export const ColumnChooser = props => (
   <ColumnChooserBase
-    rootTemplate={rootTemplate}
+    contentTemplate={contentTemplate}
     {...props}
   />
 );

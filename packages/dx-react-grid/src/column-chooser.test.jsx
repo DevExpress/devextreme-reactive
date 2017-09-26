@@ -13,18 +13,18 @@ describe('ColumnChooser', () => {
   });
 
   it('should render root template with correct parameters', () => {
-    const rootTemplate = jest.fn(() => null);
+    const contentTemplate = jest.fn(() => null);
     mount(
       <ColumnChooser
         columns={[{ name: 'a' }, { name: 'b' }]}
-        rootTemplate={rootTemplate}
+        contentTemplate={contentTemplate}
         onHiddenColumnNamesChange={() => {}}
       />,
     );
 
-    expect(rootTemplate)
+    expect(contentTemplate)
       .toHaveBeenCalledTimes(1);
-    expect(rootTemplate.mock.calls[0][0])
+    expect(contentTemplate.mock.calls[0][0])
       .toMatchObject({
         columnChooserItems: expect.any(Array),
         onColumnToggle: expect.any(Function),
@@ -38,7 +38,7 @@ describe('ColumnChooser', () => {
       <ColumnChooser
         columns={columns}
         hiddenColumnNames={hiddenColumnNames}
-        rootTemplate={() => null}
+        contentTemplate={() => null}
       />,
     );
 

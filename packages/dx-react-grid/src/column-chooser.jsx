@@ -21,12 +21,12 @@ export class ColumnChooser extends React.PureComponent {
     };
   }
   render() {
-    const { columns, hiddenColumnNames, rootTemplate } = this.props;
+    const { columns, hiddenColumnNames, contentTemplate } = this.props;
     const columnChooserItemsComputeds = columnChooserItems(columns, hiddenColumnNames);
 
     return (
       <TemplateRenderer
-        template={rootTemplate}
+        template={contentTemplate}
         params={{
           columnChooserItems: columnChooserItemsComputeds,
           onColumnToggle: this.handleColumnToggle,
@@ -40,7 +40,7 @@ ColumnChooser.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   hiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
   onHiddenColumnNamesChange: PropTypes.func,
-  rootTemplate: PropTypes.func.isRequired,
+  contentTemplate: PropTypes.func.isRequired,
 };
 
 ColumnChooser.defaultProps = {

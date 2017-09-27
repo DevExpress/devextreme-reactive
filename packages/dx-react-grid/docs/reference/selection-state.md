@@ -12,8 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-selection | Array&lt;number &#124; string&gt; | [] | Specifies an IDs of selected rows data.
-defaultSelection | Array&lt;number &#124; string&gt; | [] | Specifies an IDs of initially selected rows data in the uncontrolled mode.
+selection | Array&lt;number &#124; string&gt; | [] | Specifies an IDs of selected rows.
+defaultSelection | Array&lt;number &#124; string&gt; | [] | Specifies an IDs of initially selected rows in the uncontrolled mode.
 onSelectionChange | (selection: Array&lt;number &#124; string&gt;) => void | | Handles selection changes.
 
 ## Plugin Developer Reference
@@ -23,7 +23,7 @@ onSelectionChange | (selection: Array&lt;number &#124; string&gt;) => void | | H
 Name | Plugin | Type | Description
 -----|--------|------|------------
 gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows to be rendered.
-getGridRowId | Getter | (gridRow: [GridRow](grid.md#grid-row)) => number &#124; string | A function used to get the row data ID.
+getGridRowId | Getter | (gridRow: [GridRow](grid.md#grid-row)) => number &#124; string | A function used to get the row ID.
 
 ### Exports
 

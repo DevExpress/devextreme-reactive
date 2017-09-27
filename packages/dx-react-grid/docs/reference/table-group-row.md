@@ -66,7 +66,7 @@ column | [Column](#column) | The column associated with the group.
 
 ### <a name="group-row"></a>GroupRow
 
-Describes the group row data structure.
+Describes the group row structure.
 
 Field | Type | Description
 ------|------|------------

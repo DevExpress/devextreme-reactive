@@ -22,7 +22,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows to be filtered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Column filters to be applied.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row data.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 
 ### Exports
 

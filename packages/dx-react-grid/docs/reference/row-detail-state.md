@@ -12,8 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-expandedRows | Array&lt;number &#124; string&gt; | | Specifies an IDs of expanded rows data.
-defaultExpandedRows | Array&lt;number &#124; string&gt; | | Specifies an IDs of initially expanded rows data in the uncontrolled mode.
+expandedRows | Array&lt;number &#124; string&gt; | | Specifies an IDs of expanded rows.
+defaultExpandedRows | Array&lt;number &#124; string&gt; | | Specifies an IDs of initially expanded rows in the uncontrolled mode.
 onExpandedRowsChange | (expandedRows: Array&lt;number &#124; string&gt;) => void | | Handles expanded rows changes.
 
 ## Plugin Developer Reference

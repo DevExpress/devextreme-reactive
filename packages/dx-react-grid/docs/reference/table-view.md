@@ -55,7 +55,7 @@ Field | Type | Description
 key | string | A table row's unique identifier.
 type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
 rowId? | number &#124; string | Specifies the associated row's data ID.
-row? | any | Specifies the associated row data.
+row? | any | Specifies the associated row.
 gridRow? | [GridRow](grid.md#grid-row) | Specifies the associated grid row.
 height? | number | Specifies the table row height.
 
@@ -94,7 +94,7 @@ A value with the [TableCellArgs](#table-cell-args) shape extended by the followi
 Field | Type | Description
 ------|------|------------
 value | any | A value to be rendered within the cell.
-row | any | A row data.
+row | any | A row.
 column | [Column](#column) | Specifies a table column.
 
 ### <a name="table-row-args"></a>TableRowArgs
@@ -117,7 +117,7 @@ A value with the [TableRowArgs](#table-row-args) shape extended by the following
 
 Field | Type | Description
 ------|------|------------
-row | any | A row data.
+row | any | A row.
 
 ## Plugin Developer Reference
 
@@ -127,8 +127,8 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows to be rendered by the table view.
 columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view.
-getGridRowId | Getter | (gridRow: [GridRow](grid.md#grid-row)) => number &#124; string | A function used to get the row data ID.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row data.
+getGridRowId | Getter | (gridRow: [GridRow](grid.md#grid-row)) => number &#124; string | A function used to get the row ID.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 
 ### Exports
 

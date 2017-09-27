@@ -2,7 +2,7 @@
 
 ## Cell Value Access
 
-In a common scenario with a simple data structure, you can associate a column with a row data field using the column's `name` field as shown in the following example:
+In a common scenario with a simple data structure, you can associate a column with a row field using the column's `name` field as shown in the following example:
 
 ```js
 const rows = [
@@ -80,7 +80,7 @@ The `getCellValue` implementation presented in this demo is not optimized for fr
 
 ## Cell Value Editing
 
-If editing features are enabled, you can use the column's `createRowChange` function to create a row data changes object:
+If editing features are enabled, you can use the column's `createRowChange` function to create a row changes object:
 
 ```js
 const rows = [

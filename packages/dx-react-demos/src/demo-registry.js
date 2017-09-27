@@ -218,6 +218,9 @@ export const demos = {
       bootstrap3: require('./bootstrap3/sorting/local-sorting-controlled').default,
       'material-ui': require('./material-ui/sorting/local-sorting-controlled').default,
     },
+    'local-custom-sorting': {
+      bootstrap3: require('./bootstrap3/sorting/local-custom-sorting').default,
+    },
     'remote-sorting': {
       bootstrap3: require('./bootstrap3/sorting/remote-sorting').default,
     },

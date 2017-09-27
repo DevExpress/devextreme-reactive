@@ -13,13 +13,25 @@ const createSortingCompare = (sorting, compareEqual, getCellValue) => (a, b) => 
   return (aValue < bValue) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
 };
 
-export const sortedRows = (rows, sorting, getCellValue) => {
+export const sortedRows = (rows, sorting, getCellValue, comparer) => {
   if (!sorting.length) return rows;
 
   const compare = Array.from(sorting)
     .reverse()
-    .reduce((prevCompare, columnSorting) =>
-      createSortingCompare(columnSorting, prevCompare, getCellValue), () => 0);
+    .reduce(
+      (prevCompare, columnSorting) => {
+        const defaultComparer = createSortingCompare(columnSorting, prevCompare, getCellValue);
+        if (comparer) {
+          const sortingFn = comparer(columnSorting, prevCompare, getCellValue);
+          if (sortingFn) {
+            return sortingFn;
+          }
+          return defaultComparer;
+        }
+        return defaultComparer;
+      },
+      () => 0,
+    );
 
   return mergeSort(Array.from(rows), compare);
 };

@@ -127,10 +127,10 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <TableView
-            tableCellTemplate={({ rowData, column }) => {
+            tableCellTemplate={({ row, column }) => {
               if (column.name === 'SaleAmount') {
                 return (
-                  <td style={{ textAlign: 'right' }}>${rowData.SaleAmount}</td>
+                  <td style={{ textAlign: 'right' }}>${row.SaleAmount}</td>
                 );
               }
               return undefined;

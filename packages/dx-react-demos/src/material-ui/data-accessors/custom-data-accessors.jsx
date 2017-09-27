@@ -15,28 +15,28 @@ import {
   defaultNestedColumnValues,
 } from '../../demo-data/generator';
 
-const getRowDataId = rowData => rowData.id;
+const getRowId = row => row.id;
 
 const splitColumnName = (columnName) => {
   const parts = columnName.split('.');
   return { rootField: parts[0], nestedField: parts[1] };
 };
 
-const getCellValue = (rowData, columnName) => {
+const getCellValue = (row, columnName) => {
   if (columnName.indexOf('.') > -1) {
     const { rootField, nestedField } = splitColumnName(columnName);
-    return rowData[rootField] ? rowData[rootField][nestedField] : undefined;
+    return row[rootField] ? row[rootField][nestedField] : undefined;
   }
-  return rowData[columnName];
+  return row[columnName];
 };
 
-const createRowChange = (rowData, columnName, value) => {
+const createRowChange = (row, columnName, value) => {
   if (columnName.indexOf('.') > -1) {
     const { rootField, nestedField } = splitColumnName(columnName);
 
     return {
       [rootField]: {
-        ...rowData[rootField],
+        ...row[rootField],
         [nestedField]: value,
       },
     };
@@ -70,19 +70,18 @@ export default class Demo extends React.PureComponent {
       const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
       data = [
         ...data,
-        ...added.map((rowData, index) => ({
+        ...added.map((row, index) => ({
           id: startingAddedId + index,
-          ...rowData,
+          ...row,
         })),
       ];
     }
     if (changed) {
-      data = data.map(rowData =>
-        (changed[rowData.id] ? { ...rowData, ...changed[rowData.id] } : rowData));
+      data = data.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      data = data.filter(rowData => !deletedSet.has(rowData.id));
+      data = data.filter(row => !deletedSet.has(row.id));
     }
     this.setState({ data });
   }
@@ -93,7 +92,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         data={data}
         columns={columns}
-        getRowDataId={getRowDataId}
+        getRowId={getRowId}
         getCellValue={getCellValue}
       >
         <EditingState

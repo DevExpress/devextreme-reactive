@@ -15,7 +15,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {
   getter: {
-    rows: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
+    gridRows: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
     currentPage: 1,
     pageSize: 2,
   },
@@ -43,7 +43,7 @@ describe('LocalPaging', () => {
     jest.resetAllMocks();
   });
 
-  it('should provide totalCount of rows passed into', () => {
+  it('should provide totalCount of gridRows passed into', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -55,7 +55,7 @@ describe('LocalPaging', () => {
       .toBe(6);
   });
 
-  it('should paginate rows passed into based on the "currentPage" and "pageSize" getters', () => {
+  it('should paginate gridRows passed into based on the "currentPage" and "pageSize" getters', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -63,11 +63,11 @@ describe('LocalPaging', () => {
       </PluginHost>,
     );
 
-    expect(getComputedState(tree).getters.rows)
+    expect(getComputedState(tree).getters.gridRows)
       .toEqual([{ id: 2 }, { id: 3 }]);
   });
 
-  it('should change the "currentPage" if starting row index exceeds the rows count', () => {
+  it('should change the "currentPage" if starting row index exceeds the gridRows count', () => {
     const deps = {
       getter: {
         currentPage: 4,
@@ -94,6 +94,6 @@ describe('LocalPaging', () => {
     );
 
     expect(ensurePageHeaders)
-      .toHaveBeenCalledWith(defaultDeps.getter.rows, defaultDeps.getter.pageSize);
+      .toHaveBeenCalledWith(defaultDeps.getter.gridRows, defaultDeps.getter.pageSize);
   });
 });

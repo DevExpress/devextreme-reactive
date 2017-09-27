@@ -16,7 +16,7 @@ import {
 } from '../../demo-data/generator';
 
 const GroupCellTemplate = ({
-  style, colSpan, rowData, isExpanded, toggleGroupExpanded,
+  style, colSpan, row, isExpanded, toggleGroupExpanded,
 }) => (
   <td
     colSpan={colSpan}
@@ -26,14 +26,14 @@ const GroupCellTemplate = ({
     }}
     onClick={toggleGroupExpanded}
   >{ isExpanded ? '- ' : '+ ' }
-    <strong>Names from {rowData.value.from} to {rowData.value.to}</strong>
+    <strong>Names from {row.value.from} to {row.value.to}</strong>
   </td>
 );
 
 GroupCellTemplate.propTypes = {
   style: PropTypes.shape(),
   colSpan: PropTypes.number,
-  rowData: PropTypes.shape(),
+  row: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
 };
@@ -41,7 +41,7 @@ GroupCellTemplate.propTypes = {
 GroupCellTemplate.defaultProps = {
   style: null,
   colSpan: 1,
-  rowData: {},
+  row: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
 };

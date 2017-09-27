@@ -70,14 +70,14 @@ export default class Demo extends React.PureComponent {
         <SelectionState />
 
         <VirtualTableView
-          tableCellTemplate={({ rowData, column, style }) => {
+          tableCellTemplate={({ row, column, style }) => {
             if (column.name === 'discount') {
               return (
-                <ProgressBarCell value={rowData.discount * 100} style={style} />
+                <ProgressBarCell value={row.discount * 100} style={style} />
               );
             } else if (column.name === 'amount') {
               return (
-                <HighlightedCell align={column.align} value={rowData.amount} style={style} />
+                <HighlightedCell align={column.align} value={row.amount} style={style} />
               );
             }
             return undefined;

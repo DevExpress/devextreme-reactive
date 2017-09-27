@@ -139,9 +139,9 @@ const GridContainer = ({
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
-      template={({ rowData }) => (
+      template={({ row }) => (
         <GridDetailContainer
-          data={rowData}
+          data={row}
           columns={detailColumns}
         />
       )}

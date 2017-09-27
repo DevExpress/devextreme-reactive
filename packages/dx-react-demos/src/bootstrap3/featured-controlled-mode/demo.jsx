@@ -58,16 +58,16 @@ CommandButton.defaultProps = {
 const commands = {
   add: {
     text: 'New',
-    hint: 'Create new rowData',
+    hint: 'Create new row',
     icon: 'plus',
   },
   edit: {
     text: 'Edit',
-    hint: 'Edit rowData',
+    hint: 'Edit row',
   },
   delete: {
     icon: 'trash',
-    hint: 'Delete rowData',
+    hint: 'Delete row',
     isDanger: true,
   },
   commit: {
@@ -114,7 +114,7 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
-const getRowDataId = rowData => rowData.id;
+const getRowId = row => row.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -147,7 +147,7 @@ export default class Demo extends React.PureComponent {
     this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeAddedRows = addedRows => this.setState({
-      addedRows: addedRows.map(rowData => (Object.keys(rowData).length ? rowData : {
+      addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
         amount: 0,
         discount: 0,
         saleDate: new Date().toISOString().split('T')[0],
@@ -166,15 +166,14 @@ export default class Demo extends React.PureComponent {
         const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
         data = [
           ...data,
-          ...added.map((rowData, index) => ({
+          ...added.map((row, index) => ({
             id: startingAddedId + index,
-            ...rowData,
+            ...row,
           })),
         ];
       }
       if (changed) {
-        data = data.map(rowData =>
-          (changed[rowData.id] ? { ...rowData, ...changed[rowData.id] } : rowData));
+        data = data.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
       this.setState({ data, deletingRows: deleted || this.state.deletingRows });
     };
@@ -182,7 +181,7 @@ export default class Demo extends React.PureComponent {
     this.deleteRows = () => {
       const data = this.state.data.slice();
       this.state.deletingRows.forEach((rowId) => {
-        const index = data.findIndex(rowData => rowData.id === rowId);
+        const index = data.findIndex(row => row.id === rowId);
         if (index > -1) {
           data.splice(index, 1);
         }
@@ -193,14 +192,14 @@ export default class Demo extends React.PureComponent {
       this.setState({ columnOrder: order });
     };
 
-    this.tableCellTemplate = ({ rowData, column, style }) => {
+    this.tableCellTemplate = ({ row, column, style }) => {
       if (column.name === 'discount') {
         return (
-          <ProgressBarCell value={rowData.discount * 100} style={style} />
+          <ProgressBarCell value={row.discount * 100} style={style} />
         );
       } else if (column.name === 'amount') {
         return (
-          <HighlightedCell align={column.align} value={rowData.amount} style={style} />
+          <HighlightedCell align={column.align} value={row.amount} style={style} />
         );
       }
       return undefined;
@@ -245,7 +244,7 @@ export default class Demo extends React.PureComponent {
         <Grid
           data={data}
           columns={columns}
-          getRowDataId={getRowDataId}
+          getRowId={getRowId}
         >
           <ColumnOrderState
             order={columnOrder}
@@ -308,9 +307,9 @@ export default class Demo extends React.PureComponent {
             <Modal.Title>Delete Row</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Are you sure to delete the following rowData?</p>
+            <p>Are you sure to delete the following row?</p>
             <Grid
-              data={data.filter(rowData => deletingRows.indexOf(rowData.id) > -1)}
+              data={data.filter(row => deletingRows.indexOf(row.id) > -1)}
               columns={columns}
             >
               <TableView

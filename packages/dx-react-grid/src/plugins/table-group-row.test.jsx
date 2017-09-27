@@ -24,7 +24,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     tableColumns: [{ type: 'undefined', id: 1, column: 'column' }],
-    tableBodyRows: [{ type: 'undefined', id: 1, rowData: 'row' }],
+    tableBodyRows: [{ type: 'undefined', id: 1, row: 'row' }],
     grouping: [{ columnName: 'a' }],
     draftGrouping: [{ columnName: 'a' }, { columnName: 'b', mode: 'add' }],
     expandedGroups: new Map(),
@@ -34,12 +34,12 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', id: 1, rowData: 'row' },
+      tableRow: { type: 'undefined', id: 1, row: 'row' },
       tableColumn: { type: 'undefined', id: 1, column: 'column' },
       style: {},
     },
     tableViewRow: {
-      tableRow: { type: 'undefined', id: 1, rowData: 'row' },
+      tableRow: { type: 'undefined', id: 1, row: 'row' },
       style: {},
     },
   },
@@ -225,7 +225,7 @@ describe('TableGroupRow', () => {
     expect(groupIndentCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        rowData: defaultDeps.template.tableViewCell.tableRow.rowData,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
@@ -252,7 +252,7 @@ describe('TableGroupRow', () => {
     expect(groupCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        rowData: defaultDeps.template.tableViewCell.tableRow.rowData,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });
@@ -264,7 +264,7 @@ describe('TableGroupRow', () => {
     const deps = {
       template: {
         tableViewCell: {
-          tableRow: { type: 'undefined', id: 1, rowData: { value: 'row' } },
+          tableRow: { type: 'undefined', id: 1, row: { value: 'row' } },
           tableColumn: { type: 'undefined', id: 1, column: { name: 'column', dataType: 'column' } },
           style: {},
         },
@@ -288,8 +288,8 @@ describe('TableGroupRow', () => {
     expect(valueFormatter)
       .toHaveBeenCalledWith({
         column: deps.template.tableViewCell.tableColumn.column,
-        rowData: deps.template.tableViewCell.tableRow.rowData,
-        value: deps.template.tableViewCell.tableRow.rowData.value,
+        row: deps.template.tableViewCell.tableRow.row,
+        value: deps.template.tableViewCell.tableRow.row.value,
       });
     expect(groupCellTemplate.mock.calls[0][0])
       .toHaveProperty('children');
@@ -312,7 +312,7 @@ describe('TableGroupRow', () => {
     expect(isGroupTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(groupRowTemplate).toBeCalledWith(expect.objectContaining({
       ...defaultDeps.template.tableViewRow,
-      rowData: defaultDeps.template.tableViewRow.tableRow.rowData,
+      row: defaultDeps.template.tableViewRow.tableRow.row,
     }));
   });
 });

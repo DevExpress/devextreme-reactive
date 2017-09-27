@@ -4,38 +4,38 @@ import {
 
 describe('FilteringState computeds', () => {
   describe('#filteredRows', () => {
-    const rows = [
-      { rowData: { a: 1, b: 1 } },
-      { rowData: { a: 1, b: 2 } },
-      { rowData: { a: 2, b: 1 } },
-      { rowData: { a: 2, b: 2 } },
+    const gridRows = [
+      { row: { a: 1, b: 1 } },
+      { row: { a: 1, b: 2 } },
+      { row: { a: 2, b: 1 } },
+      { row: { a: 2, b: 2 } },
     ];
 
     const getCellValue = (row, columnName) => row[columnName];
 
-    it('should not touch rows if no filters specified', () => {
+    it('should not touch grid rows if no filters specified', () => {
       const filters = [];
 
-      const filtered = filteredRows(rows, filters, getCellValue);
-      expect(filtered).toBe(rows);
+      const filtered = filteredRows(gridRows, filters, getCellValue);
+      expect(filtered).toBe(gridRows);
     });
 
     it('can filter by one field', () => {
       const filters = [{ columnName: 'a', value: 1 }];
 
-      const filtered = filteredRows(rows, filters, getCellValue);
+      const filtered = filteredRows(gridRows, filters, getCellValue);
       expect(filtered).toEqual([
-        { rowData: { a: 1, b: 1 } },
-        { rowData: { a: 1, b: 2 } },
+        { row: { a: 1, b: 1 } },
+        { row: { a: 1, b: 2 } },
       ]);
     });
 
     it('can filter by several fields', () => {
       const filters = [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }];
 
-      const filtered = filteredRows(rows, filters, getCellValue);
+      const filtered = filteredRows(gridRows, filters, getCellValue);
       expect(filtered).toEqual([
-        { rowData: { a: 1, b: 2 } },
+        { row: { a: 1, b: 2 } },
       ]);
     });
   });

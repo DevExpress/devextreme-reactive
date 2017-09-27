@@ -22,8 +22,8 @@ onSelectionChange | (selection: Array&lt;number &#124; string&gt;) => void | | H
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered.
-getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | A function used to get the row data ID.
+gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows to be rendered.
+getGridRowId | Getter | (gridRow: [GridRow](grid.md#grid-row)) => number &#124; string | A function used to get the row data ID.
 
 ### Exports
 

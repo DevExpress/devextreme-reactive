@@ -21,7 +21,7 @@ describe('Grid', () => {
     const props = {
       data: [],
       columns: [],
-      getRowDataId: () => {},
+      getRowId: () => {},
       getCellValue: () => {},
       rootTemplate: () => {},
       headerPlaceholderTemplate: () => {},

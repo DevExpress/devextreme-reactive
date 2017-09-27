@@ -26,66 +26,66 @@ describe('TableView Plugin computeds', () => {
 
   describe('#tableRowsWithDataRows', () => {
     it('should work', () => {
-      const rows = [
-        { rowData: { id: 1 }, defaultRowId: 0 },
-        { rowData: { id: 2 }, defaultRowId: 1 },
+      const gridRows = [
+        { row: { id: 1 }, defaultRowId: 0 },
+        { row: { id: 2 }, defaultRowId: 1 },
       ];
-      const getRowId = row => row.rowData.id;
+      const getGridRowId = gridRow => gridRow.row.id;
 
-      expect(tableRowsWithDataRows(rows, getRowId))
+      expect(tableRowsWithDataRows(gridRows, getGridRowId))
         .toEqual([
           {
             key: `${TABLE_DATA_TYPE}_1`,
             type: TABLE_DATA_TYPE,
             rowId: 1,
-            rowData: rows[0].rowData,
-            row: rows[0],
+            row: gridRows[0].row,
+            gridRow: gridRows[0],
           },
           {
             key: `${TABLE_DATA_TYPE}_2`,
             type: TABLE_DATA_TYPE,
             rowId: 2,
-            rowData: rows[1].rowData,
-            row: rows[1],
+            row: gridRows[1].row,
+            gridRow: gridRows[1],
           },
         ]);
     });
 
     it('should handle unknown row types', () => {
-      const rows = [
-        { rowData: 'data', type: 'type' },
-        { rowData: { id: 2 } },
-        { rowData: 'data', type: 'type' },
+      const gridRows = [
+        { row: 'data', type: 'type' },
+        { row: { id: 2 } },
+        { row: 'data', type: 'type' },
       ];
-      const getRowId = row => row.rowData.id;
+      const getGridRowId = gridRow => gridRow.row.id;
 
-      expect(tableRowsWithDataRows(rows, getRowId))
+      expect(tableRowsWithDataRows(gridRows, getGridRowId))
         .toEqual([
           {
             key: `${TABLE_UNKNOWN_TYPE}_0`,
             type: TABLE_UNKNOWN_TYPE,
-            row: rows[0],
+            gridRow: gridRows[0],
           },
           {
             key: `${TABLE_DATA_TYPE}_2`,
             type: TABLE_DATA_TYPE,
             rowId: 2,
-            rowData: rows[1].rowData,
-            row: rows[1],
+            row: gridRows[1].row,
+            gridRow: gridRows[1],
           },
           {
             key: `${TABLE_UNKNOWN_TYPE}_2`,
             type: TABLE_UNKNOWN_TYPE,
-            row: rows[2],
+            gridRow: gridRows[2],
           },
         ]);
     });
 
-    it('should add nodata row if rows are empty', () => {
-      const rows = [];
-      const getRowId = row => row.id;
+    it('should add nodata row if gridRows are empty', () => {
+      const gridRows = [];
+      const getGridRowId = gridRow => gridRow.id;
 
-      expect(tableRowsWithDataRows(rows, getRowId))
+      expect(tableRowsWithDataRows(gridRows, getGridRowId))
         .toEqual([
           { key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 },
         ]);

@@ -113,10 +113,10 @@ describe('TableGroupRow Plugin computeds', () => {
   describe('#tableRowsWithGrouping', () => {
     it('should add correct colSpanStart to group rows', () => {
       const tableRows = [
-        { type: TABLE_UNKNOWN_TYPE, row: { type: 'groupRow', groupedBy: 'a', rowData: { key: 'B', value: 'B' } } },
-        { type: TABLE_UNKNOWN_TYPE, row: { rowData: { id: 0 } } },
-        { type: TABLE_DATA_TYPE, row: {}, rowData: { id: 1 } },
-        { type: TABLE_DATA_TYPE, row: {}, rowData: { id: 2 } },
+        { type: TABLE_UNKNOWN_TYPE, gridRow: { type: 'groupRow', groupedBy: 'a', row: { key: 'B', value: 'B' } } },
+        { type: TABLE_UNKNOWN_TYPE, gridRow: { row: { id: 0 } } },
+        { type: TABLE_DATA_TYPE, gridRow: {}, row: { id: 1 } },
+        { type: TABLE_DATA_TYPE, gridRow: {}, row: { id: 2 } },
       ];
 
       expect(tableRowsWithGrouping(tableRows))
@@ -124,13 +124,13 @@ describe('TableGroupRow Plugin computeds', () => {
           {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
-            row: { type: 'groupRow', groupedBy: 'a', rowData: { key: 'B', value: 'B' } },
-            rowData: { key: 'B', value: 'B' },
+            gridRow: { type: 'groupRow', groupedBy: 'a', row: { key: 'B', value: 'B' } },
+            row: { key: 'B', value: 'B' },
             colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
-          { type: TABLE_UNKNOWN_TYPE, row: { rowData: { id: 0 } } },
-          { type: TABLE_DATA_TYPE, row: {}, rowData: { id: 1 } },
-          { type: TABLE_DATA_TYPE, row: {}, rowData: { id: 2 } },
+          { type: TABLE_UNKNOWN_TYPE, gridRow: { row: { id: 0 } } },
+          { type: TABLE_DATA_TYPE, gridRow: {}, row: { id: 1 } },
+          { type: TABLE_DATA_TYPE, gridRow: {}, row: { id: 2 } },
         ]);
     });
   });

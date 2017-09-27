@@ -18,7 +18,7 @@ const getSelectTableCellTemplateArgs = (
   { setRowsSelection },
 ) => ({
   ...params,
-  rowData: params.tableRow.rowData,
+  row: params.tableRow.row,
   selected: selection.indexOf(params.tableRow.rowId) > -1,
   changeSelected: () => setRowsSelection({ rowIds: [params.tableRow.rowId] }),
 });

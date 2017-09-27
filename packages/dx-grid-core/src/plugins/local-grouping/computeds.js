@@ -4,30 +4,30 @@ const defaultGetGroupValue = value => value;
 const defaultGetGroupKey = value => String(value);
 
 export const groupedRows = (
-  rows,
+  gridRows,
   grouping,
   getCellValue,
   getGroupValue = defaultGetGroupValue,
   getGroupKey = defaultGetGroupKey,
 ) => {
-  if (!grouping.length) return rows;
+  if (!grouping.length) return gridRows;
 
   const columnGrouping = grouping[0];
-  const groups = rows
-    .reduce((acc, row) => {
-      const { rowData } = row;
+  const groups = gridRows
+    .reduce((acc, gridRow) => {
+      const { row } = gridRow;
       const value = getGroupValue(
-        getCellValue(rowData, columnGrouping.columnName),
+        getCellValue(row, columnGrouping.columnName),
         columnGrouping,
-        rowData,
+        row,
       );
-      const key = getGroupKey(value, columnGrouping, rowData);
+      const key = getGroupKey(value, columnGrouping, row);
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
-        acc.set(key, [value, key, [row]]);
+        acc.set(key, [value, key, [gridRow]]);
       } else {
-        sameKeyItems[2].push(row);
+        sameKeyItems[2].push(gridRow);
       }
       return acc;
     }, new Map());
@@ -41,11 +41,11 @@ export const groupedRows = (
     }));
 };
 
-export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = '') => {
-  if (!grouping.length) return rows;
+export const expandedGroupRows = (gridRows, grouping, expandedGroups, keyPrefix = '') => {
+  if (!grouping.length) return gridRows;
 
   const nestedGrouping = grouping.slice(1);
-  return rows.reduce((acc, { value, key: groupKey, items }) => {
+  return gridRows.reduce((acc, { value, key: groupKey, items }) => {
     const groupedBy = grouping[0].columnName;
     const key = `${keyPrefix}${groupKey}`;
     const expanded = expandedGroups.has(key);
@@ -55,7 +55,7 @@ export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = ''
         headerKey: `groupRow_${groupedBy}`,
         type: 'groupRow',
         groupedBy,
-        rowData: { key, value },
+        row: { key, value },
       },
       ...expanded
         ? expandedGroupRows(items, nestedGrouping, expandedGroups, `${key}${GROUP_KEY_SEPARATOR}`)

@@ -2,13 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
-import { dataRows, rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
+import { gridRows, gridRowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 import { GridCore } from './grid-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  dataRows: jest.fn(),
-  rowIdGetter: jest.fn(),
+  gridRows: jest.fn(),
+  gridRowIdGetter: jest.fn(),
   cellValueGetter: jest.fn(),
 }));
 
@@ -28,8 +28,8 @@ describe('Grid', () => {
   });
 
   beforeEach(() => {
-    dataRows.mockImplementation(() => [{ rowData: { id: 0 }, defaultRowId: 0 }]);
-    rowIdGetter.mockImplementation(() => 0);
+    gridRows.mockImplementation(() => [{ row: { id: 0 }, defaultRowId: 0 }]);
+    gridRowIdGetter.mockImplementation(() => 0);
     cellValueGetter.mockImplementation(() => 0);
   });
   afterEach(() => {
@@ -164,29 +164,29 @@ describe('Grid', () => {
       </PluginHost>,
     );
 
-    expect(dataRows)
+    expect(gridRows)
       .toBeCalledWith(defaultProps.data);
-    expect(getComputedState(tree).getters.rows)
-      .toEqual(dataRows());
+    expect(getComputedState(tree).getters.gridRows)
+      .toEqual(gridRows());
   });
 
-  it('should provide getRowId', () => {
-    const getRowDataId = () => {};
+  it('should provide getGridRowId', () => {
+    const getRowId = () => {};
 
     const tree = mount(
       <PluginHost>
         <GridCore
           {...defaultProps}
-          getRowDataId={getRowDataId}
+          getRowId={getRowId}
         />
         {pluginDepsToComponents({})}
       </PluginHost>,
     );
 
-    expect(rowIdGetter)
-      .toBeCalledWith(getRowDataId);
-    expect(getComputedState(tree).getters.getRowId)
-      .toEqual(rowIdGetter());
+    expect(gridRowIdGetter)
+      .toBeCalledWith(getRowId);
+    expect(getComputedState(tree).getters.getGridRowId)
+      .toEqual(gridRowIdGetter());
   });
 
   it('should provide getCellValue', () => {

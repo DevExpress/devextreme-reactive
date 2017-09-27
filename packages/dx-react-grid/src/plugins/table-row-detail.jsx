@@ -18,7 +18,7 @@ const getDetailToggleTableCellTemplateArgs = (
   { setDetailRowExpanded },
 ) => ({
   ...params,
-  rowData: params.tableRow.rowData,
+  row: params.tableRow.row,
   expanded: isDetailRowExpanded(expandedRows, params.tableRow.rowId),
   toggleExpanded: () => setDetailRowExpanded({ rowId: params.tableRow.rowId }),
 });
@@ -27,13 +27,13 @@ const getDetailTableCellTemplateArgs = (
   { template, ...params },
 ) => ({
   ...params,
-  rowData: params.tableRow.rowData,
-  template: () => template({ rowData: params.tableRow.rowData }),
+  row: params.tableRow.row,
+  template: () => template({ row: params.tableRow.row }),
 });
 
 const getDetailTableRowTemplateArgs = params => ({
   ...params,
-  rowData: params.tableRow.rowData,
+  row: params.tableRow.row,
 });
 
 const pluginDependencies = [

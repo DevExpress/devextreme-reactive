@@ -35,7 +35,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 column | [Column](#column) | A column object.
-rowData | any | A row data object.
+row | any | A row data object.
 value | any | Specifies the value to be formatted.
 
 ### <a name="value-editor-args"></a>ValueEditorArgs
@@ -47,7 +47,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 column | [Column](#column) | A column object.
-rowData | any | A row data object.
+row | any | A row data object.
 value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.
 

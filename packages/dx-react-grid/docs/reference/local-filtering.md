@@ -12,7 +12,7 @@ Plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-predicate | (value: any, filter: [Filter](filtering-state.md#filter), rowData: any) => boolean | | A function used to apply the filter to the cell value.
+predicate | (value: any, filter: [Filter](filtering-state.md#filter), row: any) => boolean | | A function used to apply the filter to the cell value.
 
 ## Plugin Developer Reference
 
@@ -20,13 +20,12 @@ predicate | (value: any, filter: [Filter](filtering-state.md#filter), rowData: a
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be filtered.
+gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows to be filtered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Column filters to be applied.
-getCellValue | Getter | (rowData: any, columnName: string) => any | A function used to get the column value for a given row data.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row data.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied filtering.
-
+gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows with the applied filtering.

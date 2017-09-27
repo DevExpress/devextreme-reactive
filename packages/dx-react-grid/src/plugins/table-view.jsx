@@ -36,24 +36,25 @@ const getDataTableCellTemplateArgs = (
   { getCellValue },
 ) => ({
   ...params,
-  rowData: params.tableRow.rowData,
+  row: params.tableRow.row,
   column: params.tableColumn.column,
-  value: getCellValue(params.tableRow.rowData, params.tableColumn.column.name),
+  value: getCellValue(params.tableRow.row, params.tableColumn.column.name),
 });
 
 const getValueFormatterArgs = params => ({
-  rowData: params.rowData,
+  row: params.row,
   column: params.column,
   value: params.value,
 });
 
 const getDataTableRowTemplateArgs = params => ({
   ...params,
-  rowData: params.tableRow.rowData,
+  row: params.tableRow.row,
 });
 
 const tableHeaderRows = [];
-const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
+const tableBodyRowsComputed = ({ gridRows, getGridRowId }) =>
+  tableRowsWithDataRows(gridRows, getGridRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 
 const cellTemplate = params =>

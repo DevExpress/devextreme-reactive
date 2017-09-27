@@ -45,12 +45,12 @@ export const tableColumnsWithGrouping = (
 
 export const tableRowsWithGrouping = tableRows =>
   tableRows.map((tableRow) => {
-    if (tableRow.type !== TABLE_UNKNOWN_TYPE || tableRow.row.type !== 'groupRow') return tableRow;
+    if (tableRow.type !== TABLE_UNKNOWN_TYPE || tableRow.gridRow.type !== 'groupRow') return tableRow;
     return {
       ...tableRow,
-      key: `${TABLE_GROUP_TYPE}_${tableRow.row.rowData.key}`,
+      key: `${TABLE_GROUP_TYPE}_${tableRow.gridRow.row.key}`,
       type: TABLE_GROUP_TYPE,
-      colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.row.groupedBy}`,
-      rowData: tableRow.row.rowData,
+      colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.gridRow.groupedBy}`,
+      row: tableRow.gridRow.row,
     };
   });

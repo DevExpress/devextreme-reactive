@@ -6,7 +6,7 @@ import { GridCore } from './plugins/grid-core';
 export const Grid = ({
   data,
   columns,
-  getRowDataId,
+  getRowId,
   getCellValue,
   rootTemplate,
   headerPlaceholderTemplate,
@@ -17,7 +17,7 @@ export const Grid = ({
     <GridCore
       data={data}
       columns={columns}
-      getRowDataId={getRowDataId}
+      getRowId={getRowId}
       getCellValue={getCellValue}
       rootTemplate={rootTemplate}
       headerPlaceholderTemplate={headerPlaceholderTemplate}
@@ -29,7 +29,7 @@ export const Grid = ({
 
 Grid.propTypes = {
   data: PropTypes.array.isRequired,
-  getRowDataId: PropTypes.func,
+  getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
@@ -42,7 +42,7 @@ Grid.propTypes = {
 };
 
 Grid.defaultProps = {
-  getRowDataId: null,
+  getRowId: null,
   getCellValue: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,

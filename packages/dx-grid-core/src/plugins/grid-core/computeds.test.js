@@ -1,46 +1,46 @@
 import {
-  dataRows,
-  rowIdGetter,
+  gridRows,
+  gridRowIdGetter,
   cellValueGetter,
 } from './computeds';
 
 describe('GridCore Plugin computeds', () => {
-  describe('#dataRows', () => {
+  describe('#gridRows', () => {
     it('should work', () => {
       const data = [{ a: 1 }, { a: 2 }];
 
-      expect(dataRows(data))
+      expect(gridRows(data))
         .toEqual([
-          { rowData: { a: 1 }, defaultRowId: 0 },
-          { rowData: { a: 2 }, defaultRowId: 1 },
+          { row: { a: 1 }, defaultRowId: 0 },
+          { row: { a: 2 }, defaultRowId: 1 },
         ]);
     });
   });
 
-  describe('#rowIdGetter', () => {
+  describe('#gridRowIdGetter', () => {
     it('should work with default ids', () => {
       const data = [
-        { rowData: { a: 1 }, defaultRowId: 0 },
-        { rowData: { a: 2 }, defaultRowId: 1 },
+        { row: { a: 1 }, defaultRowId: 0 },
+        { row: { a: 2 }, defaultRowId: 1 },
       ];
-      const getRowDataId = null;
+      const getRowId = null;
 
-      expect(rowIdGetter(getRowDataId)(data[0]))
+      expect(gridRowIdGetter(getRowId)(data[0]))
         .toEqual(0);
-      expect(rowIdGetter(getRowDataId)(data[1]))
+      expect(gridRowIdGetter(getRowId)(data[1]))
         .toEqual(1);
     });
 
     it('should work with custom func', () => {
       const data = [
-        { rowData: { a: 1 }, defaultRowId: 0 },
-        { rowData: { a: 2 }, defaultRowId: 1 },
+        { row: { a: 1 }, defaultRowId: 0 },
+        { row: { a: 2 }, defaultRowId: 1 },
       ];
-      const getRowDataId = rowData => rowData.a;
+      const getRowId = row => row.a;
 
-      expect(rowIdGetter(getRowDataId)(data[0]))
+      expect(gridRowIdGetter(getRowId)(data[0]))
         .toEqual(1);
-      expect(rowIdGetter(getRowDataId)(data[1]))
+      expect(gridRowIdGetter(getRowId)(data[1]))
         .toEqual(2);
     });
   });
@@ -57,7 +57,7 @@ describe('GridCore Plugin computeds', () => {
     });
 
     it('should work with column defined cell access', () => {
-      const columns = [{ name: 'a', getCellValue: rowData => rowData.b }, { name: 'b' }];
+      const columns = [{ name: 'a', getCellValue: row => row.b }, { name: 'b' }];
       const getCellValue = null;
 
       expect(cellValueGetter(getCellValue, columns)({ b: 1 }, 'a'))
@@ -68,7 +68,7 @@ describe('GridCore Plugin computeds', () => {
 
     it('should work with defined cell access', () => {
       const columns = [{ name: 'a' }, { name: 'b' }];
-      const getCellValue = (rowData, columnName) => rowData[`_${columnName}`];
+      const getCellValue = (row, columnName) => row[`_${columnName}`];
 
       expect(cellValueGetter(getCellValue, columns)({ _a: 1 }, 'a'))
         .toEqual(1);

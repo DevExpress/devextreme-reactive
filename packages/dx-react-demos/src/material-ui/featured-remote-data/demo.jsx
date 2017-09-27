@@ -26,16 +26,16 @@ const styles = {
   },
 };
 
-const SaleAmountCellBase = ({ rowData, classes }) => (
+const SaleAmountCellBase = ({ row, classes }) => (
   <TableCell
     className={classes.saleAmountCell}
   >
-    ${rowData.SaleAmount}
+    ${row.SaleAmount}
   </TableCell>
 );
 
 SaleAmountCellBase.propTypes = {
-  rowData: PropTypes.object.isRequired,
+  row: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -172,9 +172,9 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <TableView
-            tableCellTemplate={({ rowData, column }) => {
+            tableCellTemplate={({ row, column }) => {
               if (column.name === 'SaleAmount') {
-                return <SaleAmountCell rowData={rowData} />;
+                return <SaleAmountCell row={row} />;
               }
               return undefined;
             }}

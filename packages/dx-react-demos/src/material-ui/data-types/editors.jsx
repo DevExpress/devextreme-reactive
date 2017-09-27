@@ -55,19 +55,18 @@ export default class Demo extends React.PureComponent {
         const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
         data = [
           ...data,
-          ...added.map((rowData, index) => ({
+          ...added.map((row, index) => ({
             id: startingAddedId + index,
-            ...rowData,
+            ...row,
           })),
         ];
       }
       if (changed) {
-        data = data.map(rowData =>
-          (changed[rowData.id] ? { ...rowData, ...changed[rowData.id] } : rowData));
+        data = data.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
       if (deleted) {
         const deletedSet = new Set(deleted);
-        data = data.filter(rowData => !deletedSet.has(rowData.id));
+        data = data.filter(row => !deletedSet.has(row.id));
       }
       this.setState({ data });
     };
@@ -79,7 +78,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         data={data}
         columns={columns}
-        getRowDataId={rowData => rowData.id}
+        getRowId={row => row.id}
       >
         <BooleanTypeProvider />
         <EditingState

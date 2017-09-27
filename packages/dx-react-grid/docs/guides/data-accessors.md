@@ -32,12 +32,12 @@ const columns = [
   {
     name: 'firstName',
     title: 'First Name',
-    getCellValue: rowData => (rowData.user ? rowData.user.firstName : undefined),
+    getCellValue: row => (row.user ? row.user.firstName : undefined),
   },
   {
     name: 'lastName',
     title: 'Last Name',
-    getCellValue: rowData => (rowData.user ? rowData.user.lastName : undefined),
+    getCellValue: row => (row.user ? row.user.lastName : undefined),
   },
   /* ... */
 ];
@@ -55,12 +55,12 @@ If you use a common value calculation algorithm for all columns, specify the `ge
 For example, you can implement dot notation support for columns like `{ name: 'user.firstName' }`. In this case, the function code looks as follows:
 
 ```js
-const getCellValue = (rowData, columnName) => {
+const getCellValue = (row, columnName) => {
   if (columnName.indexOf('.') > -1) {
     const { rootField, nestedField } = this.splitColumnName(columnName);
-    return rowData[rootField] ? rowData[rootField][nestedField] : undefined;
+    return row[rootField] ? row[rootField][nestedField] : undefined;
   }
-  return rowData[columnName];
+  return row[columnName];
 };
 
 <Grid
@@ -90,9 +90,9 @@ const data = [
 const columns = [
   {
     /* ... */
-    createRowChange: (rowData, value) => ({
+    createRowChange: (row, value) => ({
       user: {
-        ...rowData.user,
+        ...row.user,
         firstName: value,
       },
     }),
@@ -104,7 +104,7 @@ const columns = [
 Specify the `EditingState` plugin's `createRowChange` property if you use a common algorithm for all columns.
 
 ```js
-const createRowChange = (rowData, columnName, value) => {
+const createRowChange = (row, columnName, value) => {
   /* ... */
 };
 

@@ -18,7 +18,7 @@ import {
 
 const GroupCellTemplate = ({
   colSpan,
-  rowData,
+  row,
   isExpanded,
   toggleGroupExpanded,
 }) => (
@@ -31,21 +31,21 @@ const GroupCellTemplate = ({
       { isExpanded ? '- ' : '+ ' }
     </span>
     <strong>
-      Names from {rowData.value.from} to {rowData.value.to}
+      Names from {row.value.from} to {row.value.to}
     </strong>
   </TableCell>
 );
 
 GroupCellTemplate.propTypes = {
   colSpan: PropTypes.number,
-  rowData: PropTypes.shape(),
+  row: PropTypes.shape(),
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
 };
 
 GroupCellTemplate.defaultProps = {
   colSpan: 1,
-  rowData: {},
+  row: {},
   isExpanded: false,
   toggleGroupExpanded: () => {},
 };

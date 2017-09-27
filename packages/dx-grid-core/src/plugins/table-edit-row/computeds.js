@@ -21,7 +21,7 @@ export const tableRowsWithEditing = (tableRows, editingRows, addedRows, rowHeigh
       type: TABLE_ADDED_TYPE,
       rowId: rowIndex,
       height: rowHeight,
-      rowData: row,
+      row,
     }));
 
   return [

@@ -62,7 +62,7 @@ const commandTemplates = {
       <Button
         color="primary"
         onClick={onClick}
-        title="Create new rowData"
+        title="Create new row"
         disabled={!allowAdding}
       >
         New
@@ -70,12 +70,12 @@ const commandTemplates = {
     </div>
   ),
   edit: onClick => (
-    <IconButton onClick={onClick} title="Edit rowData">
+    <IconButton onClick={onClick} title="Edit row">
       <EditIcon />
     </IconButton>
   ),
   delete: onClick => (
-    <IconButton onClick={onClick} title="Delete rowData">
+    <IconButton onClick={onClick} title="Delete row">
       <DeleteIcon />
     </IconButton>
   ),
@@ -120,7 +120,7 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
-const getRowDataId = rowData => rowData.id;
+const getRowId = row => row.id;
 
 class DemoBase extends React.PureComponent {
   constructor(props) {
@@ -153,7 +153,7 @@ class DemoBase extends React.PureComponent {
     this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRows = editingRows => this.setState({ editingRows });
     this.changeAddedRows = addedRows => this.setState({
-      addedRows: addedRows.map(rowData => (Object.keys(rowData).length ? rowData : {
+      addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
         amount: 0,
         discount: 0,
         saleDate: new Date().toISOString().split('T')[0],
@@ -172,15 +172,14 @@ class DemoBase extends React.PureComponent {
         const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
         data = [
           ...data,
-          ...added.map((rowData, index) => ({
+          ...added.map((row, index) => ({
             id: startingAddedId + index,
-            ...rowData,
+            ...row,
           })),
         ];
       }
       if (changed) {
-        data = data.map(rowData =>
-          (changed[rowData.id] ? { ...rowData, ...changed[rowData.id] } : rowData));
+        data = data.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
       this.setState({ data, deletingRows: deleted || this.state.deletingRows });
     };
@@ -188,7 +187,7 @@ class DemoBase extends React.PureComponent {
     this.deleteRows = () => {
       const data = this.state.data.slice();
       this.state.deletingRows.forEach((rowId) => {
-        const index = data.findIndex(rowData => rowData.id === rowId);
+        const index = data.findIndex(row => row.id === rowId);
         if (index > -1) {
           data.splice(index, 1);
         }
@@ -199,14 +198,14 @@ class DemoBase extends React.PureComponent {
       this.setState({ columnOrder: order });
     };
 
-    this.tableCellTemplate = ({ rowData, column, style }) => {
+    this.tableCellTemplate = ({ row, column, style }) => {
       if (column.name === 'discount') {
         return (
-          <ProgressBarCell value={rowData.discount * 100} style={style} />
+          <ProgressBarCell value={row.discount * 100} style={style} />
         );
       } else if (column.name === 'amount') {
         return (
-          <HighlightedCell align={column.align} value={rowData.amount} style={style} />
+          <HighlightedCell align={column.align} value={row.amount} style={style} />
         );
       }
       return undefined;
@@ -264,7 +263,7 @@ class DemoBase extends React.PureComponent {
         <Grid
           data={data}
           columns={columns}
-          getRowDataId={getRowDataId}
+          getRowId={getRowId}
         >
           <ColumnOrderState
             order={columnOrder}
@@ -326,10 +325,10 @@ class DemoBase extends React.PureComponent {
           <DialogTitle>Delete Row</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Are you sure to delete the following rowData?
+              Are you sure to delete the following row?
             </DialogContentText>
             <Grid
-              data={data.filter(rowData => deletingRows.indexOf(rowData.id) > -1)}
+              data={data.filter(row => deletingRows.indexOf(row.id) > -1)}
               columns={columns}
             >
               <TableView

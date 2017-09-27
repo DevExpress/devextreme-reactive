@@ -188,9 +188,9 @@ export default class Demo extends React.PureComponent {
         />
         <TableSelection />
         <TableRowDetail
-          template={({ rowData }) => (
+          template={({ row }) => (
             <GridDetailContainer
-              data={rowData}
+              data={row}
             />
           )}
         />

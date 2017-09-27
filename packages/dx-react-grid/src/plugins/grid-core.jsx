@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PluginContainer, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
-import { dataRows, rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
+import { gridRows, gridRowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 
 export class GridCore extends React.PureComponent {
   render() {
     const {
       data,
       columns,
-      getRowDataId,
+      getRowId,
       getCellValue,
       rootTemplate,
       headerPlaceholderTemplate,
@@ -17,9 +17,9 @@ export class GridCore extends React.PureComponent {
 
     return (
       <PluginContainer>
-        <Getter name="rows" value={dataRows(data)} />
+        <Getter name="gridRows" value={gridRows(data)} />
         <Getter name="columns" value={columns} />
-        <Getter name="getRowId" value={rowIdGetter(getRowDataId)} />
+        <Getter name="getGridRowId" value={gridRowIdGetter(getRowId)} />
         <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
         <Template name="header" />
         <Template name="body" />
@@ -50,7 +50,7 @@ export class GridCore extends React.PureComponent {
 
 GridCore.propTypes = {
   data: PropTypes.array.isRequired,
-  getRowDataId: PropTypes.func,
+  getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootTemplate: PropTypes.func.isRequired,
@@ -59,7 +59,7 @@ GridCore.propTypes = {
 };
 
 GridCore.defaultProps = {
-  getRowDataId: null,
+  getRowId: null,
   getCellValue: null,
   headerPlaceholderTemplate: null,
   footerPlaceholderTemplate: null,

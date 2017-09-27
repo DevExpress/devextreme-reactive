@@ -6,9 +6,13 @@ import {
 describe('PagingState computeds', () => {
   describe('#getAvailableToSelect', () => {
     it('should work', () => {
-      const rows = [{ id: 1 }, { id: 2, type: 'group' }, { id: 3 }];
+      const gridRows = [
+        { row: { id: 1 } },
+        { row: { id: 2 }, type: 'group' },
+        { row: { id: 3 } },
+      ];
 
-      expect(getAvailableToSelect(rows, row => row.id)).toEqual([1, 3]);
+      expect(getAvailableToSelect(gridRows, gridRow => gridRow.row.id)).toEqual([1, 3]);
     });
   });
   describe('#getAvailableSelection', () => {

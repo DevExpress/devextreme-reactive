@@ -24,12 +24,12 @@ const defaultDeps = {
   },
   template: {
     tableViewCell: {
-      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       tableColumn: { type: 'undefined', column: { name: 'a' } },
       style: {},
     },
     tableViewRow: {
-      tableRow: { type: 'undefined', rowId: 1, rowData: 'row' },
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       style: {},
     },
   },

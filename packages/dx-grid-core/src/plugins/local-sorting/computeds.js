@@ -5,8 +5,8 @@ const createSortingCompare = (sorting, compareEqual, getCellValue) => {
   const inverse = direction === 'desc';
 
   return (a, b) => {
-    const aValue = getCellValue(a.rowData, columnName);
-    const bValue = getCellValue(b.rowData, columnName);
+    const aValue = getCellValue(a.row, columnName);
+    const bValue = getCellValue(b.row, columnName);
 
     if (aValue === bValue) {
       return compareEqual(a, b);
@@ -16,16 +16,16 @@ const createSortingCompare = (sorting, compareEqual, getCellValue) => {
   };
 };
 
-export const sortedRows = (rows, sorting, getCellValue) => {
-  if (!sorting.length) return rows;
+export const sortedRows = (gridRows, sorting, getCellValue) => {
+  if (!sorting.length) return gridRows;
 
   const compare = Array.from(sorting)
     .reverse()
     .reduce(
       (prevCompare, columnSorting) =>
         createSortingCompare(columnSorting, prevCompare, getCellValue),
-      (a, b) => a.defaultRowId < b.defaultRowId,
+      () => 0,
     );
 
-  return mergeSort(rows, compare);
+  return mergeSort(gridRows, compare);
 };

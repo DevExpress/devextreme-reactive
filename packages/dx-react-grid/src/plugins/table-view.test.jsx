@@ -26,8 +26,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     columns: [{ name: 'field' }],
-    rows: [{ field: 1 }],
-    getRowId: () => {},
+    gridRows: [{ field: 1 }],
+    getGridRowId: () => {},
     getCellValue: () => {},
   },
   action: {
@@ -81,7 +81,7 @@ describe('TableView', () => {
       );
 
       expect(tableRowsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
+        .toBeCalledWith(defaultDeps.getter.gridRows, defaultDeps.getter.getGridRowId);
       expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithDataRows');
     });
@@ -107,7 +107,7 @@ describe('TableView', () => {
     isDataTableCell.mockImplementation(() => true);
     const tableCellTemplate = jest.fn(() => null);
     const tableCellArgs = {
-      tableRow: { rowData: 'row' },
+      tableRow: { row: 'row' },
       tableColumn: { column: 'column' },
       style: {},
       value: undefined,
@@ -129,7 +129,7 @@ describe('TableView', () => {
     expect(tableCellTemplate)
       .toBeCalledWith({
         ...tableCellArgs,
-        rowData: tableCellArgs.tableRow.rowData,
+        row: tableCellArgs.tableRow.row,
         column: tableCellArgs.tableColumn.column,
       });
   });
@@ -139,7 +139,7 @@ describe('TableView', () => {
     const tableCellTemplate = jest.fn(() => null);
     const valueFormatter = jest.fn(() => <span />);
     const tableCellArgs = {
-      tableRow: { rowData: 'row' },
+      tableRow: { row: 'row' },
       tableColumn: { column: { name: 'column', dataType: 'column' } },
       style: {},
       value: undefined,
@@ -163,7 +163,7 @@ describe('TableView', () => {
     expect(valueFormatter)
       .toHaveBeenCalledWith({
         column: tableCellArgs.tableColumn.column,
-        rowData: tableCellArgs.tableRow.rowData,
+        row: tableCellArgs.tableRow.row,
         value: tableCellArgs.value,
       });
     expect(tableCellTemplate.mock.calls[0][0])
@@ -172,7 +172,7 @@ describe('TableView', () => {
 
   it('should render stub cell on plugin-defined column and row intersection', () => {
     const tableStubCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { rowData: 'row' }, tableColumn: { column: 'column' }, style: {} };
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     mount(
       <PluginHost>
@@ -192,7 +192,7 @@ describe('TableView', () => {
   it('should render stub header cell on plugin-defined column and row intersection', () => {
     isHeaderStubTableCell.mockImplementation(() => true);
     const tableStubHeaderCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { rowData: 'row' }, tableColumn: { column: 'column' }, style: {} };
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     const tree = mount(
       <PluginHost>
@@ -211,10 +211,10 @@ describe('TableView', () => {
       .toBeCalledWith(tableCellArgs);
   });
 
-  it('should render no data cell if rows are empty', () => {
+  it('should render no data cell if gridRows are empty', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableNoDataCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { rowData: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4 };
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4 };
 
     mount(
       <PluginHost>
@@ -237,7 +237,7 @@ describe('TableView', () => {
     isDataTableRow.mockImplementation(() => true);
     const tableRowTemplate = jest.fn(() => null);
     const tableRowArgs = {
-      tableRow: { rowData: 'row', type: 'data' },
+      tableRow: { row: 'row', type: 'data' },
       style: {},
       children: null,
     };
@@ -256,7 +256,7 @@ describe('TableView', () => {
     expect(isDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
     expect(tableRowTemplate).toBeCalledWith(expect.objectContaining({
       ...tableRowArgs,
-      rowData: tableRowArgs.tableRow.rowData,
+      row: tableRowArgs.tableRow.row,
     }));
   });
 
@@ -264,7 +264,7 @@ describe('TableView', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableNoDataRowTemplate = jest.fn(() => null);
     const tableRowArgs = {
-      tableRow: { rowData: 'row', type: 'nodata' },
+      tableRow: { row: 'row', type: 'nodata' },
       style: {},
       children: null,
     };

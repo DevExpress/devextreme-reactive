@@ -10,7 +10,7 @@ import {
   defaultColumnValues,
 } from '../../demo-data/generator';
 
-const getRowDataId = rowData => rowData.id;
+const getRowId = row => row.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         data={data}
         columns={columns}
-        getRowDataId={getRowDataId}
+        getRowId={getRowId}
       >
         <VirtualTableView />
         <TableHeaderRow />

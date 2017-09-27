@@ -29,7 +29,7 @@ export default class Demo extends React.PureComponent {
     };
 
     this.changeExpandedDetails = expandedRows => this.setState({ expandedRows });
-    this.rowTemplate = ({ rowData }) => <div>Details for {rowData.name} from {rowData.city}</div>;
+    this.rowTemplate = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
   }
   render() {
     const { data, columns, expandedRows } = this.state;

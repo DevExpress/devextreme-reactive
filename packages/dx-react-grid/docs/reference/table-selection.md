@@ -52,7 +52,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-rowData | any | A row data.
+row | any | A row data.
 selected | boolean | Specifies whether a row is selected.
 changeSelected | () => void | Selects or deselects a row.
 

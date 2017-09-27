@@ -6,21 +6,20 @@ const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
-const rowsWithHeadersComputed = ({ rows, pageSize }) => ensurePageHeaders(rows, pageSize);
-const totalCountComputed = ({ rows }) => rowCount(rows);
-const paginatedRowsComputed = ({ rows, pageSize, currentPage }) =>
-  paginate(rows, pageSize, currentPage);
+const rowsWithHeadersComputed = ({ gridRows, pageSize }) => ensurePageHeaders(gridRows, pageSize);
+const totalCountComputed = ({ gridRows }) => rowCount(gridRows);
+const paginatedRowsComputed = ({ gridRows, pageSize, currentPage }) =>
+  paginate(gridRows, pageSize, currentPage);
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalPaging extends React.PureComponent {
   render() {
     return (
-
       <PluginContainer
         pluginName="LocalPaging"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsWithHeadersComputed} />
+        <Getter name="gridRows" computed={rowsWithHeadersComputed} />
         <Getter name="totalCount" computed={totalCountComputed} />
         <Watcher
           watch={getter => [
@@ -35,7 +34,7 @@ export class LocalPaging extends React.PureComponent {
             }
           }}
         />
-        <Getter name="rows" computed={paginatedRowsComputed} />
+        <Getter name="gridRows" computed={paginatedRowsComputed} />
       </PluginContainer>
     );
   }

@@ -5,10 +5,10 @@ import {
 
 describe('GroupingPlugin computeds', () => {
   const rowsSource = [
-    { rowData: { a: 1, b: 1 } },
-    { rowData: { a: 1, b: 2 } },
-    { rowData: { a: 2, b: 1 } },
-    { rowData: { a: 2, b: 2 } },
+    { row: { a: 1, b: 1 } },
+    { row: { a: 1, b: 2 } },
+    { row: { a: 2, b: 1 } },
+    { row: { a: 2, b: 2 } },
   ];
   const getCellValue = (row, columnName) => row[columnName];
 
@@ -17,15 +17,15 @@ describe('GroupingPlugin computeds', () => {
     value: 1,
     key: '1',
     items: [
-      { rowData: { a: 1, b: 1 } },
-      { rowData: { a: 1, b: 2 } },
+      { row: { a: 1, b: 1 } },
+      { row: { a: 1, b: 2 } },
     ],
   }, {
     value: 2,
     key: '2',
     items: [
-      { rowData: { a: 2, b: 1 } },
-      { rowData: { a: 2, b: 2 } },
+      { row: { a: 2, b: 1 } },
+      { row: { a: 2, b: 2 } },
     ],
   }];
 
@@ -37,13 +37,13 @@ describe('GroupingPlugin computeds', () => {
       value: 1,
       key: '1',
       items: [
-        { rowData: { a: 1, b: 1 } },
+        { row: { a: 1, b: 1 } },
       ],
     }, {
       value: 2,
       key: '2',
       items: [
-        { rowData: { a: 1, b: 2 } },
+        { row: { a: 1, b: 2 } },
       ],
     }],
   }, {
@@ -53,13 +53,13 @@ describe('GroupingPlugin computeds', () => {
       value: 1,
       key: '1',
       items: [
-        { rowData: { a: 2, b: 1 } },
+        { row: { a: 2, b: 1 } },
       ],
     }, {
       value: 2,
       key: '2',
       items: [
-        { rowData: { a: 2, b: 2 } },
+        { row: { a: 2, b: 2 } },
       ],
     }],
   }];
@@ -84,15 +84,15 @@ describe('GroupingPlugin computeds', () => {
           value: '1_test',
           key: '1',
           items: [
-            { rowData: { a: 1, b: 1 } },
-            { rowData: { a: 1, b: 2 } },
+            { row: { a: 1, b: 1 } },
+            { row: { a: 1, b: 2 } },
           ],
         }, {
           value: '2_test',
           key: '2',
           items: [
-            { rowData: { a: 2, b: 1 } },
-            { rowData: { a: 2, b: 2 } },
+            { row: { a: 2, b: 1 } },
+            { row: { a: 2, b: 2 } },
           ],
         }]);
     });
@@ -108,13 +108,13 @@ describe('GroupingPlugin computeds', () => {
             value: '1_test',
             key: '1_test',
             items: [
-              { rowData: { a: 1, b: 1 } },
+              { row: { a: 1, b: 1 } },
             ],
           }, {
             value: '2_test',
             key: '2_test',
             items: [
-              { rowData: { a: 1, b: 2 } },
+              { row: { a: 1, b: 2 } },
             ],
           }],
         }, {
@@ -124,13 +124,13 @@ describe('GroupingPlugin computeds', () => {
             value: '1_test',
             key: '1_test',
             items: [
-              { rowData: { a: 2, b: 1 } },
+              { row: { a: 2, b: 1 } },
             ],
           }, {
             value: '2_test',
             key: '2_test',
             items: [
-              { rowData: { a: 2, b: 2 } },
+              { row: { a: 2, b: 2 } },
             ],
           }],
         }]);
@@ -145,13 +145,13 @@ describe('GroupingPlugin computeds', () => {
       expect(getGroupValue)
         .toHaveBeenCalledTimes(rowsSource.length);
       expect(getGroupValue)
-        .toHaveBeenCalledWith(rowsSource[0].rowData.a, grouping, rowsSource[0].rowData);
+        .toHaveBeenCalledWith(rowsSource[0].row.a, grouping, rowsSource[0].row);
       expect(getGroupValue)
-        .toHaveBeenCalledWith(rowsSource[1].rowData.a, grouping, rowsSource[1].rowData);
+        .toHaveBeenCalledWith(rowsSource[1].row.a, grouping, rowsSource[1].row);
       expect(getGroupValue)
-        .toHaveBeenCalledWith(rowsSource[2].rowData.a, grouping, rowsSource[2].rowData);
+        .toHaveBeenCalledWith(rowsSource[2].row.a, grouping, rowsSource[2].row);
       expect(getGroupValue)
-        .toHaveBeenCalledWith(rowsSource[3].rowData.a, grouping, rowsSource[3].rowData);
+        .toHaveBeenCalledWith(rowsSource[3].row.a, grouping, rowsSource[3].row);
     });
 
     it('should pass the row argument to custom getGroupKey', () => {
@@ -164,13 +164,13 @@ describe('GroupingPlugin computeds', () => {
       expect(getGroupKey)
         .toHaveBeenCalledTimes(rowsSource.length);
       expect(getGroupKey)
-        .toHaveBeenCalledWith(rowsSource[0].rowData.a, grouping, rowsSource[0].rowData);
+        .toHaveBeenCalledWith(rowsSource[0].row.a, grouping, rowsSource[0].row);
       expect(getGroupKey)
-        .toHaveBeenCalledWith(rowsSource[1].rowData.a, grouping, rowsSource[1].rowData);
+        .toHaveBeenCalledWith(rowsSource[1].row.a, grouping, rowsSource[1].row);
       expect(getGroupKey)
-        .toHaveBeenCalledWith(rowsSource[2].rowData.a, grouping, rowsSource[2].rowData);
+        .toHaveBeenCalledWith(rowsSource[2].row.a, grouping, rowsSource[2].row);
       expect(getGroupKey)
-        .toHaveBeenCalledWith(rowsSource[3].rowData.a, grouping, rowsSource[3].rowData);
+        .toHaveBeenCalledWith(rowsSource[3].row.a, grouping, rowsSource[3].row);
     });
   });
 
@@ -184,15 +184,15 @@ describe('GroupingPlugin computeds', () => {
             headerKey: 'groupRow_a',
             type: 'groupRow',
             groupedBy: 'a',
-            rowData: { key: '1', value: 1 },
+            row: { key: '1', value: 1 },
           },
-          { rowData: { a: 1, b: 1 } },
-          { rowData: { a: 1, b: 2 } },
+          { row: { a: 1, b: 1 } },
+          { row: { a: 1, b: 2 } },
           {
             headerKey: 'groupRow_a',
             type: 'groupRow',
             groupedBy: 'a',
-            rowData: { key: '2', value: 2 },
+            row: { key: '2', value: 2 },
           },
         ]);
     });
@@ -206,26 +206,26 @@ describe('GroupingPlugin computeds', () => {
             headerKey: 'groupRow_a',
             type: 'groupRow',
             groupedBy: 'a',
-            rowData: { key: '1', value: 1 },
+            row: { key: '1', value: 1 },
           },
           {
             headerKey: 'groupRow_b',
             type: 'groupRow',
             groupedBy: 'b',
-            rowData: { key: '1|1', value: 1 },
+            row: { key: '1|1', value: 1 },
           },
           {
             headerKey: 'groupRow_b',
             type: 'groupRow',
             groupedBy: 'b',
-            rowData: { key: '1|2', value: 2 },
+            row: { key: '1|2', value: 2 },
           },
-          { rowData: { a: 1, b: 2 } },
+          { row: { a: 1, b: 2 } },
           {
             headerKey: 'groupRow_a',
             type: 'groupRow',
             groupedBy: 'a',
-            rowData: { key: '2', value: 2 },
+            row: { key: '2', value: 2 },
           },
         ]);
     });

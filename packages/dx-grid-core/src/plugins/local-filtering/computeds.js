@@ -1,18 +1,18 @@
 const toLowerCase = value => String(value).toLowerCase();
 
 export const filteredRows = (
-  rows,
+  gridRows,
   filters,
   getCellValue,
   predicate = (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1,
 ) => {
-  if (!filters.length) return rows;
+  if (!filters.length) return gridRows;
 
   const compoundPredicate = filters.reduce(
-    (prevCompare, filter) => rowData =>
-      prevCompare(rowData) && predicate(getCellValue(rowData, filter.columnName), filter, rowData),
+    (prevCompare, filter) => row =>
+      prevCompare(row) && predicate(getCellValue(row, filter.columnName), filter, row),
     () => true,
   );
 
-  return rows.filter(({ rowData }) => compoundPredicate(rowData));
+  return gridRows.filter(({ row }) => compoundPredicate(row));
 };

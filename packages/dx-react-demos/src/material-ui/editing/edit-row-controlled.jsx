@@ -15,7 +15,7 @@ import {
   defaultColumnValues,
 } from '../../demo-data/generator';
 
-const getRowDataId = rowData => rowData.id;
+const getRowId = row => row.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
   }
   changeAddedRows(addedRows) {
-    const initialized = addedRows.map(rowData => (Object.keys(rowData).length ? rowData : { city: 'Tokio' }));
+    const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
     this.setState({ addedRows: initialized });
   }
   changeEditingRows(editingRows) {
@@ -59,19 +59,18 @@ export default class Demo extends React.PureComponent {
       const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
       data = [
         ...data,
-        ...added.map((rowData, index) => ({
+        ...added.map((row, index) => ({
           id: startingAddedId + index,
-          ...rowData,
+          ...row,
         })),
       ];
     }
     if (changed) {
-      data = data.map(rowData =>
-        (changed[rowData.id] ? { ...rowData, ...changed[rowData.id] } : rowData));
+      data = data.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      data = data.filter(rowData => !deletedSet.has(rowData.id));
+      data = data.filter(row => !deletedSet.has(row.id));
     }
     this.setState({ data });
   }
@@ -82,7 +81,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         data={data}
         columns={columns}
-        getRowDataId={getRowDataId}
+        getRowId={getRowId}
       >
         <EditingState
           editingRows={editingRows}

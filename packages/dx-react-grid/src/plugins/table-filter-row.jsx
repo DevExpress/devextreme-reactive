@@ -35,6 +35,7 @@ const getValueEditorArgs = params => ({
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
   { pluginName: 'TableView' },
+  { pluginName: 'DataTypeProvider', optional: true },
 ];
 
 export class TableFilterRow extends React.PureComponent {

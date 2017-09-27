@@ -48,6 +48,7 @@ const getGroupTableRowTemplateArgs = params => ({
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
   { pluginName: 'TableView' },
+  { pluginName: 'DataTypeProvider', optional: true },
 ];
 
 const tableBodyRowsComputed = ({ tableBodyRows }) => tableRowsWithGrouping(tableBodyRows);

@@ -4,13 +4,11 @@ import Paper from 'material-ui/Paper';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import {
-  TableColumnVisibility,
-} from '@devexpress/dx-react-grid';
-import {
   Grid,
   TableView,
   TableHeaderRow,
   ColumnChooser,
+  TableColumnVisibility,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   generateRows,
@@ -47,10 +45,10 @@ export default class Demo extends React.PureComponent {
             columns={columns}
           >
             <TableView />
+            <TableHeaderRow />
             <TableColumnVisibility
               hiddenColumns={hiddenColumns}
             />
-            <TableHeaderRow />
           </Grid>
         </MUIGrid>
         <MUIGrid item xs={12} sm={3}>

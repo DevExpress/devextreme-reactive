@@ -12,3 +12,4 @@ export { TableHeaderRow } from './plugins/table-header-row';
 export { TableEditColumn } from './plugins/table-edit-column';
 export { TableEditRow } from './plugins/table-edit-row';
 export { DropDownMenu } from './templates/drop-down-menu';
+export { TableColumnVisibility } from './plugins/table-column-visibility';

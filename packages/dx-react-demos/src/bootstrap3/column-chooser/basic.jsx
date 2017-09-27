@@ -1,13 +1,11 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import {
-  TableColumnVisibility,
-} from '@devexpress/dx-react-grid';
-import {
   Grid,
   TableView,
   TableHeaderRow,
   ColumnChooser,
+  TableColumnVisibility,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   generateRows,
@@ -44,10 +42,10 @@ export default class Demo extends React.PureComponent {
             columns={columns}
           >
             <TableView />
+            <TableHeaderRow />
             <TableColumnVisibility
               hiddenColumns={hiddenColumns}
             />
-            <TableHeaderRow />
           </Grid>
         </Col>
         <Col xs={12} sm={3}>

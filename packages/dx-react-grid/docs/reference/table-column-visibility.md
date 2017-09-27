@@ -13,6 +13,7 @@ Plugin that manages Grid columns visibility. Enables Grid to work along with [Co
 Name | Type | Default | Description
 -----|------|---------|------------
 hiddenColumns | Array&lt;string&gt; | [] | An array containing the names of the columns to be hidden.
+emptyMessageTemplate | () => ReactElement | | A template that renders empty message when all columns are hidden.
 
 ## Plugin Developer Reference
 

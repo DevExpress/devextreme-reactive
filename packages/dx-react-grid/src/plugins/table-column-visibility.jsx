@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import {
+  Getter,
+  PluginContainer,
+  Template,
+  TemplateConnector,
+  TemplatePlaceholder,
+} from '@devexpress/dx-react-core';
 import { visibleTableColumns } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -9,7 +15,7 @@ const pluginDependencies = [
 
 export class TableColumnVisibility extends React.PureComponent {
   render() {
-    const { hiddenColumns } = this.props;
+    const { hiddenColumns, emptyMessageTemplate } = this.props;
     const visibleTableColumnsComputed = ({ tableColumns }) =>
       visibleTableColumns(tableColumns, hiddenColumns);
 
@@ -19,6 +25,14 @@ export class TableColumnVisibility extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
+        <Template name="tableView">
+          <TemplateConnector>
+            {({ tableColumns }) => (tableColumns.length
+              ? <TemplatePlaceholder />
+              : emptyMessageTemplate()
+            )}
+          </TemplateConnector>
+        </Template>
       </PluginContainer>
     );
   }
@@ -26,6 +40,7 @@ export class TableColumnVisibility extends React.PureComponent {
 
 TableColumnVisibility.propTypes = {
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
+  emptyMessageTemplate: PropTypes.func.isRequired,
 };
 
 TableColumnVisibility.defaultProps = {

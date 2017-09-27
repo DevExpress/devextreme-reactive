@@ -18,6 +18,9 @@ const defaultDeps = {
       { column: { name: 'c' } },
     ],
   },
+  template: {
+    tableView: {},
+  },
   plugins: ['TableView'],
 };
 
@@ -44,6 +47,7 @@ describe('TableColumnVisibility', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
           hiddenColumns={hiddenColumns}
+          emptyMessageTemplate={() => null}
         />
       </PluginHost>,
     );
@@ -59,11 +63,30 @@ describe('TableColumnVisibility', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
           hiddenColumns={hiddenColumns}
+          emptyMessageTemplate={() => null}
         />
       </PluginHost>,
     );
 
     expect(getComputedState(tree).getters.tableColumns)
       .toEqual([{ column: { name: 'c' } }]);
+  });
+
+  it('should force ', () => {
+    const emptyMessageTemplate = jest.fn(() => null);
+    visibleTableColumns.mockImplementation(() => []);
+
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableColumnVisibility
+          hiddenColumns={[]}
+          emptyMessageTemplate={emptyMessageTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(emptyMessageTemplate)
+      .toHaveBeenCalledTimes(1);
   });
 });

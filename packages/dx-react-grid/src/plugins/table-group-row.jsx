@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Getter,
+  Template,
+  PluginContainer,
+  TemplatePlaceholder,
+  TemplateConnector,
+  TemplateRenderer,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
@@ -30,6 +34,12 @@ const getGroupTableCellTemplateArgs = (
   toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
 });
 
+const getValueFormatterArgs = params => ({
+  row: params.row,
+  column: params.column,
+  value: params.row.value,
+});
+
 const getGroupTableRowTemplateArgs = params => ({
   ...params,
   row: params.tableRow.row,
@@ -42,6 +52,15 @@ const pluginDependencies = [
 
 const tableBodyRowsComputed = ({ tableBodyRows }) => tableRowsWithGrouping(tableBodyRows);
 
+const createShowWhenGrouped = (columns) => {
+  const cache = columns.reduce((acc, column) => {
+    acc[column.name] = column.showWhenGrouped;
+    return acc;
+  }, {});
+
+  return columnName => cache[columnName] || false;
+};
+
 export class TableGroupRow extends React.PureComponent {
   render() {
     const {
@@ -49,10 +68,17 @@ export class TableGroupRow extends React.PureComponent {
       groupRowTemplate,
       groupIndentCellTemplate,
       groupIndentColumnWidth,
+      showColumnWhenGrouped,
     } = this.props;
 
-    const tableColumnsComputed = ({ tableColumns, grouping, draftGrouping }) =>
-      tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, groupIndentColumnWidth);
+    const tableColumnsComputed = ({ columns, tableColumns, grouping, draftGrouping }) =>
+      tableColumnsWithGrouping(
+        tableColumns,
+        grouping,
+        draftGrouping,
+        groupIndentColumnWidth,
+        showColumnWhenGrouped || createShowWhenGrouped(columns),
+      );
 
     return (
       <PluginContainer
@@ -68,12 +94,24 @@ export class TableGroupRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={groupCellTemplate}
-                  params={getGroupTableCellTemplateArgs(params, getters, actions)}
-                />
-              )}
+              {(getters, actions) => {
+                const templateArgs = getGroupTableCellTemplateArgs(params, getters, actions);
+                return (
+                  <TemplatePlaceholder
+                    name="valueFormatter"
+                    params={getValueFormatterArgs(templateArgs)}
+                  >
+                    {content => (
+                      <TemplateRenderer
+                        template={groupCellTemplate}
+                        params={templateArgs}
+                      >
+                        {content}
+                      </TemplateRenderer>
+                    )}
+                  </TemplatePlaceholder>
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>
@@ -115,8 +153,10 @@ TableGroupRow.propTypes = {
   groupRowTemplate: PropTypes.func.isRequired,
   groupIndentCellTemplate: PropTypes.func,
   groupIndentColumnWidth: PropTypes.number.isRequired,
+  showColumnWhenGrouped: PropTypes.func,
 };
 
 TableGroupRow.defaultProps = {
   groupIndentCellTemplate: null,
+  showColumnWhenGrouped: undefined,
 };

@@ -33,7 +33,7 @@ Define a filter row cell template using the `TableFilterRow` plugin's `filterCel
 
 ## Custom Filtering Algorithm
 
-You can also specify a filtering predicate using the `LocalFiltering` plugin's `filterFn` property to implement a custom filtering logic.
+You can also specify a filtering predicate using the `LocalFiltering` plugin's `predicate` property to implement a custom filtering logic.
 
 .embedded-demo(filtering/custom-filter-row)
 
@@ -44,6 +44,8 @@ You can handle the Grid filtering state changes to request data from the server 
 Filtering options are updated once an end-user modifies a text within a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
 
 Note that in the case of remote filtering, you do not need to use the `LocalFiltering` plugin.
+
+.embedded-demo(filtering/remote-filtering)
 
 ## Using Filtering with Other Data Processing Plugins
 

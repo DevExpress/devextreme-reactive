@@ -43,7 +43,7 @@ Note that in the case of remote filtering, you do not need to use the `LocalFilt
 
 ## Customizing Filter Row Appearance
 
-Pass a function that renders a custom editor component to the `TableFilterRow` plugin's `filterCellTemplate` property to use custom editos instead of built-in ones in the filter row. Assign the function's `filter` and `setFilter` arguments to the appropriate editor component's properties to delegate the component's state control to the `TableFilterRow` plugin, which allows you to use the Grid in controlled or uncontrolled modes.
+Pass a function that renders a custom component to the `TableFilterRow` plugin's `filterCellTemplate` property to use custom editos instead of built-in ones in the filter row. Assign the function's `filter` and `setFilter` arguments to the appropriate component's properties to delegate the component's state control to the `TableFilterRow` plugin, which allows you to use the Grid in controlled or uncontrolled modes.
 
 .embedded-demo(filtering/custom-filter-row)
 

@@ -46,8 +46,6 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-
         <FilteringState
           defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
         />
@@ -92,6 +90,8 @@ export default class Demo extends React.PureComponent {
           }}
           allowColumnReordering
         />
+
+        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
         <TableHeaderRow allowSorting allowDragging />
         <TableFilterRow />

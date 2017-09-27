@@ -78,7 +78,8 @@ export class TableView extends React.PureComponent {
       <PluginContainer
         pluginName="TableView"
         dependencies={[
-          { pluginName: 'TableColumnReordering', optional: !allowColumnReordering },
+          // TODO: Resolve dependencies
+          // { pluginName: 'TableColumnReordering', optional: !allowColumnReordering },
           { pluginName: 'DragDropContext', optional: !allowColumnReordering },
         ]}
       >

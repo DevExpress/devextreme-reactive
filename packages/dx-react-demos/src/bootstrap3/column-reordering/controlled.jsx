@@ -41,12 +41,12 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
+        <DragDropContext />
+        <TableView allowColumnReordering />
         <TableColumnReordering
           order={columnOrder}
           onOrderChange={this.changeColumnOrder}
         />
-        <DragDropContext />
-        <TableView allowColumnReordering />
         <TableHeaderRow allowDragging />
       </Grid>
     );

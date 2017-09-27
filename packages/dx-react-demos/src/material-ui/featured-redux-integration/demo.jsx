@@ -88,11 +88,6 @@ const GridContainer = ({
     rows={rows}
     columns={columns}
   >
-    <TableColumnReordering
-      order={columnOrder}
-      onOrderChange={onColumnOrderChange}
-    />
-
     <FilteringState
       filters={filters}
       onFiltersChange={onFiltersChange}
@@ -131,10 +126,17 @@ const GridContainer = ({
     <DragDropContext />
 
     <TableView allowColumnReordering />
+
+    <TableColumnReordering
+      order={columnOrder}
+      onOrderChange={onColumnOrderChange}
+    />
+
     <TableColumnResizing
       columnWidths={columnWidths}
       onColumnWidthsChange={onColumnWidthsChange}
     />
+
     <TableHeaderRow allowSorting allowDragging allowResizing />
     <TableFilterRow />
     <TableSelection />

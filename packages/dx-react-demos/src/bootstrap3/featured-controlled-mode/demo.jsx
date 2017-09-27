@@ -246,11 +246,6 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={getRowId}
         >
-          <TableColumnReordering
-            order={columnOrder}
-            onOrderChange={this.changeColumnOrder}
-          />
-
           <SortingState
             sorting={sorting}
             onSortingChange={this.changeSorting}
@@ -280,6 +275,11 @@ export default class Demo extends React.PureComponent {
           <TableView
             tableCellTemplate={this.tableCellTemplate}
             allowColumnReordering
+          />
+
+          <TableColumnReordering
+            order={columnOrder}
+            onOrderChange={this.changeColumnOrder}
           />
 
           <TableHeaderRow allowSorting allowDragging />

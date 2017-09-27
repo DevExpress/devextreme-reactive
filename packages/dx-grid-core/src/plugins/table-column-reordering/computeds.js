@@ -1,9 +1,9 @@
-export const orderedColumns = (columns, order) => {
-  const result = Array.from(columns);
+export const orderedColumns = (tableColumns, order) => {
+  const result = Array.from(tableColumns);
 
   result.sort((a, b) => {
-    const aPos = order.indexOf(a.name);
-    const bPos = order.indexOf(b.name);
+    const aPos = order.indexOf(a.column.name);
+    const bPos = order.indexOf(b.column.name);
     return aPos - bPos;
   });
 

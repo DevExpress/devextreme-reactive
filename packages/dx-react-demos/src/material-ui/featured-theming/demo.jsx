@@ -183,8 +183,6 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-
         <SortingState />
         <GroupingState />
         <PagingState
@@ -206,6 +204,8 @@ export default class Demo extends React.PureComponent {
         <DragDropContext />
 
         <TableView allowColumnReordering />
+
+        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
         <TableHeaderRow allowSorting allowDragging />
         <PagingPanel

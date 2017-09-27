@@ -35,11 +35,11 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
+        <DragDropContext />
+        <TableView allowColumnReordering />
         <TableColumnReordering
           defaultOrder={['city', 'sex', 'car', 'name']}
         />
-        <DragDropContext />
-        <TableView allowColumnReordering />
         <TableHeaderRow allowDragging />
       </Grid>
     );

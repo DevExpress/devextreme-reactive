@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { orderedColumns, setColumnOrder } from '@devexpress/dx-grid-core';
 
+const pluginDependencies = [
+  { pluginName: 'TableView' },
+];
+
 export class TableColumnReordering extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -25,13 +29,14 @@ export class TableColumnReordering extends React.PureComponent {
       order = this.state.order,
     } = this.props;
 
-    const columnsComputed = ({ columns }) => orderedColumns(columns, order);
+    const columnsComputed = ({ tableColumns }) => orderedColumns(tableColumns, order);
 
     return (
       <PluginContainer
         pluginName="TableColumnReordering"
+        dependencies={pluginDependencies}
       >
-        <Getter name="columns" computed={columnsComputed} />
+        <Getter name="tableColumns" computed={columnsComputed} />
         <Action
           name="setColumnOrder"
           action={({ sourceColumnName, targetColumnName }) =>

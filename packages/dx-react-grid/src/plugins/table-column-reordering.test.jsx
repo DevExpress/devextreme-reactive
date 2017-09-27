@@ -8,8 +8,9 @@ import { TableColumnReordering } from './table-column-reordering';
 
 const defaultDeps = {
   getter: {
-    columns: [{ name: 'a' }, { name: 'b' }],
+    tableColumns: [{ column: { name: 'a' } }, { column: { name: 'b' } }],
   },
+  plugins: ['TableView'],
 };
 
 describe('TableColumnReordering', () => {
@@ -31,8 +32,8 @@ describe('TableColumnReordering', () => {
       </PluginHost>,
     );
 
-    expect(getComputedState(tree).getters.columns)
-      .toEqual([{ name: 'b' }, { name: 'a' }]);
+    expect(getComputedState(tree).getters.tableColumns)
+      .toEqual([{ column: { name: 'b' } }, { column: { name: 'a' } }]);
   });
 
   it('should apply the column order specified in the "order" property in controlled mode', () => {
@@ -45,8 +46,8 @@ describe('TableColumnReordering', () => {
       </PluginHost>,
     );
 
-    expect(getComputedState(tree).getters.columns)
-      .toEqual([{ name: 'b' }, { name: 'a' }]);
+    expect(getComputedState(tree).getters.tableColumns)
+      .toEqual([{ column: { name: 'b' } }, { column: { name: 'a' } }]);
   });
 
   it('should fire the "onOrderChange" callback and should change the column order in uncontrolled mode after the "setColumnOrder" action is fired', () => {
@@ -67,8 +68,8 @@ describe('TableColumnReordering', () => {
       targetColumnName: 'b',
     });
 
-    expect(getComputedState(tree).getters.columns)
-      .toEqual([{ name: 'b' }, { name: 'a' }]);
+    expect(getComputedState(tree).getters.tableColumns)
+      .toEqual([{ column: { name: 'b' } }, { column: { name: 'a' } }]);
     expect(orderChangeMock.mock.calls[0][0])
       .toEqual(['b', 'a']);
   });
@@ -91,8 +92,8 @@ describe('TableColumnReordering', () => {
       targetColumnName: 'b',
     });
 
-    expect(getComputedState(tree).getters.columns)
-      .toEqual([{ name: 'a' }, { name: 'b' }]);
+    expect(getComputedState(tree).getters.tableColumns)
+      .toEqual([{ column: { name: 'a' } }, { column: { name: 'b' } }]);
     expect(orderChangeMock.mock.calls[0][0])
       .toEqual(['b', 'a']);
   });

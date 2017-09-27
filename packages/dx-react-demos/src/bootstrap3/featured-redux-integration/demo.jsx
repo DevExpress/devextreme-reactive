@@ -7,7 +7,7 @@ import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-  ColumnOrderState, TableColumnResizing,
+  TableColumnReordering, TableColumnResizing,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -76,7 +76,7 @@ const GridContainer = ({
     rows={rows}
     columns={columns}
   >
-    <ColumnOrderState
+    <TableColumnReordering
       order={columnOrder}
       onOrderChange={onColumnOrderChange}
     />

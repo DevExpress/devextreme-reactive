@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
-import { ColumnOrderState } from './column-order-state';
+import { TableColumnReordering } from './table-column-reordering';
 
 const defaultDeps = {
   getter: {
@@ -12,7 +12,7 @@ const defaultDeps = {
   },
 };
 
-describe('ColumnOrderState', () => {
+describe('TableColumnReordering', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -25,7 +25,7 @@ describe('ColumnOrderState', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ColumnOrderState
+        <TableColumnReordering
           defaultOrder={['b', 'a']}
         />
       </PluginHost>,
@@ -39,7 +39,7 @@ describe('ColumnOrderState', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ColumnOrderState
+        <TableColumnReordering
           order={['b', 'a']}
         />
       </PluginHost>,
@@ -55,7 +55,7 @@ describe('ColumnOrderState', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ColumnOrderState
+        <TableColumnReordering
           defaultOrder={['a', 'b']}
           onOrderChange={orderChangeMock}
         />
@@ -79,7 +79,7 @@ describe('ColumnOrderState', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ColumnOrderState
+        <TableColumnReordering
           order={['a', 'b']}
           onOrderChange={orderChangeMock}
         />

@@ -1,4 +1,4 @@
-# ColumnOrderState Plugin Reference
+# TableColumnReordering Plugin Reference
 
 A plugin that manages the displayed columns' order.
 

@@ -4,7 +4,7 @@ import {
   setColumnOrder,
 } from './reducers';
 
-describe('ColumnOrderState reducers', () => {
+describe('TableColumnReordering reducers', () => {
   describe('#setColumnOrder', () => {
     const order = ['a', 'b', 'c'];
     const payload = { sourceColumnName: 'a', targetColumnName: 'b' };

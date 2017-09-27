@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, PagingState, GroupingState,
   LocalGrouping, LocalPaging, LocalSorting,
-  ColumnOrderState, RowDetailState,
+  TableColumnReordering, RowDetailState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -183,7 +183,7 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
+        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
         <SortingState />
         <GroupingState />

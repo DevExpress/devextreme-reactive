@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ColumnOrderState,
+  TableColumnReordering,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <ColumnOrderState
+        <TableColumnReordering
           order={columnOrder}
           onOrderChange={this.changeColumnOrder}
         />

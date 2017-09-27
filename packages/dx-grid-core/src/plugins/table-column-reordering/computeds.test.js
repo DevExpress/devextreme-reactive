@@ -4,7 +4,7 @@ import {
   orderedColumns,
 } from './computeds';
 
-describe('ColumnOrderState computeds', () => {
+describe('TableColumnReordering computeds', () => {
   describe('#orderedColumns', () => {
     it('should return columns in the order specified', () => {
       const columns = [{ name: 'a' }, { name: 'b', payload: {} }, { name: 'c' }];

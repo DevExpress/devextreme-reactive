@@ -20,7 +20,7 @@ export const ensurePageHeaders = (gridRows, pageSize) => {
   let currentIndex = 0;
   while (result.length > currentIndex) {
     const gridRow = result[currentIndex];
-    const { headerKey } = gridRow;
+    const headerKey = gridRow.headerKey || gridRow.row._headerKey;
     if (headerKey) {
       const headerIndex = headers.findIndex(header => header.headerKey === headerKey);
       if (headerIndex === -1) {

@@ -171,6 +171,22 @@ describe('PagingState computeds', () => {
         ensurePageHeaders(gridRows, 3);
       }).toThrowError(/page size/);
     });
+
+    // TODO: remove with custom grouping release
+    it('should work in legacy mode', () => {
+      const gridRows = [
+        { row: { _headerKey: 'a' } },
+        { row: 2 },
+        { row: 3 },
+      ];
+
+      const computedRows = ensurePageHeaders(gridRows, 2);
+      expect(computedRows).toHaveLength(4);
+      expect(computedRows[0]).toBe(gridRows[0]);
+      expect(computedRows[1]).toBe(gridRows[1]);
+      expect(computedRows[2]).toBe(gridRows[0]);
+      expect(computedRows[3]).toBe(gridRows[2]);
+    });
   });
 
   describe('#pageCount', () => {

@@ -17,17 +17,17 @@ export class MyApp extends React.PureComponent {
 
     this.state = {
       columns: [/* ... */],
-      data: [/* ... */],
+      rows: [/* ... */],
       sorting: [{ columnName: 'date', direction: 'desc' }],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
   }
   render() {
-    const { data, columns, sorting } = this.state;
+    const { rows, columns, sorting } = this.state;
 
     return (
-      <Grid data={data} columns={columns}>
+      <Grid data={rows} columns={columns}>
         <SortingState sorting={sorting} onSortingChange={this.changeSorting} />
         { /* ... */ }
       </Grid>

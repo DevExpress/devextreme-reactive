@@ -5,7 +5,7 @@
 In a common scenario with a simple data structure, you can associate a column with a row data field using the column's `name` field as shown in the following example:
 
 ```js
-const data = [
+const rows = [
   { firstName: 'John', lastName: 'Smith' },
   /* ... */
 ];
@@ -16,7 +16,7 @@ const columns = [
 ];
 
 <Grid
-  data={data}
+  data={rows}
   columns={columns}
 />
 ```
@@ -24,7 +24,7 @@ const columns = [
 In the case of nested data structure, use the `getCellValue` function to calculate a column value as demonstrated below:
 
 ```js
-const data = [
+const rows = [
   { user: { firstName: 'John', lastName: 'Smith' } },
   /* ... */
 ];
@@ -43,7 +43,7 @@ const columns = [
 ];
 
 <Grid
-  data={data}
+  data={rows}
   columns={columns}
 />
 ```
@@ -64,7 +64,7 @@ const getCellValue = (row, columnName) => {
 };
 
 <Grid
-  data={data}
+  data={rows}
   columns={columns}
   getCellValue={getCellValue}
 >
@@ -83,7 +83,7 @@ The `getCellValue` implementation presented in this demo is not optimized for fr
 If editing features are enabled, you can use the column's `createRowChange` function to create a row data changes object:
 
 ```js
-const data = [
+const rows = [
   { user: { firstName: 'John', lastName: 'Smith' } },
   /* ... */
 ];

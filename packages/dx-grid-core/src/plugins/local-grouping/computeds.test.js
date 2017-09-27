@@ -2,6 +2,7 @@ import {
   groupedRows,
   expandedGroupRows,
 } from './computeds';
+import { GRID_GROUP_TYPE } from './constants';
 
 describe('GroupingPlugin computeds', () => {
   const rowsSource = [
@@ -181,16 +182,16 @@ describe('GroupingPlugin computeds', () => {
       expect(expandedGroupRows(firstLevelGroupedRows, firstLevelGroupings, expandedGroups))
         .toEqual([
           {
-            headerKey: 'groupRow_a',
-            type: 'groupRow',
+            headerKey: `${GRID_GROUP_TYPE}_a`,
+            type: GRID_GROUP_TYPE,
             groupedBy: 'a',
             row: { key: '1', value: 1 },
           },
           { row: { a: 1, b: 1 } },
           { row: { a: 1, b: 2 } },
           {
-            headerKey: 'groupRow_a',
-            type: 'groupRow',
+            headerKey: `${GRID_GROUP_TYPE}_a`,
+            type: GRID_GROUP_TYPE,
             groupedBy: 'a',
             row: { key: '2', value: 2 },
           },
@@ -203,27 +204,27 @@ describe('GroupingPlugin computeds', () => {
       expect(expandedGroupRows(secondLevelGroupedRows, secondLevelGroupings, expandedGroups))
         .toEqual([
           {
-            headerKey: 'groupRow_a',
-            type: 'groupRow',
+            headerKey: `${GRID_GROUP_TYPE}_a`,
+            type: GRID_GROUP_TYPE,
             groupedBy: 'a',
             row: { key: '1', value: 1 },
           },
           {
-            headerKey: 'groupRow_b',
-            type: 'groupRow',
+            headerKey: `${GRID_GROUP_TYPE}_b`,
+            type: GRID_GROUP_TYPE,
             groupedBy: 'b',
             row: { key: '1|1', value: 1 },
           },
           {
-            headerKey: 'groupRow_b',
-            type: 'groupRow',
+            headerKey: `${GRID_GROUP_TYPE}_b`,
+            type: GRID_GROUP_TYPE,
             groupedBy: 'b',
             row: { key: '1|2', value: 2 },
           },
           { row: { a: 1, b: 2 } },
           {
-            headerKey: 'groupRow_a',
-            type: 'groupRow',
+            headerKey: `${GRID_GROUP_TYPE}_a`,
+            type: GRID_GROUP_TYPE,
             groupedBy: 'a',
             row: { key: '2', value: 2 },
           },

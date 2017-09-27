@@ -1,4 +1,5 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
+import { GRID_GROUP_TYPE } from './constants';
 
 const defaultGetGroupValue = value => value;
 const defaultGetGroupKey = value => String(value);
@@ -52,8 +53,8 @@ export const expandedGroupRows = (gridRows, grouping, expandedGroups, keyPrefix 
     return [
       ...acc,
       {
-        headerKey: `groupRow_${groupedBy}`,
-        type: 'groupRow',
+        headerKey: `${GRID_GROUP_TYPE}_${groupedBy}`,
+        type: GRID_GROUP_TYPE,
         groupedBy,
         row: { key, value },
       },

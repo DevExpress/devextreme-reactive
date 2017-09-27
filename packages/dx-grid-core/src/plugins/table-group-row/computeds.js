@@ -1,5 +1,6 @@
 import { TABLE_DATA_TYPE, TABLE_UNKNOWN_TYPE } from '../table-view/constants';
 import { TABLE_GROUP_TYPE } from './constants';
+import { GRID_GROUP_TYPE } from '../local-grouping/constants';
 
 const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping, showColumnWhenGrouped) =>
   tableColumns
@@ -45,7 +46,8 @@ export const tableColumnsWithGrouping = (
 
 export const tableRowsWithGrouping = tableRows =>
   tableRows.map((tableRow) => {
-    if (tableRow.type !== TABLE_UNKNOWN_TYPE || tableRow.gridRow.type !== 'groupRow') return tableRow;
+    if (tableRow.type !== TABLE_UNKNOWN_TYPE
+      || tableRow.gridRow.type !== GRID_GROUP_TYPE) return tableRow;
     return {
       ...tableRow,
       key: `${TABLE_GROUP_TYPE}_${tableRow.gridRow.row.key}`,

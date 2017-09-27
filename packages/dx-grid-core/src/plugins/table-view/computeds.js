@@ -1,4 +1,3 @@
-
 import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE, TABLE_UNKNOWN_TYPE } from './constants';
 
 export const tableColumnsWithDataRows = columns =>

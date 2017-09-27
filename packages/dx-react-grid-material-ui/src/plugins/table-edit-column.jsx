@@ -12,25 +12,32 @@ const defaultCellTemplate = props => <EditCommandCell {...props} />;
 const defaultHeadingCellTemplate = props => <EditCommandHeadingCell {...props} />;
 const defaultCommandTemplate = props => <CommandButton {...props} />;
 
-export const TableEditColumn = ({
-  cellTemplate,
-  headingCellTemplate,
-  commandTemplate,
-  ...restProps
-}) => (
-  <TableEditColumnBase
-    width={140}
-    {...restProps}
-    cellTemplate={combineTemplates(cellTemplate, defaultCellTemplate)}
-    headingCellTemplate={combineTemplates(headingCellTemplate, defaultHeadingCellTemplate)}
-    commandTemplate={combineTemplates(commandTemplate, defaultCommandTemplate)}
-  />
-);
+export class TableEditColumn extends React.PureComponent {
+  render() {
+    const {
+      cellTemplate,
+      headingCellTemplate,
+      commandTemplate,
+      ...restProps
+    } = this.props;
+
+    return (
+      <TableEditColumnBase
+        cellTemplate={combineTemplates(cellTemplate, defaultCellTemplate)}
+        headingCellTemplate={combineTemplates(headingCellTemplate, defaultHeadingCellTemplate)}
+        commandTemplate={combineTemplates(commandTemplate, defaultCommandTemplate)}
+        {...restProps}
+      />
+    );
+  }
+}
+
 TableEditColumn.propTypes = {
   cellTemplate: PropTypes.func,
   headingCellTemplate: PropTypes.func,
   commandTemplate: PropTypes.func,
 };
+
 TableEditColumn.defaultProps = {
   cellTemplate: undefined,
   headingCellTemplate: undefined,

@@ -114,6 +114,8 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
+const getRowId = row => row.id;
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -202,6 +204,25 @@ export default class Demo extends React.PureComponent {
       }
       return undefined;
     };
+    this.editCellTemplate = ({ column, value, onValueChange }) => {
+      const columnValues = availableValues[column.name];
+      if (columnValues) {
+        return (
+          <LookupEditCell
+            column={column}
+            value={value}
+            onValueChange={onValueChange}
+            availableValues={columnValues}
+          />
+        );
+      }
+      return undefined;
+    };
+    this.commandTemplate = ({ executeCommand, id }) => (
+      commands[id]
+        ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
+        : undefined
+    );
   }
   render() {
     const {
@@ -223,7 +244,7 @@ export default class Demo extends React.PureComponent {
         <Grid
           rows={rows}
           columns={columns}
-          getRowId={row => row.id}
+          getRowId={getRowId}
         >
           <ColumnOrderState
             order={columnOrder}
@@ -263,25 +284,14 @@ export default class Demo extends React.PureComponent {
 
           <TableHeaderRow allowSorting allowDragging />
           <TableEditRow
-            editCellTemplate={(props) => {
-              const { column } = props;
-              const columnValues = availableValues[column.name];
-              if (columnValues) {
-                return <LookupEditCell {...props} availableValues={columnValues} />;
-              }
-              return undefined;
-            }}
+            editCellTemplate={this.editCellTemplate}
           />
           <TableEditColumn
             width={100}
             allowAdding={!this.state.addedRows.length}
             allowEditing
             allowDeleting
-            commandTemplate={({ executeCommand, id }) => (
-              commands[id]
-                ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
-                : undefined
-            )}
+            commandTemplate={this.commandTemplate}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}

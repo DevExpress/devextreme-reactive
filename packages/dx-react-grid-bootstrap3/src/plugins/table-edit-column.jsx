@@ -8,24 +8,36 @@ import {
   CommandButton,
 } from '../templates/table-edit-command-cell';
 
-export const TableEditColumn = ({
-  cellTemplate,
-  headingCellTemplate,
-  commandTemplate,
-  ...restProps
-}) => (
-  <TableEditColumnBase
-    {...restProps}
-    cellTemplate={combineTemplates(cellTemplate, EditCommandCell)}
-    headingCellTemplate={combineTemplates(headingCellTemplate, EditCommandHeadingCell)}
-    commandTemplate={combineTemplates(commandTemplate, CommandButton)}
-  />
-);
+const defaultCellTemplate = props => <EditCommandCell {...props} />;
+const defaultHeadingCellTemplate = props => <EditCommandHeadingCell {...props} />;
+const defaultCommandTemplate = props => <CommandButton {...props} />;
+
+export class TableEditColumn extends React.PureComponent {
+  render() {
+    const {
+      cellTemplate,
+      headingCellTemplate,
+      commandTemplate,
+      ...restProps
+    } = this.props;
+
+    return (
+      <TableEditColumnBase
+        cellTemplate={combineTemplates(cellTemplate, defaultCellTemplate)}
+        headingCellTemplate={combineTemplates(headingCellTemplate, defaultHeadingCellTemplate)}
+        commandTemplate={combineTemplates(commandTemplate, defaultCommandTemplate)}
+        {...restProps}
+      />
+    );
+  }
+}
+
 TableEditColumn.propTypes = {
   cellTemplate: PropTypes.func,
   headingCellTemplate: PropTypes.func,
   commandTemplate: PropTypes.func,
 };
+
 TableEditColumn.defaultProps = {
   cellTemplate: undefined,
   headingCellTemplate: undefined,

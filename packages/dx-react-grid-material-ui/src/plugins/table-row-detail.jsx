@@ -10,35 +10,42 @@ const defaultDetailToggleCellTemplate = props => <TableDetailToggleCell {...prop
 const defaultDetailCellTemplate = props => <TableDetailCell {...props} />;
 const defaultDetailRowTemplate = props => <TableRow {...props} />;
 
-export const TableRowDetail = ({
-  detailCellTemplate,
-  detailRowTemplate,
-  detailToggleCellTemplate,
-  ...restProps
-}) => (
-  <TableRowDetailBase
-    detailToggleCellTemplate={combineTemplates(
-      detailToggleCellTemplate,
-      defaultDetailToggleCellTemplate,
-    )}
-    detailCellTemplate={combineTemplates(
+export class TableRowDetail extends React.PureComponent {
+  render() {
+    const {
       detailCellTemplate,
-      defaultDetailCellTemplate,
-    )}
-    detailRowTemplate={combineTemplates(
       detailRowTemplate,
-      defaultDetailRowTemplate,
-    )}
-    detailToggleCellWidth={38}
-    {...restProps}
-  />
-);
+      detailToggleCellTemplate,
+      ...restProps
+    } = this.props;
+
+    return (
+      <TableRowDetailBase
+        detailToggleCellTemplate={combineTemplates(
+          detailToggleCellTemplate,
+          defaultDetailToggleCellTemplate,
+        )}
+        detailCellTemplate={combineTemplates(
+          detailCellTemplate,
+          defaultDetailCellTemplate,
+        )}
+        detailRowTemplate={combineTemplates(
+          detailRowTemplate,
+          defaultDetailRowTemplate,
+        )}
+        detailToggleCellWidth={38}
+        {...restProps}
+      />
+    );
+  }
+}
 
 TableRowDetail.propTypes = {
   detailRowTemplate: PropTypes.func,
   detailCellTemplate: PropTypes.func,
   detailToggleCellTemplate: PropTypes.func,
 };
+
 TableRowDetail.defaultProps = {
   detailRowTemplate: undefined,
   detailCellTemplate: undefined,

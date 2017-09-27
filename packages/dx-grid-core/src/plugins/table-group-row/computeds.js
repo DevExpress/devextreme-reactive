@@ -1,13 +1,15 @@
 import { TABLE_DATA_TYPE } from '../table-view/constants';
 import { TABLE_GROUP_TYPE } from './constants';
 
-const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping) =>
+const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping, showColumnWhenGrouped) =>
   tableColumns
     .reduce((acc, tableColumn) => {
+      const isDataColumn = tableColumn.type === TABLE_DATA_TYPE;
+      const tableColumnName = isDataColumn ? tableColumn.column.name : '';
       const columnDraftGrouping = draftGrouping
-        .find(grouping => (tableColumn.type === TABLE_DATA_TYPE
-          && grouping.columnName === tableColumn.column.name));
-      if (!columnDraftGrouping) {
+        .find(grouping => grouping.columnName === tableColumnName);
+
+      if (!columnDraftGrouping || showColumnWhenGrouped(tableColumnName)) {
         return [...acc, tableColumn];
       } else if (columnDraftGrouping.mode === 'remove' || columnDraftGrouping.mode === 'add') {
         return [...acc, {
@@ -23,6 +25,7 @@ export const tableColumnsWithGrouping = (
   grouping,
   draftGrouping,
   groupIndentColumnWidth,
+  showColumnWhenGrouped,
 ) => [
   ...grouping.map((columnGrouping) => {
     const groupedColumn = tableColumns
@@ -37,7 +40,7 @@ export const tableColumnsWithGrouping = (
       width: groupIndentColumnWidth,
     };
   }),
-  ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping),
+  ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping, showColumnWhenGrouped),
 ];
 
 export const tableRowsWithGrouping = tableRows =>

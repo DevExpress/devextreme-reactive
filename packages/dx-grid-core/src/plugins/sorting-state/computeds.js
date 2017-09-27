@@ -22,7 +22,7 @@ export const sortedRows = (rows, sorting, getCellValue, comparer) => {
       (prevCompare, columnSorting) => {
         const defaultComparer = createSortingCompare(columnSorting, prevCompare, getCellValue);
         if (comparer) {
-          const sortingFn = comparer(columnSorting, prevCompare, getCellValue);
+          const sortingFn = comparer(columnSorting);
           if (sortingFn) {
             return sortingFn;
           }

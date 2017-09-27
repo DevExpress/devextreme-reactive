@@ -8,9 +8,9 @@ Click several columns while holding `Shift` to sort data by these columns. Click
 
 The following plugins implement sorting features:
 
-- [SortingState](../reference/sorting-state.md) - controls the sorting state  
-- [LocalSorting](../reference/local-sorting.md) - performs local data sorting  
-- [TableHeaderRow](../reference/table-header-row.md) - renders the header row with sorting indicators  
+- [SortingState](../reference/sorting-state.md) - controls the sorting state
+- [LocalSorting](../reference/local-sorting.md) - performs local data sorting
+- [TableHeaderRow](../reference/table-header-row.md) - renders the header row with sorting indicators
 - [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel with sorting indicators
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
@@ -23,7 +23,7 @@ Set the `TableHeaderRow` plugin's `allowSorting` property to true to enable chan
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `SortingState` plugin's `defaultSorting` property. 
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `SortingState` plugin's `defaultSorting` property.
 
 .embedded-demo(sorting/local-header-sorting)
 
@@ -40,6 +40,12 @@ If you use grouping features, the Grid allows you to sort groups as well as data
 Note that the `LocalGrouping` plugin should follow the `LocalSorting` to provide the correct group row sorting.
 
 .embedded-demo(sorting/local-group-sorting)
+
+## Custom Sorting Algorithm
+
+The `comparer` property of the [LocalSorting](../reference/local-sorting.md) plugin allows to implement a custom sorting algorithm. The following demo shows how to implement such functionality:
+
+.embedded-demo(sorting/local-custom-sorting)
 
 ## Remote Sorting
 

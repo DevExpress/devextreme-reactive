@@ -10,7 +10,14 @@ A plugin that performs local data sorting.
 
 ### Properties
 
-none
+Name | Type | Default | Description
+-----|------|---------|------------
+comparer | (sorting: [Sorting](sorting-state.md#sorting)) => [Comparer](#comparer) | | A function used to apply a custom sorting.
+
+### Comparer
+
+A function that defines a sort order. Comparer is similar to the compare function of the [array.sort](https://www.w3schools.com/js/js_array_sort.asp) method. It takes two items and returns a negative, zero, or positive value.
+
 
 ## Plugin Developer Reference
 

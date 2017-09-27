@@ -57,7 +57,7 @@ const styles = theme => ({
   dialog: {
     width: 'calc(100% - 16px)',
   },
-  root: {
+  inputRoot: {
     width: '100%',
   },
 });
@@ -104,7 +104,7 @@ const LookupEditCellBase = (({ value, onValueChange, availableValues, classes })
     <Select
       value={value}
       onChange={event => onValueChange(event.target.value)}
-      input={<Input classes={{ root: classes.root }} />}
+      input={<Input classes={{ root: classes.inputRoot }} />}
     >
       {availableValues.map(item =>
         <MenuItem key={item} value={item}>{item}</MenuItem>,

@@ -36,10 +36,10 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 1.5,
     verticalAlign: 'top',
   },
-  placeholder: {
-    color: 'rgba(0,0,0,0.36)',
+  selectPlaceholder: {
+    color: theme.palette.text.hint,
   },
-  root: {
+  inputRoot: {
     width: '100%',
   },
 });
@@ -49,12 +49,12 @@ const emptyValue = ' ';
 const SexFilterCellBase = ({ setFilter, filter, classes }) => (
   <TableCell className={classes.cell}>
     <Select
-      classes={{ select: filter ? null : classes.placeholder }}
+      classes={{ select: filter ? null : classes.selectPlaceholder }}
       value={filter ? filter.value : emptyValue}
       onChange={event =>
         setFilter(event.target.value !== emptyValue ? { value: event.target.value } : null)
       }
-      input={<Input classes={{ root: classes.root }} />}
+      input={<Input classes={{ root: classes.inputRoot }} />}
       renderValue={value => (value === emptyValue ? 'Filter...' : value)}
     >
       <MenuItem value={emptyValue}>Any</MenuItem>

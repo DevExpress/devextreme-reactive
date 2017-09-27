@@ -23,16 +23,16 @@ const styles = theme => ({
     width: 'auto',
     marginRight: theme.spacing.unit / 2,
   },
-  root: {
+  inputRoot: {
     paddingTop: theme.spacing.unit * 0.75,
     float: 'right',
     fontSize: theme.spacing.unit * 1.75,
     textAlign: 'right',
   },
   select: {
-    padding: '0 26px 0 0',
+    padding: `0 ${theme.spacing.unit * 3.25}px 0 0`,
   },
-  icon: {
+  selectIcon: {
     top: 2,
   },
   '@media (max-width: 768px)': {
@@ -61,12 +61,12 @@ const PageSizeSelectorBase = ({
       onChange={event => onPageSizeChange(event.target.value)}
       classes={{
         select: classes.select,
-        icon: classes.icon,
+        icon: classes.selectIcon,
       }}
       input={
         <Input
           disableUnderline
-          classes={{ root: classes.root }}
+          classes={{ root: classes.inputRoot }}
         />
       }
     >

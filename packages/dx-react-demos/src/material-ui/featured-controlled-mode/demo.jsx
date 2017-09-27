@@ -9,7 +9,6 @@ import {
   Grid,
   TableView, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropContext,
-  DropDownMenu,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   TableCell,
@@ -20,6 +19,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  MenuItem,
+  Input,
+  Select,
 } from 'material-ui';
 
 import DeleteIcon from 'material-ui-icons/Delete';
@@ -45,14 +47,18 @@ const styles = theme => ({
     minWidth: '40px',
   },
   lookupEditCell: {
-    verticalAlign: 'middle',
+    verticalAlign: 'top',
     paddingRight: theme.spacing.unit,
+    paddingTop: theme.spacing.unit * 1.25,
     '& ~ $lookupEditCell': {
       paddingLeft: theme.spacing.unit,
     },
   },
   dialog: {
     width: 'calc(100% - 16px)',
+  },
+  inputRoot: {
+    width: '100%',
   },
 });
 
@@ -95,11 +101,15 @@ const LookupEditCellBase = (({ value, onValueChange, availableValues, classes })
   <TableCell
     className={classes.lookupEditCell}
   >
-    <DropDownMenu
-      onItemClick={newValue => onValueChange(newValue)}
-      defaultTitle={value}
-      items={availableValues}
-    />
+    <Select
+      value={value}
+      onChange={event => onValueChange(event.target.value)}
+      input={<Input classes={{ root: classes.inputRoot }} />}
+    >
+      {availableValues.map(item =>
+        <MenuItem key={item} value={item}>{item}</MenuItem>,
+      )}
+    </Select>
   </TableCell>
 ));
 LookupEditCellBase.propTypes = {

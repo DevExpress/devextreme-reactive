@@ -10,8 +10,12 @@ import {
   TableHeaderRow,
   TableEditRow,
   TableEditColumn,
-  DropDownMenu,
 } from '@devexpress/dx-react-grid-material-ui';
+import {
+  Input,
+  MenuItem,
+  Select,
+} from 'material-ui';
 
 import {
   generateRows,
@@ -23,11 +27,14 @@ const BooleanTypeProvider = () => (
     type="boolean"
     formatterTemplate={({ value }) => <Chip label={value ? 'Yes' : 'No'} />}
     editorTemplate={({ value, onValueChange }) => (
-      <DropDownMenu
-        selectedItem={value ? 'Yes' : 'No'}
-        items={['No', 'Yes']}
-        onItemClick={item => onValueChange(item === 'Yes')}
-      />
+      <Select
+        input={<Input />}
+        value={value ? 'Yes' : 'No'}
+        onChange={event => onValueChange(event.target.value === 'Yes')}
+      >
+        <MenuItem value={'Yes'}>Yes</MenuItem>
+        <MenuItem value={'No'}>No</MenuItem>
+      </Select>
     )}
   />
 );

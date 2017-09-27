@@ -18,7 +18,7 @@ headingCellTemplate | (args: [CommandHeadingCellArgs](#command-heading-cell-args
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | | A component that renders command controls within the command column cell.
 allowAdding | boolean | false | If set to true, the 'New' command is rendered within the heading row's command cell.
 allowEditing | boolean | false | If set to true, the 'Edit' command is rendered within the data row's command cell.
-allowDeleting | boolean | false | If set to true, the 'Delete' command is rendered within the data row's command cel.l
+allowDeleting | boolean | false | If set to true, the 'Delete' command is rendered within the data row's command cell.
 width | number &#124; string | 140 | Specifies the width of the edit column.
 
 ## Interfaces

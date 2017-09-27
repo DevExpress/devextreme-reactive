@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateData,
+  generateRows,
 } from '../../demo-data/generator';
 
 const GroupCellTemplate = ({
@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      data: generateData({ length: 14 }),
+      rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'name' }],
     };
 
@@ -79,11 +79,11 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { data, columns, grouping } = this.state;
+    const { rows, columns, grouping } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <GroupingState

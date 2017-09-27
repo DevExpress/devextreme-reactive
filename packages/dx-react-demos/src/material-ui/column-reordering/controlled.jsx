@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
-  generateData,
+  generateRows,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -24,7 +24,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      data: generateData({ length: 6 }),
+      rows: generateRows({ length: 6 }),
       columnOrder: ['city', 'sex', 'car', 'name'],
     };
 
@@ -34,11 +34,11 @@ export default class Demo extends React.PureComponent {
     this.setState({ columnOrder: newOrder });
   }
   render() {
-    const { data, columns, columnOrder } = this.state;
+    const { rows, columns, columnOrder } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <ColumnOrderState

@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateData,
+  generateRows,
 } from '../../demo-data/generator';
 
 const toLowerCase = value => String(value).toLowerCase();
@@ -61,15 +61,15 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      data: generateData({ length: 14 }),
+      rows: generateRows({ length: 14 }),
     };
   }
   render() {
-    const { data, columns } = this.state;
+    const { rows, columns } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <FilteringState defaultFilters={[]} />

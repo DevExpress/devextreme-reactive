@@ -199,12 +199,12 @@ export const employeeTaskValues = {
   }),
 };
 
-export function generateData({
+export function generateRows({
   columnValues = defaultColumnValues,
   length,
   random = randomSeed(329972281),
 }) {
-  const data = [];
+  const rows = [];
   const columns = Object.keys(columnValues);
 
   for (let i = 0; i < length; i += 1) {
@@ -230,8 +230,8 @@ export function generateData({
       }
     });
 
-    data.push(record);
+    rows.push(record);
   }
 
-  return data;
+  return rows;
 }

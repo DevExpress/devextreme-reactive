@@ -13,7 +13,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
-  generateData,
+  generateRows,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -27,15 +27,15 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      data: generateData({ length: 14 }),
+      rows: generateRows({ length: 14 }),
     };
   }
   render() {
-    const { data, columns } = this.state;
+    const { rows, columns } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <DragDropContext />

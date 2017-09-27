@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateData,
+  generateRows,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -24,21 +24,21 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      data: generateData({ length: 1000 }),
+      rows: generateRows({ length: 1000 }),
       selection: [],
     };
 
     this.changeSelection = selection => this.setState({ selection });
   }
   render() {
-    const { data, columns, selection } = this.state;
+    const { rows, columns, selection } = this.state;
 
     return (
       <div>
-        <span>Total data selected: {selection.length}</span>
+        <span>Total rows selected: {selection.length}</span>
 
         <Grid
-          data={data}
+          data={rows}
           columns={columns}
         >
           <SelectionState

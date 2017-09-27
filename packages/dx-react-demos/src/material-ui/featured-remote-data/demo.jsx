@@ -71,7 +71,7 @@ export default class Demo extends React.PureComponent {
         { name: 'Employee', title: 'Employee' },
         { name: 'SaleAmount', title: 'Sale Amount', align: 'right' },
       ],
-      data: [],
+      rows: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
       pageSize: 10,
@@ -135,7 +135,7 @@ export default class Demo extends React.PureComponent {
     fetch(queryString)
       .then(response => response.json())
       .then(data => this.setState({
-        data: data.items,
+        rows: data.items,
         totalCount: data.totalCount,
         loading: false,
       }))
@@ -144,7 +144,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      data,
+      rows,
       columns,
       sorting,
       pageSize,
@@ -157,7 +157,7 @@ export default class Demo extends React.PureComponent {
     return (
       <div style={{ position: 'relative' }}>
         <Grid
-          data={data}
+          data={rows}
           columns={columns}
         >
           <SortingState

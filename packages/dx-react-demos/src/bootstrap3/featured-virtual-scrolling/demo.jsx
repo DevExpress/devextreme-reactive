@@ -16,7 +16,7 @@ import {
 } from '../templates/highlighted-cell';
 
 import {
-  generateData,
+  generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
 
@@ -33,18 +33,18 @@ export default class Demo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      data: generateData({
+      rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200000,
       }),
     };
   }
   render() {
-    const { data, columns } = this.state;
+    const { rows, columns } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <DragDropContext />

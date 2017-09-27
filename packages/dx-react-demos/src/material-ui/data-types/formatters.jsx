@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
-  generateData,
+  generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
 
@@ -40,15 +40,15 @@ export default class Demo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date', dataType: 'date' },
         { name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right' },
       ],
-      data: generateData({ columnValues: globalSalesValues, length: 14 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { data, columns } = this.state;
+    const { rows, columns } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <CurrencyTypeProvider />

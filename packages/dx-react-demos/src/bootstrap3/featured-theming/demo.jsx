@@ -13,7 +13,7 @@ import {
 import { Nav, NavItem, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 import {
-  generateData,
+  generateRows,
   employeeValues,
   employeeTaskValues,
 } from '../../demo-data/generator';
@@ -32,9 +32,9 @@ TaskIcon.propTypes = {
   status: PropTypes.string.isRequired,
 };
 
-const TabContainer = ({ data }) => (
+const TabContainer = ({ rows }) => (
   <ListGroup>
-    {data.map((item, index) => {
+    {rows.map((item, index) => {
       const key = index;
       const status = item.status;
       return (
@@ -50,7 +50,7 @@ const TabContainer = ({ data }) => (
 );
 
 TabContainer.propTypes = {
-  data: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
 };
 
 class GridDetailContainer extends React.PureComponent {
@@ -111,9 +111,9 @@ class GridDetailContainer extends React.PureComponent {
             {`High (${highPriorityTasks.length})`}
           </NavItem>
         </Nav>
-        {index === 0 && <TabContainer data={lowPriorityTasks} />}
-        {index === 1 && <TabContainer data={normalPriorityTasks} />}
-        {index === 2 && <TabContainer data={highPriorityTasks} />}
+        {index === 0 && <TabContainer rows={lowPriorityTasks} />}
+        {index === 1 && <TabContainer rows={normalPriorityTasks} />}
+        {index === 2 && <TabContainer rows={highPriorityTasks} />}
       </div>
     );
   }
@@ -136,10 +136,10 @@ export default class Demo extends React.PureComponent {
         { name: 'position', title: 'Position', width: 170 },
         { name: 'state', title: 'State', width: 125 },
       ],
-      data: generateData({
+      rows: generateRows({
         columnValues: {
           ...employeeValues,
-          tasks: ({ random }) => generateData({
+          tasks: ({ random }) => generateRows({
             columnValues: employeeTaskValues,
             length: Math.floor(random() * 4) + 5,
             random,
@@ -151,11 +151,11 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { data, columns, allowedPageSizes } = this.state;
+    const { rows, columns, allowedPageSizes } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <ColumnOrderState defaultOrder={columns.map(column => column.name)} />

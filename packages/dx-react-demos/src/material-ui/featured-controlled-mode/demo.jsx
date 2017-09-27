@@ -36,7 +36,7 @@ import {
 } from '../templates/highlighted-cell';
 
 import {
-  generateData,
+  generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
 
@@ -135,7 +135,7 @@ class DemoBase extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      data: generateData({
+      rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 12,
       }),
@@ -167,11 +167,11 @@ class DemoBase extends React.PureComponent {
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
-      let data = this.state.data;
+      let rows = this.state.rows;
       if (added) {
-        const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [
-          ...data,
+        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+        rows = [
+          ...rows,
           ...added.map((row, index) => ({
             id: startingAddedId + index,
             ...row,
@@ -179,20 +179,20 @@ class DemoBase extends React.PureComponent {
         ];
       }
       if (changed) {
-        data = data.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      this.setState({ data, deletingRows: deleted || this.state.deletingRows });
+      this.setState({ rows, deletingRows: deleted || this.state.deletingRows });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = () => {
-      const data = this.state.data.slice();
+      const rows = this.state.rows.slice();
       this.state.deletingRows.forEach((rowId) => {
-        const index = data.findIndex(row => row.id === rowId);
+        const index = rows.findIndex(row => row.id === rowId);
         if (index > -1) {
-          data.splice(index, 1);
+          rows.splice(index, 1);
         }
       });
-      this.setState({ data, deletingRows: [] });
+      this.setState({ rows, deletingRows: [] });
     };
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
@@ -245,7 +245,7 @@ class DemoBase extends React.PureComponent {
       classes,
     } = this.props;
     const {
-      data,
+      rows,
       columns,
       sorting,
       editingRows,
@@ -261,7 +261,7 @@ class DemoBase extends React.PureComponent {
     return (
       <div>
         <Grid
-          data={data}
+          data={rows}
           columns={columns}
           getRowId={getRowId}
         >
@@ -328,7 +328,7 @@ class DemoBase extends React.PureComponent {
               Are you sure to delete the following row?
             </DialogContentText>
             <Grid
-              data={data.filter(row => deletingRows.indexOf(row.id) > -1)}
+              data={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
               columns={columns}
             >
               <TableView

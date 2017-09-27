@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateData,
+  generateRows,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -24,15 +24,15 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       defaultColumnWidths: { name: 180, sex: 100, city: 180, car: 240 },
-      data: generateData({ length: 6 }),
+      rows: generateRows({ length: 6 }),
     };
   }
   render() {
-    const { data, columns, defaultColumnWidths } = this.state;
+    const { rows, columns, defaultColumnWidths } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <TableView />

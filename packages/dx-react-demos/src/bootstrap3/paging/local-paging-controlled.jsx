@@ -11,7 +11,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateData,
+  generateRows,
 } from '../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
@@ -25,7 +25,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      data: generateData({ length: 14 }),
+      rows: generateRows({ length: 14 }),
       currentPage: 0,
       pageSize: 5,
       allowedPageSizes: [5, 10, 15],
@@ -35,11 +35,11 @@ export default class Demo extends React.PureComponent {
     this.changePageSize = pageSize => this.setState({ pageSize });
   }
   render() {
-    const { data, columns, pageSize, allowedPageSizes } = this.state;
+    const { rows, columns, pageSize, allowedPageSizes } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <PagingState

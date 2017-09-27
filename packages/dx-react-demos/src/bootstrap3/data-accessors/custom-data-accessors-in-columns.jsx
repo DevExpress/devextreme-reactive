@@ -11,7 +11,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
-  generateData,
+  generateRows,
   defaultNestedColumnValues,
 } from '../../demo-data/generator';
 
@@ -58,7 +58,7 @@ export default class Demo extends React.PureComponent {
         { name: 'position', title: 'Position' },
         { name: 'city', title: 'City' },
       ],
-      data: generateData({
+      rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
         length: 14,
       }),
@@ -67,11 +67,11 @@ export default class Demo extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
   }
   commitChanges({ added, changed, deleted }) {
-    let data = this.state.data;
+    let rows = this.state.rows;
     if (added) {
-      const startingAddedId = (data.length - 1) > 0 ? data[data.length - 1].id + 1 : 0;
-      data = [
-        ...data,
+      const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+      rows = [
+        ...rows,
         ...added.map((row, index) => ({
           id: startingAddedId + index,
           ...row,
@@ -79,20 +79,20 @@ export default class Demo extends React.PureComponent {
       ];
     }
     if (changed) {
-      data = data.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      data = data.filter(row => !deletedSet.has(row.id));
+      rows = rows.filter(row => !deletedSet.has(row.id));
     }
-    this.setState({ data });
+    this.setState({ rows });
   }
   render() {
-    const { data, columns } = this.state;
+    const { rows, columns } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
         getRowId={getRowId}
       >

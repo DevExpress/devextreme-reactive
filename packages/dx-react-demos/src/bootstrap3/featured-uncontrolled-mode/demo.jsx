@@ -17,7 +17,7 @@ import {
 } from '../templates/highlighted-cell';
 
 import {
-  generateData,
+  generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
 
@@ -34,16 +34,16 @@ export default class Demo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      data: generateData({ columnValues: globalSalesValues, length: 1000 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       allowedPageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { data, columns, allowedPageSizes } = this.state;
+    const { rows, columns, allowedPageSizes } = this.state;
 
     return (
       <Grid
-        data={data}
+        data={rows}
         columns={columns}
       >
         <ColumnOrderState defaultOrder={columns.map(column => column.name)} />

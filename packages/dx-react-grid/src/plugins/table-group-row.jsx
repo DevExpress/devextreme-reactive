@@ -35,7 +35,6 @@ const getGroupTableCellTemplateArgs = (
 });
 
 const getValueFormatterArgs = params => ({
-  row: params.row,
   column: params.column,
   value: params.row.value,
 });

@@ -35,7 +35,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 column | [Column](#column) | A column object.
-row | [Row](grid.md#row) | A row object.
+row? | [Row](grid.md#row) | A row object.
 value | any | Specifies the value to be formatted.
 
 ### <a name="value-editor-args"></a>ValueEditorArgs

@@ -8,6 +8,7 @@ This plugin renders Grid data as a table. It contains the Table View and Table V
 
 - [ColumnOrderState](column-order-state.md) [Optional]
 - [DragDropContext](drag-drop-context.md) [Optional]
+- [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
 

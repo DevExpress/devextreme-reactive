@@ -11,20 +11,39 @@ Name | Type | Default | Description
 columns | Array&lt;[Column](grid.md#column)&gt; | | Specifies for which row object fields columns are created.
 hiddenColumns | Array&lt;string&gt; | [] | An array containing the names of the columns to be hidden.
 onHiddenColumnsChange | (nextHiddenColumns: Array&lt;string&gt;) => void | | Handles column visibility change.
-contentTemplate | (args: [ColumnChooserContentArgs](#column-chooser-root-args)) => ReactElement | | A template that renders the column chooser markup.
+contentTemplate | (args: [ColumnChooserContentArgs](#column-chooser-content-args)) => ReactElement | | A template that renders the column chooser markup.
+itemTemplate | (args: [ColumnChooserItemArgs](#column-chooser-item-args)) => ReactElement | | A template that renders column chooser items.
 
 ## Interfaces
 
-### <a name="column-chooser-root-args"></a>ColumnChooserContentArgs
+### <a name="column-chooser-content-args"></a>ColumnChooserContentArgs
 
-Describes properties passed to the root template when it is being rendered.
+Describes properties passed to the content template when it is being rendered.
+
+A value of the following shape:
 
 Field | Type | Description
 ------|------|------------
-columnChooserItems | Array&lt;[ColumnChooserContentArgs](#column-chooser-item)&gt; | An array of column chooser items.
+columnChooserItems | Array&lt;[ColumnChooserItem](#column-chooser-item)&gt; | An array of column chooser items.
 onColumnToggle | (columnName: string) => void | Handles column visibility change.
 
+### <a name="column-chooser-item-args"></a>ColumnChooserItemArgs
+
+Describes properties passed to the item template when it is being rendered.
+
+A value of the following shape:
+
+Field | Type | Description
+------|------|------------
+column | [Column](grid.md#column) | The related grid column.
+hidden | boolean | Specifies whether the related column is hidden or not.
+onClick | (columnName: string) => void | Handles the item click event.
+
 ### <a name="column-chooser-item"></a>ColumnChooserItem
+
+An object representing a column chooser item.
+
+A value of the following shape:
 
 Field | Type | Description
 ------|------|------------

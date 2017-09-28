@@ -1,31 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Checkbox from 'material-ui/Checkbox';
+import List from 'material-ui/List';
 
-export const ColumnChooserPanel = ({ columnChooserItems, onColumnToggle }) => (
+export const ColumnChooserPanel = ({ columnChooserItems, onColumnToggle, itemTemplate }) => (
   <List dense>
-    {columnChooserItems.map(item => (
-      <ListItem
-        key={item.column.name}
-        button
-        dense
-        onClick={() => onColumnToggle(item.column.name)}
-      >
-        <Checkbox
-          checked={!item.hidden}
-          tabIndex={-1}
-          disableRipple
-        />
-        <ListItemText primary={item.column.title || item.column.name} />
-      </ListItem>
+    {columnChooserItems.map(({ column, hidden }) => React.cloneElement(
+      itemTemplate({ column, hidden, onClick: onColumnToggle }),
+      { key: column.name },
     ))}
   </List>
 );
 
 ColumnChooserPanel.propTypes = {
-  columnChooserItems: PropTypes.arrayOf(PropTypes.shape()),
+  columnChooserItems: PropTypes.arrayOf(PropTypes.shape({
+    column: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    hidden: PropTypes.bool,
+  })),
   onColumnToggle: PropTypes.func,
+  itemTemplate: PropTypes.func.isRequired,
 };
 
 ColumnChooserPanel.defaultProps = {

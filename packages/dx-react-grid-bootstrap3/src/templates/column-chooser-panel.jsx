@@ -1,34 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ColumnChooserPanel = ({ columnChooserItems, onColumnToggle }) => (
+export const ColumnChooserPanel = ({ columnChooserItems, onColumnToggle, itemTemplate }) => (
   <div className="list-group">
-    {columnChooserItems.map((item) => {
-      const handleChange = () => onColumnToggle(item.column.name);
-      return (
-        <button
-          key={item.column.name}
-          className="list-group-item"
-          style={{ outline: 'none' }}
-          type="button"
-          onClick={handleChange}
-        >
-          <input
-            type="checkbox"
-            checked={!item.hidden}
-            onChange={handleChange}
-          />
-          &nbsp;
-          {item.column.title || item.column.name}
-        </button>
-      );
-    })}
+    {columnChooserItems.map(({ column, hidden }) => React.cloneElement(
+      itemTemplate({ column, hidden, onClick: onColumnToggle }),
+      { key: column.name },
+    ))}
   </div>
 );
 
 ColumnChooserPanel.propTypes = {
-  columnChooserItems: PropTypes.arrayOf(PropTypes.shape()),
+  columnChooserItems: PropTypes.arrayOf(PropTypes.shape({
+    column: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    hidden: PropTypes.bool,
+  })),
   onColumnToggle: PropTypes.func,
+  itemTemplate: PropTypes.func.isRequired,
 };
 
 ColumnChooserPanel.defaultProps = {

@@ -21,7 +21,7 @@ export class ColumnChooser extends React.PureComponent {
     };
   }
   render() {
-    const { columns, hiddenColumns, contentTemplate } = this.props;
+    const { columns, hiddenColumns, contentTemplate, itemTemplate } = this.props;
     const columnChooserItemsComputeds = columnChooserItems(columns, hiddenColumns);
 
     return (
@@ -30,6 +30,7 @@ export class ColumnChooser extends React.PureComponent {
         params={{
           columnChooserItems: columnChooserItemsComputeds,
           onColumnToggle: this.handleColumnToggle,
+          itemTemplate,
         }}
       />
     );
@@ -41,6 +42,7 @@ ColumnChooser.propTypes = {
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
   onHiddenColumnsChange: PropTypes.func,
   contentTemplate: PropTypes.func.isRequired,
+  itemTemplate: PropTypes.func.isRequired,
 };
 
 ColumnChooser.defaultProps = {

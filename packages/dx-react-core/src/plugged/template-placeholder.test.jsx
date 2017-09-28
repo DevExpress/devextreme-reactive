@@ -44,6 +44,34 @@ describe('TemplatePlaceholder', () => {
     expect(tree.render().find('h1 > span').length).toBe(1);
   });
 
+  it('should update on content render function change', () => {
+    const Test = ({ text }) => (
+      <PluginHost>
+        <Template name="test">
+          <span />
+        </Template>
+
+        <Template name="root">
+          <TemplatePlaceholder name="test">
+            {content => <h1>{text}{content}</h1>}
+          </TemplatePlaceholder>
+        </Template>
+      </PluginHost>
+    );
+    Test.propTypes = {
+      text: PropTypes.string.isRequired,
+    };
+
+    const tree = mount(
+      <Test text="old" />,
+    );
+
+    tree.setProps({ text: 'new' });
+
+    expect(tree.render().find('h1').text())
+      .toBe('new');
+  });
+
   it('should pass params to the template which is rendered inside it', () => {
     const tree = mount(
       <PluginHost>

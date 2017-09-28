@@ -29,7 +29,7 @@ export class TemplatePlaceholder extends React.Component {
   }
   shouldComponentUpdate(nextProps) {
     const { params } = this.getRenderingData(nextProps);
-    return !shallowEqual(params, this.params);
+    return !shallowEqual(params, this.params) || this.props.children !== nextProps.children;
   }
   componentWillUnmount() {
     const { pluginHost } = this.context;

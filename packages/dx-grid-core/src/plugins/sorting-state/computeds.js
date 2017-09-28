@@ -9,18 +9,18 @@ const defaultCompare = (a, b) => {
 export const sortedRows = (rows, sorting, getCellValue, getColumnCompare) => {
   if (!sorting.length) return rows;
 
-  const compareFn = Array.from(sorting)
+  const compare = Array.from(sorting)
     .reverse()
     .reduce(
       (prevCompare, columnSorting) => {
         const { columnName } = columnSorting;
         const inverse = columnSorting.direction === 'desc';
-        const compare = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
+        const columnCompare = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
 
         return (aRow, bRow) => {
           const a = getCellValue(aRow, columnName);
           const b = getCellValue(bRow, columnName);
-          const result = compare(a, b);
+          const result = columnCompare(a, b);
 
           if (result !== 0) {
             return inverse ? -result : result;
@@ -31,5 +31,5 @@ export const sortedRows = (rows, sorting, getCellValue, getColumnCompare) => {
       () => 0,
     );
 
-  return mergeSort(Array.from(rows), compareFn);
+  return mergeSort(Array.from(rows), compare);
 };

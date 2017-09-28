@@ -1,6 +1,6 @@
 # React Grid Data Filtering
 
-The Grid component supports filtering data by a column value programmatically or using the value an end-user types in the corresponding Filter Row editor.
+The Grid component supports filtering data by a column value programmatically or using the value an end-user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering, and filtering logic are implemented in the related plugins.
 
 ## Related Plugins
 
@@ -45,7 +45,7 @@ Note that in the case of remote filtering, you do not need to use the `LocalFilt
 
 ## Customizing Filter Row Appearance
 
-Pass a function that renders a custom component to the `TableFilterRow` plugin's `filterCellTemplate` property to substitute the built-in filter row editors. Assign the function's `filter` and `setFilter` arguments to the appropriate component's properties to delegate the component's state control to the `TableFilterRow` plugin.
+Pass a function that renders a custom component to the `TableFilterRow` plugin's `filterCellTemplate` property to substitute the built-in filter row editors. In this case, you should also delegate the component's state management to the `TableFilterRow` plugin assigning the function's `filter` and `setFilter` arguments to the appropriate component's properties.
 
 .embedded-demo(filtering/custom-filter-row)
 

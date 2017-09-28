@@ -12,7 +12,7 @@ A plugin that performs local data sorting.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-comparer | (sorting: [Sorting](sorting-state.md#sorting)) => [Comparer](#comparer) | | A function used to apply a custom sorting.
+getColumnComparer | (columnName: string) => [Comparer](#comparer) | | A function used to apply a custom sorting.
 
 ### Comparer
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableCell, Input } from 'material-ui';
+import Input from 'material-ui/Input';
+import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 import {
   FilteringState,

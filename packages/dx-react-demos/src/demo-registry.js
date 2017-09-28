@@ -133,6 +133,9 @@ export const demos = {
       bootstrap3: require('./bootstrap3/filtering/custom-filtering-algorithm').default,
       'material-ui': require('./material-ui/filtering/custom-filtering-algorithm').default,
     },
+    'remote-filtering': {
+      bootstrap3: require('./bootstrap3/filtering/remote-filtering').default,
+    },
   },
   grouping: {
     'local-grouping-static': {
@@ -146,6 +149,14 @@ export const demos = {
     'local-grouping-controlled': {
       bootstrap3: require('./bootstrap3/grouping/local-grouping-controlled').default,
       'material-ui': require('./material-ui/grouping/local-grouping-controlled').default,
+    },
+    'local-grouping-custom': {
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-custom').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-custom').default,
+    },
+    'local-grouping-custom-advanced': {
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-custom-advanced').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-custom-advanced').default,
     },
   },
   immutability: {

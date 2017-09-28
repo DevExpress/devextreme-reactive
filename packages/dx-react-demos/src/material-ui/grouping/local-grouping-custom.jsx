@@ -1,22 +1,18 @@
 import React from 'react';
 import {
-  FilteringState,
-  LocalFiltering,
+  GroupingState,
+  LocalGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView,
   TableHeaderRow,
-  TableFilterRow,
+  TableGroupRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
   generateRows,
 } from '../../demo-data/generator';
-
-const toLowerCase = value => String(value).toLowerCase();
-const predicate = (value, filter) =>
-  toLowerCase(value).startsWith(toLowerCase(filter.value));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -26,25 +22,39 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
+        { name: 'city', title: 'City', showWhenGrouped: true },
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 14 }),
+      grouping: [{ columnName: 'city' }],
+    };
+
+    this.changeGrouping = grouping => this.setState({ grouping });
+    this.getGroupValue = (value, grouping) => {
+      const { columnName } = grouping;
+      if (columnName === 'city') {
+        return value.substr(0, 1);
+      }
+      return value;
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, grouping } = this.state;
 
     return (
       <Grid
         rows={rows}
         columns={columns}
       >
-        <FilteringState defaultFilters={[{ columnName: 'city', value: 'Paris' }]} />
-        <LocalFiltering predicate={predicate} />
+        <GroupingState
+          grouping={grouping}
+        />
+        <LocalGrouping
+          getGroupValue={this.getGroupValue}
+        />
         <TableView />
         <TableHeaderRow />
-        <TableFilterRow />
+        <TableGroupRow />
       </Grid>
     );
   }

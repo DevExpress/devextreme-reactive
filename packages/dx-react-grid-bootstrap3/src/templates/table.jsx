@@ -28,17 +28,18 @@ const bodyTemplate = ({ children, ...restProps }) => (
 );
 
 export const Table = ({
-  headerRows, bodyRows, getRowId,
+  headerRows,
+  bodyRows,
   columns,
   cellTemplate,
   rowTemplate,
-  allowColumnReordering, setColumnOrder,
+  allowColumnReordering,
+  setColumnOrder,
 }) => (
   <TableLayout
     className="table-responsive"
     headerRows={headerRows}
     rows={bodyRows}
-    getRowId={getRowId}
     columns={columns}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
     tableTemplate={tableTemplate}
@@ -57,7 +58,6 @@ Table.propTypes = {
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   rowTemplate: PropTypes.func.isRequired,
-  getRowId: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool.isRequired,
   setColumnOrder: PropTypes.func,
 };

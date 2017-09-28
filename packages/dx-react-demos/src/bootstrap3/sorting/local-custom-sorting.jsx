@@ -15,9 +15,23 @@ import {
 } from '../../demo-data/generator';
 
 const priorityWeights = {
-  low: 0,
-  normal: 1,
-  high: 2,
+  Low: 0,
+  Normal: 1,
+  High: 2,
+};
+
+const getColumnComparer = (columnName) => {
+  if (columnName === 'priority') {
+    return (a, b) => {
+      const priorityA = priorityWeights[a];
+      const priorityB = priorityWeights[b];
+      if (priorityA === priorityB) {
+        return 0;
+      }
+      return (priorityA < priorityB) ? -1 : 1;
+    };
+  }
+  return undefined;
 };
 
 export default class Demo extends React.PureComponent {
@@ -47,19 +61,7 @@ export default class Demo extends React.PureComponent {
       >
         <SortingState />
         <LocalSorting
-          getColumnComparer={(columnName) => {
-            if (columnName === 'priority') {
-              return (a, b) => {
-                const priorityA = priorityWeights[a.toLowerCase()];
-                const priorityB = priorityWeights[b.toLowerCase()];
-                if (priorityA === priorityB) {
-                  return 0;
-                }
-                return (priorityA < priorityB) ? -1 : 1;
-              };
-            }
-            return undefined;
-          }}
+          getColumnComparer={getColumnComparer}
         />
         <TableView />
         <TableHeaderRow allowSorting />

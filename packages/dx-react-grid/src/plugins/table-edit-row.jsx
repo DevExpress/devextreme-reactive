@@ -62,6 +62,7 @@ const getEditTableRowTemplateArgs = params => ({
 const pluginDependencies = [
   { pluginName: 'EditingState' },
   { pluginName: 'TableView' },
+  { pluginName: 'DataTypeProvider', optional: true },
 ];
 
 export class TableEditRow extends React.PureComponent {

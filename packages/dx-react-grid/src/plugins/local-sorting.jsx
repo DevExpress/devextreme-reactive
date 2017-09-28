@@ -10,9 +10,9 @@ const pluginDependencies = [
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalSorting extends React.PureComponent {
   render() {
-    const { getColumnComparer } = this.props;
+    const { getColumnCompare } = this.props;
     const rowsComputed = ({ rows, sorting, getCellValue }) =>
-      sortedRows(rows, sorting, getCellValue, getColumnComparer);
+      sortedRows(rows, sorting, getCellValue, getColumnCompare);
 
     return (
       <PluginContainer
@@ -26,9 +26,9 @@ export class LocalSorting extends React.PureComponent {
 }
 
 LocalSorting.propTypes = {
-  getColumnComparer: PropTypes.func,
+  getColumnCompare: PropTypes.func,
 };
 
 LocalSorting.defaultProps = {
-  getColumnComparer: undefined,
+  getColumnCompare: undefined,
 };

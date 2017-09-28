@@ -43,7 +43,7 @@ Note that the `LocalGrouping` plugin should follow the `LocalSorting` to provide
 
 ## Custom Sorting Algorithm
 
-The `getColumnComparer` property of the [LocalSorting](../reference/local-sorting.md) plugin allows to implement a custom sorting algorithm. If `getColumnComparer` returns nothing, the default sorting algorithm will be applied.
+The `getColumnCompare` property of the [LocalSorting](../reference/local-sorting.md) plugin allows to implement a custom sorting algorithm. If `getColumnCompare` returns nothing, the default sorting algorithm will be applied.
 
 The following demo shows how to implement such functionality:
 

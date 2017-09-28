@@ -20,19 +20,17 @@ const priorityWeights = {
   High: 2,
 };
 
-const getColumnComparer = (columnName) => {
-  if (columnName === 'priority') {
-    return (a, b) => {
-      const priorityA = priorityWeights[a];
-      const priorityB = priorityWeights[b];
-      if (priorityA === priorityB) {
-        return 0;
-      }
-      return (priorityA < priorityB) ? -1 : 1;
-    };
+const comparePriority = (a, b) => {
+  const priorityA = priorityWeights[a];
+  const priorityB = priorityWeights[b];
+  if (priorityA === priorityB) {
+    return 0;
   }
-  return undefined;
+  return (priorityA < priorityB) ? -1 : 1;
 };
+
+const getColumnCompare = columnName =>
+  (columnName === 'priority' ? comparePriority : undefined);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -61,7 +59,7 @@ export default class Demo extends React.PureComponent {
       >
         <SortingState />
         <LocalSorting
-          getColumnComparer={getColumnComparer}
+          getColumnCompare={getColumnCompare}
         />
         <TableView />
         <TableHeaderRow allowSorting />

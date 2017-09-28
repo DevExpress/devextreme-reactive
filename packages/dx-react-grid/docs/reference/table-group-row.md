@@ -8,6 +8,7 @@ A plugin that renders group rows. Enables expanding and collapsing them.
 
 - [GroupingState](grouping-state.md)
 - [TableView](table-view.md)
+- [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
 

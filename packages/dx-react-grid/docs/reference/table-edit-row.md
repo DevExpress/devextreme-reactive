@@ -8,6 +8,7 @@ A plugin that renders a row being edited.
 
 - [EditingState](editing-state.md)
 - [TableView](table-view.md)
+- [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
 

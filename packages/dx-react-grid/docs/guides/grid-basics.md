@@ -42,7 +42,7 @@ The `TableHeaderRow` plugin should follow the `TableView` plugin. See the [Plugi
 
 ## Appearance Customization
 
-The Grid's visualization plugins provide a rich API to appearance customization. The most common customization scenarios are described below.
+The Grid's visualization plugins provide a rich API to customize grid elements' appearance. Examples of the most popular customization tasks are described below.
 
 The `TableView` plugin allows you to customize table cell appearance using the `tableCellTemplate` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
 

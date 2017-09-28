@@ -1,6 +1,6 @@
 # React Grid Data Filtering
 
-The Grid component supports filtering data by a column value programmatically or using the value an end-user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering, and filtering logic are implemented in the following plugins:
+The Grid component supports filtering data by a column value programmatically or using the value an end-user types in the corresponding Filter Row editor.
 
 ## Related Plugins
 

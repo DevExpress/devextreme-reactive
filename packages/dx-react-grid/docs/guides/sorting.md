@@ -43,7 +43,9 @@ Note that the `LocalGrouping` plugin should follow the `LocalSorting` to provide
 
 ## Custom Sorting Algorithm
 
-The `comparer` property of the [LocalSorting](../reference/local-sorting.md) plugin allows to implement a custom sorting algorithm. The following demo shows how to implement such functionality:
+The `comparer` property of the [LocalSorting](../reference/local-sorting.md) plugin allows to implement a custom sorting algorithm. If `comparer` returns nothing, the default sorting algorithm will be applied.
+
+The following demo shows how to implement such functionality:
 
 .embedded-demo(sorting/local-custom-sorting)
 

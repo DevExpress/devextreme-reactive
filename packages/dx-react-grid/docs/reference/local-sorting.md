@@ -12,11 +12,7 @@ A plugin that performs local data sorting.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnCompare | (columnName: string) => [Compare](#compare) | | A function used to apply a custom sorting.
-
-### Compare
-
-A function that defines a sort order. Compare is similar to the compare function of the [array.sort](https://www.w3schools.com/js/js_array_sort.asp) method. It takes two items and returns a negative, zero, or positive value.
+getColumnCompare | (columnName: string) => Function | | A function used to apply a custom sorting. Should return the sorting function like `(a, b) => number`. For more information see the [sorting guide](../guides/sorting.md#custom-sorting-algorithm).
 
 
 ## Plugin Developer Reference

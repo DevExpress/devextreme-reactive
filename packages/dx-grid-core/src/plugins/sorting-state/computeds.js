@@ -9,27 +9,27 @@ const defaultCompare = (a, b) => {
 export const sortedRows = (rows, sorting, getCellValue, getColumnCompare) => {
   if (!sorting.length) return rows;
 
-  const compare = Array.from(sorting)
+  const compareFn = Array.from(sorting)
     .reverse()
     .reduce(
       (prevCompare, columnSorting) => {
         const { columnName } = columnSorting;
         const inverse = columnSorting.direction === 'desc';
-        const comparer = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
+        const compare = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
 
         return (aRow, bRow) => {
           const a = getCellValue(aRow, columnName);
           const b = getCellValue(bRow, columnName);
-          const result = comparer(a, b);
+          const result = compare(a, b);
 
-          if (result === 0) {
-            return prevCompare(aRow, bRow);
+          if (result !== 0) {
+            return inverse ? -result : result;
           }
-          return (result === -1) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
+          return prevCompare(aRow, bRow);
         };
       },
       () => 0,
     );
 
-  return mergeSort(Array.from(rows), compare);
+  return mergeSort(Array.from(rows), compareFn);
 };

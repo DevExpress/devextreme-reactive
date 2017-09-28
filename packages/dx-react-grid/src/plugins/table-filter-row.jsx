@@ -28,7 +28,6 @@ const getFilterTableCellTemplateArgs = (
 
 const getValueEditorArgs = params => ({
   column: params.column,
-  row: params.row,
   value: params.filter ? params.filter.value : null,
   onValueChange: newValue => params.setFilter(newValue ? { value: newValue } : null),
 });
@@ -36,6 +35,7 @@ const getValueEditorArgs = params => ({
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
   { pluginName: 'TableView' },
+  { pluginName: 'DataTypeProvider', optional: true },
 ];
 
 export class TableFilterRow extends React.PureComponent {

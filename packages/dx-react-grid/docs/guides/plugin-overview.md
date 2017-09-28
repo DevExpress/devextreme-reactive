@@ -1,8 +1,8 @@
 # React Grid - Plugin Overview
 
-Plugins provide all the Grid functionality and can be divided into four logical groups:
+The plugins that provide all the Grid's functionality can be divided into four groups:
 
-- **State Management plugins** control a part of the Grid state internally or provide properties for external state management (see [controlled and uncontrolled modes](controlled-and-uncontrolled-modes.md)).
+- **State Management plugins** control a part of the Grid's state internally or provide properties for external state management (see [controlled and uncontrolled modes](controlled-and-uncontrolled-modes.md)).
 - **Data Processing plugins** transform data passed to the Grid component before rendering.
 - **UI plugins** render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid's state. In some cases, UI plugins can control a part of the Grid state by themselves, taking the job of State Management plugins.
 - **Core plugins** are the base building blocks for the first three groups. These plugins can also be used separately in certain scenarios.
@@ -11,9 +11,9 @@ Note that the plugins are composable and can be nested into each other.
 
 Refer to the [Reference](../../reference) to see the complete plugin list.
 
-## Plugin Order
+## <a name="plugin-order">Plugin Order
 
-The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state. Thus, it should follow the appropriate state plugin:
+The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin:
 
 ```js
 import {
@@ -32,7 +32,7 @@ const App = () => (
 );
 ```
 
-Some visualization plugins extend the `TableView`'s functionality, and they should follow it in the code as demonstrated in the following example:
+Some visualization plugins extend the `TableView`'s functionality, and should follow it in the code as demonstrated in the following example:
 
 ```js
 import {
@@ -54,7 +54,7 @@ const App = () => (
 
 NOTE: Refer to the plugin's reference for information on its dependencies.
 
-The order of data processing plugins is also important because they transform data in the same order they appear in the code. For example, if the `LocalPaging` plugin precedes the `LocalFiltering`, the Grid filters the current page data. Swap the plugins to paginate filtered data.
+The order of data processing plugins is also important because they transform data in the same order they appear. For example, if the `LocalPaging` plugin precedes the `LocalFiltering`, the Grid filters the current page data. Swap the plugins to paginate filtered data.
 
 ## UI Plugins
 

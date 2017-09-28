@@ -23,6 +23,7 @@ export const GroupingControl = ({ align, groupByColumn }) => {
           fontSize: '9px',
           margin: '-5px',
           padding: '5px',
+          cursor: 'pointer',
         }}
       />
     </div>

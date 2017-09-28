@@ -47,19 +47,17 @@ export default class Demo extends React.PureComponent {
       >
         <SortingState />
         <LocalSorting
-          comparer={(sorting) => {
-            if (sorting.columnName === 'priority') {
+          getColumnComparer={(columnName) => {
+            if (columnName === 'priority') {
               return (a, b) => {
-                const inverse = sorting.direction === 'desc';
-                const priorityA = priorityWeights[a.priority.toLowerCase()];
-                const priorityB = priorityWeights[b.priority.toLowerCase()];
+                const priorityA = priorityWeights[a.toLowerCase()];
+                const priorityB = priorityWeights[b.toLowerCase()];
                 if (priorityA === priorityB) {
                   return 0;
                 }
-                return (priorityA < priorityB) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
+                return (priorityA < priorityB) ? -1 : 1;
               };
             }
-
             return undefined;
           }}
         />

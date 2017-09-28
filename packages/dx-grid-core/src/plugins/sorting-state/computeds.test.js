@@ -84,33 +84,30 @@ describe('SortingState computeds', () => {
     });
 
     it('can sort using custom comparer', () => {
-      const comparer = jest.fn();
+      const getColumnComparer = jest.fn();
 
-      comparer.mockImplementation(() => (a, b) => {
-        const sum1 = a.a + a.b;
-        const sum2 = b.a + b.b;
-        if (sum1 === sum2) {
+      getColumnComparer.mockImplementation(() => (a, b) => {
+        if (a === b) {
           return 0;
         }
-        return sum1 < sum2 ? 1 : -1;
+        return a < b ? 1 : -1;
       });
-
       const sorting = [{ columnName: 'a', direction: 'desc' }];
-      const sorted = sortedRows(rows, sorting, getCellValue, comparer);
+      const sorted = sortedRows(rows, sorting, getCellValue, getColumnComparer);
 
-      expect(comparer).toBeCalledWith(sorting[0]);
+      expect(getColumnComparer).toBeCalledWith(sorting[0].columnName);
       expect(sorted).toEqual([
+        { a: 1, b: 1 },
+        { a: 1, b: 2 },
         { a: 2, b: 2 },
         { a: 2, b: 1 },
-        { a: 1, b: 2 },
-        { a: 1, b: 1 },
       ]);
     });
 
     it('should use default comparer if custom comparer returns nothing', () => {
-      const comparer = () => undefined;
+      const getColumnComparer = () => undefined;
       const sorting = [{ columnName: 'a', direction: 'desc' }];
-      const sorted = sortedRows(rows, sorting, getCellValue, comparer);
+      const sorted = sortedRows(rows, sorting, getCellValue, getColumnComparer);
 
       expect(sorted).toEqual([
         { a: 2, b: 2 },

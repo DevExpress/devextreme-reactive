@@ -1,30 +1,32 @@
 import mergeSort from '../../utils/merge-sort';
 
-const createSortingComparer = (sorting, compareEqual, getCellValue) => (a, b) => {
-  const inverse = sorting.direction === 'desc';
-  const { columnName } = sorting;
-  const aValue = getCellValue(a, columnName);
-  const bValue = getCellValue(b, columnName);
-
-  if (aValue === bValue) {
-    return (compareEqual && compareEqual(a, b)) || 0;
-  }
-
-  return (aValue < bValue) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
+const defaultComparer = (a, b) => {
+  if (a < b) return -1;
+  if (a > b) return 1;
+  return 0;
 };
 
-export const sortedRows = (rows, sorting, getCellValue, sortingComparer) => {
+export const sortedRows = (rows, sorting, getCellValue, getColumnComparer) => {
   if (!sorting.length) return rows;
 
   const compare = Array.from(sorting)
     .reverse()
     .reduce(
       (prevCompare, columnSorting) => {
-        if (sortingComparer) {
-          const comparer = sortingComparer(columnSorting);
-          return comparer || createSortingComparer(columnSorting, prevCompare, getCellValue);
-        }
-        return createSortingComparer(columnSorting, prevCompare, getCellValue);
+        const { columnName } = columnSorting;
+        const inverse = columnSorting.direction === 'desc';
+        const comparer = (getColumnComparer && getColumnComparer(columnName)) || defaultComparer;
+
+        return (aRow, bRow) => {
+          const a = getCellValue(aRow, columnName);
+          const b = getCellValue(bRow, columnName);
+          const result = comparer(a, b);
+
+          if (result === 0) {
+            return prevCompare(aRow, bRow);
+          }
+          return (result === -1) ^ inverse ? -1 : 1; // eslint-disable-line no-bitwise
+        };
       },
       () => 0,
     );

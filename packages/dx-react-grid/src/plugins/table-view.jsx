@@ -20,7 +20,7 @@ import {
 const getTableLayoutTemplateArgs = (
   { allowColumnReordering, rowTemplate, cellTemplate },
   { tableHeaderRows, tableBodyRows, tableColumns },
-  { setColumnOrder },
+  { moveColumn },
 ) => ({
   headerRows: tableHeaderRows,
   bodyRows: tableBodyRows,
@@ -28,7 +28,7 @@ const getTableLayoutTemplateArgs = (
   allowColumnReordering,
   rowTemplate,
   cellTemplate,
-  setColumnOrder,
+  moveColumn,
 });
 
 const getDataTableCellTemplateArgs = (

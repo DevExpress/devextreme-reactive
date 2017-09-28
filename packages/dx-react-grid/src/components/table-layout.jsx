@@ -117,7 +117,7 @@ export class TableLayout extends React.PureComponent {
       const { sourceColumnIndex, targetColumnIndex } = this.state;
       const { columns } = this.props;
 
-      this.props.setColumnOrder({
+      this.props.moveColumn({
         sourceColumnName: columns[sourceColumnIndex].column.name,
         targetColumnName: columns[targetColumnIndex].column.name,
       });
@@ -240,7 +240,7 @@ TableLayout.propTypes = {
   rowTemplate: PropTypes.func.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,
-  setColumnOrder: PropTypes.func,
+  moveColumn: PropTypes.func,
   className: PropTypes.string,
   style: PropTypes.object,
 };
@@ -250,7 +250,7 @@ TableLayout.defaultProps = {
   headTemplate: () => null,
   minColumnWidth: 120,
   allowColumnReordering: false,
-  setColumnOrder: () => {},
+  moveColumn: () => {},
   className: undefined,
   style: undefined,
 };

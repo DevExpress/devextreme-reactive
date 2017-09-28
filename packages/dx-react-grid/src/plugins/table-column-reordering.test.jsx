@@ -50,7 +50,7 @@ describe('TableColumnReordering', () => {
       .toEqual([{ column: { name: 'b' } }, { column: { name: 'a' } }]);
   });
 
-  it('should fire the "onOrderChange" callback and should change the column order in uncontrolled mode after the "setColumnOrder" action is fired', () => {
+  it('should fire the "onOrderChange" callback and should change the column order in uncontrolled mode after the "moveColumn" action is fired', () => {
     const orderChangeMock = jest.fn();
 
     const tree = mount(
@@ -63,7 +63,7 @@ describe('TableColumnReordering', () => {
       </PluginHost>,
     );
 
-    getComputedState(tree).actions.setColumnOrder({
+    getComputedState(tree).actions.moveColumn({
       sourceColumnName: 'a',
       targetColumnName: 'b',
     });
@@ -74,7 +74,7 @@ describe('TableColumnReordering', () => {
       .toEqual(['b', 'a']);
   });
 
-  it('should fire the "onOrderChange" callback and apply the column order specified in the "order" property in controlled mode after the "setColumnOrder" action is fired', () => {
+  it('should fire the "onOrderChange" callback and apply the column order specified in the "order" property in controlled mode after the "moveColumn" action is fired', () => {
     const orderChangeMock = jest.fn();
 
     const tree = mount(
@@ -87,7 +87,7 @@ describe('TableColumnReordering', () => {
       </PluginHost>,
     );
 
-    getComputedState(tree).actions.setColumnOrder({
+    getComputedState(tree).actions.moveColumn({
       sourceColumnName: 'a',
       targetColumnName: 'b',
     });

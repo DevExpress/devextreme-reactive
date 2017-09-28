@@ -38,7 +38,7 @@ export class TableColumnReordering extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={columnsComputed} />
         <Action
-          name="setColumnOrder"
+          name="moveColumn"
           action={({ sourceColumnName, targetColumnName }) =>
             this._setColumnOrder(order, { sourceColumnName, targetColumnName })
           }

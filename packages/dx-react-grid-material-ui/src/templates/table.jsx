@@ -31,7 +31,7 @@ export const Table = ({
   cellTemplate,
   rowTemplate,
   allowColumnReordering,
-  setColumnOrder,
+  moveColumn,
 }) => (
   <TableLayout
     headerRows={headerRows}
@@ -44,7 +44,7 @@ export const Table = ({
     rowTemplate={rowTemplate}
     cellTemplate={cellTemplate}
     allowColumnReordering={allowColumnReordering}
-    setColumnOrder={setColumnOrder}
+    moveColumn={moveColumn}
   />
 );
 
@@ -55,9 +55,9 @@ Table.propTypes = {
   cellTemplate: PropTypes.func.isRequired,
   rowTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool.isRequired,
-  setColumnOrder: PropTypes.func,
+  moveColumn: PropTypes.func,
 };
 
 Table.defaultProps = {
-  setColumnOrder: () => {},
+  moveColumn: () => {},
 };

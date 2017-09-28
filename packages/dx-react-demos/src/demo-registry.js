@@ -129,6 +129,10 @@ export const demos = {
       bootstrap3: require('./bootstrap3/filtering/custom-filter-row').default,
       'material-ui': require('./material-ui/filtering/custom-filter-row').default,
     },
+    'custom-filtering-algorithm': {
+      bootstrap3: require('./bootstrap3/filtering/custom-filtering-algorithm').default,
+      'material-ui': require('./material-ui/filtering/custom-filtering-algorithm').default,
+    },
     'remote-filtering': {
       bootstrap3: require('./bootstrap3/filtering/remote-filtering').default,
     },

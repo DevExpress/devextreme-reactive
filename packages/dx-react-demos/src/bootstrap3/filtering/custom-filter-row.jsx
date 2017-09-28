@@ -13,40 +13,33 @@ import {
 
 import {
   generateRows,
+  globalSalesValues,
 } from '../../demo-data/generator';
 
-const toLowerCase = value => String(value).toLowerCase();
-const predicate = (value, filter) => {
-  if (filter.columnName === 'sex') {
-    return toLowerCase(value) === toLowerCase(filter.value);
-  }
-  return toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
-};
-
-const SexFilterCell = ({ filter, setFilter }) => (
+const UnitsFilterCell = ({ filter, setFilter }) => (
   <th style={{ fontWeight: 'normal' }}>
-    <div>
-      <select
-        className="form-control"
-        value={filter ? filter.value : ''}
-        onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
-      >
-        <option value="" />
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-    </div>
+    <input
+      type="number"
+      className="form-control text-right"
+      value={filter ? filter.value : ''}
+      min={1}
+      max={4}
+      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+    />
   </th>
 );
 
-SexFilterCell.propTypes = {
+UnitsFilterCell.propTypes = {
   filter: PropTypes.shape({
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
   }),
   setFilter: PropTypes.func.isRequired,
 };
 
-SexFilterCell.defaultProps = {
+UnitsFilterCell.defaultProps = {
   filter: null,
 };
 
@@ -56,12 +49,12 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
+        { name: 'product', title: 'Product' },
+        { name: 'region', title: 'Region' },
+        { name: 'sector', title: 'Sector' },
+        { name: 'units', title: 'Quantity', align: 'right' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
@@ -72,14 +65,14 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <FilteringState defaultFilters={[]} />
-        <LocalFiltering predicate={predicate} />
+        <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
+        <LocalFiltering />
         <TableView />
         <TableHeaderRow />
         <TableFilterRow
           filterCellTemplate={({ column, filter, setFilter }) => {
-            if (column.name === 'sex') {
-              return <SexFilterCell filter={filter} setFilter={setFilter} />;
+            if (column.name === 'units') {
+              return <UnitsFilterCell filter={filter} setFilter={setFilter} />;
             }
 
             return undefined;

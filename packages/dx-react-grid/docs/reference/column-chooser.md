@@ -11,17 +11,17 @@ Name | Type | Default | Description
 columns | Array&lt;[Column](grid.md#column)&gt; | | Specifies for which row object fields columns are created.
 hiddenColumns | Array&lt;string&gt; | [] | An array containing the names of the columns to be hidden.
 onHiddenColumnsChange | (nextHiddenColumns: Array&lt;string&gt;) => void | | Handles column visibility change.
-contentTemplate | (args: [ColumnChooserRootArgs](#column-chooser-root-args)) => ReactElement | | A template that renders the column chooser markup.
+contentTemplate | (args: [ColumnChooserContentArgs](#column-chooser-root-args)) => ReactElement | | A template that renders the column chooser markup.
 
 ## Interfaces
 
-### <a name="column-chooser-root-args"></a>ColumnChooserRootArgs
+### <a name="column-chooser-root-args"></a>ColumnChooserContentArgs
 
 Describes properties passed to the root template when it is being rendered.
 
 Field | Type | Description
 ------|------|------------
-columnChooserItems | Array&lt;[ColumnChooserItem](#column-chooser-item)&gt; | An array of column chooser items.
+columnChooserItems | Array&lt;[ColumnChooserContentArgs](#column-chooser-item)&gt; | An array of column chooser items.
 onColumnToggle | (columnName: string) => void | Handles column visibility change.
 
 ### <a name="column-chooser-item"></a>ColumnChooserItem

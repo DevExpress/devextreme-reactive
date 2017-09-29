@@ -8,6 +8,7 @@ A plugin that renders a filter row.
 
 - [FilteringState](filtering-state.md)
 - [TableView](table-view.md)
+- [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
 

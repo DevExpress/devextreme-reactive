@@ -35,7 +35,6 @@ const getGroupTableCellTemplateArgs = (
 });
 
 const getValueFormatterArgs = params => ({
-  row: params.row,
   column: params.column,
   value: params.row.value,
 });
@@ -48,6 +47,7 @@ const getGroupTableRowTemplateArgs = params => ({
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
   { pluginName: 'TableView' },
+  { pluginName: 'DataTypeProvider', optional: true },
 ];
 
 const tableBodyRowsComputed = ({ tableBodyRows }) => tableRowsWithGrouping(tableBodyRows);

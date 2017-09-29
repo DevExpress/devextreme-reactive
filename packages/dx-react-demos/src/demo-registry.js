@@ -16,6 +16,14 @@ export const demos = {
       bootstrap3: require('./bootstrap3/basic/basic').default,
       'material-ui': require('./material-ui/basic/basic').default,
     },
+    'table-cell-template': {
+      bootstrap3: require('./bootstrap3/basic/table-cell-template').default,
+      'material-ui': require('./material-ui/basic/table-cell-template').default,
+    },
+    'table-row-template': {
+      bootstrap3: require('./bootstrap3/basic/table-row-template').default,
+      'material-ui': require('./material-ui/basic/table-row-template').default,
+    },
   },
   'column-reordering': {
     uncontrolled: {
@@ -128,6 +136,10 @@ export const demos = {
     'custom-filter-row': {
       bootstrap3: require('./bootstrap3/filtering/custom-filter-row').default,
       'material-ui': require('./material-ui/filtering/custom-filter-row').default,
+    },
+    'custom-filtering-algorithm': {
+      bootstrap3: require('./bootstrap3/filtering/custom-filtering-algorithm').default,
+      'material-ui': require('./material-ui/filtering/custom-filtering-algorithm').default,
     },
     'remote-filtering': {
       bootstrap3: require('./bootstrap3/filtering/remote-filtering').default,

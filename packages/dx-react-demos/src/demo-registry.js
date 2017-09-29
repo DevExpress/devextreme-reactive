@@ -16,6 +16,14 @@ export const demos = {
       bootstrap3: require('./bootstrap3/basic/basic').default,
       'material-ui': require('./material-ui/basic/basic').default,
     },
+    'table-cell-template': {
+      bootstrap3: require('./bootstrap3/basic/table-cell-template').default,
+      'material-ui': require('./material-ui/basic/table-cell-template').default,
+    },
+    'table-row-template': {
+      bootstrap3: require('./bootstrap3/basic/table-row-template').default,
+      'material-ui': require('./material-ui/basic/table-row-template').default,
+    },
   },
   'column-reordering': {
     uncontrolled: {

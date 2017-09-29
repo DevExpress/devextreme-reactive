@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 
-export const ColumnChooserPanelItem = ({ item: { column, hidden }, onToggle }) => {
+export const ColumnChooserItem = ({ item: { column, hidden }, onToggle }) => {
   const handleClick = () => onToggle(!hidden);
   return (
     <ListItem
@@ -21,7 +21,7 @@ export const ColumnChooserPanelItem = ({ item: { column, hidden }, onToggle }) =
   );
 };
 
-ColumnChooserPanelItem.propTypes = {
+ColumnChooserItem.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.shape({
       name: PropTypes.string,
@@ -31,6 +31,6 @@ ColumnChooserPanelItem.propTypes = {
   onToggle: PropTypes.func,
 };
 
-ColumnChooserPanelItem.defaultProps = {
+ColumnChooserItem.defaultProps = {
   onToggle: () => {},
 };

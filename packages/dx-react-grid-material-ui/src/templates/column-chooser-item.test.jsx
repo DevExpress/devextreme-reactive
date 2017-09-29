@@ -2,12 +2,12 @@ import React from 'react';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import { mount } from 'enzyme';
-import { ColumnChooserPanelItem } from './column-chooser-panel-item';
+import { ColumnChooserItem } from './column-chooser-item';
 
-describe('ColumnChooserPanelItem', () => {
+describe('ColumnChooserItem', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
     const tree = mount(
-      <ColumnChooserPanelItem
+      <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
@@ -27,7 +27,7 @@ describe('ColumnChooserPanelItem', () => {
   it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
     const tree = mount(
-      <ColumnChooserPanelItem
+      <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
@@ -48,7 +48,7 @@ describe('ColumnChooserPanelItem', () => {
 
   it('should render column title or name in each item', () => {
     const tree = mount(
-      <ColumnChooserPanelItem
+      <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,

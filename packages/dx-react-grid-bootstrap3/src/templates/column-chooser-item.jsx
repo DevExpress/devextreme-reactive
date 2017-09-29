@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ColumnChooserPanelItem = ({ item: { column, hidden }, onToggle }) => {
+export const ColumnChooserItem = ({ item: { column, hidden }, onToggle }) => {
   const handleChange = () => onToggle(!hidden);
   return (
     <button
@@ -21,7 +21,7 @@ export const ColumnChooserPanelItem = ({ item: { column, hidden }, onToggle }) =
   );
 };
 
-ColumnChooserPanelItem.propTypes = {
+ColumnChooserItem.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.shape({
       name: PropTypes.string,
@@ -31,6 +31,6 @@ ColumnChooserPanelItem.propTypes = {
   onToggle: PropTypes.func,
 };
 
-ColumnChooserPanelItem.defaultProps = {
+ColumnChooserItem.defaultProps = {
   onToggle: () => {},
 };

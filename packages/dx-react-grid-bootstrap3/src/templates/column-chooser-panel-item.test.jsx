@@ -6,27 +6,31 @@ describe('ColumnChooserPanelItem', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
     const tree = mount(
       <ColumnChooserPanelItem
-        column={{ name: 'a', title: 'A' }}
-        hidden={false}
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
       />,
     );
 
     expect(tree.find('input[type="checkbox"]').prop('checked'))
       .toBe(true);
 
-    tree.setProps({ hidden: true });
+    tree.setProps({ item: { column: { name: 'a', title: 'A' }, hidden: true } });
 
     expect(tree.find('input[type="checkbox"]').prop('checked'))
       .toBe(false);
   });
 
-  it('should call the "onClick" on the checkbox "onChange" event', () => {
+  it('should call the "onToggle" on the checkbox "onChange" event', () => {
     const toggleHandler = jest.fn();
     const tree = mount(
       <ColumnChooserPanelItem
-        column={{ name: 'a', title: 'A' }}
-        hidden={false}
-        onClick={toggleHandler}
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
+        onToggle={toggleHandler}
       />,
     );
 
@@ -37,16 +41,18 @@ describe('ColumnChooserPanelItem', () => {
     expect(toggleHandler)
       .toHaveBeenCalledTimes(1);
     expect(toggleHandler)
-      .toHaveBeenCalledWith('a');
+      .toHaveBeenCalledWith(true);
   });
 
-  it('should call the "onClick" on the list item "onClick" event', () => {
+  it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
     const tree = mount(
       <ColumnChooserPanelItem
-        column={{ name: 'a', title: 'A' }}
-        hidden={false}
-        onClick={toggleHandler}
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
+        onToggle={toggleHandler}
       />,
     );
 
@@ -57,21 +63,23 @@ describe('ColumnChooserPanelItem', () => {
     expect(toggleHandler)
       .toHaveBeenCalledTimes(1);
     expect(toggleHandler)
-      .toHaveBeenCalledWith('a');
+      .toHaveBeenCalledWith(true);
   });
 
   it('should render column title or name in each item', () => {
     const tree = mount(
       <ColumnChooserPanelItem
-        column={{ name: 'a', title: 'A' }}
-        hidden={false}
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
       />,
     );
 
     expect(tree.find('button').text().trim())
       .toBe('A');
 
-    tree.setProps({ column: { name: 'b' } });
+    tree.setProps({ item: { column: { name: 'b' } } });
 
     expect(tree.find('button').text().trim())
       .toBe('b');

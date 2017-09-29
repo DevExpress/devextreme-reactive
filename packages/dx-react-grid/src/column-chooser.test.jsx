@@ -4,30 +4,61 @@ import { columnChooserItems } from '@devexpress/dx-grid-core';
 import { ColumnChooser } from './column-chooser';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  columnChooserItems: jest.fn(() => []),
+  columnChooserItems: jest.fn(),
 }));
 
 describe('ColumnChooser', () => {
+  beforeEach(() => {
+    columnChooserItems.mockImplementation(() => [{ column: { name: 'a' }, hidden: true }]);
+  });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
-  it('should render root template with correct parameters', () => {
+  it('should render content template with correct parameters', () => {
     const contentTemplate = jest.fn(() => null);
+    const itemTemplate = () => <div />;
     mount(
       <ColumnChooser
         columns={[{ name: 'a' }, { name: 'b' }]}
         contentTemplate={contentTemplate}
+        itemTemplate={itemTemplate}
         onHiddenColumnsChange={() => {}}
       />,
     );
 
     expect(contentTemplate)
       .toHaveBeenCalledTimes(1);
-    expect(contentTemplate.mock.calls[0][0])
-      .toMatchObject({
-        columnChooserItems: expect.any(Array),
-        onColumnToggle: expect.any(Function),
+    expect(contentTemplate)
+      .toHaveBeenCalledWith({
+        items: expect.any(Array),
+        onItemToggle: expect.any(Function),
+        children: expect.any(Array),
+      });
+  });
+
+  it('should pass correct parameters to the itemTemplate', () => {
+    // eslint-disable-next-line react/prop-types
+    const contentTemplate = ({ children }) => <div>{children}</div>;
+    const itemTemplate = jest.fn(() => <div />);
+    mount(
+      <ColumnChooser
+        columns={[{ name: 'a' }, { name: 'b' }]}
+        contentTemplate={contentTemplate}
+        itemTemplate={itemTemplate}
+        onHiddenColumnsChange={() => {}}
+      />,
+    );
+
+    expect(itemTemplate)
+      .toHaveBeenCalledTimes(1);
+    expect(itemTemplate)
+      .toHaveBeenCalledWith({
+        item: {
+          column: { name: 'a' },
+          hidden: true,
+        },
+        onToggle: expect.any(Function),
       });
   });
 
@@ -39,6 +70,7 @@ describe('ColumnChooser', () => {
         columns={columns}
         hiddenColumns={hiddenColumns}
         contentTemplate={() => null}
+        itemTemplate={() => <div />}
       />,
     );
 

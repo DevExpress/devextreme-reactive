@@ -5,7 +5,6 @@ import {
   TemplateRenderer,
 } from '@devexpress/dx-react-core';
 
-
 export class ColumnChooser extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -22,17 +21,28 @@ export class ColumnChooser extends React.PureComponent {
   }
   render() {
     const { columns, hiddenColumns, contentTemplate, itemTemplate } = this.props;
-    const columnChooserItemsComputeds = columnChooserItems(columns, hiddenColumns);
+    const items = columnChooserItems(columns, hiddenColumns);
+    const handleItemToggle = item => this.handleColumnToggle(item.column.name);
 
     return (
       <TemplateRenderer
         template={contentTemplate}
         params={{
-          columnChooserItems: columnChooserItemsComputeds,
-          onColumnToggle: this.handleColumnToggle,
-          itemTemplate,
+          items,
+          onItemToggle: handleItemToggle,
         }}
-      />
+      >
+        {items.map(item => (
+          <TemplateRenderer
+            key={item.column.name}
+            template={itemTemplate}
+            params={{
+              item,
+              onToggle: () => handleItemToggle(item, !item.hidden),
+            }}
+          />
+        ))}
+      </TemplateRenderer>
     );
   }
 }

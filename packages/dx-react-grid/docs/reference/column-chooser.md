@@ -24,8 +24,8 @@ A value of the following shape:
 
 Field | Type | Description
 ------|------|------------
-columnChooserItems | Array&lt;[ColumnChooserItem](#column-chooser-item)&gt; | An array of column chooser items.
-onColumnToggle | (columnName: string) => void | Handles column visibility change.
+items | Array&lt;[ColumnChooserItem](#column-chooser-item)&gt; | An array of column chooser items.
+onItemToggle | (item: [ColumnChooserItem](#column-chooser-item), toggle: boolean) => void | Handles item visibility change.
 
 ### <a name="column-chooser-item-args"></a>ColumnChooserItemArgs
 
@@ -35,9 +35,8 @@ A value of the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | The related grid column.
-hidden | boolean | Specifies whether the related column is hidden or not.
-onClick | (columnName: string) => void | Handles the item click event.
+item | [ColumnChooserItem](#column-chooser-item) | Specifies the column chooser item.
+onToggle | (toggle: boolean) => void | Handles the item click event.
 
 ### <a name="column-chooser-item"></a>ColumnChooserItem
 

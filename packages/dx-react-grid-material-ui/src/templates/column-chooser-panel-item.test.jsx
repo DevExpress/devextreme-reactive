@@ -4,31 +4,35 @@ import Checkbox from 'material-ui/Checkbox';
 import { mount } from 'enzyme';
 import { ColumnChooserPanelItem } from './column-chooser-panel-item';
 
-describe('ColumnChooserPanel', () => {
+describe('ColumnChooserPanelItem', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
     const tree = mount(
       <ColumnChooserPanelItem
-        column={{ name: 'a', title: 'A' }}
-        hidden={false}
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
       />,
     );
 
     expect(tree.find(Checkbox).prop('checked'))
       .toBe(true);
 
-    tree.setProps({ hidden: true });
+    tree.setProps({ item: { column: { name: 'a', title: 'A' }, hidden: true } });
 
     expect(tree.find(Checkbox).prop('checked'))
       .toBe(false);
   });
 
-  it('should call the "onClick" on the list item "onClick" event', () => {
+  it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
     const tree = mount(
       <ColumnChooserPanelItem
-        column={{ name: 'a', title: 'A' }}
-        hidden={false}
-        onClick={toggleHandler}
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
+        onToggle={toggleHandler}
       />,
     );
 
@@ -39,21 +43,23 @@ describe('ColumnChooserPanel', () => {
     expect(toggleHandler)
       .toHaveBeenCalledTimes(1);
     expect(toggleHandler)
-      .toHaveBeenCalledWith('a');
+      .toHaveBeenCalledWith(true);
   });
 
   it('should render column title or name in each item', () => {
     const tree = mount(
       <ColumnChooserPanelItem
-        column={{ name: 'a', title: 'A' }}
-        hidden={false}
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
       />,
     );
 
     expect(tree.find(ListItemText).text().trim())
       .toBe('A');
 
-    tree.setProps({ column: { name: 'b' } });
+    tree.setProps({ item: { column: { name: 'b' } } });
 
     expect(tree.find(ListItemText).text().trim())
       .toBe('b');

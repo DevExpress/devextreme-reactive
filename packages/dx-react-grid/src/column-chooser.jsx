@@ -20,13 +20,13 @@ export class ColumnChooser extends React.PureComponent {
     };
   }
   render() {
-    const { columns, hiddenColumns, contentTemplate, itemTemplate } = this.props;
+    const { columns, hiddenColumns, containerTemplate, itemTemplate } = this.props;
     const items = columnChooserItems(columns, hiddenColumns);
     const handleItemToggle = item => this.handleColumnToggle(item.column.name);
 
     return (
       <TemplateRenderer
-        template={contentTemplate}
+        template={containerTemplate}
         params={{
           items,
           onItemToggle: handleItemToggle,
@@ -51,7 +51,7 @@ ColumnChooser.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
   onHiddenColumnsChange: PropTypes.func,
-  contentTemplate: PropTypes.func.isRequired,
+  containerTemplate: PropTypes.func.isRequired,
   itemTemplate: PropTypes.func.isRequired,
 };
 

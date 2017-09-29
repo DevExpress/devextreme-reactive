@@ -15,21 +15,21 @@ describe('ColumnChooser', () => {
     jest.resetAllMocks();
   });
 
-  it('should render content template with correct parameters', () => {
-    const contentTemplate = jest.fn(() => null);
+  it('should render container template with correct parameters', () => {
+    const containerTemplate = jest.fn(() => null);
     const itemTemplate = () => <div />;
     mount(
       <ColumnChooser
         columns={[{ name: 'a' }, { name: 'b' }]}
-        contentTemplate={contentTemplate}
+        containerTemplate={containerTemplate}
         itemTemplate={itemTemplate}
         onHiddenColumnsChange={() => {}}
       />,
     );
 
-    expect(contentTemplate)
+    expect(containerTemplate)
       .toHaveBeenCalledTimes(1);
-    expect(contentTemplate)
+    expect(containerTemplate)
       .toHaveBeenCalledWith({
         items: expect.any(Array),
         onItemToggle: expect.any(Function),
@@ -39,12 +39,12 @@ describe('ColumnChooser', () => {
 
   it('should pass correct parameters to the itemTemplate', () => {
     // eslint-disable-next-line react/prop-types
-    const contentTemplate = ({ children }) => <div>{children}</div>;
+    const containerTemplate = ({ children }) => <div>{children}</div>;
     const itemTemplate = jest.fn(() => <div />);
     mount(
       <ColumnChooser
         columns={[{ name: 'a' }, { name: 'b' }]}
-        contentTemplate={contentTemplate}
+        containerTemplate={containerTemplate}
         itemTemplate={itemTemplate}
         onHiddenColumnsChange={() => {}}
       />,
@@ -69,7 +69,7 @@ describe('ColumnChooser', () => {
       <ColumnChooser
         columns={columns}
         hiddenColumns={hiddenColumns}
-        contentTemplate={() => null}
+        containerTemplate={() => null}
         itemTemplate={() => <div />}
       />,
     );

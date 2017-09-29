@@ -11,14 +11,14 @@ Name | Type | Default | Description
 columns | Array&lt;[Column](grid.md#column)&gt; | | Specifies for which row object fields columns are created.
 hiddenColumns | Array&lt;string&gt; | [] | An array containing the names of the columns to be hidden.
 onHiddenColumnsChange | (nextHiddenColumns: Array&lt;string&gt;) => void | | Handles column visibility change.
-contentTemplate | (args: [ColumnChooserContentArgs](#column-chooser-content-args)) => ReactElement | | A template that renders the column chooser markup.
+containerTemplate | (args: [ColumnChooserContainerArgs](#column-chooser-container-args)) => ReactElement | | A template that renders the column chooser container.
 itemTemplate | (args: [ColumnChooserItemArgs](#column-chooser-item-args)) => ReactElement | | A template that renders column chooser items.
 
 ## Interfaces
 
-### <a name="column-chooser-content-args"></a>ColumnChooserContentArgs
+### <a name="column-chooser-container-args"></a>ColumnChooserContainerArgs
 
-Describes properties passed to the content template when it is being rendered.
+Describes properties passed to the container template when it is being rendered.
 
 A value of the following shape:
 

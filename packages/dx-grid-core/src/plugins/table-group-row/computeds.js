@@ -46,15 +46,17 @@ export const tableColumnsWithGrouping = (
 
 export const tableRowsWithGrouping = tableRows =>
   tableRows.map((tableRow) => {
-    if ((tableRow.type !== TABLE_UNKNOWN_TYPE && tableRow.type !== TABLE_DATA_TYPE)
-      || (tableRow.gridRow.type !== GRID_GROUP_TYPE && tableRow.gridRow.row.type !== 'groupRow')) {
+    const { type, gridRow } = tableRow;
+    const { row } = gridRow;
+    if ((type !== TABLE_UNKNOWN_TYPE && type !== TABLE_DATA_TYPE)
+      || (gridRow.type !== GRID_GROUP_TYPE && row.type !== 'groupRow')) {
       return tableRow;
     }
     return {
       ...tableRow,
-      key: `${TABLE_GROUP_TYPE}_${tableRow.gridRow.row.key}`,
+      key: `${TABLE_GROUP_TYPE}_${row.key}`,
       type: TABLE_GROUP_TYPE,
-      colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.gridRow.groupedBy || tableRow.gridRow.row.groupedBy}`,
-      row: tableRow.gridRow.row,
+      colSpanStart: `${TABLE_GROUP_TYPE}_${gridRow.groupedBy || row.groupedBy}`,
+      row,
     };
   });

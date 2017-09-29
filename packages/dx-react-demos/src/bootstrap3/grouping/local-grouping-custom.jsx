@@ -30,9 +30,13 @@ export default class Demo extends React.PureComponent {
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });
-    this.getGroupValue = (columnName) => {
+
+    this.getColumnGroupIdentity = columnName => (value) => {
       if (columnName === 'city') {
-        return value => value.substr(0, 1);
+        return {
+          key: value.substr(0, 1),
+          // value: value.substr(0, 1),
+        };
       }
       return undefined;
     };
@@ -49,7 +53,7 @@ export default class Demo extends React.PureComponent {
           grouping={grouping}
         />
         <LocalGrouping
-          getGroupValue={this.getGroupValue}
+          getColumnGroupIdentity={this.getColumnGroupIdentity}
         />
         <TableView />
         <TableHeaderRow />

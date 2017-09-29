@@ -7,20 +7,24 @@ export const groupedRows = (
   rows,
   grouping,
   getCellValue,
-  getGroupValue = defaultGetGroupValue,
-  getGroupKey = defaultGetGroupKey,
+  getGroupValue,
+  getGroupKey,
 ) => {
   if (!grouping.length) return rows;
 
   const columnGrouping = grouping[0];
+
+  const groupValue = (getGroupValue && getGroupValue(columnGrouping.columnName))
+    || defaultGetGroupValue;
+  const groupKey = (getGroupKey && getGroupKey(columnGrouping.columnName))
+    || defaultGetGroupKey;
+
   const groups = rows
     .reduce((acc, row) => {
-      const value = getGroupValue(
-        getCellValue(row, columnGrouping.columnName),
-        columnGrouping,
-        row,
-      );
-      const key = getGroupKey(value, columnGrouping, row);
+      const cellValue = getCellValue(row, columnGrouping.columnName);
+      const value = groupValue(cellValue, row);
+      const key = groupKey(value, row);
+
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {

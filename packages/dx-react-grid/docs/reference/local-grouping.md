@@ -12,8 +12,8 @@ A plugin that performs local grouping and group expanding/collapsing.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getGroupValue | (value: any, grouping: [Grouping](grouping-state.md#grouping), row: [Row](grid.md#row)) => any | | A function that returns a custom grouping value.
-getGroupKey | (value: any, grouping: [Grouping](grouping-state.md#grouping), row: [Row](grid.md#row)) => String | | A function that returns a group key.
+getGroupValue | (columnName: string) => Function | | A function that returns a function that calculates a grouping value. Returning function should have the following signature `(value: any, row: Row) => any`. See the [Grouping](../guides/grouping.md#custom-grouping-values) guide for more details.
+getGroupKey | (columnName: string) => Function | | A function that returns a function that calculates a group key. Returning function should have the following signature `(value: any, row: Row) => string`. See the [Grouping](../guides/grouping.md#custom-grouping-values) guide for more details.
 
 ## Plugin Developer Reference
 

@@ -30,12 +30,11 @@ export default class Demo extends React.PureComponent {
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });
-    this.getGroupValue = (value, grouping) => {
-      const { columnName } = grouping;
+    this.getGroupValue = (columnName) => {
       if (columnName === 'city') {
-        return value.substr(0, 1);
+        return value => value.substr(0, 1);
       }
-      return value;
+      return undefined;
     };
   }
   render() {

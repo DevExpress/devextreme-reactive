@@ -12,7 +12,7 @@ Plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnPredicate | Function | | A function used to apply the filter to the cell value. Should return the filtering function like `(value, filter, row) => boolean`. For more information see the [filtering guide](../guides/filtering.md#using-custom-filtering-algorithm).
+getColumnPredicate | Function | | A function used to apply the filter to the cell value. Should return the filtering function like `(value: any, filter: object, row: Row) => boolean`. The `filter` object contains the information about a filter value `{ value: '...' }` and can be extended through the [setFilter](table-filter-row.md#filter-cell-args) function, for instance. For more information see the [filtering guide](../guides/filtering.md#using-custom-filtering-algorithm).
 
 ## Plugin Developer Reference
 

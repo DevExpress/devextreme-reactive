@@ -35,7 +35,6 @@ export default class Demo extends React.PureComponent {
       if (columnName === 'city') {
         return {
           key: value.substr(0, 1),
-          // value: value.substr(0, 1),
         };
       }
       return undefined;

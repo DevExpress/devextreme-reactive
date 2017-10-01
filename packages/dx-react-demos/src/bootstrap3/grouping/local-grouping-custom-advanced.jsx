@@ -68,7 +68,7 @@ export default class Demo extends React.PureComponent {
         const firstLetter = String(value).substr(0, 1).toLowerCase();
         return {
           value: firstLetter < 'n' ? { from: 'A', to: 'M' } : { from: 'N', to: 'Z' },
-          key: `${value.from}-${value.to}`,
+          key: firstLetter < 'n' ? 'A-M' : 'N-Z',
         };
       }
       return undefined;

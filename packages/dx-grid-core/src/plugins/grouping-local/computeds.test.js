@@ -75,11 +75,12 @@ describe('GroupingPlugin computeds', () => {
         .toEqual(secondLevelGroupedRows);
     });
 
-    it('should use custom getGroupValue and getGroupKey argument', () => {
-      const getGroupValue = jest.fn(() => value => `${value}_test`);
-      const getGroupKey = jest.fn(() => value => value.substr(0, 1));
-
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue, getGroupKey))
+    it('should use getColumnGroupIdentity', () => {
+      const getColumnGroupIdentity = () => value => ({
+        key: String(value).substr(0, 1),
+        value: `${value}_test`,
+      });
+      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnGroupIdentity))
         .toEqual([{
           value: '1_test',
           key: '1',
@@ -97,10 +98,12 @@ describe('GroupingPlugin computeds', () => {
         }]);
     });
 
-    it('should use custom getGroupValue argument for each grouping', () => {
-      const getGroupValue = jest.fn(() => value => `${value}_test`);
+    it('should use getColumnGroupIdentity argument for each grouping', () => {
+      const getColumnGroupIdentity = () => value => ({
+        key: `${value}_test`,
+      });
 
-      expect(groupedRows(rowsSource, secondLevelGroupings, getCellValue, getGroupValue))
+      expect(groupedRows(rowsSource, secondLevelGroupings, getCellValue, getColumnGroupIdentity))
         .toEqual([{
           value: '1_test',
           key: '1_test',
@@ -136,35 +139,18 @@ describe('GroupingPlugin computeds', () => {
         }]);
     });
 
-    it('should pass column name to custom getGroupValue', () => {
-      const getGroupValue = jest.fn(() => value => value);
+    it('should pass column name to getColumnGroupIdentity', () => {
+      const getColumnGroupIdentity = jest.fn(() => value => value);
 
-      groupedRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue);
+      groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnGroupIdentity);
 
-      expect(getGroupValue)
+      expect(getColumnGroupIdentity)
         .toHaveBeenCalledWith(firstLevelGroupings[0].columnName);
     });
 
-    it('should pass column name to custom getGroupKey', () => {
-      const getGroupValue = jest.fn(() => value => value);
-      const getGroupKey = jest.fn(() => value => value);
-
-      groupedRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue, getGroupKey);
-
-      expect(getGroupKey)
-        .toHaveBeenCalledWith(firstLevelGroupings[0].columnName);
-    });
-
-    it('should group using default getGroupValue if custom getGroupValue returns nothing', () => {
-      const getGroupValue = () => undefined;
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue))
-        .toEqual(firstLevelGroupedRows);
-    });
-
-    it('should group using default getGroupKey if custom getGroupKey returns nothing', () => {
-      const getGroupValue = () => value => value;
-      const getGroupKey = () => undefined;
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue, getGroupKey))
+    it('should group using default getColumnGroupIdentity if custom getColumnGroupIdentity returns nothing', () => {
+      const getColumnGroupIdentity = () => undefined;
+      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnGroupIdentity))
         .toEqual(firstLevelGroupedRows);
     });
   });

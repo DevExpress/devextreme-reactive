@@ -14,8 +14,8 @@ react:
           path: /react/grid/docs/guides/immutability
         - title: Controlled and Uncontrolled Modes
           path: /react/grid/docs/guides/controlled-and-uncontrolled-modes
-        - title: Basic Usage
-          path: /react/grid/docs/guides/basic-usage
+        - title: Grid Basics
+          path: /react/grid/docs/guides/grid-basics
         - title: Sorting
           path: /react/grid/docs/guides/sorting
         - title: Paging

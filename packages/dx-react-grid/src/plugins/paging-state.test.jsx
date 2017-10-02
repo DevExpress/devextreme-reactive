@@ -62,6 +62,7 @@ describe('PagingState', () => {
       );
 
       getComputedState(tree).actions.setCurrentPage(3);
+      tree.update();
 
       expect(getComputedState(tree).getters.currentPage)
         .toEqual(3);
@@ -83,6 +84,7 @@ describe('PagingState', () => {
       );
 
       getComputedState(tree).actions.setCurrentPage(3);
+      tree.update();
 
       expect(getComputedState(tree).getters.currentPage)
         .toEqual(2);
@@ -134,6 +136,7 @@ describe('PagingState', () => {
       );
 
       getComputedState(tree).actions.setPageSize(3);
+      tree.update();
 
       expect(getComputedState(tree).getters.pageSize)
         .toEqual(3);
@@ -155,6 +158,7 @@ describe('PagingState', () => {
       );
 
       getComputedState(tree).actions.setPageSize(3);
+      tree.update();
 
       expect(getComputedState(tree).getters.pageSize)
         .toEqual(2);

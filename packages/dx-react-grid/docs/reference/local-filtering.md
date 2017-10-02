@@ -12,7 +12,7 @@ Plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnPredicate | (columnName: string) => [Predicate](#predicate) &#124; undefined | | A function used to apply the filter to the cell value. See the [filtering guide](../guides/filtering.md#using-custom-filtering-algorithm) for more information.
+getColumnPredicate | (columnName: string) => [Predicate](#predicate) &#124; undefined | | A function used to apply the filter to the cell value. See the [Filtering guide](../guides/filtering.md#using-custom-filtering-algorithm) for more information.
 
 ## Interfaces
 ### <a name="predicate"></a>Predicate

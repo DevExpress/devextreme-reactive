@@ -281,6 +281,7 @@ describe('TableLayout', () => {
 
       const targetWrapper = tree.find(DropTarget);
       targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 175, y: 100 } });
+      tree.update();
 
       testTablePart({ tree: tree.find('tbody'), rows, columns: [columns[1], columns[0]] });
     });

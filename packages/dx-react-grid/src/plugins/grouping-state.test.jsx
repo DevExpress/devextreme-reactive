@@ -35,6 +35,7 @@ describe('GroupingState', () => {
       );
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'a', groupIndex: 0 });
+      tree.update();
 
       expect(getComputedState(tree).getters.grouping)
         .toEqual([{ columnName: 'a' }, { columnName: 'b' }]);
@@ -77,6 +78,7 @@ describe('GroupingState', () => {
       );
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'a' });
+      tree.update();
 
       expect(getComputedState(tree).getters.grouping)
         .toHaveLength(0);
@@ -100,6 +102,7 @@ describe('GroupingState', () => {
       );
 
       getComputedState(tree).actions.toggleGroupExpanded({ groupKey: 'a' });
+      tree.update();
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set(['a']));
@@ -142,6 +145,7 @@ describe('GroupingState', () => {
       );
 
       getComputedState(tree).actions.toggleGroupExpanded({ groupKey: 'a' });
+      tree.update();
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set([]));
@@ -166,6 +170,7 @@ describe('GroupingState', () => {
       );
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'a' });
+      tree.update();
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set([]));
@@ -188,6 +193,7 @@ describe('GroupingState', () => {
       );
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'age' });
+      tree.update();
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set(['John', 'Mike']));
@@ -259,6 +265,7 @@ describe('GroupingState', () => {
       );
 
       getComputedState(tree).actions.draftGroupingChange({ columnName: 'a', groupIndex: 0 });
+      tree.update();
 
       expect(getComputedState(tree).getters.draftGrouping)
         .toEqual([{ columnName: 'a', draft: true, mode: 'add' }]);

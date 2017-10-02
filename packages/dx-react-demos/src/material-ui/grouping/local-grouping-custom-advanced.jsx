@@ -66,7 +66,7 @@ export default class Demo extends React.PureComponent {
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });
-    this.getColumnGroupIdentity = columnName => (value) => {
+    this.getColumnIdentity = columnName => (value) => {
       if (columnName === 'name') {
         const firstLetter = String(value).substr(0, 1).toLowerCase();
         return {
@@ -91,7 +91,7 @@ export default class Demo extends React.PureComponent {
           defaultExpandedGroups={['N-Z']}
         />
         <LocalGrouping
-          getColumnGroupIdentity={this.getColumnGroupIdentity}
+          getColumnIdentity={this.getColumnIdentity}
         />
         <TableView />
         <TableHeaderRow />

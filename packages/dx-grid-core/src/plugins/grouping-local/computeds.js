@@ -1,6 +1,6 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 
-const defaultColumnGroupIdentity = value => ({
+const defaultColumnIdentity = value => ({
   key: String(value),
   value,
 });
@@ -9,14 +9,14 @@ export const groupedRows = (
   rows,
   grouping,
   getCellValue,
-  getColumnGroupIdentity,
+  getColumnIdentity,
 ) => {
   if (!grouping.length) return rows;
 
   const columnGrouping = grouping[0];
   const { columnName } = columnGrouping;
-  const groupIdentity = (getColumnGroupIdentity && getColumnGroupIdentity(columnName))
-    || defaultColumnGroupIdentity;
+  const groupIdentity = (getColumnIdentity && getColumnIdentity(columnName))
+    || defaultColumnIdentity;
 
   const groups = rows
     .reduce((acc, row) => {
@@ -44,7 +44,7 @@ export const groupedRows = (
     .map(([value, key, items]) => ({
       value,
       key,
-      items: groupedRows(items, nestedGrouping, getCellValue, getColumnGroupIdentity),
+      items: groupedRows(items, nestedGrouping, getCellValue, getColumnIdentity),
     }));
 };
 

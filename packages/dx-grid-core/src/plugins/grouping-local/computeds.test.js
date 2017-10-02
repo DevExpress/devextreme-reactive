@@ -75,12 +75,12 @@ describe('GroupingPlugin computeds', () => {
         .toEqual(secondLevelGroupedRows);
     });
 
-    it('should use getColumnGroupIdentity', () => {
-      const getColumnGroupIdentity = () => value => ({
+    it('should use getColumnIdentity', () => {
+      const getColumnIdentity = () => value => ({
         key: String(value).substr(0, 1),
         value: `${value}_test`,
       });
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnGroupIdentity))
+      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnIdentity))
         .toEqual([{
           value: '1_test',
           key: '1',
@@ -98,12 +98,12 @@ describe('GroupingPlugin computeds', () => {
         }]);
     });
 
-    it('should use getColumnGroupIdentity argument for each grouping', () => {
-      const getColumnGroupIdentity = () => value => ({
+    it('should use getColumnIdentity argument for each grouping', () => {
+      const getColumnIdentity = () => value => ({
         key: `${value}_test`,
       });
 
-      expect(groupedRows(rowsSource, secondLevelGroupings, getCellValue, getColumnGroupIdentity))
+      expect(groupedRows(rowsSource, secondLevelGroupings, getCellValue, getColumnIdentity))
         .toEqual([{
           value: '1_test',
           key: '1_test',
@@ -139,18 +139,18 @@ describe('GroupingPlugin computeds', () => {
         }]);
     });
 
-    it('should pass column name to getColumnGroupIdentity', () => {
-      const getColumnGroupIdentity = jest.fn(() => value => value);
+    it('should pass column name to getColumnIdentity', () => {
+      const getColumnIdentity = jest.fn(() => value => value);
 
-      groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnGroupIdentity);
+      groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnIdentity);
 
-      expect(getColumnGroupIdentity)
+      expect(getColumnIdentity)
         .toHaveBeenCalledWith(firstLevelGroupings[0].columnName);
     });
 
-    it('should group using default getColumnGroupIdentity if custom getColumnGroupIdentity returns nothing', () => {
-      const getColumnGroupIdentity = () => undefined;
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnGroupIdentity))
+    it('should group using default getColumnIdentity if custom getColumnIdentity returns nothing', () => {
+      const getColumnIdentity = () => undefined;
+      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnIdentity))
         .toEqual(firstLevelGroupedRows);
     });
   });

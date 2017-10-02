@@ -1,10 +1,12 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import VirtualScrollingDemo from './demo';
 
 describe('BS3 featured: virtual scrolling demo', () => {
   let getRect;
   let originalRaf;
+  configure({ adapter: new Adapter() });
 
   beforeEach(() => {
     getRect = jest.spyOn(Element.prototype, 'getBoundingClientRect');

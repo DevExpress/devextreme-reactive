@@ -1,8 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import UncontrolledModeDemo from './demo';
 
 describe('BS3 featured: uncontrolled mode demo', () => {
+  configure({ adapter: new Adapter() });
   it('should work', () => {
     mount(
       <UncontrolledModeDemo />,

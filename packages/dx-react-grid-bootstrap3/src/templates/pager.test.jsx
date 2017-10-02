@@ -1,9 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { Pagination } from 'react-bootstrap';
 import { Pager } from './pager';
 
 describe('Pager', () => {
+  configure({ adapter: new Adapter() });
   describe('#render', () => {
     const mountPager = ({
       currentPage,

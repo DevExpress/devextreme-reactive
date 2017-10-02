@@ -1,8 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { GroupPanelItem } from './group-panel-item';
 
 describe('GroupPanelItem', () => {
+  configure({ adapter: new Adapter() });
   it('should use column name if title is not specified', () => {
     const tree = mount(
       <GroupPanelItem

@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
@@ -7,6 +8,7 @@ import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
 
 describe('TableHeaderCell', () => {
+  configure({ adapter: new Adapter() });
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -121,12 +123,16 @@ describe('TableHeaderCell', () => {
       });
 
     tree.find(DragSource).prop('onStart')();
+    tree.update();
+
     expect(tree.find('th').prop('style'))
       .toMatchObject({
         opacity: 0.3,
       });
 
     tree.find(DragSource).prop('onEnd')();
+    tree.update();
+
     expect(tree.find('th').prop('style'))
       .not.toMatchObject({
         opacity: 0.3,

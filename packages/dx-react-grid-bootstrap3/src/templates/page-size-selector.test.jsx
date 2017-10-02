@@ -1,8 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { PageSizeSelector } from './page-size-selector';
 
 describe('PageSizeSelector', () => {
+  configure({ adapter: new Adapter() });
   describe('#render', () => {
     const mountPageSizeSelector = ({
       pageSize,

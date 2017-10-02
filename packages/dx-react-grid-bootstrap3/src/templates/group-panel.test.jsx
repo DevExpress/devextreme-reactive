@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 import { GroupPanel } from './group-panel';
 
@@ -9,6 +10,7 @@ jest.mock('@devexpress/dx-react-grid', () => ({
 }));
 
 describe('GroupPanel', () => {
+  configure({ adapter: new Adapter() });
   it('should pass user defined groupByColumnText if is specified', () => {
     const tree = mount(
       <GroupPanel

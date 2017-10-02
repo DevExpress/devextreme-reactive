@@ -1,9 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectRow } from './table-select-row';
 
 describe('Table Select Row', () => {
+  configure({ adapter: new Adapter() });
   const defaultProps = {
     selected: false,
     selectByRowClick: false,

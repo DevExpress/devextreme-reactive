@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableLayout } from '@devexpress/dx-react-grid';
 import { Table } from './table';
@@ -9,6 +10,7 @@ jest.mock('@devexpress/dx-react-grid', () => ({
 }));
 
 describe('Table', () => {
+  configure({ adapter: new Adapter() });
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

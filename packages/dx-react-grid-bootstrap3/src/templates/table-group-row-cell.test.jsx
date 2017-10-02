@@ -1,9 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableGroupCell } from './table-group-row-cell';
 
 describe('TableCell', () => {
+  configure({ adapter: new Adapter() });
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

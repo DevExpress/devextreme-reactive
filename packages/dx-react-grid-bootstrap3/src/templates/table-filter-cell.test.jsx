@@ -1,9 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableFilterCell } from './table-filter-cell';
 
 describe('TableFilterCell', () => {
+  configure({ adapter: new Adapter() });
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

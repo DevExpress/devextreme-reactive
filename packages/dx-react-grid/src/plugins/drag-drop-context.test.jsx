@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { mount, configure } from 'enzyme';
 
 import { setupConsole } from '@devexpress/dx-testing';
 import {
@@ -10,6 +11,7 @@ import {
 import { DragDropContext } from './drag-drop-context';
 
 describe('DragDropContext', () => {
+  configure({ adapter: new Adapter() });
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

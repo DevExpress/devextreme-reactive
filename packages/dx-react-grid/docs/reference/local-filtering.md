@@ -12,7 +12,7 @@ Plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnPredicate | (columnName: string) => (value: any, filter: Object, row: [Row](grid.md#row)) => boolean | | A function used to apply the filter to the cell value. The `filter` parameter accepts an object containing the 'value' field. However, you can use the [setFilter](table-filter-row.md#filter-cell-args) function to extend this object by the fields your filtering algorithm requires.
+getColumnPredicate | (columnName: string) => (value: any, filter: Object, row: [Row](grid.md#row)) => boolean | | A function used to apply the filter to the cell value. The `filter` parameter accepts an object containing the 'value' field. However, you can use the [setFilter](table-filter-row.md#filter-cell-args) function to extend this object to the fields your filtering algorithm requires.
 
 ## Plugin Developer Reference
 

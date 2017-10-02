@@ -12,7 +12,11 @@ A plugin that performs local grouping and group expanding/collapsing.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnIdentity | (columnName: string) => (value: any) => { key: string &#124; number, value?: any } | | A function that returns a function that calculates a grouping identity. See the [Grouping](../guides/grouping.md#custom-grouping-values) guide for more details.
+getColumnIdentity | (columnName: string) => [Identity](#identity) &#124; undefined | | A function calculating a grouping identity. See the [grouping guide](../guides/grouping.md#custom-grouping-values) for more details.
+
+## Interfaces
+### <a name="identity"></a>Identity
+A function with the following signature `(value: any) => { key: string | number, value?: any }`.
 
 ## Plugin Developer Reference
 

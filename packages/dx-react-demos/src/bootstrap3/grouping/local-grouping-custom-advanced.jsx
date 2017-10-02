@@ -63,12 +63,14 @@ export default class Demo extends React.PureComponent {
 
     this.changeGrouping = grouping => this.setState({ grouping });
 
-    this.getColumnIdentity = columnName => (value) => {
+    this.getColumnIdentity = (columnName) => {
       if (columnName === 'name') {
-        const firstLetter = String(value).substr(0, 1).toLowerCase();
-        return {
-          value: firstLetter < 'n' ? { from: 'A', to: 'M' } : { from: 'N', to: 'Z' },
-          key: firstLetter < 'n' ? 'A-M' : 'N-Z',
+        return (value) => {
+          const firstLetter = String(value).substr(0, 1).toLowerCase();
+          return {
+            value: firstLetter < 'n' ? { from: 'A', to: 'M' } : { from: 'N', to: 'Z' },
+            key: firstLetter < 'n' ? 'A-M' : 'N-Z',
+          };
         };
       }
       return undefined;

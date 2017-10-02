@@ -12,7 +12,7 @@ A plugin that performs local data sorting.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnCompare | (columnName: string) => (a: any, b: any) => number | | A function used to apply a custom sorting. For more information see the [sorting guide](../guides/sorting.md#custom-sorting-algorithm).
+getColumnCompare | (columnName: string) => (a: any, b: any) => number | | A function implementing a custom sorting. For more information see the [sorting guide](../guides/sorting.md#custom-sorting-algorithm).
 
 
 ## Plugin Developer Reference

@@ -12,7 +12,11 @@ Plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-predicate | (value: any, filter: [Filter](filtering-state.md#filter), row: [Row](grid.md#row)) => boolean | | A function used to apply the filter to the cell value
+getColumnPredicate | (columnName: string) => [Predicate](#predicate) &#124; undefined | | A function used to apply the filter to the cell value. See the [Filtering guide](../guides/filtering.md#using-custom-filtering-algorithm) for more information.
+
+## Interfaces
+### <a name="predicate"></a>Predicate
+A function with the following signature `(value: any, filter: Object, row: Row) => boolean`. The `filter` parameter accepts an object containing the 'value' field. However, you can use the [setFilter](table-filter-row.md#filter-cell-args) function to extend this object to the fields your filtering algorithm requires.
 
 ## Plugin Developer Reference
 

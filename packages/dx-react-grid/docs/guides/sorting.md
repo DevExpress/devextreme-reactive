@@ -2,7 +2,7 @@
 
 The Grid component supports sorting data by one or several column values. Use the corresponding plugins to manage the sorting state and sort data programmatically or via the UI (column headers and Group Panel).
 
-Click several columns while holding `Shift` to sort data by these columns. Clicking a column while holding `Ctrl` (`Cmd` for MacOS) stops sorting by this column.
+Click several columns while holding `Shift` to sort data by these columns. Clicking a column while holding `Ctrl` (`Cmd` for MacOS) cancels sorting by this column.
 
 ## Related Plugins
 
@@ -43,7 +43,7 @@ Note that the `LocalGrouping` plugin should follow the `LocalSorting` to provide
 
 ## Custom Sorting Algorithm
 
-The [LocalSorting](../reference/local-sorting.md) plugin's `getColumnCompare` property allows you to implement a custom sorting algorithm. If the `getColumnCompare` function returns undefined, the default sorting algorithm is applied.
+The [LocalSorting](../reference/local-sorting.md) plugin's `getColumnCompare` property allows you to implement a custom sorting algorithm. If the `getColumnCompare` function returns undefined, it applies the default sorting algorithm.
 
 .embedded-demo(sorting/local-custom-sorting)
 

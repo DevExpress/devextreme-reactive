@@ -35,7 +35,7 @@ You can also specify a filtering predicate using the `LocalFiltering` plugin's `
 
 ## Setting up Remote Filtering
 
-You can handle the Grid's filtering state changes to request data from the server with the corresponding filters applied if your data service supports filtering operations.
+It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.
 
 Filtering options are updated once an end-user modifies a text within a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
 

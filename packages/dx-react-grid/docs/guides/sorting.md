@@ -49,7 +49,7 @@ The [LocalSorting](../reference/local-sorting.md) plugin's `getColumnCompare` pr
 
 ## Remote Sorting
 
-You can handle the Grid sorting state changes to request data from the server with the corresponding sorting applied if your data service supports sorting operations.
+It is possible to perform sorting remotely by handling sorting state changes, generating a request, and sending it to the server.
 
 Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `SortingState` plugin's `onSortingChange` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `Grid` component's `rows` property.
 

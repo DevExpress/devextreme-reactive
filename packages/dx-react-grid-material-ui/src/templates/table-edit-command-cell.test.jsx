@@ -127,7 +127,7 @@ describe('Table command column', () => {
       expect(buttons.at(0).text()).toBe('CustomCommit');
       expect(buttons.at(1).text()).toBe('CustomCancel');
     });
-    // ============
+
     it('should not render command buttons if allowEditing and allowDeleting are false', () => {
       const tree = mount(
         <Table>
@@ -168,7 +168,7 @@ describe('Table command column', () => {
       const button = tree.find(CommandButton);
       expect(button.exists()).toBeTruthy();
     });
-    // ===============
+
     it('should use commandTemplate with proper arguments in view mode', () => {
       const template = jest.fn();
       const startEditing = () => {};

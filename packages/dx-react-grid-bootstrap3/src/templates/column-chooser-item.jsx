@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const ColumnChooserItem = ({ item: { column, hidden }, onToggle }) => {
-  const handleChange = () => onToggle(!hidden);
+  const handleChange = () => onToggle();
   return (
     <button
       className="list-group-item"

@@ -40,8 +40,6 @@ describe('ColumnChooserItem', () => {
 
     expect(toggleHandler)
       .toHaveBeenCalledTimes(1);
-    expect(toggleHandler)
-      .toHaveBeenCalledWith(true);
   });
 
   it('should call the "onToggle" on the list item "onClick" event', () => {
@@ -62,8 +60,6 @@ describe('ColumnChooserItem', () => {
 
     expect(toggleHandler)
       .toHaveBeenCalledTimes(1);
-    expect(toggleHandler)
-      .toHaveBeenCalledWith(true);
   });
 
   it('should render column title or name in each item', () => {

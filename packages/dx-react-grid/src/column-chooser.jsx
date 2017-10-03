@@ -38,7 +38,7 @@ export class ColumnChooser extends React.PureComponent {
             template={itemTemplate}
             params={{
               item,
-              onToggle: () => handleItemToggle(item, !item.hidden),
+              onToggle: () => handleItemToggle(item),
             }}
           />
         ))}

@@ -4,7 +4,7 @@ import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 
 export const ColumnChooserItem = ({ item: { column, hidden }, onToggle }) => {
-  const handleClick = () => onToggle(!hidden);
+  const handleClick = () => onToggle();
   return (
     <ListItem
       key={column.name}

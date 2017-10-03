@@ -25,7 +25,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 items | Array&lt;[ColumnChooserItem](#column-chooser-item)&gt; | An array of column chooser items.
-onItemToggle | (item: [ColumnChooserItem](#column-chooser-item), toggle: boolean) => void | Handles item visibility change.
+onItemToggle | (item: [ColumnChooserItem](#column-chooser-item)) => void | Handles item visibility change.
 
 ### <a name="column-chooser-item-args"></a>ColumnChooserItemArgs
 
@@ -36,7 +36,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 item | [ColumnChooserItem](#column-chooser-item) | Specifies the column chooser item.
-onToggle | (toggle: boolean) => void | Handles the item click event.
+onToggle | () => void | Handles the item click event.
 
 ### <a name="column-chooser-item"></a>ColumnChooserItem
 

@@ -42,8 +42,6 @@ describe('ColumnChooserItem', () => {
 
     expect(toggleHandler)
       .toHaveBeenCalledTimes(1);
-    expect(toggleHandler)
-      .toHaveBeenCalledWith(true);
   });
 
   it('should render column title or name in each item', () => {

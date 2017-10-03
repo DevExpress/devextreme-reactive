@@ -1,5 +1,6 @@
 import React from 'react';
 import { createMount } from 'material-ui/test-utils';
+import { Table } from 'material-ui';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableFilterCell } from './table-filter-cell';
 
@@ -17,11 +18,13 @@ describe('TableFilterCell', () => {
 
   it('should use the \'Filter...\' placeholder', () => {
     const tree = mount(
-      <TableFilterCell
-        column={{
-          name: 'Test',
-        }}
-      />,
+      <Table>
+        <TableFilterCell
+          column={{
+            name: 'Test',
+          }}
+        />
+      </Table>,
     );
 
     expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
@@ -30,13 +33,15 @@ describe('TableFilterCell', () => {
   it('should not set filter with an empty value', () => {
     const setFilterMock = jest.fn();
     const tree = mount(
-      <TableFilterCell
-        column={{
-          name: 'Test',
-        }}
-        setFilter={setFilterMock}
-        value={'abc'}
-      />,
+      <Table>
+        <TableFilterCell
+          column={{
+            name: 'Test',
+          }}
+          setFilter={setFilterMock}
+          value={'abc'}
+        />
+      </Table>,
     );
 
     tree.find('input').simulate('change', { target: { value: '' } });
@@ -45,9 +50,11 @@ describe('TableFilterCell', () => {
 
   it('should render children if passed', () => {
     const tree = mount(
-      <TableFilterCell>
-        <span className="test" />
-      </TableFilterCell>,
+      <Table>
+        <TableFilterCell>
+          <span className="test" />
+        </TableFilterCell>
+      </Table>,
     );
 
     expect(tree.find('.test').exists())

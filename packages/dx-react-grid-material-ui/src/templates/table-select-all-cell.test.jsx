@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, TableCell } from 'material-ui';
+import { Checkbox, TableCell, Table } from 'material-ui';
 import { createMount } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectAllCell } from './table-select-all-cell';
@@ -18,12 +18,14 @@ describe('TableHeaderCell', () => {
 
   it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
     const tree = mount(
-      <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
-        someSelected
-      />,
+      <Table>
+        <TableSelectAllCell
+          column={{
+            name: 'Test',
+          }}
+          someSelected
+        />
+      </Table>,
     );
 
     expect(tree.find(Checkbox).prop('indeterminate'))
@@ -33,12 +35,14 @@ describe('TableHeaderCell', () => {
   it('should not call the `toggleAll` function on cell click if selection is not available', () => {
     const toggleAll = jest.fn();
     const tree = mount(
-      <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
-        toggleAll={toggleAll}
-      />,
+      <Table>
+        <TableSelectAllCell
+          column={{
+            name: 'Test',
+          }}
+          toggleAll={toggleAll}
+        />
+      </Table>,
     );
     tree.find(TableCell).simulate('click');
 
@@ -49,13 +53,15 @@ describe('TableHeaderCell', () => {
   it('should call the `toggleAll` function on cell click if selection is available', () => {
     const toggleAll = jest.fn();
     const tree = mount(
-      <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
-        selectionAvailable
-        toggleAll={toggleAll}
-      />,
+      <Table>
+        <TableSelectAllCell
+          column={{
+            name: 'Test',
+          }}
+          selectionAvailable
+          toggleAll={toggleAll}
+        />
+      </Table>,
     );
     tree.find(TableCell).simulate('click');
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableCell as TableCellMUI } from 'material-ui';
+import { TableCell as TableCellMUI, Table } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
@@ -10,10 +10,12 @@ describe('TableCell', () => {
   let classes;
   const mountTableCell = column => (
     mount(
-      <TableCell
-        column={column}
-        value={'text'}
-      />,
+      <Table>
+        <TableCell
+          column={column}
+          value={'text'}
+        />
+      </Table>,
     )
   );
   beforeAll(() => {
@@ -44,9 +46,11 @@ describe('TableCell', () => {
 
   it('should render children if passed', () => {
     const tree = mount(
-      <TableCell>
-        <span className="test" />
-      </TableCell>,
+      <Table>
+        <TableCell>
+          <span className="test" />
+        </TableCell>
+      </Table>,
     );
 
     expect(tree.find('.test').exists())

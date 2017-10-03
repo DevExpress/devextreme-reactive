@@ -32,6 +32,12 @@
   "files": [
     "dist"
   ],
+  "jest": {
+    "moduleDirectories": [
+      "packages/dx-react-grid-material-ui/node_modules",
+      "node_modules"
+    ]
+  },
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -54,7 +60,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "core-js": "^2.5.1",
-    "enzyme": "^3.0.0",
+    "enzyme": "^2.9.1",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^12.0.1",

@@ -1,6 +1,5 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-15';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { pageCount } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
@@ -28,7 +27,6 @@ const defaultDeps = {
 };
 
 describe('PagingPanel', () => {
-  configure({ adapter: new Adapter() });
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

@@ -1,6 +1,5 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-15';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -10,7 +9,6 @@ import { GroupingState } from './grouping-state';
 const defaultDeps = {};
 
 describe('GroupingState', () => {
-  configure({ adapter: new Adapter() });
   let resetConsole;
 
   beforeAll(() => {

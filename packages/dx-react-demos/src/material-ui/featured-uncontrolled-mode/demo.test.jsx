@@ -1,6 +1,5 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-15';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import UncontrolledModeDemo from './demo';
@@ -8,7 +7,6 @@ import UncontrolledModeDemo from './demo';
 injectTapEventPlugin();
 
 describe('MUI featured: uncontrolled mode demo', () => {
-  configure({ adapter: new Adapter() });
   it('should work', () => {
     mount(
       <MuiThemeProvider theme={createMuiTheme()}>

@@ -1,6 +1,5 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-15';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext } from '@devexpress/dx-react-core';
 import { GroupPanelLayout } from './group-panel-layout';
@@ -14,7 +13,6 @@ const groupPanelItemTemplate = () => (
 const panelTemplate = ({ items }) => <div>{items}</div>;
 
 describe('GroupPanelLayout', () => {
-  configure({ adapter: new Adapter() });
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

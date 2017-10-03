@@ -14,7 +14,7 @@
         "jsx-a11y/no-noninteractive-element-interactions": "off",
         "jsx-a11y/href-no-hash": "off",
         "react/prefer-stateless-function": ["error", { "ignorePureComponents": true }],
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}],
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*", "**/enzyme-config.js"]}],
         "filenames/match-regex": [2, "^[a-z-\\.]+$"]
     },
     "env": {

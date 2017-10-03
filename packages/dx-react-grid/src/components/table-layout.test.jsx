@@ -1,8 +1,7 @@
 /* globals Element:true, window:true */
 
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-15';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { DragDropContext, DropTarget } from '@devexpress/dx-react-core';
 import { TABLE_DATA_TYPE } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
@@ -47,7 +46,6 @@ const cellTemplateMock = props => (
 /* eslint-enable react/prop-types */
 
 describe('TableLayout', () => {
-  configure({ adapter: new Adapter() });
   let resetConsole;
   beforeEach(() => {
     resetConsole = setupConsole();

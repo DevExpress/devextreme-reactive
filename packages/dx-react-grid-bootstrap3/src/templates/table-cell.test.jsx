@@ -1,11 +1,9 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-15';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
-  configure({ adapter: new Adapter() });
   const mountTableCell = column => (
     mount(
       <TableCell

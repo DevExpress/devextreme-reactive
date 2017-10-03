@@ -1,10 +1,8 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-15';
-import { mount, configure } from 'enzyme';
+import { mount } from 'enzyme';
 import { Container } from './drag-drop';
 
 describe('Container', () => {
-  configure({ adapter: new Adapter() });
   it('should have correct styles', () => {
     const tree = mount(
       <Container

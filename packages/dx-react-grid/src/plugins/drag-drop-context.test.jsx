@@ -65,15 +65,14 @@ describe('DragDropContext', () => {
       payload: [{ type: 'column', columnName: 'a' }],
       clientOffset: { x: 10, y: 10 },
     });
-    tree.update();
 
     const container = tree.find('.container');
-    const containerStyle = container.instance().style;
+
     expect(container.exists())
       .toBeTruthy();
-    expect(containerStyle.top)
+    expect(container.get(0).style.top)
       .toBe('10px');
-    expect(containerStyle.left)
+    expect(container.get(0).style.left)
       .toBe('10px');
     expect(tree.find('.column').text())
       .toBe('A');

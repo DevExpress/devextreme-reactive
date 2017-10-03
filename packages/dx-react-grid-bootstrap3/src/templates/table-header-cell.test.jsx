@@ -121,7 +121,6 @@ describe('TableHeaderCell', () => {
       });
 
     tree.find(DragSource).prop('onStart')();
-    tree.update();
 
     expect(tree.find('th').prop('style'))
       .toMatchObject({
@@ -129,7 +128,6 @@ describe('TableHeaderCell', () => {
       });
 
     tree.find(DragSource).prop('onEnd')();
-    tree.update();
 
     expect(tree.find('th').prop('style'))
       .not.toMatchObject({

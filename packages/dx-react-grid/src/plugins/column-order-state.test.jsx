@@ -66,7 +66,6 @@ describe('ColumnOrderState', () => {
       sourceColumnName: 'a',
       targetColumnName: 'b',
     });
-    tree.update();
 
     expect(getComputedState(tree).getters.columns)
       .toEqual([{ name: 'b' }, { name: 'a' }]);

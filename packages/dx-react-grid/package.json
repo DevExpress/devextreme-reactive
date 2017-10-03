@@ -40,11 +40,6 @@
     "lint": "eslint src/**/*",
     "lint:fix": "yarn run lint -- --fix"
   },
-  "jest": {
-    "setupFiles": [
-      "<rootDir>/enzyme-config.js"
-    ]
-  },
   "devDependencies": {
     "@devexpress/dx-core": "1.0.0-alpha.10",
     "@devexpress/dx-react-core": "1.0.0-alpha.10",
@@ -57,7 +52,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "core-js": "^2.5.1",
-    "enzyme": "^3.0.0",
+    "enzyme": "^2.9.1",
     "enzyme-adapter-react-15": "^1.0.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^15.1.0",

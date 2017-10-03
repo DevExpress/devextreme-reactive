@@ -144,7 +144,7 @@ describe('GroupPanelLayout', () => {
         </DragDropContext>,
       );
 
-      expect(tree.find('DragSource .item').length)
+      expect(tree.find('DragSource > .item').length)
         .toBe(groupingPanelItems.length);
     });
 

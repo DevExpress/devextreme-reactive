@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableCell } from 'material-ui';
+import { TableCell, Table } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
@@ -22,11 +22,13 @@ describe('TableHeaderCell', () => {
 
   it('should use column name if title is not specified', () => {
     const tree = mount(
-      <TableHeaderCell
-        column={{
-          name: 'Test',
-        }}
-      />,
+      <Table>
+        <TableHeaderCell
+          column={{
+            name: 'Test',
+          }}
+        />
+      </Table>,
     );
 
     expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
@@ -35,16 +37,18 @@ describe('TableHeaderCell', () => {
   it('should cancel sorting by using the Ctrl key', () => {
     const changeSortingDirection = jest.fn();
     const tree = mount(
-      <TableHeaderCell
-        column={{
-          name: 'Test',
-        }}
-        changeSortingDirection={changeSortingDirection}
-        allowSorting
-      />,
+      <Table>
+        <TableHeaderCell
+          column={{
+            name: 'Test',
+          }}
+          changeSortingDirection={changeSortingDirection}
+          allowSorting
+        />
+      </Table>,
     );
 
-    tree.simulate('click', { ctrlKey: true });
+    tree.find(TableHeaderCell).simulate('click', { ctrlKey: true });
 
     expect(changeSortingDirection.mock.calls).toHaveLength(1);
     expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
@@ -52,9 +56,11 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when user interaction disallowed', () => {
     const tree = mount(
-      <TableHeaderCell
-        column={{}}
-      />,
+      <Table>
+        <TableHeaderCell
+          column={{}}
+        />
+      </Table>,
     );
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeFalsy();
@@ -64,10 +70,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when sorting is allowed', () => {
     const tree = mount(
-      <TableHeaderCell
-        column={{ name: 'a' }}
-        allowSorting
-      />,
+      <Table>
+        <TableHeaderCell
+          column={{ name: 'a' }}
+          allowSorting
+        />
+      </Table>,
     );
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
@@ -77,10 +85,12 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when dragging is allowed', () => {
     const tree = mount(
       <DragDropContext>
-        <TableHeaderCell
-          column={{}}
-          allowDragging
-        />
+        <Table>
+          <TableHeaderCell
+            column={{}}
+            allowDragging
+          />
+        </Table>
       </DragDropContext>,
     );
 
@@ -91,10 +101,12 @@ describe('TableHeaderCell', () => {
   it('should have correct styles while dragging', () => {
     const tree = mount(
       <DragDropContext>
-        <TableHeaderCell
-          column={{}}
-          allowDragging
-        />
+        <Table>
+          <TableHeaderCell
+            column={{}}
+            allowDragging
+          />
+        </Table>
       </DragDropContext>,
     );
 
@@ -111,12 +123,14 @@ describe('TableHeaderCell', () => {
     const changeColumnWidth = () => {};
     const changeDraftColumnWidth = () => {};
     const tree = mount(
-      <TableHeaderCell
-        column={{}}
-        allowResizing
-        changeDraftColumnWidth={changeDraftColumnWidth}
-        changeColumnWidth={changeColumnWidth}
-      />,
+      <Table>
+        <TableHeaderCell
+          column={{}}
+          allowResizing
+          changeDraftColumnWidth={changeDraftColumnWidth}
+          changeColumnWidth={changeColumnWidth}
+        />
+      </Table>,
     );
 
     expect(tree.find(ResizingControl).exists())

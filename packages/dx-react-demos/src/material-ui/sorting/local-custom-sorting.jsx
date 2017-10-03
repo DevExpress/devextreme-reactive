@@ -54,7 +54,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Grid
-        rows={rows}
+        data={rows}
         columns={columns}
       >
         <SortingState />

@@ -5,10 +5,10 @@ import {
 describe('FilteringState computeds', () => {
   describe('#filteredRows', () => {
     const gridRows = [
-      { row: { a: 1, b: 1 } },
-      { row: { a: 1, b: 2 } },
-      { row: { a: 2, b: 1 } },
-      { row: { a: 2, b: 2 } },
+      { row: { a: 1, b: 1 }, defaultRowId: 0 },
+      { row: { a: 1, b: 2 }, defaultRowId: 1 },
+      { row: { a: 2, b: 1 }, defaultRowId: 2 },
+      { row: { a: 2, b: 2 }, defaultRowId: 3 },
     ];
 
     const getCellValue = (row, columnName) => row[columnName];
@@ -25,8 +25,8 @@ describe('FilteringState computeds', () => {
 
       const filtered = filteredRows(gridRows, filters, getCellValue);
       expect(filtered).toEqual([
-        { row: { a: 1, b: 1 } },
-        { row: { a: 1, b: 2 } },
+        { row: { a: 1, b: 1 }, defaultRowId: 0 },
+        { row: { a: 1, b: 2 }, defaultRowId: 1 },
       ]);
     });
 
@@ -35,7 +35,7 @@ describe('FilteringState computeds', () => {
 
       const filtered = filteredRows(gridRows, filters, getCellValue);
       expect(filtered).toEqual([
-        { row: { a: 1, b: 2 } },
+        { row: { a: 1, b: 2 }, defaultRowId: 1 },
       ]);
     });
 
@@ -51,7 +51,7 @@ describe('FilteringState computeds', () => {
       expect(getColumnPredicate).toBeCalledWith(filters[0].columnName);
       expect(filtered)
         .toEqual([
-          { row: { a: 1, b: 2 } },
+          { row: { a: 1, b: 2 }, defaultRowId: 1 },
         ]);
     });
 
@@ -62,8 +62,8 @@ describe('FilteringState computeds', () => {
 
       expect(filtered)
         .toEqual([
-          { row: { a: 1, b: 1 } },
-          { row: { a: 1, b: 2 } },
+          { row: { a: 1, b: 1 }, defaultRowId: 0 },
+          { row: { a: 1, b: 2 }, defaultRowId: 1 },
         ]);
     });
   });

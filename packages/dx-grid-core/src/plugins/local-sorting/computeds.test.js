@@ -7,10 +7,10 @@ import {
 describe('SortingState computeds', () => {
   describe('#sortedRows', () => {
     const gridRows = [
-      { row: { a: 2, b: 2 } },
-      { row: { a: 1, b: 1 } },
-      { row: { a: 2, b: 1 } },
-      { row: { a: 1, b: 2 } },
+      { row: { a: 2, b: 2 }, defaultRowId: 0 },
+      { row: { a: 1, b: 1 }, defaultRowId: 1 },
+      { row: { a: 2, b: 1 }, defaultRowId: 2 },
+      { row: { a: 1, b: 2 }, defaultRowId: 3 },
     ];
 
     const getCellValue = (row, columnName) => row[columnName];
@@ -27,10 +27,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(gridRows, sorting, getCellValue);
       expect(sorted).toEqual([
-        { row: { a: 1, b: 1 } },
-        { row: { a: 1, b: 2 } },
-        { row: { a: 2, b: 2 } },
-        { row: { a: 2, b: 1 } },
+        { row: { a: 1, b: 1 }, defaultRowId: 1 },
+        { row: { a: 1, b: 2 }, defaultRowId: 3 },
+        { row: { a: 2, b: 2 }, defaultRowId: 0 },
+        { row: { a: 2, b: 1 }, defaultRowId: 2 },
       ]);
     });
 
@@ -39,10 +39,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(gridRows, sorting, getCellValue);
       expect(sorted).toEqual([
-        { row: { a: 2, b: 2 } },
-        { row: { a: 2, b: 1 } },
-        { row: { a: 1, b: 1 } },
-        { row: { a: 1, b: 2 } },
+        { row: { a: 2, b: 2 }, defaultRowId: 0 },
+        { row: { a: 2, b: 1 }, defaultRowId: 2 },
+        { row: { a: 1, b: 1 }, defaultRowId: 1 },
+        { row: { a: 1, b: 2 }, defaultRowId: 3 },
       ]);
     });
 
@@ -51,10 +51,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(gridRows, sorting, getCellValue);
       expect(sorted).toEqual([
-        { row: { a: 1, b: 1 } },
-        { row: { a: 1, b: 2 } },
-        { row: { a: 2, b: 1 } },
-        { row: { a: 2, b: 2 } },
+        { row: { a: 1, b: 1 }, defaultRowId: 1 },
+        { row: { a: 1, b: 2 }, defaultRowId: 3 },
+        { row: { a: 2, b: 1 }, defaultRowId: 2 },
+        { row: { a: 2, b: 2 }, defaultRowId: 0 },
       ]);
     });
 
@@ -63,10 +63,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(gridRows, sorting, getCellValue);
       expect(sorted).toEqual([
-        { row: { a: 1, b: 2 } },
-        { row: { a: 1, b: 1 } },
-        { row: { a: 2, b: 2 } },
-        { row: { a: 2, b: 1 } },
+        { row: { a: 1, b: 2 }, defaultRowId: 3 },
+        { row: { a: 1, b: 1 }, defaultRowId: 1 },
+        { row: { a: 2, b: 2 }, defaultRowId: 0 },
+        { row: { a: 2, b: 1 }, defaultRowId: 2 },
       ]);
     });
 
@@ -76,10 +76,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(immutableRows, immutableSorting, getCellValue);
       expect(sorted).toEqual([
-        { row: { a: 2, b: 2 } },
-        { row: { a: 2, b: 1 } },
-        { row: { a: 1, b: 1 } },
-        { row: { a: 1, b: 2 } },
+        { row: { a: 2, b: 2 }, defaultRowId: 0 },
+        { row: { a: 2, b: 1 }, defaultRowId: 2 },
+        { row: { a: 1, b: 1 }, defaultRowId: 1 },
+        { row: { a: 1, b: 2 }, defaultRowId: 3 },
       ]);
     });
 
@@ -88,10 +88,10 @@ describe('SortingState computeds', () => {
 
       const sorted = sortedRows(gridRows, immutableSorting, getCellValue);
       expect(sorted).toEqual([
-        { row: { a: 2, b: 2 } },
-        { row: { a: 2, b: 1 } },
-        { row: { a: 1, b: 1 } },
-        { row: { a: 1, b: 2 } },
+        { row: { a: 2, b: 2 }, defaultRowId: 0 },
+        { row: { a: 2, b: 1 }, defaultRowId: 2 },
+        { row: { a: 1, b: 1 }, defaultRowId: 1 },
+        { row: { a: 1, b: 2 }, defaultRowId: 3 },
       ]);
     });
 
@@ -109,10 +109,10 @@ describe('SortingState computeds', () => {
 
       expect(getColumnCompare).toBeCalledWith(sorting[0].columnName);
       expect(sorted).toEqual([
-        { row: { a: 1, b: 1 } },
-        { row: { a: 1, b: 2 } },
-        { row: { a: 2, b: 2 } },
-        { row: { a: 2, b: 1 } },
+        { row: { a: 1, b: 1 }, defaultRowId: 1 },
+        { row: { a: 1, b: 2 }, defaultRowId: 3 },
+        { row: { a: 2, b: 2 }, defaultRowId: 0 },
+        { row: { a: 2, b: 1 }, defaultRowId: 2 },
       ]);
     });
 
@@ -122,10 +122,10 @@ describe('SortingState computeds', () => {
       const sorted = sortedRows(gridRows, sorting, getCellValue, getColumnCompare);
 
       expect(sorted).toEqual([
-        { row: { a: 2, b: 2 } },
-        { row: { a: 2, b: 1 } },
-        { row: { a: 1, b: 1 } },
-        { row: { a: 1, b: 2 } },
+        { row: { a: 2, b: 2 }, defaultRowId: 0 },
+        { row: { a: 2, b: 1 }, defaultRowId: 2 },
+        { row: { a: 1, b: 1 }, defaultRowId: 1 },
+        { row: { a: 1, b: 2 }, defaultRowId: 3 },
       ]);
     });
   });

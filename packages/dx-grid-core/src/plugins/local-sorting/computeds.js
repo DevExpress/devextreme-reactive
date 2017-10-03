@@ -6,7 +6,7 @@ const defaultCompare = (a, b) => {
   return 0;
 };
 
-export const sortedRows = (rows, sorting, getCellValue, getColumnCompare) => {
+export const sortedGridRows = (rows, sorting, getCellValue, getColumnCompare) => {
   if (!sorting.length) return rows;
 
   const compare = Array.from(sorting)

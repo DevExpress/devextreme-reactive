@@ -18,7 +18,7 @@ Import the plugins listed above to set up a Grid with basic paging.
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial active page index in the `PagingState` plugin's `defaultCurrentPage` property. 
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial active page index in the `PagingState` plugin's `defaultCurrentPage` property.
 
 In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is usual for the controlled mode. However, the `onPageSizeChange` event handler is not specified because page size is not supposed to be changed internally as the Page Size Selector is not available.
 
@@ -36,7 +36,7 @@ The example below demonstrates the basic configuration for the uncontrolled mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `PagingState` plugin property pairs to set a state value and handle its changes:
 
-- `currentPage` and `onCurrentPageChange` - the currently displayed page's index  
+- `currentPage` and `onCurrentPageChange` - the currently displayed page's index
 - `pageSize` and `onPageSizeChange` - the page size
 
 Note that the `onPageSizeChange` handler makes sense only if the `allowedPageSizes` option is specified. Otherwise, a user is not able to change the page size.

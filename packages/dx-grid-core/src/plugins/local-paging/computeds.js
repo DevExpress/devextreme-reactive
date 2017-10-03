@@ -3,13 +3,13 @@ const PAGE_HEADERS_OVERFLOW_ERROR = [
   'Typically, title rows are group headers.',
 ].join('\n');
 
-export const paginate = (gridRows, pageSize, page) => (
+export const paginatedGridRows = (gridRows, pageSize, page) => (
   pageSize ?
     gridRows.slice(pageSize * page, pageSize * (page + 1)) :
     gridRows
 );
 
-export const ensurePageHeaders = (gridRows, pageSize) => {
+export const gridRowsWithPageHeaders = (gridRows, pageSize) => {
   if (!pageSize) {
     return gridRows;
   }
@@ -50,4 +50,4 @@ export const pageCount = (count, pageSize) => (
   pageSize ? Math.ceil(count / pageSize) : 1
 );
 
-export const rowCount = gridRows => gridRows.length;
+export const gridRowsCount = gridRows => gridRows.length;

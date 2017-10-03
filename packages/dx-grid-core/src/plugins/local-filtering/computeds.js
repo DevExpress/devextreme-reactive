@@ -3,7 +3,7 @@ const toLowerCase = value => String(value).toLowerCase();
 const defaultPredicate = (value, filter) =>
   toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
 
-export const filteredRows = (
+export const filteredGridRows = (
   gridRows,
   filters,
   getCellValue,

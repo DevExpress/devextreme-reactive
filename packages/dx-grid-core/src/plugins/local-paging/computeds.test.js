@@ -1,30 +1,30 @@
 import {
-  paginate,
-  ensurePageHeaders,
+  paginatedGridRows,
+  gridRowsWithPageHeaders,
   pageCount,
-  rowCount,
+  gridRowsCount,
 } from './computeds';
 
 describe('PagingState computeds', () => {
-  describe('#paginate', () => {
+  describe('#paginatedGridRows', () => {
     it('should work', () => {
       const gridRows = [1, 2, 3];
 
-      let page = paginate(gridRows, 2, 0);
+      let page = paginatedGridRows(gridRows, 2, 0);
       expect(page).toEqual([1, 2]);
 
-      page = paginate(gridRows, 2, 1);
+      page = paginatedGridRows(gridRows, 2, 1);
       expect(page).toEqual([3]);
 
-      page = paginate(gridRows, 2, 3);
+      page = paginatedGridRows(gridRows, 2, 3);
       expect(page).toEqual([]);
 
-      page = paginate(gridRows, 0, 1);
+      page = paginatedGridRows(gridRows, 0, 1);
       expect(page).toEqual(gridRows);
     });
   });
 
-  describe('#ensurePageHeaders', () => {
+  describe('#gridRowsWithPageHeaders', () => {
     it('should work with single headers', () => {
       const gridRows = [
         { row: 1, headerKey: 'a' },
@@ -32,7 +32,7 @@ describe('PagingState computeds', () => {
         { row: 3 },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 5);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 5);
       expect(computedRows).toHaveLength(3);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -47,7 +47,7 @@ describe('PagingState computeds', () => {
         { row: 4 },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 3);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
       expect(computedRows).toHaveLength(5);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -64,7 +64,7 @@ describe('PagingState computeds', () => {
         { row: 4 },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 5);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 5);
       expect(computedRows).toHaveLength(4);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -81,7 +81,7 @@ describe('PagingState computeds', () => {
         { row: 5 },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 3);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
       expect(computedRows).toHaveLength(5);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -98,7 +98,7 @@ describe('PagingState computeds', () => {
         { row: 4, headerKey: 'a' },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 3);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
       expect(computedRows).toHaveLength(4);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -115,7 +115,7 @@ describe('PagingState computeds', () => {
         { row: 5 },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 3);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
       expect(computedRows).toHaveLength(6);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -134,7 +134,7 @@ describe('PagingState computeds', () => {
         { row: 5 },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 3);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
       expect(computedRows).toHaveLength(5);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -151,7 +151,7 @@ describe('PagingState computeds', () => {
         { row: 4 },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 0);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 0);
       expect(computedRows).toHaveLength(4);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -168,7 +168,7 @@ describe('PagingState computeds', () => {
       ];
 
       expect(() => {
-        ensurePageHeaders(gridRows, 3);
+        gridRowsWithPageHeaders(gridRows, 3);
       }).toThrowError(/page size/);
     });
 
@@ -180,7 +180,7 @@ describe('PagingState computeds', () => {
         { row: 3 },
       ];
 
-      const computedRows = ensurePageHeaders(gridRows, 2);
+      const computedRows = gridRowsWithPageHeaders(gridRows, 2);
       expect(computedRows).toHaveLength(4);
       expect(computedRows[0]).toBe(gridRows[0]);
       expect(computedRows[1]).toBe(gridRows[1]);
@@ -199,9 +199,9 @@ describe('PagingState computeds', () => {
     });
   });
 
-  describe('#rowCount', () => {
+  describe('#gridRowsCount', () => {
     it('should work', () => {
-      const count = rowCount([1, 2, 3]);
+      const count = gridRowsCount([1, 2, 3]);
       expect(count).toEqual(3);
     });
   });

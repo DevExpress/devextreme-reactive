@@ -4,7 +4,7 @@ import { GRID_GROUP_TYPE } from './constants';
 const defaultGetGroupValue = value => value;
 const defaultGetGroupKey = value => String(value);
 
-export const groupedRows = (
+export const groupedGridRows = (
   gridRows,
   grouping,
   getCellValue,
@@ -38,11 +38,11 @@ export const groupedRows = (
     .map(([value, key, items]) => ({
       value,
       key,
-      items: groupedRows(items, nestedGrouping, getCellValue, getGroupValue, getGroupKey),
+      items: groupedGridRows(items, nestedGrouping, getCellValue, getGroupValue, getGroupKey),
     }));
 };
 
-export const expandedGroupRows = (gridRows, grouping, expandedGroups, keyPrefix = '') => {
+export const expandedGroupGridRows = (gridRows, grouping, expandedGroups, keyPrefix = '') => {
   if (!grouping.length) return gridRows;
 
   const nestedGrouping = grouping.slice(1);
@@ -59,7 +59,7 @@ export const expandedGroupRows = (gridRows, grouping, expandedGroups, keyPrefix 
         row: { key, value },
       },
       ...expanded
-        ? expandedGroupRows(items, nestedGrouping, expandedGroups, `${key}${GROUP_KEY_SEPARATOR}`)
+        ? expandedGroupGridRows(items, nestedGrouping, expandedGroups, `${key}${GROUP_KEY_SEPARATOR}`)
         : [],
     ];
   }, []);

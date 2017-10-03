@@ -1,6 +1,6 @@
 # TableColumnVisibility Plugin Reference
 
-Plugin that manages Grid columns visibility. Enables Grid to work along with [ColumnChooser](column-chooser.md).
+A plugin that manages Grid columns' visibility.
 
 ## User Reference
 
@@ -12,7 +12,7 @@ Plugin that manages Grid columns visibility. Enables Grid to work along with [Co
 
 Name | Type | Default | Description
 -----|------|---------|------------
-hiddenColumns | Array&lt;string&gt; | [] | An array containing the names of the columns to be hidden.
+hiddenColumns | Array&lt;string&gt; | [] | Specifies the hidden columns' names.
 emptyMessageTemplate | () => ReactElement | | A template that renders empty message when all columns are hidden.
 
 ## Plugin Developer Reference

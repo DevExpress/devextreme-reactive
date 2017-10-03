@@ -82,5 +82,39 @@ describe('SortingState computeds', () => {
         { a: 1, b: 2 },
       ]);
     });
+
+    it('can sort using custom compare', () => {
+      const getColumnCompare = jest.fn();
+
+      getColumnCompare.mockImplementation(() => (a, b) => {
+        if (a === b) {
+          return 0;
+        }
+        return a < b ? 1 : -1;
+      });
+      const sorting = [{ columnName: 'a', direction: 'desc' }];
+      const sorted = sortedRows(rows, sorting, getCellValue, getColumnCompare);
+
+      expect(getColumnCompare).toBeCalledWith(sorting[0].columnName);
+      expect(sorted).toEqual([
+        { a: 1, b: 1 },
+        { a: 1, b: 2 },
+        { a: 2, b: 2 },
+        { a: 2, b: 1 },
+      ]);
+    });
+
+    it('should use default compare if custom compare returns nothing', () => {
+      const getColumnCompare = () => undefined;
+      const sorting = [{ columnName: 'a', direction: 'desc' }];
+      const sorted = sortedRows(rows, sorting, getCellValue, getColumnCompare);
+
+      expect(sorted).toEqual([
+        { a: 2, b: 2 },
+        { a: 2, b: 1 },
+        { a: 1, b: 1 },
+        { a: 1, b: 2 },
+      ]);
+    });
   });
 });

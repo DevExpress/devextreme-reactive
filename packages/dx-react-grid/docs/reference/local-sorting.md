@@ -10,7 +10,14 @@ A plugin that performs local data sorting.
 
 ### Properties
 
-none
+Name | Type | Default | Description
+-----|------|---------|------------
+getColumnCompare | (columnName: string) => [Compare](#compare) &#124; undefined | | A function implementing custom sorting. See the [Sorting guide](../guides/sorting.md#custom-sorting-algorithm) for more information.
+
+## Interfaces
+### <a name="compare"></a>Compare
+A function with the following signature `(a: any, b: any) => number`
+
 
 ## Plugin Developer Reference
 

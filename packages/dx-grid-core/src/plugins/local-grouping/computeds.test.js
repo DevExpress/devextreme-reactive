@@ -5,7 +5,7 @@ import {
 import { GRID_GROUP_TYPE } from './constants';
 
 describe('GroupingPlugin computeds', () => {
-  const rowsSource = [
+  const gridRows = [
     { row: { a: 1, b: 1 } },
     { row: { a: 1, b: 2 } },
     { row: { a: 2, b: 1 } },
@@ -13,8 +13,8 @@ describe('GroupingPlugin computeds', () => {
   ];
   const getCellValue = (row, columnName) => row[columnName];
 
-  const firstLevelGroupings = [{ columnName: 'a' }];
-  const firstLevelGroupedRows = [{
+  const firstGrouping = [{ columnName: 'a' }];
+  const firstGroupedGridRows = [{
     value: 1,
     key: '1',
     items: [
@@ -30,8 +30,8 @@ describe('GroupingPlugin computeds', () => {
     ],
   }];
 
-  const secondLevelGroupings = [{ columnName: 'a' }, { columnName: 'b' }];
-  const secondLevelGroupedRows = [{
+  const secondGrouping = [{ columnName: 'a' }, { columnName: 'b' }];
+  const secondGroupedGridRows = [{
     value: 1,
     key: '1',
     items: [{
@@ -66,21 +66,21 @@ describe('GroupingPlugin computeds', () => {
   }];
 
   describe('#groupedGridRows', () => {
-    it('can group by one column', () => {
-      expect(groupedGridRows(rowsSource, firstLevelGroupings, getCellValue))
-        .toEqual(firstLevelGroupedRows);
+    it('can group by first column', () => {
+      expect(groupedGridRows(gridRows, firstGrouping, getCellValue))
+        .toEqual(firstGroupedGridRows);
     });
 
     it('can group by several columns', () => {
-      expect(groupedGridRows(rowsSource, secondLevelGroupings, getCellValue))
-        .toEqual(secondLevelGroupedRows);
+      expect(groupedGridRows(gridRows, secondGrouping, getCellValue))
+        .toEqual(secondGroupedGridRows);
     });
 
     it('should use custom getGroupValue and getGroupKey argument', () => {
       const getGroupValue = jest.fn(value => `${value}_test`);
       const getGroupKey = jest.fn(value => value.substr(0, 1));
 
-      expect(groupedGridRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue, getGroupKey))
+      expect(groupedGridRows(gridRows, firstGrouping, getCellValue, getGroupValue, getGroupKey))
         .toEqual([{
           value: '1_test',
           key: '1',
@@ -101,7 +101,7 @@ describe('GroupingPlugin computeds', () => {
     it('should use custom getGroupValue argument for each grouping', () => {
       const getGroupValue = jest.fn(value => `${value}_test`);
 
-      expect(groupedGridRows(rowsSource, secondLevelGroupings, getCellValue, getGroupValue))
+      expect(groupedGridRows(gridRows, secondGrouping, getCellValue, getGroupValue))
         .toEqual([{
           value: '1_test',
           key: '1_test',
@@ -139,39 +139,39 @@ describe('GroupingPlugin computeds', () => {
 
     it('should pass the row argument to custom getGroupValue', () => {
       const getGroupValue = jest.fn(value => value);
-      const grouping = firstLevelGroupings[0];
+      const grouping = firstGrouping[0];
 
-      groupedGridRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue);
+      groupedGridRows(gridRows, firstGrouping, getCellValue, getGroupValue);
 
       expect(getGroupValue)
-        .toHaveBeenCalledTimes(rowsSource.length);
+        .toHaveBeenCalledTimes(gridRows.length);
       expect(getGroupValue)
-        .toHaveBeenCalledWith(rowsSource[0].row.a, grouping, rowsSource[0].row);
+        .toHaveBeenCalledWith(gridRows[0].row.a, grouping, gridRows[0].row);
       expect(getGroupValue)
-        .toHaveBeenCalledWith(rowsSource[1].row.a, grouping, rowsSource[1].row);
+        .toHaveBeenCalledWith(gridRows[1].row.a, grouping, gridRows[1].row);
       expect(getGroupValue)
-        .toHaveBeenCalledWith(rowsSource[2].row.a, grouping, rowsSource[2].row);
+        .toHaveBeenCalledWith(gridRows[2].row.a, grouping, gridRows[2].row);
       expect(getGroupValue)
-        .toHaveBeenCalledWith(rowsSource[3].row.a, grouping, rowsSource[3].row);
+        .toHaveBeenCalledWith(gridRows[3].row.a, grouping, gridRows[3].row);
     });
 
     it('should pass the row argument to custom getGroupKey', () => {
       const getGroupValue = jest.fn(value => value);
       const getGroupKey = jest.fn(value => value);
-      const grouping = firstLevelGroupings[0];
+      const grouping = firstGrouping[0];
 
-      groupedGridRows(rowsSource, firstLevelGroupings, getCellValue, getGroupValue, getGroupKey);
+      groupedGridRows(gridRows, firstGrouping, getCellValue, getGroupValue, getGroupKey);
 
       expect(getGroupKey)
-        .toHaveBeenCalledTimes(rowsSource.length);
+        .toHaveBeenCalledTimes(gridRows.length);
       expect(getGroupKey)
-        .toHaveBeenCalledWith(rowsSource[0].row.a, grouping, rowsSource[0].row);
+        .toHaveBeenCalledWith(gridRows[0].row.a, grouping, gridRows[0].row);
       expect(getGroupKey)
-        .toHaveBeenCalledWith(rowsSource[1].row.a, grouping, rowsSource[1].row);
+        .toHaveBeenCalledWith(gridRows[1].row.a, grouping, gridRows[1].row);
       expect(getGroupKey)
-        .toHaveBeenCalledWith(rowsSource[2].row.a, grouping, rowsSource[2].row);
+        .toHaveBeenCalledWith(gridRows[2].row.a, grouping, gridRows[2].row);
       expect(getGroupKey)
-        .toHaveBeenCalledWith(rowsSource[3].row.a, grouping, rowsSource[3].row);
+        .toHaveBeenCalledWith(gridRows[3].row.a, grouping, gridRows[3].row);
     });
   });
 
@@ -179,7 +179,7 @@ describe('GroupingPlugin computeds', () => {
     it('can expand groups', () => {
       const expandedGroups = new Set(['1']);
 
-      expect(expandedGroupGridRows(firstLevelGroupedRows, firstLevelGroupings, expandedGroups))
+      expect(expandedGroupGridRows(firstGroupedGridRows, firstGrouping, expandedGroups))
         .toEqual([
           {
             headerKey: `${GRID_GROUP_TYPE}_a`,
@@ -201,7 +201,7 @@ describe('GroupingPlugin computeds', () => {
     it('can expand nested groups', () => {
       const expandedGroups = new Set(['1', '1|2']);
 
-      expect(expandedGroupGridRows(secondLevelGroupedRows, secondLevelGroupings, expandedGroups))
+      expect(expandedGroupGridRows(secondGroupedGridRows, secondGrouping, expandedGroups))
         .toEqual([
           {
             headerKey: `${GRID_GROUP_TYPE}_a`,

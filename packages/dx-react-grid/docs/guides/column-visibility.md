@@ -1,29 +1,27 @@
 # React Grid - Controlling Column Visibility
 
-The Grid component has builtin powers for an end-user to control which columns should be displayed. This ability is achieved by a combination of the [TableColumnVisibility](../reference/table-column-visibility.md) Grid plugin and the [ColumnChooser](../reference/column-chooser.md) component.
+The Grid component with the [TableColumnVisibility](../reference/table-column-visibility.md) plugin provides a capability to hide existing columns in the table view. You can also use the [ColumnChooser](../reference/column-chooser.md) component to enable a user to show or hide columns at runtime.
+
+## Related Components and Plugins
+
+- The Grid plugin's [TableColumnVisibility](../reference/table-column-visibility.md) plugin manages the columns visibility.
+- The [ColumnChooser](../reference/column-chooser.md) component provides the UI for column visibility management.
 
 ## Basic configuration
 
-### Preparations
+The steps required to enable a user to hide or show columns at runtime are described below.
 
-To enable end-user control on the visible Grid columns it is required to complete the following steps. First of all define a property to hold names of the hidden columns in the state of your application (`hiddenColumns` is used for this purpose in the demo below). Add the Grid component and configure it according to your requirements.
+### Configuring HiddenTableColumn plugin
 
-### HiddenTableColumn configuration
-
-The [TableColumnVisibility](../reference/table-column-visibility.md) plugin is required to enable columns hiding. Add it to your Grid. Then pass the array of names of the columns to be hidden which is stored in the state of your application to the plugin's `hiddenColumns` property.
-
+Add the [TableColumnVisibility](../reference/table-column-visibility.md) plugin to the Grid. Assign an application's state variable holding hidden column names to the plugin's `hiddenColumns` property. In this case, the grid rerenders columns once the `hiddenColumns` state has been changed.
 
 ### Adding ColumnChooser
 
-Add the ColumnChooser component to the layout of your application. Then provide both columns and names of hidden columns to the ColumnChooser:
-- pass the same columns available to your Grid to the ColumnChooser `columns` property;
-- pass the array of hidden columns from your application state to the `hiddenColumns` property.
+Add the ColumnChooser component to your application. Pass the information about all existing columns to ColumnChooser assigning the columns configuration array to the ColumnChooser's `columns` property. Finally, assign the applicatin's `hiddenColumns` state variable to the `hiddenColumns` property.
 
-Now both Grid and ColumnChooser are configured to display the same state of visible columns.
+### Handling Column Visibility Changes
 
-### Handling Column Toggling
-
-The only thing left is to allow applying changes to the state of column visibility. To achieve this use the `onHiddenColumnsChange` property of the ColumnChooser which accepts a function to handle the change of the hidden column names array. The typical example of this handler is shown below.
+Assign a function that updates the `hiddenColumns` state variable to the ColumnChooser's `onHiddenColumnsChange` property to update the state once a user checks or unchecks a column item.
 
 ```js
 this.hiddenColumnsChangeHandler = (hiddenColumns) => {
@@ -31,6 +29,6 @@ this.hiddenColumnsChangeHandler = (hiddenColumns) => {
 };
 ```
 
-For more details, please check the source code of the demo below.
+At this point, the Grid and the ColumnChooser a synchronized.
 
 .embedded-demo(column-chooser/basic)

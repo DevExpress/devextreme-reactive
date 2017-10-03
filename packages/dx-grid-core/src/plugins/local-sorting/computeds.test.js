@@ -71,9 +71,56 @@ describe('SortingState computeds', () => {
     });
 
     it('should work with immutable data', () => {
+      const immutableRows = Immutable(gridRows);
+      const immutableSorting = Immutable([{ columnName: 'a', direction: 'desc' }]);
+
+      const sorted = sortedRows(immutableRows, immutableSorting, getCellValue);
+      expect(sorted).toEqual([
+        { row: { a: 2, b: 2 } },
+        { row: { a: 2, b: 1 } },
+        { row: { a: 1, b: 1 } },
+        { row: { a: 1, b: 2 } },
+      ]);
+    });
+
+    it('should work with immutable data', () => {
       const immutableSorting = Immutable([{ columnName: 'a', direction: 'desc' }]);
 
       const sorted = sortedRows(gridRows, immutableSorting, getCellValue);
+      expect(sorted).toEqual([
+        { row: { a: 2, b: 2 } },
+        { row: { a: 2, b: 1 } },
+        { row: { a: 1, b: 1 } },
+        { row: { a: 1, b: 2 } },
+      ]);
+    });
+
+    it('can sort using custom compare', () => {
+      const getColumnCompare = jest.fn();
+
+      getColumnCompare.mockImplementation(() => (a, b) => {
+        if (a === b) {
+          return 0;
+        }
+        return a < b ? 1 : -1;
+      });
+      const sorting = [{ columnName: 'a', direction: 'desc' }];
+      const sorted = sortedRows(gridRows, sorting, getCellValue, getColumnCompare);
+
+      expect(getColumnCompare).toBeCalledWith(sorting[0].columnName);
+      expect(sorted).toEqual([
+        { row: { a: 1, b: 1 } },
+        { row: { a: 1, b: 2 } },
+        { row: { a: 2, b: 2 } },
+        { row: { a: 2, b: 1 } },
+      ]);
+    });
+
+    it('should use default compare if custom compare returns nothing', () => {
+      const getColumnCompare = () => undefined;
+      const sorting = [{ columnName: 'a', direction: 'desc' }];
+      const sorted = sortedRows(gridRows, sorting, getCellValue, getColumnCompare);
+
       expect(sorted).toEqual([
         { row: { a: 2, b: 2 } },
         { row: { a: 2, b: 1 } },

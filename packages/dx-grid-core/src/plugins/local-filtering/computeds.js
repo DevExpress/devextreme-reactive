@@ -1,18 +1,26 @@
 const toLowerCase = value => String(value).toLowerCase();
 
+const defaultPredicate = (value, filter) =>
+  toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
+
 export const filteredRows = (
   gridRows,
   filters,
   getCellValue,
-  predicate = (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1,
+  getColumnPredicate,
 ) => {
   if (!filters.length) return gridRows;
 
   const compoundPredicate = filters.reduce(
-    (prevCompare, filter) => row =>
-      prevCompare(row) && predicate(getCellValue(row, filter.columnName), filter, row),
+    (prevCompare, filter) => (row) => {
+      const { columnName, ...filterConfig } = filter;
+      const predicate = (getColumnPredicate && getColumnPredicate(columnName)) || defaultPredicate;
+
+      return prevCompare(row) && predicate(getCellValue(row, columnName), filterConfig, row);
+    },
     () => true,
   );
 
   return gridRows.filter(({ row }) => compoundPredicate(row));
 };
+

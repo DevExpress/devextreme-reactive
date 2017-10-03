@@ -1,5 +1,6 @@
 import React from 'react';
 import { createMount } from 'material-ui/test-utils';
+import { Table } from 'material-ui';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   CommandButton,
@@ -23,11 +24,13 @@ describe('Table command column', () => {
   describe('EditCommandHeadingCell', () => {
     it('should render without exceptions in view mode', () => {
       const tree = mount(
-        <EditCommandHeadingCell
-          allowAdding
-          addCommandText="CustomAdd"
-          commandTemplate={props => <CommandButton {...props} />}
-        />,
+        <Table>
+          <EditCommandHeadingCell
+            allowAdding
+            addCommandText="CustomAdd"
+            commandTemplate={props => <CommandButton {...props} />}
+          />
+        </Table>,
       );
 
       const button = tree.find(CommandButton);
@@ -35,18 +38,30 @@ describe('Table command column', () => {
       expect(button.text()).toBe('CustomAdd');
     });
 
-    it('should take allowAdding into account', () => {
+    it('should not render a command button if allowAdding is false', () => {
       const tree = mount(
-        <EditCommandHeadingCell
-          commandTemplate={props => <CommandButton {...props} />}
-        />,
+        <Table>
+          <EditCommandHeadingCell
+            commandTemplate={props => <CommandButton {...props} />}
+          />
+        </Table>,
       );
 
-      let button = tree.find(CommandButton);
+      const button = tree.find(CommandButton);
       expect(button.exists()).toBeFalsy();
+    });
 
-      tree.setProps({ allowAdding: true });
-      button = tree.find(CommandButton);
+    it('should render a command button if allowAdding is true', () => {
+      const tree = mount(
+        <Table>
+          <EditCommandHeadingCell
+            commandTemplate={props => <CommandButton {...props} />}
+            allowAdding
+          />
+        </Table>,
+      );
+
+      const button = tree.find(CommandButton);
       expect(button.exists()).toBeTruthy();
     });
 
@@ -55,11 +70,13 @@ describe('Table command column', () => {
       const addRow = () => {};
 
       mount(
-        <EditCommandHeadingCell
-          addRow={addRow}
-          allowAdding
-          commandTemplate={template}
-        />,
+        <Table>
+          <EditCommandHeadingCell
+            addRow={addRow}
+            allowAdding
+            commandTemplate={template}
+          />
+        </Table>,
       );
 
       expect(template.mock.calls).toHaveLength(1);
@@ -74,13 +91,15 @@ describe('Table command column', () => {
   describe('EditCommandCell', () => {
     it('should render without exceptions in view mode', () => {
       const tree = mount(
-        <EditCommandCell
-          allowEditing
-          allowDeleting
-          editCommandText="CustomEdit"
-          deleteCommandText="CustomDelete"
-          commandTemplate={props => <CommandButton {...props} />}
-        />,
+        <Table>
+          <EditCommandCell
+            allowEditing
+            allowDeleting
+            editCommandText="CustomEdit"
+            deleteCommandText="CustomDelete"
+            commandTemplate={props => <CommandButton {...props} />}
+          />
+        </Table>,
       );
 
       const buttons = tree.find(CommandButton);
@@ -91,14 +110,16 @@ describe('Table command column', () => {
 
     it('should render without exceptions in edit mode', () => {
       const tree = mount(
-        <EditCommandCell
-          isEditing
-          allowEditing
-          allowDeleting
-          commitCommandText="CustomCommit"
-          cancelCommandText="CustomCancel"
-          commandTemplate={props => <CommandButton {...props} />}
-        />,
+        <Table>
+          <EditCommandCell
+            isEditing
+            allowEditing
+            allowDeleting
+            commitCommandText="CustomCommit"
+            cancelCommandText="CustomCancel"
+            commandTemplate={props => <CommandButton {...props} />}
+          />
+        </Table>,
       );
 
       const buttons = tree.find(CommandButton);
@@ -106,39 +127,63 @@ describe('Table command column', () => {
       expect(buttons.at(0).text()).toBe('CustomCommit');
       expect(buttons.at(1).text()).toBe('CustomCancel');
     });
-
-    it('should take allowEditing and allowDeleting into account', () => {
+    // ============
+    it('should not render command buttons if allowEditing and allowDeleting are false', () => {
       const tree = mount(
-        <EditCommandCell
-          commandTemplate={props => <CommandButton {...props} />}
-        />,
+        <Table>
+          <EditCommandCell
+            commandTemplate={props => <CommandButton {...props} />}
+          />
+        </Table>,
       );
 
-      let buttons = tree.find(CommandButton);
+      const buttons = tree.find(CommandButton);
       expect(buttons).toHaveLength(0);
-
-      tree.setProps({ allowEditing: true });
-      buttons = tree.find(CommandButton);
-      expect(buttons).toHaveLength(1);
-
-      tree.setProps({ allowDeleting: true });
-      buttons = tree.find(CommandButton);
-      expect(buttons).toHaveLength(2);
     });
 
+    it('should render a command button if allowEditing is true', () => {
+      const tree = mount(
+        <Table>
+          <EditCommandCell
+            commandTemplate={props => <CommandButton {...props} />}
+            allowEditing
+          />
+        </Table>,
+      );
+
+      const button = tree.find(CommandButton);
+      expect(button.exists()).toBeTruthy();
+    });
+
+    it('should render a command button if allowDeleting is true', () => {
+      const tree = mount(
+        <Table>
+          <EditCommandCell
+            commandTemplate={props => <CommandButton {...props} />}
+            allowDeleting
+          />
+        </Table>,
+      );
+
+      const button = tree.find(CommandButton);
+      expect(button.exists()).toBeTruthy();
+    });
+    // ===============
     it('should use commandTemplate with proper arguments in view mode', () => {
       const template = jest.fn();
       const startEditing = () => {};
       const deleteRow = () => {};
 
       mount(
-        <EditCommandCell
-          startEditing={startEditing}
-          deleteRow={deleteRow}
-          allowEditing
-          allowDeleting
-          commandTemplate={template}
-        />,
+        <Table>
+          <EditCommandCell
+            startEditing={startEditing}
+            deleteRow={deleteRow}
+            allowEditing
+            allowDeleting
+            commandTemplate={template}
+          />
+        </Table>,
       );
 
       expect(template.mock.calls).toHaveLength(2);
@@ -160,14 +205,16 @@ describe('Table command column', () => {
       const cancelEditing = () => {};
 
       mount(
-        <EditCommandCell
-          isEditing
-          commitChanges={commitChanges}
-          cancelEditing={cancelEditing}
-          allowAdding
-          allowDeleting
-          commandTemplate={template}
-        />,
+        <Table>
+          <EditCommandCell
+            isEditing
+            commitChanges={commitChanges}
+            cancelEditing={cancelEditing}
+            allowAdding
+            allowDeleting
+            commandTemplate={template}
+          />
+        </Table>,
       );
 
       expect(template.mock.calls).toHaveLength(2);
@@ -184,4 +231,3 @@ describe('Table command column', () => {
     });
   });
 });
-

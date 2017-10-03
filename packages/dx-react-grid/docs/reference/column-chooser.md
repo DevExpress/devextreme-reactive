@@ -1,6 +1,6 @@
 # ColumnChooser Reference
 
-ColumnChooser is a component designed to work along with Grid. It displays all available columns and in a combination with the [TableColumnVisibility](table-column-visibility.md) Grid plugin enables an end-user to control which columns should be displayed.
+ColumnChooser is a component that lists all columns with checkboxes, which specify whether a column is visible.
 
 ## User reference
 
@@ -9,7 +9,7 @@ ColumnChooser is a component designed to work along with Grid. It displays all a
 Name | Type | Default | Description
 -----|------|---------|------------
 columns | Array&lt;[Column](grid.md#column)&gt; | | Specifies for which row object fields columns are created.
-hiddenColumns | Array&lt;string&gt; | [] | An array containing the names of the columns to be hidden.
+hiddenColumns | Array&lt;string&gt; | [] | An array containing the names of the hidden columns.
 onHiddenColumnsChange | (nextHiddenColumns: Array&lt;string&gt;) => void | | Handles column visibility change.
 containerTemplate | (args: [ColumnChooserContainerArgs](#column-chooser-container-args)) => ReactElement | | A template that renders the column chooser container.
 itemTemplate | (args: [ColumnChooserItemArgs](#column-chooser-item-args)) => ReactElement | | A template that renders column chooser items.
@@ -20,7 +20,7 @@ itemTemplate | (args: [ColumnChooserItemArgs](#column-chooser-item-args)) => Rea
 
 Describes properties passed to the container template when it is being rendered.
 
-A value of the following shape:
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -31,7 +31,7 @@ onItemToggle | (item: [ColumnChooserItem](#column-chooser-item), toggle: boolean
 
 Describes properties passed to the item template when it is being rendered.
 
-A value of the following shape:
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -42,12 +42,12 @@ onToggle | (toggle: boolean) => void | Handles the item click event.
 
 An object representing a column chooser item.
 
-A value of the following shape:
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | The related grid column.
-hidden | boolean | Specifies whether the related column is hidden or not.
+hidden | boolean | Specifies whether the related column is hidden.
 
 ## Plugin Developer Reference
 

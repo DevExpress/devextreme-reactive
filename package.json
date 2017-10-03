@@ -33,7 +33,7 @@
     "build:site:docs": "gulp site",
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
-    "test": "lerna run test --stream",
+    "test": "lerna run test",
     "publish:npm": "yarn && node ./scripts/publish-npm.js",
     "publish:site": "yarn && node ./scripts/publish-site.js"
   },

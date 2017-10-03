@@ -32,12 +32,6 @@
   "files": [
     "dist"
   ],
-  "jest": {
-    "moduleDirectories": [
-      "packages/dx-react-grid-material-ui/node_modules",
-      "node_modules"
-    ]
-  },
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

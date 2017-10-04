@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TableGroupRow Plugin Reference - DevExtreme Reactive Components</title>
+    <title>Grid Basics - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -109,7 +109,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/grid-basics/">Grid Basics</a></li>
+          <li>Grid Basics</li>
           
 
         
@@ -373,7 +373,7 @@
           
 
           
-          <li>TableGroupRow</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
           
 
         
@@ -415,299 +415,94 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="tablegrouprow-plugin-reference">TableGroupRow Plugin Reference</h1>
+        <h1 id="grid-basics">Grid Basics</h1>
 
-<p>A plugin that renders group rows. Enables expanding and collapsing them.</p>
+<p>The Grid component displays data specified via the <code class="highlighter-rouge">rows</code> property. You should also specify the <code class="highlighter-rouge">columns</code> property to define for which row fields the grid creates columns.</p>
 
-<h2 id="user-reference">User Reference</h2>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span>
+  <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span>
+    <span class="p">{</span> <span class="na">region</span><span class="p">:</span> <span class="s1">'South America'</span><span class="p">,</span> <span class="na">sector</span><span class="p">:</span> <span class="s1">'Banking'</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">region</span><span class="p">:</span> <span class="s1">'Africa'</span><span class="p">,</span> <span class="na">sector</span><span class="p">:</span> <span class="s1">'Manufacturing'</span> <span class="p">},</span>
+    <span class="cm">/* ... */</span>
+  <span class="p">]}</span>
+  <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span>
+    <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'region'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Region'</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'sector'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Sector'</span> <span class="p">},</span>
+    <span class="cm">/* ... */</span>
+  <span class="p">]}</span>
+<span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span></code></pre>
+</div>
 
-<h3 id="dependencies">Dependencies</h3>
+<p>The grid requires the following plugins for basic data visualization:</p>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> [Optional]</li>
+  <li>
+    <p><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a><br />
+ Renders a data table.</p>
+  </li>
+  <li>
+    <p><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a><br />
+ Renders the table’s header row.</p>
+  </li>
 </ul>
 
-<h3 id="properties">Properties</h3>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Grid</span>
+  <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">}</span>
+  <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
+<span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">TableView</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="nx">TableHeaderRow</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span></code></pre>
+</div>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>groupCellTemplate</td>
-      <td>(args: <a href="#group-cell-args">GroupCellArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
-      <td>A component that renders a group row</td>
-    </tr>
-    <tr>
-      <td>groupIndentCellTemplate</td>
-      <td>(args: <a href="#group-indent-cell-args">GroupIndentCellArgs</a>) =&gt; ReactElement</td>
-      <td>null</td>
-      <td>A component that renders a group indent cell</td>
-    </tr>
-    <tr>
-      <td>groupRowTemplate</td>
-      <td>(args: <a href="#group-row-args">GroupRowArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
-      <td>A component that renders a group row</td>
-    </tr>
-    <tr>
-      <td>groupIndentColumnWidth</td>
-      <td>number</td>
-      <td> </td>
-      <td>The group indent column’s width</td>
-    </tr>
-    <tr>
-      <td>showColumnWhenGrouped</td>
-      <td>(args: columnName) =&gt; boolean</td>
-      <td>null</td>
-      <td>A custom function that returns a boolean value defining if the grid displays the column by which data is grouped.</td>
-    </tr>
-  </tbody>
-</table>
+<p>The <code class="highlighter-rouge">TableHeaderRow</code> plugin should follow the <code class="highlighter-rouge">TableView</code> plugin. See the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">Plugin Order</a> article for more details.</p>
 
-<h2 id="interfaces">Interfaces</h2>
+<div class="embedded-demo" data-options="{
+          
+          &quot;path&quot;: &quot;/demo/basic/basic&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112606908&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
 
-<h3 id="column-extension"><a name="column"></a>Column (Extension)</h3>
+<h2 id="appearance-customization">Appearance Customization</h2>
 
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a> shape extended by the following fields:</p>
+<p>The Grid’s visualization plugins provide a rich API to customize grid elements’ appearance. Examples of the most popular customization tasks are described below.</p>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>showWhenGrouped?</td>
-      <td>boolean</td>
-      <td>Specifies if the grid displays the column by which data is grouped.</td>
-    </tr>
-    <tr>
-      <td>title?</td>
-      <td>string</td>
-      <td>Specifies a table column title.</td>
-    </tr>
-  </tbody>
-</table>
+<p>The <code class="highlighter-rouge">TableView</code> plugin allows you to customize table cell appearance using the <code class="highlighter-rouge">tableCellTemplate</code> property. For instance, you can implement conditional cell formatting as demonstrated in the following example:</p>
 
-<h3 id="groupcellargs"><a name="group-cell-args"></a>GroupCellArgs</h3>
+<p>Note that you can pass <strong>undefined</strong> to the <code class="highlighter-rouge">tableCellTemplate</code> property to restore the default template.</p>
 
-<p>Describes the properties passed to the template that renders a group row.</p>
+<div class="embedded-demo" data-options="{
+          
+          &quot;path&quot;: &quot;/demo/basic/table-cell-template&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112606908&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
 
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
+<p>The <code class="highlighter-rouge">TableView</code> plugin’s <code class="highlighter-rouge">tableRowTemplate</code> property enables you to handle row events like <code class="highlighter-rouge">onClick</code>, <code class="highlighter-rouge">onContextMenu</code> etc. as demonstrated in the following demo:</p>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#group-row">GroupRow</a></td>
-      <td>The group row’s data object</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="#column">Column</a></td>
-      <td>The column associated with the group</td>
-    </tr>
-    <tr>
-      <td>isExpanded</td>
-      <td>boolean</td>
-      <td>Specifies if the row is expanded</td>
-    </tr>
-    <tr>
-      <td>toggleGroupExpanded</td>
-      <td>() =&gt; void</td>
-      <td>Toggles the group row’s expanded state</td>
-    </tr>
-  </tbody>
-</table>
+<p>Note that the <code class="highlighter-rouge">children</code> argument field is used to render row cells in a default way.</p>
 
-<h3 id="grouprowargs"><a name="group-row-args"></a>GroupRowArgs</h3>
+<div class="embedded-demo" data-options="{
+          
+          &quot;path&quot;: &quot;/demo/basic/table-row-template&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112606908&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
 
-<p>Describes the properties passed to the template that renders a group row.</p>
-
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#group-row">GroupRow</a></td>
-      <td>The group row’s data object</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="groupindentcellargs"><a name="group-indent-cell-args"></a>GroupIndentCellArgs</h3>
-
-<p>Describes properties passed to the template that renders a group indent cell.</p>
-
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#group-row">GroupRow</a></td>
-      <td>The group row’s data object</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="#column">Column</a></td>
-      <td>The column associated with the group</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="grouprow"><a name="group-row"></a>GroupRow</h3>
-
-<p>Describes the group row data structure.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>type</td>
-      <td>‘groupRow’</td>
-      <td>A string value that identifies the group row</td>
-    </tr>
-    <tr>
-      <td>value</td>
-      <td>any</td>
-      <td>The current group key value</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Table columns</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
-      <td>Table body rows</td>
-    </tr>
-    <tr>
-      <td>grouping</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#grouping">Grouping</a>&gt;</td>
-      <td>Columns used for grouping</td>
-    </tr>
-    <tr>
-      <td>draftGrouping</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#draft-grouping">DraftGrouping</a>&gt;</td>
-      <td>Grouping options used for preview</td>
-    </tr>
-    <tr>
-      <td>expandedGroups</td>
-      <td>Getter</td>
-      <td>Set&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#group-key">GroupKey</a>&gt;</td>
-      <td>Expanded groups</td>
-    </tr>
-    <tr>
-      <td>toggleGroupExpanded</td>
-      <td>Action</td>
-      <td>({ groupKey: <a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#group-key">GroupKey</a> }) =&gt; void</td>
-      <td>Toggles the expanded group state</td>
-    </tr>
-    <tr>
-      <td>tableViewCell</td>
-      <td>Template</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
-      <td>A template that renders a table cell</td>
-    </tr>
-    <tr>
-      <td>tableViewRow</td>
-      <td>Template</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a></td>
-      <td>A template that renders a table row</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Table columns, including the ones by which the table is grouped</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableRow</a>&gt;</td>
-      <td>Table body rows with modified group rows</td>
-    </tr>
-  </tbody>
-</table>
+<p>Other plugins (<a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a> and <a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a>) have a similar API for appearance customization.</p>
 
     </div>
   </div>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1505734481">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1505734481">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1507112645">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1507112645">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -41,7 +41,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
-            <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+            <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
           </ul>
         </div>
@@ -61,7 +61,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/">Getting Started</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Getting Started</a></li>
           
 
         
@@ -85,6 +85,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-types/">Data Types</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using the Immutable Data</a></li>
           
 
@@ -94,6 +102,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">Controlled and Uncontrolled Modes</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/grid-basics/">Grid Basics</a></li>
           
 
         
@@ -190,6 +206,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a></li>
           
 
         
@@ -395,7 +419,7 @@
 
 <p>The Grid component supports sorting data by one or several column values. Use the corresponding plugins to manage the sorting state and sort data programmatically or via the UI (column headers and Group Panel).</p>
 
-<p>Click several columns while holding <code class="highlighter-rouge">Shift</code> to sort data by these columns. Clicking a column while holding <code class="highlighter-rouge">Ctrl</code> (<code class="highlighter-rouge">Cmd</code> for MacOS) stops sorting by this column.</p>
+<p>Click several columns while holding <code class="highlighter-rouge">Shift</code> to sort data by these columns. Clicking a column while holding <code class="highlighter-rouge">Ctrl</code> (<code class="highlighter-rouge">Cmd</code> for MacOS) cancels sorting by this column.</p>
 
 <h2 id="related-plugins">Related Plugins</h2>
 
@@ -408,7 +432,7 @@
   <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-panel/">GroupingPanel</a> - renders the Group Panel with sorting indicators</li>
 </ul>
 
-<p>Note that the <a href="../../#plugin-order">plugin order</a> is important.</p>
+<p>Note that the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
 
 <h2 id="basic-local-sorting-setup">Basic Local Sorting Setup</h2>
 
@@ -421,9 +445,9 @@
 <p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>, specify the initial sorting conditions in the <code class="highlighter-rouge">SortingState</code> plugin’s <code class="highlighter-rouge">defaultSorting</code> property.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.10&quot;,
+          
           &quot;path&quot;: &quot;/demo/sorting/local-header-sorting&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1505734478399&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112606914&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -435,9 +459,9 @@
 <p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, pass the sorting options to the <code class="highlighter-rouge">SortingState</code> plugin’s <code class="highlighter-rouge">sorting</code> property and handle the <code class="highlighter-rouge">onSortingChange</code> event to control the sorting state externally.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.10&quot;,
+          
           &quot;path&quot;: &quot;/demo/sorting/local-sorting-controlled&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1505734478399&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112606914&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -451,9 +475,23 @@
 <p>Note that the <code class="highlighter-rouge">LocalGrouping</code> plugin should follow the <code class="highlighter-rouge">LocalSorting</code> to provide the correct group row sorting.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.10&quot;,
+          
           &quot;path&quot;: &quot;/demo/sorting/local-group-sorting&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1505734478399&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112606914&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
+<h2 id="custom-sorting-algorithm">Custom Sorting Algorithm</h2>
+
+<p>The <a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a> plugin’s <code class="highlighter-rouge">getColumnCompare</code> property allows you to implement a custom sorting algorithm. If the <code class="highlighter-rouge">getColumnCompare</code> function returns undefined, it applies the default sorting algorithm.</p>
+
+<div class="embedded-demo" data-options="{
+          
+          &quot;path&quot;: &quot;/demo/sorting/local-custom-sorting&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112606914&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -462,16 +500,16 @@
 
 <h2 id="remote-sorting">Remote Sorting</h2>
 
-<p>You can handle the Grid sorting state changes to request data from the server with the corresponding sorting applied if your data service supports sorting operations.</p>
+<p>It is possible to perform sorting remotely by handling sorting state changes, generating a request, and sending it to the server.</p>
 
 <p>Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the <code class="highlighter-rouge">SortingState</code> plugin’s <code class="highlighter-rouge">onSortingChange</code> event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
 
 <p>Note that in the case of remote sorting, you do not need to use the <code class="highlighter-rouge">LocalSorting</code> plugin.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.10&quot;,
+          
           &quot;path&quot;: &quot;/demo/sorting/remote-sorting&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1505734478399&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112606914&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -482,7 +520,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1505734481"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112645"></script>
 
 
     <footer>
@@ -520,7 +558,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1505734481"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1507112645"></script>
     <script>
         trackingCookie.check();
     </script>

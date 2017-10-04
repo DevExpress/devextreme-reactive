@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TableGroupRow Plugin Reference - DevExtreme Reactive Components</title>
+    <title>DevExtreme React Grid - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,7 +61,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Getting Started</a></li>
+          <li>Getting Started</li>
           
 
         
@@ -373,7 +373,7 @@
           
 
           
-          <li>TableGroupRow</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
           
 
         
@@ -415,299 +415,88 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="tablegrouprow-plugin-reference">TableGroupRow Plugin Reference</h1>
+        <h1 id="devextreme-react-grid">DevExtreme React Grid</h1>
 
-<p>A plugin that renders group rows. Enables expanding and collapsing them.</p>
+<h2 id="overview">Overview</h2>
 
-<h2 id="user-reference">User Reference</h2>
+<p>DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material UI rendering and theming out of the box.</p>
 
-<h3 id="dependencies">Dependencies</h3>
+<h2 id="getting-started">Getting Started</h2>
+
+<h3 id="installation">Installation</h3>
+
+<p>Install the dx-react-grid package and its dependencies using the following command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
+</code></pre>
+</div>
+
+<p>This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following:</p>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> [Optional]</li>
+  <li>
+    <p>Bootstrap 3</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>npm i --save @devexpress/dx-react-grid-bootstrap3
+</code></pre>
+    </div>
+
+    <p>Make sure that <a href="https://react-bootstrap.github.io">React-Boostrap</a> dependencies are installed and properly configured. Check the React-Bootstrap’s <a href="https://react-bootstrap.github.io/getting-started.html">Getting Started</a> article for configuration details.</p>
+  </li>
+  <li>
+    <p>Material UI</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>npm i --save @devexpress/dx-react-grid-material-ui
+</code></pre>
+    </div>
+
+    <p>Make sure that <a href="https://material-ui-1dab0.firebaseapp.com/">Material UI</a> dependencies are installed and properly configured. Check the Material UI’s <a href="https://material-ui-1dab0.firebaseapp.com/getting-started/installation">Getting Started</a> article for configuration details.</p>
+  </li>
 </ul>
 
-<h3 id="properties">Properties</h3>
+<h3 id="polyfills">Polyfills</h3>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>groupCellTemplate</td>
-      <td>(args: <a href="#group-cell-args">GroupCellArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
-      <td>A component that renders a group row</td>
-    </tr>
-    <tr>
-      <td>groupIndentCellTemplate</td>
-      <td>(args: <a href="#group-indent-cell-args">GroupIndentCellArgs</a>) =&gt; ReactElement</td>
-      <td>null</td>
-      <td>A component that renders a group indent cell</td>
-    </tr>
-    <tr>
-      <td>groupRowTemplate</td>
-      <td>(args: <a href="#group-row-args">GroupRowArgs</a>) =&gt; ReactElement</td>
-      <td> </td>
-      <td>A component that renders a group row</td>
-    </tr>
-    <tr>
-      <td>groupIndentColumnWidth</td>
-      <td>number</td>
-      <td> </td>
-      <td>The group indent column’s width</td>
-    </tr>
-    <tr>
-      <td>showColumnWhenGrouped</td>
-      <td>(args: columnName) =&gt; boolean</td>
-      <td>null</td>
-      <td>A custom function that returns a boolean value defining if the grid displays the column by which data is grouped.</td>
-    </tr>
-  </tbody>
-</table>
+<p>React Grid uses the latest web platform standards. Thus, it cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend <a href="https://babeljs.io/docs/usage/polyfill/">BABEL Polyfill</a>, but you can use an alternative.</p>
 
-<h2 id="interfaces">Interfaces</h2>
+<h3 id="using-grid-component">Using Grid component</h3>
 
-<h3 id="column-extension"><a name="column"></a>Column (Extension)</h3>
+<p>The Grid renders nothing by default. The root Grid component’s nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid data.</p>
 
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a> shape extended by the following fields:</p>
+<p>Use the TableView plugin to display the data as a simple table:</p>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>showWhenGrouped?</td>
-      <td>boolean</td>
-      <td>Specifies if the grid displays the column by which data is grouped.</td>
-    </tr>
-    <tr>
-      <td>title?</td>
-      <td>string</td>
-      <td>Specifies a table column title.</td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">TableView</span><span class="p">,</span> <span class="nx">TableHeaderRow</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
 
-<h3 id="groupcellargs"><a name="group-cell-args"></a>GroupCellArgs</h3>
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Grid</span>
+    <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span>
+      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme Reactive'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
+    <span class="p">]}</span>
+    <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'ID'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'owner'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Owner'</span> <span class="p">},</span>
+    <span class="p">]}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">TableView</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">TableHeaderRow</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre>
+</div>
 
-<p>Describes the properties passed to the template that renders a group row.</p>
+<h3 id="try-out-the-react-grid">Try Out The React Grid</h3>
 
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
+<p>Follow the links below to try out the React Grid:</p>
+<ul>
+  <li><a href="https://www.webpackbin.com/bins/-KoCcFwPPtps5fEN0PkI">WebpackBin for Bootstrap3</a></li>
+  <li><a href="https://www.webpackbin.com/bins/-KoCeS-_jZrZuTecv-wd">WebpackBin for Material UI</a></li>
+</ul>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#group-row">GroupRow</a></td>
-      <td>The group row’s data object</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="#column">Column</a></td>
-      <td>The column associated with the group</td>
-    </tr>
-    <tr>
-      <td>isExpanded</td>
-      <td>boolean</td>
-      <td>Specifies if the row is expanded</td>
-    </tr>
-    <tr>
-      <td>toggleGroupExpanded</td>
-      <td>() =&gt; void</td>
-      <td>Toggles the group row’s expanded state</td>
-    </tr>
-  </tbody>
-</table>
+<h2 id="license">License</h2>
 
-<h3 id="grouprowargs"><a name="group-row-args"></a>GroupRowArgs</h3>
-
-<p>Describes the properties passed to the template that renders a group row.</p>
-
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#group-row">GroupRow</a></td>
-      <td>The group row’s data object</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="groupindentcellargs"><a name="group-indent-cell-args"></a>GroupIndentCellArgs</h3>
-
-<p>Describes properties passed to the template that renders a group indent cell.</p>
-
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#group-row">GroupRow</a></td>
-      <td>The group row’s data object</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="#column">Column</a></td>
-      <td>The column associated with the group</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="grouprow"><a name="group-row"></a>GroupRow</h3>
-
-<p>Describes the group row data structure.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>type</td>
-      <td>‘groupRow’</td>
-      <td>A string value that identifies the group row</td>
-    </tr>
-    <tr>
-      <td>value</td>
-      <td>any</td>
-      <td>The current group key value</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Table columns</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
-      <td>Table body rows</td>
-    </tr>
-    <tr>
-      <td>grouping</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#grouping">Grouping</a>&gt;</td>
-      <td>Columns used for grouping</td>
-    </tr>
-    <tr>
-      <td>draftGrouping</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#draft-grouping">DraftGrouping</a>&gt;</td>
-      <td>Grouping options used for preview</td>
-    </tr>
-    <tr>
-      <td>expandedGroups</td>
-      <td>Getter</td>
-      <td>Set&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#group-key">GroupKey</a>&gt;</td>
-      <td>Expanded groups</td>
-    </tr>
-    <tr>
-      <td>toggleGroupExpanded</td>
-      <td>Action</td>
-      <td>({ groupKey: <a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#group-key">GroupKey</a> }) =&gt; void</td>
-      <td>Toggles the expanded group state</td>
-    </tr>
-    <tr>
-      <td>tableViewCell</td>
-      <td>Template</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
-      <td>A template that renders a table cell</td>
-    </tr>
-    <tr>
-      <td>tableViewRow</td>
-      <td>Template</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a></td>
-      <td>A template that renders a table row</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Table columns, including the ones by which the table is grouped</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableRow</a>&gt;</td>
-      <td>Table body rows with modified group rows</td>
-    </tr>
-  </tbody>
-</table>
+<p><a href="https://js.devexpress.com/licensing/">DevExtreme licensing</a>.</p>
 
     </div>
   </div>

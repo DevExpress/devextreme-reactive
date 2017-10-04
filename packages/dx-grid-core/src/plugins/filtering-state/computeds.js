@@ -1,15 +1,23 @@
 const toLowerCase = value => String(value).toLowerCase();
 
+const defaultPredicate = (value, filter) =>
+  toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
+
 export const filteredRows = (
   rows,
   filters,
   getCellValue,
-  predicate = (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1,
+  getColumnPredicate,
 ) => {
   if (!filters.length) return rows;
 
   return rows.filter(row => filters.reduce(
-    (acc, filter) => acc && predicate(getCellValue(row, filter.columnName), filter, row),
+    (acc, filter) => {
+      const { columnName, ...filterConfig } = filter;
+      const predicate = (getColumnPredicate && getColumnPredicate(columnName)) || defaultPredicate;
+
+      return acc && predicate(getCellValue(row, columnName), filterConfig, row);
+    },
     true,
   ));
 };

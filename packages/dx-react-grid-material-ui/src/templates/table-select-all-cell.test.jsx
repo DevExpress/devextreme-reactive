@@ -9,7 +9,8 @@ describe('TableHeaderCell', () => {
   let mount;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();
@@ -18,14 +19,12 @@ describe('TableHeaderCell', () => {
 
   it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
     const tree = mount(
-      <Table>
-        <TableSelectAllCell
-          column={{
-            name: 'Test',
-          }}
-          someSelected
-        />
-      </Table>,
+      <TableSelectAllCell
+        column={{
+          name: 'Test',
+        }}
+        someSelected
+      />,
     );
 
     expect(tree.find(Checkbox).prop('indeterminate'))
@@ -35,14 +34,12 @@ describe('TableHeaderCell', () => {
   it('should not call the `toggleAll` function on cell click if selection is not available', () => {
     const toggleAll = jest.fn();
     const tree = mount(
-      <Table>
-        <TableSelectAllCell
-          column={{
-            name: 'Test',
-          }}
-          toggleAll={toggleAll}
-        />
-      </Table>,
+      <TableSelectAllCell
+        column={{
+          name: 'Test',
+        }}
+        toggleAll={toggleAll}
+      />,
     );
     tree.find(TableCell).simulate('click');
 
@@ -53,15 +50,13 @@ describe('TableHeaderCell', () => {
   it('should call the `toggleAll` function on cell click if selection is available', () => {
     const toggleAll = jest.fn();
     const tree = mount(
-      <Table>
-        <TableSelectAllCell
-          column={{
-            name: 'Test',
-          }}
-          selectionAvailable
-          toggleAll={toggleAll}
-        />
-      </Table>,
+      <TableSelectAllCell
+        column={{
+          name: 'Test',
+        }}
+        selectionAvailable
+        toggleAll={toggleAll}
+      />,
     );
     tree.find(TableCell).simulate('click');
 

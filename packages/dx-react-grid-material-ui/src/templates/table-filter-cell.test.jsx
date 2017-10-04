@@ -9,7 +9,8 @@ describe('TableFilterCell', () => {
   let mount;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();
@@ -18,13 +19,11 @@ describe('TableFilterCell', () => {
 
   it('should use the \'Filter...\' placeholder', () => {
     const tree = mount(
-      <Table>
-        <TableFilterCell
-          column={{
-            name: 'Test',
-          }}
-        />
-      </Table>,
+      <TableFilterCell
+        column={{
+          name: 'Test',
+        }}
+      />,
     );
 
     expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
@@ -33,15 +32,13 @@ describe('TableFilterCell', () => {
   it('should not set filter with an empty value', () => {
     const setFilterMock = jest.fn();
     const tree = mount(
-      <Table>
-        <TableFilterCell
-          column={{
-            name: 'Test',
-          }}
-          setFilter={setFilterMock}
-          value={'abc'}
-        />
-      </Table>,
+      <TableFilterCell
+        column={{
+          name: 'Test',
+        }}
+        setFilter={setFilterMock}
+        value={'abc'}
+      />,
     );
 
     tree.find('input').simulate('change', { target: { value: '' } });
@@ -50,11 +47,9 @@ describe('TableFilterCell', () => {
 
   it('should render children if passed', () => {
     const tree = mount(
-      <Table>
-        <TableFilterCell>
-          <span className="test" />
-        </TableFilterCell>
-      </Table>,
+      <TableFilterCell>
+        <span className="test" />
+      </TableFilterCell>,
     );
 
     expect(tree.find('.test').exists())

@@ -10,18 +10,19 @@ describe('TableCell', () => {
   let classes;
   const mountTableCell = column => (
     mount(
-      <Table>
-        <TableCell
-          column={column}
-          value={'text'}
-        />
-      </Table>,
+      <TableCell
+        column={column}
+        value={'text'}
+      />
+      ,
     )
   );
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
     classes = getClasses(<TableCell />);
+
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();
@@ -46,11 +47,9 @@ describe('TableCell', () => {
 
   it('should render children if passed', () => {
     const tree = mount(
-      <Table>
-        <TableCell>
-          <span className="test" />
-        </TableCell>
-      </Table>,
+      <TableCell>
+        <span className="test" />
+      </TableCell>,
     );
 
     expect(tree.find('.test').exists())

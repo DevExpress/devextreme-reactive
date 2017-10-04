@@ -11,8 +11,9 @@ describe('EditCell', () => {
 
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
     classes = getClasses(<EditCell onValueChange={() => {}} />);
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();
@@ -21,12 +22,10 @@ describe('EditCell', () => {
 
   it('should render without exceptions', () => {
     const tree = mount(
-      <Table>
-        <EditCell
-          value={''}
-          onValueChange={() => {}}
-        />
-      </Table>,
+      <EditCell
+        value={''}
+        onValueChange={() => {}}
+      />,
     );
     expect(tree.find(EditCell).exists()).toBeTruthy();
   });
@@ -34,12 +33,10 @@ describe('EditCell', () => {
   it('should work with editor properly', () => {
     const onValueChange = jest.fn();
     const tree = mount(
-      <Table>
-        <EditCell
-          value={'test'}
-          onValueChange={onValueChange}
-        />
-      </Table>,
+      <EditCell
+        value={'test'}
+        onValueChange={onValueChange}
+      />,
     );
 
     const input = tree.find(Input);
@@ -54,12 +51,10 @@ describe('EditCell', () => {
 
   it('should take column align into account', () => {
     const tree = mount(
-      <Table>
-        <EditCell
-          value={''}
-          onValueChange={() => {}}
-        />
-      </Table>,
+      <EditCell
+        value={''}
+        onValueChange={() => {}}
+      />,
     );
 
     const inputRoot = tree.find(Input);
@@ -70,13 +65,11 @@ describe('EditCell', () => {
 
   it('should take column align into account if align is "right"', () => {
     const tree = mount(
-      <Table>
-        <EditCell
-          value={''}
-          onValueChange={() => {}}
-          column={{ align: 'right' }}
-        />
-      </Table>,
+      <EditCell
+        value={''}
+        onValueChange={() => {}}
+        column={{ align: 'right' }}
+      />,
     );
     const inputRoot = tree.find(Input);
     const input = inputRoot.find('input');
@@ -86,16 +79,14 @@ describe('EditCell', () => {
 
   it('should pass style to the root element', () => {
     const tree = mount(
-      <Table>
-        <EditCell
-          value={'a'}
-          onValueChange={() => {}}
-          style={{
-            width: '40px',
-            height: '10px',
-          }}
-        />
-      </Table>,
+      <EditCell
+        value={'a'}
+        onValueChange={() => {}}
+        style={{
+          width: '40px',
+          height: '10px',
+        }}
+      />,
     );
     expect(tree.find('td').prop('style'))
       .toMatchObject({
@@ -106,13 +97,11 @@ describe('EditCell', () => {
 
   it('should render children if passed', () => {
     const tree = mount(
-      <Table>
-        <EditCell
-          onValueChange={() => {}}
-        >
-          <span className="test" />
-        </EditCell>
-      </Table>,
+      <EditCell
+        onValueChange={() => {}}
+      >
+        <span className="test" />
+      </EditCell>,
     );
 
     expect(tree.find('.test').exists())

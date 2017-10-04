@@ -1,3 +1,39 @@
+<a name="1.0.0-alpha.11"></a>
+# [1.0.0-alpha.11](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2017-10-04)
+
+
+### Bug Fixes
+
+* **react-core:** update TemplatePlacholder on placeholder func change ([#370](https://github.com/DevExpress/devextreme-reactive/issues/370)) ([69659c8](https://github.com/DevExpress/devextreme-reactive/commit/69659c8))
+* **react-grid:** add 'pointer' cursor on group icon in the HeaderCell ([#369](https://github.com/DevExpress/devextreme-reactive/issues/369)) ([8d1de4a](https://github.com/DevExpress/devextreme-reactive/commit/8d1de4a))
+
+
+### Code Refactoring
+
+* **react-grid:** change custom filtering function signature ([#354](https://github.com/DevExpress/devextreme-reactive/issues/354)) ([67cfdc9](https://github.com/DevExpress/devextreme-reactive/commit/67cfdc9))
+* **react-grid:** rename getCellData to getCellValue ([#349](https://github.com/DevExpress/devextreme-reactive/issues/349)) ([8f8e41d](https://github.com/DevExpress/devextreme-reactive/commit/8f8e41d))
+
+
+### Features
+
+* **react-grid:** add custom grouping functions to LocalGrouping ([#376](https://github.com/DevExpress/devextreme-reactive/issues/376)) ([2c31af1](https://github.com/DevExpress/devextreme-reactive/commit/2c31af1))
+* **react-grid:** add the functionality to define a custom sorting algorithm ([#371](https://github.com/DevExpress/devextreme-reactive/issues/371)) ([4ac8ab8](https://github.com/DevExpress/devextreme-reactive/commit/4ac8ab8))
+* **react-grid:** support column data types ([#336](https://github.com/DevExpress/devextreme-reactive/issues/336)) ([1528800](https://github.com/DevExpress/devextreme-reactive/commit/1528800))
+
+
+### Performance Improvements
+
+* **react-grid:** optimize internal state calculation ([#356](https://github.com/DevExpress/devextreme-reactive/issues/356)) ([be890b4](https://github.com/DevExpress/devextreme-reactive/commit/be890b4))
+* **react-grid:** suppress redundant render ([#355](https://github.com/DevExpress/devextreme-reactive/issues/355)) ([695aacd](https://github.com/DevExpress/devextreme-reactive/commit/695aacd))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** The `filterFn` property of the `LocalFiltering` has been renamed to `getColumnPredicate`. The argument list has been changed from `filterFn(row: Row, filter: Filter) => boolean` to  `getColumnPredicate(columnName: string) => Function`.  The returning function has the following signature `(value: any, filter, row: Row) => boolean`.
+* **react-grid:** The `getCellData` property of the TableView plugin and the `getCellData` field of the Column interface have been renamed to `getCellValue`.
+
+
+
 <a name="1.0.0-alpha.10"></a>
 # [1.0.0-alpha.10](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2017-09-18)
 
@@ -30,7 +66,7 @@
 Before:
 
 ```jsx
-<Template name="templateName" 
+<Template name="templateName"
   connectGetters={getter => ({ value: getter('value') })}
   connectActions={action => ({ changeValue: action('changeValue') })}
 >

@@ -4,7 +4,7 @@ The Grid component with the [TableColumnVisibility](../reference/table-column-vi
 
 ## Related Components and Plugins
 
-- The Grid plugin's [TableColumnVisibility](../reference/table-column-visibility.md) plugin manages the columns visibility.
+- The Grid component's [TableColumnVisibility](../reference/table-column-visibility.md) plugin manages the columns visibility.
 - The [ColumnChooser](../reference/column-chooser.md) component provides the UI for column visibility management.
 
 ## Basic configuration

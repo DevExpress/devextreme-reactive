@@ -13,8 +13,7 @@ describe('TableCell', () => {
       <TableCell
         column={column}
         value={'text'}
-      />
-      ,
+      />,
     )
   );
   beforeAll(() => {

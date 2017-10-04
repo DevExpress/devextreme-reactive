@@ -25,6 +25,11 @@ export const demos = {
       'material-ui': require('./material-ui/basic/table-row-template').default,
     },
   },
+  localization: {
+    basic: {
+      bootstrap3: require('./bootstrap3/localization/basic').default,
+    },
+  },
   'column-reordering': {
     uncontrolled: {
       bootstrap3: require('./bootstrap3/column-reordering/uncontrolled').default,

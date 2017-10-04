@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, TableCell } from 'material-ui';
+import { Checkbox, TableCell, Table } from 'material-ui';
 import { createMount } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectAllCell } from './table-select-all-cell';
@@ -9,7 +9,8 @@ describe('TableHeaderCell', () => {
   let mount;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();

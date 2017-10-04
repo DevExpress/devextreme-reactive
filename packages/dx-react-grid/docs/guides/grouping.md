@@ -46,7 +46,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping 
 
 ## Custom Grouping Values
 
-Pass a grouping function to the `LocalGrouping` plugin’s `getGroupValue` property to group data by a custom value based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hiding of the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column value while the "city" column remains visible.
+Pass a grouping function to the `LocalGrouping` plugin’s [getColumnIdentity](../reference/local-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hiding of the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column value while the "city" column remains visible.
 
 .embedded-demo(grouping/local-grouping-custom)
 
@@ -64,6 +64,6 @@ You can also assign a function that returns a Boolean value depending on the `co
   </Grid>
 ```
 
-If the `getGroupValue` function returns an object, you should also assign a function that returns a group key to the `getGroupKey` property. In this case, data is grouped by the group key. Note that if group value is an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `groupCellTemplate` property as demonstrated in the following example:
+Note that if the `getColumnIdentity` function returns an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `groupCellTemplate` property as demonstrated in the following example:
 
 .embedded-demo(grouping/local-grouping-custom-advanced)

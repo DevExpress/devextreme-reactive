@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableCell as TableCellMUI } from 'material-ui';
+import { TableCell as TableCellMUI, Table } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
@@ -18,8 +18,10 @@ describe('TableCell', () => {
   );
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
     classes = getClasses(<TableCell />);
+
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();

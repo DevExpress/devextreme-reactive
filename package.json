@@ -12,15 +12,15 @@
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
     "check-node-version": "^2.1.0",
-    "conventional-changelog-cli": "^1.3.3",
-    "conventional-recommended-bump": "^1.0.1",
+    "conventional-changelog-cli": "^1.3.4",
+    "conventional-recommended-bump": "^1.0.2",
     "fs-extra": "^4.0.2",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.2.2",
     "inquirer": "^3.2.3",
-    "lerna": "2.1.2",
+    "lerna": "2.2.0",
     "run-sequence": "^2.1.0",
     "semver": "^5.4.1"
   },

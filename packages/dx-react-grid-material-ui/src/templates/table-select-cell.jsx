@@ -18,7 +18,7 @@ const styles = theme => ({
 
 export const TableSelectCellBase = ({ style, selected, changeSelected, classes }) => (
   <TableCell
-    checkbox
+    padding="checkbox"
     style={style}
     className={classes.cell}
     onClick={(e) => {

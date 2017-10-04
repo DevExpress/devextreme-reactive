@@ -28,6 +28,7 @@ export const demos = {
   localization: {
     basic: {
       bootstrap3: require('./bootstrap3/localization/basic').default,
+      'material-ui': require('./material-ui/localization/basic').default,
     },
   },
   'column-reordering': {

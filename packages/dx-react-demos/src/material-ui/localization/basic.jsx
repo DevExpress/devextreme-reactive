@@ -18,7 +18,9 @@ import {
   TableEditRow,
   TableEditColumn,
   PagingPanel,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-material-ui';
+
+import { TableCell } from 'material-ui';
 
 import {
   generateRows,
@@ -65,12 +67,12 @@ export default class Demo extends React.PureComponent {
         <TableView
           tableNoDataCellTemplate={
             ({ style, colSpan }) => (
-              <td
+              <TableCell
                 style={{ textAlign: 'center', width: '100%', ...style }}
                 colSpan={colSpan}
               >
                 Нет данных
-              </td>
+              </TableCell>
             )
           }
         />

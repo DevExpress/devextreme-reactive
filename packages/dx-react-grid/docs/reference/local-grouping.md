@@ -8,12 +8,15 @@ A plugin that performs local grouping and group expanding/collapsing.
 
 - [GroupingState](grouping-state.md)
 
-### Properties
+### <a name="properties"></a>Properties
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getGroupValue | (value: any, grouping: [Grouping](grouping-state.md#grouping), row: [Row](grid.md#row)) => any | | A function that returns a custom grouping value.
-getGroupKey | (value: any, grouping: [Grouping](grouping-state.md#grouping), row: [Row](grid.md#row)) => String | | A function that returns a group key.
+getColumnIdentity | (columnName: string) => [Identity](#identity) &#124; undefined | | A function calculating a grouping identity. See the [Grouping guide](../guides/grouping.md#custom-grouping-values) for more details.
+
+## Interfaces
+### <a name="identity"></a>Identity
+A function with the following signature `(value: any) => { key: string | number, value?: any }`.
 
 ## Plugin Developer Reference
 

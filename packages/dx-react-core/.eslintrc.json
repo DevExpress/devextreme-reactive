@@ -10,6 +10,7 @@
     "rules": {
         "import/prefer-default-export": "off",
         "react/forbid-prop-types": "off",
+        "jsx-a11y/href-no-hash": "off",
         "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}],
         "filenames/match-regex": [2, "^[a-z-\\.]+$"]
     },

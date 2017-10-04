@@ -8,6 +8,7 @@
     "rules": {
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",
+        "jsx-a11y/href-no-hash": "off",
         "filenames/match-regex": [2, "^[a-z-\\.]+$"]
     },
     "env": {

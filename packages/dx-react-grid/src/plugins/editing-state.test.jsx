@@ -10,7 +10,6 @@ const defaultDeps = {};
 
 describe('EditingState', () => {
   let resetConsole;
-
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });

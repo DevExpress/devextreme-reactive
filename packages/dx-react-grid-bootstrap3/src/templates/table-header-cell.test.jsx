@@ -121,12 +121,14 @@ describe('TableHeaderCell', () => {
       });
 
     tree.find(DragSource).prop('onStart')();
+
     expect(tree.find('th').prop('style'))
       .toMatchObject({
         opacity: 0.3,
       });
 
     tree.find(DragSource).prop('onEnd')();
+
     expect(tree.find('th').prop('style'))
       .not.toMatchObject({
         opacity: 0.3,

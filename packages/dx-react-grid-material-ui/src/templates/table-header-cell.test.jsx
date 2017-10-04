@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableCell } from 'material-ui';
+import { TableCell, Table } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
@@ -12,8 +12,9 @@ describe('TableHeaderCell', () => {
   let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
     classes = getClasses(<TableHeaderCell column={{}} />);
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();
@@ -44,7 +45,7 @@ describe('TableHeaderCell', () => {
       />,
     );
 
-    tree.simulate('click', { ctrlKey: true });
+    tree.find(TableHeaderCell).simulate('click', { ctrlKey: true });
 
     expect(changeSortingDirection.mock.calls).toHaveLength(1);
     expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();

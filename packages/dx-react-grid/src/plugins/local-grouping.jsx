@@ -13,10 +13,10 @@ const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalGrouping extends React.PureComponent {
   render() {
-    const { getGroupValue, getGroupKey } = this.props;
+    const { getColumnIdentity } = this.props;
 
     const groupedRowsComputed = ({ rows, grouping, getCellValue }) =>
-      groupedRows(rows, grouping, getCellValue, getGroupValue, getGroupKey);
+      groupedRows(rows, grouping, getCellValue, getColumnIdentity);
 
     return (
       <PluginContainer
@@ -31,11 +31,9 @@ export class LocalGrouping extends React.PureComponent {
 }
 
 LocalGrouping.propTypes = {
-  getGroupValue: PropTypes.func,
-  getGroupKey: PropTypes.func,
+  getColumnIdentity: PropTypes.func,
 };
 
 LocalGrouping.defaultProps = {
-  getGroupValue: undefined,
-  getGroupKey: undefined,
+  getColumnIdentity: undefined,
 };

@@ -1,5 +1,13 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
-import { GRID_GROUP_TYPE } from './constants';
+import {
+  GRID_GROUP_TYPE,
+  GRID_GROUP_CHECK,
+  GRID_GROUP_LEVEL_KEY,
+} from './constants';
+
+export const groupRowChecker = row => row[GRID_GROUP_CHECK];
+
+export const groupRowLevelKeyGetter = row => row[GRID_GROUP_LEVEL_KEY];
 
 const defaultColumnIdentity = value => ({
   key: String(value),
@@ -50,8 +58,8 @@ export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = ''
     return [
       ...acc,
       {
-        __group__: true,
-        headerKey: `${GRID_GROUP_TYPE}_${groupedBy}`,
+        [GRID_GROUP_CHECK]: true,
+        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
         groupedBy,
         key,
         value,

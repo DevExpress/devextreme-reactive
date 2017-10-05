@@ -43,10 +43,10 @@ export const tableColumnsWithGrouping = (
   ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping, showColumnWhenGrouped),
 ];
 
-export const tableRowsWithGrouping = tableRows =>
+export const tableRowsWithGrouping = (tableRows, isGroupRow) =>
   tableRows.map((tableRow) => {
     const { type, row } = tableRow;
-    if (type === TABLE_DATA_TYPE && (row.__group__ || row.type === 'groupRow')) {
+    if (type === TABLE_DATA_TYPE && (isGroupRow(row) || row.type === 'groupRow')) {
       return {
         ...tableRow,
         key: `${TABLE_GROUP_TYPE}_${row.key}`,

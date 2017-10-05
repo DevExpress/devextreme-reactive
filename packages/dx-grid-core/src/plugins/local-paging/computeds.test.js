@@ -25,14 +25,16 @@ describe('PagingState computeds', () => {
   });
 
   describe('#rowsWithPageHeaders', () => {
+    const getRowLevelKey = row => row.levelKey;
+
     it('should work with single headers', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
+        { a: 1, levelKey: 'a' },
         { a: 2 },
         { a: 3 },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 5);
+      const computedRows = rowsWithPageHeaders(rows, 5, getRowLevelKey);
       expect(computedRows).toHaveLength(3);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -41,13 +43,13 @@ describe('PagingState computeds', () => {
 
     it('should work with singe header on several pages', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
+        { a: 1, levelKey: 'a' },
         { a: 2 },
         { a: 3 },
         { a: 4 },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3, getRowLevelKey);
       expect(computedRows).toHaveLength(5);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -58,13 +60,13 @@ describe('PagingState computeds', () => {
 
     it('should work with multiple repeated headers', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
-        { a: 2, headerKey: 'a' },
+        { a: 1, levelKey: 'a' },
+        { a: 2, levelKey: 'a' },
         { a: 3 },
         { a: 4 },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 5);
+      const computedRows = rowsWithPageHeaders(rows, 5, getRowLevelKey);
       expect(computedRows).toHaveLength(4);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -74,14 +76,14 @@ describe('PagingState computeds', () => {
 
     it('should work with multiple headers', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
+        { a: 1, levelKey: 'a' },
         { a: 2 },
         { a: 3 },
-        { a: 4, headerKey: 'a' },
+        { a: 4, levelKey: 'a' },
         { a: 5 },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3, getRowLevelKey);
       expect(computedRows).toHaveLength(5);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -92,13 +94,13 @@ describe('PagingState computeds', () => {
 
     it('should work with multiple headers ended by header', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
+        { a: 1, levelKey: 'a' },
         { a: 2 },
         { a: 3 },
-        { a: 4, headerKey: 'a' },
+        { a: 4, levelKey: 'a' },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3, getRowLevelKey);
       expect(computedRows).toHaveLength(4);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -108,14 +110,14 @@ describe('PagingState computeds', () => {
 
     it('should work with nested headers', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
-        { a: 2, headerKey: 'b' },
+        { a: 1, levelKey: 'a' },
+        { a: 2, levelKey: 'b' },
         { a: 3 },
-        { a: 4, headerKey: 'b' },
+        { a: 4, levelKey: 'b' },
         { a: 5 },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3, getRowLevelKey);
       expect(computedRows).toHaveLength(6);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -127,14 +129,14 @@ describe('PagingState computeds', () => {
 
     it('should work with nested headers and different depth', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
-        { a: 2, headerKey: 'b' },
+        { a: 1, levelKey: 'a' },
+        { a: 2, levelKey: 'b' },
         { a: 3 },
-        { a: 4, headerKey: 'a' },
+        { a: 4, levelKey: 'a' },
         { a: 5 },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3, getRowLevelKey);
       expect(computedRows).toHaveLength(5);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -145,13 +147,13 @@ describe('PagingState computeds', () => {
 
     it('should work if pageSize is 0', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
+        { a: 1, levelKey: 'a' },
         { a: 2 },
         { a: 3 },
         { a: 4 },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 0);
+      const computedRows = rowsWithPageHeaders(rows, 0, getRowLevelKey);
       expect(computedRows).toHaveLength(4);
       expect(computedRows[0]).toBe(rows[0]);
       expect(computedRows[1]).toBe(rows[1]);
@@ -161,14 +163,14 @@ describe('PagingState computeds', () => {
 
     it('should throw human readable error if page size is less that header count', () => {
       const rows = [
-        { a: 1, headerKey: 'a' },
-        { a: 2, headerKey: 'b' },
-        { a: 3, headerKey: 'c' },
+        { a: 1, levelKey: 'a' },
+        { a: 2, levelKey: 'b' },
+        { a: 3, levelKey: 'c' },
         { a: 4 },
       ];
 
       expect(() => {
-        rowsWithPageHeaders(rows, 3);
+        rowsWithPageHeaders(rows, 3, getRowLevelKey);
       }).toThrowError(/page size/);
     });
 

@@ -6,8 +6,8 @@ const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
-const rowsWithHeadersComputed = ({ rows, pageSize }) =>
-  rowsWithPageHeaders(rows, pageSize);
+const rowsWithHeadersComputed = ({ rows, pageSize, getRowLevelKey }) =>
+  rowsWithPageHeaders(rows, pageSize, getRowLevelKey);
 const totalCountComputed = ({ rows }) => rowsCount(rows);
 const paginatedRowsComputed = ({ rows, pageSize, currentPage }) =>
   paginatedRows(rows, pageSize, currentPage);

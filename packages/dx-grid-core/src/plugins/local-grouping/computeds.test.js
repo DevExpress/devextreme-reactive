@@ -1,10 +1,36 @@
 import {
+  groupRowChecker,
+  groupRowLevelKeyGetter,
   groupedRows,
   expandedGroupRows,
 } from './computeds';
-import { GRID_GROUP_TYPE } from './constants';
+import {
+  GRID_GROUP_TYPE,
+  GRID_GROUP_CHECK,
+  GRID_GROUP_LEVEL_KEY,
+} from './constants';
 
 describe('GroupingPlugin computeds', () => {
+  describe('#groupRowChecker', () => {
+    it('should work', () => {
+      expect(groupRowChecker({}))
+        .toBeFalsy();
+
+      expect(groupRowChecker({ [GRID_GROUP_CHECK]: true }))
+        .toBeTruthy();
+    });
+  });
+
+  describe('#groupRowLevelKeyGetter', () => {
+    it('should work', () => {
+      expect(groupRowLevelKeyGetter({}))
+        .toBeFalsy();
+
+      expect(groupRowLevelKeyGetter({ [GRID_GROUP_LEVEL_KEY]: 'a' }))
+        .toBe('a');
+    });
+  });
+
   const rows = [
     { a: 1, b: 1 },
     { a: 1, b: 2 },
@@ -163,8 +189,8 @@ describe('GroupingPlugin computeds', () => {
       expect(expandedGroupRows(firstGroupedRows, firstGrouping, expandedGroups))
         .toEqual([
           {
-            __group__: true,
-            headerKey: `${GRID_GROUP_TYPE}_a`,
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
             key: '1',
             value: 1,
@@ -172,8 +198,8 @@ describe('GroupingPlugin computeds', () => {
           { a: 1, b: 1 },
           { a: 1, b: 2 },
           {
-            __group__: true,
-            headerKey: `${GRID_GROUP_TYPE}_a`,
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
             key: '2',
             value: 2,
@@ -187,30 +213,30 @@ describe('GroupingPlugin computeds', () => {
       expect(expandedGroupRows(secondGroupedRows, secondGrouping, expandedGroups))
         .toEqual([
           {
-            __group__: true,
-            headerKey: `${GRID_GROUP_TYPE}_a`,
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
             key: '1',
             value: 1,
           },
           {
-            __group__: true,
-            headerKey: `${GRID_GROUP_TYPE}_b`,
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
             groupedBy: 'b',
             key: '1|1',
             value: 1,
           },
           {
-            __group__: true,
-            headerKey: `${GRID_GROUP_TYPE}_b`,
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
             groupedBy: 'b',
             key: '1|2',
             value: 2,
           },
           { a: 1, b: 2 },
           {
-            __group__: true,
-            headerKey: `${GRID_GROUP_TYPE}_a`,
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
             key: '2',
             value: 2,

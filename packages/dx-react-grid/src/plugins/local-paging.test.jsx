@@ -18,6 +18,7 @@ const defaultDeps = {
     rows: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
     currentPage: 1,
     pageSize: 2,
+    getRowLevelKey: () => null,
   },
   action: {
     setCurrentPage: jest.fn(),
@@ -94,6 +95,9 @@ describe('LocalPaging', () => {
     );
 
     expect(rowsWithPageHeaders)
-      .toHaveBeenCalledWith(defaultDeps.getter.rows, defaultDeps.getter.pageSize);
+      .toHaveBeenCalledWith(
+        defaultDeps.getter.rows,
+        defaultDeps.getter.pageSize,
+        defaultDeps.getter.getRowLevelKey);
   });
 });

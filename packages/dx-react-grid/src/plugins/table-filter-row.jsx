@@ -40,7 +40,7 @@ const pluginDependencies = [
 
 export class TableFilterRow extends React.PureComponent {
   render() {
-    const { rowHeight, filterCellTemplate, filterRowTemplate } = this.props;
+    const { rowHeight, filterCellTemplate, filterRowTemplate, filterPlaceholderText } = this.props;
 
     const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
       tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
@@ -58,7 +58,10 @@ export class TableFilterRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters, actions) => {
-                const templateArgs = getFilterTableCellTemplateArgs(params, getters, actions);
+                const templateArgs = getFilterTableCellTemplateArgs({
+                  filterPlaceholderText,
+                  ...params,
+                }, getters, actions);
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
@@ -98,8 +101,10 @@ TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
   filterCellTemplate: PropTypes.func.isRequired,
   filterRowTemplate: PropTypes.func.isRequired,
+  filterPlaceholderText: PropTypes.string,
 };
 
 TableFilterRow.defaultProps = {
   rowHeight: undefined,
+  filterPlaceholderText: undefined,
 };

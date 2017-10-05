@@ -34,10 +34,10 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'channel', title: 'Channel' },
-        { name: 'customer', title: 'Customer' },
+        { name: 'region', title: 'Регион' },
+        { name: 'sector', title: 'Сектор' },
+        { name: 'channel', title: 'Канал' },
+        { name: 'customer', title: 'Клиент' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
@@ -91,7 +91,9 @@ export default class Demo extends React.PureComponent {
           width={250}
         />
 
-        <TableFilterRow />
+        <TableFilterRow
+          filterPlaceholderText={'Фильтр...'}
+        />
         <GroupingPanel
           allowUngroupingByClick
           allowDragging

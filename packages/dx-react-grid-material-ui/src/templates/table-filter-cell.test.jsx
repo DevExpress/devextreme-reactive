@@ -29,6 +29,19 @@ describe('TableFilterCell', () => {
     expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
   });
 
+  it('should use custom placeholder', () => {
+    const tree = mount(
+      <TableFilterCell
+        column={{
+          name: 'Test',
+        }}
+        filterPlaceholderText={'Filter data'}
+      />,
+    );
+
+    expect(tree.find('Input').prop('placeholder')).toBe('Filter data');
+  });
+
   it('should not set filter with an empty value', () => {
     const setFilterMock = jest.fn();
     const tree = mount(

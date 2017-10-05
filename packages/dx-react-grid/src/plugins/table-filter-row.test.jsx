@@ -46,7 +46,7 @@ const defaultProps = {
   filterRowTemplate: () => null,
 };
 
-describe('TableHeaderRow', () => {
+describe('TableFilterRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -86,12 +86,13 @@ describe('TableHeaderRow', () => {
   it('should render heading cell on user-defined column and filter row intersection', () => {
     isFilterTableCell.mockImplementation(() => true);
     const filterCellTemplate = jest.fn(() => null);
-
+    const texts = { filterPlaceholderText: 'Filter' };
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
+          texts={texts}
           filterCellTemplate={filterCellTemplate}
         />
       </PluginHost>,
@@ -105,6 +106,7 @@ describe('TableHeaderRow', () => {
     expect(filterCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
+        ...texts,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
   });

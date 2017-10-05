@@ -103,7 +103,7 @@ export default class Demo extends React.PureComponent {
         />
 
         <TableFilterRow
-          texts={localization.filterPlaceholderText}
+          texts={localization.filterRow}
         />
         <GroupingPanel
           allowUngroupingByClick

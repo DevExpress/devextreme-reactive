@@ -41,9 +41,6 @@ const localization = {
     groupByColumnText: 'Кликните на иконку, чтобы сгруппировать по колонке',
     groupingUnavailableText: 'Группировка недоступна',
   },
-  filterRow: {
-    filterPlaceholderText: 'Фильтр...',
-  },
   pagingPanel: {
     showAllText: 'Всё',
     rowsPerPageText: 'Строк на странице',

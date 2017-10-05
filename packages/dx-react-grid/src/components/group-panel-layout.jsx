@@ -140,7 +140,7 @@ export class GroupPanelLayout extends React.PureComponent {
 
   render() {
     const {
-      groupByColumnText,
+      groupPanelText,
       panelTemplate,
       allowDragging,
     } = this.props;
@@ -150,7 +150,7 @@ export class GroupPanelLayout extends React.PureComponent {
     const groupPanel = (
       items.length
         ? panelTemplate({ items })
-        : <span>{groupByColumnText}</span>
+        : <span>{groupPanelText}</span>
     );
 
     return allowDragging
@@ -177,7 +177,7 @@ GroupPanelLayout.propTypes = {
     draft: PropTypes.bool,
   })).isRequired,
   groupByColumn: PropTypes.func,
-  groupByColumnText: PropTypes.any,
+  groupPanelText: PropTypes.any,
   allowUngroupingByClick: PropTypes.bool,
   groupPanelItemTemplate: PropTypes.func.isRequired,
   panelTemplate: PropTypes.func.isRequired,
@@ -191,7 +191,7 @@ GroupPanelLayout.defaultProps = {
   sorting: undefined,
   changeSortingDirection: () => {},
   groupByColumn: () => {},
-  groupByColumnText: undefined,
+  groupPanelText: undefined,
   allowUngroupingByClick: false,
   allowDragging: false,
   draftGroupingChange: () => {},

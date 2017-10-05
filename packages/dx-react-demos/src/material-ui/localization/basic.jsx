@@ -18,6 +18,7 @@ import {
   TableEditRow,
   TableEditColumn,
   PagingPanel,
+  DragDropContext,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { TableCell } from 'material-ui';
@@ -51,6 +52,7 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
+        <DragDropContext />
         <FilteringState defaultFilters={[]} />
         <GroupingState defaultGrouping={[]} />
         <EditingState
@@ -76,7 +78,7 @@ export default class Demo extends React.PureComponent {
             )
           }
         />
-        <TableHeaderRow allowGroupingByClick />
+        <TableHeaderRow allowGroupingByClick allowDragging />
 
         <TableEditRow />
         <TableEditColumn
@@ -86,7 +88,13 @@ export default class Demo extends React.PureComponent {
         />
 
         <TableFilterRow />
-        <GroupingPanel allowUngroupingByClick />
+        <GroupingPanel
+          allowUngroupingByClick
+          allowDragging
+          dragColumnHeaderText={'Перетащите заголовок колонки для группировки'}
+          groupByColumnText={'Кликните на иконку, чтобы сгруппировать по колонке'}
+          groupingUnavailableText={'Сотрировка недоступна'}
+        />
         <TableGroupRow />
         <PagingPanel
           allowedPageSizes={[5, 10, 15, 0]}

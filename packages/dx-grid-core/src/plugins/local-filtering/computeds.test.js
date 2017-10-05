@@ -1,14 +1,14 @@
 import {
-  filteredGridRows,
+  filteredRows,
 } from './computeds';
 
 describe('FilteringState computeds', () => {
-  describe('#filteredGridRows', () => {
-    const gridRows = [
-      { row: { a: 1, b: 1 }, defaultRowId: 0 },
-      { row: { a: 1, b: 2 }, defaultRowId: 1 },
-      { row: { a: 2, b: 1 }, defaultRowId: 2 },
-      { row: { a: 2, b: 2 }, defaultRowId: 3 },
+  describe('#filteredRows', () => {
+    const rows = [
+      { a: 1, b: 1 },
+      { a: 1, b: 2 },
+      { a: 2, b: 1 },
+      { a: 2, b: 2 },
     ];
 
     const getCellValue = (row, columnName) => row[columnName];
@@ -16,26 +16,26 @@ describe('FilteringState computeds', () => {
     it('should not touch grid rows if no filters specified', () => {
       const filters = [];
 
-      const filtered = filteredGridRows(gridRows, filters, getCellValue);
-      expect(filtered).toBe(gridRows);
+      const filtered = filteredRows(rows, filters, getCellValue);
+      expect(filtered).toBe(rows);
     });
 
     it('can filter by one field', () => {
       const filters = [{ columnName: 'a', value: 1 }];
 
-      const filtered = filteredGridRows(gridRows, filters, getCellValue);
+      const filtered = filteredRows(rows, filters, getCellValue);
       expect(filtered).toEqual([
-        { row: { a: 1, b: 1 }, defaultRowId: 0 },
-        { row: { a: 1, b: 2 }, defaultRowId: 1 },
+        { a: 1, b: 1 },
+        { a: 1, b: 2 },
       ]);
     });
 
     it('can filter by several fields', () => {
       const filters = [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }];
 
-      const filtered = filteredGridRows(gridRows, filters, getCellValue);
+      const filtered = filteredRows(rows, filters, getCellValue);
       expect(filtered).toEqual([
-        { row: { a: 1, b: 2 }, defaultRowId: 1 },
+        { a: 1, b: 2 },
       ]);
     });
 
@@ -46,24 +46,24 @@ describe('FilteringState computeds', () => {
         .mockImplementation(() => (value, filter, row) => value === 1 && row.b === 2);
 
       const filters = [{ columnName: 'a', value: 1 }];
-      const filtered = filteredGridRows(gridRows, filters, getCellValue, getColumnPredicate);
+      const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
 
       expect(getColumnPredicate).toBeCalledWith(filters[0].columnName);
       expect(filtered)
         .toEqual([
-          { row: { a: 1, b: 2 }, defaultRowId: 1 },
+          { a: 1, b: 2 },
         ]);
     });
 
     it('should filter using default predicate if custom predicate returns nothing', () => {
       const getColumnPredicate = () => undefined;
       const filters = [{ columnName: 'a', value: 1 }];
-      const filtered = filteredGridRows(gridRows, filters, getCellValue, getColumnPredicate);
+      const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
 
       expect(filtered)
         .toEqual([
-          { row: { a: 1, b: 1 }, defaultRowId: 0 },
-          { row: { a: 1, b: 2 }, defaultRowId: 1 },
+          { a: 1, b: 1 },
+          { a: 1, b: 2 },
         ]);
     });
   });

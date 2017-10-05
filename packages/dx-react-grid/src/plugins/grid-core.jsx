@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PluginContainer, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
-import { gridRows, gridRowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
+import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 
 export class GridCore extends React.PureComponent {
   render() {
@@ -17,9 +17,9 @@ export class GridCore extends React.PureComponent {
 
     return (
       <PluginContainer>
-        <Getter name="gridRows" value={gridRows(data)} />
+        <Getter name="rows" value={data} />
+        <Getter name="getRowId" value={rowIdGetter(getRowId, data)} />
         <Getter name="columns" value={columns} />
-        <Getter name="getGridRowId" value={gridRowIdGetter(getRowId)} />
         <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
         <Template name="header" />
         <Template name="body" />

@@ -26,8 +26,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     columns: [{ name: 'field' }],
-    gridRows: [{ field: 1 }],
-    getGridRowId: () => {},
+    rows: [{ field: 1 }],
+    getRowId: () => {},
     getCellValue: () => {},
   },
   action: {
@@ -81,7 +81,7 @@ describe('TableView', () => {
       );
 
       expect(tableRowsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.gridRows, defaultDeps.getter.getGridRowId);
+        .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
       expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithDataRows');
     });
@@ -211,7 +211,7 @@ describe('TableView', () => {
       .toBeCalledWith(tableCellArgs);
   });
 
-  it('should render no data cell if gridRows are empty', () => {
+  it('should render no data cell if rows are empty', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableNoDataCellTemplate = jest.fn(() => null);
     const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4 };

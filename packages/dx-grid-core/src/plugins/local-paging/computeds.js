@@ -3,37 +3,37 @@ const PAGE_HEADERS_OVERFLOW_ERROR = [
   'Typically, title rows are group headers.',
 ].join('\n');
 
-export const paginatedGridRows = (gridRows, pageSize, page) => (
+export const paginatedRows = (rows, pageSize, page) => (
   pageSize ?
-    gridRows.slice(pageSize * page, pageSize * (page + 1)) :
-    gridRows
+    rows.slice(pageSize * page, pageSize * (page + 1)) :
+    rows
 );
 
-export const gridRowsWithPageHeaders = (gridRows, pageSize) => {
+export const rowsWithPageHeaders = (rows, pageSize) => {
   if (!pageSize) {
-    return gridRows;
+    return rows;
   }
 
-  let result = gridRows.slice();
+  let result = rows.slice();
 
   let headers = [];
   let currentIndex = 0;
   while (result.length > currentIndex) {
-    const gridRow = result[currentIndex];
-    const headerKey = gridRow.headerKey || gridRow.row._headerKey;
+    const row = result[currentIndex];
+    const headerKey = row.headerKey || row._headerKey;
     if (headerKey) {
       const headerIndex = headers.findIndex(header => header.headerKey === headerKey);
       if (headerIndex === -1) {
-        headers = [...headers, gridRow];
+        headers = [...headers, row];
       } else {
-        headers = [...headers.slice(0, headerIndex), gridRow];
+        headers = [...headers.slice(0, headerIndex), row];
       }
       if (headers.length >= pageSize) {
         throw new Error(PAGE_HEADERS_OVERFLOW_ERROR);
       }
     }
     const indexInPage = currentIndex % pageSize;
-    if (indexInPage < headers.length && gridRow !== headers[indexInPage]) {
+    if (indexInPage < headers.length && row !== headers[indexInPage]) {
       result = [
         ...result.slice(0, currentIndex),
         headers[indexInPage],
@@ -50,4 +50,4 @@ export const pageCount = (count, pageSize) => (
   pageSize ? Math.ceil(count / pageSize) : 1
 );
 
-export const gridRowsCount = gridRows => gridRows.length;
+export const rowsCount = rows => rows.length;

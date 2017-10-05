@@ -26,7 +26,7 @@ A function with the following signature `(a: any, b: any) => number`
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows to be sorted.
+rows | Getter | Array&lt;any&gt; | Rows to be sorted.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting to be applied.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 
@@ -34,4 +34,4 @@ getCellValue | Getter | (row: any, columnName: string) => any | A function used 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows with the applied sorting.
+rows | Getter | Array&lt;any&gt; | Rows with the applied sorting.

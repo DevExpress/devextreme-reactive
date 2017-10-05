@@ -1,46 +1,33 @@
 import {
-  gridRows,
-  gridRowIdGetter,
+  rowIdGetter,
   cellValueGetter,
 } from './computeds';
 
 describe('GridCore Plugin computeds', () => {
-  describe('#gridRows', () => {
-    it('should work', () => {
-      const data = [{ a: 1 }, { a: 2 }];
-
-      expect(gridRows(data))
-        .toEqual([
-          { row: { a: 1 }, defaultRowId: 0 },
-          { row: { a: 2 }, defaultRowId: 1 },
-        ]);
-    });
-  });
-
-  describe('#gridRowIdGetter', () => {
+  describe('#rowIdGetter', () => {
     it('should work with default ids', () => {
       const data = [
-        { row: { a: 1 }, defaultRowId: 0 },
-        { row: { a: 2 }, defaultRowId: 1 },
+        { a: 1 },
+        { a: 2 },
       ];
       const getRowId = null;
 
-      expect(gridRowIdGetter(getRowId)(data[0]))
+      expect(rowIdGetter(getRowId, data)(data[0]))
         .toEqual(0);
-      expect(gridRowIdGetter(getRowId)(data[1]))
+      expect(rowIdGetter(getRowId, data)(data[1]))
         .toEqual(1);
     });
 
     it('should work with custom func', () => {
       const data = [
-        { row: { a: 1 }, defaultRowId: 0 },
-        { row: { a: 2 }, defaultRowId: 1 },
+        { a: 1 },
+        { a: 2 },
       ];
       const getRowId = row => row.a;
 
-      expect(gridRowIdGetter(getRowId)(data[0]))
+      expect(rowIdGetter(getRowId, data)(data[0]))
         .toEqual(1);
-      expect(gridRowIdGetter(getRowId)(data[1]))
+      expect(rowIdGetter(getRowId, data)(data[1]))
         .toEqual(2);
     });
   });

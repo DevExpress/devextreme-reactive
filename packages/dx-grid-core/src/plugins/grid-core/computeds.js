@@ -1,10 +1,9 @@
-export const gridRows = data => data.map((row, index) => ({ row, defaultRowId: index }));
-
-export const gridRowIdGetter = (getRowId) => {
-  if (getRowId) {
-    return gridRow => getRowId(gridRow.row);
+export const rowIdGetter = (getRowId, data) => {
+  if (!getRowId && Array.isArray(data)) {
+    const map = new Map(data.map((row, rowIndex) => [row, rowIndex]));
+    return row => map.get(row);
   }
-  return gridRow => gridRow.defaultRowId;
+  return getRowId;
 };
 
 export const cellValueGetter = (getCellValue, columns) => {

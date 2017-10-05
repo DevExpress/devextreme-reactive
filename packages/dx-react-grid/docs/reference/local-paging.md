@@ -18,7 +18,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows to be paged.
+rows | Getter | Array&lt;any&gt; | Rows to be paged.
 pageSize | Getter | number | Provides the page size.
 currentPage | Getter | number | Provides the current page.
 setCurrentPage | Action | (page: number) => void | Changes the current page.
@@ -27,5 +27,5 @@ setCurrentPage | Action | (page: number) => void | Changes the current page.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-gridRows | Getter | Array&lt;[GridRow](grid.md#grid-row)&gt; | Rows with the applied paging.
+rows | Getter | Array&lt;any&gt; | Rows with the applied paging.
 totalCount | Getter | number | The total row count.

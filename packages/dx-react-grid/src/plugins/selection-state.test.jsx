@@ -8,7 +8,8 @@ import { SelectionState } from './selection-state';
 
 const defaultDeps = {
   getter: {
-    gridRows: [],
+    rows: [],
+    getRowId: row => row.id,
   },
 };
 

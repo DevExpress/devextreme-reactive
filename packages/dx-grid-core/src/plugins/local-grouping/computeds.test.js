@@ -1,50 +1,50 @@
 import {
-  groupedGridRows,
-  expandedGroupGridRows,
+  groupedRows,
+  expandedGroupRows,
 } from './computeds';
 import { GRID_GROUP_TYPE } from './constants';
 
 describe('GroupingPlugin computeds', () => {
-  const gridRows = [
-    { row: { a: 1, b: 1 } },
-    { row: { a: 1, b: 2 } },
-    { row: { a: 2, b: 1 } },
-    { row: { a: 2, b: 2 } },
+  const rows = [
+    { a: 1, b: 1 },
+    { a: 1, b: 2 },
+    { a: 2, b: 1 },
+    { a: 2, b: 2 },
   ];
   const getCellValue = (row, columnName) => row[columnName];
 
   const firstGrouping = [{ columnName: 'a' }];
-  const firstGroupedGridRows = [{
+  const firstGroupedRows = [{
     value: 1,
     key: '1',
     items: [
-      { row: { a: 1, b: 1 } },
-      { row: { a: 1, b: 2 } },
+      { a: 1, b: 1 },
+      { a: 1, b: 2 },
     ],
   }, {
     value: 2,
     key: '2',
     items: [
-      { row: { a: 2, b: 1 } },
-      { row: { a: 2, b: 2 } },
+      { a: 2, b: 1 },
+      { a: 2, b: 2 },
     ],
   }];
 
   const secondGrouping = [{ columnName: 'a' }, { columnName: 'b' }];
-  const secondGroupedGridRows = [{
+  const secondGroupedRows = [{
     value: 1,
     key: '1',
     items: [{
       value: 1,
       key: '1',
       items: [
-        { row: { a: 1, b: 1 } },
+        { a: 1, b: 1 },
       ],
     }, {
       value: 2,
       key: '2',
       items: [
-        { row: { a: 1, b: 2 } },
+        { a: 1, b: 2 },
       ],
     }],
   }, {
@@ -54,26 +54,26 @@ describe('GroupingPlugin computeds', () => {
       value: 1,
       key: '1',
       items: [
-        { row: { a: 2, b: 1 } },
+        { a: 2, b: 1 },
       ],
     }, {
       value: 2,
       key: '2',
       items: [
-        { row: { a: 2, b: 2 } },
+        { a: 2, b: 2 },
       ],
     }],
   }];
 
-  describe('#groupedGridRows', () => {
+  describe('#groupedRows', () => {
     it('can group by first column', () => {
-      expect(groupedGridRows(gridRows, firstGrouping, getCellValue))
-        .toEqual(firstGroupedGridRows);
+      expect(groupedRows(rows, firstGrouping, getCellValue))
+        .toEqual(firstGroupedRows);
     });
 
     it('can group by several columns', () => {
-      expect(groupedGridRows(gridRows, secondGrouping, getCellValue))
-        .toEqual(secondGroupedGridRows);
+      expect(groupedRows(rows, secondGrouping, getCellValue))
+        .toEqual(secondGroupedRows);
     });
 
     it('should use getColumnIdentity', () => {
@@ -81,20 +81,20 @@ describe('GroupingPlugin computeds', () => {
         key: String(value).substr(0, 1),
         value: `${value}_test`,
       });
-      expect(groupedGridRows(gridRows, firstGrouping, getCellValue, getColumnIdentity))
+      expect(groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity))
         .toEqual([{
           value: '1_test',
           key: '1',
           items: [
-            { row: { a: 1, b: 1 } },
-            { row: { a: 1, b: 2 } },
+            { a: 1, b: 1 },
+            { a: 1, b: 2 },
           ],
         }, {
           value: '2_test',
           key: '2',
           items: [
-            { row: { a: 2, b: 1 } },
-            { row: { a: 2, b: 2 } },
+            { a: 2, b: 1 },
+            { a: 2, b: 2 },
           ],
         }]);
     });
@@ -104,7 +104,7 @@ describe('GroupingPlugin computeds', () => {
         key: `${value}_test`,
       });
 
-      expect(groupedGridRows(gridRows, secondGrouping, getCellValue, getColumnIdentity))
+      expect(groupedRows(rows, secondGrouping, getCellValue, getColumnIdentity))
         .toEqual([{
           value: '1_test',
           key: '1_test',
@@ -112,13 +112,13 @@ describe('GroupingPlugin computeds', () => {
             value: '1_test',
             key: '1_test',
             items: [
-              { row: { a: 1, b: 1 } },
+              { a: 1, b: 1 },
             ],
           }, {
             value: '2_test',
             key: '2_test',
             items: [
-              { row: { a: 1, b: 2 } },
+              { a: 1, b: 2 },
             ],
           }],
         }, {
@@ -128,13 +128,13 @@ describe('GroupingPlugin computeds', () => {
             value: '1_test',
             key: '1_test',
             items: [
-              { row: { a: 2, b: 1 } },
+              { a: 2, b: 1 },
             ],
           }, {
             value: '2_test',
             key: '2_test',
             items: [
-              { row: { a: 2, b: 2 } },
+              { a: 2, b: 2 },
             ],
           }],
         }]);
@@ -143,7 +143,7 @@ describe('GroupingPlugin computeds', () => {
     it('should pass column name to getColumnIdentity', () => {
       const getColumnIdentity = jest.fn(() => value => value);
 
-      groupedGridRows(gridRows, firstGrouping, getCellValue, getColumnIdentity);
+      groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity);
 
       expect(getColumnIdentity)
         .toHaveBeenCalledWith(firstGrouping[0].columnName);
@@ -151,30 +151,32 @@ describe('GroupingPlugin computeds', () => {
 
     it('should group using default getColumnIdentity if custom getColumnIdentity returns nothing', () => {
       const getColumnIdentity = () => undefined;
-      expect(groupedGridRows(gridRows, firstGrouping, getCellValue, getColumnIdentity))
-        .toEqual(firstGroupedGridRows);
+      expect(groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity))
+        .toEqual(firstGroupedRows);
     });
   });
 
-  describe('#expandedGroupGridRows', () => {
+  describe('#expandedGroupRows', () => {
     it('can expand groups', () => {
       const expandedGroups = new Set(['1']);
 
-      expect(expandedGroupGridRows(firstGroupedGridRows, firstGrouping, expandedGroups))
+      expect(expandedGroupRows(firstGroupedRows, firstGrouping, expandedGroups))
         .toEqual([
           {
+            __group__: true,
             headerKey: `${GRID_GROUP_TYPE}_a`,
-            type: GRID_GROUP_TYPE,
             groupedBy: 'a',
-            row: { key: '1', value: 1 },
+            key: '1',
+            value: 1,
           },
-          { row: { a: 1, b: 1 } },
-          { row: { a: 1, b: 2 } },
+          { a: 1, b: 1 },
+          { a: 1, b: 2 },
           {
+            __group__: true,
             headerKey: `${GRID_GROUP_TYPE}_a`,
-            type: GRID_GROUP_TYPE,
             groupedBy: 'a',
-            row: { key: '2', value: 2 },
+            key: '2',
+            value: 2,
           },
         ]);
     });
@@ -182,32 +184,36 @@ describe('GroupingPlugin computeds', () => {
     it('can expand nested groups', () => {
       const expandedGroups = new Set(['1', '1|2']);
 
-      expect(expandedGroupGridRows(secondGroupedGridRows, secondGrouping, expandedGroups))
+      expect(expandedGroupRows(secondGroupedRows, secondGrouping, expandedGroups))
         .toEqual([
           {
+            __group__: true,
             headerKey: `${GRID_GROUP_TYPE}_a`,
-            type: GRID_GROUP_TYPE,
             groupedBy: 'a',
-            row: { key: '1', value: 1 },
+            key: '1',
+            value: 1,
           },
           {
+            __group__: true,
             headerKey: `${GRID_GROUP_TYPE}_b`,
-            type: GRID_GROUP_TYPE,
             groupedBy: 'b',
-            row: { key: '1|1', value: 1 },
+            key: '1|1',
+            value: 1,
           },
           {
+            __group__: true,
             headerKey: `${GRID_GROUP_TYPE}_b`,
-            type: GRID_GROUP_TYPE,
             groupedBy: 'b',
-            row: { key: '1|2', value: 2 },
+            key: '1|2',
+            value: 2,
           },
-          { row: { a: 1, b: 2 } },
+          { a: 1, b: 2 },
           {
+            __group__: true,
             headerKey: `${GRID_GROUP_TYPE}_a`,
-            type: GRID_GROUP_TYPE,
             groupedBy: 'a',
-            row: { key: '2', value: 2 },
+            key: '2',
+            value: 2,
           },
         ]);
     });

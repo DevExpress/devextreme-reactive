@@ -6,7 +6,7 @@ const defaultCompare = (a, b) => {
   return 0;
 };
 
-export const sortedGridRows = (rows, sorting, getCellValue, getColumnCompare) => {
+export const sortedRows = (rows, sorting, getCellValue, getColumnCompare) => {
   if (!sorting.length) return rows;
 
   const compare = Array.from(sorting)
@@ -31,5 +31,5 @@ export const sortedGridRows = (rows, sorting, getCellValue, getColumnCompare) =>
       () => 0,
     );
 
-  return mergeSort(Array.from(rows), (a, b) => compare(a.row, b.row));
+  return mergeSort(Array.from(rows), compare);
 };

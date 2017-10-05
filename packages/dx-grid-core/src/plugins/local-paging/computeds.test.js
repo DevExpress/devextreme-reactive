@@ -1,191 +1,191 @@
 import {
-  paginatedGridRows,
-  gridRowsWithPageHeaders,
+  paginatedRows,
+  rowsWithPageHeaders,
   pageCount,
-  gridRowsCount,
+  rowsCount,
 } from './computeds';
 
 describe('PagingState computeds', () => {
-  describe('#paginatedGridRows', () => {
+  describe('#paginatedRows', () => {
     it('should work', () => {
-      const gridRows = [1, 2, 3];
+      const rows = [1, 2, 3];
 
-      let page = paginatedGridRows(gridRows, 2, 0);
+      let page = paginatedRows(rows, 2, 0);
       expect(page).toEqual([1, 2]);
 
-      page = paginatedGridRows(gridRows, 2, 1);
+      page = paginatedRows(rows, 2, 1);
       expect(page).toEqual([3]);
 
-      page = paginatedGridRows(gridRows, 2, 3);
+      page = paginatedRows(rows, 2, 3);
       expect(page).toEqual([]);
 
-      page = paginatedGridRows(gridRows, 0, 1);
-      expect(page).toEqual(gridRows);
+      page = paginatedRows(rows, 0, 1);
+      expect(page).toEqual(rows);
     });
   });
 
-  describe('#gridRowsWithPageHeaders', () => {
+  describe('#rowsWithPageHeaders', () => {
     it('should work with single headers', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2 },
-        { row: 3 },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2 },
+        { a: 3 },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 5);
+      const computedRows = rowsWithPageHeaders(rows, 5);
       expect(computedRows).toHaveLength(3);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[2]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
     });
 
     it('should work with singe header on several pages', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2 },
-        { row: 3 },
-        { row: 4 },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2 },
+        { a: 3 },
+        { a: 4 },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3);
       expect(computedRows).toHaveLength(5);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[2]);
-      expect(computedRows[3]).toBe(gridRows[0]);
-      expect(computedRows[4]).toBe(gridRows[3]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
+      expect(computedRows[3]).toBe(rows[0]);
+      expect(computedRows[4]).toBe(rows[3]);
     });
 
     it('should work with multiple repeated headers', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2, headerKey: 'a' },
-        { row: 3 },
-        { row: 4 },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2, headerKey: 'a' },
+        { a: 3 },
+        { a: 4 },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 5);
+      const computedRows = rowsWithPageHeaders(rows, 5);
       expect(computedRows).toHaveLength(4);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[2]);
-      expect(computedRows[3]).toBe(gridRows[3]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
+      expect(computedRows[3]).toBe(rows[3]);
     });
 
     it('should work with multiple headers', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2 },
-        { row: 3 },
-        { row: 4, headerKey: 'a' },
-        { row: 5 },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2 },
+        { a: 3 },
+        { a: 4, headerKey: 'a' },
+        { a: 5 },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3);
       expect(computedRows).toHaveLength(5);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[2]);
-      expect(computedRows[3]).toBe(gridRows[3]);
-      expect(computedRows[4]).toBe(gridRows[4]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
+      expect(computedRows[3]).toBe(rows[3]);
+      expect(computedRows[4]).toBe(rows[4]);
     });
 
     it('should work with multiple headers ended by header', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2 },
-        { row: 3 },
-        { row: 4, headerKey: 'a' },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2 },
+        { a: 3 },
+        { a: 4, headerKey: 'a' },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3);
       expect(computedRows).toHaveLength(4);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[2]);
-      expect(computedRows[3]).toBe(gridRows[3]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
+      expect(computedRows[3]).toBe(rows[3]);
     });
 
     it('should work with nested headers', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2, headerKey: 'b' },
-        { row: 3 },
-        { row: 4, headerKey: 'b' },
-        { row: 5 },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2, headerKey: 'b' },
+        { a: 3 },
+        { a: 4, headerKey: 'b' },
+        { a: 5 },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3);
       expect(computedRows).toHaveLength(6);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[2]);
-      expect(computedRows[3]).toBe(gridRows[0]);
-      expect(computedRows[4]).toBe(gridRows[3]);
-      expect(computedRows[5]).toBe(gridRows[4]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
+      expect(computedRows[3]).toBe(rows[0]);
+      expect(computedRows[4]).toBe(rows[3]);
+      expect(computedRows[5]).toBe(rows[4]);
     });
 
     it('should work with nested headers and different depth', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2, headerKey: 'b' },
-        { row: 3 },
-        { row: 4, headerKey: 'a' },
-        { row: 5 },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2, headerKey: 'b' },
+        { a: 3 },
+        { a: 4, headerKey: 'a' },
+        { a: 5 },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 3);
+      const computedRows = rowsWithPageHeaders(rows, 3);
       expect(computedRows).toHaveLength(5);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[2]);
-      expect(computedRows[3]).toBe(gridRows[3]);
-      expect(computedRows[4]).toBe(gridRows[4]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
+      expect(computedRows[3]).toBe(rows[3]);
+      expect(computedRows[4]).toBe(rows[4]);
     });
 
     it('should work if pageSize is 0', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2 },
-        { row: 3 },
-        { row: 4 },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2 },
+        { a: 3 },
+        { a: 4 },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 0);
+      const computedRows = rowsWithPageHeaders(rows, 0);
       expect(computedRows).toHaveLength(4);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[2]);
-      expect(computedRows[3]).toBe(gridRows[3]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[2]);
+      expect(computedRows[3]).toBe(rows[3]);
     });
 
     it('should throw human readable error if page size is less that header count', () => {
-      const gridRows = [
-        { row: 1, headerKey: 'a' },
-        { row: 2, headerKey: 'b' },
-        { row: 3, headerKey: 'c' },
-        { row: 4 },
+      const rows = [
+        { a: 1, headerKey: 'a' },
+        { a: 2, headerKey: 'b' },
+        { a: 3, headerKey: 'c' },
+        { a: 4 },
       ];
 
       expect(() => {
-        gridRowsWithPageHeaders(gridRows, 3);
+        rowsWithPageHeaders(rows, 3);
       }).toThrowError(/page size/);
     });
 
     // TODO: remove with custom grouping release
     it('should work in legacy mode', () => {
-      const gridRows = [
-        { row: { _headerKey: 'a' } },
-        { row: 2 },
-        { row: 3 },
+      const rows = [
+        { a: 1, _headerKey: 'a' },
+        { a: 2 },
+        { a: 3 },
       ];
 
-      const computedRows = gridRowsWithPageHeaders(gridRows, 2);
+      const computedRows = rowsWithPageHeaders(rows, 2);
       expect(computedRows).toHaveLength(4);
-      expect(computedRows[0]).toBe(gridRows[0]);
-      expect(computedRows[1]).toBe(gridRows[1]);
-      expect(computedRows[2]).toBe(gridRows[0]);
-      expect(computedRows[3]).toBe(gridRows[2]);
+      expect(computedRows[0]).toBe(rows[0]);
+      expect(computedRows[1]).toBe(rows[1]);
+      expect(computedRows[2]).toBe(rows[0]);
+      expect(computedRows[3]).toBe(rows[2]);
     });
   });
 
@@ -199,9 +199,9 @@ describe('PagingState computeds', () => {
     });
   });
 
-  describe('#gridRowsCount', () => {
+  describe('#rowsCount', () => {
     it('should work', () => {
-      const count = gridRowsCount([1, 2, 3]);
+      const count = rowsCount([1, 2, 3]);
       expect(count).toEqual(3);
     });
   });

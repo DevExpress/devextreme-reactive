@@ -1,6 +1,5 @@
-import { TABLE_DATA_TYPE, TABLE_UNKNOWN_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
 import { TABLE_GROUP_TYPE } from './constants';
-import { GRID_GROUP_TYPE } from '../local-grouping/constants';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
@@ -114,10 +113,10 @@ describe('TableGroupRow Plugin computeds', () => {
   describe('#tableRowsWithGrouping', () => {
     it('should convert table rows containing group data to group rows', () => {
       const tableRows = [
-        { type: TABLE_UNKNOWN_TYPE, gridRow: { type: GRID_GROUP_TYPE, groupedBy: 'a', row: { key: 'B', value: 'B' } } },
-        { type: TABLE_UNKNOWN_TYPE, gridRow: { row: { id: 0 } } },
-        { type: TABLE_DATA_TYPE, gridRow: { row: { id: 1 } } },
-        { type: TABLE_DATA_TYPE, gridRow: { row: { id: 2 } } },
+        { type: TABLE_DATA_TYPE, row: { __group__: true, groupedBy: 'a', key: 'B' } },
+        { type: TABLE_DATA_TYPE, row: { id: 0 } },
+        { type: TABLE_DATA_TYPE, row: { id: 1 } },
+        { type: TABLE_DATA_TYPE, row: { id: 2 } },
       ];
 
       expect(tableRowsWithGrouping(tableRows))
@@ -125,23 +124,22 @@ describe('TableGroupRow Plugin computeds', () => {
           {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
-            gridRow: { type: GRID_GROUP_TYPE, groupedBy: 'a', row: { key: 'B', value: 'B' } },
-            row: { key: 'B', value: 'B' },
+            row: { __group__: true, groupedBy: 'a', key: 'B' },
             colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
-          { type: TABLE_UNKNOWN_TYPE, gridRow: { row: { id: 0 } } },
-          { type: TABLE_DATA_TYPE, gridRow: { row: { id: 1 } } },
-          { type: TABLE_DATA_TYPE, gridRow: { row: { id: 2 } } },
+          { type: TABLE_DATA_TYPE, row: { id: 0 } },
+          { type: TABLE_DATA_TYPE, row: { id: 1 } },
+          { type: TABLE_DATA_TYPE, row: { id: 2 } },
         ]);
     });
 
     // TODO: remove with custom grouping release
     it('should convert table rows containing group data to group rows in legacy mode', () => {
       const tableRows = [
-        { type: TABLE_DATA_TYPE, gridRow: { row: { type: 'groupRow', groupedBy: 'a', key: 'B' } } },
-        { type: TABLE_DATA_TYPE, gridRow: { row: { id: 0 } } },
-        { type: TABLE_DATA_TYPE, gridRow: { row: { id: 1 } } },
-        { type: TABLE_DATA_TYPE, gridRow: { row: { id: 2 } } },
+        { type: TABLE_DATA_TYPE, row: { type: 'groupRow', groupedBy: 'a', key: 'B' } },
+        { type: TABLE_DATA_TYPE, row: { id: 0 } },
+        { type: TABLE_DATA_TYPE, row: { id: 1 } },
+        { type: TABLE_DATA_TYPE, row: { id: 2 } },
       ];
 
       expect(tableRowsWithGrouping(tableRows))
@@ -149,13 +147,12 @@ describe('TableGroupRow Plugin computeds', () => {
           {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
-            gridRow: { row: { type: 'groupRow', groupedBy: 'a', key: 'B' } },
             row: { type: 'groupRow', groupedBy: 'a', key: 'B' },
             colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
-          { type: TABLE_DATA_TYPE, gridRow: { row: { id: 0 } } },
-          { type: TABLE_DATA_TYPE, gridRow: { row: { id: 1 } } },
-          { type: TABLE_DATA_TYPE, gridRow: { row: { id: 2 } } },
+          { type: TABLE_DATA_TYPE, row: { id: 0 } },
+          { type: TABLE_DATA_TYPE, row: { id: 1 } },
+          { type: TABLE_DATA_TYPE, row: { id: 2 } },
         ]);
     });
   });

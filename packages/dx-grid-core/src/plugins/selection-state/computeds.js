@@ -1,5 +1,6 @@
-export const getAvailableToSelect = (gridRows, getGridRowId) =>
-  gridRows.filter(gridRow => !gridRow.type).map(gridRow => getGridRowId(gridRow));
+export const getAvailableToSelect = (rows, getRowId) => rows
+  // .filter(row => !rowsMeta.get(row).type)
+  .map(row => getRowId(row));
 
 export const getAvailableSelection = (selection, availableToSelect) => {
   const availableToSelectSet = new Set(availableToSelect);

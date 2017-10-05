@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
-import { sortedGridRows } from '@devexpress/dx-grid-core';
+import { sortedRows } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'SortingState' },
@@ -10,15 +10,15 @@ const pluginDependencies = [
 export class LocalSorting extends React.PureComponent {
   render() {
     const { getColumnCompare } = this.props;
-    const gridRowsComputed = ({ gridRows, sorting, getCellValue }) =>
-      sortedGridRows(gridRows, sorting, getCellValue, getColumnCompare);
+    const rowsComputed = ({ rows, sorting, getCellValue }) =>
+      sortedRows(rows, sorting, getCellValue, getColumnCompare);
 
     return (
       <PluginContainer
         pluginName="LocalSorting"
         dependencies={pluginDependencies}
       >
-        <Getter name="gridRows" computed={gridRowsComputed} />
+        <Getter name="rows" computed={rowsComputed} />
       </PluginContainer>
     );
   }

@@ -6,27 +6,26 @@ const defaultColumnIdentity = value => ({
   value,
 });
 
-export const groupedGridRows = (
-  gridRows,
+export const groupedRows = (
+  rows,
   grouping,
   getCellValue,
   getColumnIdentity,
 ) => {
-  if (!grouping.length) return gridRows;
+  if (!grouping.length) return rows;
 
   const { columnName } = grouping[0];
   const groupIdentity = (getColumnIdentity && getColumnIdentity(columnName))
     || defaultColumnIdentity;
-  const groups = gridRows
-    .reduce((acc, gridRow) => {
-      const { row } = gridRow;
+  const groups = rows
+    .reduce((acc, row) => {
       const { key, value = key } = groupIdentity(getCellValue(row, columnName), row);
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
-        acc.set(key, [value, key, [gridRow]]);
+        acc.set(key, [value, key, [row]]);
       } else {
-        sameKeyItems[2].push(gridRow);
+        sameKeyItems[2].push(row);
       }
       return acc;
     }, new Map());
@@ -36,28 +35,29 @@ export const groupedGridRows = (
     .map(([value, key, items]) => ({
       value,
       key,
-      items: groupedGridRows(items, nestedGrouping, getCellValue, getColumnIdentity),
+      items: groupedRows(items, nestedGrouping, getCellValue, getColumnIdentity),
     }));
 };
 
-export const expandedGroupGridRows = (gridRows, grouping, expandedGroups, keyPrefix = '') => {
-  if (!grouping.length) return gridRows;
+export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = '') => {
+  if (!grouping.length) return rows;
 
   const nestedGrouping = grouping.slice(1);
-  return gridRows.reduce((acc, { value, key: groupKey, items }) => {
+  return rows.reduce((acc, { value, key: groupKey, items }) => {
     const groupedBy = grouping[0].columnName;
     const key = `${keyPrefix}${groupKey}`;
     const expanded = expandedGroups.has(key);
     return [
       ...acc,
       {
+        __group__: true,
         headerKey: `${GRID_GROUP_TYPE}_${groupedBy}`,
-        type: GRID_GROUP_TYPE,
         groupedBy,
-        row: { key, value },
+        key,
+        value,
       },
       ...expanded
-        ? expandedGroupGridRows(items, nestedGrouping, expandedGroups, `${key}${GROUP_KEY_SEPARATOR}`)
+        ? expandedGroupRows(items, nestedGrouping, expandedGroups, `${key}${GROUP_KEY_SEPARATOR}`)
         : [],
     ];
   }, []);

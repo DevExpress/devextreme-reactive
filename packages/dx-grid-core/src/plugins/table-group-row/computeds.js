@@ -1,6 +1,5 @@
-import { TABLE_DATA_TYPE, TABLE_UNKNOWN_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
 import { TABLE_GROUP_TYPE } from './constants';
-import { GRID_GROUP_TYPE } from '../local-grouping/constants';
 
 const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping, showColumnWhenGrouped) =>
   tableColumns
@@ -46,17 +45,14 @@ export const tableColumnsWithGrouping = (
 
 export const tableRowsWithGrouping = tableRows =>
   tableRows.map((tableRow) => {
-    const { type, gridRow = {} } = tableRow;
-    const { row } = gridRow;
-    if ((type !== TABLE_UNKNOWN_TYPE && type !== TABLE_DATA_TYPE)
-      || (gridRow.type !== GRID_GROUP_TYPE && row.type !== 'groupRow')) {
-      return tableRow;
+    const { type, row } = tableRow;
+    if (type === TABLE_DATA_TYPE && (row.__group__ || row.type === 'groupRow')) {
+      return {
+        ...tableRow,
+        key: `${TABLE_GROUP_TYPE}_${row.key}`,
+        type: TABLE_GROUP_TYPE,
+        colSpanStart: `${TABLE_GROUP_TYPE}_${row.groupedBy}`,
+      };
     }
-    return {
-      ...tableRow,
-      key: `${TABLE_GROUP_TYPE}_${row.key}`,
-      type: TABLE_GROUP_TYPE,
-      colSpanStart: `${TABLE_GROUP_TYPE}_${gridRow.groupedBy || row.groupedBy}`,
-      row,
-    };
+    return tableRow;
   });

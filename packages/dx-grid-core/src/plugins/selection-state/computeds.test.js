@@ -3,18 +3,21 @@ import {
   getAvailableSelection,
 } from './computeds';
 
-describe('PagingState computeds', () => {
+describe('SelectionState computeds', () => {
   describe('#getAvailableToSelect', () => {
     it('should work', () => {
-      const gridRows = [
-        { row: { id: 1 } },
-        { row: { id: 2 }, type: 'group' },
-        { row: { id: 3 } },
+      const rows = [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 },
       ];
+      const getRowId = row => row.id;
 
-      expect(getAvailableToSelect(gridRows, gridRow => gridRow.row.id)).toEqual([1, 3]);
+      expect(getAvailableToSelect(rows, getRowId))
+        .toEqual([1, 2, 3]);
     });
   });
+
   describe('#getAvailableSelection', () => {
     it('should work', () => {
       const selection = [1, 2, 3];

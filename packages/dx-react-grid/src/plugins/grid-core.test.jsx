@@ -2,13 +2,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
-import { gridRows, gridRowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
+import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 import { GridCore } from './grid-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  gridRows: jest.fn(),
-  gridRowIdGetter: jest.fn(),
+  rowIdGetter: jest.fn(),
   cellValueGetter: jest.fn(),
 }));
 
@@ -28,8 +27,7 @@ describe('Grid', () => {
   });
 
   beforeEach(() => {
-    gridRows.mockImplementation(() => [{ row: { id: 0 }, defaultRowId: 0 }]);
-    gridRowIdGetter.mockImplementation(() => 0);
+    rowIdGetter.mockImplementation(() => 0);
     cellValueGetter.mockImplementation(() => 0);
   });
   afterEach(() => {
@@ -164,13 +162,11 @@ describe('Grid', () => {
       </PluginHost>,
     );
 
-    expect(gridRows)
-      .toBeCalledWith(defaultProps.data);
-    expect(getComputedState(tree).getters.gridRows)
-      .toEqual(gridRows());
+    expect(getComputedState(tree).getters.rows)
+      .toBe(defaultProps.data);
   });
 
-  it('should provide getGridRowId', () => {
+  it('should provide getRowId', () => {
     const getRowId = () => {};
 
     const tree = mount(
@@ -183,10 +179,10 @@ describe('Grid', () => {
       </PluginHost>,
     );
 
-    expect(gridRowIdGetter)
-      .toBeCalledWith(getRowId);
-    expect(getComputedState(tree).getters.getGridRowId)
-      .toEqual(gridRowIdGetter());
+    expect(rowIdGetter)
+      .toBeCalledWith(getRowId, defaultProps.data);
+    expect(getComputedState(tree).getters.getRowId)
+      .toBe(rowIdGetter());
   });
 
   it('should provide getCellValue', () => {

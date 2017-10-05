@@ -18,17 +18,6 @@ footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-a
 
 ## Interfaces
 
-### <a name="grid-row"></a>GridRow
-
-Describes properties of an abstract grid row.
-
-A value with the following shape:
-
-Field | Type | Description
-------|------|------------
-row | any | A row.
-defaultRowId | number | Specifies a default row ID. Used if the `getRowId` is not set.
-
 ### Column
 
 Defines the column configuration object. Used to display data stored in a row. Can be extended by plugins.
@@ -72,8 +61,8 @@ children? | ReactElement | A React element to be placed into the footer.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-gridRows | Getter | Array&lt;[GridRow](#grid-row)&gt; | Grid rows.
-getGridRowId | Getter | (gridRow: [GridRow](#grid-row)) => number &#124; string | A function used to get the grid row ID.
+rows | Getter | Array&lt;any&gt; | Grid rows.
+getRowId | Getter | (row: any) => number &#124; string | A function used to get the row ID.
 columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 root | Template | Object? | A template that renders the grid root layout.

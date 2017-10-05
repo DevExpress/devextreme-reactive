@@ -3,13 +3,13 @@ const toLowerCase = value => String(value).toLowerCase();
 const defaultPredicate = (value, filter) =>
   toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
 
-export const filteredGridRows = (
-  gridRows,
+export const filteredRows = (
+  rows,
   filters,
   getCellValue,
   getColumnPredicate,
 ) => {
-  if (!filters.length) return gridRows;
+  if (!filters.length) return rows;
 
   const compoundPredicate = filters.reduce(
     (prevCompare, filter) => (row) => {
@@ -21,6 +21,6 @@ export const filteredGridRows = (
     () => true,
   );
 
-  return gridRows.filter(({ row }) => compoundPredicate(row));
+  return rows.filter(compoundPredicate);
 };
 

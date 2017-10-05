@@ -221,6 +221,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
+          texts={{ noDataText: 'No data' }}
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableNoDataCellTemplate={tableNoDataCellTemplate}
         />
@@ -229,8 +230,10 @@ describe('TableView', () => {
 
     expect(isNoDataTableRow)
       .toBeCalledWith(tableCellArgs.tableRow);
-    expect(tableNoDataCellTemplate)
-      .toBeCalledWith(tableCellArgs);
+    expect(tableNoDataCellTemplate).toBeCalledWith(expect.objectContaining({
+      ...tableCellArgs,
+      noDataText: 'No data',
+    }));
   });
 
   it('should render row by using tableRowTemplate', () => {

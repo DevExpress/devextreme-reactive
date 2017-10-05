@@ -21,12 +21,36 @@ import {
   DragDropContext,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { TableCell } from 'material-ui';
-
 import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
+
+const localization = {
+  tableView: {
+    noDataText: 'Нет данных',
+  },
+  editColumn: {
+    addCommandText: 'Добавить',
+    editCommandText: 'Редактировать',
+    deleteCommandText: 'Удалить',
+    commitCommandText: 'Сохранить',
+    cancelCommandText: 'Отменить',
+  },
+  groupingPanel: {
+    dragColumnHeaderText: 'Перетащите заголовок колонки для группировки',
+    groupByColumnText: 'Кликните на иконку, чтобы сгруппировать по колонке',
+    groupingUnavailableText: 'Группировка недоступна',
+  },
+  filterRow: {
+    filterPlaceholderText: 'Фильтр...',
+  },
+  pagingPanel: {
+    showAllText: 'Всё',
+    rowsPerPageText: 'Строк на странице',
+    infoText: 'с {0} по {1} из {2}',
+  },
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -65,16 +89,7 @@ export default class Demo extends React.PureComponent {
         />
         <LocalPaging />
         <TableView
-          tableNoDataCellTemplate={
-            ({ style, colSpan }) => (
-              <TableCell
-                style={{ textAlign: 'center', width: '100%', ...style }}
-                colSpan={colSpan}
-              >
-                Нет данных
-              </TableCell>
-            )
-          }
+          texts={localization.tableView}
         />
         <TableHeaderRow allowGroupingByClick allowDragging />
 
@@ -83,30 +98,22 @@ export default class Demo extends React.PureComponent {
           allowAdding
           allowEditing
           allowDeleting
-          addCommandText={'Добавить'}
-          editCommandText={'Редактировать'}
-          deleteCommandText={'Удалить'}
-          commitCommandText={'Сохранить'}
-          cancelCommandText={'Отменить'}
           width={250}
+          texts={localization.editColumn}
         />
 
         <TableFilterRow
-          filterPlaceholderText={'Фильтр...'}
+          texts={localization.filterPlaceholderText}
         />
         <GroupingPanel
           allowUngroupingByClick
           allowDragging
-          dragColumnHeaderText={'Перетащите заголовок колонки для группировки'}
-          groupByColumnText={'Кликните на иконку, чтобы сгруппировать по колонке'}
-          groupingUnavailableText={'Группировка недоступна'}
+          texts={localization.groupingPanel}
         />
         <TableGroupRow />
         <PagingPanel
           allowedPageSizes={[5, 10, 15, 0]}
-          showAllText={'Всё'}
-          rowsPerPageText={'Строк на странице'}
-          infoText={'с {0} по {1} из {2}'}
+          texts={localization.pagingPanel}
         />
       </Grid>
     );

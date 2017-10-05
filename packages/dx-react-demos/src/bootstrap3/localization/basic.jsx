@@ -25,6 +25,32 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
+const localization = {
+  tableView: {
+    noDataText: 'Нет данных',
+  },
+  editColumn: {
+    addCommandText: 'Добавить',
+    editCommandText: 'Редактировать',
+    deleteCommandText: 'Удалить',
+    commitCommandText: 'Сохранить',
+    cancelCommandText: 'Отменить',
+  },
+  groupingPanel: {
+    dragColumnHeaderText: 'Перетащите заголовок колонки для группировки',
+    groupByColumnText: 'Кликните на иконку, чтобы сгруппировать по колонке',
+    groupingUnavailableText: 'Группировка недоступна',
+  },
+  filterRow: {
+    filterPlaceholderText: 'Фильтр...',
+  },
+  pagingPanel: {
+    showAllText: 'Всё',
+    rowsPerPageText: 'Строк на странице',
+    infoText: 'с {0} по {1} из {2}',
+  },
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -63,16 +89,7 @@ export default class Demo extends React.PureComponent {
         />
         <LocalPaging />
         <TableView
-          tableNoDataCellTemplate={
-            ({ style, colSpan }) => (
-              <td
-                style={{ textAlign: 'center', width: '100%', ...style }}
-                colSpan={colSpan}
-              >
-                Нет данных
-              </td>
-            )
-          }
+          texts={localization.tableView}
         />
         <TableHeaderRow allowGroupingByClick />
 

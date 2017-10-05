@@ -57,12 +57,10 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'channel', title: 'Channel' },
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount' },
+        { name: 'region', title: 'Регион' },
+        { name: 'sector', title: 'Сектор' },
+        { name: 'channel', title: 'Канал' },
+        { name: 'customer', title: 'Клиент' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
@@ -98,6 +96,8 @@ export default class Demo extends React.PureComponent {
           allowAdding
           allowEditing
           allowDeleting
+          width={200}
+          texts={localization.editColumn}
         />
 
         <TableFilterRow />

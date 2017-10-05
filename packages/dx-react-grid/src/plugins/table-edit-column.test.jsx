@@ -96,12 +96,15 @@ describe('TableHeaderRow', () => {
   it('should render edit commands cell on edit-commands column and header row intersection', () => {
     isHeadingEditCommandsTableCell.mockImplementation(() => true);
     const headingCellTemplate = jest.fn(() => null);
-
+    const texts = {
+      addCommandText: 'Add',
+    };
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
+          texts={texts}
           headingCellTemplate={headingCellTemplate}
         />
       </PluginHost>,
@@ -115,18 +118,25 @@ describe('TableHeaderRow', () => {
     expect(headingCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
+        ...texts,
       }));
   });
 
   it('should render edit commands cell on edit-commands column and added row intersection', () => {
     isEditCommandsTableCell.mockImplementation(() => true);
     const cellTemplate = jest.fn(() => null);
-
+    const texts = {
+      editCommandText: 'Edit',
+      deleteCommandText: 'Remove',
+      commitCommandText: 'Save',
+      cancelCommandText: 'Cancel',
+    };
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
+          texts={texts}
           cellTemplate={cellTemplate}
         />
       </PluginHost>,
@@ -140,6 +150,7 @@ describe('TableHeaderRow', () => {
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
+        ...texts,
         row: defaultDeps.template.tableViewCell.tableRow.row,
         isEditing: false,
       }));

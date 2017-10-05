@@ -75,14 +75,11 @@ export class TableEditColumn extends React.PureComponent {
       allowEditing,
       allowDeleting,
       width,
-      addCommandText,
-      editCommandText,
-      deleteCommandText,
-      commitCommandText,
-      cancelCommandText,
+      texts,
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
+    const { addCommandText, ...commandTexts } = texts;
 
     return (
       <PluginContainer
@@ -126,10 +123,7 @@ export class TableEditColumn extends React.PureComponent {
                       allowEditing,
                       allowDeleting,
                       commandTemplate,
-                      editCommandText,
-                      deleteCommandText,
-                      commitCommandText,
-                      cancelCommandText,
+                      ...commandTexts,
                       ...params,
                     },
                     getters,
@@ -152,20 +146,18 @@ TableEditColumn.propTypes = {
   allowEditing: PropTypes.bool,
   allowDeleting: PropTypes.bool,
   width: PropTypes.number,
-  addCommandText: PropTypes.string,
-  editCommandText: PropTypes.string,
-  deleteCommandText: PropTypes.string,
-  commitCommandText: PropTypes.string,
-  cancelCommandText: PropTypes.string,
+  texts: PropTypes.shape({
+    addCommandText: PropTypes.string,
+    editCommandText: PropTypes.string,
+    deleteCommandText: PropTypes.string,
+    commitCommandText: PropTypes.string,
+    cancelCommandText: PropTypes.string,
+  }),
 };
 TableEditColumn.defaultProps = {
   allowAdding: false,
   allowEditing: false,
   allowDeleting: false,
   width: 140,
-  addCommandText: undefined,
-  editCommandText: undefined,
-  deleteCommandText: undefined,
-  commitCommandText: undefined,
-  cancelCommandText: undefined,
+  texts: {},
 };

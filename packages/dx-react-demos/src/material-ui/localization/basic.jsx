@@ -38,8 +38,6 @@ export default class Demo extends React.PureComponent {
         { name: 'sector', title: 'Sector' },
         { name: 'channel', title: 'Channel' },
         { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
@@ -85,6 +83,12 @@ export default class Demo extends React.PureComponent {
           allowAdding
           allowEditing
           allowDeleting
+          addCommandText={'Добавить'}
+          editCommandText={'Редактировать'}
+          deleteCommandText={'Удалить'}
+          commitCommandText={'Сохранить'}
+          cancelCommandText={'Отменить'}
+          width={250}
         />
 
         <TableFilterRow />

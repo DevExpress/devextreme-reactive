@@ -75,6 +75,11 @@ export class TableEditColumn extends React.PureComponent {
       allowEditing,
       allowDeleting,
       width,
+      addCommandText,
+      editCommandText,
+      deleteCommandText,
+      commitCommandText,
+      cancelCommandText,
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
@@ -97,7 +102,7 @@ export class TableEditColumn extends React.PureComponent {
                 <TemplateRenderer
                   template={headingCellTemplate}
                   params={getHeadingEditCommandsTableCellTemplateArgs(
-                    { allowAdding, commandTemplate, ...params },
+                    { allowAdding, commandTemplate, addCommandText, ...params },
                     getters,
                     actions,
                   )}
@@ -117,7 +122,16 @@ export class TableEditColumn extends React.PureComponent {
                 <TemplateRenderer
                   template={cellTemplate}
                   params={getEditCommandsTableCellTemplateArgs(
-                    { allowEditing, allowDeleting, commandTemplate, ...params },
+                    {
+                      allowEditing,
+                      allowDeleting,
+                      commandTemplate,
+                      editCommandText,
+                      deleteCommandText,
+                      commitCommandText,
+                      cancelCommandText,
+                      ...params,
+                    },
                     getters,
                     actions,
                   )}
@@ -138,10 +152,20 @@ TableEditColumn.propTypes = {
   allowEditing: PropTypes.bool,
   allowDeleting: PropTypes.bool,
   width: PropTypes.number,
+  addCommandText: PropTypes.string,
+  editCommandText: PropTypes.string,
+  deleteCommandText: PropTypes.string,
+  commitCommandText: PropTypes.string,
+  cancelCommandText: PropTypes.string,
 };
 TableEditColumn.defaultProps = {
   allowAdding: false,
   allowEditing: false,
   allowDeleting: false,
   width: 140,
+  addCommandText: undefined,
+  editCommandText: undefined,
+  deleteCommandText: undefined,
+  commitCommandText: undefined,
+  cancelCommandText: undefined,
 };

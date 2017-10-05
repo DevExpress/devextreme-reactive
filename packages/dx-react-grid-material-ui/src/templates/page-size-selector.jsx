@@ -51,10 +51,11 @@ const PageSizeSelectorBase = ({
   allowedPageSizes,
   classes,
   showAllText,
+  rowsPerPageText,
 }) => (
   <div className={classes.pageSizeSelector}>
     <span className={classes.label}>
-      Rows per page:
+      {rowsPerPageText}
     </span>
     <Select
       value={pageSize}
@@ -83,10 +84,12 @@ PageSizeSelectorBase.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   classes: PropTypes.object.isRequired,
   showAllText: PropTypes.string,
+  rowsPerPageText: PropTypes.string,
 };
 
 PageSizeSelectorBase.defaultProps = {
   showAllText: 'All',
+  rowsPerPageText: 'Rows per page:',
 };
 
 export const PageSizeSelector = withStyles(styles, { name: 'PageSizeSelector' })(PageSizeSelectorBase);

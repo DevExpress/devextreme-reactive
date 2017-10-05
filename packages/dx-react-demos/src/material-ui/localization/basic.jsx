@@ -99,12 +99,14 @@ export default class Demo extends React.PureComponent {
           allowDragging
           dragColumnHeaderText={'Перетащите заголовок колонки для группировки'}
           groupByColumnText={'Кликните на иконку, чтобы сгруппировать по колонке'}
-          groupingUnavailableText={'Сотрировка недоступна'}
+          groupingUnavailableText={'Группировка недоступна'}
         />
         <TableGroupRow />
         <PagingPanel
           allowedPageSizes={[5, 10, 15, 0]}
           showAllText={'Всё'}
+          rowsPerPageText={'Строк на странице'}
+          infoText={'с {0} по {1} из {2}'}
         />
       </Grid>
     );

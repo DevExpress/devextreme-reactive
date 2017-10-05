@@ -5,7 +5,12 @@ import { Pager } from '../templates/pager';
 
 export class PagingPanel extends React.PureComponent {
   render() {
-    const { showAllText, ...restProps } = this.props;
+    const {
+      showAllText,
+      rowsPerPageText,
+      infoText,
+      ...restProps
+    } = this.props;
 
     return (
       <PagingPanelBase
@@ -13,6 +18,8 @@ export class PagingPanel extends React.PureComponent {
           props => (
             <Pager
               showAllText={showAllText}
+              rowsPerPageText={rowsPerPageText}
+              infoText={infoText}
               {...props}
             />
           )
@@ -25,8 +32,12 @@ export class PagingPanel extends React.PureComponent {
 
 PagingPanel.propTypes = {
   showAllText: PropTypes.string,
+  rowsPerPageText: PropTypes.string,
+  infoText: PropTypes.string,
 };
 
 PagingPanel.defaultProps = {
   showAllText: undefined,
+  rowsPerPageText: undefined,
+  infoText: undefined,
 };

@@ -47,7 +47,6 @@ const cellTemplateMock = props => (
 
 describe('TableLayout', () => {
   let resetConsole;
-
   beforeEach(() => {
     resetConsole = setupConsole();
   });

@@ -62,22 +62,20 @@ export default class Demo extends React.PureComponent {
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });
-    this.getGroupValue = (value, grouping) => {
-      const { columnName } = grouping;
-      const firstLetter = String(value).substr(0, 1).toLowerCase();
+
+    this.getColumnIdentity = (columnName) => {
       if (columnName === 'name') {
-        return firstLetter < 'n' ? { from: 'A', to: 'M' } : { from: 'N', to: 'Z' };
+        return (value) => {
+          const firstLetter = String(value).substr(0, 1).toLowerCase();
+          return {
+            value: firstLetter < 'n' ? { from: 'A', to: 'M' } : { from: 'N', to: 'Z' },
+            key: firstLetter < 'n' ? 'A-M' : 'N-Z',
+          };
+        };
       }
-      return value;
-    };
-    this.getGroupKey = (value, grouping) => {
-      if (grouping.columnName === 'name') {
-        return `${value.from}-${value.to}`;
-      }
-      return String(value);
+      return undefined;
     };
   }
-
   render() {
     const { rows, columns, grouping } = this.state;
 
@@ -91,8 +89,7 @@ export default class Demo extends React.PureComponent {
           defaultExpandedGroups={['N-Z']}
         />
         <LocalGrouping
-          getGroupValue={this.getGroupValue}
-          getGroupKey={this.getGroupKey}
+          getColumnIdentity={this.getColumnIdentity}
         />
         <TableView />
         <TableHeaderRow />

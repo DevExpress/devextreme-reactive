@@ -1,28 +1,26 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 import { GRID_GROUP_TYPE } from './constants';
 
-const defaultGetGroupValue = value => value;
-const defaultGetGroupKey = value => String(value);
+const defaultColumnIdentity = value => ({
+  key: String(value),
+  value,
+});
 
 export const groupedGridRows = (
   gridRows,
   grouping,
   getCellValue,
-  getGroupValue = defaultGetGroupValue,
-  getGroupKey = defaultGetGroupKey,
+  getColumnIdentity,
 ) => {
   if (!grouping.length) return gridRows;
 
-  const columnGrouping = grouping[0];
+  const { columnName } = grouping[0];
+  const groupIdentity = (getColumnIdentity && getColumnIdentity(columnName))
+    || defaultColumnIdentity;
   const groups = gridRows
     .reduce((acc, gridRow) => {
       const { row } = gridRow;
-      const value = getGroupValue(
-        getCellValue(row, columnGrouping.columnName),
-        columnGrouping,
-        row,
-      );
-      const key = getGroupKey(value, columnGrouping, row);
+      const { key, value = key } = groupIdentity(getCellValue(row, columnName), row);
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
@@ -38,7 +36,7 @@ export const groupedGridRows = (
     .map(([value, key, items]) => ({
       value,
       key,
-      items: groupedGridRows(items, nestedGrouping, getCellValue, getGroupValue, getGroupKey),
+      items: groupedGridRows(items, nestedGrouping, getCellValue, getColumnIdentity),
     }));
 };
 

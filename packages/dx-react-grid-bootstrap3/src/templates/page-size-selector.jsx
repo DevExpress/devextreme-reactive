@@ -29,7 +29,6 @@ export const PageSizeSelector = ({
     >
       {allowedPageSizes.map(item => (
         <li key={item} className={item === pageSize ? 'active' : ''}>
-          {/* eslint-disable jsx-a11y/href-no-hash */}
           <a
             href="#"
             onClick={(e) => {
@@ -39,7 +38,6 @@ export const PageSizeSelector = ({
           >
             {item || showAllText}
           </a>
-          {/* eslint-enable jsx-a11y/href-no-hash */}
         </li>
       ))}
     </ul>

@@ -76,11 +76,12 @@ describe('GroupingPlugin computeds', () => {
         .toEqual(secondGroupedGridRows);
     });
 
-    it('should use custom getGroupValue and getGroupKey argument', () => {
-      const getGroupValue = jest.fn(value => `${value}_test`);
-      const getGroupKey = jest.fn(value => value.substr(0, 1));
-
-      expect(groupedGridRows(gridRows, firstGrouping, getCellValue, getGroupValue, getGroupKey))
+    it('should use getColumnIdentity', () => {
+      const getColumnIdentity = () => value => ({
+        key: String(value).substr(0, 1),
+        value: `${value}_test`,
+      });
+      expect(groupedGridRows(gridRows, firstGrouping, getCellValue, getColumnIdentity))
         .toEqual([{
           value: '1_test',
           key: '1',
@@ -98,10 +99,12 @@ describe('GroupingPlugin computeds', () => {
         }]);
     });
 
-    it('should use custom getGroupValue argument for each grouping', () => {
-      const getGroupValue = jest.fn(value => `${value}_test`);
+    it('should use getColumnIdentity argument for each grouping', () => {
+      const getColumnIdentity = () => value => ({
+        key: `${value}_test`,
+      });
 
-      expect(groupedGridRows(gridRows, secondGrouping, getCellValue, getGroupValue))
+      expect(groupedGridRows(gridRows, secondGrouping, getCellValue, getColumnIdentity))
         .toEqual([{
           value: '1_test',
           key: '1_test',
@@ -137,41 +140,19 @@ describe('GroupingPlugin computeds', () => {
         }]);
     });
 
-    it('should pass the row argument to custom getGroupValue', () => {
-      const getGroupValue = jest.fn(value => value);
-      const grouping = firstGrouping[0];
+    it('should pass column name to getColumnIdentity', () => {
+      const getColumnIdentity = jest.fn(() => value => value);
 
-      groupedGridRows(gridRows, firstGrouping, getCellValue, getGroupValue);
+      groupedGridRows(gridRows, firstGrouping, getCellValue, getColumnIdentity);
 
-      expect(getGroupValue)
-        .toHaveBeenCalledTimes(gridRows.length);
-      expect(getGroupValue)
-        .toHaveBeenCalledWith(gridRows[0].row.a, grouping, gridRows[0].row);
-      expect(getGroupValue)
-        .toHaveBeenCalledWith(gridRows[1].row.a, grouping, gridRows[1].row);
-      expect(getGroupValue)
-        .toHaveBeenCalledWith(gridRows[2].row.a, grouping, gridRows[2].row);
-      expect(getGroupValue)
-        .toHaveBeenCalledWith(gridRows[3].row.a, grouping, gridRows[3].row);
+      expect(getColumnIdentity)
+        .toHaveBeenCalledWith(firstGrouping[0].columnName);
     });
 
-    it('should pass the row argument to custom getGroupKey', () => {
-      const getGroupValue = jest.fn(value => value);
-      const getGroupKey = jest.fn(value => value);
-      const grouping = firstGrouping[0];
-
-      groupedGridRows(gridRows, firstGrouping, getCellValue, getGroupValue, getGroupKey);
-
-      expect(getGroupKey)
-        .toHaveBeenCalledTimes(gridRows.length);
-      expect(getGroupKey)
-        .toHaveBeenCalledWith(gridRows[0].row.a, grouping, gridRows[0].row);
-      expect(getGroupKey)
-        .toHaveBeenCalledWith(gridRows[1].row.a, grouping, gridRows[1].row);
-      expect(getGroupKey)
-        .toHaveBeenCalledWith(gridRows[2].row.a, grouping, gridRows[2].row);
-      expect(getGroupKey)
-        .toHaveBeenCalledWith(gridRows[3].row.a, grouping, gridRows[3].row);
+    it('should group using default getColumnIdentity if custom getColumnIdentity returns nothing', () => {
+      const getColumnIdentity = () => undefined;
+      expect(groupedGridRows(gridRows, firstGrouping, getCellValue, getColumnIdentity))
+        .toEqual(firstGroupedGridRows);
     });
   });
 

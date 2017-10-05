@@ -30,7 +30,7 @@ const TableSelectAllCellBase = (
 
   return (
     <TableCell
-      checkbox
+      padding="checkbox"
       style={style}
       className={cellClasses}
       onClick={(e) => {

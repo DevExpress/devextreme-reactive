@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   Getter, PluginHost,
@@ -68,6 +67,7 @@ describe('DragDropContext', () => {
     });
 
     const container = tree.find('.container');
+
     expect(container.exists())
       .toBeTruthy();
     expect(container.get(0).style.top)

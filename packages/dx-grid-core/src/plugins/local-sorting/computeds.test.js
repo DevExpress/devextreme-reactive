@@ -4,7 +4,7 @@ import {
   sortedRows,
 } from './computeds';
 
-describe('SortingState computeds', () => {
+describe('LocalSorting computeds', () => {
   describe('#sortedRows', () => {
     const rows = [
       { a: 2, b: 2 },

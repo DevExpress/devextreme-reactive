@@ -2,26 +2,21 @@ export * from './plugins/grid-core/computeds';
 
 export * from './plugins/sorting-state/reducers';
 export * from './plugins/sorting-state/helpers';
+export * from './plugins/local-sorting/computeds';
 
 export * from './plugins/filtering-state/reducers';
 export * from './plugins/filtering-state/helpers';
-
-export * from './plugins/local-grouping/computeds';
-
 export * from './plugins/local-filtering/computeds';
-
-export * from './plugins/local-sorting/computeds';
-
-export * from './plugins/local-paging/computeds';
-
-export * from './plugins/grouping-panel/helpers';
 
 export * from './plugins/grouping-state/reducers';
 export * from './plugins/grouping-state/helpers';
 export * from './plugins/grouping-state/computeds';
+export * from './plugins/local-grouping/computeds';
+export * from './plugins/grouping-panel/helpers';
 
 export * from './plugins/paging-state/reducers';
-export * from './plugins/paging-state/computeds';
+export * from './plugins/local-paging/computeds';
+export * from './plugins/paging-panel/helpers';
 
 export * from './plugins/selection-state/reducers';
 export * from './plugins/selection-state/computeds';

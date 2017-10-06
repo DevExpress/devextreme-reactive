@@ -28,7 +28,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows to be sorted.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting to be applied.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
+getCellValue | Getter | (row: any, columnName: string) => any | The function used to get a cell value.
 
 ### Exports
 

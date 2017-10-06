@@ -80,8 +80,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#table-row) | A table row.
-tableColumn | [TableColumn](#table-column) | A table column.
+tableRow | [TableRow](#table-row) | Specifies a table row.
+tableColumn | [TableColumn](#table-column) | Specifies a table column.
 style? | Object | Styles that should be applied to the root cell element.
 colSpan? | number | The number of columns the cell spans that should be applied to the root cell element.
 

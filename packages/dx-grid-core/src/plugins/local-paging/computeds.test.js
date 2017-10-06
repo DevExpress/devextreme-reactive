@@ -1,11 +1,9 @@
 import {
   paginatedRows,
   rowsWithPageHeaders,
-  pageCount,
-  rowsCount,
 } from './computeds';
 
-describe('PagingState computeds', () => {
+describe('LocalPaging computeds', () => {
   describe('#paginatedRows', () => {
     it('should work', () => {
       const rows = [1, 2, 3];
@@ -188,23 +186,6 @@ describe('PagingState computeds', () => {
       expect(computedRows[1]).toBe(rows[1]);
       expect(computedRows[2]).toBe(rows[0]);
       expect(computedRows[3]).toBe(rows[2]);
-    });
-  });
-
-  describe('#pageCount', () => {
-    it('should work', () => {
-      let count = pageCount(3, 2);
-      expect(count).toEqual(2);
-
-      count = pageCount(3, 0);
-      expect(count).toEqual(1);
-    });
-  });
-
-  describe('#rowsCount', () => {
-    it('should work', () => {
-      const count = rowsCount([1, 2, 3]);
-      expect(count).toEqual(3);
     });
   });
 });

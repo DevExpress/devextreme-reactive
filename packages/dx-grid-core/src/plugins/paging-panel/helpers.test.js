@@ -1,9 +1,9 @@
 import {
   firstRowOnPage,
   lastRowOnPage,
-} from './computeds';
+} from './helpers';
 
-describe('PagingState computeds', () => {
+describe('PagingPanel helpers', () => {
   describe('#firstRowOnPage', () => {
     it('should work', () => {
       let count = firstRowOnPage(1, 5, 10);

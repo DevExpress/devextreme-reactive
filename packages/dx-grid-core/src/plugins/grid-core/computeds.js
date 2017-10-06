@@ -1,6 +1,6 @@
-export const rowIdGetter = (getRowId, data) => {
-  if (!getRowId && Array.isArray(data)) {
-    const map = new Map(data.map((row, rowIndex) => [row, rowIndex]));
+export const rowIdGetter = (getRowId, rows) => {
+  if (!getRowId) {
+    const map = new Map(rows.map((row, rowIndex) => [row, rowIndex]));
     return row => map.get(row);
   }
   return getRowId;

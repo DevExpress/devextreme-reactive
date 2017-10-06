@@ -12,7 +12,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultProps = {
-  data: [{ a: 1 }],
+  rows: [{ a: 1 }],
   columns: [{ name: 'a' }],
   rootTemplate: () => null,
 };
@@ -163,7 +163,7 @@ describe('Grid', () => {
     );
 
     expect(getComputedState(tree).getters.rows)
-      .toBe(defaultProps.data);
+      .toBe(defaultProps.rows);
   });
 
   it('should provide getRowId', () => {
@@ -180,7 +180,7 @@ describe('Grid', () => {
     );
 
     expect(rowIdGetter)
-      .toBeCalledWith(getRowId, defaultProps.data);
+      .toBeCalledWith(getRowId, defaultProps.rows);
     expect(getComputedState(tree).getters.getRowId)
       .toBe(rowIdGetter());
   });

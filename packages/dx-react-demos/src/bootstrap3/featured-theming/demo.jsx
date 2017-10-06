@@ -190,7 +190,7 @@ export default class Demo extends React.PureComponent {
         <TableRowDetail
           template={({ row }) => (
             <GridDetailContainer
-              rows={row}
+              data={row}
             />
           )}
         />

@@ -4,7 +4,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { GridCore } from './plugins/grid-core';
 
 export const Grid = ({
-  data,
+  rows,
   columns,
   getRowId,
   getCellValue,
@@ -15,7 +15,7 @@ export const Grid = ({
 }) => (
   <PluginHost>
     <GridCore
-      rows={data}
+      rows={rows}
       columns={columns}
       getRowId={getRowId}
       getCellValue={getCellValue}
@@ -28,7 +28,7 @@ export const Grid = ({
 );
 
 Grid.propTypes = {
-  data: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,

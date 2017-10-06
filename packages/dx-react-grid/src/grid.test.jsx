@@ -19,7 +19,7 @@ describe('Grid', () => {
 
   it('should render root template', () => {
     const props = {
-      data: [],
+      rows: [],
       columns: [],
       getRowId: () => {},
       getCellValue: () => {},

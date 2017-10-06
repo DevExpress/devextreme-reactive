@@ -6,7 +6,7 @@ import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 export class GridCore extends React.PureComponent {
   render() {
     const {
-      data,
+      rows,
       columns,
       getRowId,
       getCellValue,
@@ -17,8 +17,8 @@ export class GridCore extends React.PureComponent {
 
     return (
       <PluginContainer>
-        <Getter name="rows" value={data} />
-        <Getter name="getRowId" value={rowIdGetter(getRowId, data)} />
+        <Getter name="rows" value={rows} />
+        <Getter name="getRowId" value={rowIdGetter(getRowId, rows)} />
         <Getter name="columns" value={columns} />
         <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
         <Template name="header" />
@@ -49,7 +49,7 @@ export class GridCore extends React.PureComponent {
 }
 
 GridCore.propTypes = {
-  data: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,

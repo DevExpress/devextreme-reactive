@@ -129,7 +129,7 @@ const GridContainer = ({
     <TableRowDetail
       template={({ row }) => (
         <GridDetailContainer
-          rows={row}
+          data={row}
           columns={detailColumns}
         />
       )}

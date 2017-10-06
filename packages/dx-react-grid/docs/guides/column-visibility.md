@@ -13,7 +13,7 @@ Follow the steps below to enable a user to hide or show columns at runtime.
 
 ### Configuring HiddenTableColumn plugin
 
-Add the [TableColumnVisibility](../reference/table-column-visibility.md) plugin to the Grid. Assign an application's state variable storing hidden column names to the plugin's `hiddenColumns` property. In this case, the grid rerenders columns once the `hiddenColumns` state is changed.
+Add the [TableColumnVisibility](../reference/table-column-visibility.md) plugin to the Grid. Assign an application's state variable storing hidden column names to the plugin's `hiddenColumns` property. In this case, the grid rerenders columns once the `hiddenColumns` state changes.
 
 ### Adding ColumnChooser
 

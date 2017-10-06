@@ -2,7 +2,7 @@ import {
   filteredRows,
 } from './computeds';
 
-describe('FilteringState computeds', () => {
+describe('LocalFiltering computeds', () => {
   describe('#filteredRows', () => {
     const rows = [
       { a: 1, b: 1 },

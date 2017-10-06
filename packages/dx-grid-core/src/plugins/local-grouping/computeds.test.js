@@ -3,7 +3,7 @@ import {
   expandedGroupRows,
 } from './computeds';
 
-describe('GroupingPlugin computeds', () => {
+describe('LocalGrouping computeds', () => {
   const rowsSource = [
     { a: 1, b: 1 },
     { a: 1, b: 2 },

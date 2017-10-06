@@ -20,12 +20,12 @@ The Grid component displays data specified via the `rows` property. You should a
 
 The grid requires the following plugins for basic data visualization:
 
-- [TableView](../reference/table-view.md)  
+- [TableView](../reference/table-view.md)
  Renders a data table.
 
-- [TableHeaderRow](../reference/table-header-row.md)  
+- [TableHeaderRow](../reference/table-header-row.md)
  Renders the table's header row.
- 
+
 ```js
 <Grid
   rows={rows}

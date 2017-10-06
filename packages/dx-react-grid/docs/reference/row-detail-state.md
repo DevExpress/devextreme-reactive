@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-expandedRows | Array&lt;number &#124; string&gt; | | Specifies expanded rows
-defaultExpandedRows | Array&lt;number &#124; string&gt; | | Specifies initially expanded rows in the uncontrolled mode
-onExpandedRowsChange | (expandedRows: Array&lt;number &#124; string&gt;) => void | | Handles expanded row changes
+expandedRows | Array&lt;number &#124; string&gt; | | Specifies expanded rows.
+defaultExpandedRows | Array&lt;number &#124; string&gt; | | Specifies initially expanded rows in the uncontrolled mode.
+onExpandedRowsChange | (expandedRows: Array&lt;number &#124; string&gt;) => void | | Handles expanded row changes.
 
 ## Plugin Developer Reference
 
@@ -26,5 +26,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row
-expandedRows | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows
+setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row.
+expandedRows | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.

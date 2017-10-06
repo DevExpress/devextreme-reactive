@@ -13,7 +13,7 @@ describe('LocalFiltering computeds', () => {
 
     const getCellValue = (row, columnName) => row[columnName];
 
-    it('should not touch grid rows if no filters specified', () => {
+    it('should not touch rows if no filters specified', () => {
       const filters = [];
 
       const filtered = filteredRows(rows, filters, getCellValue);

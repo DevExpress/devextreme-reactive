@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
         <span>Total rows selected: {selection.length}</span>
 
         <Grid
-          data={rows}
+          rows={rows}
           columns={columns}
         >
           <SelectionState

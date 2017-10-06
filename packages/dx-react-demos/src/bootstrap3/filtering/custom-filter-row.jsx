@@ -62,7 +62,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Grid
-        data={rows}
+        rows={rows}
         columns={columns}
       >
         <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />

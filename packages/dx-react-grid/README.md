@@ -49,7 +49,7 @@ import {
 
 const App = () => (
   <Grid
-    data={[
+    rows={[
       { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
       { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
     ]}

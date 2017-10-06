@@ -4,7 +4,7 @@ The Grid component displays data specified via the `rows` property. You should a
 
 ```js
 <Grid
-  data={[
+  rows={[
     { region: 'South America', sector: 'Banking' },
     { region: 'Africa', sector: 'Manufacturing' },
     /* ... */
@@ -28,7 +28,7 @@ The grid requires the following plugins for basic data visualization:
 
 ```js
 <Grid
-  data={rows}
+  rows={rows}
   columns={columns}
 >
   <TableView />

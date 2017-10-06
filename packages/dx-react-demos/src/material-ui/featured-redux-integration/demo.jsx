@@ -41,7 +41,7 @@ const GridDetailContainerBase = ({
       <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
     </div>
     <Grid
-      data={data.tasks}
+      rows={data.tasks}
       columns={columns}
     >
       <TableView />
@@ -85,7 +85,7 @@ const GridContainer = ({
   onColumnWidthsChange,
 }) => (
   <Grid
-    data={rows}
+    rows={rows}
     columns={columns}
   >
     <ColumnOrderState
@@ -141,7 +141,7 @@ const GridContainer = ({
     <TableRowDetail
       template={({ row }) => (
         <GridDetailContainer
-          data={row}
+          rows={row}
           columns={detailColumns}
         />
       )}

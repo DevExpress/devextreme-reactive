@@ -155,7 +155,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Grid
-        data={rows}
+        rows={rows}
         columns={columns}
       >
         <ColumnOrderState defaultOrder={columns.map(column => column.name)} />
@@ -190,7 +190,7 @@ export default class Demo extends React.PureComponent {
         <TableRowDetail
           template={({ row }) => (
             <GridDetailContainer
-              data={row}
+              rows={row}
             />
           )}
         />

@@ -1,6 +1,6 @@
 # Grid Reference
 
-The Grid is a root container component designed to process and display data specified via the `data` property. You can configure columns using the `columns` property. The Grid's functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../README.md#plugins-overview) for details.
+The Grid is a root container component designed to process and display data specified via the `rows` property. You can configure columns using the `columns` property. The Grid's functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../README.md#plugins-overview) for details.
 
 ## User reference
 
@@ -8,9 +8,9 @@ The Grid is a root container component designed to process and display data spec
 
 Name | Type | Default | Description
 -----|------|---------|------------
-data | Array&lt;any&gt; | | An array of objects containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
+data | Array&lt;any&gt; | | An array containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
-getRowId | (row: any) => number &#124; string | null | Specifies the function used to get a row ID.
+getRowId | (row: any) => number &#124; string | null | Specifies the function used to get a unique row identifier.
 getCellValue | (row: any, columnName: string) => any | null | Specifies the function used to get a cell's value.
 rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | A template that renders the grid root layout.
 headerPlaceholderTemplate | (args: [HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | A template that renders the header placeholder.
@@ -62,7 +62,7 @@ children? | ReactElement | A React element to be placed into the footer.
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Grid rows.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get the row ID.
+getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 root | Template | Object? | A template that renders the grid root layout.

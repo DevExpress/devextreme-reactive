@@ -112,7 +112,7 @@ export default class Demo extends React.PureComponent {
     return (
       <div style={{ position: 'relative' }}>
         <Grid
-          data={rows}
+          rows={rows}
           columns={columns}
         >
           <SortingState

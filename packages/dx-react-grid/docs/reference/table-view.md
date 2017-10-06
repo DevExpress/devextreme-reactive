@@ -55,7 +55,7 @@ Field | Type | Description
 ------|------|------------
 key | string | A table row's unique identifier.
 type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
-rowId? | number &#124; string | Specifies the associated row's data ID.
+rowId? | number &#124; string | Specifies the associated row's ID.
 row? | any | Specifies the associated row.
 height? | number | Specifies the table row height.
 
@@ -127,7 +127,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows to be rendered by the table view.
 columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get the row ID.
+getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 
 ### Exports

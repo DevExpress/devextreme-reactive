@@ -47,7 +47,7 @@ Note that the `onPageSizeChange` handler makes sense only if the `allowedPageSiz
 
 You can handle the Grid's paging state changes to request a page data from the server according to the current page index and page size if your data service supports paging.
 
-Paging options are updated once an end-user interacts with Paging Panel controls. Handle paging option changes using the `PagingState` plugin's `onCurrentPageChange` and `onPageSizeChange` events and request data from the server using the applied paging options. Once the page data is received from the server, pass it to the `Grid` component's `data` property.
+Paging options are updated once an end-user interacts with Paging Panel controls. Handle paging option changes using the `PagingState` plugin's `onCurrentPageChange` and `onPageSizeChange` events and request data from the server using the applied paging options. Once the page data is received from the server, pass it to the `Grid` component's `rows` property.
 
 Note that in the case of remote paging, you do not need to use the `LocalPaging` plugin.
 

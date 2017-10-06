@@ -53,7 +53,7 @@ tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Rows
 editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows being edited.
 addedRows | Getter | Array&lt;any&gt; | Created but not committed rows.
 changeAddedRow | Action | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
-changedRows | Getter | { [key: string]: any } | An associative array storing changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's data ID.
+changedRows | Getter | { [key: string]: any } | An associative array storing changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 createRowChange | Getter | (row: any, columnName: string, value: string &#124; string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.

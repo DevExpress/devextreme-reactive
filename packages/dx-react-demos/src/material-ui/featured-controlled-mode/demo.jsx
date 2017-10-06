@@ -271,7 +271,7 @@ class DemoBase extends React.PureComponent {
     return (
       <div>
         <Grid
-          data={rows}
+          rows={rows}
           columns={columns}
           getRowId={getRowId}
         >
@@ -338,7 +338,7 @@ class DemoBase extends React.PureComponent {
               Are you sure to delete the following row?
             </DialogContentText>
             <Grid
-              data={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
+              rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
               columns={columns}
             >
               <TableView

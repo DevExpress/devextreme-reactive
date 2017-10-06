@@ -16,7 +16,7 @@ const columns = [
 ];
 
 <Grid
-  data={rows}
+  rows={rows}
   columns={columns}
 />
 ```
@@ -43,7 +43,7 @@ const columns = [
 ];
 
 <Grid
-  data={rows}
+  rows={rows}
   columns={columns}
 />
 ```
@@ -64,7 +64,7 @@ const getCellValue = (row, columnName) => {
 };
 
 <Grid
-  data={rows}
+  rows={rows}
   columns={columns}
   getCellValue={getCellValue}
 >

@@ -242,7 +242,7 @@ export default class Demo extends React.PureComponent {
     return (
       <div>
         <Grid
-          data={rows}
+          rows={rows}
           columns={columns}
           getRowId={getRowId}
         >
@@ -309,7 +309,7 @@ export default class Demo extends React.PureComponent {
           <Modal.Body>
             <p>Are you sure to delete the following row?</p>
             <Grid
-              data={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
+              rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
               columns={columns}
             >
               <TableView

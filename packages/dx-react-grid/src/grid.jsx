@@ -15,7 +15,7 @@ export const Grid = ({
 }) => (
   <PluginHost>
     <GridCore
-      data={data}
+      rows={data}
       columns={columns}
       getRowId={getRowId}
       getCellValue={getCellValue}

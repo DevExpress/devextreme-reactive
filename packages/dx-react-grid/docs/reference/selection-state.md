@@ -12,8 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-selection | Array&lt;number &#124; string&gt; | [] | Specifies an IDs of selected rows.
-defaultSelection | Array&lt;number &#124; string&gt; | [] | Specifies an IDs of initially selected rows in the uncontrolled mode.
+selection | Array&lt;number &#124; string&gt; | [] | Specifies selected rows.
+defaultSelection | Array&lt;number &#124; string&gt; | [] | Specifies initially selected rows in the uncontrolled mode.
 onSelectionChange | (selection: Array&lt;number &#124; string&gt;) => void | | Handles selection changes.
 
 ## Plugin Developer Reference
@@ -23,7 +23,7 @@ onSelectionChange | (selection: Array&lt;number &#124; string&gt;) => void | | H
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows to be rendered.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get the row ID.
+getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 
 ### Exports
 

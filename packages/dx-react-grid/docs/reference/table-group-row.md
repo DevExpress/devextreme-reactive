@@ -39,7 +39,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row's data object.
+row | [GroupRow](#group-row) | The group row's object.
 column | [Column](#column) | The column associated with the group.
 isExpanded | boolean | Specifies if the row is expanded.
 toggleGroupExpanded | () => void | Toggles the group row's expanded state.
@@ -52,7 +52,7 @@ A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by 
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row's data object.
+row | [GroupRow](#group-row) | The group row.
 
 ### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
 
@@ -62,7 +62,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row's data object.
+row | [GroupRow](#group-row) | The group row.
 column | [Column](#column) | The column associated with the group.
 
 ### <a name="group-row"></a>GroupRow

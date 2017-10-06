@@ -25,7 +25,7 @@ deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows pr
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRows` array in the uncontrolled mode.
 onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRows` array.
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
-createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a value specifying row changes depending on row's data editor values. This function is called each time a row editor's value changes.
+createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a value specifying row changes depending on row's editor values. This function is called each time a row editor's value changes.
 
 ## Interfaces
 
@@ -46,7 +46,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 added? | Array&lt;any&gt; | An array of row to be created.
-changed? | { [key: number &#124; string]: any } | An associative array storing changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's data ID.
+changed? | { [key: number &#124; string]: any } | An associative array storing changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing the rows to be deleted.
 
 ## Plugin Developer Reference
@@ -69,7 +69,7 @@ addRow | Action | () => void | Adds an item to the `addedRows` array.
 changeAddedRow | Action | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes the specified rows from the `addedRows` array.
 commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `addedRows` array.
-changedRows | Getter | { [key: string]: any } | An associative array storing changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's data ID.
+changedRows | Getter | { [key: string]: any } | An associative array storing changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 changeRow | Action | ({ rowId: number &#124; string, change: any }) => void | Adds an item representing changes made to an exsiting row to the `changedRows` array.
 cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows' data from the `changedRows` array.
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `changedRows` array.

@@ -80,7 +80,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Grid
-        data={rows}
+        rows={rows}
         columns={columns}
         getRowId={getRowId}
       >

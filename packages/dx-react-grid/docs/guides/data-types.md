@@ -23,7 +23,7 @@ const columns = [
   { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
 ];
 <Grid
-  data={rows}
+  rows={rows}
   columns={columns}
 >
   <DataTypeProvider
@@ -48,7 +48,7 @@ const columns = [
   { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
 ];
 <Grid
-  data={rows}
+  rows={rows}
   columns={columns}
 >
   <DataTypeProvider

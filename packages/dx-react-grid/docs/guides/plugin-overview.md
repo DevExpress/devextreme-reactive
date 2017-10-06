@@ -24,7 +24,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
-  <Grid data={[/* ... */]} columns={[/* ... */]}>
+  <Grid rows={[/* ... */]} columns={[/* ... */]}>
     <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
     <TableView/>
@@ -43,7 +43,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
-  <Grid data={[/* ... */]} columns={[/* ... */]}>
+  <Grid rows={[/* ... */]} columns={[/* ... */]}>
     <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
     <TableView/>

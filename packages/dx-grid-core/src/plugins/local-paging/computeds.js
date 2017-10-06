@@ -47,4 +47,4 @@ export const pageCount = (count, pageSize) => (
   pageSize ? Math.ceil(count / pageSize) : 1
 );
 
-export const rowsCount = rows => rows.length;
+export const rowCount = rows => rows.length;

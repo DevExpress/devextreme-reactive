@@ -1,6 +1,6 @@
 import React from 'react';
 import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
-import { paginatedRows, rowsWithPageHeaders, pageCount, rowsCount } from '@devexpress/dx-grid-core';
+import { paginatedRows, rowsWithPageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'PagingState' },
@@ -8,7 +8,7 @@ const pluginDependencies = [
 
 const rowsWithHeadersComputed = ({ rows, pageSize, getRowLevelKey }) =>
   rowsWithPageHeaders(rows, pageSize, getRowLevelKey);
-const totalCountComputed = ({ rows }) => rowsCount(rows);
+const totalCountComputed = ({ rows }) => rowCount(rows);
 const paginatedRowsComputed = ({ rows, pageSize, currentPage }) =>
   paginatedRows(rows, pageSize, currentPage);
 

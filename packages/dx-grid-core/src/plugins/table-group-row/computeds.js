@@ -45,14 +45,14 @@ export const tableColumnsWithGrouping = (
 
 export const tableRowsWithGrouping = (tableRows, isGroupRow) =>
   tableRows.map((tableRow) => {
-    const { type, row } = tableRow;
-    if (type === TABLE_DATA_TYPE && (isGroupRow(row) || row.type === 'groupRow')) {
-      return {
-        ...tableRow,
-        key: `${TABLE_GROUP_TYPE}_${row.key}`,
-        type: TABLE_GROUP_TYPE,
-        colSpanStart: `${TABLE_GROUP_TYPE}_${row.groupedBy}`,
-      };
+    if (tableRow.type !== TABLE_DATA_TYPE ||
+      (!isGroupRow(tableRow.row) && tableRow.row.type !== 'groupRow')) {
+      return tableRow;
     }
-    return tableRow;
+    return {
+      ...tableRow,
+      key: `${TABLE_GROUP_TYPE}_${tableRow.row.key}`,
+      type: TABLE_GROUP_TYPE,
+      colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.row.groupedBy}`,
+    };
   });

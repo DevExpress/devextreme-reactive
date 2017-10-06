@@ -1,5 +1,5 @@
-export const getAvailableToSelect = (rows, getRowId) => rows
-  // .filter(row => !rowsMeta.get(row).type)
+export const getAvailableToSelect = (rows, getRowId, isGroupRow) => rows
+  .filter(row => (!isGroupRow || !isGroupRow(row)) && !row.type)
   .map(row => getRowId(row));
 
 export const getAvailableSelection = (selection, availableToSelect) => {

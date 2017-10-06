@@ -8,13 +8,37 @@ describe('SelectionState computeds', () => {
     it('should work', () => {
       const rows = [
         { id: 1 },
-        { id: 2 },
+        { id: 2, group: true },
         { id: 3 },
       ];
       const getRowId = row => row.id;
 
       expect(getAvailableToSelect(rows, getRowId))
         .toEqual([1, 2, 3]);
+    });
+
+    it('should work with grouping', () => {
+      const rows = [
+        { id: 1, group: true },
+        { id: 2 },
+      ];
+      const getRowId = row => row.id;
+      const isGroupRow = row => row.group;
+
+      expect(getAvailableToSelect(rows, getRowId, isGroupRow))
+        .toEqual([2]);
+    });
+
+    // TODO: remove with custom grouping release
+    it('should work with grouping in legacy mode', () => {
+      const rows = [
+        { id: 1, type: 'group' },
+        { id: 2 },
+      ];
+      const getRowId = row => row.id;
+
+      expect(getAvailableToSelect(rows, getRowId))
+        .toEqual([2]);
     });
   });
 

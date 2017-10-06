@@ -5,6 +5,7 @@ The Grid supports editing features including creating, updating and deleting row
 ## Related Plugins
 
 The following plugins implement editing features:
+
 - [EditingState](../reference/editing-state.md) - controls the editing state
 - [TableEditRow](../reference/table-edit-row.md) - renders a row being edited
 - [TableEditColumn](../reference/table-edit-column.md) - renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes)

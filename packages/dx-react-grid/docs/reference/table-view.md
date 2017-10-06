@@ -14,13 +14,13 @@ This plugin renders Grid data as a table. It contains the Table View and Table V
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tableLayoutTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table layout using the specified parameters
-tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters
-tableRowTemplate | (args: [TableDataRowArgs](#table-data-row-args)) => ReactElement | | Renders a table row using the specified parameters
-tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty
-tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty
-tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided
-tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided
+tableLayoutTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table layout using the specified parameters.
+tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters.
+tableRowTemplate | (args: [TableDataRowArgs](#table-data-row-args)) => ReactElement | | Renders a table row using the specified parameters.
+tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty.
+tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty.
+tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided.
+tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided.
 allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it. Requires the [ColumnOrderState](column-order-state.md) and the [DragDropContext](drag-drop-context.md) dependencies.
 
 ## Interfaces
@@ -40,10 +40,10 @@ Describes properties passed to the table template when it is being rendered.
 
 Field | Type | Description
 ------|------|------------
-headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table header
-bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table body
-columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns
-cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The template used to render table cells
+headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table header.
+bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table body.
+columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns.
+cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The template used to render table cells.
 
 ### <a name="table-row"></a>TableRow
 
@@ -80,10 +80,10 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#table-row) | Specifies a table row
-tableColumn | [TableColumn](#table-column) | Specifies a table column
-style? | Object | Styles that should be applied to the root cell element
-colSpan? | number | The number of columns the cell spans that should be applied to the root cell element
+tableRow | [TableRow](#table-row) | Specifies a table row.
+tableColumn | [TableColumn](#table-column) | Specifies a table column.
+style? | Object | Styles that should be applied to the root cell element.
+colSpan? | number | The number of columns the cell spans that should be applied to the root cell element.
 
 ### <a name="table-data-cell-args"></a>TableDataCellArgs
 
@@ -93,9 +93,9 @@ A value with the [TableCellArgs](#table-cell-args) shape extended by the followi
 
 Field | Type | Description
 ------|------|------------
-value | any | The value to be rendered within the cell
-row | [Row](grid.md#row) | Specifies a table row
-column | [Column](#column) | Specifies a table column
+value | any | The value to be rendered within the cell.
+row | [Row](grid.md#row) | Specifies a table row.
+column | [Column](#column) | Specifies a table column.
 
 ### <a name="table-row-args"></a>TableRowArgs
 
@@ -107,7 +107,7 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#table-row) | Specifies a table row
 children | ReactElement | A React element used to render a table row.
-style? | Object | Styles that should be applied to the root row element
+style? | Object | Styles that should be applied to the root row element.
 
 ### <a name="table-data-row-args"></a>TableDataRowArgs
 
@@ -117,7 +117,7 @@ A value with the [TableRowArgs](#table-row-args) shape extended by the following
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | Specifies a table row
+row | [Row](grid.md#row) | Specifies a table row.
 
 ## Plugin Developer Reference
 
@@ -125,17 +125,17 @@ row | [Row](grid.md#row) | Specifies a table row
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view
-columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view
-getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier
-getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value
+rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view.
+columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view.
+getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier.
+getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered
-tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered
-tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell
-tableViewRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row
+tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered.
+tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered.
+tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell.
+tableViewRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row.

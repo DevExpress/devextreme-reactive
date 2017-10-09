@@ -11,6 +11,7 @@ describe('Pager', () => {
       pageSize,
       totalCount,
       showAllText,
+      infoText,
       allowedPageSizes = [],
       onPageSizeChange = () => {},
       onCurrentPageChange = () => {},
@@ -20,6 +21,7 @@ describe('Pager', () => {
       totalCount={totalCount}
       pageSize={pageSize}
       showAllText={showAllText}
+      infoText={infoText}
       allowedPageSizes={allowedPageSizes}
       onCurrentPageChange={onCurrentPageChange}
       onPageSizeChange={onPageSizeChange}
@@ -34,6 +36,18 @@ describe('Pager', () => {
       });
 
       expect(tree.find('div > span > span').text()).toBe('11-20 of 96');
+    });
+
+    it('can show info about rendered pages using a custom infoText', () => {
+      const tree = mountPager({
+        totalPages: 10,
+        currentPage: 1,
+        totalCount: 96,
+        pageSize: 10,
+        infoText: 'rows {firstRow}-{lastRow} of {totalCount}',
+      });
+
+      expect(tree.find('div > span > span').text()).toBe('rows 11-20 of 96');
     });
 
     it('can render pagination arrows', () => {

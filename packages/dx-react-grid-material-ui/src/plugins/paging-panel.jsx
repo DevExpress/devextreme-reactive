@@ -6,9 +6,7 @@ import { Pager } from '../templates/pager';
 export class PagingPanel extends React.PureComponent {
   render() {
     const {
-      showAllText,
-      rowsPerPageText,
-      infoText,
+      messages,
       ...restProps
     } = this.props;
 
@@ -17,9 +15,9 @@ export class PagingPanel extends React.PureComponent {
         pagerTemplate={
           props => (
             <Pager
-              showAllText={showAllText}
-              rowsPerPageText={rowsPerPageText}
-              infoText={infoText}
+              showAllText={messages.showAllText}
+              rowsPerPageText={messages.rowsPerPageText}
+              infoText={messages.infoText}
               {...props}
             />
           )
@@ -31,13 +29,13 @@ export class PagingPanel extends React.PureComponent {
 }
 
 PagingPanel.propTypes = {
-  showAllText: PropTypes.string,
-  rowsPerPageText: PropTypes.string,
-  infoText: PropTypes.string,
+  messages: PropTypes.shape({
+    showAllText: PropTypes.string,
+    rowsPerPageText: PropTypes.string,
+    infoText: PropTypes.string,
+  }),
 };
 
 PagingPanel.defaultProps = {
-  showAllText: undefined,
-  rowsPerPageText: undefined,
-  infoText: undefined,
+  messages: {},
 };

@@ -42,8 +42,7 @@ const localization = {
   },
   pagingPanel: {
     showAllText: 'Всё',
-    rowsPerPageText: 'Строк на странице',
-    infoText: 'с {0} по {1} из {2}',
+    infoText: 'с {firstRow} по {lastRow} из {totalCount}',
   },
 };
 
@@ -106,7 +105,7 @@ export default class Demo extends React.PureComponent {
         <TableGroupRow />
         <PagingPanel
           allowedPageSizes={[5, 10, 15, 0]}
-          showAllText={'Всё'}
+          messages={localization.pagingPanel}
         />
       </Grid>
     );

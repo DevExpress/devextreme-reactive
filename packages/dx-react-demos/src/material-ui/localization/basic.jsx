@@ -46,7 +46,7 @@ const localization = {
   pagingPanel: {
     showAllText: 'Всё',
     rowsPerPageText: 'Строк на странице',
-    infoText: 'с {0} по {1} из {2}',
+    infoText: 'с {firstRow} по {lastRow} из {totalCount}',
   },
 };
 

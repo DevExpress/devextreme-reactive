@@ -28,6 +28,7 @@ describe('Pagination', () => {
       currentPage,
       totalCount,
       pageSize,
+      infoText,
       onCurrentPageChange = () => {},
     }) => mount(
       <Pagination
@@ -35,6 +36,7 @@ describe('Pagination', () => {
         currentPage={currentPage}
         totalCount={totalCount}
         pageSize={pageSize}
+        infoText={infoText}
         onCurrentPageChange={onCurrentPageChange}
       />,
     );
@@ -109,6 +111,18 @@ describe('Pagination', () => {
       });
 
       expect(tree.find('div > span').text()).toBe('11-20 of 96');
+    });
+
+    it('can show info about rendered pages using a custom template', () => {
+      const tree = mountPagination({
+        totalPages: 10,
+        currentPage: 1,
+        totalCount: 96,
+        pageSize: 10,
+        infoText: 'rows {firstRow}-{lastRow} of {totalCount}',
+      });
+
+      expect(tree.find('div > span').text()).toBe('rows 11-20 of 96');
     });
 
     it('can render pagination arrows', () => {

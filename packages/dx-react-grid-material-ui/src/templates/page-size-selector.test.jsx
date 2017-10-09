@@ -2,15 +2,21 @@ import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Select from 'material-ui/Select';
-import { createMount } from 'material-ui/test-utils';
+import { createMount, getClasses } from 'material-ui/test-utils';
 import { PageSizeSelector } from './page-size-selector';
 
 injectTapEventPlugin();
 
 describe('PageSizeSelector', () => {
   let mount;
+  let classes;
   beforeAll(() => {
     mount = createMount();
+    classes = getClasses(<PageSizeSelector
+      pageSize={0}
+      allowedPageSizes={[]}
+      onPageSizeChange={() => {}}
+    />);
   });
   afterAll(() => {
     mount.cleanUp();
@@ -20,13 +26,15 @@ describe('PageSizeSelector', () => {
     const mountPageSizeSelector = ({
       pageSize,
       allowedPageSizes,
-      showAllText,
       onPageSizeChange = () => {},
+      showAllText,
+      rowsPerPageText,
     }) => mount(
       <PageSizeSelector
         pageSize={pageSize}
         allowedPageSizes={allowedPageSizes}
         showAllText={showAllText}
+        rowsPerPageText={rowsPerPageText}
         onPageSizeChange={onPageSizeChange}
       />);
 
@@ -67,6 +75,25 @@ describe('PageSizeSelector', () => {
       const selectItems = select.prop('children');
 
       expect(selectItems[3].props.children).toBe('Show all');
+    });
+
+    it('should use default \'Rows per page\' text', () => {
+      const pageSizeSelector = mountPageSizeSelector({
+        pageSize: 0,
+        allowedPageSizes: [5, 10, 15],
+      });
+      const label = pageSizeSelector.find(`.${classes.label}`);
+      expect(label.text()).toBe('Rows per page:');
+    });
+
+    it('can customize \'Rows per page\' text', () => {
+      const pageSizeSelector = mountPageSizeSelector({
+        pageSize: 0,
+        allowedPageSizes: [5, 10, 15],
+        rowsPerPageText: 'Count rows per page',
+      });
+      const label = pageSizeSelector.find(`.${classes.label}`);
+      expect(label.text()).toBe('Count rows per page');
     });
 
     it('can handle the \'onPageSizeChange\' event', () => {

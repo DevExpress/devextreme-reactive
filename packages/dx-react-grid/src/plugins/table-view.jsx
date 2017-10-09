@@ -72,7 +72,7 @@ export class TableView extends React.PureComponent {
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
       allowColumnReordering,
-      texts,
+      messages,
     } = this.props;
 
     return (
@@ -155,7 +155,7 @@ export class TableView extends React.PureComponent {
           {params => (
             <TemplateRenderer
               template={tableNoDataCellTemplate}
-              params={{ noDataText: texts.noDataText, ...params }}
+              params={{ noDataText: messages.noDataText, ...params }}
             />
           )}
         </Template>
@@ -199,12 +199,12 @@ TableView.propTypes = {
   tableStubCellTemplate: PropTypes.func.isRequired,
   tableStubHeaderCellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,
-  texts: PropTypes.shape({
+  messages: PropTypes.shape({
     noDataText: PropTypes.string,
   }),
 };
 
 TableView.defaultProps = {
   allowColumnReordering: false,
-  texts: {},
+  messages: {},
 };

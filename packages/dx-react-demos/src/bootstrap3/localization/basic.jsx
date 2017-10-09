@@ -84,7 +84,7 @@ export default class Demo extends React.PureComponent {
         />
         <LocalPaging />
         <TableView
-          texts={localization.tableView}
+          messages={localization.tableView}
         />
         <TableHeaderRow allowDragging />
 
@@ -94,14 +94,14 @@ export default class Demo extends React.PureComponent {
           allowEditing
           allowDeleting
           width={200}
-          texts={localization.editColumn}
+          messages={localization.editColumn}
         />
 
         <TableFilterRow />
         <GroupingPanel
           allowUngroupingByClick
           allowDragging
-          texts={localization.groupingPanel}
+          messages={localization.groupingPanel}
         />
         <TableGroupRow />
         <PagingPanel

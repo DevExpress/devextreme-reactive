@@ -221,7 +221,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          texts={{ noDataText: 'No data' }}
+          messages={{ noDataText: 'No data' }}
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableNoDataCellTemplate={tableNoDataCellTemplate}
         />

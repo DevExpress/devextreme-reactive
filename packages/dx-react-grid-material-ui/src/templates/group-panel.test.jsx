@@ -1,5 +1,5 @@
 import React from 'react';
-import { createMount, getClasses } from 'material-ui/test-utils';
+import { createMount } from 'material-ui/test-utils';
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 import { GroupPanel } from './group-panel';
 

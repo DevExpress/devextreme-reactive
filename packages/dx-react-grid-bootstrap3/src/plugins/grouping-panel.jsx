@@ -11,14 +11,14 @@ const defaultCellTemplate = props => <GroupPanelItem {...props} />;
 
 export class GroupingPanel extends React.PureComponent {
   render() {
-    const { texts, groupPanelItemTemplate, ...restProps } = this.props;
+    const { messages, groupPanelItemTemplate, ...restProps } = this.props;
 
     return (
       <GroupingPanelBase
         groupPanelTemplate={
           props => (
             <GroupPanel
-              groupByColumnText={texts.groupByColumnText}
+              groupByColumnText={messages.groupByColumnText}
               groupPanelItemTemplate={combineTemplates(
                 groupPanelItemTemplate,
                 defaultCellTemplate,
@@ -35,7 +35,7 @@ export class GroupingPanel extends React.PureComponent {
 
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
-  texts: PropTypes.shape({
+  messages: PropTypes.shape({
     groupByColumnText: PropTypes.string,
   }),
   groupPanelItemTemplate: PropTypes.func,
@@ -43,6 +43,6 @@ GroupingPanel.propTypes = {
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
-  texts: {},
+  messages: {},
   groupPanelItemTemplate: undefined,
 };

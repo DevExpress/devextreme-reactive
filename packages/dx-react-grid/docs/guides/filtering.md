@@ -5,6 +5,7 @@ The Grid component supports filtering data by a column value programmatically or
 ## Related Plugins
 
 The following plugins implement filtering features:
+
 - [FilteringState](../reference/filtering-state.md) - controls the filtering state
 - [LocalFiltering](../reference/local-filtering.md) - performs local data filtering
 - [TableFilterRow](../reference/table-filter-row.md) - renders a filter row

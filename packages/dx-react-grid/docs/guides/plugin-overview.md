@@ -59,5 +59,6 @@ The order of data processing plugins is also important because they transform da
 ## UI Plugins
 
 The Grid's UI plugins use templates to render the UI. A template is a function that returns a [ReactElement](https://facebook.github.io/react/docs/react-api.html#createelement) depending on the argument values. You can implement your templates or use one of the predefined template suites:
+
 - [DevExtreme React Grid for Bootstrap 3](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-bootstrap3/) - renders the Grid's UI elements based on the [Bootstrap 3](http://getbootstrap.com/) components
 - [DevExtreme React Grid for Material UI](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-material-ui) - renders the Grid's UI elements based on the [Material UI](http://www.material-ui.com) components

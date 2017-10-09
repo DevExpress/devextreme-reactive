@@ -8,7 +8,7 @@ The Grid is a root container component designed to process and display data spec
 
 Name | Type | Default | Description
 -----|------|---------|------------
-data | Array&lt;any&gt; | | An array containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
+rows | Array&lt;any&gt; | | An array containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
 getRowId | (row: any) => number &#124; string | null | Specifies the function used to get a unique row identifier.
 getCellValue | (row: any, columnName: string) => any | null | Specifies the function used to get a cell's value.

@@ -17,6 +17,7 @@ Name | Type | Default | Description
 rowHeight | number | | Specifies the filter row's height
 filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a filter cell
 filterRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a filter row
+messages | [Messages](#messages) | | The object specifies localization messages.
 
 ## Interfaces
 
@@ -31,6 +32,14 @@ Field | Type | Description
 filter | [Filter](filtering-state.md#filter) | A filter applied to a column
 setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Applies a new filter to a column
 column | [Column](grid.md#column) | Specifies a column
+
+### <a name="messages"></a>Messages
+
+Describes localization messages.
+
+Field | Type | Default | Description
+------|------|---------|------------
+filterPlaceholderText? | string | 'Filter...' | The text used for filter editor placeholder.
 
 ## Plugin Developer Reference
 

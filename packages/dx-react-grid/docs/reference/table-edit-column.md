@@ -20,6 +20,7 @@ allowAdding | boolean | false | If set to true, the 'New' command is rendered wi
 allowEditing | boolean | false | If set to true, the 'Edit' command is rendered within the data row's command cell
 allowDeleting | boolean | false | If set to true, the 'Delete' command is rendered within the data row's command cell
 width | number &#124; string | 140 | Specifies the width of the edit column
+messages | [Messages](#messages) | | The object specifies localization messages.
 
 ## Interfaces
 
@@ -63,6 +64,18 @@ Field | Type | Description
 ------|------|------------
 executeCommand | () => void | Executes the command
 text | string | Specifies the text to be rendered within the command control
+
+### <a name="messages"></a>Messages
+
+Describes localization messages.
+
+Field | Type | Default | Description
+------|------|---------|------------
+addCommandText? | string | 'New' | Specifies text for the add command button.
+editCommandText? | string | 'Edit' | Specifies text for the edit command button.
+deleteCommandText? | string | 'Delete' | Specifies text for the delete command button.
+commitCommandText? | string | 'Save' | Specifies text for the commit command button.
+cancelCommandText? | string | 'Cancel' | Specifies text for the cancel command button.
 
 ## Plugin Developer Reference
 

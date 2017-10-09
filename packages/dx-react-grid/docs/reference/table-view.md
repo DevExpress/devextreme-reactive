@@ -22,6 +22,7 @@ tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement
 tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided
 tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided
 allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it. Requires the [ColumnOrderState](column-order-state.md) and the [DragDropContext](drag-drop-context.md) dependencies.
+messages | [Messages](#messages) | | The object specifies localization messages.
 
 ## Interfaces
 
@@ -118,6 +119,14 @@ A value with the [TableRowArgs](#table-row-args) shape extended by the following
 Field | Type | Description
 ------|------|------------
 row | [Row](grid.md#row) | Specifies a table row
+
+### <a name="messages"></a>Messages
+
+Describes localization messages.
+
+Field | Type | Default | Description
+------|------|---------|------------
+noDataText? | string | 'No data' | Specifies text shown when the Grid does not contain any data.
 
 ## Plugin Developer Reference
 

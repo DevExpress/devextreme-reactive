@@ -18,7 +18,6 @@ import {
   TableEditRow,
   TableEditColumn,
   PagingPanel,
-  DragDropContext,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
@@ -74,7 +73,6 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <DragDropContext />
         <FilteringState defaultFilters={[]} />
         <GroupingState defaultGrouping={[]} />
         <EditingState
@@ -91,7 +89,7 @@ export default class Demo extends React.PureComponent {
         <TableView
           texts={localization.tableView}
         />
-        <TableHeaderRow allowGroupingByClick allowDragging />
+        <TableHeaderRow allowGroupingByClick />
 
         <TableEditRow />
         <TableEditColumn
@@ -102,6 +100,7 @@ export default class Demo extends React.PureComponent {
           texts={localization.editColumn}
         />
 
+<<<<<<< HEAD
         <TableFilterRow
           texts={localization.filterRow}
         />
@@ -110,6 +109,10 @@ export default class Demo extends React.PureComponent {
           allowDragging
           texts={localization.groupingPanel}
         />
+=======
+        <TableFilterRow />
+        <GroupingPanel allowUngroupingByClick />
+>>>>>>> parent of 67dbf2e4... Grouping localization spike
         <TableGroupRow />
         <PagingPanel
           allowedPageSizes={[5, 10, 15, 0]}

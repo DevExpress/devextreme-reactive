@@ -22,52 +22,46 @@ const styles = theme => ({
   },
 });
 
-const GroupPanelTextBase = ({
-  texts,
-  classes,
-  allowDragging,
-  allowUngroupingByClick,
-}) => {
+const DefaultTextBase = ({ classes, allowDragging, allowUngroupingByClick }) => {
   if (allowDragging) {
     return (
       <span className={classes.groupInfo}>
-        {texts.dragColumnHeaderText || 'Drag a column header here to group by that column'}
+        Drag a column header here to group by that column
       </span>
     );
   }
   if (allowUngroupingByClick) {
-    return texts.groupByColumnText
-      ? (<span className={classes.groupInfo}>{texts.groupByColumnText}</span>)
-      : (<span className={classes.groupInfo}>
-            Click&nbsp; <span className={classes.groupIcon}><List /></span>
-            &nbsp;icon in the column header to group by that column
-      </span>);
+    return (
+      <span className={classes.groupInfo}>
+        Click
+        &nbsp;
+        <span className={classes.groupIcon}>
+          <List />
+        </span>
+        &nbsp;
+        icon in the column header to group by that column
+      </span>
+    );
   }
   return (
     <span className={classes.groupInfo}>
-      {texts.groupingUnavailableText || 'Grouping is not available'}
+      Grouping is not available
     </span>
   );
 };
 
-GroupPanelTextBase.propTypes = {
-  texts: PropTypes.shape({
-    groupByColumnText: PropTypes.string,
-    dragColumnHeaderText: PropTypes.string,
-    groupingUnavailableText: PropTypes.string,
-  }),
+DefaultTextBase.propTypes = {
   classes: PropTypes.shape().isRequired,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
 };
 
-GroupPanelTextBase.defaultProps = {
+DefaultTextBase.defaultProps = {
   allowDragging: false,
   allowUngroupingByClick: false,
-  texts: {},
 };
 
-const GroupPanelText = withStyles(styles, { name: 'GroupPanel' })(GroupPanelTextBase);
+const DefaultText = withStyles(styles, { name: 'GroupPanel' })(DefaultTextBase);
 
 const PanelTemplateBase = ({ classes, items }) => (
   <div className={classes.panel}>
@@ -84,28 +78,16 @@ const PanelTemplate = withStyles(styles, { name: 'GroupPanel' })(PanelTemplateBa
 
 const panelTemplate = props => <PanelTemplate {...props} />;
 
-const GroupPanelBase = ({
-  groupByColumnText,
-  dragColumnHeaderText,
-  groupingUnavailableText,
-  classes,
-  ...restProps
-}) => {
-  const groupPanelText = (
-    <GroupPanelText
+const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => {
+  const text = groupByColumnText || (
+    <DefaultText
       allowDragging={restProps.allowDragging}
       allowUngroupingByClick={restProps.allowUngroupingByClick}
-      texts={{
-        groupByColumnText,
-        dragColumnHeaderText,
-        groupingUnavailableText,
-      }}
     />);
-
   return (
     <div className={classes.panel}>
       <GroupPanelLayout
-        groupPanelText={groupPanelText}
+        groupByColumnText={text}
         panelTemplate={panelTemplate}
         {...restProps}
       />
@@ -115,15 +97,11 @@ const GroupPanelBase = ({
 
 GroupPanelBase.propTypes = {
   groupByColumnText: PropTypes.string,
-  dragColumnHeaderText: PropTypes.string,
-  groupingUnavailableText: PropTypes.string,
   classes: PropTypes.object.isRequired,
 };
 
 GroupPanelBase.defaultProps = {
   groupByColumnText: undefined,
-  dragColumnHeaderText: undefined,
-  groupingUnavailableText: undefined,
 };
 
 export const GroupPanel = withStyles(styles, { name: 'GroupPanel' })(GroupPanelBase);

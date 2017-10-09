@@ -37,9 +37,9 @@ export class TableLayout extends React.PureComponent {
     // eslint-disable-next-line react/no-find-dom-node
     this.tableRect = () => findDOMNode(this.tableNode).getBoundingClientRect();
 
-    this.getColumns = () => {
+    this.getColumns = ({ sourceColumnIndex, targetColumnIndex } = this.state) => {
       const { columns } = this.props;
-      const { sourceColumnIndex, targetColumnIndex, animationState } = this.state;
+      const { animationState } = this.state;
 
       let result = columns;
 
@@ -83,17 +83,23 @@ export class TableLayout extends React.PureComponent {
         targetColumnIndex = columns.findIndex(column => column.type === TABLE_DATA_TYPE);
       }
 
-      const { sourceColumnIndex } = this.state;
+      const { sourceColumnIndex: prevSourceColumnIndex } = this.state;
+      const sourceColumnIndex = prevSourceColumnIndex === -1
+        ? columns.findIndex(column =>
+          column.type === TABLE_DATA_TYPE && column.column.name === sourceColumnName)
+        : prevSourceColumnIndex;
+
       this.setState({
-        sourceColumnIndex: sourceColumnIndex === -1
-          ? columns.findIndex(column =>
-            column.type === TABLE_DATA_TYPE && column.column.name === sourceColumnName)
-          : sourceColumnIndex,
+        sourceColumnIndex,
         targetColumnIndex,
       });
 
-      this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
-        this.props.columns[this.state.sourceColumnIndex].key, this.animations);
+      this.animations = getAnimations(
+        columns,
+        this.getColumns({ sourceColumnIndex, targetColumnIndex }),
+        tableRect.width,
+        this.props.columns[sourceColumnIndex].key,
+        this.animations);
       this.processAnimationFrame();
     };
     this.onLeave = () => {

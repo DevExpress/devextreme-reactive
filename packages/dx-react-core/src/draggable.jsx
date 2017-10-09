@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+// eslint-disable-next-line camelcase
+import { unstable_batchedUpdates } from 'react-dom';
 import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
 import { getSharedEventEmitter, touchEventsSupported } from './draggable/shared-events';
@@ -11,13 +12,25 @@ export class Draggable extends React.Component {
 
     const delegate = {
       onStart: ({ x, y }) => {
-        this.props.onStart({ x, y });
+        const { onStart } = this.props;
+        if (!onStart) return;
+        unstable_batchedUpdates(() => {
+          onStart({ x, y });
+        });
       },
       onMove: ({ x, y }) => {
-        this.props.onUpdate({ x, y });
+        const { onUpdate } = this.props;
+        if (!onUpdate) return;
+        unstable_batchedUpdates(() => {
+          onUpdate({ x, y });
+        });
       },
       onEnd: ({ x, y }) => {
-        this.props.onEnd({ x, y });
+        const { onEnd } = this.props;
+        if (!onEnd) return;
+        unstable_batchedUpdates(() => {
+          onEnd({ x, y });
+        });
       },
     };
 
@@ -82,7 +95,7 @@ Draggable.propTypes = {
 };
 
 Draggable.defaultProps = {
-  onStart: () => {},
-  onUpdate: () => {},
-  onEnd: () => {},
+  onStart: undefined,
+  onUpdate: undefined,
+  onEnd: undefined,
 };

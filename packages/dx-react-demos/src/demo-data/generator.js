@@ -204,7 +204,7 @@ export function generateRows({
   length,
   random = randomSeed(329972281),
 }) {
-  const rows = [];
+  const data = [];
   const columns = Object.keys(columnValues);
 
   for (let i = 0; i < length; i += 1) {
@@ -230,8 +230,8 @@ export function generateRows({
       }
     });
 
-    rows.push(record);
+    data.push(record);
   }
 
-  return rows;
+  return data;
 }

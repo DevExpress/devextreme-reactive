@@ -1,5 +1,5 @@
 import React from 'react';
-import { createMount } from 'material-ui/test-utils';
+import { createMount, getClasses } from 'material-ui/test-utils';
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 import { GroupPanel } from './group-panel';
 
@@ -23,8 +23,7 @@ describe('GroupPanel', () => {
         groupByColumnText="Test"
       />,
     );
-
-    expect(tree.find(GroupPanelLayout).text())
+    expect(tree.find(GroupPanelLayout).find('span').text())
       .toBe('Test');
   });
 

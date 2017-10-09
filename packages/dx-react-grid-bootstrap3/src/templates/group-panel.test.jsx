@@ -16,7 +16,7 @@ describe('GroupPanel', () => {
       />,
     );
 
-    expect(tree.find(GroupPanelLayout).text())
+    expect(tree.find(GroupPanelLayout).find('span').text())
       .toBe('Test');
   });
 

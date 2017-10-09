@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import List from 'material-ui-icons/List';
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
-const styles = theme => ({
+export const styles = theme => ({
   panel: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -22,7 +22,19 @@ const styles = theme => ({
   },
 });
 
-const DefaultTextBase = ({ classes, allowDragging, allowUngroupingByClick }) => {
+const GroupPanelTextBase = ({
+  classes,
+  allowDragging,
+  allowUngroupingByClick,
+  groupByColumnText,
+}) => {
+  if (groupByColumnText) {
+    return (
+      <span className={classes.groupInfo}>
+        {groupByColumnText}
+      </span>
+    );
+  }
   if (allowDragging) {
     return (
       <span className={classes.groupInfo}>
@@ -50,18 +62,20 @@ const DefaultTextBase = ({ classes, allowDragging, allowUngroupingByClick }) => 
   );
 };
 
-DefaultTextBase.propTypes = {
+GroupPanelTextBase.propTypes = {
   classes: PropTypes.shape().isRequired,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
+  groupByColumnText: PropTypes.string,
 };
 
-DefaultTextBase.defaultProps = {
+GroupPanelTextBase.defaultProps = {
   allowDragging: false,
   allowUngroupingByClick: false,
+  groupByColumnText: undefined,
 };
 
-const DefaultText = withStyles(styles, { name: 'GroupPanel' })(DefaultTextBase);
+const GroupPanelText = withStyles(styles, { name: 'GroupPanel' })(GroupPanelTextBase);
 
 const PanelTemplateBase = ({ classes, items }) => (
   <div className={classes.panel}>
@@ -79,15 +93,16 @@ const PanelTemplate = withStyles(styles, { name: 'GroupPanel' })(PanelTemplateBa
 const panelTemplate = props => <PanelTemplate {...props} />;
 
 const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => {
-  const text = groupByColumnText || (
-    <DefaultText
+  const groupPanelText = (
+    <GroupPanelText
       allowDragging={restProps.allowDragging}
       allowUngroupingByClick={restProps.allowUngroupingByClick}
+      groupByColumnText={groupByColumnText}
     />);
   return (
     <div className={classes.panel}>
       <GroupPanelLayout
-        groupByColumnText={text}
+        groupByColumnText={groupPanelText}
         panelTemplate={panelTemplate}
         {...restProps}
       />

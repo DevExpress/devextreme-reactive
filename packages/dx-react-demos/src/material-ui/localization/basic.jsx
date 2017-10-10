@@ -28,25 +28,25 @@ import {
 
 const localization = {
   tableView: {
-    noDataText: 'Нет данных',
+    noDataText: 'Keine Daten verfügba',
   },
   editColumn: {
-    addCommandText: 'Добавить',
-    editCommandText: 'Редактировать',
-    deleteCommandText: 'Удалить',
-    commitCommandText: 'Сохранить',
-    cancelCommandText: 'Отменить',
+    addCommandText: 'Neue Zeile',
+    editCommandText: 'Bearbeiten',
+    deleteCommandText: 'Entfernen',
+    commitCommandText: 'Speichern',
+    cancelCommandText: 'Abbrechen',
   },
   groupingPanel: {
-    groupByColumnText: 'Перетащите заголовок колонки для группировки',
+    groupByColumnText: 'Ziehen Sie eine Spalte hierhin, um danach zu gruppieren',
   },
   filterRow: {
-    filterPlaceholderText: 'Фильтр...',
+    filterPlaceholderText: 'Filter...',
   },
   pagingPanel: {
-    showAllText: 'Всё',
-    rowsPerPageText: 'Строк на странице',
-    infoText: 'с {firstRow} по {lastRow} из {totalCount}',
+    showAllText: 'Alle',
+    rowsPerPageText: 'Zeilen pro Seite',
+    infoText: 'Zeile {firstRow} von {lastRow}({totalCount} Elemente)',
   },
 };
 
@@ -56,10 +56,10 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'region', title: 'Регион' },
-        { name: 'sector', title: 'Сектор' },
-        { name: 'channel', title: 'Канал' },
-        { name: 'customer', title: 'Клиент' },
+        { name: 'region', title: 'Region' },
+        { name: 'sector', title: 'Sektor' },
+        { name: 'channel', title: 'Kanal' },
+        { name: 'customer', title: 'Kunde' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };

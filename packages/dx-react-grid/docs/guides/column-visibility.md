@@ -29,6 +29,4 @@ this.hiddenColumnsChangeHandler = (hiddenColumns) => {
 };
 ```
 
-At this point, the Grid and the ColumnChooser a synchronized.
-
 .embedded-demo(column-chooser/basic)

@@ -56,7 +56,7 @@ describe('LocalPaging', () => {
       .toBe(6);
   });
 
-  it('should paginatedRows rows passed into based on the "currentPage" and "pageSize" getters', () => {
+  it('should paginated rows passed into based on the "currentPage" and "pageSize" getters', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

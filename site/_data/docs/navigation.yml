@@ -36,6 +36,8 @@ react:
           path: /react/grid/docs/guides/column-reordering
         - title: Column Resizing
           path: /react/grid/docs/guides/column-resizing
+        - title: Column Visibility
+          path: /react/grid/docs/guides/column-visibility
     - title: API Reference
       items:
         - title: Grid
@@ -90,3 +92,7 @@ react:
           path: /react/grid/docs/reference/drag-drop-context
         - title: DataTypeProvider
           path: /react/grid/docs/reference/data-type-provider
+        - title: ColumnChooser
+          path: /react/grid/docs/reference/column-chooser
+        - title: TableColumnVisibility
+          path: /react/grid/docs/reference/table-column-visibility

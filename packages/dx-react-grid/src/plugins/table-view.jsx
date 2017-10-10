@@ -88,6 +88,9 @@ export class TableView extends React.PureComponent {
         <Getter name="tableColumns" computed={tableColumnsComputed} />
 
         <Template name="body">
+          <TemplatePlaceholder name="tableView" />
+        </Template>
+        <Template name="tableView">
           <TemplateConnector>
             {(getters, actions) => (
               <TemplateRenderer

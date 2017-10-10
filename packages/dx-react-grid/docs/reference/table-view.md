@@ -1,6 +1,6 @@
 # TableView Plugin Reference
 
-This plugin renders Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
+This plugin renders Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
 
 ## User Reference
 
@@ -137,5 +137,6 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered.
 tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered.
 tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered.
+tableView | Template | Object? | A template that renders the table.
 tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell.
 tableViewRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row.

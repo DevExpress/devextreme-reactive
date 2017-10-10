@@ -1,3 +1,6 @@
+export * from './column-chooser/computeds';
+export * from './column-chooser/reducers';
+
 export * from './plugins/sorting-state/reducers';
 export * from './plugins/sorting-state/helpers';
 export * from './plugins/local-sorting/computeds';
@@ -61,6 +64,8 @@ export * from './plugins/table-selection/computeds';
 export * from './plugins/table-view/constants';
 export * from './plugins/table-view/helpers';
 export * from './plugins/table-view/computeds';
+
+export * from './plugins/table-column-visibility/computeds';
 
 export {
   getTableRowColumnsWithColSpan,

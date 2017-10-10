@@ -87,7 +87,7 @@ Describes localization messages.
 
 Field | Type | Description
 ------|------|------------
-groupByColumnText? | string | The text displayed in the group panel if the grid is not grouped.
+groupByColumn? | string | The text displayed in the group panel if the grid is not grouped.
 
 ## Plugin Developer Reference
 

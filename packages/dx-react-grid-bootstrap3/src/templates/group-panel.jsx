@@ -8,11 +8,11 @@ const defaultTextStyle = {
   display: 'inline-block',
 };
 
-const getText = (allowDragging, allowUngroupingByClick, groupByColumnText) => {
-  if (groupByColumnText) {
+const getText = (allowDragging, allowUngroupingByClick, getMessage) => {
+  if (getMessage) {
     return (
       <span style={defaultTextStyle}>
-        {groupByColumnText}
+        {getMessage('groupByColumn')}
       </span>
     );
   }
@@ -55,12 +55,12 @@ PanelTemplate.propTypes = {
 
 const panelTemplate = props => <PanelTemplate {...props} />;
 
-export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
+export const GroupPanel = ({ getMessage, ...restProps }) => (
   <GroupPanelLayout
     groupByColumnText={getText(
       restProps.allowDragging,
       restProps.allowUngroupingByClick,
-      groupByColumnText,
+      getMessage,
     )}
     panelTemplate={panelTemplate}
     {...restProps}
@@ -68,9 +68,9 @@ export const GroupPanel = ({ groupByColumnText, ...restProps }) => (
 );
 
 GroupPanel.propTypes = {
-  groupByColumnText: PropTypes.string,
+  getMessage: PropTypes.func,
 };
 
 GroupPanel.defaultProps = {
-  groupByColumnText: undefined,
+  getMessage: undefined,
 };

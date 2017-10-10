@@ -38,7 +38,7 @@ const localization = {
     cancelCommand: 'Abbrechen',
   },
   groupingPanel: {
-    groupByColumnText: 'Ziehen Sie eine Spalte hierhin, um danach zu gruppieren',
+    groupByColumn: 'Ziehen Sie eine Spalte hierhin, um danach zu gruppieren',
   },
   filterRow: {
     filterPlaceholder: 'Filter...',

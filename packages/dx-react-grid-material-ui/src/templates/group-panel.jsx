@@ -26,12 +26,12 @@ const GroupPanelTextBase = ({
   classes,
   allowDragging,
   allowUngroupingByClick,
-  groupByColumnText,
+  getMessage,
 }) => {
-  if (groupByColumnText) {
+  if (getMessage) {
     return (
       <span className={classes.groupInfo}>
-        {groupByColumnText}
+        {getMessage('groupByColumn')}
       </span>
     );
   }
@@ -66,13 +66,13 @@ GroupPanelTextBase.propTypes = {
   classes: PropTypes.shape().isRequired,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
-  groupByColumnText: PropTypes.string,
+  getMessage: PropTypes.func,
 };
 
 GroupPanelTextBase.defaultProps = {
   allowDragging: false,
   allowUngroupingByClick: false,
-  groupByColumnText: undefined,
+  getMessage: undefined,
 };
 
 const GroupPanelText = withStyles(styles, { name: 'GroupPanel' })(GroupPanelTextBase);
@@ -92,12 +92,12 @@ const PanelTemplate = withStyles(styles, { name: 'GroupPanel' })(PanelTemplateBa
 
 const panelTemplate = props => <PanelTemplate {...props} />;
 
-const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => {
+const GroupPanelBase = ({ getMessage, classes, ...restProps }) => {
   const groupPanelText = (
     <GroupPanelText
       allowDragging={restProps.allowDragging}
       allowUngroupingByClick={restProps.allowUngroupingByClick}
-      groupByColumnText={groupByColumnText}
+      getMessage={getMessage}
     />);
   return (
     <div className={classes.panel}>
@@ -111,12 +111,12 @@ const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => {
 };
 
 GroupPanelBase.propTypes = {
-  groupByColumnText: PropTypes.string,
+  getMessage: PropTypes.func,
   classes: PropTypes.object.isRequired,
 };
 
 GroupPanelBase.defaultProps = {
-  groupByColumnText: undefined,
+  getMessage: undefined,
 };
 
 export const GroupPanel = withStyles(styles, { name: 'GroupPanel' })(GroupPanelBase);

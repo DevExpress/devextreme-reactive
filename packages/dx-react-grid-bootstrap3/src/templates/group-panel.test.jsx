@@ -9,7 +9,7 @@ jest.mock('@devexpress/dx-react-grid', () => ({
 }));
 
 describe('GroupPanel', () => {
-  it('should render user defined group by column text if it is specified', () => {
+  it('should render user defined text withih group panel', () => {
     const tree = mount(
       <GroupPanel
         getMessage={() => 'Test'}
@@ -20,7 +20,7 @@ describe('GroupPanel', () => {
       .toBe('Test');
   });
 
-  it('can render default group by column text', () => {
+  it('should render default text withih group panel', () => {
     const tree = mount(
       <GroupPanel />,
     );
@@ -29,7 +29,18 @@ describe('GroupPanel', () => {
       .toBe('Grouping is not available');
   });
 
-  it('should pass correct default group by column text if the "allowUngroupingByClick" property is true', () => {
+  it('should render default text withih group panel if user-defined function returns nothing', () => {
+    const tree = mount(
+      <GroupPanel
+        getMessage={() => undefined}
+      />,
+    );
+
+    expect(tree.find(GroupPanelLayout).text())
+      .toBe('Grouping is not available');
+  });
+
+  it('should pass correct text to group panel if the "allowUngroupingByClick" property is true', () => {
     const tree = mount(
       <GroupPanel
         allowUngroupingByClick
@@ -40,7 +51,7 @@ describe('GroupPanel', () => {
       .toContain('icon in the column header');
   });
 
-  it('should pass correct default group by column text if the "allowDragging" property is true', () => {
+  it('should pass correct text to group panel if the "allowDragging" property is true', () => {
     const tree = mount(
       <GroupPanel
         allowDragging
@@ -51,7 +62,7 @@ describe('GroupPanel', () => {
       .toBe('Drag a column header here to group by that column');
   });
 
-  it('should pass correct default group by column text if both "allowDragging" and "allowUngroupingByClick" properties are true', () => {
+  it('should pass correct text to group panel if both "allowDragging" and "allowUngroupingByClick" properties are true', () => {
     const tree = mount(
       <GroupPanel
         allowDragging

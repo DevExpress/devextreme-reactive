@@ -9,10 +9,11 @@ const defaultTextStyle = {
 };
 
 const getText = (allowDragging, allowUngroupingByClick, getMessage) => {
-  if (getMessage) {
+  const message = getMessage && getMessage('groupByColumn');
+  if (message) {
     return (
       <span style={defaultTextStyle}>
-        {getMessage('groupByColumn')}
+        {message}
       </span>
     );
   }

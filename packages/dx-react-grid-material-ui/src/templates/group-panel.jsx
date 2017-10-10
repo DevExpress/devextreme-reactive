@@ -28,10 +28,11 @@ const GroupPanelTextBase = ({
   allowUngroupingByClick,
   getMessage,
 }) => {
-  if (getMessage) {
+  const message = getMessage && getMessage('groupByColumn');
+  if (message) {
     return (
       <span className={classes.groupInfo}>
-        {getMessage('groupByColumn')}
+        {message}
       </span>
     );
   }

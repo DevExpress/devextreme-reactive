@@ -35,7 +35,7 @@ describe('TableFilterCell', () => {
         column={{
           name: 'Test',
         }}
-        filterPlaceholderText={'Filter data'}
+        filterPlaceholder={'Filter data'}
       />,
     );
 

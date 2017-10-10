@@ -126,7 +126,7 @@ Describes localization messages.
 
 Field | Type | Default | Description
 ------|------|---------|------------
-noDataText? | string | 'No data' | Specifies text shown when the Grid does not contain any data.
+noData? | string | 'No data' | Specifies text shown when the Grid does not contain any data.
 
 ## Plugin Developer Reference
 

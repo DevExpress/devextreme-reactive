@@ -86,7 +86,7 @@ describe('TableFilterRow', () => {
   it('should render heading cell on user-defined column and filter row intersection', () => {
     isFilterTableCell.mockImplementation(() => true);
     const filterCellTemplate = jest.fn(() => null);
-    const messages = { filterPlaceholderText: 'Filter' };
+    const messages = { filterPlaceholder: 'Filter' };
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

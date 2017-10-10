@@ -97,7 +97,7 @@ describe('TableHeaderRow', () => {
     isHeadingEditCommandsTableCell.mockImplementation(() => true);
     const headingCellTemplate = jest.fn(() => null);
     const messages = {
-      addCommandText: 'Add',
+      addCommand: 'Add',
     };
     mount(
       <PluginHost>
@@ -126,10 +126,10 @@ describe('TableHeaderRow', () => {
     isEditCommandsTableCell.mockImplementation(() => true);
     const cellTemplate = jest.fn(() => null);
     const messages = {
-      editCommandText: 'Edit',
-      deleteCommandText: 'Remove',
-      commitCommandText: 'Save',
-      cancelCommandText: 'Cancel',
+      editCommand: 'Edit',
+      deleteCommand: 'Remove',
+      commitCommand: 'Save',
+      cancelCommand: 'Cancel',
     };
     mount(
       <PluginHost>

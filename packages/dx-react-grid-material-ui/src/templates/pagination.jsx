@@ -181,7 +181,7 @@ const PaginationBase = ({
   pageSize,
   currentPage,
   onCurrentPageChange,
-  infoText,
+  info,
   classes,
 }) => {
   const firstRow = firstRowOnPage(currentPage, pageSize, totalCount);
@@ -190,7 +190,7 @@ const PaginationBase = ({
   return (
     <div className={classes.pagination}>
       <span className={classes.rowsLabel}>
-        {createInfoString(firstRow, lastRow, totalCount, infoText)}
+        {createInfoString(firstRow, lastRow, totalCount, info)}
       </span>
       <IconButton
         className={classNames(classes.arrowButton, classes.prev)}
@@ -218,11 +218,11 @@ PaginationBase.propTypes = {
   classes: PropTypes.object.isRequired,
   totalCount: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
-  infoText: PropTypes.string,
+  info: PropTypes.string,
 };
 
 PaginationBase.defaultProps = {
-  infoText: undefined,
+  info: undefined,
 };
 
 export const Pagination = withStyles(styles, { name: 'Pagination' })(PaginationBase);

@@ -22,8 +22,8 @@ export const Pager = ({
   onPageSizeChange,
   allowedPageSizes,
   totalCount,
-  showAllText,
-  infoText,
+  showAll,
+  info,
 }) => {
   const firstRow = firstRowOnPage(currentPage, pageSize, totalCount);
   const lastRow = lastRowOnPage(currentPage, pageSize, totalCount);
@@ -34,7 +34,7 @@ export const Pager = ({
         pageSize={pageSize}
         onPageSizeChange={onPageSizeChange}
         allowedPageSizes={allowedPageSizes}
-        showAllText={showAllText}
+        showAll={showAll}
       />}
       <Pagination
         style={{
@@ -68,7 +68,7 @@ export const Pager = ({
       </BootstrapPager>
       <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
         <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
-          {createInfoString(firstRow, lastRow, totalCount, infoText)}
+          {createInfoString(firstRow, lastRow, totalCount, info)}
         </span>
       </span>
     </div>
@@ -83,11 +83,11 @@ Pager.propTypes = {
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   totalCount: PropTypes.number.isRequired,
-  showAllText: PropTypes.string,
-  infoText: PropTypes.string,
+  showAll: PropTypes.string,
+  info: PropTypes.string,
 };
 
 Pager.defaultProps = {
-  showAllText: undefined,
-  infoText: undefined,
+  showAll: undefined,
+  info: undefined,
 };

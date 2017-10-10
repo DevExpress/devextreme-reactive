@@ -79,7 +79,7 @@ export class TableEditColumn extends React.PureComponent {
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
-    const { addCommandText, ...commandMessages } = messages;
+    const { addCommand, ...commandMessages } = messages;
 
     return (
       <PluginContainer
@@ -99,7 +99,7 @@ export class TableEditColumn extends React.PureComponent {
                 <TemplateRenderer
                   template={headingCellTemplate}
                   params={getHeadingEditCommandsTableCellTemplateArgs(
-                    { allowAdding, commandTemplate, addCommandText, ...params },
+                    { allowAdding, commandTemplate, addCommand, ...params },
                     getters,
                     actions,
                   )}
@@ -147,11 +147,11 @@ TableEditColumn.propTypes = {
   allowDeleting: PropTypes.bool,
   width: PropTypes.number,
   messages: PropTypes.shape({
-    addCommandText: PropTypes.string,
-    editCommandText: PropTypes.string,
-    deleteCommandText: PropTypes.string,
-    commitCommandText: PropTypes.string,
-    cancelCommandText: PropTypes.string,
+    addCommand: PropTypes.string,
+    editCommand: PropTypes.string,
+    deleteCommand: PropTypes.string,
+    commitCommand: PropTypes.string,
+    cancelCommand: PropTypes.string,
   }),
 };
 TableEditColumn.defaultProps = {

@@ -50,12 +50,12 @@ const PageSizeSelectorBase = ({
   onPageSizeChange,
   allowedPageSizes,
   classes,
-  showAllText,
-  rowsPerPageText,
+  showAll,
+  rowsPerPage,
 }) => (
   <div className={classes.pageSizeSelector}>
     <span className={classes.label}>
-      {rowsPerPageText}
+      {rowsPerPage}
     </span>
     <Select
       value={pageSize}
@@ -72,7 +72,7 @@ const PageSizeSelectorBase = ({
       }
     >
       {allowedPageSizes.map(item =>
-        <MenuItem key={item} value={item}>{item !== 0 ? item : showAllText }</MenuItem>,
+        <MenuItem key={item} value={item}>{item !== 0 ? item : showAll }</MenuItem>,
       )}
     </Select>
   </div>
@@ -83,13 +83,13 @@ PageSizeSelectorBase.propTypes = {
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   classes: PropTypes.object.isRequired,
-  showAllText: PropTypes.string,
-  rowsPerPageText: PropTypes.string,
+  showAll: PropTypes.string,
+  rowsPerPage: PropTypes.string,
 };
 
 PageSizeSelectorBase.defaultProps = {
-  showAllText: 'All',
-  rowsPerPageText: 'Rows per page:',
+  showAll: 'All',
+  rowsPerPage: 'Rows per page:',
 };
 
 export const PageSizeSelector = withStyles(styles, { name: 'PageSizeSelector' })(PageSizeSelectorBase);

@@ -27,7 +27,7 @@ describe('Table command column', () => {
       const tree = mount(
         <EditCommandHeadingCell
           allowAdding
-          addCommandText="CustomAdd"
+          addCommand="CustomAdd"
           commandTemplate={props => <CommandButton {...props} />}
         />,
       );
@@ -87,8 +87,8 @@ describe('Table command column', () => {
         <EditCommandCell
           allowEditing
           allowDeleting
-          editCommandText="CustomEdit"
-          deleteCommandText="CustomDelete"
+          editCommand="CustomEdit"
+          deleteCommand="CustomDelete"
           commandTemplate={props => <CommandButton {...props} />}
         />,
       );
@@ -105,8 +105,8 @@ describe('Table command column', () => {
           isEditing
           allowEditing
           allowDeleting
-          commitCommandText="CustomCommit"
-          cancelCommandText="CustomCancel"
+          commitCommand="CustomCommit"
+          cancelCommand="CustomCancel"
           commandTemplate={props => <CommandButton {...props} />}
         />,
       );

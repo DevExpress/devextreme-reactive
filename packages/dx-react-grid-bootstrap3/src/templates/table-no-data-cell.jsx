@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableNoDataCell = ({ style, colSpan, noDataText }) => (
+export const TableNoDataCell = ({ style, colSpan, noData }) => (
   <td
     style={{
       textAlign: 'center',
@@ -10,18 +10,18 @@ export const TableNoDataCell = ({ style, colSpan, noDataText }) => (
     }}
     colSpan={colSpan}
   >
-    <big className="text-muted">{noDataText}</big>
+    <big className="text-muted">{noData}</big>
   </td>
 );
 
 TableNoDataCell.propTypes = {
   style: PropTypes.shape(),
   colSpan: PropTypes.number,
-  noDataText: PropTypes.string,
+  noData: PropTypes.string,
 };
 
 TableNoDataCell.defaultProps = {
   style: null,
   colSpan: 1,
-  noDataText: 'No data',
+  noData: 'No data',
 };

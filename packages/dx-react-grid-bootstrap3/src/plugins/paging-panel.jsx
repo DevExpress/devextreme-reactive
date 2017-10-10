@@ -12,9 +12,9 @@ export class PagingPanel extends React.PureComponent {
         pagerTemplate={
           props => (
             <Pager
-              showAllText={messages.showAllText}
-              rowsPerPageText={messages.rowsPerPageText}
-              infoText={messages.infoText}
+              showAll={messages.showAll}
+              rowsPerPage={messages.rowsPerPage}
+              info={messages.info}
               {...props}
             />
           )
@@ -27,9 +27,9 @@ export class PagingPanel extends React.PureComponent {
 
 PagingPanel.propTypes = {
   messages: PropTypes.shape({
-    showAllText: PropTypes.string,
-    rowsPerPageText: PropTypes.string,
-    infoText: PropTypes.string,
+    showAll: PropTypes.string,
+    rowsPerPage: PropTypes.string,
+    info: PropTypes.string,
   }),
 };
 PagingPanel.defaultProps = {

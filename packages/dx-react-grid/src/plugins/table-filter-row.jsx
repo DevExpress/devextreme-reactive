@@ -102,12 +102,12 @@ TableFilterRow.propTypes = {
   filterCellTemplate: PropTypes.func.isRequired,
   filterRowTemplate: PropTypes.func.isRequired,
   messages: PropTypes.shape({
-    filterPlaceholderText: PropTypes.string,
+    filterPlaceholder: PropTypes.string,
   }),
 };
 
 TableFilterRow.defaultProps = {
   rowHeight: undefined,
-  filterPlaceholderText: undefined,
+  filterPlaceholder: undefined,
   messages: {},
 };

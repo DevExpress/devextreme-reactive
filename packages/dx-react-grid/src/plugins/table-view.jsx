@@ -155,7 +155,7 @@ export class TableView extends React.PureComponent {
           {params => (
             <TemplateRenderer
               template={tableNoDataCellTemplate}
-              params={{ noDataText: messages.noDataText, ...params }}
+              params={{ noData: messages.noData, ...params }}
             />
           )}
         </Template>
@@ -200,7 +200,7 @@ TableView.propTypes = {
   tableStubHeaderCellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,
   messages: PropTypes.shape({
-    noDataText: PropTypes.string,
+    noData: PropTypes.string,
   }),
 };
 

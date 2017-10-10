@@ -221,7 +221,7 @@ describe('TableView', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
-          messages={{ noDataText: 'No data' }}
+          messages={{ noData: 'No data' }}
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableNoDataCellTemplate={tableNoDataCellTemplate}
         />
@@ -232,7 +232,7 @@ describe('TableView', () => {
       .toBeCalledWith(tableCellArgs.tableRow);
     expect(tableNoDataCellTemplate).toBeCalledWith(expect.objectContaining({
       ...tableCellArgs,
-      noDataText: 'No data',
+      noData: 'No data',
     }));
   });
 

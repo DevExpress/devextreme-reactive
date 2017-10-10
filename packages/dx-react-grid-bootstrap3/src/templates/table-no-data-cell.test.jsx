@@ -22,7 +22,7 @@ describe('TableNoDataCell', () => {
 
   it('should use custom "No data" text if defined', () => {
     const tree = mount(
-      <TableNoDataCell noDataText={'Nothing to show'} />,
+      <TableNoDataCell noData={'Nothing to show'} />,
     );
 
     expect(tree.find('big').text()).toBe('Nothing to show');

@@ -71,11 +71,11 @@ Describes localization messages.
 
 Field | Type | Default | Description
 ------|------|---------|------------
-addCommandText? | string | 'New' | Specifies text for the add command button.
-editCommandText? | string | 'Edit' | Specifies text for the edit command button.
-deleteCommandText? | string | 'Delete' | Specifies text for the delete command button.
-commitCommandText? | string | 'Save' | Specifies text for the commit command button.
-cancelCommandText? | string | 'Cancel' | Specifies text for the cancel command button.
+addCommand? | string | 'New' | Specifies text for the add command button.
+editCommand? | string | 'Edit' | Specifies text for the edit command button.
+deleteCommand? | string | 'Delete' | Specifies text for the delete command button.
+commitCommand? | string | 'Save' | Specifies text for the commit command button.
+cancelCommand? | string | 'Cancel' | Specifies text for the cancel command button.
 
 ## Plugin Developer Reference
 

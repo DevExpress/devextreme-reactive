@@ -39,7 +39,7 @@ Describes localization messages.
 
 Field | Type | Default | Description
 ------|------|---------|------------
-filterPlaceholderText? | string | 'Filter...' | The text used for filter editor placeholder.
+filterPlaceholder? | string | 'Filter...' | The text used for filter editor placeholder.
 
 ## Plugin Developer Reference
 

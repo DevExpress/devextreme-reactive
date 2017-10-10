@@ -5,7 +5,7 @@ export const PageSizeSelector = ({
   pageSize,
   onPageSizeChange,
   allowedPageSizes,
-  showAllText,
+  showAll,
 }) => (
   <div style={{ display: 'inline-block' }}>
     <select
@@ -16,7 +16,7 @@ export const PageSizeSelector = ({
     >
       {allowedPageSizes.map(val => (
         <option key={val} value={val}>
-          {val || showAllText}
+          {val || showAll}
         </option>
       ))}
     </select>
@@ -36,7 +36,7 @@ export const PageSizeSelector = ({
               onPageSizeChange(item);
             }}
           >
-            {item || showAllText}
+            {item || showAll}
           </a>
         </li>
       ))}
@@ -48,10 +48,10 @@ PageSizeSelector.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  showAllText: PropTypes.string,
+  showAll: PropTypes.string,
 };
 
 PageSizeSelector.defaultProps = {
-  showAllText: 'All',
+  showAll: 'All',
 };
 

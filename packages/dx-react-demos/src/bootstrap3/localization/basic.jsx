@@ -28,21 +28,21 @@ import {
 
 const localization = {
   tableView: {
-    noDataText: 'Keine Daten verfügba',
+    noData: 'Keine Daten verfügba',
   },
   editColumn: {
-    addCommandText: 'Neue Zeile',
-    editCommandText: 'Bearbeiten',
-    deleteCommandText: 'Entfernen',
-    commitCommandText: 'Speichern',
-    cancelCommandText: 'Abbrechen',
+    addCommand: 'Neue Zeile',
+    editCommand: 'Bearbeiten',
+    deleteCommand: 'Entfernen',
+    commitCommand: 'Speichern',
+    cancelCommand: 'Abbrechen',
   },
   groupingPanel: {
     groupByColumnText: 'Ziehen Sie eine Spalte hierhin, um danach zu gruppieren',
   },
   pagingPanel: {
-    showAllText: 'Alle',
-    infoText: 'Zeile {firstRow} von {lastRow}({totalCount} Elemente)',
+    showAll: 'Alle',
+    info: 'Zeile {firstRow} von {lastRow}({totalCount} Elemente)',
   },
 };
 

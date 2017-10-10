@@ -1,26 +1,34 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 
-const defaultGetGroupValue = value => value;
-const defaultGetGroupKey = value => String(value);
+const defaultColumnIdentity = value => ({
+  key: String(value),
+  value,
+});
 
 export const groupedRows = (
   rows,
   grouping,
   getCellValue,
-  getGroupValue = defaultGetGroupValue,
-  getGroupKey = defaultGetGroupKey,
+  getColumnIdentity,
 ) => {
   if (!grouping.length) return rows;
 
   const columnGrouping = grouping[0];
+  const { columnName } = columnGrouping;
+  const groupIdentity = (getColumnIdentity && getColumnIdentity(columnName))
+    || defaultColumnIdentity;
+
   const groups = rows
     .reduce((acc, row) => {
-      const value = getGroupValue(
-        getCellValue(row, columnGrouping.columnName),
-        columnGrouping,
-        row,
-      );
-      const key = getGroupKey(value, columnGrouping, row);
+      const cellValue = getCellValue(row, columnName);
+      const group = groupIdentity(cellValue, row);
+
+      const { key } = group;
+      let { value } = group;
+      if (!value) {
+        value = key;
+      }
+
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
@@ -36,7 +44,7 @@ export const groupedRows = (
     .map(([value, key, items]) => ({
       value,
       key,
-      items: groupedRows(items, nestedGrouping, getCellValue, getGroupValue, getGroupKey),
+      items: groupedRows(items, nestedGrouping, getCellValue, getColumnIdentity),
     }));
 };
 

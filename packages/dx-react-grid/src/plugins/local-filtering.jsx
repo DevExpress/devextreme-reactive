@@ -9,10 +9,10 @@ const pluginDependencies = [
 
 export class LocalFiltering extends React.PureComponent {
   render() {
-    const { predicate } = this.props;
+    const { getColumnPredicate } = this.props;
 
     const rowsComputed = ({ rows, filters, getCellValue }) =>
-      filteredRows(rows, filters, getCellValue, predicate);
+      filteredRows(rows, filters, getCellValue, getColumnPredicate);
 
     return (
       <PluginContainer
@@ -26,10 +26,10 @@ export class LocalFiltering extends React.PureComponent {
 }
 
 LocalFiltering.propTypes = {
-  predicate: PropTypes.func,
+  getColumnPredicate: PropTypes.func,
 };
 
 LocalFiltering.defaultProps = {
-  predicate: undefined,
+  getColumnPredicate: undefined,
 };
 

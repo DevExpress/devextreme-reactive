@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from 'material-ui';
+import { Input, Table } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { EditCell } from './table-edit-cell';
@@ -11,8 +11,9 @@ describe('EditCell', () => {
 
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
     classes = getClasses(<EditCell onValueChange={() => {}} />);
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();
@@ -26,7 +27,6 @@ describe('EditCell', () => {
         onValueChange={() => {}}
       />,
     );
-
     expect(tree.find(EditCell).exists()).toBeTruthy();
   });
 
@@ -61,8 +61,18 @@ describe('EditCell', () => {
     const input = inputRoot.find('input');
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
     expect(input.hasClass(classes.inputRight)).toBeFalsy();
+  });
 
-    tree.setProps({ column: { align: 'right' } });
+  it('should take column align into account if align is "right"', () => {
+    const tree = mount(
+      <EditCell
+        value={''}
+        onValueChange={() => {}}
+        column={{ align: 'right' }}
+      />,
+    );
+    const inputRoot = tree.find(Input);
+    const input = inputRoot.find('input');
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
     expect(input.hasClass(classes.inputRight)).toBeTruthy();
   });

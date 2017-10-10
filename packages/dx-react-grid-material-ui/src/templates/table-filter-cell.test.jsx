@@ -1,5 +1,6 @@
 import React from 'react';
 import { createMount } from 'material-ui/test-utils';
+import { Table } from 'material-ui';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableFilterCell } from './table-filter-cell';
 
@@ -8,7 +9,8 @@ describe('TableFilterCell', () => {
   let mount;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    mount = createMount();
+    const mountMUI = createMount();
+    mount = component => mountMUI(<Table>{component}</Table>);
   });
   afterAll(() => {
     resetConsole();

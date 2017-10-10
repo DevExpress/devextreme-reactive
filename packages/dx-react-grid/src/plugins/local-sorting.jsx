@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { sortedRows } from '@devexpress/dx-grid-core';
 
@@ -6,11 +7,13 @@ const pluginDependencies = [
   { pluginName: 'SortingState' },
 ];
 
-const rowsComputed = ({ rows, sorting, getCellValue }) => sortedRows(rows, sorting, getCellValue);
-
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalSorting extends React.PureComponent {
   render() {
+    const { getColumnCompare } = this.props;
+    const rowsComputed = ({ rows, sorting, getCellValue }) =>
+      sortedRows(rows, sorting, getCellValue, getColumnCompare);
+
     return (
       <PluginContainer
         pluginName="LocalSorting"
@@ -21,3 +24,11 @@ export class LocalSorting extends React.PureComponent {
     );
   }
 }
+
+LocalSorting.propTypes = {
+  getColumnCompare: PropTypes.func,
+};
+
+LocalSorting.defaultProps = {
+  getColumnCompare: undefined,
+};

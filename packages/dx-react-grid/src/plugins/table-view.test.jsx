@@ -227,13 +227,12 @@ describe('TableView', () => {
         />
       </PluginHost>,
     );
-
+    const getMessage = tableNoDataCellTemplate.mock.calls[0][0].getMessage;
     expect(isNoDataTableRow)
       .toBeCalledWith(tableCellArgs.tableRow);
-    expect(tableNoDataCellTemplate).toBeCalledWith(expect.objectContaining({
-      ...tableCellArgs,
-      noData: 'No data',
-    }));
+    expect(tableNoDataCellTemplate)
+      .toBeCalledWith(expect.objectContaining(tableCellArgs));
+    expect(getMessage('noData')).toBe('No data');
   });
 
   it('should render row by using tableRowTemplate', () => {

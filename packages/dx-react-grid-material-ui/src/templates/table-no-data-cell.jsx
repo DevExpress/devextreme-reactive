@@ -14,27 +14,27 @@ const styles = theme => ({
   },
 });
 
-export const TableNoDataCellBase = ({ style, colSpan, noData, classes }) => (
+export const TableNoDataCellBase = ({ style, colSpan, getMessage, classes }) => (
   <TableCell
     style={style}
     className={classes.cell}
     colSpan={colSpan}
   >
-    <big className="text-muted">{noData}</big>
+    <big className="text-muted">{(getMessage && getMessage('noData')) || 'No data'}</big>
   </TableCell>
 );
 
 TableNoDataCellBase.propTypes = {
   style: PropTypes.shape(),
   colSpan: PropTypes.number,
-  noData: PropTypes.string,
+  getMessage: PropTypes.func,
   classes: PropTypes.object.isRequired,
 };
 
 TableNoDataCellBase.defaultProps = {
   style: null,
   colSpan: 1,
-  noData: 'No data',
+  getMessage: undefined,
 };
 
 export const TableNoDataCell = withStyles(styles, { name: 'TableNoDataCell' })(TableNoDataCellBase);

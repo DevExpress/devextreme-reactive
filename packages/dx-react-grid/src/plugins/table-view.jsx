@@ -61,6 +61,8 @@ const cellTemplate = params =>
 const rowTemplate = params =>
   <TemplatePlaceholder name="tableViewRow" params={params} />;
 
+const getMessageFn = messages => name => messages[name];
+
 export class TableView extends React.PureComponent {
   render() {
     const {
@@ -155,7 +157,10 @@ export class TableView extends React.PureComponent {
           {params => (
             <TemplateRenderer
               template={tableNoDataCellTemplate}
-              params={{ noData: messages.noData, ...params }}
+              params={{
+                getMessage: getMessageFn(messages),
+                ...params,
+              }}
             />
           )}
         </Template>

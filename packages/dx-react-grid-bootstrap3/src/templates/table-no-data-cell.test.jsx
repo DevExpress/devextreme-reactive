@@ -22,9 +22,17 @@ describe('TableNoDataCell', () => {
 
   it('should use custom "No data" text if defined', () => {
     const tree = mount(
-      <TableNoDataCell noData={'Nothing to show'} />,
+      <TableNoDataCell getMessage={() => 'Nothing to show'} />,
     );
 
     expect(tree.find('big').text()).toBe('Nothing to show');
+  });
+
+  it('should use default "No data" text if getMessage returns nothing', () => {
+    const tree = mount(
+      <TableNoDataCell getMessage={() => undefined} />,
+    );
+
+    expect(tree.find('big').text()).toBe('No data');
   });
 });

@@ -15,6 +15,7 @@ describe('PageSizeSelector', () => {
     classes = getClasses(<PageSizeSelector
       pageSize={0}
       allowedPageSizes={[]}
+      getMessage={() => {}}
       onPageSizeChange={() => {}}
     />);
   });
@@ -27,14 +28,12 @@ describe('PageSizeSelector', () => {
       pageSize,
       allowedPageSizes,
       onPageSizeChange = () => {},
-      showAll,
-      rowsPerPage,
+      getMessage,
     }) => mount(
       <PageSizeSelector
         pageSize={pageSize}
         allowedPageSizes={allowedPageSizes}
-        showAll={showAll}
-        rowsPerPage={rowsPerPage}
+        getMessage={getMessage || (() => {})}
         onPageSizeChange={onPageSizeChange}
       />);
 
@@ -69,7 +68,7 @@ describe('PageSizeSelector', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
         allowedPageSizes: [5, 10, 15, 0],
-        showAll: 'Show all',
+        getMessage: () => 'Show all',
       });
       const select = pageSizeSelector.find(Select);
       const selectItems = select.prop('children');
@@ -90,7 +89,7 @@ describe('PageSizeSelector', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
         allowedPageSizes: [5, 10, 15],
-        rowsPerPage: 'Count rows per page',
+        getMessage: () => 'Count rows per page',
       });
       const label = pageSizeSelector.find(`.${classes.label}`);
       expect(label.text()).toBe('Count rows per page');

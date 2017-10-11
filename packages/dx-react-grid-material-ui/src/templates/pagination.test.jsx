@@ -15,6 +15,7 @@ describe('Pagination', () => {
       currentPage={0}
       totalCount={10}
       pageSize={10}
+      getMessage={() => {}}
       onCurrentPageChange={() => {}}
     />);
   });
@@ -28,7 +29,7 @@ describe('Pagination', () => {
       currentPage,
       totalCount,
       pageSize,
-      info,
+      getMessage,
       onCurrentPageChange = () => {},
     }) => mount(
       <Pagination
@@ -36,7 +37,7 @@ describe('Pagination', () => {
         currentPage={currentPage}
         totalCount={totalCount}
         pageSize={pageSize}
-        info={info}
+        getMessage={getMessage || (() => {})}
         onCurrentPageChange={onCurrentPageChange}
       />,
     );
@@ -119,7 +120,7 @@ describe('Pagination', () => {
         currentPage: 1,
         totalCount: 96,
         pageSize: 10,
-        info: 'rows {firstRow}-{lastRow} of {totalCount}',
+        getMessage: () => 'rows 11-20 of 96',
       });
 
       expect(tree.find('div > span').text()).toBe('rows 11-20 of 96');

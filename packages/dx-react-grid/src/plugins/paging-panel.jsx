@@ -10,8 +10,20 @@ const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
+const getMessageFn = messages => (name, params) => {
+  const message = messages[name];
+  if (message && name === 'info') {
+    const { firstRow, lastRow, totalCount } = params;
+    return message
+      .replace('{firstRow}', firstRow)
+      .replace('{lastRow}', lastRow)
+      .replace('{totalCount}', totalCount);
+  }
+  return message;
+};
+
 const getPagerTemplateArgs = (
-  { allowedPageSizes },
+  { allowedPageSizes, messages },
   { currentPage, pageSize, totalCount },
   { setCurrentPage, setPageSize },
 ) => ({
@@ -22,12 +34,12 @@ const getPagerTemplateArgs = (
   allowedPageSizes,
   onCurrentPageChange: setCurrentPage,
   onPageSizeChange: setPageSize,
+  getMessage: getMessageFn(messages),
 });
-
 
 export class PagingPanel extends React.PureComponent {
   render() {
-    const { pagerTemplate, allowedPageSizes } = this.props;
+    const { pagerTemplate, allowedPageSizes, messages } = this.props;
 
     return (
       <PluginContainer
@@ -41,7 +53,7 @@ export class PagingPanel extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={pagerTemplate}
-                  params={getPagerTemplateArgs({ allowedPageSizes }, getters, actions)}
+                  params={getPagerTemplateArgs({ allowedPageSizes, messages }, getters, actions)}
                 />
               )}
             </TemplateConnector>
@@ -55,8 +67,14 @@ export class PagingPanel extends React.PureComponent {
 PagingPanel.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number),
   pagerTemplate: PropTypes.func.isRequired,
+  messages: PropTypes.shape({
+    showAll: PropTypes.string,
+    rowsPerPage: PropTypes.string,
+    info: PropTypes.string,
+  }),
 };
 
 PagingPanel.defaultProps = {
   allowedPageSizes: [],
+  messages: {},
 };

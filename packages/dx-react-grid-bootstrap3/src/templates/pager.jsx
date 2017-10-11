@@ -4,16 +4,6 @@ import { Pagination, Pager as BootstrapPager } from 'react-bootstrap';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 import { PageSizeSelector } from './page-size-selector';
 
-const createInfoString = (firstRow, lastRow, totalCount, pattern) => {
-  if (pattern) {
-    return pattern
-      .replace('{firstRow}', firstRow)
-      .replace('{lastRow}', lastRow)
-      .replace('{totalCount}', totalCount);
-  }
-  return `${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`;
-};
-
 export const Pager = ({
   currentPage,
   onCurrentPageChange,
@@ -22,8 +12,7 @@ export const Pager = ({
   onPageSizeChange,
   allowedPageSizes,
   totalCount,
-  showAll,
-  info,
+  getMessage,
 }) => {
   const firstRow = firstRowOnPage(currentPage, pageSize, totalCount);
   const lastRow = lastRowOnPage(currentPage, pageSize, totalCount);
@@ -34,7 +23,7 @@ export const Pager = ({
         pageSize={pageSize}
         onPageSizeChange={onPageSizeChange}
         allowedPageSizes={allowedPageSizes}
-        showAll={showAll}
+        getMessage={getMessage}
       />}
       <Pagination
         style={{
@@ -68,7 +57,7 @@ export const Pager = ({
       </BootstrapPager>
       <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
         <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
-          {createInfoString(firstRow, lastRow, totalCount, info)}
+          {getMessage('info', { firstRow, lastRow, totalCount }) || `${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`}
         </span>
       </span>
     </div>
@@ -83,11 +72,5 @@ Pager.propTypes = {
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   totalCount: PropTypes.number.isRequired,
-  showAll: PropTypes.string,
-  info: PropTypes.string,
-};
-
-Pager.defaultProps = {
-  showAll: undefined,
-  info: undefined,
+  getMessage: PropTypes.func.isRequired,
 };

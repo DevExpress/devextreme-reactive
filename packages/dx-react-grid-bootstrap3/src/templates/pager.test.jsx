@@ -10,8 +10,7 @@ describe('Pager', () => {
       totalPages,
       pageSize,
       totalCount,
-      showAll,
-      info,
+      getMessage,
       allowedPageSizes = [],
       onPageSizeChange = () => {},
       onCurrentPageChange = () => {},
@@ -20,8 +19,7 @@ describe('Pager', () => {
       currentPage={currentPage}
       totalCount={totalCount}
       pageSize={pageSize}
-      showAll={showAll}
-      info={info}
+      getMessage={getMessage || (() => {})}
       allowedPageSizes={allowedPageSizes}
       onCurrentPageChange={onCurrentPageChange}
       onPageSizeChange={onPageSizeChange}
@@ -44,7 +42,7 @@ describe('Pager', () => {
         currentPage: 1,
         totalCount: 96,
         pageSize: 10,
-        info: 'rows {firstRow}-{lastRow} of {totalCount}',
+        getMessage: () => 'rows 11-20 of 96',
       });
 
       expect(tree.find('div > span > span').text()).toBe('rows 11-20 of 96');
@@ -114,18 +112,18 @@ describe('Pager', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
 
-    it('renders page selector', () => {
+    it('renders page size selector', () => {
       const pageSizeSelector = mountPager({
         totalPages: 10,
         currentPage: 9,
         totalCount: 96,
         pageSize: 5,
         allowedPageSizes: [5, 10],
-        showAll: 'Show all',
+        getMessage: () => 'Show all',
       }).find('PageSizeSelector');
 
       expect(pageSizeSelector).toHaveLength(1);
-      expect(pageSizeSelector.at(0).prop('showAll')).toBe('Show all');
+      expect(pageSizeSelector.at(0).prop('getMessage')()).toBe('Show all');
     });
 
     it('doesn\'t render page selector if the allowedPageSizes option is not defined ', () => {

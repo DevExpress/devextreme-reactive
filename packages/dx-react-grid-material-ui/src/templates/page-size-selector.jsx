@@ -49,47 +49,43 @@ const PageSizeSelectorBase = ({
   pageSize,
   onPageSizeChange,
   allowedPageSizes,
+  getMessage,
   classes,
-  showAll,
-  rowsPerPage,
-}) => (
-  <div className={classes.pageSizeSelector}>
-    <span className={classes.label}>
-      {rowsPerPage}
-    </span>
-    <Select
-      value={pageSize}
-      onChange={event => onPageSizeChange(event.target.value)}
-      classes={{
-        select: classes.select,
-        icon: classes.selectIcon,
-      }}
-      input={
-        <Input
-          disableUnderline
-          classes={{ root: classes.inputRoot }}
-        />
-      }
-    >
-      {allowedPageSizes.map(item =>
-        <MenuItem key={item} value={item}>{item !== 0 ? item : showAll }</MenuItem>,
-      )}
-    </Select>
-  </div>
-);
+}) => {
+  const showAll = getMessage('showAll') || 'All';
+  return (
+    <div className={classes.pageSizeSelector}>
+      <span className={classes.label}>
+        {getMessage('rowsPerPage') || 'Rows per page:'}
+      </span>
+      <Select
+        value={pageSize}
+        onChange={event => onPageSizeChange(event.target.value)}
+        classes={{
+          select: classes.select,
+          icon: classes.selectIcon,
+        }}
+        input={
+          <Input
+            disableUnderline
+            classes={{ root: classes.inputRoot }}
+          />
+        }
+      >
+        {allowedPageSizes.map(item =>
+          <MenuItem key={item} value={item}>{item !== 0 ? item : showAll }</MenuItem>,
+        )}
+      </Select>
+    </div>
+  );
+};
 
 PageSizeSelectorBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   classes: PropTypes.object.isRequired,
-  showAll: PropTypes.string,
-  rowsPerPage: PropTypes.string,
-};
-
-PageSizeSelectorBase.defaultProps = {
-  showAll: 'All',
-  rowsPerPage: 'Rows per page:',
+  getMessage: PropTypes.func.isRequired,
 };
 
 export const PageSizeSelector = withStyles(styles, { name: 'PageSizeSelector' })(PageSizeSelectorBase);

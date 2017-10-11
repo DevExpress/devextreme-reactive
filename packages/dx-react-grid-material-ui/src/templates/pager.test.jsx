@@ -24,7 +24,6 @@ describe('Pager', () => {
       totalCount,
       classes = {},
       allowedPageSizes = [],
-      showAll,
       onCurrentPageChange = () => {},
       onPageSizeChange = () => {},
     }) => mount(
@@ -35,9 +34,9 @@ describe('Pager', () => {
         pageSize={pageSize}
         classes={classes}
         totalCount={totalCount}
-        showAll={showAll}
         onCurrentPageChange={onCurrentPageChange}
         onPageSizeChange={onPageSizeChange}
+        getMessage={() => {}}
       />);
 
     it('can render pagination', () => {

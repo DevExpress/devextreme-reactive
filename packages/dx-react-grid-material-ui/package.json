@@ -87,6 +87,6 @@
     "@devexpress/dx-react-grid": "1.0.0-alpha.11",
     "material-ui": "1.0.0-beta.13",
     "material-ui-icons": "1.0.0-beta.10",
-    "react": "^15.5.4"
+    "react": "^15.6.1 || ^16.0.0"
   }
 }

@@ -26,7 +26,7 @@ groupPanelItemTemplate? | (args: [GroupPanelItemProps](#group-panel-item-props))
 
 ### <a name="column"></a>Column (Extension)
 
-A value with the [Column](grid.md#column) shape extended by the following field:
+A value with the [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------

@@ -111,25 +111,50 @@ describe('TableGroupRow Plugin computeds', () => {
   });
 
   describe('#tableRowsWithGrouping', () => {
-    it('should add correct colSpanStart to group rows', () => {
+    it('should convert table rows containing group data to group rows', () => {
       const tableRows = [
-        { type: TABLE_DATA_TYPE, row: { type: 'groupRow', key: 'B', groupedBy: 'a' } },
-        { type: 'undefined', row: { column: { name: 'a' } } },
-        { type: TABLE_DATA_TYPE, row: { column: { name: 'a' } } },
-        { type: TABLE_DATA_TYPE, row: { column: { name: 'b' } } },
+        { type: TABLE_DATA_TYPE, row: { group: true, groupedBy: 'a', key: 'B' } },
+        { type: TABLE_DATA_TYPE, row: { id: 0 } },
+        { type: TABLE_DATA_TYPE, row: { id: 1 } },
+        { type: TABLE_DATA_TYPE, row: { id: 2 } },
       ];
+      const isGroupRow = row => row.group;
 
-      expect(tableRowsWithGrouping(tableRows))
+      expect(tableRowsWithGrouping(tableRows, isGroupRow))
         .toEqual([
           {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
-            row: { type: 'groupRow', key: 'B', groupedBy: 'a' },
+            row: { group: true, groupedBy: 'a', key: 'B' },
             colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
-          { type: 'undefined', row: { column: { name: 'a' } } },
-          { type: TABLE_DATA_TYPE, row: { column: { name: 'a' } } },
-          { type: TABLE_DATA_TYPE, row: { column: { name: 'b' } } },
+          { type: TABLE_DATA_TYPE, row: { id: 0 } },
+          { type: TABLE_DATA_TYPE, row: { id: 1 } },
+          { type: TABLE_DATA_TYPE, row: { id: 2 } },
+        ]);
+    });
+
+    // TODO: remove with custom grouping release
+    it('should convert table rows containing group data to group rows in legacy mode', () => {
+      const tableRows = [
+        { type: TABLE_DATA_TYPE, row: { type: 'groupRow', groupedBy: 'a', key: 'B' } },
+        { type: TABLE_DATA_TYPE, row: { id: 0 } },
+        { type: TABLE_DATA_TYPE, row: { id: 1 } },
+        { type: TABLE_DATA_TYPE, row: { id: 2 } },
+      ];
+      const isGroupRow = row => row.group;
+
+      expect(tableRowsWithGrouping(tableRows, isGroupRow))
+        .toEqual([
+          {
+            key: `${TABLE_GROUP_TYPE}_B`,
+            type: TABLE_GROUP_TYPE,
+            row: { type: 'groupRow', groupedBy: 'a', key: 'B' },
+            colSpanStart: `${TABLE_GROUP_TYPE}_a`,
+          },
+          { type: TABLE_DATA_TYPE, row: { id: 0 } },
+          { type: TABLE_DATA_TYPE, row: { id: 1 } },
+          { type: TABLE_DATA_TYPE, row: { id: 2 } },
         ]);
     });
   });

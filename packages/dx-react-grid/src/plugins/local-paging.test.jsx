@@ -1,14 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { paginate, ensurePageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
+import { paginatedRows, rowsWithPageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { LocalPaging } from './local-paging';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  paginate: jest.fn(),
-  ensurePageHeaders: jest.fn(),
+  paginatedRows: jest.fn(),
+  rowsWithPageHeaders: jest.fn(),
   pageCount: jest.fn(),
   rowCount: jest.fn(),
 }));
@@ -18,6 +18,7 @@ const defaultDeps = {
     rows: [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
     currentPage: 1,
     pageSize: 2,
+    getRowLevelKey: () => null,
   },
   action: {
     setCurrentPage: jest.fn(),
@@ -35,7 +36,7 @@ describe('LocalPaging', () => {
   });
 
   beforeEach(() => {
-    paginate.mockImplementation(() => [{ id: 2 }, { id: 3 }]);
+    paginatedRows.mockImplementation(() => [{ id: 2 }, { id: 3 }]);
     pageCount.mockImplementation(() => 3);
     rowCount.mockImplementation(() => 6);
   });
@@ -55,7 +56,7 @@ describe('LocalPaging', () => {
       .toBe(6);
   });
 
-  it('should paginate rows passed into based on the "currentPage" and "pageSize" getters', () => {
+  it('should paginated rows passed into based on the "currentPage" and "pageSize" getters', () => {
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -93,7 +94,10 @@ describe('LocalPaging', () => {
       </PluginHost>,
     );
 
-    expect(ensurePageHeaders)
-      .toHaveBeenCalledWith(defaultDeps.getter.rows, defaultDeps.getter.pageSize);
+    expect(rowsWithPageHeaders)
+      .toHaveBeenCalledWith(
+        defaultDeps.getter.rows,
+        defaultDeps.getter.pageSize,
+        defaultDeps.getter.getRowLevelKey);
   });
 });

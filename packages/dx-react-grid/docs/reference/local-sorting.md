@@ -20,19 +20,18 @@ getColumnCompare | (columnName: string) => [Compare](#compare) &#124; undefined 
 
 A function with the following signature `(a: any, b: any) => number`
 
-
 ## Plugin Developer Reference
 
 ### Imports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be sorted.
+rows | Getter | Array&lt;any&gt; | Rows to be sorted.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting to be applied.
-getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value.
+getCellValue | Getter | (row: any, columnName: string) => any | The function used to get a cell value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied sorting.
+rows | Getter | Array&lt;any&gt; | Rows with the applied sorting.

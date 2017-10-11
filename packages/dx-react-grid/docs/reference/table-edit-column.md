@@ -31,7 +31,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | Specifies an edited table row with applied changes.
+row | any | Specifies an edited table row with applied changes.
 column | [Column](grid.md#column) | Specifies a table column.
 startEditing | () => void | Switches a row to the editing mode.
 cancelEditing | () => void | Switches a row to the read-only mode.

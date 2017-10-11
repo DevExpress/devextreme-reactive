@@ -53,7 +53,8 @@ const getDataTableRowTemplateArgs = params => ({
 });
 
 const tableHeaderRows = [];
-const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
+const tableBodyRowsComputed = ({ rows, getRowId }) =>
+  tableRowsWithDataRows(rows, getRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 
 const cellTemplate = params =>
@@ -88,6 +89,9 @@ export class TableView extends React.PureComponent {
         <Getter name="tableColumns" computed={tableColumnsComputed} />
 
         <Template name="body">
+          <TemplatePlaceholder name="tableView" />
+        </Template>
+        <Template name="tableView">
           <TemplateConnector>
             {(getters, actions) => (
               <TemplateRenderer

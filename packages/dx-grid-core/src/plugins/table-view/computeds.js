@@ -14,9 +14,9 @@ export const tableRowsWithDataRows = (rows, getRowId) => (
     : rows.map((row) => {
       const rowId = getRowId(row);
       return {
-        key: `${TABLE_DATA_TYPE}_${rowId}`,
-        type: TABLE_DATA_TYPE,
-        rowId,
         row,
+        rowId,
+        type: TABLE_DATA_TYPE,
+        key: `${TABLE_DATA_TYPE}_${rowId}`,
       };
     }));

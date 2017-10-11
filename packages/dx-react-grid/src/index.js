@@ -1,4 +1,5 @@
 export { Grid } from './grid';
+export { ColumnChooser } from './column-chooser';
 
 export { FilteringState } from './plugins/filtering-state';
 export { LocalFiltering } from './plugins/local-filtering';
@@ -37,6 +38,8 @@ export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 
 export { DataTypeProvider } from './plugins/data-type-provider';
+
+export { TableColumnVisibility } from './plugins/table-column-visibility';
 
 export { TableLayout } from './components/table-layout';
 export { GroupPanelLayout } from './components/group-panel-layout';

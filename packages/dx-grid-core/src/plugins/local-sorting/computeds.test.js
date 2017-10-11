@@ -15,7 +15,7 @@ describe('LocalSorting computeds', () => {
 
     const getCellValue = (row, columnName) => row[columnName];
 
-    it('does not mutate rows if no sorting specified', () => {
+    it('does not mutate grid rows if no sorting specified', () => {
       const sorting = [];
 
       const sorted = sortedRows(rows, sorting, getCellValue);
@@ -75,6 +75,18 @@ describe('LocalSorting computeds', () => {
       const immutableSorting = Immutable([{ columnName: 'a', direction: 'desc' }]);
 
       const sorted = sortedRows(immutableRows, immutableSorting, getCellValue);
+      expect(sorted).toEqual([
+        { a: 2, b: 2 },
+        { a: 2, b: 1 },
+        { a: 1, b: 1 },
+        { a: 1, b: 2 },
+      ]);
+    });
+
+    it('should work with immutable data', () => {
+      const immutableSorting = Immutable([{ columnName: 'a', direction: 'desc' }]);
+
+      const sorted = sortedRows(rows, immutableSorting, getCellValue);
       expect(sorted).toEqual([
         { a: 2, b: 2 },
         { a: 2, b: 1 },

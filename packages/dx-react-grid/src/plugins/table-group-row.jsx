@@ -50,7 +50,8 @@ const pluginDependencies = [
   { pluginName: 'DataTypeProvider', optional: true },
 ];
 
-const tableBodyRowsComputed = ({ tableBodyRows }) => tableRowsWithGrouping(tableBodyRows);
+const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
+  tableRowsWithGrouping(tableBodyRows, isGroupRow);
 
 const createShowWhenGrouped = (columns) => {
   const cache = columns.reduce((acc, column) => {

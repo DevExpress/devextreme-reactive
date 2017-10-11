@@ -50,7 +50,6 @@ export default class Demo extends React.PureComponent {
         columns={columns}
         getRowId={getRowId}
       >
-
         <DragDropContext />
 
         <FilteringState
@@ -93,7 +92,6 @@ export default class Demo extends React.PureComponent {
         <TableSelection />
         <TableGroupRow />
         <GroupingPanel allowSorting allowDragging />
-
       </Grid>
     );
   }

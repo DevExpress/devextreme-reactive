@@ -1,5 +1,4 @@
-export * from './column-chooser/computeds';
-export * from './column-chooser/reducers';
+export * from './plugins/grid-core/computeds';
 
 export * from './plugins/sorting-state/reducers';
 export * from './plugins/sorting-state/helpers';
@@ -66,6 +65,9 @@ export * from './plugins/table-view/helpers';
 export * from './plugins/table-view/computeds';
 
 export * from './plugins/table-column-visibility/computeds';
+
+export * from './column-chooser/computeds';
+export * from './column-chooser/reducers';
 
 export {
   getTableRowColumnsWithColSpan,

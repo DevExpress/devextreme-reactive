@@ -1,4 +1,13 @@
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
+import {
+  GRID_GROUP_TYPE,
+  GRID_GROUP_CHECK,
+  GRID_GROUP_LEVEL_KEY,
+} from './constants';
+
+export const groupRowChecker = row => row[GRID_GROUP_CHECK];
+
+export const groupRowLevelKeyGetter = row => row[GRID_GROUP_LEVEL_KEY];
 
 const defaultColumnIdentity = value => ({
   key: String(value),
@@ -13,22 +22,12 @@ export const groupedRows = (
 ) => {
   if (!grouping.length) return rows;
 
-  const columnGrouping = grouping[0];
-  const { columnName } = columnGrouping;
+  const { columnName } = grouping[0];
   const groupIdentity = (getColumnIdentity && getColumnIdentity(columnName))
     || defaultColumnIdentity;
-
   const groups = rows
     .reduce((acc, row) => {
-      const cellValue = getCellValue(row, columnName);
-      const group = groupIdentity(cellValue, row);
-
-      const { key } = group;
-      let { value } = group;
-      if (!value) {
-        value = key;
-      }
-
+      const { key, value = key } = groupIdentity(getCellValue(row, columnName), row);
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
@@ -59,8 +58,8 @@ export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = ''
     return [
       ...acc,
       {
-        _headerKey: `groupRow_${groupedBy}`,
-        type: 'groupRow',
+        [GRID_GROUP_CHECK]: true,
+        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
         groupedBy,
         key,
         value,

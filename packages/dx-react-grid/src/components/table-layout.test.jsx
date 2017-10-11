@@ -60,9 +60,9 @@ describe('TableLayout', () => {
     expect(rowWrappers).toHaveLength(rows.length);
     rows.forEach((row, rowIndex) => {
       const rowWrapper = rowWrappers.at(rowIndex);
-      const rowData = rowWrapper.children(PropsContainer).props();
+      const rowProps = rowWrapper.children(PropsContainer).props();
 
-      expect(rowData.tableRow).toMatchObject(row);
+      expect(rowProps.tableRow).toMatchObject(row);
 
       const columnWrappers = rowWrapper.find('td');
       expect(columnWrappers).toHaveLength(columns.length);

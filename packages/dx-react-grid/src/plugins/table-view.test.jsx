@@ -259,6 +259,7 @@ describe('TableView', () => {
       row: tableRowArgs.tableRow.row,
     }));
   });
+
   it('should render empty row by using tableNoDataRowTemplate', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableNoDataRowTemplate = jest.fn(() => null);

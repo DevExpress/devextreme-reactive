@@ -1,42 +1,39 @@
-const PAGE_HEADERS_OVERFLOW_ERROR = [
-  'The count of title rows exceeds the page size. Consider increasing the page size.',
-  'Typically, title rows are group headers.',
-].join('\n');
+const PAGE_HEADERS_OVERFLOW_ERROR =
+  'Max row level exceeds the page size. Consider increasing the page size.';
 
-export const paginate = (rows, pageSize, page) => (
+export const paginatedRows = (rows, pageSize, page) => (
   pageSize ?
     rows.slice(pageSize * page, pageSize * (page + 1)) :
     rows
 );
 
-export const ensurePageHeaders = (rows, pageSize) => {
-  if (!pageSize) {
-    return rows;
-  }
+export const rowsWithPageHeaders = (rows, pageSize, getRowLevelKey) => {
+  if (!pageSize) return rows;
 
   let result = rows.slice();
 
-  let headers = [];
+  let headerRows = [];
   let currentIndex = 0;
   while (result.length > currentIndex) {
     const row = result[currentIndex];
-    const headerKey = row._headerKey;
-    if (headerKey) {
-      const headerIndex = headers.findIndex(header => header._headerKey === headerKey);
+    const header = getRowLevelKey ? getRowLevelKey(row) : row._headerKey;
+    if (header) {
+      const headerIndex = headerRows.findIndex(headerRow =>
+        (getRowLevelKey ? getRowLevelKey(headerRow) : row._headerKey) === header);
       if (headerIndex === -1) {
-        headers = [...headers, row];
+        headerRows = [...headerRows, row];
       } else {
-        headers = [...headers.slice(0, headerIndex), row];
+        headerRows = [...headerRows.slice(0, headerIndex), row];
       }
-      if (headers.length >= pageSize) {
+      if (headerRows.length >= pageSize) {
         throw new Error(PAGE_HEADERS_OVERFLOW_ERROR);
       }
     }
     const indexInPage = currentIndex % pageSize;
-    if (indexInPage < headers.length && row !== headers[indexInPage]) {
+    if (indexInPage < headerRows.length && row !== headerRows[indexInPage]) {
       result = [
         ...result.slice(0, currentIndex),
-        headers[indexInPage],
+        headerRows[indexInPage],
         ...result.slice(currentIndex),
       ];
     }

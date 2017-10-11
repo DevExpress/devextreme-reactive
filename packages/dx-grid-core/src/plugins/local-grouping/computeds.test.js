@@ -1,10 +1,37 @@
 import {
+  groupRowChecker,
+  groupRowLevelKeyGetter,
   groupedRows,
   expandedGroupRows,
 } from './computeds';
+import {
+  GRID_GROUP_TYPE,
+  GRID_GROUP_CHECK,
+  GRID_GROUP_LEVEL_KEY,
+} from './constants';
 
 describe('LocalGrouping computeds', () => {
-  const rowsSource = [
+  describe('#groupRowChecker', () => {
+    it('should work', () => {
+      expect(groupRowChecker({}))
+        .toBeFalsy();
+
+      expect(groupRowChecker({ [GRID_GROUP_CHECK]: true }))
+        .toBeTruthy();
+    });
+  });
+
+  describe('#groupRowLevelKeyGetter', () => {
+    it('should work', () => {
+      expect(groupRowLevelKeyGetter({}))
+        .toBeFalsy();
+
+      expect(groupRowLevelKeyGetter({ [GRID_GROUP_LEVEL_KEY]: 'a' }))
+        .toBe('a');
+    });
+  });
+
+  const rows = [
     { a: 1, b: 1 },
     { a: 1, b: 2 },
     { a: 2, b: 1 },
@@ -12,8 +39,8 @@ describe('LocalGrouping computeds', () => {
   ];
   const getCellValue = (row, columnName) => row[columnName];
 
-  const firstLevelGroupings = [{ columnName: 'a' }];
-  const firstLevelGroupedRows = [{
+  const firstGrouping = [{ columnName: 'a' }];
+  const firstGroupedRows = [{
     value: 1,
     key: '1',
     items: [
@@ -29,8 +56,8 @@ describe('LocalGrouping computeds', () => {
     ],
   }];
 
-  const secondLevelGroupings = [{ columnName: 'a' }, { columnName: 'b' }];
-  const secondLevelGroupedRows = [{
+  const secondGrouping = [{ columnName: 'a' }, { columnName: 'b' }];
+  const secondGroupedRows = [{
     value: 1,
     key: '1',
     items: [{
@@ -65,14 +92,14 @@ describe('LocalGrouping computeds', () => {
   }];
 
   describe('#groupedRows', () => {
-    it('can group by one column', () => {
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue))
-        .toEqual(firstLevelGroupedRows);
+    it('can group by first column', () => {
+      expect(groupedRows(rows, firstGrouping, getCellValue))
+        .toEqual(firstGroupedRows);
     });
 
     it('can group by several columns', () => {
-      expect(groupedRows(rowsSource, secondLevelGroupings, getCellValue))
-        .toEqual(secondLevelGroupedRows);
+      expect(groupedRows(rows, secondGrouping, getCellValue))
+        .toEqual(secondGroupedRows);
     });
 
     it('should use getColumnIdentity', () => {
@@ -80,7 +107,7 @@ describe('LocalGrouping computeds', () => {
         key: String(value).substr(0, 1),
         value: `${value}_test`,
       });
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnIdentity))
+      expect(groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity))
         .toEqual([{
           value: '1_test',
           key: '1',
@@ -103,7 +130,7 @@ describe('LocalGrouping computeds', () => {
         key: `${value}_test`,
       });
 
-      expect(groupedRows(rowsSource, secondLevelGroupings, getCellValue, getColumnIdentity))
+      expect(groupedRows(rows, secondGrouping, getCellValue, getColumnIdentity))
         .toEqual([{
           value: '1_test',
           key: '1_test',
@@ -142,16 +169,16 @@ describe('LocalGrouping computeds', () => {
     it('should pass column name to getColumnIdentity', () => {
       const getColumnIdentity = jest.fn(() => value => value);
 
-      groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnIdentity);
+      groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity);
 
       expect(getColumnIdentity)
-        .toHaveBeenCalledWith(firstLevelGroupings[0].columnName);
+        .toHaveBeenCalledWith(firstGrouping[0].columnName);
     });
 
     it('should group using default getColumnIdentity if custom getColumnIdentity returns nothing', () => {
       const getColumnIdentity = () => undefined;
-      expect(groupedRows(rowsSource, firstLevelGroupings, getCellValue, getColumnIdentity))
-        .toEqual(firstLevelGroupedRows);
+      expect(groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity))
+        .toEqual(firstGroupedRows);
     });
   });
 
@@ -159,11 +186,11 @@ describe('LocalGrouping computeds', () => {
     it('can expand groups', () => {
       const expandedGroups = new Set(['1']);
 
-      expect(expandedGroupRows(firstLevelGroupedRows, firstLevelGroupings, expandedGroups))
+      expect(expandedGroupRows(firstGroupedRows, firstGrouping, expandedGroups))
         .toEqual([
           {
-            _headerKey: 'groupRow_a',
-            type: 'groupRow',
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
             key: '1',
             value: 1,
@@ -171,8 +198,8 @@ describe('LocalGrouping computeds', () => {
           { a: 1, b: 1 },
           { a: 1, b: 2 },
           {
-            _headerKey: 'groupRow_a',
-            type: 'groupRow',
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
             key: '2',
             value: 2,
@@ -183,33 +210,33 @@ describe('LocalGrouping computeds', () => {
     it('can expand nested groups', () => {
       const expandedGroups = new Set(['1', '1|2']);
 
-      expect(expandedGroupRows(secondLevelGroupedRows, secondLevelGroupings, expandedGroups))
+      expect(expandedGroupRows(secondGroupedRows, secondGrouping, expandedGroups))
         .toEqual([
           {
-            _headerKey: 'groupRow_a',
-            type: 'groupRow',
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
             key: '1',
             value: 1,
           },
           {
-            _headerKey: 'groupRow_b',
-            type: 'groupRow',
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
             groupedBy: 'b',
             key: '1|1',
             value: 1,
           },
           {
-            _headerKey: 'groupRow_b',
-            type: 'groupRow',
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
             groupedBy: 'b',
             key: '1|2',
             value: 2,
           },
           { a: 1, b: 2 },
           {
-            _headerKey: 'groupRow_a',
-            type: 'groupRow',
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
             key: '2',
             value: 2,

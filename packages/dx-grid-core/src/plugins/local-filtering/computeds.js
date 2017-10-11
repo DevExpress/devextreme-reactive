@@ -11,13 +11,16 @@ export const filteredRows = (
 ) => {
   if (!filters.length) return rows;
 
-  return rows.filter(row => filters.reduce(
-    (acc, filter) => {
+  const compoundPredicate = filters.reduce(
+    (prevCompare, filter) => (row) => {
       const { columnName, ...filterConfig } = filter;
       const predicate = (getColumnPredicate && getColumnPredicate(columnName)) || defaultPredicate;
 
-      return acc && predicate(getCellValue(row, columnName), filterConfig, row);
+      return prevCompare(row) && predicate(getCellValue(row, columnName), filterConfig, row);
     },
-    true,
-  ));
+    () => true,
+  );
+
+  return rows.filter(compoundPredicate);
 };
+

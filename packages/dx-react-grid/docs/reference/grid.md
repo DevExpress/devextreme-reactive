@@ -8,19 +8,15 @@ The Grid is a root container component designed to process and display data spec
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rows | Array&lt;[Row](#row)&gt; | | Specifies the data the Grid displays.
-columns | Array&lt;[Column](#column)&gt; | | Specifies for which row object fields columns are created.
-getRowId | (row: [Row](#row)) => number &#124; string | null | Specifies the function used to get a row ID.
-getCellValue | (row: [Row](#row), columnName: string) => any | null | Specifies the function used to get a cell's value.
+rows | Array&lt;any&gt; | | An array containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
+columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
+getRowId | (row: any) => number &#124; string | null | Specifies the function used to get a unique row identifier.
+getCellValue | (row: any, columnName: string) => any | null | Specifies the function used to get a cell's value.
 rootTemplate | (args: [RootArgs](#root-args)) => ReactElement | | A template that renders the grid root layout.
 headerPlaceholderTemplate | (args: [HeaderPlaceholderArgs](#header-placeholder-args)) => ReactElement | null | A template that renders the header placeholder.
 footerPlaceholderTemplate | (args: [FooterPlaceholderArgs](#footer-placeholder-args)) => ReactElement | null | A template that renders the footer placeholder.
 
 ## Interfaces
-
-### Row
-
-An object containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
 
 ### Column
 
@@ -30,8 +26,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-name | string | Specifies the column name or the name of a row object field whose value the column displays. If the column name does not match any field name, specify the `getCellValue` function.
-getCellValue | (row: [Row](#row), columnName: string) => any | Specifies the function used to get the column data for a given row.
+name | string | Specifies the column name or the name of a row field whose value the column displays. If the column name does not match any field name, specify the `getCellValue` function.
+getCellValue | (row: any, columnName: string) => any | Specifies the function used to get the column value for a given row.
 
 ### <a name="root-args"></a>RootArgs
 
@@ -65,8 +61,10 @@ children? | ReactElement | A React element to be placed into the footer.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](#row)&gt; | Grid rows.
+rows | Getter | Array&lt;any&gt; | Grid rows.
+getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 root | Template | Object? | A template that renders the grid root layout.
 header | Template | Object? | A template that renders the grid header.
 body | Template | Object? | A template that renders the grid body.

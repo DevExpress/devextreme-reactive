@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setRowsSelection, getAvailableSelection, getAvailableToSelect } from '@devexpress/dx-grid-core';
+import {
+  setRowsSelection,
+  getAvailableSelection,
+  getAvailableToSelect,
+} from '@devexpress/dx-grid-core';
 
-const availableToSelectComputed = ({ rows, getRowId }) => getAvailableToSelect(rows, getRowId);
+const pluginDependencies = [
+  { pluginName: 'LocalGrouping', optional: true },
+];
+
+const availableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
+  getAvailableToSelect(rows, getRowId, isGroupRow);
 
 export class SelectionState extends React.PureComponent {
   constructor(props) {
@@ -30,6 +39,7 @@ export class SelectionState extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="SelectionState"
+        dependencies={pluginDependencies}
       >
         <Action
           name="setRowsSelection"

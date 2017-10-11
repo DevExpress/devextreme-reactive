@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
-import { groupedRows, expandedGroupRows } from '@devexpress/dx-grid-core';
+import {
+  groupRowChecker,
+  groupRowLevelKeyGetter,
+  groupedRows,
+  expandedGroupRows,
+} from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
@@ -23,6 +28,8 @@ export class LocalGrouping extends React.PureComponent {
         pluginName="LocalGrouping"
         dependencies={pluginDependencies}
       >
+        <Getter name="isGroupRow" value={groupRowChecker} />
+        <Getter name="getRowLevelKey" value={groupRowLevelKeyGetter} />
         <Getter name="rows" computed={groupedRowsComputed} />
         <Getter name="rows" computed={expandedGroupedRowsComputed} />
       </PluginContainer>

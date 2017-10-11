@@ -26,16 +26,25 @@ describe('TableView Plugin computeds', () => {
 
   describe('#tableRowsWithDataRows', () => {
     it('should work', () => {
-      const rows = [{ id: 1 }, { id: 2 }];
+      const rows = [
+        { id: 1 },
+        { id: 2 },
+      ];
       const getRowId = row => row.id;
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
           {
-            key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, row: rows[0],
+            key: `${TABLE_DATA_TYPE}_1`,
+            type: TABLE_DATA_TYPE,
+            rowId: 1,
+            row: rows[0],
           },
           {
-            key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2, row: rows[1],
+            key: `${TABLE_DATA_TYPE}_2`,
+            type: TABLE_DATA_TYPE,
+            rowId: 2,
+            row: rows[1],
           },
         ]);
     });

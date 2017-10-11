@@ -28,6 +28,7 @@ const defaultDeps = {
     grouping: [{ columnName: 'a' }],
     draftGrouping: [{ columnName: 'a' }, { columnName: 'b', mode: 'add' }],
     expandedGroups: new Map(),
+    isGroupRow: () => false,
   },
   action: {
     toggleGroupExpanded: jest.fn(),
@@ -89,7 +90,7 @@ describe('TableGroupRow', () => {
       expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithGrouping');
       expect(tableRowsWithGrouping)
-        .toBeCalledWith(defaultDeps.getter.tableBodyRows);
+        .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.isGroupRow);
     });
 
     it('should extend tableColumns', () => {

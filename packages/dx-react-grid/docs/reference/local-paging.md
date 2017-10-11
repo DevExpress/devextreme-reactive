@@ -18,14 +18,15 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be paged.
+rows | Getter | Array&lt;any&gt; | Rows to be paged.
 pageSize | Getter | number | Provides the page size.
 currentPage | Getter | number | Provides the current page.
 setCurrentPage | Action | (page: number) => void | Changes the current page.
+getRowLevelKey? | Getter | (row: any) => string? | A function used to get row level key.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows with the applied paging.
+rows | Getter | Array&lt;any&gt; | Rows with the applied paging.
 totalCount | Getter | number | The total row count.

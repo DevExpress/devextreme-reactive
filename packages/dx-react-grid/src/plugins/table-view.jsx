@@ -53,7 +53,8 @@ const getDataTableRowTemplateArgs = params => ({
 });
 
 const tableHeaderRows = [];
-const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
+const tableBodyRowsComputed = ({ rows, getRowId }) =>
+  tableRowsWithDataRows(rows, getRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 
 const cellTemplate = params =>

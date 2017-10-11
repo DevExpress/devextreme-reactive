@@ -85,7 +85,7 @@ tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Tabl
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview.
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
-isGroupRow | Getter | (row: any) => boolean | A function used to identify group row within ordinary rows.
+isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state.
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
 tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.

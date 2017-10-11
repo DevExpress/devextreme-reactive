@@ -29,17 +29,30 @@ describe('TableFilterCell', () => {
     expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
   });
 
+  it('should use the \'Filter...\' placeholder if user-defined function returns nothing', () => {
+    const tree = mount(
+      <TableFilterCell
+        column={{
+          name: 'Test',
+        }}
+        getMessage={() => undefined}
+      />,
+    );
+
+    expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
+  });
+
   it('should use custom placeholder', () => {
     const tree = mount(
       <TableFilterCell
         column={{
           name: 'Test',
         }}
-        filterPlaceholder={'Filter data'}
+        getMessage={() => 'Enter filter value'}
       />,
     );
 
-    expect(tree.find('Input').prop('placeholder')).toBe('Filter data');
+    expect(tree.find('Input').prop('placeholder')).toBe('Enter filter value');
   });
 
   it('should not set filter with an empty value', () => {

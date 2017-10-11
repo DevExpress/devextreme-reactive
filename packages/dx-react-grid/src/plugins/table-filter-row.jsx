@@ -15,8 +15,10 @@ import {
   isFilterTableRow,
 } from '@devexpress/dx-grid-core';
 
+const getMessageFn = messages => name => messages[name];
+
 const getFilterTableCellTemplateArgs = (
-  params,
+  { messages, ...params },
   { filters },
   { setColumnFilter },
 ) => ({
@@ -24,6 +26,7 @@ const getFilterTableCellTemplateArgs = (
   column: params.tableColumn.column,
   filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
   setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
+  getMessage: getMessageFn(messages),
 });
 
 const getValueEditorArgs = params => ({
@@ -59,7 +62,7 @@ export class TableFilterRow extends React.PureComponent {
             <TemplateConnector>
               {(getters, actions) => {
                 const templateArgs = getFilterTableCellTemplateArgs({
-                  ...messages,
+                  messages,
                   ...params,
                 }, getters, actions);
                 return (

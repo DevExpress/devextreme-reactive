@@ -97,7 +97,7 @@ describe('TableFilterRow', () => {
         />
       </PluginHost>,
     );
-
+    const getMessage = filterCellTemplate.mock.calls[0][0].getMessage;
     expect(isFilterTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,
@@ -106,9 +106,9 @@ describe('TableFilterRow', () => {
     expect(filterCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        ...messages,
         column: defaultDeps.template.tableViewCell.tableColumn.column,
       }));
+    expect(getMessage('filterPlaceholder')).toBe('Filter');
   });
 
   it('can render custom editor', () => {

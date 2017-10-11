@@ -48,9 +48,3 @@ Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | The related grid column.
 hidden | boolean | Specifies whether the related column is hidden.
-
-## Plugin Developer Reference
-
-### Exports
-
-none

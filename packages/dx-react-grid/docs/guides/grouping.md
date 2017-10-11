@@ -8,19 +8,32 @@ The following plugins implement grouping features:
 
 - [GroupingState](../reference/grouping-state.md) - controls the grouping state
 - [LocalGrouping](../reference/local-grouping.md) - performs local data grouping
+- [CustomGrouping](../reference/custom-grouping.md) - converts grouped data in a custom format to the supported format
 - [TableGroupRow](../reference/table-group-row.md) - renders group rows
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging
 - [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
-## Basic setup
+## Basic Grouping Setup
 
-Use the `GroupingState`, `LocalGrouping` and `TableGroupRow` plugins to set up a Grid with simple static grouping.
+Use the `GroupingState`, `LocalGrouping` (or `CustomGrouping`) and `TableGroupRow` plugins to set up a Grid with simple static grouping.
 
-In the following example, the grouping options are specified using the `GroupingState` plugin's `grouping` property, which is usual for the controlled mode. However, the `onGroupingChange` event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.
+In the following examples, the grouping options are specified using the `GroupingState` plugin's `grouping` property, which is usual for the controlled mode. However, the `onGroupingChange` event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.
+
+### Local Grouping
+
+In the following example, the data specified as a plain rows, so it is required to group them locally by the Grid within the `LocalGrouping` plugin.
 
 .embedded-demo(grouping/local-grouping-static)
+
+### Custom Grouping
+
+If the data specified has a hierarchical data structure that is already grouped, it is required to use the `CustomGrouping` plugin.
+
+In the following example, the data specified as an array of groups. In order to parse the custom groups structure it is required to specify the `getChildGroups` property to the `CustomGrouping` plugin.
+
+.embedded-demo(grouping/custom-grouping-static)
 
 ## Configure the Grouping UI
 
@@ -67,3 +80,17 @@ You can also assign a function that returns a Boolean value depending on the `co
 Note that if the `getColumnIdentity` function returns an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `groupCellTemplate` property as demonstrated in the following example:
 
 .embedded-demo(grouping/local-grouping-custom-advanced)
+
+## Remote Grouping
+
+It is possible to perform grouping remotely by handling grouping state changes, generating a request, and sending it to the server.
+
+Grouping options are updated once an end-user interacts with grouping UI. Handle grouping option changes using the `GroupingState` plugin's `onGroupingChange` and `onExpandedGroupsChange` events and request data from the server using the applied grouping options.
+
+In the case of remote filtering, you should use the `CustomGrouping` plugin instead of the `LocalGrouping` plugin.
+
+While waiting for a response from a server, the grouping state does not correspond the `Grid` component's data. So, in order to leave UI consistent, please specify `tempGrouping` and `tempExpandedGroups` properties to the `CustomGrouping` plugin based on the `grouping` and `expandedGroups` values from the `GroupingState` plugin at the time of sending a request. Once the grouped data is received from the server, pass it to the `Grid` component's `data` property and reset values provided to `tempGrouping` and `tempExpandedGroups` properties of the `CustomGrouping` plugin.
+
+The following example demonstrates the remote grouping with the local expanding/collapsing.
+
+.embedded-demo(grouping/remote-grouping-with-local-expanding)

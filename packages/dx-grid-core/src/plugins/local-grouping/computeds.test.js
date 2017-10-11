@@ -40,56 +40,84 @@ describe('LocalGrouping computeds', () => {
   const getCellValue = (row, columnName) => row[columnName];
 
   const firstGrouping = [{ columnName: 'a' }];
-  const firstGroupedRows = [{
-    value: 1,
-    key: '1',
-    items: [
-      { a: 1, b: 1 },
-      { a: 1, b: 2 },
-    ],
-  }, {
-    value: 2,
-    key: '2',
-    items: [
-      { a: 2, b: 1 },
-      { a: 2, b: 2 },
-    ],
-  }];
+  const firstGroupedRows = [
+    {
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+      groupedBy: 'a',
+      compoundKey: '1',
+      key: '1',
+      value: 1,
+    },
+    { a: 1, b: 1 },
+    { a: 1, b: 2 },
+    {
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+      groupedBy: 'a',
+      compoundKey: '2',
+      key: '2',
+      value: 2,
+    },
+    { a: 2, b: 1 },
+    { a: 2, b: 2 },
+  ];
 
   const secondGrouping = [{ columnName: 'a' }, { columnName: 'b' }];
-  const secondGroupedRows = [{
-    value: 1,
-    key: '1',
-    items: [{
-      value: 1,
+  const secondGroupedRows = [
+    {
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+      groupedBy: 'a',
+      compoundKey: '1',
       key: '1',
-      items: [
-        { a: 1, b: 1 },
-      ],
-    }, {
-      value: 2,
-      key: '2',
-      items: [
-        { a: 1, b: 2 },
-      ],
-    }],
-  }, {
-    value: 2,
-    key: '2',
-    items: [{
       value: 1,
+    },
+    {
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+      groupedBy: 'b',
+      compoundKey: '1|1',
       key: '1',
-      items: [
-        { a: 2, b: 1 },
-      ],
-    }, {
-      value: 2,
+      value: 1,
+    },
+    { a: 1, b: 1 },
+    {
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+      groupedBy: 'b',
+      compoundKey: '1|2',
       key: '2',
-      items: [
-        { a: 2, b: 2 },
-      ],
-    }],
-  }];
+      value: 2,
+    },
+    { a: 1, b: 2 },
+    {
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+      groupedBy: 'a',
+      compoundKey: '2',
+      key: '2',
+      value: 2,
+    },
+    {
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+      groupedBy: 'b',
+      compoundKey: '2|1',
+      key: '1',
+      value: 1,
+    },
+    { a: 2, b: 1 },
+    {
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+      groupedBy: 'b',
+      compoundKey: '2|2',
+      key: '2',
+      value: 2,
+    },
+    { a: 2, b: 2 },
+  ];
 
   describe('#groupedRows', () => {
     it('can group by first column', () => {
@@ -108,21 +136,28 @@ describe('LocalGrouping computeds', () => {
         value: `${value}_test`,
       });
       expect(groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity))
-        .toEqual([{
-          value: '1_test',
-          key: '1',
-          items: [
-            { a: 1, b: 1 },
-            { a: 1, b: 2 },
-          ],
-        }, {
-          value: '2_test',
-          key: '2',
-          items: [
-            { a: 2, b: 1 },
-            { a: 2, b: 2 },
-          ],
-        }]);
+        .toEqual([
+          {
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+            groupedBy: 'a',
+            compoundKey: '1',
+            key: '1',
+            value: '1_test',
+          },
+          { a: 1, b: 1 },
+          { a: 1, b: 2 },
+          {
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+            groupedBy: 'a',
+            compoundKey: '2',
+            key: '2',
+            value: '2_test',
+          },
+          { a: 2, b: 1 },
+          { a: 2, b: 2 },
+        ]);
     });
 
     it('should use getColumnIdentity argument for each grouping', () => {
@@ -131,39 +166,60 @@ describe('LocalGrouping computeds', () => {
       });
 
       expect(groupedRows(rows, secondGrouping, getCellValue, getColumnIdentity))
-        .toEqual([{
-          value: '1_test',
-          key: '1_test',
-          items: [{
-            value: '1_test',
+        .toEqual([
+          {
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+            groupedBy: 'a',
+            compoundKey: '1_test',
             key: '1_test',
-            items: [
-              { a: 1, b: 1 },
-            ],
-          }, {
-            value: '2_test',
-            key: '2_test',
-            items: [
-              { a: 1, b: 2 },
-            ],
-          }],
-        }, {
-          value: '2_test',
-          key: '2_test',
-          items: [{
             value: '1_test',
+          },
+          {
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+            groupedBy: 'b',
+            compoundKey: '1_test|1_test',
             key: '1_test',
-            items: [
-              { a: 2, b: 1 },
-            ],
-          }, {
-            value: '2_test',
+            value: '1_test',
+          },
+          { a: 1, b: 1 },
+          {
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+            groupedBy: 'b',
+            compoundKey: '1_test|2_test',
             key: '2_test',
-            items: [
-              { a: 2, b: 2 },
-            ],
-          }],
-        }]);
+            value: '2_test',
+          },
+          { a: 1, b: 2 },
+          {
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+            groupedBy: 'a',
+            compoundKey: '2_test',
+            key: '2_test',
+            value: '2_test',
+          },
+          {
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+            groupedBy: 'b',
+            compoundKey: '2_test|1_test',
+            key: '1_test',
+            value: '1_test',
+          },
+          { a: 2, b: 1 },
+          {
+            [GRID_GROUP_CHECK]: true,
+            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+            groupedBy: 'b',
+            compoundKey: '2_test|2_test',
+            key: '2_test',
+            value: '2_test',
+          },
+          { a: 2, b: 2 },
+        ]);
     });
 
     it('should pass column name to getColumnIdentity', () => {
@@ -192,6 +248,7 @@ describe('LocalGrouping computeds', () => {
             [GRID_GROUP_CHECK]: true,
             [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
+            compoundKey: '1',
             key: '1',
             value: 1,
           },
@@ -201,6 +258,7 @@ describe('LocalGrouping computeds', () => {
             [GRID_GROUP_CHECK]: true,
             [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
+            compoundKey: '2',
             key: '2',
             value: 2,
           },
@@ -216,6 +274,7 @@ describe('LocalGrouping computeds', () => {
             [GRID_GROUP_CHECK]: true,
             [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
+            compoundKey: '1',
             key: '1',
             value: 1,
           },
@@ -223,14 +282,16 @@ describe('LocalGrouping computeds', () => {
             [GRID_GROUP_CHECK]: true,
             [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
             groupedBy: 'b',
-            key: '1|1',
+            compoundKey: '1|1',
+            key: '1',
             value: 1,
           },
           {
             [GRID_GROUP_CHECK]: true,
             [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
             groupedBy: 'b',
-            key: '1|2',
+            compoundKey: '1|2',
+            key: '2',
             value: 2,
           },
           { a: 1, b: 2 },
@@ -238,6 +299,7 @@ describe('LocalGrouping computeds', () => {
             [GRID_GROUP_CHECK]: true,
             [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
             groupedBy: 'a',
+            compoundKey: '2',
             key: '2',
             value: 2,
           },

@@ -71,7 +71,7 @@ Describes the group row structure.
 
 Field | Type | Description
 ------|------|------------
-key | string | The current group key.
+key | number &#124; string | The current group key.
 value | any | The current group value.
 
 ## Plugin Developer Reference

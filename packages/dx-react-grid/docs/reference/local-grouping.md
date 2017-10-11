@@ -36,5 +36,5 @@ getCellValue | Getter | (row: any, columnName: string) => any | The function use
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows with the applied grouping and expanded groups.
-isGroupRow | Getter | (row: any) => boolean | A function used to identify group row within ordinary rows.
+isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 getRowLevelKey | Getter | (row: any) => string? | A function used to get group row level key.

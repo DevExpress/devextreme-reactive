@@ -57,7 +57,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping 
 
 .embedded-demo(grouping/local-grouping-controlled)
 
-## Custom Grouping Values
+## Local Grouping with Custom Values
 
 Pass a grouping function to the `LocalGrouping` plugin’s [getColumnIdentity](../reference/local-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hiding of the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column value while the "city" column remains visible.
 

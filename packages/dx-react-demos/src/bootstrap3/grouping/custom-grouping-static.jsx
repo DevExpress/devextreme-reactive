@@ -16,7 +16,7 @@ import {
 } from '../../demo-data/generator';
 
 const getChildGroups = groups => groups
-  .map(group => ({ key: group.key, nestedData: group.items }));
+  .map(group => ({ key: group.key, childRows: group.items }));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

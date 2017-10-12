@@ -17,7 +17,7 @@ const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi';
 
 const getRowId = row => row.OrderID;
 const getChildGroups = groups => groups
-  .map(group => ({ key: group.key, nestedData: group.items }));
+  .map(group => ({ key: group.key, childRows: group.items }));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

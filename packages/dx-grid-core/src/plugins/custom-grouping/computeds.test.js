@@ -32,7 +32,7 @@ describe('CustomGrouping Plugin computeds', () => {
         ],
       }];
       const getHierarchicalChildGroups = groups => groups
-        .map(group => ({ key: String(group.key), value: group.key, nestedData: group.items }));
+        .map(group => ({ key: String(group.key), value: group.key, childRows: group.items }));
       const groupings = [{ columnName: 'a' }];
       const groupedRows = [
         groupRow({
@@ -72,7 +72,7 @@ describe('CustomGrouping Plugin computeds', () => {
         items: null,
       }];
       const getHierarchicalChildGroups = groups => groups
-        .map(group => ({ key: String(group.key), value: group.key, nestedData: group.items }));
+        .map(group => ({ key: String(group.key), value: group.key, childRows: group.items }));
       const groupings = [{ columnName: 'a' }];
       const groupedRows = [
         groupRow({
@@ -122,7 +122,7 @@ describe('CustomGrouping Plugin computeds', () => {
         }],
       }];
       const getHierarchicalChildGroups = groups => groups
-        .map(group => ({ key: String(group.key), value: group.key, nestedData: group.items }));
+        .map(group => ({ key: String(group.key), value: group.key, childRows: group.items }));
       const groupings = [{ columnName: 'a' }, { columnName: 'b' }];
       const groupedRows = [
         groupRow({

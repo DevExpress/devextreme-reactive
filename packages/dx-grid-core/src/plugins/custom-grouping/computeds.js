@@ -8,19 +8,19 @@ import {
 } from '../local-grouping/constants';
 
 export const customGroupedRows = (
-  currentData,
+  currentRows,
   grouping,
   getChildGroups,
-  rootData = currentData,
+  rootRows = currentRows,
   keyPrefix = '',
 ) => {
-  if (!currentData) return [];
-  if (!grouping.length) return currentData;
+  if (!currentRows) return [];
+  if (!grouping.length) return currentRows;
 
   const groupedBy = grouping[0].columnName;
   const nestedGrouping = grouping.slice(1);
-  return getChildGroups(currentData, grouping[0], rootData)
-    .reduce((acc, { key, value = key, nestedData }) => {
+  return getChildGroups(currentRows, grouping[0], rootRows)
+    .reduce((acc, { key, value = key, childRows }) => {
       const compoundKey = `${keyPrefix}${key}`;
       acc.push({
         [GRID_GROUP_CHECK]: true,
@@ -31,10 +31,10 @@ export const customGroupedRows = (
         value,
       });
       acc.push(...customGroupedRows(
-        nestedData,
+        childRows,
         nestedGrouping,
         getChildGroups,
-        rootData,
+        rootRows,
         `${compoundKey}${GROUP_KEY_SEPARATOR}`,
       ));
       return acc;

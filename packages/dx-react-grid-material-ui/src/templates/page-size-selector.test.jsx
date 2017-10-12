@@ -1,11 +1,7 @@
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import Select from 'material-ui/Select';
 import { createMount } from 'material-ui/test-utils';
 import { PageSizeSelector } from './page-size-selector';
-
-injectTapEventPlugin();
 
 describe('PageSizeSelector', () => {
   let mount;

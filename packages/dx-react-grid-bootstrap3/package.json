@@ -80,7 +80,7 @@
     "@devexpress/dx-grid-core": "1.0.0-alpha.11",
     "@devexpress/dx-react-core": "1.0.0-alpha.11",
     "@devexpress/dx-react-grid": "1.0.0-alpha.11",
-    "react": "^15.5.4",
+    "react": "^15.6.1 || ^16.0.0",
     "react-bootstrap": "^0.31.3"
   }
 }

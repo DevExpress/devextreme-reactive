@@ -70,7 +70,7 @@
     "prop-types": "^15.6.0"
   },
   "peerDependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.5.4"
+    "react": "^15.6.1 || ^16.0.0",
+    "react-dom": "^15.6.1 || ^16.0.0"
   }
 }

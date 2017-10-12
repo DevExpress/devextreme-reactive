@@ -1,11 +1,8 @@
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createMount } from 'material-ui/test-utils';
 import { Pager } from './pager';
 import { Pagination } from './pagination';
 import { PageSizeSelector } from './page-size-selector';
-
-injectTapEventPlugin();
 
 describe('Pager', () => {
   let mount;

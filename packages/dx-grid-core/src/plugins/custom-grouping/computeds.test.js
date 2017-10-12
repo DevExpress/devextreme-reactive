@@ -9,6 +9,13 @@ import {
 } from '../local-grouping/constants';
 
 describe('CustomGrouping Plugin computeds', () => {
+  const groupRow = ({ groupedBy, ...restParams }) => ({
+    ...restParams,
+    groupedBy,
+    [GRID_GROUP_CHECK]: true,
+    [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
+  });
+
   describe('#customGroupedRows', () => {
     it('should process hierarchical data by one column', () => {
       const hierarchicalSource = [{
@@ -28,24 +35,20 @@ describe('CustomGrouping Plugin computeds', () => {
         .map(group => ({ key: String(group.key), value: group.key, nestedData: group.items }));
       const groupings = [{ columnName: 'a' }];
       const groupedRows = [
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+        groupRow({
           groupedBy: 'a',
           compoundKey: '1',
           key: '1',
           value: 1,
-        },
+        }),
         { a: 1, b: 1 },
         { a: 1, b: 2 },
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+        groupRow({
           groupedBy: 'a',
           compoundKey: '2',
           key: '2',
           value: 2,
-        },
+        }),
         { a: 2, b: 1 },
         { a: 2, b: 2 },
       ];
@@ -57,7 +60,7 @@ describe('CustomGrouping Plugin computeds', () => {
         groupings,
         getChildGroups,
       ))
-        .toMatchObject(groupedRows);
+        .toEqual(groupedRows);
 
       expect(getChildGroups)
         .toBeCalledWith(hierarchicalSource, groupings[0], hierarchicalSource);
@@ -72,14 +75,12 @@ describe('CustomGrouping Plugin computeds', () => {
         .map(group => ({ key: String(group.key), value: group.key, nestedData: group.items }));
       const groupings = [{ columnName: 'a' }];
       const groupedRows = [
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+        groupRow({
           groupedBy: 'a',
           compoundKey: '1',
           key: '1',
           value: 1,
-        },
+        }),
       ];
 
       const getChildGroups = jest.fn(getHierarchicalChildGroups);
@@ -89,7 +90,7 @@ describe('CustomGrouping Plugin computeds', () => {
         groupings,
         getChildGroups,
       ))
-        .toMatchObject(groupedRows);
+        .toEqual(groupedRows);
     });
 
     it('should process hierarchical data by several columns', () => {
@@ -124,57 +125,45 @@ describe('CustomGrouping Plugin computeds', () => {
         .map(group => ({ key: String(group.key), value: group.key, nestedData: group.items }));
       const groupings = [{ columnName: 'a' }, { columnName: 'b' }];
       const groupedRows = [
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+        groupRow({
           groupedBy: 'a',
           compoundKey: '1',
           key: '1',
           value: 1,
-        },
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+        }),
+        groupRow({
           groupedBy: 'b',
           compoundKey: '1|1',
           key: '1',
           value: 1,
-        },
+        }),
         { a: 1, b: 1 },
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+        groupRow({
           groupedBy: 'b',
           compoundKey: '1|2',
           key: '2',
           value: 2,
-        },
+        }),
         { a: 1, b: 2 },
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+        groupRow({
           groupedBy: 'a',
           compoundKey: '2',
           key: '2',
           value: 2,
-        },
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+        }),
+        groupRow({
           groupedBy: 'b',
           compoundKey: '2|1',
           key: '1',
           value: 1,
-        },
+        }),
         { a: 2, b: 1 },
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+        groupRow({
           groupedBy: 'b',
           compoundKey: '2|2',
           key: '2',
           value: 2,
-        },
+        }),
         { a: 2, b: 2 },
       ];
 
@@ -185,7 +174,7 @@ describe('CustomGrouping Plugin computeds', () => {
         groupings,
         getChildGroups,
       ))
-        .toMatchObject(groupedRows);
+        .toEqual(groupedRows);
 
       expect(getChildGroups)
         .toBeCalledWith(hierarchicalSource, groupings[0], hierarchicalSource);
@@ -199,13 +188,11 @@ describe('CustomGrouping Plugin computeds', () => {
   describe('#customGroupingRowIdGetter', () => {
     it('should define row ids to rows if not present', () => {
       const groupedRows = [
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+        groupRow({
           groupedBy: 'a',
           key: '1',
           value: 1,
-        },
+        }),
         { a: 1, b: 1 },
         { a: 1, b: 2 },
       ];
@@ -228,13 +215,11 @@ describe('CustomGrouping Plugin computeds', () => {
 
     it('should not define row ids if getRowId is defined', () => {
       const groupedRows = [
-        {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+        groupRow({
           groupedBy: 'a',
           key: '1',
           value: 1,
-        },
+        }),
         { a: 1, b: 1 },
       ];
       const parentGetRowId = () => 1;

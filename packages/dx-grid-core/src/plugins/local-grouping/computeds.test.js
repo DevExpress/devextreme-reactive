@@ -31,6 +31,13 @@ describe('LocalGrouping computeds', () => {
     });
   });
 
+  const groupRow = ({ groupedBy, ...restParams }) => ({
+    ...restParams,
+    groupedBy,
+    [GRID_GROUP_CHECK]: true,
+    [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
+  });
+
   const rows = [
     { a: 1, b: 1 },
     { a: 1, b: 2 },
@@ -41,81 +48,65 @@ describe('LocalGrouping computeds', () => {
 
   const firstGrouping = [{ columnName: 'a' }];
   const firstGroupedRows = [
-    {
-      [GRID_GROUP_CHECK]: true,
-      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+    groupRow({
       groupedBy: 'a',
       compoundKey: '1',
       key: '1',
       value: 1,
-    },
+    }),
     { a: 1, b: 1 },
     { a: 1, b: 2 },
-    {
-      [GRID_GROUP_CHECK]: true,
-      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+    groupRow({
       groupedBy: 'a',
       compoundKey: '2',
       key: '2',
       value: 2,
-    },
+    }),
     { a: 2, b: 1 },
     { a: 2, b: 2 },
   ];
 
   const secondGrouping = [{ columnName: 'a' }, { columnName: 'b' }];
   const secondGroupedRows = [
-    {
-      [GRID_GROUP_CHECK]: true,
-      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+    groupRow({
       groupedBy: 'a',
       compoundKey: '1',
       key: '1',
       value: 1,
-    },
-    {
-      [GRID_GROUP_CHECK]: true,
-      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+    }),
+    groupRow({
       groupedBy: 'b',
       compoundKey: '1|1',
       key: '1',
       value: 1,
-    },
+    }),
     { a: 1, b: 1 },
-    {
-      [GRID_GROUP_CHECK]: true,
-      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+    groupRow({
       groupedBy: 'b',
       compoundKey: '1|2',
       key: '2',
       value: 2,
-    },
+    }),
     { a: 1, b: 2 },
-    {
-      [GRID_GROUP_CHECK]: true,
-      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+    groupRow({
       groupedBy: 'a',
       compoundKey: '2',
       key: '2',
       value: 2,
-    },
-    {
-      [GRID_GROUP_CHECK]: true,
-      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+    }),
+    groupRow({
       groupedBy: 'b',
       compoundKey: '2|1',
       key: '1',
       value: 1,
-    },
+    }),
     { a: 2, b: 1 },
-    {
-      [GRID_GROUP_CHECK]: true,
-      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+    groupRow({
       groupedBy: 'b',
       compoundKey: '2|2',
       key: '2',
       value: 2,
-    },
+    }),
     { a: 2, b: 2 },
   ];
 
@@ -137,24 +128,20 @@ describe('LocalGrouping computeds', () => {
       });
       expect(groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity))
         .toEqual([
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+          groupRow({
             groupedBy: 'a',
             compoundKey: '1',
             key: '1',
             value: '1_test',
-          },
+          }),
           { a: 1, b: 1 },
           { a: 1, b: 2 },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+          groupRow({
             groupedBy: 'a',
             compoundKey: '2',
             key: '2',
             value: '2_test',
-          },
+          }),
           { a: 2, b: 1 },
           { a: 2, b: 2 },
         ]);
@@ -167,57 +154,45 @@ describe('LocalGrouping computeds', () => {
 
       expect(groupedRows(rows, secondGrouping, getCellValue, getColumnIdentity))
         .toEqual([
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+          groupRow({
             groupedBy: 'a',
             compoundKey: '1_test',
             key: '1_test',
             value: '1_test',
-          },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+          }),
+          groupRow({
             groupedBy: 'b',
             compoundKey: '1_test|1_test',
             key: '1_test',
             value: '1_test',
-          },
+          }),
           { a: 1, b: 1 },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+          groupRow({
             groupedBy: 'b',
             compoundKey: '1_test|2_test',
             key: '2_test',
             value: '2_test',
-          },
+          }),
           { a: 1, b: 2 },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+          groupRow({
             groupedBy: 'a',
             compoundKey: '2_test',
             key: '2_test',
             value: '2_test',
-          },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+          }),
+          groupRow({
             groupedBy: 'b',
             compoundKey: '2_test|1_test',
             key: '1_test',
             value: '1_test',
-          },
+          }),
           { a: 2, b: 1 },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+          groupRow({
             groupedBy: 'b',
             compoundKey: '2_test|2_test',
             key: '2_test',
             value: '2_test',
-          },
+          }),
           { a: 2, b: 2 },
         ]);
     });
@@ -244,24 +219,20 @@ describe('LocalGrouping computeds', () => {
 
       expect(expandedGroupRows(firstGroupedRows, firstGrouping, expandedGroups))
         .toEqual([
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+          groupRow({
             groupedBy: 'a',
             compoundKey: '1',
             key: '1',
             value: 1,
-          },
+          }),
           { a: 1, b: 1 },
           { a: 1, b: 2 },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+          groupRow({
             groupedBy: 'a',
             compoundKey: '2',
             key: '2',
             value: 2,
-          },
+          }),
         ]);
     });
 
@@ -270,39 +241,31 @@ describe('LocalGrouping computeds', () => {
 
       expect(expandedGroupRows(secondGroupedRows, secondGrouping, expandedGroups))
         .toEqual([
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+          groupRow({
             groupedBy: 'a',
             compoundKey: '1',
             key: '1',
             value: 1,
-          },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+          }),
+          groupRow({
             groupedBy: 'b',
             compoundKey: '1|1',
             key: '1',
             value: 1,
-          },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
+          }),
+          groupRow({
             groupedBy: 'b',
             compoundKey: '1|2',
             key: '2',
             value: 2,
-          },
+          }),
           { a: 1, b: 2 },
-          {
-            [GRID_GROUP_CHECK]: true,
-            [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
+          groupRow({
             groupedBy: 'a',
             compoundKey: '2',
             key: '2',
             value: 2,
-          },
+          }),
         ]);
     });
   });

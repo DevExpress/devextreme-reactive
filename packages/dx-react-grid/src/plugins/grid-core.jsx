@@ -1,35 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { memoize } from '@devexpress/dx-core';
 import { PluginContainer, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
-
-const rowIdGetter = (rows) => {
-  const rowsMap = new Map(rows.map((r, rowIndex) => [r, rowIndex]));
-  return row => rowsMap.get(row);
-};
-
-const getCellValueGetter = (columns) => {
-  let useFastAccessor = true;
-
-  const map = columns.reduce((acc, column) => {
-    if (column.getCellValue) {
-      useFastAccessor = false;
-      acc[column.name] = column.getCellValue;
-    }
-    return acc;
-  }, {});
-
-  return useFastAccessor ?
-    (row, columnName) => row[columnName] :
-    (row, columnName) => (map[columnName] ? map[columnName](row, columnName) : row[columnName]);
-};
+import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 
 export class GridCore extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.memoizedRowIdGetter = memoize(rowIdGetter);
-    this.memoizedCellValueGetter = memoize(getCellValueGetter);
-  }
   render() {
     const {
       rows,
@@ -44,9 +18,9 @@ export class GridCore extends React.PureComponent {
     return (
       <PluginContainer>
         <Getter name="rows" value={rows} />
+        <Getter name="getRowId" value={rowIdGetter(getRowId, rows)} />
         <Getter name="columns" value={columns} />
-        <Getter name="getRowId" value={getRowId || this.memoizedRowIdGetter(rows)} />
-        <Getter name="getCellValue" value={getCellValue || this.memoizedCellValueGetter(columns)} />
+        <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
         <Template name="header" />
         <Template name="body" />
         <Template name="footer" />

@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { blue } from 'material-ui/colors';
-
-injectTapEventPlugin();
 
 const theme = createMuiTheme({
   palette: {

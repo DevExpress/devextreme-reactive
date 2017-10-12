@@ -49,9 +49,10 @@ describe('LocalFiltering computeds', () => {
       const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
 
       expect(getColumnPredicate).toBeCalledWith(filters[0].columnName);
-      expect(filtered).toEqual([
-        { a: 1, b: 2 },
-      ]);
+      expect(filtered)
+        .toEqual([
+          { a: 1, b: 2 },
+        ]);
     });
 
     it('should filter using default predicate if custom predicate returns nothing', () => {
@@ -59,10 +60,11 @@ describe('LocalFiltering computeds', () => {
       const filters = [{ columnName: 'a', value: 1 }];
       const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
 
-      expect(filtered).toEqual([
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
-      ]);
+      expect(filtered)
+        .toEqual([
+          { a: 1, b: 1 },
+          { a: 1, b: 2 },
+        ]);
     });
   });
 });

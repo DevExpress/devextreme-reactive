@@ -7,7 +7,6 @@ const pluginDependencies = [
   { pluginName: 'SortingState' },
 ];
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class LocalSorting extends React.PureComponent {
   render() {
     const { getColumnCompare } = this.props;

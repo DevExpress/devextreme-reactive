@@ -1,9 +1,6 @@
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { Pagination } from './pagination';
-
-injectTapEventPlugin();
 
 describe('Pagination', () => {
   let mount;

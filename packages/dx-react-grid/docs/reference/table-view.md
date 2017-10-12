@@ -1,6 +1,6 @@
 # TableView Plugin Reference
 
-This plugin renders Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
+This plugin renders Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
 
 ## User Reference
 
@@ -56,8 +56,8 @@ Field | Type | Description
 ------|------|------------
 key | string | A table row's unique identifier.
 type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
-rowId? | number &#124; string  | Specifies the associated user data row's ID.
-row? | [Row](grid.md#row) | Specifies the associated user data row.
+rowId? | number &#124; string | Specifies the associated row's ID.
+row? | any | Specifies the associated row.
 height? | number | Specifies the table row height.
 
 ### <a name="table-column"></a>TableColumn
@@ -70,7 +70,7 @@ Field | Type | Description
 ------|------|------------
 key | string | A table column's unique identifier.
 type | string | Specifies the table column type. The specified value affects which cell template is used to render the column.
-column? | [Column](#column) | Specifies the associated user data column.
+column? | [Column](#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
 
 ### <a name="table-cell-args"></a>TableCellArgs
@@ -94,8 +94,8 @@ A value with the [TableCellArgs](#table-cell-args) shape extended by the followi
 
 Field | Type | Description
 ------|------|------------
-value | any | The value to be rendered within the cell.
-row | [Row](grid.md#row) | Specifies a table row.
+value | any | A value to be rendered within the cell.
+row | any | A row.
 column | [Column](#column) | Specifies a table column.
 
 ### <a name="table-row-args"></a>TableRowArgs
@@ -106,7 +106,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#table-row) | Specifies a table row
+tableRow | [TableRow](#table-row) | A table row.
 children | ReactElement | A React element used to render a table row.
 style? | Object | Styles that should be applied to the root row element.
 
@@ -118,7 +118,7 @@ A value with the [TableRowArgs](#table-row-args) shape extended by the following
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | Specifies a table row.
+row | any | A row.
 
 ### <a name="messages"></a>Messages
 
@@ -134,10 +134,10 @@ noData? | string | 'No data' | Specifies text shown when the Grid does not conta
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;[Row](grid.md#row)&gt; | Rows to be rendered by the table view.
+rows | Getter | Array&lt;any&gt; | Rows to be rendered by the table view.
 columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view.
-getRowId | Getter | (row: [Row](grid.md#row)) => number &#124; string | The function used to get a unique row identifier.
-getCellValue | Getter | (row: [Row](grid.md#row), columnName: string) => any | The function used to get a cell value.
+getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 
 ### Exports
 
@@ -146,5 +146,6 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered.
 tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered.
 tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered.
+tableView | Template | Object? | A template that renders the table.
 tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell.
 tableViewRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row.

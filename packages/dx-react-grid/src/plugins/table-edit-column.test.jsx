@@ -96,15 +96,11 @@ describe('TableHeaderRow', () => {
   it('should render edit commands cell on edit-commands column and header row intersection', () => {
     isHeadingEditCommandsTableCell.mockImplementation(() => true);
     const headingCellTemplate = jest.fn(() => null);
-    const messages = {
-      addCommand: 'Add',
-    };
     mount(
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
-          messages={messages}
           headingCellTemplate={headingCellTemplate}
         />
       </PluginHost>,
@@ -118,11 +114,58 @@ describe('TableHeaderRow', () => {
     expect(headingCellTemplate)
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewCell,
-        ...messages,
       }));
   });
 
+  it('should pass getMessage function to heading command cell template', () => {
+    isHeadingEditCommandsTableCell.mockImplementation(() => true);
+    const headingCellTemplate = jest.fn(() => null);
+    const messages = {
+      addCommand: 'Add',
+    };
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditColumn
+          {...defaultProps}
+          messages={messages}
+          headingCellTemplate={headingCellTemplate}
+        />
+      </PluginHost>,
+    );
+    const { getMessage } = headingCellTemplate.mock.calls[0][0];
+
+    expect(getMessage('addCommand'))
+      .toBe(messages.addCommand);
+  });
+
   it('should render edit commands cell on edit-commands column and added row intersection', () => {
+    isEditCommandsTableCell.mockImplementation(() => true);
+    const cellTemplate = jest.fn(() => null);
+    mount(
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditColumn
+          {...defaultProps}
+          cellTemplate={cellTemplate}
+        />
+      </PluginHost>,
+    );
+
+    expect(isEditCommandsTableCell)
+      .toBeCalledWith(
+        defaultDeps.template.tableViewCell.tableRow,
+        defaultDeps.template.tableViewCell.tableColumn,
+      );
+    expect(cellTemplate)
+      .toBeCalledWith(expect.objectContaining({
+        ...defaultDeps.template.tableViewCell,
+        row: defaultDeps.template.tableViewCell.tableRow.row,
+        isEditing: false,
+      }));
+  });
+
+  it('should pass getMessage function to command cell template', () => {
     isEditCommandsTableCell.mockImplementation(() => true);
     const cellTemplate = jest.fn(() => null);
     const messages = {
@@ -141,18 +184,15 @@ describe('TableHeaderRow', () => {
         />
       </PluginHost>,
     );
+    const { getMessage } = cellTemplate.mock.calls[0][0];
 
-    expect(isEditCommandsTableCell)
-      .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
-      );
-    expect(cellTemplate)
-      .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        ...messages,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
-        isEditing: false,
-      }));
+    expect(getMessage('editCommand'))
+      .toBe(messages.editCommand);
+    expect(getMessage('deleteCommand'))
+      .toBe(messages.deleteCommand);
+    expect(getMessage('commitCommand'))
+      .toBe(messages.commitCommand);
+    expect(getMessage('cancelCommand'))
+      .toBe(messages.cancelCommand);
   });
 });

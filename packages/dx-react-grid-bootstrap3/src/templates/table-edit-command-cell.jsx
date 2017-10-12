@@ -23,7 +23,7 @@ export const EditCommandHeadingCell = ({
   commandTemplate,
   allowAdding,
   style,
-  addCommand,
+  getMessage,
 }) => (
   <th
     style={{
@@ -36,7 +36,7 @@ export const EditCommandHeadingCell = ({
     {allowAdding && commandTemplate({
       id: 'add',
       executeCommand: addRow,
-      text: addCommand,
+      text: getMessage('addCommand') || 'New',
     })}
   </th>
 );
@@ -44,14 +44,13 @@ export const EditCommandHeadingCell = ({
 EditCommandHeadingCell.propTypes = {
   addRow: PropTypes.func.isRequired,
   commandTemplate: PropTypes.func.isRequired,
-  addCommand: PropTypes.string,
+  getMessage: PropTypes.func.isRequired,
   allowAdding: PropTypes.bool.isRequired,
   style: PropTypes.object,
 };
 
 EditCommandHeadingCell.defaultProps = {
   style: {},
-  addCommand: 'New',
 };
 
 export const EditCommandCell = ({
@@ -64,10 +63,7 @@ export const EditCommandCell = ({
   allowEditing,
   allowDeleting,
   style,
-  editCommand,
-  deleteCommand,
-  commitCommand,
-  cancelCommand,
+  getMessage,
 }) => {
   let commands = [];
   if (!isEditing) {
@@ -75,14 +71,14 @@ export const EditCommandCell = ({
       commands.push({
         id: 'edit',
         executeCommand: startEditing,
-        text: editCommand,
+        text: getMessage('editCommand') || 'Edit',
       });
     }
     if (allowDeleting) {
       commands.push({
         id: 'delete',
         executeCommand: deleteRow,
-        text: deleteCommand,
+        text: getMessage('deleteCommand') || 'Delete',
       });
     }
   } else {
@@ -90,12 +86,12 @@ export const EditCommandCell = ({
       {
         id: 'commit',
         executeCommand: commitChanges,
-        text: commitCommand,
+        text: getMessage('commitCommand') || 'Save',
       },
       {
         id: 'cancel',
         executeCommand: cancelEditing,
-        text: cancelCommand,
+        text: getMessage('cancelCommand') || 'Cancel',
       },
     ];
   }
@@ -122,17 +118,10 @@ EditCommandCell.propTypes = {
   allowEditing: PropTypes.bool.isRequired,
   allowDeleting: PropTypes.bool.isRequired,
   commandTemplate: PropTypes.func.isRequired,
-  editCommand: PropTypes.string,
-  deleteCommand: PropTypes.string,
-  commitCommand: PropTypes.string,
-  cancelCommand: PropTypes.string,
+  getMessage: PropTypes.func.isRequired,
   style: PropTypes.object,
 };
 
 EditCommandCell.defaultProps = {
   style: {},
-  editCommand: 'Edit',
-  deleteCommand: 'Delete',
-  commitCommand: 'Save',
-  cancelCommand: 'Cancel',
 };

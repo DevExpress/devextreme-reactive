@@ -12,17 +12,20 @@ import {
   isEditTableRow,
 } from '@devexpress/dx-grid-core';
 
+const getMessageFn = messages => name => messages[name];
+
 const getHeadingEditCommandsTableCellTemplateArgs = (
-  params,
+  { messages, ...params },
   getters,
   { addRow },
 ) => ({
   ...params,
+  getMessage: getMessageFn(messages),
   addRow: () => addRow(),
 });
 
 const getEditCommandsTableCellTemplateArgs = (
-  params,
+  { messages, ...params },
   getters,
   {
     startEditRows, stopEditRows, cancelChangedRows, commitChangedRows,
@@ -37,6 +40,7 @@ const getEditCommandsTableCellTemplateArgs = (
     row: params.tableRow.row,
     isEditing: isEdit || isNew,
     startEditing: () => startEditRows({ rowIds: [params.tableRow.rowId] }),
+    getMessage: getMessageFn(messages),
     deleteRow: () => {
       deleteRows({ rowIds });
       commitDeletedRows({ rowIds });
@@ -79,7 +83,6 @@ export class TableEditColumn extends React.PureComponent {
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
-    const { addCommand, ...commandMessages } = messages;
 
     return (
       <PluginContainer
@@ -99,7 +102,7 @@ export class TableEditColumn extends React.PureComponent {
                 <TemplateRenderer
                   template={headingCellTemplate}
                   params={getHeadingEditCommandsTableCellTemplateArgs(
-                    { allowAdding, commandTemplate, addCommand, ...params },
+                    { allowAdding, commandTemplate, messages, ...params },
                     getters,
                     actions,
                   )}
@@ -123,7 +126,7 @@ export class TableEditColumn extends React.PureComponent {
                       allowEditing,
                       allowDeleting,
                       commandTemplate,
-                      ...commandMessages,
+                      messages,
                       ...params,
                     },
                     getters,

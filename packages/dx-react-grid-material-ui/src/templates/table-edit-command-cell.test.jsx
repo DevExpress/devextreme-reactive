@@ -27,7 +27,7 @@ describe('Table command column', () => {
       const tree = mount(
         <EditCommandHeadingCell
           allowAdding
-          addCommand="CustomAdd"
+          getMessage={() => 'CustomAdd'}
           commandTemplate={props => <CommandButton {...props} />}
         />,
       );
@@ -41,6 +41,7 @@ describe('Table command column', () => {
       const tree = mount(
         <EditCommandHeadingCell
           commandTemplate={props => <CommandButton {...props} />}
+          getMessage={() => {}}
         />,
       );
 
@@ -53,6 +54,7 @@ describe('Table command column', () => {
         <EditCommandHeadingCell
           commandTemplate={props => <CommandButton {...props} />}
           allowAdding
+          getMessage={() => {}}
         />,
       );
 
@@ -69,6 +71,7 @@ describe('Table command column', () => {
           addRow={addRow}
           allowAdding
           commandTemplate={template}
+          getMessage={() => {}}
         />,
       );
 
@@ -87,16 +90,15 @@ describe('Table command column', () => {
         <EditCommandCell
           allowEditing
           allowDeleting
-          editCommand="CustomEdit"
-          deleteCommand="CustomDelete"
           commandTemplate={props => <CommandButton {...props} />}
+          getMessage={() => 'Custom message'}
         />,
       );
 
       const buttons = tree.find(CommandButton);
       expect(buttons).toHaveLength(2);
-      expect(buttons.at(0).text()).toBe('CustomEdit');
-      expect(buttons.at(1).text()).toBe('CustomDelete');
+      expect(buttons.at(0).text()).toBe('Custom message');
+      expect(buttons.at(1).text()).toBe('Custom message');
     });
 
     it('should render without exceptions in edit mode', () => {
@@ -105,22 +107,22 @@ describe('Table command column', () => {
           isEditing
           allowEditing
           allowDeleting
-          commitCommand="CustomCommit"
-          cancelCommand="CustomCancel"
           commandTemplate={props => <CommandButton {...props} />}
+          getMessage={() => 'Custom message'}
         />,
       );
 
       const buttons = tree.find(CommandButton);
       expect(buttons).toHaveLength(2);
-      expect(buttons.at(0).text()).toBe('CustomCommit');
-      expect(buttons.at(1).text()).toBe('CustomCancel');
+      expect(buttons.at(0).text()).toBe('Custom message');
+      expect(buttons.at(1).text()).toBe('Custom message');
     });
 
     it('should not render command buttons if allowEditing and allowDeleting are false', () => {
       const tree = mount(
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
+          getMessage={() => {}}
         />,
       );
 
@@ -133,6 +135,7 @@ describe('Table command column', () => {
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
           allowEditing
+          getMessage={() => {}}
         />,
       );
 
@@ -145,6 +148,7 @@ describe('Table command column', () => {
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
           allowDeleting
+          getMessage={() => {}}
         />,
       );
 
@@ -164,6 +168,7 @@ describe('Table command column', () => {
           allowEditing
           allowDeleting
           commandTemplate={template}
+          getMessage={() => {}}
         />,
       );
 
@@ -193,6 +198,7 @@ describe('Table command column', () => {
           allowAdding
           allowDeleting
           commandTemplate={template}
+          getMessage={() => {}}
         />,
       );
 

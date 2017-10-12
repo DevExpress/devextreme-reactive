@@ -115,8 +115,8 @@ export default class Demo extends React.PureComponent {
           />
           <CustomGrouping
             getChildGroups={getChildGroups}
-            tempGrouping={tempGrouping}
-            tempExpandedGroups={tempExpandedGroups}
+            grouping={tempGrouping}
+            expandedGroups={tempExpandedGroups}
           />
           <VirtualTableView />
           <TableHeaderRow allowDragging />

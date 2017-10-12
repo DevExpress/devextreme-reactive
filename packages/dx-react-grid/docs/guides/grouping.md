@@ -89,7 +89,7 @@ Grouping options are updated once an end-user interacts with grouping UI. Handle
 
 In the case of remote filtering, you should use the `CustomGrouping` plugin instead of the `LocalGrouping` plugin.
 
-While waiting for a response from a server, the grouping state does not correspond the `Grid` component's data. So, in order to leave UI consistent, please specify `tempGrouping` and `tempExpandedGroups` properties to the `CustomGrouping` plugin based on the `grouping` and `expandedGroups` values from the `GroupingState` plugin at the time of sending a request. Once the grouped data is received from the server, pass it to the `Grid` component's `data` property and reset values provided to `tempGrouping` and `tempExpandedGroups` properties of the `CustomGrouping` plugin.
+While waiting for a response from a server, the grouping state does not correspond the `Grid` component's data. So, in order to leave UI consistent, specify `grouping` and `expandedGroups` properties to the `CustomGrouping` plugin based on the `grouping` and `expandedGroups` values from the `GroupingState` plugin at the time of sending a request. Once the grouped data is received from the server, pass it to the `Grid` component's `data` property and reset values provided to `grouping` and `expandedGroups` properties of the `CustomGrouping` plugin.
 
 The following example demonstrates the remote grouping with the local expanding/collapsing.
 

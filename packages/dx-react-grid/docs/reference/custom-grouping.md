@@ -13,8 +13,8 @@ A plugin that converts grouped data in a custom format to the supported format a
 Name | Type | Default | Description
 -----|------|---------|------------
 getChildGroups | (currentData: any, grouping: [Grouping](grouping-state.md#grouping), rootData: any) => Array&lt;{ key: number &#124; string, value?: any, nestedData?: Array&lt;any&gt; }&gt; | | A function that extracts groups from the data passed to it. It executes recursively for root data and each group nested data if nested groups are expected.
-tempGrouping | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | | Specifies columns by which data is grouped by.
-tempExpandedGroups | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | | Specifies expanded groups in data.
+grouping | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | | Specifies columns by which data is grouped by.
+expandedGroups | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | | Specifies expanded groups in data.
 
 ## Plugin Developer Reference
 

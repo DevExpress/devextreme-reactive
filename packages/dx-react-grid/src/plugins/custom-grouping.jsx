@@ -20,8 +20,12 @@ const getRowIdComputed = ({ getRowId, rows }) =>
 
 export class CustomGrouping extends React.PureComponent {
   render() {
-    const { getChildGroups, tempGrouping, tempExpandedGroups } = this.props;
-    const groupedGridRowsComputed = ({ rows, grouping }) =>
+    const {
+      getChildGroups,
+      grouping: appliedGrouping,
+      expandedGroups: appliedExpandedGroups,
+    } = this.props;
+    const groupedRowsComputed = ({ rows, grouping }) =>
       customGroupedRows(rows, grouping, getChildGroups);
 
     return (
@@ -29,15 +33,15 @@ export class CustomGrouping extends React.PureComponent {
         pluginName="CustomGrouping"
         dependencies={pluginDependencies}
       >
-        {tempGrouping && (
-          <Getter name="grouping" value={tempGrouping} />
+        {appliedGrouping && (
+          <Getter name="grouping" value={appliedGrouping} />
         )}
-        {tempExpandedGroups && (
-          <Getter name="expandedGroups" value={new Set(tempExpandedGroups)} />
+        {appliedExpandedGroups && (
+          <Getter name="expandedGroups" value={new Set(appliedExpandedGroups)} />
         )}
         <Getter name="isGroupRow" value={groupRowChecker} />
         <Getter name="getRowLevelKey" value={groupRowLevelKeyGetter} />
-        <Getter name="rows" computed={groupedGridRowsComputed} />
+        <Getter name="rows" computed={groupedRowsComputed} />
         <Getter name="getRowId" computed={getRowIdComputed} />
         <Getter name="rows" computed={expandedGroupedRowsComputed} />
       </PluginContainer>
@@ -47,11 +51,11 @@ export class CustomGrouping extends React.PureComponent {
 
 CustomGrouping.propTypes = {
   getChildGroups: PropTypes.func.isRequired,
-  tempGrouping: PropTypes.array,
-  tempExpandedGroups: PropTypes.array,
+  grouping: PropTypes.array,
+  expandedGroups: PropTypes.array,
 };
 
 CustomGrouping.defaultProps = {
-  tempGrouping: undefined,
-  tempExpandedGroups: undefined,
+  grouping: undefined,
+  expandedGroups: undefined,
 };

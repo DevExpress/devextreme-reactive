@@ -128,38 +128,38 @@ describe('CustomGrouping', () => {
   });
 
   describe('temporary grouping', () => {
-    it('should provide grouping and expanded groups based on tempGrouping and tempExpandedGroups properties', () => {
-      const tempGrouping = [{ columnName: 'a' }];
-      const tempExpandedGroups = ['a', 'b'];
+    it('should provide grouping and expanded groups based on grouping and expandedGroups properties', () => {
+      const grouping = [{ columnName: 'a' }];
+      const expandedGroups = ['a', 'b'];
 
       const tree = mount(
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <CustomGrouping
             {...defaultProps}
-            tempGrouping={tempGrouping}
-            tempExpandedGroups={tempExpandedGroups}
+            grouping={grouping}
+            expandedGroups={expandedGroups}
           />
         </PluginHost>,
       );
 
       expect(getComputedState(tree).getters.grouping)
-        .toBe(tempGrouping);
+        .toBe(grouping);
       expect(getComputedState(tree).getters.expandedGroups)
-        .toEqual(new Set(tempExpandedGroups));
+        .toEqual(new Set(expandedGroups));
     });
 
-    it('should provide rows getter based on tempGrouping and tempExpandedGroups properties', () => {
-      const tempGrouping = [{ columnName: 'a' }];
-      const tempExpandedGroups = ['a', 'b'];
+    it('should provide rows getter based on grouping and expandedGroups properties', () => {
+      const grouping = [{ columnName: 'a' }];
+      const expandedGroups = ['a', 'b'];
 
       const tree = mount(
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <CustomGrouping
             {...defaultProps}
-            tempGrouping={tempGrouping}
-            tempExpandedGroups={tempExpandedGroups}
+            grouping={grouping}
+            expandedGroups={expandedGroups}
           />
         </PluginHost>,
       );
@@ -167,14 +167,14 @@ describe('CustomGrouping', () => {
       expect(customGroupedRows)
         .toBeCalledWith(
           defaultDeps.getter.rows,
-          tempGrouping,
+          grouping,
           defaultProps.getChildGroups);
 
       expect(expandedGroupRows)
         .toBeCalledWith(
           customGroupedRows(),
-          tempGrouping,
-          new Set(tempExpandedGroups));
+          grouping,
+          new Set(expandedGroups));
 
       expect(getComputedState(tree).getters.rows)
         .toBe(expandedGroupRows());

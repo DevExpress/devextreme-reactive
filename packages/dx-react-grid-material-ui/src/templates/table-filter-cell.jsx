@@ -33,7 +33,7 @@ const TableFilterCellBase = ({
       <Input
         className={classes.input}
         value={filter ? filter.value : ''}
-        placeholder={(getMessage && getMessage('filterPlaceholder')) || 'Filter...'}
+        placeholder={getMessage('filterPlaceholder') || 'Filter...'}
         onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
       />
     )}
@@ -49,7 +49,7 @@ TableFilterCellBase.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
-  getMessage: PropTypes.func,
+  getMessage: PropTypes.func.isRequired,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -57,7 +57,6 @@ TableFilterCellBase.defaultProps = {
   filter: null,
   setFilter: () => {},
   children: undefined,
-  getMessage: undefined,
 };
 
 export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

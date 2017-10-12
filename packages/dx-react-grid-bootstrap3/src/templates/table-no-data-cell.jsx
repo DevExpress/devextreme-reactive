@@ -10,18 +10,17 @@ export const TableNoDataCell = ({ style, colSpan, getMessage }) => (
     }}
     colSpan={colSpan}
   >
-    <big className="text-muted">{(getMessage && getMessage('noData')) || 'No data'}</big>
+    <big className="text-muted">{getMessage('noData') || 'No data'}</big>
   </td>
 );
 
 TableNoDataCell.propTypes = {
   style: PropTypes.shape(),
   colSpan: PropTypes.number,
-  getMessage: PropTypes.func,
+  getMessage: PropTypes.func.isRequired,
 };
 
 TableNoDataCell.defaultProps = {
   style: null,
   colSpan: 1,
-  getMessage: undefined,
 };

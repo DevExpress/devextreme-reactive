@@ -28,7 +28,7 @@ const GroupPanelTextBase = ({
   allowUngroupingByClick,
   getMessage,
 }) => {
-  const message = getMessage && getMessage('groupByColumn');
+  const message = getMessage('groupByColumn');
   if (message) {
     return (
       <span className={classes.groupInfo}>
@@ -67,13 +67,12 @@ GroupPanelTextBase.propTypes = {
   classes: PropTypes.shape().isRequired,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
-  getMessage: PropTypes.func,
+  getMessage: PropTypes.func.isRequired,
 };
 
 GroupPanelTextBase.defaultProps = {
   allowDragging: false,
   allowUngroupingByClick: false,
-  getMessage: undefined,
 };
 
 const GroupPanelText = withStyles(styles, { name: 'GroupPanel' })(GroupPanelTextBase);
@@ -112,12 +111,8 @@ const GroupPanelBase = ({ getMessage, classes, ...restProps }) => {
 };
 
 GroupPanelBase.propTypes = {
-  getMessage: PropTypes.func,
+  getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-};
-
-GroupPanelBase.defaultProps = {
-  getMessage: undefined,
 };
 
 export const GroupPanel = withStyles(styles, { name: 'GroupPanel' })(GroupPanelBase);

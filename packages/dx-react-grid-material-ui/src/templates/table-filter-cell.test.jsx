@@ -23,19 +23,7 @@ describe('TableFilterCell', () => {
         column={{
           name: 'Test',
         }}
-      />,
-    );
-
-    expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
-  });
-
-  it('should use the \'Filter...\' placeholder if user-defined function returns nothing', () => {
-    const tree = mount(
-      <TableFilterCell
-        column={{
-          name: 'Test',
-        }}
-        getMessage={() => undefined}
+        getMessage={() => {}}
       />,
     );
 
@@ -63,6 +51,7 @@ describe('TableFilterCell', () => {
           name: 'Test',
         }}
         setFilter={setFilterMock}
+        getMessage={() => {}}
         value={'abc'}
       />,
     );
@@ -73,7 +62,7 @@ describe('TableFilterCell', () => {
 
   it('should render children if passed', () => {
     const tree = mount(
-      <TableFilterCell>
+      <TableFilterCell getMessage={() => {}}>
         <span className="test" />
       </TableFilterCell>,
     );

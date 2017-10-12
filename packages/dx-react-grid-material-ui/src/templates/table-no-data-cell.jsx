@@ -20,21 +20,20 @@ export const TableNoDataCellBase = ({ style, colSpan, getMessage, classes }) => 
     className={classes.cell}
     colSpan={colSpan}
   >
-    <big className="text-muted">{(getMessage && getMessage('noData')) || 'No data'}</big>
+    <big className="text-muted">{getMessage('noData') || 'No data'}</big>
   </TableCell>
 );
 
 TableNoDataCellBase.propTypes = {
   style: PropTypes.shape(),
   colSpan: PropTypes.number,
-  getMessage: PropTypes.func,
+  getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 TableNoDataCellBase.defaultProps = {
   style: null,
   colSpan: 1,
-  getMessage: undefined,
 };
 
 export const TableNoDataCell = withStyles(styles, { name: 'TableNoDataCell' })(TableNoDataCellBase);

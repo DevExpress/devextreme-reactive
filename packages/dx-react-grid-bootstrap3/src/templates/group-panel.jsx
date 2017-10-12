@@ -9,7 +9,7 @@ const defaultTextStyle = {
 };
 
 const getText = (allowDragging, allowUngroupingByClick, getMessage) => {
-  const message = getMessage && getMessage('groupByColumn');
+  const message = getMessage('groupByColumn');
   if (message) {
     return (
       <span style={defaultTextStyle}>
@@ -69,9 +69,5 @@ export const GroupPanel = ({ getMessage, ...restProps }) => (
 );
 
 GroupPanel.propTypes = {
-  getMessage: PropTypes.func,
-};
-
-GroupPanel.defaultProps = {
-  getMessage: undefined,
+  getMessage: PropTypes.func.isRequired,
 };

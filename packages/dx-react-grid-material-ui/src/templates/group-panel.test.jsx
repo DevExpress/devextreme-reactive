@@ -29,18 +29,7 @@ describe('GroupPanel', () => {
 
   it('should render default text withih group panel', () => {
     const tree = mount(
-      <GroupPanel />,
-    );
-
-    expect(tree.find(GroupPanelLayout).text())
-      .toBe('Grouping is not available');
-  });
-
-  it('should render default text withih group panel if user-defined function returns nothing', () => {
-    const tree = mount(
-      <GroupPanel
-        getMessage={() => undefined}
-      />,
+      <GroupPanel getMessage={() => {}} />,
     );
 
     expect(tree.find(GroupPanelLayout).text())
@@ -51,6 +40,7 @@ describe('GroupPanel', () => {
     const tree = mount(
       <GroupPanel
         allowUngroupingByClick
+        getMessage={() => {}}
       />,
     );
 
@@ -62,6 +52,7 @@ describe('GroupPanel', () => {
     const tree = mount(
       <GroupPanel
         allowDragging
+        getMessage={() => {}}
       />,
     );
 
@@ -74,6 +65,7 @@ describe('GroupPanel', () => {
       <GroupPanel
         allowDragging
         allowUngroupingByClick
+        getMessage={() => {}}
       />,
     );
 

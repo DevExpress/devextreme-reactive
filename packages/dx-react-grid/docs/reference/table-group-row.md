@@ -39,7 +39,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row's data object.
+row | [GroupRow](#group-row) | The group row.
 column | [Column](#column) | The column associated with the group.
 isExpanded | boolean | Specifies if the row is expanded.
 toggleGroupExpanded | () => void | Toggles the group row's expanded state.
@@ -52,7 +52,7 @@ A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by 
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row's data object.
+row | [GroupRow](#group-row) | The group row.
 
 ### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
 
@@ -62,17 +62,17 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row's data object.
+row | [GroupRow](#group-row) | The group row.
 column | [Column](#column) | The column associated with the group.
 
 ### <a name="group-row"></a>GroupRow
 
-Describes the group row data structure.
+Describes the group row structure.
 
 Field | Type | Description
 ------|------|------------
-type | 'groupRow' | A string value that identifies the group row.
-value | any | The current group key value.
+key | string | The current group key.
+value | any | The current group value.
 
 ## Plugin Developer Reference
 
@@ -85,6 +85,7 @@ tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Tabl
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview.
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
+isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state.
 tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
 tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.

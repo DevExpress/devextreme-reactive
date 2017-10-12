@@ -30,7 +30,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | A row object that shows row details.
+row | any | A row.
 
 ### <a name="detail-cell-args"></a>DetailCellArgs
 
@@ -40,7 +40,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | A row object.
+row | any | A row.
 template | () => ReactElement | A component that renders row details.
 
 ### <a name="detail-row-args"></a>DetailRowArgs
@@ -51,7 +51,7 @@ A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by 
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | A row object.
+row | any | A row.
 
 ### <a name="detail-toggle-args"></a>DetailToggleArgs
 
@@ -61,7 +61,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-row | [Row](grid.md#row) | A row object.
+row | any | A row.
 expanded | boolean | Specifies if row details are displayed.
 toggleExpanded | () => void | Toggles a row's expanded state.
 

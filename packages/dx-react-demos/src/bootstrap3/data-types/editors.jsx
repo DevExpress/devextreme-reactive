@@ -16,6 +16,8 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
+const getRowId = row => row.id;
+
 const BooleanTypeProvider = () => (
   <DataTypeProvider
     type="boolean"
@@ -80,7 +82,7 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
-        getRowId={row => row.id}
+        getRowId={getRowId}
       >
         <BooleanTypeProvider />
         <EditingState

@@ -21,7 +21,7 @@ allowDragging | boolean | false | Specifies whether an end-user can change group
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel.
 groupPanelItemTemplate? | (args: [GroupPanelItemProps](#group-panel-item-props)) => ReactElement | | Renders a group panel item. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
-messages | [Messages](#messages) | | The object specifies localization messages.
+messages | object | | The object specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -79,14 +79,12 @@ changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: str
 groupByColumn | ({ columnName: string }) | Toggles the column's grouping state.
 allowUngroupingByClick | boolean | Specifies whether to display the button that cancels grouping by the column.
 
-## Interfaces
+## Localization Messages
 
-### <a name="messages"></a>Messages
-
-Describes localization messages.
+An object with the following shape:
 
 Field | Type | Description
-------|------|------------
+------|------|---------|------------
 groupByColumn? | string | The text displayed in the group panel if the grid is not grouped.
 
 ## Plugin Developer Reference

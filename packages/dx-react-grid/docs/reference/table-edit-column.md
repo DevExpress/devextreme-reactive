@@ -20,7 +20,7 @@ allowAdding | boolean | false | If set to true, the 'New' command is rendered wi
 allowEditing | boolean | false | If set to true, the 'Edit' command is rendered within the data row's command cell.
 allowDeleting | boolean | false | If set to true, the 'Delete' command is rendered within the data row's command cell.
 width | number &#124; string | 140 | Specifies the width of the edit column.
-messages | [Messages](#messages) | | The object specifies localization messages.
+messages | object | | The object specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -65,9 +65,9 @@ Field | Type | Description
 executeCommand | () => void | Executes the command.
 text | string | Specifies the text to be rendered within the command control.
 
-### <a name="messages"></a>Messages
+## Localization Messages
 
-Describes localization messages.
+An object with the following shape:
 
 Field | Type | Default | Description
 ------|------|---------|------------

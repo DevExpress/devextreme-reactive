@@ -22,7 +22,7 @@ tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement
 tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided.
 tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided.
 allowColumnReordering | boolean | false | If true, it allows end-users to change the column's order by dragging it. Requires the [ColumnOrderState](column-order-state.md) and the [DragDropContext](drag-drop-context.md) dependencies.
-messages | [Messages](#messages) | | The object specifies localization messages.
+messages | object | | The object specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -120,9 +120,9 @@ Field | Type | Description
 ------|------|------------
 row | any | A row.
 
-### <a name="messages"></a>Messages
+## Localization Messages
 
-Describes localization messages.
+An object with the following shape:
 
 Field | Type | Default | Description
 ------|------|---------|------------

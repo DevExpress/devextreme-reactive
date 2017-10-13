@@ -33,7 +33,7 @@ export default class Demo extends React.PureComponent {
       data: [{
         key: 'Male',
         items: generateRows({
-          columnValues: { ...defaultColumnValues, sex: ['Female'] },
+          columnValues: { ...defaultColumnValues, sex: ['Male'] },
           length: 7,
         }),
       }, {

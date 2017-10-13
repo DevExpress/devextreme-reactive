@@ -30,9 +30,6 @@ const defaultDeps = {
     getRowId: () => {},
     getCellValue: () => {},
   },
-  action: {
-    setColumnOrder: jest.fn(),
-  },
   template: {
     body: undefined,
   },

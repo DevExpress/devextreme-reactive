@@ -2,12 +2,11 @@ import React from 'react';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-  TableColumnReordering,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext,
+  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
@@ -88,7 +87,6 @@ export default class Demo extends React.PureComponent {
             }
             return undefined;
           }}
-          allowColumnReordering
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

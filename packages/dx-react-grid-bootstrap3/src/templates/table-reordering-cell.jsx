@@ -1,0 +1,19 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+export const TableReorderingCell = ({ getCellDimension }) => {
+  const refHandler = node => node && getCellDimension(() => {
+    const { left, right } = node.getBoundingClientRect();
+    return { left, right };
+  });
+  return (
+    <td
+      ref={refHandler}
+      style={{ padding: 0 }}
+    />
+  );
+};
+
+TableReorderingCell.propTypes = {
+  getCellDimension: PropTypes.func.isRequired,
+};

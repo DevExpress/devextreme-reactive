@@ -33,8 +33,6 @@ export const Table = ({
   columns,
   cellTemplate,
   rowTemplate,
-  allowColumnReordering,
-  moveColumn,
 }) => (
   <TableLayout
     className="table-responsive"
@@ -47,8 +45,6 @@ export const Table = ({
     bodyTemplate={bodyTemplate}
     rowTemplate={rowTemplate}
     cellTemplate={cellTemplate}
-    allowColumnReordering={allowColumnReordering}
-    moveColumn={moveColumn}
   />
 );
 
@@ -58,10 +54,4 @@ Table.propTypes = {
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   rowTemplate: PropTypes.func.isRequired,
-  allowColumnReordering: PropTypes.bool.isRequired,
-  moveColumn: PropTypes.func,
-};
-
-Table.defaultProps = {
-  moveColumn: () => {},
 };

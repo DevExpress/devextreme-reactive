@@ -1,12 +1,10 @@
 import React from 'react';
 import {
-  TableColumnReordering,
-} from '@devexpress/dx-react-grid';
-import {
   Grid,
   DragDropContext,
   TableView,
   TableHeaderRow,
+  TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -42,7 +40,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <DragDropContext />
-        <TableView allowColumnReordering />
+        <TableView />
         <TableColumnReordering
           order={columnOrder}
           onOrderChange={this.changeColumnOrder}

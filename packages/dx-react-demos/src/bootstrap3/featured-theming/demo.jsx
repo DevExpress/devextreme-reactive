@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, PagingState, GroupingState,
-  LocalGrouping, LocalPaging, LocalSorting,
-  TableColumnReordering, RowDetailState,
+  LocalGrouping, LocalPaging, LocalSorting, RowDetailState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
+  TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import { Nav, NavItem, ListGroup, ListGroupItem } from 'react-bootstrap';
 
@@ -178,7 +178,7 @@ export default class Demo extends React.PureComponent {
 
         <DragDropContext />
 
-        <TableView allowColumnReordering />
+        <TableView />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 

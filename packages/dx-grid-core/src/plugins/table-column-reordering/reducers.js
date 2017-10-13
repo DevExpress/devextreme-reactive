@@ -1,4 +1,4 @@
-export const setColumnOrder = (order, { sourceColumnName, targetColumnName }) => {
+export const changeColumnOrder = (order, { sourceColumnName, targetColumnName }) => {
   const sourceColumnIndex = order.indexOf(sourceColumnName);
   const targetColumnIndex = order.indexOf(targetColumnName);
   const newOrder = Array.from(order);

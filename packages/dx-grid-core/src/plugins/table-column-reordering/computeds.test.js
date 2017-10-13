@@ -1,25 +1,23 @@
 import Immutable from 'seamless-immutable';
-
-import {
-  orderedColumns,
-} from './computeds';
+import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { orderedColumns } from './computeds';
 
 describe('TableColumnReordering computeds', () => {
   describe('#orderedColumns', () => {
     it('should return columns in the order specified', () => {
       const tableColumns = [
-        { column: { name: 'a' } },
-        { column: { name: 'b', payload: {} } },
-        { column: { name: 'c' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b', payload: {} } },
+        { type: TABLE_DATA_TYPE, column: { name: 'c' } },
       ];
       const order = ['b', 'a', 'c'];
 
       const computed = orderedColumns(tableColumns, order);
       expect(computed)
         .toEqual([
-          { column: { name: 'b', payload: {} } },
-          { column: { name: 'a' } },
-          { column: { name: 'c' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'b', payload: {} } },
+          { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'c' } },
         ]);
       expect(computed === tableColumns)
         .toBeFalsy();
@@ -27,17 +25,30 @@ describe('TableColumnReordering computeds', () => {
 
     it('should work with immutable columns', () => {
       const tableColumns = Immutable([
-        { column: { name: 'a' } },
-        { column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
       ]);
-      const order = ['b', 'a'];
 
-      const computed = orderedColumns(tableColumns, order);
+      expect(orderedColumns(tableColumns, ['b', 'a']))
+        .toEqual([
+          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        ]);
+    });
 
-      expect(computed).toEqual([
-        { column: { name: 'b' } },
-        { column: { name: 'a' } },
-      ]);
+    it('should work correctly with non-data columns', () => {
+      const tableColumns = [
+        { type: 'test', column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'c' } },
+      ];
+
+      expect(orderedColumns(tableColumns, ['c', 'a', 'b']))
+        .toEqual([
+          { type: 'test', column: { name: 'a' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'c' } },
+          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        ]);
     });
   });
 });

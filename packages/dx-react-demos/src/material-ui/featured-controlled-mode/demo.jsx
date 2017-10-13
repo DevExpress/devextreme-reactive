@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import {
   SortingState, EditingState, PagingState,
   LocalPaging, LocalSorting,
-  TableColumnReordering,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropContext,
+  PagingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   TableCell,
@@ -303,7 +302,6 @@ class DemoBase extends React.PureComponent {
 
           <TableView
             tableCellTemplate={this.tableCellTemplate}
-            allowColumnReordering
           />
 
           <TableColumnReordering

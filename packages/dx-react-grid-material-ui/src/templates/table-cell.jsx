@@ -13,6 +13,7 @@ const styles = theme => ({
     '& ~ $cell': {
       paddingLeft: theme.spacing.unit,
     },
+    overflow: 'hidden',
   },
   cellRightAlign: {
     textAlign: 'right',

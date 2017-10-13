@@ -26,28 +26,26 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const localization = {
-  tableView: {
-    noData: 'Keine Daten verfügba',
-  },
-  editColumn: {
-    addCommand: 'Neue Zeile',
-    editCommand: 'Bearbeiten',
-    deleteCommand: 'Entfernen',
-    commitCommand: 'Speichern',
-    cancelCommand: 'Abbrechen',
-  },
-  groupingPanel: {
-    groupByColumn: 'Ziehen Sie eine Spalte hierhin, um danach zu gruppieren',
-  },
-  filterRow: {
-    filterPlaceholder: 'Filter...',
-  },
-  pagingPanel: {
-    showAll: 'Alle',
-    rowsPerPage: 'Zeilen pro Seite',
-    info: 'Zeile {firstRow} von {lastRow}({totalCount} Elemente)',
-  },
+const tableViewMessages = {
+  noData: 'Keine Daten verfügba',
+};
+const editColumnMessages = {
+  addCommand: 'Neue Zeile',
+  editCommand: 'Bearbeiten',
+  deleteCommand: 'Entfernen',
+  commitCommand: 'Speichern',
+  cancelCommand: 'Abbrechen',
+};
+const groupingPanelMessages = {
+  groupByColumn: 'Ziehen Sie eine Spalte hierhin, um danach zu gruppieren',
+};
+const filterRowMessages = {
+  filterPlaceholder: 'Filter...',
+};
+const pagingPanelMessages = {
+  showAll: 'Alle',
+  rowsPerPage: 'Zeilen pro Seite',
+  info: 'Zeile {firstRow} von {lastRow}({totalCount} Elemente)',
 };
 
 export default class Demo extends React.PureComponent {
@@ -87,7 +85,7 @@ export default class Demo extends React.PureComponent {
         />
         <LocalPaging />
         <TableView
-          messages={localization.tableView}
+          messages={tableViewMessages}
         />
         <TableHeaderRow allowDragging />
 
@@ -97,22 +95,22 @@ export default class Demo extends React.PureComponent {
           allowEditing
           allowDeleting
           width={250}
-          messages={localization.editColumn}
+          messages={editColumnMessages}
         />
 
         <TableFilterRow
-          messages={localization.filterRow}
+          messages={filterRowMessages}
         />
         <GroupingPanel
           allowUngroupingByClick
           allowDragging
-          messages={localization.groupingPanel}
+          messages={groupingPanelMessages}
         />
 
         <TableGroupRow />
         <PagingPanel
           allowedPageSizes={[5, 10, 15, 0]}
-          messages={localization.pagingPanel}
+          messages={pagingPanelMessages}
         />
       </Grid>
     );

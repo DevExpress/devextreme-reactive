@@ -57,6 +57,9 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
+
+    // eslint-disable-next-line no-alert
+    this.commitChanges = () => alert('Editing isn\'t implemented in this demo');
   }
   render() {
     const { rows, columns } = this.state;
@@ -70,7 +73,7 @@ export default class Demo extends React.PureComponent {
         <FilteringState defaultFilters={[]} />
         <GroupingState defaultGrouping={[]} />
         <EditingState
-          onCommitChanges={() => {}}
+          onCommitChanges={this.commitChanges}
         />
 
         <LocalFiltering />

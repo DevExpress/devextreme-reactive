@@ -23,7 +23,6 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 6 }),
-      columnOrder: ['city', 'sex', 'car', 'name'],
       hiddenColumns: ['sex', 'car'],
     };
 

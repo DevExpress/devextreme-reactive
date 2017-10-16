@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableReorderingCell = ({ getCellDimension }) => {
+export const TableReorderingCell = ({ style, getCellDimension }) => {
   const refHandler = node => node && getCellDimension(() => {
     const { left, right } = node.getBoundingClientRect();
     return { left, right };
@@ -9,11 +9,16 @@ export const TableReorderingCell = ({ getCellDimension }) => {
   return (
     <td
       ref={refHandler}
-      style={{ padding: 0 }}
+      style={{ ...style, padding: 0 }}
     />
   );
 };
 
 TableReorderingCell.propTypes = {
   getCellDimension: PropTypes.func.isRequired,
+  style: PropTypes.object,
+};
+
+TableReorderingCell.defaultProps = {
+  style: {},
 };

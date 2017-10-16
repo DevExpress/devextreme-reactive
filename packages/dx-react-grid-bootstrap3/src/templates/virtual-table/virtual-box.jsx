@@ -30,6 +30,7 @@ function getVisibleItems(options) {
     const itemInfo = options.itemInfo(index);
     const itemSize = itemInfo.size;
     const itemStick = itemInfo.stick;
+    const key = itemInfo.key;
 
     if (itemStick === 'before' && offset <= viewportStart) {
       stickyItemsMetas.push({ index, offset, size: itemSize, stick: itemStick });
@@ -42,10 +43,9 @@ function getVisibleItems(options) {
         (offset < viewportStart + viewportSize && offset > viewportStart) ||
         (offset <= viewportStart && offset + itemSize >= viewportStart + viewportSize)
       ) &&
-      itemSize > 0 &&
       itemStick === false
     ) {
-      visibleItemMetas.push({ index, offset, size: itemSize, stick: false });
+      visibleItemMetas.push({ index, key, offset, size: itemSize, stick: false });
     }
 
     index += 1;
@@ -159,7 +159,7 @@ export class VirtualBox extends React.Component {
       return React.cloneElement(
         this.props.itemTemplate(visibleItemMeta.index, visibleItemMeta.offset, styles),
         {
-          key: `${visibleItemMeta.index}`,
+          key: visibleItemMeta.key,
           style: styles,
         },
       );

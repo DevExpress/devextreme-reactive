@@ -125,6 +125,7 @@ export class TableColumnReordering extends React.PureComponent {
       {
         key: TABLE_REORDERING_TYPE,
         type: TABLE_REORDERING_TYPE,
+        height: 0,
       },
       ...tableHeaderRows,
     ];
@@ -162,12 +163,14 @@ export class TableColumnReordering extends React.PureComponent {
           name="tableViewCell"
           predicate={({ tableRow }) => tableRow.type === TABLE_REORDERING_TYPE}
         >
-          {({ tableColumn }) => {
-            const cellDimensionsGetter = fn => this.storeCellDimensionsGetter(tableColumn, fn);
+          {(params) => {
+            const cellDimensionsGetter = fn =>
+              this.storeCellDimensionsGetter(params.tableColumn, fn);
             return (
               <TemplateRenderer
                 template={reorderingCellTemplate}
                 params={{
+                  ...params,
                   getCellDimension: cellDimensionsGetter,
                 }}
               />

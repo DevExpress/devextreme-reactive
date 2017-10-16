@@ -6,6 +6,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
+  getHeaderRowScope,
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
@@ -30,11 +31,7 @@ const getHeaderTableCellTemplateArgs = (
     column: params.tableColumn.column,
     changeSortingDirection: ({ keepOther, cancel }) => {
       const scope = grouping
-        ? tableColumns
-          .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
-          .filter(tableColumn => grouping
-            .find(group => group.columnName !== tableColumn.column.name))
-          .map(tableColumn => tableColumn.column.name)
+        ? getHeaderRowScope(tableColumns, TABLE_DATA_TYPE)
         : null;
       setColumnSorting({ columnName: column.name, keepOther, cancel, scope });
     },

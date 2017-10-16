@@ -1,9 +1,18 @@
 import React from 'react';
 import { TableColumnReordering as TableColumnReorderingBase } from '@devexpress/dx-react-grid';
-import { TableReorderingRow } from '../templates/table-reordering-row';
+import { TableRow } from '../templates/table-row';
 import { TableReorderingCell } from '../templates/table-reordering-cell';
 
-const reorderingRowTemplate = params => <TableReorderingRow {...params} />;
+// eslint-disable-next-line react/prop-types
+const reorderingRowTemplate = ({ style, ...restParams }) => (
+  <TableRow
+    style={{
+      ...style,
+      visibility: 'hidden',
+    }}
+    {...restParams}
+  />
+);
 const reorderingCellTemplate = params => <TableReorderingCell {...params} />;
 
 export const TableColumnReordering = props => (

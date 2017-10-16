@@ -1,8 +1,8 @@
 # GroupingPanel Plugin Reference
 
-A plugin that renders the Grouping Panel (a panel that shows grouped columns in the Grid's header). An end-user can use this panel to modify grouping options.
+A plugin that renders the Grouping Panel in the Grid's header. This panel displays grouped columns and allows a user to modify grouping options.
 
-Optionally, the plugin allows an end-user to change grouped columns' sorting order and renders the corresponding sorting indicators.
+Optionally, the plugin allows an end-user to change grouped columns' sorting order and render sorting indicators.
 
 ## User Reference
 
@@ -17,7 +17,7 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 Name | Type | Default | Description
 -----|------|---------|------------
 allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
-allowDragging | boolean | false | Specifies whether an end-user can change grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
+allowDragging | boolean | false | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel.
 groupPanelItemTemplate? | (args: [GroupPanelItemProps](#group-panel-item-props)) => ReactElement | | Renders a group panel item. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
@@ -40,7 +40,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column) | Specifies the user column associated with the item.
+column | [Column](#column) | Specifies the column associated with the item.
 draft | boolean | Specifies whether the item should be rendered for the preview.
 
 ### <a name="group-panel-props"></a>GroupPanelProps
@@ -51,15 +51,15 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-allowSorting | boolean | Specifies whether an end-user can sort data by a column.
-allowDragging | boolean | Specifies whether an end-user can change grouping state by dragging columns between the group panel and the table header.
+allowSorting | boolean | Specifies whether an end-user can sort data by columns in the grouping panel.
+allowDragging | boolean | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header.
 sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column specified using the `columnName` argument. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
-groupingPanelItems | Array&lt;[GroupingPanelItem](#grouping-panel-item)&gt; | GroupingPanel items representing the columns by which the grid data is currently grouped.
-groupByColumnText | string | The text displayed in the group panel if the grid is not grouped.
-groupByColumn | ({ columnName: string }) => void | Toggles a column's grouping state.
-draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
-cancelGroupingChange | () => void | Resets the groupingChange state.
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the specified column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the specified column if `cancel` is set to true.
+groupingPanelItems | Array&lt;[GroupingPanelItem](#grouping-panel-item)&gt; | The Grouping Panel items.
+groupByColumnText | string | The text displayed in the group panel if grid data is not grouped.
+groupByColumn | ({ columnName: string }) => void | Toggles the column's grouping state.
+draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
+cancelGroupingChange | () => void | Resets the `groupingChange` state.
 allowUngroupingByClick | boolean | Specifies whether column headers display a button that cancels grouping by the column.
 groupPanelItemTemplate | (args: [GroupPanelItemProps](#group-panel-item-props)) => ReactElement | Renders a group panel item. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
 
@@ -73,11 +73,11 @@ Field | Type | Description
 ------|------|------------
 column | [Column](#column) | Specifies the column associated with the item.
 draft | boolean | Specifies whether the item should be rendered for the preview.
-allowSorting | boolean | Specifies whether an end-user can sort data by the column.
+allowSorting | boolean | Specifies whether an end-user can sort data by the column while it is in the grouping panel.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the direction of sorting by the column using the `columnName` argument. Keeps the current sorting options if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the specified column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
 groupByColumn | ({ columnName: string }) | Toggles the column's grouping state.
-allowUngroupingByClick | boolean | Specifies whether to display the button that cancels grouping by the column.
+allowUngroupingByClick | boolean | Specifies whether to display a button that cancels grouping by the column.
 
 ## Plugin Developer Reference
 
@@ -86,10 +86,10 @@ allowUngroupingByClick | boolean | Specifies whether to display the button that 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns.
-draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview.
+draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
 groupByColumn | Action | ({ columnName: string }) => void | Toggles a column's grouping state.
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting.
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Updates column sorting.
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
 cancelGroupingChange | Action | () => void | Resets the groupingChange state.
 

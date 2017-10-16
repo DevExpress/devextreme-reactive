@@ -12,7 +12,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies grouping options.
+grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by.
 defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping options in the uncontrolled mode.
 onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping option changes.
 expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups.

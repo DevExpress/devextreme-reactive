@@ -4,7 +4,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
-  tableRowsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
@@ -14,7 +13,6 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),
-  tableRowsWithSelection: jest.fn(),
   isSelectTableCell: jest.fn(),
   isSelectAllTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
@@ -62,7 +60,6 @@ describe('Table Selection', () => {
 
   beforeEach(() => {
     tableColumnsWithSelection.mockImplementation(() => 'tableColumnsWithSelection');
-    tableRowsWithSelection.mockImplementation(() => 'tableRowsWithSelection');
     isSelectTableCell.mockImplementation(() => false);
     isSelectAllTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
@@ -71,24 +68,7 @@ describe('Table Selection', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters', () => {
-    it('should extend tableBodyRows', () => {
-      const tree = mount(
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <TableSelection
-            {...defaultProps}
-            highlightSelected
-          />
-        </PluginHost>,
-      );
-
-      expect(getComputedState(tree).getters.tableBodyRows)
-        .toBe('tableRowsWithSelection');
-      expect(tableRowsWithSelection)
-        .toHaveBeenCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.selection);
-    });
-
+  describe('table layout getter', () => {
     it('should extend tableColumns', () => {
       const tree = mount(
         <PluginHost>
@@ -178,6 +158,7 @@ describe('Table Selection', () => {
       .toBeCalledWith(expect.objectContaining({
         ...defaultDeps.template.tableViewRow,
         selectByRowClick: true,
+        selected: false,
       }));
 
     expect(defaultDeps.action.setRowsSelection)
@@ -203,7 +184,10 @@ describe('Table Selection', () => {
 
     expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(selectRowTemplate)
-      .toBeCalledWith(expect.objectContaining(defaultDeps.template.tableViewRow));
+      .toBeCalledWith(expect.objectContaining({
+        ...defaultDeps.template.tableViewRow,
+        selected: true,
+      }));
   });
 
   it('should not use selectRowTemplate if highlightSelected & selectByRowClick are false', () => {

@@ -161,8 +161,8 @@ describe('Table Selection', () => {
         selected: false,
       }));
 
-    expect(defaultDeps.action.setRowsSelection)
-      .toBeCalledWith({
+    expect(defaultDeps.action.setRowsSelection.mock.calls[0][0])
+      .toEqual({
         rowIds: [defaultDeps.template.tableViewRow.tableRow.rowId],
       });
   });

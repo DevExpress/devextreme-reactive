@@ -6,17 +6,17 @@ A plugin that manages the grouping state. It controls by which column rows are g
 
 ### Dependencies
 
-none
+- [SortingState](sorting-state.md) [Optional]
 
 ### Properties
 
 Name | Type | Default | Description
 -----|------|---------|------------
 grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by.
-defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies initial grouping in the uncontrolled mode.
+defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | [] | Specifies initial grouping in the uncontrolled mode.
 onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping changes.
 expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups.
-defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies initially expanded groups in the uncontrolled mode.
+defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
 onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) => void | | Handles expanded group changes.
 
 ## Interfaces
@@ -55,6 +55,8 @@ A string value that consists of values by which rows are grouped, separated by t
 Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns.
+sorting? | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Applied column sorting.
+setColumnSorting? | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. Keeps existing sorting if `keepOther` is set to `true`. The `keepOther` can handle contains the names of columns will be keeped when sorting is applied. Cancels sorting by the current column if `cancel` is set to `true`.
 
 ### Exports
 

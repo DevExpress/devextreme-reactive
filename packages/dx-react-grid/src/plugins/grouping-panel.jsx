@@ -19,12 +19,7 @@ const getGroupPanelTemplateArgs = (
   sorting,
   groupByColumn,
   changeSortingDirection: ({ columnName, keepOther, cancel }) =>
-    setColumnSorting({
-      columnName,
-      keepOther,
-      cancel,
-      scope: draftGrouping.map(columnGrouping => columnGrouping.columnName),
-    }),
+    setColumnSorting({ columnName, keepOther, cancel }),
   draftGroupingChange: groupingChange => draftGroupingChange(groupingChange),
   cancelGroupingChange: () => cancelGroupingChange(),
 });

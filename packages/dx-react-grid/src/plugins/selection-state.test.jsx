@@ -27,7 +27,7 @@ describe('SelectionState', () => {
   let resetConsole;
 
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    resetConsole = setupConsole();
   });
   afterAll(() => {
     resetConsole();

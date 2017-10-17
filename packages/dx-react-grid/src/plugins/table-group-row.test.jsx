@@ -78,14 +78,14 @@ describe('TableGroupRow', () => {
 
   describe('table layout getters extending', () => {
     it('should extend tableBodyRows', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
             {...defaultProps}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithGrouping');
@@ -94,15 +94,15 @@ describe('TableGroupRow', () => {
     });
 
     it('should extend tableColumns', () => {
-      const tree = mount(
+      const tree = mount((
 
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
             {...defaultProps}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithGrouping');
@@ -128,15 +128,15 @@ describe('TableGroupRow', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableGroupRow
             {...defaultProps}
             showColumnWhenGrouped={null}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithGrouping');
@@ -155,15 +155,15 @@ describe('TableGroupRow', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableGroupRow
             {...defaultProps}
             showColumnWhenGrouped={null}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithGrouping');
@@ -182,7 +182,7 @@ describe('TableGroupRow', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableGroupRow
@@ -193,8 +193,8 @@ describe('TableGroupRow', () => {
               } return false;
             }}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithGrouping');
@@ -208,15 +208,15 @@ describe('TableGroupRow', () => {
     isGroupIndentTableCell.mockImplementation(() => true);
     const groupIndentCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableGroupRow
           {...defaultProps}
           groupIndentCellTemplate={groupIndentCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isGroupIndentTableCell)
       .toBeCalledWith(
@@ -235,15 +235,15 @@ describe('TableGroupRow', () => {
     isGroupTableCell.mockImplementation(() => true);
     const groupCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableGroupRow
           {...defaultProps}
           groupCellTemplate={groupCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isGroupTableCell)
       .toBeCalledWith(
@@ -265,14 +265,16 @@ describe('TableGroupRow', () => {
     const deps = {
       template: {
         tableViewCell: {
-          tableRow: { type: 'undefined', id: 1, value: 'row', row: { key: '1' } },
+          tableRow: {
+            type: 'undefined', id: 1, value: 'row', row: { key: '1' },
+          },
           tableColumn: { type: 'undefined', id: 1, column: { name: 'column', dataType: 'column' } },
           style: {},
         },
       },
     };
 
-    mount(
+    mount((
       <PluginHost>
         <DataTypeProvider
           type="column"
@@ -283,8 +285,8 @@ describe('TableGroupRow', () => {
           {...defaultProps}
           groupCellTemplate={groupCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(valueFormatter)
       .toHaveBeenCalledWith({
@@ -299,15 +301,15 @@ describe('TableGroupRow', () => {
     isGroupTableRow.mockImplementation(() => true);
     const groupRowTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableGroupRow
           {...defaultProps}
           groupRowTemplate={groupRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isGroupTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(groupRowTemplate).toBeCalledWith(expect.objectContaining({

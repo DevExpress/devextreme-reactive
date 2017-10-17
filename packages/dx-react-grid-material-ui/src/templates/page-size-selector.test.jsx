@@ -18,13 +18,14 @@ describe('PageSizeSelector', () => {
       allowedPageSizes,
       showAllText,
       onPageSizeChange = () => {},
-    }) => mount(
+    }) => mount((
       <PageSizeSelector
         pageSize={pageSize}
         allowedPageSizes={allowedPageSizes}
         showAllText={showAllText}
         onPageSizeChange={onPageSizeChange}
-      />);
+      />
+    ));
 
     it('can show info about page sizes', () => {
       const allowedPageSizes = [5, 10];

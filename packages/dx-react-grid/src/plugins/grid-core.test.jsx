@@ -35,7 +35,7 @@ describe('Grid', () => {
   });
 
   it('should render root template', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
@@ -56,8 +56,8 @@ describe('Grid', () => {
         <Template name="header"><div className="header-content" /></Template>
         <Template name="body"><div className="body-content" /></Template>
         <Template name="footer"><div className="footer-content" /></Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const root = tree.find('.root');
     expect(root.exists()).toBeTruthy();
@@ -67,7 +67,7 @@ describe('Grid', () => {
   });
 
   it('should render header placeholder', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
@@ -82,14 +82,14 @@ describe('Grid', () => {
             <div className="header-placeholder">{children}</div>}
         />
         <Template name="header"><div className="header-content" /></Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('.header-placeholder').find('.header-content').exists()).toBeTruthy();
   });
 
   it('should render header placeholder with null children if there are no header elements', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
@@ -103,14 +103,14 @@ describe('Grid', () => {
           headerPlaceholderTemplate={({ children }) =>
             children && <div className="header-placeholder">{children}</div>}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(!tree.find('.header-placeholder').exists()).toBeTruthy();
   });
 
   it('should render footer placeholder', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
@@ -125,14 +125,14 @@ describe('Grid', () => {
             <div className="footer-placeholder">{children}</div>}
         />
         <Template name="footer"><div className="footer-content" /></Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('.footer-placeholder').find('.footer-content').exists()).toBeTruthy();
   });
 
   it('should render footer placeholder with null children if there are no footer elements', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
@@ -146,21 +146,21 @@ describe('Grid', () => {
           footerPlaceholderTemplate={({ children }) =>
             children && <div className="footer-placeholder">{children}</div>}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(!tree.find('.footer-placeholder').exists()).toBeTruthy();
   });
 
   it('should provide rows', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
         />
         {pluginDepsToComponents({})}
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.rows)
       .toBe(defaultProps.rows);
@@ -169,15 +169,15 @@ describe('Grid', () => {
   it('should provide getRowId', () => {
     const getRowId = () => {};
 
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
           getRowId={getRowId}
         />
         {pluginDepsToComponents({})}
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(rowIdGetter)
       .toBeCalledWith(getRowId, defaultProps.rows);
@@ -188,15 +188,15 @@ describe('Grid', () => {
   it('should provide getCellValue', () => {
     const getCellValue = () => {};
 
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
           getCellValue={getCellValue}
         />
         {pluginDepsToComponents({})}
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(cellValueGetter)
       .toBeCalledWith(getCellValue, defaultProps.columns);

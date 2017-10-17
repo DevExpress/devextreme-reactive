@@ -34,12 +34,10 @@ export class PluginContainer extends React.PureComponent {
 PluginContainer.propTypes = {
   children: PropTypes.node.isRequired,
   pluginName: PropTypes.string,
-  dependencies: PropTypes.arrayOf(
-    PropTypes.shape({
-      pluginName: PropTypes.string,
-      optional: PropTypes.bool,
-    }),
-  ),
+  dependencies: PropTypes.arrayOf(PropTypes.shape({
+    pluginName: PropTypes.string,
+    optional: PropTypes.bool,
+  })),
 };
 
 PluginContainer.defaultProps = {

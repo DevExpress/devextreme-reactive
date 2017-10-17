@@ -1,11 +1,14 @@
 import React from 'react';
 import { createMount, getClasses } from 'material-ui/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
 import { Pagination } from './pagination';
 
 describe('Pagination', () => {
+  let resetConsole;
   let mount;
   let classes;
   beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['SheetsRegistry'] });
     mount = createMount();
     classes = getClasses(<Pagination
       totalPages={1}
@@ -16,6 +19,7 @@ describe('Pagination', () => {
     />);
   });
   afterAll(() => {
+    resetConsole();
     mount.cleanUp();
   });
 
@@ -26,15 +30,15 @@ describe('Pagination', () => {
       totalCount,
       pageSize,
       onCurrentPageChange = () => {},
-    }) => mount(
+    }) => mount((
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
         totalCount={totalCount}
         pageSize={pageSize}
         onCurrentPageChange={onCurrentPageChange}
-      />,
-    );
+      />
+    ));
 
     it('can select the first item', () => {
       const tree = mountPagination({

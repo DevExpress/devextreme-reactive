@@ -35,7 +35,9 @@ export default class Demo extends React.PureComponent {
     this.changePageSize = pageSize => this.setState({ pageSize });
   }
   render() {
-    const { rows, columns, pageSize, allowedPageSizes } = this.state;
+    const {
+      rows, columns, pageSize, allowedPageSizes,
+    } = this.state;
 
     return (
       <Grid

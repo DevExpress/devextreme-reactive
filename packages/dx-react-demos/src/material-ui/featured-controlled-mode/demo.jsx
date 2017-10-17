@@ -97,7 +97,9 @@ const commandTemplates = {
   ),
 };
 
-const LookupEditCellBase = (({ value, onValueChange, availableValues, classes }) => (
+const LookupEditCellBase = (({
+  value, onValueChange, availableValues, classes,
+}) => (
   <TableCell
     className={classes.lookupEditCell}
   >
@@ -106,9 +108,9 @@ const LookupEditCellBase = (({ value, onValueChange, availableValues, classes })
       onChange={event => onValueChange(event.target.value)}
       input={<Input classes={{ root: classes.inputRoot }} />}
     >
-      {availableValues.map(item =>
-        <MenuItem key={item} value={item}>{item}</MenuItem>,
-      )}
+      {availableValues.map(item => (
+        <MenuItem key={item} value={item}>{item}</MenuItem>
+      ))}
     </Select>
   </TableCell>
 ));
@@ -140,7 +142,9 @@ class DemoBase extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region', width: 110 },
-        { name: 'amount', title: 'Amount', align: 'right', width: 90 },
+        {
+          name: 'amount', title: 'Amount', align: 'right', width: 90,
+        },
         { name: 'discount', title: 'Discount', width: 110 },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
@@ -173,11 +177,10 @@ class DemoBase extends React.PureComponent {
       })),
     });
     this.changeChangedRows = changedRows => this.setState({ changedRows });
-    this.changeFilters = filters => this.setState({ filters });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows;
+      let { rows } = this.state;
       if (added) {
         const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [

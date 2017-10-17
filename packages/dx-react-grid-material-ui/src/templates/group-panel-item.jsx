@@ -35,12 +35,10 @@ const GroupPanelItemBase = ({
   allowSorting, sortingDirection, changeSortingDirection,
   classes,
 }) => {
-  const chipClassNames = classNames(
-    {
-      [classes.button]: true,
-      [classes.draftCell]: draft,
-    },
-  );
+  const chipClassNames = classNames({
+    [classes.button]: true,
+    [classes.draftCell]: draft,
+  });
 
   return (<Chip
     label={label(allowSorting, sortingDirection, column)}

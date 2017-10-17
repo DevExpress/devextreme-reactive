@@ -9,7 +9,9 @@ const styles = theme => ({
   },
 });
 
-const TableDetailCellBase = ({ colSpan, style, template, classes }) => (
+const TableDetailCellBase = ({
+  colSpan, style, template, classes,
+}) => (
   <TableCell
     style={style}
     colSpan={colSpan}
@@ -20,7 +22,7 @@ const TableDetailCellBase = ({ colSpan, style, template, classes }) => (
 );
 
 TableDetailCellBase.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   colSpan: PropTypes.number,
   template: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,

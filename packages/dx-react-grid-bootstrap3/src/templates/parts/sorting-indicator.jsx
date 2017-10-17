@@ -14,7 +14,7 @@ export const SortingIndicator = ({ direction, style }) => (
 
 SortingIndicator.propTypes = {
   direction: PropTypes.oneOf(['asc', 'desc']),
-  style: PropTypes.shape(),
+  style: PropTypes.object,
 };
 
 SortingIndicator.defaultProps = {

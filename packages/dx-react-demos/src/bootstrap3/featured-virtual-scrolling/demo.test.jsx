@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import VirtualScrollingDemo from './demo';
+import Demo from './demo';
 
 describe('BS3 featured: virtual scrolling demo', () => {
   let getRect;
@@ -19,10 +19,15 @@ describe('BS3 featured: virtual scrolling demo', () => {
 
   it('should work', () => {
     getRect.mockImplementation(() =>
-      ({ top: 0, left: 0, width: 800, height: 600, right: 800, bottom: 600 }));
+      ({
+        top: 0,
+        left: 0,
+        width: 800,
+        height: 600,
+        right: 800,
+        bottom: 600,
+      }));
 
-    mount(
-      <VirtualScrollingDemo />,
-    );
+    mount(<Demo />);
   });
 });

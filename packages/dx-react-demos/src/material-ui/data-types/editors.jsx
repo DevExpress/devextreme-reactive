@@ -32,8 +32,8 @@ const BooleanTypeProvider = () => (
         value={value ? 'Yes' : 'No'}
         onChange={event => onValueChange(event.target.value === 'Yes')}
       >
-        <MenuItem value={'Yes'}>Yes</MenuItem>
-        <MenuItem value={'No'}>No</MenuItem>
+        <MenuItem value="Yes">Yes</MenuItem>
+        <MenuItem value="No">No</MenuItem>
       </Select>
     )}
   />
@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
     };
 
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows;
+      let { rows } = this.state;
       if (added) {
         const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [

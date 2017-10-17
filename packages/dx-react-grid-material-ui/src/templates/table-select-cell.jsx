@@ -16,7 +16,9 @@ const styles = theme => ({
   },
 });
 
-export const TableSelectCellBase = ({ style, selected, changeSelected, classes }) => (
+export const TableSelectCellBase = ({
+  style, selected, changeSelected, classes,
+}) => (
   <TableCell
     padding="checkbox"
     style={style}
@@ -37,7 +39,7 @@ TableSelectCellBase.defaultProps = {
 };
 
 TableSelectCellBase.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   selected: PropTypes.bool,
   changeSelected: PropTypes.func,
   classes: PropTypes.object.isRequired,

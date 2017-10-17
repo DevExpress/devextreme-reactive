@@ -34,10 +34,13 @@ export class GroupPanelLayout extends React.PureComponent {
       const { draftGroupingChange, groupingPanelItems } = this.props;
       const { sourceColumnName, targetColumnIndex: prevTargetColumnIndex } = this.state;
       const itemGeometries = this.itemRefs.map(element => element.getBoundingClientRect());
-      const sourceColumnIndex = groupingPanelItems.findIndex(
-        column => column.name === sourceColumnName);
+      const sourceColumnIndex = groupingPanelItems
+        .findIndex(column => column.name === sourceColumnName);
       const targetColumnIndex = getGroupCellTargetIndex(
-        itemGeometries, sourceColumnIndex, clientOffset);
+        itemGeometries,
+        sourceColumnIndex,
+        clientOffset,
+      );
 
       if (prevTargetColumnIndex === targetColumnIndex) return;
 
@@ -173,7 +176,7 @@ GroupPanelLayout.propTypes = {
   sorting: PropTypes.any,
   changeSortingDirection: PropTypes.func,
   groupingPanelItems: PropTypes.arrayOf(PropTypes.shape({
-    column: PropTypes.shape(),
+    column: PropTypes.object,
     draft: PropTypes.bool,
   })).isRequired,
   groupByColumn: PropTypes.func,

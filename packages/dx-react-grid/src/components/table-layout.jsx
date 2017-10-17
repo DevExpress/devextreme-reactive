@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { TemplateRenderer } from '@devexpress/dx-react-core';
 import {
-  TABLE_DATA_TYPE,
   getAnimations,
   filterActiveAnimations,
   evalAnimations,
@@ -14,8 +13,12 @@ import { RowsBlockLayout } from './table-layout/rows-block-layout';
 
 const TABLE_FLEX_TYPE = 'flex';
 
-const getDataColumns = columns => columns
-  .filter(column => column.type === TABLE_DATA_TYPE);
+const areColumnsChanged = (prevColumns, nextColumns) => {
+  if (prevColumns.length !== nextColumns.length) return true;
+  const prevKeys = prevColumns.map(column => column.key);
+  return nextColumns.filter(column =>
+    prevKeys.indexOf(column.key) === -1).length !== 0;
+};
 
 export class TableLayout extends React.PureComponent {
   constructor(props) {
@@ -34,7 +37,7 @@ export class TableLayout extends React.PureComponent {
     const { columns: nextColumns } = nextProps;
     const { columns } = this.props;
 
-    if (getDataColumns(nextColumns).length !== getDataColumns(columns).length) return;
+    if (areColumnsChanged(columns, nextColumns)) return;
 
     // eslint-disable-next-line react/no-find-dom-node
     const tableRect = findDOMNode(this.tableNode)
@@ -94,7 +97,7 @@ export class TableLayout extends React.PureComponent {
     const columns = this.getColumns();
     const minWidth = columns
       .map(column => column.width || (column.type === TABLE_FLEX_TYPE ? 0 : minColumnWidth))
-      .reduce((accum, width) => accum + width, 0);
+      .reduce((acc, width) => acc + width, 0);
 
     const table = (
       <TemplateRenderer

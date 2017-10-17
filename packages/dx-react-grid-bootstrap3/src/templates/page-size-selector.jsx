@@ -7,7 +7,7 @@ export const PageSizeSelector = ({
   allowedPageSizes,
   getMessage,
 }) => {
-  const showAll = getMessage('showAll') || 'All';
+  const showAll = getMessage('showAll');
   return (
     <div style={{ display: 'inline-block' }}>
       <select

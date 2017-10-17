@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Pagination } from 'react-bootstrap';
 import { Pager } from './pager';
 
 describe('Pager', () => {
@@ -26,26 +25,22 @@ describe('Pager', () => {
     />);
 
     it('can show info about rendered pages', () => {
+      const getMessage = jest.fn();
+      const info = '11-20 of 96';
+      getMessage.mockImplementation(() => info);
+
       const tree = mountPager({
         totalPages: 10,
         currentPage: 1,
         totalCount: 96,
         pageSize: 10,
+        getMessage,
       });
 
-      expect(tree.find('div > span > span').text()).toBe('11-20 of 96');
-    });
-
-    it('can show info about rendered pages using a custom info', () => {
-      const tree = mountPager({
-        totalPages: 10,
-        currentPage: 1,
-        totalCount: 96,
-        pageSize: 10,
-        getMessage: () => 'rows 11-20 of 96',
-      });
-
-      expect(tree.find('div > span > span').text()).toBe('rows 11-20 of 96');
+      expect(getMessage)
+        .toBeCalledWith('info', { firstRow: 11, lastRow: 20, totalCount: 96 });
+      expect(tree.find('div > span > span').text())
+        .toBe(info);
     });
 
     it('can render pagination arrows', () => {
@@ -135,20 +130,6 @@ describe('Pager', () => {
       }).find('PageSizeSelector');
 
       expect(pageSizeSelector).toHaveLength(0);
-    });
-
-    it('renders pager correctly if totalCount is 0', () => {
-      const tree = mountPager({
-        totalPages: 0,
-        currentPage: 0,
-        totalCount: 0,
-        pageSize: 5,
-      });
-      const arrows = tree.find('.pager li').filterWhere(a => a.hasClass('disabled'));
-
-      expect(arrows).toHaveLength(2);
-      expect(tree.find(Pagination).prop('items')).toBe(1);
-      expect(tree.find('div > span > span').text()).toBe('0 of 0');
     });
   });
 });

@@ -6,7 +6,7 @@ import Typography from 'material-ui/Typography';
 export const EmptyMessage = ({ getMessage }) => (
   <Toolbar>
     <Typography>
-      {getMessage('noColumns') || 'Nothing to show'}
+      {getMessage('noColumns')}
     </Typography>
   </Toolbar>
 );

@@ -101,26 +101,22 @@ describe('Pagination', () => {
     });
 
     it('can show info about rendered pages', () => {
+      const getMessage = jest.fn();
+      const info = '11-20 of 96';
+      getMessage.mockImplementation(() => info);
+
       const tree = mountPagination({
         totalPages: 10,
         currentPage: 1,
         totalCount: 96,
         pageSize: 10,
+        getMessage,
       });
 
-      expect(tree.find('div > span').text()).toBe('11-20 of 96');
-    });
-
-    it('can show info about rendered pages using a custom template', () => {
-      const tree = mountPagination({
-        totalPages: 10,
-        currentPage: 1,
-        totalCount: 96,
-        pageSize: 10,
-        getMessage: () => 'rows 11-20 of 96',
-      });
-
-      expect(tree.find('div > span').text()).toBe('rows 11-20 of 96');
+      expect(getMessage)
+        .toBeCalledWith('info', { firstRow: 11, lastRow: 20, totalCount: 96 });
+      expect(tree.find('div > span').text())
+        .toBe(info);
     });
 
     it('can render pagination arrows', () => {
@@ -185,21 +181,6 @@ describe('Pagination', () => {
       expect(prew.props().disabled).toBeFalsy();
       expect(next.props().disabled).toBeTruthy();
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
-    });
-
-    it('renders pagination correctly if totalCount is 0', () => {
-      const tree = mountPagination({
-        totalPages: 0,
-        currentPage: 0,
-        totalCount: 0,
-        pageSize: 5,
-      });
-      const arrows = tree.find('IconButton').filterWhere(a => a.props().disabled === true);
-      const buttons = tree.find('Button').filterWhere(b => b.props().disabled === true);
-
-      expect(arrows).toHaveLength(2);
-      expect(buttons).toHaveLength(1);
-      expect(tree.find('div > span').text()).toBe('0 of 0');
     });
   });
 });

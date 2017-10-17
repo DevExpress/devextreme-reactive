@@ -3,19 +3,16 @@ import { mount } from 'enzyme';
 import { EmptyMessage } from './empty-message';
 
 describe('EmptyMessage', () => {
-  it('should use "Nothing to show" string by default', () => {
+  it('should use "Nothing to show" text', () => {
+    const text = 'Nothing to show';
+    const getMessage = jest.fn();
+    getMessage.mockImplementation(() => text);
+
     const tree = mount(
-      <EmptyMessage getMessage={() => {}} />,
+      <EmptyMessage getMessage={getMessage} />,
     );
 
-    expect(tree.find('.panel-body').text()).toBe('Nothing to show');
-  });
-
-  it('should use custom text if defined', () => {
-    const tree = mount(
-      <EmptyMessage getMessage={() => 'No columns'} />,
-    );
-
-    expect(tree.find('.panel-body').text()).toBe('No columns');
+    expect(getMessage).toBeCalledWith('noColumns');
+    expect(tree.find('.panel-body').text()).toBe(text);
   });
 });

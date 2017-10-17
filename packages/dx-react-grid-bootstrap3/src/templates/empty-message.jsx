@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const EmptyMessage = ({ getMessage }) => (
   <div className="panel-body">
-    {getMessage('noColumns') || 'Nothing to show'}
+    {getMessage('noColumns')}
   </div>
 );
 

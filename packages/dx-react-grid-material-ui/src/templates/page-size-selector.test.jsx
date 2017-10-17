@@ -50,45 +50,36 @@ describe('PageSizeSelector', () => {
     });
 
     it('can render the \'All\' item', () => {
+      const getMessage = jest.fn();
+      const text = 'All';
+      getMessage.mockImplementation(() => text);
+
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
         allowedPageSizes: [5, 10, 0],
+        getMessage,
       });
       const select = pageSizeSelector.find(Select);
       const selectItems = select.prop('children');
 
-      expect(selectItems[2].props.children).toBe('All');
+      expect(getMessage).toBeCalledWith('showAll');
+      expect(selectItems[2].props.children).toBe(text);
     });
 
-    it('can customize the \'All\' item text', () => {
-      const pageSizeSelector = mountPageSizeSelector({
-        pageSize: 0,
-        allowedPageSizes: [5, 10, 15, 0],
-        getMessage: () => 'Show all',
-      });
-      const select = pageSizeSelector.find(Select);
-      const selectItems = select.prop('children');
+    it('should render \'Rows per page\' text', () => {
+      const getMessage = jest.fn();
+      const text = 'Rows per page:';
+      getMessage.mockImplementation(() => text);
 
-      expect(selectItems[3].props.children).toBe('Show all');
-    });
-
-    it('should use default \'Rows per page\' text', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
         allowedPageSizes: [5, 10, 15],
+        getMessage,
       });
       const label = pageSizeSelector.find(`.${classes.label}`);
-      expect(label.text()).toBe('Rows per page:');
-    });
 
-    it('can customize \'Rows per page\' text', () => {
-      const pageSizeSelector = mountPageSizeSelector({
-        pageSize: 0,
-        allowedPageSizes: [5, 10, 15],
-        getMessage: () => 'Count rows per page',
-      });
-      const label = pageSizeSelector.find(`.${classes.label}`);
-      expect(label.text()).toBe('Count rows per page');
+      expect(getMessage).toBeCalledWith('rowsPerPage');
+      expect(label.text()).toBe(text);
     });
 
     it('can handle the \'onPageSizeChange\' event', () => {

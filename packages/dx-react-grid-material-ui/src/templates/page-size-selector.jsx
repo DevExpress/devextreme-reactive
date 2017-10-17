@@ -52,11 +52,11 @@ const PageSizeSelectorBase = ({
   getMessage,
   classes,
 }) => {
-  const showAll = getMessage('showAll') || 'All';
+  const showAll = getMessage('showAll');
   return (
     <div className={classes.pageSizeSelector}>
       <span className={classes.label}>
-        {getMessage('rowsPerPage') || 'Rows per page:'}
+        {getMessage('rowsPerPage')}
       </span>
       <Select
         value={pageSize}

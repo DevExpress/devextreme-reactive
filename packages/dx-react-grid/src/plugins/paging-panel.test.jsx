@@ -73,32 +73,4 @@ describe('PagingPanel', () => {
     expect(defaultDeps.action.setPageSize.mock.calls)
       .toEqual([[3]]);
   });
-
-  it('should pass correct getMessage prop to pagerTemplate', () => {
-    const pagerTemplate = jest.fn().mockReturnValue(null);
-    const deps = {};
-
-    mount(
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <PagingPanel
-          pagerTemplate={pagerTemplate}
-          messages={{
-            showAll: 'Show all',
-            rowsPerPage: 'Rows per page',
-            info: '{firstRow}-{lastRow} of {totalCount}',
-          }}
-        />
-      </PluginHost>,
-    );
-
-    const getMessage = pagerTemplate.mock.calls[0][0].getMessage;
-
-    expect(getMessage('showAll'))
-      .toBe('Show all');
-    expect(getMessage('rowsPerPage'))
-      .toBe('Rows per page');
-    expect(getMessage('info', { firstRow: 1, lastRow: 10, totalCount: 100 }))
-      .toBe('1-10 of 100');
-  });
 });

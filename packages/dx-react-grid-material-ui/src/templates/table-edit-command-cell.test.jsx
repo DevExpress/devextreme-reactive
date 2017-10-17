@@ -54,7 +54,7 @@ describe('Table command column', () => {
         <EditCommandHeadingCell
           commandTemplate={props => <CommandButton {...props} />}
           allowAdding
-          getMessage={() => {}}
+          getMessage={() => 'New'}
         />,
       );
 
@@ -71,7 +71,7 @@ describe('Table command column', () => {
           addRow={addRow}
           allowAdding
           commandTemplate={template}
-          getMessage={() => {}}
+          getMessage={() => 'New'}
         />,
       );
 
@@ -135,7 +135,7 @@ describe('Table command column', () => {
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
           allowEditing
-          getMessage={() => {}}
+          getMessage={() => 'Edit'}
         />,
       );
 
@@ -148,7 +148,7 @@ describe('Table command column', () => {
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
           allowDeleting
-          getMessage={() => {}}
+          getMessage={() => 'Delete'}
         />,
       );
 
@@ -168,7 +168,7 @@ describe('Table command column', () => {
           allowEditing
           allowDeleting
           commandTemplate={template}
-          getMessage={() => {}}
+          getMessage={name => (name === 'editCommand' ? 'Edit' : 'Delete')}
         />,
       );
 
@@ -198,7 +198,7 @@ describe('Table command column', () => {
           allowAdding
           allowDeleting
           commandTemplate={template}
-          getMessage={() => {}}
+          getMessage={name => (name === 'commitCommand' ? 'Save' : 'Cancel')}
         />,
       );
 

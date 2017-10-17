@@ -57,7 +57,7 @@ export const Pager = ({
       </BootstrapPager>
       <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
         <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
-          {getMessage('info', { firstRow, lastRow, totalCount }) || `${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`}
+          {getMessage('info', { firstRow, lastRow, totalCount })}
         </span>
       </span>
     </div>

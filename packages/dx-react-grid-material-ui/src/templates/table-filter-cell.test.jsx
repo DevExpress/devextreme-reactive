@@ -17,20 +17,7 @@ describe('TableFilterCell', () => {
     mount.cleanUp();
   });
 
-  it('should use the \'Filter...\' placeholder', () => {
-    const tree = mount(
-      <TableFilterCell
-        column={{
-          name: 'Test',
-        }}
-        getMessage={() => {}}
-      />,
-    );
-
-    expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
-  });
-
-  it('should use custom placeholder', () => {
+  it('can use filter placeholder', () => {
     const tree = mount(
       <TableFilterCell
         column={{

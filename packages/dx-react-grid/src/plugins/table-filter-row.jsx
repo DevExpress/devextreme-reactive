@@ -15,10 +15,8 @@ import {
   isFilterTableRow,
 } from '@devexpress/dx-grid-core';
 
-const getMessageFn = messages => name => messages[name];
-
 const getFilterTableCellTemplateArgs = (
-  { messages, ...params },
+  params,
   { filters },
   { setColumnFilter },
 ) => ({
@@ -26,7 +24,6 @@ const getFilterTableCellTemplateArgs = (
   column: params.tableColumn.column,
   filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
   setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
-  getMessage: getMessageFn(messages),
 });
 
 const getValueEditorArgs = params => ({
@@ -43,7 +40,7 @@ const pluginDependencies = [
 
 export class TableFilterRow extends React.PureComponent {
   render() {
-    const { rowHeight, filterCellTemplate, filterRowTemplate, messages } = this.props;
+    const { rowHeight, filterCellTemplate, filterRowTemplate } = this.props;
 
     const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
       tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
@@ -61,10 +58,7 @@ export class TableFilterRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters, actions) => {
-                const templateArgs = getFilterTableCellTemplateArgs({
-                  messages,
-                  ...params,
-                }, getters, actions);
+                const templateArgs = getFilterTableCellTemplateArgs(params, getters, actions);
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
@@ -104,13 +98,9 @@ TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
   filterCellTemplate: PropTypes.func.isRequired,
   filterRowTemplate: PropTypes.func.isRequired,
-  messages: PropTypes.shape({
-    filterPlaceholder: PropTypes.string,
-  }),
 };
 
 TableFilterRow.defaultProps = {
   rowHeight: undefined,
   filterPlaceholder: undefined,
-  messages: {},
 };

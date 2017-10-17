@@ -12,20 +12,17 @@ import {
   isEditTableRow,
 } from '@devexpress/dx-grid-core';
 
-const getMessageFn = messages => name => messages[name];
-
 const getHeadingEditCommandsTableCellTemplateArgs = (
-  { messages, ...params },
+  params,
   getters,
   { addRow },
 ) => ({
   ...params,
-  getMessage: getMessageFn(messages),
   addRow: () => addRow(),
 });
 
 const getEditCommandsTableCellTemplateArgs = (
-  { messages, ...params },
+  params,
   getters,
   {
     startEditRows, stopEditRows, cancelChangedRows, commitChangedRows,
@@ -35,12 +32,12 @@ const getEditCommandsTableCellTemplateArgs = (
   const isEdit = isEditTableRow(params.tableRow);
   const isNew = isAddedTableRow(params.tableRow);
   const rowIds = [params.tableRow.rowId];
+
   return {
     ...params,
     row: params.tableRow.row,
     isEditing: isEdit || isNew,
     startEditing: () => startEditRows({ rowIds: [params.tableRow.rowId] }),
-    getMessage: getMessageFn(messages),
     deleteRow: () => {
       deleteRows({ rowIds });
       commitDeletedRows({ rowIds });
@@ -79,7 +76,6 @@ export class TableEditColumn extends React.PureComponent {
       allowEditing,
       allowDeleting,
       width,
-      messages,
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
@@ -102,7 +98,7 @@ export class TableEditColumn extends React.PureComponent {
                 <TemplateRenderer
                   template={headingCellTemplate}
                   params={getHeadingEditCommandsTableCellTemplateArgs(
-                    { allowAdding, commandTemplate, messages, ...params },
+                    { allowAdding, commandTemplate, ...params },
                     getters,
                     actions,
                   )}
@@ -126,7 +122,6 @@ export class TableEditColumn extends React.PureComponent {
                       allowEditing,
                       allowDeleting,
                       commandTemplate,
-                      messages,
                       ...params,
                     },
                     getters,
@@ -149,18 +144,10 @@ TableEditColumn.propTypes = {
   allowEditing: PropTypes.bool,
   allowDeleting: PropTypes.bool,
   width: PropTypes.number,
-  messages: PropTypes.shape({
-    addCommand: PropTypes.string,
-    editCommand: PropTypes.string,
-    deleteCommand: PropTypes.string,
-    commitCommand: PropTypes.string,
-    cancelCommand: PropTypes.string,
-  }),
 };
 TableEditColumn.defaultProps = {
   allowAdding: false,
   allowEditing: false,
   allowDeleting: false,
   width: 140,
-  messages: {},
 };

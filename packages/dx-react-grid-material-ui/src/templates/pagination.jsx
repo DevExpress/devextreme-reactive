@@ -180,7 +180,7 @@ const PaginationBase = ({
   return (
     <div className={classes.pagination}>
       <span className={classes.rowsLabel}>
-        {getMessage('info', { firstRow, lastRow, totalCount }) || `${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`}
+        {getMessage('info', { firstRow, lastRow, totalCount })}
       </span>
       <IconButton
         className={classNames(classes.arrowButton, classes.prev)}

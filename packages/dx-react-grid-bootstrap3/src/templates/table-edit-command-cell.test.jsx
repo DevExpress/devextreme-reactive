@@ -40,41 +40,25 @@ describe('EditCommandCells', () => {
       />,
     );
 
-    it('should render default command messages for "edit" & "delete" commands', () => {
-      const tree = mountEditCommandCell({ });
-      const commands = tree.find('.command-template');
-
-      expect(commands.at(0).text()).toBe('Edit');
-      expect(commands.at(1).text()).toBe('Delete');
-    });
-
-    it('should render default command messages for "save" & "cancel" commands', () => {
-      const tree = mountEditCommandCell({ isEditing: true });
-      const commands = tree.find('.command-template');
-
-      expect(commands.at(0).text()).toBe('Save');
-      expect(commands.at(1).text()).toBe('Cancel');
-    });
-
     it('should render custom command messages for "edit" & "delete" commands', () => {
       const tree = mountEditCommandCell({
-        getMessage: () => 'Custom message',
+        getMessage: () => 'Command message',
       });
       const commands = tree.find('.command-template');
 
-      expect(commands.at(0).text()).toBe('Custom message');
-      expect(commands.at(1).text()).toBe('Custom message');
+      expect(commands.at(0).text()).toBe('Command message');
+      expect(commands.at(1).text()).toBe('Command message');
     });
 
     it('should render custom command messages for "save" & "cancel" commands', () => {
       const tree = mountEditCommandCell({
         isEditing: true,
-        getMessage: () => 'Custom message',
+        getMessage: () => 'Command message',
       });
       const commands = tree.find('.command-template');
 
-      expect(commands.at(0).text()).toBe('Custom message');
-      expect(commands.at(1).text()).toBe('Custom message');
+      expect(commands.at(0).text()).toBe('Command message');
+      expect(commands.at(1).text()).toBe('Command message');
     });
   });
   describe('EditCommandHeadingCell', () => {
@@ -91,20 +75,13 @@ describe('EditCommandCells', () => {
       />,
     );
 
-    it('should render default command messages', () => {
-      const tree = mountEditCommandHeadingCell({ });
-      const command = tree.find('.command-template');
-
-      expect(command.text()).toBe('New');
-    });
-
-    it('should render custom command messages', () => {
+    it('should render command messages', () => {
       const tree = mountEditCommandHeadingCell({
-        getMessage: () => 'Custom message',
+        getMessage: () => 'New',
       });
       const command = tree.find('.command-template');
 
-      expect(command.text()).toBe('Custom message');
+      expect(command.text()).toBe('New');
     });
   });
 });

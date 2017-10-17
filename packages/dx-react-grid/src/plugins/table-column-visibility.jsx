@@ -14,10 +14,9 @@ const pluginDependencies = [
   { pluginName: 'TableView' },
 ];
 
-const getMessageFn = messages => name => messages[name];
 export class TableColumnVisibility extends React.PureComponent {
   render() {
-    const { hiddenColumns, emptyMessageTemplate, messages } = this.props;
+    const { hiddenColumns, emptyMessageTemplate } = this.props;
     const visibleTableColumnsComputed = ({ tableColumns }) =>
       visibleTableColumns(tableColumns, hiddenColumns);
 
@@ -34,7 +33,7 @@ export class TableColumnVisibility extends React.PureComponent {
                 ? <TemplatePlaceholder />
                 : <TemplateRenderer
                   template={emptyMessageTemplate}
-                  params={{ getMessage: getMessageFn(messages), ...params }}
+                  params={params}
                 />
               )}
             </TemplateConnector>
@@ -48,12 +47,8 @@ export class TableColumnVisibility extends React.PureComponent {
 TableColumnVisibility.propTypes = {
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
   emptyMessageTemplate: PropTypes.func.isRequired,
-  messages: PropTypes.shape({
-    noColumns: PropTypes.string,
-  }),
 };
 
 TableColumnVisibility.defaultProps = {
   hiddenColumns: [],
-  messages: {},
 };

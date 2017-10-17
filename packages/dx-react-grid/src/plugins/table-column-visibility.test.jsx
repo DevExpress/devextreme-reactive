@@ -89,25 +89,4 @@ describe('TableColumnVisibility', () => {
     expect(emptyMessageTemplate)
       .toHaveBeenCalledTimes(1);
   });
-
-  it('should pass getMessage function to empty message template', () => {
-    const emptyMessageTemplate = jest.fn(() => null);
-    const messages = { noColumns: 'no columns' };
-    visibleTableColumns.mockImplementation(() => []);
-
-    mount(
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableColumnVisibility
-          hiddenColumns={[]}
-          emptyMessageTemplate={emptyMessageTemplate}
-          messages={messages}
-        />
-      </PluginHost>,
-    );
-    const { getMessage } = emptyMessageTemplate.mock.calls[0][0];
-
-    expect(getMessage('noColumns'))
-      .toBe(messages.noColumns);
-  });
 });

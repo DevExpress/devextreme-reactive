@@ -33,7 +33,7 @@ const TableFilterCellBase = ({
       <Input
         className={classes.input}
         value={filter ? filter.value : ''}
-        placeholder={getMessage('filterPlaceholder') || 'Filter...'}
+        placeholder={getMessage('filterPlaceholder')}
         onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
       />
     )}

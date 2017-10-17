@@ -36,7 +36,7 @@ export const EditCommandHeadingCell = ({
     {allowAdding && commandTemplate({
       id: 'add',
       executeCommand: addRow,
-      text: getMessage('addCommand') || 'New',
+      text: getMessage('addCommand'),
     })}
   </th>
 );

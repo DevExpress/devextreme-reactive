@@ -79,3 +79,5 @@ export {
 } from './utils/table';
 
 export { getGroupCellTargetIndex } from './utils/group-panel';
+
+export { getMessageFn } from './utils/get-message-fn';

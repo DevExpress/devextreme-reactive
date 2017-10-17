@@ -7,10 +7,8 @@ import {
 } from '@devexpress/dx-react-core';
 import { groupingPanelItems } from '@devexpress/dx-grid-core';
 
-const getMessageFn = messages => name => messages[name];
-
 const getGroupPanelTemplateArgs = (
-  { allowDragging, allowSorting, allowUngroupingByClick, messages },
+  { allowDragging, allowSorting, allowUngroupingByClick },
   { columns, draftGrouping, sorting },
   { groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange },
 ) => ({
@@ -29,7 +27,6 @@ const getGroupPanelTemplateArgs = (
     }),
   draftGroupingChange: groupingChange => draftGroupingChange(groupingChange),
   cancelGroupingChange: () => cancelGroupingChange(),
-  getMessage: getMessageFn(messages),
 });
 
 export class GroupingPanel extends React.PureComponent {
@@ -39,7 +36,6 @@ export class GroupingPanel extends React.PureComponent {
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
-      messages,
     } = this.props;
 
     return (
@@ -57,7 +53,7 @@ export class GroupingPanel extends React.PureComponent {
                 <TemplateRenderer
                   template={groupPanelTemplate}
                   params={getGroupPanelTemplateArgs(
-                    { allowDragging, allowSorting, allowUngroupingByClick, messages },
+                    { allowDragging, allowSorting, allowUngroupingByClick },
                     getters,
                     actions,
                   )}
@@ -77,14 +73,10 @@ GroupingPanel.propTypes = {
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
   groupPanelTemplate: PropTypes.func.isRequired,
-  messages: PropTypes.shape({
-    groupByColumn: PropTypes.string,
-  }),
 };
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
   allowDragging: false,
   allowUngroupingByClick: false,
-  messages: {},
 };

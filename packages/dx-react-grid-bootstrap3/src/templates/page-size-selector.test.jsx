@@ -46,6 +46,7 @@ describe('PageSizeSelector', () => {
     it('can render the \'All\' item', () => {
       const tree = mountPageSizeSelector({
         pageSize: 10,
+        getMessage: () => 'All',
         allowedPageSizes: [5, 10, 0],
       });
 
@@ -60,20 +61,6 @@ describe('PageSizeSelector', () => {
 
       expect(desktopSelectorItems).toHaveLength(3);
       expect(desktopSelectorItems.at(2).text()).toBe('All');
-    });
-
-    it('can customize the \'All\' item text', () => {
-      const tree = mountPageSizeSelector({
-        pageSize: 10,
-        allowedPageSizes: [5, 10, 0],
-        getMessage: () => 'Show all',
-      });
-
-      const mobileSelector = tree.find('select');
-      const desktopSelector = tree.find('ul.pagination');
-
-      expect(mobileSelector.find('option').at(2).text()).toBe('Show all');
-      expect(desktopSelector.find('li').at(2).text()).toBe('Show all');
     });
 
     it('can handle the \'onPageSizeChange\' event', () => {

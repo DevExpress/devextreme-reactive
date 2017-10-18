@@ -108,7 +108,7 @@ export class EditingState extends React.PureComponent {
     const changedRows = this.props.changedRows || this.state.changedRows;
     const addedRows = this.props.addedRows || this.state.addedRows;
     const deletedRows = this.props.deletedRows || this.state.deletedRows;
-    const createRowChange = this.props.createRowChange;
+    const { createRowChange } = this.props;
 
     return (
       <PluginContainer

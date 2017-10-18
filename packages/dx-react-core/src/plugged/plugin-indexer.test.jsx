@@ -28,18 +28,16 @@ describe('PluginIndexer', () => {
   });
 
   it('should correctly determine plugin position', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginIndexer>
         <Getter />
         <Action />
         <Template />
-      </PluginIndexer>,
-    );
+      </PluginIndexer>
+    ));
 
-    expect(
-      [tree.find(Getter), tree.find(Action), tree.find(Template)]
-        .map(wrapper => wrapper.prop('position')()),
-    )
+    expect([tree.find(Getter), tree.find(Action), tree.find(Template)]
+      .map(wrapper => wrapper.prop('position')()))
       .toEqual([[0], [1], [2]]);
   });
 
@@ -55,20 +53,16 @@ describe('PluginIndexer', () => {
       enableGetter: PropTypes.bool.isRequired,
     };
 
-    const tree = mount(
-      <Test enableGetter={false} />,
-    );
+    const tree = mount(<Test enableGetter={false} />);
 
     tree.setProps({ enableGetter: true });
-    expect(
-      [tree.find(Getter), tree.find(Action), tree.find(Template)]
-        .map(wrapper => wrapper.prop('position')()),
-    )
+    expect([tree.find(Getter), tree.find(Action), tree.find(Template)]
+      .map(wrapper => wrapper.prop('position')()))
       .toEqual([[0], [1], [2]]);
   });
 
   it('should correctly determine plugin position within another component', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginIndexer>
         <div>
           <PluginIndexer>
@@ -77,13 +71,11 @@ describe('PluginIndexer', () => {
           </PluginIndexer>
         </div>
         <Template />
-      </PluginIndexer>,
-    );
+      </PluginIndexer>
+    ));
 
-    expect(
-      [tree.find(Getter), tree.find(Action), tree.find(Template)]
-        .map(wrapper => wrapper.prop('position')()),
-    )
+    expect([tree.find(Getter), tree.find(Action), tree.find(Template)]
+      .map(wrapper => wrapper.prop('position')()))
       .toEqual([[0, 0], [0, 1], [1]]);
   });
 });

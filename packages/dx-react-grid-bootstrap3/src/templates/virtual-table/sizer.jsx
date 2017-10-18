@@ -1,5 +1,3 @@
-/* global requestAnimationFrame cancelAnimationFrame */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,11 +6,13 @@ export class Sizer extends React.Component {
     const watchSizes = () => {
       const rect = this.root.getBoundingClientRect();
       this.sizeUpdated(rect.width, rect.height);
+      // eslint-disable-next-line no-undef
       this._raf = requestAnimationFrame(watchSizes);
     };
     watchSizes();
   }
   componentWillUnmount() {
+    // eslint-disable-next-line no-undef
     cancelAnimationFrame(this._raf);
   }
   sizeUpdated(newWidth, newHeight) {

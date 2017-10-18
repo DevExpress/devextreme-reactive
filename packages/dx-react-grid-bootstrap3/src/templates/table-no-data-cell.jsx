@@ -15,7 +15,7 @@ export const TableNoDataCell = ({ style, colSpan, getMessage }) => (
 );
 
 TableNoDataCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   colSpan: PropTypes.number,
   getMessage: PropTypes.func.isRequired,
 };

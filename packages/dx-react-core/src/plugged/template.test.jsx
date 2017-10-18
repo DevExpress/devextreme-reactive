@@ -7,25 +7,25 @@ import { Template } from './template';
 
 describe('Template', () => {
   it('should be rendered', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="root">
           <h1>Template content</h1>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').exists()).toBeTruthy();
   });
 
   it('should be rendered depending on predicate', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="root" predicate={() => false}>
           <h1>Template content</h1>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').exists()).toBeFalsy();
   });
@@ -42,9 +42,7 @@ describe('Template', () => {
       text: PropTypes.string.isRequired,
     };
 
-    const tree = mount(
-      <Test text={'test'} />,
-    );
+    const tree = mount(<Test text="test" />);
     tree.setProps({ text: 'new' });
 
     expect(tree.find('h1').text()).toBe('new');

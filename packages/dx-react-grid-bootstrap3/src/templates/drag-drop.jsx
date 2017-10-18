@@ -38,5 +38,5 @@ export const Column = ({ column }) => (
 );
 
 Column.propTypes = {
-  column: PropTypes.shape().isRequired,
+  column: PropTypes.object.isRequired,
 };

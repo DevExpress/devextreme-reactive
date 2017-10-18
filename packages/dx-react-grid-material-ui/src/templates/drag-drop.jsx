@@ -61,7 +61,7 @@ const ColumnBase = ({ column, classes }) => (
 );
 
 ColumnBase.propTypes = {
-  column: PropTypes.shape().isRequired,
+  column: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

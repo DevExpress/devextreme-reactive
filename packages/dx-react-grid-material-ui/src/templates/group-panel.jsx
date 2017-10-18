@@ -64,7 +64,7 @@ const GroupPanelTextBase = ({
 };
 
 GroupPanelTextBase.propTypes = {
-  classes: PropTypes.shape().isRequired,
+  classes: PropTypes.object.isRequired,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
   getMessage: PropTypes.func.isRequired,
@@ -84,7 +84,7 @@ const PanelTemplateBase = ({ classes, items }) => (
 );
 
 PanelTemplateBase.propTypes = {
-  classes: PropTypes.shape().isRequired,
+  classes: PropTypes.object.isRequired,
   items: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 

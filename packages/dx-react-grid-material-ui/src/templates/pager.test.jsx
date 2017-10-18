@@ -23,7 +23,7 @@ describe('Pager', () => {
       allowedPageSizes = [],
       onCurrentPageChange = () => {},
       onPageSizeChange = () => {},
-    }) => mount(
+    }) => mount((
       <Pager
         currentPage={currentPage}
         allowedPageSizes={allowedPageSizes}
@@ -34,7 +34,8 @@ describe('Pager', () => {
         onCurrentPageChange={onCurrentPageChange}
         onPageSizeChange={onPageSizeChange}
         getMessage={() => {}}
-      />);
+      />
+    ));
 
     it('can render pagination', () => {
       const pager = mountPager({

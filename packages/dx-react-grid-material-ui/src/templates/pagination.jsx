@@ -52,19 +52,23 @@ const styles = theme => ({
   },
 });
 
-const PageButton = ({ text, isActive, isDisabled, classes, onClick }) => {
+const PageButton = ({
+  text, isActive, isDisabled, classes, onClick,
+}) => {
   const buttonClasses = classNames({
     [classes.button]: true,
     [classes.activeButton]: isActive,
   });
 
-  return (<Button
-    className={buttonClasses}
-    disabled={isDisabled}
-    onClick={onClick}
-  >
-    {text}
-  </Button>);
+  return (
+    <Button
+      className={buttonClasses}
+      disabled={isDisabled}
+      onClick={onClick}
+    >
+      {text}
+    </Button>
+  );
 };
 
 PageButton.propTypes = {
@@ -85,7 +89,8 @@ const ellipsisSymbol = '\u2026';
 
 const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math.max(
   Math.min(
-    currentPage - Math.floor(maxButtonCount / 2, 10), (totalPageCount - maxButtonCount) + 1,
+    currentPage - Math.floor(maxButtonCount / 2, 10),
+    (totalPageCount - maxButtonCount) + 1,
   ),
   1,
 );
@@ -106,29 +111,29 @@ const renderPageButtons = (
     endPage = (startPage + maxButtonCount) - 1;
   }
   if (startPage > 1) {
-    pageButtons.push(
+    pageButtons.push((
       <PageButton
         key={1}
         text={String(1)}
         classes={classes}
         onClick={() => onCurrentPageChange(0)}
-      />,
-    );
+      />
+    ));
 
     if (startPage > 2) {
-      pageButtons.push(
+      pageButtons.push((
         <PageButton
-          key={'ellipsisStart'}
+          key="ellipsisStart"
           text={ellipsisSymbol}
           classes={classes}
           isDisabled
-        />,
-      );
+        />
+      ));
     }
   }
 
   for (let page = startPage; page <= endPage; page += 1) {
-    pageButtons.push(
+    pageButtons.push((
       <PageButton
         key={page}
         text={String(page)}
@@ -136,30 +141,30 @@ const renderPageButtons = (
         classes={classes}
         onClick={() => onCurrentPageChange(page - 1)}
         isDisabled={startPage === endPage}
-      />,
-    );
+      />
+    ));
   }
 
   if (endPage < totalPageCount) {
     if (endPage < totalPageCount - 1) {
-      pageButtons.push(
+      pageButtons.push((
         <PageButton
-          key={'ellipsisEnd'}
+          key="ellipsisEnd"
           text={ellipsisSymbol}
           classes={classes}
           isDisabled
-        />,
-      );
+        />
+      ));
     }
 
-    pageButtons.push(
+    pageButtons.push((
       <PageButton
         key={totalPageCount}
         text={String(totalPageCount)}
         classes={classes}
         onClick={() => onCurrentPageChange(totalPageCount - 1)}
-      />,
-    );
+      />
+    ));
   }
 
   return pageButtons;

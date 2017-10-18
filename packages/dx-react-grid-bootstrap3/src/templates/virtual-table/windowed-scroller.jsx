@@ -1,10 +1,8 @@
-/* global navigator requestAnimationFrame */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Sizer } from './sizer';
 
-const isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+let isSafari;
 
 export class WindowedScroller extends React.Component {
   constructor(props) {
@@ -27,6 +25,10 @@ export class WindowedScroller extends React.Component {
   }
 
   componentDidMount() {
+    if (isSafari === undefined) {
+      // eslint-disable-next-line no-undef
+      isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+    }
     setTimeout(() => {
       this.updateViewport();
     });
@@ -34,6 +36,7 @@ export class WindowedScroller extends React.Component {
 
   updateViewport() {
     if (isSafari) {
+      // eslint-disable-next-line no-undef
       requestAnimationFrame(this._updateViewport.bind(this));
     } else {
       this._updateViewport();

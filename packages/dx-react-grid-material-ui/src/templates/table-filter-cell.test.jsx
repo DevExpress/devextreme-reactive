@@ -18,21 +18,21 @@ describe('TableFilterCell', () => {
   });
 
   it('can use filter placeholder', () => {
-    const tree = mount(
+    const tree = mount((
       <TableFilterCell
         column={{
           name: 'Test',
         }}
         getMessage={() => 'Enter filter value'}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('Input').prop('placeholder')).toBe('Enter filter value');
   });
 
   it('should not set filter with an empty value', () => {
     const setFilterMock = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <TableFilterCell
         column={{
           name: 'Test',
@@ -40,19 +40,19 @@ describe('TableFilterCell', () => {
         setFilter={setFilterMock}
         getMessage={() => {}}
         value={'abc'}
-      />,
-    );
+      />
+    ));
 
     tree.find('input').simulate('change', { target: { value: '' } });
     expect(setFilterMock.mock.calls[0][0]).toBeNull();
   });
 
   it('should render children if passed', () => {
-    const tree = mount(
+    const tree = mount((
       <TableFilterCell getMessage={() => {}}>
         <span className="test" />
-      </TableFilterCell>,
-    );
+      </TableFilterCell>
+    ));
 
     expect(tree.find('.test').exists())
       .toBeTruthy();

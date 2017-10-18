@@ -23,15 +23,15 @@ describe('EditingState', () => {
       const row = { a: 1 };
       const column = { name: 'a' };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <EditingState
             createRowChange={createRowChangeMock}
             onCommitChanges={() => {}}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).getters.createRowChange(row, column.name, 3);
 

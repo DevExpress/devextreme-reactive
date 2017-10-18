@@ -1,8 +1,26 @@
 import { shallowEqual } from '@devexpress/dx-core';
 
-export const getAction = (pluginHost, actionName) => {
-  const actions = pluginHost.collect(`${actionName}Action`).reverse();
-  return params => actions.forEach(action => action(params));
+export const getActionExecutor = (pluginHost, actionToExecuteName) => {
+  const actionsToExecute = pluginHost.collect(`${actionToExecuteName}Action`).slice().reverse();
+  return (startingPayload) => {
+    let payload = startingPayload;
+    // eslint-disable-next-line no-use-before-define
+    const { getters } = getAvaliableGetters(pluginHost);
+    // eslint-disable-next-line no-use-before-define
+    const actions = getAvaliableActions(
+      pluginHost,
+      actionName => (actionName === actionToExecuteName
+        ? (newPayload) => { payload = newPayload; }
+        : getActionExecutor(pluginHost, actionName)
+      ),
+    );
+    for (let i = 0; i < actionsToExecute.length; i += 1) {
+      const result = actionsToExecute[i](payload, getters, actions);
+      if (result === false) {
+        break;
+      }
+    }
+  };
 };
 
 export const getAvaliableGetters = (
@@ -38,11 +56,14 @@ export const isTrackedDependenciesChanged = (
   return !shallowEqual(prevTrackedDependencies, trackedDependencies);
 };
 
-export const getAvaliableActions = pluginHost =>
+export const getAvaliableActions = (
+  pluginHost,
+  getAction = actionName => getActionExecutor(pluginHost, actionName),
+) =>
   pluginHost.knownKeys('Action')
     .reduce((acc, actionName) => {
       Object.defineProperty(acc, actionName, {
-        get: () => getAction(pluginHost, actionName),
+        get: () => getAction(actionName),
       });
       return acc;
     }, {});

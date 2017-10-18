@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableCell as TableCellMUI, Table } from 'material-ui';
+import { TableCell as TableCellMUI } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
@@ -8,20 +8,17 @@ describe('TableCell', () => {
   let resetConsole;
   let mount;
   let classes;
-  const mountTableCell = column => (
-    mount(
+  const mountTableCell = column =>
+    mount((
       <TableCell
         column={column}
-        value={'text'}
-      />,
-    )
-  );
+        value="text"
+      />
+    ));
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<TableCell />);
-
-    const mountMUI = createMount();
-    mount = component => mountMUI(<Table>{component}</Table>);
+    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
   });
   afterAll(() => {
     resetConsole();
@@ -45,11 +42,11 @@ describe('TableCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount(
+    const tree = mount((
       <TableCell>
         <span className="test" />
-      </TableCell>,
-    );
+      </TableCell>
+    ));
 
     expect(tree.find('.test').exists())
       .toBeTruthy();

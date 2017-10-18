@@ -10,25 +10,25 @@ import { TemplateConnector } from './template-connector';
 
 describe('Getter', () => {
   it('should return value', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
-        <Getter name="test" value={'arg'} />
+        <Getter name="test" value="arg" />
 
         <Template name="root">
           <TemplateConnector>
             {({ test }) => <h1>{test}</h1>}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('arg');
   });
 
   it('can use other getters', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
-        <Getter name="dep" value={'dep'} />
+        <Getter name="dep" value="dep" />
         <Getter
           name="test"
           computed={getters => getters.dep}
@@ -39,38 +39,38 @@ describe('Getter', () => {
             {({ test }) => <h1>{test}</h1>}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('dep');
   });
 
   it('should preserve the order if used after another getter', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
-        <Getter name="dep" value={'base'} />
+        <Getter name="dep" value="base" />
         <Getter
           name="test"
           computed={getters => getters.dep}
         />
 
-        <Getter name="dep" value={'overriden'} />
+        <Getter name="dep" value="overriden" />
 
         <Template name="root">
           <TemplateConnector>
             {({ test }) => <h1>{test}</h1>}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('base');
   });
 
   it('should pass the latest result to the template', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
-        <Getter name="dep" value={'base'} />
+        <Getter name="dep" value="base" />
 
         <Template name="root">
           <TemplateConnector>
@@ -78,17 +78,17 @@ describe('Getter', () => {
           </TemplateConnector>
         </Template>
 
-        <Getter name="dep" value={'overriden'} />
-      </PluginHost>,
-    );
+        <Getter name="dep" value="overriden" />
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('overriden');
   });
 
   it('can extend getter with same name', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
-        <Getter name="test" value={'base'} />
+        <Getter name="test" value="base" />
         <Getter
           name="test"
           computed={getters => `${getters.test}_extended`}
@@ -99,8 +99,8 @@ describe('Getter', () => {
             {({ test }) => <h1>{test}</h1>}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('base_extended');
   });
@@ -132,9 +132,7 @@ describe('Getter', () => {
       text: PropTypes.string.isRequired,
     };
 
-    const tree = mount(
-      <Test text="extended" />,
-    );
+    const tree = mount(<Test text="extended" />);
     tree.setProps({ text: 'new' });
 
     expect(tree.find('h1').text()).toBe('new');
@@ -177,9 +175,7 @@ describe('Getter', () => {
       value: PropTypes.any.isRequired,
     };
 
-    const tree = mount(
-      <Test value={1} />,
-    );
+    const tree = mount(<Test value={1} />);
     tree.setProps({ value: 1 });
     tree.setProps({ value: 2 });
 

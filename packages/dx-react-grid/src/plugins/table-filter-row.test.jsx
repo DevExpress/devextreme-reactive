@@ -69,15 +69,15 @@ describe('TableFilterRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableHeaderRows', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableFilterRow
             {...defaultProps}
             rowHeight={120}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableHeaderRows)
         .toBe('tableHeaderRowsWithFilter');
@@ -90,15 +90,15 @@ describe('TableFilterRow', () => {
     isFilterTableCell.mockImplementation(() => true);
     const filterCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
           filterCellTemplate={filterCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isFilterTableCell)
       .toBeCalledWith(
@@ -130,7 +130,7 @@ describe('TableFilterRow', () => {
       },
     };
 
-    mount(
+    mount((
       <PluginHost>
         <DataTypeProvider
           type="column"
@@ -141,8 +141,8 @@ describe('TableFilterRow', () => {
           {...defaultProps}
           filterCellTemplate={filterCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(valueEditor)
       .toHaveBeenCalledWith({
@@ -158,15 +158,15 @@ describe('TableFilterRow', () => {
     isFilterTableRow.mockImplementation(() => true);
     const filterRowTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
           filterRowTemplate={filterRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
     expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
   });

@@ -44,15 +44,15 @@ describe('TableColumnVisibility', () => {
 
   it('should call the visibleTableColumns computed with correct arguments', () => {
     const hiddenColumns = ['b', 'a'];
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
           hiddenColumns={hiddenColumns}
           emptyMessageTemplate={() => null}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(visibleTableColumns)
       .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, hiddenColumns);
@@ -60,15 +60,15 @@ describe('TableColumnVisibility', () => {
 
   it('should remove hidden columns from tableColumns', () => {
     const hiddenColumns = ['b', 'a'];
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
           hiddenColumns={hiddenColumns}
           emptyMessageTemplate={() => null}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.tableColumns)
       .toEqual([{ column: { name: 'c' } }]);
@@ -78,15 +78,15 @@ describe('TableColumnVisibility', () => {
     const emptyMessageTemplate = jest.fn(() => null);
     visibleTableColumns.mockImplementation(() => []);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
           hiddenColumns={[]}
           emptyMessageTemplate={emptyMessageTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(emptyMessageTemplate)
       .toHaveBeenCalledTimes(1);

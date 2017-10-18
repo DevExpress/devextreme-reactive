@@ -61,17 +61,23 @@ export class TableColumnReordering extends React.PureComponent {
       this.cellDimensionGetters[tableColumn.column.name] = data;
     }
   }
-  handleOver({ payload, clientOffset }) {
+  handleOver({ payload, clientOffset: { x } }) {
     const sourceColumnName = payload[0].columnName;
     const availableColumns = this.getAvailableColumns();
     const relativeSourceColumnIndex = availableColumns.indexOf(sourceColumnName);
 
     if (relativeSourceColumnIndex === -1) return;
 
+    const cellDimensions = this.getCellDimensions();
+    const overlappedColumns = cellDimensions
+      .filter(({ left, right }) => left <= x && x <= right);
+
+    if (overlappedColumns.length > 1) return;
+
     const relativeTargetIndex = getTableTargetColumnIndex(
-      this.getCellDimensions(),
+      cellDimensions,
       relativeSourceColumnIndex,
-      clientOffset.x,
+      x,
     );
 
     if (relativeTargetIndex === -1) return;

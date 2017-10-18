@@ -13,7 +13,7 @@ import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
-  getMessageFn,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const getFilterTableCellTemplateArgs = (
@@ -44,7 +44,7 @@ export class TableFilterRow extends React.PureComponent {
     const { rowHeight, filterCellTemplate, filterRowTemplate, ...restProps } = this.props;
 
     const { messages } = restProps;
-    const getMessage = getMessageFn(messages);
+    const getMessage = getMessagesFormatter(messages);
 
     const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
       tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);

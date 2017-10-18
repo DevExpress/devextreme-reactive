@@ -7,7 +7,7 @@ import {
   isFilterTableCell,
   getColumnFilterConfig,
   isFilterTableRow,
-  getMessageFn,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { DataTypeProvider } from './data-type-provider';
 import { TableFilterRow } from './table-filter-row';
@@ -18,7 +18,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isFilterTableCell: jest.fn(),
   isFilterTableRow: jest.fn(),
   getColumnFilterConfig: jest.fn(),
-  getMessageFn: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -61,7 +61,7 @@ describe('TableFilterRow', () => {
     tableHeaderRowsWithFilter.mockImplementation(() => 'tableHeaderRowsWithFilter');
     isFilterTableCell.mockImplementation(() => false);
     isFilterTableRow.mockImplementation(() => false);
-    getMessageFn.mockImplementation(() => key => key);
+    getMessagesFormatter.mockImplementation(() => key => key);
   });
   afterEach(() => {
     jest.resetAllMocks();

@@ -80,4 +80,4 @@ export {
 
 export { getGroupCellTargetIndex } from './utils/group-panel';
 
-export { getMessageFn } from './utils/get-message-fn';
+export { getMessagesFormatter } from './utils/messages-formatter';

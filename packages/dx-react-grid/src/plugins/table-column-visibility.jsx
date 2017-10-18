@@ -8,7 +8,7 @@ import {
   TemplatePlaceholder,
   TemplateRenderer,
 } from '@devexpress/dx-react-core';
-import { visibleTableColumns, getMessageFn } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'TableView' },
@@ -21,7 +21,7 @@ export class TableColumnVisibility extends React.PureComponent {
       visibleTableColumns(tableColumns, hiddenColumns);
 
     const { messages } = restProps;
-    const getMessage = getMessageFn(messages);
+    const getMessage = getMessagesFormatter(messages);
 
     return (
       <PluginContainer

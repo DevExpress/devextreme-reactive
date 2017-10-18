@@ -9,7 +9,7 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
-  getMessageFn,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { TableView } from './table-view';
 import { DataTypeProvider } from './data-type-provider';
@@ -22,7 +22,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
-  getMessageFn: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -66,7 +66,7 @@ describe('TableView', () => {
     isDataTableCell.mockImplementation(() => false);
     isHeaderStubTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
-    getMessageFn.mockImplementation(() => key => key);
+    getMessagesFormatter.mockImplementation(() => key => key);
   });
   afterEach(() => {
     jest.resetAllMocks();

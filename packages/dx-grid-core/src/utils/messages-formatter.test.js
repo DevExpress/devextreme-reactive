@@ -1,18 +1,18 @@
-import { getMessageFn } from './get-message-fn';
+import { getMessagesFormatter } from './messages-formatter';
 
-describe('#getMessageFn', () => {
+describe('#getMessagesFormatter', () => {
   it('should return value by key', () => {
-    const getMessage = getMessageFn({ info: 'abc' });
+    const getMessage = getMessagesFormatter({ info: 'abc' });
     expect(getMessage('info')).toBe('abc');
   });
 
   it('can use a pattern as a message', () => {
-    const getMessage = getMessageFn({ info: '{a} {b} {c}' });
+    const getMessage = getMessagesFormatter({ info: '{a} {b} {c}' });
     expect(getMessage('info', { a: 'a', b: 'b', c: 'c' })).toBe('a b c');
   });
 
   it('can use a function as a message', () => {
-    const getMessage = getMessageFn({ info: ({ a, b, c }) => `${a} ${b} ${c}` });
+    const getMessage = getMessagesFormatter({ info: ({ a, b, c }) => `${a} ${b} ${c}` });
     expect(getMessage('info', { a: 'a', b: 'b', c: 'c' })).toBe('a b c');
   });
 });

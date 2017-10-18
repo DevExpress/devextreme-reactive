@@ -9,7 +9,7 @@ import {
   isEditCommandsTableCell,
   isAddedTableRow,
   isEditTableRow,
-  getMessageFn,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { TableEditColumn } from './table-edit-column';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -21,7 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isEditCommandsTableCell: jest.fn(),
   isAddedTableRow: jest.fn(),
   isEditTableRow: jest.fn(),
-  getMessageFn: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -71,7 +71,7 @@ describe('TableHeaderRow', () => {
     isEditCommandsTableCell.mockImplementation(() => false);
     isAddedTableRow.mockImplementation(() => false);
     isEditTableRow.mockImplementation(() => false);
-    getMessageFn.mockImplementation(() => key => key);
+    getMessagesFormatter.mockImplementation(() => key => key);
   });
   afterEach(() => {
     jest.resetAllMocks();

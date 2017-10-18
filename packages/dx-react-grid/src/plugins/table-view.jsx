@@ -15,7 +15,7 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
-  getMessageFn,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const getTableLayoutTemplateArgs = (
@@ -78,7 +78,7 @@ export class TableView extends React.PureComponent {
     } = this.props;
 
     const { messages } = restProps;
-    const getMessage = getMessageFn(messages);
+    const getMessage = getMessagesFormatter(messages);
 
     return (
       <PluginContainer

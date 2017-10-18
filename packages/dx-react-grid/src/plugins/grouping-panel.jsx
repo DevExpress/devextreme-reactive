@@ -5,7 +5,7 @@ import {
   Template, TemplatePlaceholder, PluginContainer,
   TemplateConnector, TemplateRenderer,
 } from '@devexpress/dx-react-core';
-import { groupingPanelItems, getMessageFn } from '@devexpress/dx-grid-core';
+import { groupingPanelItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const getGroupPanelTemplateArgs = (
   { allowDragging, allowSorting, allowUngroupingByClick, getMessage },
@@ -41,7 +41,7 @@ export class GroupingPanel extends React.PureComponent {
     } = this.props;
 
     const { messages } = restProps;
-    const getMessage = getMessageFn(messages);
+    const getMessage = getMessagesFormatter(messages);
 
     return (
       <PluginContainer

@@ -5,7 +5,7 @@ const processPattern = (pattern, params) =>
     pattern,
   );
 
-export const getMessageFn = messages => (key, params) => {
+export const getMessagesFormatter = messages => (key, params) => {
   const message = messages[key];
 
   if (typeof message === 'function') {

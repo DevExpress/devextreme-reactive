@@ -12,9 +12,8 @@ export const DemoRenderer = ({
 
   if (!Component) return <div>&gt; DEMO IS NOT AVAILABLE &lt;</div>;
 
-  const DemoContainer = themes
-    .find(({ name: theme }) => theme === currentTheme)
-    .DemoContainer;
+  const { DemoContainer } = themes
+    .find(({ name: theme }) => theme === currentTheme);
 
   return (
     <DemoContainer>

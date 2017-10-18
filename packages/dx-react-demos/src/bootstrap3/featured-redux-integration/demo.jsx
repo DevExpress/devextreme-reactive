@@ -39,7 +39,7 @@ const GridDetailContainer = ({
   </div>
 );
 GridDetailContainer.propTypes = {
-  data: PropTypes.shape().isRequired,
+  data: PropTypes.object.isRequired,
   columns: PropTypes.array.isRequired,
 };
 
@@ -181,7 +181,9 @@ const gridInitialState = {
     { name: 'startDate', title: 'Start Date', width: 115 },
     { name: 'dueDate', title: 'Due Date', width: 115 },
     { name: 'priority', title: 'Priority', width: 100 },
-    { name: 'status', title: 'Status', caption: 'Completed', width: 125 },
+    {
+      name: 'status', title: 'Status', caption: 'Completed', width: 125,
+    },
   ],
   rows: generateRows({
     columnValues: {

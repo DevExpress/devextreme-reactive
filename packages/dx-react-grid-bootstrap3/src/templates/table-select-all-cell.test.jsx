@@ -13,14 +13,14 @@ describe('TableHeaderCell', () => {
   });
 
   it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
-    const tree = mount(
+    const tree = mount((
       <TableSelectAllCell
         column={{
           name: 'Test',
         }}
         someSelected
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('input').getNode().indeterminate)
       .toBeTruthy();
@@ -28,15 +28,15 @@ describe('TableHeaderCell', () => {
 
   it('should call the `toggleAll` function on cell click if selection is available', () => {
     const toggleAll = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <TableSelectAllCell
         column={{
           name: 'Test',
         }}
         selectionAvailable
         toggleAll={toggleAll}
-      />,
-    );
+      />
+    ));
     tree.find('input').simulate('change');
 
     expect(toggleAll)

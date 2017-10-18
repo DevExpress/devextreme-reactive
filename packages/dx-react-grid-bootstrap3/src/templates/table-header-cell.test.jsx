@@ -16,19 +16,19 @@ describe('TableHeaderCell', () => {
   });
 
   it('should use column name if title is not specified', () => {
-    const tree = mount(
+    const tree = mount((
       <TableHeaderCell
         column={{
           name: 'Test',
         }}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('th > div').text()).toBe('Test');
   });
 
   it('should have correct styles when user interaction disallowed', () => {
-    const tree = mount(
+    const tree = mount((
       <table>
         <thead>
           <tr>
@@ -37,8 +37,8 @@ describe('TableHeaderCell', () => {
             />
           </tr>
         </thead>
-      </table>,
-    );
+      </table>
+    ));
 
     expect(tree.find('th').prop('style'))
       .not.toMatchObject({
@@ -52,7 +52,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when sorting is allowed', () => {
-    const tree = mount(
+    const tree = mount((
       <table>
         <thead>
           <tr>
@@ -62,8 +62,8 @@ describe('TableHeaderCell', () => {
             />
           </tr>
         </thead>
-      </table>,
-    );
+      </table>
+    ));
 
     expect(tree.find('th').prop('style'))
       .toMatchObject({
@@ -75,7 +75,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when dragging is allowed', () => {
-    const tree = mount(
+    const tree = mount((
       <DragDropContext>
         <table>
           <thead>
@@ -87,8 +87,8 @@ describe('TableHeaderCell', () => {
             </tr>
           </thead>
         </table>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     expect(tree.find('th').prop('style'))
       .toMatchObject({
@@ -100,7 +100,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when dragging', () => {
-    const tree = mount(
+    const tree = mount((
       <DragDropContext>
         <table>
           <thead>
@@ -112,8 +112,8 @@ describe('TableHeaderCell', () => {
             </tr>
           </thead>
         </table>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     expect(tree.find('th').prop('style'))
       .not.toMatchObject({
@@ -138,14 +138,14 @@ describe('TableHeaderCell', () => {
   it('should render resize control if resize allowed', () => {
     const changeColumnWidth = () => {};
     const changeDraftColumnWidth = () => {};
-    const tree = mount(
+    const tree = mount((
       <TableHeaderCell
         column={{}}
         allowResizing
         changeDraftColumnWidth={changeDraftColumnWidth}
         changeColumnWidth={changeColumnWidth}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find(ResizingControl).exists())
       .toBeTruthy();

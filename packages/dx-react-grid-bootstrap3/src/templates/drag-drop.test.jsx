@@ -4,15 +4,15 @@ import { Container } from './drag-drop';
 
 describe('Container', () => {
   it('should have correct styles', () => {
-    const tree = mount(
+    const tree = mount((
       <Container
         columns={[{
           name: 'Test',
         }]}
         clientOffset={{ x: 10, y: 20 }}
         columnTemplate={() => <div />}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('ul').prop('style'))
       .toMatchObject({

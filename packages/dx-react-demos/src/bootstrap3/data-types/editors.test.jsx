@@ -4,8 +4,6 @@ import Demo from './editors';
 
 describe('BS3: data types formatting demo', () => {
   it('should work', () => {
-    mount(
-      <Demo />,
-    );
+    mount(<Demo />);
   });
 });

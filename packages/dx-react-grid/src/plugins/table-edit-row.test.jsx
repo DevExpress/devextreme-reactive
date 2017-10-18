@@ -75,15 +75,15 @@ describe('TableEditRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableBodyRows', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableEditRow
             {...defaultProps}
             rowHeight={120}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithEditing');
@@ -101,20 +101,21 @@ describe('TableEditRow', () => {
     isEditTableCell.mockImplementation(() => true);
     const editCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
           editCellTemplate={editCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
-    expect(defaultDeps.getter.getCellValue).toBeCalledWith(
-      { ...defaultDeps.template.tableViewCell.tableRow.row },
-      defaultDeps.template.tableViewCell.tableColumn.column.name,
-    );
+    expect(defaultDeps.getter.getCellValue)
+      .toBeCalledWith(
+        { ...defaultDeps.template.tableViewCell.tableRow.row },
+        defaultDeps.template.tableViewCell.tableColumn.column.name,
+      );
     expect(isEditTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableViewCell.tableRow,
@@ -132,15 +133,15 @@ describe('TableEditRow', () => {
     isEditTableRow.mockImplementation(() => true);
     const editRowTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
           editRowTemplate={editRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isEditTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
@@ -153,15 +154,15 @@ describe('TableEditRow', () => {
     isAddedTableRow.mockImplementation(() => true);
     const editRowTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
           editRowTemplate={editRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isAddedTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
@@ -183,17 +184,17 @@ describe('TableEditRow', () => {
     };
     const editCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableEditRow
           {...defaultProps}
           editCellTemplate={editCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
-    const onValueChange = editCellTemplate.mock.calls[0][0].onValueChange;
+    const { onValueChange } = editCellTemplate.mock.calls[0][0];
     onValueChange('test');
 
     expect(defaultDeps.getter.createRowChange)
@@ -219,7 +220,7 @@ describe('TableEditRow', () => {
     const editCellTemplate = jest.fn(() => null);
     const valueEditor = jest.fn(() => <input />);
 
-    mount(
+    mount((
       <PluginHost>
         <DataTypeProvider
           type="column"
@@ -230,8 +231,8 @@ describe('TableEditRow', () => {
           {...defaultProps}
           editCellTemplate={editCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(valueEditor)
       .toHaveBeenCalledWith({

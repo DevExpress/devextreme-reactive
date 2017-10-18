@@ -33,7 +33,7 @@ describe('Table', () => {
       </table>
     ));
 
-    mount(
+    mount((
       <Table
         rowTemplate={rowTemplateMock}
         headerRows={[]}
@@ -42,8 +42,8 @@ describe('Table', () => {
         cellTemplate={() => {}}
         allowColumnReordering={false}
         setColumnOrder={() => {}}
-      />,
-    );
+      />
+    ));
 
     expect(rowTemplateMock).toBeCalledWith(rowTemplateArgs);
   });

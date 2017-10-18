@@ -30,7 +30,6 @@ export class VirtualTable extends React.Component {
 
     this.state = {
       viewportWidth: 0,
-      autoHeights: new WeakMap(),
     };
 
     this.rowHeight = (row) => {
@@ -42,7 +41,9 @@ export class VirtualTable extends React.Component {
     };
   }
   render() {
-    const { headerRows, bodyRows, columns, cellTemplate, rowTemplate } = this.props;
+    const {
+      headerRows, bodyRows, columns, cellTemplate, rowTemplate,
+    } = this.props;
 
     const columnWidths = calculateColumnWidths(columns, this.state.viewportWidth);
     const scrollWidth = columnWidths.reduce((accum, width) => accum + width, 0);

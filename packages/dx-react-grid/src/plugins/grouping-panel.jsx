@@ -10,7 +10,9 @@ import { groupingPanelItems } from '@devexpress/dx-grid-core';
 const getGroupPanelTemplateArgs = (
   { allowDragging, allowSorting, allowUngroupingByClick },
   { columns, draftGrouping, sorting },
-  { groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange },
+  {
+    groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange,
+  },
 ) => ({
   allowSorting,
   allowDragging,

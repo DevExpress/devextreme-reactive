@@ -50,7 +50,9 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, sorting, selection } = this.state.data;
+    const {
+      rows, columns, sorting, selection,
+    } = this.state.data;
 
     return (
       <Grid

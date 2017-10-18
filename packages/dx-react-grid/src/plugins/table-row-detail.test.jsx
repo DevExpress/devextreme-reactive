@@ -72,15 +72,15 @@ describe('TableRowDetail', () => {
 
   describe('table layout getters', () => {
     it('should extend tableBodyRows', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableRowDetail
             {...defaultProps}
             rowHeight={120}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableBodyRows)
         .toBe('tableRowsWithExpandedDetail');
@@ -89,15 +89,15 @@ describe('TableRowDetail', () => {
     });
 
     it('should extend tableColumns', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableRowDetail
             {...defaultProps}
             detailToggleCellWidth={120}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithDetail');
@@ -110,15 +110,15 @@ describe('TableRowDetail', () => {
     isDetailToggleTableCell.mockImplementation(() => true);
     const detailToggleCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableRowDetail
           {...defaultProps}
           detailToggleCellTemplate={detailToggleCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isDetailToggleTableCell)
       .toBeCalledWith(
@@ -136,15 +136,15 @@ describe('TableRowDetail', () => {
     isDetailTableRow.mockImplementation(() => true);
     const detailCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableRowDetail
           {...defaultProps}
           detailCellTemplate={detailCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isDetailTableRow)
       .toBeCalledWith(defaultDeps.template.tableViewCell.tableRow);
@@ -158,15 +158,15 @@ describe('TableRowDetail', () => {
     isDetailTableRow.mockImplementation(() => true);
     const detailRowTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableRowDetail
           {...defaultProps}
           detailRowTemplate={detailRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isDetailTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(detailRowTemplate).toBeCalledWith(expect.objectContaining({

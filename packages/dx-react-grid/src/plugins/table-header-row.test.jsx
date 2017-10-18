@@ -61,14 +61,14 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableHeaderRows', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableHeaderRow
             {...defaultProps}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableHeaderRows)
         .toBe('tableRowsWithHeading');
@@ -81,15 +81,15 @@ describe('TableHeaderRow', () => {
     isHeadingTableCell.mockImplementation(() => true);
     const headerCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableHeaderRow
           {...defaultProps}
           headerCellTemplate={headerCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isHeadingTableCell)
       .toBeCalledWith(
@@ -107,15 +107,15 @@ describe('TableHeaderRow', () => {
     isHeadingTableRow.mockImplementation(() => true);
     const headerRowTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableHeaderRow
           {...defaultProps}
           headerRowTemplate={headerRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isHeadingTableRow)
       .toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
@@ -126,15 +126,15 @@ describe('TableHeaderRow', () => {
   describe('resizing', () => {
     it('should require TableColumnResizing plugin', () => {
       expect(() => {
-        mount(
+        mount((
           <PluginHost>
             {pluginDepsToComponents(defaultDeps)}
             <TableHeaderRow
               {...defaultProps}
               allowResizing
             />
-          </PluginHost>,
-        );
+          </PluginHost>
+        ));
       })
         .toThrow();
     });
@@ -146,7 +146,7 @@ describe('TableHeaderRow', () => {
       const deps = {
         plugins: ['TableColumnResizing'],
       };
-      mount(
+      mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
@@ -154,8 +154,8 @@ describe('TableHeaderRow', () => {
             allowResizing
             headerCellTemplate={headerCellTemplate}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(headerCellTemplate)
         .toBeCalledWith(expect.objectContaining({
@@ -175,7 +175,7 @@ describe('TableHeaderRow', () => {
           changeTableColumnWidths: jest.fn(),
         },
       };
-      mount(
+      mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
@@ -183,8 +183,8 @@ describe('TableHeaderRow', () => {
             allowResizing
             headerCellTemplate={headerCellTemplate}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       headerCellTemplate.mock.calls[0][0].changeColumnWidth({ shift: 10 });
       expect(deps.action.changeTableColumnWidths)
@@ -201,7 +201,7 @@ describe('TableHeaderRow', () => {
           changeDraftTableColumnWidths: jest.fn(),
         },
       };
-      mount(
+      mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
@@ -209,8 +209,8 @@ describe('TableHeaderRow', () => {
             allowResizing
             headerCellTemplate={headerCellTemplate}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       headerCellTemplate.mock.calls[0][0].changeDraftColumnWidth({ shift: 10 });
       expect(deps.action.changeDraftTableColumnWidths)
@@ -233,15 +233,15 @@ describe('TableHeaderRow', () => {
       },
     };
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableHeaderRow
           headerCellTemplate={headerCellTemplate}
           headerRowTemplate={() => null}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const templateParams = headerCellTemplate.mock.calls[0][0];
     templateParams.changeSortingDirection({});

@@ -18,7 +18,7 @@ describe('DragDropContext', () => {
   });
 
   it('should not render container if dragging is not started', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Getter
           name="columns"
@@ -28,15 +28,15 @@ describe('DragDropContext', () => {
           containerTemplate={() => <ul className="container" />}
           columnTemplate={() => <li />}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('.container').exists())
       .toBeFalsy();
   });
 
   it('should render container while dragging', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Getter
           name="columns"
@@ -57,8 +57,8 @@ describe('DragDropContext', () => {
             </li>
           )}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const dragDropContext = tree.find(DragDropContextCore);
     dragDropContext.prop('onChange')({

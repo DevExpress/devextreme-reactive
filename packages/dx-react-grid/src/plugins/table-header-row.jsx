@@ -13,9 +13,15 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const getHeaderTableCellTemplateArgs = (
-  { allowSorting, allowDragging, allowGroupingByClick, allowResizing, ...params },
-  { tableColumns, sorting, columns, grouping },
-  { setColumnSorting, groupByColumn, changeTableColumnWidths, changeDraftTableColumnWidths },
+  {
+    allowSorting, allowDragging, allowGroupingByClick, allowResizing, ...params
+  },
+  {
+    tableColumns, sorting, columns, grouping,
+  },
+  {
+    setColumnSorting, groupByColumn, changeTableColumnWidths, changeDraftTableColumnWidths,
+  },
 ) => {
   const { column } = params.tableColumn;
   const groupingSupported = grouping !== undefined &&
@@ -36,7 +42,9 @@ const getHeaderTableCellTemplateArgs = (
             .find(group => group.columnName !== tableColumn.column.name))
           .map(tableColumn => tableColumn.column.name)
         : null;
-      setColumnSorting({ columnName: column.name, keepOther, cancel, scope });
+      setColumnSorting({
+        columnName: column.name, keepOther, cancel, scope,
+      });
     },
     groupByColumn: () =>
       groupByColumn({ columnName: column.name }),
@@ -93,7 +101,9 @@ export class TableHeaderRow extends React.PureComponent {
                 <TemplateRenderer
                   template={headerCellTemplate}
                   params={getHeaderTableCellTemplateArgs(
-                    { allowDragging, allowGroupingByClick, allowSorting, allowResizing, ...params },
+                    {
+                      allowDragging, allowGroupingByClick, allowSorting, allowResizing, ...params,
+                    },
                     getters,
                     actions,
                   )}

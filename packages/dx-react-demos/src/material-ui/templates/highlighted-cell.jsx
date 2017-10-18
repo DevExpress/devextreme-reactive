@@ -24,7 +24,9 @@ const styles = theme => ({
   },
 });
 
-const HighlightedCellBase = ({ align, value, classes, style }) => (
+const HighlightedCellBase = ({
+  align, value, classes, style,
+}) => (
   <TableCell
     className={classes.highlightedCell}
     style={{

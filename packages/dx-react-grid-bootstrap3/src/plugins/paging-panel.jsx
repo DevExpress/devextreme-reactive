@@ -9,7 +9,6 @@ const getPagerTemplate = getMessage => props =>
 
 const defaultMessages = {
   showAll: 'All',
-  rowsPerPage: 'Rows per page:',
   info: ({ firstRow, lastRow, totalCount }) =>
     `${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`,
 };
@@ -32,7 +31,6 @@ export class PagingPanel extends React.PureComponent {
 PagingPanel.propTypes = {
   messages: PropTypes.shape({
     showAll: PropTypes.string,
-    rowsPerPage: PropTypes.string,
     info: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.func,

@@ -17,7 +17,7 @@ Name | Type | Default | Description
 rowHeight | number | | Specifies the filter row's height.
 filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a filter cell.
 filterRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a filter row.
-messages | object | | The object specifies [localization messages](#localization-messages).
+messages | object | | The object specifies [localization messages](#localization-messages). Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Interfaces
 

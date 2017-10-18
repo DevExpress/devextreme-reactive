@@ -19,13 +19,15 @@ export class SortingState extends React.PureComponent {
     };
   }
   applyReducer(reduce, payload) {
-    const state = this.getState();
-    const nextState = reduce(state, payload);
-    this.setState(nextState);
+    const prevState = this.getState();
+    const statePart = reduce(prevState, payload);
+    this.setState(statePart);
+    const state = { ...prevState, ...statePart };
 
+    const { sorting } = state;
     const { onSortingChange } = this.props;
-    if (onSortingChange && nextState.sorting !== state.sorting) {
-      onSortingChange(nextState.sorting);
+    if (onSortingChange && sorting !== prevState.sorting) {
+      onSortingChange(sorting);
     }
   }
   render() {

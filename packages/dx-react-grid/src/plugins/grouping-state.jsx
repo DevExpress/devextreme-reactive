@@ -13,6 +13,19 @@ const dependencies = [
   { pluginName: 'SortingState', optional: true },
 ];
 
+const adjustSortIndex = (sortIndex, grouping, sorting) =>
+  Math.min(
+    grouping.reduce(
+      (acc, columnGrouping) => {
+        const columnSortingIndex = sorting.findIndex(columnSorting =>
+          columnSorting.columnName === columnGrouping.columnName);
+        return (columnSortingIndex === -1 ? acc : acc + 1);
+      },
+      0,
+    ),
+    sortIndex,
+  );
+
 export class GroupingState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -49,14 +62,7 @@ export class GroupingState extends React.PureComponent {
       return false;
     }
 
-    const sortIndex = Math.min(grouping
-      .reduce(
-        (acc, columnGrouping) =>
-          (sorting.findIndex(columnSorting =>
-            columnSorting.columnName === columnGrouping.columnName) === -1
-            ? acc
-            : acc + 1),
-        0), groupingIndex);
+    const sortIndex = adjustSortIndex(groupingIndex, grouping, sorting);
     setColumnSorting({
       columnName,
       keepOther: true,
@@ -66,29 +72,26 @@ export class GroupingState extends React.PureComponent {
     return false;
   }
   groupByColumn({ columnName, groupIndex }, { sorting }, { setColumnSorting }) {
-    const { grouping } = this.state;
-    const { grouping: newGrouping } = this.applyReducer(groupByColumn, { columnName, groupIndex });
+    const { grouping: prevGrouping } = this.state;
+    const { grouping } = this.applyReducer(groupByColumn, { columnName, groupIndex });
 
     if (!sorting) return;
 
     const columnSortingIndex = sorting
       .findIndex(columnSorting => columnSorting.columnName === columnName);
-    const groupingIndex = grouping
+    const prevGroupingIndex = prevGrouping
       .findIndex(columnGrouping => columnGrouping.columnName === columnName);
-    const newGroupingIndex = newGrouping
+    const groupingIndex = grouping
       .findIndex(columnGrouping => columnGrouping.columnName === columnName);
 
     if (columnSortingIndex === -1
-      || (groupingIndex === grouping.length - 1 && newGroupingIndex === -1)) return;
+      || (prevGroupingIndex === prevGrouping.length - 1 && groupingIndex === -1)) return;
 
-    const sortIndex = Math.min(newGrouping
-      .reduce(
-        (acc, columnGrouping) =>
-          (sorting.findIndex(columnSorting =>
-            columnSorting.columnName === columnGrouping.columnName) === -1
-            ? acc
-            : acc + 1),
-        0), newGroupingIndex === -1 ? newGrouping.length : newGroupingIndex);
+    const sortIndex = adjustSortIndex(
+      groupingIndex === -1 ? grouping.length : groupingIndex,
+      grouping,
+      sorting,
+    );
 
     if (columnSortingIndex === sortIndex) return;
 
@@ -99,21 +102,24 @@ export class GroupingState extends React.PureComponent {
     });
   }
   applyReducer(reduce, payload) {
-    const state = this.getState();
-    const nextState = reduce(state, payload);
-    this.setState(nextState);
+    const prevState = this.getState();
+    const statePart = reduce(prevState, payload);
+    this.setState(statePart);
+    const state = { ...prevState, ...statePart };
 
+    const { grouping } = state;
     const { onGroupingChange } = this.props;
-    if (onGroupingChange && nextState.grouping !== state.grouping) {
-      onGroupingChange(nextState.grouping);
+    if (onGroupingChange && grouping !== prevState.grouping) {
+      onGroupingChange(grouping);
     }
 
+    const { expandedGroups } = state;
     const { onExpandedGroupsChange } = this.props;
-    if (onExpandedGroupsChange && nextState.expandedGroups !== state.expandedGroups) {
-      onExpandedGroupsChange(nextState.expandedGroups);
+    if (onExpandedGroupsChange && expandedGroups !== prevState.expandedGroups) {
+      onExpandedGroupsChange(expandedGroups);
     }
 
-    return nextState;
+    return state;
   }
   render() {
     const { grouping, groupingChange, expandedGroups } = this.getState();

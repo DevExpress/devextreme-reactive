@@ -1,3 +1,4 @@
+import Immutable from 'seamless-immutable';
 import {
   setColumnSorting,
 } from './reducers';
@@ -64,9 +65,33 @@ describe('SortingState reducers', () => {
         });
     });
 
+    it('can initiate multi-column sorting by keepOther option with immutable data', () => {
+      const state = {
+        sorting: Immutable([{ columnName: 'test', direction: 'asc' }]),
+      };
+      const payload = { columnName: 'test2', keepOther: true };
+
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+        });
+    });
+
     it('can initiate multi-column sorting by keepOther option with array', () => {
       const state = {
         sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test1', direction: 'asc' }],
+      };
+      const payload = { columnName: 'test2', keepOther: ['test'] };
+
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+        });
+    });
+
+    it('can initiate multi-column sorting by keepOther option with array with immutable data', () => {
+      const state = {
+        sorting: Immutable([{ columnName: 'test', direction: 'asc' }, { columnName: 'test1', direction: 'asc' }]),
       };
       const payload = { columnName: 'test2', keepOther: ['test'] };
 

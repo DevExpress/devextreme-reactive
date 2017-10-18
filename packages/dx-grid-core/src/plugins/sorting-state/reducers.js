@@ -5,10 +5,10 @@ export const setColumnSorting = (state, {
 
   let nextSorting = [];
   if (keepOther === true) {
-    nextSorting = sorting.slice();
+    nextSorting = Array.from(sorting).slice();
   }
   if (Array.isArray(keepOther)) {
-    nextSorting = sorting
+    nextSorting = Array.from(sorting)
       .filter(columnSorting => keepOther.indexOf(columnSorting.columnName) > -1);
   }
 

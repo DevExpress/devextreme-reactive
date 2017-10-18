@@ -137,7 +137,7 @@ describe('SortingState reducers', () => {
         });
     });
 
-    it('should set corretct sorting if sortIndex is specified', () => {
+    it('should set correct sorting if sortIndex is specified', () => {
       const state = {
         sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test1', direction: 'asc' }],
       };

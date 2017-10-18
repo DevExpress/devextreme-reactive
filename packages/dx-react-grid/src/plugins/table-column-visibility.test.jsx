@@ -1,13 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { visibleTableColumns } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessageFn } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   visibleTableColumns: jest.fn(),
+  getMessageFn: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -35,6 +36,7 @@ describe('TableColumnVisibility', () => {
 
   beforeEach(() => {
     visibleTableColumns.mockImplementation(() => [{ column: { name: 'c' } }]);
+    getMessageFn.mockImplementation(() => key => key);
   });
   afterEach(() => {
     jest.resetAllMocks();

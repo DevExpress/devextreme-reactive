@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getMessageFn } from '@devexpress/dx-grid-core';
 import { PagingPanel as PagingPanelBase } from '@devexpress/dx-react-grid';
 import { Pager } from '../templates/pager';
 
-const getPagerTemplate = getMessage => props =>
-  <Pager getMessage={getMessage} {...props} />;
+const pagerTemplate = props => <Pager {...props} />;
 
 const defaultMessages = {
   showAll: 'All',
@@ -16,14 +14,13 @@ const defaultMessages = {
 
 export class PagingPanel extends React.PureComponent {
   render() {
-    const { messages } = this.props;
-    const getMessage = getMessageFn({ ...defaultMessages, ...messages });
-    const pagerTemplate = getPagerTemplate(getMessage);
+    const { messages, ...restProps } = this.props;
 
     return (
       <PagingPanelBase
         pagerTemplate={pagerTemplate}
-        {...this.props}
+        messages={{ ...defaultMessages, ...messages }}
+        {...restProps}
       />
     );
   }

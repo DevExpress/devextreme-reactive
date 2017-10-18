@@ -8,7 +8,7 @@ import {
   TemplatePlaceholder,
   TemplateRenderer,
 } from '@devexpress/dx-react-core';
-import { visibleTableColumns } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessageFn } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'TableView' },
@@ -16,9 +16,12 @@ const pluginDependencies = [
 
 export class TableColumnVisibility extends React.PureComponent {
   render() {
-    const { hiddenColumns, emptyMessageTemplate } = this.props;
+    const { hiddenColumns, emptyMessageTemplate, ...restProps } = this.props;
     const visibleTableColumnsComputed = ({ tableColumns }) =>
       visibleTableColumns(tableColumns, hiddenColumns);
+
+    const { messages } = restProps;
+    const getMessage = getMessageFn(messages);
 
     return (
       <PluginContainer
@@ -33,7 +36,7 @@ export class TableColumnVisibility extends React.PureComponent {
                 ? <TemplatePlaceholder />
                 : <TemplateRenderer
                   template={emptyMessageTemplate}
-                  params={params}
+                  params={{ getMessage, ...params }}
                 />
               )}
             </TemplateConnector>

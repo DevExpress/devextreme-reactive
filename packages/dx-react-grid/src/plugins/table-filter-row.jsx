@@ -13,6 +13,7 @@ import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
+  getMessageFn,
 } from '@devexpress/dx-grid-core';
 
 const getFilterTableCellTemplateArgs = (
@@ -40,7 +41,10 @@ const pluginDependencies = [
 
 export class TableFilterRow extends React.PureComponent {
   render() {
-    const { rowHeight, filterCellTemplate, filterRowTemplate } = this.props;
+    const { rowHeight, filterCellTemplate, filterRowTemplate, ...restProps } = this.props;
+
+    const { messages } = restProps;
+    const getMessage = getMessageFn(messages);
 
     const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
       tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
@@ -58,7 +62,11 @@ export class TableFilterRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters, actions) => {
-                const templateArgs = getFilterTableCellTemplateArgs(params, getters, actions);
+                const templateArgs = getFilterTableCellTemplateArgs(
+                  { getMessage, ...params },
+                  getters,
+                  actions,
+                );
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"

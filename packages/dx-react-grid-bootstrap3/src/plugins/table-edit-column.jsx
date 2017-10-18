@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getMessageFn } from '@devexpress/dx-grid-core';
 import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableEditColumn as TableEditColumnBase } from '@devexpress/dx-react-grid';
 import {
@@ -9,12 +8,8 @@ import {
   CommandButton,
 } from '../templates/table-edit-command-cell';
 
-const getDefaultCellTemplate = getMessage => props =>
-  <EditCommandCell getMessage={getMessage} {...props} />;
-
-const getDefaultHeadingCellTemplate = getMessage => props =>
-  <EditCommandHeadingCell getMessage={getMessage} {...props} />;
-
+const defaultCellTemplate = props => <EditCommandCell {...props} />;
+const defaultHeadingCellTemplate = props => <EditCommandHeadingCell {...props} />;
 const defaultCommandTemplate = props => <CommandButton {...props} />;
 
 const defaultMessages = {
@@ -34,15 +29,13 @@ export class TableEditColumn extends React.PureComponent {
       messages,
       ...restProps
     } = this.props;
-    const getMessage = getMessageFn({ ...defaultMessages, ...messages });
-    const defaultHeadingCellTemplate = getDefaultHeadingCellTemplate(getMessage);
-    const defaultCellTemplate = getDefaultCellTemplate(getMessage);
 
     return (
       <TableEditColumnBase
         cellTemplate={combineTemplates(cellTemplate, defaultCellTemplate)}
         headingCellTemplate={combineTemplates(headingCellTemplate, defaultHeadingCellTemplate)}
         commandTemplate={combineTemplates(commandTemplate, defaultCommandTemplate)}
+        messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
     );

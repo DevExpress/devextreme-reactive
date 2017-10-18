@@ -10,6 +10,7 @@ import {
   isEditCommandsTableCell,
   isAddedTableRow,
   isEditTableRow,
+  getMessageFn,
 } from '@devexpress/dx-grid-core';
 
 const getHeadingEditCommandsTableCellTemplateArgs = (
@@ -76,8 +77,10 @@ export class TableEditColumn extends React.PureComponent {
       allowEditing,
       allowDeleting,
       width,
+      ...restProps
     } = this.props;
-
+    const { messages } = restProps;
+    const getMessage = getMessageFn(messages);
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
 
     return (
@@ -98,7 +101,7 @@ export class TableEditColumn extends React.PureComponent {
                 <TemplateRenderer
                   template={headingCellTemplate}
                   params={getHeadingEditCommandsTableCellTemplateArgs(
-                    { allowAdding, commandTemplate, ...params },
+                    { allowAdding, commandTemplate, getMessage, ...params },
                     getters,
                     actions,
                   )}
@@ -122,6 +125,7 @@ export class TableEditColumn extends React.PureComponent {
                       allowEditing,
                       allowDeleting,
                       commandTemplate,
+                      getMessage,
                       ...params,
                     },
                     getters,

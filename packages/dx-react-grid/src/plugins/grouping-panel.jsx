@@ -5,10 +5,10 @@ import {
   Template, TemplatePlaceholder, PluginContainer,
   TemplateConnector, TemplateRenderer,
 } from '@devexpress/dx-react-core';
-import { groupingPanelItems } from '@devexpress/dx-grid-core';
+import { groupingPanelItems, getMessageFn } from '@devexpress/dx-grid-core';
 
 const getGroupPanelTemplateArgs = (
-  { allowDragging, allowSorting, allowUngroupingByClick },
+  { allowDragging, allowSorting, allowUngroupingByClick, getMessage },
   { columns, draftGrouping, sorting },
   { groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange },
 ) => ({
@@ -18,6 +18,7 @@ const getGroupPanelTemplateArgs = (
   groupingPanelItems: groupingPanelItems(columns, draftGrouping),
   sorting,
   groupByColumn,
+  getMessage,
   changeSortingDirection: ({ columnName, keepOther, cancel }) =>
     setColumnSorting({
       columnName,
@@ -36,7 +37,11 @@ export class GroupingPanel extends React.PureComponent {
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
+      ...restProps
     } = this.props;
+
+    const { messages } = restProps;
+    const getMessage = getMessageFn(messages);
 
     return (
       <PluginContainer
@@ -53,7 +58,7 @@ export class GroupingPanel extends React.PureComponent {
                 <TemplateRenderer
                   template={groupPanelTemplate}
                   params={getGroupPanelTemplateArgs(
-                    { allowDragging, allowSorting, allowUngroupingByClick },
+                    { allowDragging, allowSorting, allowUngroupingByClick, getMessage },
                     getters,
                     actions,
                   )}

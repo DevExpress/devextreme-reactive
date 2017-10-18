@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { getMessageFn } from '@devexpress/dx-grid-core';
 import { combineTemplates } from '@devexpress/dx-react-core';
 import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-grid';
 
@@ -17,7 +16,6 @@ const defaultMessages = {
 export class GroupingPanel extends React.PureComponent {
   render() {
     const { groupPanelItemTemplate, messages, ...restProps } = this.props;
-    const getMessage = getMessageFn({ ...defaultMessages, ...messages });
     return (
       <GroupingPanelBase
         groupPanelTemplate={
@@ -27,11 +25,11 @@ export class GroupingPanel extends React.PureComponent {
                 groupPanelItemTemplate,
                 defaultCellTemplate,
               )}
-              getMessage={getMessage}
               {...props}
             />
           )
         }
+        messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
     );

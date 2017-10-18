@@ -56,7 +56,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns.
 sorting? | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Applied column sorting.
-setColumnSorting? | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. Keeps existing sorting if `keepOther` is set to `true`. The `keepOther` can handle contains the names of columns will be keeped when sorting is applied. Cancels sorting by the current column if `cancel` is set to `true`.
+setColumnSorting? | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. Keeps existing sorting if `keepOther` is set to `true`. The `keepOther` can handle contains the names of columns will be kept when sorting is applied. Cancels sorting by the current column if `cancel` is set to `true`.
 
 ### Exports
 

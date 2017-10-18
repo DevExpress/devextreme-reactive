@@ -1,5 +1,3 @@
-/* global window document */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
@@ -32,11 +30,10 @@ export class VirtualTable extends React.Component {
 
     this.state = {
       viewportWidth: 0,
-      autoHeights: new WeakMap(),
     };
 
     this.rowHeight = (row) => {
-      let height = row.height;
+      let { height } = row;
       if (typeof (row.height) === 'undefined' || height === 'auto') {
         height = DEFAULT_HEIGHT;
       }
@@ -44,7 +41,9 @@ export class VirtualTable extends React.Component {
     };
   }
   render() {
-    const { headerRows, bodyRows, columns, cellTemplate, rowTemplate } = this.props;
+    const {
+      headerRows, bodyRows, columns, cellTemplate, rowTemplate,
+    } = this.props;
 
     const columnWidths = calculateColumnWidths(columns, this.state.viewportWidth);
     const scrollWidth = columnWidths.reduce((accum, width) => accum + width, 0);
@@ -88,6 +87,7 @@ export class VirtualTable extends React.Component {
         iref={(ref) => {
           if (!ref) return;
           const { style } = ref;
+          // eslint-disable-next-line no-undef
           style.backgroundColor = window.getComputedStyle(document.body).backgroundColor;
         }}
 

@@ -50,12 +50,12 @@ describe('SelectionState', () => {
       plugins: ['LocalGrouping'],
     };
 
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <SelectionState />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.availableToSelect)
       .toBe(getAvailableToSelect());
@@ -64,20 +64,21 @@ describe('SelectionState', () => {
       .toHaveBeenCalledWith(
         defaultDeps.getter.rows,
         defaultDeps.getter.getRowId,
-        deps.getter.isGroupRow);
+        deps.getter.isGroupRow,
+      );
   });
 
   it('should provide selection defined in defaultSelection', () => {
     const defaultSelection = [1, 2, 3];
 
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SelectionState
           defaultSelection={defaultSelection}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.selection)
       .toBe(getAvailableSelection());
@@ -89,14 +90,14 @@ describe('SelectionState', () => {
   it('should provide selection defined in selection', () => {
     const selection = [1, 2, 3];
 
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SelectionState
           selection={selection}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.selection)
       .toBe(getAvailableSelection());

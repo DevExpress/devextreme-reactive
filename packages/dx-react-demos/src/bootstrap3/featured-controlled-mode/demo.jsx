@@ -25,7 +25,9 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const CommandButton = ({ executeCommand, icon, text, hint, isDanger }) => (
+const CommandButton = ({
+  executeCommand, icon, text, hint, isDanger,
+}) => (
   <button
     className="btn btn-link"
     onClick={(e) => {
@@ -80,7 +82,9 @@ const commands = {
   },
 };
 
-export const LookupEditCell = ({ column, value, onValueChange, availableValues }) => (
+export const LookupEditCell = ({
+  column, value, onValueChange, availableValues,
+}) => (
   <td
     style={{
       verticalAlign: 'middle',
@@ -156,11 +160,10 @@ export default class Demo extends React.PureComponent {
       })),
     });
     this.changeChangedRows = changedRows => this.setState({ changedRows });
-    this.changeFilters = filters => this.setState({ filters });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
-      let rows = this.state.rows;
+      let { rows } = this.state;
       if (added) {
         const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [

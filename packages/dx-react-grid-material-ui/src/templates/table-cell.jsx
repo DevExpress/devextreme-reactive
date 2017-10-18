@@ -13,13 +13,16 @@ const styles = theme => ({
     '& ~ $cell': {
       paddingLeft: theme.spacing.unit,
     },
+    overflow: 'hidden',
   },
   cellRightAlign: {
     textAlign: 'right',
   },
 });
 
-const TableCellBase = ({ style, column, value, children, classes }) => (
+const TableCellBase = ({
+  style, column, value, children, classes,
+}) => (
   <TableCellMUI
     style={{
       ...style,
@@ -34,9 +37,9 @@ const TableCellBase = ({ style, column, value, children, classes }) => (
 );
 
 TableCellBase.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   value: PropTypes.any,
-  column: PropTypes.shape(),
+  column: PropTypes.object,
   classes: PropTypes.object.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.node,

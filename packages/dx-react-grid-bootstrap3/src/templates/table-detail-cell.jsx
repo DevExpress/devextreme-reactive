@@ -5,7 +5,7 @@ export const TableDetailCell = ({ colSpan, style, template }) =>
   <td style={style} colSpan={colSpan} className="active">{template()}</td>;
 
 TableDetailCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   colSpan: PropTypes.number,
   template: PropTypes.func.isRequired,
 };

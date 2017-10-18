@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableFilterCell = ({ style, filter, setFilter, children }) => (
+export const TableFilterCell = ({
+  style, filter, setFilter, children,
+}) => (
   <th
     style={{
       fontWeight: 'normal',

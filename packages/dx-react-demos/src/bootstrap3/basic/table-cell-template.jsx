@@ -53,7 +53,9 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
 
-    this.tableCellTemplate = ({ column, value, style, colSpan }) => {
+    this.tableCellTemplate = ({
+      column, value, style, colSpan,
+    }) => {
       if (column.name === 'amount' && value < 5000) {
         return <HighlightedTableCell value={value} style={style} colSpan={colSpan} />;
       }

@@ -40,7 +40,7 @@ export class TableColumnReordering extends React.PureComponent {
     this.onDrop = this.handleDrop.bind(this);
   }
   getState() {
-    const state = this.state;
+    const { state } = this;
     const { order = state.order } = this.props;
     return { ...state, order };
   }

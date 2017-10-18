@@ -162,7 +162,7 @@ TableHeaderCellBase.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,

@@ -56,7 +56,7 @@ export class TemplatePlaceholder extends React.Component {
     const { params, templates } = this.getRenderingData(this.props);
 
     this.params = params;
-    this.template = templates[0];
+    [this.template] = templates;
     this.restTemplates = templates.slice(1);
 
     let content = null;

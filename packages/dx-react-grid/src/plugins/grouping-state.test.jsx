@@ -22,15 +22,15 @@ describe('GroupingState', () => {
     it('should group by column', () => {
       const onGroupingChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'b' }]}
             onGroupingChange={onGroupingChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'a', groupIndex: 0 });
 
@@ -43,15 +43,15 @@ describe('GroupingState', () => {
     it('should group by column in controlled mode', () => {
       const onGroupingChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             grouping={[{ columnName: 'b' }]}
             onGroupingChange={onGroupingChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'a', groupIndex: 0 });
 
@@ -64,15 +64,15 @@ describe('GroupingState', () => {
     it('should ungroup by column', () => {
       const onGroupingChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }]}
             onGroupingChange={onGroupingChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'a' });
 
@@ -87,15 +87,15 @@ describe('GroupingState', () => {
     it('should expand group row', () => {
       const expandedGroupsChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultExpandedGroups={[]}
             onExpandedGroupsChange={expandedGroupsChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.toggleGroupExpanded({ groupKey: 'a' });
 
@@ -108,15 +108,15 @@ describe('GroupingState', () => {
     it('should expand group row in controlled mode', () => {
       const expandedGroupsChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             expandedGroups={[]}
             onExpandedGroupsChange={expandedGroupsChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.toggleGroupExpanded({ groupKey: 'a' });
 
@@ -129,15 +129,15 @@ describe('GroupingState', () => {
     it('should collapse group row', () => {
       const expandedGroupsChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultExpandedGroups={['a']}
             onExpandedGroupsChange={expandedGroupsChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.toggleGroupExpanded({ groupKey: 'a' });
 
@@ -152,7 +152,7 @@ describe('GroupingState', () => {
     it('should clear expanded rows after ungrouping', () => {
       const expandedGroupsChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
@@ -160,8 +160,8 @@ describe('GroupingState', () => {
             defaultExpandedGroups={['John']}
             onExpandedGroupsChange={expandedGroupsChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'a' });
 
@@ -174,7 +174,7 @@ describe('GroupingState', () => {
     it('should clear expanded rows after ungrouping nested rows', () => {
       const expandedGroupsChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
@@ -182,8 +182,8 @@ describe('GroupingState', () => {
             defaultExpandedGroups={['John', 'John|30', 'Mike']}
             onExpandedGroupsChange={expandedGroupsChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'age' });
 
@@ -196,7 +196,7 @@ describe('GroupingState', () => {
     it('should not clear expanded rows after grouping', () => {
       const expandedGroupsChangeMock = jest.fn();
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
@@ -204,8 +204,8 @@ describe('GroupingState', () => {
             defaultExpandedGroups={['John', 'Mike']}
             onExpandedGroupsChange={expandedGroupsChangeMock}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'age' });
 
@@ -231,12 +231,12 @@ describe('GroupingState', () => {
         </PluginHost>
       );
 
-      const tree = mount(
+      const tree = mount((
         <TestCase
           expandedGroups={['John', 'Mike', 'John|75', 'Mike|30']}
           onGroupingChange={() => tree.setProps({ expandedGroups: ['John'] })}
-        />,
-      );
+        />
+      ));
 
       getComputedState(tree).actions.groupByColumn({ columnName: 'age' });
 
@@ -247,14 +247,14 @@ describe('GroupingState', () => {
 
   describe('draftGroupingChange', () => {
     it('should add the column passed to draftGrouping', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={[]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.draftGroupingChange({ columnName: 'a', groupIndex: 0 });
 
@@ -265,14 +265,14 @@ describe('GroupingState', () => {
 
   describe('cancelGroupingChange', () => {
     it('should reset draftGrouping', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.draftGroupingChange({ columnName: 'a', groupIndex: 0 });
       getComputedState(tree).actions.cancelGroupingChange();

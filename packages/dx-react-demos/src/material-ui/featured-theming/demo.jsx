@@ -60,7 +60,7 @@ const TabContainer = ({ rows }) => {
     <List style={{ height: 180 }}>
       {rows.map((item, index) => {
         const key = index;
-        const status = item.status;
+        const { status } = item;
         return (
           <div key={key}>
             <ListItem dense>
@@ -112,7 +112,9 @@ class GridDetailContainerBase extends React.PureComponent {
     this.setState({ value });
   }
   render() {
-    const { lowPriorityTasks, normalPriorityTasks, highPriorityTasks, value } = this.state;
+    const {
+      lowPriorityTasks, normalPriorityTasks, highPriorityTasks, value,
+    } = this.state;
     const { data, classes } = this.props;
 
     return (
@@ -142,7 +144,7 @@ class GridDetailContainerBase extends React.PureComponent {
 }
 
 GridDetailContainerBase.propTypes = {
-  data: PropTypes.shape().isRequired,
+  data: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

@@ -14,16 +14,16 @@ describe('EditCell', () => {
   });
 
   it('should pass style to the root element', () => {
-    const tree = mount(
+    const tree = mount((
       <EditCell
-        value={'a'}
+        value="a"
         onValueChange={() => {}}
         style={{
           width: '40px',
           height: '10px',
         }}
-      />,
-    );
+      />
+    ));
     expect(tree.find('td').prop('style'))
       .toMatchObject({
         width: '40px',
@@ -32,13 +32,13 @@ describe('EditCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount(
+    const tree = mount((
       <EditCell
         onValueChange={() => {}}
       >
         <span className="test" />
-      </EditCell>,
-    );
+      </EditCell>
+    ));
 
     expect(tree.find('.test').exists())
       .toBeTruthy();

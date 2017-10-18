@@ -38,7 +38,9 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
         { name: 'saleDate', title: 'Sale Date', dataType: 'date' },
-        { name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right' },
+        {
+          name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right',
+        },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };

@@ -48,7 +48,7 @@ export class DragDropContext extends React.Component {
 }
 
 DragDropContext.childContextTypes = {
-  dragDropContext: PropTypes.shape().isRequired,
+  dragDropContext: PropTypes.object.isRequired,
 };
 
 DragDropContext.propTypes = {

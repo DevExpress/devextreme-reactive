@@ -4,14 +4,13 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
-  const mountTableCell = column => (
-    mount(
+  const mountTableCell = column =>
+    mount((
       <TableCell
         column={column}
-        value={'text'}
-      />,
-    )
-  );
+        value="text"
+      />
+    ));
 
   let resetConsole;
   beforeAll(() => {
@@ -39,11 +38,11 @@ describe('TableCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount(
+    const tree = mount((
       <TableCell>
         <span className="test" />
-      </TableCell>,
-    );
+      </TableCell>
+    ));
 
     expect(tree.find('.test').exists())
       .toBeTruthy();

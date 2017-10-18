@@ -4,8 +4,6 @@ import Demo from './table-cell-template';
 
 describe('BS3: table cell template demo', () => {
   it('should work', () => {
-    mount(
-      <Demo />,
-    );
+    mount(<Demo />);
   });
 });

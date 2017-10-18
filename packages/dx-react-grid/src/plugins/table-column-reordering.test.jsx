@@ -68,7 +68,7 @@ describe('TableColumnReordering', () => {
   });
 
   it('should apply the column order specified in the "defaultOrder" property in uncontrolled mode', () => {
-    mount(
+    mount((
       <DragDropContext>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -78,8 +78,8 @@ describe('TableColumnReordering', () => {
             reorderingCellTemplate={reorderingCellTemplate}
           />
         </PluginHost>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     expect(orderedColumns)
       .toHaveBeenCalledTimes(1);
@@ -88,7 +88,7 @@ describe('TableColumnReordering', () => {
   });
 
   it('should apply the column order specified in the "order" property in controlled mode', () => {
-    mount(
+    mount((
       <DragDropContext>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -98,8 +98,8 @@ describe('TableColumnReordering', () => {
             reorderingCellTemplate={reorderingCellTemplate}
           />
         </PluginHost>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     expect(orderedColumns)
       .toHaveBeenCalledTimes(1);
@@ -108,7 +108,7 @@ describe('TableColumnReordering', () => {
   });
 
   it('should render DropTarget', () => {
-    const tree = mount(
+    const tree = mount((
       <DragDropContext>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -118,15 +118,15 @@ describe('TableColumnReordering', () => {
             reorderingCellTemplate={reorderingCellTemplate}
           />
         </PluginHost>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     expect(tree.find(DropTarget).exists())
       .toBeTruthy();
   });
 
   describe('drag\'n\'drop reordering', () => {
-    const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount(
+    const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount((
       <DragDropContext>
         <PluginHost>
           <Template name="tableView">
@@ -156,8 +156,8 @@ describe('TableColumnReordering', () => {
             reorderingCellTemplate={reorderingCellTemplate}
           />
         </PluginHost>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     beforeEach(() => {
       orderedColumns.mockImplementation(() => defaultDeps.getter.tableColumns);

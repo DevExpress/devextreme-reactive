@@ -68,14 +68,14 @@ describe('TableView', () => {
 
   describe('table layout getters', () => {
     it('should provide tableBodyRows', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableView
             {...defaultProps}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(tableRowsWithDataRows)
         .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
@@ -84,14 +84,14 @@ describe('TableView', () => {
     });
 
     it('should extend tableColumns', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableView
             {...defaultProps}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(tableColumnsWithDataRows)
         .toBeCalledWith(defaultDeps.getter.columns);
@@ -110,7 +110,7 @@ describe('TableView', () => {
       value: undefined,
     };
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableView
@@ -118,8 +118,8 @@ describe('TableView', () => {
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableCellTemplate={tableCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isDataTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
@@ -142,7 +142,7 @@ describe('TableView', () => {
       value: undefined,
     };
 
-    mount(
+    mount((
       <PluginHost>
         <DataTypeProvider
           type="column"
@@ -154,8 +154,8 @@ describe('TableView', () => {
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableCellTemplate={tableCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(valueFormatter)
       .toHaveBeenCalledWith({
@@ -171,7 +171,7 @@ describe('TableView', () => {
     const tableStubCellTemplate = jest.fn(() => null);
     const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableView
@@ -179,8 +179,8 @@ describe('TableView', () => {
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubCellTemplate={tableStubCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tableStubCellTemplate)
       .toBeCalledWith(tableCellArgs);
@@ -191,7 +191,7 @@ describe('TableView', () => {
     const tableStubHeaderCellTemplate = jest.fn(() => null);
     const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableView
@@ -199,8 +199,8 @@ describe('TableView', () => {
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubHeaderCellTemplate={tableStubHeaderCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isHeaderStubTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).getters.tableHeaderRows);
@@ -211,9 +211,11 @@ describe('TableView', () => {
   it('should render no data cell if rows are empty', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableNoDataCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4 };
+    const tableCellArgs = {
+      tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4,
+    };
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableView
@@ -221,8 +223,8 @@ describe('TableView', () => {
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableNoDataCellTemplate={tableNoDataCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isNoDataTableRow)
       .toBeCalledWith(tableCellArgs.tableRow);
@@ -239,7 +241,7 @@ describe('TableView', () => {
       children: null,
     };
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableView
@@ -247,8 +249,8 @@ describe('TableView', () => {
           tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
           tableRowTemplate={tableRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
     expect(tableRowTemplate).toBeCalledWith(expect.objectContaining({
@@ -266,7 +268,7 @@ describe('TableView', () => {
       children: null,
     };
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableView
@@ -274,8 +276,8 @@ describe('TableView', () => {
           tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
           tableNoDataRowTemplate={tableNoDataRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isNoDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
     expect(tableNoDataRowTemplate).toBeCalledWith(tableRowArgs);

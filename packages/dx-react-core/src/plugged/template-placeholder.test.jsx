@@ -11,7 +11,7 @@ import { Getter } from './getter';
 
 describe('TemplatePlaceholder', () => {
   it('should be a place for template rendering', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="test">
           <h1>Test content</h1>
@@ -20,14 +20,14 @@ describe('TemplatePlaceholder', () => {
         <Template name="root">
           <TemplatePlaceholder name="test" />
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').exists()).toBeTruthy();
   });
 
   it('can accept a content render function as a child', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="test">
           <span>Test content</span>
@@ -38,8 +38,8 @@ describe('TemplatePlaceholder', () => {
             {content => <h1>{content}</h1>}
           </TemplatePlaceholder>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.render().find('h1 > span').length).toBe(1);
   });
@@ -62,9 +62,7 @@ describe('TemplatePlaceholder', () => {
       text: PropTypes.string.isRequired,
     };
 
-    const tree = mount(
-      <Test text="old" />,
-    );
+    const tree = mount(<Test text="old" />);
 
     tree.setProps({ text: 'new' });
 
@@ -73,7 +71,7 @@ describe('TemplatePlaceholder', () => {
   });
 
   it('should pass params to the template which is rendered inside it', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="test">
           {({ text }) => <h1>{text}</h1>}
@@ -82,8 +80,8 @@ describe('TemplatePlaceholder', () => {
         <Template name="root">
           <TemplatePlaceholder name="test" params={{ text: 'param' }} />
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('param');
   });
@@ -117,16 +115,14 @@ describe('TemplatePlaceholder', () => {
       param: PropTypes.string.isRequired,
     };
 
-    const tree = mount(
-      <Test param={'text'} />,
-    );
+    const tree = mount(<Test param="text" />);
     tree.setProps({ param: 'new' });
 
     expect(tree.find('h1').text()).toBe('new');
   });
 
   it('should support template chain rendering', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="test">
           <h1>Test content</h1>
@@ -142,15 +138,15 @@ describe('TemplatePlaceholder', () => {
         <Template name="root">
           <TemplatePlaceholder name="test" />
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').exists()).toBeTruthy();
     expect(tree.find('h2').exists()).toBeTruthy();
   });
 
   it('should pass params to the template chain which is rendered inside it', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="test">
           {({ text }) => (
@@ -167,14 +163,14 @@ describe('TemplatePlaceholder', () => {
         <Template name="root">
           <TemplatePlaceholder name="test" params={{ text: 'param' }} />
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('param');
   });
 
   it('should allow to override params in the template chain', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="test">
           {({ text }) => (
@@ -191,8 +187,8 @@ describe('TemplatePlaceholder', () => {
         <Template name="root">
           <TemplatePlaceholder name="test" params={{ text: 'param' }} />
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('overriden');
   });
@@ -231,16 +227,14 @@ describe('TemplatePlaceholder', () => {
       param: PropTypes.string.isRequired,
     };
 
-    const tree = mount(
-      <Test param={'text'} />,
-    );
+    const tree = mount(<Test param="text" />);
     tree.setProps({ param: 'new' });
 
     expect(tree.find('h1').text()).toBe('new');
   });
 
   it('should supply correct params for different template chains', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Template name="testNested">
           {params => (
@@ -260,8 +254,8 @@ describe('TemplatePlaceholder', () => {
         <Template name="root">
           <TemplatePlaceholder name="test" params={{ text: 'param' }} />
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('h1').text()).toBe('');
     expect(tree.find('h2').text()).toBe('param');
@@ -269,7 +263,7 @@ describe('TemplatePlaceholder', () => {
 
   it('should supply correct element with connected properties when templates are chained', () => {
     const getterValue = 'test value';
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <Getter name="testGetter" value={getterValue} />
 
@@ -284,8 +278,8 @@ describe('TemplatePlaceholder', () => {
             {({ testGetter }) => <div className="test" >{testGetter}</div>}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(tree.find('.test').text())
       .toBe(getterValue);

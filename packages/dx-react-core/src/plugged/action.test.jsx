@@ -25,9 +25,7 @@ describe('Action', () => {
     };
 
     const onAction = jest.fn();
-    const tree = mount(
-      <Test onAction={onAction} />,
-    );
+    const tree = mount(<Test onAction={onAction} />);
 
     tree.find('button').simulate('click');
     expect(onAction.mock.calls).toHaveLength(1);

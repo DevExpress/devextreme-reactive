@@ -33,15 +33,15 @@ describe('Table', () => {
       </table>
     ));
 
-    mount(
+    mount((
       <Table
         rowTemplate={rowTemplateMock}
         headerRows={[]}
         bodyRows={[]}
         columns={[]}
         cellTemplate={() => {}}
-      />,
-    );
+      />
+    ));
 
     expect(rowTemplateMock).toBeCalledWith(rowTemplateArgs);
   });

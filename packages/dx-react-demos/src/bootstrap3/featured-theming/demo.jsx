@@ -36,7 +36,7 @@ const TabContainer = ({ rows }) => (
   <ListGroup>
     {rows.map((item, index) => {
       const key = index;
-      const status = item.status;
+      const { status } = item;
       return (
         <ListGroupItem key={key}>
           <span style={{ float: 'right' }}>
@@ -82,7 +82,9 @@ class GridDetailContainer extends React.PureComponent {
     this.setState({ index });
   }
   render() {
-    const { lowPriorityTasks, normalPriorityTasks, highPriorityTasks, index } = this.state;
+    const {
+      lowPriorityTasks, normalPriorityTasks, highPriorityTasks, index,
+    } = this.state;
     const { data } = this.props;
 
     return (
@@ -120,7 +122,7 @@ class GridDetailContainer extends React.PureComponent {
 }
 
 GridDetailContainer.propTypes = {
-  data: PropTypes.shape().isRequired,
+  data: PropTypes.object.isRequired,
 };
 
 // eslint-disable-next-line

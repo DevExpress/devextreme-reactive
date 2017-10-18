@@ -26,7 +26,7 @@ TableSelectRow.propTypes = {
   children: PropTypes.node,
   changeSelected: PropTypes.func,
   selectByRowClick: PropTypes.bool,
-  style: PropTypes.shape(),
+  style: PropTypes.object,
 };
 
 TableSelectRow.defaultProps = {

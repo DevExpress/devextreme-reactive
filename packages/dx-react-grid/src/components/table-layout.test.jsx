@@ -51,7 +51,7 @@ describe('TableLayout', () => {
     const cellTemplate = () => null;
     const rowTemplate = () => null;
 
-    const tree = shallow(
+    const tree = shallow((
       <TableLayout
         rows={defaultRows}
         columns={defaultColumns}
@@ -59,8 +59,8 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplate}
         rowTemplate={rowTemplate}
         cellTemplate={cellTemplate}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('RowsBlockLayout').props())
       .toMatchObject({
@@ -77,7 +77,7 @@ describe('TableLayout', () => {
     const cellTemplate = () => null;
     const rowTemplate = () => null;
 
-    const tree = shallow(
+    const tree = shallow((
       <TableLayout
         headerRows={defaultRows}
         rows={[]}
@@ -87,8 +87,8 @@ describe('TableLayout', () => {
         bodyTemplate={() => null}
         rowTemplate={rowTemplate}
         cellTemplate={cellTemplate}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('RowsBlockLayout').at(0).props())
       .toMatchObject({
@@ -102,16 +102,18 @@ describe('TableLayout', () => {
 
   it('should pass correct styles to the tableTemplate', () => {
     const rows = [
-      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100 },
-      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, height: 100 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
     ];
     const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
+      {
+        key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
+      },
       { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
     ];
     const tableTemplate = () => null;
 
-    const tree = shallow(
+    const tree = shallow((
       <TableLayout
         rows={rows}
         columns={columns}
@@ -120,8 +122,8 @@ describe('TableLayout', () => {
         bodyTemplate={() => null}
         rowTemplate={() => null}
         cellTemplate={() => null}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('TemplateRenderer').props())
       .toMatchObject({
@@ -138,16 +140,20 @@ describe('TableLayout', () => {
   describe('flex column', () => {
     it('should add flex column if all columns have fixed widths', () => {
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' }, width: 100 },
+        {
+          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
+        },
+        {
+          key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' }, width: 100,
+        },
       ];
       const tableTemplate = () => null;
 
-      const tree = shallow(
+      const tree = shallow((
         <TableLayout
           rows={rows}
           columns={columns}
@@ -155,8 +161,8 @@ describe('TableLayout', () => {
           bodyTemplate={() => null}
           rowTemplate={() => null}
           cellTemplate={() => null}
-        />,
-      );
+        />
+      ));
 
       expect(tree.find('TemplateRenderer').props())
         .toMatchObject({
@@ -191,16 +197,20 @@ describe('TableLayout', () => {
       evalAnimations.mockImplementation(() => new Map());
 
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100 },
+        {
+          key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100,
+        },
         { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
+        {
+          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
+        },
         { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
       ];
       const nextColumns = [columns[1], columns[0]];
 
-      const tree = shallow(
+      const tree = shallow((
         <TableLayout
           rows={rows}
           columns={columns}
@@ -208,8 +218,8 @@ describe('TableLayout', () => {
           bodyTemplate={() => null}
           rowTemplate={() => null}
           cellTemplate={() => null}
-        />,
-      );
+        />
+      ));
       tree.setProps({ columns: nextColumns });
 
       expect(getAnimations)
@@ -220,11 +230,15 @@ describe('TableLayout', () => {
 
     it('should start on the "columns" property change', () => {
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100 },
+        {
+          key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100,
+        },
         { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
+        {
+          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
+        },
         { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
       ];
       const nextColumns = [columns[1], columns[0]];
@@ -235,7 +249,7 @@ describe('TableLayout', () => {
 
       filterActiveAnimations.mockImplementation(() => animations);
 
-      const tree = shallow(
+      const tree = shallow((
         <TableLayout
           rows={rows}
           columns={columns}
@@ -243,8 +257,8 @@ describe('TableLayout', () => {
           bodyTemplate={() => null}
           rowTemplate={() => null}
           cellTemplate={() => null}
-        />,
-      );
+        />
+      ));
       tree.setProps({ columns: nextColumns });
 
       expect(filterActiveAnimations)
@@ -259,16 +273,20 @@ describe('TableLayout', () => {
       filterActiveAnimations.mockImplementation(() => new Map());
 
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100 },
+        {
+          key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100,
+        },
         { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
+        {
+          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
+        },
         { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
       ];
       const nextColumns = [columns[1]];
 
-      const tree = shallow(
+      const tree = shallow((
         <TableLayout
           rows={rows}
           columns={columns}
@@ -276,8 +294,8 @@ describe('TableLayout', () => {
           bodyTemplate={() => null}
           rowTemplate={() => null}
           cellTemplate={() => null}
-        />,
-      );
+        />
+      ));
       tree.setProps({ columns: nextColumns });
 
       expect(getAnimations)

@@ -37,7 +37,7 @@ export class MouseStrategy {
       this.delegate.onMove({ x, y });
     }
     if (dragStarted) {
-      const cursor = window.getComputedStyle(document.elementFromPoint(x, y)).cursor;
+      const { cursor } = window.getComputedStyle(document.elementFromPoint(x, y));
       toggleGestureCover(true, cursor);
     }
   }

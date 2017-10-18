@@ -14,6 +14,8 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit,
     },
     overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   cellRightAlign: {
     textAlign: 'right',

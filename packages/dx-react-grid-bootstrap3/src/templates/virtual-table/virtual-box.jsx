@@ -1,10 +1,10 @@
-/* global document */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function testCSSProp(property, value, noPrefixes) {
+let stickyProp;
+const testCSSProp = (property, value, noPrefixes) => {
   const prop = `${property}:`;
+  // eslint-disable-next-line no-undef
   const el = document.createElement('test');
   const mStyle = el.style;
 
@@ -14,8 +14,7 @@ function testCSSProp(property, value, noPrefixes) {
     mStyle.cssText = prop + value;
   }
   return mStyle[property];
-}
-const stickyProp = testCSSProp('position', 'sticky');
+};
 
 function getVisibleItems(options) {
   let viewportStart = options.viewport.start;
@@ -83,6 +82,11 @@ export class VirtualBox extends React.Component {
         },
       },
     };
+  }
+  componentDidMount() {
+    if (stickyProp === undefined) {
+      stickyProp = testCSSProp('position', 'sticky');
+    }
   }
   getItemStyles({ position, size, stick }) {
     const { direction, crossSize } = this.props;

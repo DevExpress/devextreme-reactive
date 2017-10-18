@@ -1,5 +1,3 @@
-/* global window document */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
@@ -87,6 +85,7 @@ export class VirtualTable extends React.Component {
         iref={(ref) => {
           if (!ref) return;
           const { style } = ref;
+          // eslint-disable-next-line no-undef
           style.backgroundColor = window.getComputedStyle(document.body).backgroundColor;
         }}
 

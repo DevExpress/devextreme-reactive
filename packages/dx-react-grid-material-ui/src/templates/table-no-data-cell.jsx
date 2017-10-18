@@ -20,7 +20,7 @@ export const TableNoDataCellBase = ({ style, colSpan, getMessage, classes }) => 
     className={classes.cell}
     colSpan={colSpan}
   >
-    <big className="text-muted">{getMessage('noData') || 'No data'}</big>
+    <big className="text-muted">{getMessage('noData')}</big>
   </TableCell>
 );
 

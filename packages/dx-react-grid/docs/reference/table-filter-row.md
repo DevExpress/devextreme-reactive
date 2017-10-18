@@ -17,7 +17,7 @@ Name | Type | Default | Description
 rowHeight | number | | Specifies the filter row's height.
 filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a filter cell.
 filterRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a filter row.
-messages | object | | The object specifies [localization messages](#localization-messages). Available in the "@devexpress/dx-react-grid-material-ui" package.
+messages | object | | The object specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -39,7 +39,7 @@ An object with the following shape:
 
 Field | Type | Default | Description
 ------|------|---------|------------
-filterPlaceholder? | string | 'Filter...' | The text used for filter editor placeholder.
+filterPlaceholder? | string | 'Filter...' | The text used for filter editor placeholder. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Plugin Developer Reference
 

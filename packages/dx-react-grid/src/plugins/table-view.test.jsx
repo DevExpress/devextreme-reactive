@@ -9,6 +9,7 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
+  getMessageFn,
 } from '@devexpress/dx-grid-core';
 import { TableView } from './table-view';
 import { DataTypeProvider } from './data-type-provider';
@@ -21,6 +22,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
+  getMessageFn: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -64,6 +66,7 @@ describe('TableView', () => {
     isDataTableCell.mockImplementation(() => false);
     isHeaderStubTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
+    getMessageFn.mockImplementation(() => key => key);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -232,7 +235,7 @@ describe('TableView', () => {
       .toBeCalledWith(tableCellArgs.tableRow);
     expect(tableNoDataCellTemplate)
       .toBeCalledWith(expect.objectContaining(tableCellArgs));
-    expect(getMessage('noData')).toBe('No data');
+    expect(getMessage('noData')).toBe('noData');
   });
 
   it('should render row by using tableRowTemplate', () => {

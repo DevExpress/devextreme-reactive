@@ -12,15 +12,7 @@ describe('TableNoDataCell', () => {
     resetConsole();
   });
 
-  it('should use "No data" string by default', () => {
-    const tree = mount(
-      <TableNoDataCell getMessage={() => {}} />,
-    );
-
-    expect(tree.find('big').text()).toBe('No data');
-  });
-
-  it('should use custom "No data" text if defined', () => {
+  it('should use "noData" text if defined', () => {
     const tree = mount(
       <TableNoDataCell getMessage={() => 'Nothing to show'} />,
     );

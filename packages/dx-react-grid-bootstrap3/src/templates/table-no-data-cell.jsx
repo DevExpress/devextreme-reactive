@@ -10,7 +10,7 @@ export const TableNoDataCell = ({ style, colSpan, getMessage }) => (
     }}
     colSpan={colSpan}
   >
-    <big className="text-muted">{getMessage('noData') || 'No data'}</big>
+    <big className="text-muted">{getMessage('noData')}</big>
   </td>
 );
 

@@ -15,6 +15,7 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
+  getMessageFn,
 } from '@devexpress/dx-grid-core';
 
 const getTableLayoutTemplateArgs = (
@@ -62,8 +63,6 @@ const cellTemplate = params =>
 const rowTemplate = params =>
   <TemplatePlaceholder name="tableViewRow" params={params} />;
 
-const getMessageFn = messages => name => messages[name];
-
 export class TableView extends React.PureComponent {
   render() {
     const {
@@ -75,8 +74,11 @@ export class TableView extends React.PureComponent {
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
       allowColumnReordering,
-      messages,
+      ...restProps
     } = this.props;
+
+    const { messages } = restProps;
+    const getMessage = getMessageFn(messages);
 
     return (
       <PluginContainer
@@ -162,7 +164,7 @@ export class TableView extends React.PureComponent {
             <TemplateRenderer
               template={tableNoDataCellTemplate}
               params={{
-                getMessage: getMessageFn(messages),
+                getMessage,
                 ...params,
               }}
             />
@@ -208,12 +210,8 @@ TableView.propTypes = {
   tableStubCellTemplate: PropTypes.func.isRequired,
   tableStubHeaderCellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,
-  messages: PropTypes.shape({
-    noData: PropTypes.string,
-  }),
 };
 
 TableView.defaultProps = {
   allowColumnReordering: false,
-  messages: {},
 };

@@ -6,7 +6,6 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
-  tableRowsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
@@ -36,23 +35,23 @@ const getSelectAllTableCellTemplateArgs = (
 });
 
 const getSelectTableRowTemplateArgs = (
-  { selectByRowClick, ...restParams },
-  getters,
+  { selectByRowClick, highlightSelected, ...restParams },
+  { selection },
   { setRowsSelection },
-) => ({
-  ...restParams,
-  selectByRowClick,
-  selected: restParams.tableRow.selected,
-  changeSelected: () => setRowsSelection({ rowIds: [restParams.tableRow.rowId] }),
-});
+) => {
+  const rowId = restParams.tableRow.rowId;
+  return ({
+    ...restParams,
+    selectByRowClick,
+    selected: highlightSelected && selection.indexOf(rowId) > -1,
+    changeSelected: () => setRowsSelection({ rowIds: [rowId] }),
+  });
+};
 
 const pluginDependencies = [
   { pluginName: 'SelectionState' },
   { pluginName: 'TableView' },
 ];
-
-const tableBodyRowsComputed = ({ tableBodyRows, selection }) =>
-  tableRowsWithSelection(tableBodyRows, selection);
 
 export class TableSelection extends React.PureComponent {
   render() {
@@ -77,9 +76,6 @@ export class TableSelection extends React.PureComponent {
       >
         {showSelectionColumn && (
           <Getter name="tableColumns" computed={tableColumnsComputed} />
-        )}
-        {highlightSelected && (
-          <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         )}
 
         {(showSelectionColumn && showSelectAll) && (
@@ -129,6 +125,7 @@ export class TableSelection extends React.PureComponent {
                     params={
                       getSelectTableRowTemplateArgs({
                         selectByRowClick,
+                        highlightSelected,
                         ...params,
                       }, getters, actions)
                     }

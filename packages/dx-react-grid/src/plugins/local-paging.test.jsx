@@ -81,8 +81,8 @@ describe('LocalPaging', () => {
       </PluginHost>
     ));
 
-    expect(defaultDeps.action.setCurrentPage.mock.calls)
-      .toEqual([[2]]);
+    expect(defaultDeps.action.setCurrentPage.mock.calls[0][0])
+      .toEqual(2);
   });
 
   it('should ensure page headers are present on each page', () => {

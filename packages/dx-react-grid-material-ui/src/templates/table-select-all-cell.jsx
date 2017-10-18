@@ -18,15 +18,13 @@ const styles = theme => ({
   },
 });
 
-const TableSelectAllCellBase = (
-  { style, allSelected, someSelected, selectionAvailable, toggleAll, classes },
-) => {
-  const cellClasses = classNames(
-    {
-      [classes.cell]: true,
-      [classes.pointer]: selectionAvailable,
-    },
-  );
+const TableSelectAllCellBase = ({
+  style, allSelected, someSelected, selectionAvailable, toggleAll, classes,
+}) => {
+  const cellClasses = classNames({
+    [classes.cell]: true,
+    [classes.pointer]: selectionAvailable,
+  });
 
   return (
     <TableCell
@@ -50,7 +48,7 @@ const TableSelectAllCellBase = (
 };
 
 TableSelectAllCellBase.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   allSelected: PropTypes.bool,
   someSelected: PropTypes.bool,
   selectionAvailable: PropTypes.bool,

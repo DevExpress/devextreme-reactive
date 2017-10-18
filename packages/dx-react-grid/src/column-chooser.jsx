@@ -48,7 +48,7 @@ export class ColumnChooser extends React.PureComponent {
 }
 
 ColumnChooser.propTypes = {
-  columns: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
   onHiddenColumnsChange: PropTypes.func,
   containerTemplate: PropTypes.func.isRequired,

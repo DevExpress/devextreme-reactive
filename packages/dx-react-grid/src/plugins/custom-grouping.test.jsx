@@ -55,73 +55,76 @@ describe('CustomGrouping', () => {
   });
 
   it('should provide isGroupRow getter', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <CustomGrouping
           {...defaultProps}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.isGroupRow)
       .toBe(groupRowChecker);
   });
 
   it('should provide getRowLevelKey getter', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <CustomGrouping
           {...defaultProps}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.getRowLevelKey)
       .toBe(groupRowLevelKeyGetter);
   });
 
   it('should provide rows getter based on grouping and expandedGroups getters', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <CustomGrouping
           {...defaultProps}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(customGroupedRows)
       .toBeCalledWith(
         defaultDeps.getter.rows,
         defaultDeps.getter.grouping,
-        defaultProps.getChildGroups);
+        defaultProps.getChildGroups,
+      );
 
     expect(expandedGroupRows)
       .toBeCalledWith(
         customGroupedRows(),
         defaultDeps.getter.grouping,
-        defaultDeps.getter.expandedGroups);
+        defaultDeps.getter.expandedGroups,
+      );
 
     expect(getComputedState(tree).getters.rows)
       .toBe(expandedGroupRows());
   });
 
   it('should provide getRowId getter based on grouped rows', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <CustomGrouping
           {...defaultProps}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(customGroupingRowIdGetter)
       .toBeCalledWith(
         defaultDeps.getter.getRowId,
-        customGroupedRows());
+        customGroupedRows(),
+      );
 
     expect(getComputedState(tree).getters.getRowId)
       .toBe(customGroupingRowIdGetter());
@@ -132,7 +135,7 @@ describe('CustomGrouping', () => {
       const grouping = [{ columnName: 'a' }];
       const expandedGroups = ['a', 'b'];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <CustomGrouping
@@ -140,8 +143,8 @@ describe('CustomGrouping', () => {
             grouping={grouping}
             expandedGroups={expandedGroups}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.grouping)
         .toBe(grouping);
@@ -153,7 +156,7 @@ describe('CustomGrouping', () => {
       const grouping = [{ columnName: 'a' }];
       const expandedGroups = ['a', 'b'];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <CustomGrouping
@@ -161,20 +164,22 @@ describe('CustomGrouping', () => {
             grouping={grouping}
             expandedGroups={expandedGroups}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(customGroupedRows)
         .toBeCalledWith(
           defaultDeps.getter.rows,
           grouping,
-          defaultProps.getChildGroups);
+          defaultProps.getChildGroups,
+        );
 
       expect(expandedGroupRows)
         .toBeCalledWith(
           customGroupedRows(),
           grouping,
-          new Set(expandedGroups));
+          new Set(expandedGroups),
+        );
 
       expect(getComputedState(tree).getters.rows)
         .toBe(expandedGroupRows());

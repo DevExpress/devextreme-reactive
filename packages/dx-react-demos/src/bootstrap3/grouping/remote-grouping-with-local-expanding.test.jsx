@@ -19,8 +19,6 @@ describe('BS3: remote-grouping-with-local-expanding', () => {
   });
 
   it('should work', () => {
-    mount(
-      <Demo />,
-    );
+    mount(<Demo />);
   });
 });

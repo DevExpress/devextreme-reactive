@@ -26,10 +26,10 @@ export const TableGroupCell = ({
 );
 
 TableGroupCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   colSpan: PropTypes.number,
-  row: PropTypes.shape(),
-  column: PropTypes.shape(),
+  row: PropTypes.object,
+  column: PropTypes.object,
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
   children: PropTypes.oneOfType([

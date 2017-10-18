@@ -48,49 +48,51 @@ describe('LocalGrouping', () => {
   });
 
   it('should provide isGroupRow getter', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <LocalGrouping />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.isGroupRow)
       .toBe(groupRowChecker);
   });
 
   it('should provide getRowLevelKey getter', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <LocalGrouping />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.getRowLevelKey)
       .toBe(groupRowLevelKeyGetter);
   });
 
   it('should provide rows getter based on grouping and expandedGroups getters', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <LocalGrouping />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(groupedRows)
       .toBeCalledWith(
         defaultDeps.getter.rows,
         defaultDeps.getter.grouping,
         defaultDeps.getter.getCellValue,
-        undefined);
+        undefined,
+      );
 
     expect(expandedGroupRows)
       .toBeCalledWith(
         groupedRows(),
         defaultDeps.getter.grouping,
-        defaultDeps.getter.expandedGroups);
+        defaultDeps.getter.expandedGroups,
+      );
 
     expect(getComputedState(tree).getters.rows)
       .toBe(expandedGroupRows());
@@ -99,20 +101,21 @@ describe('LocalGrouping', () => {
   it('should provide rows getter based on getColumnIdentity function', () => {
     const getColumnIdentity = () => {};
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <LocalGrouping
           getColumnIdentity={getColumnIdentity}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(groupedRows)
       .toBeCalledWith(
         defaultDeps.getter.rows,
         defaultDeps.getter.grouping,
         defaultDeps.getter.getCellValue,
-        getColumnIdentity);
+        getColumnIdentity,
+      );
   });
 });

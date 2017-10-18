@@ -64,7 +64,7 @@ tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | He
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting.
 columns | Getter | Array&lt;[Column](#column)&gt; | Table columns.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean }) => void | Changes column sorting.
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. Each shift is added to the original column width value.
 changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.

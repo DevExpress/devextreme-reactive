@@ -70,9 +70,11 @@ const PageSizeSelectorBase = ({
         />
       }
     >
-      {allowedPageSizes.map(item =>
-        <MenuItem key={item} value={item}>{item !== 0 ? item : showAllText }</MenuItem>,
-      )}
+      {allowedPageSizes.map(item => (
+        <MenuItem key={item} value={item}>
+          {item !== 0 ? item : showAllText }
+        </MenuItem>
+      ))}
     </Select>
   </div>
 );

@@ -25,7 +25,7 @@ export const TableNoDataCellBase = ({ style, colSpan, classes }) => (
 );
 
 TableNoDataCellBase.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   colSpan: PropTypes.number,
   classes: PropTypes.object.isRequired,
 };

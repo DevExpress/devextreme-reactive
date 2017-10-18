@@ -31,7 +31,7 @@ export class DragSource extends React.Component {
 }
 
 DragSource.contextTypes = {
-  dragDropContext: PropTypes.shape().isRequired,
+  dragDropContext: PropTypes.object.isRequired,
 };
 
 DragSource.propTypes = {

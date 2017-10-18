@@ -19,23 +19,23 @@ describe('TableCell', () => {
   });
 
   it('should render column title and value', () => {
-    const tree = mount(
+    const tree = mount((
       <TableGroupCell
         column={{ title: 'Title' }}
         row={{ value: 'Value' }}
-      />,
-    );
+      />
+    ));
 
     expect(tree.text())
       .toMatch(/Title.*Value/);
   });
 
   it('should render children if passed', () => {
-    const tree = mount(
+    const tree = mount((
       <TableGroupCell>
         <span className="test" />
-      </TableGroupCell>,
-    );
+      </TableGroupCell>
+    ));
 
     expect(tree.find('.test').exists())
       .toBeTruthy();

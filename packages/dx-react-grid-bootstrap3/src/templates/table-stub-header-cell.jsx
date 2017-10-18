@@ -11,7 +11,7 @@ export const TableStubHeaderCell = ({ style }) => (
 );
 
 TableStubHeaderCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
 };
 
 TableStubHeaderCell.defaultProps = {

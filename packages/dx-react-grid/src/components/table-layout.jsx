@@ -74,7 +74,8 @@ export class TableLayout extends React.PureComponent {
         columnGeometries,
         columns.findIndex(column =>
           column.type === TABLE_DATA_TYPE && column.column.name === sourceColumnName),
-        clientOffset.x - tableRect.left);
+        clientOffset.x - tableRect.left,
+      );
 
       if (targetColumnIndex === -1 ||
         targetColumnIndex === this.state.targetColumnIndex) return;
@@ -99,14 +100,15 @@ export class TableLayout extends React.PureComponent {
         this.getColumns({ sourceColumnIndex, targetColumnIndex }),
         tableRect.width,
         this.props.columns[sourceColumnIndex].key,
-        this.animations);
+        this.animations,
+      );
       this.processAnimationFrame();
     };
     this.onLeave = () => {
       const columns = this.getColumns();
       const tableRect = this.tableRect();
 
-      const sourceColumnIndex = this.state.sourceColumnIndex;
+      const { sourceColumnIndex } = this.state;
 
       this.setState({
         sourceColumnIndex: -1,
@@ -115,8 +117,13 @@ export class TableLayout extends React.PureComponent {
 
       if (sourceColumnIndex === -1) return;
 
-      this.animations = getAnimations(columns, this.getColumns(), tableRect.width,
-        this.props.columns[sourceColumnIndex].key, this.animations);
+      this.animations = getAnimations(
+        columns,
+        this.getColumns(),
+        tableRect.width,
+        this.props.columns[sourceColumnIndex].key,
+        this.animations,
+      );
       this.processAnimationFrame();
     };
     this.onDrop = () => {

@@ -4,8 +4,6 @@ import Demo from './custom-grouping-static';
 
 describe('MUI: custom-grouping-static', () => {
   it('should work', () => {
-    mount(
-      <Demo />,
-    );
+    mount(<Demo />);
   });
 });

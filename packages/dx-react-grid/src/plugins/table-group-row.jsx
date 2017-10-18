@@ -75,7 +75,9 @@ export class TableGroupRow extends React.PureComponent {
       showColumnWhenGrouped,
     } = this.props;
 
-    const tableColumnsComputed = ({ columns, tableColumns, grouping, draftGrouping }) =>
+    const tableColumnsComputed = ({
+      columns, tableColumns, grouping, draftGrouping,
+    }) =>
       tableColumnsWithGrouping(
         tableColumns,
         grouping,

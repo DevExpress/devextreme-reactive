@@ -45,15 +45,15 @@ describe('ColumnOrderState', () => {
 
   describe('table layout getters', () => {
     it('should apply the column widths specified in the "defaultColumnWidths" property in uncontrolled mode', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnResizing
             {...defaultProps}
             defaultColumnWidths={{ a: 100 }}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithWidths');
@@ -62,15 +62,15 @@ describe('ColumnOrderState', () => {
     });
 
     it('should apply the column widths specified in the "columnWidths" property in controlled mode', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnResizing
             {...defaultProps}
             columnWidths={{ a: 100 }}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithWidths');
@@ -81,7 +81,7 @@ describe('ColumnOrderState', () => {
 
   it('should fire the "onColumnWidthsChange" callback and should change the column widths in uncontrolled mode after the "changeTableColumnWidths" action is fired', () => {
     const columnWidthsChange = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnResizing
@@ -89,8 +89,8 @@ describe('ColumnOrderState', () => {
           defaultColumnWidths={{ a: 100 }}
           onColumnWidthsChange={columnWidthsChange}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const payload = { changes: { a: 50 } };
 
@@ -109,7 +109,7 @@ describe('ColumnOrderState', () => {
 
   it('should fire the "onColumnWidthsChange" callback and should change the column widths in controlled mode after the "changeTableColumnWidths" action is fired', () => {
     const columnWidthsChange = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnResizing
@@ -117,8 +117,8 @@ describe('ColumnOrderState', () => {
           columnWidths={{ a: 100 }}
           onColumnWidthsChange={columnWidthsChange}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const payload = { changes: { a: 50 } };
 
@@ -136,15 +136,15 @@ describe('ColumnOrderState', () => {
   });
 
   it('should correctly update column widths after the "changeDraftTableColumnWidths" action is fired', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnResizing
           {...defaultProps}
           defaultColumnWidths={{ a: 100 }}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const payload = { changes: { a: 50 } };
 

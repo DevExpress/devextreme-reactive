@@ -8,7 +8,7 @@ import { DragSource } from './source';
 describe('DragDropContext', () => {
   it('should fire the "onChange" callback while dragging a source', () => {
     const onChange = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <DragDropContext
         onChange={onChange}
       >
@@ -19,8 +19,8 @@ describe('DragDropContext', () => {
             <div className="source" />
           </DragSource>
         </div>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     const draggable = tree.find(Draggable);
 

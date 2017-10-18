@@ -31,7 +31,8 @@ describe('PluginContainer', () => {
         }]}
       >
         <div />
-      </PluginContainer>, {
+      </PluginContainer>,
+      {
         context: {
           pluginHost,
           positionContext: () => {},
@@ -60,7 +61,8 @@ describe('PluginContainer', () => {
         }]}
       >
         <div />
-      </PluginContainer>, {
+      </PluginContainer>,
+      {
         context: {
           pluginHost,
           positionContext: () => {},
@@ -91,7 +93,8 @@ describe('PluginContainer', () => {
         }]}
       >
         <div />
-      </PluginContainer>, {
+      </PluginContainer>,
+      {
         context: {
           pluginHost,
           positionContext: () => {},
@@ -120,7 +123,8 @@ describe('PluginContainer', () => {
         dependencies={dependencies}
       >
         <div />
-      </PluginContainer>, {
+      </PluginContainer>,
+      {
         context: {
           pluginHost,
           positionContext: () => {},

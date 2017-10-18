@@ -17,7 +17,9 @@ const styles = theme => ({
   },
 });
 
-const TableFilterCellBase = ({ style, filter, setFilter, classes, children }) => (
+const TableFilterCellBase = ({
+  style, filter, setFilter, classes, children,
+}) => (
   <TableCell
     className={classes.cell}
     style={style}
@@ -26,7 +28,7 @@ const TableFilterCellBase = ({ style, filter, setFilter, classes, children }) =>
       <Input
         className={classes.input}
         value={filter ? filter.value : ''}
-        placeholder={'Filter...'}
+        placeholder="Filter..."
         onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
       />
     )}

@@ -23,7 +23,7 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => (
 );
 
 TableDetailToggleCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   expanded: PropTypes.bool,
   toggleExpanded: PropTypes.func,
 };

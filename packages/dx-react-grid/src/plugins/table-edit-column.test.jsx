@@ -76,15 +76,15 @@ describe('TableHeaderRow', () => {
 
   describe('table layout getters', () => {
     it('should extend tableColumns', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
             width={120}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithEditing');
@@ -97,15 +97,15 @@ describe('TableHeaderRow', () => {
     isHeadingEditCommandsTableCell.mockImplementation(() => true);
     const headingCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
           headingCellTemplate={headingCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isHeadingEditCommandsTableCell)
       .toBeCalledWith(
@@ -122,15 +122,15 @@ describe('TableHeaderRow', () => {
     isEditCommandsTableCell.mockImplementation(() => true);
     const cellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditColumn
           {...defaultProps}
           cellTemplate={cellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isEditCommandsTableCell)
       .toBeCalledWith(

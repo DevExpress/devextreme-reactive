@@ -12,7 +12,9 @@ try {
   storage = window.localStorage;
 } catch (e) {} // eslint-disable-line no-empty
 
-const ThemeViewerBase = ({ avaliableThemes, match: { url }, history, children }) => {
+const ThemeViewerBase = ({
+  avaliableThemes, match: { url }, history, children,
+}) => {
   const preferredTheme = storage.getItem(STORAGE_KEY) || themes[0].name;
   const preferredThemeAvaliable = avaliableThemes.indexOf(preferredTheme) > -1;
   const defaultTheme = preferredThemeAvaliable ? preferredTheme : avaliableThemes[0];

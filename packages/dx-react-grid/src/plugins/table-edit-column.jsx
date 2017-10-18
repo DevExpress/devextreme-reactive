@@ -101,7 +101,9 @@ export class TableEditColumn extends React.PureComponent {
                 <TemplateRenderer
                   template={headingCellTemplate}
                   params={getHeadingEditCommandsTableCellTemplateArgs(
-                    { allowAdding, commandTemplate, getMessage, ...params },
+                    {
+                      allowAdding, commandTemplate, getMessage, ...params,
+                    },
                     getters,
                     actions,
                   )}

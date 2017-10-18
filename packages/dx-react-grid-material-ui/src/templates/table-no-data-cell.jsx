@@ -14,7 +14,12 @@ const styles = theme => ({
   },
 });
 
-export const TableNoDataCellBase = ({ style, colSpan, getMessage, classes }) => (
+export const TableNoDataCellBase = ({
+  style,
+  colSpan,
+  getMessage,
+  classes,
+}) => (
   <TableCell
     style={style}
     className={classes.cell}

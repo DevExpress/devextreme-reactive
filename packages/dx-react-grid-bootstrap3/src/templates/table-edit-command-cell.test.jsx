@@ -26,7 +26,7 @@ describe('EditCommandCells', () => {
       allowDeleting = true,
       isEditing = false,
       getMessage = () => {},
-    }) => mount(
+    }) => mount((
       <EditCommandCell
         startEditing={startEditing}
         deleteRow={deleteRow}
@@ -37,8 +37,8 @@ describe('EditCommandCells', () => {
         allowDeleting={allowDeleting}
         commandTemplate={commandTemplate}
         getMessage={getMessage}
-      />,
-    );
+      />
+    ));
 
     it('should render custom command messages for "edit" & "delete" commands', () => {
       const tree = mountEditCommandCell({
@@ -66,14 +66,14 @@ describe('EditCommandCells', () => {
       addRow = () => {},
       allowAdding = true,
       getMessage = () => {},
-    }) => mount(
+    }) => mount((
       <EditCommandHeadingCell
         addRow={addRow}
         commandTemplate={commandTemplate}
         allowAdding={allowAdding}
         getMessage={getMessage}
-      />,
-    );
+      />
+    ));
 
     it('should render command messages', () => {
       const tree = mountEditCommandHeadingCell({

@@ -13,9 +13,9 @@ describe('TableNoDataCell', () => {
   });
 
   it('should use "noData" text if defined', () => {
-    const tree = mount(
-      <TableNoDataCell getMessage={() => 'Nothing to show'} />,
-    );
+    const tree = mount((
+      <TableNoDataCell getMessage={() => 'Nothing to show'} />
+    ));
 
     expect(tree.find('big').text()).toBe('Nothing to show');
   });

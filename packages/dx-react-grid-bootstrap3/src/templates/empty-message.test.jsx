@@ -8,9 +8,9 @@ describe('EmptyMessage', () => {
     const getMessage = jest.fn();
     getMessage.mockImplementation(() => text);
 
-    const tree = mount(
-      <EmptyMessage getMessage={getMessage} />,
-    );
+    const tree = mount((
+      <EmptyMessage getMessage={getMessage} />
+    ));
 
     expect(getMessage).toBeCalledWith('noColumns');
     expect(tree.find('.panel-body').text()).toBe(text);

@@ -233,7 +233,7 @@ describe('TableView', () => {
 
       </PluginHost>
     ));
-    const getMessage = tableNoDataCellTemplate.mock.calls[0][0].getMessage;
+    const { getMessage } = tableNoDataCellTemplate.mock.calls[0][0];
 
     expect(isNoDataTableRow)
       .toBeCalledWith(tableCellArgs.tableRow);

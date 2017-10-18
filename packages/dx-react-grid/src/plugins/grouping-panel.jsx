@@ -8,7 +8,9 @@ import {
 import { groupingPanelItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const getGroupPanelTemplateArgs = (
-  { allowDragging, allowSorting, allowUngroupingByClick, getMessage },
+  {
+    allowDragging, allowSorting, allowUngroupingByClick, getMessage,
+  },
   { columns, draftGrouping, sorting },
   {
     groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange,
@@ -55,7 +57,9 @@ export class GroupingPanel extends React.PureComponent {
                 <TemplateRenderer
                   template={groupPanelTemplate}
                   params={getGroupPanelTemplateArgs(
-                    { allowDragging, allowSorting, allowUngroupingByClick, getMessage },
+                    {
+                      allowDragging, allowSorting, allowUngroupingByClick, getMessage,
+                    },
                     getters,
                     actions,
                   )}

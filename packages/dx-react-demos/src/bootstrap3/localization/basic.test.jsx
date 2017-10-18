@@ -4,8 +4,6 @@ import Demo from './basic';
 
 describe('BS3 localization demo', () => {
   it('should work', () => {
-    mount(
-      <Demo />,
-    );
+    mount(<Demo />);
   });
 });

@@ -41,7 +41,9 @@ const pluginDependencies = [
 
 export class TableFilterRow extends React.PureComponent {
   render() {
-    const { rowHeight, filterCellTemplate, filterRowTemplate, ...restProps } = this.props;
+    const {
+      rowHeight, filterCellTemplate, filterRowTemplate, ...restProps
+    } = this.props;
 
     const { messages } = restProps;
     const getMessage = getMessagesFormatter(messages);
@@ -110,5 +112,4 @@ TableFilterRow.propTypes = {
 
 TableFilterRow.defaultProps = {
   rowHeight: undefined,
-  filterPlaceholder: undefined,
 };

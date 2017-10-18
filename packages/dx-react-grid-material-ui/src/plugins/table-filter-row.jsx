@@ -14,7 +14,9 @@ const defaultMessages = {
 
 export class TableFilterRow extends React.PureComponent {
   render() {
-    const { filterCellTemplate, filterRowTemplate, messages, ...restProps } = this.props;
+    const {
+      filterCellTemplate, filterRowTemplate, messages, ...restProps
+    } = this.props;
 
     return (
       <TableFilterRowBase

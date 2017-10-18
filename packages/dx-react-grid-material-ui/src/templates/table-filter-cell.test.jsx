@@ -39,7 +39,7 @@ describe('TableFilterCell', () => {
         }}
         setFilter={setFilterMock}
         getMessage={() => {}}
-        value={'abc'}
+        value="abc"
       />
     ));
 

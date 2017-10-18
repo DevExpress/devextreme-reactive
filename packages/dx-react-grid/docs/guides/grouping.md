@@ -8,7 +8,7 @@ The following plugins implement grouping features:
 
 - [GroupingState](../reference/grouping-state.md) - controls the grouping state
 - [LocalGrouping](../reference/local-grouping.md) - performs local data grouping
-- [CustomGrouping](../reference/custom-grouping.md) - converts grouped data in a custom format to the supported format
+- [CustomGrouping](../reference/custom-grouping.md) - brings customly formatted grouped data to the supported format
 - [TableGroupRow](../reference/table-group-row.md) - renders group rows
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging
 - [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel

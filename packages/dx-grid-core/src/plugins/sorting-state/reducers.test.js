@@ -1,3 +1,4 @@
+import Immutable from 'seamless-immutable';
 import {
   setColumnSorting,
 } from './reducers';
@@ -5,94 +6,151 @@ import {
 describe('SortingState reducers', () => {
   describe('#setColumnSorting', () => {
     it('can initiate sorting', () => {
-      const sorting = [];
+      const state = {
+        sorting: [],
+      };
       const payload = { columnName: 'test' };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }]);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'asc' }],
+        });
     });
 
     it('can initiate sorting with direction', () => {
-      const sorting = [];
+      const state = {
+        sorting: [],
+      };
       const payload = { columnName: 'test', direction: 'desc' };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'desc' }]);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'desc' }],
+        });
     });
 
     it('can toggle sorting', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }];
+      const state = {
+        sorting: [{ columnName: 'test', direction: 'asc' }],
+      };
       const payload = { columnName: 'test' };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'desc' }]);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'desc' }],
+        });
     });
 
     it('should reset sorting if no keepOther is specified', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }];
+      const state = {
+        sorting: [{ columnName: 'test', direction: 'asc' }],
+      };
       const payload = { columnName: 'test2' };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test2', direction: 'asc' }]);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test2', direction: 'asc' }],
+        });
     });
 
     it('can initiate multi-column sorting by keepOther option', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }];
+      const state = {
+        sorting: [{ columnName: 'test', direction: 'asc' }],
+      };
       const payload = { columnName: 'test2', keepOther: true };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }]);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+        });
+    });
+
+    it('can initiate multi-column sorting by keepOther option with immutable data', () => {
+      const state = {
+        sorting: Immutable([{ columnName: 'test', direction: 'asc' }]),
+      };
+      const payload = { columnName: 'test2', keepOther: true };
+
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+        });
+    });
+
+    it('can initiate multi-column sorting by keepOther option with array', () => {
+      const state = {
+        sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test1', direction: 'asc' }],
+      };
+      const payload = { columnName: 'test2', keepOther: ['test'] };
+
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+        });
+    });
+
+    it('can initiate multi-column sorting by keepOther option with array with immutable data', () => {
+      const state = {
+        sorting: Immutable([{ columnName: 'test', direction: 'asc' }, { columnName: 'test1', direction: 'asc' }]),
+      };
+      const payload = { columnName: 'test2', keepOther: ['test'] };
+
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+        });
     });
 
     it('can toggle multi-column sorting', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
+      const state = {
+        sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+      };
       const payload = { columnName: 'test', keepOther: true };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'desc' }, { columnName: 'test2', direction: 'asc' }]);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'desc' }, { columnName: 'test2', direction: 'asc' }],
+        });
     });
 
     it('should cancel sorting by column if cancel is set to true', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
+      const state = {
+        sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+      };
       const payload = { columnName: 'test2', keepOther: true, cancel: true };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }]);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [{ columnName: 'test', direction: 'asc' }],
+        });
     });
 
     it('should clear sorting if cancel is true and keepOther is not specified', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
+      const state = {
+        sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
+      };
       const payload = { columnName: 'test2', cancel: true };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toHaveLength(0);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [],
+        });
     });
 
-    it('should not affect columns out of the passed scope', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
-      const payload = { columnName: 'test2', scope: ['test2'] };
+    it('should set correct sorting if sortIndex is specified', () => {
+      const state = {
+        sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test1', direction: 'asc' }],
+      };
+      const payload = { columnName: 'test2', keepOther: true, sortIndex: 0 };
 
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'desc' }]);
-    });
-
-    it('should reset sorting in the passed scope', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
-      const payload = { columnName: 'test2', scope: ['test', 'test2'] };
-
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([{ columnName: 'test2', direction: 'desc' }]);
-    });
-
-    it('can toggle sorting in the passed scope', () => {
-      const sorting = [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }];
-      const payload = { columnName: 'test3', scope: ['test2', 'test3'] };
-
-      const nextSorting = setColumnSorting(sorting, payload);
-      expect(nextSorting).toEqual([
-        { columnName: 'test', direction: 'asc' },
-        { columnName: 'test3', direction: 'asc' },
-      ]);
+      expect(setColumnSorting(state, payload))
+        .toEqual({
+          sorting: [
+            { columnName: 'test2', direction: 'asc' },
+            { columnName: 'test', direction: 'asc' },
+            { columnName: 'test1', direction: 'asc' },
+          ],
+        });
     });
   });
 });

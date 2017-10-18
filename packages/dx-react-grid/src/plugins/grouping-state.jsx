@@ -4,106 +4,141 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   groupByColumn,
   toggleExpandedGroups,
-  draftGrouping as draftGroupingComputed,
+  draftGrouping,
   draftGroupingChange,
   cancelGroupingChange,
-  removeOutdatedExpandedGroups,
 } from '@devexpress/dx-grid-core';
+
+const dependencies = [
+  { pluginName: 'SortingState', optional: true },
+];
+
+const adjustSortIndex = (sortIndex, grouping, sorting) =>
+  Math.min(
+    grouping.reduce(
+      (acc, columnGrouping) => {
+        const columnSortingIndex = sorting.findIndex(columnSorting =>
+          columnSorting.columnName === columnGrouping.columnName);
+        return (columnSortingIndex === -1 ? acc : acc + 1);
+      },
+      0,
+    ),
+    sortIndex,
+  );
 
 export class GroupingState extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      grouping: props.defaultGrouping || [],
+      grouping: props.defaultGrouping,
       groupingChange: null,
-      expandedGroups: props.defaultExpandedGroups || [],
+      expandedGroups: props.defaultExpandedGroups,
     };
 
-    this._grouping = () => this.props.grouping || this.state.grouping;
-    this._expandedGroups = () => this.props.expandedGroups || this.state.expandedGroups;
-
-    this._reduceExpandedGroups = reducer => (prevExpandedGroups, payload) => {
-      const expandedGroups = reducer(prevExpandedGroups, payload);
-
-      if (expandedGroups === prevExpandedGroups) return;
-
-      this.setState({ expandedGroups });
-
-      const { onExpandedGroupsChange } = this.props;
-      if (onExpandedGroupsChange) {
-        onExpandedGroupsChange(expandedGroups);
-      }
-    };
-
-    this._toggleGroupExpanded = this._reduceExpandedGroups(toggleExpandedGroups);
-    this._removeOutdatedExpandedGroups = this._reduceExpandedGroups(removeOutdatedExpandedGroups);
-
-    this._groupByColumn = (prevGrouping, prevExpandedGroups, { columnName, groupIndex }) => {
-      const grouping = groupByColumn(prevGrouping, { columnName, groupIndex });
-
-      this.setState({ grouping });
-
-      const { onGroupingChange } = this.props;
-      if (onGroupingChange) {
-        onGroupingChange(grouping);
-      }
-
-      if (this._expandedGroups() !== prevExpandedGroups) return;
-
-      this._removeOutdatedExpandedGroups(prevExpandedGroups, {
-        prevGrouping,
-        grouping,
-      });
-    };
-
-    this.draftGroupingChange = (groupingChange) => {
-      this.setState({
-        groupingChange: draftGroupingChange(this.state.groupingChange, groupingChange),
-      });
-    };
-
-    this.cancelGroupingChange = () => {
-      this.setState({
-        groupingChange: cancelGroupingChange(),
-      });
+    this.groupByColumn = this.groupByColumn.bind(this);
+    this.toggleGroupExpanded = this.applyReducer.bind(this, toggleExpandedGroups);
+    this.draftGroupingChange = this.applyReducer.bind(this, draftGroupingChange);
+    this.cancelGroupingChange = this.applyReducer.bind(this, cancelGroupingChange);
+    this.setColumnSorting = this.setColumnSorting.bind(this);
+  }
+  getState() {
+    return {
+      ...this.state,
+      grouping: this.props.grouping || this.state.grouping,
+      expandedGroups: this.props.expandedGroups || this.state.expandedGroups,
     };
   }
+  setColumnSorting({ columnName, keepOther, ...restParams }, { sorting }, { setColumnSorting }) {
+    const { grouping } = this.getState();
+    const groupingIndex = grouping
+      .findIndex(columnGrouping => columnGrouping.columnName === columnName);
+    if (groupingIndex === -1) {
+      setColumnSorting({
+        columnName,
+        keepOther: keepOther || grouping.map(columnGrouping => columnGrouping.columnName),
+        ...restParams,
+      });
+      return false;
+    }
+
+    const sortIndex = adjustSortIndex(groupingIndex, grouping, sorting);
+    setColumnSorting({
+      columnName,
+      keepOther: true,
+      sortIndex,
+      ...restParams,
+    });
+    return false;
+  }
+  groupByColumn({ columnName, groupIndex }, { sorting }, { setColumnSorting }) {
+    const { grouping: prevGrouping } = this.state;
+    const { grouping } = this.applyReducer(groupByColumn, { columnName, groupIndex });
+
+    if (!sorting) return;
+
+    const columnSortingIndex = sorting
+      .findIndex(columnSorting => columnSorting.columnName === columnName);
+    const prevGroupingIndex = prevGrouping
+      .findIndex(columnGrouping => columnGrouping.columnName === columnName);
+    const groupingIndex = grouping
+      .findIndex(columnGrouping => columnGrouping.columnName === columnName);
+
+    if (columnSortingIndex === -1
+      || (prevGroupingIndex === prevGrouping.length - 1 && groupingIndex === -1)) return;
+
+    const sortIndex = adjustSortIndex(
+      groupingIndex === -1 ? grouping.length : groupingIndex,
+      grouping,
+      sorting,
+    );
+
+    if (columnSortingIndex === sortIndex) return;
+
+    setColumnSorting({
+      keepOther: true,
+      sortIndex,
+      ...sorting[columnSortingIndex],
+    });
+  }
+  applyReducer(reduce, payload) {
+    const prevState = this.getState();
+    const statePart = reduce(prevState, payload);
+    this.setState(statePart);
+    const state = { ...prevState, ...statePart };
+
+    const { grouping } = state;
+    const { onGroupingChange } = this.props;
+    if (onGroupingChange && grouping !== prevState.grouping) {
+      onGroupingChange(grouping);
+    }
+
+    const { expandedGroups } = state;
+    const { onExpandedGroupsChange } = this.props;
+    if (onExpandedGroupsChange && expandedGroups !== prevState.expandedGroups) {
+      onExpandedGroupsChange(expandedGroups);
+    }
+
+    return state;
+  }
   render() {
-    const { groupingChange } = this.state;
-    const grouping = this._grouping();
-    const draftGrouping = draftGroupingComputed(grouping, groupingChange);
-    const expandedGroups = this._expandedGroups();
-    const expandedGroupsSet = new Set(expandedGroups);
+    const { grouping, groupingChange, expandedGroups } = this.getState();
 
     return (
       <PluginContainer
         pluginName="GroupingState"
+        dependencies={dependencies}
       >
-        <Action
-          name="toggleGroupExpanded"
-          action={({ groupKey }) => {
-            this._toggleGroupExpanded(expandedGroups, { groupKey });
-          }}
-        />
-        <Action
-          name="groupByColumn"
-          action={({ columnName, groupIndex }) => {
-            this._groupByColumn(grouping, expandedGroups, { columnName, groupIndex });
-          }}
-        />
-        <Action
-          name="draftGroupingChange"
-          action={(change) => { this.draftGroupingChange(change); }}
-        />
-        <Action
-          name="cancelGroupingChange"
-          action={() => { this.cancelGroupingChange(); }}
-        />
-
         <Getter name="grouping" value={grouping} />
-        <Getter name="draftGrouping" value={draftGrouping} />
-        <Getter name="expandedGroups" value={expandedGroupsSet} />
+        <Getter name="draftGrouping" value={draftGrouping(grouping, groupingChange)} />
+        <Getter name="expandedGroups" value={new Set(expandedGroups)} />
+
+        <Action name="groupByColumn" action={this.groupByColumn} />
+        <Action name="toggleGroupExpanded" action={this.toggleGroupExpanded} />
+        <Action name="draftGroupingChange" action={this.draftGroupingChange} />
+        <Action name="cancelGroupingChange" action={this.cancelGroupingChange} />
+
+        <Action name="setColumnSorting" action={this.setColumnSorting} />
       </PluginContainer>
     );
   }
@@ -120,9 +155,9 @@ GroupingState.propTypes = {
 
 GroupingState.defaultProps = {
   grouping: undefined,
-  defaultGrouping: undefined,
+  defaultGrouping: [],
   onGroupingChange: undefined,
   expandedGroups: undefined,
-  defaultExpandedGroups: undefined,
+  defaultExpandedGroups: [],
   onExpandedGroupsChange: undefined,
 };

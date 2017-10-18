@@ -187,8 +187,8 @@ describe('TableHeaderRow', () => {
       ));
 
       headerCellTemplate.mock.calls[0][0].changeColumnWidth({ shift: 10 });
-      expect(deps.action.changeTableColumnWidths)
-        .toBeCalledWith({ shifts: { a: 10 } });
+      expect(deps.action.changeTableColumnWidths.mock.calls[0][0])
+        .toEqual({ shifts: { a: 10 } });
     });
 
     it('should call correct action when on changeDraftColumnWidth', () => {
@@ -213,40 +213,8 @@ describe('TableHeaderRow', () => {
       ));
 
       headerCellTemplate.mock.calls[0][0].changeDraftColumnWidth({ shift: 10 });
-      expect(deps.action.changeDraftTableColumnWidths)
-        .toBeCalledWith({ shifts: { a: 10 } });
+      expect(deps.action.changeDraftTableColumnWidths.mock.calls[0][0])
+        .toEqual({ shifts: { a: 10 } });
     });
-  });
-
-  it('should not add grouped columns to sortingScope', () => {
-    isHeadingTableCell.mockImplementation(() => true);
-    const headerCellTemplate = jest.fn(() => null);
-    const setColumnSorting = jest.fn();
-
-    const deps = {
-      getter: {
-        tableColumns: [{ column: { name: 'a' } }, { column: { name: 'b' } }],
-        grouping: [{ columnName: 'a' }],
-      },
-      action: {
-        setColumnSorting,
-      },
-    };
-
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <TableHeaderRow
-          headerCellTemplate={headerCellTemplate}
-          headerRowTemplate={() => null}
-        />
-      </PluginHost>
-    ));
-
-    const templateParams = headerCellTemplate.mock.calls[0][0];
-    templateParams.changeSortingDirection({});
-
-    expect(setColumnSorting.mock.calls[0][0].scope)
-      .toEqual(['b']);
   });
 });

@@ -26,7 +26,7 @@ export default class DemoFrame extends React.PureComponent {
   }
 
   render() {
-    const currentTheme = this.state.currentTheme;
+    const { currentTheme } = this.state;
 
     // Forces demo rerendering on theme change
     const ThemedDemo = () => <Demo />;

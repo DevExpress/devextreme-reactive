@@ -39,14 +39,14 @@ describe('SortingState', () => {
   it('should provide sorting defined in defaultSorting property', () => {
     const defaultSorting = [{ columnName: 'a', direction: 'asc' }];
 
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SortingState
           defaultSorting={defaultSorting}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.sorting)
       .toBe(defaultSorting);
@@ -55,14 +55,14 @@ describe('SortingState', () => {
   it('should provide sorting defined in sorting property', () => {
     const sorting = [{ columnName: 'a', direction: 'asc' }];
 
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SortingState
           sorting={sorting}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.sorting)
       .toBe(sorting);
@@ -73,15 +73,15 @@ describe('SortingState', () => {
     const newSorting = [{ columnName: 'b', direction: 'asc' }];
 
     const sortingChange = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SortingState
           defaultSorting={defaultSorting}
           onSortingChange={sortingChange}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const payload = {};
     setColumnSorting.mockReturnValue({ sorting: newSorting });
@@ -102,15 +102,15 @@ describe('SortingState', () => {
     const newSorting = [{ columnName: 'b', direction: 'asc' }];
 
     const sortingChange = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SortingState
           sorting={sorting}
           onSortingChange={sortingChange}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const payload = {};
     setColumnSorting.mockReturnValue({ sorting: newSorting });

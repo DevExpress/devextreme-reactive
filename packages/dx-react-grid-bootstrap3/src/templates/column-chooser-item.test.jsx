@@ -4,14 +4,14 @@ import { ColumnChooserItem } from './column-chooser-item';
 
 describe('ColumnChooserItem', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
-    const tree = mount(
+    const tree = mount((
       <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
         }}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('input[type="checkbox"]').prop('checked'))
       .toBe(true);
@@ -24,15 +24,15 @@ describe('ColumnChooserItem', () => {
 
   it('should call the "onToggle" on the checkbox "onChange" event', () => {
     const toggleHandler = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
         }}
         onToggle={toggleHandler}
-      />,
-    );
+      />
+    ));
 
     tree.find('input[type="checkbox"]')
       .first()
@@ -44,15 +44,15 @@ describe('ColumnChooserItem', () => {
 
   it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
         }}
         onToggle={toggleHandler}
-      />,
-    );
+      />
+    ));
 
     tree.find('button')
       .first()
@@ -63,14 +63,14 @@ describe('ColumnChooserItem', () => {
   });
 
   it('should render column title or name in each item', () => {
-    const tree = mount(
+    const tree = mount((
       <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
         }}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('button').text().trim())
       .toBe('A');

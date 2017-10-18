@@ -23,7 +23,9 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      columnWidths: { name: 180, sex: 100, city: 180, car: 240 },
+      columnWidths: {
+        name: 180, sex: 100, city: 180, car: 240,
+      },
       rows: generateRows({ length: 6 }),
     };
 

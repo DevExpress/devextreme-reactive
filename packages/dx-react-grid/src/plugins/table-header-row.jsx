@@ -12,9 +12,13 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const getHeaderTableCellTemplateArgs = (
-  { allowSorting, allowDragging, allowGroupingByClick, allowResizing, ...params },
+  {
+    allowSorting, allowDragging, allowGroupingByClick, allowResizing, ...params
+  },
   { sorting, columns, grouping },
-  { setColumnSorting, groupByColumn, changeTableColumnWidths, changeDraftTableColumnWidths },
+  {
+    setColumnSorting, groupByColumn, changeTableColumnWidths, changeDraftTableColumnWidths,
+  },
 ) => {
   const { column } = params.tableColumn;
   const groupingSupported = grouping !== undefined &&
@@ -84,7 +88,9 @@ export class TableHeaderRow extends React.PureComponent {
                 <TemplateRenderer
                   template={headerCellTemplate}
                   params={getHeaderTableCellTemplateArgs(
-                    { allowDragging, allowGroupingByClick, allowSorting, allowResizing, ...params },
+                    {
+                      allowDragging, allowGroupingByClick, allowSorting, allowResizing, ...params,
+                    },
                     getters,
                     actions,
                   )}

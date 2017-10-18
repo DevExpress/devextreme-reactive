@@ -65,7 +65,7 @@ export default class Demo extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
   }
   commitChanges({ added, changed, deleted }) {
-    let rows = this.state.rows;
+    let { rows } = this.state;
     if (added) {
       const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
       rows = [

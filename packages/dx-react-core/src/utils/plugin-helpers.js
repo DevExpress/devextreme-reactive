@@ -11,7 +11,9 @@ export const getActionExecutor = (pluginHost, actionToExecuteName) => {
       pluginHost,
       actionName => (actionName === actionToExecuteName
         ? (newPayload) => { payload = newPayload; }
-        : getActionExecutor(pluginHost, actionName)));
+        : getActionExecutor(pluginHost, actionName)
+      ),
+    );
     for (let i = 0; i < actionsToExecute.length; i += 1) {
       const result = actionsToExecute[i](payload, getters, actions);
       if (result === false) {

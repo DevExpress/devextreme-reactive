@@ -25,12 +25,12 @@ const styles = theme => ({
   },
 });
 
-const EditCellBase = ({ column, value, onValueChange, style, classes, children }) => {
-  const inputClasses = classNames(
-    {
-      [classes.inputRight]: column.align === 'right',
-    },
-  );
+const EditCellBase = ({
+  column, value, onValueChange, style, classes, children,
+}) => {
+  const inputClasses = classNames({
+    [classes.inputRight]: column.align === 'right',
+  });
 
   return (
     <TableCell

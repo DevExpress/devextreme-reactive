@@ -52,14 +52,14 @@ describe('GroupingState', () => {
     it('should provide grouping defined in defaultGrouping property', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={defaultGrouping}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.grouping)
         .toBe(defaultGrouping);
@@ -68,14 +68,14 @@ describe('GroupingState', () => {
     it('should provide grouping defined in grouping property', () => {
       const grouping = [{ columnName: 'a' }];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             grouping={grouping}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.grouping)
         .toBe(grouping);
@@ -86,15 +86,15 @@ describe('GroupingState', () => {
       const newGrouping = [{ columnName: 'b' }];
 
       const groupingChange = jest.fn();
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={defaultGrouping}
             onGroupingChange={groupingChange}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       const payload = {};
       groupByColumn.mockReturnValue({ grouping: newGrouping });
@@ -115,15 +115,15 @@ describe('GroupingState', () => {
       const newGrouping = [{ columnName: 'b' }];
 
       const groupingChange = jest.fn();
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             grouping={grouping}
             onGroupingChange={groupingChange}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       const payload = {};
       groupByColumn.mockReturnValue({ grouping: newGrouping });
@@ -144,14 +144,14 @@ describe('GroupingState', () => {
     it('should provide expandedGroups defined in defaultExpandedGroups property', () => {
       const defaultExpandedGroups = [1];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultExpandedGroups={defaultExpandedGroups}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set(defaultExpandedGroups));
@@ -160,14 +160,14 @@ describe('GroupingState', () => {
     it('should provide expandedGroups defined in expandedGroups property', () => {
       const expandedGroups = [1];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             expandedGroups={expandedGroups}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set(expandedGroups));
@@ -178,15 +178,15 @@ describe('GroupingState', () => {
       const newExpandedGroups = [2];
 
       const expandedGroupsChange = jest.fn();
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultExpandedGroups={defaultExpandedGroups}
             onExpandedGroupsChange={expandedGroupsChange}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       const payload = {};
       toggleExpandedGroups.mockReturnValue({ expandedGroups: newExpandedGroups });
@@ -195,7 +195,8 @@ describe('GroupingState', () => {
       expect(toggleExpandedGroups)
         .toBeCalledWith(
           expect.objectContaining({ expandedGroups: defaultExpandedGroups }),
-          payload);
+          payload,
+        );
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set(newExpandedGroups));
@@ -209,15 +210,15 @@ describe('GroupingState', () => {
       const newExpandedGroups = [2];
 
       const expandedGroupsChange = jest.fn();
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultExpandedGroups={defaultExpandedGroups}
             onExpandedGroupsChange={expandedGroupsChange}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       const payload = {};
       groupByColumn.mockReturnValue({ expandedGroups: newExpandedGroups });
@@ -226,7 +227,8 @@ describe('GroupingState', () => {
       expect(groupByColumn)
         .toBeCalledWith(
           expect.objectContaining({ expandedGroups: defaultExpandedGroups }),
-          payload);
+          payload,
+        );
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set(newExpandedGroups));
@@ -240,15 +242,15 @@ describe('GroupingState', () => {
       const newExpandedGroups = [2];
 
       const expandedGroupsChange = jest.fn();
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             expandedGroups={expandedGroups}
             onExpandedGroupsChange={expandedGroupsChange}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       const payload = {};
       toggleExpandedGroups.mockReturnValue({ expandedGroups: newExpandedGroups });
@@ -269,15 +271,15 @@ describe('GroupingState', () => {
       const newExpandedGroups = [2];
 
       const expandedGroupsChange = jest.fn();
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             expandedGroups={expandedGroups}
             onExpandedGroupsChange={expandedGroupsChange}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       const payload = {};
       groupByColumn.mockReturnValue({ expandedGroups: newExpandedGroups });
@@ -286,7 +288,8 @@ describe('GroupingState', () => {
       expect(groupByColumn)
         .toBeCalledWith(
           expect.objectContaining({ expandedGroups }),
-          payload);
+          payload,
+        );
 
       expect(getComputedState(tree).getters.expandedGroups)
         .toEqual(new Set(expandedGroups));
@@ -300,14 +303,14 @@ describe('GroupingState', () => {
     it('should provide draftGrouping getter', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={defaultGrouping}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(draftGrouping)
         .toBeCalledWith(defaultGrouping, null);
@@ -318,14 +321,14 @@ describe('GroupingState', () => {
     it('should provide draftGrouping getter based on the result of draftGroupingChange action', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={defaultGrouping}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       const payload = { columnName: 'a' };
       draftGroupingChange.mockImplementation(() => ({ groupingChange: 'change' }));
@@ -341,14 +344,14 @@ describe('GroupingState', () => {
     it('should provide draftGrouping getter based on the result of cancelGroupingChange result', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
             defaultGrouping={defaultGrouping}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       const payload = { columnName: 'a' };
       cancelGroupingChange.mockImplementation(() => ({ groupingChange: 'change' }));
@@ -373,14 +376,14 @@ describe('GroupingState', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.setColumnSorting({ columnName: 'a', direction: 'asc' });
       expect(deps.action.setColumnSorting.mock.calls[0][0])
@@ -402,14 +405,14 @@ describe('GroupingState', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.setColumnSorting({ columnName: 'c' });
       expect(deps.action.setColumnSorting.mock.calls[0][0])
@@ -430,14 +433,14 @@ describe('GroupingState', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }, { columnName: 'b' }]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.setColumnSorting({ columnName: 'b' });
       expect(deps.action.setColumnSorting.mock.calls[0][0])
@@ -458,14 +461,14 @@ describe('GroupingState', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }, { columnName: 'b' }]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       getComputedState(tree).actions.setColumnSorting({ columnName: 'c', direction: 'asc' });
       expect(deps.action.setColumnSorting.mock.calls[0][0])
@@ -488,14 +491,14 @@ describe('GroupingState', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <GroupingState
             defaultGrouping={[]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }] });
       getComputedState(tree).actions.groupByColumn({ columnName: 'a' });
@@ -518,14 +521,14 @@ describe('GroupingState', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }, { columnName: 'b' }]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       groupByColumn.mockReturnValue({ grouping: [{ columnName: 'b' }] });
       getComputedState(tree).actions.groupByColumn({ columnName: 'a' });
@@ -548,14 +551,14 @@ describe('GroupingState', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       groupByColumn.mockReturnValue({ grouping: [] });
       getComputedState(tree).actions.groupByColumn({ columnName: 'a' });
@@ -573,14 +576,14 @@ describe('GroupingState', () => {
         },
       };
 
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <GroupingState
             defaultGrouping={[{ columnName: 'a' }]}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }, { columnName: 'b' }] });
       getComputedState(tree).actions.groupByColumn({ columnName: 'b' });

@@ -25,8 +25,12 @@ export class DropTarget extends React.Component {
     dragEmitter.unsubscribe(this.handleDrag);
   }
   handleDrag({ payload, clientOffset, end }) {
-    // eslint-disable-next-line react/no-find-dom-node
-    const { left, top, right, bottom } = findDOMNode(this).getBoundingClientRect();
+    const {
+      left,
+      top,
+      right,
+      bottom,
+    } = findDOMNode(this).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
     const isOver = clientOffset
       && clamp(clientOffset.x, left, right) === clientOffset.x
       && clamp(clientOffset.y, top, bottom) === clientOffset.y;
@@ -45,7 +49,7 @@ export class DropTarget extends React.Component {
 }
 
 DropTarget.contextTypes = {
-  dragDropContext: PropTypes.shape().isRequired,
+  dragDropContext: PropTypes.object.isRequired,
 };
 
 DropTarget.propTypes = {

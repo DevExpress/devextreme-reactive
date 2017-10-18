@@ -15,7 +15,7 @@ export const TableNoDataCell = ({ style, colSpan }) => (
 );
 
 TableNoDataCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   colSpan: PropTypes.number,
 };
 

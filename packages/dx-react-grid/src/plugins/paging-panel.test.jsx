@@ -46,15 +46,15 @@ describe('PagingPanel', () => {
     const pagerTemplate = jest.fn().mockReturnValue(null);
     const deps = {};
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <PagingPanel
           pagerTemplate={pagerTemplate}
           allowedPageSizes={[3, 5, 0]}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(pagerTemplate.mock.calls[0][0])
       .toMatchObject({

@@ -11,7 +11,7 @@ describe('Action', () => {
     const action = jest.fn();
     let computedAction;
 
-    mount(
+    mount((
       <PluginHost>
         <Action name="action" action={action} />
 
@@ -23,8 +23,8 @@ describe('Action', () => {
             }}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const payload = {};
     computedAction(payload);
@@ -39,7 +39,7 @@ describe('Action', () => {
     const action2 = jest.fn();
     let computedAction;
 
-    mount(
+    mount((
       <PluginHost>
         <Action name="action" action={action1} />
         <Action name="action" action={action2} />
@@ -52,8 +52,8 @@ describe('Action', () => {
             }}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     computedAction();
     expect(action1)
@@ -67,7 +67,7 @@ describe('Action', () => {
     const action2 = jest.fn(() => expect(action1).not.toBeCalled());
     let computedAction;
 
-    mount(
+    mount((
       <PluginHost>
         <Action name="action" action={action1} />
         <Action name="action" action={action2} />
@@ -80,8 +80,8 @@ describe('Action', () => {
             }}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     computedAction();
 
@@ -94,7 +94,7 @@ describe('Action', () => {
     const action2 = jest.fn((payload, getters, actions) => actions.action1());
     let computedAction2;
 
-    mount(
+    mount((
       <PluginHost>
         <Action name="action1" action={action1} />
         <Action name="action2" action={action2} />
@@ -107,8 +107,8 @@ describe('Action', () => {
             }}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     computedAction2();
     expect(action1)
@@ -121,7 +121,7 @@ describe('Action', () => {
     const action2 = jest.fn((payload, getters, actions) => actions.action(payload1));
     let computedAction;
 
-    mount(
+    mount((
       <PluginHost>
         <Action name="action" action={action1} />
         <Action name="action" action={action2} />
@@ -134,8 +134,8 @@ describe('Action', () => {
             }}
           </TemplateConnector>
         </Template>
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     computedAction({});
     expect(action1.mock.calls[0][0])

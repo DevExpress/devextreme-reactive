@@ -47,10 +47,6 @@ TemplateConnector.propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-TemplateConnector.defaultProps = {
-  children: null,
-};
-
 TemplateConnector.contextTypes = {
   pluginHost: PropTypes.object.isRequired,
 };

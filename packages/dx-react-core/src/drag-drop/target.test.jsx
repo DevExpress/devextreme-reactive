@@ -21,10 +21,15 @@ describe('DropTarget', () => {
 
   it('should fire the "onEnter" callback when a source enters its bounds', () => {
     getRect.mockImplementation(() =>
-      ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+      ({
+        top: 100,
+        left: 100,
+        right: 200,
+        bottom: 200,
+      }));
 
     const onEnter = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <DragDropContext>
         <div>
           <DragSource
@@ -38,8 +43,8 @@ describe('DropTarget', () => {
             <div className="target" />
           </DropTarget>
         </div>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     const draggable = tree.find(Draggable);
 
@@ -52,10 +57,15 @@ describe('DropTarget', () => {
 
   it('should fire the "onOver" callback when a source moves over its bounds', () => {
     getRect.mockImplementation(() =>
-      ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+      ({
+        top: 100,
+        left: 100,
+        right: 200,
+        bottom: 200,
+      }));
 
     const onOver = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <DragDropContext>
         <div>
           <DragSource
@@ -69,8 +79,8 @@ describe('DropTarget', () => {
             <div className="target" />
           </DropTarget>
         </div>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     const draggable = tree.find(Draggable);
 
@@ -84,10 +94,15 @@ describe('DropTarget', () => {
 
   it('should fire the "onLeave" callback when a source leaves its bounds', () => {
     getRect.mockImplementation(() =>
-      ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+      ({
+        top: 100,
+        left: 100,
+        right: 200,
+        bottom: 200,
+      }));
 
     const onLeave = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <DragDropContext>
         <div>
           <DragSource
@@ -101,8 +116,8 @@ describe('DropTarget', () => {
             <div className="target" />
           </DropTarget>
         </div>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     const draggable = tree.find(Draggable);
 
@@ -116,10 +131,15 @@ describe('DropTarget', () => {
 
   it('should fire the "onDrop" callback when a source is dropped', () => {
     getRect.mockImplementation(() =>
-      ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+      ({
+        top: 100,
+        left: 100,
+        right: 200,
+        bottom: 200,
+      }));
 
     const onDrop = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <DragDropContext>
         <div>
           <DragSource
@@ -133,8 +153,8 @@ describe('DropTarget', () => {
             <div className="target" />
           </DropTarget>
         </div>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     const draggable = tree.find(Draggable);
 

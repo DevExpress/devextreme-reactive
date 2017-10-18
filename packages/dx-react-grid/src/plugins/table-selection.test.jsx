@@ -70,15 +70,15 @@ describe('Table Selection', () => {
 
   describe('table layout getter', () => {
     it('should extend tableColumns', () => {
-      const tree = mount(
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableSelection
             {...defaultProps}
             selectionColumnWidth={120}
           />
-        </PluginHost>,
-      );
+        </PluginHost>
+      ));
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithSelection');
@@ -91,15 +91,15 @@ describe('Table Selection', () => {
     isSelectTableCell.mockImplementation(() => true);
     const selectCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
           selectCellTemplate={selectCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isSelectTableCell)
       .toBeCalledWith(
@@ -117,15 +117,15 @@ describe('Table Selection', () => {
     isSelectAllTableCell.mockImplementation(() => true);
     const selectAllCellTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
           selectAllCellTemplate={selectAllCellTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isSelectAllTableCell)
       .toBeCalledWith(
@@ -140,7 +140,7 @@ describe('Table Selection', () => {
     const selectRowTemplate = jest.fn(() => null);
     isDataTableRow.mockImplementation(() => true);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
@@ -148,8 +148,8 @@ describe('Table Selection', () => {
           selectRowTemplate={selectRowTemplate}
           selectByRowClick
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
     selectRowTemplate.mock.calls[0][0].changeSelected();
 
     expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
@@ -171,7 +171,7 @@ describe('Table Selection', () => {
     const selectRowTemplate = jest.fn(() => null);
     isDataTableRow.mockImplementation(() => true);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
@@ -179,8 +179,8 @@ describe('Table Selection', () => {
           selectRowTemplate={selectRowTemplate}
           highlightSelected
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(selectRowTemplate)
@@ -193,15 +193,15 @@ describe('Table Selection', () => {
   it('should not use selectRowTemplate if highlightSelected & selectByRowClick are false', () => {
     const selectRowTemplate = jest.fn(() => null);
 
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
           selectRowTemplate={selectRowTemplate}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(selectRowTemplate.mock.calls).toHaveLength(0);
   });

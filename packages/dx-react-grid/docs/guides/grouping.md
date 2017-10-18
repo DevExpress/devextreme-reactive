@@ -23,15 +23,15 @@ In the following examples, the grouping options are specified using the `Groupin
 
 ### Local Grouping
 
-In the following example, the data specified as a plain rows, so it is required to group them locally by the Grid within the `LocalGrouping` plugin.
+In the following example, the data is specified as plain rows. In this case, the data should be grouped locally using the `LocalGrouping` plugin.
 
 .embedded-demo(grouping/local-grouping-static)
 
 ### Custom Grouping
 
-If the data specified has a hierarchical data structure that is already grouped, it is required to use the `CustomGrouping` plugin.
+If the data has a hierarchical structure (already grouped), use the `CustomGrouping` plugin.
 
-In the following example, the data specified as an array of groups. In order to parse the custom groups structure it is required to specify the `getChildGroups` property to the `CustomGrouping` plugin.
+In the following example, the data is specified as an array of groups. Specify the `CustomGrouping` plugin's `getChildGroups` property to parse a custom group structure.
 
 .embedded-demo(grouping/custom-grouping-static)
 
@@ -83,13 +83,13 @@ Note that if the `getColumnIdentity` function returns an object, you should also
 
 ## Remote Grouping
 
-It is possible to perform grouping remotely by handling grouping state changes, generating a request, and sending it to the server.
+You can perform grouping remotely by handling grouping state changes, generating a request, and sending it to the server.
 
 Grouping options are updated once an end-user interacts with grouping UI. Handle grouping option changes using the `GroupingState` plugin's `onGroupingChange` and `onExpandedGroupsChange` events and request data from the server using the applied grouping options.
 
-In the case of remote filtering, you should use the `CustomGrouping` plugin instead of the `LocalGrouping` plugin.
+In the case of remote grouping, you should use the `CustomGrouping` plugin instead of the `LocalGrouping` plugin.
 
-While waiting for a response from a server, the grouping state does not correspond the `Grid` component's data. So, in order to leave UI consistent, specify `grouping` and `expandedGroups` properties to the `CustomGrouping` plugin based on the `grouping` and `expandedGroups` values from the `GroupingState` plugin at the time of sending a request. Once the grouped data is received from the server, pass it to the `Grid` component's `data` property and reset values provided to `grouping` and `expandedGroups` properties of the `CustomGrouping` plugin.
+While waiting for a response from a server, the grouping state does not correspond to the data the `Grid` is displaying. Temporarily assign the `GroupingState` plugin's `grouping` and `expandedGroups` property values to the same properties of the `CustomGrouping` plugin to provide the held and displayed data correspondence until the Grid has received the requested data. Once the grouped data is received from the server, pass it to the `Grid` component's `data` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values.
 
 The following example demonstrates the remote grouping with the local expanding/collapsing.
 

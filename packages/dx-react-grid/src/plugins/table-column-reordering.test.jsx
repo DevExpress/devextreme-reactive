@@ -3,9 +3,11 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   TABLE_DATA_TYPE,
+  TABLE_REORDERING_TYPE,
   orderedColumns,
   getTableTargetColumnIndex,
   changeColumnOrder,
+  draftOrder,
 } from '@devexpress/dx-grid-core';
 import {
   PluginHost,
@@ -20,9 +22,12 @@ import { TableColumnReordering } from './table-column-reordering';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   TABLE_DATA_TYPE: 'd',
+  TABLE_REORDERING_TYPE: 'r',
   orderedColumns: jest.fn(),
   getTableTargetColumnIndex: jest.fn(),
   changeColumnOrder: jest.fn(),
+  tableHeaderRowsWithReordering: jest.fn(),
+  draftOrder: jest.fn(),
 }));
 
 const reorderingRowTemplate = jest.fn();
@@ -31,8 +36,8 @@ const reorderingCellTemplate = jest.fn();
 const defaultDeps = {
   getter: {
     tableColumns: [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      { key: `${TABLE_DATA_TYPE}_a`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+      { key: `${TABLE_DATA_TYPE}_b`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
     ],
     tableHeaderRows: [],
   },
@@ -41,6 +46,7 @@ const defaultDeps = {
   },
   plugins: ['TableView'],
 };
+const defaultClientOffset = { clientOffset: { x: 180 } };
 
 describe('TableColumnReordering', () => {
   let resetConsole;
@@ -55,6 +61,7 @@ describe('TableColumnReordering', () => {
     reorderingRowTemplate.mockImplementation(() => <div />);
     reorderingCellTemplate.mockImplementation(({ getCellDimension }) =>
       <div ref={node => getCellDimension(() => node.getBoundingClientRect())} />);
+    draftOrder.mockImplementation(args => args);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -133,7 +140,7 @@ describe('TableColumnReordering', () => {
                         name="tableViewCell"
                         params={{
                           tableColumn,
-                          tableRow: { key: 'reordering', type: 'reordering' },
+                          tableRow: { key: TABLE_REORDERING_TYPE, type: TABLE_REORDERING_TYPE },
                         }}
                       />
                     ))}
@@ -165,15 +172,22 @@ describe('TableColumnReordering', () => {
       const targetWrapper = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
         .find(DropTarget);
 
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 180 } });
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 180 } });
+      orderedColumns.mockClear();
+
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      expect(draftOrder)
+        .toHaveBeenLastCalledWith(['a', 'b'], 0, 1);
+
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      expect(draftOrder)
+        .toHaveBeenLastCalledWith(['a', 'b'], 0, 1);
       expect(orderedColumns)
-        .toHaveBeenLastCalledWith(defaultDeps.getter.tableColumns, ['b', 'a']);
+        .toHaveBeenCalledTimes(1);
 
       getTableTargetColumnIndex.mockImplementationOnce(() => 0);
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 20 } });
-      expect(orderedColumns)
-        .toHaveBeenLastCalledWith(defaultDeps.getter.tableColumns, ['a', 'b']);
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      expect(draftOrder)
+        .toHaveBeenLastCalledWith(['a', 'b'], 0, 0);
     });
 
     it('should revert column order when source moves out', () => {
@@ -182,8 +196,8 @@ describe('TableColumnReordering', () => {
       const targetWrapper = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
         .find(DropTarget);
 
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 180 } });
-      targetWrapper.prop('onLeave')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: -10 } });
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      targetWrapper.prop('onLeave')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
 
       expect(orderedColumns)
         .toHaveBeenLastCalledWith(defaultDeps.getter.tableColumns, ['a', 'b']);
@@ -195,8 +209,8 @@ describe('TableColumnReordering', () => {
       const targetWrapper = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
         .find(DropTarget);
 
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 180 } });
-      targetWrapper.prop('onDrop')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 180 } });
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      targetWrapper.prop('onDrop')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
 
       expect(changeColumnOrder)
         .toBeCalledWith(['a', 'b'], { sourceColumnName: 'a', targetColumnName: 'b' });
@@ -219,7 +233,7 @@ describe('TableColumnReordering', () => {
         .find(DropTarget);
 
       expect(() => {
-        targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 180 } });
+        targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       }).not.toThrow();
     });
 
@@ -238,40 +252,10 @@ describe('TableColumnReordering', () => {
 
       const targetWrapper = mountWithCellTemplates({ defaultOrder: ['c', 'a', 'b'] }, deps)
         .find(DropTarget);
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 180 } });
 
-      expect(orderedColumns)
-        .toHaveBeenLastCalledWith(deps.getter.tableColumns, ['c', 'b', 'a']);
+      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      expect(draftOrder)
+        .toHaveBeenLastCalledWith(['c', 'a', 'b'], 1, 2);
     });
-
-    // fit('should not fail after a column had disappeared', () => {
-    //   const deps = {
-    //     getter: {
-    //       tableColumns: [
-    //         ...defaultDeps.getter.tableColumns,
-    //         // { key: 'test_c', type: 'test', column: { name: 'c' } },
-    //         { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
-    //         // { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
-    //       ],
-    //     },
-    //   };
-
-    //   orderedColumns.mockImplementation(() => deps.getter.tableColumns);
-    //   getTableTargetColumnIndex.mockImplementation(() => 1);
-
-    //   const tree = mountWithCellTemplates({ defaultOrder: ['a', 'b', 'c'] }, deps);
-    //   const targetWrapper = tree.find(DropTarget);
-
-    //   orderedColumns.mockImplementation(() => [
-    //     ...defaultDeps.getter.tableColumns,
-    //     { key: 'test_c', type: 'test', column: { name: 'c' } },
-    //   ]);
-    //   tree.update();
-    //   console.log(tree.debug())
-
-    //   expect(() => {
-    //     targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'c' }], clientOffset: { x: 180 } });
-    //   }).not.toThrow();
-    // });
   });
 });

@@ -1,5 +1,3 @@
-// /* globals requestAnimationFrame */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -12,16 +10,20 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   TABLE_DATA_TYPE,
+  TABLE_REORDERING_TYPE,
   orderedColumns,
   changeColumnOrder,
   getTableTargetColumnIndex,
+  tableHeaderRowsWithReordering,
+  draftOrder as draftOrderComputed,
 } from '@devexpress/dx-grid-core';
-
-const TABLE_REORDERING_TYPE = 'reordering';
 
 const pluginDependencies = [
   { pluginName: 'TableView' },
 ];
+
+const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
+  tableHeaderRowsWithReordering(tableHeaderRows);
 
 export class TableColumnReordering extends React.PureComponent {
   constructor(props) {
@@ -37,26 +39,22 @@ export class TableColumnReordering extends React.PureComponent {
     this.onLeave = this.handleLeave.bind(this);
     this.onDrop = this.handleDrop.bind(this);
   }
+  getState() {
+    const state = this.state;
+    const { order = state.order } = this.props;
+    return { ...state, order };
+  }
+  getDraftOrder() {
+    const { order, sourceColumnIndex, targetColumnIndex } = this.getState();
+    return draftOrderComputed(order, sourceColumnIndex, targetColumnIndex);
+  }
+  getAvailableColumns() {
+    return this.getDraftOrder()
+      .filter(columnName => !!this.cellDimensionGetters[columnName]);
+  }
   getCellDimensions() {
     return this.getAvailableColumns()
       .map(columnName => this.cellDimensionGetters[columnName]());
-  }
-  getOrder() {
-    const { sourceColumnIndex, targetColumnIndex, order } = this.state;
-
-    if (sourceColumnIndex !== -1 && targetColumnIndex !== -1) {
-      const result = order.slice();
-      const sourceColumn = order[sourceColumnIndex];
-      result.splice(sourceColumnIndex, 1);
-      result.splice(targetColumnIndex, 0, sourceColumn);
-      return result;
-    }
-
-    return order;
-  }
-  getAvailableColumns() {
-    return this.getOrder()
-      .filter(columnName => !!this.cellDimensionGetters[columnName]);
   }
   storeCellDimensionsGetter(tableColumn, data) {
     if (tableColumn.type === TABLE_DATA_TYPE) {
@@ -78,14 +76,17 @@ export class TableColumnReordering extends React.PureComponent {
 
     if (relativeTargetIndex === -1) return;
 
-    const currentOrder = this.getOrder();
-    const targetColumnIndex = currentOrder.indexOf(availableColumns[relativeTargetIndex]);
+    const {
+      sourceColumnIndex: prevSourceColumnIndex,
+      targetColumnIndex: prevTargetColumnIndex,
+    } = this.getState();
+    const draftOrder = this.getDraftOrder();
+    const targetColumnIndex = draftOrder.indexOf(availableColumns[relativeTargetIndex]);
 
-    if (targetColumnIndex === this.state.targetColumnIndex) return;
+    if (targetColumnIndex === prevTargetColumnIndex) return;
 
-    const { sourceColumnIndex: prevSourceColumnIndex } = this.state;
     const sourceColumnIndex = prevSourceColumnIndex === -1
-      ? currentOrder.indexOf(sourceColumnName)
+      ? draftOrder.indexOf(sourceColumnName)
       : prevSourceColumnIndex;
 
     this.setState({
@@ -100,7 +101,7 @@ export class TableColumnReordering extends React.PureComponent {
     });
   }
   handleDrop() {
-    const { sourceColumnIndex, targetColumnIndex, order } = this.state;
+    const { sourceColumnIndex, targetColumnIndex, order } = this.getState();
     const { onOrderChange } = this.props;
     const nextOrder = changeColumnOrder(order, {
       sourceColumnName: order[sourceColumnIndex],
@@ -119,16 +120,8 @@ export class TableColumnReordering extends React.PureComponent {
   }
   render() {
     const { reorderingRowTemplate, reorderingCellTemplate } = this.props;
-    const order = this.getOrder();
-    const columnsComputed = ({ tableColumns }) => orderedColumns(tableColumns, order);
-    const tableHeaderRowsWithReordering = ({ tableHeaderRows }) => [
-      {
-        key: TABLE_REORDERING_TYPE,
-        type: TABLE_REORDERING_TYPE,
-        height: 0,
-      },
-      ...tableHeaderRows,
-    ];
+    const columnsComputed = ({ tableColumns }) =>
+      orderedColumns(tableColumns, this.getDraftOrder());
 
     this.cellDimensionGetters = {};
 
@@ -138,7 +131,7 @@ export class TableColumnReordering extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={columnsComputed} />
-        <Getter name="tableHeaderRows" computed={tableHeaderRowsWithReordering} />
+        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Template name="tableView">
           <DropTarget
             onOver={this.onOver}

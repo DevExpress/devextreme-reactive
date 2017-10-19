@@ -9,9 +9,9 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { DemoViewer } from './demo-viewer/demo-viewer';
 import { SectionsViewer } from './demo-viewer/sections-viewer';
+import './index.css';
 
 class App extends React.Component {
   getChildContext() {

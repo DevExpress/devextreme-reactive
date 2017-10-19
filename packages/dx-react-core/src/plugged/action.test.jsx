@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
@@ -8,26 +7,138 @@ import { Template } from './template';
 import { TemplateConnector } from './template-connector';
 
 describe('Action', () => {
-  it('should return value', () => {
-    const Test = ({ onAction }) => (
+  it('should execute action', () => {
+    const action = jest.fn();
+    let computedAction;
+
+    mount((
       <PluginHost>
-        <Action name="test" action={onAction} />
+        <Action name="action" action={action} />
 
         <Template name="root">
           <TemplateConnector>
-            {(getters, { test }) => <button onClick={test}>Text</button>}
+            {(getters, actions) => {
+              computedAction = actions.action;
+              return null;
+            }}
           </TemplateConnector>
         </Template>
       </PluginHost>
-    );
-    Test.propTypes = {
-      onAction: PropTypes.func.isRequired,
-    };
+    ));
 
-    const onAction = jest.fn();
-    const tree = mount(<Test onAction={onAction} />);
+    const payload = {};
+    computedAction(payload);
+    expect(action)
+      .toHaveBeenCalledTimes(1);
+    expect(action.mock.calls[0][0])
+      .toBe(payload);
+  });
 
-    tree.find('button').simulate('click');
-    expect(onAction.mock.calls).toHaveLength(1);
+  it('should be possible to evaluate several actions in a row', () => {
+    const action1 = jest.fn();
+    const action2 = jest.fn();
+    let computedAction;
+
+    mount((
+      <PluginHost>
+        <Action name="action" action={action1} />
+        <Action name="action" action={action2} />
+
+        <Template name="root">
+          <TemplateConnector>
+            {(getters, actions) => {
+              computedAction = actions.action;
+              return null;
+            }}
+          </TemplateConnector>
+        </Template>
+      </PluginHost>
+    ));
+
+    computedAction();
+    expect(action1)
+      .toHaveBeenCalledTimes(1);
+    expect(action2)
+      .toHaveBeenCalledTimes(1);
+  });
+
+  it('should be possible to evaluate several actions in correct order', () => {
+    const action1 = jest.fn();
+    const action2 = jest.fn(() => expect(action1).not.toBeCalled());
+    let computedAction;
+
+    mount((
+      <PluginHost>
+        <Action name="action" action={action1} />
+        <Action name="action" action={action2} />
+
+        <Template name="root">
+          <TemplateConnector>
+            {(getters, actions) => {
+              computedAction = actions.action;
+              return null;
+            }}
+          </TemplateConnector>
+        </Template>
+      </PluginHost>
+    ));
+
+    computedAction();
+
+    jest.clearAllMocks();
+    computedAction();
+  });
+
+  it('should be possible to execute another action within action', () => {
+    const action1 = jest.fn();
+    const action2 = jest.fn((payload, getters, actions) => actions.action1());
+    let computedAction2;
+
+    mount((
+      <PluginHost>
+        <Action name="action1" action={action1} />
+        <Action name="action2" action={action2} />
+
+        <Template name="root">
+          <TemplateConnector>
+            {(getters, actions) => {
+              computedAction2 = actions.action2;
+              return null;
+            }}
+          </TemplateConnector>
+        </Template>
+      </PluginHost>
+    ));
+
+    computedAction2();
+    expect(action1)
+      .toBeCalled();
+  });
+
+  it('should be possible to extend action params for action within a row', () => {
+    const payload1 = {};
+    const action1 = jest.fn();
+    const action2 = jest.fn((payload, getters, actions) => actions.action(payload1));
+    let computedAction;
+
+    mount((
+      <PluginHost>
+        <Action name="action" action={action1} />
+        <Action name="action" action={action2} />
+
+        <Template name="root">
+          <TemplateConnector>
+            {(getters, actions) => {
+              computedAction = actions.action;
+              return null;
+            }}
+          </TemplateConnector>
+        </Template>
+      </PluginHost>
+    ));
+
+    computedAction({});
+    expect(action1.mock.calls[0][0])
+      .toBe(payload1);
   });
 });

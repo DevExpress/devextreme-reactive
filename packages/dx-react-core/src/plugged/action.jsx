@@ -8,9 +8,9 @@ export class Action extends React.PureComponent {
 
     this.plugin = {
       position: () => this.props.position(),
-      [`${name}Action`]: (params) => {
+      [`${name}Action`]: (params, getters, actions) => {
         const { action } = this.props;
-        action(params);
+        action(params, getters, actions);
       },
     };
 

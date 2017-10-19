@@ -8,45 +8,37 @@ export class SortingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      sorting: props.defaultSorting || [],
+      sorting: props.defaultSorting,
     };
 
-    this._setColumnSorting = (sorting, {
-      columnName, direction, keepOther, cancel, scope,
-    }) => {
-      const { onSortingChange } = this.props;
-      const nextSorting = setColumnSorting(sorting, {
-        columnName,
-        direction,
-        keepOther,
-        cancel,
-        scope,
-      });
-      this.setState({ sorting: nextSorting });
-      if (onSortingChange) {
-        onSortingChange(nextSorting);
-      }
+    this.setColumnSorting = this.applyReducer.bind(this, setColumnSorting);
+  }
+  getState() {
+    return {
+      sorting: this.props.sorting || this.state.sorting,
     };
   }
+  applyReducer(reduce, payload) {
+    const prevState = this.getState();
+    const statePart = reduce(prevState, payload);
+    this.setState(statePart);
+    const state = { ...prevState, ...statePart };
+
+    const { sorting } = state;
+    const { onSortingChange } = this.props;
+    if (onSortingChange && sorting !== prevState.sorting) {
+      onSortingChange(sorting);
+    }
+  }
   render() {
-    const sorting = this.props.sorting || this.state.sorting;
+    const { sorting } = this.getState();
 
     return (
       <PluginContainer
         pluginName="SortingState"
       >
-        <Action
-          name="setColumnSorting"
-          action={({
-            columnName, direction, keepOther, cancel, scope,
-          }) => {
-            this._setColumnSorting(sorting, {
-              columnName, direction, keepOther, cancel, scope,
-            });
-          }}
-        />
-
         <Getter name="sorting" value={sorting} />
+        <Action name="setColumnSorting" action={this.setColumnSorting} />
       </PluginContainer>
     );
   }
@@ -60,6 +52,6 @@ SortingState.propTypes = {
 
 SortingState.defaultProps = {
   sorting: undefined,
-  defaultSorting: undefined,
+  defaultSorting: [],
   onSortingChange: undefined,
 };

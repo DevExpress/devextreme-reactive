@@ -9,16 +9,13 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
-  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const getHeaderTableCellTemplateArgs = (
   {
     allowSorting, allowDragging, allowGroupingByClick, allowResizing, ...params
   },
-  {
-    tableColumns, sorting, columns, grouping,
-  },
+  { sorting, columns, grouping },
   {
     setColumnSorting, groupByColumn, changeTableColumnWidths, changeDraftTableColumnWidths,
   },
@@ -34,18 +31,8 @@ const getHeaderTableCellTemplateArgs = (
     allowDragging: allowDragging && (!grouping || groupingSupported),
     allowResizing,
     column: params.tableColumn.column,
-    changeSortingDirection: ({ keepOther, cancel }) => {
-      const scope = grouping
-        ? tableColumns
-          .filter(tableColumn => tableColumn.type === TABLE_DATA_TYPE)
-          .filter(tableColumn => grouping
-            .find(group => group.columnName !== tableColumn.column.name))
-          .map(tableColumn => tableColumn.column.name)
-        : null;
-      setColumnSorting({
-        columnName: column.name, keepOther, cancel, scope,
-      });
-    },
+    changeSortingDirection: ({ keepOther, cancel }) =>
+      setColumnSorting({ columnName: column.name, keepOther, cancel }),
     groupByColumn: () =>
       groupByColumn({ columnName: column.name }),
     changeColumnWidth: ({ shift }) =>

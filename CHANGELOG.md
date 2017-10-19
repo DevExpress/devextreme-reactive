@@ -1,3 +1,48 @@
+<a name="1.0.0-alpha.12"></a>
+# [1.0.0-alpha.12](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2017-10-19)
+
+
+### Bug Fixes
+
+* **react-grid:** add 'overflow: hidden' for MUI TableCell ([#406](https://github.com/DevExpress/devextreme-reactive/issues/406)) ([69fd88c](https://github.com/DevExpress/devextreme-reactive/commit/69fd88c)), closes [#403](https://github.com/DevExpress/devextreme-reactive/issues/403)
+* **react-grid:** allow to use Grid with react@16 ([#389](https://github.com/DevExpress/devextreme-reactive/issues/389)) ([9f292fe](https://github.com/DevExpress/devextreme-reactive/commit/9f292fe))
+* **react-grid:** correlate sorting order with grouping order ([#414](https://github.com/DevExpress/devextreme-reactive/issues/414)) ([db3377c](https://github.com/DevExpress/devextreme-reactive/commit/db3377c)), closes [#398](https://github.com/DevExpress/devextreme-reactive/issues/398)
+* **react-grid:** optimize table selection rendering ([#412](https://github.com/DevExpress/devextreme-reactive/issues/412)) ([b0dfae1](https://github.com/DevExpress/devextreme-reactive/commit/b0dfae1)), closes [#397](https://github.com/DevExpress/devextreme-reactive/issues/397)
+* **react-grid-bootstrap3:** fix server side rendering issue with VirtualTable ([#420](https://github.com/DevExpress/devextreme-reactive/issues/420)) ([207e81b](https://github.com/DevExpress/devextreme-reactive/commit/207e81b)), closes [#415](https://github.com/DevExpress/devextreme-reactive/issues/415)
+
+
+### Features
+
+* **react-grid:** implement column chooser ([#366](https://github.com/DevExpress/devextreme-reactive/issues/366)) ([74b99c1](https://github.com/DevExpress/devextreme-reactive/commit/74b99c1))
+
+
+### Performance Improvements
+
+* **react-core:** batch updates on draggable events ([#384](https://github.com/DevExpress/devextreme-reactive/issues/384)) ([51efef1](https://github.com/DevExpress/devextreme-reactive/commit/51efef1))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** The `scope` parameter of the `setColumnSorting` action has been removed.
+
+  The `GroupingState` plugin now has an optional dependency on the `SortingState` plugin. So, `GroupingState` should be placed after `SortingState`.
+
+  Before:
+
+  ```jsx
+  <GroupingState /* ... */ />
+  <SortingState /* ... */ />
+  ```
+
+  After:
+
+  ```jsx
+  <SortingState /* ... */ />
+  <GroupingState /* ... */ />
+  ```
+
+
+
 <a name="1.0.0-alpha.11"></a>
 # [1.0.0-alpha.11](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2017-10-04)
 

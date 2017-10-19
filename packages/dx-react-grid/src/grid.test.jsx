@@ -30,15 +30,15 @@ describe('Grid', () => {
 
     const TestChildren = () => null;
 
-    const tree = mount(
+    const tree = mount((
       <Grid
         {...props}
       >
         <TestChildren />
         <TestChildren />
         <TestChildren />
-      </Grid>,
-    );
+      </Grid>
+    ));
 
     expect(tree.find(GridCore).exists())
       .toBeTruthy();

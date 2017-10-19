@@ -10,7 +10,7 @@
   "license": "SEE LICENSE IN README.md",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint **/*.js",
+    "lint": "eslint \"src/**\"",
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {

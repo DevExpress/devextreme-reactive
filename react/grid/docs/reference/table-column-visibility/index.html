@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React Grid Column Reordering - DevExtreme Reactive Components</title>
+    <title>TableColumnVisibility Plugin Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -181,7 +181,7 @@
           
 
           
-          <li>Column Reordering</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
         
@@ -365,7 +365,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
+          <li>TableColumnVisibility</li>
           
 
         
@@ -439,61 +439,89 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="react-grid-column-reordering">React Grid Column Reordering</h1>
+        <h1 id="tablecolumnvisibility-plugin-reference">TableColumnVisibility Plugin Reference</h1>
 
-<p>The Grid component allows reordering grid columns programmatically or using the drag-and-drop feature.</p>
+<p>A plugin that manages Grid columns’ visibility.</p>
 
-<h2 id="related-plugins">Related Plugins</h2>
+<h2 id="user-reference">User Reference</h2>
 
-<p>The following plugins implement column reordering features:</p>
-
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a> - controls the column order</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a> - implements the drag-and-drop functionality and visualizes a column being dragged</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a> - visualizes table column reordering</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a> - visualizes header row column reordering</li>
-</ul>
-
-<p>Note that the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
-
-<h2 id="column-reordering-setup">Column Reordering Setup</h2>
-
-<p>Import the plugins listed above to set up a simple Grid with column reordering enabled.</p>
-
-<p>Enable end-user interactions:</p>
+<h3 id="dependencies">Dependencies</h3>
 
 <ul>
-  <li>set the <code class="highlighter-rouge">TableView</code> plugin’s <code class="highlighter-rouge">allowColumnReordering</code> property to true;</li>
-  <li>set the <code class="highlighter-rouge">TableHeaderRow</code> plugin’s <code class="highlighter-rouge">allowDragging</code> property to true.</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
 </ul>
 
-<h2 id="uncontrolled-mode">Uncontrolled Mode</h2>
+<h3 id="properties">Properties</h3>
 
-<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>, specify the initial column order in the <code class="highlighter-rouge">ColumnOrderState</code> plugin’s <code class="highlighter-rouge">defaultOrder</code> property.</p>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hiddenColumns</td>
+      <td>Array&lt;string&gt;</td>
+      <td>[]</td>
+      <td>Specifies the hidden columns’ names.</td>
+    </tr>
+    <tr>
+      <td>emptyMessageTemplate</td>
+      <td>() =&gt; ReactElement</td>
+      <td> </td>
+      <td>A template that renders a message displayed when all columns are hidden.</td>
+    </tr>
+  </tbody>
+</table>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.12&quot;,
-          &quot;path&quot;: &quot;/demo/column-reordering/uncontrolled&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400417808&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
-        </div>
-      </div>
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
-<h2 id="controlled-mode">Controlled Mode</h2>
+<h3 id="imports">Imports</h3>
 
-<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, pass the column order to the <code class="highlighter-rouge">ColumnOrderState</code> plugin’s <code class="highlighter-rouge">order</code> property and handle the <code class="highlighter-rouge">onOrderChange</code> event to control the column order state.</p>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
+      <td>Table columns.</td>
+    </tr>
+  </tbody>
+</table>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.12&quot;,
-          &quot;path&quot;: &quot;/demo/column-reordering/controlled&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400417808&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
-        </div>
-      </div>
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
+      <td>Visible table columns.</td>
+    </tr>
+  </tbody>
+</table>
+
 
     </div>
   </div>

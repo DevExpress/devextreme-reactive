@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1507112645">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1507112645">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1508400419">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1508400419">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -193,6 +193,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
         </ul>
 
       
@@ -200,6 +208,14 @@
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
+          
+
         
           
           
@@ -349,6 +365,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
           
 
@@ -435,25 +459,25 @@
   <tbody>
     <tr>
       <td>rows</td>
-      <td>Array&lt;<a href="#row">Row</a>&gt;</td>
+      <td>Array&lt;any&gt;</td>
       <td> </td>
-      <td>Specifies the data the Grid displays.</td>
+      <td>An array containing custom data. A user defines the access to this data. Refer to <a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a> for details.</td>
     </tr>
     <tr>
       <td>columns</td>
       <td>Array&lt;<a href="#column">Column</a>&gt;</td>
       <td> </td>
-      <td>Specifies for which row object fields columns are created.</td>
+      <td>Specifies for which row fields columns are created.</td>
     </tr>
     <tr>
       <td>getRowId</td>
-      <td>(row: <a href="#row">Row</a>) =&gt; number | string</td>
+      <td>(row: any) =&gt; number | string</td>
       <td>null</td>
-      <td>Specifies the function used to get a row ID.</td>
+      <td>Specifies the function used to get a unique row identifier.</td>
     </tr>
     <tr>
       <td>getCellValue</td>
-      <td>(row: <a href="#row">Row</a>, columnName: string) =&gt; any</td>
+      <td>(row: any, columnName: string) =&gt; any</td>
       <td>null</td>
       <td>Specifies the function used to get a cell’s value.</td>
     </tr>
@@ -480,10 +504,6 @@
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="row">Row</h3>
-
-<p>An object containing custom data. A user defines the access to this data. Refer to <a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a> for details.</p>
-
 <h3 id="column">Column</h3>
 
 <p>Defines the column configuration object. Used to display data stored in a row. Can be extended by plugins.</p>
@@ -502,12 +522,12 @@
     <tr>
       <td>name</td>
       <td>string</td>
-      <td>Specifies the column name or the name of a row object field whose value the column displays. If the column name does not match any field name, specify the <code class="highlighter-rouge">getCellValue</code> function.</td>
+      <td>Specifies the column name or the name of a row field whose value the column displays. If the column name does not match any field name, specify the <code class="highlighter-rouge">getCellValue</code> function.</td>
     </tr>
     <tr>
       <td>getCellValue</td>
-      <td>(row: <a href="#row">Row</a>, columnName: string) =&gt; any</td>
-      <td>Specifies the function used to get the column data for a given row.</td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>Specifies the function used to get the column value for a given row.</td>
     </tr>
   </tbody>
 </table>
@@ -602,14 +622,26 @@
     <tr>
       <td>rows</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="#row">Row</a>&gt;</td>
+      <td>Array&lt;any&gt;</td>
       <td>Grid rows.</td>
+    </tr>
+    <tr>
+      <td>getRowId</td>
+      <td>Getter</td>
+      <td>(row: any) =&gt; number | string</td>
+      <td>A function used to get a unique row identifier.</td>
     </tr>
     <tr>
       <td>columns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#column">Column</a>&gt;</td>
       <td>Grid columns.</td>
+    </tr>
+    <tr>
+      <td>getCellValue</td>
+      <td>Getter</td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>A function used to get the column value for a given row.</td>
     </tr>
     <tr>
       <td>root</td>
@@ -642,7 +674,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112645"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400419"></script>
 
 
     <footer>
@@ -680,7 +712,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1507112645"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1508400419"></script>
     <script>
         trackingCookie.check();
     </script>

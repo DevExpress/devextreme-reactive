@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1507112645">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1507112645">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1508400419">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1508400419">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -193,6 +193,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
         </ul>
 
       
@@ -200,6 +208,14 @@
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
+          
+
         
           
           
@@ -349,6 +365,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
           
 
@@ -456,31 +480,31 @@
       <td>showSelectAll</td>
       <td>boolean</td>
       <td>true</td>
-      <td>If true, the ‘select all’ checkbox is rendered inside the heading row</td>
+      <td>If true, the ‘select all’ checkbox is rendered inside the heading row.</td>
     </tr>
     <tr>
       <td>showSelectionColumn</td>
       <td>boolean</td>
       <td>false</td>
-      <td>If true, selection checkboxes are rendered inside each data row</td>
+      <td>If true, selection checkboxes are rendered inside each data row.</td>
     </tr>
     <tr>
       <td>selectCellTemplate</td>
       <td>(args: <a href="#select-cell-args">SelectCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders a data row selection checkbox</td>
+      <td>A component that renders a data row selection checkbox.</td>
     </tr>
     <tr>
       <td>selectAllCellTemplate</td>
       <td>(args: <a href="#select-all-cell-args">SelectAllCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders the Select All checkbox</td>
+      <td>A component that renders the Select All checkbox.</td>
     </tr>
     <tr>
       <td>selectionColumnWidth</td>
       <td>number</td>
       <td> </td>
-      <td>The selection column’s width</td>
+      <td>The selection column’s width.</td>
     </tr>
   </tbody>
 </table>
@@ -503,7 +527,7 @@
     <tr>
       <td>selected?</td>
       <td>boolean</td>
-      <td>Specifies if a row is selected</td>
+      <td>Specifies if a row is selected.</td>
     </tr>
   </tbody>
 </table>
@@ -526,22 +550,22 @@
     <tr>
       <td>selectionAvailable</td>
       <td>boolean</td>
-      <td>True if at least one row can be selected</td>
+      <td>True if at least one row can be selected.</td>
     </tr>
     <tr>
       <td>allSelected</td>
       <td>boolean</td>
-      <td>True if all the rows available for selection are selected</td>
+      <td>True if all the rows available for selection are selected.</td>
     </tr>
     <tr>
       <td>someSelected</td>
       <td>boolean</td>
-      <td>True if at least one but not all rows available for selection are selected</td>
+      <td>True if at least one but not all rows available for selection are selected.</td>
     </tr>
     <tr>
       <td>toggleAll</td>
       <td>() =&gt; void</td>
-      <td>Selects or deselects all rows</td>
+      <td>Selects or deselects all rows.</td>
     </tr>
   </tbody>
 </table>
@@ -563,18 +587,18 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
-      <td>A row object</td>
+      <td>any</td>
+      <td>A row.</td>
     </tr>
     <tr>
       <td>selected</td>
       <td>boolean</td>
-      <td>Specifies whether a row is selected</td>
+      <td>Specifies whether a row is selected.</td>
     </tr>
     <tr>
       <td>changeSelected</td>
       <td>() =&gt; void</td>
-      <td>Selects or deselects a row</td>
+      <td>Selects or deselects a row.</td>
     </tr>
   </tbody>
 </table>
@@ -597,25 +621,25 @@
       <td>tableColumns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Table columns</td>
+      <td>Table columns.</td>
     </tr>
     <tr>
       <td>tableBodyRows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Body rows to be rendered</td>
+      <td>Body rows to be rendered.</td>
     </tr>
     <tr>
       <td>selection</td>
       <td>Getter</td>
       <td>Array&lt;number | string&gt;</td>
-      <td>Selected rows</td>
+      <td>Selected rows.</td>
     </tr>
     <tr>
       <td>availableToSelect</td>
       <td>Getter</td>
       <td>Array&lt;number | string&gt;</td>
-      <td>Rows to be rendered, which are available for selection</td>
+      <td>Rows to be rendered, which are available for selection.</td>
     </tr>
     <tr>
       <td>setRowsSelection</td>
@@ -627,13 +651,13 @@
       <td>tableViewCell</td>
       <td>Template</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
-      <td>A template that renders a table cell</td>
+      <td>A template that renders a table cell.</td>
     </tr>
     <tr>
       <td>tableViewRow</td>
       <td>Template</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a></td>
-      <td>A template that renders a table row</td>
+      <td>A template that renders a table row.</td>
     </tr>
   </tbody>
 </table>
@@ -654,13 +678,13 @@
       <td>tableColumns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Table columns including the selection column</td>
+      <td>Table columns including the selection column.</td>
     </tr>
     <tr>
       <td>tableBodyRows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Body rows to be rendered including the selected ones</td>
+      <td>Body rows to be rendered including the selected ones.</td>
     </tr>
   </tbody>
 </table>
@@ -669,7 +693,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112645"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400419"></script>
 
 
     <footer>
@@ -707,7 +731,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1507112645"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1508400419"></script>
     <script>
         trackingCookie.check();
     </script>

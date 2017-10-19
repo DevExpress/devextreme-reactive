@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1507112645">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1507112645">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1508400419">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1508400419">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -193,6 +193,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
         </ul>
 
       
@@ -200,6 +208,14 @@
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
+          
+
         
           
           
@@ -349,6 +365,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
           
 
@@ -445,19 +469,19 @@
       <td>rowHeight</td>
       <td>number</td>
       <td> </td>
-      <td>Specifies the edit row height</td>
+      <td>Specifies the edit row height.</td>
     </tr>
     <tr>
       <td>editCellTemplate</td>
       <td>(args: <a href="#edit-cell-args">EditCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders an editable cell</td>
+      <td>A component that renders an editable cell.</td>
     </tr>
     <tr>
       <td>editRowTemplate</td>
       <td>(args: <a href="#edit-row-args">EditRowArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders an editable row</td>
+      <td>A component that renders an editable row.</td>
     </tr>
   </tbody>
 </table>
@@ -481,23 +505,23 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
-      <td>Specifies the initial row</td>
+      <td>any</td>
+      <td>Specifies the initial row.</td>
     </tr>
     <tr>
       <td>column</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>Specifies a column</td>
+      <td>Specifies a column.</td>
     </tr>
     <tr>
       <td>value</td>
       <td>any</td>
-      <td>Specifies a value to be edited</td>
+      <td>Specifies a value to be edited.</td>
     </tr>
     <tr>
       <td>onValueChange</td>
       <td>(newValue: any) =&gt; void</td>
-      <td>Handles value changes</td>
+      <td>Handles value changes.</td>
     </tr>
   </tbody>
 </table>
@@ -519,8 +543,8 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
-      <td>Specifies the initial row</td>
+      <td>any</td>
+      <td>Specifies the initial row.</td>
     </tr>
   </tbody>
 </table>
@@ -543,61 +567,61 @@
       <td>tableBodyRows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
-      <td>Rows to be rendered inside the table body</td>
+      <td>Rows to be rendered inside the table body.</td>
     </tr>
     <tr>
       <td>editingRows</td>
       <td>Getter</td>
       <td>Array&lt;number | string&gt;</td>
-      <td>IDs of the rows being edited</td>
+      <td>IDs of the rows being edited.</td>
     </tr>
     <tr>
       <td>addedRows</td>
       <td>Getter</td>
-      <td>Array&lt;Object&gt;</td>
-      <td>The created rows</td>
+      <td>Array&lt;any&gt;</td>
+      <td>Created but not committed rows.</td>
+    </tr>
+    <tr>
+      <td>changeAddedRow</td>
+      <td>Action</td>
+      <td>({ rowId: number, change: any }) =&gt; void</td>
+      <td>Applies a change to a created but uncommitted row. Note: <code class="highlighter-rouge">rowId</code> is a row index within the <code class="highlighter-rouge">addedRows</code> array.</td>
     </tr>
     <tr>
       <td>changedRows</td>
       <td>Getter</td>
-      <td>{ [key: string]: Object }</td>
-      <td>Uncommitted changed rows</td>
-    </tr>
-    <tr>
-      <td>getCellValue</td>
-      <td>Getter</td>
-      <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>, columnName: string) =&gt; any</td>
-      <td>The function used to get a cell value</td>
-    </tr>
-    <tr>
-      <td>createRowChange</td>
-      <td>Getter</td>
-      <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>, columnName: string, value: string | string) =&gt; Object</td>
-      <td>The function used to set a cell’s value</td>
+      <td>{ [key: string]: any }</td>
+      <td>An associative array storing changes made to existing rows. Each array item specifies changes made to a row. The item’s key specifies the associated row’s ID.</td>
     </tr>
     <tr>
       <td>changeRow</td>
       <td>Action</td>
       <td>({ rowId: number | string, change: Object }) =&gt; void</td>
-      <td>Applies a change to an existing row</td>
+      <td>Applies a change to an existing row.</td>
     </tr>
     <tr>
-      <td>changeAddedRow</td>
-      <td>Action</td>
-      <td>({ rowId: number, change: Object }) =&gt; void</td>
-      <td>Applies a change to a new row. Note: <code class="highlighter-rouge">rowId</code> is a row index within the <code class="highlighter-rouge">addedRows</code> array</td>
+      <td>getCellValue</td>
+      <td>Getter</td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>A function used to get the column value for a given row.</td>
+    </tr>
+    <tr>
+      <td>createRowChange</td>
+      <td>Getter</td>
+      <td>(row: any, columnName: string, value: string | string) =&gt; any</td>
+      <td>A function that returns a value specifying row changes depending on the columns’s editor values for the current row. This function is called each time the editor’s value changes.</td>
     </tr>
     <tr>
       <td>tableViewCell</td>
       <td>Template</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
-      <td>A template that renders a table cell</td>
+      <td>A template that renders a table cell.</td>
     </tr>
     <tr>
       <td>tableViewRow</td>
       <td>Template</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a></td>
-      <td>A template that renders a table row</td>
+      <td>A template that renders a table row.</td>
     </tr>
   </tbody>
 </table>
@@ -618,7 +642,7 @@
       <td>tableBodyRows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
-      <td>Table data rows including editing rows</td>
+      <td>Table data rows including editing rows.</td>
     </tr>
   </tbody>
 </table>
@@ -627,7 +651,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112645"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400419"></script>
 
 
     <footer>
@@ -665,7 +689,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1507112645"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1508400419"></script>
     <script>
         trackingCookie.check();
     </script>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1507112645">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1507112645">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1508400419">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1508400419">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -193,6 +193,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
         </ul>
 
       
@@ -200,6 +208,14 @@
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
+          
+
         
           
           
@@ -349,6 +365,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
           
 
@@ -417,7 +441,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="tableview-plugin-reference">TableView Plugin Reference</h1>
 
-<p>This plugin renders Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins and provides ways to customize table rows and columns.</p>
+<p>This plugin renders Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -445,43 +469,43 @@
       <td>tableLayoutTemplate</td>
       <td>(args: <a href="#table-args">TableArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a table layout using the specified parameters</td>
+      <td>Renders a table layout using the specified parameters.</td>
     </tr>
     <tr>
       <td>tableCellTemplate</td>
       <td>(args: <a href="#table-data-cell-args">TableDataCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a table cell using the specified parameters</td>
+      <td>Renders a table cell using the specified parameters.</td>
     </tr>
     <tr>
       <td>tableRowTemplate</td>
       <td>(args: <a href="#table-data-row-args">TableDataRowArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a table row using the specified parameters</td>
+      <td>Renders a table row using the specified parameters.</td>
     </tr>
     <tr>
       <td>tableNoDataCellTemplate</td>
       <td>(args: <a href="#table-cell-args">TableCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a table cell using the specified parameters when the table is empty</td>
+      <td>Renders a table cell using the specified parameters when the table is empty.</td>
     </tr>
     <tr>
       <td>tableNoDataRowTemplate</td>
       <td>(args: <a href="#table-row-args">TableRowArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a table row using the specified parameters when the table is empty</td>
+      <td>Renders a table row using the specified parameters when the table is empty.</td>
     </tr>
     <tr>
       <td>tableStubCellTemplate</td>
       <td>(args: <a href="#table-cell-args">TableCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a stub table cell if the cell value is not provided</td>
+      <td>Renders a stub table cell if the cell value is not provided.</td>
     </tr>
     <tr>
       <td>tableStubHeaderCellTemplate</td>
       <td>(args: <a href="#table-cell-args">TableCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>Renders a stub header cell if the cell value is not provided</td>
+      <td>Renders a stub header cell if the cell value is not provided.</td>
     </tr>
     <tr>
       <td>allowColumnReordering</td>
@@ -536,22 +560,22 @@
     <tr>
       <td>headerRows</td>
       <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Specifies rows rendered in the table header</td>
+      <td>Specifies rows rendered in the table header.</td>
     </tr>
     <tr>
       <td>bodyRows</td>
       <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Specifies rows rendered in the table body</td>
+      <td>Specifies rows rendered in the table body.</td>
     </tr>
     <tr>
       <td>columns</td>
       <td>Array&lt;<a href="#table-column">TableColumn</a>&gt;</td>
-      <td>Specifies the rendered table columns</td>
+      <td>Specifies the rendered table columns.</td>
     </tr>
     <tr>
       <td>cellTemplate</td>
       <td>(args: <a href="#table-cell-args">TableCellArgs</a>) =&gt; ReactElement</td>
-      <td>The template used to render table cells</td>
+      <td>The template used to render table cells.</td>
     </tr>
   </tbody>
 </table>
@@ -584,12 +608,12 @@
     <tr>
       <td>rowId?</td>
       <td>number | string</td>
-      <td>Specifies the associated user data row’s ID.</td>
+      <td>Specifies the associated row’s ID.</td>
     </tr>
     <tr>
       <td>row?</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
-      <td>Specifies the associated user data row.</td>
+      <td>any</td>
+      <td>Specifies the associated row.</td>
     </tr>
     <tr>
       <td>height?</td>
@@ -627,7 +651,7 @@
     <tr>
       <td>column?</td>
       <td><a href="#column">Column</a></td>
-      <td>Specifies the associated user data column.</td>
+      <td>Specifies the associated user column.</td>
     </tr>
     <tr>
       <td>width?</td>
@@ -655,22 +679,22 @@
     <tr>
       <td>tableRow</td>
       <td><a href="#table-row">TableRow</a></td>
-      <td>Specifies a table row</td>
+      <td>Specifies a table row.</td>
     </tr>
     <tr>
       <td>tableColumn</td>
       <td><a href="#table-column">TableColumn</a></td>
-      <td>Specifies a table column</td>
+      <td>Specifies a table column.</td>
     </tr>
     <tr>
       <td>style?</td>
       <td>Object</td>
-      <td>Styles that should be applied to the root cell element</td>
+      <td>Styles that should be applied to the root cell element.</td>
     </tr>
     <tr>
       <td>colSpan?</td>
       <td>number</td>
-      <td>The number of columns the cell spans that should be applied to the root cell element</td>
+      <td>The number of columns the cell spans that should be applied to the root cell element.</td>
     </tr>
   </tbody>
 </table>
@@ -693,17 +717,17 @@
     <tr>
       <td>value</td>
       <td>any</td>
-      <td>The value to be rendered within the cell</td>
+      <td>A value to be rendered within the cell.</td>
     </tr>
     <tr>
       <td>row</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
-      <td>Specifies a table row</td>
+      <td>any</td>
+      <td>A row.</td>
     </tr>
     <tr>
       <td>column</td>
       <td><a href="#column">Column</a></td>
-      <td>Specifies a table column</td>
+      <td>Specifies a table column.</td>
     </tr>
   </tbody>
 </table>
@@ -726,7 +750,7 @@
     <tr>
       <td>tableRow</td>
       <td><a href="#table-row">TableRow</a></td>
-      <td>Specifies a table row</td>
+      <td>A table row.</td>
     </tr>
     <tr>
       <td>children</td>
@@ -736,7 +760,7 @@
     <tr>
       <td>style?</td>
       <td>Object</td>
-      <td>Styles that should be applied to the root row element</td>
+      <td>Styles that should be applied to the root row element.</td>
     </tr>
   </tbody>
 </table>
@@ -758,8 +782,8 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a></td>
-      <td>Specifies a table row</td>
+      <td>any</td>
+      <td>A row.</td>
     </tr>
   </tbody>
 </table>
@@ -781,26 +805,26 @@
     <tr>
       <td>rows</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>&gt;</td>
-      <td>Rows to be rendered by the table view</td>
+      <td>Array&lt;any&gt;</td>
+      <td>Rows to be rendered by the table view.</td>
     </tr>
     <tr>
       <td>columns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#column">Column</a>&gt;</td>
-      <td>Columns to be rendered by the table view</td>
+      <td>Columns to be rendered by the table view.</td>
     </tr>
     <tr>
       <td>getRowId</td>
       <td>Getter</td>
-      <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>) =&gt; number | string</td>
-      <td>The function used to get a unique row identifier</td>
+      <td>(row: any) =&gt; number | string</td>
+      <td>A function used to get a unique row identifier.</td>
     </tr>
     <tr>
       <td>getCellValue</td>
       <td>Getter</td>
-      <td>(row: <a href="/devextreme-reactive/react/grid/docs/reference/grid/#row">Row</a>, columnName: string) =&gt; any</td>
-      <td>The function used to get a cell value</td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>A function used to get the column value for a given row.</td>
     </tr>
   </tbody>
 </table>
@@ -821,31 +845,37 @@
       <td>tableHeaderRows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Header rows to be rendered</td>
+      <td>Header rows to be rendered.</td>
     </tr>
     <tr>
       <td>tableBodyRows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#table-row">TableRow</a>&gt;</td>
-      <td>Body rows to be rendered</td>
+      <td>Body rows to be rendered.</td>
     </tr>
     <tr>
       <td>tableColumns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#table-column">TableColumn</a>&gt;</td>
-      <td>Columns to be rendered</td>
+      <td>Columns to be rendered.</td>
+    </tr>
+    <tr>
+      <td>tableView</td>
+      <td>Template</td>
+      <td>Object?</td>
+      <td>A template that renders the table.</td>
     </tr>
     <tr>
       <td>tableViewCell</td>
       <td>Template</td>
       <td><a href="#table-cell-args">TableCellArgs</a></td>
-      <td>A template that renders a table cell</td>
+      <td>A template that renders a table cell.</td>
     </tr>
     <tr>
       <td>tableViewRow</td>
       <td>Template</td>
       <td><a href="#table-row-args">TableRowArgs</a></td>
-      <td>A template that renders a table row</td>
+      <td>A template that renders a table row.</td>
     </tr>
   </tbody>
 </table>
@@ -854,7 +884,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112645"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400419"></script>
 
 
     <footer>
@@ -892,7 +922,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1507112645"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1508400419"></script>
     <script>
         trackingCookie.check();
     </script>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1507112645">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1507112645">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1508400419">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1508400419">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -193,6 +193,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
         </ul>
 
       
@@ -200,6 +208,14 @@
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
+          
+
         
           
           
@@ -349,6 +365,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a></li>
           
 
@@ -449,13 +473,13 @@
       <td>headerCellTemplate</td>
       <td>(args: <a href="#header-cell-args">HeaderCellArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders a header cell</td>
+      <td>A component that renders a header cell.</td>
     </tr>
     <tr>
       <td>headerRowTemplate</td>
       <td>(args: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a>) =&gt; ReactElement</td>
       <td> </td>
-      <td>A component that renders a header row</td>
+      <td>A component that renders a header row.</td>
     </tr>
     <tr>
       <td>allowSorting</td>
@@ -502,7 +526,7 @@
     <tr>
       <td>title?</td>
       <td>string</td>
-      <td>Specifies a table column title</td>
+      <td>Specifies a table column title.</td>
     </tr>
   </tbody>
 </table>
@@ -525,17 +549,17 @@
     <tr>
       <td>column</td>
       <td><a href="#column">Column</a></td>
-      <td>A column object</td>
+      <td>A column object.</td>
     </tr>
     <tr>
       <td>allowSorting</td>
       <td>boolean</td>
-      <td>If true, an end-user can change sorting by a column</td>
+      <td>If true, an end-user can change sorting by a column.</td>
     </tr>
     <tr>
       <td>sortingDirection?</td>
       <td>‘asc’ | ‘desc’</td>
-      <td>Specifies the column sort order</td>
+      <td>Specifies the column sort order.</td>
     </tr>
     <tr>
       <td>changeSortingDirection</td>
@@ -545,22 +569,22 @@
     <tr>
       <td>allowGroupingByClick</td>
       <td>boolean</td>
-      <td>If true, a component that toggles a column’s grouping state is rendered</td>
+      <td>If true, a component that toggles a column’s grouping state is rendered.</td>
     </tr>
     <tr>
       <td>groupByColumn</td>
       <td>() =&gt; void</td>
-      <td>Toggles grouping for a column</td>
+      <td>Toggles grouping for a column.</td>
     </tr>
     <tr>
       <td>allowDragging</td>
       <td>boolean</td>
-      <td>If true, an end-user can start dragging a column by the header cell</td>
+      <td>If true, an end-user can start dragging a column by the header cell.</td>
     </tr>
     <tr>
       <td>dragPayload</td>
       <td>any</td>
-      <td>A data object that identifies the corresponding column in the drag-and-drop context</td>
+      <td>A data object that identifies the corresponding column in the drag-and-drop context.</td>
     </tr>
     <tr>
       <td>changeColumnWidth</td>
@@ -586,6 +610,7 @@
       <th>Plugin</th>
       <th>Type</th>
       <th>Description</th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
@@ -593,61 +618,71 @@
       <td>tableHeaderRows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
-      <td>Header rows to be rendered</td>
+      <td>Header rows to be rendered.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>sorting</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/#sorting">Sorting</a>&gt;</td>
-      <td>Column sorting</td>
+      <td>Column sorting.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>columns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="#column">Column</a>&gt;</td>
-      <td>Table columns</td>
+      <td>Table columns.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>grouping</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#grouping">Grouping</a>&gt;</td>
-      <td>Columns used for grouping</td>
+      <td>Columns used for grouping.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>setColumnSorting</td>
       <td>Action</td>
-      <td>({ columnName: string, direction: ‘asc’ | ‘desc’, keepOther: boolean, cancel: boolean }) =&gt; void</td>
-      <td>Changes column sorting</td>
+      <td>({ columnName: string, direction: ‘asc’ | ‘desc’, keepOther: boolean</td>
+      <td>Array&lt;String&gt;, cancel: boolean }) =&gt; void</td>
+      <td>Changes a column’s sort direction. <code class="highlighter-rouge">keepOther</code> accepts <code class="highlighter-rouge">true</code> (keeps existing sorting), a column name array (keeps sorting by specified columns) and <code class="highlighter-rouge">false</code> (resets sorting). Set <code class="highlighter-rouge">cancel</code> to <code class="highlighter-rouge">true</code> to cancel sorting by the current column.</td>
     </tr>
     <tr>
       <td>groupByColumn</td>
       <td>Action</td>
       <td>({ columnName: string, groupIndex?: number }) =&gt; void</td>
       <td>Groups a table by the specified column or cancels grouping. If <code class="highlighter-rouge">groupIndex</code> is omitted, the group is added to the end of the group list.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>changeTableColumnWidths</td>
       <td>Action</td>
       <td>({ shifts: { [columnName: string]: number } }) =&gt; void</td>
       <td>Changes column widths. Each shift is added to the original column width value.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>changeDraftTableColumnWidths</td>
       <td>Action</td>
       <td>({ shifts: { [columnName: string]: number } }) =&gt; void</td>
       <td>Changes draft column widths. Each shift is added to the original column width value. If a shift is <code class="highlighter-rouge">null</code>, the draft width for the column is cleared.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>tableViewCell</td>
       <td>Template</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
-      <td>A template that renders a table cell</td>
+      <td>A template that renders a table cell.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>tableViewRow</td>
       <td>Template</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a></td>
-      <td>A template that renders a table row</td>
+      <td>A template that renders a table row.</td>
+      <td> </td>
     </tr>
   </tbody>
 </table>
@@ -668,7 +703,7 @@
       <td>tableHeaderRows</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
-      <td>Table rows including header rows</td>
+      <td>Table rows including header rows.</td>
     </tr>
   </tbody>
 </table>
@@ -677,7 +712,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1507112645"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400419"></script>
 
 
     <footer>
@@ -715,7 +750,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1507112645"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1508400419"></script>
     <script>
         trackingCookie.check();
     </script>

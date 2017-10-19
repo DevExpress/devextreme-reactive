@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React Grid Column Reordering - DevExtreme Reactive Components</title>
+    <title>React Grid - Controlling Column Visibility - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -181,7 +181,7 @@
           
 
           
-          <li>Column Reordering</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
         
@@ -197,7 +197,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          <li>Column Visibility</li>
           
 
         
@@ -439,56 +439,43 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="react-grid-column-reordering">React Grid Column Reordering</h1>
+        <h1 id="react-grid---controlling-column-visibility">React Grid - Controlling Column Visibility</h1>
 
-<p>The Grid component allows reordering grid columns programmatically or using the drag-and-drop feature.</p>
+<p>A Grid component with the <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> plugin provides the capability to hide existing columns in the table view. You can also use the <a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a> component to allow a user to show or hide columns at runtime.</p>
 
-<h2 id="related-plugins">Related Plugins</h2>
-
-<p>The following plugins implement column reordering features:</p>
+<h2 id="related-components-and-plugins">Related Components and Plugins</h2>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a> - controls the column order</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a> - implements the drag-and-drop functionality and visualizes a column being dragged</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a> - visualizes table column reordering</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a> - visualizes header row column reordering</li>
+  <li>The Grid component’s <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> plugin manages column visibility.</li>
+  <li>The <a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a> component provides the UI for column visibility management.</li>
 </ul>
 
-<p>Note that the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
+<h2 id="basic-configuration">Basic configuration</h2>
 
-<h2 id="column-reordering-setup">Column Reordering Setup</h2>
+<p>Follow the steps below to enable a user to hide or show columns at runtime.</p>
 
-<p>Import the plugins listed above to set up a simple Grid with column reordering enabled.</p>
+<h3 id="configuring-hiddentablecolumn-plugin">Configuring HiddenTableColumn plugin</h3>
 
-<p>Enable end-user interactions:</p>
+<p>Add the <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> plugin to the Grid. Assign an application’s state variable storing hidden column names to the plugin’s <code class="highlighter-rouge">hiddenColumns</code> property. In this case, the grid rerenders columns once the <code class="highlighter-rouge">hiddenColumns</code> state changes.</p>
 
-<ul>
-  <li>set the <code class="highlighter-rouge">TableView</code> plugin’s <code class="highlighter-rouge">allowColumnReordering</code> property to true;</li>
-  <li>set the <code class="highlighter-rouge">TableHeaderRow</code> plugin’s <code class="highlighter-rouge">allowDragging</code> property to true.</li>
-</ul>
+<h3 id="adding-columnchooser">Adding ColumnChooser</h3>
 
-<h2 id="uncontrolled-mode">Uncontrolled Mode</h2>
+<p>Add the ColumnChooser component to your application. Pass the existing columns’ information to the ColumnChooser by assigning the columns’ configuration array to the ColumnChooser’s <code class="highlighter-rouge">columns</code> property. Finally, assign the application’s <code class="highlighter-rouge">hiddenColumns</code> state variable to the <code class="highlighter-rouge">hiddenColumns</code> property.</p>
 
-<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>, specify the initial column order in the <code class="highlighter-rouge">ColumnOrderState</code> plugin’s <code class="highlighter-rouge">defaultOrder</code> property.</p>
+<h3 id="handling-column-visibility-changes">Handling Column Visibility Changes</h3>
+
+<p>Assign a function that sends the <code class="highlighter-rouge">hiddenColumns</code> state variable to the ColumnChooser’s <code class="highlighter-rouge">onHiddenColumnsChange</code> property to update the state once a user checks or unchecks a column item.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">hiddenColumnsChangeHandler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">hiddenColumns</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">hiddenColumns</span> <span class="p">});</span>
+<span class="p">};</span>
+</code></pre>
+</div>
 
 <div class="embedded-demo" data-options="{
           &quot;repoTag&quot;: &quot;v1.0.0-alpha.12&quot;,
-          &quot;path&quot;: &quot;/demo/column-reordering/uncontrolled&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400417808&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
-        </div>
-      </div>
-
-<h2 id="controlled-mode">Controlled Mode</h2>
-
-<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, pass the column order to the <code class="highlighter-rouge">ColumnOrderState</code> plugin’s <code class="highlighter-rouge">order</code> property and handle the <code class="highlighter-rouge">onOrderChange</code> event to control the column order state.</p>
-
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.12&quot;,
-          &quot;path&quot;: &quot;/demo/column-reordering/controlled&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400417808&quot;
+          &quot;path&quot;: &quot;/demo/column-chooser/basic&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1508400417810&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>

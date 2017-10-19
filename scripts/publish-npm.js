@@ -44,7 +44,7 @@ new Promise((resolve) => {
     execSync(`"./node_modules/.bin/lerna" exec -- node "../../scripts/rm-dist.js"`, { stdio: 'ignore' });
 
     console.log('Updating versions...');
-    const commonPublishArgs = `--exact --repo-version ${version} --force-publish \* --yes --skip-git`;
+    const commonPublishArgs = `--exact --repo-version ${version} --force-publish \\* --yes --skip-git`;
     execSync(`"./node_modules/.bin/lerna" publish ${commonPublishArgs} --skip-npm`, { stdio: 'ignore' });
 
     console.log('Building...');

@@ -1,3 +1,13 @@
+<a name="1.0.0-alpha.13"></a>
+# [1.0.0-alpha.13](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2017-10-19)
+
+
+### Bug Fixes
+
+* **react-grid:** remove a redundant SelectionState dependency on LocalGrouping ([#429](https://github.com/DevExpress/devextreme-reactive/issues/429)) ([50ee891](https://github.com/DevExpress/devextreme-reactive/commit/50ee891)), closes [#428](https://github.com/DevExpress/devextreme-reactive/issues/428)
+
+
+
 <a name="1.0.0-alpha.12"></a>
 # [1.0.0-alpha.12](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2017-10-19)
 

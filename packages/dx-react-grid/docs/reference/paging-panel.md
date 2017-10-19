@@ -41,7 +41,7 @@ Field | Type | Default | Description
 ------|------|---------|------------
 showAll? | string | 'All' | Specifies a page size selector's 'All' item text.
 rowsPerPage? | string | 'Rows per page:' | Specifies a text for 'Rows per page' label. Available in the "@devexpress/dx-react-grid-material-ui" package.
-info? | string &#124; ({ firstRow: number, lastRow: number, totalCount: number }) => string | {firstRow}-{lastRow} of {totalCount} | Specifies a text about row count on a page. Change the default pattern to define your own message.
+info? | string &#124; ({ from: number, to: number, count: number }) => string | {from}-{to} of {count} | Specifies a text about row count on a page. Change the default pattern to define your own message.
 
 ## Plugin Developer Reference
 

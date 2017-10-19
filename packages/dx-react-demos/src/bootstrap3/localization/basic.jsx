@@ -41,7 +41,7 @@ const groupingPanelMessages = {
 };
 const pagingPanelMessages = {
   showAll: 'Alle',
-  info: 'Zeile {firstRow} von {lastRow}({totalCount} Elemente)',
+  info: 'Zeile {from} von {to}({count} Elemente)',
 };
 
 export default class Demo extends React.PureComponent {

@@ -8,8 +8,8 @@ const pagerTemplate = props => <Pager {...props} />;
 const defaultMessages = {
   showAll: 'All',
   rowsPerPage: 'Rows per page:',
-  info: ({ firstRow, lastRow, totalCount }) =>
-    `${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`,
+  info: ({ from, to, count }) =>
+    `${from}${from < to ? `-${to}` : ''} of ${count}`,
 };
 
 export class PagingPanel extends React.PureComponent {

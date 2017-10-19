@@ -45,7 +45,7 @@ const filterRowMessages = {
 const pagingPanelMessages = {
   showAll: 'Alle',
   rowsPerPage: 'Zeilen pro Seite',
-  info: 'Zeile {firstRow} von {lastRow}({totalCount} Elemente)',
+  info: 'Zeile {from} von {to}({count} Elemente)',
 };
 
 export default class Demo extends React.PureComponent {

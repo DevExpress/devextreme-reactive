@@ -14,8 +14,8 @@ export const Pager = ({
   totalCount,
   getMessage,
 }) => {
-  const firstRow = firstRowOnPage(currentPage, pageSize, totalCount);
-  const lastRow = lastRowOnPage(currentPage, pageSize, totalCount);
+  const from = firstRowOnPage(currentPage, pageSize, totalCount);
+  const to = lastRowOnPage(currentPage, pageSize, totalCount);
 
   return (
     <div className="clearfix">
@@ -57,7 +57,7 @@ export const Pager = ({
       </BootstrapPager>
       <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
         <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
-          {getMessage('info', { firstRow, lastRow, totalCount })}
+          {getMessage('info', { from, to, count: totalCount })}
         </span>
       </span>
     </div>

@@ -179,13 +179,13 @@ const PaginationBase = ({
   getMessage,
   classes,
 }) => {
-  const firstRow = firstRowOnPage(currentPage, pageSize, totalCount);
-  const lastRow = lastRowOnPage(currentPage, pageSize, totalCount);
+  const from = firstRowOnPage(currentPage, pageSize, totalCount);
+  const to = lastRowOnPage(currentPage, pageSize, totalCount);
 
   return (
     <div className={classes.pagination}>
       <span className={classes.rowsLabel}>
-        {getMessage('info', { firstRow, lastRow, totalCount })}
+        {getMessage('info', { from, to, count: totalCount })}
       </span>
       <IconButton
         className={classNames(classes.arrowButton, classes.prev)}

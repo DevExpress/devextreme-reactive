@@ -117,7 +117,7 @@ describe('Pagination', () => {
       });
 
       expect(getMessage)
-        .toBeCalledWith('info', { firstRow: 11, lastRow: 20, totalCount: 96 });
+        .toBeCalledWith('info', { from: 11, to: 20, count: 96 });
       expect(tree.find('div > span').text())
         .toBe('info');
     });

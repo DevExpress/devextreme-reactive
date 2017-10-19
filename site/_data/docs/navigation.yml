@@ -10,7 +10,7 @@ react:
           path: /react/grid/docs/guides/data-accessors
         - title: Data Types
           path: /react/grid/docs/guides/data-types
-        - title: Using the Immutable Data
+        - title: Using Immutable Data
           path: /react/grid/docs/guides/immutability
         - title: Controlled and Uncontrolled Modes
           path: /react/grid/docs/guides/controlled-and-uncontrolled-modes

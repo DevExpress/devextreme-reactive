@@ -16,8 +16,6 @@ react:
           path: /react/grid/docs/guides/controlled-and-uncontrolled-modes
         - title: Grid Basics
           path: /react/grid/docs/guides/grid-basics
-        - title: Localization
-          path: /react/grid/docs/guides/localization
         - title: Sorting
           path: /react/grid/docs/guides/sorting
         - title: Paging
@@ -40,6 +38,8 @@ react:
           path: /react/grid/docs/guides/column-resizing
         - title: Column Visibility
           path: /react/grid/docs/guides/column-visibility
+        - title: Localization
+          path: /react/grid/docs/guides/localization
     - title: API Reference
       items:
         - title: Grid

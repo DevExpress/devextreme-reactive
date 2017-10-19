@@ -71,7 +71,7 @@ describe('TableHeaderRow', () => {
     isEditCommandsTableCell.mockImplementation(() => false);
     isAddedTableRow.mockImplementation(() => false);
     isEditTableRow.mockImplementation(() => false);
-    getMessagesFormatter.mockImplementation(() => key => key);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -144,5 +144,44 @@ describe('TableHeaderRow', () => {
         row: defaultDeps.template.tableViewCell.tableRow.row,
         isEditing: false,
       }));
+  });
+  it('should pass getMessage function to heading command cell template', () => {
+    isHeadingEditCommandsTableCell.mockImplementation(() => true);
+    const headingCellTemplate = jest.fn(() => null);
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditColumn
+          {...defaultProps}
+          messages={{
+            addCommand: 'Add',
+          }}
+          headingCellTemplate={headingCellTemplate}
+        />
+      </PluginHost>
+    ));
+    const { getMessage } = headingCellTemplate.mock.calls[0][0];
+
+    expect(getMessage('addCommand')).toBe('Add');
+  });
+
+  it('should pass getMessage function to command cell template', () => {
+    isEditCommandsTableCell.mockImplementation(() => true);
+    const cellTemplate = jest.fn(() => null);
+
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditColumn
+          {...defaultProps}
+          messages={{
+            editCommand: 'Edit',
+          }}
+          cellTemplate={cellTemplate}
+        />
+      </PluginHost>
+    ));
+    const { getMessage } = cellTemplate.mock.calls[0][0];
+    expect(getMessage('editCommand')).toBe('Edit');
   });
 });

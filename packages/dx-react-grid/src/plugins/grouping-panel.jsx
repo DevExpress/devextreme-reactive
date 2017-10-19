@@ -19,10 +19,10 @@ const getGroupPanelTemplateArgs = (
   allowSorting,
   allowDragging,
   allowUngroupingByClick,
-  groupingPanelItems: groupingPanelItems(columns, draftGrouping),
   sorting,
   groupByColumn,
   getMessage,
+  groupingPanelItems: groupingPanelItems(columns, draftGrouping),
   changeSortingDirection: ({ columnName, keepOther, cancel }) =>
     setColumnSorting({ columnName, keepOther, cancel }),
   draftGroupingChange: groupingChange => draftGroupingChange(groupingChange),

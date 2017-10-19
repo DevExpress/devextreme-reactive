@@ -61,7 +61,7 @@ describe('TableFilterRow', () => {
     tableHeaderRowsWithFilter.mockImplementation(() => 'tableHeaderRowsWithFilter');
     isFilterTableCell.mockImplementation(() => false);
     isFilterTableRow.mockImplementation(() => false);
-    getMessagesFormatter.mockImplementation(() => key => key);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -169,5 +169,25 @@ describe('TableFilterRow', () => {
     ));
     expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+  });
+
+  it('should pass getMessage function to filterTableCellTemplate', () => {
+    isFilterTableCell.mockImplementation(() => true);
+    const filterCellTemplate = jest.fn(() => null);
+
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+          messages={{
+            filterPlaceholder: 'Filter...',
+          }}
+          filterCellTemplate={filterCellTemplate}
+        />
+      </PluginHost>
+    ));
+    const { getMessage } = filterCellTemplate.mock.calls[0][0];
+    expect(getMessage('filterPlaceholder')).toBe('Filter...');
   });
 });

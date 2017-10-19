@@ -66,7 +66,7 @@ describe('TableView', () => {
     isDataTableCell.mockImplementation(() => false);
     isHeaderStubTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
-    getMessagesFormatter.mockImplementation(() => key => key);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -239,7 +239,7 @@ describe('TableView', () => {
       .toBeCalledWith(tableCellArgs.tableRow);
     expect(tableNoDataCellTemplate)
       .toBeCalledWith(expect.objectContaining(tableCellArgs));
-    expect(getMessage('noData')).toBe('noData');
+    expect(getMessage('noData')).toBe('No data');
   });
 
   it('should render row by using tableRowTemplate', () => {

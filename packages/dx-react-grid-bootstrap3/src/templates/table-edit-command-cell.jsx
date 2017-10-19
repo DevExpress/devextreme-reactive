@@ -71,14 +71,14 @@ export const EditCommandCell = ({
       commands.push({
         id: 'edit',
         executeCommand: startEditing,
-        text: getMessage('editCommand') || 'Edit',
+        text: getMessage('editCommand'),
       });
     }
     if (allowDeleting) {
       commands.push({
         id: 'delete',
         executeCommand: deleteRow,
-        text: getMessage('deleteCommand') || 'Delete',
+        text: getMessage('deleteCommand'),
       });
     }
   } else {
@@ -86,12 +86,12 @@ export const EditCommandCell = ({
       {
         id: 'commit',
         executeCommand: commitChanges,
-        text: getMessage('commitCommand') || 'Save',
+        text: getMessage('commitCommand'),
       },
       {
         id: 'cancel',
         executeCommand: cancelEditing,
-        text: getMessage('cancelCommand') || 'Cancel',
+        text: getMessage('cancelCommand'),
       },
     ];
   }

@@ -15,10 +15,23 @@ Name | Type | Default | Description
 order | Array&lt;string&gt; | | Specifies the column order.
 defaultOrder | Array&lt;string&gt; | | Specifies the initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
+tableViewTemplate | (args: [TableViewArgs](#table-view-args)) => ReactElement | | A component that renders a wrapper, which is responsible for column dropping, around the table.
 reorderingRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a reordering row.
 reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A component that renders a reordering cell.
 
 ## Interfaces
+
+### <a name="table-view-args"></a>TableViewArgs
+
+Describes properties passed to the table view template.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+onOver | (args: { payload: Array&lt;{ columnName: string }&gt;], clientOffset: { x: number } }) => void | Handles column drag over.
+onLeave | (args: { payload: Array&lt;{ columnName: string }&gt;], clientOffset: { x: number } }) => void | Handles column drag leave.
+onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;], clientOffset: { x: number } }) => void | Handles column drop.
 
 ### <a name="reordering-cell-args"></a>ReorderingCellArgs
 

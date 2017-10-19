@@ -15,7 +15,6 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
   DragDropContext,
-  DropTarget,
 } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from './test-utils';
 import { TableColumnReordering } from './table-column-reordering';
@@ -32,6 +31,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const reorderingRowTemplate = jest.fn();
 const reorderingCellTemplate = jest.fn();
+const tableViewTemplate = jest.fn();
 
 const defaultDeps = {
   getter: {
@@ -58,6 +58,7 @@ describe('TableColumnReordering', () => {
   });
 
   beforeEach(() => {
+    tableViewTemplate.mockImplementation(({ children }) => <div>{children}</div>);
     reorderingRowTemplate.mockImplementation(() => <div />);
     reorderingCellTemplate.mockImplementation(({ getCellDimension }) =>
       <div ref={node => getCellDimension(() => node.getBoundingClientRect())} />);
@@ -74,6 +75,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             defaultOrder={['b', 'a']}
+            tableViewTemplate={tableViewTemplate}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />
@@ -94,6 +96,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             order={['b', 'a']}
+            tableViewTemplate={tableViewTemplate}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />
@@ -107,13 +110,14 @@ describe('TableColumnReordering', () => {
       .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, ['b', 'a']);
   });
 
-  it('should render DropTarget', () => {
-    const tree = mount((
+  it('should render the "tableView" template', () => {
+    mount((
       <DragDropContext>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             order={['b', 'a']}
+            tableViewTemplate={tableViewTemplate}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />
@@ -121,11 +125,20 @@ describe('TableColumnReordering', () => {
       </DragDropContext>
     ));
 
-    expect(tree.find(DropTarget).exists())
-      .toBeTruthy();
+    expect(tableViewTemplate)
+      .toHaveBeenCalledTimes(1);
+    expect(tableViewTemplate)
+      .toHaveBeenCalledWith({
+        onOver: expect.any(Function),
+        onLeave: expect.any(Function),
+        onDrop: expect.any(Function),
+        children: expect.any(Object),
+      });
   });
 
   describe('drag\'n\'drop reordering', () => {
+    // eslint-disable-next-line react/prop-types
+    const TableViewMock = ({ children }) => <div>{children}</div>;
     const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount((
       <DragDropContext>
         <PluginHost>
@@ -152,6 +165,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableColumnReordering
             defaultOrder={defaultOrder}
+            tableViewTemplate={props => <TableViewMock {...props} />}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />
@@ -169,23 +183,24 @@ describe('TableColumnReordering', () => {
         .mockImplementationOnce(() => 1)
         .mockImplementationOnce(() => 0);
 
-      const targetWrapper = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
-        .find(DropTarget);
+      const onOver = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
+        .find(TableViewMock)
+        .prop('onOver');
 
       orderedColumns.mockClear();
 
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       expect(draftOrder)
         .toHaveBeenLastCalledWith(['a', 'b'], 0, 1);
 
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       expect(draftOrder)
         .toHaveBeenLastCalledWith(['a', 'b'], 0, 1);
       expect(orderedColumns)
         .toHaveBeenCalledTimes(1);
 
       getTableTargetColumnIndex.mockImplementationOnce(() => 0);
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       expect(draftOrder)
         .toHaveBeenLastCalledWith(['a', 'b'], 0, 0);
     });
@@ -193,11 +208,12 @@ describe('TableColumnReordering', () => {
     it('should revert column order when source moves out', () => {
       getTableTargetColumnIndex.mockImplementation(() => 1);
 
-      const targetWrapper = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
-        .find(DropTarget);
+      const { onOver, onLeave } = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
+        .find(TableViewMock)
+        .props();
 
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
-      targetWrapper.prop('onLeave')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onLeave({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
 
       expect(orderedColumns)
         .toHaveBeenLastCalledWith(defaultDeps.getter.tableColumns, ['a', 'b']);
@@ -206,11 +222,12 @@ describe('TableColumnReordering', () => {
     it('should change column order on drop', () => {
       getTableTargetColumnIndex.mockImplementation(() => 1);
 
-      const targetWrapper = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
-        .find(DropTarget);
+      const { onOver, onDrop } = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
+        .find(TableViewMock)
+        .props();
 
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
-      targetWrapper.prop('onDrop')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onDrop({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
 
       expect(changeColumnOrder)
         .toBeCalledWith(['a', 'b'], { sourceColumnName: 'a', targetColumnName: 'b' });
@@ -229,11 +246,12 @@ describe('TableColumnReordering', () => {
       orderedColumns.mockImplementation(() => deps.getter.tableColumns);
       getTableTargetColumnIndex.mockImplementation(() => 1);
 
-      const targetWrapper = mountWithCellTemplates({ defaultOrder: ['a', 'b', 'c'] }, deps)
-        .find(DropTarget);
+      const onOver = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
+        .find(TableViewMock)
+        .prop('onOver');
 
       expect(() => {
-        targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+        onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       }).not.toThrow();
     });
 
@@ -250,10 +268,11 @@ describe('TableColumnReordering', () => {
       orderedColumns.mockImplementation(() => deps.getter.tableColumns);
       getTableTargetColumnIndex.mockImplementation(() => 1);
 
-      const targetWrapper = mountWithCellTemplates({ defaultOrder: ['c', 'a', 'b'] }, deps)
-        .find(DropTarget);
+      const onOver = mountWithCellTemplates({ defaultOrder: ['c', 'a', 'b'] }, deps)
+        .find(TableViewMock)
+        .prop('onOver');
 
-      targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       expect(draftOrder)
         .toHaveBeenLastCalledWith(['c', 'a', 'b'], 1, 2);
     });

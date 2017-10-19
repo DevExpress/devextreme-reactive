@@ -5,7 +5,6 @@ import {
   PluginContainer,
   Template,
   TemplatePlaceholder,
-  DropTarget,
   TemplateRenderer,
 } from '@devexpress/dx-react-core';
 import {
@@ -125,7 +124,11 @@ export class TableColumnReordering extends React.PureComponent {
     }
   }
   render() {
-    const { reorderingRowTemplate, reorderingCellTemplate } = this.props;
+    const {
+      tableViewTemplate,
+      reorderingRowTemplate,
+      reorderingCellTemplate,
+    } = this.props;
     const columnsComputed = ({ tableColumns }) =>
       orderedColumns(tableColumns, this.getDraftOrder());
 
@@ -139,13 +142,19 @@ export class TableColumnReordering extends React.PureComponent {
         <Getter name="tableColumns" computed={columnsComputed} />
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Template name="tableView">
-          <DropTarget
-            onOver={this.onOver}
-            onLeave={this.onLeave}
-            onDrop={this.onDrop}
-          >
-            <TemplatePlaceholder />
-          </DropTarget>
+          {params => (
+            <TemplateRenderer
+              template={tableViewTemplate}
+              params={{
+                ...params,
+                onOver: this.onOver,
+                onLeave: this.onLeave,
+                onDrop: this.onDrop,
+              }}
+            >
+              <TemplatePlaceholder />
+            </TemplateRenderer>
+          )}
         </Template>
         <Template
           name="tableViewRow"
@@ -185,6 +194,7 @@ TableColumnReordering.propTypes = {
   order: PropTypes.arrayOf(PropTypes.string),
   defaultOrder: PropTypes.arrayOf(PropTypes.string),
   onOrderChange: PropTypes.func,
+  tableViewTemplate: PropTypes.func.isRequired,
   reorderingRowTemplate: PropTypes.func.isRequired,
   reorderingCellTemplate: PropTypes.func.isRequired,
 };

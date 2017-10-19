@@ -16,7 +16,9 @@ export class Sizer extends React.Component {
     cancelAnimationFrame(this._raf);
   }
   sizeUpdated(newWidth, newHeight) {
-    const { height, onHeightChange, width, onWidthChange } = this.props;
+    const {
+      height, onHeightChange, width, onWidthChange,
+    } = this.props;
 
     if (height !== undefined && newHeight !== height) {
       onHeightChange(newHeight);
@@ -26,7 +28,9 @@ export class Sizer extends React.Component {
     }
   }
   render() {
-    const { children, height, onHeightChange, width, onWidthChange, ...restProps } = this.props;
+    const {
+      children, height, onHeightChange, width, onWidthChange, ...restProps
+    } = this.props;
 
     return (
       <div ref={(ref) => { this.root = ref; }} {...restProps}>

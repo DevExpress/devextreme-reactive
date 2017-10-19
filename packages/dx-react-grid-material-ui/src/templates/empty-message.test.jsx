@@ -13,15 +13,10 @@ describe('EmptyMessage', () => {
   });
 
   it('should use "Nothing to show" text', () => {
-    const text = 'Nothing to show';
-    const getMessage = jest.fn();
-    getMessage.mockImplementation(() => text);
-
     const tree = mount((
-      <EmptyMessage getMessage={getMessage} />
+      <EmptyMessage getMessage={key => key} />
     ));
 
-    expect(getMessage).toBeCalledWith('noColumns');
-    expect(tree.find(Typography).text()).toBe(text);
+    expect(tree.find(Typography).text()).toBe('noColumns');
   });
 });

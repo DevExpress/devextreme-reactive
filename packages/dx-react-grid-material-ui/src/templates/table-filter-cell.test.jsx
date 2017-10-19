@@ -23,11 +23,11 @@ describe('TableFilterCell', () => {
         column={{
           name: 'Test',
         }}
-        getMessage={() => 'Enter filter value'}
+        getMessage={key => key}
       />
     ));
 
-    expect(tree.find('Input').prop('placeholder')).toBe('Enter filter value');
+    expect(tree.find('Input').prop('placeholder')).toBe('filterPlaceholder');
   });
 
   it('should not set filter with an empty value', () => {

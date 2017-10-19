@@ -7,12 +7,12 @@ describe('PageSizeSelector', () => {
     const mountPageSizeSelector = ({
       pageSize,
       allowedPageSizes,
-      getMessage,
+      getMessage = key => key,
       onPageSizeChange = () => {},
     }) => mount(<PageSizeSelector
       pageSize={pageSize}
       allowedPageSizes={allowedPageSizes}
-      getMessage={getMessage || (() => {})}
+      getMessage={getMessage}
       onPageSizeChange={onPageSizeChange}
     />);
 
@@ -43,10 +43,9 @@ describe('PageSizeSelector', () => {
       expect(desktopSelectorItems.at(1).text()).toBe('10');
     });
 
-    it('can render the \'All\' item', () => {
+    it('can render the "All" item', () => {
       const tree = mountPageSizeSelector({
         pageSize: 10,
-        getMessage: () => 'All',
         allowedPageSizes: [5, 10, 0],
       });
 
@@ -57,10 +56,10 @@ describe('PageSizeSelector', () => {
 
       expect(mobileSelectorItems).toHaveLength(3);
       expect(mobileSelectorItems.at(2).prop('value')).toBe(0);
-      expect(mobileSelectorItems.at(2).text()).toBe('All');
+      expect(mobileSelectorItems.at(2).text()).toBe('showAll');
 
       expect(desktopSelectorItems).toHaveLength(3);
-      expect(desktopSelectorItems.at(2).text()).toBe('All');
+      expect(desktopSelectorItems.at(2).text()).toBe('showAll');
     });
 
     it('can handle the \'onPageSizeChange\' event', () => {

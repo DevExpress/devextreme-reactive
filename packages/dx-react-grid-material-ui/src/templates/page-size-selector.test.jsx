@@ -24,12 +24,12 @@ describe('PageSizeSelector', () => {
       pageSize,
       allowedPageSizes,
       onPageSizeChange = () => {},
-      getMessage,
+      getMessage = key => key,
     }) => mount((
       <PageSizeSelector
         pageSize={pageSize}
         allowedPageSizes={allowedPageSizes}
-        getMessage={getMessage || (() => {})}
+        getMessage={getMessage}
         onPageSizeChange={onPageSizeChange}
       />
     ));
@@ -50,40 +50,28 @@ describe('PageSizeSelector', () => {
       expect(selectItems[1].props.value).toBe(allowedPageSizes[1]);
     });
 
-    it('can render the \'All\' item', () => {
-      const getMessage = jest.fn();
-      const text = 'All';
-      getMessage.mockImplementation(() => text);
-
+    it('can render the "All" item', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
         allowedPageSizes: [5, 10, 0],
-        getMessage,
       });
       const select = pageSizeSelector.find(Select);
       const selectItems = select.prop('children');
 
-      expect(getMessage).toBeCalledWith('showAll');
-      expect(selectItems[2].props.children).toBe(text);
+      expect(selectItems[2].props.children).toBe('showAll');
     });
 
-    it('should render \'Rows per page\' text', () => {
-      const getMessage = jest.fn();
-      const text = 'Rows per page:';
-      getMessage.mockImplementation(() => text);
-
+    it('should render "Rows per page" text', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
         allowedPageSizes: [5, 10, 15],
-        getMessage,
       });
       const label = pageSizeSelector.find(`.${classes.label}`);
 
-      expect(getMessage).toBeCalledWith('rowsPerPage');
-      expect(label.text()).toBe(text);
+      expect(label.text()).toBe('rowsPerPage');
     });
 
-    it('can handle the \'onPageSizeChange\' event', () => {
+    it('can handle the "onPageSizeChange" event', () => {
       const onPageSizeChange = jest.fn();
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 5,

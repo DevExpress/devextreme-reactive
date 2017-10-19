@@ -30,7 +30,7 @@ describe('Pagination', () => {
       currentPage,
       totalCount,
       pageSize,
-      getMessage,
+      getMessage = () => {},
       onCurrentPageChange = () => {},
     }) => mount((
       <Pagination
@@ -38,7 +38,7 @@ describe('Pagination', () => {
         currentPage={currentPage}
         totalCount={totalCount}
         pageSize={pageSize}
-        getMessage={getMessage || (() => {})}
+        getMessage={getMessage}
         onCurrentPageChange={onCurrentPageChange}
       />
     ));
@@ -106,8 +106,7 @@ describe('Pagination', () => {
 
     it('can show info about rendered pages', () => {
       const getMessage = jest.fn();
-      const info = '11-20 of 96';
-      getMessage.mockImplementation(() => info);
+      getMessage.mockImplementation(key => key);
 
       const tree = mountPagination({
         totalPages: 10,
@@ -120,7 +119,7 @@ describe('Pagination', () => {
       expect(getMessage)
         .toBeCalledWith('info', { firstRow: 11, lastRow: 20, totalCount: 96 });
       expect(tree.find('div > span').text())
-        .toBe(info);
+        .toBe('info');
     });
 
     it('can render pagination arrows', () => {

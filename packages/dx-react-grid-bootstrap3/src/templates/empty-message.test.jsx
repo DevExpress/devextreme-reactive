@@ -3,16 +3,11 @@ import { mount } from 'enzyme';
 import { EmptyMessage } from './empty-message';
 
 describe('EmptyMessage', () => {
-  it('should use "Nothing to show" text', () => {
-    const text = 'Nothing to show';
-    const getMessage = jest.fn();
-    getMessage.mockImplementation(() => text);
-
+  it('should use "noColumns" message key', () => {
     const tree = mount((
-      <EmptyMessage getMessage={getMessage} />
+      <EmptyMessage getMessage={key => key} />
     ));
 
-    expect(getMessage).toBeCalledWith('noColumns');
-    expect(tree.find('.panel-body').text()).toBe(text);
+    expect(tree.find('.panel-body').text()).toBe('noColumns');
   });
 });

@@ -25,7 +25,7 @@ describe('EditCommandCells', () => {
       allowEditing = true,
       allowDeleting = true,
       isEditing = false,
-      getMessage = () => {},
+      getMessage = key => key,
     }) => mount((
       <EditCommandCell
         startEditing={startEditing}
@@ -41,31 +41,28 @@ describe('EditCommandCells', () => {
     ));
 
     it('should render custom command messages for "edit" & "delete" commands', () => {
-      const tree = mountEditCommandCell({
-        getMessage: () => 'Command message',
-      });
+      const tree = mountEditCommandCell({});
       const commands = tree.find('.command-template');
 
-      expect(commands.at(0).text()).toBe('Command message');
-      expect(commands.at(1).text()).toBe('Command message');
+      expect(commands.at(0).text()).toBe('editCommand');
+      expect(commands.at(1).text()).toBe('deleteCommand');
     });
 
     it('should render custom command messages for "save" & "cancel" commands', () => {
       const tree = mountEditCommandCell({
         isEditing: true,
-        getMessage: () => 'Command message',
       });
       const commands = tree.find('.command-template');
 
-      expect(commands.at(0).text()).toBe('Command message');
-      expect(commands.at(1).text()).toBe('Command message');
+      expect(commands.at(0).text()).toBe('commitCommand');
+      expect(commands.at(1).text()).toBe('cancelCommand');
     });
   });
   describe('EditCommandHeadingCell', () => {
     const mountEditCommandHeadingCell = ({
       addRow = () => {},
       allowAdding = true,
-      getMessage = () => {},
+      getMessage = key => key,
     }) => mount((
       <EditCommandHeadingCell
         addRow={addRow}
@@ -76,12 +73,10 @@ describe('EditCommandCells', () => {
     ));
 
     it('should render command messages', () => {
-      const tree = mountEditCommandHeadingCell({
-        getMessage: () => 'New',
-      });
+      const tree = mountEditCommandHeadingCell({});
       const command = tree.find('.command-template');
 
-      expect(command.text()).toBe('New');
+      expect(command.text()).toBe('addCommand');
     });
   });
 });

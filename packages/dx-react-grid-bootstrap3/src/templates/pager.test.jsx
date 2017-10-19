@@ -9,7 +9,7 @@ describe('Pager', () => {
       totalPages,
       pageSize,
       totalCount,
-      getMessage,
+      getMessage = key => key,
       allowedPageSizes = [],
       onPageSizeChange = () => {},
       onCurrentPageChange = () => {},
@@ -18,7 +18,7 @@ describe('Pager', () => {
       currentPage={currentPage}
       totalCount={totalCount}
       pageSize={pageSize}
-      getMessage={getMessage || (() => {})}
+      getMessage={getMessage}
       allowedPageSizes={allowedPageSizes}
       onCurrentPageChange={onCurrentPageChange}
       onPageSizeChange={onPageSizeChange}
@@ -26,8 +26,7 @@ describe('Pager', () => {
 
     it('can show info about rendered pages', () => {
       const getMessage = jest.fn();
-      const info = '11-20 of 96';
-      getMessage.mockImplementation(() => info);
+      getMessage.mockImplementation(key => key);
 
       const tree = mountPager({
         totalPages: 10,
@@ -40,7 +39,7 @@ describe('Pager', () => {
       expect(getMessage)
         .toBeCalledWith('info', { firstRow: 11, lastRow: 20, totalCount: 96 });
       expect(tree.find('div > span > span').text())
-        .toBe(info);
+        .toBe('info');
     });
 
     it('can render pagination arrows', () => {
@@ -114,11 +113,10 @@ describe('Pager', () => {
         totalCount: 96,
         pageSize: 5,
         allowedPageSizes: [5, 10],
-        getMessage: () => 'Show all',
       }).find('PageSizeSelector');
 
       expect(pageSizeSelector).toHaveLength(1);
-      expect(pageSizeSelector.at(0).prop('getMessage')()).toBe('Show all');
+      expect(pageSizeSelector.at(0).prop('getMessage')('showAll')).toBe('showAll');
     });
 
     it('doesn\'t render page selector if the allowedPageSizes option is not defined ', () => {

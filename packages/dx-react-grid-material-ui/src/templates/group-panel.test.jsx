@@ -20,11 +20,11 @@ describe('GroupPanel', () => {
   it('should render user-defined text withih group panel if it is specified', () => {
     const tree = mount((
       <GroupPanel
-        getMessage={() => 'Test'}
+        getMessage={key => key}
       />
     ));
     expect(tree.find(GroupPanelLayout).find('span').text())
-      .toBe('Test');
+      .toBe('groupByColumn');
   });
 
   it('should render default text withih group panel', () => {

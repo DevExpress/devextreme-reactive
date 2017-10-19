@@ -36,7 +36,7 @@ describe('TableColumnVisibility', () => {
 
   beforeEach(() => {
     visibleTableColumns.mockImplementation(() => [{ column: { name: 'c' } }]);
-    getMessagesFormatter.mockImplementation(() => key => key);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -84,11 +84,17 @@ describe('TableColumnVisibility', () => {
         <TableColumnVisibility
           hiddenColumns={[]}
           emptyMessageTemplate={emptyMessageTemplate}
+          messages={{
+            noColumns: 'Nothing to show',
+          }}
         />
       </PluginHost>
     ));
+    const { getMessage } = emptyMessageTemplate.mock.calls[0][0];
 
     expect(emptyMessageTemplate)
       .toHaveBeenCalledTimes(1);
+    expect(getMessage('noColumns'))
+      .toBe('Nothing to show');
   });
 });

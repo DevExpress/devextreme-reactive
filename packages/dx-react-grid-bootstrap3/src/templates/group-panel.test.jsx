@@ -9,7 +9,7 @@ jest.mock('@devexpress/dx-react-grid', () => ({
 }));
 
 describe('GroupPanel', () => {
-  it('should render user defined text withih group panel', () => {
+  it('should render user defined text within group panel', () => {
     const tree = mount((
       <GroupPanel
         getMessage={key => key}
@@ -20,7 +20,7 @@ describe('GroupPanel', () => {
       .toBe('groupByColumn');
   });
 
-  it('should render default text withih group panel', () => {
+  it('should render default text within group panel', () => {
     const tree = mount((
       <GroupPanel getMessage={() => {}} />
     ));

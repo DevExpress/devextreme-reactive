@@ -17,7 +17,7 @@ describe('GroupPanel', () => {
     mount.cleanUp();
   });
 
-  it('should render user-defined text withih group panel if it is specified', () => {
+  it('should render user-defined text within group panel if it is specified', () => {
     const tree = mount((
       <GroupPanel
         getMessage={key => key}
@@ -27,7 +27,7 @@ describe('GroupPanel', () => {
       .toBe('groupByColumn');
   });
 
-  it('should render default text withih group panel', () => {
+  it('should render default text within group panel', () => {
     const tree = mount((
       <GroupPanel getMessage={() => {}} />
     ));

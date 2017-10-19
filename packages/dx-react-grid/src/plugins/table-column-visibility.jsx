@@ -16,11 +16,10 @@ const pluginDependencies = [
 
 export class TableColumnVisibility extends React.PureComponent {
   render() {
-    const { hiddenColumns, emptyMessageTemplate, ...restProps } = this.props;
+    const { hiddenColumns, emptyMessageTemplate, messages } = this.props;
     const visibleTableColumnsComputed = ({ tableColumns }) =>
       visibleTableColumns(tableColumns, hiddenColumns);
 
-    const { messages } = restProps;
     const getMessage = getMessagesFormatter(messages);
 
     return (
@@ -50,8 +49,10 @@ export class TableColumnVisibility extends React.PureComponent {
 TableColumnVisibility.propTypes = {
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
   emptyMessageTemplate: PropTypes.func.isRequired,
+  messages: PropTypes.object,
 };
 
 TableColumnVisibility.defaultProps = {
   hiddenColumns: [],
+  messages: {},
 };

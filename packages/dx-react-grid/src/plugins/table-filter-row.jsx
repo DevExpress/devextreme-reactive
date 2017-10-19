@@ -42,10 +42,12 @@ const pluginDependencies = [
 export class TableFilterRow extends React.PureComponent {
   render() {
     const {
-      rowHeight, filterCellTemplate, filterRowTemplate, ...restProps
+      rowHeight,
+      filterCellTemplate,
+      filterRowTemplate,
+      messages,
     } = this.props;
 
-    const { messages } = restProps;
     const getMessage = getMessagesFormatter(messages);
 
     const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
@@ -106,10 +108,12 @@ export class TableFilterRow extends React.PureComponent {
 
 TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
+  messages: PropTypes.object,
   filterCellTemplate: PropTypes.func.isRequired,
   filterRowTemplate: PropTypes.func.isRequired,
 };
 
 TableFilterRow.defaultProps = {
   rowHeight: undefined,
+  messages: {},
 };

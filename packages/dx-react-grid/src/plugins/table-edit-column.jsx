@@ -77,9 +77,8 @@ export class TableEditColumn extends React.PureComponent {
       allowEditing,
       allowDeleting,
       width,
-      ...restProps
+      messages,
     } = this.props;
-    const { messages } = restProps;
     const getMessage = getMessagesFormatter(messages);
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
 
@@ -150,10 +149,12 @@ TableEditColumn.propTypes = {
   allowEditing: PropTypes.bool,
   allowDeleting: PropTypes.bool,
   width: PropTypes.number,
+  messages: PropTypes.object,
 };
 TableEditColumn.defaultProps = {
   allowAdding: false,
   allowEditing: false,
   allowDeleting: false,
   width: 140,
+  messages: {},
 };

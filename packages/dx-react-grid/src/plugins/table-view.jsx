@@ -74,10 +74,9 @@ export class TableView extends React.PureComponent {
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
       allowColumnReordering,
-      ...restProps
+      messages,
     } = this.props;
 
-    const { messages } = restProps;
     const getMessage = getMessagesFormatter(messages);
 
     return (
@@ -210,8 +209,10 @@ TableView.propTypes = {
   tableStubCellTemplate: PropTypes.func.isRequired,
   tableStubHeaderCellTemplate: PropTypes.func.isRequired,
   allowColumnReordering: PropTypes.bool,
+  messages: PropTypes.object,
 };
 
 TableView.defaultProps = {
   allowColumnReordering: false,
+  messages: {},
 };

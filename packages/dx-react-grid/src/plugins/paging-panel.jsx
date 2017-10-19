@@ -27,8 +27,7 @@ const getPagerTemplateArgs = (
 
 export class PagingPanel extends React.PureComponent {
   render() {
-    const { pagerTemplate, allowedPageSizes, ...restProps } = this.props;
-    const { messages } = restProps;
+    const { pagerTemplate, allowedPageSizes, messages } = this.props;
     const getMessage = getMessagesFormatter(messages);
 
     return (
@@ -57,8 +56,10 @@ export class PagingPanel extends React.PureComponent {
 PagingPanel.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number),
   pagerTemplate: PropTypes.func.isRequired,
+  messages: PropTypes.object,
 };
 
 PagingPanel.defaultProps = {
   allowedPageSizes: [],
+  messages: {},
 };

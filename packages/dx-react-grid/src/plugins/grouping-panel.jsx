@@ -36,10 +36,9 @@ export class GroupingPanel extends React.PureComponent {
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
-      ...restProps
+      messages,
     } = this.props;
 
-    const { messages } = restProps;
     const getMessage = getMessagesFormatter(messages);
 
     return (
@@ -79,10 +78,12 @@ GroupingPanel.propTypes = {
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
   groupPanelTemplate: PropTypes.func.isRequired,
+  messages: PropTypes.object,
 };
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
   allowDragging: false,
   allowUngroupingByClick: false,
+  messages: {},
 };

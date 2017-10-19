@@ -29,15 +29,15 @@ describe('RowsBlockLayout', () => {
   it('should render the "blockTemplate', () => {
     const blockTemplate = () => null;
 
-    const tree = shallow(
+    const tree = shallow((
       <RowsBlockLayout
         columns={defaultColumns}
         rows={defaultRows}
         blockTemplate={blockTemplate}
         rowTemplate={() => null}
         cellTemplate={() => null}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('TemplateRenderer').props())
       .toMatchObject({
@@ -49,15 +49,15 @@ describe('RowsBlockLayout', () => {
     const rowTemplate = () => null;
     const cellTemplate = () => null;
 
-    const tree = shallow(
+    const tree = shallow((
       <RowsBlockLayout
         columns={defaultColumns}
         rows={defaultRows}
         blockTemplate={() => null}
         rowTemplate={rowTemplate}
         cellTemplate={cellTemplate}
-      />,
-    );
+      />
+    ));
 
     tree.find('RowLayout').forEach((component, index) => {
       const row = defaultRows[index];

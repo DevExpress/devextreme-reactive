@@ -29,9 +29,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-onOver | (args: { payload: Array&lt;{ columnName: string }&gt;], clientOffset: { x: number } }) => void | Handles column drag over.
-onLeave | (args: { payload: Array&lt;{ columnName: string }&gt;], clientOffset: { x: number } }) => void | Handles column drag leave.
-onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;], clientOffset: { x: number } }) => void | Handles column drop.
+onOver | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles column drag over.
+onLeave | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles column drag leave.
+onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles column drop.
 
 ### <a name="reordering-cell-args"></a>ReorderingCellArgs
 

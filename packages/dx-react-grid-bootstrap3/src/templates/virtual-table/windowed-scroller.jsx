@@ -9,7 +9,9 @@ export class WindowedScroller extends React.Component {
     super(props);
 
     this.state = {
-      viewport: { top: 0, left: 0, width: 0, height: 0 },
+      viewport: {
+        top: 0, left: 0, width: 0, height: 0,
+      },
       offsetWidth: 0,
     };
 

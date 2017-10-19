@@ -18,14 +18,14 @@ describe('ColumnChooser', () => {
   it('should render container template with correct parameters', () => {
     const containerTemplate = jest.fn(() => null);
     const itemTemplate = () => <div />;
-    mount(
+    mount((
       <ColumnChooser
         columns={[{ name: 'a' }, { name: 'b' }]}
         containerTemplate={containerTemplate}
         itemTemplate={itemTemplate}
         onHiddenColumnsChange={() => {}}
-      />,
-    );
+      />
+    ));
 
     expect(containerTemplate)
       .toHaveBeenCalledTimes(1);
@@ -41,14 +41,14 @@ describe('ColumnChooser', () => {
     // eslint-disable-next-line react/prop-types
     const containerTemplate = ({ children }) => <div>{children}</div>;
     const itemTemplate = jest.fn(() => <div />);
-    mount(
+    mount((
       <ColumnChooser
         columns={[{ name: 'a' }, { name: 'b' }]}
         containerTemplate={containerTemplate}
         itemTemplate={itemTemplate}
         onHiddenColumnsChange={() => {}}
-      />,
-    );
+      />
+    ));
 
     expect(itemTemplate)
       .toHaveBeenCalledTimes(1);
@@ -65,14 +65,14 @@ describe('ColumnChooser', () => {
   it('should calculate items via the "columnChooserItems" computed', () => {
     const columns = [{ name: 'a' }, { name: 'b' }];
     const hiddenColumns = ['a'];
-    mount(
+    mount((
       <ColumnChooser
         columns={columns}
         hiddenColumns={hiddenColumns}
         containerTemplate={() => null}
         itemTemplate={() => <div />}
-      />,
-    );
+      />
+    ));
 
     expect(columnChooserItems)
       .toHaveBeenCalledTimes(1);

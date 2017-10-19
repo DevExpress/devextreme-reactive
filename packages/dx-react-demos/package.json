@@ -16,7 +16,7 @@
     "build": "webpack --env",
     "build:prod": "webpack --env.production",
     "build:watch": "webpack-dev-server --env",
-    "lint": "eslint --ext js,jsx src",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "yarn run lint -- --fix"
   },
   "jest": {

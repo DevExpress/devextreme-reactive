@@ -423,6 +423,34 @@ describe('GroupingState', () => {
         });
     });
 
+    it('should correctly set sortIndex for setColumnSorting action when some grouped columns is not sorted', () => {
+      const deps = {
+        getter: {
+          sorting: [{ columnName: 'a', direction: 'asc' }, { columnName: 'c', direction: 'asc' }],
+        },
+        action: {
+          setColumnSorting: jest.fn(),
+        },
+      };
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <GroupingState
+            defaultGrouping={[{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }]}
+          />
+        </PluginHost>
+      ));
+
+      getComputedState(tree).actions.setColumnSorting({ columnName: 'c' });
+      expect(deps.action.setColumnSorting.mock.calls[0][0])
+        .toEqual({
+          columnName: 'c',
+          keepOther: true,
+          sortIndex: 1,
+        });
+    });
+
     it('should modify setColumnSorting action payload when one grouped column is sorted', () => {
       const deps = {
         getter: {
@@ -541,7 +569,32 @@ describe('GroupingState', () => {
         });
     });
 
-    it('should fire not setColumnSorting action when ungrouped last sorted column', () => {
+    it('should correctly calculate sortIndex when some grouped columns is not sorted', () => {
+      const deps = {
+        getter: {
+          sorting: [{ columnName: 'a', direction: 'asc' }, { columnName: 'c', direction: 'asc' }],
+        },
+        action: {
+          setColumnSorting: jest.fn(),
+        },
+      };
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <GroupingState
+            defaultGrouping={[{ columnName: 'a' }, { columnName: 'b' }, { columnName: 'c' }]}
+          />
+        </PluginHost>
+      ));
+
+      groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }, { columnName: 'c' }, { columnName: 'b' }] });
+      getComputedState(tree).actions.groupByColumn({ columnName: 'c', groupIndex: 1 });
+      expect(deps.action.setColumnSorting)
+        .not.toBeCalled();
+    });
+
+    it('should not fire setColumnSorting action when ungrouped last sorted column', () => {
       const deps = {
         getter: {
           sorting: [{ columnName: 'a', direction: 'asc' }],
@@ -566,7 +619,7 @@ describe('GroupingState', () => {
         .not.toBeCalled();
     });
 
-    it('should fire not setColumnSorting action when grouped column sorting index is correct', () => {
+    it('should not fire setColumnSorting action when grouped column sorting index is correct', () => {
       const deps = {
         getter: {
           sorting: [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'asc' }],

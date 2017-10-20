@@ -14,16 +14,16 @@ const dependencies = [
 ];
 
 const adjustSortIndex = (sortIndex, grouping, sorting) =>
-  Math.min(
-    grouping.reduce(
+  Math.max(
+    grouping.slice(0, sortIndex).reduce(
       (acc, columnGrouping) => {
         const columnSortingIndex = sorting.findIndex(columnSorting =>
           columnSorting.columnName === columnGrouping.columnName);
-        return (columnSortingIndex === -1 ? acc : acc + 1);
+        return (columnSortingIndex === -1 ? acc - 1 : acc);
       },
-      0,
+      sortIndex,
     ),
-    sortIndex,
+    0,
   );
 
 export class GroupingState extends React.PureComponent {

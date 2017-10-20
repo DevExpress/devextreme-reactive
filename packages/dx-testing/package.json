@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-testing",
-  "version": "1.0.0-alpha.11",
+  "version": "1.0.0-alpha.13",
   "description": "DevExtreme Reactive Components Testing Utilities",
   "author": {
     "name": "Developer Express Inc.",
@@ -10,7 +10,7 @@
   "license": "SEE LICENSE IN README.md",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint **/*.js",
+    "lint": "eslint \"src/**\"",
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {

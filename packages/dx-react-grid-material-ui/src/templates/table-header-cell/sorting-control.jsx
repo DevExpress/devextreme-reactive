@@ -19,10 +19,7 @@ const styles = theme => ({
 });
 
 const SortingControlBase = ({
-  align,
-  sortingDirection,
-  columnTitle,
-  classes,
+  align, sortingDirection, columnTitle, classes,
 }) =>
   (align === 'right' ? (
     <span className={classes.sortingControl}>

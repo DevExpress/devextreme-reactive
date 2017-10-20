@@ -20,7 +20,7 @@ messages | object | | The object specifies [localization messages](#localization
 
 ### <a name="pager-args"></a>PagerArgs
 
-Describes properties passed to a table template when rendered
+Describes properties passed to a pager template when rendered
 
 A value with the following shape:
 
@@ -32,6 +32,7 @@ onCurrentPageChange | (page: number) => void | Changes the current page
 pageSize | number | Specifies the page size
 onPageSizeChange | (size: number) => void | Changes the page size
 allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that can be selected at runtime
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text rendered in pager.
 
 ## Localization Messages
 

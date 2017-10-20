@@ -16,6 +16,14 @@ hiddenColumns | Array&lt;string&gt; | [] | Specifies the hidden columns' names.
 emptyMessageTemplate | () => ReactElement | | A template that renders a message displayed when all columns are hidden.
 messages | object | | The object specifies [localization messages](#localization-messages).
 
+### <a name="empty-message-args"></a>EmptyMessageArgs
+
+Describes properties passed to the empty message template when it is being rendered.
+
+Field | Type | Description
+------|------|------------
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text rendered when all columns are hidden.
+
 ## Localization Messages
 
 An object with the following shape:

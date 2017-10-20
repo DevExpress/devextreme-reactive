@@ -41,6 +41,7 @@ deleteRow | () => void | Initiates row deletion.
 allowEditing | boolean | Specifies if a row can be edited.
 allowDeleting | boolean | Specifies if a row can be deleted.
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in command controls within the command column cell.
 
 ### <a name="command-heading-cell-args"></a>CommandHeadingCellArgs
 
@@ -53,6 +54,7 @@ Field | Type | Description
 addRow | () => void | Creates a new row.
 allowAdding | boolean | Specifies if a new row can be created.
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in command control within the command column cell.
 
 ### <a name="command-args"></a>CommandArgs
 

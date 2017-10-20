@@ -98,6 +98,14 @@ value | any | A value to be rendered within the cell.
 row | any | A row.
 column | [Column](#column) | Specifies a table column.
 
+### <a name="table-no-data-cell-args"></a>TableNoDataCellArgs
+
+Describes properties passed to the table cell being rendered when using an empty template.
+
+Field | Type | Description
+------|------|------------
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text rendered in a cell when a table is empty.
+
 ### <a name="table-row-args"></a>TableRowArgs
 
 Describes properties passed to a row template when it is being rendered.

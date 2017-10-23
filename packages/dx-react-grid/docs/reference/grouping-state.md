@@ -1,6 +1,6 @@
 # GroupingState Plugin Reference
 
-A plugin that manages the grouping state. It lists columns currently used for grouping, and holds the information about expanded/collapsed groups.
+A plugin that manages the grouping state. It lists columns currently used for grouping and stores information about expanded/collapsed groups.
 
 ## User Reference
 
@@ -33,7 +33,7 @@ columnName | string | Specifies the name of the column by which the data is grou
 
 ### <a name="draft-grouping"></a>DraftGrouping
 
-Describes grouping options used for preview
+Describes grouping options used for preview.
 
 A value with the following shape:
 
@@ -44,7 +44,7 @@ draft? | boolean | Indicates that the column should be displayed as grouped.
 
 ### <a name="group-key"></a>GroupKey
 
-Describes a group that can be nested in another one
+Describes a group that can be nested in another one.
 
 A string value that consists of values by which rows are grouped, separated by the `|` character. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male|Audi` and so on.
 

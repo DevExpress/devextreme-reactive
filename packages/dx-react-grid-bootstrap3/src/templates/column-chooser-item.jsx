@@ -12,6 +12,7 @@ export const ColumnChooserItem = ({ item: { column, hidden }, onToggle }) => {
     >
       <input
         type="checkbox"
+        tabIndex={-1}
         checked={!hidden}
         onChange={handleChange}
       />

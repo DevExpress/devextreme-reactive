@@ -1,6 +1,6 @@
 # LocalFiltering Plugin Reference
 
-Plugin that performs local data filtering.
+A plugin that performs local data filtering.
 
 ## User Reference
 

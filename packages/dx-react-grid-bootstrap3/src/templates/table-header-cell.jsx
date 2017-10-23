@@ -61,7 +61,7 @@ export class TableHeaderCell extends React.PureComponent {
         )}
         <div
           style={{
-            [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',
+            ...(allowGroupingByClick ? { [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px' } : null),
             textAlign: align,
             whiteSpace: 'nowrap',
             overflow: 'hidden',

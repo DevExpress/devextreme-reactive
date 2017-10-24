@@ -5,6 +5,8 @@ import ExpandMore from 'material-ui-icons/ExpandMore';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 
+const ENTER_KEY_CODE = 13;
+
 const styles = theme => ({
   cell: {
     cursor: 'pointer',
@@ -36,7 +38,7 @@ const TableGroupCellBase = ({
   children,
 }) => {
   const handleKeyDown = (event) => {
-    if (event.keyCode === 13) toggleGroupExpanded();
+    if (event.keyCode === ENTER_KEY_CODE) toggleGroupExpanded();
   };
 
   return (

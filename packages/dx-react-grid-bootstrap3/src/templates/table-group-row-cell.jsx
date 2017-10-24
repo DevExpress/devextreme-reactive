@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const ENTER_KEY_CODE = 13;
+
 export const TableGroupCell = ({
   style, colSpan, row, column, isExpanded, toggleGroupExpanded, children,
 }) => {
   const handleKeyDown = (event) => {
-    if (event.keyCode === 13) toggleGroupExpanded();
+    if (event.keyCode === ENTER_KEY_CODE) toggleGroupExpanded();
   };
 
   return (

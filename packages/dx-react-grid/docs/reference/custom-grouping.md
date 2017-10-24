@@ -1,6 +1,6 @@
 # CustomGrouping Plugin Reference
 
-A plugin that brings customly formatted grouped data to the supported format and performs local group expanding/collapsing.
+A plugin that converts custom formatted grouped data to a supported format and performs local group expanding/collapsing.
 
 ## User Reference
 

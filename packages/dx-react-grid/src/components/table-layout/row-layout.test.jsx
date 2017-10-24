@@ -1,22 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { TABLE_DATA_TYPE, getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
+import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { RowLayout } from './row-layout';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  TABLE_DATA_TYPE: 'd',
   getTableRowColumnsWithColSpan: jest.fn(),
 }));
 
-const defaultRow = {
-  key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 20,
-};
+const defaultRow = { key: 1, rowId: 1, height: 20 };
 const defaultColumns = [
-  { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
-  { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
-  { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
-  { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
+  { key: 'a', column: { name: 'a' } },
+  { key: 'b', column: { name: 'b' } },
+  { key: 'c', column: { name: 'c' } },
+  { key: 'd', column: { name: 'd' } },
 ];
 
 describe('RowLayout', () => {
@@ -79,9 +76,7 @@ describe('RowLayout', () => {
   });
 
   it('should pass styles to columns', () => {
-    const columns = [{
-      key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' }, width: 100,
-    }];
+    const columns = [{ key: 'b', column: { name: 'b' }, width: 100 }];
     getTableRowColumnsWithColSpan.mockImplementation(() => columns);
 
     const tree = shallow((
@@ -104,7 +99,7 @@ describe('RowLayout', () => {
   });
 
   it('can span columns', () => {
-    const column = { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } };
+    const column = { key: 'b', column: { name: 'b' } };
     getTableRowColumnsWithColSpan.mockImplementation(() => [{ ...column, colspan: 2 }]);
 
     const tree = shallow((

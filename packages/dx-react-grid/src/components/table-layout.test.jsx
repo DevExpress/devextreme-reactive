@@ -3,7 +3,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import {
-  TABLE_DATA_TYPE,
   getAnimations,
   filterActiveAnimations,
   evalAnimations,
@@ -17,22 +16,21 @@ jest.mock('react-dom', () => ({
   })),
 }));
 jest.mock('@devexpress/dx-grid-core', () => ({
-  TABLE_DATA_TYPE: 'd',
   getAnimations: jest.fn(),
   filterActiveAnimations: jest.fn(),
   evalAnimations: jest.fn(),
 }));
 
 const defaultRows = [
-  { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-  { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
-  { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE, rowId: 3 },
+  { key: 1, rowId: 1 },
+  { key: 2, rowId: 2 },
+  { key: 3, rowId: 3 },
 ];
 const defaultColumns = [
-  { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
-  { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
-  { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
-  { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
+  { key: 'a', column: { name: 'a' } },
+  { key: 'b', column: { name: 'b' } },
+  { key: 'c', column: { name: 'c' } },
+  { key: 'd', column: { name: 'd' } },
 ];
 
 describe('TableLayout', () => {
@@ -102,14 +100,12 @@ describe('TableLayout', () => {
 
   it('should pass correct styles to the tableTemplate', () => {
     const rows = [
-      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, height: 100 },
-      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
+      { key: 1, height: 100 },
+      { key: 2 },
     ];
     const columns = [
-      {
-        key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
-      },
-      { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+      { key: 'a', column: { name: 'a' }, width: 100 },
+      { key: 'b', column: { name: 'b' } },
     ];
     const tableTemplate = () => null;
 
@@ -140,16 +136,12 @@ describe('TableLayout', () => {
   describe('flex column', () => {
     it('should add flex column if all columns have fixed widths', () => {
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
+        { key: 1 },
+        { key: 2 },
       ];
       const columns = [
-        {
-          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
-        },
-        {
-          key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' }, width: 100,
-        },
+        { key: 'a', column: { name: 'a' }, width: 100 },
+        { key: 'b', column: { name: 'b' }, width: 100 },
       ];
       const tableTemplate = () => null;
 
@@ -197,16 +189,12 @@ describe('TableLayout', () => {
       evalAnimations.mockImplementation(() => new Map());
 
       const rows = [
-        {
-          key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100,
-        },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+        { key: 1, rowId: 1, height: 100 },
+        { key: 2, rowId: 2 },
       ];
       const columns = [
-        {
-          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
-        },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { key: 'a', column: { name: 'a' }, width: 100 },
+        { key: 'b', column: { name: 'b' } },
       ];
       const nextColumns = [columns[1], columns[0]];
 
@@ -230,21 +218,17 @@ describe('TableLayout', () => {
 
     it('should start on the "columns" property change', () => {
       const rows = [
-        {
-          key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100,
-        },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+        { key: 1, rowId: 1, height: 100 },
+        { key: 2, rowId: 2 },
       ];
       const columns = [
-        {
-          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
-        },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { key: 'a', column: { name: 'a' }, width: 100 },
+        { key: 'b', column: { name: 'b' } },
       ];
       const nextColumns = [columns[1], columns[0]];
       const animations = new Map([
-        [`${TABLE_DATA_TYPE}_a`, { left: { from: 200, to: 0 } }],
-        [`${TABLE_DATA_TYPE}_b`, { left: { from: 0, to: 100 } }],
+        ['a', { left: { from: 200, to: 0 } }],
+        ['b', { left: { from: 0, to: 100 } }],
       ]);
 
       filterActiveAnimations.mockImplementation(() => animations);
@@ -273,16 +257,12 @@ describe('TableLayout', () => {
       filterActiveAnimations.mockImplementation(() => new Map());
 
       const rows = [
-        {
-          key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100,
-        },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+        { key: 1, rowId: 1, height: 100 },
+        { key: 2, rowId: 2 },
       ];
       const columns = [
-        {
-          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
-        },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { key: 'a', column: { name: 'a' }, width: 100 },
+        { key: 'b', column: { name: 'b' } },
       ];
       const nextColumns = [columns[1]];
 

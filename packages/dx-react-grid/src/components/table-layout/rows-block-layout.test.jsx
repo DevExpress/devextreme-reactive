@@ -1,19 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { TABLE_DATA_TYPE } from '@devexpress/dx-grid-core';
 import { RowsBlockLayout } from './rows-block-layout';
 
 const defaultRows = [
-  { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-  { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
-  { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE, rowId: 3 },
+  { key: 1, rowId: 1 },
+  { key: 2, rowId: 2 },
+  { key: 3, rowId: 3 },
 ];
 const defaultColumns = [
-  { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
-  { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
-  { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
-  { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
+  { key: 'a', column: { name: 'a' } },
+  { key: 'b', column: { name: 'b' } },
+  { key: 'c', column: { name: 'c' } },
+  { key: 'd', column: { name: 'd' } },
 ];
 
 describe('RowsBlockLayout', () => {

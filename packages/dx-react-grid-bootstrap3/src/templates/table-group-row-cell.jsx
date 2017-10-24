@@ -3,27 +3,35 @@ import PropTypes from 'prop-types';
 
 export const TableGroupCell = ({
   style, colSpan, row, column, isExpanded, toggleGroupExpanded, children,
-}) => (
-  <td
-    colSpan={colSpan}
-    style={{
-      cursor: 'pointer',
-      ...style,
-    }}
-    onClick={toggleGroupExpanded}
-  >
-    <i
-      className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`}
+}) => {
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) toggleGroupExpanded();
+  };
+
+  return (
+    <td
+      colSpan={colSpan}
       style={{
-        fontSize: '9px',
-        top: 0,
-        marginRight: '10px',
+        cursor: 'pointer',
+        ...style,
       }}
-    />
-    <strong>{column.title || column.name}: </strong>
-    {children || row.value}
-  </td>
-);
+      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+      onClick={toggleGroupExpanded}
+      onKeyDown={handleKeyDown}
+    >
+      <i
+        className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`}
+        style={{
+          fontSize: '9px',
+          top: 0,
+          marginRight: '10px',
+        }}
+      />
+      <strong>{column.title || column.name}: </strong>
+      {children || row.value}
+    </td>
+  );
+};
 
 TableGroupCell.propTypes = {
   style: PropTypes.object,

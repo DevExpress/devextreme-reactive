@@ -47,7 +47,6 @@ describe('SelectionState', () => {
       getter: {
         isGroupRow: () => false,
       },
-      plugins: ['LocalGrouping'],
     };
 
     const tree = mount((

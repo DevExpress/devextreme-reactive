@@ -11,7 +11,7 @@ export class ColumnOrderState extends React.PureComponent {
       order: props.defaultOrder,
     };
 
-    this._setColumnOrder = (order, { sourceColumnName, targetColumnName }) => {
+    this.setColumnOrder = (order, { sourceColumnName, targetColumnName }) => {
       const { onOrderChange } = this.props;
       const nextOrder = setColumnOrder(order, { sourceColumnName, targetColumnName });
       this.setState({ order: nextOrder });
@@ -35,7 +35,7 @@ export class ColumnOrderState extends React.PureComponent {
         <Action
           name="setColumnOrder"
           action={({ sourceColumnName, targetColumnName }) =>
-            this._setColumnOrder(order, { sourceColumnName, targetColumnName })
+            this.setColumnOrder(order, { sourceColumnName, targetColumnName })
           }
         />
       </PluginContainer>

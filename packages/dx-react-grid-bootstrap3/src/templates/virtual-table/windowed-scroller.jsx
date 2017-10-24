@@ -9,11 +9,13 @@ export class WindowedScroller extends React.Component {
     super(props);
 
     this.state = {
-      viewport: { top: 0, left: 0, width: 0, height: 0 },
+      viewport: {
+        top: 0, left: 0, width: 0, height: 0,
+      },
       offsetWidth: 0,
     };
 
-    this.updateViewport = this.updateViewport.bind(this);
+    this.requestViewportUpdate = this.requestViewportUpdate.bind(this);
   }
 
   getChildContext() {
@@ -30,20 +32,20 @@ export class WindowedScroller extends React.Component {
       isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
     }
     setTimeout(() => {
-      this.updateViewport();
+      this.requestViewportUpdate();
     });
   }
 
-  updateViewport() {
+  requestViewportUpdate() {
     if (isSafari) {
       // eslint-disable-next-line no-undef
-      requestAnimationFrame(this._updateViewport.bind(this));
+      requestAnimationFrame(this.updataViewport.bind(this));
     } else {
-      this._updateViewport();
+      this.updataViewport();
     }
   }
 
-  _updateViewport() {
+  updataViewport() {
     if (!this.root) return;
 
     const oldViewport = this.state.viewport;
@@ -80,12 +82,12 @@ export class WindowedScroller extends React.Component {
         width={this.state.offsetWidth}
         onWidthChange={(width) => {
           this.setState({ offsetWidth: width });
-          this.updateViewport();
+          this.requestViewportUpdate();
         }}
       >
         <div
           ref={(ref) => { this.root = ref; }}
-          onScroll={this.updateViewport}
+          onScroll={this.requestViewportUpdate}
           style={{
             overflow: 'auto',
             width: '100%',

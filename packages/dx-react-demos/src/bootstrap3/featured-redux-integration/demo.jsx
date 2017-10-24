@@ -256,6 +256,7 @@ const ReduxGridContainer = connect(mapStateToProps, mapDispatchToProps)(GridCont
 const store = createStore(
   gridReducer,
   // Enabling Redux DevTools Extension (https://github.com/zalmoxisus/redux-devtools-extension)
+  // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 

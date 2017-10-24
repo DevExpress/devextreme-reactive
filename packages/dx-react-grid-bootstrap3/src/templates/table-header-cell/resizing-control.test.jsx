@@ -15,12 +15,12 @@ describe('ResizingControl', () => {
 
   it('should trigger changeColumnWidth with correct change on resize end', () => {
     const changeColumnWidth = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <ResizingControl
         changeDraftColumnWidth={() => {}}
         changeColumnWidth={changeColumnWidth}
-      />,
-    );
+      />
+    ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
 
@@ -31,12 +31,12 @@ describe('ResizingControl', () => {
 
   it('should trigger changeDraftColumnWidth with correct change on resize update', () => {
     const changeDraftColumnWidth = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <ResizingControl
         changeDraftColumnWidth={changeDraftColumnWidth}
         changeColumnWidth={() => {}}
-      />,
-    );
+      />
+    ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
 

@@ -66,5 +66,9 @@ describe('LocalFiltering computeds', () => {
           { a: 1, b: 2 },
         ]);
     });
+
+    // it('should filter grouped rows', () => {
+
+    // });
   });
 });

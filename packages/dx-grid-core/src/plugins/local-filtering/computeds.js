@@ -8,19 +8,19 @@ export const filteredRows = (
   filters,
   getCellValue,
   getColumnPredicate,
+  isGroupRow,
 ) => {
   if (!filters.length) return rows;
-
   const compoundPredicate = filters.reduce(
     (prevCompare, filter) => (row) => {
+      if (isGroupRow(row)) return true;
       const { columnName, ...filterConfig } = filter;
       const predicate = (getColumnPredicate && getColumnPredicate(columnName)) || defaultPredicate;
-
       return prevCompare(row) && predicate(getCellValue(row, columnName), filterConfig, row);
     },
     () => true,
   );
-
-  return rows.filter(compoundPredicate);
+  const result = rows.filter(compoundPredicate);
+  return result;
 };
 

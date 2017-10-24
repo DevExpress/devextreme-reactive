@@ -45,24 +45,24 @@ describe('LocalPaging', () => {
   });
 
   it('should provide totalCount of rows passed into', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <LocalPaging />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.totalCount)
       .toBe(6);
   });
 
   it('should paginated rows passed into based on the "currentPage" and "pageSize" getters', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <LocalPaging />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(getComputedState(tree).getters.rows)
       .toEqual([{ id: 2 }, { id: 3 }]);
@@ -74,30 +74,31 @@ describe('LocalPaging', () => {
         currentPage: 4,
       },
     };
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
-    expect(defaultDeps.action.setCurrentPage.mock.calls)
-      .toEqual([[2]]);
+    expect(defaultDeps.action.setCurrentPage.mock.calls[0][0])
+      .toEqual(2);
   });
 
   it('should ensure page headers are present on each page', () => {
     const deps = {};
-    mount(
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <LocalPaging />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(rowsWithPageHeaders)
       .toHaveBeenCalledWith(
         defaultDeps.getter.rows,
         defaultDeps.getter.pageSize,
-        defaultDeps.getter.getRowLevelKey);
+        defaultDeps.getter.getRowLevelKey,
+      );
   });
 });

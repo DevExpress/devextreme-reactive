@@ -14,7 +14,7 @@ describe('ResizingControl', () => {
   let mount;
   let classes;
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    resetConsole = setupConsole({ ignore: ['SheetsRegistry'] });
     mount = createMount();
     classes = getClasses(<ResizingControl {...defaultProps} />);
   });
@@ -24,9 +24,7 @@ describe('ResizingControl', () => {
   });
 
   it('should have correct styles while resizing', () => {
-    const tree = mount(
-      <ResizingControl {...defaultProps} />,
-    );
+    const tree = mount(<ResizingControl {...defaultProps} />);
 
     const handle = tree.find(`.${classes.resizeHandle}`);
     expect(handle.exists()).toBeTruthy();
@@ -40,12 +38,12 @@ describe('ResizingControl', () => {
 
   it('should trigger changeColumnWidth with correct change on resize end', () => {
     const changeColumnWidth = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <ResizingControl
         {...defaultProps}
         changeColumnWidth={changeColumnWidth}
-      />,
-    );
+      />
+    ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
 
@@ -56,12 +54,12 @@ describe('ResizingControl', () => {
 
   it('should trigger changeDraftColumnWidth with correct change on resize update', () => {
     const changeDraftColumnWidth = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <ResizingControl
         {...defaultProps}
         changeDraftColumnWidth={changeDraftColumnWidth}
-      />,
-    );
+      />
+    ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
 

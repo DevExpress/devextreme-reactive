@@ -1,7 +1,4 @@
-/* global document */
-
 import 'whatwg-fetch';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -12,9 +9,9 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { DemoViewer } from './demo-viewer/demo-viewer';
 import { SectionsViewer } from './demo-viewer/sections-viewer';
+import './index.css';
 
 class App extends React.Component {
   getChildContext() {

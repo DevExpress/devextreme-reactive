@@ -45,8 +45,7 @@ export const tableColumnsWithGrouping = (
 
 export const tableRowsWithGrouping = (tableRows, isGroupRow) =>
   tableRows.map((tableRow) => {
-    if (tableRow.type !== TABLE_DATA_TYPE ||
-      (!isGroupRow(tableRow.row) && tableRow.row.type !== 'groupRow')) {
+    if (tableRow.type !== TABLE_DATA_TYPE || !isGroupRow(tableRow.row)) {
       return tableRow;
     }
     return {

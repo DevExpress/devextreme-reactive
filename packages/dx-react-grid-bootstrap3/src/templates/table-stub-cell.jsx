@@ -11,7 +11,7 @@ export const TableStubCell = ({ style }) => (
 );
 
 TableStubCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
 };
 
 TableStubCell.defaultProps = {

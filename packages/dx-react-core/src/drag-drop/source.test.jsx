@@ -10,7 +10,7 @@ describe('DragDropContext', () => {
     const onStart = jest.fn();
     const onUpdate = jest.fn();
     const onEnd = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <DragDropContext>
         <div>
           <DragSource
@@ -22,8 +22,8 @@ describe('DragDropContext', () => {
             <div className="source" />
           </DragSource>
         </div>
-      </DragDropContext>,
-    );
+      </DragDropContext>
+    ));
 
     const draggable = tree.find(Draggable);
 

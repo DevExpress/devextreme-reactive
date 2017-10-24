@@ -10,7 +10,9 @@ import { groupingPanelItems } from '@devexpress/dx-grid-core';
 const getGroupPanelTemplateArgs = (
   { allowDragging, allowSorting, allowUngroupingByClick },
   { columns, draftGrouping, sorting },
-  { groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange },
+  {
+    groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange,
+  },
 ) => ({
   allowSorting,
   allowDragging,
@@ -19,12 +21,7 @@ const getGroupPanelTemplateArgs = (
   sorting,
   groupByColumn,
   changeSortingDirection: ({ columnName, keepOther, cancel }) =>
-    setColumnSorting({
-      columnName,
-      keepOther,
-      cancel,
-      scope: draftGrouping.map(columnGrouping => columnGrouping.columnName),
-    }),
+    setColumnSorting({ columnName, keepOther, cancel }),
   draftGroupingChange: groupingChange => draftGroupingChange(groupingChange),
   cancelGroupingChange: () => cancelGroupingChange(),
 });

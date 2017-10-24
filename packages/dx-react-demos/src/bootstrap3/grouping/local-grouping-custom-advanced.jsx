@@ -25,15 +25,16 @@ const GroupCellTemplate = ({
       ...style,
     }}
     onClick={toggleGroupExpanded}
-  >{ isExpanded ? '- ' : '+ ' }
+  >
+    { isExpanded ? '- ' : '+ ' }
     <strong>Names from {row.value.from} to {row.value.to}</strong>
   </td>
 );
 
 GroupCellTemplate.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   colSpan: PropTypes.number,
-  row: PropTypes.shape(),
+  row: PropTypes.object,
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
 };

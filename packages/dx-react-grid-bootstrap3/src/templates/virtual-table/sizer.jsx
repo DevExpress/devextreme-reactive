@@ -1,5 +1,3 @@
-/* global requestAnimationFrame cancelAnimationFrame */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,15 +6,19 @@ export class Sizer extends React.Component {
     const watchSizes = () => {
       const rect = this.root.getBoundingClientRect();
       this.sizeUpdated(rect.width, rect.height);
-      this._raf = requestAnimationFrame(watchSizes);
+      // eslint-disable-next-line no-undef
+      this.raf = requestAnimationFrame(watchSizes);
     };
     watchSizes();
   }
   componentWillUnmount() {
-    cancelAnimationFrame(this._raf);
+    // eslint-disable-next-line no-undef
+    cancelAnimationFrame(this.raf);
   }
   sizeUpdated(newWidth, newHeight) {
-    const { height, onHeightChange, width, onWidthChange } = this.props;
+    const {
+      height, onHeightChange, width, onWidthChange,
+    } = this.props;
 
     if (height !== undefined && newHeight !== height) {
       onHeightChange(newHeight);
@@ -26,7 +28,9 @@ export class Sizer extends React.Component {
     }
   }
   render() {
-    const { children, height, onHeightChange, width, onWidthChange, ...restProps } = this.props;
+    const {
+      children, height, onHeightChange, width, onWidthChange, ...restProps
+    } = this.props;
 
     return (
       <div ref={(ref) => { this.root = ref; }} {...restProps}>

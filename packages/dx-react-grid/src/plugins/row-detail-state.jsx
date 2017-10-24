@@ -11,7 +11,7 @@ export class RowDetailState extends React.PureComponent {
       expandedRows: props.defaultExpandedRows || [],
     };
 
-    this._setDetailRowExpanded = ({ rowId }) => {
+    this.setDetailRowExpanded = ({ rowId }) => {
       const prevExpandedDetails = this.props.expandedRows || this.state.expandedRows;
       const expandedRows = setDetailRowExpanded(prevExpandedDetails, { rowId });
       const { onExpandedRowsChange } = this.props;
@@ -30,7 +30,7 @@ export class RowDetailState extends React.PureComponent {
       >
         <Action
           name="setDetailRowExpanded"
-          action={({ rowId }) => this._setDetailRowExpanded({ rowId })}
+          action={({ rowId }) => this.setDetailRowExpanded({ rowId })}
         />
 
         <Getter name="expandedRows" value={expandedRows} />

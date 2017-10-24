@@ -78,9 +78,9 @@ describe('TableLayout', () => {
 
   it('should render table with rows and columns', () => {
     const rows = [
-      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
-      { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE, rowId: 3 },
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
+      { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE },
     ];
     const columns = [
       { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
@@ -88,7 +88,7 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
       { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
     ];
-    const tree = mount(
+    const tree = mount((
       <TableLayout
         rows={rows}
         columns={columns}
@@ -96,17 +96,17 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-      />,
-    );
+      />
+    ));
 
     testTablePart({ tree: tree.find('table tbody'), rows, columns });
   });
 
   it('should render table with headerRows and columns', () => {
     const rows = [
-      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
-      { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE, rowId: 3 },
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
+      { key: `${TABLE_DATA_TYPE}_3`, type: TABLE_DATA_TYPE },
     ];
     const columns = [
       { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
@@ -114,7 +114,7 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
       { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
     ];
-    const tree = mount(
+    const tree = mount((
       <TableLayout
         headerRows={rows}
         rows={[]}
@@ -124,16 +124,16 @@ describe('TableLayout', () => {
         headTemplate={headTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-      />,
-    );
+      />
+    ));
 
     testTablePart({ tree: tree.find('table thead'), rows, columns });
   });
 
   it('should span columns if specified', () => {
     const rows = [
-      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, colSpanStart: 0 },
-      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2, colSpanStart: 1 },
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, colSpanStart: 0 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, colSpanStart: 1 },
     ];
     const columns = [
       { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
@@ -141,7 +141,7 @@ describe('TableLayout', () => {
       { key: `${TABLE_DATA_TYPE}_c'`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
       { key: `${TABLE_DATA_TYPE}_d'`, type: TABLE_DATA_TYPE, column: { name: 'd' } },
     ];
-    const tree = mount(
+    const tree = mount((
       <TableLayout
         rows={rows}
         columns={columns}
@@ -149,8 +149,8 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-      />,
-    );
+      />
+    ));
 
     const rowWrappers = tree.find('tr');
 
@@ -166,14 +166,16 @@ describe('TableLayout', () => {
 
   it('should have correct styles', () => {
     const rows = [
-      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1, height: 100 },
-      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+      { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, height: 100 },
+      { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
     ];
     const columns = [
-      { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
+      {
+        key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
+      },
       { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
     ];
-    const tree = mount(
+    const tree = mount((
       <TableLayout
         rows={rows}
         columns={columns}
@@ -182,8 +184,8 @@ describe('TableLayout', () => {
         bodyTemplate={bodyTemplateMock}
         rowTemplate={rowTemplateMock}
         cellTemplate={cellTemplateMock}
-      />,
-    );
+      />
+    ));
 
     const tableWrapper = tree.find('table');
     expect(tableWrapper.children(PropsContainer).props().style)
@@ -209,14 +211,18 @@ describe('TableLayout', () => {
   describe('flex column', () => {
     it('should add flex column if all columns have fixed widths', () => {
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
       ];
       const columns = [
-        { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100 },
-        { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' }, width: 100 },
+        {
+          key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' }, width: 100,
+        },
+        {
+          key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' }, width: 100,
+        },
       ];
-      const tree = mount(
+      const tree = mount((
         <TableLayout
           rows={rows}
           columns={columns}
@@ -224,8 +230,8 @@ describe('TableLayout', () => {
           bodyTemplate={bodyTemplateMock}
           rowTemplate={rowTemplateMock}
           cellTemplate={cellTemplateMock}
-        />,
-      );
+        />
+      ));
 
       const tableWrapper = tree.find('table');
       expect(tableWrapper.children(PropsContainer).props().style)
@@ -253,17 +259,19 @@ describe('TableLayout', () => {
 
     it('should preview column order while dragging', () => {
       getRect.mockImplementation(() =>
-        ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+        ({
+          top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200,
+        }));
 
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
       ];
       const columns = [
         { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
         { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
       ];
-      const tree = mount(
+      const tree = mount((
         <DragDropContext>
           <TableLayout
             rows={rows}
@@ -274,8 +282,8 @@ describe('TableLayout', () => {
             cellTemplate={cellTemplateMock}
             allowColumnReordering
           />
-        </DragDropContext>,
-      );
+        </DragDropContext>
+      ));
 
       const targetWrapper = tree.find(DropTarget);
       targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 175, y: 100 } });
@@ -285,17 +293,19 @@ describe('TableLayout', () => {
 
     it('should revert column order when source moves out', () => {
       getRect.mockImplementation(() =>
-        ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+        ({
+          top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200,
+        }));
 
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
       ];
       const columns = [
         { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
         { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
       ];
-      const tree = mount(
+      const tree = mount((
         <DragDropContext>
           <TableLayout
             rows={rows}
@@ -306,8 +316,8 @@ describe('TableLayout', () => {
             cellTemplate={cellTemplateMock}
             allowColumnReordering
           />
-        </DragDropContext>,
-      );
+        </DragDropContext>
+      ));
 
       const targetWrapper = tree.find(DropTarget);
       targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 175, y: 100 } });
@@ -318,18 +328,20 @@ describe('TableLayout', () => {
 
     it('should change column order on drop', () => {
       getRect.mockImplementation(() =>
-        ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+        ({
+          top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200,
+        }));
 
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
-        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE, rowId: 2 },
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
+        { key: `${TABLE_DATA_TYPE}_2`, type: TABLE_DATA_TYPE },
       ];
       const columns = [
         { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
         { key: `${TABLE_DATA_TYPE}_b'`, type: TABLE_DATA_TYPE, column: { name: 'b' } },
       ];
       const setColumnOrder = jest.fn();
-      const tree = mount(
+      const tree = mount((
         <DragDropContext>
           <TableLayout
             rows={rows}
@@ -342,8 +354,8 @@ describe('TableLayout', () => {
             allowColumnReordering
             setColumnOrder={setColumnOrder}
           />
-        </DragDropContext>,
-      );
+        </DragDropContext>
+      ));
 
       const targetWrapper = tree.find(DropTarget);
       targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 175, y: 100 } });
@@ -355,17 +367,19 @@ describe('TableLayout', () => {
 
     it('should not crush when the dragging column is dropped on a non-data column', () => {
       getRect.mockImplementation(() =>
-        ({ top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200 }));
+        ({
+          top: 100, left: 100, width: 100, height: 100, right: 200, bottom: 200,
+        }));
 
       const rows = [
-        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE, rowId: 1 },
+        { key: `${TABLE_DATA_TYPE}_1`, type: TABLE_DATA_TYPE },
       ];
       const columns = [
         { key: 'something_a', type: 'something' },
         { key: `${TABLE_DATA_TYPE}_a'`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
       ];
       const setColumnOrder = jest.fn();
-      const tree = mount(
+      const tree = mount((
         <DragDropContext>
           <TableLayout
             rows={rows}
@@ -378,8 +392,8 @@ describe('TableLayout', () => {
             allowColumnReordering
             setColumnOrder={setColumnOrder}
           />
-        </DragDropContext>,
-      );
+        </DragDropContext>
+      ));
 
       const targetWrapper = tree.find(DropTarget);
       targetWrapper.prop('onOver')({ payload: [{ type: 'column', columnName: 'a' }], clientOffset: { x: 130, y: 100 } });

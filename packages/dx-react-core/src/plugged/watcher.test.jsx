@@ -11,13 +11,13 @@ describe('Watcher', () => {
   it('should be invoked on componentWillMount', () => {
     const changeLogger = jest.fn();
     const actionLogger = jest.fn();
-    mount(
+    mount((
       <PluginHost>
-        <Getter name="test" value={'arg'} />
+        <Getter name="test" value="arg" />
         <Action name="test" action={actionLogger} />
         <Watcher watch={getter => ([getter('test')])} onChange={changeLogger} />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     expect(changeLogger.mock.calls).toHaveLength(1);
     expect(changeLogger.mock.calls[0]).toHaveLength(2);
@@ -44,9 +44,7 @@ describe('Watcher', () => {
       dependency: PropTypes.string.isRequired,
     };
 
-    const tree = mount(
-      <Test dependency="a" />,
-    );
+    const tree = mount(<Test dependency="a" />);
     expect(changeLogger.mock.calls).toHaveLength(1);
 
     tree.setProps({ dependency: 'a' });

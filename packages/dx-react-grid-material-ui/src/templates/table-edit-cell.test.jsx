@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Table } from 'material-ui';
+import { Input } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { EditCell } from './table-edit-cell';
@@ -10,10 +10,9 @@ describe('EditCell', () => {
   let classes;
 
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<EditCell onValueChange={() => {}} />);
-    const mountMUI = createMount();
-    mount = component => mountMUI(<Table>{component}</Table>);
+    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
   });
   afterAll(() => {
     resetConsole();
@@ -21,23 +20,23 @@ describe('EditCell', () => {
   });
 
   it('should render without exceptions', () => {
-    const tree = mount(
+    const tree = mount((
       <EditCell
-        value={''}
+        value=""
         onValueChange={() => {}}
-      />,
-    );
+      />
+    ));
     expect(tree.find(EditCell).exists()).toBeTruthy();
   });
 
   it('should work with editor properly', () => {
     const onValueChange = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <EditCell
-        value={'test'}
+        value="test"
         onValueChange={onValueChange}
-      />,
-    );
+      />
+    ));
 
     const input = tree.find(Input);
     expect(input.props()).toMatchObject({
@@ -50,12 +49,12 @@ describe('EditCell', () => {
   });
 
   it('should take column align into account', () => {
-    const tree = mount(
+    const tree = mount((
       <EditCell
-        value={''}
+        value=""
         onValueChange={() => {}}
-      />,
-    );
+      />
+    ));
 
     const inputRoot = tree.find(Input);
     const input = inputRoot.find('input');
@@ -64,13 +63,13 @@ describe('EditCell', () => {
   });
 
   it('should take column align into account if align is "right"', () => {
-    const tree = mount(
+    const tree = mount((
       <EditCell
-        value={''}
+        value=""
         onValueChange={() => {}}
         column={{ align: 'right' }}
-      />,
-    );
+      />
+    ));
     const inputRoot = tree.find(Input);
     const input = inputRoot.find('input');
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
@@ -78,16 +77,16 @@ describe('EditCell', () => {
   });
 
   it('should pass style to the root element', () => {
-    const tree = mount(
+    const tree = mount((
       <EditCell
-        value={'a'}
+        value="a"
         onValueChange={() => {}}
         style={{
           width: '40px',
           height: '10px',
         }}
-      />,
-    );
+      />
+    ));
     expect(tree.find('td').prop('style'))
       .toMatchObject({
         width: '40px',
@@ -96,13 +95,13 @@ describe('EditCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount(
+    const tree = mount((
       <EditCell
         onValueChange={() => {}}
       >
         <span className="test" />
-      </EditCell>,
-    );
+      </EditCell>
+    ));
 
     expect(tree.find('.test').exists())
       .toBeTruthy();

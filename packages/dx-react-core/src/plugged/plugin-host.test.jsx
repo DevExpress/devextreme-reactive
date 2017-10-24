@@ -16,10 +16,10 @@ describe('PluginHost', () => {
       pluginHost: PropTypes.object.isRequired,
     };
 
-    mount(
+    mount((
       <PluginHost>
         <Plugin />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
   });
 });

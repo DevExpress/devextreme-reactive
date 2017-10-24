@@ -49,13 +49,15 @@ export default class DemoFrame extends React.PureComponent {
     setTimeout(this.updateFrameHeight.bind(this));
 
     if (!this.node) return;
-    const height = this.node.ownerDocument.body.getBoundingClientRect().height;
+    const { height } = this.node.ownerDocument.body.getBoundingClientRect();
     if (height !== this.state.frameHeight) {
       this.setState({ frameHeight: height });
     }
   }
   render() {
-    const { themes, currentTheme, customThemeLink, frameHeight } = this.state;
+    const {
+      themes, currentTheme, customThemeLink, frameHeight,
+    } = this.state;
 
     return (
       <div>

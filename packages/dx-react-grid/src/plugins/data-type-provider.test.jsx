@@ -14,14 +14,14 @@ describe('DataTypeProvider', () => {
   });
 
   it('should define the "valueFormatter" with correct predicate if "formatterTemplate" is specified', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <DataTypeProvider
           type="test"
           formatterTemplate={() => null}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const valueFormatter = tree.findWhere(n => n.prop('name') === 'valueFormatter');
 
@@ -36,14 +36,14 @@ describe('DataTypeProvider', () => {
   });
 
   it('should define the "valueEditor" with correct predicate if "editorTemplate" is specified', () => {
-    const tree = mount(
+    const tree = mount((
       <PluginHost>
         <DataTypeProvider
           type="test"
           editorTemplate={() => null}
         />
-      </PluginHost>,
-    );
+      </PluginHost>
+    ));
 
     const valueEditor = tree.findWhere(n => n.prop('name') === 'valueEditor');
 

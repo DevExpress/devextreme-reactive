@@ -34,7 +34,7 @@ export class VirtualTable extends React.Component {
 
     this.rowHeight = (row) => {
       let { height } = row;
-      if (typeof (row.height) === 'undefined' || height === 'auto') {
+      if (typeof height === 'undefined' || height === 'auto') {
         height = DEFAULT_HEIGHT;
       }
       return height;

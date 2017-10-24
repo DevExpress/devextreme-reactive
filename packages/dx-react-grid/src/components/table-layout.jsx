@@ -16,8 +16,8 @@ const TABLE_FLEX_TYPE = 'flex';
 const areColumnsChanged = (prevColumns, nextColumns) => {
   if (prevColumns.length !== nextColumns.length) return true;
   const prevKeys = prevColumns.map(column => column.key);
-  return nextColumns.filter(column =>
-    prevKeys.indexOf(column.key) === -1).length !== 0;
+  return nextColumns.find(column =>
+    prevKeys.indexOf(column.key) === -1) !== undefined;
 };
 
 export class TableLayout extends React.PureComponent {

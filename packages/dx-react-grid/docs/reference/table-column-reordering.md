@@ -15,15 +15,15 @@ Name | Type | Default | Description
 order | Array&lt;string&gt; | | Specifies the column order.
 defaultOrder | Array&lt;string&gt; | | Specifies the initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
-tableViewTemplate | (args: [TableViewArgs](#table-view-args)) => ReactElement | | A component that renders a wrapper, which is responsible for column dropping, around the table.
-reorderingRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a reordering row.
-reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A component that renders a reordering cell.
+tableContainerTemplate | (args: [TableContainerArgs](#table-container-args)) => ReactElement | | A component that renders a wrapper, which is responsible for column dropping, around the table.
+reorderingRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A non-visual component that renders an invisible row containing reordering cells.
+reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A non-visual component that renders an invisible cell which is required for drag-and-drop reordering functionality.
 
 ## Interfaces
 
-### <a name="table-view-args"></a>TableViewArgs
+### <a name="table-container-args"></a>TableContainerArgs
 
-Describes properties passed to the table view template.
+Describes properties passed to the table container template.
 
 A value with the following shape:
 
@@ -41,7 +41,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-getCellDimension | (fn: () => { left: number, right: number }) => void) | A function that accepts another function responsible for getting the cell's horizontal bounds.
+getCellDimensions | (dimensionsGetter: () => { left: number, right: number }) => void) | A function that accepts another function responsible for getting the cell's horizontal bounds.
 
 ## Plugin Developer Reference
 

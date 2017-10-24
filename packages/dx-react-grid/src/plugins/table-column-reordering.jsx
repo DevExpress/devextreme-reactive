@@ -125,7 +125,7 @@ export class TableColumnReordering extends React.PureComponent {
   }
   render() {
     const {
-      tableViewTemplate,
+      tableContainerTemplate,
       reorderingRowTemplate,
       reorderingCellTemplate,
     } = this.props;
@@ -144,7 +144,7 @@ export class TableColumnReordering extends React.PureComponent {
         <Template name="tableView">
           {params => (
             <TemplateRenderer
-              template={tableViewTemplate}
+              template={tableContainerTemplate}
               params={{
                 ...params,
                 onOver: this.onOver,
@@ -179,7 +179,7 @@ export class TableColumnReordering extends React.PureComponent {
                 template={reorderingCellTemplate}
                 params={{
                   ...params,
-                  getCellDimension: cellDimensionsGetter,
+                  getCellDimensions: cellDimensionsGetter,
                 }}
               />
             );
@@ -194,7 +194,7 @@ TableColumnReordering.propTypes = {
   order: PropTypes.arrayOf(PropTypes.string),
   defaultOrder: PropTypes.arrayOf(PropTypes.string),
   onOrderChange: PropTypes.func,
-  tableViewTemplate: PropTypes.func.isRequired,
+  tableContainerTemplate: PropTypes.func.isRequired,
   reorderingRowTemplate: PropTypes.func.isRequired,
   reorderingCellTemplate: PropTypes.func.isRequired,
 };

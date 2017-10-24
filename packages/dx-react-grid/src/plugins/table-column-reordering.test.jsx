@@ -31,7 +31,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const reorderingRowTemplate = jest.fn();
 const reorderingCellTemplate = jest.fn();
-const tableViewTemplate = jest.fn();
+const tableContainerTemplate = jest.fn();
 
 const defaultDeps = {
   getter: {
@@ -58,10 +58,10 @@ describe('TableColumnReordering', () => {
   });
 
   beforeEach(() => {
-    tableViewTemplate.mockImplementation(({ children }) => <div>{children}</div>);
+    tableContainerTemplate.mockImplementation(({ children }) => <div>{children}</div>);
     reorderingRowTemplate.mockImplementation(() => <div />);
-    reorderingCellTemplate.mockImplementation(({ getCellDimension }) =>
-      <div ref={node => getCellDimension(() => node.getBoundingClientRect())} />);
+    reorderingCellTemplate.mockImplementation(({ getCellDimensions }) =>
+      <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />);
     draftOrder.mockImplementation(args => args);
   });
   afterEach(() => {
@@ -75,7 +75,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             defaultOrder={['b', 'a']}
-            tableViewTemplate={tableViewTemplate}
+            tableContainerTemplate={tableContainerTemplate}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />
@@ -96,7 +96,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             order={['b', 'a']}
-            tableViewTemplate={tableViewTemplate}
+            tableContainerTemplate={tableContainerTemplate}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />
@@ -117,7 +117,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             order={['b', 'a']}
-            tableViewTemplate={tableViewTemplate}
+            tableContainerTemplate={tableContainerTemplate}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />
@@ -125,9 +125,9 @@ describe('TableColumnReordering', () => {
       </DragDropContext>
     ));
 
-    expect(tableViewTemplate)
+    expect(tableContainerTemplate)
       .toHaveBeenCalledTimes(1);
-    expect(tableViewTemplate)
+    expect(tableContainerTemplate)
       .toHaveBeenCalledWith({
         onOver: expect.any(Function),
         onLeave: expect.any(Function),
@@ -165,7 +165,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableColumnReordering
             defaultOrder={defaultOrder}
-            tableViewTemplate={props => <TableViewMock {...props} />}
+            tableContainerTemplate={props => <TableViewMock {...props} />}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />

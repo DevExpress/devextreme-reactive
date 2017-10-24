@@ -1,4 +1,6 @@
-import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
+import {
+  GROUP_KEY_SEPARATOR,
+} from '../grouping-state/constants';
 import {
   GRID_GROUP_TYPE,
   GRID_GROUP_CHECK,
@@ -19,6 +21,7 @@ export const groupedRows = (
   grouping,
   getCellValue,
   getColumnIdentity,
+  keyPrefix = '',
 ) => {
   if (!grouping.length) return rows;
 
@@ -38,35 +41,51 @@ export const groupedRows = (
       return acc;
     }, new Map());
 
+  const groupedBy = grouping[0].columnName;
   const nestedGrouping = grouping.slice(1);
   return [...groups.values()]
-    .map(([value, key, items]) => ({
-      value,
-      key,
-      items: groupedRows(items, nestedGrouping, getCellValue, getColumnIdentity),
-    }));
-};
-
-export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = '') => {
-  if (!grouping.length) return rows;
-
-  const nestedGrouping = grouping.slice(1);
-  return rows.reduce((acc, { value, key: groupKey, items }) => {
-    const groupedBy = grouping[0].columnName;
-    const key = `${keyPrefix}${groupKey}`;
-    const expanded = expandedGroups.has(key);
-    return [
-      ...acc,
-      {
+    .reduce((acc, [value, key, items]) => {
+      const compoundKey = `${keyPrefix}${key}`;
+      acc.push({
         [GRID_GROUP_CHECK]: true,
         [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
         groupedBy,
+        compoundKey,
         key,
         value,
-      },
-      ...expanded
-        ? expandedGroupRows(items, nestedGrouping, expandedGroups, `${key}${GROUP_KEY_SEPARATOR}`)
-        : [],
-    ];
+      });
+      acc.push(...groupedRows(
+        items,
+        nestedGrouping,
+        getCellValue,
+        getColumnIdentity,
+        `${compoundKey}${GROUP_KEY_SEPARATOR}`,
+      ));
+      return acc;
+    }, []);
+};
+
+export const expandedGroupRows = (rows, grouping, expandedGroups) => {
+  if (!grouping.length) return rows;
+
+  const groupingColumnNames = grouping.map(columnGrouping => columnGrouping.columnName);
+  let currentGroupExpanded = true;
+  let currentGroupLevel = 0;
+  return rows.reduce((acc, row) => {
+    if (!row[GRID_GROUP_CHECK]) {
+      if (currentGroupExpanded) acc.push(row);
+      return acc;
+    }
+
+    const groupLevel = groupingColumnNames.indexOf(row.groupedBy);
+    if (groupLevel > currentGroupLevel && !currentGroupExpanded) {
+      return acc;
+    }
+
+    currentGroupExpanded = expandedGroups.has(row.compoundKey);
+    currentGroupLevel = groupLevel;
+
+    acc.push(row);
+    return acc;
   }, []);
 };

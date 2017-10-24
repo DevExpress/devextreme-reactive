@@ -8,7 +8,7 @@ export const paginatedRows = (rows, pageSize, page) => (
 );
 
 export const rowsWithPageHeaders = (rows, pageSize, getRowLevelKey) => {
-  if (!pageSize) return rows;
+  if (!pageSize || !getRowLevelKey) return rows;
 
   let result = rows.slice();
 
@@ -16,12 +16,9 @@ export const rowsWithPageHeaders = (rows, pageSize, getRowLevelKey) => {
   let currentIndex = 0;
   while (result.length > currentIndex) {
     const row = result[currentIndex];
-    // eslint-disable-next-line no-underscore-dangle
-    const header = getRowLevelKey ? getRowLevelKey(row) : row._headerKey;
-    if (header) {
-      const headerIndex = headerRows.findIndex(headerRow =>
-        // eslint-disable-next-line no-underscore-dangle
-        (getRowLevelKey ? getRowLevelKey(headerRow) : row._headerKey) === header);
+    const levelKey = getRowLevelKey(row);
+    if (levelKey) {
+      const headerIndex = headerRows.findIndex(headerRow => getRowLevelKey(headerRow) === levelKey);
       if (headerIndex === -1) {
         headerRows = [...headerRows, row];
       } else {

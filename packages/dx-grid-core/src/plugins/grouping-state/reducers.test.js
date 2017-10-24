@@ -4,122 +4,147 @@ import {
   groupByColumn,
   draftGroupingChange,
   cancelGroupingChange,
-  removeOutdatedExpandedGroups,
   toggleExpandedGroups,
 } from './reducers';
 
 describe('GroupingState reducers', () => {
   describe('#groupByColumn', () => {
     it('can group by column', () => {
-      const grouping = [];
+      const state = {
+        grouping: [],
+      };
       const payload = { columnName: 'test' };
 
-      const nextGrouping = groupByColumn(grouping, payload);
-      expect(nextGrouping).toEqual([
-        { columnName: 'test' },
-      ]);
+      expect(groupByColumn(state, payload))
+        .toEqual({
+          grouping: [{ columnName: 'test' }],
+        });
     });
 
     it('can ungroup by column', () => {
-      const grouping = [{ columnName: 'test' }];
+      const state = {
+        grouping: [{ columnName: 'test' }],
+        expandedGroups: ['a'],
+      };
       const payload = { columnName: 'test' };
 
-      const nextGrouping = groupByColumn(grouping, payload);
-      expect(nextGrouping).toEqual([]);
+      expect(groupByColumn(state, payload))
+        .toEqual({
+          grouping: [],
+          expandedGroups: [],
+        });
     });
 
     it('can group by several columns', () => {
-      const grouping = [{ columnName: 'column1' }];
+      const state = {
+        grouping: [{ columnName: 'column1' }],
+      };
       const payload = { columnName: 'column2' };
 
-      const nextGrouping = groupByColumn(grouping, payload);
-      expect(nextGrouping).toEqual([
-        { columnName: 'column1' },
-        { columnName: 'column2' },
-      ]);
+      expect(groupByColumn(state, payload))
+        .toEqual({
+          grouping: [
+            { columnName: 'column1' },
+            { columnName: 'column2' },
+          ],
+        });
     });
 
     it('can group by column with a group index', () => {
-      const grouping = [{ columnName: 'column1' }];
+      const state = {
+        grouping: [{ columnName: 'column1' }],
+        expandedGroups: ['a'],
+      };
       const payload = { columnName: 'column2', groupIndex: 0 };
 
-      const nextGrouping = groupByColumn(grouping, payload);
-      expect(nextGrouping).toEqual([
-        { columnName: 'column2' },
-        { columnName: 'column1' },
-      ]);
+      expect(groupByColumn(state, payload))
+        .toEqual({
+          grouping: [
+            { columnName: 'column2' },
+            { columnName: 'column1' },
+          ],
+          expandedGroups: [],
+        });
     });
 
     it('should work with immutable grouping', () => {
-      const grouping = Immutable([]);
+      const state = {
+        grouping: Immutable([]),
+      };
+      const payload = { columnName: 'test' };
 
-      const nextGrouping = groupByColumn(grouping, { columnName: 'test' });
-      expect(nextGrouping).toEqual([
-        { columnName: 'test' },
-      ]);
-    });
-  });
-
-  describe('#removeOutdatedExpandedGroups', () => {
-    it('should update expanded groups depend on ungrouped column index', () => {
-      const expandedGroups = ['a', 'a|b', 'a|b|c'];
-      const nextExpandedGroups = removeOutdatedExpandedGroups(expandedGroups, {
-        prevGrouping: [{ columnName: 'w' }, { columnName: 'z' }],
-        grouping: [{ columnName: 'w' }],
-      });
-
-      expect(nextExpandedGroups).toEqual(['a']);
-    });
-
-    it('should not update expanded groups id ungrouped column index is -1', () => {
-      const expandedGroups = ['a', 'a', 'c'];
-      const nextExpandedGroups = removeOutdatedExpandedGroups(expandedGroups, {
-        prevGrouping: [{ columnName: 'w' }, { columnName: 'z' }],
-        grouping: [{ columnName: 'w' }, { columnName: 'z' }, { columnName: 'y' }],
-      });
-
-      expect(nextExpandedGroups).toBe(expandedGroups);
+      expect(groupByColumn(state, payload))
+        .toEqual({
+          grouping: [
+            { columnName: 'test' },
+          ],
+        });
     });
   });
 
   describe('#toggleExpandedGroups', () => {
     it('should add an opened group', () => {
-      const groups = toggleExpandedGroups(['a', 'b'], { groupKey: 'c' });
+      const state = {
+        expandedGroups: ['a', 'b'],
+      };
+      const payload = { groupKey: 'c' };
 
-      expect(groups).toEqual(['a', 'b', 'c']);
+      expect(toggleExpandedGroups(state, payload))
+        .toEqual({
+          expandedGroups: ['a', 'b', 'c'],
+        });
     });
 
     it('should remove a closed group', () => {
-      const groups = toggleExpandedGroups(['a', 'b', 'c'], { groupKey: 'c' });
+      const state = {
+        expandedGroups: ['a', 'b', 'c'],
+      };
+      const payload = { groupKey: 'c' };
 
-      expect(groups).toEqual(['a', 'b']);
+      expect(toggleExpandedGroups(state, payload))
+        .toEqual({
+          expandedGroups: ['a', 'b'],
+        });
     });
 
     it('should work with immutable groups', () => {
-      const groups = toggleExpandedGroups(Immutable(['a']), { groupKey: 'b' });
+      const state = {
+        expandedGroups: Immutable(['a']),
+      };
+      const payload = { groupKey: 'b' };
 
-      expect(groups).toEqual(['a', 'b']);
+      expect(toggleExpandedGroups(state, payload))
+        .toEqual({
+          expandedGroups: ['a', 'b'],
+        });
     });
   });
-});
 
-describe('GroupingChangeState reducers', () => {
   describe('#draftGroupingChange', () => {
     it('can start grouping change', () => {
-      const groupingChange = null;
+      const state = {
+        groupingChange: null,
+      };
       const payload = { columnName: 'test', groupIndex: 2 };
 
-      const nextGrouping = draftGroupingChange(groupingChange, payload);
-      expect(nextGrouping).toEqual({ columnName: 'test', groupIndex: 2 });
+      expect(draftGroupingChange(state, payload))
+        .toEqual({
+          groupingChange: { columnName: 'test', groupIndex: 2 },
+        });
     });
   });
 
   describe('#cancelGroupingChange', () => {
     it('can cancel grouping change', () => {
-      const groupingChange = { columnName: 'test', groupIndex: 2 };
+      const state = {
+        groupingChange: { columnName: 'test', groupIndex: 2 },
+      };
+      const payload = null;
 
-      const nextGrouping = cancelGroupingChange(groupingChange);
-      expect(nextGrouping).toEqual(null);
+      expect(cancelGroupingChange(state, payload))
+        .toEqual({
+          groupingChange: null,
+        });
     });
   });
 });

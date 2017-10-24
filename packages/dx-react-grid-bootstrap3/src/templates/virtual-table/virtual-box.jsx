@@ -1,10 +1,10 @@
-/* global document */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function testCSSProp(property, value, noPrefixes) {
+let stickyProp;
+const testCSSProp = (property, value, noPrefixes) => {
   const prop = `${property}:`;
+  // eslint-disable-next-line no-undef
   const el = document.createElement('test');
   const mStyle = el.style;
 
@@ -14,8 +14,7 @@ function testCSSProp(property, value, noPrefixes) {
     mStyle.cssText = prop + value;
   }
   return mStyle[property];
-}
-const stickyProp = testCSSProp('position', 'sticky');
+};
 
 function getVisibleItems(options) {
   let viewportStart = options.viewport.start;
@@ -32,7 +31,9 @@ function getVisibleItems(options) {
     const itemStick = itemInfo.stick;
 
     if (itemStick === 'before' && offset <= viewportStart) {
-      stickyItemsMetas.push({ index, offset, size: itemSize, stick: itemStick });
+      stickyItemsMetas.push({
+        index, offset, size: itemSize, stick: itemStick,
+      });
       viewportStart += itemSize;
     }
 
@@ -45,7 +46,9 @@ function getVisibleItems(options) {
       itemSize > 0 &&
       itemStick === false
     ) {
-      visibleItemMetas.push({ index, offset, size: itemSize, stick: false });
+      visibleItemMetas.push({
+        index, offset, size: itemSize, stick: false,
+      });
     }
 
     index += 1;
@@ -62,7 +65,7 @@ function getVisibleItems(options) {
 export class VirtualBox extends React.Component {
   getChildContext() {
     const { direction, position, stick } = this.props;
-    const viewport = this.context.virtualHost.viewport;
+    const { viewport } = this.context.virtualHost;
 
     const positionProp = direction === 'horizontal' ? 'left' : 'top';
     const crossPositionProp = direction === 'horizontal' ? 'top' : 'left';
@@ -78,15 +81,21 @@ export class VirtualBox extends React.Component {
             ? viewport[sizeProp]
             : Math.min(
               (viewport[positionProp] + viewport[sizeProp]) - position,
-              viewport[sizeProp]),
+              viewport[sizeProp],
+            ),
           [crossSizeProp]: viewport[crossSizeProp],
         },
       },
     };
   }
+  componentDidMount() {
+    if (stickyProp === undefined) {
+      stickyProp = testCSSProp('position', 'sticky');
+    }
+  }
   getItemStyles({ position, size, stick }) {
     const { direction, crossSize } = this.props;
-    const viewport = this.context.virtualHost.viewport;
+    const { viewport } = this.context.virtualHost;
 
     const positionProp = direction === 'horizontal' ? 'left' : 'top';
     const sizeProp = direction === 'horizontal' ? 'width' : 'height';
@@ -137,8 +146,10 @@ export class VirtualBox extends React.Component {
     };
   }
   render() {
-    const { direction, position, stick, iref, rootTagTemplate } = this.props;
-    const viewport = this.context.virtualHost.viewport;
+    const {
+      direction, position, stick, iref, rootTagTemplate,
+    } = this.props;
+    const { viewport } = this.context.virtualHost;
 
     const positionProp = direction === 'horizontal' ? 'left' : 'top';
     const sizeProp = direction === 'horizontal' ? 'width' : 'height';

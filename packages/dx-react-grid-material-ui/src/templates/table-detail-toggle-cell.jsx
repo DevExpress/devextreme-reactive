@@ -20,7 +20,9 @@ const styles = theme => ({
   },
 });
 
-const TableDetailToggleCellBase = ({ style, expanded, classes, toggleExpanded }) => (
+const TableDetailToggleCellBase = ({
+  style, expanded, classes, toggleExpanded,
+}) => (
   <TableCell
     className={classes.toggleCell}
     style={style}
@@ -40,7 +42,7 @@ const TableDetailToggleCellBase = ({ style, expanded, classes, toggleExpanded })
 );
 
 TableDetailToggleCellBase.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   expanded: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   toggleExpanded: PropTypes.func,

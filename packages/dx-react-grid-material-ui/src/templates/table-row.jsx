@@ -12,7 +12,7 @@ export const TableRow = ({ children, style }) => (
 
 TableRow.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.shape(),
+  style: PropTypes.object,
 };
 
 TableRow.defaultProps = {

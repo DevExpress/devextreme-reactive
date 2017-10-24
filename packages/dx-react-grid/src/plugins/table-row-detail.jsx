@@ -23,9 +23,7 @@ const getDetailToggleTableCellTemplateArgs = (
   toggleExpanded: () => setDetailRowExpanded({ rowId: params.tableRow.rowId }),
 });
 
-const getDetailTableCellTemplateArgs = (
-  { template, ...params },
-) => ({
+const getDetailTableCellTemplateArgs = ({ template, ...params }) => ({
   ...params,
   row: params.tableRow.row,
   template: () => template({ row: params.tableRow.row }),

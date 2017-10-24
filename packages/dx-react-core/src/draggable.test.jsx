@@ -37,8 +37,8 @@ describe('Draggable', () => {
   });
 
   describe('mouse', () => {
-    const elementFromPoint = document.elementFromPoint;
-    const getComputedStyle = window.getComputedStyle;
+    const { elementFromPoint } = document;
+    const { getComputedStyle } = window;
     beforeEach(() => {
       document.elementFromPoint = jest.fn();
       window.getComputedStyle = jest.fn().mockImplementation(() => ({ style: { cursor: '' } }));

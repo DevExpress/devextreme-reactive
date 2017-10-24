@@ -19,8 +19,6 @@ describe('BS3 filtering: remote-filtering', () => {
   });
 
   it('should work', () => {
-    mount(
-      <Demo />,
-    );
+    mount(<Demo />);
   });
 });

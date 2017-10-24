@@ -61,7 +61,7 @@ export class TableHeaderCell extends React.PureComponent {
         )}
         <div
           style={{
-            [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px',
+            ...(allowGroupingByClick ? { [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px' } : null),
             textAlign: align,
             whiteSpace: 'nowrap',
             overflow: 'hidden',
@@ -105,7 +105,7 @@ TableHeaderCell.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,

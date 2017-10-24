@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const EditCell = ({ column, value, onValueChange, style, children }) => (
+export const EditCell = ({
+  column, value, onValueChange, style, children,
+}) => (
   <td
     style={{
       verticalAlign: 'middle',

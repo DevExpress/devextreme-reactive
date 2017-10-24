@@ -7,10 +7,6 @@ import {
   getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
 
-const pluginDependencies = [
-  { pluginName: 'LocalGrouping', optional: true },
-];
-
 const availableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
   getAvailableToSelect(rows, getRowId, isGroupRow);
 
@@ -39,7 +35,6 @@ export class SelectionState extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="SelectionState"
-        dependencies={pluginDependencies}
       >
         <Action
           name="setRowsSelection"

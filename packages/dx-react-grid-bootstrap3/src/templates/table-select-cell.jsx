@@ -30,7 +30,7 @@ TableSelectCell.defaultProps = {
   changeSelected: () => {},
 };
 TableSelectCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   selected: PropTypes.bool,
   changeSelected: PropTypes.func,
 };

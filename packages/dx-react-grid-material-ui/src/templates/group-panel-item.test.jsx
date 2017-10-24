@@ -13,40 +13,40 @@ describe('GroupPanelItem', () => {
   });
 
   it('should use column name if title is not specified', () => {
-    const tree = mount(
+    const tree = mount((
       <GroupPanelItem
         column={{
           name: 'Test',
         }}
-      />,
-    );
+      />
+    ));
 
     expect(tree.text()).toBe('Test');
   });
 
   it('should not render the "TableSortLabel" component if sorting is disabled', () => {
-    const tree = mount(
+    const tree = mount((
       <GroupPanelItem
         column={{
           name: 'Test',
         }}
-      />,
-    );
+      />
+    ));
 
     expect(tree.find('TableSortLabel').exists()).toBeFalsy();
   });
 
   it('should cancel sorting by using the Ctrl key', () => {
     const changeSortingDirection = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <GroupPanelItem
         column={{
           name: 'Test',
         }}
         changeSortingDirection={changeSortingDirection}
         allowSorting
-      />,
-    );
+      />
+    ));
 
     tree.find(Chip).simulate('click', { ctrlKey: true });
 
@@ -56,15 +56,15 @@ describe('GroupPanelItem', () => {
 
   it('should use column name for sorting', () => {
     const changeSortingDirection = jest.fn();
-    const tree = mount(
+    const tree = mount((
       <GroupPanelItem
         column={{
           name: 'Test',
         }}
         changeSortingDirection={changeSortingDirection}
         allowSorting
-      />,
-    );
+      />
+    ));
 
     tree.find(Chip).simulate('click');
 
@@ -72,14 +72,14 @@ describe('GroupPanelItem', () => {
   });
 
   it('can render the ungroup button', () => {
-    const tree = mount(
+    const tree = mount((
       <GroupPanelItem
         column={{
           name: 'test',
         }}
         allowUngroupingByClick
-      />,
-    );
+      />
+    ));
     expect(tree.find('Chip').props())
       .toHaveProperty('onRequestDelete');
   });

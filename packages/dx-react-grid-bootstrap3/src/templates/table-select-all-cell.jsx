@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableSelectAllCell = (
-  { style, allSelected, someSelected, selectionAvailable, toggleAll },
-) => (
+export const TableSelectAllCell = ({
+  style, allSelected, someSelected, selectionAvailable, toggleAll,
+}) => (
   <th
     style={{
       cursor: selectionAvailable && 'pointer',
@@ -37,7 +37,7 @@ export const TableSelectAllCell = (
 );
 
 TableSelectAllCell.propTypes = {
-  style: PropTypes.shape(),
+  style: PropTypes.object,
   allSelected: PropTypes.bool,
   someSelected: PropTypes.bool,
   selectionAvailable: PropTypes.bool,

@@ -9,9 +9,9 @@ export * from './plugins/filtering-state/helpers';
 export * from './plugins/local-filtering/computeds';
 
 export * from './plugins/grouping-state/reducers';
-export * from './plugins/grouping-state/helpers';
 export * from './plugins/grouping-state/computeds';
 export * from './plugins/local-grouping/computeds';
+export * from './plugins/custom-grouping/computeds';
 export * from './plugins/grouping-panel/helpers';
 
 export * from './plugins/paging-state/reducers';

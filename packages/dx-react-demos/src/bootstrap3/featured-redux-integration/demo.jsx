@@ -1,5 +1,3 @@
-/* global window */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createStore } from 'redux';
@@ -41,7 +39,7 @@ const GridDetailContainer = ({
   </div>
 );
 GridDetailContainer.propTypes = {
-  data: PropTypes.shape().isRequired,
+  data: PropTypes.object.isRequired,
   columns: PropTypes.array.isRequired,
 };
 
@@ -183,7 +181,9 @@ const gridInitialState = {
     { name: 'startDate', title: 'Start Date', width: 115 },
     { name: 'dueDate', title: 'Due Date', width: 115 },
     { name: 'priority', title: 'Priority', width: 100 },
-    { name: 'status', title: 'Status', caption: 'Completed', width: 125 },
+    {
+      name: 'status', title: 'Status', caption: 'Completed', width: 125,
+    },
   ],
   rows: generateRows({
     columnValues: {
@@ -256,6 +256,7 @@ const ReduxGridContainer = connect(mapStateToProps, mapDispatchToProps)(GridCont
 const store = createStore(
   gridReducer,
   // Enabling Redux DevTools Extension (https://github.com/zalmoxisus/redux-devtools-extension)
+  // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 

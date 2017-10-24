@@ -38,7 +38,7 @@ const GroupCellTemplate = ({
 
 GroupCellTemplate.propTypes = {
   colSpan: PropTypes.number,
-  row: PropTypes.shape(),
+  row: PropTypes.object,
   isExpanded: PropTypes.bool,
   toggleGroupExpanded: PropTypes.func,
 };

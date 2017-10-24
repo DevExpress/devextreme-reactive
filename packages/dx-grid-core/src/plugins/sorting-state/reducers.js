@@ -1,39 +1,37 @@
-export const setColumnSorting = (sorting, {
-  columnName, direction, keepOther, cancel, scope,
+export const setColumnSorting = (state, {
+  columnName, direction, keepOther, cancel, sortIndex,
 }) => {
-  const sortingIndex = sorting.findIndex(s => s.columnName === columnName);
-  const columnSorting = sorting[sortingIndex];
-  let nextSorting = keepOther ? sorting.slice() : [];
+  const { sorting } = state;
 
-  if (scope) {
-    nextSorting = [
-      ...nextSorting,
-      ...sorting.filter(sort =>
-        scope.indexOf(sort.columnName) === -1 &&
-        sort.columnName !== columnName),
-    ];
+  let nextSorting = [];
+  if (keepOther === true) {
+    nextSorting = Array.from(sorting).slice();
+  }
+  if (Array.isArray(keepOther)) {
+    nextSorting = Array.from(sorting)
+      .filter(columnSorting => keepOther.indexOf(columnSorting.columnName) > -1);
   }
 
-  if (columnSorting) {
-    const updatedSorting = {
-      ...columnSorting,
-      direction: columnSorting.direction === 'asc' ? 'desc' : 'asc',
-    };
-    if (keepOther && cancel) {
-      nextSorting.splice(sortingIndex, 1);
-    } else if (keepOther && !cancel) {
-      nextSorting.splice(sortingIndex, 1, updatedSorting);
-    } else if (!keepOther && cancel) {
-      nextSorting.length = 0;
-    } else {
-      nextSorting.push(updatedSorting);
-    }
-  } else if (!cancel) {
-    nextSorting.push({
-      columnName,
-      direction: direction || 'asc',
-    });
+  const columnSortingIndex = sorting
+    .findIndex(columnSorting => columnSorting.columnName === columnName);
+  const columnSorting = sorting[columnSortingIndex];
+  const newColumnSorting = {
+    columnName,
+    direction: direction ||
+      (!columnSorting || columnSorting.direction === 'desc' ? 'asc' : 'desc'),
+  };
+
+  if (columnSortingIndex > -1) {
+    nextSorting.splice(columnSortingIndex, 1);
   }
 
-  return nextSorting;
+  if (!cancel) {
+    const newIndexFallback = columnSortingIndex > -1 ? columnSortingIndex : nextSorting.length;
+    const newIndex = sortIndex !== undefined ? sortIndex : newIndexFallback;
+    nextSorting.splice(newIndex, 0, newColumnSorting);
+  }
+
+  return {
+    sorting: nextSorting,
+  };
 };

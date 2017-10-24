@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 sorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting.
-defaultSorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies initial sorting in the uncontrolled mode.
+defaultSorting | Array&lt;[Sorting](#sorting)&gt; | [] | Specifies initial sorting in the uncontrolled mode.
 onSortingChange | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes.
 
 ## Interfaces
@@ -40,4 +40,4 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 sorting | Getter | Array&lt;[Sorting](#sorting)&gt; | Applied column sorting.
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean, cancel: boolean, scope: Array&lt;String&gt; }) => void | Changes a column's sort direction. Keeps existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to `true`. The `scope` array contains the names of columns taken into account when sorting.
+setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.

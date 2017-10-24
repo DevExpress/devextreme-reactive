@@ -25,30 +25,35 @@ describe('TemplateConnector', () => {
   });
 
   it('should register itself in the plugin host', () => {
-    shallow((
-      <TemplateConnector>
-        {() => <div />}
-      </TemplateConnector>
-    ), {
-      context: {
-        pluginHost,
+    shallow(
+      (
+        <TemplateConnector>
+          {() => <div />}
+        </TemplateConnector>
+      ),
+      {
+        context: {
+          pluginHost,
+        },
       },
-    });
+    );
 
     expect(pluginHost.registerSubscription)
       .toHaveBeenCalledTimes(1);
   });
 
   it('should unregister itself in the plugin host', () => {
-    const tree = shallow((
-      <TemplateConnector>
-        {() => <div />}
-      </TemplateConnector>
-    ), {
-      context: {
-        pluginHost,
+    const tree = shallow(
+      (
+        <TemplateConnector>
+          {() => <div />}
+        </TemplateConnector>
+      ), {
+        context: {
+          pluginHost,
+        },
       },
-    });
+    );
 
     tree.unmount();
 
@@ -79,34 +84,39 @@ describe('TemplateConnector', () => {
     it('should provide all known getters and actions', () => {
       const connected = jest.fn().mockImplementation(() => <div />);
 
-      shallow((
-        <TemplateConnector>
-          {connected}
-        </TemplateConnector>
-      ), {
-        context: {
-          pluginHost,
+      shallow(
+        (
+          <TemplateConnector>
+            {connected}
+          </TemplateConnector>
+        ), {
+          context: {
+            pluginHost,
+          },
         },
-      });
+      );
 
       expect(connected)
         .toBeCalledWith(
           expect.objectContaining({ a: 1, b: 2 }),
-          expect.objectContaining({ a: expect.any(Function), b: expect.any(Function) }));
+          expect.objectContaining({ a: expect.any(Function), b: expect.any(Function) }),
+        );
     });
 
     it('should render content when dependent getter value changed', () => {
       const connected = jest.fn().mockImplementation(({ a }) => <div>{a}</div>);
 
-      shallow((
-        <TemplateConnector>
-          {connected}
-        </TemplateConnector>
-      ), {
-        context: {
-          pluginHost,
+      shallow(
+        (
+          <TemplateConnector>
+            {connected}
+          </TemplateConnector>
+        ), {
+          context: {
+            pluginHost,
+          },
         },
-      });
+      );
 
       knownGetters.a = 3;
       pluginHost.registerSubscription.mock.calls[0][0][UPDATE_CONNECTION]();
@@ -118,15 +128,18 @@ describe('TemplateConnector', () => {
     it('should not render content when not tracking getter value changed', () => {
       const connected = jest.fn().mockImplementation(({ a }) => <div>{a}</div>);
 
-      shallow((
-        <TemplateConnector>
-          {connected}
-        </TemplateConnector>
-      ), {
-        context: {
-          pluginHost,
+      shallow(
+        (
+          <TemplateConnector>
+            {connected}
+          </TemplateConnector>
+        ),
+        {
+          context: {
+            pluginHost,
+          },
         },
-      });
+      );
 
       knownGetters.b = 4;
       pluginHost.registerSubscription.mock.calls[0][0][UPDATE_CONNECTION]();

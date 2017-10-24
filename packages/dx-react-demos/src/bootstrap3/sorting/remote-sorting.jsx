@@ -71,7 +71,9 @@ export default class Demo extends React.PureComponent {
     this.lastQuery = queryString;
   }
   render() {
-    const { rows, columns, sorting, loading } = this.state;
+    const {
+      rows, columns, sorting, loading,
+    } = this.state;
 
     return (
       <div style={{ position: 'relative' }}>

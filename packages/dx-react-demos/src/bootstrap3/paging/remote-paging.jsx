@@ -70,7 +70,9 @@ export default class Demo extends React.PureComponent {
     this.lastQuery = queryString;
   }
   render() {
-    const { rows, columns, pageSize, currentPage, totalCount, loading } = this.state;
+    const {
+      rows, columns, pageSize, currentPage, totalCount, loading,
+    } = this.state;
 
     return (
       <div style={{ position: 'relative' }}>

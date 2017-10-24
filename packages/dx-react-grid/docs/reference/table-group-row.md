@@ -18,7 +18,7 @@ groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | 
 groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell.
 groupRowTemplate | (args: [GroupRowArgs](#group-row-args)) => ReactElement | | A component that renders a group row.
 groupIndentColumnWidth | number | | The group indent column's width.
-showColumnWhenGrouped | (args: columnName) => boolean | null | A custom function that returns a boolean value defining if the grid displays the column by which data is grouped.
+showColumnWhenGrouped | (args: columnName) => boolean | null | A custom function that returns a boolean value specifying if the grid displays the column by which data is grouped.
 
 ## Interfaces
 
@@ -71,7 +71,7 @@ Describes the group row structure.
 
 Field | Type | Description
 ------|------|------------
-key | string | The current group key.
+key | number &#124; string | The current group key.
 value | any | The current group value.
 
 ## Plugin Developer Reference

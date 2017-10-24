@@ -64,6 +64,8 @@ react:
           path: /react/grid/docs/reference/local-sorting
         - title: LocalGrouping
           path: /react/grid/docs/reference/local-grouping
+        - title: CustomGrouping
+          path: /react/grid/docs/reference/custom-grouping
         - title: LocalPaging
           path: /react/grid/docs/reference/local-paging
         - title: TableView

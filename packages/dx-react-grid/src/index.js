@@ -11,6 +11,7 @@ export { LocalPaging } from './plugins/local-paging';
 
 export { GroupingState } from './plugins/grouping-state';
 export { LocalGrouping } from './plugins/local-grouping';
+export { CustomGrouping } from './plugins/custom-grouping';
 
 export { SelectionState } from './plugins/selection-state';
 

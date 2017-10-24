@@ -15,7 +15,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Column Reordering Setup
 
-Import the plugins listed above to set up a simple Grid with column reordering enabled. Note that the [TableColumnReordering](../reference/table-column-reordering.md) plugin should be placed after the [TableView](../reference/table-view.md) plugin.
+Import the plugins listed above to set up a simple Grid with column reordering enabled.
 
 Enable end-user interactions by setting the [TableHeaderRow](../reference/table-header-row.md) plugin's `allowDragging` property to true.
 

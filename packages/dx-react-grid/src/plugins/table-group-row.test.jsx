@@ -231,31 +231,72 @@ describe('TableGroupRow', () => {
       }));
   });
 
-  it('should render group cell on select group column and group row intersection', () => {
-    isGroupTableCell.mockImplementation(() => true);
-    const groupCellTemplate = jest.fn(() => null);
+  describe('groupCellTemplate', () => {
+    it('should render group cell on select group column and group row intersection', () => {
+      isGroupTableCell.mockImplementation(() => true);
+      const groupCellTemplate = jest.fn(() => null);
 
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableGroupRow
-          {...defaultProps}
-          groupCellTemplate={groupCellTemplate}
-        />
-      </PluginHost>
-    ));
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+            groupCellTemplate={groupCellTemplate}
+          />
+        </PluginHost>
+      ));
 
-    expect(isGroupTableCell)
-      .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
-      );
-    expect(groupCellTemplate)
-      .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
-        column: defaultDeps.template.tableViewCell.tableColumn.column,
-      }));
+      expect(isGroupTableCell)
+        .toBeCalledWith(
+          defaultDeps.template.tableViewCell.tableRow,
+          defaultDeps.template.tableViewCell.tableColumn,
+        );
+      expect(groupCellTemplate)
+        .toBeCalledWith(expect.objectContaining({
+          ...defaultDeps.template.tableViewCell,
+          row: defaultDeps.template.tableViewCell.tableRow.row,
+          column: defaultDeps.template.tableViewCell.tableColumn.column,
+        }));
+    });
+
+    it('should provide correct cell params', () => {
+      isGroupTableCell.mockImplementation(() => true);
+      const groupCellTemplate = jest.fn(() => null);
+
+      const deps = {
+        getter: {
+          expandedGroups: new Set(),
+        },
+        template: {
+          tableViewCell: {
+            tableRow: { row: { compoundKey: '1' } },
+            tableColumn: {},
+          },
+        },
+      };
+      jest.spyOn(deps.getter.expandedGroups, 'has').mockReturnValue('hasTest');
+
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableGroupRow
+            {...defaultProps}
+            groupCellTemplate={groupCellTemplate}
+          />
+        </PluginHost>
+      ));
+      expect(groupCellTemplate)
+        .toBeCalledWith(expect.objectContaining({
+          isExpanded: 'hasTest',
+          toggleGroupExpanded: expect.any(Function),
+        }));
+      expect(deps.getter.expandedGroups.has)
+        .toBeCalledWith('1');
+
+      groupCellTemplate.mock.calls[0][0].toggleGroupExpanded();
+      expect(defaultDeps.action.toggleGroupExpanded.mock.calls[0][0])
+        .toEqual({ groupKey: '1' });
+    });
   });
 
   it('can render custom formatted data in group row cell', () => {

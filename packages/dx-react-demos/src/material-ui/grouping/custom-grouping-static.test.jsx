@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Demo from './local-grouping-custom';
+import Demo from './custom-grouping-static';
 
-describe('MUI: local-grouping-custom', () => {
+describe('MUI: custom-grouping-static', () => {
   it('should work', () => {
     mount(<Demo />);
   });

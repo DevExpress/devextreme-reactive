@@ -34,7 +34,7 @@ export default class Demo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 30 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       allowedPageSizes: [5, 10, 15],
     };
   }

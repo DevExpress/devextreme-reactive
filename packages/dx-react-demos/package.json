@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-demos",
-  "version": "1.0.0-alpha.13",
+  "version": "1.0.0-alpha.14",
   "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -28,10 +28,10 @@
     ]
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "1.0.0-alpha.13",
-    "@devexpress/dx-react-grid": "1.0.0-alpha.13",
-    "@devexpress/dx-react-grid-bootstrap3": "1.0.0-alpha.13",
-    "@devexpress/dx-react-grid-material-ui": "1.0.0-alpha.13",
+    "@devexpress/dx-react-core": "1.0.0-alpha.14",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.14",
+    "@devexpress/dx-react-grid-bootstrap3": "1.0.0-alpha.14",
+    "@devexpress/dx-react-grid-material-ui": "1.0.0-alpha.14",
     "core-js": "^2.5.1",
     "material-ui": "1.0.0-beta.17",
     "material-ui-icons": "1.0.0-beta.17",

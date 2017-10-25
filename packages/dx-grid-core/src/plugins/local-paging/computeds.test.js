@@ -172,20 +172,16 @@ describe('LocalPaging computeds', () => {
       }).toThrowError(/page size/);
     });
 
-    // TODO: remove with custom grouping release
-    it('should work in legacy mode', () => {
+    it('should return original rows if getRowLevelKey getter is not defined', () => {
       const rows = [
-        { a: 1, _headerKey: 'a' },
-        { a: 2 },
-        { a: 3 },
+        { a: 1, levelKey: 'a' },
+        { a: 2, levelKey: 'b' },
+        { a: 3, levelKey: 'c' },
+        { a: 4 },
       ];
 
-      const computedRows = rowsWithPageHeaders(rows, 2);
-      expect(computedRows).toHaveLength(4);
-      expect(computedRows[0]).toBe(rows[0]);
-      expect(computedRows[1]).toBe(rows[1]);
-      expect(computedRows[2]).toBe(rows[0]);
-      expect(computedRows[3]).toBe(rows[2]);
+      expect(rowsWithPageHeaders(rows, 3))
+        .toBe(rows);
     });
   });
 });

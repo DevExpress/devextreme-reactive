@@ -150,6 +150,10 @@ export const demos = {
       bootstrap3: require('./bootstrap3/grouping/local-grouping-static').default,
       'material-ui': require('./material-ui/grouping/local-grouping-static').default,
     },
+    'custom-grouping-static': {
+      bootstrap3: require('./bootstrap3/grouping/custom-grouping-static').default,
+      'material-ui': require('./material-ui/grouping/custom-grouping-static').default,
+    },
     'local-grouping-with-ui': {
       bootstrap3: require('./bootstrap3/grouping/local-grouping-with-ui').default,
       'material-ui': require('./material-ui/grouping/local-grouping-with-ui').default,
@@ -165,6 +169,9 @@ export const demos = {
     'local-grouping-custom-advanced': {
       bootstrap3: require('./bootstrap3/grouping/local-grouping-custom-advanced').default,
       'material-ui': require('./material-ui/grouping/local-grouping-custom-advanced').default,
+    },
+    'remote-grouping-with-local-expanding': {
+      bootstrap3: require('./bootstrap3/grouping/remote-grouping-with-local-expanding').default,
     },
   },
   immutability: {

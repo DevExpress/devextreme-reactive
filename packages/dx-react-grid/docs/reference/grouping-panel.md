@@ -21,7 +21,7 @@ allowDragging | boolean | false | Specifies whether an end-user can change the g
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel.
 groupPanelItemTemplate? | (args: [GroupPanelItemProps](#group-panel-item-props)) => ReactElement | | Renders a group panel item. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
-messages | object | | The object specifies [localization messages](#localization-messages).
+messages | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 

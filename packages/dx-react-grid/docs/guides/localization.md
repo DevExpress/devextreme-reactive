@@ -1,6 +1,6 @@
 # Localization
 
-The React Grid provide convenient API that can be used for localization purposes. If a plugin contains text information that can be localized, it has a `messages` option bag. For example, the TableView supports such option like `messages.noData`. The usage is quite easy:
+The React Grid provides a simple localization API. Each plugin accepts the `messages` option bag specifying localized messages. In the following example, German localization is applied to the `TableView` plugin's "no data" text using the `messages` bag's `noData` field.
 
 {% raw %}
 ```js
@@ -10,8 +10,6 @@ The React Grid provide convenient API that can be used for localization purposes
 ```
 {% endraw %}
 
-Here we are using german localization message instead of english.
-
-The following demo shows more complex scenario:
+The following demo demonstrates more complex scenario:
 
 .embedded-demo(localization/basic)

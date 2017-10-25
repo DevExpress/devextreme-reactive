@@ -13,7 +13,7 @@ export const filteredRows = (
   if (!filters.length) return rows;
   const compoundPredicate = filters.reduce(
     (prevCompare, filter) => (row) => {
-      if (isGroupRow(row)) return true;
+      if (isGroupRow && isGroupRow(row)) return true;
       const { columnName, ...filterConfig } = filter;
       const predicate = (getColumnPredicate && getColumnPredicate(columnName)) || defaultPredicate;
       return prevCompare(row) && predicate(getCellValue(row, columnName), filterConfig, row);

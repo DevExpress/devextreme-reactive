@@ -67,8 +67,31 @@ describe('LocalFiltering computeds', () => {
         ]);
     });
 
-    // it('should filter grouped rows', () => {
+    it('should filter grouped rows', () => {
+      const filters = [{ columnName: 'a', value: 1 }];
+      const isGroupRow = row => row.group;
+      const groupedRows = [
+        { group: true },
+        { a: 1, b: 1 },
+        { a: 1, b: 2 },
+        { group: true },
+        { a: 2, b: 1 },
+        { a: 2, b: 2 },
+      ];
 
-    // });
+      const filtered = filteredRows(
+        groupedRows,
+        filters,
+        getCellValue,
+        () => undefined,
+        isGroupRow,
+      );
+      expect(filtered).toEqual([
+        { group: true },
+        { a: 1, b: 1 },
+        { a: 1, b: 2 },
+        { group: true },
+      ]);
+    });
   });
 });

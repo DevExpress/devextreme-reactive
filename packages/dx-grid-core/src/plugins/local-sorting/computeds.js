@@ -57,9 +57,7 @@ const sortRows = (rows, compare, isGroupRow) => {
         sorted.push(rows[to]);
       }
 
-      // ? boundaries.splice(0, 2, to + 1);
-      boundaries.splice(0, 1);
-      boundaries[0] += 1;
+      boundaries.splice(0, 2, to + 1);
     }
 
     return acc;

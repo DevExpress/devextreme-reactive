@@ -128,5 +128,83 @@ describe('LocalSorting computeds', () => {
         { a: 1, b: 2 },
       ]);
     });
+
+    it('should sort grouped rows', () => {
+      const getColumnCompare = () => undefined;
+      const isGroupRow = row => row.group;
+      const sorting = [{ columnName: 'a', direction: 'desc' }];
+
+      let sorted = sortedRows([
+        { group: true },
+        { a: 1, b: 1 },
+        { a: 2, b: 2 },
+        { group: true },
+        { a: 1, b: 2 },
+        { a: 2, b: 1 },
+      ], sorting, getCellValue, getColumnCompare, isGroupRow);
+
+      expect(sorted).toEqual([
+        { group: true },
+        { a: 2, b: 2 },
+        { a: 1, b: 1 },
+        { group: true },
+        { a: 2, b: 1 },
+        { a: 1, b: 2 },
+      ]);
+
+      sorted = sortedRows([
+        { a: 1, b: 1 },
+        { a: 2, b: 2 },
+        { group: true },
+        { group: true },
+        { a: 1, b: 2 },
+        { a: 2, b: 1 },
+      ], sorting, getCellValue, getColumnCompare, isGroupRow);
+
+      expect(sorted).toEqual([
+        { a: 2, b: 2 },
+        { a: 1, b: 1 },
+        { group: true },
+        { group: true },
+        { a: 2, b: 1 },
+        { a: 1, b: 2 },
+      ]);
+
+      sorted = sortedRows([
+        { a: 1, b: 1 },
+        { a: 2, b: 2 },
+        { group: true },
+        { a: 1, b: 2 },
+        { a: 2, b: 1 },
+        { group: true },
+      ], sorting, getCellValue, getColumnCompare, isGroupRow);
+
+      expect(sorted).toEqual([
+        { a: 2, b: 2 },
+        { a: 1, b: 1 },
+        { group: true },
+        { a: 2, b: 1 },
+        { a: 1, b: 2 },
+        { group: true },
+      ]);
+
+      sorted = sortedRows([
+        { group: true },
+        { a: 1, b: 1 },
+        { a: 2, b: 2 },
+        { a: 1, b: 2 },
+        { a: 2, b: 1 },
+        { group: true },
+      ], sorting, getCellValue, getColumnCompare, isGroupRow);
+
+      expect(sorted).toEqual([
+        { group: true },
+        { a: 2, b: 2 },
+        { a: 2, b: 1 },
+        { a: 1, b: 1 },
+        { a: 1, b: 2 },
+        { group: true },
+      ]);
+    });
   });
 });

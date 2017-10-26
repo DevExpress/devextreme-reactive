@@ -6,6 +6,8 @@ import {
   groupRowLevelKeyGetter,
   groupedRows,
   expandedGroupRows,
+  groupTree,
+  unwrappedGroupTree,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -32,6 +34,8 @@ export class LocalGrouping extends React.PureComponent {
         <Getter name="getRowLevelKey" value={groupRowLevelKeyGetter} />
         <Getter name="rows" computed={groupedRowsComputed} />
         <Getter name="rows" computed={expandedGroupedRowsComputed} />
+        <Getter name="groupTree" value={groupTree} />
+        <Getter name="unwrappedGroupTree" value={unwrappedGroupTree} />
       </PluginContainer>
     );
   }

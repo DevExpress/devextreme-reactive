@@ -70,3 +70,52 @@ export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = ''
     ];
   }, []);
 };
+
+export const groupTree = rows => rows.reduce((acc, row) => {
+  const { key: groupKey } = row;
+  const { processed, groupKeys } = acc;
+
+  if (groupRowChecker(row)) {
+    const groupRow = { groupRow: row, items: [] };
+
+    if (!groupKeys.size) {
+      processed.push(groupRow);
+    } else {
+      const parentKey = groupKey.replace(`${GROUP_KEY_SEPARATOR}${row.value}`, '');
+      const parent = groupKeys.get(parentKey);
+
+      if (parent) {
+        parent.items.push(groupRow);
+      } else {
+        processed.push(groupRow);
+      }
+    }
+
+    groupKeys.set(groupKey, groupRow);
+  } else if (!groupKeys.size) {
+    processed.push(row);
+  } else {
+    const parentKey = Array.from(groupKeys.keys())[groupKeys.size - 1];
+    groupKeys.get(parentKey).items.push(row);
+  }
+  return acc;
+}, { processed: [], groupKeys: new Map() }).processed;
+
+export const unwrappedGroupTree = (tree, processed = []) => {
+  const result = tree.reduce((acc, item) => {
+    const { groupRow, items } = item;
+
+    if (groupRow) {
+      acc.push(groupRow);
+      if (items && items.length) {
+        unwrappedGroupTree(items, acc);
+      }
+    } else {
+      acc.push(item);
+    }
+
+    return acc;
+  }, processed);
+
+  return result;
+};

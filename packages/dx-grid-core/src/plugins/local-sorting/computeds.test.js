@@ -128,5 +128,91 @@ describe('LocalSorting computeds', () => {
         { a: 1, b: 2 },
       ]);
     });
+
+    it('should sort grouped rows', () => {
+      const groupedRows = [
+        {
+          groupRow: {
+            groupedBy: 'a',
+            value: 1,
+          },
+          items: [
+            {
+              groupRow: {
+                groupedBy: 'b',
+                value: 1,
+              },
+              items: [],
+            },
+            {
+              groupRow: {
+                groupedBy: 'b',
+                value: 2,
+              },
+              items: [
+                { c: 1 },
+                { c: 2 },
+              ],
+            },
+          ],
+        },
+        {
+          groupRow: {
+            groupedBy: 'a',
+            value: 2,
+          },
+          items: [],
+        },
+      ];
+      const sorting = [
+        { columnName: 'a', direction: 'desc' },
+        { columnName: 'b', direction: 'desc' },
+        { columnName: 'c', direction: 'desc' },
+      ];
+      const sotred = sortedRows(
+        [],
+        sorting,
+        getCellValue,
+        () => undefined,
+        () => groupedRows,
+        tree => tree,
+      );
+
+      expect(sotred)
+        .toEqual([
+          {
+            groupRow: {
+              groupedBy: 'a',
+              value: 2,
+            },
+            items: [],
+          },
+          {
+            groupRow: {
+              groupedBy: 'a',
+              value: 1,
+            },
+            items: [
+              {
+                groupRow: {
+                  groupedBy: 'b',
+                  value: 2,
+                },
+                items: [
+                  { c: 2 },
+                  { c: 1 },
+                ],
+              },
+              {
+                groupRow: {
+                  groupedBy: 'b',
+                  value: 1,
+                },
+                items: [],
+              },
+            ],
+          },
+        ]);
+    });
   });
 });

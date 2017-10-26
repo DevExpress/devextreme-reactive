@@ -5,12 +5,12 @@ import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-  ColumnOrderState, TableColumnResizing,
+  ColumnOrderState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel, DragDropContext,
+  GroupingPanel, PagingPanel, DragDropContext, TableColumnResizing,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {

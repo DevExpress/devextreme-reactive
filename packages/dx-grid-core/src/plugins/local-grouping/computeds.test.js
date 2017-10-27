@@ -299,6 +299,7 @@ describe('LocalGrouping computeds', () => {
               key: '1|1',
               value: 1,
             },
+            parentIndex: 0,
             items: [],
           },
           {

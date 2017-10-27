@@ -71,35 +71,43 @@ export const expandedGroupRows = (rows, grouping, expandedGroups, keyPrefix = ''
   }, []);
 };
 
-export const groupTree = rows => rows.reduce((acc, row) => {
-  const { key: groupKey } = row;
-  const { processed, groupKeys } = acc;
+export const groupTree = rows => rows.reduce((acc, item) => {
+  const { processed, processedGroups } = acc;
 
-  if (groupRowChecker(row)) {
-    const groupRow = { groupRow: row, items: [] };
+  if (groupRowChecker(item)) {
+    const groupItem = { groupRow: item, items: [] };
+    const key = groupRowLevelKeyGetter(item);
 
-    if (!groupKeys.size) {
-      processed.push(groupRow);
+    if (!processedGroups.length) {
+      processed.push(groupItem);
     } else {
-      const parentKey = groupKey.replace(`${GROUP_KEY_SEPARATOR}${row.value}`, '');
-      const parent = groupKeys.get(parentKey);
+      const existingGroupItem =
+        processedGroups.find(g => groupRowLevelKeyGetter(g.groupRow) === key);
 
-      if (parent) {
-        parent.items.push(groupRow);
+      if (!existingGroupItem) {
+        const [parentGroup] = processedGroups.slice(-1);
+        groupItem.parentIndex = processedGroups.length - 1;
+
+        parentGroup.items.push(groupItem);
       } else {
-        processed.push(groupRow);
+        const { parentIndex } = existingGroupItem;
+        if (parentIndex !== undefined) {
+          processedGroups[parentIndex].items.push(groupItem);
+        } else {
+          processed.push(groupItem);
+        }
       }
     }
 
-    groupKeys.set(groupKey, groupRow);
-  } else if (!groupKeys.size) {
-    processed.push(row);
+    processedGroups.push(groupItem);
+  } else if (!processedGroups.length) {
+    processed.push(item);
   } else {
-    const parentKey = Array.from(groupKeys.keys())[groupKeys.size - 1];
-    groupKeys.get(parentKey).items.push(row);
+    processedGroups.slice(-1)[0].items.push(item);
   }
+
   return acc;
-}, { processed: [], groupKeys: new Map() }).processed;
+}, { processed: [], processedGroups: [] }).processed;
 
 export const unwrappedGroupTree = (tree, processed = []) => {
   const result = tree.reduce((acc, item) => {

@@ -11,15 +11,16 @@ const styles = theme => ({
   toggleCell: {
     textAlign: 'center',
     textOverflow: 'initial',
-    paddingTop: '0px',
-    paddingBottom: '0px',
+    paddingTop: 0,
+    paddingBottom: 0,
   },
-  toggleCellIcon: {
+  toggleCellButton: {
     verticalAlign: 'middle',
     display: 'inline-block',
     height: theme.spacing.unit * 6,
     width: theme.spacing.unit * 6,
-    marginLeft: '-18px',
+    marginLeft: -theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -35,8 +36,7 @@ const TableDetailToggleCellBase = ({
       style={style}
     >
       <IconButton
-        tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-        className={classes.toggleCellIcon}
+        className={classes.toggleCellButton}
         onClick={handleClick}
       >
         {

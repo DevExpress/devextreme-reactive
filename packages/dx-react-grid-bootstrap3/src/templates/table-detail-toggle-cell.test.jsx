@@ -2,6 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
 describe('TableDetailToggleCell', () => {
   it('can get focus', () => {
     const tree = mount((
@@ -20,12 +23,18 @@ describe('TableDetailToggleCell', () => {
       />
     ));
 
-    tree.find('TableDetailToggleCell').simulate('keydown', { keyCode: 13 });
+    const targetElement = tree.find('i');
+    targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
     expect(toggleExpanded)
       .toHaveBeenCalled();
 
     toggleExpanded.mockClear();
-    tree.find('TableDetailToggleCell').simulate('keydown', { keyCode: 31 });
+    targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+    expect(toggleExpanded)
+      .toHaveBeenCalled();
+
+    toggleExpanded.mockClear();
+    targetElement.simulate('keydown', { keyCode: 51 });
     expect(toggleExpanded)
       .not.toHaveBeenCalled();
   });

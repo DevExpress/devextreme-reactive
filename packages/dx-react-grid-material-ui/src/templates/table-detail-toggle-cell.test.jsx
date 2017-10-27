@@ -3,13 +3,13 @@ import { mount } from 'enzyme';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
 describe('TableDetailToggleCell', () => {
-  it('can get focus', () => {
+  it('should render IconButton', () => {
     const tree = mount((
       <TableDetailToggleCell />
     ));
 
-    expect(tree.find('IconButton').prop('tabIndex'))
-      .toBe(0);
+    expect(tree.find('IconButton').exists())
+      .toBeTruthy();
   });
 
   it('should handle click', () => {

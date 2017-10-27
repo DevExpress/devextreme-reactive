@@ -1,20 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const handleMouseDown = (e) => {
-  e.target.style.outline = 'none';
-};
-const handleBlur = (e) => {
-  e.target.style.outline = '';
-};
-const handleMouseDownChildren = (e) => {
-  const parent = e.currentTarget.parentNode;
-  parent.style.outline = 'none';
-};
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
+const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
+const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
   const handleKeyDown = (event) => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE) {
       toggleExpanded();
     }
   };
@@ -27,7 +22,6 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
       onClick={() => {
         toggleExpanded();
       }}
-      onKeyDown={handleKeyDown}
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
     >
@@ -38,7 +32,7 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
           top: '0',
         }}
         tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-        onMouseDown={handleMouseDownChildren}
+        onKeyDown={handleKeyDown}
       />
     </td>
   );

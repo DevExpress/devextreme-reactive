@@ -14,3 +14,4 @@ export { TableEditRow } from './plugins/table-edit-row';
 export { TableEditColumn } from './plugins/table-edit-column';
 export { TableColumnVisibility } from './plugins/table-column-visibility';
 export { TableColumnReordering } from './plugins/table-column-reordering';
+export { TableColumnResizing } from './plugins/table-column-resizing';

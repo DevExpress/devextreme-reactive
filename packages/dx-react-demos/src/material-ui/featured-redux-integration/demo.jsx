@@ -4,12 +4,12 @@ import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, TableColumnResizing,
+  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering,
+  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { withStyles } from 'material-ui/styles';

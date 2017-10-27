@@ -14,6 +14,10 @@ const styles = theme => ({
     paddingRight: 0,
     paddingLeft: theme.spacing.unit,
   },
+  checkbox: {
+    marginTop: '-1px',
+    marginBottom: '-1px',
+  },
 });
 
 export const TableSelectCellBase = ({
@@ -28,7 +32,10 @@ export const TableSelectCellBase = ({
       changeSelected();
     }}
   >
-    <Checkbox checked={selected} />
+    <Checkbox
+      className={classes.checkbox}
+      checked={selected}
+    />
   </TableCell>
 );
 

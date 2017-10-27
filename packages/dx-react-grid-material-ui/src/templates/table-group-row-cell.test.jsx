@@ -40,4 +40,13 @@ describe('TableCell', () => {
     expect(tree.find('.test').exists())
       .toBeTruthy();
   });
+
+  it('should render IconButton', () => {
+    const tree = mount((
+      <TableGroupCell />
+    ));
+
+    expect(tree.find('IconButton').exists())
+      .toBeTruthy();
+  });
 });

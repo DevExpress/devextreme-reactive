@@ -41,30 +41,12 @@ describe('TableCell', () => {
       .toBeTruthy();
   });
 
-  it('can get focus', () => {
+  it('should render IconButton', () => {
     const tree = mount((
       <TableGroupCell />
     ));
 
-    expect(tree.find('TableCell').prop('tabIndex'))
-      .toBe(0);
-  });
-
-  it('should handle the "Enter" key down', () => {
-    const toggleGroupExpanded = jest.fn();
-    const tree = mount((
-      <TableGroupCell
-        toggleGroupExpanded={toggleGroupExpanded}
-      />
-    ));
-
-    tree.find('TableCell').simulate('keydown', { keyCode: 13 });
-    expect(toggleGroupExpanded)
-      .toHaveBeenCalled();
-
-    toggleGroupExpanded.mockClear();
-    tree.find('TableCell').simulate('keydown', { keyCode: 31 });
-    expect(toggleGroupExpanded)
-      .not.toHaveBeenCalled();
+    expect(tree.find('IconButton').exists())
+      .toBeTruthy();
   });
 });

@@ -3,6 +3,9 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableGroupCell } from './table-group-row-cell';
 
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
 describe('TableCell', () => {
   let resetConsole;
   beforeAll(() => {
@@ -41,24 +44,30 @@ describe('TableCell', () => {
       <TableGroupCell />
     ));
 
-    expect(tree.find('td').prop('tabIndex'))
+    expect(tree.find('i').prop('tabIndex'))
       .toBe(0);
   });
 
-  it('should handle the "Enter" key down', () => {
+  it('should handle the "Enter" and "Space" keys down', () => {
     const toggleGroupExpanded = jest.fn();
     const tree = mount((
       <TableGroupCell
         toggleGroupExpanded={toggleGroupExpanded}
       />
     ));
+    const targetElement = tree.find('i');
 
-    tree.find('td').simulate('keydown', { keyCode: 13 });
+    targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
     expect(toggleGroupExpanded)
       .toHaveBeenCalled();
 
     toggleGroupExpanded.mockClear();
-    tree.find('td').simulate('keydown', { keyCode: 31 });
+    targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+    expect(toggleGroupExpanded)
+      .toHaveBeenCalled();
+
+    toggleGroupExpanded.mockClear();
+    targetElement.simulate('keydown', { keyCode: 51 });
     expect(toggleGroupExpanded)
       .not.toHaveBeenCalled();
   });

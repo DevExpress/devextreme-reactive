@@ -2,12 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
+const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
+const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableGroupCell = ({
   style, colSpan, row, column, isExpanded, toggleGroupExpanded, children,
 }) => {
-  const handleKeyDown = (event) => {
-    if (event.keyCode === ENTER_KEY_CODE) toggleGroupExpanded();
+  const handleClick = () => toggleGroupExpanded();
+  const handleKeyDown = (e) => {
+    const { keyCode } = e;
+    if (keyCode === ENTER_KEY_CODE || keyCode === SPACE_KEY_CODE) {
+      e.preventDefault();
+      toggleGroupExpanded();
+    }
   };
 
   return (
@@ -17,9 +26,7 @@ export const TableGroupCell = ({
         cursor: 'pointer',
         ...style,
       }}
-      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onClick={toggleGroupExpanded}
-      onKeyDown={handleKeyDown}
+      onClick={handleClick}
     >
       <i
         className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`}
@@ -28,6 +35,10 @@ export const TableGroupCell = ({
           top: 0,
           marginRight: '10px',
         }}
+        tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+        onMouseDown={handleMouseDown}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
       />
       <strong>{column.title || column.name}: </strong>
       {children || row.value}

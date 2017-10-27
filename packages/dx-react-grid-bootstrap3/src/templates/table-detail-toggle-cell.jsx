@@ -10,6 +10,7 @@ const handleBlur = (e) => { e.target.style.outline = ''; };
 export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
   const handleKeyDown = (event) => {
     if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE) {
+      event.preventDefault();
       toggleExpanded();
     }
   };
@@ -22,8 +23,7 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
       onClick={() => {
         toggleExpanded();
       }}
-      onMouseDown={handleMouseDown}
-      onBlur={handleBlur}
+
     >
       <i
         className={`glyphicon glyphicon-triangle-${expanded ? 'bottom' : 'right'}`}
@@ -33,6 +33,8 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
         }}
         tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
         onKeyDown={handleKeyDown}
+        onMouseDown={handleMouseDown}
+        onBlur={handleBlur}
       />
     </td>
   );

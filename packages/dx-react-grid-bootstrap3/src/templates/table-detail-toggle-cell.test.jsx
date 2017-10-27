@@ -15,7 +15,7 @@ describe('TableDetailToggleCell', () => {
       .toBe(0);
   });
 
-  it('should handle the "Enter" key down', () => {
+  it('should handle the "Enter" and "Space" keys down', () => {
     const toggleExpanded = jest.fn();
     const tree = mount((
       <TableDetailToggleCell

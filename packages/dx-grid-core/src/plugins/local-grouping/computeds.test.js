@@ -3,8 +3,6 @@ import {
   groupRowLevelKeyGetter,
   groupedRows,
   expandedGroupRows,
-  groupTree,
-  unwrappedGroupTree,
 } from './computeds';
 import {
   GRID_GROUP_TYPE,
@@ -244,99 +242,6 @@ describe('LocalGrouping computeds', () => {
             value: 2,
           },
         ]);
-    });
-  });
-
-  describe('#groupTree', () => {
-    const sourceRows = [
-      {
-        [GRID_GROUP_CHECK]: true,
-        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
-        groupedBy: 'a',
-        key: '1',
-        value: 1,
-      },
-      {
-        [GRID_GROUP_CHECK]: true,
-        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
-        groupedBy: 'b',
-        key: '1|1',
-        value: 1,
-      },
-      {
-        [GRID_GROUP_CHECK]: true,
-        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
-        groupedBy: 'b',
-        key: '1|2',
-        value: 2,
-      },
-      { a: 1, b: 2 },
-      { a: 2, b: 2 },
-      {
-        [GRID_GROUP_CHECK]: true,
-        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
-        groupedBy: 'a',
-        key: '2',
-        value: 2,
-      },
-    ];
-
-    const groupedTree = [
-      {
-        groupRow: {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
-          groupedBy: 'a',
-          key: '1',
-          value: 1,
-        },
-        items: [
-          {
-            groupRow: {
-              [GRID_GROUP_CHECK]: true,
-              [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
-              groupedBy: 'b',
-              key: '1|1',
-              value: 1,
-            },
-            parentIndex: 0,
-            items: [],
-          },
-          {
-            groupRow: {
-              [GRID_GROUP_CHECK]: true,
-              [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_b`,
-              groupedBy: 'b',
-              key: '1|2',
-              value: 2,
-            },
-            items: [
-              { a: 1, b: 2 },
-              { a: 2, b: 2 },
-            ],
-          },
-        ],
-      },
-      {
-        groupRow: {
-          [GRID_GROUP_CHECK]: true,
-          [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_a`,
-          groupedBy: 'a',
-          key: '2',
-          value: 2,
-        },
-        items: [],
-      },
-    ];
-
-    it('should convert group rows to tree', () => {
-      const tree = groupTree(sourceRows);
-      expect(tree).toEqual(groupedTree);
-    });
-
-    it('should convert tree to group rows', () => {
-      const unwrappedGroupRows = unwrappedGroupTree(groupedTree);
-      expect(unwrappedGroupRows).toEqual(sourceRows);
     });
   });
 });

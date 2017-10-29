@@ -29,12 +29,66 @@ const createCompare = (sorting, getColumnCompare, getCellValue) =>
       () => 0,
     );
 
-const sortGroupTree = (tree, compare, groupCompare) => {
+const rowsToTree = (rows, isGroupRow, getRowLevelKey) =>
+  rows.reduce((acc, item) => {
+    const { tree, processedGroups } = acc;
+
+    if (isGroupRow(item)) {
+      const treeItem = { groupRow: item, items: [] };
+      const key = getRowLevelKey(item);
+
+      if (!processedGroups.length) {
+        tree.push(treeItem);
+      } else {
+        const existingGroupItem =
+          processedGroups.find(g => getRowLevelKey(g.groupRow) === key);
+
+        if (!existingGroupItem) {
+          const [parentGroup] = processedGroups.slice(-1);
+          treeItem.parentIndex = processedGroups.length - 1;
+
+          parentGroup.items.push(treeItem);
+        } else {
+          const { parentIndex } = existingGroupItem;
+          if (parentIndex !== undefined) {
+            processedGroups[parentIndex].items.push(treeItem);
+          } else {
+            tree.push(treeItem);
+          }
+        }
+      }
+
+      processedGroups.push(treeItem);
+    } else if (!processedGroups.length) {
+      tree.push(item);
+    } else {
+      processedGroups.slice(-1)[0].items.push(item);
+    }
+
+    return acc;
+  }, { tree: [], processedGroups: [] }).tree;
+
+const treeToRows = (tree, rows = []) =>
+  tree.reduce((acc, item) => {
+    const { groupRow, items } = item;
+
+    if (groupRow) {
+      acc.push(groupRow);
+      if (items && items.length) {
+        treeToRows(items, acc);
+      }
+    } else {
+      acc.push(item);
+    }
+
+    return acc;
+  }, rows);
+
+const sortTree = (tree, compare, groupCompare) => {
   const sorted = mergeSort(tree, tree[0].groupRow ? groupCompare : compare);
-  // TODO: refactor it
   sorted.forEach((row) => {
     if (row.items && row.items.length) {
-      const sortedItems = sortGroupTree(row.items, compare, groupCompare);
+      const sortedItems = sortTree(row.items, compare, groupCompare);
       row.items.splice(0, row.items.length, ...sortedItems);
     }
   });
@@ -47,21 +101,21 @@ export const sortedRows = (
   sorting,
   getCellValue,
   getColumnCompare,
-  groupTree,
-  unwrappedGroupTree,
+  isGroupRow,
+  getRowLevelKey,
 ) => {
   if (!sorting.length) return rows;
   const compare = createCompare(sorting, getColumnCompare, getCellValue);
 
-  if (groupTree) {
-    const groupedTree = groupTree(rows);
+  if (isGroupRow) {
+    const tree = rowsToTree(rows, isGroupRow, getRowLevelKey);
     const groupCompare = createCompare(sorting, getColumnCompare, (item, field) => {
       const { groupRow } = item;
       return groupRow.groupedBy === field ? groupRow.value : undefined;
     });
-    const sortedGroupedTree = sortGroupTree(groupedTree, compare, groupCompare);
+    const sortedTree = sortTree(tree, compare, groupCompare);
 
-    return unwrappedGroupTree(sortedGroupedTree);
+    return treeToRows(sortedTree);
   }
 
   return mergeSort(Array.from(rows), compare);

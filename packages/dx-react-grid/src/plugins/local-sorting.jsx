@@ -14,10 +14,10 @@ export class LocalSorting extends React.PureComponent {
       rows,
       sorting,
       getCellValue,
-      groupTree,
-      unwrappedGroupTree,
+      isGroupRow,
+      getRowLevelKey,
     }) =>
-      sortedRows(rows, sorting, getCellValue, getColumnCompare, groupTree, unwrappedGroupTree);
+      sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
 
     return (
       <PluginContainer

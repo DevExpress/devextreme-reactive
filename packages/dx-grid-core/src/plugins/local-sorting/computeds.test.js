@@ -132,36 +132,30 @@ describe('LocalSorting computeds', () => {
     it('should sort grouped rows', () => {
       const groupedRows = [
         {
-          groupRow: {
-            groupedBy: 'a',
-            value: 1,
-          },
-          items: [
-            {
-              groupRow: {
-                groupedBy: 'b',
-                value: 1,
-              },
-              items: [],
-            },
-            {
-              groupRow: {
-                groupedBy: 'b',
-                value: 2,
-              },
-              items: [
-                { c: 1 },
-                { c: 2 },
-              ],
-            },
-          ],
+          grouped: true,
+          groupLevelKey: 'group_a',
+          groupedBy: 'a',
+          value: 1,
         },
         {
-          groupRow: {
-            groupedBy: 'a',
-            value: 2,
-          },
-          items: [],
+          grouped: true,
+          groupLevelKey: 'group_b',
+          groupedBy: 'b',
+          value: 1,
+        },
+        {
+          grouped: true,
+          groupLevelKey: 'group_b',
+          groupedBy: 'b',
+          value: 2,
+        },
+        { c: 1 },
+        { c: 2 },
+        {
+          grouped: true,
+          groupLevelKey: 'group_a',
+          groupedBy: 'a',
+          value: 2,
         },
       ];
       const sorting = [
@@ -170,47 +164,41 @@ describe('LocalSorting computeds', () => {
         { columnName: 'c', direction: 'desc' },
       ];
       const sotred = sortedRows(
-        [],
+        groupedRows,
         sorting,
         getCellValue,
         () => undefined,
-        () => groupedRows,
-        tree => tree,
+        row => row.grouped === true,
+        row => row.groupLevelKey,
       );
 
       expect(sotred)
         .toEqual([
           {
-            groupRow: {
-              groupedBy: 'a',
-              value: 2,
-            },
-            items: [],
+            grouped: true,
+            groupLevelKey: 'group_a',
+            groupedBy: 'a',
+            value: 2,
           },
           {
-            groupRow: {
-              groupedBy: 'a',
-              value: 1,
-            },
-            items: [
-              {
-                groupRow: {
-                  groupedBy: 'b',
-                  value: 2,
-                },
-                items: [
-                  { c: 2 },
-                  { c: 1 },
-                ],
-              },
-              {
-                groupRow: {
-                  groupedBy: 'b',
-                  value: 1,
-                },
-                items: [],
-              },
-            ],
+            grouped: true,
+            groupLevelKey: 'group_a',
+            groupedBy: 'a',
+            value: 1,
+          },
+          {
+            grouped: true,
+            groupLevelKey: 'group_b',
+            groupedBy: 'b',
+            value: 2,
+          },
+          { c: 2 },
+          { c: 1 },
+          {
+            grouped: true,
+            groupLevelKey: 'group_b',
+            groupedBy: 'b',
+            value: 1,
           },
         ]);
     });

@@ -194,4 +194,107 @@ describe('TableHeaderCell', () => {
     expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(0);
     expect(tree.find(`.${classes.titleRight}`)).toHaveLength(1);
   });
+
+  describe('with keyboard navigation', () => {
+    const ENTER_KEY_CODE = 13;
+    const SPACE_KEY_CODE = 32;
+
+    it('can not get focus if sorting is not allow', () => {
+      const tree = mount((
+        <TableHeaderCell
+          column={{ align: 'right', title: 'test' }}
+        />
+      ));
+
+      expect(tree.find('TableCell').prop('tabIndex'))
+        .toBeFalsy();
+    });
+
+    it('can get focus if sorting is allow', () => {
+      const tree = mount((
+        <TableHeaderCell
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+        />
+      ));
+
+      expect(tree.find('TableCell').prop('tabIndex'))
+        .toBe(0);
+    });
+
+    it('should handle the "Enter" and "Space" keys down', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+        />
+      ));
+
+      const targetElement = tree.find('div');
+      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+      expect(changeSortingDirection)
+        .toHaveBeenCalled();
+
+      changeSortingDirection.mockClear();
+      targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+      expect(changeSortingDirection)
+        .toHaveBeenCalled();
+
+      changeSortingDirection.mockClear();
+      targetElement.simulate('keydown', { keyCode: 51 });
+      expect(changeSortingDirection)
+        .not.toHaveBeenCalled();
+    });
+
+    it('should handle the "Shift" key with sorting', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+        />
+      ));
+
+      const targetElement = tree.find('div');
+      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
+      expect(changeSortingDirection)
+        .toHaveBeenCalledWith({ keepOther: true, cancel: false });
+    });
+
+    it('should handle the "Ctrl" key with sorting', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+        />
+      ));
+
+      const targetElement = tree.find('div');
+      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
+      expect(changeSortingDirection)
+        .toHaveBeenCalledWith({ keepOther: true, cancel: true });
+    });
+
+    it('should switch sorting derection when "Enter" key down', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+          sortingDirection="desc"
+        />
+      ));
+
+      const targetElement = tree.find('div');
+      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: false });
+      expect(changeSortingDirection)
+        .toHaveBeenCalledWith({ keepOther: false, cancel: true });
+    });
+  });
 });

@@ -7,6 +7,9 @@ import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -18,13 +21,32 @@ export class TableHeaderCell extends React.PureComponent {
     this.onCellClick = (e) => {
       const { allowSorting, changeSortingDirection } = this.props;
       if (!allowSorting) return;
-      e.stopPropagation();
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
       changeSortingDirection({
         keepOther: e.shiftKey || cancelSortingRelatedKey,
         cancel: cancelSortingRelatedKey,
       });
     };
+    this.handleKeyDown = (e) => {
+      const { allowSorting, changeSortingDirection, sortingDirection } = this.props;
+      if (!allowSorting) return;
+      if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
+        const cancel = (sortingDirection === 'desc');
+        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+
+        e.preventDefault();
+        changeSortingDirection({
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey || cancel,
+        });
+      }
+    };
+    this.handleMouseDown = (e) => {
+      const { allowSorting } = this.props;
+      if (!allowSorting) return;
+      e.currentTarget.style.outline = 'none';
+    };
+    this.handleBlur = (e) => { e.currentTarget.style.outline = ''; };
   }
   render() {
     const {
@@ -67,6 +89,9 @@ export class TableHeaderCell extends React.PureComponent {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
           }}
+          onMouseDown={this.handleMouseDown}
+          onBlur={this.handleBlur}
+          onKeyDown={this.handleKeyDown}
         >
           {allowSorting ? (
             <SortingControl

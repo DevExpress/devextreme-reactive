@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 
 import { SortingIndicator } from '../parts/sorting-indicator';
 
+const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
+const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
+
 export const SortingControl = ({ align, sortingDirection, columnTitle }) =>
   (align === 'right' ? (
     <span
       className={sortingDirection ? 'text-primary' : ''}
+      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+      onMouseDown={handleMouseDown}
+      onBlur={handleBlur}
     >
       <SortingIndicator
         direction={sortingDirection}
@@ -18,6 +24,9 @@ export const SortingControl = ({ align, sortingDirection, columnTitle }) =>
   ) : (
     <span
       className={sortingDirection ? 'text-primary' : ''}
+      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+      onMouseDown={handleMouseDown}
+      onBlur={handleBlur}
     >
       {columnTitle}
       &nbsp;

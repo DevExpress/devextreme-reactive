@@ -11,12 +11,16 @@ import { GroupingControl } from './table-header-cell/grouping-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
 const styles = theme => ({
   plainTitle: {
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
   cell: {
+    outline: 'none',
     position: 'relative',
     overflow: 'visible',
     paddingRight: theme.spacing.unit,
@@ -85,6 +89,22 @@ class TableHeaderCellBase extends React.PureComponent {
         cancel: cancelSortingRelatedKey,
       });
     };
+    this.handleKeyDown = (e) => {
+      const { allowSorting, changeSortingDirection, sortingDirection } = this.props;
+      if (!allowSorting) return;
+      if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
+        const cancel = (sortingDirection === 'desc');
+        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+
+        e.preventDefault();
+        changeSortingDirection({
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey || cancel,
+        });
+      }
+    };
+    this.handleBlur = (e) => { e.currentTarget.style.color = ''; };
+    this.handleFocus = (e) => { e.currentTarget.style.color = 'rgb(0, 0, 0)'; };
   }
   render() {
     const {
@@ -118,9 +138,13 @@ class TableHeaderCellBase extends React.PureComponent {
 
     const cellLayout = (
       <TableCell
-        onClick={this.onCellClick}
         style={style}
         className={tableCellClasses}
+        tabIndex={allowSorting && 0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+        onClick={this.onCellClick}
+        onKeyDown={this.handleKeyDown}
+        onBlur={this.handleBlur}
+        onFocus={this.handleFocus}
       >
         {allowGroupingByClick && (
           <GroupingControl

@@ -26,6 +26,7 @@ const SortingControlBase = ({
       {!!sortingDirection && <TableSortLabel
         active={!!sortingDirection}
         direction={sortingDirection}
+        tabIndex={-1}
       />}
       <span className={classes.sortingTitle}>
         {columnTitle}
@@ -37,6 +38,7 @@ const SortingControlBase = ({
         {columnTitle}
       </span>
       <TableSortLabel
+        tabIndex={-1}
         active={!!sortingDirection}
         direction={sortingDirection}
       />

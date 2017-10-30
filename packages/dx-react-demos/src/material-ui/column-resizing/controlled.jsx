@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-  TableColumnResizing,
-} from '@devexpress/dx-react-grid';
-import {
   Grid,
   TableView,
   TableHeaderRow,
+  TableColumnResizing,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {

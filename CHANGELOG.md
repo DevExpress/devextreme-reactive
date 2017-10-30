@@ -1,3 +1,19 @@
+<a name="1.0.0-alpha.14"></a>
+# [1.0.0-alpha.14](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2017-10-25)
+
+
+### Bug Fixes
+
+* **react-grid:** remove header cell title offset if grouping by click isn't allowed ([#434](https://github.com/DevExpress/devextreme-reactive/issues/434)) ([60285d4](https://github.com/DevExpress/devextreme-reactive/commit/60285d4)), closes [#432](https://github.com/DevExpress/devextreme-reactive/issues/432)
+* **react-grid-bootstrap3:** do not allow to focus column chooser item checkbox ([728ea23](https://github.com/DevExpress/devextreme-reactive/commit/728ea23))
+
+
+### Features
+
+* **react-grid:** support custom grouping processing ([#395](https://github.com/DevExpress/devextreme-reactive/issues/395)) ([4fb92d0](https://github.com/DevExpress/devextreme-reactive/commit/4fb92d0))
+
+
+
 <a name="1.0.0-alpha.13"></a>
 # [1.0.0-alpha.13](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2017-10-19)
 

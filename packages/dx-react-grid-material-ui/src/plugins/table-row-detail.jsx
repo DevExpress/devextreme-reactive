@@ -33,7 +33,7 @@ export class TableRowDetail extends React.PureComponent {
           detailRowTemplate,
           defaultDetailRowTemplate,
         )}
-        detailToggleCellWidth={38}
+        detailToggleCellWidth={32}
         {...restProps}
       />
     );

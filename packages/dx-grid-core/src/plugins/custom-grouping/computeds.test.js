@@ -30,6 +30,9 @@ describe('CustomGrouping Plugin computeds', () => {
           { a: 2, b: 1 },
           { a: 2, b: 2 },
         ],
+      }, {
+        key: 3,
+        items: [],
       }];
       const getHierarchicalChildGroups = groups => groups
         .map(group => ({ key: String(group.key), value: group.key, childRows: group.items }));
@@ -38,6 +41,7 @@ describe('CustomGrouping Plugin computeds', () => {
         groupRow({
           groupedBy: 'a',
           compoundKey: '1',
+          hasChildren: true,
           key: '1',
           value: 1,
         }),
@@ -46,11 +50,19 @@ describe('CustomGrouping Plugin computeds', () => {
         groupRow({
           groupedBy: 'a',
           compoundKey: '2',
+          hasChildren: true,
           key: '2',
           value: 2,
         }),
         { a: 2, b: 1 },
         { a: 2, b: 2 },
+        groupRow({
+          groupedBy: 'a',
+          compoundKey: '3',
+          hasChildren: false,
+          key: '3',
+          value: 3,
+        }),
       ];
 
       const getChildGroups = jest.fn(getHierarchicalChildGroups);
@@ -78,6 +90,7 @@ describe('CustomGrouping Plugin computeds', () => {
         groupRow({
           groupedBy: 'a',
           compoundKey: '1',
+          hasChildren: undefined,
           key: '1',
           value: 1,
         }),
@@ -128,12 +141,14 @@ describe('CustomGrouping Plugin computeds', () => {
         groupRow({
           groupedBy: 'a',
           compoundKey: '1',
+          hasChildren: true,
           key: '1',
           value: 1,
         }),
         groupRow({
           groupedBy: 'b',
           compoundKey: '1|1',
+          hasChildren: true,
           key: '1',
           value: 1,
         }),
@@ -141,6 +156,7 @@ describe('CustomGrouping Plugin computeds', () => {
         groupRow({
           groupedBy: 'b',
           compoundKey: '1|2',
+          hasChildren: true,
           key: '2',
           value: 2,
         }),
@@ -148,12 +164,14 @@ describe('CustomGrouping Plugin computeds', () => {
         groupRow({
           groupedBy: 'a',
           compoundKey: '2',
+          hasChildren: true,
           key: '2',
           value: 2,
         }),
         groupRow({
           groupedBy: 'b',
           compoundKey: '2|1',
+          hasChildren: true,
           key: '1',
           value: 1,
         }),
@@ -161,6 +179,7 @@ describe('CustomGrouping Plugin computeds', () => {
         groupRow({
           groupedBy: 'b',
           compoundKey: '2|2',
+          hasChildren: true,
           key: '2',
           value: 2,
         }),
@@ -190,6 +209,7 @@ describe('CustomGrouping Plugin computeds', () => {
       const groupedRows = [
         groupRow({
           groupedBy: 'a',
+          hasChildren: true,
           key: '1',
           value: 1,
         }),
@@ -217,6 +237,7 @@ describe('CustomGrouping Plugin computeds', () => {
       const groupedRows = [
         groupRow({
           groupedBy: 'a',
+          hasChildren: true,
           key: '1',
           value: 1,
         }),

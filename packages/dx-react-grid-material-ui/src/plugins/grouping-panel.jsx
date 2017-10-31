@@ -9,16 +9,19 @@ import { GroupPanelItem } from '../templates/group-panel-item';
 
 const defaultCellTemplate = props => <GroupPanelItem {...props} />;
 
+const defaultMessages = {
+  groupByColumn: '',
+};
+
 export class GroupingPanel extends React.PureComponent {
   render() {
-    const { groupByColumnText, groupPanelItemTemplate, ...restProps } = this.props;
+    const { groupPanelItemTemplate, messages, ...restProps } = this.props;
 
     return (
       <GroupingPanelBase
         groupPanelTemplate={
           props => (
             <GroupPanel
-              groupByColumnText={groupByColumnText}
               groupPanelItemTemplate={combineTemplates(
                 groupPanelItemTemplate,
                 defaultCellTemplate,
@@ -27,6 +30,7 @@ export class GroupingPanel extends React.PureComponent {
             />
           )
         }
+        messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
     );
@@ -35,12 +39,14 @@ export class GroupingPanel extends React.PureComponent {
 
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
-  groupByColumnText: PropTypes.string,
   groupPanelItemTemplate: PropTypes.func,
+  messages: PropTypes.shape({
+    groupByColumn: PropTypes.string,
+  }),
 };
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
-  groupByColumnText: undefined,
   groupPanelItemTemplate: undefined,
+  messages: {},
 };

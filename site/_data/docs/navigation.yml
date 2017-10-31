@@ -38,6 +38,8 @@ react:
           path: /react/grid/docs/guides/column-resizing
         - title: Column Visibility
           path: /react/grid/docs/guides/column-visibility
+        - title: Localization
+          path: /react/grid/docs/guides/localization
     - title: API Reference
       items:
         - title: Grid

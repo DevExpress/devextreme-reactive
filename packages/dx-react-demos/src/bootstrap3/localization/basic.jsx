@@ -27,7 +27,7 @@ import {
 } from '../../demo-data/generator';
 
 const tableViewMessages = {
-  noData: 'Keine Daten verfügba',
+  noData: 'Keine Daten verfügbar',
 };
 const editColumnMessages = {
   addCommand: 'Neue Zeile',
@@ -41,7 +41,7 @@ const groupingPanelMessages = {
 };
 const pagingPanelMessages = {
   showAll: 'Alle',
-  info: 'Zeile {from} von {to}({count} Elemente)',
+  info: 'Zeilen {from} bis {to} ({count} Elemente)',
 };
 
 export default class Demo extends React.PureComponent {
@@ -59,7 +59,7 @@ export default class Demo extends React.PureComponent {
     };
 
     // eslint-disable-next-line no-alert
-    this.commitChanges = () => alert('Editing isn\'t implemented in this demo');
+    this.commitChanges = () => alert('Datenänderungen sind in dieser Demo nicht implementiert');
   }
   render() {
     const { rows, columns } = this.state;

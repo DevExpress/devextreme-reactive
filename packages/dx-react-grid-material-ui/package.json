@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-material-ui",
-  "version": "1.0.0-alpha.13",
+  "version": "1.0.0-alpha.14",
   "description": "Material UI templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -42,10 +42,10 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-alpha.13",
-    "@devexpress/dx-react-core": "1.0.0-alpha.13",
-    "@devexpress/dx-react-grid": "1.0.0-alpha.13",
-    "@devexpress/dx-testing": "1.0.0-alpha.13",
+    "@devexpress/dx-grid-core": "1.0.0-alpha.14",
+    "@devexpress/dx-react-core": "1.0.0-alpha.14",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.14",
+    "@devexpress/dx-testing": "1.0.0-alpha.14",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.2.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -82,9 +82,9 @@
     "prop-types": "^15.6.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-alpha.13",
-    "@devexpress/dx-react-core": "1.0.0-alpha.13",
-    "@devexpress/dx-react-grid": "1.0.0-alpha.13",
+    "@devexpress/dx-grid-core": "1.0.0-alpha.14",
+    "@devexpress/dx-react-core": "1.0.0-alpha.14",
+    "@devexpress/dx-react-grid": "1.0.0-alpha.14",
     "material-ui": "1.0.0-beta.17",
     "material-ui-icons": "1.0.0-beta.17",
     "react": "^15.6.1 || ^16.0.0"

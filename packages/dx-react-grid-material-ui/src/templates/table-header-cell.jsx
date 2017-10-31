@@ -55,10 +55,14 @@ const styles = theme => ({
   },
   titleRight: {
     textAlign: 'right',
-    marginLeft: (theme.spacing.unit * 2) - 2,
   },
   titleLeft: {
     textAlign: 'left',
+  },
+  titleRightOffset: {
+    marginLeft: (theme.spacing.unit * 2) - 2,
+  },
+  titleLeftOffset: {
     marginRight: (theme.spacing.unit * 2) - 2,
   },
 });
@@ -108,6 +112,8 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.title]: true,
       [classes.titleRight]: align === 'right',
       [classes.titleLeft]: align === 'left',
+      [classes.titleRightOffset]: align === 'right' && allowGroupingByClick,
+      [classes.titleLeftOffset]: align === 'left' && allowGroupingByClick,
     });
 
     const cellLayout = (

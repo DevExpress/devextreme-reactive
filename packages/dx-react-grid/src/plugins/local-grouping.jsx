@@ -15,7 +15,6 @@ const pluginDependencies = [
 const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
   expandedGroupRows(rows, grouping, expandedGroups);
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class LocalGrouping extends React.PureComponent {
   render() {
     const { getColumnIdentity } = this.props;

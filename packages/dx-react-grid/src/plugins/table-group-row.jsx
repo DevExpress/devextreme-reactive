@@ -26,13 +26,16 @@ const getGroupTableCellTemplateArgs = (
   params,
   { expandedGroups },
   { toggleGroupExpanded },
-) => ({
-  ...params,
-  row: params.tableRow.row,
-  column: params.tableColumn.column,
-  isExpanded: expandedGroups.has(params.tableRow.row.key),
-  toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: params.tableRow.row.key }),
-});
+) => {
+  const { compoundKey } = params.tableRow.row;
+  return {
+    ...params,
+    row: params.tableRow.row,
+    column: params.tableColumn.column,
+    isExpanded: expandedGroups.has(compoundKey),
+    toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: compoundKey }),
+  };
+};
 
 const getValueFormatterArgs = params => ({
   column: params.column,
@@ -136,14 +139,10 @@ export class TableGroupRow extends React.PureComponent {
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
           {params => (
-            <TemplateConnector>
-              {() => (
-                <TemplateRenderer
-                  template={groupRowTemplate}
-                  params={getGroupTableRowTemplateArgs(params)}
-                />
-              )}
-            </TemplateConnector>
+            <TemplateRenderer
+              template={groupRowTemplate}
+              params={getGroupTableRowTemplateArgs(params)}
+            />
           )}
         </Template>
       </PluginContainer>

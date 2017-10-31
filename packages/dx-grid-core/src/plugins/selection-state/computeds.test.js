@@ -28,18 +28,6 @@ describe('SelectionState computeds', () => {
       expect(getAvailableToSelect(rows, getRowId, isGroupRow))
         .toEqual([2]);
     });
-
-    // TODO: remove with custom grouping release
-    it('should work with grouping in legacy mode', () => {
-      const rows = [
-        { id: 1, type: 'group' },
-        { id: 2 },
-      ];
-      const getRowId = row => row.id;
-
-      expect(getAvailableToSelect(rows, getRowId))
-        .toEqual([2]);
-    });
   });
 
   describe('#getAvailableSelection', () => {

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 
-export const EmptyMessage = ({ text }) => (
+export const EmptyMessage = ({ getMessage }) => (
   <Toolbar>
     <Typography>
-      {text}
+      {getMessage('noColumns')}
     </Typography>
   </Toolbar>
 );
 
 EmptyMessage.propTypes = {
-  text: PropTypes.string.isRequired,
+  getMessage: PropTypes.func.isRequired,
 };

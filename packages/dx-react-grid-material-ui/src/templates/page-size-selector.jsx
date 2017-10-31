@@ -5,7 +5,7 @@ import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 import { withStyles } from 'material-ui/styles';
 
-const styles = theme => ({
+export const styles = theme => ({
   pageSizeSelector: {
     ...theme.typography.caption,
     float: 'right',
@@ -49,46 +49,45 @@ const PageSizeSelectorBase = ({
   pageSize,
   onPageSizeChange,
   allowedPageSizes,
+  getMessage,
   classes,
-  showAllText,
-}) => (
-  <div className={classes.pageSizeSelector}>
-    <span className={classes.label}>
-      Rows per page:
-    </span>
-    <Select
-      value={pageSize}
-      onChange={event => onPageSizeChange(event.target.value)}
-      classes={{
-        select: classes.select,
-        icon: classes.selectIcon,
-      }}
-      input={
-        <Input
-          disableUnderline
-          classes={{ root: classes.inputRoot }}
-        />
-      }
-    >
-      {allowedPageSizes.map(item => (
-        <MenuItem key={item} value={item}>
-          {item !== 0 ? item : showAllText }
-        </MenuItem>
-      ))}
-    </Select>
-  </div>
-);
+}) => {
+  const showAll = getMessage('showAll');
+  return (
+    <div className={classes.pageSizeSelector}>
+      <span className={classes.label}>
+        {getMessage('rowsPerPage')}
+      </span>
+      <Select
+        value={pageSize}
+        onChange={event => onPageSizeChange(event.target.value)}
+        classes={{
+          select: classes.select,
+          icon: classes.selectIcon,
+        }}
+        input={
+          <Input
+            disableUnderline
+            classes={{ root: classes.inputRoot }}
+          />
+        }
+      >
+        {allowedPageSizes.map(item => (
+          <MenuItem key={item} value={item}>
+            {item !== 0 ? item : showAll }
+          </MenuItem>
+        ))}
+      </Select>
+    </div>
+  );
+};
 
 PageSizeSelectorBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   classes: PropTypes.object.isRequired,
-  showAllText: PropTypes.string,
-};
-
-PageSizeSelectorBase.defaultProps = {
-  showAllText: 'All',
+  getMessage: PropTypes.func.isRequired,
 };
 
 export const PageSizeSelector = withStyles(styles, { name: 'PageSizeSelector' })(PageSizeSelectorBase);

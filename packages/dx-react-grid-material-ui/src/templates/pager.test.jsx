@@ -21,7 +21,6 @@ describe('Pager', () => {
       totalCount,
       classes = {},
       allowedPageSizes = [],
-      showAllText,
       onCurrentPageChange = () => {},
       onPageSizeChange = () => {},
     }) => mount((
@@ -32,9 +31,9 @@ describe('Pager', () => {
         pageSize={pageSize}
         classes={classes}
         totalCount={totalCount}
-        showAllText={showAllText}
         onCurrentPageChange={onCurrentPageChange}
         onPageSizeChange={onPageSizeChange}
+        getMessage={() => {}}
       />
     ));
 

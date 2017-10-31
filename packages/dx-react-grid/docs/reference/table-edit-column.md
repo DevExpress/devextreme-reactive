@@ -19,7 +19,8 @@ commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | | A com
 allowAdding | boolean | false | If set to true, the 'New' command is rendered within the heading row's command cell.
 allowEditing | boolean | false | If set to true, the 'Edit' command is rendered within the data row's command cell.
 allowDeleting | boolean | false | If set to true, the 'Delete' command is rendered within the data row's command cell.
-width | number &#124; string | 140 | Specifies the width of the edit column.
+width | number &#124; string | 140 | Specifies the edit column's width.
+messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -35,11 +36,12 @@ row | any | Specifies an edited table row with applied changes.
 column | [Column](grid.md#column) | Specifies a table column.
 startEditing | () => void | Switches a row to the editing mode.
 cancelEditing | () => void | Switches a row to the read-only mode.
-commitChanges | () => void | Initiates committing of row changes.
+commitChanges | () => void | Initiates row changes committing.
 deleteRow | () => void | Initiates row deletion.
 allowEditing | boolean | Specifies if a row can be edited.
 allowDeleting | boolean | Specifies if a row can be deleted.
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in command controls within the command column cell.
 
 ### <a name="command-heading-cell-args"></a>CommandHeadingCellArgs
 
@@ -52,6 +54,7 @@ Field | Type | Description
 addRow | () => void | Creates a new row.
 allowAdding | boolean | Specifies if a new row can be created.
 commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in command control within the command column cell.
 
 ### <a name="command-args"></a>CommandArgs
 
@@ -63,6 +66,18 @@ Field | Type | Description
 ------|------|------------
 executeCommand | () => void | Executes the command.
 text | string | Specifies the text to be rendered within the command control.
+
+## Localization Messages
+
+An object with the following shape:
+
+Field | Type | Default | Description
+------|------|---------|------------
+addCommand? | string | 'New' | Specifies the add command button text.
+editCommand? | string | 'Edit' | Specifies the edit command button text.
+deleteCommand? | string | 'Delete' | Specifies the delete command button text.
+commitCommand? | string | 'Save' | Specifies the commit command button text.
+cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
 
 ## Plugin Developer Reference
 

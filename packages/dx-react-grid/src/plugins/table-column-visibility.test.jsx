@@ -1,13 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { visibleTableColumns } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   visibleTableColumns: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -35,6 +36,7 @@ describe('TableColumnVisibility', () => {
 
   beforeEach(() => {
     visibleTableColumns.mockImplementation(() => [{ column: { name: 'c' } }]);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -72,7 +74,7 @@ describe('TableColumnVisibility', () => {
       .toEqual([{ column: { name: 'c' } }]);
   });
 
-  it('should force ', () => {
+  it('should force the empty message rendering if all columns are hidden', () => {
     const emptyMessageTemplate = jest.fn(() => null);
     visibleTableColumns.mockImplementation(() => []);
 
@@ -82,11 +84,17 @@ describe('TableColumnVisibility', () => {
         <TableColumnVisibility
           hiddenColumns={[]}
           emptyMessageTemplate={emptyMessageTemplate}
+          messages={{
+            noColumns: 'Nothing to show',
+          }}
         />
       </PluginHost>
     ));
+    const { getMessage } = emptyMessageTemplate.mock.calls[0][0];
 
     expect(emptyMessageTemplate)
       .toHaveBeenCalledTimes(1);
+    expect(getMessage('noColumns'))
+      .toBe('Nothing to show');
   });
 });

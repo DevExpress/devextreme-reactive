@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Pagination } from 'react-bootstrap';
 import { Pager } from './pager';
 
 describe('Pager', () => {
@@ -10,7 +9,7 @@ describe('Pager', () => {
       totalPages,
       pageSize,
       totalCount,
-      showAllText,
+      getMessage = key => key,
       allowedPageSizes = [],
       onPageSizeChange = () => {},
       onCurrentPageChange = () => {},
@@ -19,21 +18,28 @@ describe('Pager', () => {
       currentPage={currentPage}
       totalCount={totalCount}
       pageSize={pageSize}
-      showAllText={showAllText}
+      getMessage={getMessage}
       allowedPageSizes={allowedPageSizes}
       onCurrentPageChange={onCurrentPageChange}
       onPageSizeChange={onPageSizeChange}
     />);
 
     it('can show info about rendered pages', () => {
+      const getMessage = jest.fn();
+      getMessage.mockImplementation(key => key);
+
       const tree = mountPager({
         totalPages: 10,
         currentPage: 1,
         totalCount: 96,
         pageSize: 10,
+        getMessage,
       });
 
-      expect(tree.find('div > span > span').text()).toBe('11-20 of 96');
+      expect(getMessage)
+        .toBeCalledWith('info', { from: 11, to: 20, count: 96 });
+      expect(tree.find('div > span > span').text())
+        .toBe('info');
     });
 
     it('can render pagination arrows', () => {
@@ -100,18 +106,17 @@ describe('Pager', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
 
-    it('renders page selector', () => {
+    it('renders page size selector', () => {
       const pageSizeSelector = mountPager({
         totalPages: 10,
         currentPage: 9,
         totalCount: 96,
         pageSize: 5,
         allowedPageSizes: [5, 10],
-        showAllText: 'Show all',
       }).find('PageSizeSelector');
 
       expect(pageSizeSelector).toHaveLength(1);
-      expect(pageSizeSelector.at(0).prop('showAllText')).toBe('Show all');
+      expect(pageSizeSelector.at(0).prop('getMessage')('showAll')).toBe('showAll');
     });
 
     it('doesn\'t render page selector if the allowedPageSizes option is not defined ', () => {
@@ -123,20 +128,6 @@ describe('Pager', () => {
       }).find('PageSizeSelector');
 
       expect(pageSizeSelector).toHaveLength(0);
-    });
-
-    it('renders pager correctly if totalCount is 0', () => {
-      const tree = mountPager({
-        totalPages: 0,
-        currentPage: 0,
-        totalCount: 0,
-        pageSize: 5,
-      });
-      const arrows = tree.find('.pager li').filterWhere(a => a.hasClass('disabled'));
-
-      expect(arrows).toHaveLength(2);
-      expect(tree.find(Pagination).prop('items')).toBe(1);
-      expect(tree.find('div > span > span').text()).toBe('0 of 0');
     });
   });
 });

@@ -17,6 +17,10 @@ const defaultStubCellTemplate = props => <TableStubCell {...props} />;
 const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 
+const defaultMessages = {
+  noData: 'No data',
+};
+
 export class VirtualTableView extends React.PureComponent {
   render() {
     const {
@@ -26,6 +30,7 @@ export class VirtualTableView extends React.PureComponent {
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
       tableNoDataCellTemplate,
+      messages,
       ...restProps
     } = this.props;
 
@@ -56,6 +61,7 @@ export class VirtualTableView extends React.PureComponent {
           tableNoDataCellTemplate,
           defaultNoDataCellTemplate,
         )}
+        messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
     );
@@ -69,6 +75,9 @@ VirtualTableView.propTypes = {
   tableStubCellTemplate: PropTypes.func,
   tableStubHeaderCellTemplate: PropTypes.func,
   tableNoDataCellTemplate: PropTypes.func,
+  messages: PropTypes.shape({
+    noData: PropTypes.string,
+  }),
 };
 
 VirtualTableView.defaultProps = {
@@ -78,4 +87,5 @@ VirtualTableView.defaultProps = {
   tableStubCellTemplate: undefined,
   tableStubHeaderCellTemplate: undefined,
   tableNoDataCellTemplate: undefined,
+  messages: {},
 };

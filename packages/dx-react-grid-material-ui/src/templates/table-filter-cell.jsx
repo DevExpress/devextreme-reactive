@@ -18,7 +18,12 @@ const styles = theme => ({
 });
 
 const TableFilterCellBase = ({
-  style, filter, setFilter, classes, children,
+  style,
+  filter,
+  getMessage,
+  setFilter,
+  classes,
+  children,
 }) => (
   <TableCell
     className={classes.cell}
@@ -28,7 +33,7 @@ const TableFilterCellBase = ({
       <Input
         className={classes.input}
         value={filter ? filter.value : ''}
-        placeholder="Filter..."
+        placeholder={getMessage('filterPlaceholder')}
         onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
       />
     )}
@@ -44,6 +49,7 @@ TableFilterCellBase.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  getMessage: PropTypes.func.isRequired,
 };
 
 TableFilterCellBase.defaultProps = {

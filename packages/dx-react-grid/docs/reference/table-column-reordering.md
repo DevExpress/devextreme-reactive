@@ -15,9 +15,9 @@ Name | Type | Default | Description
 order | Array&lt;string&gt; | | Specifies the column order.
 defaultOrder | Array&lt;string&gt; | | Specifies the initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
-tableContainerTemplate | (args: [TableContainerArgs](#table-container-args)) => ReactElement | | A component that renders a wrapper, which is responsible for column dropping, around the table.
-reorderingRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A non-visual component that renders an invisible row containing reordering cells.
-reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A non-visual component that renders an invisible cell which is required for drag-and-drop reordering functionality.
+tableContainerTemplate | (args: [TableContainerArgs](#table-container-args)) => ReactElement | | A component that renders a table wrapper containing a drop target.
+reorderingRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
+reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A non-visual component that renders an invisible cell required for drag-and-drop reordering.
 
 ## Interfaces
 
@@ -29,9 +29,9 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-onOver | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles column drag over.
-onLeave | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles column drag leave.
-onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles column drop.
+onOver | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "drag over" event.
+onLeave | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "drag leave" event.
+onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "drop" event.
 
 ### <a name="reordering-cell-args"></a>ReorderingCellArgs
 
@@ -41,7 +41,7 @@ A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended b
 
 Field | Type | Description
 ------|------|------------
-getCellDimensions | (dimensionsGetter: () => { left: number, right: number }) => void) | A function that accepts another function responsible for getting the cell's horizontal bounds.
+getCellDimensions | (dimensionsGetter: () => { left: number, right: number }) => void) | Accepts a function that returns the cell's horizontal boundaries.
 
 ## Plugin Developer Reference
 

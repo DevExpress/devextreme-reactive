@@ -16,8 +16,22 @@ describe('Hierarchical Utils', () => {
     },
     {
       grouped: true,
+      groupLevelKey: 'group_c',
+      groupedBy: 'c',
+      value: 1,
+    },
+    { a: 1, b: 2 },
+    { a: 2, b: 2 },
+    {
+      grouped: true,
       groupLevelKey: 'group_b',
       groupedBy: 'b',
+      value: 2,
+    },
+    {
+      grouped: true,
+      groupLevelKey: 'group_c',
+      groupedBy: 'c',
       value: 2,
     },
     { a: 1, b: 2 },
@@ -27,6 +41,12 @@ describe('Hierarchical Utils', () => {
       groupLevelKey: 'group_a',
       groupedBy: 'a',
       value: 2,
+    },
+    {
+      grouped: true,
+      groupLevelKey: 'group_a',
+      groupedBy: 'a',
+      value: 3,
     },
   ];
 
@@ -46,8 +66,20 @@ describe('Hierarchical Utils', () => {
             groupedBy: 'b',
             value: 1,
           },
-          parentIndex: 0,
-          items: [],
+          items: [
+            {
+              groupRow: {
+                grouped: true,
+                groupLevelKey: 'group_c',
+                groupedBy: 'c',
+                value: 1,
+              },
+              items: [
+                { a: 1, b: 2 },
+                { a: 2, b: 2 },
+              ],
+            },
+          ],
         },
         {
           groupRow: {
@@ -57,8 +89,18 @@ describe('Hierarchical Utils', () => {
             value: 2,
           },
           items: [
-            { a: 1, b: 2 },
-            { a: 2, b: 2 },
+            {
+              groupRow: {
+                grouped: true,
+                groupLevelKey: 'group_c',
+                groupedBy: 'c',
+                value: 2,
+              },
+              items: [
+                { a: 1, b: 2 },
+                { a: 2, b: 2 },
+              ],
+            },
           ],
         },
       ],
@@ -69,6 +111,15 @@ describe('Hierarchical Utils', () => {
         groupLevelKey: 'group_a',
         groupedBy: 'a',
         value: 2,
+      },
+      items: [],
+    },
+    {
+      groupRow: {
+        grouped: true,
+        groupLevelKey: 'group_a',
+        groupedBy: 'a',
+        value: 3,
       },
       items: [],
     },

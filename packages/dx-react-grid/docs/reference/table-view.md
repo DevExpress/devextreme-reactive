@@ -20,6 +20,7 @@ tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElem
 tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty.
 tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided.
 tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided.
+messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -52,7 +53,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 key | string | A table row's unique identifier.
-type | string | Specifies the table row type. The specified value affects which cell template is used to render the row.
+type | string | Specifies the table row type. The specified value defines which cell template is used to render the row.
 rowId? | number &#124; string | Specifies the associated row's ID.
 row? | any | Specifies the associated row.
 height? | number | Specifies the table row height.
@@ -66,7 +67,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 key | string | A table column's unique identifier.
-type | string | Specifies the table column type. The specified value affects which cell template is used to render the column.
+type | string | Specifies the table column type. The specified value defines which cell template is used to render the column.
 column? | [Column](#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
 
@@ -81,7 +82,7 @@ Field | Type | Description
 tableRow | [TableRow](#table-row) | Specifies a table row.
 tableColumn | [TableColumn](#table-column) | Specifies a table column.
 style? | Object | Styles that should be applied to the root cell element.
-colSpan? | number | The number of columns the cell spans that should be applied to the root cell element.
+colSpan? | number | The column count that the root cell element spans.
 
 ### <a name="table-data-cell-args"></a>TableDataCellArgs
 
@@ -91,9 +92,17 @@ A value with the [TableCellArgs](#table-cell-args) shape extended by the followi
 
 Field | Type | Description
 ------|------|------------
-value | any | A value to be rendered within the cell.
-row | any | A row.
-column | [Column](#column) | Specifies a table column.
+value | any | Specifies a value to be rendered within the cell.
+row | any | Specifies the cell's row.
+column | [Column](#column) | Specifies the cell's column.
+
+### <a name="table-no-data-cell-args"></a>TableNoDataCellArgs
+
+Describes properties passed to the table cell being rendered when using an empty template.
+
+Field | Type | Description
+------|------|------------
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a cell when a table is empty.
 
 ### <a name="table-row-args"></a>TableRowArgs
 
@@ -116,6 +125,14 @@ A value with the [TableRowArgs](#table-row-args) shape extended by the following
 Field | Type | Description
 ------|------|------------
 row | any | A row.
+
+## Localization Messages
+
+An object with the following shape:
+
+Field | Type | Default | Description
+------|------|---------|------------
+noData? | string | 'No data' | Specifies text shown when the Grid does not contain data.
 
 ## Plugin Developer Reference
 

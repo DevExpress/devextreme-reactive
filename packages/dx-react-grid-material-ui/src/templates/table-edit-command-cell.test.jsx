@@ -27,20 +27,21 @@ describe('Table command column', () => {
       const tree = mount((
         <EditCommandHeadingCell
           allowAdding
-          addCommandText="CustomAdd"
+          getMessage={key => key}
           commandTemplate={props => <CommandButton {...props} />}
         />
       ));
 
       const button = tree.find(CommandButton);
       expect(button.exists()).toBeTruthy();
-      expect(button.text()).toBe('CustomAdd');
+      expect(button.text()).toBe('addCommand');
     });
 
     it('should not render a command button if allowAdding is false', () => {
       const tree = mount((
         <EditCommandHeadingCell
           commandTemplate={props => <CommandButton {...props} />}
+          getMessage={() => {}}
         />
       ));
 
@@ -53,6 +54,7 @@ describe('Table command column', () => {
         <EditCommandHeadingCell
           commandTemplate={props => <CommandButton {...props} />}
           allowAdding
+          getMessage={key => key}
         />
       ));
 
@@ -69,6 +71,7 @@ describe('Table command column', () => {
           addRow={addRow}
           allowAdding
           commandTemplate={template}
+          getMessage={key => key}
         />
       ));
 
@@ -76,7 +79,7 @@ describe('Table command column', () => {
       expect(template.mock.calls[0][0]).toMatchObject({
         executeCommand: addRow,
         id: 'add',
-        text: 'New',
+        text: 'addCommand',
       });
     });
   });
@@ -87,16 +90,15 @@ describe('Table command column', () => {
         <EditCommandCell
           allowEditing
           allowDeleting
-          editCommandText="CustomEdit"
-          deleteCommandText="CustomDelete"
           commandTemplate={props => <CommandButton {...props} />}
+          getMessage={key => key}
         />
       ));
 
       const buttons = tree.find(CommandButton);
       expect(buttons).toHaveLength(2);
-      expect(buttons.at(0).text()).toBe('CustomEdit');
-      expect(buttons.at(1).text()).toBe('CustomDelete');
+      expect(buttons.at(0).text()).toBe('editCommand');
+      expect(buttons.at(1).text()).toBe('deleteCommand');
     });
 
     it('should render without exceptions in edit mode', () => {
@@ -105,22 +107,22 @@ describe('Table command column', () => {
           isEditing
           allowEditing
           allowDeleting
-          commitCommandText="CustomCommit"
-          cancelCommandText="CustomCancel"
           commandTemplate={props => <CommandButton {...props} />}
+          getMessage={key => key}
         />
       ));
 
       const buttons = tree.find(CommandButton);
       expect(buttons).toHaveLength(2);
-      expect(buttons.at(0).text()).toBe('CustomCommit');
-      expect(buttons.at(1).text()).toBe('CustomCancel');
+      expect(buttons.at(0).text()).toBe('commitCommand');
+      expect(buttons.at(1).text()).toBe('cancelCommand');
     });
 
     it('should not render command buttons if allowEditing and allowDeleting are false', () => {
       const tree = mount((
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
+          getMessage={() => {}}
         />
       ));
 
@@ -133,6 +135,7 @@ describe('Table command column', () => {
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
           allowEditing
+          getMessage={key => key}
         />
       ));
 
@@ -145,6 +148,7 @@ describe('Table command column', () => {
         <EditCommandCell
           commandTemplate={props => <CommandButton {...props} />}
           allowDeleting
+          getMessage={key => key}
         />
       ));
 
@@ -164,6 +168,7 @@ describe('Table command column', () => {
           allowEditing
           allowDeleting
           commandTemplate={template}
+          getMessage={key => key}
         />
       ));
 
@@ -171,12 +176,12 @@ describe('Table command column', () => {
       expect(template.mock.calls[0][0]).toMatchObject({
         executeCommand: startEditing,
         id: 'edit',
-        text: 'Edit',
+        text: 'editCommand',
       });
       expect(template.mock.calls[1][0]).toMatchObject({
         executeCommand: deleteRow,
         id: 'delete',
-        text: 'Delete',
+        text: 'deleteCommand',
       });
     });
 
@@ -193,6 +198,7 @@ describe('Table command column', () => {
           allowAdding
           allowDeleting
           commandTemplate={template}
+          getMessage={key => key}
         />
       ));
 
@@ -200,12 +206,12 @@ describe('Table command column', () => {
       expect(template.mock.calls[0][0]).toMatchObject({
         executeCommand: commitChanges,
         id: 'commit',
-        text: 'Save',
+        text: 'commitCommand',
       });
       expect(template.mock.calls[1][0]).toMatchObject({
         executeCommand: cancelEditing,
         id: 'cancel',
-        text: 'Cancel',
+        text: 'cancelCommand',
       });
     });
   });

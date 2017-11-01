@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import List from 'material-ui-icons/List';
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
-const styles = theme => ({
+export const styles = theme => ({
   panel: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -22,7 +22,20 @@ const styles = theme => ({
   },
 });
 
-const DefaultTextBase = ({ classes, allowDragging, allowUngroupingByClick }) => {
+const GroupPanelTextBase = ({
+  classes,
+  allowDragging,
+  allowUngroupingByClick,
+  getMessage,
+}) => {
+  const message = getMessage('groupByColumn');
+  if (message) {
+    return (
+      <span className={classes.groupInfo}>
+        {message}
+      </span>
+    );
+  }
   if (allowDragging) {
     return (
       <span className={classes.groupInfo}>
@@ -50,18 +63,19 @@ const DefaultTextBase = ({ classes, allowDragging, allowUngroupingByClick }) => 
   );
 };
 
-DefaultTextBase.propTypes = {
+GroupPanelTextBase.propTypes = {
   classes: PropTypes.object.isRequired,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
+  getMessage: PropTypes.func.isRequired,
 };
 
-DefaultTextBase.defaultProps = {
+GroupPanelTextBase.defaultProps = {
   allowDragging: false,
   allowUngroupingByClick: false,
 };
 
-const DefaultText = withStyles(styles, { name: 'GroupPanel' })(DefaultTextBase);
+const GroupPanelText = withStyles(styles, { name: 'GroupPanel' })(GroupPanelTextBase);
 
 const PanelTemplateBase = ({ classes, items }) => (
   <div className={classes.panel}>
@@ -78,16 +92,17 @@ const PanelTemplate = withStyles(styles, { name: 'GroupPanel' })(PanelTemplateBa
 
 const panelTemplate = props => <PanelTemplate {...props} />;
 
-const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => {
-  const text = groupByColumnText || (
-    <DefaultText
+const GroupPanelBase = ({ getMessage, classes, ...restProps }) => {
+  const groupPanelText = (
+    <GroupPanelText
       allowDragging={restProps.allowDragging}
       allowUngroupingByClick={restProps.allowUngroupingByClick}
+      getMessage={getMessage}
     />);
   return (
     <div className={classes.panel}>
       <GroupPanelLayout
-        groupByColumnText={text}
+        groupByColumnText={groupPanelText}
         panelTemplate={panelTemplate}
         {...restProps}
       />
@@ -96,12 +111,8 @@ const GroupPanelBase = ({ groupByColumnText, classes, ...restProps }) => {
 };
 
 GroupPanelBase.propTypes = {
-  groupByColumnText: PropTypes.string,
+  getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-};
-
-GroupPanelBase.defaultProps = {
-  groupByColumnText: undefined,
 };
 
 export const GroupPanel = withStyles(styles, { name: 'GroupPanel' })(GroupPanelBase);

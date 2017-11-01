@@ -136,4 +136,16 @@ describe('Hierarchical Utils', () => {
   it('should convert tree to plain rows', () => {
     expect(treeToRows(tree)).toEqual(rows);
   });
+
+  it('should process empty rows correctly', () => {
+    expect(rowsToTree(
+      [],
+      row => row.grouped === true,
+      row => row.groupLevelKey,
+    )).toEqual([]);
+  });
+
+  it('should process empty tree correctly', () => {
+    expect(treeToRows([])).toEqual([]);
+  });
 });

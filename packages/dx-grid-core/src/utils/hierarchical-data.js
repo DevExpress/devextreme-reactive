@@ -1,4 +1,6 @@
 export const rowsToTree = (rows, isGroupRow, getRowLevelKey) => {
+  if (!rows.length) return rows;
+
   let level;
   const levels = {};
   const parentLevels = {};
@@ -34,9 +36,9 @@ export const rowsToTree = (rows, isGroupRow, getRowLevelKey) => {
   }, []);
 };
 
-
-export const treeToRows = (tree, rows = []) =>
-  tree.reduce((acc, item) => {
+export const treeToRows = (tree, rows = []) => {
+  if (!tree.length) return tree;
+  return tree.reduce((acc, item) => {
     const { groupRow, items } = item;
 
     if (groupRow) {
@@ -50,3 +52,4 @@ export const treeToRows = (tree, rows = []) =>
 
     return acc;
   }, rows);
+};

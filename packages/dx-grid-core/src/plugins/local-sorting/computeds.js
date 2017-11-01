@@ -31,6 +31,7 @@ const createCompare = (sorting, getColumnCompare, getCellValue) =>
     );
 
 const sortTree = (tree, compare, groupCompare) => {
+  if (!tree.length) return tree;
   const sorted = mergeSort(tree, tree[0].groupRow ? groupCompare : compare);
   sorted.forEach((row) => {
     if (row.items && row.items.length) {

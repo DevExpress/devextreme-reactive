@@ -202,5 +202,15 @@ describe('LocalSorting computeds', () => {
           },
         ]);
     });
+    it('should not throw an exception if rows are empty', () => {
+      expect(sortedRows(
+        [],
+        [],
+        getCellValue,
+        () => undefined,
+        () => {},
+        () => {},
+      )).toEqual([]);
+    });
   });
 });

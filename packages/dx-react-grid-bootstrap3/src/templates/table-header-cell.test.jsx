@@ -294,7 +294,7 @@ describe('TableHeaderCell', () => {
         .toHaveBeenCalledWith({ keepOther: true, cancel: true });
     });
 
-    it('should switch sorting derection when "Enter" key down', () => {
+    it('should switch sorting direction when "Enter" key down', () => {
       const changeSortingDirection = jest.fn();
       const tree = mount((
         <TableHeaderCell

@@ -13,6 +13,9 @@ export const SortingControl = ({ align, sortingDirection, columnTitle }) =>
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
+      style={{
+        margin: '2px',
+      }}
     >
       <SortingIndicator
         direction={sortingDirection}
@@ -27,6 +30,9 @@ export const SortingControl = ({ align, sortingDirection, columnTitle }) =>
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
+      style={{
+        margin: '2px',
+      }}
     >
       {columnTitle}
       &nbsp;

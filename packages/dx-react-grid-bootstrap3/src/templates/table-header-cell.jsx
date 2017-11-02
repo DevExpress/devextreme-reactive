@@ -17,27 +17,22 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-
-    this.onCellClick = (e) => {
-      const { allowSorting, changeSortingDirection } = this.props;
-      if (!allowSorting) return;
-      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      changeSortingDirection({
-        keepOther: e.shiftKey || cancelSortingRelatedKey,
-        cancel: cancelSortingRelatedKey,
-      });
-    };
-    this.handleKeyDown = (e) => {
+    this.handleClick = (e) => {
       const { allowSorting, changeSortingDirection, sortingDirection } = this.props;
       if (!allowSorting) return;
-      if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
-        const cancel = (sortingDirection === 'desc');
-        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+      const cancel = (sortingDirection === 'desc');
+      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
 
+      if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
         e.preventDefault();
         changeSortingDirection({
           keepOther: e.shiftKey || cancelSortingRelatedKey,
           cancel: cancelSortingRelatedKey || cancel,
+        });
+      } else if (e.keyCode === undefined) {
+        changeSortingDirection({
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey,
         });
       }
     };
@@ -71,9 +66,10 @@ export class TableHeaderCell extends React.PureComponent {
           } : {}),
           ...(allowSorting || allowDragging ? { cursor: 'pointer' } : null),
           ...(dragging || tableColumn.draft ? { opacity: 0.3 } : null),
+          padding: '5px',
           ...style,
         }}
-        onClick={this.onCellClick}
+        onClick={this.handleClick}
       >
         {allowGroupingByClick && (
           <GroupingControl
@@ -88,16 +84,18 @@ export class TableHeaderCell extends React.PureComponent {
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
+            padding: '3px',
           }}
           onMouseDown={this.handleMouseDown}
           onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
+          onKeyDown={this.handleClick}
         >
           {allowSorting ? (
             <SortingControl
               align={align}
               sortingDirection={sortingDirection}
               columnTitle={columnTitle}
+              handleClick={this.handleClick}
             />
           ) : (
             columnTitle

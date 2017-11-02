@@ -1,55 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableSortLabel } from 'material-ui';
+
+import { TableSortLabel, Tooltip } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
-  sortingControl: {
-    cursor: 'pointer',
-    display: 'inline-block',
-    paddingTop: theme.spacing.unit / 2,
-  },
-  sortingTitle: {
-    lineHeight: '18px',
-    display: 'inline-block',
-    verticalAlign: 'top',
-    textOverflow: 'ellipsis',
+  tooltipRoot: {
+    display: 'block',
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  sortLabelRoot: {
+    height: theme.spacing.unit * 3,
+  },
+  sortLabelActive: {
+    color: 'inherit',
   },
 });
 
 const SortingControlBase = ({
-  align, sortingDirection, columnTitle, classes,
-}) =>
-  (align === 'right' ? (
-    <span className={classes.sortingControl}>
-      {!!sortingDirection && <TableSortLabel
-        active={!!sortingDirection}
-        direction={sortingDirection}
-        tabIndex={-1}
-      />}
-      <span className={classes.sortingTitle}>
-        {columnTitle}
-      </span>
-    </span>
-  ) : (
-    <span className={classes.sortingControl}>
-      <span className={classes.sortingTitle}>
-        {columnTitle}
-      </span>
-      <TableSortLabel
-        tabIndex={-1}
-        active={!!sortingDirection}
-        direction={sortingDirection}
-      />
-    </span>
-  ));
+  align, sortingDirection, columnTitle, handleClick, classes,
+}) => (
+  <Tooltip
+    title="Sort"
+    placement={align === 'right' ? 'bottom-end' : 'bottom-start'}
+    enterDelay={300}
+    classes={{
+      root: classes.tooltipRoot,
+    }}
+  >
+    <TableSortLabel
+      active={!!sortingDirection}
+      direction={sortingDirection}
+      onClick={handleClick}
+      classes={{
+        root: classes.sortLabelRoot,
+        active: classes.sortLabelActive,
+      }}
+    >
+      {columnTitle}
+    </TableSortLabel>
+  </Tooltip>
+);
 
 SortingControlBase.propTypes = {
   align: PropTypes.string.isRequired,
   sortingDirection: PropTypes.oneOf(['asc', 'desc']),
   columnTitle: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 SortingControlBase.defaultProps = {

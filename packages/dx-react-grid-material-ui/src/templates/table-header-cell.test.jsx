@@ -1,9 +1,10 @@
 import React from 'react';
-import { TableCell } from 'material-ui';
+import { TableCell, TableSortLabel } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
+import { setupConsole, mockRaf } from '@devexpress/dx-testing';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
+import { SortingControl } from './table-header-cell/sorting-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 
@@ -15,12 +16,15 @@ describe('TableHeaderCell', () => {
   let resetConsole;
   let mount;
   let classes;
+  let resetRaf;
   beforeAll(() => {
+    resetRaf = mockRaf();
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<TableHeaderCell column={{}} />);
     mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
   });
   afterAll(() => {
+    resetRaf();
     resetConsole();
     mount.cleanUp();
   });
@@ -56,7 +60,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    tree.find(TableHeaderCell).simulate('click', { ctrlKey: true });
+    tree.find('TableSortLabel').simulate('click', { ctrlKey: true });
 
     expect(changeSortingDirection.mock.calls).toHaveLength(1);
     expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
@@ -70,7 +74,6 @@ describe('TableHeaderCell', () => {
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeFalsy();
-    expect(tree.find(TableCell).hasClass(classes.cellClickable)).toBeFalsy();
     expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeFalsy();
   });
 
@@ -83,7 +86,6 @@ describe('TableHeaderCell', () => {
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
-    expect(tree.find(TableCell).hasClass(classes.cellClickable)).toBeTruthy();
   });
 
   it('should have correct styles when dragging is allowed', () => {
@@ -139,62 +141,6 @@ describe('TableHeaderCell', () => {
       .toBe(changeColumnWidth);
   });
 
-  it('should have correct offset when grouping by click is not allowed and column align is left', () => {
-    const tree = mount((
-      <TableHeaderCell
-        column={{}}
-        allowGroupingByClick={false}
-      />
-    ));
-
-    expect(tree.find(`.${classes.titleLeftOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRightOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(1);
-    expect(tree.find(`.${classes.titleRight}`)).toHaveLength(0);
-  });
-
-  it('should have correct offset when grouping by click is allowed column align is left', () => {
-    const tree = mount((
-      <TableHeaderCell
-        column={{}}
-        allowGroupingByClick
-      />
-    ));
-
-    expect(tree.find(`.${classes.titleLeftOffset}`)).toHaveLength(1);
-    expect(tree.find(`.${classes.titleRightOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(1);
-    expect(tree.find(`.${classes.titleRight}`)).toHaveLength(0);
-  });
-
-  it('should have correct offset when grouping by click is not allowed and column align is right', () => {
-    const tree = mount((
-      <TableHeaderCell
-        column={{ align: 'right' }}
-        allowGroupingByClick={false}
-      />
-    ));
-
-    expect(tree.find(`.${classes.titleLeftOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRightOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRight}`)).toHaveLength(1);
-  });
-
-  it('should have correct offset when grouping by click is allowed column align is right', () => {
-    const tree = mount((
-      <TableHeaderCell
-        column={{ align: 'right' }}
-        allowGroupingByClick
-      />
-    ));
-
-    expect(tree.find(`.${classes.titleLeftOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRightOffset}`)).toHaveLength(1);
-    expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRight}`)).toHaveLength(1);
-  });
-
   describe('with keyboard navigation', () => {
     const ENTER_KEY_CODE = 13;
     const SPACE_KEY_CODE = 32;
@@ -206,8 +152,8 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      expect(tree.find('TableCell').prop('tabIndex'))
-        .toBeFalsy();
+      expect(tree.find(SortingControl).exists())
+        .not.toBeTruthy();
     });
 
     it('can get focus if sorting is allow', () => {
@@ -218,8 +164,8 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      expect(tree.find('TableCell').prop('tabIndex'))
-        .toBe(0);
+      expect(tree.find(SortingControl).exists())
+        .toBeTruthy();
     });
 
     it('should handle the "Enter" and "Space" keys down', () => {
@@ -231,19 +177,19 @@ describe('TableHeaderCell', () => {
           allowSorting
         />
       ));
+      const SortLabel = tree.find(TableSortLabel);
 
-      const targetElement = tree.find('div');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+      SortLabel.simulate('keydown', { keyCode: ENTER_KEY_CODE });
       expect(changeSortingDirection)
         .toHaveBeenCalled();
 
       changeSortingDirection.mockClear();
-      targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+      SortLabel.simulate('keydown', { keyCode: SPACE_KEY_CODE });
       expect(changeSortingDirection)
         .toHaveBeenCalled();
 
       changeSortingDirection.mockClear();
-      targetElement.simulate('keydown', { keyCode: 51 });
+      SortLabel.simulate('keydown', { keyCode: 51 });
       expect(changeSortingDirection)
         .not.toHaveBeenCalled();
     });
@@ -258,8 +204,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('div');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
+      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
       expect(changeSortingDirection)
         .toHaveBeenCalledWith({ keepOther: true, cancel: false });
     });
@@ -274,8 +219,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('div');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
+      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
       expect(changeSortingDirection)
         .toHaveBeenCalledWith({ keepOther: true, cancel: true });
     });
@@ -291,8 +235,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('div');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: false });
+      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: false });
       expect(changeSortingDirection)
         .toHaveBeenCalledWith({ keepOther: false, cancel: true });
     });

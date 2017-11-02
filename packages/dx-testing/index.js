@@ -1,3 +1,4 @@
+/* globals window:true */
 const { format } = require('util');
 
 module.exports = {
@@ -10,8 +11,8 @@ module.exports = {
       const errorMessage = args[0];
 
       if (!config.ignore
-      ||
-      !config.ignore.filter(message => errorMessage.includes(message)).length) {
+        ||
+        !config.ignore.filter(message => errorMessage.includes(message)).length) {
         throw new Error(format(...args).replace(/^Error: (?:Warning: )?/, ''));
       }
     };
@@ -24,5 +25,12 @@ module.exports = {
       console.error = savedConsoleError;
     };
     /* eslint-enable no-console */
+  },
+  mockRaf: () => {
+    const originalRaf = window.requestAnimationFrame;
+    window.requestAnimationFrame = () => { };
+    return () => {
+      window.requestAnimationFrame = originalRaf;
+    };
   },
 };

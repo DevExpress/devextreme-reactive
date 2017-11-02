@@ -16,8 +16,10 @@ const SPACE_KEY_CODE = 32;
 
 const styles = theme => ({
   plainTitle: {
-    textOverflow: 'ellipsis',
     overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    height: theme.spacing.unit * 3,
+    lineHeight: `${theme.spacing.unit * 3}px`,
   },
   cell: {
     outline: 'none',
@@ -37,9 +39,6 @@ const styles = theme => ({
   cellDraggable: {
     cursor: 'pointer',
   },
-  cellClickable: {
-    cursor: 'pointer',
-  },
   cellDimmed: {
     opacity: 0.3,
   },
@@ -49,25 +48,6 @@ const styles = theme => ({
   },
   clearPadding: {
     padding: 0,
-  },
-  title: {
-    height: '24px',
-    lineHeight: '24px',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    verticalAlign: 'middle',
-  },
-  titleRight: {
-    textAlign: 'right',
-  },
-  titleLeft: {
-    textAlign: 'left',
-  },
-  titleRightOffset: {
-    marginLeft: (theme.spacing.unit * 2) - 2,
-  },
-  titleLeftOffset: {
-    marginRight: (theme.spacing.unit * 2) - 2,
   },
 });
 
@@ -79,32 +59,25 @@ class TableHeaderCellBase extends React.PureComponent {
       dragging: false,
     };
 
-    this.onCellClick = (e) => {
-      const { allowSorting, changeSortingDirection } = this.props;
-      if (!allowSorting) return;
-      e.stopPropagation();
-      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      changeSortingDirection({
-        keepOther: e.shiftKey || cancelSortingRelatedKey,
-        cancel: cancelSortingRelatedKey,
-      });
-    };
-    this.handleKeyDown = (e) => {
+    this.handleClick = (e) => {
       const { allowSorting, changeSortingDirection, sortingDirection } = this.props;
       if (!allowSorting) return;
-      if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
-        const cancel = (sortingDirection === 'desc');
-        const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+      const cancel = (sortingDirection === 'desc');
+      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
 
+      if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
         e.preventDefault();
         changeSortingDirection({
           keepOther: e.shiftKey || cancelSortingRelatedKey,
           cancel: cancelSortingRelatedKey || cancel,
         });
+      } else if (e.keyCode === undefined) {
+        changeSortingDirection({
+          keepOther: e.shiftKey || cancelSortingRelatedKey,
+          cancel: cancelSortingRelatedKey,
+        });
       }
     };
-    this.handleBlur = (e) => { e.currentTarget.style.color = ''; };
-    this.handleFocus = (e) => { e.currentTarget.style.color = 'rgb(0, 0, 0)'; };
   }
   render() {
     const {
@@ -124,27 +97,13 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellRight]: align === 'right',
       [classes.cellNoUserSelect]: allowDragging || allowSorting,
       [classes.cellDraggable]: allowDragging,
-      [classes.cellClickable]: allowSorting,
       [classes.cellDimmed]: dragging || tableColumn.draft,
     });
-
-    const titleClasses = classNames({
-      [classes.title]: true,
-      [classes.titleRight]: align === 'right',
-      [classes.titleLeft]: align === 'left',
-      [classes.titleRightOffset]: align === 'right' && allowGroupingByClick,
-      [classes.titleLeftOffset]: align === 'left' && allowGroupingByClick,
-    });
-
     const cellLayout = (
       <TableCell
         style={style}
         className={tableCellClasses}
-        tabIndex={allowSorting && 0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-        onClick={this.onCellClick}
-        onKeyDown={this.handleKeyDown}
-        onBlur={this.handleBlur}
-        onFocus={this.handleFocus}
+        numeric={align === 'right'}
       >
         {allowGroupingByClick && (
           <GroupingControl
@@ -152,19 +111,19 @@ class TableHeaderCellBase extends React.PureComponent {
             groupByColumn={groupByColumn}
           />
         )}
-        <div className={titleClasses}>
-          {allowSorting ? (
-            <SortingControl
-              align={align}
-              sortingDirection={sortingDirection}
-              columnTitle={columnTitle}
-            />
-          ) : (
-            <div className={classes.plainTitle}>
-              {columnTitle}
-            </div>
-          )}
-        </div>
+        {allowSorting ? (
+          <SortingControl
+            align={align}
+            sortingDirection={sortingDirection}
+            columnTitle={columnTitle}
+            handleClick={this.handleClick}
+            allowGroupingByClick={allowGroupingByClick}
+          />
+        ) : (
+          <div className={classes.plainTitle}>
+            {columnTitle}
+          </div>
+        )}
         {allowResizing && (
           <ResizingControl
             changeColumnWidth={changeColumnWidth}

@@ -20,7 +20,7 @@ export { LocalSorting } from './plugins/local-sorting';
 
 export { DragDropContext } from './plugins/drag-drop-context';
 
-export { ColumnOrderState } from './plugins/column-order-state';
+export { TableColumnReordering } from './plugins/table-column-reordering';
 
 export { TableView } from './plugins/table-view';
 export { TableSelection } from './plugins/table-selection';

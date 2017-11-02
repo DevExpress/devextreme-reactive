@@ -33,8 +33,8 @@ export class VirtualTable extends React.Component {
     };
 
     this.rowHeight = (row) => {
-      let height = row.height || DEFAULT_HEIGHT;
-      if (height === 'auto') {
+      let { height } = row;
+      if (typeof height === 'undefined' || height === 'auto') {
         height = DEFAULT_HEIGHT;
       }
       return height;
@@ -68,6 +68,7 @@ export class VirtualTable extends React.Component {
               );
 
             return {
+              key: columnWithColSpan.key,
               size,
               stick: false,
             };
@@ -95,6 +96,7 @@ export class VirtualTable extends React.Component {
         direction="vertical"
         itemCount={headerRows.length}
         itemInfo={rowIndex => ({
+          key: headerRows[rowIndex].key,
           size: this.rowHeight(headerRows[rowIndex]),
           stick: false,
         })}
@@ -112,6 +114,7 @@ export class VirtualTable extends React.Component {
         direction="vertical"
         itemCount={bodyRows.length}
         itemInfo={rowIndex => ({
+          key: bodyRows[rowIndex].key,
           size: this.rowHeight(bodyRows[rowIndex]),
           stick: false,
         })}

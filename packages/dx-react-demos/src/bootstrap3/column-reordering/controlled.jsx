@@ -1,12 +1,10 @@
 import React from 'react';
 import {
-  ColumnOrderState,
-} from '@devexpress/dx-react-grid';
-import {
   Grid,
   DragDropContext,
   TableView,
   TableHeaderRow,
+  TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -41,12 +39,12 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <ColumnOrderState
+        <DragDropContext />
+        <TableView />
+        <TableColumnReordering
           order={columnOrder}
           onOrderChange={this.changeColumnOrder}
         />
-        <DragDropContext />
-        <TableView allowColumnReordering />
         <TableHeaderRow allowDragging />
       </Grid>
     );

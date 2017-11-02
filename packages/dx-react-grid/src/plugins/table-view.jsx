@@ -19,17 +19,14 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const getTableLayoutTemplateArgs = (
-  { allowColumnReordering, rowTemplate, cellTemplate },
+  { rowTemplate, cellTemplate },
   { tableHeaderRows, tableBodyRows, tableColumns },
-  { setColumnOrder },
 ) => ({
   headerRows: tableHeaderRows,
   bodyRows: tableBodyRows,
   columns: tableColumns,
-  allowColumnReordering,
   rowTemplate,
   cellTemplate,
-  setColumnOrder,
 });
 
 const getDataTableCellTemplateArgs = (
@@ -73,7 +70,6 @@ export class TableView extends React.PureComponent {
       tableNoDataCellTemplate,
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
-      allowColumnReordering,
       messages,
     } = this.props;
 
@@ -83,8 +79,6 @@ export class TableView extends React.PureComponent {
       <PluginContainer
         pluginName="TableView"
         dependencies={[
-          { pluginName: 'ColumnOrderState', optional: !allowColumnReordering },
-          { pluginName: 'DragDropContext', optional: !allowColumnReordering },
           { pluginName: 'DataTypeProvider', optional: true },
         ]}
       >
@@ -101,7 +95,7 @@ export class TableView extends React.PureComponent {
               <TemplateRenderer
                 template={tableLayoutTemplate}
                 params={getTableLayoutTemplateArgs(
-                  { allowColumnReordering, rowTemplate, cellTemplate },
+                  { rowTemplate, cellTemplate },
                   getters,
                   actions,
                 )}
@@ -123,8 +117,8 @@ export class TableView extends React.PureComponent {
                     template={tableStubCellTemplate}
                     params={params}
                   />
-                )
-                )}
+                ))
+              }
             </TemplateConnector>
           )}
         </Template>
@@ -208,11 +202,9 @@ TableView.propTypes = {
   tableNoDataRowTemplate: PropTypes.func.isRequired,
   tableStubCellTemplate: PropTypes.func.isRequired,
   tableStubHeaderCellTemplate: PropTypes.func.isRequired,
-  allowColumnReordering: PropTypes.bool,
   messages: PropTypes.object,
 };
 
 TableView.defaultProps = {
-  allowColumnReordering: false,
   messages: {},
 };

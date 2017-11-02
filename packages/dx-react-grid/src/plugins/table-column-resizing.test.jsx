@@ -25,7 +25,7 @@ const defaultDeps = {
 
 const defaultProps = {};
 
-describe('ColumnOrderState', () => {
+describe('TableColumnReordering', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

@@ -1,22 +1,22 @@
 import Immutable from 'seamless-immutable';
 
 import {
-  setColumnOrder,
+  changeColumnOrder,
 } from './reducers';
 
-describe('ColumnOrderState reducers', () => {
-  describe('#setColumnOrder', () => {
+describe('TableColumnReordering reducers', () => {
+  describe('#changeColumnOrder', () => {
     const order = ['a', 'b', 'c'];
     const payload = { sourceColumnName: 'a', targetColumnName: 'b' };
 
     it('should work', () => {
-      const nextOrder = setColumnOrder(order, payload);
+      const nextOrder = changeColumnOrder(order, payload);
 
       expect(nextOrder).toEqual(['b', 'a', 'c']);
     });
 
     it('should work with immutable order', () => {
-      const nextOrder = setColumnOrder(Immutable(order), payload);
+      const nextOrder = changeColumnOrder(Immutable(order), payload);
 
       expect(nextOrder).toEqual(['b', 'a', 'c']);
     });

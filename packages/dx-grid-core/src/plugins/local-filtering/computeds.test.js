@@ -71,10 +71,20 @@ describe('LocalFiltering computeds', () => {
       const filters = [{ columnName: 'a', value: 1 }];
       const isGroupRow = row => row.group;
       const groupedRows = [
-        { group: true },
+        {
+          group: true,
+          groupLevelKey: 'a',
+          collapsedItems: [
+            { a: 1, b: 1 },
+            { a: 2, b: 2 },
+          ],
+        },
+        { group: true, groupLevelKey: 'a', collapsedItems: [] },
+        { group: true, groupLevelKey: 'b', collapsedItems: [] },
         { a: 1, b: 1 },
         { a: 1, b: 2 },
-        { group: true },
+        { group: true, groupLevelKey: 'a', collapsedItems: [] },
+        { group: true, groupLevelKey: 'b', collapsedItems: [] },
         { a: 2, b: 1 },
         { a: 2, b: 2 },
       ];
@@ -85,13 +95,22 @@ describe('LocalFiltering computeds', () => {
         getCellValue,
         () => undefined,
         isGroupRow,
+        row => row.groupLevelKey,
       );
       expect(filtered).toEqual([
-        { group: true },
+        {
+          group: true,
+          groupLevelKey: 'a',
+          collapsedItems: [
+            { a: 1, b: 1 },
+          ],
+        },
+        { group: true, groupLevelKey: 'a', collapsedItems: [] },
+        { group: true, groupLevelKey: 'b', collapsedItems: [] },
         { a: 1, b: 1 },
         { a: 1, b: 2 },
-        { group: true },
       ]);
+      expect(filtered[0].collapsedItems).not.toBe(groupedRows[0].collapsedItems);
     });
   });
 });

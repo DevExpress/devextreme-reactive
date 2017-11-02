@@ -16,8 +16,9 @@ export class LocalFiltering extends React.PureComponent {
       filters,
       getCellValue,
       isGroupRow,
+      getRowLevelKey,
     }) =>
-      filteredRows(rows, filters, getCellValue, getColumnPredicate, isGroupRow);
+      filteredRows(rows, filters, getCellValue, getColumnPredicate, isGroupRow, getRowLevelKey);
 
     return (
       <PluginContainer

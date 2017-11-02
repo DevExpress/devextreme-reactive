@@ -1,35 +1,33 @@
 export const rowsToTree = (rows, isGroupRow, getRowLevelKey) => {
   if (!rows.length) return rows;
 
-  let level;
+  let currentLevel;
   const levels = {};
   const parentLevels = {};
+
   return rows.reduce((acc, row) => {
     if (isGroupRow(row)) {
       const currentRowKey = getRowLevelKey(row);
       if (!acc.length) {
         levels[currentRowKey] = acc;
-        level = { groupRow: row, items: [] };
-        levels[currentRowKey].push(level);
+        currentLevel = { groupRow: row, items: [] };
+        levels[currentRowKey].push(currentLevel);
+      } else if (!levels[currentRowKey]) {
+        const parentKey = getRowLevelKey(currentLevel.groupRow);
+        currentLevel = { groupRow: row, items: [] };
+        levels[currentRowKey] = [currentLevel];
+        levels[parentKey].slice(-1)[0].items.push(currentLevel);
+        parentLevels[currentRowKey] = parentKey;
       } else {
-        // eslint-disable-next-line
-        if (!levels[currentRowKey]) {
-          const parentKey = getRowLevelKey(level.groupRow);
-          level = { groupRow: row, items: [] };
-          levels[currentRowKey] = [level];
-          levels[parentKey].slice(-1)[0].items.push(level);
-          parentLevels[currentRowKey] = parentKey;
-        } else {
-          const parentKey = parentLevels[currentRowKey];
-          level = { groupRow: row, items: [] };
-          levels[currentRowKey].push(level);
-          if (parentKey) {
-            levels[parentKey].slice(-1)[0].items.push(level);
-          }
+        const parentKey = parentLevels[currentRowKey];
+        currentLevel = { groupRow: row, items: [] };
+        levels[currentRowKey].push(currentLevel);
+        if (parentKey) {
+          levels[parentKey].slice(-1)[0].items.push(currentLevel);
         }
       }
     } else {
-      level.items.push(row);
+      currentLevel.items.push(row);
     }
 
     return acc;

@@ -64,7 +64,7 @@ export class TemplatePlaceholder extends React.Component {
       const { children: templateContent } = this.template;
 
       content = templateContent();
-      if (content && content instanceof Function) {
+      if (content && typeof content === 'function') {
         content = content(params);
       }
     }

@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import {
-  TemplateRenderer,
-} from '@devexpress/dx-react-core';
-
-import {
-  getTableRowColumnsWithColSpan,
-} from '@devexpress/dx-grid-core';
+import { TemplateRenderer } from '@devexpress/dx-react-core';
+import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
 
 const getColumnStyle = ({ column }) => ({
   width: column.width !== undefined ? `${column.width}px` : undefined,

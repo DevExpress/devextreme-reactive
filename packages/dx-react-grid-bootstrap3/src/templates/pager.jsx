@@ -12,10 +12,10 @@ export const Pager = ({
   onPageSizeChange,
   allowedPageSizes,
   totalCount,
-  showAllText,
+  getMessage,
 }) => {
-  const firstRow = firstRowOnPage(currentPage, pageSize, totalCount);
-  const lastRow = lastRowOnPage(currentPage, pageSize, totalCount);
+  const from = firstRowOnPage(currentPage, pageSize, totalCount);
+  const to = lastRowOnPage(currentPage, pageSize, totalCount);
 
   return (
     <div className="clearfix">
@@ -23,7 +23,7 @@ export const Pager = ({
         pageSize={pageSize}
         onPageSizeChange={onPageSizeChange}
         allowedPageSizes={allowedPageSizes}
-        showAllText={showAllText}
+        getMessage={getMessage}
       />}
       <Pagination
         style={{
@@ -57,7 +57,7 @@ export const Pager = ({
       </BootstrapPager>
       <span className="pull-right visible-xs" style={{ marginRight: '20px' }}>
         <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
-          {`${firstRow}${firstRow < lastRow ? `-${lastRow}` : ''} of ${totalCount}`}
+          {getMessage('info', { from, to, count: totalCount })}
         </span>
       </span>
     </div>
@@ -72,9 +72,5 @@ Pager.propTypes = {
   onPageSizeChange: PropTypes.func.isRequired,
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   totalCount: PropTypes.number.isRequired,
-  showAllText: PropTypes.string,
-};
-
-Pager.defaultProps = {
-  showAllText: undefined,
+  getMessage: PropTypes.func.isRequired,
 };

@@ -1,13 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { pageCount } from '@devexpress/dx-grid-core';
+import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { PagingPanel } from './paging-panel';
 import { pluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   pageCount: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -37,6 +38,7 @@ describe('PagingPanel', () => {
 
   beforeEach(() => {
     pageCount.mockImplementation(() => 11);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -68,5 +70,25 @@ describe('PagingPanel', () => {
     pagerTemplate.mock.calls[0][0].onCurrentPageChange(3);
     expect(defaultDeps.action.setCurrentPage.mock.calls[0][0])
       .toEqual(3);
+  });
+
+  it('should pass correct getMessage prop to pagerTemplate', () => {
+    const pagerTemplate = jest.fn().mockReturnValue(null);
+    const deps = {};
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <PagingPanel
+          pagerTemplate={pagerTemplate}
+          messages={{
+            showAll: 'Show all',
+          }}
+        />
+      </PluginHost>
+    ));
+
+    const { getMessage } = pagerTemplate.mock.calls[0][0];
+
+    expect(getMessage('showAll')).toBe('Show all');
   });
 });

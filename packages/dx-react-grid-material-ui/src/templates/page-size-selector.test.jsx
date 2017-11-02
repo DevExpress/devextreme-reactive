@@ -1,12 +1,19 @@
 import React from 'react';
 import Select from 'material-ui/Select';
-import { createMount } from 'material-ui/test-utils';
+import { createMount, getClasses } from 'material-ui/test-utils';
 import { PageSizeSelector } from './page-size-selector';
 
 describe('PageSizeSelector', () => {
   let mount;
+  let classes;
   beforeAll(() => {
     mount = createMount();
+    classes = getClasses(<PageSizeSelector
+      pageSize={0}
+      allowedPageSizes={[]}
+      getMessage={() => {}}
+      onPageSizeChange={() => {}}
+    />);
   });
   afterAll(() => {
     mount.cleanUp();
@@ -16,13 +23,13 @@ describe('PageSizeSelector', () => {
     const mountPageSizeSelector = ({
       pageSize,
       allowedPageSizes,
-      showAllText,
       onPageSizeChange = () => {},
+      getMessage = key => key,
     }) => mount((
       <PageSizeSelector
         pageSize={pageSize}
         allowedPageSizes={allowedPageSizes}
-        showAllText={showAllText}
+        getMessage={getMessage}
         onPageSizeChange={onPageSizeChange}
       />
     ));
@@ -43,7 +50,7 @@ describe('PageSizeSelector', () => {
       expect(selectItems[1].props.value).toBe(allowedPageSizes[1]);
     });
 
-    it('can render the \'All\' item', () => {
+    it('can render the "All" item', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
         allowedPageSizes: [5, 10, 0],
@@ -51,22 +58,20 @@ describe('PageSizeSelector', () => {
       const select = pageSizeSelector.find(Select);
       const selectItems = select.prop('children');
 
-      expect(selectItems[2].props.children).toBe('All');
+      expect(selectItems[2].props.children).toBe('showAll');
     });
 
-    it('can customize the \'All\' item text', () => {
+    it('should render "Rows per page" text', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
-        allowedPageSizes: [5, 10, 15, 0],
-        showAllText: 'Show all',
+        allowedPageSizes: [5, 10, 15],
       });
-      const select = pageSizeSelector.find(Select);
-      const selectItems = select.prop('children');
+      const label = pageSizeSelector.find(`.${classes.label}`);
 
-      expect(selectItems[3].props.children).toBe('Show all');
+      expect(label.text()).toBe('rowsPerPage');
     });
 
-    it('can handle the \'onPageSizeChange\' event', () => {
+    it('can handle the "onPageSizeChange" event', () => {
       const onPageSizeChange = jest.fn();
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 5,

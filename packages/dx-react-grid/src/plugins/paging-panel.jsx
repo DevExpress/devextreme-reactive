@@ -4,14 +4,14 @@ import {
   Template, TemplatePlaceholder, PluginContainer,
   TemplateConnector, TemplateRenderer,
 } from '@devexpress/dx-react-core';
-import { pageCount } from '@devexpress/dx-grid-core';
+import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
 const getPagerTemplateArgs = (
-  { allowedPageSizes },
+  { allowedPageSizes, getMessage },
   { currentPage, pageSize, totalCount },
   { setCurrentPage, setPageSize },
 ) => ({
@@ -20,14 +20,15 @@ const getPagerTemplateArgs = (
   pageSize,
   totalCount,
   allowedPageSizes,
+  getMessage,
   onCurrentPageChange: setCurrentPage,
   onPageSizeChange: setPageSize,
 });
 
-
 export class PagingPanel extends React.PureComponent {
   render() {
-    const { pagerTemplate, allowedPageSizes } = this.props;
+    const { pagerTemplate, allowedPageSizes, messages } = this.props;
+    const getMessage = getMessagesFormatter(messages);
 
     return (
       <PluginContainer
@@ -41,7 +42,7 @@ export class PagingPanel extends React.PureComponent {
               {(getters, actions) => (
                 <TemplateRenderer
                   template={pagerTemplate}
-                  params={getPagerTemplateArgs({ allowedPageSizes }, getters, actions)}
+                  params={getPagerTemplateArgs({ allowedPageSizes, getMessage }, getters, actions)}
                 />
               )}
             </TemplateConnector>
@@ -55,8 +56,10 @@ export class PagingPanel extends React.PureComponent {
 PagingPanel.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number),
   pagerTemplate: PropTypes.func.isRequired,
+  messages: PropTypes.object,
 };
 
 PagingPanel.defaultProps = {
   allowedPageSizes: [],
+  messages: {},
 };

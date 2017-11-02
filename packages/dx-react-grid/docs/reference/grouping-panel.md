@@ -21,6 +21,7 @@ allowDragging | boolean | false | Specifies whether an end-user can change the g
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 groupPanelTemplate | (args: [GroupPanelProps](#group-panel-props)) => ReactElement | | Renders a group panel.
 groupPanelItemTemplate? | (args: [GroupPanelItemProps](#group-panel-item-props)) => ReactElement | | Renders a group panel item. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
+messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -56,7 +57,7 @@ allowDragging | boolean | Specifies whether an end-user can change the grouping 
 sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the specified column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the specified column if `cancel` is set to true.
 groupingPanelItems | Array&lt;[GroupingPanelItem](#grouping-panel-item)&gt; | The Grouping Panel items.
-groupByColumnText | string | The text displayed in the group panel if grid data is not grouped.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
 groupByColumn | ({ columnName: string }) => void | Toggles the column's grouping state.
 draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
 cancelGroupingChange | () => void | Resets the `groupingChange` state.
@@ -78,6 +79,14 @@ sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the specified column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
 groupByColumn | ({ columnName: string }) | Toggles the column's grouping state.
 allowUngroupingByClick | boolean | Specifies whether to display a button that cancels grouping by the column.
+
+## Localization Messages
+
+An object with the following shape:
+
+Field | Type | Description
+------|------|---------|------------
+groupByColumn? | string | The text displayed in the group panel if the grid is not grouped.
 
 ## Plugin Developer Reference
 

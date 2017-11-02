@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const EmptyMessage = ({ text }) => (
+export const EmptyMessage = ({ getMessage }) => (
   <div className="panel-body">
-    {text}
+    {getMessage('noColumns')}
   </div>
 );
 
 EmptyMessage.propTypes = {
-  text: PropTypes.string.isRequired,
+  getMessage: PropTypes.func.isRequired,
 };

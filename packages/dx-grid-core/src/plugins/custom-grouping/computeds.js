@@ -22,16 +22,11 @@ export const customGroupedRows = (
   return getChildGroups(currentRows, grouping[0], rootRows)
     .reduce((acc, { key, value = key, childRows }) => {
       const compoundKey = `${keyPrefix}${key}`;
-      let hasChildren;
-      if (childRows) {
-        hasChildren = childRows.length > 0;
-      }
       acc.push({
         [GRID_GROUP_CHECK]: true,
         [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
         groupedBy,
         compoundKey,
-        hasChildren,
         key,
         value,
       });

@@ -35,7 +35,7 @@ const columns = [
 
 .embedded-demo(data-types/formatters)
 
-## The Use of Custom Editors
+## Custom Editors
 
 If the grid supports editing or header row filtering, assign a function rendering the required editor to the `DataTypeProvider` plugin's `editorTemplate` property. In this case, the Grid uses the specified editor to edit all values of the specified type.
 

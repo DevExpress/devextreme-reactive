@@ -1,49 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import {
-  Table as TableMUI,
-  TableBody as TableBodyMUI,
-  TableHead as TableHeadMUI,
-} from 'material-ui';
-
 import {
   TableLayout as TableLayoutCore,
   StaticTableLayout,
 } from '@devexpress/dx-react-grid';
+import {
+  TableBody,
+  TableHead,
+} from 'material-ui';
+import { TableContainer } from './table-container';
+import { Table } from './table';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
-/* eslint-disable react/prop-types */
-const containerTemplate = ({ children, ...restProps }) => (
-  <div
-    {...restProps}
-    style={{
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      ...restProps.style,
-    }}
-  >
-    {children}
-  </div>
-);
-const tableTemplate = ({ children, ...restProps }) => (
-  <TableMUI
-    {...restProps}
-    style={{
-      tableLayout: 'fixed',
-      ...restProps.style,
-    }}
-  >
-    {children}
-  </TableMUI>
-);
-const headTemplate = ({ children, ...restProps }) => (
-  <TableHeadMUI {...restProps}>{children}</TableHeadMUI>
-);
-const bodyTemplate = ({ children, ...restProps }) => (
-  <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
-);
+const containerTemplate = props => <TableContainer {...props} />;
+const tableTemplate = props => <Table {...props} />;
+const headTemplate = props => <TableHead {...props} />;
+const bodyTemplate = props => <TableBody {...props} />;
 
 export const TableLayout = ({
   headerRows,

@@ -5,68 +5,19 @@ import {
   VirtualTableLayout as VirtualTableLayoutCore,
 } from '@devexpress/dx-react-grid';
 import {
-  Table as TableMUI,
-  TableBody as TableBodyMUI,
-  TableHead as TableHeadMUI,
+  TableBody,
+  TableHead,
 } from 'material-ui';
-import { withStyles } from 'material-ui/styles';
+import { TableContainer } from './table-container';
+import { Table } from './table';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
-/* eslint-disable react/prop-types */
-const styles = {
-  headTable: {
-    tableLayout: 'fixed',
-    position: 'sticky',
-    top: 0,
-    zIndex: 1,
-    background: 'white',
-    overflow: 'visible',
-    fallbacks: {
-      position: '-webkit-sticky',
-    },
-  },
-};
-const containerTemplate = ({ children, ...restProps }) => (
-  <div
-    {...restProps}
-    style={{
-      ...restProps.style,
-      overflow: 'auto',
-      WebkitOverflowScrolling: 'touch',
-    }}
-  >
-    {children}
-  </div>
-);
-const HeaderTable = withStyles(styles, { name: 'VirtualTableLayout' })(({ children, classes, ...restProps }) => (
-  <TableMUI
-    className={classes.headTable}
-    {...restProps}
-  >
-    {children}
-  </TableMUI>
-));
-const headTableTemplate = props => (
-  <HeaderTable {...props} />
-);
-const tableTemplate = ({ children, ...restProps }) => (
-  <TableMUI
-    {...restProps}
-    style={{
-      ...restProps.style,
-      tableLayout: 'fixed',
-    }}
-  >
-    {children}
-  </TableMUI>
-);
-const headTemplate = ({ children, ...restProps }) => (
-  <TableHeadMUI {...restProps}>{children}</TableHeadMUI>
-);
-const bodyTemplate = ({ children, ...restProps }) => (
-  <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
-);
+const containerTemplate = props => <TableContainer {...props} />;
+const headTableTemplate = props => <Table use="head" {...props} />;
+const tableTemplate = props => <Table {...props} />;
+const headTemplate = props => <TableHead {...props} />;
+const bodyTemplate = props => <TableBody {...props} />;
 
 export const VirtualTableLayout = ({
   headerRows,

@@ -30,6 +30,7 @@ export class TableHeaderCell extends React.PureComponent {
           cancel: cancelSortingRelatedKey || cancel,
         });
       } else if (e.keyCode === undefined) {
+        e.preventDefault();
         changeSortingDirection({
           keepOther: e.shiftKey || cancelSortingRelatedKey,
           cancel: cancelSortingRelatedKey,

@@ -6,8 +6,9 @@ import {
   Template,
   TemplateConnector,
   TemplatePlaceholder,
+  TemplateRenderer,
 } from '@devexpress/dx-react-core';
-import { visibleTableColumns } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'TableView' },
@@ -15,9 +16,11 @@ const pluginDependencies = [
 
 export class TableColumnVisibility extends React.PureComponent {
   render() {
-    const { hiddenColumns, emptyMessageTemplate } = this.props;
+    const { hiddenColumns, emptyMessageTemplate, messages } = this.props;
     const visibleTableColumnsComputed = ({ tableColumns }) =>
       visibleTableColumns(tableColumns, hiddenColumns);
+
+    const getMessage = getMessagesFormatter(messages);
 
     return (
       <PluginContainer
@@ -26,12 +29,17 @@ export class TableColumnVisibility extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
         <Template name="tableView">
-          <TemplateConnector>
-            {({ tableColumns }) => (tableColumns.length
-              ? <TemplatePlaceholder />
-              : emptyMessageTemplate()
-            )}
-          </TemplateConnector>
+          {params => (
+            <TemplateConnector>
+              {({ tableColumns }) => (tableColumns.length
+                ? <TemplatePlaceholder />
+                : <TemplateRenderer
+                  template={emptyMessageTemplate}
+                  params={{ getMessage, ...params }}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
       </PluginContainer>
     );
@@ -41,8 +49,10 @@ export class TableColumnVisibility extends React.PureComponent {
 TableColumnVisibility.propTypes = {
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
   emptyMessageTemplate: PropTypes.func.isRequired,
+  messages: PropTypes.object,
 };
 
 TableColumnVisibility.defaultProps = {
   hiddenColumns: [],
+  messages: {},
 };

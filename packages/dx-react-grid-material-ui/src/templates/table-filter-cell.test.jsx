@@ -17,16 +17,17 @@ describe('TableFilterCell', () => {
     mount.cleanUp();
   });
 
-  it('should use the \'Filter...\' placeholder', () => {
+  it('can use filter placeholder', () => {
     const tree = mount((
       <TableFilterCell
         column={{
           name: 'Test',
         }}
+        getMessage={key => key}
       />
     ));
 
-    expect(tree.find('Input').prop('placeholder')).toBe('Filter...');
+    expect(tree.find('Input').prop('placeholder')).toBe('filterPlaceholder');
   });
 
   it('should not set filter with an empty value', () => {
@@ -37,6 +38,7 @@ describe('TableFilterCell', () => {
           name: 'Test',
         }}
         setFilter={setFilterMock}
+        getMessage={() => {}}
         value="abc"
       />
     ));
@@ -47,7 +49,7 @@ describe('TableFilterCell', () => {
 
   it('should render children if passed', () => {
     const tree = mount((
-      <TableFilterCell>
+      <TableFilterCell getMessage={() => {}}>
         <span className="test" />
       </TableFilterCell>
     ));

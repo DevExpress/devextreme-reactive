@@ -7,6 +7,7 @@ import {
   isFilterTableCell,
   getColumnFilterConfig,
   isFilterTableRow,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { DataTypeProvider } from './data-type-provider';
 import { TableFilterRow } from './table-filter-row';
@@ -17,6 +18,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isFilterTableCell: jest.fn(),
   isFilterTableRow: jest.fn(),
   getColumnFilterConfig: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -46,7 +48,7 @@ const defaultProps = {
   filterRowTemplate: () => null,
 };
 
-describe('TableHeaderRow', () => {
+describe('TableFilterRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -59,6 +61,7 @@ describe('TableHeaderRow', () => {
     tableHeaderRowsWithFilter.mockImplementation(() => 'tableHeaderRowsWithFilter');
     isFilterTableCell.mockImplementation(() => false);
     isFilterTableRow.mockImplementation(() => false);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -166,5 +169,25 @@ describe('TableHeaderRow', () => {
     ));
     expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+  });
+
+  it('should pass getMessage function to filterTableCellTemplate', () => {
+    isFilterTableCell.mockImplementation(() => true);
+    const filterCellTemplate = jest.fn(() => null);
+
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+          messages={{
+            filterPlaceholder: 'Filter...',
+          }}
+          filterCellTemplate={filterCellTemplate}
+        />
+      </PluginHost>
+    ));
+    const { getMessage } = filterCellTemplate.mock.calls[0][0];
+    expect(getMessage('filterPlaceholder')).toBe('Filter...');
   });
 });

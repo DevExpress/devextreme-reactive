@@ -17,30 +17,30 @@ describe('GroupPanel', () => {
     mount.cleanUp();
   });
 
-  it('should pass user defined groupByColumnText if is specified', () => {
+  it('should render user-defined text within group panel if it is specified', () => {
     const tree = mount((
       <GroupPanel
-        groupByColumnText="Test"
+        getMessage={key => key}
       />
     ));
-
-    expect(tree.find(GroupPanelLayout).text())
-      .toBe('Test');
+    expect(tree.find(GroupPanelLayout).find('span').text())
+      .toBe('groupByColumn');
   });
 
-  it('can pass default groupByColumnText', () => {
+  it('should render default text within group panel', () => {
     const tree = mount((
-      <GroupPanel />
+      <GroupPanel getMessage={() => {}} />
     ));
 
     expect(tree.find(GroupPanelLayout).text())
       .toBe('Grouping is not available');
   });
 
-  it('should pass correct default groupByColumnText if the "allowUngroupingByClick" property is true', () => {
+  it('should pass correct default text to group panel if the "allowUngroupingByClick" property is true', () => {
     const tree = mount((
       <GroupPanel
         allowUngroupingByClick
+        getMessage={() => {}}
       />
     ));
 
@@ -48,10 +48,11 @@ describe('GroupPanel', () => {
       .toContain('icon in the column header');
   });
 
-  it('should pass correct default groupByColumnText if the "allowDragging" property is true', () => {
+  it('should pass correct default text to group panel if the "allowDragging" property is true', () => {
     const tree = mount((
       <GroupPanel
         allowDragging
+        getMessage={() => {}}
       />
     ));
 
@@ -59,11 +60,12 @@ describe('GroupPanel', () => {
       .toBe('Drag a column header here to group by that column');
   });
 
-  it('should pass correct default groupByColumnText if both "allowDragging" and "allowUngroupingByClick" properties are true', () => {
+  it('should pass correct default text to group panel if both "allowDragging" and "allowUngroupingByClick" properties are true', () => {
     const tree = mount((
       <GroupPanel
         allowDragging
         allowUngroupingByClick
+        getMessage={() => {}}
       />
     ));
 

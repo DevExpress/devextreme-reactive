@@ -83,14 +83,14 @@ Note that if the `getColumnIdentity` function returns an object, you should also
 
 ## Remote Grouping
 
-You can perform grouping remotely by handling grouping state changes, generating a request, and sending it to the server.
+You can perform grouping remotely by handling grouping state changes, generating a request based on grouping state and sending it to a server that can return grouped data.
 
-Grouping options are updated once an end-user interacts with grouping UI. Handle grouping option changes using the `GroupingState` plugin's `onGroupingChange` and `onExpandedGroupsChange` events and request data from the server using the applied grouping options.
+Grouping options are updated whenever an end-user interacts with the grouping UI. Handle grouping option changes using the `GroupingState` plugin's `onGroupingChange` and `onExpandedGroupsChange` events and request data from the server using the newly applied grouping options.
 
-In the case of remote grouping, you should use the `CustomGrouping` plugin instead of the `LocalGrouping` plugin.
+For remote grouping, you should use the `CustomGrouping` plugin instead of the `LocalGrouping` plugin.
 
-While waiting for a response from a server, the grouping state does not correspond to the data the `Grid` is displaying. Temporarily assign the `GroupingState` plugin's `grouping` and `expandedGroups` property values to the same `CustomGrouping` plugin properties to provide the stored and displayed data until the Grid receives the requested data. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values.
+While waiting for a response from a server, there is a timeframe where the grouping state does not match the data available to the `Grid` in its `rows` property. To avoid any issues due to this discrepancy, you should temporarily assign the "old" values of the `grouping` and `expandedGroups` state fields to the properties with the same names on the `GroupingState` plugin. The result is that the `Grid` does not yet see the configuration change. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` becomes aware of the change to its grouping configuration, and it reeceives the updated set of data at the same time.
 
-The following example demonstrates the remote grouping with the local expanding/collapsing:
+The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach outlined in the previous paragraph:
 
 .embedded-demo(grouping/remote-grouping-with-local-expanding)

@@ -12,11 +12,13 @@ const styles = theme => ({
   cell: {
     overflow: 'visible',
     paddingRight: 0,
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 1.5,
   },
   checkbox: {
     marginTop: '-1px',
     marginBottom: '-1px',
+    width: theme.spacing.unit * 5,
+    height: theme.spacing.unit * 5,
   },
 });
 

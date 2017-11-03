@@ -38,6 +38,8 @@ react:
           path: /react/grid/docs/guides/column-resizing
         - title: Column Visibility
           path: /react/grid/docs/guides/column-visibility
+        - title: Localization
+          path: /react/grid/docs/guides/localization
     - title: API Reference
       items:
         - title: Grid
@@ -56,8 +58,8 @@ react:
           path: /react/grid/docs/reference/editing-state
         - title: RowDetailState
           path: /react/grid/docs/reference/row-detail-state
-        - title: ColumnOrderState
-          path: /react/grid/docs/reference/column-order-state
+        - title: TableColumnReordering
+          path: /react/grid/docs/reference/table-column-reordering
         - title: LocalFiltering
           path: /react/grid/docs/reference/local-filtering
         - title: LocalSorting

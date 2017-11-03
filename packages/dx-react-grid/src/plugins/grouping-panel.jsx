@@ -5,10 +5,12 @@ import {
   Template, TemplatePlaceholder, PluginContainer,
   TemplateConnector, TemplateRenderer,
 } from '@devexpress/dx-react-core';
-import { groupingPanelItems } from '@devexpress/dx-grid-core';
+import { groupingPanelItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const getGroupPanelTemplateArgs = (
-  { allowDragging, allowSorting, allowUngroupingByClick },
+  {
+    allowDragging, allowSorting, allowUngroupingByClick, getMessage,
+  },
   { columns, draftGrouping, sorting },
   {
     groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange,
@@ -17,9 +19,10 @@ const getGroupPanelTemplateArgs = (
   allowSorting,
   allowDragging,
   allowUngroupingByClick,
-  groupingPanelItems: groupingPanelItems(columns, draftGrouping),
   sorting,
   groupByColumn,
+  getMessage,
+  groupingPanelItems: groupingPanelItems(columns, draftGrouping),
   changeSortingDirection: ({ columnName, keepOther, cancel }) =>
     setColumnSorting({ columnName, keepOther, cancel }),
   draftGroupingChange: groupingChange => draftGroupingChange(groupingChange),
@@ -33,7 +36,10 @@ export class GroupingPanel extends React.PureComponent {
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
+      messages,
     } = this.props;
+
+    const getMessage = getMessagesFormatter(messages);
 
     return (
       <PluginContainer
@@ -50,7 +56,9 @@ export class GroupingPanel extends React.PureComponent {
                 <TemplateRenderer
                   template={groupPanelTemplate}
                   params={getGroupPanelTemplateArgs(
-                    { allowDragging, allowSorting, allowUngroupingByClick },
+                    {
+                      allowDragging, allowSorting, allowUngroupingByClick, getMessage,
+                    },
                     getters,
                     actions,
                   )}
@@ -70,10 +78,12 @@ GroupingPanel.propTypes = {
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
   groupPanelTemplate: PropTypes.func.isRequired,
+  messages: PropTypes.object,
 };
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
   allowDragging: false,
   allowUngroupingByClick: false,
+  messages: {},
 };

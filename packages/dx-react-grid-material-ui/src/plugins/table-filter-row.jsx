@@ -8,9 +8,15 @@ import { TableRow } from '../templates/table-row';
 const defaultFilterCellTemplate = props => <TableFilterCell {...props} />;
 const defaultFilterRowTemplate = props => <TableRow {...props} />;
 
+const defaultMessages = {
+  filterPlaceholder: 'Filter...',
+};
+
 export class TableFilterRow extends React.PureComponent {
   render() {
-    const { filterCellTemplate, filterRowTemplate, ...restProps } = this.props;
+    const {
+      filterCellTemplate, filterRowTemplate, messages, ...restProps
+    } = this.props;
 
     return (
       <TableFilterRowBase
@@ -22,6 +28,7 @@ export class TableFilterRow extends React.PureComponent {
           filterRowTemplate,
           defaultFilterRowTemplate,
         )}
+        messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
     );
@@ -31,9 +38,13 @@ export class TableFilterRow extends React.PureComponent {
 TableFilterRow.propTypes = {
   filterCellTemplate: PropTypes.func,
   filterRowTemplate: PropTypes.func,
+  messages: PropTypes.shape({
+    filterPlaceholder: PropTypes.string,
+  }),
 };
 
 TableFilterRow.defaultProps = {
   filterCellTemplate: undefined,
   filterRowTemplate: undefined,
+  messages: {},
 };

@@ -9,6 +9,7 @@ import {
   isEditCommandsTableCell,
   isAddedTableRow,
   isEditTableRow,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { TableEditColumn } from './table-edit-column';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -20,6 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isEditCommandsTableCell: jest.fn(),
   isAddedTableRow: jest.fn(),
   isEditTableRow: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -69,6 +71,7 @@ describe('TableHeaderRow', () => {
     isEditCommandsTableCell.mockImplementation(() => false);
     isAddedTableRow.mockImplementation(() => false);
     isEditTableRow.mockImplementation(() => false);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -96,7 +99,6 @@ describe('TableHeaderRow', () => {
   it('should render edit commands cell on edit-commands column and header row intersection', () => {
     isHeadingEditCommandsTableCell.mockImplementation(() => true);
     const headingCellTemplate = jest.fn(() => null);
-
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -121,7 +123,6 @@ describe('TableHeaderRow', () => {
   it('should render edit commands cell on edit-commands column and added row intersection', () => {
     isEditCommandsTableCell.mockImplementation(() => true);
     const cellTemplate = jest.fn(() => null);
-
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -143,5 +144,44 @@ describe('TableHeaderRow', () => {
         row: defaultDeps.template.tableViewCell.tableRow.row,
         isEditing: false,
       }));
+  });
+  it('should pass getMessage function to heading command cell template', () => {
+    isHeadingEditCommandsTableCell.mockImplementation(() => true);
+    const headingCellTemplate = jest.fn(() => null);
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditColumn
+          {...defaultProps}
+          messages={{
+            addCommand: 'Add',
+          }}
+          headingCellTemplate={headingCellTemplate}
+        />
+      </PluginHost>
+    ));
+    const { getMessage } = headingCellTemplate.mock.calls[0][0];
+
+    expect(getMessage('addCommand')).toBe('Add');
+  });
+
+  it('should pass getMessage function to command cell template', () => {
+    isEditCommandsTableCell.mockImplementation(() => true);
+    const cellTemplate = jest.fn(() => null);
+
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableEditColumn
+          {...defaultProps}
+          messages={{
+            editCommand: 'Edit',
+          }}
+          cellTemplate={cellTemplate}
+        />
+      </PluginHost>
+    ));
+    const { getMessage } = cellTemplate.mock.calls[0][0];
+    expect(getMessage('editCommand')).toBe('Edit');
   });
 });

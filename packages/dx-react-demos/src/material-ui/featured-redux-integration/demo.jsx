@@ -5,12 +5,11 @@ import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
   LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
-  ColumnOrderState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel, DragDropContext, TableColumnResizing,
+  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { withStyles } from 'material-ui/styles';
@@ -86,11 +85,6 @@ const GridContainer = ({
     rows={rows}
     columns={columns}
   >
-    <ColumnOrderState
-      order={columnOrder}
-      onOrderChange={onColumnOrderChange}
-    />
-
     <FilteringState
       filters={filters}
       onFiltersChange={onFiltersChange}
@@ -128,11 +122,18 @@ const GridContainer = ({
 
     <DragDropContext />
 
-    <TableView allowColumnReordering />
+    <TableView />
+
+    <TableColumnReordering
+      order={columnOrder}
+      onOrderChange={onColumnOrderChange}
+    />
+
     <TableColumnResizing
       columnWidths={columnWidths}
       onColumnWidthsChange={onColumnWidthsChange}
     />
+
     <TableHeaderRow allowSorting allowDragging allowResizing />
     <TableFilterRow />
     <TableSelection />

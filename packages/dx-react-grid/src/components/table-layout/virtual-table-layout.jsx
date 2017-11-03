@@ -114,7 +114,7 @@ export class VirtualTableLayout extends React.PureComponent {
   render() {
     const {
       headerRows, columns, minWidth, height,
-      containerTemplate, tableHeaderTemplate, tableTemplate, headTemplate, bodyTemplate,
+      containerTemplate, headTableTemplate, tableTemplate, headTemplate, bodyTemplate,
       rowTemplate, cellTemplate,
     } = this.props;
     const {
@@ -131,7 +131,7 @@ export class VirtualTableLayout extends React.PureComponent {
       >
         {!!headerRows.length && (
           <TemplateRenderer
-            template={tableHeaderTemplate}
+            template={headTableTemplate}
             params={{ style: { minWidth: `${minWidth}px` } }}
           >
             <ColumnGroup columns={columns} />
@@ -195,7 +195,7 @@ VirtualTableLayout.propTypes = {
   bodyTemplate: PropTypes.func.isRequired,
   headTemplate: PropTypes.func,
   tableTemplate: PropTypes.func.isRequired,
-  tableHeaderTemplate: PropTypes.func,
+  headTableTemplate: PropTypes.func,
   containerTemplate: PropTypes.func.isRequired,
   estimatedRowHeight: PropTypes.number.isRequired,
 };
@@ -203,5 +203,5 @@ VirtualTableLayout.propTypes = {
 VirtualTableLayout.defaultProps = {
   headerRows: [],
   headTemplate: () => null,
-  tableHeaderTemplate: () => null,
+  headTableTemplate: () => null,
 };

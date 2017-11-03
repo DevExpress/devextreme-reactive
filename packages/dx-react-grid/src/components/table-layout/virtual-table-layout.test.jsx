@@ -51,7 +51,7 @@ const defaultProps = {
     { key: 6 },
   ],
   containerTemplate: props => <div {...props} />,
-  tableHeaderTemplate: () => null,
+  headTableTemplate: () => null,
   tableTemplate: props => <table {...props} />,
   headTemplate: () => null,
   bodyTemplate: props => <tbody {...props} />,
@@ -206,7 +206,7 @@ describe('VirtualTableLayout', () => {
   });
 
   describe('header', () => {
-    it('should render ColumnGroup for tableHeaderTemplate', () => {
+    it('should render ColumnGroup for headTableTemplate', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
@@ -215,14 +215,14 @@ describe('VirtualTableLayout', () => {
       ));
 
       expect(tree
-        .findWhere(wrapper => wrapper.prop('template') === defaultProps.tableHeaderTemplate)
+        .findWhere(wrapper => wrapper.prop('template') === defaultProps.headTableTemplate)
         .children('ColumnGroup').at(0).props())
         .toMatchObject({
           columns: defaultProps.columns,
         });
     });
 
-    it('should render header rows for tableHeaderTemplate', () => {
+    it('should render header rows for headTableTemplate', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
@@ -231,7 +231,7 @@ describe('VirtualTableLayout', () => {
       ));
 
       expect(tree
-        .findWhere(wrapper => wrapper.prop('template') === defaultProps.tableHeaderTemplate)
+        .findWhere(wrapper => wrapper.prop('template') === defaultProps.headTableTemplate)
         .find('RowLayout'))
         .toHaveLength(1);
     });

@@ -4,36 +4,15 @@ import {
   TableLayout as TableLayoutCore,
   StaticTableLayout,
 } from '@devexpress/dx-react-grid';
+import { TableContainer } from './table-container';
+import { Table } from './table';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
-/* eslint-disable react/prop-types */
-const containerTemplate = ({ children, ...restProps }) => (
-  <div
-    className="table-responsive"
-    {...restProps}
-  >
-    {children}
-  </div>
-);
-const tableTemplate = ({ children, ...restProps }) => (
-  <table
-    className="table"
-    {...restProps}
-    style={{
-      overflow: 'hidden',
-      ...restProps.style,
-    }}
-  >
-    {children}
-  </table>
-);
-const headTemplate = ({ children, ...restProps }) => (
-  <thead {...restProps}>{children}</thead>
-);
-const bodyTemplate = ({ children, ...restProps }) => (
-  <tbody {...restProps}>{children}</tbody>
-);
+const containerTemplate = props => <TableContainer {...props} />;
+const tableTemplate = props => <Table {...props} />;
+const headTemplate = props => <thead {...props} />;
+const bodyTemplate = props => <tbody {...props} />;
 
 export const TableLayout = ({
   headerRows,

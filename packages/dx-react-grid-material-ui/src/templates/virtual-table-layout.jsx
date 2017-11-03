@@ -49,7 +49,7 @@ const HeaderTable = withStyles(styles, { name: 'VirtualTableLayout' })(({ childr
     {children}
   </TableMUI>
 ));
-const tableHeaderTemplate = props => (
+const headTableTemplate = props => (
   <HeaderTable {...props} />
 );
 const tableTemplate = ({ children, ...restProps }) => (
@@ -87,7 +87,7 @@ export const VirtualTableLayout = ({
     bodyTemplate={bodyTemplate}
     headTemplate={headTemplate}
     tableTemplate={tableTemplate}
-    tableHeaderTemplate={tableHeaderTemplate}
+    headTableTemplate={headTableTemplate}
     containerTemplate={containerTemplate}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
     estimatedRowHeight={ESTIMATED_ROW_HEIGHT}

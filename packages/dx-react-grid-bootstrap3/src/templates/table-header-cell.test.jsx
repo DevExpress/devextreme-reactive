@@ -246,7 +246,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('div');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
       expect(changeSortingDirection)
         .toHaveBeenCalled();
@@ -272,7 +272,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('div');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
       expect(changeSortingDirection)
         .toHaveBeenCalledWith({ keepOther: true, cancel: false });
@@ -288,7 +288,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('div');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
       expect(changeSortingDirection)
         .toHaveBeenCalledWith({ keepOther: true, cancel: true });
@@ -305,7 +305,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('div');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: false });
       expect(changeSortingDirection)
         .toHaveBeenCalledWith({ keepOther: false, cancel: true });

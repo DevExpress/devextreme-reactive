@@ -30,13 +30,19 @@ export class VirtualTableView extends React.PureComponent {
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
       tableNoDataCellTemplate,
+      height,
+      estimatedRowHeight,
       messages,
       ...restProps
     } = this.props;
 
     return (
       <TableViewBase
-        tableLayoutTemplate={tableLayoutTemplate}
+        tableLayoutTemplate={props => tableLayoutTemplate({
+          ...props,
+          height,
+          estimatedRowHeight,
+        })}
         tableRowTemplate={combineTemplates(
           tableRowTemplate,
           defaultRowTemplate,
@@ -75,6 +81,8 @@ VirtualTableView.propTypes = {
   tableStubCellTemplate: PropTypes.func,
   tableStubHeaderCellTemplate: PropTypes.func,
   tableNoDataCellTemplate: PropTypes.func,
+  estimatedRowHeight: PropTypes.number,
+  height: PropTypes.number,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
@@ -87,5 +95,7 @@ VirtualTableView.defaultProps = {
   tableStubCellTemplate: undefined,
   tableStubHeaderCellTemplate: undefined,
   tableNoDataCellTemplate: undefined,
+  estimatedRowHeight: 37,
+  height: 530,
   messages: {},
 };

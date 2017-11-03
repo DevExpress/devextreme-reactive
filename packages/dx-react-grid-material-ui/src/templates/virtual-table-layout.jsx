@@ -12,8 +12,6 @@ import {
 import { withStyles } from 'material-ui/styles';
 
 const MINIMAL_COLUMN_WIDTH = 120;
-const ESTIMATED_ROW_HEIGHT = 48;
-const HEIGHT = 530;
 
 /* eslint-disable react/prop-types */
 const styles = {
@@ -76,6 +74,8 @@ export const VirtualTableLayout = ({
   columns,
   cellTemplate,
   rowTemplate,
+  height,
+  estimatedRowHeight,
 }) => (
   <TableLayout
     layoutComponent={VirtualTableLayoutCore}
@@ -89,9 +89,9 @@ export const VirtualTableLayout = ({
     tableTemplate={tableTemplate}
     headTableTemplate={headTableTemplate}
     containerTemplate={containerTemplate}
+    estimatedRowHeight={estimatedRowHeight}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
-    estimatedRowHeight={ESTIMATED_ROW_HEIGHT}
-    height={HEIGHT}
+    height={height}
   />
 );
 
@@ -101,4 +101,6 @@ VirtualTableLayout.propTypes = {
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   rowTemplate: PropTypes.func.isRequired,
+  height: PropTypes.number.isRequired,
+  estimatedRowHeight: PropTypes.number.isRequired,
 };

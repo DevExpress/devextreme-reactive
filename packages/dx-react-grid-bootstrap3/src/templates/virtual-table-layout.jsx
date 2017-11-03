@@ -8,8 +8,6 @@ import { TableContainer } from './table-container';
 import { Table } from './table';
 
 const MINIMAL_COLUMN_WIDTH = 120;
-const ESTIMATED_ROW_HEIGHT = 37;
-const HEIGHT = 530;
 
 const containerTemplate = props => <TableContainer {...props} />;
 const headTableTemplate = props => <Table use="head" {...props} />;
@@ -23,6 +21,8 @@ export const VirtualTableLayout = ({
   columns,
   cellTemplate,
   rowTemplate,
+  height,
+  estimatedRowHeight,
 }) => (
   <TableLayout
     layoutComponent={VirtualTableLayoutCore}
@@ -36,9 +36,9 @@ export const VirtualTableLayout = ({
     tableTemplate={tableTemplate}
     headTableTemplate={headTableTemplate}
     containerTemplate={containerTemplate}
-    estimatedRowHeight={ESTIMATED_ROW_HEIGHT}
+    estimatedRowHeight={estimatedRowHeight}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
-    height={HEIGHT}
+    height={height}
   />
 );
 
@@ -48,4 +48,6 @@ VirtualTableLayout.propTypes = {
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   rowTemplate: PropTypes.func.isRequired,
+  height: PropTypes.number.isRequired,
+  estimatedRowHeight: PropTypes.number.isRequired,
 };

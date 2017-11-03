@@ -9,13 +9,34 @@ import {
 
 import {
   TableLayout,
+  StaticTableLayout,
 } from '@devexpress/dx-react-grid';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
 /* eslint-disable react/prop-types */
+const containerTemplate = ({ children, ...restProps }) => (
+  <div
+    {...restProps}
+    style={{
+      overflowX: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      ...restProps.style,
+    }}
+  >
+    {children}
+  </div>
+);
 const tableTemplate = ({ children, ...restProps }) => (
-  <TableMUI {...restProps}>{children}</TableMUI>
+  <TableMUI
+    {...restProps}
+    style={{
+      tableLayout: 'fixed',
+      ...restProps.style,
+    }}
+  >
+    {children}
+  </TableMUI>
 );
 const headTemplate = ({ children, ...restProps }) => (
   <TableHeadMUI {...restProps}>{children}</TableHeadMUI>
@@ -32,10 +53,12 @@ export const Table = ({
   rowTemplate,
 }) => (
   <TableLayout
+    layoutComponent={StaticTableLayout}
     headerRows={headerRows}
     rows={bodyRows}
     columns={columns}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
+    containerTemplate={containerTemplate}
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}

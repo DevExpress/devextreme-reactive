@@ -4,30 +4,33 @@ import {
   TableLayout,
   VirtualTableLayout,
 } from '@devexpress/dx-react-grid';
+import {
+  Table as TableMUI,
+  TableBody as TableBodyMUI,
+  TableHead as TableHeadMUI,
+} from 'material-ui';
+import { withStyles } from 'material-ui/styles';
 
 const MINIMAL_COLUMN_WIDTH = 120;
-const ESTIMATED_ROW_HEIGHT = 37;
+const ESTIMATED_ROW_HEIGHT = 48;
 const HEIGHT = 530;
 
-let stickyProp;
-const testCSSProp = (property, value, noPrefixes) => {
-  const prop = `${property}:`;
-  // eslint-disable-next-line no-undef
-  const el = document.createElement('test');
-  const mStyle = el.style;
-
-  if (!noPrefixes) {
-    mStyle.cssText = `${prop + ['-webkit-', '-moz-', '-ms-', '-o-', ''].join(`${value};${prop}`) + value};`;
-  } else {
-    mStyle.cssText = prop + value;
-  }
-  return mStyle[property];
-};
-
 /* eslint-disable react/prop-types */
+const styles = {
+  headTable: {
+    tableLayout: 'fixed',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+    background: 'white',
+    overflow: 'visible',
+    fallbacks: {
+      position: '-webkit-sticky',
+    },
+  },
+};
 const containerTemplate = ({ children, ...restProps }) => (
   <div
-    className="table-responsive"
     {...restProps}
     style={{
       ...restProps.style,
@@ -38,52 +41,33 @@ const containerTemplate = ({ children, ...restProps }) => (
     {children}
   </div>
 );
-class TableHeader extends React.Component {
-  componentDidMount() {
-    stickyProp = testCSSProp('position', 'sticky');
-  }
-  render() {
-    const { children, ...restProps } = this.props;
-    return (
-      <table
-        className="table"
-        {...restProps}
-        style={{
-          ...restProps.style,
-          tableLayout: 'fixed',
-          position: stickyProp,
-          top: 0,
-          zIndex: 1,
-          background: 'white',
-          overflow: 'visible',
-        }}
-      >
-        {children}
-      </table>
-    );
-  }
-}
+const HeaderTable = withStyles(styles, { name: 'VirtualTable' })(({ children, classes, ...restProps }) => (
+  <TableMUI
+    className={classes.headTable}
+    {...restProps}
+  >
+    {children}
+  </TableMUI>
+));
 const tableHeaderTemplate = props => (
-  <TableHeader {...props} />
+  <HeaderTable {...props} />
 );
 const tableTemplate = ({ children, ...restProps }) => (
-  <table
-    className="table"
+  <TableMUI
     {...restProps}
     style={{
       ...restProps.style,
-      overflow: 'hidden',
       tableLayout: 'fixed',
     }}
   >
     {children}
-  </table>
+  </TableMUI>
 );
 const headTemplate = ({ children, ...restProps }) => (
-  <thead {...restProps}>{children}</thead>
+  <TableHeadMUI {...restProps}>{children}</TableHeadMUI>
 );
 const bodyTemplate = ({ children, ...restProps }) => (
-  <tbody {...restProps}>{children}</tbody>
+  <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
 );
 
 export const VirtualTable = ({
@@ -105,8 +89,8 @@ export const VirtualTable = ({
     tableTemplate={tableTemplate}
     tableHeaderTemplate={tableHeaderTemplate}
     containerTemplate={containerTemplate}
-    estimatedRowHeight={ESTIMATED_ROW_HEIGHT}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
+    estimatedRowHeight={ESTIMATED_ROW_HEIGHT}
     height={HEIGHT}
   />
 );

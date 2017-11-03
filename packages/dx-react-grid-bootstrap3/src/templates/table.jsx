@@ -1,20 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   TableLayout,
+  StaticTableLayout,
 } from '@devexpress/dx-react-grid';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
 /* eslint-disable react/prop-types */
+const containerTemplate = ({ children, ...restProps }) => (
+  <div
+    className="table-responsive"
+    {...restProps}
+  >
+    {children}
+  </div>
+);
 const tableTemplate = ({ children, ...restProps }) => (
   <table
     className="table"
     {...restProps}
     style={{
-      ...restProps.style,
       overflow: 'hidden',
+      ...restProps.style,
     }}
   >
     {children}
@@ -35,11 +43,12 @@ export const Table = ({
   rowTemplate,
 }) => (
   <TableLayout
-    className="table-responsive"
+    layoutComponent={StaticTableLayout}
     headerRows={headerRows}
     rows={bodyRows}
     columns={columns}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
+    containerTemplate={containerTemplate}
     tableTemplate={tableTemplate}
     headTemplate={headTemplate}
     bodyTemplate={bodyTemplate}

@@ -72,6 +72,8 @@ react:
           path: /react/grid/docs/reference/local-paging
         - title: TableView
           path: /react/grid/docs/reference/table-view
+        - title: VirtualTableView
+          path: /react/grid/docs/reference/virtual-table-view
         - title: TableHeaderRow
           path: /react/grid/docs/reference/table-header-row
         - title: TableSelection

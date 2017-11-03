@@ -43,4 +43,6 @@ export { DataTypeProvider } from './plugins/data-type-provider';
 export { TableColumnVisibility } from './plugins/table-column-visibility';
 
 export { TableLayout } from './components/table-layout';
+export { VirtualTableLayout } from './components/table-layout/virtual-table-layout';
+export { StaticTableLayout } from './components/table-layout/static-table-layout';
 export { GroupPanelLayout } from './components/group-panel-layout';

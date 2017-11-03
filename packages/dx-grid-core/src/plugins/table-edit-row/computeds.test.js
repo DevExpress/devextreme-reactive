@@ -9,7 +9,12 @@ describe('TableEditRow Plugin computeds', () => {
     it('should work', () => {
       const tableRows = [
         { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
-        { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' },
+        {
+          key: `${TABLE_DATA_TYPE}_2`,
+          type: TABLE_DATA_TYPE,
+          rowId: 2,
+          row: 'row2',
+        },
         { type: 'undefined', rowId: 2, row: 'row2' },
       ];
       const editingRows = [2];
@@ -33,7 +38,7 @@ describe('TableEditRow Plugin computeds', () => {
           },
           { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
           {
-            key: `${TABLE_EDIT_TYPE}_2`,
+            key: `${TABLE_DATA_TYPE}_2`,
             type: TABLE_EDIT_TYPE,
             rowId: 2,
             row: 'row2',

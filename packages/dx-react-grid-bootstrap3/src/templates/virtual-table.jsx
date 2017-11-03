@@ -96,7 +96,7 @@ export const VirtualTable = ({
   <TableLayout
     layoutComponent={VirtualTableLayout}
     headerRows={headerRows}
-    bodyRows={bodyRows}
+    rows={bodyRows}
     columns={columns}
     cellTemplate={cellTemplate}
     rowTemplate={rowTemplate}

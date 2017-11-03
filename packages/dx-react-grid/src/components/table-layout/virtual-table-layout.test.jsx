@@ -42,7 +42,7 @@ const defaultProps = {
   minWidth: 400,
   height: 100,
   estimatedRowHeight: 40,
-  bodyRows: [
+  rows: [
     { key: 1 },
     { key: 2 },
     { key: 3 },
@@ -118,15 +118,15 @@ describe('VirtualTableLayout', () => {
       simulateScroll(tree, { scrollTop: 100 });
 
       expect(getVisibleRows.mock.calls[0])
-        .toEqual([defaultProps.bodyRows, 0, defaultProps.height, expect.any(Function)]);
+        .toEqual([defaultProps.rows, 0, defaultProps.height, expect.any(Function)]);
       expect(getVisibleRows.mock.calls[1])
-        .toEqual([defaultProps.bodyRows, 100, defaultProps.height, expect.any(Function)]);
+        .toEqual([defaultProps.rows, 100, defaultProps.height, expect.any(Function)]);
     });
 
     it('should specify correct row height at sturtup', () => {
       let testsPassed = false;
 
-      const bodyRows = [
+      const rows = [
         { key: 1 },
         { key: 2, height: 10 },
       ];
@@ -134,9 +134,9 @@ describe('VirtualTableLayout', () => {
       getVisibleRows
         .mockImplementationOnce((...args) => {
           const getRowHeight = args[3];
-          expect(getRowHeight(bodyRows[0]))
+          expect(getRowHeight(rows[0]))
             .toEqual(defaultProps.estimatedRowHeight);
-          expect(getRowHeight(bodyRows[1]))
+          expect(getRowHeight(rows[1]))
             .toEqual(10);
 
           testsPassed = true;
@@ -147,7 +147,7 @@ describe('VirtualTableLayout', () => {
       mount((
         <VirtualTableLayout
           {...defaultProps}
-          bodyRows={bodyRows}
+          rows={rows}
         />
       ));
 
@@ -156,7 +156,7 @@ describe('VirtualTableLayout', () => {
     });
 
     it('should store row height when rendered', () => {
-      const bodyRows = [
+      const rows = [
         { key: 1 },
         { key: 2, height: 10 },
       ];
@@ -170,14 +170,14 @@ describe('VirtualTableLayout', () => {
       mount((
         <VirtualTableLayout
           {...defaultProps}
-          bodyRows={bodyRows}
+          rows={rows}
         />
       ));
 
       const getRowHeight = getVisibleRows.mock.calls[0][3];
-      expect(getRowHeight(bodyRows[0]))
+      expect(getRowHeight(rows[0]))
         .toEqual(50);
-      expect(getRowHeight(bodyRows[1]))
+      expect(getRowHeight(rows[1]))
         .toEqual(10);
     });
 
@@ -210,7 +210,7 @@ describe('VirtualTableLayout', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={defaultProps.bodyRows.slice(0, 1)}
+          headerRows={defaultProps.rows.slice(0, 1)}
         />
       ));
 
@@ -226,7 +226,7 @@ describe('VirtualTableLayout', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={defaultProps.bodyRows.slice(0, 1)}
+          headerRows={defaultProps.rows.slice(0, 1)}
         />
       ));
 
@@ -240,7 +240,7 @@ describe('VirtualTableLayout', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={defaultProps.bodyRows.slice(0, 1)}
+          headerRows={defaultProps.rows.slice(0, 1)}
         />
       ));
 

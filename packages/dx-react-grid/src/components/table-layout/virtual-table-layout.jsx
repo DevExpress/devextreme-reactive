@@ -31,9 +31,9 @@ export class VirtualTableLayout extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.headerRows !== nextProps.headerRows ||
-      this.props.bodyRows !== nextProps.bodyRows) {
+      this.props.rows !== nextProps.rows) {
       const { rowHeights: prevRowHeight } = this;
-      this.rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
+      this.rowHeights = [...nextProps.headerRows, ...nextProps.rows].reduce(
         (acc, row) => {
           const rowHeight = prevRowHeight.get(row.key);
           if (rowHeight !== undefined) {
@@ -57,9 +57,9 @@ export class VirtualTableLayout extends React.PureComponent {
     if (row.height) return row.height;
     return this.props.estimatedRowHeight;
   }
-  getVisibleRows({ bodyRows, headerRows, height } = this.props, top = this.viewportTop) {
+  getVisibleRows({ rows, headerRows, height } = this.props, top = this.viewportTop) {
     const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
-    return getVisibleRows(bodyRows, top, height - headHeight, this.getRowHeight);
+    return getVisibleRows(rows, top, height - headHeight, this.getRowHeight);
   }
   storeRowHeights() {
     const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
@@ -188,7 +188,7 @@ VirtualTableLayout.propTypes = {
   minWidth: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   headerRows: PropTypes.array,
-  bodyRows: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellTemplate: PropTypes.func.isRequired,
   rowTemplate: PropTypes.func.isRequired,

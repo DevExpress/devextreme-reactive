@@ -50,7 +50,7 @@ export const tableRowsWithGrouping = (tableRows, isGroupRow) =>
     }
     return {
       ...tableRow,
-      key: `${TABLE_GROUP_TYPE}_${tableRow.row.key}`,
+      key: `${TABLE_GROUP_TYPE}_${tableRow.row.compoundKey}`,
       type: TABLE_GROUP_TYPE,
       colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.row.groupedBy}`,
     };

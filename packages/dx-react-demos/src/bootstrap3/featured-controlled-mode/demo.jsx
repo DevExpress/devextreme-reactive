@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import {
   SortingState, EditingState, PagingState,
   LocalPaging, LocalSorting,
-  ColumnOrderState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   TableView, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropContext,
+  PagingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   Modal,
@@ -249,11 +248,6 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={getRowId}
         >
-          <ColumnOrderState
-            order={columnOrder}
-            onOrderChange={this.changeColumnOrder}
-          />
-
           <SortingState
             sorting={sorting}
             onSortingChange={this.changeSorting}
@@ -282,7 +276,11 @@ export default class Demo extends React.PureComponent {
 
           <TableView
             tableCellTemplate={this.tableCellTemplate}
-            allowColumnReordering
+          />
+
+          <TableColumnReordering
+            order={columnOrder}
+            onOrderChange={this.changeColumnOrder}
           />
 
           <TableHeaderRow allowSorting allowDragging />

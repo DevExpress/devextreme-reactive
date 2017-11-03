@@ -6,7 +6,6 @@ This plugin renders Grid data as a table. It contains the Table View and Table V
 
 ### Dependencies
 
-- [ColumnOrderState](column-order-state.md) [Optional]
 - [DragDropContext](drag-drop-context.md) [Optional]
 - [DataTypeProvider](data-type-provider.md) [Optional]
 
@@ -21,7 +20,6 @@ tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElem
 tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty.
 tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided.
 tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided.
-allowColumnReordering | boolean | false | Specifies whether end-users can reorder columns by dragging. Requires the [ColumnOrderState](column-order-state.md) and the [DragDropContext](drag-drop-context.md) dependencies.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces

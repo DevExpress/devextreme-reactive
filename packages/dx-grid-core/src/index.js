@@ -25,8 +25,9 @@ export * from './plugins/editing-state/reducers';
 export * from './plugins/editing-state/computeds';
 export * from './plugins/editing-state/helpers';
 
-export * from './plugins/column-order-state/reducers';
-export * from './plugins/column-order-state/computeds';
+export * from './plugins/table-column-reordering/constants';
+export * from './plugins/table-column-reordering/reducers';
+export * from './plugins/table-column-reordering/computeds';
 
 export * from './plugins/table-column-resizing/computeds';
 export * from './plugins/table-column-resizing/reducers';

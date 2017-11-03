@@ -53,7 +53,6 @@ export const getAnimations = (
   prevColumns,
   nextColumns,
   tableWidth,
-  draggingColumnKey,
   prevAnimations,
 ) => {
   const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
@@ -80,12 +79,6 @@ export const getAnimations = (
       const result = { startTime: new Date().getTime(), style: {} };
       if (Math.abs(prev.left - next.left) > 1) {
         result.left = { from: prev.left, to: next.left };
-      }
-      if (draggingColumnKey === key) {
-        result.style = {
-          zIndex: 100,
-          position: 'relative',
-        };
       }
       return [key, result];
     })

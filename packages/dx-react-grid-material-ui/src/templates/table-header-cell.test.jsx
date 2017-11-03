@@ -20,7 +20,7 @@ describe('TableHeaderCell', () => {
   beforeAll(() => {
     resetRaf = mockRaf();
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
-    classes = getClasses(<TableHeaderCell column={{}} />);
+    classes = getClasses(<TableHeaderCell column={{}} getMessage={jest.fn()} />);
     mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
   });
   afterAll(() => {
@@ -39,6 +39,7 @@ describe('TableHeaderCell', () => {
   it('should use column name if title is not specified', () => {
     const tree = mount((
       <TableHeaderCell
+        getMessage={jest.fn()}
         column={{
           name: 'Test',
         }}
@@ -57,6 +58,7 @@ describe('TableHeaderCell', () => {
         }}
         changeSortingDirection={changeSortingDirection}
         allowSorting
+        getMessage={jest.fn()}
       />
     ));
 
@@ -70,6 +72,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <TableHeaderCell
         column={{}}
+        getMessage={jest.fn()}
       />
     ));
 
@@ -82,6 +85,7 @@ describe('TableHeaderCell', () => {
       <TableHeaderCell
         column={{ name: 'a' }}
         allowSorting
+        getMessage={jest.fn()}
       />
     ));
 
@@ -94,6 +98,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           column={{}}
           allowDragging
+          getMessage={jest.fn()}
         />
       </DragDropContext>
     ));
@@ -108,6 +113,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           column={{}}
           allowDragging
+          getMessage={jest.fn()}
         />
       </DragDropContext>
     ));
@@ -130,6 +136,7 @@ describe('TableHeaderCell', () => {
         allowResizing
         changeDraftColumnWidth={changeDraftColumnWidth}
         changeColumnWidth={changeColumnWidth}
+        getMessage={jest.fn()}
       />
     ));
 
@@ -141,6 +148,22 @@ describe('TableHeaderCell', () => {
       .toBe(changeColumnWidth);
   });
 
+  it('should pass correct text to SortingControl', () => {
+    const tree = mount((
+      <TableHeaderCell
+        allowSorting
+        column={{ align: 'right', title: 'test' }}
+        getMessage={() => {}}
+      />
+    ));
+
+    const tooltip = tree.find('Tooltip');
+    expect(tooltip.exists())
+      .toBeTruthy();
+    expect(tooltip.prop('title'))
+      .toBe('Sort');
+  });
+
   describe('with keyboard navigation', () => {
     const ENTER_KEY_CODE = 13;
     const SPACE_KEY_CODE = 32;
@@ -149,6 +172,7 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           column={{ align: 'right', title: 'test' }}
+          getMessage={jest.fn()}
         />
       ));
 
@@ -161,6 +185,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           column={{ align: 'right', title: 'test' }}
           allowSorting
+          getMessage={jest.fn()}
         />
       ));
 
@@ -175,6 +200,7 @@ describe('TableHeaderCell', () => {
           changeSortingDirection={changeSortingDirection}
           column={{ align: 'right', title: 'test' }}
           allowSorting
+          getMessage={jest.fn()}
         />
       ));
       const SortLabel = tree.find(TableSortLabel);
@@ -201,6 +227,7 @@ describe('TableHeaderCell', () => {
           changeSortingDirection={changeSortingDirection}
           column={{ align: 'right', title: 'test' }}
           allowSorting
+          getMessage={jest.fn()}
         />
       ));
 
@@ -216,6 +243,7 @@ describe('TableHeaderCell', () => {
           changeSortingDirection={changeSortingDirection}
           column={{ align: 'right', title: 'test' }}
           allowSorting
+          getMessage={jest.fn()}
         />
       ));
 
@@ -232,6 +260,7 @@ describe('TableHeaderCell', () => {
           column={{ align: 'right', title: 'test' }}
           allowSorting
           sortingDirection="desc"
+          getMessage={jest.fn()}
         />
       ));
 

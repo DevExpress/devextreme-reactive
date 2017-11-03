@@ -20,10 +20,10 @@ const styles = theme => ({
 });
 
 const SortingControlBase = ({
-  align, sortingDirection, columnTitle, onClick, classes,
+  align, sortingDirection, columnTitle, onClick, classes, text,
 }) => (
   <Tooltip
-    title="Sort"
+    title={text}
     placement={align === 'right' ? 'bottom-end' : 'bottom-start'}
     enterDelay={300}
     classes={{
@@ -50,10 +50,12 @@ SortingControlBase.propTypes = {
   columnTitle: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
+  text: PropTypes.string,
 };
 
 SortingControlBase.defaultProps = {
   sortingDirection: null,
+  text: 'Sort',
 };
 
 export const SortingControl = withStyles(styles, { name: 'SortingControl' })(SortingControlBase);

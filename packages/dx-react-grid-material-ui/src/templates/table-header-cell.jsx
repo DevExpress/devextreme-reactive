@@ -87,11 +87,12 @@ class TableHeaderCellBase extends React.PureComponent {
       allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
-      classes,
+      classes, getMessage,
     } = this.props;
     const { dragging } = this.state;
     const align = column.align || 'left';
     const columnTitle = column.title || column.name;
+    const tooltipText = getMessage('tooltip');
 
     const tableCellClasses = classNames({
       [classes.cell]: true,
@@ -119,6 +120,7 @@ class TableHeaderCellBase extends React.PureComponent {
             columnTitle={columnTitle}
             onClick={this.onClick}
             allowGroupingByClick={allowGroupingByClick}
+            text={tooltipText}
           />
         ) : (
           <div className={classes.plainTitle}>
@@ -164,6 +166,7 @@ TableHeaderCellBase.propTypes = {
   changeColumnWidth: PropTypes.func,
   changeDraftColumnWidth: PropTypes.func,
   classes: PropTypes.object.isRequired,
+  getMessage: PropTypes.func.isRequired,
 };
 
 TableHeaderCellBase.defaultProps = {

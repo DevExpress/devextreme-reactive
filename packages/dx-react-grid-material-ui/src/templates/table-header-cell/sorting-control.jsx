@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 const SortingControlBase = ({
-  align, sortingDirection, columnTitle, handleClick, classes,
+  align, sortingDirection, columnTitle, onClick, classes,
 }) => (
   <Tooltip
     title="Sort"
@@ -33,7 +33,7 @@ const SortingControlBase = ({
     <TableSortLabel
       active={!!sortingDirection}
       direction={sortingDirection}
-      onClick={handleClick}
+      onClick={onClick}
       classes={{
         root: classes.sortLabelRoot,
         active: classes.sortLabelActive,
@@ -49,7 +49,7 @@ SortingControlBase.propTypes = {
   sortingDirection: PropTypes.oneOf(['asc', 'desc']),
   columnTitle: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 SortingControlBase.defaultProps = {

@@ -17,7 +17,7 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-    this.handleClick = (e) => {
+    this.onClick = (e) => {
       const { allowSorting, changeSortingDirection, sortingDirection } = this.props;
       if (!allowSorting) return;
       const cancel = (sortingDirection === 'desc');
@@ -36,12 +36,6 @@ export class TableHeaderCell extends React.PureComponent {
         });
       }
     };
-    this.handleMouseDown = (e) => {
-      const { allowSorting } = this.props;
-      if (!allowSorting) return;
-      e.currentTarget.style.outline = 'none';
-    };
-    this.handleBlur = (e) => { e.currentTarget.style.outline = ''; };
   }
   render() {
     const {
@@ -69,7 +63,7 @@ export class TableHeaderCell extends React.PureComponent {
           padding: '5px',
           ...style,
         }}
-        onClick={this.handleClick}
+        onClick={this.onClick}
       >
         {allowGroupingByClick && (
           <GroupingControl
@@ -86,16 +80,13 @@ export class TableHeaderCell extends React.PureComponent {
             textOverflow: 'ellipsis',
             padding: '3px',
           }}
-          onMouseDown={this.handleMouseDown}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleClick}
         >
           {allowSorting ? (
             <SortingControl
               align={align}
               sortingDirection={sortingDirection}
               columnTitle={columnTitle}
-              handleClick={this.handleClick}
+              onClick={this.onClick}
             />
           ) : (
             columnTitle

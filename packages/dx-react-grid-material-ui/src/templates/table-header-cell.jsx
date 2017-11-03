@@ -59,7 +59,7 @@ class TableHeaderCellBase extends React.PureComponent {
       dragging: false,
     };
 
-    this.handleClick = (e) => {
+    this.onClick = (e) => {
       const { allowSorting, changeSortingDirection, sortingDirection } = this.props;
       if (!allowSorting) return;
       const cancel = (sortingDirection === 'desc');
@@ -116,7 +116,7 @@ class TableHeaderCellBase extends React.PureComponent {
             align={align}
             sortingDirection={sortingDirection}
             columnTitle={columnTitle}
-            handleClick={this.handleClick}
+            onClick={this.onClick}
             allowGroupingByClick={allowGroupingByClick}
           />
         ) : (

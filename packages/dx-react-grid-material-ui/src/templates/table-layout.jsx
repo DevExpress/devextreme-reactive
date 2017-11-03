@@ -8,7 +8,7 @@ import {
 } from 'material-ui';
 
 import {
-  TableLayout,
+  TableLayout as TableLayoutCore,
   StaticTableLayout,
 } from '@devexpress/dx-react-grid';
 
@@ -45,14 +45,14 @@ const bodyTemplate = ({ children, ...restProps }) => (
   <TableBodyMUI {...restProps}>{children}</TableBodyMUI>
 );
 
-export const Table = ({
+export const TableLayout = ({
   headerRows,
   bodyRows,
   columns,
   cellTemplate,
   rowTemplate,
 }) => (
-  <TableLayout
+  <TableLayoutCore
     layoutComponent={StaticTableLayout}
     headerRows={headerRows}
     rows={bodyRows}
@@ -67,7 +67,7 @@ export const Table = ({
   />
 );
 
-Table.propTypes = {
+TableLayout.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,

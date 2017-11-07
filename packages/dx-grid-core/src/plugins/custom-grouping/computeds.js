@@ -14,7 +14,7 @@ export const customGroupedRows = (
   rootRows = currentRows,
   keyPrefix = '',
 ) => {
-  if (!currentRows) return [];
+  if (!currentRows || !currentRows.length) return [];
   if (!grouping.length) return currentRows;
 
   const groupedBy = grouping[0].columnName;

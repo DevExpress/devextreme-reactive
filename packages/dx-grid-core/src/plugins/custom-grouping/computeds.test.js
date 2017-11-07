@@ -66,33 +66,6 @@ describe('CustomGrouping Plugin computeds', () => {
         .toBeCalledWith(hierarchicalSource, groupings[0], hierarchicalSource);
     });
 
-    it('should process hierarchical data by one column with remote expanded groups', () => {
-      const hierarchicalSource = [{
-        key: 1,
-        items: null,
-      }];
-      const getHierarchicalChildGroups = groups => groups
-        .map(group => ({ key: String(group.key), value: group.key, childRows: group.items }));
-      const groupings = [{ columnName: 'a' }];
-      const groupedRows = [
-        groupRow({
-          groupedBy: 'a',
-          compoundKey: '1',
-          key: '1',
-          value: 1,
-        }),
-      ];
-
-      const getChildGroups = jest.fn(getHierarchicalChildGroups);
-
-      expect(customGroupedRows(
-        hierarchicalSource,
-        groupings,
-        getChildGroups,
-      ))
-        .toEqual(groupedRows);
-    });
-
     it('should process hierarchical data by several columns', () => {
       const hierarchicalSource = [{
         key: 1,
@@ -182,6 +155,45 @@ describe('CustomGrouping Plugin computeds', () => {
         .toBeCalledWith(hierarchicalSource[0].items, groupings[1], hierarchicalSource);
       expect(getChildGroups)
         .toBeCalledWith(hierarchicalSource[1].items, groupings[1], hierarchicalSource);
+    });
+
+    it('should process hierarchical data with remote expanded groups', () => {
+      const hierarchicalSource = [{
+        key: 1,
+        items: null,
+      }, {
+        key: 2,
+        items: [],
+      }];
+      const getHierarchicalChildGroups = groups => groups
+        .map(group => ({ key: String(group.key), value: group.key, childRows: group.items }));
+      const groupings = [{ columnName: 'a' }, { columnName: 'b' }];
+      const groupedRows = [
+        groupRow({
+          groupedBy: 'a',
+          compoundKey: '1',
+          key: '1',
+          value: 1,
+        }),
+        groupRow({
+          groupedBy: 'a',
+          compoundKey: '2',
+          key: '2',
+          value: 2,
+        }),
+      ];
+
+      const getChildGroups = jest.fn(getHierarchicalChildGroups);
+
+      expect(customGroupedRows(
+        hierarchicalSource,
+        groupings,
+        getChildGroups,
+      ))
+        .toEqual(groupedRows);
+
+      expect(getChildGroups)
+        .toHaveBeenCalledTimes(1);
     });
   });
 

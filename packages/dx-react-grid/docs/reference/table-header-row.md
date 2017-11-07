@@ -62,7 +62,7 @@ An object with the following shape:
 
 Field | Type | Default | Description
 ------|------|---------|------------
-tooltip? | string | 'Sort' | Specifies the 'Sort' label's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
+sortingHint? | string | 'Sort' | Specifies the 'Sort' hint's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Plugin Developer Reference
 

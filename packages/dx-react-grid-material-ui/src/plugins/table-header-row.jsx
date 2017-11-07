@@ -8,7 +8,7 @@ import { TableRow } from '../templates/table-row';
 const defaultHeaderCellTemplate = props => <TableHeaderCell {...props} />;
 const defaultHeaderRowTemplate = props => <TableRow {...props} />;
 const defaultMessages = {
-  tooltip: 'Sort',
+  sortingHint: 'Sort',
 };
 
 export class TableHeaderRow extends React.PureComponent {
@@ -39,7 +39,7 @@ TableHeaderRow.propTypes = {
   headerCellTemplate: PropTypes.func,
   headerRowTemplate: PropTypes.func,
   messages: PropTypes.shape({
-    tooltip: PropTypes.string,
+    sortingHint: PropTypes.string,
   }),
 };
 

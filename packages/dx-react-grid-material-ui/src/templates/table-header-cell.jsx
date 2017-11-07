@@ -92,7 +92,7 @@ class TableHeaderCellBase extends React.PureComponent {
     const { dragging } = this.state;
     const align = column.align || 'left';
     const columnTitle = column.title || column.name;
-    const tooltipText = getMessage('tooltip');
+    const tooltipText = getMessage('sortingHint');
 
     const tableCellClasses = classNames({
       [classes.cell]: true,

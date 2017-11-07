@@ -140,7 +140,7 @@ describe('TableHeaderRow', () => {
           allowSorting
           headerCellTemplate={headerCellTemplate}
           messages={{
-            tooltip: 'test',
+            sortingHint: 'test',
           }}
         />
       </PluginHost>
@@ -148,7 +148,7 @@ describe('TableHeaderRow', () => {
 
     const { getMessage } = headerCellTemplate.mock.calls[0][0];
 
-    expect(getMessage('tooltip')).toBe('test');
+    expect(getMessage('sortingHint')).toBe('test');
   });
 
   describe('resizing', () => {

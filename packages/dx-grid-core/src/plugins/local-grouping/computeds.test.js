@@ -31,13 +31,20 @@ describe('LocalGrouping computeds', () => {
     });
   });
 
-  const groupRow = ({ groupedBy, collapsedRows = [], ...restParams }) => ({
-    ...restParams,
-    groupedBy,
-    collapsedRows,
-    [GRID_GROUP_CHECK]: true,
-    [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
-  });
+  const groupRow = ({ groupedBy, collapsedRows, ...restParams }) => (
+    collapsedRows ? {
+      ...restParams,
+      groupedBy,
+      collapsedRows,
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
+    } : {
+      ...restParams,
+      groupedBy,
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
+    }
+  );
 
   const rows = [
     { a: 1, b: 1 },

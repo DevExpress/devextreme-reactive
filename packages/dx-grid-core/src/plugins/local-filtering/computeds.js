@@ -26,6 +26,11 @@ const filterTree = (tree, predicate) => {
   return filtered;
 };
 
+const rowHasChildren = (row) => {
+  const { items, groupRow } = row;
+  return items.length > 0 || (groupRow.collapsedRows && groupRow.collapsedRows.length > 0);
+};
+
 export const filteredRows = (
   rows,
   filters,
@@ -39,8 +44,7 @@ export const filteredRows = (
   const compoundPredicate = filters.reduce(
     (prevCompare, filter) => (row) => {
       if (isGroupRow && row.groupRow) {
-        const { items, groupRow } = row;
-        return items.length > 0 || groupRow.collapsedRows.length > 0;
+        return rowHasChildren(row);
       }
       const { columnName, ...filterConfig } = filter;
       const predicate = (getColumnPredicate && getColumnPredicate(columnName)) || defaultPredicate;
@@ -52,10 +56,13 @@ export const filteredRows = (
   if (isGroupRow) {
     const copy = rows.map((row) => {
       if (!isGroupRow(row)) return row;
-      return {
-        ...row,
-        collapsedRows: [...row.collapsedRows],
-      };
+      if (row.collapsedRows && row.collapsedRows.length) {
+        return {
+          ...row,
+          collapsedRows: [...row.collapsedRows],
+        };
+      }
+      return { ...row };
     });
 
     const tree = rowsToTree(copy, isGroupRow, getRowLevelKey);

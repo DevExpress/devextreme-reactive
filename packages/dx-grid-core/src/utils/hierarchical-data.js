@@ -3,7 +3,7 @@ export const rowsToTree = (rows, isGroupRow, getRowLevelKey) => {
 
   let currentLevel;
   const levels = {};
-  const parentLevels = {};
+  const parentKeys = {};
 
   return rows.reduce((acc, row) => {
     if (isGroupRow(row)) {
@@ -12,23 +12,28 @@ export const rowsToTree = (rows, isGroupRow, getRowLevelKey) => {
         levels[currentRowKey] = acc;
         currentLevel = { groupRow: row, items: [] };
         levels[currentRowKey].push(currentLevel);
-      } else if (!levels[currentRowKey]) {
+        return acc;
+      }
+      if (!levels[currentRowKey]) {
         const parentKey = getRowLevelKey(currentLevel.groupRow);
         currentLevel = { groupRow: row, items: [] };
         levels[currentRowKey] = [currentLevel];
         levels[parentKey].slice(-1)[0].items.push(currentLevel);
-        parentLevels[currentRowKey] = parentKey;
-      } else {
-        const parentKey = parentLevels[currentRowKey];
-        currentLevel = { groupRow: row, items: [] };
-        levels[currentRowKey].push(currentLevel);
-        if (parentKey) {
-          levels[parentKey].slice(-1)[0].items.push(currentLevel);
-        }
+        parentKeys[currentRowKey] = parentKey;
+        return acc;
       }
-    } else {
-      currentLevel.items.push(row);
+
+      currentLevel = { groupRow: row, items: [] };
+      levels[currentRowKey].push(currentLevel);
+      const parentKey = parentKeys[currentRowKey];
+      if (parentKey) {
+        levels[parentKey].slice(-1)[0].items.push(currentLevel);
+      }
+
+      return acc;
     }
+
+    currentLevel.items.push(row);
 
     return acc;
   }, []);

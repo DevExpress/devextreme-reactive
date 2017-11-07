@@ -60,24 +60,20 @@ class TableHeaderCellBase extends React.PureComponent {
     };
 
     this.onClick = (e) => {
-      const { allowSorting, changeSortingDirection, sortingDirection } = this.props;
-      if (!allowSorting) return;
-      const cancel = (sortingDirection === 'desc');
-      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+      const { changeSortingDirection, sortingDirection } = this.props;
+      const isEnterSpaceDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
+      const isMouseClick = e.keyCode === undefined;
 
-      if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
-        e.preventDefault();
-        changeSortingDirection({
-          keepOther: e.shiftKey || cancelSortingRelatedKey,
-          cancel: cancelSortingRelatedKey || cancel,
-        });
-      } else if (e.keyCode === undefined) {
-        e.preventDefault();
-        changeSortingDirection({
-          keepOther: e.shiftKey || cancelSortingRelatedKey,
-          cancel: cancelSortingRelatedKey,
-        });
-      }
+      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+      const cancel = (isMouseClick && cancelSortingRelatedKey)
+        || (isEnterSpaceDown && cancelSortingRelatedKey)
+        || (isEnterSpaceDown && sortingDirection === 'desc');
+
+      e.preventDefault();
+      changeSortingDirection({
+        keepOther: e.shiftKey || cancelSortingRelatedKey,
+        cancel,
+      });
     };
   }
   render() {

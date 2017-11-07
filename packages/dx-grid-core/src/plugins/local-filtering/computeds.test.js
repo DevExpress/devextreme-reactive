@@ -74,17 +74,17 @@ describe('LocalFiltering computeds', () => {
         {
           group: true,
           groupLevelKey: 'a',
-          collapsedItems: [
+          collapsedRows: [
             { a: 1, b: 1 },
             { a: 2, b: 2 },
           ],
         },
-        { group: true, groupLevelKey: 'a', collapsedItems: [] },
-        { group: true, groupLevelKey: 'b', collapsedItems: [] },
+        { group: true, groupLevelKey: 'a', collapsedRows: [] },
+        { group: true, groupLevelKey: 'b', collapsedRows: [] },
         { a: 1, b: 1 },
         { a: 1, b: 2 },
-        { group: true, groupLevelKey: 'a', collapsedItems: [] },
-        { group: true, groupLevelKey: 'b', collapsedItems: [] },
+        { group: true, groupLevelKey: 'a', collapsedRows: [] },
+        { group: true, groupLevelKey: 'b', collapsedRows: [] },
         { a: 2, b: 1 },
         { a: 2, b: 2 },
       ];
@@ -101,16 +101,16 @@ describe('LocalFiltering computeds', () => {
         {
           group: true,
           groupLevelKey: 'a',
-          collapsedItems: [
+          collapsedRows: [
             { a: 1, b: 1 },
           ],
         },
-        { group: true, groupLevelKey: 'a', collapsedItems: [] },
-        { group: true, groupLevelKey: 'b', collapsedItems: [] },
+        { group: true, groupLevelKey: 'a', collapsedRows: [] },
+        { group: true, groupLevelKey: 'b', collapsedRows: [] },
         { a: 1, b: 1 },
         { a: 1, b: 2 },
       ]);
-      expect(filtered[0].collapsedItems).not.toBe(groupedRows[0].collapsedItems);
+      expect(filtered[0].collapsedRows).not.toBe(groupedRows[0].collapsedRows);
     });
   });
 });

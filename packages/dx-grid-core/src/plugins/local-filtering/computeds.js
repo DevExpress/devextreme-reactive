@@ -8,15 +8,15 @@ const defaultPredicate = (value, filter) =>
 const filterTree = (tree, predicate) => {
   const filtered = tree.filter((item) => {
     const { groupRow, items } = item;
-    const collapsedItems = groupRow ? groupRow.collapsedItems : undefined;
+    const collapsedRows = groupRow ? groupRow.collapsedRows : undefined;
 
     if (items && items.length) {
       items.splice(0, items.length, ...filterTree(items, predicate));
-    } else if (collapsedItems) {
-      groupRow.collapsedItems.splice(
+    } else if (collapsedRows) {
+      groupRow.collapsedRows.splice(
         0,
-        collapsedItems.length,
-        ...filterTree(collapsedItems, predicate),
+        collapsedRows.length,
+        ...filterTree(collapsedRows, predicate),
       );
     }
 
@@ -40,7 +40,7 @@ export const filteredRows = (
     (prevCompare, filter) => (row) => {
       if (isGroupRow && row.groupRow) {
         const { items, groupRow } = row;
-        return items.length > 0 || groupRow.collapsedItems.length > 0;
+        return items.length > 0 || groupRow.collapsedRows.length > 0;
       }
       const { columnName, ...filterConfig } = filter;
       const predicate = (getColumnPredicate && getColumnPredicate(columnName)) || defaultPredicate;
@@ -54,7 +54,7 @@ export const filteredRows = (
       if (!isGroupRow(row)) return row;
       return {
         ...row,
-        collapsedItems: [...row.collapsedItems],
+        collapsedRows: [...row.collapsedRows],
       };
     });
 

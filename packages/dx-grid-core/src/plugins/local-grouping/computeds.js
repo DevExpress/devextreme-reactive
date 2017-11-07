@@ -49,7 +49,7 @@ export const groupedRows = (
       acc.push({
         [GRID_GROUP_CHECK]: true,
         [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
-        collapsedItems: [],
+        collapsedRows: [],
         groupedBy,
         compoundKey,
         key,
@@ -76,11 +76,11 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
 
   return rows.reduce((acc, row) => {
     if (!row[GRID_GROUP_CHECK]) {
-      const { collapsedItems } = acc[lastGroupIndex];
+      const { collapsedRows } = acc[lastGroupIndex];
       if (currentGroupExpanded) {
-        if (collapsedItems) collapsedItems.length = 0;
+        if (collapsedRows) collapsedRows.length = 0;
         acc.push(row);
-      } else if (collapsedItems) collapsedItems.push(row);
+      } else if (collapsedRows) collapsedRows.push(row);
 
       return acc;
     }
@@ -95,9 +95,9 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
 
     acc.push(row);
     lastGroupIndex = acc.length - 1;
-    const { collapsedItems } = acc[lastGroupIndex];
-    if (collapsedItems && collapsedItems.length) {
-      collapsedItems.length = 0;
+    const { collapsedRows } = acc[lastGroupIndex];
+    if (collapsedRows && collapsedRows.length) {
+      collapsedRows.length = 0;
     }
 
     return acc;

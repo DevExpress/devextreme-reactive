@@ -54,7 +54,7 @@ export const sortedRows = (
   if (!sorting.length) return rows;
   const compare = createCompare(sorting, getColumnCompare, getCellValue);
 
-  if (isGroupRow) {
+  if (getRowLevelKey) {
     const tree = rowsToTree(rows, isGroupRow, getRowLevelKey);
     const groupCompare = createCompare(sorting, getColumnCompare, (item, field) => {
       const { groupRow } = item;

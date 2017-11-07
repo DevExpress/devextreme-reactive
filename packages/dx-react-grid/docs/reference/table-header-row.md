@@ -24,6 +24,7 @@ allowSorting | boolean | false | If true, it allows an end-user to change sortin
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowGroupingByClick | boolean | false | If true, it renders a component that toggles a column's grouping state. Requires the [GroupingState](grouping-state.md) dependency.
 allowResizing | boolean | false | If true, it allows an end-user to change a column width. Requires the [TableColumnResizing](table-column-resizing.md) dependency.
+messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -53,6 +54,15 @@ allowDragging | boolean | If true, an end-user can start dragging a column by th
 dragPayload | any | A data object that identifies the corresponding column in the drag-and-drop context.
 changeColumnWidth | ({ shift: number }) => void | Changes the column width. A shift is added to the original column width value.
 changeDraftColumnWidth | ({ shift: number }) => void | Changes the draft column width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in sorting controls within the sorting table header cell.
+
+## Localization Messages
+
+An object with the following shape:
+
+Field | Type | Default | Description
+------|------|---------|------------
+tooltip? | string | 'Sort' | Specifies the 'Sort' label's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Plugin Developer Reference
 

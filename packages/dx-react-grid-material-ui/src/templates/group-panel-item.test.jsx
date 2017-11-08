@@ -3,6 +3,9 @@ import { Chip } from 'material-ui';
 import { createMount } from 'material-ui/test-utils';
 import { GroupPanelItem } from './group-panel-item';
 
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
 describe('GroupPanelItem', () => {
   let mount;
   beforeAll(() => {
@@ -82,5 +85,90 @@ describe('GroupPanelItem', () => {
     ));
     expect(tree.find('Chip').props())
       .toHaveProperty('onRequestDelete');
+  });
+
+  it('should not call change sorting func if not allow sorting', () => {
+    const changeSortingDirection = jest.fn();
+    const tree = mount((
+      <GroupPanelItem
+        changeSortingDirection={changeSortingDirection}
+        column={{
+          name: 'test',
+        }}
+      />
+    ));
+    const ChipElem = tree.find(Chip);
+
+    ChipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+    expect(changeSortingDirection)
+      .not.toHaveBeenCalled();
+  });
+
+  it('should handle the "Enter" and "Space" keys down and "Mouse click" for sorting change', () => {
+    const changeSortingDirection = jest.fn();
+    const tree = mount((
+      <GroupPanelItem
+        changeSortingDirection={changeSortingDirection}
+        column={{
+          name: 'test',
+        }}
+        allowSorting
+      />
+    ));
+    const ChipElem = tree.find(Chip);
+
+    ChipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+    expect(changeSortingDirection)
+      .toHaveBeenCalled();
+
+    changeSortingDirection.mockClear();
+    ChipElem.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+    expect(changeSortingDirection)
+      .toHaveBeenCalled();
+
+    changeSortingDirection.mockClear();
+    ChipElem.simulate('click');
+    expect(changeSortingDirection)
+      .toHaveBeenCalled();
+
+    changeSortingDirection.mockClear();
+    ChipElem.simulate('keydown', { keyCode: 51 });
+    expect(changeSortingDirection)
+      .not.toHaveBeenCalled();
+  });
+
+  it('should handle the "Ctrl" key with sorting', () => {
+    const changeSortingDirection = jest.fn();
+    const tree = mount((
+      <GroupPanelItem
+        changeSortingDirection={changeSortingDirection}
+        column={{
+          name: 'test',
+        }}
+        allowSorting
+      />
+    ));
+
+    tree.find(Chip).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
+    expect(changeSortingDirection)
+      .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
+  });
+
+  it('should switch sorting derection when "Enter" key down', () => {
+    const changeSortingDirection = jest.fn();
+    const tree = mount((
+      <GroupPanelItem
+        changeSortingDirection={changeSortingDirection}
+        column={{
+          name: 'test',
+        }}
+        allowSorting
+        sortingDirection="desc"
+      />
+    ));
+
+    tree.find(Chip).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: false });
+    expect(changeSortingDirection)
+      .toHaveBeenCalledWith({ keepOther: false, cancel: true, columnName: 'test' });
   });
 });

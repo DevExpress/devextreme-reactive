@@ -7,7 +7,7 @@ const defaultCompare = (a, b) => {
   return 0;
 };
 
-const createCompare = (sorting, getColumnCompare, getCellValue) =>
+const createCompare = (sorting, getColumnCompare, getComparableValue) =>
   Array.from(sorting)
     .reverse()
     .reduce(
@@ -17,8 +17,8 @@ const createCompare = (sorting, getColumnCompare, getCellValue) =>
         const columnCompare = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
 
         return (aRow, bRow) => {
-          const a = getCellValue(aRow, columnName);
-          const b = getCellValue(bRow, columnName);
+          const a = getComparableValue(aRow, columnName);
+          const b = getComparableValue(bRow, columnName);
           const result = columnCompare(a, b);
 
           if (result !== 0) {
@@ -43,6 +43,27 @@ const sortTree = (tree, compare, groupCompare) => {
   return sorted;
 };
 
+const sortGroupedRows = (
+  rows,
+  sorting,
+  isGroupRow,
+  getRowLevelKey,
+  getCellValue,
+  getColumnCompare,
+) => {
+  const tree = rowsToTree(rows, isGroupRow, getRowLevelKey);
+  const getGroupRowValue = (row, field) => {
+    const { node } = row;
+    return node.groupedBy === field ? node.value : undefined;
+  };
+
+  const rowCompare = createCompare(sorting, getColumnCompare, getCellValue);
+  const groupCompare = createCompare(sorting, getColumnCompare, getGroupRowValue);
+  const sortedTree = sortTree(tree, rowCompare, groupCompare);
+
+  return treeToRows(sortedTree);
+};
+
 export const sortedRows = (
   rows,
   sorting,
@@ -52,18 +73,18 @@ export const sortedRows = (
   getRowLevelKey,
 ) => {
   if (!sorting.length) return rows;
-  const compare = createCompare(sorting, getColumnCompare, getCellValue);
 
   if (getRowLevelKey) {
-    const tree = rowsToTree(rows, isGroupRow, getRowLevelKey);
-    const groupCompare = createCompare(sorting, getColumnCompare, (item, field) => {
-      const { node } = item;
-      return node.groupedBy === field ? node.value : undefined;
-    });
-    const sortedTree = sortTree(tree, compare, groupCompare);
-
-    return treeToRows(sortedTree);
+    return sortGroupedRows(
+      rows,
+      sorting,
+      isGroupRow,
+      getRowLevelKey,
+      getCellValue,
+      getColumnCompare,
+    );
   }
 
-  return mergeSort(Array.from(rows), compare);
+  const rowCompare = createCompare(sorting, getColumnCompare, getCellValue);
+  return mergeSort(Array.from(rows), rowCompare);
 };

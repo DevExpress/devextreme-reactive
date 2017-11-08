@@ -32,7 +32,7 @@ describe('GroupPanelItem', () => {
       .toBeTruthy();
   });
 
-  it('can not get focus if sorting is not allow', () => {
+  it('does not get focus if sorting is not allowed', () => {
     const tree = mount((
       <GroupPanelItem
         column={{
@@ -129,7 +129,7 @@ describe('GroupPanelItem', () => {
       .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
   });
 
-  it('should switch sorting direction when "Enter" key down', () => {
+  it('should cancel sorting on the "Enter" key down when sortingDirection === "desc"', () => {
     const changeSortingDirection = jest.fn();
     const tree = mount((
       <GroupPanelItem

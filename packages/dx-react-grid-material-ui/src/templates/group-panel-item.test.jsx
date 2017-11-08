@@ -83,11 +83,11 @@ describe('GroupPanelItem', () => {
         allowUngroupingByClick
       />
     ));
-    expect(tree.find('Chip').props())
+    expect(tree.find(Chip).props())
       .toHaveProperty('onRequestDelete');
   });
 
-  it('should not call change sorting func if not allow sorting', () => {
+  it('should not change sorting if sorting is not allowed', () => {
     const changeSortingDirection = jest.fn();
     const tree = mount((
       <GroupPanelItem
@@ -97,9 +97,9 @@ describe('GroupPanelItem', () => {
         }}
       />
     ));
-    const ChipElem = tree.find(Chip);
+    const сhipElem = tree.find(Chip);
 
-    ChipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+    сhipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
     expect(changeSortingDirection)
       .not.toHaveBeenCalled();
   });
@@ -115,29 +115,29 @@ describe('GroupPanelItem', () => {
         allowSorting
       />
     ));
-    const ChipElem = tree.find(Chip);
+    const сhipElem = tree.find(Chip);
 
-    ChipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+    сhipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
     expect(changeSortingDirection)
       .toHaveBeenCalled();
 
     changeSortingDirection.mockClear();
-    ChipElem.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+    сhipElem.simulate('keydown', { keyCode: SPACE_KEY_CODE });
     expect(changeSortingDirection)
       .toHaveBeenCalled();
 
     changeSortingDirection.mockClear();
-    ChipElem.simulate('click');
+    сhipElem.simulate('click');
     expect(changeSortingDirection)
       .toHaveBeenCalled();
 
     changeSortingDirection.mockClear();
-    ChipElem.simulate('keydown', { keyCode: 51 });
+    сhipElem.simulate('keydown', { keyCode: 51 });
     expect(changeSortingDirection)
       .not.toHaveBeenCalled();
   });
 
-  it('should handle the "Ctrl" key with sorting', () => {
+  it('should cancel sorting on sorting direction change when the "Ctrl" key is pressed', () => {
     const changeSortingDirection = jest.fn();
     const tree = mount((
       <GroupPanelItem

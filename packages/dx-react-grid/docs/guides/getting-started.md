@@ -32,6 +32,12 @@ This package does not contain visual components. In the examples below, visual c
 
   Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
 
+### Supported Browsers
+
+React Grid supports the latest, stable releases of all major browsers: Chrome, Firefox, Safari, Opera, Microsoft Edge.
+
+React Grid should operate well enough in other browsers which use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform’s web view API. Though they are not officially supported. It is also applicable for Microsoft Interner Explorer. In order to operate correctly in some of these browsers, it may be required to add [polyfills](#polyfills). But some features may behave incorrectly due to a lack of required web API support.
+
 ### Polyfills
 
 React Grid uses the latest web platform standards. Thus, it cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.

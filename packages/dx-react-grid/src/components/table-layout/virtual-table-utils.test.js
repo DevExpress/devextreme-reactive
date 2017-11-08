@@ -17,11 +17,11 @@ describe('VirtualTableLaout utils', () => {
 
       expect(getVisibleRows(rows, 0, 50, row => row.height))
         .toEqual([
-          { type: 'visible', size: 40, row: rows[0] },
-          { type: 'overscan', size: 40, row: rows[1] },
-          { type: 'overscan', size: 40, row: rows[2] },
-          { type: 'overscan', size: 40, row: rows[3] },
-          { type: 'stub', size: 80, key: 'ending' },
+          { type: 'visible', height: 40, row: rows[0] },
+          { type: 'overscan', height: 40, row: rows[1] },
+          { type: 'overscan', height: 40, row: rows[2] },
+          { type: 'overscan', height: 40, row: rows[3] },
+          { type: 'stub', height: 80, key: 'ending' },
         ]);
     });
 
@@ -37,11 +37,11 @@ describe('VirtualTableLaout utils', () => {
 
       expect(getVisibleRows(rows, 190, 50, row => row.height))
         .toEqual([
-          { type: 'stub', size: 80, key: 'starting' },
-          { type: 'overscan', size: 40, row: rows[2] },
-          { type: 'overscan', size: 40, row: rows[3] },
-          { type: 'overscan', size: 40, row: rows[4] },
-          { type: 'visible', size: 40, row: rows[5] },
+          { type: 'stub', height: 80, key: 'starting' },
+          { type: 'overscan', height: 40, row: rows[2] },
+          { type: 'overscan', height: 40, row: rows[3] },
+          { type: 'overscan', height: 40, row: rows[4] },
+          { type: 'visible', height: 40, row: rows[5] },
         ]);
     });
 
@@ -60,15 +60,15 @@ describe('VirtualTableLaout utils', () => {
 
       expect(getVisibleRows(rows, 170, 20, row => row.height))
         .toEqual([
-          { type: 'stub', size: 40, key: 'starting' },
-          { type: 'overscan', size: 40, row: rows[1] },
-          { type: 'overscan', size: 40, row: rows[2] },
-          { type: 'overscan', size: 40, row: rows[3] },
-          { type: 'visible', size: 40, row: rows[4] },
-          { type: 'overscan', size: 40, row: rows[5] },
-          { type: 'overscan', size: 40, row: rows[6] },
-          { type: 'overscan', size: 40, row: rows[7] },
-          { type: 'stub', size: 40, key: 'ending' },
+          { type: 'stub', height: 40, key: 'starting' },
+          { type: 'overscan', height: 40, row: rows[1] },
+          { type: 'overscan', height: 40, row: rows[2] },
+          { type: 'overscan', height: 40, row: rows[3] },
+          { type: 'visible', height: 40, row: rows[4] },
+          { type: 'overscan', height: 40, row: rows[5] },
+          { type: 'overscan', height: 40, row: rows[6] },
+          { type: 'overscan', height: 40, row: rows[7] },
+          { type: 'stub', height: 40, key: 'ending' },
         ]);
     });
   });
@@ -77,19 +77,19 @@ describe('VirtualTableLaout utils', () => {
     it('should return correct offset', () => {
       expect(firstVisibleRowOffset(
         [
-          { type: 'stub', size: 160 },
-          { type: 'overscan', size: 40, row: 3 },
-          { type: 'overscan', size: 40, row: 4 },
-          { type: 'overscan', size: 40, row: 5 },
-          { type: 'visible', size: 40, row: 6 },
+          { type: 'stub', height: 160 },
+          { type: 'overscan', height: 40, row: 3 },
+          { type: 'overscan', height: 40, row: 4 },
+          { type: 'overscan', height: 40, row: 5 },
+          { type: 'visible', height: 40, row: 6 },
         ],
         [
-          { type: 'stub', size: 120, key: 'starting' },
-          { type: 'overscan', size: 50, row: 4 },
-          { type: 'overscan', size: 40, row: 3 },
-          { type: 'overscan', size: 40, row: 4 },
-          { type: 'visible', size: 40, row: 5 },
-          { type: 'overscan', size: 40, row: 6 },
+          { type: 'stub', height: 120, key: 'starting' },
+          { type: 'overscan', height: 50, row: 4 },
+          { type: 'overscan', height: 40, row: 3 },
+          { type: 'overscan', height: 40, row: 4 },
+          { type: 'visible', height: 40, row: 5 },
+          { type: 'overscan', height: 40, row: 6 },
         ],
       ))
         .toEqual(10);
@@ -98,19 +98,19 @@ describe('VirtualTableLaout utils', () => {
     it('should return 0 if row was not visible', () => {
       expect(firstVisibleRowOffset(
         [
-          { type: 'stub', size: 160 },
-          { type: 'overscan', size: 40, row: 2 },
-          { type: 'overscan', size: 40, row: 3 },
-          { type: 'overscan', size: 40, row: 4 },
-          { type: 'visible', size: 40, row: 5 },
+          { type: 'stub', height: 160 },
+          { type: 'overscan', height: 40, row: 2 },
+          { type: 'overscan', height: 40, row: 3 },
+          { type: 'overscan', height: 40, row: 4 },
+          { type: 'visible', height: 40, row: 5 },
         ],
         [
-          { type: 'stub', size: 120, key: 'starting' },
-          { type: 'overscan', size: 50, row: 6 },
-          { type: 'overscan', size: 40, row: 7 },
-          { type: 'overscan', size: 40, row: 8 },
-          { type: 'visible', size: 40, row: 9 },
-          { type: 'overscan', size: 40, row: 10 },
+          { type: 'stub', height: 120, key: 'starting' },
+          { type: 'overscan', height: 50, row: 6 },
+          { type: 'overscan', height: 40, row: 7 },
+          { type: 'overscan', height: 40, row: 8 },
+          { type: 'visible', height: 40, row: 9 },
+          { type: 'overscan', height: 40, row: 10 },
         ],
       ))
         .toEqual(0);

@@ -162,7 +162,7 @@ export class VirtualTableLayout extends React.PureComponent {
             {visibleBodyRows.map((visibleRow) => {
               if (visibleRow.type === 'stub') {
                 return (
-                  <tr key={visibleRow.key} style={{ height: `${visibleRow.size}px` }} />
+                  <tr key={visibleRow.key} style={{ height: `${visibleRow.height}px` }} />
                 );
               }
               const { row } = visibleRow;

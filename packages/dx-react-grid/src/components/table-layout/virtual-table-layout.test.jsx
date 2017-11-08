@@ -24,7 +24,7 @@ jest.mock('./row-layout', () => {
   const { Component } = require.requireActual('react');
   return {
     // eslint-disable-next-line react/prefer-stateless-function
-    RowLayout: class RowLayout extends Component {
+    RowLayout: class extends Component {
       render() {
         return null;
       }

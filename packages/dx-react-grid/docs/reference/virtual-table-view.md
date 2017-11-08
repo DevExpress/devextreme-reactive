@@ -1,28 +1,28 @@
 # VirtualTableView Plugin Reference
 
-The plugin extends the [TableView](table-view.md) plugin. It renders a scrollable table instead of static one.
+The plugin extends the [TableView](table-view.md) plugin. It renders a scrollable table instead of a static one.
 
 ## User Reference
 
 ### Dependencies
 
-The plugin requires dependencies from the [TableView](table-view.md#dependencies) plugin.
+Same as the [TableView](table-view.md#dependencies)'s.
 
 ### Properties
 
 Name | Type | Default | Description
 -----|------|---------|------------
-height | number | 530 | A number used to specify height of virtual table.
-estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | A number used as a row height before a row is rendered. Providing a precise estimate of the height of rows can improve the performance of the virtual table. If the table contains variable height rows, you should specify a median row height value.
+height | number | 530 | The virtual table's height.
+estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | An estimated value of the row height. For a table whose rows have variable height, specify an average value. The more accurately you estimate the row height, the better the virtual table performs.
 
-The plugin supports properties from the [TableView](table-view.md#properties) plugin.
+This plugin also supports the [TableView](table-view.md#properties) plugin's properties.
 
 ## Plugin Developer Reference
 
 ### Imports
 
-The plugin requires imports from the [TableView](table-view.md#imports) plugin.
+Same as the [TableView](table-view.md#imports)'s.
 
 ### Exports
 
-The plugin provides exports from the [TableView](table-view.md#exports) plugin.
+Same as the [TableView](table-view.md#exports)'s.

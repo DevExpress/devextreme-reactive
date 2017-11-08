@@ -26,6 +26,24 @@ const filterTree = (tree, predicate) => {
   return filtered;
 };
 
+const filterGroupedRows = (rows, isGroupRow, getRowLevelKey, predicate) => {
+  const copy = rows.map((row) => {
+    if (!isGroupRow(row)) return row;
+    if (row.collapsedRows && row.collapsedRows.length) {
+      return {
+        ...row,
+        collapsedRows: [...row.collapsedRows],
+      };
+    }
+    return { ...row };
+  });
+
+  const tree = rowsToTree(copy, isGroupRow, getRowLevelKey);
+  const filtered = filterTree(tree, predicate);
+
+  return treeToRows(filtered);
+};
+
 const rowHasChildren = (row) => {
   const { items, node } = row;
   return items.length > 0 || (node.collapsedRows && node.collapsedRows.length > 0);
@@ -43,7 +61,7 @@ export const filteredRows = (
 
   const compoundPredicate = filters.reduce(
     (prevCompare, filter) => (row) => {
-      if (isGroupRow && row.node) {
+      if (getRowLevelKey && row.node) {
         return rowHasChildren(row);
       }
       const { columnName, ...filterConfig } = filter;
@@ -53,24 +71,7 @@ export const filteredRows = (
     () => true,
   );
 
-  if (isGroupRow) {
-    const copy = rows.map((row) => {
-      if (!isGroupRow(row)) return row;
-      if (row.collapsedRows && row.collapsedRows.length) {
-        return {
-          ...row,
-          collapsedRows: [...row.collapsedRows],
-        };
-      }
-      return { ...row };
-    });
-
-    const tree = rowsToTree(copy, isGroupRow, getRowLevelKey);
-    const filtered = filterTree(tree, compoundPredicate);
-
-    return treeToRows(filtered);
-  }
-
-  return rows.filter(compoundPredicate);
+  return getRowLevelKey
+    ? filterGroupedRows(rows, isGroupRow, getRowLevelKey, compoundPredicate)
+    : rows.filter(compoundPredicate);
 };
-

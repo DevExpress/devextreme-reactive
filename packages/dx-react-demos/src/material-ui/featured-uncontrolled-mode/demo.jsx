@@ -67,7 +67,6 @@ export default class Demo extends React.PureComponent {
         <LocalFiltering />
         <LocalSorting />
 
-
         <LocalPaging />
 
         <SelectionState

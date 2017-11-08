@@ -18,7 +18,7 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
     this.onClick = (e) => {
-      const { allowSorting, changeSortingDirection, sortingDirection } = this.props;
+      const { allowSorting, changeSortingDirection } = this.props;
       const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
       const isMouseClick = e.keyCode === undefined;
 
@@ -26,8 +26,7 @@ export class TableHeaderCell extends React.PureComponent {
 
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
       const cancel = (isMouseClick && cancelSortingRelatedKey)
-        || (isActionKeyDown && cancelSortingRelatedKey)
-        || (isActionKeyDown && sortingDirection === 'desc');
+        || (isActionKeyDown && cancelSortingRelatedKey);
 
       e.preventDefault();
       changeSortingDirection({

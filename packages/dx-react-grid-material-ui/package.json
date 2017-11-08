@@ -41,6 +41,11 @@
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn run lint -- --fix"
   },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/setup.js"
+    ]
+  },
   "devDependencies": {
     "@devexpress/dx-grid-core": "1.0.0-alpha.14",
     "@devexpress/dx-react-core": "1.0.0-alpha.14",

@@ -1,4 +1,3 @@
-/* globals window:true */
 const { format } = require('util');
 
 module.exports = {
@@ -25,12 +24,5 @@ module.exports = {
       console.error = savedConsoleError;
     };
     /* eslint-enable no-console */
-  },
-  mockRaf: () => {
-    const originalRaf = window.requestAnimationFrame;
-    window.requestAnimationFrame = () => { };
-    return () => {
-      window.requestAnimationFrame = originalRaf;
-    };
   },
 };

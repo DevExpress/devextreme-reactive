@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableCell, TableSortLabel } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
-import { setupConsole, mockRaf } from '@devexpress/dx-testing';
+import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { SortingControl } from './table-header-cell/sorting-control';
@@ -16,15 +16,12 @@ describe('TableHeaderCell', () => {
   let resetConsole;
   let mount;
   let classes;
-  let resetRaf;
   beforeAll(() => {
-    resetRaf = mockRaf();
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<TableHeaderCell column={{}} getMessage={jest.fn()} />);
     mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
   });
   afterAll(() => {
-    resetRaf();
     resetConsole();
     mount.cleanUp();
   });
@@ -62,7 +59,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    tree.find('TableSortLabel').simulate('click', { ctrlKey: true });
+    tree.find(TableSortLabel).simulate('click', { ctrlKey: true });
 
     expect(changeSortingDirection.mock.calls).toHaveLength(1);
     expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
@@ -220,7 +217,7 @@ describe('TableHeaderCell', () => {
         .not.toHaveBeenCalled();
     });
 
-    it('should handle the "Shift" key with sorting', () => {
+    it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
       const changeSortingDirection = jest.fn();
       const tree = mount((
         <TableHeaderCell
@@ -233,7 +230,7 @@ describe('TableHeaderCell', () => {
 
       tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
       expect(changeSortingDirection)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: false });
+        .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
     });
 
     it('should handle the "Ctrl" key with sorting', () => {
@@ -250,23 +247,6 @@ describe('TableHeaderCell', () => {
       tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
       expect(changeSortingDirection)
         .toHaveBeenCalledWith({ keepOther: true, cancel: true });
-    });
-
-    it('should switch sorting derection when "Enter" key down', () => {
-      const changeSortingDirection = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          changeSortingDirection={changeSortingDirection}
-          column={{ align: 'right', title: 'test' }}
-          allowSorting
-          sortingDirection="desc"
-          getMessage={jest.fn()}
-        />
-      ));
-
-      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: false });
-      expect(changeSortingDirection)
-        .toHaveBeenCalledWith({ keepOther: false, cancel: true });
     });
   });
 });

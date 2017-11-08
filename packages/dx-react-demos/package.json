@@ -24,7 +24,8 @@
       "\\.css$": "<rootDir>/css-stub.js"
     },
     "setupFiles": [
-      "babel-polyfill"
+      "babel-polyfill",
+      "<rootDir>/setup.js"
     ]
   },
   "dependencies": {
@@ -47,7 +48,6 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.0.0-alpha.14",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",

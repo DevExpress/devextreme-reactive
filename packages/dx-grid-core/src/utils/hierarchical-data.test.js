@@ -3,76 +3,56 @@ import { rowsToTree, treeToRows } from './hierarchical-data';
 describe('Hierarchical Utils', () => {
   const rows = [
     {
-      grouped: true,
-      groupLevelKey: 'group_a',
-      groupedBy: 'a',
-      value: 1,
+      isNode: true,
+      nodeLevelKey: 'a',
     },
     {
-      grouped: true,
-      groupLevelKey: 'group_b',
-      groupedBy: 'b',
-      value: 1,
+      isNode: true,
+      nodeLevelKey: 'b',
     },
     {
-      grouped: true,
-      groupLevelKey: 'group_c',
-      groupedBy: 'c',
-      value: 1,
+      isNode: true,
+      nodeLevelKey: 'c',
     },
     { a: 1, b: 2 },
     { a: 2, b: 2 },
     {
-      grouped: true,
-      groupLevelKey: 'group_b',
-      groupedBy: 'b',
-      value: 2,
+      isNode: true,
+      nodeLevelKey: 'b',
     },
     {
-      grouped: true,
-      groupLevelKey: 'group_c',
-      groupedBy: 'c',
-      value: 2,
+      isNode: true,
+      nodeLevelKey: 'c',
     },
     { a: 1, b: 2 },
     { a: 2, b: 2 },
     {
-      grouped: true,
-      groupLevelKey: 'group_a',
-      groupedBy: 'a',
-      value: 2,
+      isNode: true,
+      nodeLevelKey: 'a',
     },
     {
-      grouped: true,
-      groupLevelKey: 'group_a',
-      groupedBy: 'a',
-      value: 3,
+      isNode: true,
+      nodeLevelKey: 'a',
     },
   ];
 
   const tree = [
     {
-      groupRow: {
-        grouped: true,
-        groupLevelKey: 'group_a',
-        groupedBy: 'a',
-        value: 1,
+      node: {
+        isNode: true,
+        nodeLevelKey: 'a',
       },
       items: [
         {
-          groupRow: {
-            grouped: true,
-            groupLevelKey: 'group_b',
-            groupedBy: 'b',
-            value: 1,
+          node: {
+            isNode: true,
+            nodeLevelKey: 'b',
           },
           items: [
             {
-              groupRow: {
-                grouped: true,
-                groupLevelKey: 'group_c',
-                groupedBy: 'c',
-                value: 1,
+              node: {
+                isNode: true,
+                nodeLevelKey: 'c',
               },
               items: [
                 { a: 1, b: 2 },
@@ -82,19 +62,15 @@ describe('Hierarchical Utils', () => {
           ],
         },
         {
-          groupRow: {
-            grouped: true,
-            groupLevelKey: 'group_b',
-            groupedBy: 'b',
-            value: 2,
+          node: {
+            isNode: true,
+            nodeLevelKey: 'b',
           },
           items: [
             {
-              groupRow: {
-                grouped: true,
-                groupLevelKey: 'group_c',
-                groupedBy: 'c',
-                value: 2,
+              node: {
+                isNode: true,
+                nodeLevelKey: 'c',
               },
               items: [
                 { a: 1, b: 2 },
@@ -106,20 +82,16 @@ describe('Hierarchical Utils', () => {
       ],
     },
     {
-      groupRow: {
-        grouped: true,
-        groupLevelKey: 'group_a',
-        groupedBy: 'a',
-        value: 2,
+      node: {
+        isNode: true,
+        nodeLevelKey: 'a',
       },
       items: [],
     },
     {
-      groupRow: {
-        grouped: true,
-        groupLevelKey: 'group_a',
-        groupedBy: 'a',
-        value: 3,
+      node: {
+        isNode: true,
+        nodeLevelKey: 'a',
       },
       items: [],
     },
@@ -128,8 +100,8 @@ describe('Hierarchical Utils', () => {
   it('should convert plain rows to tree', () => {
     expect(rowsToTree(
       rows,
-      row => row.grouped === true,
-      row => row.groupLevelKey,
+      row => row.isNode === true,
+      row => row.nodeLevelKey,
     )).toEqual(tree);
   });
 
@@ -140,8 +112,8 @@ describe('Hierarchical Utils', () => {
   it('should process empty rows correctly', () => {
     expect(rowsToTree(
       [],
-      row => row.grouped === true,
-      row => row.groupLevelKey,
+      row => row.isNode === true,
+      row => row.nodeLevelKey,
     )).toEqual([]);
   });
 

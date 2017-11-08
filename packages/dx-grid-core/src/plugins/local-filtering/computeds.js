@@ -7,13 +7,13 @@ const defaultPredicate = (value, filter) =>
 
 const filterTree = (tree, predicate) => {
   const filtered = tree.filter((item) => {
-    const { groupRow, items } = item;
-    const collapsedRows = groupRow ? groupRow.collapsedRows : undefined;
+    const { node, items } = item;
+    const collapsedRows = node ? node.collapsedRows : undefined;
 
     if (items && items.length) {
       items.splice(0, items.length, ...filterTree(items, predicate));
     } else if (collapsedRows) {
-      groupRow.collapsedRows.splice(
+      node.collapsedRows.splice(
         0,
         collapsedRows.length,
         ...filterTree(collapsedRows, predicate),
@@ -27,8 +27,8 @@ const filterTree = (tree, predicate) => {
 };
 
 const rowHasChildren = (row) => {
-  const { items, groupRow } = row;
-  return items.length > 0 || (groupRow.collapsedRows && groupRow.collapsedRows.length > 0);
+  const { items, node } = row;
+  return items.length > 0 || (node.collapsedRows && node.collapsedRows.length > 0);
 };
 
 export const filteredRows = (
@@ -43,7 +43,7 @@ export const filteredRows = (
 
   const compoundPredicate = filters.reduce(
     (prevCompare, filter) => (row) => {
-      if (isGroupRow && row.groupRow) {
+      if (isGroupRow && row.node) {
         return rowHasChildren(row);
       }
       const { columnName, ...filterConfig } = filter;

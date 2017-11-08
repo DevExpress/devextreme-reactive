@@ -32,7 +32,7 @@ const createCompare = (sorting, getColumnCompare, getCellValue) =>
 
 const sortTree = (tree, compare, groupCompare) => {
   if (!tree.length) return tree;
-  const sorted = mergeSort(tree, tree[0].groupRow ? groupCompare : compare);
+  const sorted = mergeSort(tree, tree[0].node ? groupCompare : compare);
   sorted.forEach((row) => {
     if (row.items && row.items.length) {
       const sortedItems = sortTree(row.items, compare, groupCompare);
@@ -57,8 +57,8 @@ export const sortedRows = (
   if (getRowLevelKey) {
     const tree = rowsToTree(rows, isGroupRow, getRowLevelKey);
     const groupCompare = createCompare(sorting, getColumnCompare, (item, field) => {
-      const { groupRow } = item;
-      return groupRow.groupedBy === field ? groupRow.value : undefined;
+      const { node } = item;
+      return node.groupedBy === field ? node.value : undefined;
     });
     const sortedTree = sortTree(tree, compare, groupCompare);
 

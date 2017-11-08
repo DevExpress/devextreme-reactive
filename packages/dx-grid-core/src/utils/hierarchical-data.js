@@ -1,4 +1,4 @@
-export const rowsToTree = (rows, isGroupRow, getRowLevelKey) => {
+export const rowsToTree = (rows, isNode, getNodeLevelKey) => {
   if (!rows.length) return rows;
 
   let currentLevel;
@@ -6,26 +6,26 @@ export const rowsToTree = (rows, isGroupRow, getRowLevelKey) => {
   const parentKeys = {};
 
   return rows.reduce((acc, row) => {
-    if (isGroupRow(row)) {
-      const currentRowKey = getRowLevelKey(row);
+    if (isNode(row)) {
+      const currentNodeKey = getNodeLevelKey(row);
       if (!acc.length) {
-        levels[currentRowKey] = acc;
-        currentLevel = { groupRow: row, items: [] };
-        levels[currentRowKey].push(currentLevel);
+        levels[currentNodeKey] = acc;
+        currentLevel = { node: row, items: [] };
+        levels[currentNodeKey].push(currentLevel);
         return acc;
       }
-      if (!levels[currentRowKey]) {
-        const parentKey = getRowLevelKey(currentLevel.groupRow);
-        currentLevel = { groupRow: row, items: [] };
-        levels[currentRowKey] = [currentLevel];
+      if (!levels[currentNodeKey]) {
+        const parentKey = getNodeLevelKey(currentLevel.node);
+        currentLevel = { node: row, items: [] };
+        levels[currentNodeKey] = [currentLevel];
         levels[parentKey].slice(-1)[0].items.push(currentLevel);
-        parentKeys[currentRowKey] = parentKey;
+        parentKeys[currentNodeKey] = parentKey;
         return acc;
       }
 
-      currentLevel = { groupRow: row, items: [] };
-      levels[currentRowKey].push(currentLevel);
-      const parentKey = parentKeys[currentRowKey];
+      currentLevel = { node: row, items: [] };
+      levels[currentNodeKey].push(currentLevel);
+      const parentKey = parentKeys[currentNodeKey];
       if (parentKey) {
         levels[parentKey].slice(-1)[0].items.push(currentLevel);
       }
@@ -42,10 +42,10 @@ export const rowsToTree = (rows, isGroupRow, getRowLevelKey) => {
 export const treeToRows = (tree, rows = []) => {
   if (!tree.length) return tree;
   return tree.reduce((acc, item) => {
-    const { groupRow, items } = item;
+    const { node, items } = item;
 
-    if (groupRow) {
-      acc.push(groupRow);
+    if (node) {
+      acc.push(node);
       if (items && items.length) {
         treeToRows(items, acc);
       }

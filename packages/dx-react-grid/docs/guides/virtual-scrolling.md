@@ -2,7 +2,7 @@
 
 The Grid component can process a large amount of data (thousands of records). You can use the virtual mode for single-page data presentation as an alternative to paging.
 
-*Browser Support Note:* Virtual scrolling requires `position: sticky` support by the browser. Thus, this feature will not work in the Microsoft Interner Explorer and Android Browser/WebWiev (for Android <5.0).
+*Browser Support Note:* Virtual scrolling requires `position: sticky` support by the browser. Thus, this feature will not work in the Microsoft Interner Explorer and Android Browser/WebView (for Android <5.0).
 
 ## Plugin List
 

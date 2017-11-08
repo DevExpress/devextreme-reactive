@@ -8,7 +8,6 @@ export const tableRowsWithEditing = (tableRows, editingRows, addedRows, rowHeigh
       tableRow.type === TABLE_DATA_TYPE && rowIds.has(tableRow.rowId)
         ? {
           ...tableRow,
-          key: `${TABLE_EDIT_TYPE}_${tableRow.rowId}`,
           type: TABLE_EDIT_TYPE,
           height: rowHeight,
         }

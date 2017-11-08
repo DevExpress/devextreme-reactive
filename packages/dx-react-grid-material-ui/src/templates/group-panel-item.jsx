@@ -48,8 +48,7 @@ const GroupPanelItemBase = ({
     const isMouseClick = e.keyCode === undefined;
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
     const cancel = (isMouseClick && cancelSortingRelatedKey)
-      || (isActionKeyDown && cancelSortingRelatedKey)
-      || (isActionKeyDown && sortingDirection === 'desc');
+      || (isActionKeyDown && cancelSortingRelatedKey);
 
     changeSortingDirection({
       keepOther: cancelSortingRelatedKey,

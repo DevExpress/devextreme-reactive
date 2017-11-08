@@ -153,22 +153,4 @@ describe('GroupPanelItem', () => {
     expect(changeSortingDirection)
       .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
   });
-
-  it('should cancel sorting on the "Enter" key down when sortingDirection === "desc', () => {
-    const changeSortingDirection = jest.fn();
-    const tree = mount((
-      <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
-        column={{
-          name: 'test',
-        }}
-        allowSorting
-        sortingDirection="desc"
-      />
-    ));
-
-    tree.find(Chip).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: false });
-    expect(changeSortingDirection)
-      .toHaveBeenCalledWith({ keepOther: false, cancel: true, columnName: 'test' });
-  });
 });

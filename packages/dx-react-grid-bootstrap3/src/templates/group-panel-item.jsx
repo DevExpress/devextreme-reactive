@@ -20,8 +20,7 @@ export const GroupPanelItem = ({
 
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
     const cancel = (isMouseClick && cancelSortingRelatedKey)
-      || (isActionKeyDown && cancelSortingRelatedKey)
-      || (isActionKeyDown && sortingDirection === 'desc');
+      || (isActionKeyDown && cancelSortingRelatedKey);
 
     e.preventDefault();
     changeSortingDirection({

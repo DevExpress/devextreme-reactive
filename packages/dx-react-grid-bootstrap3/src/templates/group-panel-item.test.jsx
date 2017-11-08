@@ -97,23 +97,7 @@ describe('GroupPanelItem', () => {
       .toHaveBeenCalled();
   });
 
-  it('should handle the "Shift" key with sorting', () => {
-    const changeSortingDirection = jest.fn();
-    const tree = mount((
-      <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
-        column={{ name: 'test' }}
-        allowSorting
-      />
-    ));
-
-    const targetElement = tree.find('span').first();
-    targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
-    expect(changeSortingDirection)
-      .toHaveBeenCalledWith({ keepOther: true, cancel: false, columnName: 'test' });
-  });
-
-  it('should handle the "Ctrl" key with sorting', () => {
+  it('should cancel sorting on sorting direction change when the "Ctrl" key is pressed', () => {
     const changeSortingDirection = jest.fn();
     const tree = mount((
       <GroupPanelItem

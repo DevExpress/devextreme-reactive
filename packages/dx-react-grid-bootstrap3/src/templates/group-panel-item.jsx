@@ -25,7 +25,7 @@ export const GroupPanelItem = ({
 
     e.preventDefault();
     changeSortingDirection({
-      keepOther: e.shiftKey || cancelSortingRelatedKey,
+      keepOther: cancelSortingRelatedKey,
       cancel,
       columnName: column.name,
     });

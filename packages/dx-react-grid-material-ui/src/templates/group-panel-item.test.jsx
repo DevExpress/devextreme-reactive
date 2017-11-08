@@ -154,7 +154,7 @@ describe('GroupPanelItem', () => {
       .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
   });
 
-  it('should switch sorting derection when "Enter" key down', () => {
+  it('should cancel sorting on the "Enter" key down when sortingDirection === "desc', () => {
     const changeSortingDirection = jest.fn();
     const tree = mount((
       <GroupPanelItem

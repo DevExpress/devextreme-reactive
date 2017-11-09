@@ -8,7 +8,6 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   cell: {
-    cursor: 'pointer',
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingTop: (theme.spacing.unit / 2) - 1,

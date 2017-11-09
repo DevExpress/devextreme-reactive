@@ -113,13 +113,10 @@ TableRowDetail.propTypes = {
   detailCellTemplate: PropTypes.func.isRequired,
   detailRowTemplate: PropTypes.func.isRequired,
   detailToggleCellWidth: PropTypes.number.isRequired,
-  rowHeight: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.oneOf(['auto']),
-  ]),
+  rowHeight: PropTypes.number,
 };
 
 TableRowDetail.defaultProps = {
-  rowHeight: 'auto',
   template: undefined,
+  rowHeight: undefined,
 };

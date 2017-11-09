@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 
 export const ProgressBarCell = ({ value, style }) => (
-  <td style={style}>
+  <td style={{ position: 'relative', ...style }}>
     <div
       className="progress"
       style={{

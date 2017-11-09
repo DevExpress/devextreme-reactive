@@ -9,11 +9,12 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const getHeaderTableCellTemplateArgs = (
   {
-    allowSorting, allowDragging, allowGroupingByClick, allowResizing, ...params
+    allowSorting, allowDragging, allowGroupingByClick, allowResizing, getMessage, ...params
   },
   { sorting, columns, grouping },
   {
@@ -26,6 +27,7 @@ const getHeaderTableCellTemplateArgs = (
 
   const result = {
     ...params,
+    getMessage,
     allowSorting: allowSorting && sorting !== undefined,
     allowGroupingByClick: allowGroupingByClick && groupingSupported,
     allowDragging: allowDragging && (!grouping || groupingSupported),
@@ -63,7 +65,9 @@ export class TableHeaderRow extends React.PureComponent {
       allowResizing,
       headerCellTemplate,
       headerRowTemplate,
+      messages,
     } = this.props;
+    const getMessage = getMessagesFormatter(messages);
 
     return (
       <PluginContainer
@@ -89,7 +93,12 @@ export class TableHeaderRow extends React.PureComponent {
                   template={headerCellTemplate}
                   params={getHeaderTableCellTemplateArgs(
                     {
-                      allowDragging, allowGroupingByClick, allowSorting, allowResizing, ...params,
+                      allowDragging,
+                      allowGroupingByClick,
+                      allowSorting,
+                      allowResizing,
+                      getMessage,
+                      ...params,
                     },
                     getters,
                     actions,
@@ -122,6 +131,7 @@ TableHeaderRow.propTypes = {
   allowResizing: PropTypes.bool,
   headerCellTemplate: PropTypes.func.isRequired,
   headerRowTemplate: PropTypes.func.isRequired,
+  messages: PropTypes.object,
 };
 
 TableHeaderRow.defaultProps = {
@@ -129,4 +139,5 @@ TableHeaderRow.defaultProps = {
   allowGroupingByClick: false,
   allowDragging: false,
   allowResizing: false,
+  messages: null,
 };

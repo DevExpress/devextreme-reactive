@@ -7,10 +7,16 @@ import { TableRow } from '../templates/table-row';
 
 const defaultHeaderCellTemplate = props => <TableHeaderCell {...props} />;
 const defaultHeaderRowTemplate = props => <TableRow {...props} />;
+const defaultMessages = {
+  sortingHint: 'Sort',
+};
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
-    const { headerCellTemplate, headerRowTemplate, ...restProps } = this.props;
+    const {
+      headerCellTemplate, headerRowTemplate,
+      messages, ...restProps
+    } = this.props;
 
     return (
       <TableHeaderRowBase
@@ -22,6 +28,7 @@ export class TableHeaderRow extends React.PureComponent {
           headerRowTemplate,
           defaultHeaderRowTemplate,
         )}
+        messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
     );
@@ -31,9 +38,13 @@ export class TableHeaderRow extends React.PureComponent {
 TableHeaderRow.propTypes = {
   headerCellTemplate: PropTypes.func,
   headerRowTemplate: PropTypes.func,
+  messages: PropTypes.shape({
+    sortingHint: PropTypes.string,
+  }),
 };
 
 TableHeaderRow.defaultProps = {
   headerCellTemplate: undefined,
   headerRowTemplate: undefined,
+  messages: {},
 };

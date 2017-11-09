@@ -4,6 +4,9 @@ import classNames from 'classnames';
 import { TableSortLabel, Chip } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
 const styles = theme => ({
   button: {
     marginRight: theme.spacing.unit,
@@ -21,13 +24,13 @@ const label = (allowSorting, sortingDirection, column) => {
       <TableSortLabel
         active={!!sortingDirection}
         direction={sortingDirection}
+        tabIndex={-1}
       >
         {title}
       </TableSortLabel>
     )
     : title;
 };
-
 
 const GroupPanelItemBase = ({
   column, draft,
@@ -39,6 +42,20 @@ const GroupPanelItemBase = ({
     [classes.button]: true,
     [classes.draftCell]: draft,
   });
+  const onClick = (e) => {
+    if (!allowSorting) return;
+    const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
+    const isMouseClick = e.keyCode === undefined;
+    const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+    const cancel = (isMouseClick && cancelSortingRelatedKey)
+      || (isActionKeyDown && cancelSortingRelatedKey);
+
+    changeSortingDirection({
+      keepOther: cancelSortingRelatedKey,
+      cancel,
+      columnName: column.name,
+    });
+  };
 
   return (<Chip
     label={label(allowSorting, sortingDirection, column)}
@@ -46,15 +63,7 @@ const GroupPanelItemBase = ({
     {...allowUngroupingByClick
       ? { onRequestDelete: () => groupByColumn({ columnName: column.name }) }
       : null}
-    onClick={(e) => {
-      if (!allowSorting) return;
-      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      changeSortingDirection({
-        keepOther: e.shiftKey || cancelSortingRelatedKey,
-        cancel: cancelSortingRelatedKey,
-        columnName: column.name,
-      });
-    }}
+    onClick={onClick}
   />);
 };
 

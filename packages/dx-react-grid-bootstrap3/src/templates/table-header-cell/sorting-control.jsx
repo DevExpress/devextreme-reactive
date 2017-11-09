@@ -3,10 +3,22 @@ import PropTypes from 'prop-types';
 
 import { SortingIndicator } from '../parts/sorting-indicator';
 
-export const SortingControl = ({ align, sortingDirection, columnTitle }) =>
+const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
+const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
+
+export const SortingControl = ({
+  align, sortingDirection, columnTitle, onClick,
+}) =>
   (align === 'right' ? (
     <span
       className={sortingDirection ? 'text-primary' : ''}
+      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+      onMouseDown={handleMouseDown}
+      onBlur={handleBlur}
+      onKeyDown={onClick}
+      style={{
+        margin: '2px',
+      }}
     >
       <SortingIndicator
         direction={sortingDirection}
@@ -18,6 +30,13 @@ export const SortingControl = ({ align, sortingDirection, columnTitle }) =>
   ) : (
     <span
       className={sortingDirection ? 'text-primary' : ''}
+      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+      onMouseDown={handleMouseDown}
+      onBlur={handleBlur}
+      onKeyDown={onClick}
+      style={{
+        margin: '2px',
+      }}
     >
       {columnTitle}
       &nbsp;
@@ -32,6 +51,7 @@ SortingControl.propTypes = {
   align: PropTypes.string.isRequired,
   sortingDirection: PropTypes.oneOf(['asc', 'desc']),
   columnTitle: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 SortingControl.defaultProps = {

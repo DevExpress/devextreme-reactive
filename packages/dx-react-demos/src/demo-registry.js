@@ -112,6 +112,7 @@ export const demos = {
   'featured-virtual-scrolling': {
     demo: {
       bootstrap3: require('./bootstrap3/featured-virtual-scrolling/demo').default,
+      'material-ui': require('./material-ui/featured-virtual-scrolling/demo').default,
     },
   },
   'featured-remote-data': {
@@ -149,6 +150,7 @@ export const demos = {
     },
     'remote-filtering': {
       bootstrap3: require('./bootstrap3/filtering/remote-filtering').default,
+      'material-ui': require('./material-ui/filtering/remote-filtering').default,
     },
   },
   grouping: {
@@ -178,6 +180,7 @@ export const demos = {
     },
     'remote-grouping-with-local-expanding': {
       bootstrap3: require('./bootstrap3/grouping/remote-grouping-with-local-expanding').default,
+      'material-ui': require('./material-ui/grouping/remote-grouping-with-local-expanding').default,
     },
   },
   immutability: {
@@ -219,6 +222,7 @@ export const demos = {
     },
     'select-all-virtual': {
       bootstrap3: require('./bootstrap3/selection/select-all-virtual').default,
+      'material-ui': require('./material-ui/selection/select-all-virtual').default,
     },
     'select-all-by-page': {
       bootstrap3: require('./bootstrap3/selection/select-all-by-page').default,
@@ -252,14 +256,13 @@ export const demos = {
     },
     'remote-sorting': {
       bootstrap3: require('./bootstrap3/sorting/remote-sorting').default,
+      'material-ui': require('./material-ui/sorting/remote-sorting').default,
     },
   },
   'virtual-scrolling': {
     basic: {
       bootstrap3: require('./bootstrap3/virtual-scrolling/basic').default,
-    },
-    'integration-with-other-plugins': {
-      bootstrap3: require('./bootstrap3/virtual-scrolling/integration-with-other-plugins').default,
+      'material-ui': require('./material-ui/virtual-scrolling/basic').default,
     },
   },
   'column-chooser': {

@@ -12,7 +12,7 @@ import { TableLayout } from './table-layout';
 
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(() => ({
-    getBoundingClientRect: () => ({ width: 300 }),
+    scrollWidth: 300,
   })),
 }));
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -21,17 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   evalAnimations: jest.fn(),
 }));
 
-const defaultRows = [
-  { key: 1, rowId: 1 },
-  { key: 2, rowId: 2 },
-  { key: 3, rowId: 3 },
-];
-const defaultColumns = [
-  { key: 'a', column: { name: 'a' } },
-  { key: 'b', column: { name: 'b' } },
-  { key: 'c', column: { name: 'c' } },
-  { key: 'd', column: { name: 'd' } },
-];
+const Layout = jest.fn(() => null);
 
 describe('TableLayout', () => {
   let resetConsole;
@@ -44,131 +34,28 @@ describe('TableLayout', () => {
     jest.clearAllMocks();
   });
 
-  it('should render the body RowsBlockLayout', () => {
-    const bodyTemplate = () => null;
-    const cellTemplate = () => null;
-    const rowTemplate = () => null;
-
-    const tree = shallow((
-      <TableLayout
-        rows={defaultRows}
-        columns={defaultColumns}
-        tableTemplate={() => null}
-        bodyTemplate={bodyTemplate}
-        rowTemplate={rowTemplate}
-        cellTemplate={cellTemplate}
-      />
-    ));
-
-    expect(tree.find('RowsBlockLayout').props())
-      .toMatchObject({
-        blockTemplate: bodyTemplate,
-        cellTemplate,
-        rowTemplate,
-        columns: defaultColumns,
-        rows: defaultRows,
-      });
-  });
-
-  it('should render the head RowsBlockLayout', () => {
-    const headTemplate = () => null;
-    const cellTemplate = () => null;
-    const rowTemplate = () => null;
-
-    const tree = shallow((
-      <TableLayout
-        headerRows={defaultRows}
-        rows={[]}
-        columns={defaultColumns}
-        tableTemplate={() => null}
-        headTemplate={headTemplate}
-        bodyTemplate={() => null}
-        rowTemplate={rowTemplate}
-        cellTemplate={cellTemplate}
-      />
-    ));
-
-    expect(tree.find('RowsBlockLayout').at(0).props())
-      .toMatchObject({
-        blockTemplate: headTemplate,
-        cellTemplate,
-        rowTemplate,
-        columns: defaultColumns,
-        rows: defaultRows,
-      });
-  });
-
-  it('should pass correct styles to the tableTemplate', () => {
-    const rows = [
-      { key: 1, height: 100 },
-      { key: 2 },
-    ];
-    const columns = [
-      { key: 'a', column: { name: 'a' }, width: 100 },
-      { key: 'b', column: { name: 'b' } },
-    ];
-    const tableTemplate = () => null;
-
-    const tree = shallow((
-      <TableLayout
-        rows={rows}
-        columns={columns}
-        minColumnWidth={150}
-        tableTemplate={tableTemplate}
-        bodyTemplate={() => null}
-        rowTemplate={() => null}
-        cellTemplate={() => null}
-      />
-    ));
-
-    expect(tree.find('TemplateRenderer').props())
-      .toMatchObject({
-        template: tableTemplate,
-        params: {
-          style: {
-            minWidth: '250px',
-            tableLayout: 'fixed',
-          },
-        },
-      });
-  });
-
   describe('flex column', () => {
     it('should add flex column if all columns have fixed widths', () => {
-      const rows = [
-        { key: 1 },
-        { key: 2 },
-      ];
       const columns = [
         { key: 'a', column: { name: 'a' }, width: 100 },
         { key: 'b', column: { name: 'b' }, width: 100 },
       ];
-      const tableTemplate = () => null;
 
       const tree = shallow((
         <TableLayout
-          rows={rows}
+          layoutComponent={Layout}
           columns={columns}
-          tableTemplate={tableTemplate}
-          bodyTemplate={() => null}
-          rowTemplate={() => null}
-          cellTemplate={() => null}
+          minColumnWidth={100}
         />
       ));
 
-      expect(tree.find('TemplateRenderer').props())
+      expect(tree.find(Layout).props())
         .toMatchObject({
-          template: tableTemplate,
-          params: {
-            style: {
-              minWidth: '200px',
-            },
-          },
-        });
-      expect(tree.find('RowsBlockLayout').prop('columns'))
-        .toContainEqual({
-          key: 'flex',
-          type: 'flex',
+          minWidth: 200,
+          columns: [
+            ...columns,
+            { key: 'flex', type: 'flex' },
+          ],
         });
     });
   });
@@ -188,10 +75,6 @@ describe('TableLayout', () => {
       filterActiveAnimations.mockImplementation(() => new Map());
       evalAnimations.mockImplementation(() => new Map());
 
-      const rows = [
-        { key: 1, rowId: 1, height: 100 },
-        { key: 2, rowId: 2 },
-      ];
       const columns = [
         { key: 'a', column: { name: 'a' }, width: 100 },
         { key: 'b', column: { name: 'b' } },
@@ -200,12 +83,9 @@ describe('TableLayout', () => {
 
       const tree = shallow((
         <TableLayout
-          rows={rows}
+          layoutComponent={Layout}
           columns={columns}
-          tableTemplate={() => null}
-          bodyTemplate={() => null}
-          rowTemplate={() => null}
-          cellTemplate={() => null}
+          minColumnWidth={100}
         />
       ));
       tree.setProps({ columns: nextColumns });
@@ -217,10 +97,6 @@ describe('TableLayout', () => {
     });
 
     it('should start on the "columns" property change', () => {
-      const rows = [
-        { key: 1, rowId: 1, height: 100 },
-        { key: 2, rowId: 2 },
-      ];
       const columns = [
         { key: 'a', column: { name: 'a' }, width: 100 },
         { key: 'b', column: { name: 'b' } },
@@ -235,12 +111,9 @@ describe('TableLayout', () => {
 
       const tree = shallow((
         <TableLayout
-          rows={rows}
+          layoutComponent={Layout}
           columns={columns}
-          tableTemplate={() => null}
-          bodyTemplate={() => null}
-          rowTemplate={() => null}
-          cellTemplate={() => null}
+          minColumnWidth={100}
         />
       ));
       tree.setProps({ columns: nextColumns });
@@ -256,10 +129,6 @@ describe('TableLayout', () => {
     it('should not start if the "columns" property length is changed', () => {
       filterActiveAnimations.mockImplementation(() => new Map());
 
-      const rows = [
-        { key: 1, rowId: 1, height: 100 },
-        { key: 2, rowId: 2 },
-      ];
       const columns = [
         { key: 'a', column: { name: 'a' }, width: 100 },
         { key: 'b', column: { name: 'b' } },
@@ -268,12 +137,9 @@ describe('TableLayout', () => {
 
       const tree = shallow((
         <TableLayout
-          rows={rows}
+          layoutComponent={Layout}
           columns={columns}
-          tableTemplate={() => null}
-          bodyTemplate={() => null}
-          rowTemplate={() => null}
-          cellTemplate={() => null}
+          minColumnWidth={100}
         />
       ));
       tree.setProps({ columns: nextColumns });

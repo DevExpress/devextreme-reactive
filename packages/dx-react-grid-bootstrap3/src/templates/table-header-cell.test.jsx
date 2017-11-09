@@ -232,4 +232,66 @@ describe('TableHeaderCell', () => {
         textOverflow: 'ellipsis',
       });
   });
+  describe('with keyboard navigation', () => {
+    const ENTER_KEY_CODE = 13;
+    const SPACE_KEY_CODE = 32;
+
+    it('should handle the "Enter" and "Space" keys down', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+        />
+      ));
+
+      const targetElement = tree.find('SortingControl');
+      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+      expect(changeSortingDirection)
+        .toHaveBeenCalled();
+
+      changeSortingDirection.mockClear();
+      targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+      expect(changeSortingDirection)
+        .toHaveBeenCalled();
+
+      changeSortingDirection.mockClear();
+      targetElement.simulate('keydown', { keyCode: 51 });
+      expect(changeSortingDirection)
+        .not.toHaveBeenCalled();
+    });
+
+    it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+        />
+      ));
+
+      const targetElement = tree.find('SortingControl');
+      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
+      expect(changeSortingDirection)
+        .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
+    });
+
+    it('should handle the "Ctrl" key with sorting', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+        />
+      ));
+
+      const targetElement = tree.find('SortingControl');
+      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
+      expect(changeSortingDirection)
+        .toHaveBeenCalledWith({ keepOther: true, cancel: true });
+    });
+  });
 });

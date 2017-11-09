@@ -3,13 +3,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-import { TemplateRenderer } from '@devexpress/dx-react-core';
 import {
   getAnimations,
   filterActiveAnimations,
   evalAnimations,
 } from '@devexpress/dx-grid-core';
-import { RowsBlockLayout } from './table-layout/rows-block-layout';
 
 const TABLE_FLEX_TYPE = 'flex';
 
@@ -40,9 +38,8 @@ export class TableLayout extends React.PureComponent {
     if (areColumnsChanged(columns, nextColumns)) return;
 
     // eslint-disable-next-line react/no-find-dom-node
-    const tableRect = findDOMNode(this.tableNode)
-      .getBoundingClientRect();
-    this.animations = getAnimations(columns, nextColumns, tableRect.width, this.animations);
+    const tableWidth = findDOMNode(this).scrollWidth;
+    this.animations = getAnimations(columns, nextColumns, tableWidth, this.animations);
     this.processAnimationFrame();
   }
   getColumns() {
@@ -83,92 +80,27 @@ export class TableLayout extends React.PureComponent {
   }
   render() {
     const {
-      headerRows,
-      rows,
+      layoutComponent: Layout,
       minColumnWidth,
-      tableTemplate,
-      headTemplate,
-      bodyTemplate,
-      rowTemplate,
-      cellTemplate,
-      className,
-      style,
+      ...restProps
     } = this.props;
     const columns = this.getColumns();
     const minWidth = columns
       .map(column => column.width || (column.type === TABLE_FLEX_TYPE ? 0 : minColumnWidth))
       .reduce((acc, width) => acc + width, 0);
 
-    const table = (
-      <TemplateRenderer
-        template={tableTemplate}
-        params={{
-          ref: this.setRef,
-          style: {
-            tableLayout: 'fixed',
-            minWidth: `${minWidth}px`,
-          },
-        }}
-      >
-        {[
-          ...(!headerRows.length
-            ? []
-            : [(
-              <RowsBlockLayout
-                key="head"
-                rows={headerRows}
-                columns={columns}
-                blockTemplate={headTemplate}
-                rowTemplate={rowTemplate}
-                cellTemplate={cellTemplate}
-              />
-            )]
-          ),
-          <RowsBlockLayout
-            key="body"
-            rows={rows}
-            columns={columns}
-            blockTemplate={bodyTemplate}
-            rowTemplate={rowTemplate}
-            cellTemplate={cellTemplate}
-          />,
-        ]}
-      </TemplateRenderer>
-    );
-
     return (
-      <div
-        className={className}
-        style={{
-          overflow: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          ...style,
-        }}
-      >
-        {table}
-      </div>
+      <Layout
+        {...restProps}
+        columns={columns}
+        minWidth={minWidth}
+      />
     );
   }
 }
 
 TableLayout.propTypes = {
-  headerRows: PropTypes.array,
-  rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  minColumnWidth: PropTypes.number,
-  tableTemplate: PropTypes.func.isRequired,
-  headTemplate: PropTypes.func,
-  bodyTemplate: PropTypes.func.isRequired,
-  rowTemplate: PropTypes.func.isRequired,
-  cellTemplate: PropTypes.func.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object,
-};
-
-TableLayout.defaultProps = {
-  headerRows: [],
-  headTemplate: () => null,
-  minColumnWidth: 120,
-  className: undefined,
-  style: undefined,
+  minColumnWidth: PropTypes.number.isRequired,
+  layoutComponent: PropTypes.func.isRequired,
 };

@@ -10,8 +10,8 @@ module.exports = {
       const errorMessage = args[0];
 
       if (!config.ignore
-      ||
-      !config.ignore.filter(message => errorMessage.includes(message)).length) {
+        ||
+        !config.ignore.filter(message => errorMessage.includes(message)).length) {
         throw new Error(format(...args).replace(/^Error: (?:Warning: )?/, ''));
       }
     };

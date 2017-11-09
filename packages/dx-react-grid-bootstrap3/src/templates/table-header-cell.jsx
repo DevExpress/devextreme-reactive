@@ -7,6 +7,9 @@ import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
+const ENTER_KEY_CODE = 13;
+const SPACE_KEY_CODE = 32;
+
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -14,15 +17,21 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-
-    this.onCellClick = (e) => {
+    this.onClick = (e) => {
       const { allowSorting, changeSortingDirection } = this.props;
-      if (!allowSorting) return;
-      e.stopPropagation();
+      const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
+      const isMouseClick = e.keyCode === undefined;
+
+      if (!allowSorting || !(isActionKeyDown || isMouseClick)) return;
+
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
+      const cancel = (isMouseClick && cancelSortingRelatedKey)
+        || (isActionKeyDown && cancelSortingRelatedKey);
+
+      e.preventDefault();
       changeSortingDirection({
         keepOther: e.shiftKey || cancelSortingRelatedKey,
-        cancel: cancelSortingRelatedKey,
+        cancel,
       });
     };
   }
@@ -49,9 +58,10 @@ export class TableHeaderCell extends React.PureComponent {
           } : {}),
           ...(allowSorting || allowDragging ? { cursor: 'pointer' } : null),
           ...(dragging || tableColumn.draft ? { opacity: 0.3 } : null),
+          padding: '5px',
           ...style,
         }}
-        onClick={this.onCellClick}
+        onClick={this.onClick}
       >
         {allowGroupingByClick && (
           <GroupingControl
@@ -66,6 +76,7 @@ export class TableHeaderCell extends React.PureComponent {
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
+            padding: '3px',
           }}
         >
           {allowSorting ? (
@@ -73,6 +84,7 @@ export class TableHeaderCell extends React.PureComponent {
               align={align}
               sortingDirection={sortingDirection}
               columnTitle={columnTitle}
+              onClick={this.onClick}
             />
           ) : (
             columnTitle

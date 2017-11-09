@@ -24,7 +24,8 @@
       "\\.css$": "<rootDir>/css-stub.js"
     },
     "setupFiles": [
-      "babel-polyfill"
+      "babel-polyfill",
+      "<rootDir>/setup.js"
     ]
   },
   "dependencies": {

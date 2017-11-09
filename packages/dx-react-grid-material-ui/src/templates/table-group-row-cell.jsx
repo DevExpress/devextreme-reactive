@@ -8,6 +8,7 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   cell: {
+    cursor: 'pointer',
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingTop: (theme.spacing.unit / 2) - 1,
@@ -44,10 +45,10 @@ const TableGroupCellBase = ({
       colSpan={colSpan}
       style={style}
       className={classes.cell}
+      onClick={handleClick}
     >
       <IconButton
         className={classes.groupButton}
-        onClick={handleClick}
       >
         {
           isExpanded

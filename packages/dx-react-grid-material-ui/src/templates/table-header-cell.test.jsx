@@ -1,9 +1,10 @@
 import React from 'react';
-import { TableCell } from 'material-ui';
+import { TableCell, TableSortLabel } from 'material-ui';
 import { createMount, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
+import { SortingControl } from './table-header-cell/sorting-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 
@@ -17,7 +18,7 @@ describe('TableHeaderCell', () => {
   let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
-    classes = getClasses(<TableHeaderCell column={{}} />);
+    classes = getClasses(<TableHeaderCell column={{}} getMessage={jest.fn()} />);
     mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
   });
   afterAll(() => {
@@ -35,6 +36,7 @@ describe('TableHeaderCell', () => {
   it('should use column name if title is not specified', () => {
     const tree = mount((
       <TableHeaderCell
+        getMessage={jest.fn()}
         column={{
           name: 'Test',
         }}
@@ -53,10 +55,11 @@ describe('TableHeaderCell', () => {
         }}
         changeSortingDirection={changeSortingDirection}
         allowSorting
+        getMessage={jest.fn()}
       />
     ));
 
-    tree.find(TableHeaderCell).simulate('click', { ctrlKey: true });
+    tree.find(TableSortLabel).simulate('click', { ctrlKey: true });
 
     expect(changeSortingDirection.mock.calls).toHaveLength(1);
     expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
@@ -66,11 +69,11 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <TableHeaderCell
         column={{}}
+        getMessage={jest.fn()}
       />
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeFalsy();
-    expect(tree.find(TableCell).hasClass(classes.cellClickable)).toBeFalsy();
     expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeFalsy();
   });
 
@@ -79,11 +82,11 @@ describe('TableHeaderCell', () => {
       <TableHeaderCell
         column={{ name: 'a' }}
         allowSorting
+        getMessage={jest.fn()}
       />
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
-    expect(tree.find(TableCell).hasClass(classes.cellClickable)).toBeTruthy();
   });
 
   it('should have correct styles when dragging is allowed', () => {
@@ -92,6 +95,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           column={{}}
           allowDragging
+          getMessage={jest.fn()}
         />
       </DragDropContext>
     ));
@@ -106,6 +110,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           column={{}}
           allowDragging
+          getMessage={jest.fn()}
         />
       </DragDropContext>
     ));
@@ -128,6 +133,7 @@ describe('TableHeaderCell', () => {
         allowResizing
         changeDraftColumnWidth={changeDraftColumnWidth}
         changeColumnWidth={changeColumnWidth}
+        getMessage={jest.fn()}
       />
     ));
 
@@ -139,59 +145,108 @@ describe('TableHeaderCell', () => {
       .toBe(changeColumnWidth);
   });
 
-  it('should have correct offset when grouping by click is not allowed and column align is left', () => {
+  it('should pass correct text to SortingControl', () => {
     const tree = mount((
       <TableHeaderCell
-        column={{}}
-        allowGroupingByClick={false}
+        allowSorting
+        column={{ align: 'right', title: 'test' }}
+        getMessage={() => {}}
       />
     ));
 
-    expect(tree.find(`.${classes.titleLeftOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRightOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(1);
-    expect(tree.find(`.${classes.titleRight}`)).toHaveLength(0);
+    const tooltip = tree.find('Tooltip');
+    expect(tooltip.exists())
+      .toBeTruthy();
+    expect(tooltip.prop('title'))
+      .toBe('Sort');
   });
 
-  it('should have correct offset when grouping by click is allowed column align is left', () => {
-    const tree = mount((
-      <TableHeaderCell
-        column={{}}
-        allowGroupingByClick
-      />
-    ));
+  describe('with keyboard navigation', () => {
+    const ENTER_KEY_CODE = 13;
+    const SPACE_KEY_CODE = 32;
 
-    expect(tree.find(`.${classes.titleLeftOffset}`)).toHaveLength(1);
-    expect(tree.find(`.${classes.titleRightOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(1);
-    expect(tree.find(`.${classes.titleRight}`)).toHaveLength(0);
-  });
+    it('can not get focus if sorting is not allow', () => {
+      const tree = mount((
+        <TableHeaderCell
+          column={{ align: 'right', title: 'test' }}
+          getMessage={jest.fn()}
+        />
+      ));
 
-  it('should have correct offset when grouping by click is not allowed and column align is right', () => {
-    const tree = mount((
-      <TableHeaderCell
-        column={{ align: 'right' }}
-        allowGroupingByClick={false}
-      />
-    ));
+      expect(tree.find(SortingControl).exists())
+        .not.toBeTruthy();
+    });
 
-    expect(tree.find(`.${classes.titleLeftOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRightOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRight}`)).toHaveLength(1);
-  });
+    it('can get focus if sorting is allow', () => {
+      const tree = mount((
+        <TableHeaderCell
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+          getMessage={jest.fn()}
+        />
+      ));
 
-  it('should have correct offset when grouping by click is allowed column align is right', () => {
-    const tree = mount((
-      <TableHeaderCell
-        column={{ align: 'right' }}
-        allowGroupingByClick
-      />
-    ));
+      expect(tree.find(SortingControl).exists())
+        .toBeTruthy();
+    });
 
-    expect(tree.find(`.${classes.titleLeftOffset}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRightOffset}`)).toHaveLength(1);
-    expect(tree.find(`.${classes.titleLeft}`)).toHaveLength(0);
-    expect(tree.find(`.${classes.titleRight}`)).toHaveLength(1);
+    it('should handle the "Enter" and "Space" keys down', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+          getMessage={jest.fn()}
+        />
+      ));
+      const SortLabel = tree.find(TableSortLabel);
+
+      SortLabel.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+      expect(changeSortingDirection)
+        .toHaveBeenCalled();
+
+      changeSortingDirection.mockClear();
+      SortLabel.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+      expect(changeSortingDirection)
+        .toHaveBeenCalled();
+
+      changeSortingDirection.mockClear();
+      SortLabel.simulate('keydown', { keyCode: 51 });
+      expect(changeSortingDirection)
+        .not.toHaveBeenCalled();
+    });
+
+    it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+          getMessage={jest.fn()}
+        />
+      ));
+
+      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
+      expect(changeSortingDirection)
+        .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
+    });
+
+    it('should handle the "Ctrl" key with sorting', () => {
+      const changeSortingDirection = jest.fn();
+      const tree = mount((
+        <TableHeaderCell
+          changeSortingDirection={changeSortingDirection}
+          column={{ align: 'right', title: 'test' }}
+          allowSorting
+          getMessage={jest.fn()}
+        />
+      ));
+
+      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
+      expect(changeSortingDirection)
+        .toHaveBeenCalledWith({ keepOther: true, cancel: true });
+    });
   });
 });

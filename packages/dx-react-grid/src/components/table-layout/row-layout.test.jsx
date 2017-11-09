@@ -75,29 +75,6 @@ describe('RowLayout', () => {
     });
   });
 
-  it('should pass styles to columns', () => {
-    const columns = [{ key: 'b', column: { name: 'b' }, width: 100 }];
-    getTableRowColumnsWithColSpan.mockImplementation(() => columns);
-
-    const tree = shallow((
-      <RowLayout
-        row={defaultRow}
-        columns={columns}
-        rowTemplate={() => null}
-        cellTemplate={() => null}
-      />
-    ));
-
-    expect(tree.find('TemplateRenderer').at(1).props())
-      .toMatchObject({
-        params: {
-          tableRow: defaultRow,
-          tableColumn: columns[0],
-          style: { width: '100px' },
-        },
-      });
-  });
-
   it('can span columns', () => {
     const column = { key: 'b', column: { name: 'b' } };
     getTableRowColumnsWithColSpan.mockImplementation(() => [{ ...column, colspan: 2 }]);

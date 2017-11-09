@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Demo from './basic';
 
-describe('BS3 virtual-scrolling: basic', () => {
+describe('MUI virtual-scrolling: basic', () => {
   let getRect;
   let originalRaf;
 

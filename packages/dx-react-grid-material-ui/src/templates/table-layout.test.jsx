@@ -1,14 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { TableLayout } from '@devexpress/dx-react-grid';
-import { Table } from './table';
+import { TableLayout as TableLayoutCore } from '@devexpress/dx-react-grid';
+import { TableLayout } from './table-layout';
 
 jest.mock('@devexpress/dx-react-grid', () => ({
   TableLayout: jest.fn(),
 }));
 
-describe('Table', () => {
+describe('TableLayout', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -21,20 +21,20 @@ describe('Table', () => {
     jest.resetAllMocks();
   });
 
-  it('should pass rowTemplate to TableLayout', () => {
+  it('should pass rowTemplate to TableLayoutCore', () => {
     const rowTemplateMock = jest.fn();
     const rowTemplateArgs = {
       row: 'row',
       children: null,
     };
-    TableLayout.mockImplementation(({ rowTemplate }) => (
+    TableLayoutCore.mockImplementation(({ rowTemplate }) => (
       <table>
         {rowTemplate(rowTemplateArgs)}
       </table>
     ));
 
     mount((
-      <Table
+      <TableLayout
         rowTemplate={rowTemplateMock}
         headerRows={[]}
         bodyRows={[]}

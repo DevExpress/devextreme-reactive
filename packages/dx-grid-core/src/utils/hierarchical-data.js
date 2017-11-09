@@ -1,58 +1,41 @@
-export const rowsToTree = (rows, isNode, getNodeLevelKey) => {
+export const NODE_CHECK = Symbol('node');
+
+export const rowsToTree = (rows, getRowLevelKey) => {
   if (!rows.length) return rows;
 
-  let currentLevel;
-  const levels = {};
-  const parentKeys = {};
+  const levels = [{ children: [] }];
 
-  return rows.reduce((acc, row) => {
-    if (isNode(row)) {
-      const currentNodeKey = getNodeLevelKey(row);
-      if (!acc.length) {
-        levels[currentNodeKey] = acc;
-        currentLevel = { node: row, items: [] };
-        levels[currentNodeKey].push(currentLevel);
-        return acc;
+  rows.forEach((row) => {
+    const levelKey = getRowLevelKey(row);
+    if (levelKey) {
+      const levelIndex = levels.slice(1)
+        .findIndex(level => getRowLevelKey(level.root) === levelKey) + 1;
+      if (levelIndex > 0) {
+        levels.splice(levelIndex, levels.length - levelIndex);
       }
-      if (!levels[currentNodeKey]) {
-        const parentKey = getNodeLevelKey(currentLevel.node);
-        currentLevel = { node: row, items: [] };
-        levels[currentNodeKey] = [currentLevel];
-        levels[parentKey].slice(-1)[0].items.push(currentLevel);
-        parentKeys[currentNodeKey] = parentKey;
-        return acc;
-      }
-
-      currentLevel = { node: row, items: [] };
-      levels[currentNodeKey].push(currentLevel);
-      const parentKey = parentKeys[currentNodeKey];
-      if (parentKey) {
-        levels[parentKey].slice(-1)[0].items.push(currentLevel);
-      }
-
-      return acc;
+      const node = { [NODE_CHECK]: true, root: row, children: [] };
+      levels[levels.length - 1].children.push(node);
+      levels.push(node);
+    } else {
+      levels[levels.length - 1].children.push(row);
     }
+  });
 
-    currentLevel.items.push(row);
-
-    return acc;
-  }, []);
+  return levels[0].children;
 };
 
 export const treeToRows = (tree, rows = []) => {
   if (!tree.length) return tree;
-  return tree.reduce((acc, item) => {
-    const { node, items } = item;
-
-    if (node) {
-      acc.push(node);
-      if (items && items.length) {
-        treeToRows(items, acc);
+  return tree.reduce(
+    (acc, node) => {
+      if (node[NODE_CHECK]) {
+        acc.push(node.root);
+        treeToRows(node.children, rows);
+      } else {
+        acc.push(node);
       }
-    } else {
-      acc.push(item);
-    }
-
-    return acc;
-  }, rows);
+      return acc;
+    },
+    rows,
+  );
 };

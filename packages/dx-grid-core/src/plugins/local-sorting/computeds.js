@@ -1,5 +1,5 @@
 import mergeSort from '../../utils/merge-sort';
-import { rowsToTree, treeToRows } from '../../utils/hierarchical-data';
+import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
 const defaultCompare = (a, b) => {
   if (a < b) return -1;
@@ -30,36 +30,25 @@ const createCompare = (sorting, getColumnCompare, getComparableValue) =>
       () => 0,
     );
 
-const sortTree = (tree, compare, groupCompare) => {
-  if (!tree.length) return tree;
-  const sorted = mergeSort(tree, tree[0].node ? groupCompare : compare);
-  sorted.forEach((row) => {
-    if (row.items && row.items.length) {
-      const sortedItems = sortTree(row.items, compare, groupCompare);
-      row.items.splice(0, row.items.length, ...sortedItems);
+const sortTree = (tree, compare) => {
+  const sortedTree = tree.map((node) => {
+    if (node[NODE_CHECK]) {
+      return {
+        ...node,
+        children: sortTree(node.children, compare),
+      };
     }
+    return node;
   });
 
-  return sorted;
+  return mergeSort(sortedTree, (a, b) =>
+    compare(a[NODE_CHECK] ? a.root : a, b[NODE_CHECK] ? b.root : b));
 };
 
-const sortGroupedRows = (
-  rows,
-  sorting,
-  isGroupRow,
-  getRowLevelKey,
-  getCellValue,
-  getColumnCompare,
-) => {
-  const tree = rowsToTree(rows, isGroupRow, getRowLevelKey);
-  const getGroupRowValue = (row, field) => {
-    const { node } = row;
-    return node.groupedBy === field ? node.value : undefined;
-  };
+const sortHierarchicalRows = (rows, compare, getRowLevelKey) => {
+  const tree = rowsToTree(rows, getRowLevelKey);
 
-  const rowCompare = createCompare(sorting, getColumnCompare, getCellValue);
-  const groupCompare = createCompare(sorting, getColumnCompare, getGroupRowValue);
-  const sortedTree = sortTree(tree, rowCompare, groupCompare);
+  const sortedTree = sortTree(tree, compare);
 
   return treeToRows(sortedTree);
 };
@@ -72,19 +61,25 @@ export const sortedRows = (
   isGroupRow,
   getRowLevelKey,
 ) => {
-  if (!sorting.length) return rows;
+  if (!sorting.length || !rows.length) return rows;
 
-  if (getRowLevelKey) {
-    return sortGroupedRows(
-      rows,
-      sorting,
-      isGroupRow,
-      getRowLevelKey,
-      getCellValue,
-      getColumnCompare,
-    );
+  if (!getRowLevelKey) {
+    const compare = createCompare(sorting, getColumnCompare, getCellValue);
+    return mergeSort(Array.from(rows), compare);
   }
 
-  const rowCompare = createCompare(sorting, getColumnCompare, getCellValue);
-  return mergeSort(Array.from(rows), rowCompare);
+  const compare = createCompare(sorting, getColumnCompare, (row, columnName) => {
+    if (isGroupRow(row)) {
+      if (row.groupedBy === columnName) {
+        return row.value;
+      }
+      return undefined;
+    }
+    return getCellValue(row, columnName);
+  });
+  return sortHierarchicalRows(
+    rows,
+    compare,
+    getRowLevelKey,
+  );
 };

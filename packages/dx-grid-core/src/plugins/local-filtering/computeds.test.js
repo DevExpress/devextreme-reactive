@@ -4,113 +4,138 @@ import {
 
 describe('LocalFiltering computeds', () => {
   describe('#filteredRows', () => {
-    const rows = [
-      { a: 1, b: 1 },
-      { a: 1, b: 2 },
-      { a: 2, b: 1 },
-      { a: 2, b: 2 },
-    ];
-
     const getCellValue = (row, columnName) => row[columnName];
 
-    it('should not touch rows if no filters specified', () => {
-      const filters = [];
-
-      const filtered = filteredRows(rows, filters, getCellValue);
-      expect(filtered).toBe(rows);
-    });
-
-    it('can filter by one field', () => {
-      const filters = [{ columnName: 'a', value: 1 }];
-
-      const filtered = filteredRows(rows, filters, getCellValue);
-      expect(filtered).toEqual([
+    describe('plain rows', () => {
+      const rows = [
         { a: 1, b: 1 },
         { a: 1, b: 2 },
-      ]);
-    });
-
-    it('can filter by several fields', () => {
-      const filters = [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }];
-
-      const filtered = filteredRows(rows, filters, getCellValue);
-      expect(filtered).toEqual([
-        { a: 1, b: 2 },
-      ]);
-    });
-
-    it('can filter using custom predicate', () => {
-      const getColumnPredicate = jest.fn();
-
-      getColumnPredicate
-        .mockImplementation(() => (value, filter, row) => value === 1 && row.b === 2);
-
-      const filters = [{ columnName: 'a', value: 1 }];
-      const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
-
-      expect(getColumnPredicate).toBeCalledWith(filters[0].columnName);
-      expect(filtered)
-        .toEqual([
-          { a: 1, b: 2 },
-        ]);
-    });
-
-    it('should filter using default predicate if custom predicate returns nothing', () => {
-      const getColumnPredicate = () => undefined;
-      const filters = [{ columnName: 'a', value: 1 }];
-      const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
-
-      expect(filtered)
-        .toEqual([
-          { a: 1, b: 1 },
-          { a: 1, b: 2 },
-        ]);
-    });
-
-    it('should filter grouped rows', () => {
-      const filters = [{ columnName: 'a', value: 1 }];
-      const isGroupRow = row => row.group;
-      const groupedRows = [
-        {
-          group: true,
-          groupLevelKey: 'a',
-          collapsedRows: [
-            { a: 1, b: 1 },
-            { a: 2, b: 2 },
-          ],
-        },
-        { group: true, groupLevelKey: 'a' },
-        { group: true, groupLevelKey: 'b' },
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
-        { group: true, groupLevelKey: 'a' },
-        { group: true, groupLevelKey: 'b' },
         { a: 2, b: 1 },
         { a: 2, b: 2 },
       ];
 
-      const filtered = filteredRows(
-        groupedRows,
-        filters,
-        getCellValue,
-        () => undefined,
-        isGroupRow,
-        row => row.groupLevelKey,
-      );
-      expect(filtered).toEqual([
-        {
-          group: true,
-          groupLevelKey: 'a',
-          collapsedRows: [
+      it('should not touch rows if no filters specified', () => {
+        const filters = [];
+
+        const filtered = filteredRows(rows, filters, getCellValue);
+        expect(filtered).toBe(rows);
+      });
+
+      it('can filter by one field', () => {
+        const filters = [{ columnName: 'a', value: 1 }];
+
+        const filtered = filteredRows(rows, filters, getCellValue);
+        expect(filtered)
+          .toEqual([
             { a: 1, b: 1 },
-          ],
-        },
-        { group: true, groupLevelKey: 'a' },
-        { group: true, groupLevelKey: 'b' },
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
-      ]);
-      expect(filtered[0].collapsedRows).not.toBe(groupedRows[0].collapsedRows);
+            { a: 1, b: 2 },
+          ]);
+      });
+
+      it('can filter by several fields', () => {
+        const filters = [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }];
+
+        const filtered = filteredRows(rows, filters, getCellValue);
+        expect(filtered)
+          .toEqual([
+            { a: 1, b: 2 },
+          ]);
+      });
+
+      it('can filter using custom predicate', () => {
+        const getColumnPredicate = jest.fn();
+
+        getColumnPredicate
+          .mockImplementation(() => (value, filter, row) => value === 1 && row.b === 2);
+
+        const filters = [{ columnName: 'a', value: 1 }];
+        const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
+
+        expect(getColumnPredicate).toBeCalledWith(filters[0].columnName);
+        expect(filtered)
+          .toEqual([
+            { a: 1, b: 2 },
+          ]);
+      });
+
+      it('should filter using default predicate if custom predicate returns nothing', () => {
+        const getColumnPredicate = () => undefined;
+        const filters = [{ columnName: 'a', value: 1 }];
+        const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
+
+        expect(filtered)
+          .toEqual([
+            { a: 1, b: 1 },
+            { a: 1, b: 2 },
+          ]);
+      });
+    });
+
+    describe('grouped rows', () => {
+      const groupRow = ({ groupedBy, ...restParams }) => ({
+        ...restParams,
+        groupedBy,
+        group: true,
+        levelKey: groupedBy,
+      });
+      const isGroupRow = row => row.group;
+      const getRowLevelKey = row => row.levelKey;
+
+      it('should filter grouped rows', () => {
+        const groupedRows = [
+          groupRow({
+            groupedBy: 'a',
+            collapsedRows: [
+              { a: 1, b: 1 },
+              { a: 2, b: 2 },
+            ],
+          }),
+          groupRow({
+            groupedBy: 'a',
+          }),
+          groupRow({
+            groupedBy: 'b',
+          }),
+          { a: 1, b: 1 },
+          { a: 1, b: 2 },
+          groupRow({
+            groupedBy: 'a',
+          }),
+          groupRow({
+            groupedBy: 'b',
+          }),
+          { a: 2, b: 1 },
+          { a: 2, b: 2 },
+        ];
+        const filters = [{ columnName: 'a', value: 1 }];
+
+        const filtered = filteredRows(
+          groupedRows,
+          filters,
+          getCellValue,
+          null,
+          isGroupRow,
+          getRowLevelKey,
+        );
+        expect(filtered)
+          .toEqual([
+            groupRow({
+              groupedBy: 'a',
+              collapsedRows: [
+                { a: 1, b: 1 },
+                { a: 2, b: 2 }, // ?
+              ],
+            }),
+            groupRow({
+              groupedBy: 'a',
+            }),
+            groupRow({
+              groupedBy: 'b',
+            }),
+            { a: 1, b: 1 },
+            { a: 1, b: 2 },
+          ]);
+      });
     });
   });
 });

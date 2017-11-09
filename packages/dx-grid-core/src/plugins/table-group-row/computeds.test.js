@@ -113,7 +113,7 @@ describe('TableGroupRow Plugin computeds', () => {
   describe('#tableRowsWithGrouping', () => {
     it('should convert table rows containing group data to group rows', () => {
       const tableRows = [
-        { type: TABLE_DATA_TYPE, row: { group: true, groupedBy: 'a', key: 'B' } },
+        { type: TABLE_DATA_TYPE, row: { group: true, groupedBy: 'a', compoundKey: 'B' } },
         { type: TABLE_DATA_TYPE, row: { id: 0 } },
         { type: TABLE_DATA_TYPE, row: { id: 1 } },
         { type: TABLE_DATA_TYPE, row: { id: 2 } },
@@ -125,7 +125,7 @@ describe('TableGroupRow Plugin computeds', () => {
           {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
-            row: { group: true, groupedBy: 'a', key: 'B' },
+            row: { group: true, groupedBy: 'a', compoundKey: 'B' },
             colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
           { type: TABLE_DATA_TYPE, row: { id: 0 } },

@@ -5,13 +5,13 @@ import { Nav, NavItem, FormGroup, ControlLabel, FormControl, InputGroup, Button 
 
 const THEMES = [{
   name: 'Journal',
-  link: 'https://bootswatch.com/journal/bootstrap.min.css',
+  link: 'https://bootswatch.com/3/journal/bootstrap.min.css',
 }, {
   name: 'Darkly',
-  link: 'https://bootswatch.com/darkly/bootstrap.min.css',
+  link: 'https://bootswatch.com/3/darkly/bootstrap.min.css',
 }, {
   name: 'United',
-  link: 'https://bootswatch.com/united/bootstrap.min.css',
+  link: 'https://bootswatch.com/3/united/bootstrap.min.css',
 }, {
   name: 'Custom',
 }];

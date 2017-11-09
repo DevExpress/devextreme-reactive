@@ -9,6 +9,7 @@ describe('with keyboard navigation', () => {
       <SortingControl
         align="Right"
         columnTitle="Test"
+        onClick={() => {}}
       />
     ));
 

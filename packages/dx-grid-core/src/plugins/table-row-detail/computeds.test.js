@@ -13,7 +13,7 @@ describe('TableRowDetail Plugin computeds', () => {
       ];
       const expandedRows = [2];
 
-      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 100);
       expect(rowsWithDetails).toEqual([
         { type: 'data', rowId: 1, row: 'row1' },
         { type: 'data', rowId: 2, row: 'row2' },
@@ -23,7 +23,7 @@ describe('TableRowDetail Plugin computeds', () => {
           rowId: 2,
           row: 'row2',
           colSpanStart: 0,
-          height: 'auto',
+          height: 100,
         },
       ]);
     });
@@ -32,7 +32,7 @@ describe('TableRowDetail Plugin computeds', () => {
       const tableRows = [{ type: 'data', rowId: 1, row: 'row1' }, { type: 'undefined', rowId: 2, row: 'row2' }];
       const expandedRows = [2];
 
-      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 100);
       expect(rowsWithDetails).toEqual([
         { type: 'data', rowId: 1, row: 'row1' },
         { type: 'undefined', rowId: 2, row: 'row2' },
@@ -43,7 +43,7 @@ describe('TableRowDetail Plugin computeds', () => {
       const tableRows = [{ type: 'data', rowId: 1, row: 'row1' }, { type: 'data', rowId: 2, row: 'row2' }];
       const expandedRows = [1, 2];
 
-      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 'auto');
+      const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedRows, 100);
       expect(rowsWithDetails).toEqual([
         { type: 'data', rowId: 1, row: 'row1' },
         {
@@ -52,7 +52,7 @@ describe('TableRowDetail Plugin computeds', () => {
           rowId: 1,
           row: 'row1',
           colSpanStart: 0,
-          height: 'auto',
+          height: 100,
         },
         { type: 'data', rowId: 2, row: 'row2' },
         {
@@ -61,7 +61,7 @@ describe('TableRowDetail Plugin computeds', () => {
           rowId: 2,
           row: 'row2',
           colSpanStart: 0,
-          height: 'auto',
+          height: 100,
         },
       ]);
     });

@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import { TemplateRenderer } from '@devexpress/dx-react-core';
 import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
 
-const getColumnStyle = ({ column }) => ({
-  width: column.width !== undefined ? `${column.width}px` : undefined,
-  ...column.animationState,
-});
+const getColumnStyle = ({ column }) => column.animationState;
 
-const getRowStyle = ({ row }) => ({
-  height: row.height !== undefined ? `${row.height}px` : undefined,
-});
+const getRowStyle = ({ row }) => (row.height !== undefined
+  ? ({ height: `${row.height}px` })
+  : undefined);
 
 export class RowLayout extends React.PureComponent {
   render() {

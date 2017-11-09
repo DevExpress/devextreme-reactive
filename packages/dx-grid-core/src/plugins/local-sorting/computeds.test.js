@@ -168,7 +168,7 @@ describe('LocalSorting computeds', () => {
           { columnName: 'c', direction: 'desc' },
         ];
 
-        const sotred = sortedRows(
+        const sorted = sortedRows(
           groupedRows,
           sorting,
           getCellValue,
@@ -176,7 +176,7 @@ describe('LocalSorting computeds', () => {
           isGroupRow,
           getRowLevelKey,
         );
-        expect(sotred)
+        expect(sorted)
           .toEqual([
             groupRow({
               groupedBy: 'a',

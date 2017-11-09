@@ -6,8 +6,8 @@ import {
 import {
   Grid,
   VirtualTableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  TableColumnReordering, GroupingPanel, DragDropContext,
-} from '@devexpress/dx-react-grid-bootstrap3';
+  GroupingPanel, DragDropContext, TableColumnReordering,
+} from '@devexpress/dx-react-grid-material-ui';
 import {
   ProgressBarCell,
 } from '../templates/progress-bar-cell';
@@ -88,11 +88,9 @@ export default class Demo extends React.PureComponent {
         <VirtualTableView
           tableCellTemplate={this.tableCellTemplate}
         />
-
-        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-
         <TableHeaderRow allowSorting allowDragging />
-        <TableFilterRow rowHeight={51} />
+        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
+        <TableFilterRow />
         <TableSelection />
         <TableGroupRow />
         <GroupingPanel allowSorting allowDragging />

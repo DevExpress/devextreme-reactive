@@ -4,12 +4,12 @@ The plugins that provide all the Grid's functionality can be divided into four g
 
 - **State Management plugins** control a part of the Grid's state internally or provide properties for external state management (see [controlled and uncontrolled modes](controlled-and-uncontrolled-modes.md)).
 - **Data Processing plugins** transform data passed to the Grid component before rendering.
-- **UI plugins** render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid's state. In some cases, UI plugins can control a part of the Grid state by themselves, taking the job of State Management plugins.
+- **UI plugins** render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid's state. In some cases, UI plugins can control a part of the Grid state by themselves (instead of State Management plugins).
 - **Core plugins** are the base building blocks for the first three groups. These plugins can also be used separately in certain scenarios.
 
 Note that the plugins are composable and can be nested into each other.
 
-Refer to the [Reference](../../reference) to see the complete plugin list.
+Refer to the [Reference](../../reference/grid.md) to see the complete plugin list.
 
 ## <a name="plugin-order">Plugin Order
 
@@ -54,7 +54,7 @@ const App = () => (
 
 NOTE: Refer to the plugin's reference for information on its dependencies.
 
-The order of data processing plugins is also important because they transform data in the same order they appear. For example, if the `LocalPaging` plugin precedes the `LocalFiltering`, the Grid filters the current page data. Swap the plugins to paginate filtered data.
+The data processing plugins' order is also important because they transform data in the same order they appear. For example, if the `LocalPaging` plugin precedes the `LocalFiltering`, the Grid filters the current page's data. Swap the plugins to paginate filtered data.
 
 ## UI Plugins
 

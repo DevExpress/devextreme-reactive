@@ -71,9 +71,14 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
   const groupingColumnNames = grouping.map(columnGrouping => columnGrouping.columnName);
   let currentGroupExpanded = true;
   let currentGroupLevel = 0;
+
   return rows.reduce((acc, row) => {
     if (!row[GRID_GROUP_CHECK]) {
-      if (currentGroupExpanded) acc.push(row);
+      if (currentGroupExpanded) {
+        acc.push(row);
+      } else {
+        acc[acc.length - 1].collapsedRows.push(row);
+      }
       return acc;
     }
 
@@ -85,7 +90,15 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
     currentGroupExpanded = expandedGroups.has(row.compoundKey);
     currentGroupLevel = groupLevel;
 
-    acc.push(row);
+    if (currentGroupExpanded) {
+      acc.push(row);
+    } else {
+      acc.push({
+        ...row,
+        collapsedRows: [],
+      });
+    }
+
     return acc;
   }, []);
 };

@@ -30,6 +30,9 @@ describe('CustomGrouping Plugin computeds', () => {
           { a: 2, b: 1 },
           { a: 2, b: 2 },
         ],
+      }, {
+        key: 3,
+        items: [],
       }];
       const getHierarchicalChildGroups = groups => groups
         .map(group => ({ key: String(group.key), value: group.key, childRows: group.items }));
@@ -51,6 +54,12 @@ describe('CustomGrouping Plugin computeds', () => {
         }),
         { a: 2, b: 1 },
         { a: 2, b: 2 },
+        groupRow({
+          groupedBy: 'a',
+          compoundKey: '3',
+          key: '3',
+          value: 3,
+        }),
       ];
 
       const getChildGroups = jest.fn(getHierarchicalChildGroups);

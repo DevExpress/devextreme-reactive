@@ -55,20 +55,20 @@
     "babel-preset-react": "^6.24.1",
     "core-js": "^2.5.1",
     "enzyme": "^2.9.1",
-    "eslint": "^4.9.0",
+    "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-filenames": "^1.2.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jest": "^21.2.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.3.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
     "react": "^15.6.1",
-    "react-bootstrap": "^0.31.3",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
-    "rollup": "^0.50.0",
+    "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-license": "^0.5.0",
     "rollup-plugin-node-resolve": "^3.0.0"
@@ -81,6 +81,6 @@
     "@devexpress/dx-react-core": "1.0.0-alpha.14",
     "@devexpress/dx-react-grid": "1.0.0-alpha.14",
     "react": "^15.6.1 || ^16.0.0",
-    "react-bootstrap": "^0.31.3"
+    "react-bootstrap": "^0.31.5"
   }
 }

@@ -34,9 +34,9 @@ This package does not contain visual components. In the examples below, visual c
 
 ### Supported Browsers
 
-React Grid supports the latest, stable releases of all major browsers: Chrome, Firefox, Safari, Opera, Microsoft Edge.
+React Grid supports the latest stable releases of all major browsers: Google Chrome, Mozilla Firefox, Safari, Opera, and Microsoft Edge.
 
-React Grid should operate well enough in other browsers which use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform’s web view API. Though they are not officially supported. It is also applicable for Microsoft Interner Explorer. In order to operate correctly in some of these browsers, it may be required to add [polyfills](#polyfills). But some features may behave incorrectly due to a lack of required API support by the browsers.
+React Grid can work in other browsers if they use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform's web view API. Some of these browsers may require adding [polyfills](#polyfills). However, correct functioning in such browsers, as well as in Internet Explorer, is not guaranteed.
 
 ### Polyfills
 

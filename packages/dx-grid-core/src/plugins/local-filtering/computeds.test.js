@@ -123,7 +123,7 @@ describe('LocalFiltering computeds', () => {
               groupedBy: 'a',
               collapsedRows: [
                 { a: 1, b: 1 },
-                { a: 2, b: 2 }, // ?
+                { a: 2, b: 2 },
               ],
             }),
             groupRow({

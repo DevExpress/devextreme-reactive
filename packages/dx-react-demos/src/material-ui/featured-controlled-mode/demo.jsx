@@ -19,7 +19,6 @@ import {
   DialogContentText,
   DialogTitle,
   MenuItem,
-  Input,
   Select,
 } from 'material-ui';
 
@@ -105,7 +104,7 @@ const LookupEditCellBase = (({
     <Select
       value={value}
       onChange={event => onValueChange(event.target.value)}
-      input={<Input classes={{ root: classes.inputRoot }} />}
+      InputClasses={{ root: classes.inputRoot }}
     >
       {availableValues.map(item => (
         <MenuItem key={item} value={item}>{item}</MenuItem>

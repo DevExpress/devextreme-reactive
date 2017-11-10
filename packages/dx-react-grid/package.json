@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid",
-  "version": "1.0.0-alpha.14",
+  "version": "1.0.0-beta.1",
   "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -41,9 +41,9 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-core": "1.0.0-alpha.14",
-    "@devexpress/dx-react-core": "1.0.0-alpha.14",
-    "@devexpress/dx-testing": "1.0.0-alpha.14",
+    "@devexpress/dx-core": "1.0.0-beta.1",
+    "@devexpress/dx-react-core": "1.0.0-beta.1",
+    "@devexpress/dx-testing": "1.0.0-beta.1",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.2.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -71,12 +71,12 @@
     "rollup-plugin-node-resolve": "^3.0.0"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-alpha.14",
+    "@devexpress/dx-grid-core": "1.0.0-beta.1",
     "prop-types": "^15.6.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "1.0.0-alpha.14",
-    "@devexpress/dx-react-core": "1.0.0-alpha.14",
+    "@devexpress/dx-core": "1.0.0-beta.1",
+    "@devexpress/dx-react-core": "1.0.0-beta.1",
     "react": "^15.6.1 || ^16.0.0",
     "react-dom": "^15.6.1 || ^16.0.0"
   }

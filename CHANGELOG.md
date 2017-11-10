@@ -1,3 +1,78 @@
+<a name="1.0.0-beta.1"></a>
+# [1.0.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.14...v1.0.0-beta.1) (2017-11-10)
+
+
+### Bug Fixes
+
+* **react-grid:** cancel find of nested groups within an empty childRows array ([#460](https://github.com/DevExpress/devextreme-reactive/issues/460)) ([c1c3982](https://github.com/DevExpress/devextreme-reactive/commit/c1c3982))
+* **react-grid:** correct focus behavior when switching to row edit mode ([#455](https://github.com/DevExpress/devextreme-reactive/issues/455)) ([aceada7](https://github.com/DevExpress/devextreme-reactive/commit/aceada7))
+* **react-grid:** repair group rows keys ([#456](https://github.com/DevExpress/devextreme-reactive/issues/456)) ([f3021b9](https://github.com/DevExpress/devextreme-reactive/commit/f3021b9))
+* **react-grid-bootstrap3:** adjust vertical align of controls inside cells ([#466](https://github.com/DevExpress/devextreme-reactive/issues/466)) ([d982f31](https://github.com/DevExpress/devextreme-reactive/commit/d982f31))
+* **react-grid-material-ui:** normalize checkboxes size ([#450](https://github.com/DevExpress/devextreme-reactive/issues/450)) ([10b61d9](https://github.com/DevExpress/devextreme-reactive/commit/10b61d9))
+* **react-grid-material-ui:** normalize heights of rows with checkboxes ([#445](https://github.com/DevExpress/devextreme-reactive/issues/445)) ([123ed27](https://github.com/DevExpress/devextreme-reactive/commit/123ed27))
+
+
+### Code Refactoring
+
+* **react-grid:** export TableColumnResizing from theme packages ([#438](https://github.com/DevExpress/devextreme-reactive/issues/438)) ([4be4ebf](https://github.com/DevExpress/devextreme-reactive/commit/4be4ebf))
+* **rect-grid:** refactor table column reordering ([#424](https://github.com/DevExpress/devextreme-reactive/issues/424)) ([dc28366](https://github.com/DevExpress/devextreme-reactive/commit/dc28366)), closes [#154](https://github.com/DevExpress/devextreme-reactive/issues/154)
+
+
+### Features
+
+* **react-grid:** add localization messages ([#385](https://github.com/DevExpress/devextreme-reactive/issues/385)) ([c7581bd](https://github.com/DevExpress/devextreme-reactive/commit/c7581bd))
+* **react-grid:** add the capability to filter/sort grouped rows ([#443](https://github.com/DevExpress/devextreme-reactive/issues/443)) ([292d429](https://github.com/DevExpress/devextreme-reactive/commit/292d429))
+* **react-grid:** allow to change sorting of the grouped columns by keyboard ([#461](https://github.com/DevExpress/devextreme-reactive/issues/461)) ([e50c973](https://github.com/DevExpress/devextreme-reactive/commit/e50c973))
+* **react-grid:** allow to focus each column and change sorting ([#448](https://github.com/DevExpress/devextreme-reactive/issues/448)) ([0550848](https://github.com/DevExpress/devextreme-reactive/commit/0550848))
+* **react-grid:** rework virtual table ([#454](https://github.com/DevExpress/devextreme-reactive/issues/454)) ([b28e365](https://github.com/DevExpress/devextreme-reactive/commit/b28e365)), closes [#33](https://github.com/DevExpress/devextreme-reactive/issues/33) [#280](https://github.com/DevExpress/devextreme-reactive/issues/280) [#401](https://github.com/DevExpress/devextreme-reactive/issues/401)
+* **react-grid:** support expanding/collapsing detail rows with keyboard ([#446](https://github.com/DevExpress/devextreme-reactive/issues/446)) ([47ab49d](https://github.com/DevExpress/devextreme-reactive/commit/47ab49d))
+* **react-grid:** support expanding/collapsing group rows with keyboard ([#439](https://github.com/DevExpress/devextreme-reactive/issues/439)) ([4176d9a](https://github.com/DevExpress/devextreme-reactive/commit/4176d9a))
+
+
+### BREAKING CHANGES
+
+* **rect-grid:** The `ColumnOrderState` plugin has been renamed to `TableColumnReordering` and is now available via the `@devexpress/dx-react-grid-bootstrap3` and `@devexpress/dx-react-grid-material-ui` packages.
+
+  The `TableView` plugin's `allowColumnReordering` property has been removed and the `TableColumnReordering` plugin now depends on the `TableView` plugin. Thus, it is enough to link the `TableColumnReordering` plugin below the `TableView` plugin to enable column reordering.
+
+  Before:
+  ```jsx
+  import {
+    // ...
+    ColumnOrderState
+  } from '@devexpress/dx-react-grid';
+
+  // ...
+
+  <ColumnOrderState defaultOrder={[/* ... */]} />
+  <TableView allowColumnReordering />
+  ```
+
+  After:
+  ```jsx
+  import {
+    // ...
+    TableColumnReordering
+  } from '@devexpress/dx-react-grid-bootstrap3';
+  // } from '@devexpress/dx-react-grid-material-ui';
+
+  // ...
+
+  <TableView />
+  <TableColumnReordering defaultOrder={[/* ... */]} />
+  ```
+* **react-grid:** The TableColumnResizing plugin is now available in the "@devexpress/dx-react-grid-bootstrap3" and "@devexpress/dx-react-grid-material-ui" packages.
+
+  Use the following code to import the plugin.
+
+  ```
+  import {
+    TableColumnResizing,
+  } from from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
+  ```
+
+
+
 <a name="1.0.0-alpha.14"></a>
 # [1.0.0-alpha.14](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2017-10-25)
 

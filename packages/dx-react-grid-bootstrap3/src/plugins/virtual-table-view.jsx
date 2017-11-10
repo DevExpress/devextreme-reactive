@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
-import { VirtualTable } from '../templates/virtual-table';
+import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableRow } from '../templates/table-row';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 
-const tableLayoutTemplate = props => <VirtualTable {...props} />;
+const tableLayoutTemplate = props => <VirtualTableLayout {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
@@ -30,13 +30,19 @@ export class VirtualTableView extends React.PureComponent {
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
       tableNoDataCellTemplate,
+      height,
+      estimatedRowHeight,
       messages,
       ...restProps
     } = this.props;
 
     return (
       <TableViewBase
-        tableLayoutTemplate={tableLayoutTemplate}
+        tableLayoutTemplate={props => tableLayoutTemplate({
+          ...props,
+          height,
+          estimatedRowHeight,
+        })}
         tableRowTemplate={combineTemplates(
           tableRowTemplate,
           defaultRowTemplate,
@@ -75,6 +81,8 @@ VirtualTableView.propTypes = {
   tableStubCellTemplate: PropTypes.func,
   tableStubHeaderCellTemplate: PropTypes.func,
   tableNoDataCellTemplate: PropTypes.func,
+  estimatedRowHeight: PropTypes.number,
+  height: PropTypes.number,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
@@ -87,5 +95,7 @@ VirtualTableView.defaultProps = {
   tableStubCellTemplate: undefined,
   tableStubHeaderCellTemplate: undefined,
   tableNoDataCellTemplate: undefined,
+  estimatedRowHeight: 37,
+  height: 530,
   messages: {},
 };

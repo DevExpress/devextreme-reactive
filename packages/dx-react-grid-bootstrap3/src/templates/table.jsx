@@ -1,57 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  TableLayout,
-} from '@devexpress/dx-react-grid';
+let stickyProp;
+const testCSSProp = (property, value, noPrefixes) => {
+  const prop = `${property}:`;
+  // eslint-disable-next-line no-undef
+  const el = document.createElement('test');
+  const mStyle = el.style;
 
-const MINIMAL_COLUMN_WIDTH = 120;
+  if (!noPrefixes) {
+    mStyle.cssText = `${prop + ['-webkit-', '-moz-', '-ms-', '-o-', ''].join(`${value};${prop}`) + value};`;
+  } else {
+    mStyle.cssText = prop + value;
+  }
+  return mStyle[property];
+};
 
-/* eslint-disable react/prop-types */
-const tableTemplate = ({ children, ...restProps }) => (
-  <table
-    className="table"
-    {...restProps}
-    style={{
-      ...restProps.style,
-      overflow: 'hidden',
-    }}
-  >
-    {children}
-  </table>
-);
-const headTemplate = ({ children, ...restProps }) => (
-  <thead {...restProps}>{children}</thead>
-);
-const bodyTemplate = ({ children, ...restProps }) => (
-  <tbody {...restProps}>{children}</tbody>
-);
-
-export const Table = ({
-  headerRows,
-  bodyRows,
-  columns,
-  cellTemplate,
-  rowTemplate,
-}) => (
-  <TableLayout
-    className="table-responsive"
-    headerRows={headerRows}
-    rows={bodyRows}
-    columns={columns}
-    minColumnWidth={MINIMAL_COLUMN_WIDTH}
-    tableTemplate={tableTemplate}
-    headTemplate={headTemplate}
-    bodyTemplate={bodyTemplate}
-    rowTemplate={rowTemplate}
-    cellTemplate={cellTemplate}
-  />
-);
+export class Table extends React.Component {
+  componentDidMount() {
+    stickyProp = testCSSProp('position', 'sticky');
+  }
+  render() {
+    const { children, use, ...restProps } = this.props;
+    return (
+      <table
+        className="table"
+        {...restProps}
+        style={{
+          ...restProps.style,
+          tableLayout: 'fixed',
+          overflow: 'hidden',
+          ...use === 'head' ? {
+            position: stickyProp,
+            top: 0,
+            zIndex: 1,
+            background: 'white',
+          } : null,
+        }}
+      >
+        {children}
+      </table>
+    );
+  }
+}
 
 Table.propTypes = {
-  headerRows: PropTypes.array.isRequired,
-  bodyRows: PropTypes.array.isRequired,
-  columns: PropTypes.array.isRequired,
-  cellTemplate: PropTypes.func.isRequired,
-  rowTemplate: PropTypes.func.isRequired,
+  use: PropTypes.oneOf(['head']),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
+
+Table.defaultProps = {
+  use: undefined,
 };

@@ -7,6 +7,7 @@ export const TableSelectAllCell = ({
   <th
     style={{
       cursor: selectionAvailable && 'pointer',
+      verticalAlign: 'middle',
       ...style,
     }}
     onClick={(e) => {
@@ -19,7 +20,8 @@ export const TableSelectAllCell = ({
     <input
       style={{
         cursor: selectionAvailable && 'pointer',
-        margin: 0,
+        margin: '0 auto',
+        display: 'block',
       }}
       type="checkbox"
       disabled={!selectionAvailable}

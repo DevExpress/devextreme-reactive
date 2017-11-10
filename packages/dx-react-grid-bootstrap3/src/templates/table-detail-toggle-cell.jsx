@@ -18,6 +18,7 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
     <td
       style={{
         cursor: 'pointer',
+        verticalAlign: 'middle',
         ...style,
       }}
       onClick={() => {
@@ -30,6 +31,7 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
         style={{
           fontSize: '9px',
           top: '0',
+          display: 'block',
         }}
         tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
         onKeyDown={handleKeyDown}

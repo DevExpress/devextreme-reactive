@@ -1,8 +1,20 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { createMount } from 'material-ui/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
 describe('TableDetailToggleCell', () => {
+  let resetConsole;
+  let mount;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
+    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+  });
+  afterAll(() => {
+    resetConsole();
+    mount.cleanUp();
+  });
+
   it('should render IconButton', () => {
     const tree = mount((
       <TableDetailToggleCell />

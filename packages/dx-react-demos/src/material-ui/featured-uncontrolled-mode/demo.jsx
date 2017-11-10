@@ -63,9 +63,10 @@ export default class Demo extends React.PureComponent {
           defaultPageSize={10}
         />
 
+        <LocalGrouping />
         <LocalFiltering />
         <LocalSorting />
-        <LocalGrouping />
+
         <LocalPaging />
 
         <SelectionState

@@ -45,10 +45,10 @@ const TableGroupCellBase = ({
       colSpan={colSpan}
       style={style}
       className={classes.cell}
+      onClick={handleClick}
     >
       <IconButton
         className={classes.groupButton}
-        onClick={handleClick}
       >
         {
           isExpanded

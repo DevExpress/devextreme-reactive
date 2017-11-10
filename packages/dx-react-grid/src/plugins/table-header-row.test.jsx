@@ -6,6 +6,7 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -14,6 +15,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),
   isHeadingTableCell: jest.fn(),
   isHeadingTableRow: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -54,6 +56,7 @@ describe('TableHeaderRow', () => {
     tableRowsWithHeading.mockImplementation(() => 'tableRowsWithHeading');
     isHeadingTableCell.mockImplementation(() => false);
     isHeadingTableRow.mockImplementation(() => false);
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -121,6 +124,31 @@ describe('TableHeaderRow', () => {
       .toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
     expect(headerRowTemplate)
       .toBeCalledWith(defaultDeps.template.tableViewRow);
+  });
+
+  it('should pass correct getMessage prop to TableHeaderRowTemplate', () => {
+    isHeadingTableCell.mockImplementation(() => true);
+    const headerCellTemplate = jest.fn(() => null);
+    const deps = {
+      plugins: ['SortingState'],
+    };
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <TableHeaderRow
+          {...defaultProps}
+          allowSorting
+          headerCellTemplate={headerCellTemplate}
+          messages={{
+            sortingHint: 'test',
+          }}
+        />
+      </PluginHost>
+    ));
+
+    const { getMessage } = headerCellTemplate.mock.calls[0][0];
+
+    expect(getMessage('sortingHint')).toBe('test');
   });
 
   describe('resizing', () => {

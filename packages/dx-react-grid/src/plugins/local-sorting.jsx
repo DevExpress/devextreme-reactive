@@ -10,8 +10,14 @@ const pluginDependencies = [
 export class LocalSorting extends React.PureComponent {
   render() {
     const { getColumnCompare } = this.props;
-    const rowsComputed = ({ rows, sorting, getCellValue }) =>
-      sortedRows(rows, sorting, getCellValue, getColumnCompare);
+    const rowsComputed = ({
+      rows,
+      sorting,
+      getCellValue,
+      isGroupRow,
+      getRowLevelKey,
+    }) =>
+      sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
 
     return (
       <PluginContainer

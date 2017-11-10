@@ -31,9 +31,10 @@ describe('LocalGrouping computeds', () => {
     });
   });
 
-  const groupRow = ({ groupedBy, ...restParams }) => ({
+  const groupRow = ({ groupedBy, collapsedRows, ...restParams }) => ({
     ...restParams,
     groupedBy,
+    ...collapsedRows ? { collapsedRows } : null,
     [GRID_GROUP_CHECK]: true,
     [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
   });
@@ -232,6 +233,10 @@ describe('LocalGrouping computeds', () => {
             compoundKey: '2',
             key: '2',
             value: 2,
+            collapsedRows: [
+              { a: 2, b: 1 },
+              { a: 2, b: 2 },
+            ],
           }),
         ]);
     });
@@ -252,6 +257,9 @@ describe('LocalGrouping computeds', () => {
             compoundKey: '1|1',
             key: '1',
             value: 1,
+            collapsedRows: [
+              { a: 1, b: 1 },
+            ],
           }),
           groupRow({
             groupedBy: 'b',
@@ -265,6 +273,10 @@ describe('LocalGrouping computeds', () => {
             compoundKey: '2',
             key: '2',
             value: 2,
+            collapsedRows: [
+              { a: 2, b: 1 },
+              { a: 2, b: 2 },
+            ],
           }),
         ]);
     });

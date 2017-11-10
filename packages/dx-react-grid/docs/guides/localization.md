@@ -5,7 +5,7 @@ The React Grid provides a simple localization API. Each plugin accepts the `mess
 {% raw %}
 ```js
 <TableView
-  messages={{ noData: 'Keine Daten verfügba' }}
+  messages={{ noData: 'Keine Daten verfügbar' }}
 />
 ```
 {% endraw %}

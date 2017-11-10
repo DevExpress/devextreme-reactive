@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1508917290">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1508917290">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -201,6 +201,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
         </ul>
 
       
@@ -214,14 +222,6 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a></li>
           
 
         
@@ -365,6 +365,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-reordering/">TableColumnReordering</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-resizing/">TableColumnResizing</a></li>
           
 
@@ -441,6 +449,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          
+
+        
         </ul>
 
       
@@ -449,7 +465,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="using-immutable-data">Using Immutable Data</h1>
 
-<p>DevExpress Data Grid for React conforms to the React <a href="https://facebook.github.io/react/docs/optimizing-performance.html">optimization principles</a>. According to these principles, the Grid does not mutate data passed through a state and uses memoization and <a href="https://facebook.github.io/react/docs/react-api.html#react.purecomponent">React.PureComponents</a>. A <code class="highlighter-rouge">React.PureComponent</code> compares old and new state values using a simple comparison. In this case, if you update a state object field, React does not update the component because it compares two references to the same object. Immutable data structures <a href="https://facebook.github.io/react/docs/optimizing-performance.html#the-power-of-not-mutating-data">help</a> to solve this problem.</p>
+<p>DevExpress Data Grid for React conforms to the React <a href="https://reactjs.org/docs/optimizing-performance.html">optimization principles</a>. According to these principles, the Grid does not mutate data passed through a state and uses memoization and <a href="https://reactjs.org/docs/react-api.html#reactpurecomponent">React.PureComponents</a>. A <code class="highlighter-rouge">React.PureComponent</code> compares old and new state values using a simple comparison. In this case, if you update a state object field, React does not update the component because it compares two references to the same object. Immutable data structures <a href="https://reactjs.org/docs/optimizing-performance.html#the-power-of-not-mutating-data">help</a> to solve this problem.</p>
 
 <p>You can use the <a href="https://github.com/rtfeldman/seamless-immutable">seamless-immutable</a> library to make a React Grid state immutable.
 The following example demonstrates how to initialize an immutable state:</p>
@@ -467,9 +483,9 @@ The following example demonstrates how to initialize an immutable state:</p>
 <p>The following demo demonstrates the React Grid with <code class="highlighter-rouge">seamless-immutable</code> in action:</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-alpha.14&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
           &quot;path&quot;: &quot;/demo/immutability/seamless-immutable&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1508917287888&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430231&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -480,7 +496,7 @@ The following example demonstrates how to initialize an immutable state:</p>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1508917290"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
 
 
     <footer>
@@ -518,7 +534,7 @@ The following example demonstrates how to initialize an immutable state:</p>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1508917290"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
     <script>
         trackingCookie.check();
     </script>

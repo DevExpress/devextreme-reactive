@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TableColumnVisibility Plugin Reference - DevExtreme Reactive Components</title>
+    <title>Localization - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -205,7 +205,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          <li>Localization</li>
           
 
         
@@ -381,7 +381,7 @@
           
 
           
-          <li>TableColumnVisibility</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
           
 
         
@@ -463,138 +463,27 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="tablecolumnvisibility-plugin-reference">TableColumnVisibility Plugin Reference</h1>
+        <h1 id="localization">Localization</h1>
 
-<p>A plugin that manages Grid columns’ visibility.</p>
+<p>The React Grid provides a simple localization API. Each plugin accepts the <code class="highlighter-rouge">messages</code> option bag specifying localized messages. In the following example, German localization is applied to the <code class="highlighter-rouge">TableView</code> plugin’s “no data” text using the <code class="highlighter-rouge">messages</code> bag’s <code class="highlighter-rouge">noData</code> field.</p>
 
-<h2 id="user-reference">User Reference</h2>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">TableView</span>
+  <span class="nx">messages</span><span class="o">=</span><span class="p">{{</span> <span class="na">noData</span><span class="p">:</span> <span class="s1">'Keine Daten verfügba'</span> <span class="p">}}</span>
+<span class="sr">/</span><span class="err">&gt;
+</span></code></pre>
+</div>
 
-<h3 id="dependencies">Dependencies</h3>
+<p>The following demo demonstrates more complex scenario:</p>
 
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-</ul>
-
-<h3 id="properties">Properties</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>hiddenColumns</td>
-      <td>Array&lt;string&gt;</td>
-      <td>[]</td>
-      <td>Specifies the hidden columns’ names.</td>
-    </tr>
-    <tr>
-      <td>emptyMessageTemplate</td>
-      <td>() =&gt; ReactElement</td>
-      <td> </td>
-      <td>A template that renders a message displayed when all columns are hidden.</td>
-    </tr>
-    <tr>
-      <td>messages</td>
-      <td>object</td>
-      <td> </td>
-      <td>An object that specifies the <a href="#localization-messages">localization messages</a>.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="emptymessageargs"><a name="empty-message-args"></a>EmptyMessageArgs</h3>
-
-<p>Describes properties passed to the empty message template when it is being rendered.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>getMessage</td>
-      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
-      <td>Returns the text displayed when all columns are hidden.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="localization-messages">Localization Messages</h2>
-
-<p>An object with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>noColumns?</td>
-      <td>string</td>
-      <td>‘Nothing to show’</td>
-      <td>Specifies the text displayed when the plugin does not contain visible columns.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Table columns.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Visible table columns.</td>
-    </tr>
-  </tbody>
-</table>
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;path&quot;: &quot;/demo/localization/basic&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430234&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
 
     </div>
   </div>

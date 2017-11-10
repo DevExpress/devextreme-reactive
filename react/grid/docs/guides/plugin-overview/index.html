@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1508917290">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1508917290">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -201,6 +201,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
         </ul>
 
       
@@ -214,14 +222,6 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/column-order-state/">ColumnOrderState</a></li>
           
 
         
@@ -365,6 +365,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-reordering/">TableColumnReordering</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-resizing/">TableColumnResizing</a></li>
           
 
@@ -441,6 +449,14 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          
+
+        
         </ul>
 
       
@@ -454,13 +470,13 @@
 <ul>
   <li><strong>State Management plugins</strong> control a part of the Grid’s state internally or provide properties for external state management (see <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled and uncontrolled modes</a>).</li>
   <li><strong>Data Processing plugins</strong> transform data passed to the Grid component before rendering.</li>
-  <li><strong>UI plugins</strong> render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid’s state. In some cases, UI plugins can control a part of the Grid state by themselves, taking the job of State Management plugins.</li>
+  <li><strong>UI plugins</strong> render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid’s state. In some cases, UI plugins can control a part of the Grid state by themselves (instead of State Management plugins).</li>
   <li><strong>Core plugins</strong> are the base building blocks for the first three groups. These plugins can also be used separately in certain scenarios.</li>
 </ul>
 
 <p>Note that the plugins are composable and can be nested into each other.</p>
 
-<p>Refer to the <a href="../../reference">Reference</a> to see the complete plugin list.</p>
+<p>Refer to the <a href="../../reference/grid.md">Reference</a> to see the complete plugin list.</p>
 
 <h2 id="plugin-order"><a name="plugin-order">Plugin Order</a></h2>
 
@@ -505,7 +521,7 @@
 
 <p>NOTE: Refer to the plugin’s reference for information on its dependencies.</p>
 
-<p>The order of data processing plugins is also important because they transform data in the same order they appear. For example, if the <code class="highlighter-rouge">LocalPaging</code> plugin precedes the <code class="highlighter-rouge">LocalFiltering</code>, the Grid filters the current page data. Swap the plugins to paginate filtered data.</p>
+<p>The data processing plugins’ order is also important because they transform data in the same order they appear. For example, if the <code class="highlighter-rouge">LocalPaging</code> plugin precedes the <code class="highlighter-rouge">LocalFiltering</code>, the Grid filters the current page’s data. Swap the plugins to paginate filtered data.</p>
 
 <h2 id="ui-plugins">UI Plugins</h2>
 
@@ -520,7 +536,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1508917290"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
 
 
     <footer>
@@ -558,7 +574,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1508917290"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
     <script>
         trackingCookie.check();
     </script>

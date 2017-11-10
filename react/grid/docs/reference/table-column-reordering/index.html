@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TableColumnVisibility Plugin Reference - DevExtreme Reactive Components</title>
+    <title>TableColumnReordering Plugin Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -365,7 +365,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-reordering/">TableColumnReordering</a></li>
+          <li>TableColumnReordering</li>
           
 
         
@@ -381,7 +381,7 @@
           
 
           
-          <li>TableColumnVisibility</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a></li>
           
 
         
@@ -463,9 +463,9 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="tablecolumnvisibility-plugin-reference">TableColumnVisibility Plugin Reference</h1>
+        <h1 id="tablecolumnreordering-plugin-reference">TableColumnReordering Plugin Reference</h1>
 
-<p>A plugin that manages Grid columns’ visibility.</p>
+<p>A plugin that manages the displayed columns’ order.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -488,29 +488,51 @@
   </thead>
   <tbody>
     <tr>
-      <td>hiddenColumns</td>
+      <td>order</td>
       <td>Array&lt;string&gt;</td>
-      <td>[]</td>
-      <td>Specifies the hidden columns’ names.</td>
+      <td> </td>
+      <td>Specifies the column order.</td>
     </tr>
     <tr>
-      <td>emptyMessageTemplate</td>
-      <td>() =&gt; ReactElement</td>
+      <td>defaultOrder</td>
+      <td>Array&lt;string&gt;</td>
       <td> </td>
-      <td>A template that renders a message displayed when all columns are hidden.</td>
+      <td>Specifies the initial column order in the uncontrolled mode.</td>
     </tr>
     <tr>
-      <td>messages</td>
-      <td>object</td>
+      <td>onOrderChange</td>
+      <td>(nextOrder: Array&lt;string&gt;) =&gt; void</td>
       <td> </td>
-      <td>An object that specifies the <a href="#localization-messages">localization messages</a>.</td>
+      <td>Handles column order changes.</td>
+    </tr>
+    <tr>
+      <td>tableContainerTemplate</td>
+      <td>(args: <a href="#table-container-args">TableContainerArgs</a>) =&gt; ReactElement</td>
+      <td> </td>
+      <td>A component that renders a table wrapper containing a drop target.</td>
+    </tr>
+    <tr>
+      <td>reorderingRowTemplate</td>
+      <td>(args: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a>) =&gt; ReactElement</td>
+      <td> </td>
+      <td>A non-visual component that renders an invisible row required for drag-and-drop reordering.</td>
+    </tr>
+    <tr>
+      <td>reorderingCellTemplate</td>
+      <td>(args: <a href="#reordering-cell-args">ReorderingCellArgs</a>) =&gt; ReactElement</td>
+      <td> </td>
+      <td>A non-visual component that renders an invisible cell required for drag-and-drop reordering.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="emptymessageargs"><a name="empty-message-args"></a>EmptyMessageArgs</h3>
+<h2 id="interfaces">Interfaces</h2>
 
-<p>Describes properties passed to the empty message template when it is being rendered.</p>
+<h3 id="tablecontainerargs"><a name="table-container-args"></a>TableContainerArgs</h3>
+
+<p>Describes properties passed to the table container template.</p>
+
+<p>A value with the following shape:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -522,32 +544,42 @@
   </thead>
   <tbody>
     <tr>
-      <td>getMessage</td>
-      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
-      <td>Returns the text displayed when all columns are hidden.</td>
+      <td>onOver</td>
+      <td>(args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) =&gt; void</td>
+      <td>Handles the column’s “drag over” event.</td>
+    </tr>
+    <tr>
+      <td>onLeave</td>
+      <td>(args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) =&gt; void</td>
+      <td>Handles the column’s “drag leave” event.</td>
+    </tr>
+    <tr>
+      <td>onDrop</td>
+      <td>(args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) =&gt; void</td>
+      <td>Handles the column’s “drop” event.</td>
     </tr>
   </tbody>
 </table>
 
-<h2 id="localization-messages">Localization Messages</h2>
+<h3 id="reorderingcellargs"><a name="reordering-cell-args"></a>ReorderingCellArgs</h3>
 
-<p>An object with the following shape:</p>
+<p>Describes properties passed to the reordering row cell template.</p>
+
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
       <th>Field</th>
       <th>Type</th>
-      <th>Default</th>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>noColumns?</td>
-      <td>string</td>
-      <td>‘Nothing to show’</td>
-      <td>Specifies the text displayed when the plugin does not contain visible columns.</td>
+      <td>getCellDimensions</td>
+      <td>(dimensionsGetter: () =&gt; { left: number, right: number }) =&gt; void)</td>
+      <td>Accepts a function that returns the cell’s horizontal boundaries.</td>
     </tr>
   </tbody>
 </table>
@@ -572,6 +604,30 @@
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
       <td>Table columns.</td>
     </tr>
+    <tr>
+      <td>tableHeaderRows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
+      <td>Header rows to be rendered.</td>
+    </tr>
+    <tr>
+      <td>tableView</td>
+      <td>Template</td>
+      <td>Object?</td>
+      <td>A template that renders the table.</td>
+    </tr>
+    <tr>
+      <td>tableViewRow</td>
+      <td>Template</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a></td>
+      <td>A template that renders a table row.</td>
+    </tr>
+    <tr>
+      <td>tableViewCell</td>
+      <td>Template</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
+      <td>A template that renders a table cell.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -591,7 +647,13 @@
       <td>tableColumns</td>
       <td>Getter</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
-      <td>Visible table columns.</td>
+      <td>Ordered table columns.</td>
+    </tr>
+    <tr>
+      <td>tableHeaderRows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
+      <td>Header rows including the service reordering row to be rendered.</td>
     </tr>
   </tbody>
 </table>

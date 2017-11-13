@@ -38,4 +38,4 @@ Packages:
 
 ## Support & Feedback
 
-Use [GitHub Issues](https://github.com/DevExpress/devextreme-reactive/issues) for reporting bugs, questions, and feature requests. If you have DevExtreme Commercial license, you may write to [support center](https://www.devexpress.com/ask) in order to receive an answer shortly.
+Use [GitHub Issues](https://github.com/DevExpress/devextreme-reactive/issues) for reporting bugs, questions, and feature requests. If you own an active DevExtreme license, feel free to contact us in the [Support Center](https://www.devexpress.com/ask) to receive an answer shortly.

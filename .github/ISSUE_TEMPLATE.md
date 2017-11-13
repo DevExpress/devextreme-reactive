@@ -1,13 +1,12 @@
 <!--
     If you have any questions regarding your scenario or components behavior, please provide a detailed explanation.
-    If you have DevExtreme Commercial license, you may write to support center (https://www.devexpress.com/ask) in order to receive an answer shortly.
+    If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask) to receive an answer shortly.
 -->
 
 <!--
     Checked checkbox should look like this: [x]
 -->
 - [ ] I have searched the [issues](https://github.com/devexpress/devextreme-reactive/issues) of this repository and believe that this is not a duplicate.
-
 
 ### Current Behaviour
 

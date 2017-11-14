@@ -94,7 +94,7 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellRight]: align === 'right',
       [classes.cellNoUserSelect]: allowDragging || allowSorting,
       [classes.cellDraggable]: allowDragging,
-      [classes.cellDimmed]: dragging || tableColumn.draft,
+      [classes.cellDimmed]: dragging || tableColumn.dndProp,
     });
     const cellLayout = (
       <TableCell

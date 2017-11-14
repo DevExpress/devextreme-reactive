@@ -2,8 +2,8 @@ import { TABLE_DATA_TYPE } from '../table-view/constants';
 import { TABLE_GROUP_TYPE } from './constants';
 import { GROUP_ADD_MODE, GROUP_REMOVE_MODE } from '../grouping-state/constants';
 
-const isDraft = columnDraftGrouping => columnDraftGrouping.mode === GROUP_REMOVE_MODE
-  || columnDraftGrouping.mode === GROUP_ADD_MODE;
+const isDraft = columnDraftGrouping => columnDraftGrouping.dndProp === GROUP_REMOVE_MODE
+  || columnDraftGrouping.dndProp === GROUP_ADD_MODE;
 
 const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping, showColumnWhenGrouped) =>
   tableColumns
@@ -18,7 +18,7 @@ const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping, showColumnWh
       } else if (isDraft(columnDraftGrouping)) {
         return [...acc, {
           ...tableColumn,
-          draft: true,
+          dndProp: true,
         }];
       }
       return acc;

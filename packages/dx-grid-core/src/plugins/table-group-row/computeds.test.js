@@ -42,7 +42,7 @@ describe('TableGroupRow Plugin computeds', () => {
     it('should not remove column when grouping', () => {
       const draftGrouping = [
         { columnName: 'a' },
-        { columnName: 'c', draft: true, mode: GROUP_ADD_MODE },
+        { columnName: 'c', dndProp: GROUP_ADD_MODE },
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123, () => false))
         .toEqual([
@@ -54,15 +54,15 @@ describe('TableGroupRow Plugin computeds', () => {
           },
           { type: 'undefined', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
+          { type: TABLE_DATA_TYPE, column: { name: 'c' }, dndProp: true },
           { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
 
-    it('should add a draft column when ungrouping', () => {
+    it('should add a dndProp column when ungrouping', () => {
       const draftGrouping = [
         { columnName: 'a' },
-        { columnName: 'c', draft: true, mode: GROUP_REMOVE_MODE },
+        { columnName: 'c', dndProp: GROUP_REMOVE_MODE },
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123, () => false))
         .toEqual([
@@ -74,15 +74,15 @@ describe('TableGroupRow Plugin computeds', () => {
           },
           { type: 'undefined', column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
+          { type: TABLE_DATA_TYPE, column: { name: 'c' }, dndProp: true },
           { type: TABLE_DATA_TYPE, column: { name: 'd' } },
         ]);
     });
 
-    it('should add a draft column when reordering groups', () => {
+    it('should add a dndProp column when reordering groups', () => {
       const draftGrouping = [
         { columnName: 'a' },
-        { columnName: 'c', draft: true, mode: GROUP_REORDER_MODE },
+        { columnName: 'c', dndProp: GROUP_REORDER_MODE },
       ];
       expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123, () => false))
         .toEqual([

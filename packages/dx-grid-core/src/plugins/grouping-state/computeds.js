@@ -10,12 +10,14 @@ export const draftGrouping = (grouping, groupingChange) => {
     result = result.filter(g => g.columnName !== columnName);
     result.splice(groupIndex, 0, {
       columnName,
-      draft: true,
-      mode: grouping.length > result.length ? GROUP_REORDER_MODE : GROUP_ADD_MODE,
+      dndProp: grouping.length > result.length ? GROUP_REORDER_MODE : GROUP_ADD_MODE,
     });
   } else {
     result = result.map(g => (g.columnName === columnName
-      ? { columnName, draft: true, mode: GROUP_REMOVE_MODE }
+      ? {
+        columnName,
+        dndProp: GROUP_REMOVE_MODE,
+      }
       : g));
   }
 

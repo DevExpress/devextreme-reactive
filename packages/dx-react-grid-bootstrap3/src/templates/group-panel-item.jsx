@@ -8,7 +8,7 @@ const SPACE_KEY_CODE = 32;
 const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_KEY_CODE;
 
 export const GroupPanelItem = ({
-  column, draft,
+  column, dndProp,
   groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
 }) => {
@@ -42,7 +42,7 @@ export const GroupPanelItem = ({
       style={{
         marginRight: '5px',
         marginBottom: '5px',
-        ...draft ? { opacity: 0.3 } : null,
+        ...dndProp ? { opacity: 0.3 } : null,
       }}
     >
       <span
@@ -85,7 +85,10 @@ GroupPanelItem.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
-  draft: PropTypes.bool,
+  dndProp: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
@@ -94,7 +97,7 @@ GroupPanelItem.propTypes = {
 };
 
 GroupPanelItem.defaultProps = {
-  draft: false,
+  dndProp: false,
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,

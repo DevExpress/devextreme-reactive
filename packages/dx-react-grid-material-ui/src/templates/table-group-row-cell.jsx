@@ -9,7 +9,7 @@ import { withStyles } from 'material-ui/styles';
 const styles = theme => ({
   cell: {
     cursor: 'pointer',
-    paddingLeft: 0,
+    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingTop: (theme.spacing.unit / 2) - 1,
   },
@@ -21,6 +21,7 @@ const styles = theme => ({
     display: 'inline-block',
     height: theme.spacing.unit * 5,
     width: theme.spacing.unit * 5,
+    marginRight: (theme.spacing.unit / 2) + 2,
   },
   columnTitle: {
     verticalAlign: 'middle',

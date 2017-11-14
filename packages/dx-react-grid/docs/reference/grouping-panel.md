@@ -43,6 +43,7 @@ Field | Type | Description
 ------|------|------------
 column | [Column](#column) | Specifies the column associated with the item.
 draft | boolean | Specifies whether the item should be rendered for the preview.
+mode | string | Specifies grouping mode "add", "remove" or "reorder".
 
 ### <a name="group-panel-props"></a>GroupPanelProps
 

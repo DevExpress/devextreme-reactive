@@ -9,7 +9,7 @@ import { withStyles } from 'material-ui/styles';
 const styles = theme => ({
   cell: {
     cursor: 'pointer',
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: 0,
     paddingRight: theme.spacing.unit,
     paddingTop: (theme.spacing.unit / 2) - 1,
   },
@@ -19,7 +19,6 @@ const styles = theme => ({
   groupButton: {
     verticalAlign: 'middle',
     display: 'inline-block',
-    marginRight: theme.spacing.unit,
     height: theme.spacing.unit * 5,
     width: theme.spacing.unit * 5,
   },

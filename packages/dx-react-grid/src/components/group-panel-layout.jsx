@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { DragSource, DropTarget } from '@devexpress/dx-react-core';
-import { getColumnSortingDirection, getGroupCellTargetIndex } from '@devexpress/dx-grid-core';
+import {
+  GROUP_ADD_MODE,
+  getColumnSortingDirection,
+  getGroupCellTargetIndex,
+} from '@devexpress/dx-grid-core';
 
 const getSortingConfig = (sorting, column) => {
   const result = {
@@ -51,8 +55,14 @@ export class GroupPanelLayout extends React.PureComponent {
       this.setState({ targetColumnIndex });
     };
     this.onLeave = () => {
-      const { draftGroupingChange } = this.props;
+      const { draftGroupingChange, groupingPanelItems } = this.props;
       const { sourceColumnName } = this.state;
+      const sourceItem = groupingPanelItems.filter(item =>
+        item.column.name === sourceColumnName)[0];
+      if (sourceItem.mode === GROUP_ADD_MODE) {
+        this.resetState();
+        return;
+      }
       draftGroupingChange({
         columnName: sourceColumnName,
         groupIndex: -1,

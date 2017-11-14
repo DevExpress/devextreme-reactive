@@ -36,11 +36,11 @@ const GroupPanelItemBase = ({
   column,
   groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
-  classes, dndProp,
+  classes, draft,
 }) => {
   const chipClassNames = classNames({
     [classes.button]: true,
-    [classes.draftCell]: dndProp,
+    [classes.draftCell]: draft,
   });
   const onClick = (e) => {
     if (!allowSorting) return;
@@ -71,7 +71,7 @@ GroupPanelItemBase.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
-  dndProp: PropTypes.oneOfType([
+  draft: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
   ]),
@@ -84,7 +84,7 @@ GroupPanelItemBase.propTypes = {
 };
 
 GroupPanelItemBase.defaultProps = {
-  dndProp: false,
+  draft: undefined,
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,

@@ -17,7 +17,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         });
     });
 
-    it('should work with existing dndProp', () => {
+    it('should work with existing draft', () => {
       const state = {
         columnWidths: { a: 40, b: 60 },
         draftColumnWidths: { a: 45 },

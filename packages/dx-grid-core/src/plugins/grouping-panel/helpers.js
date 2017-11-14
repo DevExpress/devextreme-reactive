@@ -1,11 +1,11 @@
 export const groupingPanelItems = (columns, grouping) =>
   grouping.map(({
     columnName,
-    dndProp,
+    draft,
   }) => {
     const column = columns.find(c => c.name === columnName);
     return {
       column,
-      dndProp,
+      draft,
     };
   });

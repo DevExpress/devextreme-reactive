@@ -27,7 +27,7 @@ const defaultDeps = {
     tableColumns: [{ type: 'undefined', id: 1, column: 'column' }],
     tableBodyRows: [{ type: 'undefined', id: 1, row: 'row' }],
     grouping: [{ columnName: 'a' }],
-    draftGrouping: [{ columnName: 'a' }, { columnName: 'b', dndProp: GROUP_ADD_MODE }],
+    draftGrouping: [{ columnName: 'a' }, { columnName: 'b', draft: GROUP_ADD_MODE }],
     expandedGroups: new Map(),
     isGroupRow: () => false,
   },

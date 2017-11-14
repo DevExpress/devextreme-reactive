@@ -189,7 +189,7 @@ describe('GroupPanelLayout', () => {
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
-            groupingPanelItems={[{ column, dndProp: GROUP_REMOVE_MODE }]}
+            groupingPanelItems={[{ column, draft: GROUP_REMOVE_MODE }]}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
@@ -306,7 +306,7 @@ describe('GroupPanelLayout', () => {
         .toHaveBeenCalledTimes(1);
     });
 
-    it('should call cancelGroupingChange on drag leave in the "add" dndProp', () => {
+    it('should call cancelGroupingChange on drag leave in the "add" draft', () => {
       const column = { name: 'a' };
       const cancelGroupingChange = jest.fn();
       const draftGroupingChange = jest.fn();
@@ -314,7 +314,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             columns={[column]}
-            groupingPanelItems={[{ column, dndProp: GROUP_ADD_MODE }]}
+            groupingPanelItems={[{ column, draft: GROUP_ADD_MODE }]}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             cancelGroupingChange={cancelGroupingChange}

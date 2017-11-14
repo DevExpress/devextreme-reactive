@@ -5,7 +5,7 @@ import { GROUP_ADD_MODE, GROUP_REMOVE_MODE, GROUP_REORDER_MODE } from './constan
 
 describe('GroupingPlugin computeds', () => {
   describe('#draftGrouping', () => {
-    it('can add dndProp column to draftGrouping', () => {
+    it('can add draft column to draftGrouping', () => {
       const grouping = [
         { columnName: 'a' },
         { columnName: 'c' },
@@ -15,7 +15,7 @@ describe('GroupingPlugin computeds', () => {
       expect(processedGrouping)
         .toEqual([
           { columnName: 'a' },
-          { columnName: 'b', dndProp: GROUP_ADD_MODE },
+          { columnName: 'b', draft: GROUP_ADD_MODE },
           { columnName: 'c' },
         ]);
     });
@@ -29,7 +29,7 @@ describe('GroupingPlugin computeds', () => {
         ]);
     });
 
-    it('can mark a column as dndProp in draftGrouping', () => {
+    it('can mark a column as draft in draftGrouping', () => {
       const grouping = [
         { columnName: 'a' },
         { columnName: 'b' },
@@ -37,13 +37,13 @@ describe('GroupingPlugin computeds', () => {
 
       expect(draftGrouping(grouping, { columnName: 'a', groupIndex: -1 }))
         .toEqual([
-          { columnName: 'a', dndProp: GROUP_REMOVE_MODE },
+          { columnName: 'a', draft: GROUP_REMOVE_MODE },
           { columnName: 'b' },
         ]);
       expect(draftGrouping(grouping, { columnName: 'b', groupIndex: -1 }))
         .toEqual([
           { columnName: 'a' },
-          { columnName: 'b', dndProp: GROUP_REMOVE_MODE },
+          { columnName: 'b', draft: GROUP_REMOVE_MODE },
         ]);
     });
 
@@ -56,7 +56,7 @@ describe('GroupingPlugin computeds', () => {
       expect(draftGrouping(grouping, { columnName: 'a', groupIndex: 1 }))
         .toEqual([
           { columnName: 'b' },
-          { columnName: 'a', dndProp: GROUP_REORDER_MODE },
+          { columnName: 'a', draft: GROUP_REORDER_MODE },
         ]);
     });
   });

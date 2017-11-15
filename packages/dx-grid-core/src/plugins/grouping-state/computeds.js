@@ -14,10 +14,7 @@ export const draftGrouping = (grouping, groupingChange) => {
     });
   } else {
     result = result.map(g => (g.columnName === columnName
-      ? {
-        columnName,
-        draft: GROUP_REMOVE_MODE,
-      }
+      ? { columnName, draft: GROUP_REMOVE_MODE }
       : g));
   }
 

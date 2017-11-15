@@ -306,7 +306,7 @@ describe('GroupPanelLayout', () => {
         .toHaveBeenCalledTimes(1);
     });
 
-    it('should call cancelGroupingChange on drag leave in the "add" draft', () => {
+    it('should call cancelGroupingChange on drag leave when the draft is "add"', () => {
       const column = { name: 'a' };
       const cancelGroupingChange = jest.fn();
       const draftGroupingChange = jest.fn();

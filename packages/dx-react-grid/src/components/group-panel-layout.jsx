@@ -59,7 +59,7 @@ export class GroupPanelLayout extends React.PureComponent {
       const { sourceColumnName } = this.state;
       const sourceItem = groupingPanelItems.filter(item =>
         item.column.name === sourceColumnName)[0];
-      if (sourceItem && sourceItem.draft === GROUP_ADD_MODE) { // draft -> new_name
+      if (sourceItem && sourceItem.draft === GROUP_ADD_MODE) {
         this.resetState();
         return;
       }
@@ -187,10 +187,7 @@ GroupPanelLayout.propTypes = {
   changeSortingDirection: PropTypes.func,
   groupingPanelItems: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.object,
-    draft: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.bool,
-    ]),
+    draft: PropTypes.string,
   })).isRequired,
   groupByColumn: PropTypes.func,
   groupByColumnText: PropTypes.any,

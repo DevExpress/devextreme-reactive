@@ -46,9 +46,6 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
-  clearPadding: {
-    padding: 0,
-  },
 });
 
 class TableHeaderCellBase extends React.PureComponent {
@@ -82,7 +79,8 @@ class TableHeaderCellBase extends React.PureComponent {
       allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
-      classes, getMessage,
+      classes, getMessage, className,
+      ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = column.align || 'left';
@@ -95,9 +93,15 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellNoUserSelect]: allowDragging || allowSorting,
       [classes.cellDraggable]: allowDragging,
       [classes.cellDimmed]: dragging || tableColumn.draft,
-    });
+    }, className);
+
+    const {
+      tableRow, changeSortingDirection, ...cellRelatedProps
+    } = restProps;
+
     const cellLayout = (
       <TableCell
+        {...cellRelatedProps}
         style={style}
         className={tableCellClasses}
         numeric={align === 'right'}
@@ -162,6 +166,7 @@ TableHeaderCellBase.propTypes = {
   changeDraftColumnWidth: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -177,6 +182,7 @@ TableHeaderCellBase.defaultProps = {
   allowResizing: false,
   changeColumnWidth: undefined,
   changeDraftColumnWidth: undefined,
+  className: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

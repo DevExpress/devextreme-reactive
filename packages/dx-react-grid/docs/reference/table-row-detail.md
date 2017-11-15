@@ -75,7 +75,7 @@ tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Tabl
 tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Body rows to be rendered.
 expandedRows | Getter | Array&lt;number &#124; string&gt; | Expanded rows.
 setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row.
-tableViewCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
+tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
 tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
 
 ### Exports

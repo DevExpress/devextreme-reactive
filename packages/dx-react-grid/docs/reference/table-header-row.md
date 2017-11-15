@@ -78,7 +78,7 @@ setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. Each shift is added to the original column width value.
 changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
-tableViewCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
+tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
 tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
 
 ### Exports

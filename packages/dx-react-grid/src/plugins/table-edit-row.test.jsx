@@ -35,7 +35,7 @@ const defaultDeps = {
     changeRow: jest.fn(),
   },
   template: {
-    tableViewCell: {
+    tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
@@ -113,19 +113,19 @@ describe('TableEditRow', () => {
 
     expect(defaultDeps.getter.getCellValue)
       .toBeCalledWith(
-        { ...defaultDeps.template.tableViewCell.tableRow.row },
-        defaultDeps.template.tableViewCell.tableColumn.column.name,
+        { ...defaultDeps.template.tableCell.tableRow.row },
+        defaultDeps.template.tableCell.tableColumn.column.name,
       );
     expect(isEditTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(editCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
-        column: defaultDeps.template.tableViewCell.tableColumn.column,
+        ...defaultDeps.template.tableCell,
+        row: defaultDeps.template.tableCell.tableRow.row,
+        column: defaultDeps.template.tableCell.tableColumn.column,
       }));
   });
 
@@ -176,7 +176,7 @@ describe('TableEditRow', () => {
     getRowChange.mockImplementation(() => ({ a: undefined }));
     const deps = {
       template: {
-        tableViewCell: {
+        tableCell: {
           tableRow: { row: { a: 'a1', b: 'b1' } },
           tableColumn: { column: { name: 'column' } },
         },
@@ -211,7 +211,7 @@ describe('TableEditRow', () => {
         getCellValue: jest.fn(() => 'a2'),
       },
       template: {
-        tableViewCell: {
+        tableCell: {
           tableRow: { row: { a: 'a1', b: 'b1' } },
           tableColumn: { column: { name: 'column', dataType: 'column' } },
         },
@@ -236,8 +236,8 @@ describe('TableEditRow', () => {
 
     expect(valueEditor)
       .toHaveBeenCalledWith({
-        column: deps.template.tableViewCell.tableColumn.column,
-        row: deps.template.tableViewCell.tableRow.row,
+        column: deps.template.tableCell.tableColumn.column,
+        row: deps.template.tableCell.tableRow.row,
         value: deps.getter.getCellValue(),
         onValueChange: expect.any(Function),
       });

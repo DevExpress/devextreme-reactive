@@ -62,7 +62,7 @@ export class TableRowDetail extends React.PureComponent {
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -77,7 +77,7 @@ export class TableRowDetail extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (

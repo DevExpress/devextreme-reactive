@@ -150,7 +150,7 @@ describe('TableColumnReordering', () => {
                     {tableColumns.map(tableColumn => tableColumn.type === TABLE_DATA_TYPE && (
                       <TemplatePlaceholder
                         key={tableColumn.column.name}
-                        name="tableViewCell"
+                        name="tableCell"
                         params={{
                           tableColumn,
                           tableRow: { key: TABLE_REORDERING_TYPE, type: TABLE_REORDERING_TYPE },

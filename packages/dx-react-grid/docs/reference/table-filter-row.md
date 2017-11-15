@@ -51,7 +51,7 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters.
 setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter. Removes the filter if config is `null`.
-tableViewCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
+tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
 tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
 
 ### Exports

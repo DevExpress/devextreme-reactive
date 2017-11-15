@@ -40,7 +40,7 @@ const defaultDeps = {
     commitDeletedRows: jest.fn(),
   },
   template: {
-    tableViewCell: {
+    tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
@@ -111,12 +111,12 @@ describe('TableHeaderRow', () => {
 
     expect(isHeadingEditCommandsTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(headingCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
+        ...defaultDeps.template.tableCell,
       }));
   });
 
@@ -135,13 +135,13 @@ describe('TableHeaderRow', () => {
 
     expect(isEditCommandsTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(cellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        ...defaultDeps.template.tableCell,
+        row: defaultDeps.template.tableCell.tableRow.row,
         isEditing: false,
       }));
   });

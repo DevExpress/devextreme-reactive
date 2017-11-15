@@ -67,7 +67,7 @@ tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be r
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows.
 availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection.
 setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean }) => void | Selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
-tableViewCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
+tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
 tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
 
 ### Exports

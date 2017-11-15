@@ -83,7 +83,7 @@ export class TableHeaderRow extends React.PureComponent {
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {params => (

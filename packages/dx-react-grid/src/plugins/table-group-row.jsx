@@ -95,7 +95,7 @@ export class TableGroupRow extends React.PureComponent {
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
 
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isGroupTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -123,7 +123,7 @@ export class TableGroupRow extends React.PureComponent {
         </Template>
         {groupIndentCellTemplate && (
           <Template
-            name="tableViewCell"
+            name="tableCell"
             predicate={({ tableRow, tableColumn }) => isGroupIndentTableCell(tableRow, tableColumn)}
           >
             {params => (

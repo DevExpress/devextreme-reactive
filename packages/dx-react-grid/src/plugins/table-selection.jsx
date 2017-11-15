@@ -80,7 +80,7 @@ export class TableSelection extends React.PureComponent {
 
         {(showSelectionColumn && showSelectAll) && (
           <Template
-            name="tableViewCell"
+            name="tableCell"
             predicate={({ tableRow, tableColumn }) => isSelectAllTableCell(tableRow, tableColumn)}
           >
             {params => (
@@ -97,7 +97,7 @@ export class TableSelection extends React.PureComponent {
         )}
         {showSelectionColumn && (
           <Template
-            name="tableViewCell"
+            name="tableCell"
             predicate={({ tableRow, tableColumn }) => isSelectTableCell(tableRow, tableColumn)}
           >
             {params => (

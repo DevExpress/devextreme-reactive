@@ -29,7 +29,7 @@ const defaultDeps = {
     setRowsSelection: jest.fn(),
   },
   template: {
-    tableViewCell: {
+    tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
@@ -103,13 +103,13 @@ describe('Table Selection', () => {
 
     expect(isSelectTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(selectCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        ...defaultDeps.template.tableCell,
+        row: defaultDeps.template.tableCell.tableRow.row,
       }));
   });
 
@@ -129,11 +129,11 @@ describe('Table Selection', () => {
 
     expect(isSelectAllTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(selectAllCellTemplate)
-      .toBeCalledWith(expect.objectContaining(defaultDeps.template.tableViewCell));
+      .toBeCalledWith(expect.objectContaining(defaultDeps.template.tableCell));
   });
 
   it('should render row by using selectRowTemplate if selectByRowClick is true', () => {

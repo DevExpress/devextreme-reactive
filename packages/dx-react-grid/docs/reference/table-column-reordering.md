@@ -53,7 +53,7 @@ tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Tabl
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
 table | Template | Object? | A template that renders the table.
 tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
-tableViewCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
+tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
 
 ### Exports
 

@@ -79,7 +79,7 @@ export class TableEditRow extends React.PureComponent {
       >
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isEditTableCell(tableRow, tableColumn)}
         >
           {params => (

@@ -88,7 +88,7 @@ expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | E
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state.
 tableViewCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
+tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
 
 ### Exports
 

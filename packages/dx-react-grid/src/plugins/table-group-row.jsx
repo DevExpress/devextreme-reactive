@@ -135,7 +135,7 @@ export class TableGroupRow extends React.PureComponent {
           </Template>
         )}
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
           {params => (

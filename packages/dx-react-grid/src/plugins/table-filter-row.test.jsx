@@ -35,7 +35,7 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       style: {},
     },
@@ -167,8 +167,8 @@ describe('TableFilterRow', () => {
         />
       </PluginHost>
     ));
-    expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
-    expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+    expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableRow);
   });
 
   it('should pass getMessage function to filterTableCellTemplate', () => {

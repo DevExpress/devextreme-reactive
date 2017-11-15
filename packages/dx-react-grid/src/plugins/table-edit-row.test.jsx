@@ -40,7 +40,7 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
       style: {},
     },
@@ -143,10 +143,10 @@ describe('TableEditRow', () => {
       </PluginHost>
     ));
 
-    expect(isEditTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(isEditTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...defaultDeps.template.tableViewRow,
-      row: defaultDeps.template.tableViewRow.tableRow.row,
+      ...defaultDeps.template.tableRow,
+      row: defaultDeps.template.tableRow.tableRow.row,
     }));
   });
 
@@ -164,10 +164,10 @@ describe('TableEditRow', () => {
       </PluginHost>
     ));
 
-    expect(isAddedTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(isAddedTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...defaultDeps.template.tableViewRow,
-      row: defaultDeps.template.tableViewRow.tableRow.row,
+      ...defaultDeps.template.tableRow,
+      row: defaultDeps.template.tableRow.tableRow.row,
     }));
   });
 

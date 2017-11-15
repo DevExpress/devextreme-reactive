@@ -106,7 +106,7 @@ export class TableEditRow extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
         >
           {params => (

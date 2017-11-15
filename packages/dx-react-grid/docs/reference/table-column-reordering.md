@@ -52,7 +52,7 @@ Name | Plugin | Type | Description
 tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
 table | Template | Object? | A template that renders the table.
-tableViewRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
+tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
 tableViewCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
 
 ### Exports

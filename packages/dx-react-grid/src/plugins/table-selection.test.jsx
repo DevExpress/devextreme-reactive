@@ -34,7 +34,7 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       style: {},
     },
@@ -152,18 +152,18 @@ describe('Table Selection', () => {
     ));
     selectRowTemplate.mock.calls[0][0].changeSelected();
 
-    expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
 
     expect(selectRowTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewRow,
+        ...defaultDeps.template.tableRow,
         selectByRowClick: true,
         selected: false,
       }));
 
     expect(defaultDeps.action.setRowsSelection.mock.calls[0][0])
       .toEqual({
-        rowIds: [defaultDeps.template.tableViewRow.tableRow.rowId],
+        rowIds: [defaultDeps.template.tableRow.tableRow.rowId],
       });
   });
 
@@ -182,10 +182,10 @@ describe('Table Selection', () => {
       </PluginHost>
     ));
 
-    expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(selectRowTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewRow,
+        ...defaultDeps.template.tableRow,
         selected: true,
       }));
   });

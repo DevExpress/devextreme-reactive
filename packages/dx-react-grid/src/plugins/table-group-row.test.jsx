@@ -39,7 +39,7 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', id: 1, column: 'column' },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', id: 1, row: 'row' },
       style: {},
     },
@@ -352,10 +352,10 @@ describe('TableGroupRow', () => {
       </PluginHost>
     ));
 
-    expect(isGroupTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(isGroupTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(groupRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...defaultDeps.template.tableViewRow,
-      row: defaultDeps.template.tableViewRow.tableRow.row,
+      ...defaultDeps.template.tableRow,
+      row: defaultDeps.template.tableRow.tableRow.row,
     }));
   });
 });

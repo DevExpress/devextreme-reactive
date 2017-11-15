@@ -114,7 +114,7 @@ export class TableSelection extends React.PureComponent {
         )}
         {(highlightSelected || selectByRowClick) && (
           <Template
-            name="tableViewRow"
+            name="tableRow"
             predicate={({ tableRow }) => isDataTableRow(tableRow)}
           >
             {params => (

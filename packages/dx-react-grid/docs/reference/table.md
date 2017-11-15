@@ -154,4 +154,4 @@ tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be r
 tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered.
 table | Template | Object? | A template that renders the table.
 tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row.
+tableRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row.

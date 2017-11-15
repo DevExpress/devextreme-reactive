@@ -91,7 +91,7 @@ export class TableFilterRow extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isFilterTableRow(tableRow)}
         >
           {params => (

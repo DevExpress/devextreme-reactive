@@ -58,7 +58,7 @@ changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void |
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 createRowChange | Getter | (row: any, columnName: string, value: string &#124; string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.
 tableViewCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
+tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
 
 ### Exports
 

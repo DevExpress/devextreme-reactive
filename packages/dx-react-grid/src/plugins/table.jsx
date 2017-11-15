@@ -58,7 +58,7 @@ const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 const cellTemplate = params =>
   <TemplatePlaceholder name="tableViewCell" params={params} />;
 const rowTemplate = params =>
-  <TemplatePlaceholder name="tableViewRow" params={params} />;
+  <TemplatePlaceholder name="tableRow" params={params} />;
 
 export class Table extends React.PureComponent {
   render() {
@@ -164,7 +164,7 @@ export class Table extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
           {params => (
@@ -179,7 +179,7 @@ export class Table extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
           {params => (

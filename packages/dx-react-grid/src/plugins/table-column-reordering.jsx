@@ -157,7 +157,7 @@ export class TableColumnReordering extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => tableRow.type === TABLE_REORDERING_TYPE}
         >
           {params => (

@@ -30,7 +30,7 @@ const defaultDeps = {
       tableColumn: { type: 'undefined', column: { name: 'a' } },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       style: {},
     },
@@ -121,9 +121,9 @@ describe('TableHeaderRow', () => {
     ));
 
     expect(isHeadingTableRow)
-      .toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(headerRowTemplate)
-      .toBeCalledWith(defaultDeps.template.tableViewRow);
+      .toBeCalledWith(defaultDeps.template.tableRow);
   });
 
   it('should pass correct getMessage prop to TableHeaderRowTemplate', () => {

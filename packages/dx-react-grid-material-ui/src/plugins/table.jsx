@@ -1,27 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
-import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
+import { Table as TableViewBase } from '@devexpress/dx-react-grid';
+import { TableRow } from '../templates/table-row';
 import { TableLayout } from '../templates/table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
-import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
-import { TableRow } from '../templates/table-row';
 
 const tableLayoutTemplate = props => <TableLayout {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
 const defaultStubCellTemplate = props => <TableStubCell {...props} />;
-const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
 };
 
-export class TableView extends React.PureComponent {
+export class Table extends React.PureComponent {
   render() {
     const {
       tableCellTemplate,
@@ -55,7 +53,7 @@ export class TableView extends React.PureComponent {
         )}
         tableStubHeaderCellTemplate={combineTemplates(
           tableStubHeaderCellTemplate,
-          defaultStubHeaderCellTemplate,
+          defaultStubCellTemplate,
         )}
         tableNoDataCellTemplate={combineTemplates(
           tableNoDataCellTemplate,
@@ -68,7 +66,7 @@ export class TableView extends React.PureComponent {
   }
 }
 
-TableView.propTypes = {
+Table.propTypes = {
   tableCellTemplate: PropTypes.func,
   tableRowTemplate: PropTypes.func,
   tableNoDataRowTemplate: PropTypes.func,
@@ -80,7 +78,7 @@ TableView.propTypes = {
   }),
 };
 
-TableView.defaultProps = {
+Table.defaultProps = {
   tableCellTemplate: undefined,
   tableRowTemplate: undefined,
   tableNoDataRowTemplate: undefined,

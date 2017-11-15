@@ -40,7 +40,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['FilteringState', 'TableView'],
+  plugins: ['FilteringState', 'Table'],
 };
 
 const defaultProps = {

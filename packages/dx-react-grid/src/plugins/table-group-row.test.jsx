@@ -44,7 +44,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['GroupingState', 'TableView'],
+  plugins: ['GroupingState', 'Table'],
 };
 
 const defaultProps = {

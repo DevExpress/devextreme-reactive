@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableFilterRow,
   TableGroupRow,
@@ -87,7 +87,7 @@ export default class Demo extends React.PureComponent {
           defaultPageSize={5}
         />
         <LocalPaging />
-        <TableView
+        <Table
           messages={tableViewMessages}
         />
         <TableHeaderRow allowDragging />

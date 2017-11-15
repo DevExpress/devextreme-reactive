@@ -35,7 +35,7 @@ const getDetailTableRowTemplateArgs = params => ({
 });
 
 const pluginDependencies = [
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 export class TableRowDetail extends React.PureComponent {

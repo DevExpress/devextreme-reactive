@@ -60,7 +60,7 @@ const cellTemplate = params =>
 const rowTemplate = params =>
   <TemplatePlaceholder name="tableViewRow" params={params} />;
 
-export class TableView extends React.PureComponent {
+export class Table extends React.PureComponent {
   render() {
     const {
       tableLayoutTemplate,
@@ -77,7 +77,7 @@ export class TableView extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="TableView"
+        pluginName="Table"
         dependencies={[
           { pluginName: 'DataTypeProvider', optional: true },
         ]}
@@ -87,9 +87,9 @@ export class TableView extends React.PureComponent {
         <Getter name="tableColumns" computed={tableColumnsComputed} />
 
         <Template name="body">
-          <TemplatePlaceholder name="tableView" />
+          <TemplatePlaceholder name="table" />
         </Template>
-        <Template name="tableView">
+        <Template name="table">
           <TemplateConnector>
             {(getters, actions) => (
               <TemplateRenderer
@@ -194,7 +194,7 @@ export class TableView extends React.PureComponent {
   }
 }
 
-TableView.propTypes = {
+Table.propTypes = {
   tableLayoutTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
   tableRowTemplate: PropTypes.func.isRequired,
@@ -205,6 +205,6 @@ TableView.propTypes = {
   messages: PropTypes.object,
 };
 
-TableView.defaultProps = {
+Table.defaultProps = {
   messages: {},
 };

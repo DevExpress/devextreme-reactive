@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
@@ -61,7 +61,7 @@ export default class Demo extends React.PureComponent {
         <LocalSorting
           getColumnCompare={getColumnCompare}
         />
-        <TableView />
+        <Table />
         <TableHeaderRow allowSorting />
       </Grid>
     );

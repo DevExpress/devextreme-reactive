@@ -45,7 +45,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['EditingState', 'TableView'],
+  plugins: ['EditingState', 'Table'],
 };
 
 const defaultProps = {

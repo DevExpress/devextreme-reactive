@@ -70,8 +70,8 @@ react:
           path: /react/grid/docs/reference/custom-grouping
         - title: LocalPaging
           path: /react/grid/docs/reference/local-paging
-        - title: TableView
-          path: /react/grid/docs/reference/table-view
+        - title: Table
+          path: /react/grid/docs/reference/table
         - title: VirtualTableView
           path: /react/grid/docs/reference/virtual-table-view
         - title: TableHeaderRow

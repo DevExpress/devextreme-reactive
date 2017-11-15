@@ -40,7 +40,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['TableView'],
+  plugins: ['Table'],
 };
 
 const defaultProps = {

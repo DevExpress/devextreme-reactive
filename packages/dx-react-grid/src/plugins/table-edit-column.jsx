@@ -64,7 +64,7 @@ const getEditCommandsTableCellTemplateArgs = (
 
 const pluginDependencies = [
   { pluginName: 'EditingState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 export class TableEditColumn extends React.PureComponent {

@@ -39,7 +39,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['SelectionState', 'TableView'],
+  plugins: ['SelectionState', 'Table'],
 };
 
 const defaultProps = {

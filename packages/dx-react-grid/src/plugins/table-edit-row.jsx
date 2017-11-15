@@ -61,7 +61,7 @@ const getEditTableRowTemplateArgs = params => ({
 
 const pluginDependencies = [
   { pluginName: 'EditingState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
   { pluginName: 'DataTypeProvider', optional: true },
 ];
 

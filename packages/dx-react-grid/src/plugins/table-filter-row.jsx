@@ -35,7 +35,7 @@ const getValueEditorArgs = params => ({
 
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
   { pluginName: 'DataTypeProvider', optional: true },
 ];
 

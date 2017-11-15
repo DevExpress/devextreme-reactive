@@ -50,7 +50,7 @@ const getSelectTableRowTemplateArgs = (
 
 const pluginDependencies = [
   { pluginName: 'SelectionState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 export class TableSelection extends React.PureComponent {

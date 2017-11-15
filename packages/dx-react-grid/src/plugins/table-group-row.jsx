@@ -49,7 +49,7 @@ const getGroupTableRowTemplateArgs = params => ({
 
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
   { pluginName: 'DataTypeProvider', optional: true },
 ];
 

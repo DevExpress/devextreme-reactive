@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
-import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
+import { Table as TableViewBase } from '@devexpress/dx-react-grid';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableRow } from '../templates/table-row';

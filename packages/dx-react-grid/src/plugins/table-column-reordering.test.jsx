@@ -42,9 +42,9 @@ const defaultDeps = {
     tableHeaderRows: [],
   },
   template: {
-    tableView: {},
+    table: {},
   },
-  plugins: ['TableView'],
+  plugins: ['Table'],
 };
 const defaultClientOffset = { clientOffset: { x: 180 } };
 
@@ -110,7 +110,7 @@ describe('TableColumnReordering', () => {
       .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, ['b', 'a']);
   });
 
-  it('should render the "tableView" template', () => {
+  it('should render the "table" template', () => {
     mount((
       <DragDropContext>
         <PluginHost>
@@ -142,7 +142,7 @@ describe('TableColumnReordering', () => {
     const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount((
       <DragDropContext>
         <PluginHost>
-          <Template name="tableView">
+          <Template name="table">
             <div>
               <TemplateConnector>
                 {({ tableColumns }) => (

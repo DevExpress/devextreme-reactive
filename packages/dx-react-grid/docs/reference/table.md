@@ -1,6 +1,6 @@
 # Table Plugin Reference
 
-This plugin renders Grid data as a table. It contains the Table View and Table View Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
+This plugin renders Grid data as a table. It contains the Table and Table Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
 
 ## User Reference
 

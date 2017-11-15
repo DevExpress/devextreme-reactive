@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
-import { Table as TableViewBase } from '@devexpress/dx-react-grid';
+import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { TableRow } from '../templates/table-row';
 import { TableLayout } from '../templates/table-layout';
 import { TableCell } from '../templates/table-cell';
@@ -33,7 +33,7 @@ export class Table extends React.PureComponent {
     } = this.props;
 
     return (
-      <TableViewBase
+      <TableBase
         tableLayoutTemplate={tableLayoutTemplate}
         tableRowTemplate={combineTemplates(
           tableRowTemplate,

@@ -21,7 +21,7 @@ const styles = theme => ({
     display: 'inline-block',
     height: theme.spacing.unit * 5,
     width: theme.spacing.unit * 5,
-    marginRight: (theme.spacing.unit / 2) + 2,
+    marginRight: theme.spacing.unit,
   },
   columnTitle: {
     verticalAlign: 'middle',

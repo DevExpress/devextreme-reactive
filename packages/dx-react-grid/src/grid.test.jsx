@@ -23,9 +23,9 @@ describe('Grid', () => {
       columns: [],
       getRowId: () => {},
       getCellValue: () => {},
-      rootTemplate: () => {},
-      headerPlaceholderTemplate: () => {},
-      footerPlaceholderTemplate: () => {},
+      rootComponent: () => {},
+      headerPlaceholderComponent: () => {},
+      footerPlaceholderComponent: () => {},
     };
 
     const TestChildren = () => null;

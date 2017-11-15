@@ -7,7 +7,7 @@ export { TableRowDetail } from './plugins/table-row-detail';
 export { TableGroupRow } from './plugins/table-group-row';
 export { TableSelection } from './plugins/table-selection';
 export { TableView } from './plugins/table-view';
-export { VirtualTableView } from './plugins/virtual-table-view';
+export { VirtualTable } from './plugins/virtual-table';
 export { TableFilterRow } from './plugins/table-filter-row';
 export { TableHeaderRow } from './plugins/table-header-row';
 export { TableEditRow } from './plugins/table-edit-row';

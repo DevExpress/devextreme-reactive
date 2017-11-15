@@ -28,7 +28,7 @@ messages | object | | An object that specifies the [localization messages](#loca
 
 Describes properties passed to a data row's command cell template.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -47,7 +47,7 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 Describes properties passed to a heading row's command cell template.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -95,7 +95,7 @@ cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => 
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `changedRows` array.
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows specified by the ID for deletion, adding them to the `deletedRows` array.
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `deletedRows` array.
-tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
+tableViewCell | Template | [TableCellProps](table-view.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 

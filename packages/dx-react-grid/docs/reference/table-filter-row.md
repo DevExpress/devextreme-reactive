@@ -16,7 +16,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 rowHeight | number | | Specifies the filter row's height.
 filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a filter cell.
-filterRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a filter row.
+filterRowTemplate | (args: [TableRowProps](table-view.md#tablerowprops)) => ReactElement | | A component that renders a filter row.
 messages | object | | The object specifies [localization messages](#localization-messages).
 
 ## Interfaces
@@ -25,7 +25,7 @@ messages | object | | The object specifies [localization messages](#localization
 
 Describes properties passed to the filter row cell template.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -51,8 +51,8 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters.
 setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter. Removes the filter if config is `null`.
-tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.
+tableViewCell | Template | [TableCellProps](table-view.md#tablecellprops) | A template that renders a table cell.
+tableViewRow | Template | [TableRowProps](table-view.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

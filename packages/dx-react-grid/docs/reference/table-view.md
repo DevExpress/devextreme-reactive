@@ -13,13 +13,13 @@ This plugin renders Grid data as a table. It contains the Table View and Table V
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tableLayoutTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table layout using the specified parameters.
+tableLayoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | Renders a table layout using the specified parameters.
 tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters.
-tableRowTemplate | (args: [TableDataRowArgs](#table-data-row-args)) => ReactElement | | Renders a table row using the specified parameters.
-tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty.
-tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty.
-tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided.
-tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided.
+tableRowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | Renders a table row using the specified parameters.
+tableNoDataCellComponent | ElementType&lt;[TableNoDataCellProps](#tablenodatacellprops)&gt; | | Renders a table cell using the specified parameters when the table is empty.
+tableNoDataRowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | | Renders a table row using the specified parameters when the table is empty.
+tableStubCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | Renders a stub table cell if the cell value is not provided.
+tableStubHeaderCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | Renders a stub header cell if the cell value is not provided.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
@@ -33,7 +33,7 @@ Field | Type | Description
 align? | 'left' &#124; 'right' | Specifies the table column alignment.
 width? | number | Specifies the table column width in pixels.
 
-### <a name="table-args"></a>TableArgs
+### TableLayoutProps
 
 Describes properties passed to the table template when it is being rendered.
 
@@ -42,7 +42,8 @@ Field | Type | Description
 headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table header.
 bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table body.
 columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns.
-cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The template used to render table cells.
+rowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | The component used to render table rows.
+cellComponent | ElementType&lt;[TableCellArgs](#tablecellprops)&gt; | The component used to render table cells.
 
 ### <a name="table-row"></a>TableRow
 
@@ -71,7 +72,7 @@ type | string | Specifies the table column type. The specified value defines whi
 column? | [Column](#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
 
-### <a name="table-cell-args"></a>TableCellArgs
+### TableCellProps
 
 Describes properties passed to a cell template when it is being rendered.
 
@@ -88,7 +89,7 @@ colSpan? | number | The column count that the root cell element spans.
 
 Describes properties passed to the table cell template when it is being rendered.
 
-A value with the [TableCellArgs](#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -96,7 +97,7 @@ value | any | Specifies a value to be rendered within the cell.
 row | any | Specifies the cell's row.
 column | [Column](#column) | Specifies the cell's column.
 
-### <a name="table-no-data-cell-args"></a>TableNoDataCellArgs
+### TableNoDataCellProps
 
 Describes properties passed to the table cell being rendered when using an empty template.
 
@@ -104,7 +105,7 @@ Field | Type | Description
 ------|------|------------
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a cell when a table is empty.
 
-### <a name="table-row-args"></a>TableRowArgs
+### TableRowProps
 
 Describes properties passed to a row template when it is being rendered.
 
@@ -116,11 +117,11 @@ tableRow | [TableRow](#table-row) | A table row.
 children | ReactElement | A React element used to render a table row.
 style? | Object | Styles that should be applied to the root row element.
 
-### <a name="table-data-row-args"></a>TableDataRowArgs
+### TableDataRowProps
 
 Describes properties passed to the table row template when it is being rendered.
 
-A value with the [TableRowArgs](#table-row-args) shape extended by the following fields:
+A value with the [TableRowProps](#tablerowprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -153,5 +154,5 @@ tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to 
 tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered.
 tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered.
 tableView | Template | Object? | A template that renders the table.
-tableViewCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row.
+tableViewCell | Template | [TableCellProps](#tablecellprops) | A template that renders a table cell.
+tableViewRow | Template | [TableRowProps](#tablerowprops) | A template that renders a table row.

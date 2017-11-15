@@ -18,15 +18,20 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
-const getTableLayoutTemplateArgs = (
-  { rowTemplate, cellTemplate },
+const Row = props =>
+  <TemplatePlaceholder name="tableViewRow" params={props} />;
+const Cell = props =>
+  <TemplatePlaceholder name="tableViewCell" params={props} />;
+
+const getTableLayoutProps = (
+  params,
   { tableHeaderRows, tableBodyRows, tableColumns },
 ) => ({
   headerRows: tableHeaderRows,
   bodyRows: tableBodyRows,
   columns: tableColumns,
-  rowTemplate,
-  cellTemplate,
+  rowComponent: Row,
+  cellComponent: Cell,
 });
 
 const getDataTableCellTemplateArgs = (
@@ -55,21 +60,16 @@ const tableBodyRowsComputed = ({ rows, getRowId }) =>
   tableRowsWithDataRows(rows, getRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 
-const cellTemplate = params =>
-  <TemplatePlaceholder name="tableViewCell" params={params} />;
-const rowTemplate = params =>
-  <TemplatePlaceholder name="tableViewRow" params={params} />;
-
 export class TableView extends React.PureComponent {
   render() {
     const {
-      tableLayoutTemplate,
+      tableLayoutComponent: TableLayout,
       tableCellTemplate,
-      tableRowTemplate,
-      tableNoDataRowTemplate,
-      tableNoDataCellTemplate,
-      tableStubCellTemplate,
-      tableStubHeaderCellTemplate,
+      tableRowComponent: TableRow,
+      tableNoDataRowComponent: TableNoDataRow,
+      tableNoDataCellComponent: TableNoDataCell,
+      tableStubCellComponent: TableStubCell,
+      tableStubHeaderCellComponent: TableStubHeaderCell,
       messages,
     } = this.props;
 
@@ -92,10 +92,9 @@ export class TableView extends React.PureComponent {
         <Template name="tableView">
           <TemplateConnector>
             {(getters, actions) => (
-              <TemplateRenderer
-                template={tableLayoutTemplate}
-                params={getTableLayoutTemplateArgs(
-                  { rowTemplate, cellTemplate },
+              <TableLayout
+                {...getTableLayoutProps(
+                  {},
                   getters,
                   actions,
                 )}
@@ -107,17 +106,10 @@ export class TableView extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({ tableHeaderRows: headerRows }) =>
-                (isHeaderStubTableCell(params.tableRow, headerRows) ? (
-                  <TemplateRenderer
-                    template={tableStubHeaderCellTemplate}
-                    params={params}
-                  />
-                ) : (
-                  <TemplateRenderer
-                    template={tableStubCellTemplate}
-                    params={params}
-                  />
-                ))
+                (isHeaderStubTableCell(params.tableRow, headerRows)
+                  ? <TableStubHeaderCell {...params} />
+                  : <TableStubCell {...params} />
+                )
               }
             </TemplateConnector>
           )}
@@ -153,41 +145,19 @@ export class TableView extends React.PureComponent {
           name="tableViewCell"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {params => (
-            <TemplateRenderer
-              template={tableNoDataCellTemplate}
-              params={{
-                getMessage,
-                ...params,
-              }}
-            />
-          )}
+          {params => <TableNoDataCell {...{ getMessage, ...params }} />}
         </Template>
         <Template
           name="tableViewRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
-          {params => (
-            <TemplateConnector>
-              {() => (
-                <TemplateRenderer
-                  template={tableRowTemplate}
-                  params={getDataTableRowTemplateArgs(params)}
-                />
-              )}
-            </TemplateConnector>
-          )}
+          {params => <TableRow {...getDataTableRowTemplateArgs(params)} />}
         </Template>
         <Template
           name="tableViewRow"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {params => (
-            <TemplateRenderer
-              template={tableNoDataRowTemplate}
-              params={params}
-            />
-          )}
+          {params => <TableNoDataRow {...params} />}
         </Template>
       </PluginContainer>
     );
@@ -195,13 +165,13 @@ export class TableView extends React.PureComponent {
 }
 
 TableView.propTypes = {
-  tableLayoutTemplate: PropTypes.func.isRequired,
+  tableLayoutComponent: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
-  tableRowTemplate: PropTypes.func.isRequired,
-  tableNoDataCellTemplate: PropTypes.func.isRequired,
-  tableNoDataRowTemplate: PropTypes.func.isRequired,
-  tableStubCellTemplate: PropTypes.func.isRequired,
-  tableStubHeaderCellTemplate: PropTypes.func.isRequired,
+  tableRowComponent: PropTypes.func.isRequired,
+  tableNoDataCellComponent: PropTypes.func.isRequired,
+  tableNoDataRowComponent: PropTypes.func.isRequired,
+  tableStubCellComponent: PropTypes.func.isRequired,
+  tableStubHeaderCellComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

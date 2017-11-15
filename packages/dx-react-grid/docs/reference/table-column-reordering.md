@@ -16,7 +16,7 @@ order | Array&lt;string&gt; | | Specifies the column order.
 defaultOrder | Array&lt;string&gt; | | Specifies the initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
 tableContainerTemplate | (args: [TableContainerArgs](#table-container-args)) => ReactElement | | A component that renders a table wrapper containing a drop target.
-reorderingRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
+reorderingRowTemplate | (args: [TableRowProps](table-view.md#tablerowprops)) => ReactElement | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
 reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A non-visual component that renders an invisible cell required for drag-and-drop reordering.
 
 ## Interfaces
@@ -37,7 +37,7 @@ onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { 
 
 Describes properties passed to the reordering row cell template.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -52,8 +52,8 @@ Name | Plugin | Type | Description
 tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns.
 tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered.
 tableView | Template | Object? | A template that renders the table.
-tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.
-tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
+tableViewRow | Template | [TableRowProps](table-view.md#tablerowprops) | A template that renders a table row.
+tableViewCell | Template | [TableCellProps](table-view.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 

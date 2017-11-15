@@ -36,7 +36,7 @@ row | any | A row.
 
 Describes properties passed to the template that renders a detail cell for a row
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -47,7 +47,7 @@ template | () => ReactElement | A component that renders row details.
 
 Describes properties passed to the template that renders a detail row
 
-A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by the following fields:
+A value with the [TableRowProps](table-view.md#tablerowprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -57,7 +57,7 @@ row | any | A row.
 
 Describes properties passed to the template that renders the detail toggle control
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -75,8 +75,8 @@ tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; |
 tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Body rows to be rendered.
 expandedRows | Getter | Array&lt;number &#124; string&gt; | Expanded rows.
 setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row.
-tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.
+tableViewCell | Template | [TableCellProps](table-view.md#tablecellprops) | A template that renders a table cell.
+tableViewRow | Template | [TableRowProps](table-view.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

@@ -21,25 +21,25 @@ describe('TableLayout', () => {
     jest.resetAllMocks();
   });
 
-  it('should pass rowTemplate to TableLayoutCore', () => {
+  it('should pass rowComponent to TableLayoutCore', () => {
     const rowTemplateMock = jest.fn();
     const rowTemplateArgs = {
       row: 'row',
       children: null,
     };
-    TableLayoutCore.mockImplementation(({ rowTemplate }) => (
+    TableLayoutCore.mockImplementation(({ rowComponent }) => (
       <table>
-        {rowTemplate(rowTemplateArgs)}
+        {rowComponent(rowTemplateArgs)}
       </table>
     ));
 
     mount((
       <TableLayout
-        rowTemplate={rowTemplateMock}
+        rowComponent={rowTemplateMock}
         headerRows={[]}
         bodyRows={[]}
         columns={[]}
-        cellTemplate={() => {}}
+        cellComponent={() => {}}
       />
     ));
 

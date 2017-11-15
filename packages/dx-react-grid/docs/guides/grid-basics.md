@@ -50,7 +50,7 @@ Note that you can pass **undefined** to the `tableCellTemplate` property to rest
 
 .embedded-demo(basic/table-cell-template)
 
-The `TableView` plugin's `tableRowTemplate` property enables you to handle row events like `onClick`, `onContextMenu` etc. as demonstrated in the following demo:
+The `TableView` plugin's `tableRowComponent` property enables you to handle row events like `onClick`, `onContextMenu` etc. as demonstrated in the following demo:
 
 Note that the `children` argument field is used to render row cells in a default way.
 

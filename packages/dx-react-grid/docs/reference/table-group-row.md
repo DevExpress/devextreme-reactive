@@ -35,7 +35,7 @@ title? | string | Specifies a table column title.
 
 Describes the properties passed to the template that renders a group row.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -48,7 +48,7 @@ toggleGroupExpanded | () => void | Toggles the group row's expanded state.
 
 Describes the properties passed to the template that renders a group row.
 
-A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by the following fields:
+A value with the [TableRowProps](table-view.md#tablerowprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -58,7 +58,7 @@ row | [GroupRow](#group-row) | The group row.
 
 Describes properties passed to the template that renders a group indent cell.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -87,8 +87,8 @@ draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-groupi
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state.
-tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.
+tableViewCell | Template | [TableCellProps](table-view.md#tablecellprops) | A template that renders a table cell.
+tableViewRow | Template | [TableRowProps](table-view.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   PagingState,
   SortingState,
@@ -12,6 +13,20 @@ import {
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
+
+const LoadingNoDataCell = ({ colSpan }) => (
+  <td
+    style={{
+      textAlign: 'center',
+      padding: '40px 0',
+    }}
+    colSpan={colSpan}
+  />
+);
+
+LoadingNoDataCell.propTypes = {
+  colSpan: PropTypes.number.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -135,17 +150,7 @@ export default class Demo extends React.PureComponent {
               }
               return undefined;
             }}
-            tableNoDataCellTemplate={({ colSpan }) => (
-              <td
-                style={{
-                  textAlign: 'center',
-                  padding: '40px 0',
-                }}
-                colSpan={colSpan}
-              >
-                <big className="text-muted">{loading ? '' : 'No data'}</big>
-              </td>
-            )}
+            {...(loading ? { tableNoDataCellComponent: LoadingNoDataCell } : null)}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

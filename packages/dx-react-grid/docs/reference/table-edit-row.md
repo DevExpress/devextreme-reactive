@@ -24,7 +24,7 @@ editRowTemplate | (args: [EditRowArgs](#edit-row-args)) => ReactElement | | A co
 
 Describes properties passed to the edit row's cell template.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -37,7 +37,7 @@ onValueChange | (newValue: any) => void | Handles value changes.
 
 Describes properties passed to the edit row template.
 
-A value with the [TableRowArgs](table-view.md#table-row-args) shape extended by the following fields:
+A value with the [TableRowProps](table-view.md#tablerowprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -57,8 +57,8 @@ changedRows | Getter | { [key: string]: any } | An associative array storing cha
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 createRowChange | Getter | (row: any, columnName: string, value: string &#124; string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.
-tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.
+tableViewCell | Template | [TableCellProps](table-view.md#tablecellprops) | A template that renders a table cell.
+tableViewRow | Template | [TableRowProps](table-view.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

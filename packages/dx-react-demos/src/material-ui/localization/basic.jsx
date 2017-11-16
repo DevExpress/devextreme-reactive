@@ -26,7 +26,7 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const tableViewMessages = {
+const tableMessages = {
   noData: 'Keine Daten verfügbar',
 };
 const editColumnMessages = {
@@ -88,7 +88,7 @@ export default class Demo extends React.PureComponent {
         />
         <LocalPaging />
         <Table
-          messages={tableViewMessages}
+          messages={tableMessages}
         />
         <TableHeaderRow allowDragging />
 

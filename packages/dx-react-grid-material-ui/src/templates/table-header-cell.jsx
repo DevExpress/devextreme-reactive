@@ -101,10 +101,10 @@ class TableHeaderCellBase extends React.PureComponent {
 
     const cellLayout = (
       <TableCell
-        {...cellRelatedProps}
         style={style}
         className={tableCellClasses}
         numeric={align === 'right'}
+        {...cellRelatedProps}
       >
         {allowGroupingByClick && (
           <GroupingControl

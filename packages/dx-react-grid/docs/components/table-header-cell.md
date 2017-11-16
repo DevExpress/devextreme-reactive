@@ -9,7 +9,9 @@ A component that represents the default table header cell.
 Field | Type | Description
 ------|------|------------
 column | [Column](#column) | A column object.
+tableColumn | [TableColumn](../reference/table-view.md#table-column) | Table column.
 allowSorting | boolean | If true, an end-user can change sorting by a column.
+allowResizing | boolean | If true, an end-user can resize a column.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the column's sorting order.
 changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) | Changes column sorting direction. Keeps the existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 allowGroupingByClick | boolean | If true, a component that toggles a column's grouping state is rendered.

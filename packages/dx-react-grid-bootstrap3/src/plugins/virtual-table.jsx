@@ -3,23 +3,25 @@ import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
-import { TableRow } from '../templates/table-row';
 import { TableCell } from '../templates/table-cell';
-import { TableStubCell } from '../templates/table-stub-cell';
+import { TableRow } from '../templates/table-row';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
+import { TableStubCell } from '../templates/table-stub-cell';
+import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 
 const tableLayoutTemplate = props => <VirtualTableLayout {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
 const defaultStubCellTemplate = props => <TableStubCell {...props} />;
+const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
 };
 
-export class VirtualTableView extends React.PureComponent {
+export class VirtualTable extends React.PureComponent {
   render() {
     const {
       tableCellTemplate,
@@ -59,7 +61,7 @@ export class VirtualTableView extends React.PureComponent {
         )}
         tableStubHeaderCellTemplate={combineTemplates(
           tableStubHeaderCellTemplate,
-          defaultStubCellTemplate,
+          defaultStubHeaderCellTemplate,
         )}
         tableNoDataCellTemplate={combineTemplates(
           tableNoDataCellTemplate,
@@ -72,7 +74,7 @@ export class VirtualTableView extends React.PureComponent {
   }
 }
 
-VirtualTableView.propTypes = {
+VirtualTable.propTypes = {
   tableCellTemplate: PropTypes.func,
   tableRowTemplate: PropTypes.func,
   tableNoDataRowTemplate: PropTypes.func,
@@ -86,14 +88,14 @@ VirtualTableView.propTypes = {
   }),
 };
 
-VirtualTableView.defaultProps = {
+VirtualTable.defaultProps = {
   tableCellTemplate: undefined,
   tableRowTemplate: undefined,
   tableNoDataRowTemplate: undefined,
   tableStubCellTemplate: undefined,
   tableStubHeaderCellTemplate: undefined,
   tableNoDataCellTemplate: undefined,
-  estimatedRowHeight: 48,
+  estimatedRowHeight: 37,
   height: 530,
   messages: {},
 };

@@ -40,7 +40,7 @@ react:
           path: /react/grid/docs/guides/column-visibility
         - title: Localization
           path: /react/grid/docs/guides/localization
-    - title: Components' API Reference
+    - title: Components API
       items:
         - title: Grid
           path: /react/grid/docs/reference/grid
@@ -48,7 +48,7 @@ react:
           path: /react/grid/docs/reference/column-chooser
         - title: TableHeaderCell
           path: /react/grid/docs/components/table-header-cell
-    - title: Plugins' API Reference
+    - title: Grid Plugins API
       items:
         - title: FilteringState
           path: /react/grid/docs/reference/filtering-state

@@ -19,7 +19,7 @@ commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | | A com
 allowAdding | boolean | false | If set to true, the 'New' command is rendered within the heading row's command cell.
 allowEditing | boolean | false | If set to true, the 'Edit' command is rendered within the data row's command cell.
 allowDeleting | boolean | false | If set to true, the 'Delete' command is rendered within the data row's command cell.
-width | number &#124; string | 140 | Specifies the edit column's width.
+width | number &#124; string | | Specifies the edit column's width.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces

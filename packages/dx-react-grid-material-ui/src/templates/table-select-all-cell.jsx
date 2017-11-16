@@ -12,6 +12,7 @@ const styles = theme => ({
     overflow: 'visible',
     paddingRight: 0,
     paddingLeft: theme.spacing.unit,
+    textAlign: 'center',
   },
   pointer: {
     cursor: 'pointer',

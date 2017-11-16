@@ -8,6 +8,7 @@ export * from './plugins/filtering-state/reducers';
 export * from './plugins/filtering-state/helpers';
 export * from './plugins/local-filtering/computeds';
 
+export * from './plugins/grouping-state/constants';
 export * from './plugins/grouping-state/reducers';
 export * from './plugins/grouping-state/computeds';
 export * from './plugins/local-grouping/computeds';

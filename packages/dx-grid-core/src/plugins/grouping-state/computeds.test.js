@@ -1,6 +1,7 @@
 import {
   draftGrouping,
 } from './computeds';
+import { GROUP_ADD_MODE, GROUP_REMOVE_MODE, GROUP_REORDER_MODE } from './constants';
 
 describe('GroupingPlugin computeds', () => {
   describe('#draftGrouping', () => {
@@ -14,7 +15,7 @@ describe('GroupingPlugin computeds', () => {
       expect(processedGrouping)
         .toEqual([
           { columnName: 'a' },
-          { columnName: 'b', draft: true, mode: 'add' },
+          { columnName: 'b', draft: GROUP_ADD_MODE },
           { columnName: 'c' },
         ]);
     });
@@ -36,13 +37,13 @@ describe('GroupingPlugin computeds', () => {
 
       expect(draftGrouping(grouping, { columnName: 'a', groupIndex: -1 }))
         .toEqual([
-          { columnName: 'a', draft: true, mode: 'remove' },
+          { columnName: 'a', draft: GROUP_REMOVE_MODE },
           { columnName: 'b' },
         ]);
       expect(draftGrouping(grouping, { columnName: 'b', groupIndex: -1 }))
         .toEqual([
           { columnName: 'a' },
-          { columnName: 'b', draft: true, mode: 'remove' },
+          { columnName: 'b', draft: GROUP_REMOVE_MODE },
         ]);
     });
 
@@ -55,7 +56,7 @@ describe('GroupingPlugin computeds', () => {
       expect(draftGrouping(grouping, { columnName: 'a', groupIndex: 1 }))
         .toEqual([
           { columnName: 'b' },
-          { columnName: 'a', draft: true, mode: 'reorder' },
+          { columnName: 'a', draft: GROUP_REORDER_MODE },
         ]);
     });
   });

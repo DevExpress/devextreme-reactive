@@ -1,4 +1,4 @@
-# VirtualTableView Plugin Reference
+# VirtualTable Plugin Reference
 
 The plugin extends the [TableView](table-view.md) plugin. It renders a scrollable table instead of a static one.
 

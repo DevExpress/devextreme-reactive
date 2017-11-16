@@ -18,7 +18,7 @@ The plugin also allows an end-user to manage a column's sorting and grouping sta
 
 Name | Type | Default | Description
 -----|------|---------|------------
-headerCellTemplate | (args: [HeaderCellArgs](#header-cell-args)) => ReactElement | | A component that renders a header cell.
+headerCellTemplate | (args: [TableHeaderCell](../components/table-header-cell.md#properties)) => ReactElement | | A component that renders a header cell.
 headerRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a header row.
 allowSorting | boolean | false | If true, it allows an end-user to change sorting by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
@@ -35,16 +35,6 @@ A value with the [Column](grid.md#column) shape extended by the following fields
 Field | Type | Description
 ------|------|------------
 title? | string | Specifies a table column's title.
-
-### <a name="header-cell-args"></a>HeaderCellArgs
-
-Describes properties used to render a table header cell.
-
-A value with the [TableHeaderCell](../components/table-header-cell.md#properties) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-tableRow | [TableRow](table-view.md#table-row) | A table row.
 
 ## Plugin Developer Reference
 

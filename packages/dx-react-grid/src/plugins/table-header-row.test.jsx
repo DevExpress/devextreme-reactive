@@ -93,16 +93,16 @@ describe('TableHeaderRow', () => {
         />
       </PluginHost>
     ));
-
+    const { tableRow, tableColumn, ...headerCellTemplateArgs } = defaultDeps.template.tableViewCell;
     expect(isHeadingTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        tableRow,
+        tableColumn,
       );
     expect(headerCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        column: defaultDeps.template.tableViewCell.tableColumn.column,
+        ...headerCellTemplateArgs,
+        column: tableColumn.column,
       }));
   });
 

@@ -6,7 +6,7 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { TableRow } from 'material-ui';
+import { TableRow, Paper } from 'material-ui';
 
 import {
   generateRows,
@@ -41,13 +41,15 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <TableView tableRowTemplate={this.tableRowTemplate} />
-        <TableHeaderRow />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <TableView tableRowTemplate={this.tableRowTemplate} />
+          <TableHeaderRow />
+        </Grid>
+      </Paper>
     );
   }
 }

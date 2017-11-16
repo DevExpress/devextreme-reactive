@@ -8,7 +8,7 @@ import {
   TableHeaderRow,
   TableSelection,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -36,19 +36,20 @@ export default class Demo extends React.PureComponent {
     return (
       <div>
         <span>Total rows selected: {selection.length}</span>
-
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SelectionState
-            selection={selection}
-            onSelectionChange={this.changeSelection}
-          />
-          <VirtualTableView />
-          <TableHeaderRow />
-          <TableSelection />
-        </Grid>
+        <Paper>
+          <Grid
+            rows={rows}
+            columns={columns}
+          >
+            <SelectionState
+              selection={selection}
+              onSelectionChange={this.changeSelection}
+            />
+            <VirtualTableView />
+            <TableHeaderRow />
+            <TableSelection />
+          </Grid>
+        </Paper>
       </div>
     );
   }

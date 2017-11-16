@@ -4,7 +4,7 @@ import {
   VirtualTableView,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
   defaultColumnValues,
@@ -34,14 +34,16 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={getRowId}
-      >
-        <VirtualTableView />
-        <TableHeaderRow />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <VirtualTableView />
+          <TableHeaderRow />
+        </Grid>
+      </Paper>
     );
   }
 }

@@ -11,7 +11,7 @@ import {
   GroupingPanel,
   DragDropContext,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -37,21 +37,23 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <DragDropContext />
-        <GroupingState
-          grouping={this.state.grouping}
-          onGroupingChange={this.changeGrouping}
-        />
-        <LocalGrouping />
-        <TableView />
-        <TableHeaderRow allowDragging allowGroupingByClick />
-        <TableGroupRow />
-        <GroupingPanel allowDragging allowUngroupingByClick />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <DragDropContext />
+          <GroupingState
+            grouping={this.state.grouping}
+            onGroupingChange={this.changeGrouping}
+          />
+          <LocalGrouping />
+          <TableView />
+          <TableHeaderRow allowDragging allowGroupingByClick />
+          <TableGroupRow />
+          <GroupingPanel allowDragging allowUngroupingByClick />
+        </Grid>
+      </Paper>
     );
   }
 }

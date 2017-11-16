@@ -8,13 +8,13 @@ import {
   VirtualTableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   GroupingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
+import Paper from 'material-ui/Paper';
 import {
   ProgressBarCell,
 } from '../templates/progress-bar-cell';
 import {
   HighlightedCell,
 } from '../templates/highlighted-cell';
-
 import {
   generateRows,
   globalSalesValues,
@@ -58,43 +58,45 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={getRowId}
-      >
-        <DragDropContext />
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <DragDropContext />
 
-        <FilteringState
-          defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
-        />
-        <SortingState
-          defaultSorting={[
-            { columnName: 'product', direction: 'asc' },
-            { columnName: 'saleDate', direction: 'asc' },
-          ]}
-        />
-        <GroupingState
-          defaultGrouping={[{ columnName: 'product' }]}
-          defaultExpandedGroups={['EnviroCare Max']}
-        />
+          <FilteringState
+            defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
+          />
+          <SortingState
+            defaultSorting={[
+              { columnName: 'product', direction: 'asc' },
+              { columnName: 'saleDate', direction: 'asc' },
+            ]}
+          />
+          <GroupingState
+            defaultGrouping={[{ columnName: 'product' }]}
+            defaultExpandedGroups={['EnviroCare Max']}
+          />
 
-        <LocalFiltering />
-        <LocalSorting />
-        <LocalGrouping />
+          <LocalFiltering />
+          <LocalSorting />
+          <LocalGrouping />
 
-        <SelectionState />
+          <SelectionState />
 
-        <VirtualTableView
-          tableCellTemplate={this.tableCellTemplate}
-        />
-        <TableHeaderRow allowSorting allowDragging />
-        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-        <TableFilterRow />
-        <TableSelection />
-        <TableGroupRow />
-        <GroupingPanel allowSorting allowDragging />
-      </Grid>
+          <VirtualTableView
+            tableCellTemplate={this.tableCellTemplate}
+          />
+          <TableHeaderRow allowSorting allowDragging />
+          <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
+          <TableFilterRow />
+          <TableSelection />
+          <TableGroupRow />
+          <GroupingPanel allowSorting allowDragging />
+        </Grid>
+      </Paper>
     );
   }
 }

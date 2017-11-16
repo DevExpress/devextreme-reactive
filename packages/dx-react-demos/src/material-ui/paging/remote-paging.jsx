@@ -8,7 +8,7 @@ import {
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
@@ -75,7 +75,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <div style={{ position: 'relative' }}>
+      <Paper style={{ position: 'relative' }}>
         <Grid
           rows={rows}
           columns={columns}
@@ -91,7 +91,7 @@ export default class Demo extends React.PureComponent {
           <PagingPanel />
         </Grid>
         {loading && <Loading />}
-      </div>
+      </Paper>
     );
   }
 }

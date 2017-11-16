@@ -20,6 +20,7 @@ import {
   DialogTitle,
   MenuItem,
   Select,
+  Paper,
 } from 'material-ui';
 
 import DeleteIcon from 'material-ui-icons/Delete';
@@ -270,7 +271,7 @@ class DemoBase extends React.PureComponent {
     } = this.state;
 
     return (
-      <div>
+      <Paper>
         <Grid
           rows={rows}
           columns={columns}
@@ -352,7 +353,7 @@ class DemoBase extends React.PureComponent {
             <Button onClick={this.deleteRows} color="accent">Delete</Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </Paper>
     );
   }
 }

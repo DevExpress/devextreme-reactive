@@ -37,13 +37,15 @@ const GridDetailContainerBase = ({
     <div>
       <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
     </div>
-    <Grid
-      rows={data.tasks}
-      columns={columns}
-    >
-      <TableView />
-      <TableHeaderRow />
-    </Grid>
+    <Paper>
+      <Grid
+        rows={data.tasks}
+        columns={columns}
+      >
+        <TableView />
+        <TableHeaderRow />
+      </Grid>
+    </Paper>
   </div>
 );
 GridDetailContainerBase.propTypes = {

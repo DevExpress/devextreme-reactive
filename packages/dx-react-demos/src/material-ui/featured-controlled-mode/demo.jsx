@@ -338,15 +338,17 @@ class DemoBase extends React.PureComponent {
             <DialogContentText>
               Are you sure to delete the following row?
             </DialogContentText>
-            <Grid
-              rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
-              columns={columns}
-            >
-              <TableView
-                tableCellTemplate={this.tableCellTemplate}
-              />
-              <TableHeaderRow />
-            </Grid>
+            <Paper>
+              <Grid
+                rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
+                columns={columns}
+              >
+                <TableView
+                  tableCellTemplate={this.tableCellTemplate}
+                />
+                <TableHeaderRow />
+              </Grid>
+            </Paper>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.cancelDelete} color="primary">Cancel</Button>

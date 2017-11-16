@@ -86,7 +86,7 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableViewCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
-          {params => (
+          {({ tableRow, ...restParams }) => (
             <TemplateConnector>
               {(getters, actions) => (
                 <TemplateRenderer
@@ -98,7 +98,7 @@ export class TableHeaderRow extends React.PureComponent {
                       allowSorting,
                       allowResizing,
                       getMessage,
-                      ...params,
+                      ...restParams,
                     },
                     getters,
                     actions,

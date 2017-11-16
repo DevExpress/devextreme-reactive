@@ -16,13 +16,13 @@ const styles = theme => ({
     whiteSpace: 'nowrap',
     textAlign: 'center',
     paddingLeft: theme.spacing.unit * 3,
-    paddingRight: 0,
+    paddingRight: theme.spacing.unit * 2,
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
     paddingLeft: theme.spacing.unit * 3,
-    paddingRight: 0,
+    paddingRight: theme.spacing.unit * 2,
   },
 });
 

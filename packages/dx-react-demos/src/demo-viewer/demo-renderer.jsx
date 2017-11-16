@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Paper } from 'material-ui';
+
 import { themes, demos } from '../demo-registry';
 
 export const DemoRenderer = ({
@@ -15,11 +17,19 @@ export const DemoRenderer = ({
   const { DemoContainer } = themes
     .find(({ name: theme }) => theme === currentTheme);
 
-  return (
+  const demo = (
     <DemoContainer>
       <Component />
     </DemoContainer>
   );
+  if (currentTheme === 'material-ui') {
+    return (
+      <Paper>
+        {demo}
+      </Paper>
+    );
+  }
+  return demo;
 };
 
 DemoRenderer.propTypes = {

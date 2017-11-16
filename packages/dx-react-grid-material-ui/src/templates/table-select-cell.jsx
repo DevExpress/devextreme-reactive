@@ -30,14 +30,14 @@ export const TableSelectCellBase = ({
     padding="checkbox"
     style={style}
     className={classes.cell}
-    onClick={(e) => {
-      e.stopPropagation();
-      changeSelected();
-    }}
   >
     <Checkbox
       className={classes.checkbox}
       checked={selected}
+      onClick={(e) => {
+        e.stopPropagation();
+        changeSelected();
+      }}
     />
   </TableCell>
 );

@@ -16,7 +16,7 @@ export class TableSelection extends React.PureComponent {
         selectCellTemplate={selectCellTemplate}
         selectRowTemplate={selectRowTemplate}
         selectAllCellTemplate={selectAllCellTemplate}
-        selectionColumnWidth={40}
+        selectionColumnWidth={58}
         {...this.props}
       />
     );

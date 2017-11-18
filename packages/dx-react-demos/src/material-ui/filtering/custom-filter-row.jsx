@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from 'material-ui/Input';
-import { TableCell } from 'material-ui/Table';
+import { Input, TableCell, Paper } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 import {
   FilteringState,
@@ -84,24 +83,26 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
-        <LocalFiltering />
-        <TableView />
-        <TableHeaderRow />
-        <TableFilterRow
-          filterCellTemplate={({ column, filter, setFilter }) => {
-            if (column.name === 'units') {
-              return <UnitsFilterCell filter={filter} setFilter={setFilter} />;
-            }
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
+          <LocalFiltering />
+          <TableView />
+          <TableHeaderRow />
+          <TableFilterRow
+            filterCellTemplate={({ column, filter, setFilter }) => {
+              if (column.name === 'units') {
+                return <UnitsFilterCell filter={filter} setFilter={setFilter} />;
+              }
 
-            return undefined;
-          }}
-        />
-      </Grid>
+              return undefined;
+            }}
+          />
+        </Grid>
+      </Paper>
     );
   }
 }

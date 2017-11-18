@@ -39,16 +39,18 @@ export default class Demo extends React.PureComponent {
     return (
       <MUIGrid container>
         <MUIGrid item xs={12} sm={9}>
-          <Grid
-            rows={rows}
-            columns={columns}
-          >
-            <TableView />
-            <TableHeaderRow />
-            <TableColumnVisibility
-              hiddenColumns={hiddenColumns}
-            />
-          </Grid>
+          <Paper>
+            <Grid
+              rows={rows}
+              columns={columns}
+            >
+              <TableView />
+              <TableHeaderRow />
+              <TableColumnVisibility
+                hiddenColumns={hiddenColumns}
+              />
+            </Grid>
+          </Paper>
         </MUIGrid>
         <MUIGrid item xs={12} sm={3}>
           <Paper>

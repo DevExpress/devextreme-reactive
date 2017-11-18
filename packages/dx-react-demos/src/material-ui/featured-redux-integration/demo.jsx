@@ -11,7 +11,7 @@ import {
   TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 
 import {
@@ -37,13 +37,15 @@ const GridDetailContainerBase = ({
     <div>
       <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
     </div>
-    <Grid
-      rows={data.tasks}
-      columns={columns}
-    >
-      <TableView />
-      <TableHeaderRow />
-    </Grid>
+    <Paper>
+      <Grid
+        rows={data.tasks}
+        columns={columns}
+      >
+        <TableView />
+        <TableHeaderRow />
+      </Grid>
+    </Paper>
   </div>
 );
 GridDetailContainerBase.propTypes = {
@@ -81,77 +83,78 @@ const GridContainer = ({
   columnWidths,
   onColumnWidthsChange,
 }) => (
-  <Grid
-    rows={rows}
-    columns={columns}
-  >
-    <FilteringState
-      filters={filters}
-      onFiltersChange={onFiltersChange}
-    />
-    <SortingState
-      sorting={sorting}
-      onSortingChange={onSortingChange}
-    />
-    <GroupingState
-      grouping={grouping}
-      onGroupingChange={onGroupingChange}
-      expandedGroups={expandedGroups}
-      onExpandedGroupsChange={onExpandedGroupsChange}
-    />
-    <PagingState
-      currentPage={currentPage}
-      onCurrentPageChange={onCurrentPageChange}
-      pageSize={pageSize}
-      onPageSizeChange={onPageSizeChange}
-    />
-    <RowDetailState
-      expandedRows={expandedRows}
-      onExpandedRowsChange={onExpandedRowsChange}
-    />
+  <Paper>
+    <Grid
+      rows={rows}
+      columns={columns}
+    >
+      <FilteringState
+        filters={filters}
+        onFiltersChange={onFiltersChange}
+      />
+      <SortingState
+        sorting={sorting}
+        onSortingChange={onSortingChange}
+      />
+      <GroupingState
+        grouping={grouping}
+        onGroupingChange={onGroupingChange}
+        expandedGroups={expandedGroups}
+        onExpandedGroupsChange={onExpandedGroupsChange}
+      />
+      <PagingState
+        currentPage={currentPage}
+        onCurrentPageChange={onCurrentPageChange}
+        pageSize={pageSize}
+        onPageSizeChange={onPageSizeChange}
+      />
+      <RowDetailState
+        expandedRows={expandedRows}
+        onExpandedRowsChange={onExpandedRowsChange}
+      />
 
-    <LocalFiltering />
-    <LocalSorting />
-    <LocalGrouping />
-    <LocalPaging />
+      <LocalFiltering />
+      <LocalSorting />
+      <LocalGrouping />
+      <LocalPaging />
 
-    <SelectionState
-      selection={selection}
-      onSelectionChange={onSelectionChange}
-    />
+      <SelectionState
+        selection={selection}
+        onSelectionChange={onSelectionChange}
+      />
 
-    <DragDropContext />
+      <DragDropContext />
 
-    <TableView />
+      <TableView />
 
-    <TableColumnReordering
-      order={columnOrder}
-      onOrderChange={onColumnOrderChange}
-    />
+      <TableColumnReordering
+        order={columnOrder}
+        onOrderChange={onColumnOrderChange}
+      />
 
-    <TableColumnResizing
-      columnWidths={columnWidths}
-      onColumnWidthsChange={onColumnWidthsChange}
-    />
+      <TableColumnResizing
+        columnWidths={columnWidths}
+        onColumnWidthsChange={onColumnWidthsChange}
+      />
 
-    <TableHeaderRow allowSorting allowDragging allowResizing />
-    <TableFilterRow />
-    <TableSelection />
-    <TableRowDetail
-      template={({ row }) => (
-        <GridDetailContainer
-          data={row}
-          columns={detailColumns}
-        />
-      )}
-    />
-    <TableGroupRow />
-    <GroupingPanel allowSorting allowDragging />
-    <PagingPanel
-      allowedPageSizes={allowedPageSizes}
-    />
-
-  </Grid>
+      <TableHeaderRow allowSorting allowDragging allowResizing />
+      <TableFilterRow />
+      <TableSelection />
+      <TableRowDetail
+        template={({ row }) => (
+          <GridDetailContainer
+            data={row}
+            columns={detailColumns}
+          />
+        )}
+      />
+      <TableGroupRow />
+      <GroupingPanel allowSorting allowDragging />
+      <PagingPanel
+        allowedPageSizes={allowedPageSizes}
+      />
+    </Grid>
+  </Paper>
 );
 GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,

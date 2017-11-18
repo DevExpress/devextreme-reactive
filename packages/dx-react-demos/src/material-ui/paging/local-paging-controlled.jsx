@@ -9,7 +9,7 @@ import {
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -40,23 +40,25 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <PagingState
-          currentPage={this.state.currentPage}
-          onCurrentPageChange={this.changeCurrentPage}
-          pageSize={pageSize}
-          onPageSizeChange={this.changePageSize}
-        />
-        <LocalPaging />
-        <TableView />
-        <TableHeaderRow />
-        <PagingPanel
-          allowedPageSizes={allowedPageSizes}
-        />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <PagingState
+            currentPage={this.state.currentPage}
+            onCurrentPageChange={this.changeCurrentPage}
+            pageSize={pageSize}
+            onPageSizeChange={this.changePageSize}
+          />
+          <LocalPaging />
+          <TableView />
+          <TableHeaderRow />
+          <PagingPanel
+            allowedPageSizes={allowedPageSizes}
+          />
+        </Grid>
+      </Paper>
     );
   }
 }

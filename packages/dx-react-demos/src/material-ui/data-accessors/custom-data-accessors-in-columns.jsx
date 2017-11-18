@@ -9,7 +9,7 @@ import {
   TableEditRow,
   TableEditColumn,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
   defaultNestedColumnValues,
@@ -91,19 +91,21 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={getRowId}
-      >
-        <EditingState
-          onCommitChanges={this.commitChanges}
-        />
-        <TableView />
-        <TableHeaderRow />
-        <TableEditRow />
-        <TableEditColumn allowAdding allowEditing allowDeleting />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <EditingState
+            onCommitChanges={this.commitChanges}
+          />
+          <TableView />
+          <TableHeaderRow />
+          <TableEditRow />
+          <TableEditColumn allowAdding allowEditing allowDeleting />
+        </Grid>
+      </Paper>
     );
   }
 }

@@ -12,12 +12,12 @@ import {
 } from '../../demo-data/generator';
 
 // eslint-disable-next-line react/prop-types
-const TableHeaderCellCustom = ({ style, ...restProps }) => (
+const CustomHeaderCell = ({ style, ...restProps }) => (
   <TableHeaderCell
     {...restProps}
     style={{
       ...style,
-      backgroundColor: 'red',
+      backgroundColor: 'lightblue',
     }}
   />
 );
@@ -49,7 +49,7 @@ export default class Demo extends React.PureComponent {
         <TableView />
         <TableHeaderRow
           headerCellTemplate={args => (
-            <TableHeaderCellCustom
+            <CustomHeaderCell
               {...args}
             />)
           }

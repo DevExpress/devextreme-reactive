@@ -12,17 +12,17 @@ import {
 } from '../../demo-data/generator';
 
 const styles = {
-  customBg: {
-    backgroundColor: 'red',
+  highlightedBackground: {
+    backgroundColor: 'lightblue',
   },
 };
 
 // eslint-disable-next-line react/prop-types
-const TableHeaderCellBase = ({ classes, ...restProps }) =>
-  (<TableHeaderCell {...restProps} className={classes.customBg} />);
+const HeaderCellBase = ({ classes, ...restProps }) =>
+  (<TableHeaderCell {...restProps} className={classes.highlightedBackground} />);
 
-const TableHeaderCellCustom =
-  withStyles(styles, { name: 'Custom' })(TableHeaderCellBase);
+const CustomHeaderCell =
+  withStyles(styles, { name: 'CustomHeaderCell' })(HeaderCellBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -51,7 +51,7 @@ export default class Demo extends React.PureComponent {
         <TableView />
         <TableHeaderRow
           headerCellTemplate={args => (
-            <TableHeaderCellCustom
+            <CustomHeaderCell
               {...args}
             />)
           }

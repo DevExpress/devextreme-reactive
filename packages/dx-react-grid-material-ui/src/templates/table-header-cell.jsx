@@ -81,6 +81,7 @@ class TableHeaderCellBase extends React.PureComponent {
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
       classes, getMessage, className,
       changeSortingDirection,
+      tableRow, // eslint-disable-line react/prop-types
       ...restProps
     } = this.props;
     const { dragging } = this.state;

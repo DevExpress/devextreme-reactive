@@ -43,7 +43,8 @@ export class TableHeaderCell extends React.PureComponent {
       allowDragging, dragPayload,
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
       changeSortingDirection,
-      getMessage, // eslint-disable-line react/prop-types
+      // eslint-disable-next-line react/prop-types
+      tableRow, getMessage,
       ...restProps
     } = this.props;
     const { dragging } = this.state;

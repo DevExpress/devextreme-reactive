@@ -22,16 +22,16 @@ const styles = {
   },
 };
 
-const SaleAmountCellBase = ({ row, classes }) => (
+const SaleAmountCellBase = ({ value, classes }) => (
   <TableCell
     className={classes.saleAmountCell}
   >
-    ${row.SaleAmount}
+    ${value}
   </TableCell>
 );
 
 SaleAmountCellBase.propTypes = {
-  row: PropTypes.object.isRequired,
+  value: PropTypes.any.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -62,6 +62,13 @@ export default class Demo extends React.PureComponent {
     this.changeSorting = this.changeSorting.bind(this);
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
+
+    this.getTableCellComponent = (columnName) => {
+      if (columnName === 'SaleAmount') {
+        return SaleAmountCell;
+      }
+      return undefined;
+    };
   }
   componentDidMount() {
     this.loadData();
@@ -151,12 +158,7 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <TableView
-            tableCellTemplate={({ row, column }) => {
-              if (column.name === 'SaleAmount') {
-                return <SaleAmountCell row={row} />;
-              }
-              return undefined;
-            }}
+            getTableCellComponent={this.getTableCellComponent}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   PagingState,
   SortingState,
@@ -12,6 +13,19 @@ import {
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
+
+const SaleAmountCell = ({ value, classes }) => (
+  <td
+    className={classes.saleAmountCell}
+  >
+    ${value}
+  </td>
+);
+
+SaleAmountCell.propTypes = {
+  value: PropTypes.any.isRequired,
+  classes: PropTypes.object.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -38,6 +52,13 @@ export default class Demo extends React.PureComponent {
     this.changeSorting = this.changeSorting.bind(this);
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
+
+    this.getTableCellComponent = (columnName) => {
+      if (columnName === 'SaleAmount') {
+        return SaleAmountCell;
+      }
+      return undefined;
+    };
   }
   componentDidMount() {
     this.loadData();
@@ -127,14 +148,7 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <TableView
-            tableCellTemplate={({ row, column }) => {
-              if (column.name === 'SaleAmount') {
-                return (
-                  <td style={{ textAlign: 'right' }}>${row.SaleAmount}</td>
-                );
-              }
-              return undefined;
-            }}
+            getTableCellComponent={this.getTableCellComponent}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

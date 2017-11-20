@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const combineTemplates = (userTemplate = () => undefined, defaultTemplate) => (props) => {
-  let result = userTemplate(props);
+export const combineTemplates = (userTemplate = () => undefined, defaultTemplate) => (...args) => {
+  let result = userTemplate(...args);
   if (result === undefined) {
-    result = defaultTemplate(props);
+    result = defaultTemplate(...args);
   }
   return result;
 };

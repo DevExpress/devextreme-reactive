@@ -41,15 +41,12 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
-    this.tableCellTemplate = ({ row, column, style }) => {
-      if (column.name === 'discount') {
-        return (
-          <ProgressBarCell value={row.discount * 100} style={style} />
-        );
-      } else if (column.name === 'amount') {
-        return (
-          <HighlightedCell align={column.align} value={row.amount} style={style} />
-        );
+    this.getTableCellComponent = (columnName) => {
+      if (columnName === 'discount') {
+        return ProgressBarCell;
+      }
+      if (columnName === 'amount') {
+        return HighlightedCell;
       }
       return undefined;
     };
@@ -86,7 +83,7 @@ export default class Demo extends React.PureComponent {
         <SelectionState />
 
         <VirtualTableView
-          tableCellTemplate={this.tableCellTemplate}
+          getTableCellComponent={this.getTableCellComponent}
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

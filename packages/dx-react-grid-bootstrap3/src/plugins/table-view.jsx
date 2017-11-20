@@ -9,7 +9,7 @@ import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableRow } from '../templates/table-row';
 
-const defaultCellTemplate = props => <TableCell {...props} />;
+const defaultGetTableCellComponent = () => TableCell;
 
 const defaultMessages = {
   noData: 'No data',
@@ -18,7 +18,7 @@ const defaultMessages = {
 export class TableView extends React.PureComponent {
   render() {
     const {
-      tableCellTemplate,
+      getTableCellComponent,
       messages,
       ...restProps
     } = this.props;
@@ -27,9 +27,9 @@ export class TableView extends React.PureComponent {
       <TableViewBase
         tableLayoutComponent={TableLayout}
         tableRowComponent={TableRow}
-        tableCellTemplate={combineTemplates(
-          tableCellTemplate,
-          defaultCellTemplate,
+        getTableCellComponent={combineTemplates(
+          getTableCellComponent,
+          defaultGetTableCellComponent,
         )}
         tableNoDataRowComponent={TableRow}
         tableNoDataCellComponent={TableNoDataCell}
@@ -43,13 +43,13 @@ export class TableView extends React.PureComponent {
 }
 
 TableView.propTypes = {
-  tableCellTemplate: PropTypes.func,
+  getTableCellComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
 };
 
 TableView.defaultProps = {
-  tableCellTemplate: undefined,
+  getTableCellComponent: undefined,
   messages: {},
 };

@@ -8,7 +8,7 @@ import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 
-const defaultCellTemplate = props => <TableCell {...props} />;
+const defaultGetTableCellComponent = () => TableCell;
 
 const defaultMessages = {
   noData: 'No data',
@@ -22,7 +22,7 @@ export class VirtualTableView extends React.PureComponent {
   }
   render() {
     const {
-      tableCellTemplate,
+      getTableCellComponent,
       height,
       estimatedRowHeight,
       messages,
@@ -39,9 +39,9 @@ export class VirtualTableView extends React.PureComponent {
           />
         ))}
         tableRowComponent={TableRow}
-        tableCellTemplate={combineTemplates(
-          tableCellTemplate,
-          defaultCellTemplate,
+        getTableCellComponent={combineTemplates(
+          getTableCellComponent,
+          defaultGetTableCellComponent,
         )}
         tableNoDataRowComponent={TableRow}
         tableNoDataCellComponent={TableNoDataCell}
@@ -55,7 +55,7 @@ export class VirtualTableView extends React.PureComponent {
 }
 
 VirtualTableView.propTypes = {
-  tableCellTemplate: PropTypes.func,
+  getTableCellComponent: PropTypes.func,
   estimatedRowHeight: PropTypes.number,
   height: PropTypes.number,
   messages: PropTypes.shape({
@@ -64,7 +64,7 @@ VirtualTableView.propTypes = {
 };
 
 VirtualTableView.defaultProps = {
-  tableCellTemplate: undefined,
+  getTableCellComponent: undefined,
   estimatedRowHeight: 48,
   height: 530,
   messages: {},

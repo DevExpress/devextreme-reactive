@@ -13,13 +13,13 @@ This plugin renders Grid data as a table. It contains the Table View and Table V
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tableLayoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | Renders a table layout using the specified parameters.
-tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters.
-tableRowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | Renders a table row using the specified parameters.
-tableNoDataCellComponent | ElementType&lt;[TableNoDataCellProps](#tablenodatacellprops)&gt; | | Renders a table cell using the specified parameters when the table is empty.
-tableNoDataRowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | | Renders a table row using the specified parameters when the table is empty.
-tableStubCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | Renders a stub table cell if the cell value is not provided.
-tableStubHeaderCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | Renders a stub header cell if the cell value is not provided.
+tableLayoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | A component that renders a table layout.
+getTableCellTemplate | (columnName: string) => ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A function returning component that renders a table cell for specific column.
+tableRowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
+tableNoDataCellComponent | ElementType&lt;[TableNoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
+tableNoDataRowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
+tableStubCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
+tableStubHeaderCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
@@ -85,7 +85,7 @@ tableColumn | [TableColumn](#table-column) | Specifies a table column.
 style? | Object | Styles that should be applied to the root cell element.
 colSpan? | number | The column count that the root cell element spans.
 
-### <a name="table-data-cell-args"></a>TableDataCellArgs
+### TableDataCellProps
 
 Describes properties passed to the table cell template when it is being rendered.
 

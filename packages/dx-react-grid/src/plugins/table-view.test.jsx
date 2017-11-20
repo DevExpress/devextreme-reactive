@@ -39,7 +39,7 @@ const defaultDeps = {
 
 const defaultProps = {
   tableLayoutComponent: () => null,
-  tableCellTemplate: () => null,
+  getTableCellComponent: () => () => null,
   tableRowComponent: () => null,
   tableStubCellComponent: () => null,
   tableStubHeaderCellComponent: () => null,
@@ -105,29 +105,32 @@ describe('TableView', () => {
 
   it('should render data cell on user-defined column and row intersection', () => {
     isDataTableCell.mockImplementation(() => true);
-    const tableCellTemplate = jest.fn(() => null);
+    const tableCellComponent = jest.fn(() => null);
+    const getTableCellComponent = jest.fn(() => tableCellComponent);
     const tableCellArgs = {
       tableRow: { row: 'row' },
-      tableColumn: { column: 'column' },
+      tableColumn: { column: { name: 'a' } },
       style: {},
       value: undefined,
     };
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableView
           {...defaultProps}
           tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
-          tableCellTemplate={tableCellTemplate}
+          getTableCellComponent={getTableCellComponent}
         />
       </PluginHost>
     ));
 
     expect(isDataTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
-    expect(tableCellTemplate)
-      .toBeCalledWith({
+    expect(getTableCellComponent)
+      .toBeCalledWith(tableCellArgs.tableColumn.column.name);
+    expect(tree.find(tableCellComponent).props())
+      .toMatchObject({
         ...tableCellArgs,
         row: tableCellArgs.tableRow.row,
         column: tableCellArgs.tableColumn.column,
@@ -136,7 +139,8 @@ describe('TableView', () => {
 
   it('can render custom formatted data in table cell', () => {
     isDataTableCell.mockImplementation(() => true);
-    const tableCellTemplate = jest.fn(() => null);
+    const tableCellComponent = jest.fn(() => null);
+    const getTableCellComponent = jest.fn(() => tableCellComponent);
     const valueFormatter = jest.fn(() => <span />);
     const tableCellArgs = {
       tableRow: { row: 'row' },
@@ -145,7 +149,7 @@ describe('TableView', () => {
       value: undefined,
     };
 
-    mount((
+    const tree = mount((
       <PluginHost>
         <DataTypeProvider
           type="column"
@@ -155,7 +159,7 @@ describe('TableView', () => {
         <TableView
           {...defaultProps}
           tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
-          tableCellTemplate={tableCellTemplate}
+          getTableCellComponent={getTableCellComponent}
         />
       </PluginHost>
     ));
@@ -166,8 +170,8 @@ describe('TableView', () => {
         row: tableCellArgs.tableRow.row,
         value: tableCellArgs.value,
       });
-    expect(tableCellTemplate.mock.calls[0][0])
-      .toHaveProperty('children');
+    expect(tree.find(tableCellComponent).props().children)
+      .toBeDefined();
   });
 
   it('should render stub cell on plugin-defined column and row intersection', () => {

@@ -5,7 +5,6 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
-  TemplateRenderer,
   PluginContainer,
 } from '@devexpress/dx-react-core';
 import {
@@ -64,7 +63,7 @@ export class TableView extends React.PureComponent {
   render() {
     const {
       tableLayoutComponent: TableLayout,
-      tableCellTemplate,
+      getTableCellComponent,
       tableRowComponent: TableRow,
       tableNoDataRowComponent: TableNoDataRow,
       tableNoDataCellComponent: TableNoDataCell,
@@ -121,20 +120,14 @@ export class TableView extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters) => {
+                const TableCell = getTableCellComponent(params.tableColumn.column.name);
                 const templateArgs = getDataTableCellTemplateArgs(params, getters);
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
                     params={getValueFormatterArgs(templateArgs)}
                   >
-                    {content => (
-                      <TemplateRenderer
-                        template={tableCellTemplate}
-                        params={templateArgs}
-                      >
-                        {content}
-                      </TemplateRenderer>
-                    )}
+                    {content => <TableCell {...templateArgs}>{content}</TableCell>}
                   </TemplatePlaceholder>
                 );
               }}
@@ -166,7 +159,7 @@ export class TableView extends React.PureComponent {
 
 TableView.propTypes = {
   tableLayoutComponent: PropTypes.func.isRequired,
-  tableCellTemplate: PropTypes.func.isRequired,
+  getTableCellComponent: PropTypes.func.isRequired,
   tableRowComponent: PropTypes.func.isRequired,
   tableNoDataCellComponent: PropTypes.func.isRequired,
   tableNoDataRowComponent: PropTypes.func.isRequired,

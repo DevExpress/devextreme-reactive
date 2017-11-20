@@ -18,7 +18,7 @@ getColumnIdentity | (columnName: string) => [Identity](#identity) &#124; undefin
 
 ### <a name="identity"></a>Identity
 
-A function with the following signature `(value: any) => { key: string | number, value?: any }`. This function returns an object by whose **key** field data is grouped. If you need to group data by a non-primitive value (e.g. date), assign its string representation to the **key** field and the value itself to the **value** field.
+A function with the following signature: `(value: any) => { key: string | number, value?: any }`. This function returns an object by whose **key** field data is grouped. If you need to group data by a non-primitive value (for example, a date), assign its string representation to the **key** field and the value to the **value** field.
 
 ## Plugin Developer Reference
 

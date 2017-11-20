@@ -17,9 +17,9 @@ describe('TableDetailToggleCell', () => {
       />
     ));
 
-    const clickHandlerButton = tree.find('td').prop('onClick');
+    const buttonClickHandler = tree.find('td').prop('onClick');
 
-    clickHandlerButton(mockEvent);
+    buttonClickHandler(mockEvent);
     expect(toggleExpanded)
       .toHaveBeenCalled();
     expect(mockEvent.stopPropagation)

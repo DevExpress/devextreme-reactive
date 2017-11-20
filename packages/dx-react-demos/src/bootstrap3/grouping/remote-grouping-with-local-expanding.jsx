@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTableView,
+  VirtualTable,
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
@@ -118,7 +118,7 @@ export default class Demo extends React.PureComponent {
             grouping={tempGrouping}
             expandedGroups={tempExpandedGroups}
           />
-          <VirtualTableView />
+          <VirtualTable />
           <TableHeaderRow allowDragging />
           <TableGroupRow />
           <GroupingPanel allowDragging />

@@ -18,7 +18,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
@@ -141,7 +141,7 @@ export class TableColumnReordering extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={columnsComputed} />
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
-        <Template name="tableView">
+        <Template name="table">
           {params => (
             <TemplateRenderer
               template={tableContainerTemplate}
@@ -157,7 +157,7 @@ export class TableColumnReordering extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => tableRow.type === TABLE_REORDERING_TYPE}
         >
           {params => (
@@ -168,7 +168,7 @@ export class TableColumnReordering extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow }) => tableRow.type === TABLE_REORDERING_TYPE}
         >
           {(params) => {

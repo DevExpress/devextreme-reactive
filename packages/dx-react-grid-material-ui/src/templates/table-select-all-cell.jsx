@@ -14,9 +14,6 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     textAlign: 'center',
   },
-  pointer: {
-    cursor: 'pointer',
-  },
 });
 
 const TableSelectAllCellBase = ({
@@ -32,17 +29,17 @@ const TableSelectAllCellBase = ({
       padding="checkbox"
       style={style}
       className={cellClasses}
-      onClick={(e) => {
-        if (!selectionAvailable) return;
-
-        e.stopPropagation();
-        toggleAll();
-      }}
     >
       <Checkbox
         checked={allSelected}
         indeterminate={someSelected}
         disabled={!selectionAvailable}
+        onClick={(e) => {
+          if (!selectionAvailable) return;
+
+          e.stopPropagation();
+          toggleAll();
+        }}
       />
     </TableCell>
   );

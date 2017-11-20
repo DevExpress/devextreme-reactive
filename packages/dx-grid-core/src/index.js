@@ -8,6 +8,7 @@ export * from './plugins/filtering-state/reducers';
 export * from './plugins/filtering-state/helpers';
 export * from './plugins/local-filtering/computeds';
 
+export * from './plugins/grouping-state/constants';
 export * from './plugins/grouping-state/reducers';
 export * from './plugins/grouping-state/computeds';
 export * from './plugins/local-grouping/computeds';
@@ -61,9 +62,9 @@ export * from './plugins/table-selection/constants';
 export * from './plugins/table-selection/helpers';
 export * from './plugins/table-selection/computeds';
 
-export * from './plugins/table-view/constants';
-export * from './plugins/table-view/helpers';
-export * from './plugins/table-view/computeds';
+export * from './plugins/table/constants';
+export * from './plugins/table/helpers';
+export * from './plugins/table/computeds';
 
 export * from './plugins/table-column-visibility/computeds';
 

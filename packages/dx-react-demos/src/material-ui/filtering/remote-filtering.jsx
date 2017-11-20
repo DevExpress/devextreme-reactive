@@ -4,11 +4,11 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTableView,
+  VirtualTable,
   TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi';
@@ -79,7 +79,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, loading } = this.state;
 
     return (
-      <div style={{ position: 'relative' }}>
+      <Paper style={{ position: 'relative' }}>
         <Grid
           rows={rows}
           columns={columns}
@@ -87,12 +87,12 @@ export default class Demo extends React.PureComponent {
           <FilteringState
             onFiltersChange={this.changeFilters}
           />
-          <VirtualTableView />
+          <VirtualTable />
           <TableHeaderRow />
           <TableFilterRow rowHeight={51} />
         </Grid>
         {loading && <Loading />}
-      </div>
+      </Paper>
     );
   }
 }

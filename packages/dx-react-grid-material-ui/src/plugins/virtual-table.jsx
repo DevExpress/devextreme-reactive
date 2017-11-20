@@ -1,27 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
-import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
+import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
-import { TableCell } from '../templates/table-cell';
 import { TableRow } from '../templates/table-row';
-import { TableNoDataCell } from '../templates/table-no-data-cell';
+import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
-import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
+import { TableNoDataCell } from '../templates/table-no-data-cell';
 
 const tableLayoutTemplate = props => <VirtualTableLayout {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
 const defaultStubCellTemplate = props => <TableStubCell {...props} />;
-const defaultStubHeaderCellTemplate = props => <TableStubHeaderCell {...props} />;
 const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
 };
 
-export class VirtualTableView extends React.PureComponent {
+export class VirtualTable extends React.PureComponent {
   render() {
     const {
       tableCellTemplate,
@@ -37,7 +35,7 @@ export class VirtualTableView extends React.PureComponent {
     } = this.props;
 
     return (
-      <TableViewBase
+      <TableBase
         tableLayoutTemplate={props => tableLayoutTemplate({
           ...props,
           height,
@@ -61,7 +59,7 @@ export class VirtualTableView extends React.PureComponent {
         )}
         tableStubHeaderCellTemplate={combineTemplates(
           tableStubHeaderCellTemplate,
-          defaultStubHeaderCellTemplate,
+          defaultStubCellTemplate,
         )}
         tableNoDataCellTemplate={combineTemplates(
           tableNoDataCellTemplate,
@@ -74,7 +72,7 @@ export class VirtualTableView extends React.PureComponent {
   }
 }
 
-VirtualTableView.propTypes = {
+VirtualTable.propTypes = {
   tableCellTemplate: PropTypes.func,
   tableRowTemplate: PropTypes.func,
   tableNoDataRowTemplate: PropTypes.func,
@@ -88,14 +86,14 @@ VirtualTableView.propTypes = {
   }),
 };
 
-VirtualTableView.defaultProps = {
+VirtualTable.defaultProps = {
   tableCellTemplate: undefined,
   tableRowTemplate: undefined,
   tableNoDataRowTemplate: undefined,
   tableStubCellTemplate: undefined,
   tableStubHeaderCellTemplate: undefined,
   tableNoDataCellTemplate: undefined,
-  estimatedRowHeight: 37,
+  estimatedRowHeight: 48,
   height: 530,
   messages: {},
 };

@@ -73,7 +73,7 @@ export class TableHeaderRow extends React.PureComponent {
       <PluginContainer
         pluginName="TableHeaderRow"
         dependencies={[
-          { pluginName: 'TableView' },
+          { pluginName: 'Table' },
           { pluginName: 'SortingState', optional: !allowSorting },
           { pluginName: 'GroupingState', optional: !allowGroupingByClick },
           { pluginName: 'DragDropContext', optional: !allowDragging },
@@ -83,7 +83,7 @@ export class TableHeaderRow extends React.PureComponent {
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -109,7 +109,7 @@ export class TableHeaderRow extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
         >
           {params => (

@@ -20,7 +20,7 @@ const defaultDeps = {
   getter: {
     tableColumns: [{ type: 'undefined' }],
   },
-  plugins: ['TableView'],
+  plugins: ['Table'],
 };
 
 const defaultProps = {};

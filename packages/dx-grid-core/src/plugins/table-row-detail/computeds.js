@@ -1,5 +1,5 @@
 import { TABLE_DETAIL_TYPE } from './constants';
-import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
 
 export const tableRowsWithExpandedDetail = (tableRows, expandedRows, rowHeight) => {
   let result = tableRows;

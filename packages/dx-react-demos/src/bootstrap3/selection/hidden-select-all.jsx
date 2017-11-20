@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableSelection,
   PagingPanel,
@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
           pageSize={6}
         />
         <LocalPaging />
-        <TableView />
+        <Table />
         <TableHeaderRow />
         <TableSelection
           showSelectAll={false}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, TableCell, Table } from 'material-ui';
+import { Checkbox, Table } from 'material-ui';
 import { createMount } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectAllCell } from './table-select-all-cell';
@@ -41,7 +41,7 @@ describe('TableHeaderCell', () => {
         toggleAll={toggleAll}
       />
     ));
-    tree.find(TableCell).simulate('click');
+    tree.find(Checkbox).simulate('click');
 
     expect(toggleAll)
       .not.toHaveBeenCalled();
@@ -58,7 +58,7 @@ describe('TableHeaderCell', () => {
         toggleAll={toggleAll}
       />
     ));
-    tree.find(TableCell).simulate('click');
+    tree.find(Checkbox).simulate('click');
 
     expect(toggleAll)
       .toHaveBeenCalledTimes(1);

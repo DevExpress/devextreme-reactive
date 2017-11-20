@@ -80,7 +80,6 @@ class TableHeaderCellBase extends React.PureComponent {
       allowDragging, dragPayload,
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
       classes, getMessage, className,
-      changeSortingDirection,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
@@ -96,12 +95,16 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDimmed]: dragging || tableColumn.draft,
     }, className);
 
+    const {
+      tableRow, changeSortingDirection, ...cellRelatedProps
+    } = restProps;
+
     const cellLayout = (
       <TableCell
         style={style}
         className={tableCellClasses}
         numeric={align === 'right'}
-        {...restProps}
+        {...cellRelatedProps}
       >
         {allowGroupingByClick && (
           <GroupingControl

@@ -43,11 +43,9 @@ react:
     - title: Components API
       items:
         - title: Grid
-          path: /react/grid/docs/reference/grid
+          path: /react/grid/docs/components/grid
         - title: ColumnChooser
-          path: /react/grid/docs/reference/column-chooser
-        - title: TableHeaderCell
-          path: /react/grid/docs/components/table-header-cell
+          path: /react/grid/docs/components/column-chooser
     - title: Grid Plugins API
       items:
         - title: FilteringState
@@ -106,3 +104,7 @@ react:
           path: /react/grid/docs/reference/data-type-provider
         - title: TableColumnVisibility
           path: /react/grid/docs/reference/table-column-visibility
+    - title: Plugin Components API
+      items:
+        - title: TableHeaderCell
+          path: /react/grid/docs/plugin/components/table-header-cell

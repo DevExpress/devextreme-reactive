@@ -48,8 +48,8 @@ The package exposes components and plugins with injected templates.
 
 Components:
 
-- [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/)
-- [ColumnChooser](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/column-chooser/)
+- [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/components/grid/)
+- [ColumnChooser](https://devexpress.github.io/devextreme-reactive/react/grid/docs/components/column-chooser/)
 
 Plugins:
 

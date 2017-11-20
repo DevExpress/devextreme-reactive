@@ -20,10 +20,6 @@ const styles = {
   saleAmountCell: {
     textAlign: 'right',
   },
-  noDataCell: {
-    textAlign: 'center',
-    padding: '40px 0',
-  },
 };
 
 const SaleAmountCellBase = ({ row, classes }) => (
@@ -40,20 +36,6 @@ SaleAmountCellBase.propTypes = {
 };
 
 const SaleAmountCell = withStyles(styles)(SaleAmountCellBase);
-
-const LoadingNoDataCellBase = ({ colSpan, classes }) => (
-  <TableCell
-    className={classes.noDataCell}
-    colSpan={colSpan}
-  />
-);
-
-LoadingNoDataCellBase.propTypes = {
-  colSpan: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
-};
-
-const LoadingNoDataCell = withStyles(styles, { name: 'RemoteDataDemo' })(LoadingNoDataCellBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -175,7 +157,6 @@ export default class Demo extends React.PureComponent {
               }
               return undefined;
             }}
-            {...(loading ? { tableNoDataCellComponent: LoadingNoDataCell } : null)}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

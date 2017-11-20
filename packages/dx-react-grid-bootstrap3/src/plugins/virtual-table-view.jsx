@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { combineTemplates } from '@devexpress/dx-react-core';
+import { combineTemplates, createRenderComponent } from '@devexpress/dx-react-core';
 import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableCell } from '../templates/table-cell';
@@ -16,6 +16,11 @@ const defaultMessages = {
 };
 
 export class VirtualTableView extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.tableLayoutRenderComponent = createRenderComponent();
+  }
   render() {
     const {
       tableCellTemplate,
@@ -25,17 +30,15 @@ export class VirtualTableView extends React.PureComponent {
       ...restProps
     } = this.props;
 
-    const TableLayout = props => (
-      <VirtualTableLayout
-        {...props}
-        height={height}
-        estimatedRowHeight={estimatedRowHeight}
-      />
-    );
-
     return (
       <TableViewBase
-        tableLayoutComponent={TableLayout}
+        tableLayoutComponent={this.tableLayoutRenderComponent(props => (
+          <VirtualTableLayout
+            {...props}
+            height={height}
+            estimatedRowHeight={estimatedRowHeight}
+          />
+        ))}
         tableRowComponent={TableRow}
         tableCellTemplate={combineTemplates(
           tableCellTemplate,

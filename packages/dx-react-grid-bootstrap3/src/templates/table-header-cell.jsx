@@ -42,15 +42,14 @@ export class TableHeaderCell extends React.PureComponent {
       allowGroupingByClick, groupByColumn,
       allowDragging, dragPayload,
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
+      changeSortingDirection,
+      // eslint-disable-next-line react/prop-types
+      tableRow, getMessage,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = column.align || 'left';
     const columnTitle = column.title || column.name;
-
-    const {
-      tableRow, changeSortingDirection, getMessage, ...cellRelatedProps
-    } = restProps;
 
     const cellLayout = (
       <th
@@ -67,7 +66,7 @@ export class TableHeaderCell extends React.PureComponent {
           ...style,
         }}
         onClick={this.onClick}
-        {...cellRelatedProps}
+        {...restProps}
       >
         {allowGroupingByClick && (
           <GroupingControl

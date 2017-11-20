@@ -6,11 +6,11 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
-import { TableCell } from 'material-ui';
+import { TableCell, Paper } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 import { Loading } from '../components/loading';
 
@@ -141,7 +141,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <div style={{ position: 'relative' }}>
+      <Paper style={{ position: 'relative' }}>
         <Grid
           rows={rows}
           columns={columns}
@@ -157,7 +157,7 @@ export default class Demo extends React.PureComponent {
             onPageSizeChange={this.changePageSize}
             totalCount={totalCount}
           />
-          <TableView
+          <Table
             getTableCellComponent={this.getTableCellComponent}
           />
           <TableHeaderRow allowSorting />
@@ -166,7 +166,7 @@ export default class Demo extends React.PureComponent {
           />
         </Grid>
         {loading && <Loading />}
-      </div>
+      </Paper>
     );
   }
 }

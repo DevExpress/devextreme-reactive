@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
+  VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   TableColumnReordering, GroupingPanel, DragDropContext,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
@@ -82,7 +82,7 @@ export default class Demo extends React.PureComponent {
 
         <SelectionState />
 
-        <VirtualTableView
+        <VirtualTable
           getTableCellComponent={this.getTableCellComponent}
         />
 

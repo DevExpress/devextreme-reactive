@@ -14,7 +14,7 @@ Add the required modules to your project:
 
 ```js
 import {
-  Grid, TableView, TableHeaderRow
+  Grid, Table, TableHeaderRow
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 const App = () => (
@@ -28,7 +28,7 @@ const App = () => (
       { name: 'product', title: 'Product' },
       { name: 'owner', title: 'Owner' },
     ]}>
-    <TableView />
+    <Table />
     <TableHeaderRow />
   </Grid>
 );
@@ -53,7 +53,7 @@ Components:
 
 Plugins:
 
-- [TableView](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-view/)
+- [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/)
 - [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)
 - [TableSelection](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-selection/)
 - [TableFilterRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-filter-row/)

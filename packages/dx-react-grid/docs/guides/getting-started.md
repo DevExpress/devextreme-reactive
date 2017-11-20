@@ -46,11 +46,11 @@ React Grid uses the latest web platform standards, and cannot support older brow
 
 The Grid renders nothing by default. The root Grid component's nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid data.
 
-Use the TableView plugin to display the data as a simple table:
+Use the Table plugin to display the data as a simple table:
 
 ```js
 import {
-  Grid, TableView, TableHeaderRow
+  Grid, Table, TableHeaderRow
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
@@ -64,7 +64,7 @@ const App = () => (
       { name: 'product', title: 'Product' },
       { name: 'owner', title: 'Owner' },
     ]}>
-    <TableView />
+    <Table />
     <TableHeaderRow />
   </Grid>
 );

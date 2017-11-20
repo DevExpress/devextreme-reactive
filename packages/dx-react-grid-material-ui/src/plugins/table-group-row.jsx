@@ -22,7 +22,7 @@ export class TableGroupRow extends React.PureComponent {
           groupRowTemplate,
           defaultGroupRowTemplate,
         )}
-        groupIndentColumnWidth={32}
+        groupIndentColumnWidth={48}
         {...restProps}
       />
     );

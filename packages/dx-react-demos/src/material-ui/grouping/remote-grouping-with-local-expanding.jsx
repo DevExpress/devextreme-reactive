@@ -5,12 +5,13 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTableView,
+  VirtualTable,
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
   DragDropContext,
 } from '@devexpress/dx-react-grid-material-ui';
+import Paper from 'material-ui/Paper';
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi';
@@ -100,7 +101,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <div style={{ position: 'relative' }}>
+      <Paper style={{ position: 'relative' }}>
         <Grid
           rows={data}
           columns={columns}
@@ -118,13 +119,13 @@ export default class Demo extends React.PureComponent {
             grouping={tempGrouping}
             expandedGroups={tempExpandedGroups}
           />
-          <VirtualTableView />
+          <VirtualTable />
           <TableHeaderRow allowDragging />
           <TableGroupRow />
           <GroupingPanel allowDragging />
         </Grid>
         {loading && <Loading />}
-      </div>
+      </Paper>
     );
   }
 }

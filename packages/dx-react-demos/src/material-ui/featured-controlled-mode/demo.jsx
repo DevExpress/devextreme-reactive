@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView, TableHeaderRow, TableEditRow, TableEditColumn,
+  Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
@@ -20,6 +20,7 @@ import {
   DialogTitle,
   MenuItem,
   Select,
+  Paper,
 } from 'material-ui';
 
 import DeleteIcon from 'material-ui-icons/Delete';
@@ -48,9 +49,7 @@ const styles = theme => ({
     verticalAlign: 'top',
     paddingRight: theme.spacing.unit,
     paddingTop: theme.spacing.unit * 1.25,
-    '& ~ $lookupEditCell': {
-      paddingLeft: theme.spacing.unit,
-    },
+    paddingLeft: theme.spacing.unit,
   },
   dialog: {
     width: 'calc(100% - 16px)',
@@ -266,7 +265,7 @@ class DemoBase extends React.PureComponent {
     } = this.state;
 
     return (
-      <div>
+      <Paper>
         <Grid
           rows={rows}
           columns={columns}
@@ -298,7 +297,7 @@ class DemoBase extends React.PureComponent {
 
           <DragDropContext />
 
-          <TableView
+          <Table
             getTableCellComponent={this.getTableCellComponent}
           />
 
@@ -333,22 +332,24 @@ class DemoBase extends React.PureComponent {
             <DialogContentText>
               Are you sure to delete the following row?
             </DialogContentText>
-            <Grid
-              rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
-              columns={columns}
-            >
-              <TableView
-                getTableCellComponent={this.getTableCellComponent}
-              />
-              <TableHeaderRow />
-            </Grid>
+            <Paper>
+              <Grid
+                rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
+                columns={columns}
+              >
+                <Table
+                  getTableCellComponent={this.getTableCellComponent}
+                />
+                <TableHeaderRow />
+              </Grid>
+            </Paper>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.cancelDelete} color="primary">Cancel</Button>
             <Button onClick={this.deleteRows} color="accent">Delete</Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </Paper>
     );
   }
 }

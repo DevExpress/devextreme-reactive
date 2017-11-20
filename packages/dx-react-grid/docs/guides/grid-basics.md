@@ -20,7 +20,7 @@ The Grid component displays data specified via the `rows` property. You should a
 
 The grid requires the following plugins for basic data visualization:
 
-- [TableView](../reference/table-view.md)
+- [Table](../reference/table.md)
  Renders a data table.
 
 - [TableHeaderRow](../reference/table-header-row.md)
@@ -31,12 +31,12 @@ The grid requires the following plugins for basic data visualization:
   rows={rows}
   columns={columns}
 >
-  <TableView />
+  <Table />
   <TableHeaderRow />
 </Grid>
 ```
 
-The `TableHeaderRow` plugin should follow the `TableView` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
+The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
 
 .embedded-demo(basic/basic)
 
@@ -44,11 +44,11 @@ The `TableHeaderRow` plugin should follow the `TableView` plugin. See the [Plugi
 
 The Grid's visualization plugins provide a rich API to customize grid elements' appearance. Examples of the most popular customization tasks are described below.
 
-The `TableView` plugin allows you to customize table cell appearance using the `getTableCellComponent` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
+The `Table` plugin allows you to customize table cell appearance using the `getTableCellComponent` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
 
 .embedded-demo(basic/table-cell-template)
 
-The `TableView` plugin's `tableRowComponent` property enables you to handle row events like `onClick`, `onContextMenu` etc. as demonstrated in the following demo:
+The `Table` plugin's `tableRowComponent` property enables you to handle row events like `onClick`, `onContextMenu` etc. as demonstrated in the following demo:
 
 .embedded-demo(basic/table-row-template)
 

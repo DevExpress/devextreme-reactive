@@ -30,17 +30,17 @@ const defaultDeps = {
     setColumnFilter: jest.fn(),
   },
   template: {
-    tableViewCell: {
+    tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       style: {},
     },
   },
-  plugins: ['FilteringState', 'TableView'],
+  plugins: ['FilteringState', 'Table'],
 };
 
 const defaultProps = {
@@ -102,13 +102,13 @@ describe('TableFilterRow', () => {
 
     expect(isFilterTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(filterCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        column: defaultDeps.template.tableViewCell.tableColumn.column,
+        ...defaultDeps.template.tableCell,
+        column: defaultDeps.template.tableCell.tableColumn.column,
       }));
   });
 
@@ -122,7 +122,7 @@ describe('TableFilterRow', () => {
         filters: [{ columnName: 'a', value: 'b' }],
       },
       template: {
-        tableViewCell: {
+        tableCell: {
           tableRow: { type: 'undefined', rowId: 1, row: 'row' },
           tableColumn: { type: 'undefined', column: { name: 'column', dataType: 'column' } },
           style: {},
@@ -146,7 +146,7 @@ describe('TableFilterRow', () => {
 
     expect(valueEditor)
       .toHaveBeenCalledWith({
-        column: deps.template.tableViewCell.tableColumn.column,
+        column: deps.template.tableCell.tableColumn.column,
         value: deps.getter.filters[0].value,
         onValueChange: expect.any(Function),
       });
@@ -167,8 +167,8 @@ describe('TableFilterRow', () => {
         />
       </PluginHost>
     ));
-    expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
-    expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableViewRow);
+    expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableRow);
   });
 
   it('should pass getMessage function to filterTableCellTemplate', () => {

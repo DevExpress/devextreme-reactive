@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableCell } from 'material-ui';
+import { TableCell, Paper } from 'material-ui';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
@@ -68,15 +68,17 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <TableView
-          getTableCellComponent={getTableCellComponent}
-        />
-        <TableHeaderRow />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <Table
+            getTableCellComponent={getTableCellComponent}
+          />
+          <TableHeaderRow />
+        </Grid>
+      </Paper>
     );
   }
 }

@@ -13,9 +13,7 @@ const styles = theme => ({
     verticalAlign: 'top',
     paddingTop: theme.spacing.unit + 2,
     paddingRight: theme.spacing.unit,
-    '& ~ $cell': {
-      paddingLeft: theme.spacing.unit,
-    },
+    paddingLeft: theme.spacing.unit,
   },
   inputRoot: {
     width: '100%',

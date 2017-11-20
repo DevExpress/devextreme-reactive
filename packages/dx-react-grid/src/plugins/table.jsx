@@ -18,9 +18,9 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const Row = props =>
-  <TemplatePlaceholder name="tableViewRow" params={props} />;
+  <TemplatePlaceholder name="tableRow" params={props} />;
 const Cell = props =>
-  <TemplatePlaceholder name="tableViewCell" params={props} />;
+  <TemplatePlaceholder name="tableCell" params={props} />;
 
 const getTableLayoutProps = (
   params,
@@ -59,7 +59,7 @@ const tableBodyRowsComputed = ({ rows, getRowId }) =>
   tableRowsWithDataRows(rows, getRowId);
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 
-export class TableView extends React.PureComponent {
+export class Table extends React.PureComponent {
   render() {
     const {
       tableLayoutComponent: TableLayout,
@@ -76,7 +76,7 @@ export class TableView extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="TableView"
+        pluginName="Table"
         dependencies={[
           { pluginName: 'DataTypeProvider', optional: true },
         ]}
@@ -86,9 +86,9 @@ export class TableView extends React.PureComponent {
         <Getter name="tableColumns" computed={tableColumnsComputed} />
 
         <Template name="body">
-          <TemplatePlaceholder name="tableView" />
+          <TemplatePlaceholder name="table" />
         </Template>
-        <Template name="tableView">
+        <Template name="table">
           <TemplateConnector>
             {(getters, actions) => (
               <TableLayout
@@ -101,7 +101,7 @@ export class TableView extends React.PureComponent {
             )}
           </TemplateConnector>
         </Template>
-        <Template name="tableViewCell">
+        <Template name="tableCell">
           {params => (
             <TemplateConnector>
               {({ tableHeaderRows: headerRows }) =>
@@ -114,7 +114,7 @@ export class TableView extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDataTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -135,19 +135,19 @@ export class TableView extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
           {params => <TableNoDataCell {...{ getMessage, ...params }} />}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
           {params => <TableRow {...getDataTableRowTemplateArgs(params)} />}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
           {params => <TableNoDataRow {...params} />}
@@ -157,7 +157,7 @@ export class TableView extends React.PureComponent {
   }
 }
 
-TableView.propTypes = {
+Table.propTypes = {
   tableLayoutComponent: PropTypes.func.isRequired,
   getTableCellComponent: PropTypes.func.isRequired,
   tableRowComponent: PropTypes.func.isRequired,
@@ -168,6 +168,6 @@ TableView.propTypes = {
   messages: PropTypes.object,
 };
 
-TableView.defaultProps = {
+Table.defaultProps = {
   messages: {},
 };

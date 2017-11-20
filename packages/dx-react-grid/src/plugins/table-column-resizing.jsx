@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 export class TableColumnResizing extends React.PureComponent {

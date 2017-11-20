@@ -11,7 +11,7 @@ import {
   isDataTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { TableView } from './table-view';
+import { Table } from './table';
 import { DataTypeProvider } from './data-type-provider';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -47,7 +47,7 @@ const defaultProps = {
   tableNoDataRowComponent: () => null,
 };
 
-describe('TableView', () => {
+describe('Table', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -74,7 +74,7 @@ describe('TableView', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <TableView
+          <Table
             {...defaultProps}
           />
         </PluginHost>
@@ -90,7 +90,7 @@ describe('TableView', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <TableView
+          <Table
             {...defaultProps}
           />
         </PluginHost>
@@ -117,7 +117,7 @@ describe('TableView', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
           getTableCellComponent={getTableCellComponent}
@@ -156,7 +156,7 @@ describe('TableView', () => {
           formatterTemplate={valueFormatter}
         />
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
           getTableCellComponent={getTableCellComponent}
@@ -180,7 +180,7 @@ describe('TableView', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
         />
@@ -198,7 +198,7 @@ describe('TableView', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
         />
@@ -220,7 +220,7 @@ describe('TableView', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           messages={{ noData: 'No data' }}
           tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
@@ -248,7 +248,7 @@ describe('TableView', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
         />
@@ -274,7 +274,7 @@ describe('TableView', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
         />

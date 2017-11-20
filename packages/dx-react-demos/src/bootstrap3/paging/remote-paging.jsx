@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
             pageSize={pageSize}
             totalCount={totalCount}
           />
-          <TableView />
+          <Table />
           <TableHeaderRow />
           <PagingPanel />
         </Grid>

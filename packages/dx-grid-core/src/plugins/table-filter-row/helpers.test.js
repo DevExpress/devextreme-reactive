@@ -1,5 +1,5 @@
 import { TABLE_FILTER_TYPE } from './constants';
-import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
 import {
   isFilterTableCell,
   isFilterTableRow,

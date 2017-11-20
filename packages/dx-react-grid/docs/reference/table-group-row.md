@@ -7,7 +7,7 @@ A plugin that renders group rows. Enables expanding and collapsing them.
 ### Dependencies
 
 - [GroupingState](grouping-state.md)
-- [TableView](table-view.md)
+- [Table](table.md)
 - [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
@@ -35,7 +35,7 @@ title? | string | Specifies a table column title.
 
 Describes the properties passed to the template that renders a group row.
 
-A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
+A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -48,7 +48,7 @@ toggleGroupExpanded | () => void | Toggles the group row's expanded state.
 
 Describes the properties passed to the template that renders a group row.
 
-A value with the [TableRowProps](table-view.md#tablerowprops) shape extended by the following fields:
+A value with the [TableRowProps](table.md#tablerowprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -58,7 +58,7 @@ row | [GroupRow](#group-row) | The group row.
 
 Describes properties passed to the template that renders a group indent cell.
 
-A value with the [TableCellProps](table-view.md#tablecellprops) shape extended by the following fields:
+A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -80,19 +80,19 @@ value | any | The current group value.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns.
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table body rows.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Table body rows.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview.
 expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the expanded group state.
-tableViewCell | Template | [TableCellProps](table-view.md#tablecellprops) | A template that renders a table cell.
-tableViewRow | Template | [TableRowProps](table-view.md#tablerowprops) | A template that renders a table row.
+tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns, including the ones by which the table is grouped.
-tableBodyRows | Getter | Array&lt;[TableRow](table-view.md#table-column)&gt; | Table body rows with modified group rows.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns, including the ones by which the table is grouped.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-column)&gt; | Table body rows with modified group rows.

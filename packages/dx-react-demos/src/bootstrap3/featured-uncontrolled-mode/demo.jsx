@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
+  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
@@ -85,7 +85,7 @@ export default class Demo extends React.PureComponent {
 
         <DragDropContext />
 
-        <TableView
+        <Table
           getTableCellComponent={this.getTableCellComponent}
         />
 

@@ -10,8 +10,9 @@ import { withStyles } from 'material-ui/styles';
 const styles = theme => ({
   cell: {
     paddingRight: theme.spacing.unit,
-    '& ~ $cell': {
-      paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    '&:first-child': {
+      paddingLeft: theme.spacing.unit * 3,
     },
     overflow: 'hidden',
     textOverflow: 'ellipsis',

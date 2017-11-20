@@ -7,7 +7,7 @@ The Grid component allows reordering grid columns programmatically or using the 
 The following plugins implement column reordering features:
 
 - [DragDropContext](../reference/drag-drop-context.md) - implements the drag-and-drop functionality and visualizes a column being dragged
-- [TableView](../reference/table-view.md) - visualizes table column reordering
+- [Table](../reference/table.md) - visualizes table column reordering
 - [TableColumnReordering](../reference/table-column-reordering.md) - controls the column order
 - [TableHeaderRow](../reference/table-header-row.md) - visualizes header row column reordering
 

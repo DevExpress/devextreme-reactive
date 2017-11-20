@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
           expandedRows={expandedRows}
           onExpandedRowsChange={this.changeExpandedDetails}
         />
-        <TableView />
+        <Table />
         <TableHeaderRow />
         <TableRowDetail
           template={this.rowTemplate}

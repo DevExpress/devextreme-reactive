@@ -6,7 +6,7 @@ A plugin that manages Grid columns' visibility.
 
 ### Dependencies
 
-- [TableView](table-view.md)
+- [Table](table.md)
 
 ### Properties
 
@@ -38,10 +38,10 @@ noColumns? | string | 'Nothing to show' | Specifies the text displayed when the 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Visible table columns.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Visible table columns.

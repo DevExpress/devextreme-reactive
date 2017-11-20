@@ -35,7 +35,7 @@ const getDetailTableRowTemplateArgs = params => ({
 });
 
 const pluginDependencies = [
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 export class TableRowDetail extends React.PureComponent {
@@ -62,7 +62,7 @@ export class TableRowDetail extends React.PureComponent {
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -77,7 +77,7 @@ export class TableRowDetail extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (
@@ -88,7 +88,7 @@ export class TableRowDetail extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (

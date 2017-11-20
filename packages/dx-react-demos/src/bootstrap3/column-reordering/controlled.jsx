@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Grid,
   DragDropContext,
-  TableView,
+  Table,
   TableHeaderRow,
   TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -40,7 +40,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <DragDropContext />
-        <TableView />
+        <Table />
         <TableColumnReordering
           order={columnOrder}
           onOrderChange={this.changeColumnOrder}

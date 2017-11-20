@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
-import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
+import { Table as TableBase } from '@devexpress/dx-react-grid';
+import { TableRow } from '../templates/table-row';
 import { TableLayout } from '../templates/table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
-import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
-import { TableRow } from '../templates/table-row';
 
 const defaultGetTableCellComponent = () => TableCell;
 
@@ -15,7 +14,7 @@ const defaultMessages = {
   noData: 'No data',
 };
 
-export class TableView extends React.PureComponent {
+export class Table extends React.PureComponent {
   render() {
     const {
       getTableCellComponent,
@@ -24,7 +23,7 @@ export class TableView extends React.PureComponent {
     } = this.props;
 
     return (
-      <TableViewBase
+      <TableBase
         tableLayoutComponent={TableLayout}
         tableRowComponent={TableRow}
         getTableCellComponent={combineTemplates(
@@ -34,7 +33,7 @@ export class TableView extends React.PureComponent {
         tableNoDataRowComponent={TableRow}
         tableNoDataCellComponent={TableNoDataCell}
         tableStubCellComponent={TableStubCell}
-        tableStubHeaderCellComponent={TableStubHeaderCell}
+        tableStubHeaderCellComponent={TableStubCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -42,14 +41,14 @@ export class TableView extends React.PureComponent {
   }
 }
 
-TableView.propTypes = {
+Table.propTypes = {
   getTableCellComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
 };
 
-TableView.defaultProps = {
+Table.defaultProps = {
   getTableCellComponent: undefined,
   messages: {},
 };

@@ -42,9 +42,9 @@ const defaultDeps = {
     tableHeaderRows: [],
   },
   template: {
-    tableView: {},
+    table: {},
   },
-  plugins: ['TableView'],
+  plugins: ['Table'],
 };
 const defaultClientOffset = { clientOffset: { x: 180 } };
 
@@ -110,7 +110,7 @@ describe('TableColumnReordering', () => {
       .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, ['b', 'a']);
   });
 
-  it('should render the "tableView" template', () => {
+  it('should render the "table" template', () => {
     mount((
       <DragDropContext>
         <PluginHost>
@@ -138,11 +138,11 @@ describe('TableColumnReordering', () => {
 
   describe('drag\'n\'drop reordering', () => {
     // eslint-disable-next-line react/prop-types
-    const TableViewMock = ({ children }) => <div>{children}</div>;
+    const TableMock = ({ children }) => <div>{children}</div>;
     const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount((
       <DragDropContext>
         <PluginHost>
-          <Template name="tableView">
+          <Template name="table">
             <div>
               <TemplateConnector>
                 {({ tableColumns }) => (
@@ -150,7 +150,7 @@ describe('TableColumnReordering', () => {
                     {tableColumns.map(tableColumn => tableColumn.type === TABLE_DATA_TYPE && (
                       <TemplatePlaceholder
                         key={tableColumn.column.name}
-                        name="tableViewCell"
+                        name="tableCell"
                         params={{
                           tableColumn,
                           tableRow: { key: TABLE_REORDERING_TYPE, type: TABLE_REORDERING_TYPE },
@@ -165,7 +165,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableColumnReordering
             defaultOrder={defaultOrder}
-            tableContainerTemplate={props => <TableViewMock {...props} />}
+            tableContainerTemplate={props => <TableMock {...props} />}
             reorderingRowTemplate={reorderingRowTemplate}
             reorderingCellTemplate={reorderingCellTemplate}
           />
@@ -184,7 +184,7 @@ describe('TableColumnReordering', () => {
         .mockImplementationOnce(() => 0);
 
       const onOver = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
-        .find(TableViewMock)
+        .find(TableMock)
         .prop('onOver');
 
       orderedColumns.mockClear();
@@ -209,7 +209,7 @@ describe('TableColumnReordering', () => {
       getTableTargetColumnIndex.mockImplementation(() => 1);
 
       const { onOver, onLeave } = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
-        .find(TableViewMock)
+        .find(TableMock)
         .props();
 
       onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
@@ -223,7 +223,7 @@ describe('TableColumnReordering', () => {
       getTableTargetColumnIndex.mockImplementation(() => 1);
 
       const { onOver, onDrop } = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
-        .find(TableViewMock)
+        .find(TableMock)
         .props();
 
       onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
@@ -247,7 +247,7 @@ describe('TableColumnReordering', () => {
       getTableTargetColumnIndex.mockImplementation(() => 1);
 
       const onOver = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
-        .find(TableViewMock)
+        .find(TableMock)
         .prop('onOver');
 
       expect(() => {
@@ -269,7 +269,7 @@ describe('TableColumnReordering', () => {
       getTableTargetColumnIndex.mockImplementation(() => 1);
 
       const onOver = mountWithCellTemplates({ defaultOrder: ['c', 'a', 'b'] }, deps)
-        .find(TableViewMock)
+        .find(TableMock)
         .prop('onOver');
 
       onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });

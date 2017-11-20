@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TableRow as TableRowMUI, Paper } from 'material-ui';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import { TableRow as TableRowMUI } from 'material-ui';
 
 import {
   generateRows,
@@ -49,15 +49,17 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <TableView
-          tableRowComponent={TableRow}
-        />
-        <TableHeaderRow />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <Table
+            tableRowComponent={TableRow}
+          />
+          <TableHeaderRow />
+        </Grid>
+      </Paper>
     );
   }
 }

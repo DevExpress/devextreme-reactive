@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates, createRenderComponent } from '@devexpress/dx-react-core';
-import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
+import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableRow } from '../templates/table-row';
@@ -15,7 +15,7 @@ const defaultMessages = {
   noData: 'No data',
 };
 
-export class VirtualTableView extends React.PureComponent {
+export class VirtualTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -31,7 +31,7 @@ export class VirtualTableView extends React.PureComponent {
     } = this.props;
 
     return (
-      <TableViewBase
+      <TableBase
         tableLayoutComponent={this.tableLayoutRenderComponent(props => (
           <VirtualTableLayout
             {...props}
@@ -55,7 +55,7 @@ export class VirtualTableView extends React.PureComponent {
   }
 }
 
-VirtualTableView.propTypes = {
+VirtualTable.propTypes = {
   getTableCellComponent: PropTypes.func,
   estimatedRowHeight: PropTypes.number,
   height: PropTypes.number,
@@ -64,7 +64,7 @@ VirtualTableView.propTypes = {
   }),
 };
 
-VirtualTableView.defaultProps = {
+VirtualTable.defaultProps = {
   getTableCellComponent: undefined,
   estimatedRowHeight: 37,
   height: 530,

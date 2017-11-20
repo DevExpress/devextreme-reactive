@@ -9,7 +9,7 @@ import {
   TableEditRow,
   TableEditColumn,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
   defaultColumnValues,
@@ -80,29 +80,31 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={getRowId}
-      >
-        <EditingState
-          editingRows={editingRows}
-          onEditingRowsChange={this.changeEditingRows}
-          changedRows={changedRows}
-          onChangedRowsChange={this.changeChangedRows}
-          addedRows={addedRows}
-          onAddedRowsChange={this.changeAddedRows}
-          onCommitChanges={this.commitChanges}
-        />
-        <TableView />
-        <TableHeaderRow />
-        <TableEditRow />
-        <TableEditColumn
-          allowAdding={!addedRows.length}
-          allowEditing
-          allowDeleting
-        />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <EditingState
+            editingRows={editingRows}
+            onEditingRowsChange={this.changeEditingRows}
+            changedRows={changedRows}
+            onChangedRowsChange={this.changeChangedRows}
+            addedRows={addedRows}
+            onAddedRowsChange={this.changeAddedRows}
+            onCommitChanges={this.commitChanges}
+          />
+          <TableView />
+          <TableHeaderRow />
+          <TableEditRow />
+          <TableEditColumn
+            allowAdding={!addedRows.length}
+            allowEditing
+            allowDeleting
+          />
+        </Grid>
+      </Paper>
     );
   }
 }

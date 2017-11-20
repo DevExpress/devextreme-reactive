@@ -11,7 +11,7 @@ import {
   TableSelection,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -39,25 +39,26 @@ export default class Demo extends React.PureComponent {
     return (
       <div>
         <span>Total rows selected: {selection.length}</span>
-
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <PagingState
-            defaultCurrentPage={0}
-            pageSize={6}
-          />
-          <LocalPaging />
-          <SelectionState
-            selection={selection}
-            onSelectionChange={this.changeSelection}
-          />
-          <TableView />
-          <TableHeaderRow />
-          <TableSelection />
-          <PagingPanel />
-        </Grid>
+        <Paper>
+          <Grid
+            rows={rows}
+            columns={columns}
+          >
+            <PagingState
+              defaultCurrentPage={0}
+              pageSize={6}
+            />
+            <LocalPaging />
+            <SelectionState
+              selection={selection}
+              onSelectionChange={this.changeSelection}
+            />
+            <TableView />
+            <TableHeaderRow />
+            <TableSelection />
+            <PagingPanel />
+          </Grid>
+        </Paper>
       </div>
     );
   }

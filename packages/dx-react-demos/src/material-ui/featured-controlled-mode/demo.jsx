@@ -20,6 +20,7 @@ import {
   DialogTitle,
   MenuItem,
   Select,
+  Paper,
 } from 'material-ui';
 
 import DeleteIcon from 'material-ui-icons/Delete';
@@ -268,7 +269,7 @@ class DemoBase extends React.PureComponent {
     } = this.state;
 
     return (
-      <div>
+      <Paper>
         <Grid
           rows={rows}
           columns={columns}
@@ -335,22 +336,24 @@ class DemoBase extends React.PureComponent {
             <DialogContentText>
               Are you sure to delete the following row?
             </DialogContentText>
-            <Grid
-              rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
-              columns={columns}
-            >
-              <TableView
-                tableCellTemplate={this.tableCellTemplate}
-              />
-              <TableHeaderRow />
-            </Grid>
+            <Paper>
+              <Grid
+                rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
+                columns={columns}
+              >
+                <TableView
+                  tableCellTemplate={this.tableCellTemplate}
+                />
+                <TableHeaderRow />
+              </Grid>
+            </Paper>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.cancelDelete} color="primary">Cancel</Button>
             <Button onClick={this.deleteRows} color="accent">Delete</Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </Paper>
     );
   }
 }

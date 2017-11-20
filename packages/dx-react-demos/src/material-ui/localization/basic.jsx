@@ -20,7 +20,7 @@ import {
   PagingPanel,
   DragDropContext,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
   globalSalesValues,
@@ -69,53 +69,55 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <DragDropContext />
-        <FilteringState defaultFilters={[]} />
-        <GroupingState defaultGrouping={[]} />
-        <EditingState
-          onCommitChanges={this.commitChanges}
-        />
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <DragDropContext />
+          <FilteringState defaultFilters={[]} />
+          <GroupingState defaultGrouping={[]} />
+          <EditingState
+            onCommitChanges={this.commitChanges}
+          />
 
-        <LocalFiltering />
-        <LocalGrouping />
-        <PagingState
-          defaultCurrentPage={0}
-          defaultPageSize={5}
-        />
-        <LocalPaging />
-        <TableView
-          messages={tableViewMessages}
-        />
-        <TableHeaderRow allowDragging />
+          <LocalFiltering />
+          <LocalGrouping />
+          <PagingState
+            defaultCurrentPage={0}
+            defaultPageSize={5}
+          />
+          <LocalPaging />
+          <TableView
+            messages={tableViewMessages}
+          />
+          <TableHeaderRow allowDragging />
 
-        <TableEditRow />
-        <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
-          width={250}
-          messages={editColumnMessages}
-        />
+          <TableEditRow />
+          <TableEditColumn
+            allowAdding
+            allowEditing
+            allowDeleting
+            width={250}
+            messages={editColumnMessages}
+          />
 
-        <TableFilterRow
-          messages={filterRowMessages}
-        />
-        <GroupingPanel
-          allowUngroupingByClick
-          allowDragging
-          messages={groupingPanelMessages}
-        />
+          <TableFilterRow
+            messages={filterRowMessages}
+          />
+          <GroupingPanel
+            allowUngroupingByClick
+            allowDragging
+            messages={groupingPanelMessages}
+          />
 
-        <TableGroupRow />
-        <PagingPanel
-          allowedPageSizes={[5, 10, 15, 0]}
-          messages={pagingPanelMessages}
-        />
-      </Grid>
+          <TableGroupRow />
+          <PagingPanel
+            allowedPageSizes={[5, 10, 15, 0]}
+            messages={pagingPanelMessages}
+          />
+        </Grid>
+      </Paper>
     );
   }
 }

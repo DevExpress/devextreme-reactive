@@ -9,7 +9,7 @@ import {
   TableHeaderRow,
   TableGroupRow,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -43,20 +43,22 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, grouping } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <GroupingState
-          grouping={grouping}
-        />
-        <LocalGrouping
-          getColumnIdentity={this.getColumnIdentity}
-        />
-        <TableView />
-        <TableHeaderRow />
-        <TableGroupRow />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <GroupingState
+            grouping={grouping}
+          />
+          <LocalGrouping
+            getColumnIdentity={this.getColumnIdentity}
+          />
+          <TableView />
+          <TableHeaderRow />
+          <TableGroupRow />
+        </Grid>
+      </Paper>
     );
   }
 }

@@ -10,12 +10,12 @@ Project Status: **Beta**
 
 ### Main Features
 
-* Composable and extendable plugin-based architecture
-* [Bootstrap](https://github.com/react-bootstrap/react-bootstrap) and [Material UI](https://github.com/callemall/material-ui) integration with seamless theming
-* Controlled (stateless) and uncontrolled (stateful) modes
-* [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-travelling
-* 100% Native React (not jQuery or other dependencies inside)
-* High performance via pure components, immutable state, and memoization
+- Composable and extendable plugin-based architecture
+- [Bootstrap](https://github.com/react-bootstrap/react-bootstrap) and [Material UI](https://github.com/callemall/material-ui) integration with seamless theming
+- Controlled (stateless) and uncontrolled (stateful) modes
+- [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-traveling
+- 100% Native React (no jQuery or other dependencies)
+- High performance via pure components, immutable state, and memoization
 
 
 ### React Grid
@@ -27,6 +27,7 @@ Project Status: **Beta**
 [Docs](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
 
 Packages:
+
 - [DevExtreme React Grid](packages/dx-react-grid/README.md)
 - [DevExtreme React Grid Bootstrap3](packages/dx-react-grid-bootstrap3/README.md)
 - [DevExtreme React Grid Material UI](packages/dx-react-grid-material-ui/README.md)
@@ -37,4 +38,4 @@ Packages:
 
 ## Support & Feedback
 
-Use [GitHub Issues](https://github.com/DevExpress/devextreme-reactive/issues) for reporting bugs, questions, and feature requests.
+Use [GitHub Issues](https://github.com/DevExpress/devextreme-reactive/issues) for reporting bugs, questions, and feature requests. If you own an active DevExtreme license, you can contact us at the [Support Center](https://www.devexpress.com/ask).

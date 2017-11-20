@@ -181,49 +181,51 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, allowedPageSizes } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <SortingState />
-        <GroupingState />
-        <PagingState
-          defaultCurrentPage={0}
-          defaultPageSize={10}
-        />
-        <RowDetailState
-          defaultExpandedRows={[2]}
-        />
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <SortingState />
+          <GroupingState />
+          <PagingState
+            defaultCurrentPage={0}
+            defaultPageSize={10}
+          />
+          <RowDetailState
+            defaultExpandedRows={[2]}
+          />
 
-        <LocalSorting />
-        <LocalGrouping />
-        <LocalPaging />
+          <LocalSorting />
+          <LocalGrouping />
+          <LocalPaging />
 
-        <SelectionState
-          defaultSelection={[1, 3, 18]}
-        />
+          <SelectionState
+            defaultSelection={[1, 3, 18]}
+          />
 
-        <DragDropContext />
+          <DragDropContext />
 
-        <TableView />
+          <TableView />
 
-        <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
+          <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-        <TableHeaderRow allowSorting allowDragging />
-        <PagingPanel
-          allowedPageSizes={allowedPageSizes}
-        />
-        <TableSelection />
-        <TableRowDetail
-          template={({ row }) => (
-            <GridDetailContainer
-              data={row}
-            />
-          )}
-        />
-        <TableGroupRow />
-        <GroupingPanel allowSorting allowDragging />
-      </Grid>
+          <TableHeaderRow allowSorting allowDragging />
+          <PagingPanel
+            allowedPageSizes={allowedPageSizes}
+          />
+          <TableSelection />
+          <TableRowDetail
+            template={({ row }) => (
+              <GridDetailContainer
+                data={row}
+              />
+            )}
+          />
+          <TableGroupRow />
+          <GroupingPanel allowSorting allowDragging />
+        </Grid>
+      </Paper>
     );
   }
 }

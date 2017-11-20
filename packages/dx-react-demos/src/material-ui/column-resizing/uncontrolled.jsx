@@ -5,7 +5,7 @@ import {
   TableHeaderRow,
   TableColumnResizing,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -31,14 +31,16 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, defaultColumnWidths } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <TableView />
-        <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
-        <TableHeaderRow allowResizing />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <TableView />
+          <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
+          <TableHeaderRow allowResizing />
+        </Grid>
+      </Paper>
     );
   }
 }

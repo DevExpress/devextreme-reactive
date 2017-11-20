@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
@@ -56,7 +56,7 @@ export default class Demo extends React.PureComponent {
         >
           <CurrencyTypeProvider />
           <DateTypeProvider />
-          <TableView />
+          <Table />
           <TableHeaderRow />
         </Grid>
       </Paper>

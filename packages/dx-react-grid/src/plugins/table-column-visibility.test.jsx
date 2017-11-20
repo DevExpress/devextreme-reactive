@@ -20,9 +20,9 @@ const defaultDeps = {
     ],
   },
   template: {
-    tableView: {},
+    table: {},
   },
-  plugins: ['TableView'],
+  plugins: ['Table'],
 };
 
 describe('TableColumnVisibility', () => {

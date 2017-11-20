@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
@@ -90,7 +90,7 @@ export default class Demo extends React.PureComponent {
         >
           <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
           <LocalFiltering />
-          <TableView />
+          <Table />
           <TableHeaderRow />
           <TableFilterRow
             filterCellTemplate={({ column, filter, setFilter }) => {

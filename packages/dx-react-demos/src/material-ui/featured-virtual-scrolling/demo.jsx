@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
+  VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   GroupingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
 
           <SelectionState />
 
-          <VirtualTableView
+          <VirtualTable
             tableCellTemplate={this.tableCellTemplate}
           />
           <TableHeaderRow allowSorting allowDragging />

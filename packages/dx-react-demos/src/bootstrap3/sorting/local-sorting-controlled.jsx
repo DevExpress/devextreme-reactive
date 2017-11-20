@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
           onSortingChange={this.changeSorting}
         />
         <LocalSorting />
-        <TableView />
+        <Table />
         <TableHeaderRow allowSorting />
       </Grid>
     );

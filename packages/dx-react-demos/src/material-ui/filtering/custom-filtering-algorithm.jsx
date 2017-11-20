@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
         >
           <FilteringState defaultFilters={[{ columnName: 'city', value: 'Paris' }]} />
           <LocalFiltering getColumnPredicate={getColumnPredicate} />
-          <TableView />
+          <Table />
           <TableHeaderRow />
           <TableFilterRow />
         </Grid>

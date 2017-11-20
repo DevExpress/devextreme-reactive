@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableEditRow,
   TableEditColumn,
@@ -95,7 +95,7 @@ export default class Demo extends React.PureComponent {
             onAddedRowsChange={this.changeAddedRows}
             onCommitChanges={this.commitChanges}
           />
-          <TableView />
+          <Table />
           <TableHeaderRow />
           <TableEditRow />
           <TableEditColumn

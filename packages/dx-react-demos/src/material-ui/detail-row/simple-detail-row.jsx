@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
           <RowDetailState
             defaultExpandedRows={[2, 5]}
           />
-          <TableView />
+          <Table />
           <TableHeaderRow />
           <TableRowDetail
             template={this.rowTemplate}

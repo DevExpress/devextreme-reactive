@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTableView,
+  VirtualTable,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
@@ -85,7 +85,7 @@ export default class Demo extends React.PureComponent {
             sorting={sorting}
             onSortingChange={this.changeSorting}
           />
-          <VirtualTableView />
+          <VirtualTable />
           <TableHeaderRow allowSorting />
         </Grid>
         {loading && <Loading />}

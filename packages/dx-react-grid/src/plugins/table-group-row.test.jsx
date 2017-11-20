@@ -35,17 +35,17 @@ const defaultDeps = {
     toggleGroupExpanded: jest.fn(),
   },
   template: {
-    tableViewCell: {
+    tableCell: {
       tableRow: { type: 'undefined', id: 1, row: 'row' },
       tableColumn: { type: 'undefined', id: 1, column: 'column' },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', id: 1, row: 'row' },
       style: {},
     },
   },
-  plugins: ['GroupingState', 'TableView'],
+  plugins: ['GroupingState', 'Table'],
 };
 
 const defaultProps = {
@@ -221,14 +221,14 @@ describe('TableGroupRow', () => {
 
     expect(isGroupIndentTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(groupIndentCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
-        column: defaultDeps.template.tableViewCell.tableColumn.column,
+        ...defaultDeps.template.tableCell,
+        row: defaultDeps.template.tableCell.tableRow.row,
+        column: defaultDeps.template.tableCell.tableColumn.column,
       }));
   });
 
@@ -249,14 +249,14 @@ describe('TableGroupRow', () => {
 
       expect(isGroupTableCell)
         .toBeCalledWith(
-          defaultDeps.template.tableViewCell.tableRow,
-          defaultDeps.template.tableViewCell.tableColumn,
+          defaultDeps.template.tableCell.tableRow,
+          defaultDeps.template.tableCell.tableColumn,
         );
       expect(groupCellTemplate)
         .toBeCalledWith(expect.objectContaining({
-          ...defaultDeps.template.tableViewCell,
-          row: defaultDeps.template.tableViewCell.tableRow.row,
-          column: defaultDeps.template.tableViewCell.tableColumn.column,
+          ...defaultDeps.template.tableCell,
+          row: defaultDeps.template.tableCell.tableRow.row,
+          column: defaultDeps.template.tableCell.tableColumn.column,
         }));
     });
 
@@ -269,7 +269,7 @@ describe('TableGroupRow', () => {
           expandedGroups: new Set(),
         },
         template: {
-          tableViewCell: {
+          tableCell: {
             tableRow: { row: { compoundKey: '1' } },
             tableColumn: {},
           },
@@ -306,7 +306,7 @@ describe('TableGroupRow', () => {
     const valueFormatter = jest.fn(() => <span />);
     const deps = {
       template: {
-        tableViewCell: {
+        tableCell: {
           tableRow: {
             type: 'undefined', id: 1, value: 'row', row: { key: '1' },
           },
@@ -332,8 +332,8 @@ describe('TableGroupRow', () => {
 
     expect(valueFormatter)
       .toHaveBeenCalledWith({
-        column: deps.template.tableViewCell.tableColumn.column,
-        value: deps.template.tableViewCell.tableRow.row.value,
+        column: deps.template.tableCell.tableColumn.column,
+        value: deps.template.tableCell.tableRow.row.value,
       });
     expect(groupCellTemplate.mock.calls[0][0])
       .toHaveProperty('children');
@@ -353,10 +353,10 @@ describe('TableGroupRow', () => {
       </PluginHost>
     ));
 
-    expect(isGroupTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(isGroupTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(groupRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...defaultDeps.template.tableViewRow,
-      row: defaultDeps.template.tableViewRow.tableRow.row,
+      ...defaultDeps.template.tableRow,
+      row: defaultDeps.template.tableRow.tableRow.row,
     }));
   });
 });

@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTableView,
+  VirtualTable,
   TableHeaderRow,
   TableSelection,
 } from '@devexpress/dx-react-grid-material-ui';
@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
               selection={selection}
               onSelectionChange={this.changeSelection}
             />
-            <VirtualTableView />
+            <VirtualTable />
             <TableHeaderRow />
             <TableSelection />
           </Grid>

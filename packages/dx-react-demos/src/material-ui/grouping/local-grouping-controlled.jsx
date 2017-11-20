@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
@@ -48,7 +48,7 @@ export default class Demo extends React.PureComponent {
             onGroupingChange={this.changeGrouping}
           />
           <LocalGrouping />
-          <TableView />
+          <Table />
           <TableHeaderRow allowDragging allowGroupingByClick />
           <TableGroupRow />
           <GroupingPanel allowDragging allowUngroupingByClick />

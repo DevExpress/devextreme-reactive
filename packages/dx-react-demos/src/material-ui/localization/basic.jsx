@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableFilterRow,
   TableGroupRow,
@@ -26,7 +26,7 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const tableViewMessages = {
+const tableMessages = {
   noData: 'Keine Daten verfügbar',
 };
 const editColumnMessages = {
@@ -88,8 +88,8 @@ export default class Demo extends React.PureComponent {
             defaultPageSize={5}
           />
           <LocalPaging />
-          <TableView
-            messages={tableViewMessages}
+          <Table
+            messages={tableMessages}
           />
           <TableHeaderRow allowDragging />
 

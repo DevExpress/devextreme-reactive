@@ -1,5 +1,5 @@
 import { TABLE_DETAIL_TYPE } from './constants';
-import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
 
 export const isDetailRowExpanded = (expandedRows, rowId) => expandedRows.indexOf(rowId) > -1;
 export const isDetailToggleTableCell = (tableRow, tableColumn) =>

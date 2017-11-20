@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableSelection,
 } from '@devexpress/dx-react-grid-material-ui';
@@ -69,7 +69,7 @@ export default class Demo extends React.PureComponent {
             selection={selection}
             onSelectionChange={this.changeSelection}
           />
-          <TableView />
+          <Table />
           <TableHeaderRow allowSorting />
           <TableSelection />
         </Grid>

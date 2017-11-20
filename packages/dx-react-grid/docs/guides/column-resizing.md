@@ -6,7 +6,7 @@ Table columns in the Grid component can be resized programmatically or via the G
 
 The following plugins implement column resizing features:
 
-- [TableView](../reference/table-view.md) - visualizes table column widths
+- [Table](../reference/table.md) - visualizes table column widths
 - [TableColumnResizing](../reference/table-column-resizing.md) - controls table column widths
 - [TableHeaderRow](../reference/table-header-row.md) - renders the table columns' resize handles
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableColumnResizing,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -35,7 +35,7 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <TableView />
+        <Table />
         <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
         <TableHeaderRow allowResizing />
       </Grid>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   ColumnChooser,
   TableColumnVisibility,
@@ -40,7 +40,7 @@ export default class Demo extends React.PureComponent {
             rows={rows}
             columns={columns}
           >
-            <TableView />
+            <Table />
             <TableHeaderRow />
             <TableColumnVisibility
               hiddenColumns={hiddenColumns}

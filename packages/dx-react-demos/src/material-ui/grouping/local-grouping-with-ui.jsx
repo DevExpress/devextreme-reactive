@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
           <DragDropContext />
           <GroupingState defaultGrouping={[{ columnName: 'city' }]} />
           <LocalGrouping />
-          <TableView />
+          <Table />
           <TableHeaderRow allowDragging />
           <TableGroupRow />
           <GroupingPanel allowDragging />

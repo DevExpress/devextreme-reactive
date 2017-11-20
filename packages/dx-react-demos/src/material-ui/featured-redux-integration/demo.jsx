@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
+  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
@@ -42,7 +42,7 @@ const GridDetailContainerBase = ({
         rows={data.tasks}
         columns={columns}
       >
-        <TableView />
+        <Table />
         <TableHeaderRow />
       </Grid>
     </Paper>
@@ -125,7 +125,7 @@ const GridContainer = ({
 
       <DragDropContext />
 
-      <TableView />
+      <Table />
 
       <TableColumnReordering
         order={columnOrder}

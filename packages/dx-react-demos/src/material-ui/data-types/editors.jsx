@@ -1,5 +1,4 @@
 import React from 'react';
-import Chip from 'material-ui/Chip';
 import {
   DataTypeProvider,
   EditingState,
@@ -12,8 +11,10 @@ import {
   TableEditColumn,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
+  Chip,
   Input,
   MenuItem,
+  Paper,
   Select,
 } from 'material-ui';
 
@@ -82,25 +83,27 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={row => row.id}
-      >
-        <BooleanTypeProvider />
-        <EditingState
-          onCommitChanges={this.commitChanges}
-          defaultEditingRows={[0]}
-        />
-        <TableView />
-        <TableHeaderRow />
-        <TableEditRow />
-        <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
-        />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={row => row.id}
+        >
+          <BooleanTypeProvider />
+          <EditingState
+            onCommitChanges={this.commitChanges}
+            defaultEditingRows={[0]}
+          />
+          <TableView />
+          <TableHeaderRow />
+          <TableEditRow />
+          <TableEditColumn
+            allowAdding
+            allowEditing
+            allowDeleting
+          />
+        </Grid>
+      </Paper>
     );
   }
 }

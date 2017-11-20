@@ -11,7 +11,7 @@ import {
   TableGroupRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { TableCell } from 'material-ui';
+import { TableCell, Paper } from 'material-ui';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -84,29 +84,31 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, grouping } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <GroupingState
-          grouping={grouping}
-          defaultExpandedGroups={['N-Z']}
-        />
-        <LocalGrouping
-          getColumnIdentity={this.getColumnIdentity}
-        />
-        <TableView />
-        <TableHeaderRow />
-        <TableGroupRow
-          groupCellTemplate={(props) => {
-            const { column } = props;
-            if (column.name === 'name') {
-              return <GroupCellTemplate {...props} />;
-            }
-            return undefined;
-          }}
-        />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <GroupingState
+            grouping={grouping}
+            defaultExpandedGroups={['N-Z']}
+          />
+          <LocalGrouping
+            getColumnIdentity={this.getColumnIdentity}
+          />
+          <TableView />
+          <TableHeaderRow />
+          <TableGroupRow
+            groupCellTemplate={(props) => {
+              const { column } = props;
+              if (column.name === 'name') {
+                return <GroupCellTemplate {...props} />;
+              }
+              return undefined;
+            }}
+          />
+        </Grid>
+      </Paper>
     );
   }
 }

@@ -5,6 +5,8 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
+import Paper from 'material-ui/Paper';
+
 import {
   generateRows,
   globalSalesValues,
@@ -30,13 +32,15 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <TableView />
-        <TableHeaderRow />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <TableView />
+          <TableHeaderRow />
+        </Grid>
+      </Paper>
     );
   }
 }

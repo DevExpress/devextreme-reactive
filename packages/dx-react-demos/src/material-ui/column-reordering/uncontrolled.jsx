@@ -6,7 +6,7 @@ import {
   TableHeaderRow,
   TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -29,17 +29,19 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <DragDropContext />
-        <TableView />
-        <TableColumnReordering
-          defaultOrder={['city', 'sex', 'car', 'name']}
-        />
-        <TableHeaderRow allowDragging />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <DragDropContext />
+          <TableView />
+          <TableColumnReordering
+            defaultOrder={['city', 'sex', 'car', 'name']}
+          />
+          <TableHeaderRow allowDragging />
+        </Grid>
+      </Paper>
     );
   }
 }

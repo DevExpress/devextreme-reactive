@@ -10,7 +10,7 @@ import {
   TableHeaderRow,
   TableSelection,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import Immutable from 'seamless-immutable';
 
 import {
@@ -55,23 +55,25 @@ export default class Demo extends React.PureComponent {
     } = this.state.data;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <SortingState
-          sorting={sorting}
-          onSortingChange={this.changeSorting}
-        />
-        <LocalSorting />
-        <SelectionState
-          selection={selection}
-          onSelectionChange={this.changeSelection}
-        />
-        <TableView />
-        <TableHeaderRow allowSorting />
-        <TableSelection />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <SortingState
+            sorting={sorting}
+            onSortingChange={this.changeSorting}
+          />
+          <LocalSorting />
+          <SelectionState
+            selection={selection}
+            onSelectionChange={this.changeSelection}
+          />
+          <TableView />
+          <TableHeaderRow allowSorting />
+          <TableSelection />
+        </Grid>
+      </Paper>
     );
   }
 }

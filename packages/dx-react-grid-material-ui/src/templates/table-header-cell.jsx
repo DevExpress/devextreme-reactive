@@ -26,8 +26,9 @@ const styles = theme => ({
     position: 'relative',
     overflow: 'visible',
     paddingRight: theme.spacing.unit,
-    '& ~ $cell': {
-      paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    '&:first-child': {
+      paddingLeft: theme.spacing.unit * 3,
     },
   },
   cellNoUserSelect: {
@@ -45,9 +46,6 @@ const styles = theme => ({
   cellRight: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
-  },
-  clearPadding: {
-    padding: 0,
   },
 });
 
@@ -84,6 +82,7 @@ class TableHeaderCellBase extends React.PureComponent {
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
       classes, getMessage,
     } = this.props;
+
     const { dragging } = this.state;
     const align = column.align || 'left';
     const columnTitle = column.title || column.name;

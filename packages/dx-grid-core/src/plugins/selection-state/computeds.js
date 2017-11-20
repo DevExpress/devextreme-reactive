@@ -6,7 +6,7 @@ export const getAvailableToSelect = (rows, getRowId, isGroupRow) => {
   return dataRows.map(row => getRowId(row));
 };
 
-export const getAvailableSelection = (selection, availableToSelect) => {
+export const selectAllAvaliable = (selection, availableToSelect) => {
   const availableToSelectSet = new Set(availableToSelect);
-  return selection.filter(selected => availableToSelectSet.has(selected));
+  return selection.filter(selected => availableToSelectSet.has(selected)).length > 0;
 };

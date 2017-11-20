@@ -17,7 +17,7 @@ const setRowSelection = (selection, { rowId, selected }) => {
   return selectedRows;
 };
 
-export const setRowsSelection = (selection, { rowIds, selected }) => {
+export const toggleSelection = (selection, { rowIds, selected }) => {
   if (rowIds.length === 1) {
     return setRowSelection(selection, { rowId: rowIds[0], selected });
   }

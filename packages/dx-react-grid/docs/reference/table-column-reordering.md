@@ -51,9 +51,9 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
-tableView | Template | Object? | A template that renders the table.
-tableViewRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
-tableViewCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+table | Template | Object? | A template that renders the table.
+tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 

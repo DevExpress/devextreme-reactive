@@ -12,7 +12,7 @@ rows | Array&lt;any&gt; | | An array containing custom data. A user defines the 
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
 getRowId | (row: any) => number &#124; string | | Specifies the function used to get a unique row identifier.
 getCellValue | (row: any, columnName: string) => any | | Specifies the function used to get a cell's value.
-rootComponent | ElementType&lt;[RootProps](#rootprops)&gt; | | A component that renders the grid root layout.
+rootComponent | ElementType&lt;[RootProps](#rootprops)&gt; | | A component that renders the root layout.
 headerPlaceholderComponent | ElementType&lt;[HeaderPlaceholderProps](#headerplaceholderprops)&gt; | | A component that renders the header placeholder.
 footerPlaceholderComponent | ElementType&lt;[FooterPlaceholderProps](#footerplaceholderprops)&gt; | | A component that renders the footer placeholder.
 
@@ -31,7 +31,7 @@ getCellValue | (row: any, columnName: string) => any | Specifies the function us
 
 ### RootProps
 
-Describes properties passed to the root template when it is being rendered.
+Describes properties passed to a component that renders the root layout.
 
 Field | Type | Description
 ------|------|------------
@@ -39,7 +39,7 @@ children? | ReactElement | A React element to be placed into the root.
 
 ### HeaderPlaceholderProps
 
-Describes properties passed to the header placeholder template when it is being rendered.
+Describes properties passed to a component that renders the header placeholder.
 
 Field | Type | Description
 ------|------|------------
@@ -47,7 +47,7 @@ children? | ReactElement | A React element to be placed into the header.
 
 ### FooterPlaceholderProps
 
-Describes properties passed to the footer placeholder template when it is being rendered.
+Describes properties passed to a component that renders the footer placeholder.
 
 Field | Type | Description
 ------|------|------------

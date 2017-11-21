@@ -24,10 +24,6 @@ export const demos = {
       bootstrap3: require('./bootstrap3/basic/table-row-template').default,
       'material-ui': require('./material-ui/basic/table-row-template').default,
     },
-    'table-header-cell-template': {
-      bootstrap3: require('./bootstrap3/basic/table-header-cell-template').default,
-      'material-ui': require('./material-ui/basic/table-header-cell-template').default,
-    },
   },
   localization: {
     basic: {

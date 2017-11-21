@@ -12,9 +12,9 @@ rows | Array&lt;any&gt; | | An array containing custom data. A user defines the 
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
 getRowId | (row: any) => number &#124; string | | Specifies the function used to get a unique row identifier.
 getCellValue | (row: any, columnName: string) => any | | Specifies the function used to get a cell's value.
-rootComponent | ElementType&lt;[RootProps](#rootprops)&gt; | | A component that renders the root layout.
-headerPlaceholderComponent | ElementType&lt;[HeaderPlaceholderProps](#headerplaceholderprops)&gt; | | A component that renders the header placeholder.
-footerPlaceholderComponent | ElementType&lt;[FooterPlaceholderProps](#footerplaceholderprops)&gt; | | A component that renders the footer placeholder.
+rootComponent | ElementType&lt;[GridRootProps](#gridrootprops)&gt; | | A component that renders the grid root.
+headerPlaceholderComponent | ElementType&lt;[GridHeaderPlaceholderProps](#gridheaderplaceholderprops)&gt; | | A component that renders the grid header placeholder.
+footerPlaceholderComponent | ElementType&lt;[GridFooterPlaceholderProps](#gridfooterplaceholderprops)&gt; | | A component that renders the grid footer placeholder.
 
 ## Interfaces
 
@@ -29,25 +29,25 @@ Field | Type | Description
 name | string | Specifies the column name or the name of a row field whose value the column displays. If the column name does not match any field name, specify the `getCellValue` function.
 getCellValue | (row: any, columnName: string) => any | Specifies the function used to get the column value for a given row.
 
-### RootProps
+### GridRootProps
 
-Describes properties passed to a component that renders the root layout.
+Describes properties passed to a component that renders the grid root.
 
 Field | Type | Description
 ------|------|------------
 children? | ReactElement | A React element to be placed into the root.
 
-### HeaderPlaceholderProps
+### GridHeaderPlaceholderProps
 
-Describes properties passed to a component that renders the header placeholder.
+Describes properties passed to a component that renders the grid header placeholder.
 
 Field | Type | Description
 ------|------|------------
 children? | ReactElement | A React element to be placed into the header.
 
-### FooterPlaceholderProps
+### GridFooterPlaceholderProps
 
-Describes properties passed to a component that renders the footer placeholder.
+Describes properties passed to a component that renders the grid footer placeholder.
 
 Field | Type | Description
 ------|------|------------

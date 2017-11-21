@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_REORDERING_TYPE } from './constants';
 import {
   orderedColumns,

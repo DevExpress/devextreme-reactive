@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import { Paper } from 'material-ui';
 
 const styles = theme => ({
   headingPanel: {
@@ -16,7 +15,7 @@ const styles = theme => ({
 });
 
 export const Root = ({ children }) => (
-  <Paper>{children}</Paper>
+  <div>{children}</div>
 );
 
 Root.propTypes = {

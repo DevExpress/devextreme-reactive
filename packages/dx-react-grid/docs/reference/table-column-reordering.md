@@ -6,7 +6,7 @@ A plugin that manages the displayed columns' order.
 
 ### Dependencies
 
-- [TableView](table-view.md)
+- [Table](table.md)
 
 ### Properties
 
@@ -16,7 +16,7 @@ order | Array&lt;string&gt; | | Specifies the column order.
 defaultOrder | Array&lt;string&gt; | | Specifies the initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
 tableContainerTemplate | (args: [TableContainerArgs](#table-container-args)) => ReactElement | | A component that renders a table wrapper containing a drop target.
-reorderingRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
+reorderingRowTemplate | (args: [TableRowArgs](table.md#table-row-args)) => ReactElement | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
 reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A non-visual component that renders an invisible cell required for drag-and-drop reordering.
 
 ## Interfaces
@@ -37,7 +37,7 @@ onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { 
 
 Describes properties passed to the reordering row cell template.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -49,15 +49,15 @@ getCellDimensions | (dimensionsGetter: () => { left: number, right: number }) =>
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Table columns.
-tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered.
-tableView | Template | Object? | A template that renders the table.
-tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.
-tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
+table | Template | Object? | A template that renders the table.
+tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
+tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table-view.md#table-column)&gt; | Ordered table columns.
-tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows including the service reordering row to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Ordered table columns.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows including the service reordering row to be rendered.

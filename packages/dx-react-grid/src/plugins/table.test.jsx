@@ -11,7 +11,7 @@ import {
   isDataTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { TableView } from './table-view';
+import { Table } from './table';
 import { DataTypeProvider } from './data-type-provider';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -47,7 +47,7 @@ const defaultProps = {
   tableNoDataRowTemplate: () => null,
 };
 
-describe('TableView', () => {
+describe('Table', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -74,7 +74,7 @@ describe('TableView', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <TableView
+          <Table
             {...defaultProps}
           />
         </PluginHost>
@@ -90,7 +90,7 @@ describe('TableView', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <TableView
+          <Table
             {...defaultProps}
           />
         </PluginHost>
@@ -116,7 +116,7 @@ describe('TableView', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableCellTemplate={tableCellTemplate}
@@ -152,7 +152,7 @@ describe('TableView', () => {
           formatterTemplate={valueFormatter}
         />
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableCellTemplate={tableCellTemplate}
@@ -177,7 +177,7 @@ describe('TableView', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubCellTemplate={tableStubCellTemplate}
@@ -197,7 +197,7 @@ describe('TableView', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
           tableStubHeaderCellTemplate={tableStubHeaderCellTemplate}
@@ -221,7 +221,7 @@ describe('TableView', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           messages={{ noData: 'No data' }}
           tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
@@ -251,7 +251,7 @@ describe('TableView', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
           tableRowTemplate={tableRowTemplate}
@@ -278,7 +278,7 @@ describe('TableView', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableView
+        <Table
           {...defaultProps}
           tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
           tableNoDataRowTemplate={tableNoDataRowTemplate}

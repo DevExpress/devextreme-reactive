@@ -2,7 +2,7 @@
 import React from 'react';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <TableView tableRowTemplate={this.tableRowTemplate} />
+        <Table tableRowTemplate={this.tableRowTemplate} />
         <TableHeaderRow />
       </Grid>
     );

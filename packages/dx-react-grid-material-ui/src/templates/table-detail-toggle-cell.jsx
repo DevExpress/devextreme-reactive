@@ -26,7 +26,8 @@ const styles = theme => ({
 const TableDetailToggleCellBase = ({
   style, expanded, classes, toggleExpanded,
 }) => {
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.stopPropagation();
     toggleExpanded();
   };
   return (

@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableGroupRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -40,7 +40,7 @@ export default class Demo extends React.PureComponent {
           grouping={[{ columnName: 'city' }]}
         />
         <LocalGrouping />
-        <TableView />
+        <Table />
         <TableHeaderRow />
         <TableGroupRow />
       </Grid>

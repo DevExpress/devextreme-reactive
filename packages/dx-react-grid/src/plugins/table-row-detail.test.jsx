@@ -30,17 +30,17 @@ const defaultDeps = {
     setDetailRowExpanded: jest.fn(),
   },
   template: {
-    tableViewCell: {
+    tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       tableColumn: { type: 'undefined', column: 'column' },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       style: {},
     },
   },
-  plugins: ['TableView'],
+  plugins: ['Table'],
 };
 
 const defaultProps = {
@@ -122,13 +122,13 @@ describe('TableRowDetail', () => {
 
     expect(isDetailToggleTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(detailToggleCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        ...defaultDeps.template.tableCell,
+        row: defaultDeps.template.tableCell.tableRow.row,
       }));
   });
 
@@ -147,11 +147,11 @@ describe('TableRowDetail', () => {
     ));
 
     expect(isDetailTableRow)
-      .toBeCalledWith(defaultDeps.template.tableViewCell.tableRow);
+      .toBeCalledWith(defaultDeps.template.tableCell.tableRow);
     expect(detailCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        row: defaultDeps.template.tableViewCell.tableRow.row,
+        ...defaultDeps.template.tableCell,
+        row: defaultDeps.template.tableCell.tableRow.row,
       }));
   });
   it('should render row by using detailRowTemplate', () => {
@@ -168,10 +168,10 @@ describe('TableRowDetail', () => {
       </PluginHost>
     ));
 
-    expect(isDetailTableRow).toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+    expect(isDetailTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(detailRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...defaultDeps.template.tableViewRow,
-      row: defaultDeps.template.tableViewRow.tableRow.row,
+      ...defaultDeps.template.tableRow,
+      row: defaultDeps.template.tableRow.tableRow.row,
     }));
   });
 });

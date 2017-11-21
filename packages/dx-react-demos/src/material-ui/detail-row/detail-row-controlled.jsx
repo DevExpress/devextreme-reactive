@@ -4,11 +4,11 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -35,20 +35,22 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, expandedRows } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <RowDetailState
-          expandedRows={expandedRows}
-          onExpandedRowsChange={this.changeExpandedDetails}
-        />
-        <TableView />
-        <TableHeaderRow />
-        <TableRowDetail
-          template={this.rowTemplate}
-        />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <RowDetailState
+            expandedRows={expandedRows}
+            onExpandedRowsChange={this.changeExpandedDetails}
+          />
+          <Table />
+          <TableHeaderRow />
+          <TableRowDetail
+            template={this.rowTemplate}
+          />
+        </Grid>
+      </Paper>
     );
   }
 }

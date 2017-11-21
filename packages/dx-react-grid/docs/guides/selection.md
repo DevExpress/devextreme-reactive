@@ -33,7 +33,7 @@ If your Grid configuration includes the `TableHeaderRow` plugin and the `TableSe
 
 ### Without Paging
 
-The following example demonstrates selection without paging. We increase the row count using the TableView's [virtual mode](virtual-scrolling.md).
+The following example demonstrates selection without paging. We increase the row count using the Table's [virtual mode](virtual-scrolling.md).
 
 .embedded-demo(selection/select-all-virtual)
 

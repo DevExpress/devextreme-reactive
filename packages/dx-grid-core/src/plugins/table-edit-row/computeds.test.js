@@ -1,5 +1,5 @@
 import { TABLE_ADDED_TYPE, TABLE_EDIT_TYPE } from './constants';
-import { TABLE_DATA_TYPE } from '../table-view/constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
 import {
   tableRowsWithEditing,
 } from './computeds';

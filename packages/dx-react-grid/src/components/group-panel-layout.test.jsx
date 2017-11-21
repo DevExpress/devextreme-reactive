@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext } from '@devexpress/dx-react-core';
+import { GROUP_ADD_MODE, GROUP_REMOVE_MODE } from '@devexpress/dx-grid-core';
 import { GroupPanelLayout } from './group-panel-layout';
 
 const groupPanelItemTemplate = () => (
@@ -181,21 +182,22 @@ describe('GroupPanelLayout', () => {
         });
     });
 
-    it('should call draftGroupingChange on drag leave', () => {
+    it('should call draftGroupingChange on drag leave from Group panel', () => {
       const draftGroupingChange = jest.fn();
+      const cancelGroupingChange = jest.fn();
       const column = { name: 'a' };
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
-            groupingPanelItems={[]}
+            groupingPanelItems={[{ column, draft: GROUP_REMOVE_MODE }]}
             groupPanelItemTemplate={groupPanelItemTemplate}
             panelTemplate={panelTemplate}
             columns={[column]}
             draftGroupingChange={draftGroupingChange}
+            cancelGroupingChange={cancelGroupingChange}
             allowDragging
           />
         </DragDropContext>
-
       ));
 
       const dropTarget = tree.find('DropTarget');
@@ -213,6 +215,8 @@ describe('GroupPanelLayout', () => {
           columnName: column.name,
           groupIndex: -1,
         });
+      expect(cancelGroupingChange)
+        .toHaveBeenCalledTimes(0);
     });
 
     it('should apply grouping and reset grouping change on drop', () => {
@@ -300,6 +304,41 @@ describe('GroupPanelLayout', () => {
 
       expect(cancelGroupingChange)
         .toHaveBeenCalledTimes(1);
+    });
+
+    it('should call cancelGroupingChange on drag leave when the draft is "add"', () => {
+      const column = { name: 'a' };
+      const cancelGroupingChange = jest.fn();
+      const draftGroupingChange = jest.fn();
+      const tree = mount((
+        <DragDropContext>
+          <GroupPanelLayout
+            columns={[column]}
+            groupingPanelItems={[{ column, draft: GROUP_ADD_MODE }]}
+            groupPanelItemTemplate={groupPanelItemTemplate}
+            panelTemplate={panelTemplate}
+            cancelGroupingChange={cancelGroupingChange}
+            draftGroupingChange={draftGroupingChange}
+            allowDragging
+          />
+        </DragDropContext>
+      ));
+
+      const dropTarget = tree.find('DropTarget');
+
+      dropTarget.prop('onEnter')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 170, y: 20 },
+      });
+      dropTarget.prop('onLeave')({
+        payload: [{ type: 'column', columnName: column.name }],
+        clientOffset: { x: 175, y: 20 },
+      });
+
+      expect(cancelGroupingChange)
+        .toHaveBeenCalledTimes(1);
+      expect(draftGroupingChange)
+        .toHaveBeenCalledTimes(0);
     });
   });
 });

@@ -25,17 +25,17 @@ const defaultDeps = {
     tableColumns: [],
   },
   template: {
-    tableViewCell: {
+    tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       tableColumn: { type: 'undefined', column: { name: 'a' } },
       style: {},
     },
-    tableViewRow: {
+    tableRow: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
       style: {},
     },
   },
-  plugins: ['TableView'],
+  plugins: ['Table'],
 };
 
 const defaultProps = {
@@ -96,13 +96,13 @@ describe('TableHeaderRow', () => {
 
     expect(isHeadingTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableViewCell.tableRow,
-        defaultDeps.template.tableViewCell.tableColumn,
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
       );
     expect(headerCellTemplate)
       .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableViewCell,
-        column: defaultDeps.template.tableViewCell.tableColumn.column,
+        ...defaultDeps.template.tableCell,
+        column: defaultDeps.template.tableCell.tableColumn.column,
       }));
   });
 
@@ -121,9 +121,9 @@ describe('TableHeaderRow', () => {
     ));
 
     expect(isHeadingTableRow)
-      .toBeCalledWith(defaultDeps.template.tableViewRow.tableRow);
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(headerRowTemplate)
-      .toBeCalledWith(defaultDeps.template.tableViewRow);
+      .toBeCalledWith(defaultDeps.template.tableRow);
   });
 
   it('should pass correct getMessage prop to TableHeaderRowTemplate', () => {

@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView, TableHeaderRow, TableEditRow, TableEditColumn,
+  Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
@@ -274,7 +274,7 @@ export default class Demo extends React.PureComponent {
 
           <DragDropContext />
 
-          <TableView
+          <Table
             tableCellTemplate={this.tableCellTemplate}
           />
 
@@ -313,7 +313,7 @@ export default class Demo extends React.PureComponent {
               rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
               columns={columns}
             >
-              <TableView
+              <Table
                 tableCellTemplate={this.tableCellTemplate}
               />
               <TableHeaderRow />

@@ -11,7 +11,7 @@ import {
 
 import { Loading } from '../components/loading';
 
-const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi';
+const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -65,9 +65,9 @@ export default class Demo extends React.PureComponent {
 
     fetch(queryString, { mode: 'cors' })
       .then(response => response.json())
-      .then((data) => {
+      .then((orders) => {
         this.setState({
-          rows: data,
+          rows: orders.data,
           loading: false,
         });
       })

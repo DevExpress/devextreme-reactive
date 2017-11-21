@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTableView,
+  VirtualTable,
   TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -87,7 +87,7 @@ export default class Demo extends React.PureComponent {
           <FilteringState
             onFiltersChange={this.changeFilters}
           />
-          <VirtualTableView />
+          <VirtualTable />
           <TableHeaderRow />
           <TableFilterRow rowHeight={51} />
         </Grid>

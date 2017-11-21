@@ -56,11 +56,11 @@ const tableBodyRowsComputed = ({ rows, getRowId }) =>
 const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 
 const cellTemplate = params =>
-  <TemplatePlaceholder name="tableViewCell" params={params} />;
+  <TemplatePlaceholder name="tableCell" params={params} />;
 const rowTemplate = params =>
-  <TemplatePlaceholder name="tableViewRow" params={params} />;
+  <TemplatePlaceholder name="tableRow" params={params} />;
 
-export class TableView extends React.PureComponent {
+export class Table extends React.PureComponent {
   render() {
     const {
       tableLayoutTemplate,
@@ -77,7 +77,7 @@ export class TableView extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="TableView"
+        pluginName="Table"
         dependencies={[
           { pluginName: 'DataTypeProvider', optional: true },
         ]}
@@ -87,9 +87,9 @@ export class TableView extends React.PureComponent {
         <Getter name="tableColumns" computed={tableColumnsComputed} />
 
         <Template name="body">
-          <TemplatePlaceholder name="tableView" />
+          <TemplatePlaceholder name="table" />
         </Template>
-        <Template name="tableView">
+        <Template name="table">
           <TemplateConnector>
             {(getters, actions) => (
               <TemplateRenderer
@@ -103,7 +103,7 @@ export class TableView extends React.PureComponent {
             )}
           </TemplateConnector>
         </Template>
-        <Template name="tableViewCell">
+        <Template name="tableCell">
           {params => (
             <TemplateConnector>
               {({ tableHeaderRows: headerRows }) =>
@@ -123,7 +123,7 @@ export class TableView extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDataTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -150,7 +150,7 @@ export class TableView extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
           {params => (
@@ -164,7 +164,7 @@ export class TableView extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
           {params => (
@@ -179,7 +179,7 @@ export class TableView extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
           {params => (
@@ -194,7 +194,7 @@ export class TableView extends React.PureComponent {
   }
 }
 
-TableView.propTypes = {
+Table.propTypes = {
   tableLayoutTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
   tableRowTemplate: PropTypes.func.isRequired,
@@ -205,6 +205,6 @@ TableView.propTypes = {
   messages: PropTypes.object,
 };
 
-TableView.defaultProps = {
+Table.defaultProps = {
   messages: {},
 };

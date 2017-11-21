@@ -35,7 +35,7 @@ const getValueEditorArgs = params => ({
 
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
   { pluginName: 'DataTypeProvider', optional: true },
 ];
 
@@ -60,7 +60,7 @@ export class TableFilterRow extends React.PureComponent {
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -91,7 +91,7 @@ export class TableFilterRow extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isFilterTableRow(tableRow)}
         >
           {params => (

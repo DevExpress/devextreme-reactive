@@ -5,11 +5,11 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableGroupRow,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
   defaultColumnValues,
@@ -49,20 +49,22 @@ export default class Demo extends React.PureComponent {
     const { data, columns, grouping } = this.state;
 
     return (
-      <Grid
-        rows={data}
-        columns={columns}
-      >
-        <GroupingState
-          grouping={grouping}
-        />
-        <CustomGrouping
-          getChildGroups={getChildGroups}
-        />
-        <TableView />
-        <TableHeaderRow />
-        <TableGroupRow />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={data}
+          columns={columns}
+        >
+          <GroupingState
+            grouping={grouping}
+          />
+          <CustomGrouping
+            getChildGroups={getChildGroups}
+          />
+          <Table />
+          <TableHeaderRow />
+          <TableGroupRow />
+        </Grid>
+      </Paper>
     );
   }
 }

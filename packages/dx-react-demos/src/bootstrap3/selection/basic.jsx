@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableSelection,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
           selection={selection}
           onSelectionChange={this.changeSelection}
         />
-        <TableView />
+        <Table />
         <TableSelection />
       </Grid>
     );

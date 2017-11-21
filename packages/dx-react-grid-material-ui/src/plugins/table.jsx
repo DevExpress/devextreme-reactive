@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
-import { TableView as TableViewBase } from '@devexpress/dx-react-grid';
-import { VirtualTableLayout } from '../templates/virtual-table-layout';
+import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { TableRow } from '../templates/table-row';
+import { TableLayout } from '../templates/table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 
-const tableLayoutTemplate = props => <VirtualTableLayout {...props} />;
+const tableLayoutTemplate = props => <TableLayout {...props} />;
 const defaultRowTemplate = props => <TableRow {...props} />;
 const defaultNoDataRowTemplate = props => <TableRow {...props} />;
 const defaultCellTemplate = props => <TableCell {...props} />;
@@ -19,7 +19,7 @@ const defaultMessages = {
   noData: 'No data',
 };
 
-export class VirtualTableView extends React.PureComponent {
+export class Table extends React.PureComponent {
   render() {
     const {
       tableCellTemplate,
@@ -28,19 +28,13 @@ export class VirtualTableView extends React.PureComponent {
       tableStubCellTemplate,
       tableStubHeaderCellTemplate,
       tableNoDataCellTemplate,
-      height,
-      estimatedRowHeight,
       messages,
       ...restProps
     } = this.props;
 
     return (
-      <TableViewBase
-        tableLayoutTemplate={props => tableLayoutTemplate({
-          ...props,
-          height,
-          estimatedRowHeight,
-        })}
+      <TableBase
+        tableLayoutTemplate={tableLayoutTemplate}
         tableRowTemplate={combineTemplates(
           tableRowTemplate,
           defaultRowTemplate,
@@ -72,28 +66,24 @@ export class VirtualTableView extends React.PureComponent {
   }
 }
 
-VirtualTableView.propTypes = {
+Table.propTypes = {
   tableCellTemplate: PropTypes.func,
   tableRowTemplate: PropTypes.func,
   tableNoDataRowTemplate: PropTypes.func,
   tableStubCellTemplate: PropTypes.func,
   tableStubHeaderCellTemplate: PropTypes.func,
   tableNoDataCellTemplate: PropTypes.func,
-  estimatedRowHeight: PropTypes.number,
-  height: PropTypes.number,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
 };
 
-VirtualTableView.defaultProps = {
+Table.defaultProps = {
   tableCellTemplate: undefined,
   tableRowTemplate: undefined,
   tableNoDataRowTemplate: undefined,
   tableStubCellTemplate: undefined,
   tableStubHeaderCellTemplate: undefined,
   tableNoDataCellTemplate: undefined,
-  estimatedRowHeight: 48,
-  height: 530,
   messages: {},
 };

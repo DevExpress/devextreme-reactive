@@ -33,10 +33,10 @@ const label = (allowSorting, sortingDirection, column) => {
 };
 
 const GroupPanelItemBase = ({
-  column, draft,
+  column,
   groupByColumn, allowUngroupingByClick,
   allowSorting, sortingDirection, changeSortingDirection,
-  classes,
+  classes, draft,
 }) => {
   const chipClassNames = classNames({
     [classes.button]: true,
@@ -71,7 +71,7 @@ GroupPanelItemBase.propTypes = {
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
-  draft: PropTypes.bool,
+  draft: PropTypes.string,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   changeSortingDirection: PropTypes.func,
@@ -81,7 +81,7 @@ GroupPanelItemBase.propTypes = {
 };
 
 GroupPanelItemBase.defaultProps = {
-  draft: false,
+  draft: undefined,
   allowSorting: false,
   sortingDirection: undefined,
   changeSortingDirection: undefined,

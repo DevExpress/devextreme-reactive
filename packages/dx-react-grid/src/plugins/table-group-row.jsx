@@ -49,7 +49,7 @@ const getGroupTableRowTemplateArgs = params => ({
 
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
   { pluginName: 'DataTypeProvider', optional: true },
 ];
 
@@ -95,7 +95,7 @@ export class TableGroupRow extends React.PureComponent {
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
 
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isGroupTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -123,7 +123,7 @@ export class TableGroupRow extends React.PureComponent {
         </Template>
         {groupIndentCellTemplate && (
           <Template
-            name="tableViewCell"
+            name="tableCell"
             predicate={({ tableRow, tableColumn }) => isGroupIndentTableCell(tableRow, tableColumn)}
           >
             {params => (
@@ -135,7 +135,7 @@ export class TableGroupRow extends React.PureComponent {
           </Template>
         )}
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
           {params => (

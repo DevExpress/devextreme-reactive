@@ -8,8 +8,9 @@ const styles = theme => ({
     verticalAlign: 'top',
     paddingTop: theme.spacing.unit + 4,
     paddingRight: theme.spacing.unit,
-    '& ~ $cell': {
-      paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    '&:first-child': {
+      paddingLeft: theme.spacing.unit * 3,
     },
   },
   input: {

@@ -11,7 +11,7 @@ The plugin also allows an end-user to manage a column's sorting and grouping sta
 - [SortingState](sorting-state.md) [Optional]
 - [GroupingState](grouping-state.md) [Optional]
 - [DragDropContext](drag-drop-context.md) [Optional]
-- [TableView](table-view.md)
+- [Table](table.md)
 - [TableColumnResizing](table-column-resizing.md) [Optional]
 
 ### Properties
@@ -19,7 +19,7 @@ The plugin also allows an end-user to manage a column's sorting and grouping sta
 Name | Type | Default | Description
 -----|------|---------|------------
 headerCellTemplate | (args: [HeaderCellArgs](#header-cell-args)) => ReactElement | | A component that renders a header cell.
-headerRowTemplate | (args: [TableRowArgs](table-view.md#table-row-args)) => ReactElement | | A component that renders a header row.
+headerRowTemplate | (args: [TableRowArgs](table.md#table-row-args)) => ReactElement | | A component that renders a header row.
 allowSorting | boolean | false | If true, it allows an end-user to change sorting by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowGroupingByClick | boolean | false | If true, it renders a component that toggles a column's grouping state. Requires the [GroupingState](grouping-state.md) dependency.
@@ -40,7 +40,7 @@ title? | string | Specifies a table column's title.
 
 Describes properties used to render a table header cell.
 
-A value with the [TableCellArgs](table-view.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -70,7 +70,7 @@ sortingHint? | string | 'Sort' | Specifies the 'Sort' hint's text. Available in 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Header rows to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting.
 columns | Getter | Array&lt;[Column](#column)&gt; | Table columns.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
@@ -78,11 +78,11 @@ setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. Each shift is added to the original column width value.
 changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
-tableViewCell | Template | [TableCellArgs](table-view.md#table-cell-args) | A template that renders a table cell.
-tableViewRow | Template | [TableRowArgs](table-view.md#table-row-args) | A template that renders a table row.
+tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
+tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table-view.md#table-row)&gt; | Table rows including header rows.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Table rows including header rows.

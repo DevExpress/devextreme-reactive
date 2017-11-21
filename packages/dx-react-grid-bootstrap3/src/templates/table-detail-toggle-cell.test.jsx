@@ -1,13 +1,33 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
 describe('TableDetailToggleCell', () => {
+  it('should handle click with stopPropagation', () => {
+    const toggleExpanded = jest.fn();
+    const mockEvent = {
+      stopPropagation: jest.fn(),
+    };
+    const tree = shallow((
+      <TableDetailToggleCell
+        toggleExpanded={toggleExpanded}
+      />
+    ));
+
+    const buttonClickHandler = tree.find('td').prop('onClick');
+
+    buttonClickHandler(mockEvent);
+    expect(toggleExpanded)
+      .toHaveBeenCalled();
+    expect(mockEvent.stopPropagation)
+      .toHaveBeenCalled();
+  });
+
   it('can get focus', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableDetailToggleCell />
     ));
 

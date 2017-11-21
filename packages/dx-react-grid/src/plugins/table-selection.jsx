@@ -50,7 +50,7 @@ const getSelectTableRowTemplateArgs = (
 
 const pluginDependencies = [
   { pluginName: 'SelectionState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 export class TableSelection extends React.PureComponent {
@@ -80,7 +80,7 @@ export class TableSelection extends React.PureComponent {
 
         {(showSelectionColumn && showSelectAll) && (
           <Template
-            name="tableViewCell"
+            name="tableCell"
             predicate={({ tableRow, tableColumn }) => isSelectAllTableCell(tableRow, tableColumn)}
           >
             {params => (
@@ -97,7 +97,7 @@ export class TableSelection extends React.PureComponent {
         )}
         {showSelectionColumn && (
           <Template
-            name="tableViewCell"
+            name="tableCell"
             predicate={({ tableRow, tableColumn }) => isSelectTableCell(tableRow, tableColumn)}
           >
             {params => (
@@ -114,7 +114,7 @@ export class TableSelection extends React.PureComponent {
         )}
         {(highlightSelected || selectByRowClick) && (
           <Template
-            name="tableViewRow"
+            name="tableRow"
             predicate={({ tableRow }) => isDataTableRow(tableRow)}
           >
             {params => (

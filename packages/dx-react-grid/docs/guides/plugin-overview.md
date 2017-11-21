@@ -20,33 +20,33 @@ import {
   FilteringState, LocalFiltering
 } from '@devexpress/dx-react-grid'
 import {
-  Grid, TableView
+  Grid, Table
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid rows={[/* ... */]} columns={[/* ... */]}>
     <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
-    <TableView/>
+    <Table/>
   </Grid>
 );
 ```
 
-Some visualization plugins extend the `TableView`'s functionality, and should follow it in the code as demonstrated in the following example:
+Some visualization plugins extend the `Table`'s functionality, and should follow it in the code as demonstrated in the following example:
 
 ```js
 import {
   FilteringState, LocalFiltering
 } from '@devexpress/dx-react-grid'
 import {
-  Grid, TableView, TableFilterRow
+  Grid, Table, TableFilterRow
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid rows={[/* ... */]} columns={[/* ... */]}>
     <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
-    <TableView/>
+    <Table/>
     <TableFilterRow filterCellTemplate={ /* ... */ }/>
   </Grid>
 );

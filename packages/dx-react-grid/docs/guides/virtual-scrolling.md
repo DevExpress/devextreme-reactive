@@ -6,7 +6,7 @@ Virtual scrolling allows the Grid component to display thousands of records on a
 
 ## Plugin List
 
-The [VirtualTableView](../reference/virtual-table-view.md) plugin implements the virtual scrolling mode, and it should be used instead of the [TableView](../reference/table-view.md) as they implement the same interfaces.
+The [VirtualTable](../reference/virtual-table.md) plugin implements the virtual scrolling mode, and it should be used instead of the [Table](../reference/table.md) as they implement the same interfaces.
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 

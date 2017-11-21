@@ -12,7 +12,8 @@ const styles = theme => ({
   cell: {
     overflow: 'visible',
     paddingRight: 0,
-    paddingLeft: theme.spacing.unit * 1.5,
+    paddingLeft: theme.spacing.unit,
+    textAlign: 'center',
   },
   checkbox: {
     marginTop: '-1px',
@@ -29,14 +30,14 @@ export const TableSelectCellBase = ({
     padding="checkbox"
     style={style}
     className={classes.cell}
-    onClick={(e) => {
-      e.stopPropagation();
-      changeSelected();
-    }}
   >
     <Checkbox
       className={classes.checkbox}
       checked={selected}
+      onClick={(e) => {
+        e.stopPropagation();
+        changeSelected();
+      }}
     />
   </TableCell>
 );

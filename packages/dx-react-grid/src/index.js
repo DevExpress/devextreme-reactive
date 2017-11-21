@@ -22,7 +22,7 @@ export { DragDropContext } from './plugins/drag-drop-context';
 
 export { TableColumnReordering } from './plugins/table-column-reordering';
 
-export { TableView } from './plugins/table-view';
+export { Table } from './plugins/table';
 export { TableSelection } from './plugins/table-selection';
 
 export { RowDetailState } from './plugins/row-detail-state';

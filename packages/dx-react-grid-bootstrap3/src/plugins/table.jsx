@@ -9,7 +9,7 @@ import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableRow } from '../templates/table-row';
 
-const defaultGetTableCellComponent = () => TableCell;
+const defaultGetCellComponent = () => TableCell;
 
 const defaultMessages = {
   noData: 'No data',
@@ -18,23 +18,23 @@ const defaultMessages = {
 export class Table extends React.PureComponent {
   render() {
     const {
-      getTableCellComponent,
+      getCellComponent,
       messages,
       ...restProps
     } = this.props;
 
     return (
       <TableBase
-        tableLayoutComponent={TableLayout}
-        tableRowComponent={TableRow}
-        getTableCellComponent={combineTemplates(
-          getTableCellComponent,
-          defaultGetTableCellComponent,
+        layoutComponent={TableLayout}
+        rowComponent={TableRow}
+        getCellComponent={combineTemplates(
+          getCellComponent,
+          defaultGetCellComponent,
         )}
-        tableNoDataRowComponent={TableRow}
-        tableNoDataCellComponent={TableNoDataCell}
-        tableStubCellComponent={TableStubCell}
-        tableStubHeaderCellComponent={TableStubHeaderCell}
+        noDataRowComponent={TableRow}
+        noDataCellComponent={TableNoDataCell}
+        stubCellComponent={TableStubCell}
+        stubHeaderCellComponent={TableStubHeaderCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -43,13 +43,13 @@ export class Table extends React.PureComponent {
 }
 
 Table.propTypes = {
-  getTableCellComponent: PropTypes.func,
+  getCellComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
 };
 
 Table.defaultProps = {
-  getTableCellComponent: undefined,
+  getCellComponent: undefined,
   messages: {},
 };

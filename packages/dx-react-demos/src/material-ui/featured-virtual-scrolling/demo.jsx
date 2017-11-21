@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
       }),
     };
 
-    this.getTableCellComponent = (columnName) => {
+    this.getCellComponent = (columnName) => {
       if (columnName === 'discount') {
         return ProgressBarCell;
       }
@@ -84,7 +84,7 @@ export default class Demo extends React.PureComponent {
           <SelectionState />
 
           <VirtualTable
-            getTableCellComponent={this.getTableCellComponent}
+            getCellComponent={this.getCellComponent}
           />
           <TableHeaderRow allowSorting allowDragging />
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

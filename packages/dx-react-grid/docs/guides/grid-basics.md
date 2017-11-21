@@ -44,11 +44,11 @@ The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Or
 
 The Grid's visualization plugins provide a rich API to customize grid elements' appearance. Examples of the most popular customization tasks are described below.
 
-The `Table` plugin allows you to customize table cell appearance using the `getTableCellComponent` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
+The `Table` plugin allows you to customize table cell appearance using the `getCellComponent` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
 
 .embedded-demo(basic/table-cell-template)
 
-The `Table` plugin's `tableRowComponent` property enables you to handle row events like `onClick`, `onContextMenu` etc. as demonstrated in the following demo:
+The `Table` plugin's `rowComponent` property enables you to handle row events like `onClick`, `onContextMenu` etc. as demonstrated in the following demo:
 
 .embedded-demo(basic/table-row-template)
 

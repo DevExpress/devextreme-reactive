@@ -48,7 +48,7 @@ filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text. 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters.
 setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter. Removes the filter if config is `null`.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
@@ -58,4 +58,4 @@ tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows with filters to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows with filters to be rendered.

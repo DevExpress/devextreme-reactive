@@ -41,7 +41,7 @@ HighlightedCell.defaultProps = {
   style: {},
 };
 
-const getTableCellComponent = (columnName) => {
+const getCellComponent = (columnName) => {
   if (columnName === 'amount') {
     return HighlightedCell;
   }
@@ -74,7 +74,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <Table
-            getTableCellComponent={getTableCellComponent}
+            getCellComponent={getCellComponent}
           />
           <TableHeaderRow />
         </Grid>

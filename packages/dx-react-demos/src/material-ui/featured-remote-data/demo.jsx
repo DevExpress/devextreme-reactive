@@ -63,7 +63,7 @@ export default class Demo extends React.PureComponent {
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
 
-    this.getTableCellComponent = (columnName) => {
+    this.getCellComponent = (columnName) => {
       if (columnName === 'SaleAmount') {
         return SaleAmountCell;
       }
@@ -158,7 +158,7 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <Table
-            getTableCellComponent={this.getTableCellComponent}
+            getCellComponent={this.getCellComponent}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

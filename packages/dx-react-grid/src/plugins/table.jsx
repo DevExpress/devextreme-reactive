@@ -62,13 +62,13 @@ const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 export class Table extends React.PureComponent {
   render() {
     const {
-      tableLayoutComponent: TableLayout,
-      getTableCellComponent,
-      tableRowComponent: TableRow,
-      tableNoDataRowComponent: TableNoDataRow,
-      tableNoDataCellComponent: TableNoDataCell,
-      tableStubCellComponent: TableStubCell,
-      tableStubHeaderCellComponent: TableStubHeaderCell,
+      layoutComponent: TableLayout,
+      getCellComponent,
+      rowComponent: TableRow,
+      noDataRowComponent: TableNoDataRow,
+      noDataCellComponent: TableNoDataCell,
+      stubCellComponent: TableStubCell,
+      stubHeaderCellComponent: TableStubHeaderCell,
       messages,
     } = this.props;
 
@@ -120,7 +120,7 @@ export class Table extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters) => {
-                const TableCell = getTableCellComponent(params.tableColumn.column.name);
+                const TableCell = getCellComponent(params.tableColumn.column.name);
                 const templateArgs = getDataTableCellTemplateArgs(params, getters);
                 return (
                   <TemplatePlaceholder
@@ -158,13 +158,13 @@ export class Table extends React.PureComponent {
 }
 
 Table.propTypes = {
-  tableLayoutComponent: PropTypes.func.isRequired,
-  getTableCellComponent: PropTypes.func.isRequired,
-  tableRowComponent: PropTypes.func.isRequired,
-  tableNoDataCellComponent: PropTypes.func.isRequired,
-  tableNoDataRowComponent: PropTypes.func.isRequired,
-  tableStubCellComponent: PropTypes.func.isRequired,
-  tableStubHeaderCellComponent: PropTypes.func.isRequired,
+  layoutComponent: PropTypes.func.isRequired,
+  getCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  noDataCellComponent: PropTypes.func.isRequired,
+  noDataRowComponent: PropTypes.func.isRequired,
+  stubCellComponent: PropTypes.func.isRequired,
+  stubHeaderCellComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

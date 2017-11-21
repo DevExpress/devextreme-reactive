@@ -38,13 +38,13 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  tableLayoutComponent: () => null,
-  getTableCellComponent: () => () => null,
-  tableRowComponent: () => null,
-  tableStubCellComponent: () => null,
-  tableStubHeaderCellComponent: () => null,
-  tableNoDataCellComponent: () => null,
-  tableNoDataRowComponent: () => null,
+  layoutComponent: () => null,
+  getCellComponent: () => () => null,
+  rowComponent: () => null,
+  stubCellComponent: () => null,
+  stubHeaderCellComponent: () => null,
+  noDataCellComponent: () => null,
+  noDataRowComponent: () => null,
 };
 
 describe('Table', () => {
@@ -106,7 +106,7 @@ describe('Table', () => {
   it('should render data cell on user-defined column and row intersection', () => {
     isDataTableCell.mockImplementation(() => true);
     const tableCellComponent = jest.fn(() => null);
-    const getTableCellComponent = jest.fn(() => tableCellComponent);
+    const getCellComponent = jest.fn(() => tableCellComponent);
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'a' } },
@@ -119,15 +119,15 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
-          getTableCellComponent={getTableCellComponent}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
 
     expect(isDataTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
-    expect(getTableCellComponent)
+    expect(getCellComponent)
       .toBeCalledWith(tableCellArgs.tableColumn.column.name);
     expect(tree.find(tableCellComponent).props())
       .toMatchObject({
@@ -140,7 +140,7 @@ describe('Table', () => {
   it('can render custom formatted data in table cell', () => {
     isDataTableCell.mockImplementation(() => true);
     const tableCellComponent = jest.fn(() => null);
-    const getTableCellComponent = jest.fn(() => tableCellComponent);
+    const getCellComponent = jest.fn(() => tableCellComponent);
     const valueFormatter = jest.fn(() => <span />);
     const tableCellArgs = {
       tableRow: { row: 'row' },
@@ -158,8 +158,8 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
-          getTableCellComponent={getTableCellComponent}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -182,12 +182,12 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
         />
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.tableStubCellComponent).props())
+    expect(tree.find(defaultProps.stubCellComponent).props())
       .toMatchObject(tableCellArgs);
   });
 
@@ -200,14 +200,14 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
         />
       </PluginHost>
     ));
 
     expect(isHeaderStubTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).getters.tableHeaderRows);
-    expect(tree.find(defaultProps.tableStubHeaderCellComponent).props())
+    expect(tree.find(defaultProps.stubHeaderCellComponent).props())
       .toMatchObject(tableCellArgs);
   });
 
@@ -223,7 +223,7 @@ describe('Table', () => {
         <Table
           {...defaultProps}
           messages={{ noData: 'No data' }}
-          tableLayoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
         />
 
       </PluginHost>
@@ -231,13 +231,13 @@ describe('Table', () => {
 
     expect(isNoDataTableRow)
       .toBeCalledWith(tableCellArgs.tableRow);
-    expect(tree.find(defaultProps.tableNoDataCellComponent).props())
+    expect(tree.find(defaultProps.noDataCellComponent).props())
       .toMatchObject(tableCellArgs);
-    expect(tree.find(defaultProps.tableNoDataCellComponent).props().getMessage('noData'))
+    expect(tree.find(defaultProps.noDataCellComponent).props().getMessage('noData'))
       .toBe('No data');
   });
 
-  it('should render row by using tableRowComponent', () => {
+  it('should render row by using rowComponent', () => {
     isDataTableRow.mockImplementation(() => true);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'data' },
@@ -250,20 +250,20 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
+          layoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
         />
       </PluginHost>
     ));
 
     expect(isDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
-    expect(tree.find(defaultProps.tableRowComponent).props())
+    expect(tree.find(defaultProps.rowComponent).props())
       .toMatchObject({
         ...tableRowArgs,
         row: tableRowArgs.tableRow.row,
       });
   });
 
-  it('should render empty row by using tableNoDataRowComponent', () => {
+  it('should render empty row by using noDataRowComponent', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'nodata' },
@@ -276,13 +276,13 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
+          layoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
         />
       </PluginHost>
     ));
 
     expect(isNoDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
-    expect(tree.find(defaultProps.tableNoDataRowComponent).props())
+    expect(tree.find(defaultProps.noDataRowComponent).props())
       .toMatchObject(tableRowArgs);
   });
 });

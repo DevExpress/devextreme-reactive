@@ -70,7 +70,7 @@ sortingHint? | string | 'Sort' | Specifies the 'Sort' hint's text. Available in 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting.
 columns | Getter | Array&lt;[Column](#column)&gt; | Table columns.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
@@ -85,4 +85,4 @@ tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Table rows including header rows.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table rows including header rows.

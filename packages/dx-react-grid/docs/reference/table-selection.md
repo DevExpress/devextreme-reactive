@@ -13,8 +13,8 @@ This plugin visualizes the selection state within a table by rendering selection
 
 Name | Type | Default | Description
 -----|------|---------|------------
-highlightSelected | boolean | false | If true, selected rows are highlighted. Note that the `Table` plugin's `tableRowComponent` is ignored in this case.
-selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `Table` plugin's `tableRowComponent` is ignored in this case.
+highlightSelected | boolean | false | If true, selected rows are highlighted. Note that the `Table` plugin's `rowComponent` is ignored in this case.
+selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `Table` plugin's `rowComponent` is ignored in this case.
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row.
 showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row.
 selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox.
@@ -25,7 +25,7 @@ selectionColumnWidth | number | | The selection column's width.
 
 ### <a name="table-row"></a>TableRow (Extension)
 
-A value with the [TableRow](table.md#table-row) shape extended by the following fields:
+A value with the [TableRow](table.md#tablerow) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -62,8 +62,8 @@ changeSelected | () => void | Selects or deselects a row.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows.
 availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection.
 setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean }) => void | Selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
@@ -74,5 +74,5 @@ tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns including the selection column.
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered including the selected ones.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the selection column.
+tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered including the selected ones.

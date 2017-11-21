@@ -49,7 +49,7 @@ row | any | Specifies the initial row.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Rows to be rendered inside the table body.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Rows to be rendered inside the table body.
 editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows being edited.
 addedRows | Getter | Array&lt;any&gt; | Created but not committed rows.
 changeAddedRow | Action | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
@@ -64,4 +64,4 @@ tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Table data rows including editing rows.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table data rows including editing rows.

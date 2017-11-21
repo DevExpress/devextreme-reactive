@@ -55,7 +55,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <Table
-            tableRowComponent={TableRow}
+            rowComponent={TableRow}
           />
           <TableHeaderRow />
         </Grid>

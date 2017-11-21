@@ -49,8 +49,8 @@ getCellDimensions | (dimensionsGetter: () => { left: number, right: number }) =>
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 tableView | Template | Object? | A template that renders the table.
 tableViewRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 tableViewCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
@@ -59,5 +59,5 @@ tableViewCell | Template | [TableCellProps](table.md#tablecellprops) | A templat
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Ordered table columns.
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows including the service reordering row to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Ordered table columns.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows including the service reordering row to be rendered.

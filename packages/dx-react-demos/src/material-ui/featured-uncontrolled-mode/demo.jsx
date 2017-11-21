@@ -37,7 +37,7 @@ export default class Demo extends React.PureComponent {
       allowedPageSizes: [5, 10, 15],
     };
 
-    this.getTableCellComponent = (columnName) => {
+    this.getCellComponent = (columnName) => {
       if (columnName === 'discount') {
         return ProgressBarCell;
       }
@@ -87,7 +87,7 @@ export default class Demo extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            getTableCellComponent={this.getTableCellComponent}
+            getCellComponent={this.getCellComponent}
           />
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

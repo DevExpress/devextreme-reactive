@@ -71,8 +71,8 @@ toggleExpanded | () => void | Toggles a row's expanded state.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Body rows to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
 expandedRows | Getter | Array&lt;number &#124; string&gt; | Expanded rows.
 setDetailRowExpanded | Action | ({ rowId }) => void | Expands the specified row.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
@@ -82,5 +82,5 @@ tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns including the detail cell.
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Body rows to be rendered, including detailed rows.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the detail cell.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered, including detailed rows.

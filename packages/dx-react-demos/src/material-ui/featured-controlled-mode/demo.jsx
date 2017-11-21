@@ -208,7 +208,7 @@ class DemoBase extends React.PureComponent {
       this.setState({ columnOrder: order });
     };
 
-    this.getTableCellComponent = (columnName) => {
+    this.getCellComponent = (columnName) => {
       if (columnName === 'discount') {
         return ProgressBarCell;
       } else if (columnName === 'amount') {
@@ -298,7 +298,7 @@ class DemoBase extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            getTableCellComponent={this.getTableCellComponent}
+            getCellComponent={this.getCellComponent}
           />
 
           <TableColumnReordering
@@ -338,7 +338,7 @@ class DemoBase extends React.PureComponent {
                 columns={columns}
               >
                 <Table
-                  getTableCellComponent={this.getTableCellComponent}
+                  getCellComponent={this.getCellComponent}
                 />
                 <TableHeaderRow />
               </Grid>

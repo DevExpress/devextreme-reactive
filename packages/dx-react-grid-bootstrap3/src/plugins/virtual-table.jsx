@@ -9,7 +9,7 @@ import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 
-const defaultGetTableCellComponent = () => TableCell;
+const defaultGetCellComponent = () => TableCell;
 
 const defaultMessages = {
   noData: 'No data',
@@ -19,11 +19,11 @@ export class VirtualTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.tableLayoutRenderComponent = createRenderComponent();
+    this.layoutRenderComponent = createRenderComponent();
   }
   render() {
     const {
-      getTableCellComponent,
+      getCellComponent,
       height,
       estimatedRowHeight,
       messages,
@@ -32,22 +32,22 @@ export class VirtualTable extends React.PureComponent {
 
     return (
       <TableBase
-        tableLayoutComponent={this.tableLayoutRenderComponent(props => (
+        layoutComponent={this.layoutRenderComponent(props => (
           <VirtualTableLayout
             {...props}
             height={height}
             estimatedRowHeight={estimatedRowHeight}
           />
         ))}
-        tableRowComponent={TableRow}
-        getTableCellComponent={combineTemplates(
-          getTableCellComponent,
-          defaultGetTableCellComponent,
+        rowComponent={TableRow}
+        getCellComponent={combineTemplates(
+          getCellComponent,
+          defaultGetCellComponent,
         )}
-        tableNoDataRowComponent={TableRow}
-        tableNoDataCellComponent={TableNoDataCell}
-        tableStubCellComponent={TableStubCell}
-        tableStubHeaderCellComponent={TableStubHeaderCell}
+        noDataRowComponent={TableRow}
+        noDataCellComponent={TableNoDataCell}
+        stubCellComponent={TableStubCell}
+        stubHeaderCellComponent={TableStubHeaderCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -56,7 +56,7 @@ export class VirtualTable extends React.PureComponent {
 }
 
 VirtualTable.propTypes = {
-  getTableCellComponent: PropTypes.func,
+  getCellComponent: PropTypes.func,
   estimatedRowHeight: PropTypes.number,
   height: PropTypes.number,
   messages: PropTypes.shape({
@@ -65,7 +65,7 @@ VirtualTable.propTypes = {
 };
 
 VirtualTable.defaultProps = {
-  getTableCellComponent: undefined,
+  getCellComponent: undefined,
   estimatedRowHeight: 37,
   height: 530,
   messages: {},

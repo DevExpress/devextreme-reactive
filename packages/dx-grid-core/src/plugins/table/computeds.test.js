@@ -4,7 +4,7 @@ import {
   tableColumnsWithDataRows,
 } from './computeds';
 
-describe('TableView Plugin computeds', () => {
+describe('Table Plugin computeds', () => {
   describe('#tableColumnsWithDataRows', () => {
     it('should work', () => {
       const columns = [{ name: 'a' }, { name: 'b' }];

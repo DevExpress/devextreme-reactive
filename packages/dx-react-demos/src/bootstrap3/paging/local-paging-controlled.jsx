@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -51,7 +51,7 @@ export default class Demo extends React.PureComponent {
           onPageSizeChange={this.changePageSize}
         />
         <LocalPaging />
-        <TableView />
+        <Table />
         <TableHeaderRow />
         <PagingPanel
           allowedPageSizes={allowedPageSizes}

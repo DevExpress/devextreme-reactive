@@ -11,7 +11,7 @@ import {
 import { visibleTableColumns, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 export class TableColumnVisibility extends React.PureComponent {
@@ -28,7 +28,7 @@ export class TableColumnVisibility extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
-        <Template name="tableView">
+        <Template name="table">
           {params => (
             <TemplateConnector>
               {({ tableColumns }) => (tableColumns.length

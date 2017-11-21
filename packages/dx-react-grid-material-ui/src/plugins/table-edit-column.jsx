@@ -36,6 +36,7 @@ export class TableEditColumn extends React.PureComponent {
         headingCellTemplate={combineTemplates(headingCellTemplate, defaultHeadingCellTemplate)}
         commandTemplate={combineTemplates(commandTemplate, defaultCommandTemplate)}
         messages={{ ...defaultMessages, ...messages }}
+        width={150}
         {...restProps}
       />
     );

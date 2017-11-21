@@ -5,11 +5,11 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  TableView,
+  Table,
   TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
-
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -32,16 +32,18 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <FilteringState defaultFilters={[]} />
-        <LocalFiltering />
-        <TableView />
-        <TableHeaderRow />
-        <TableFilterRow />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <FilteringState defaultFilters={[]} />
+          <LocalFiltering />
+          <Table />
+          <TableHeaderRow />
+          <TableFilterRow />
+        </Grid>
+      </Paper>
     );
   }
 }

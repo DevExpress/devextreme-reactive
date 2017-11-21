@@ -61,7 +61,7 @@ const getEditTableRowTemplateArgs = params => ({
 
 const pluginDependencies = [
   { pluginName: 'EditingState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
   { pluginName: 'DataTypeProvider', optional: true },
 ];
 
@@ -79,7 +79,7 @@ export class TableEditRow extends React.PureComponent {
       >
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) => isEditTableCell(tableRow, tableColumn)}
         >
           {params => (
@@ -106,7 +106,7 @@ export class TableEditRow extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewRow"
+          name="tableRow"
           predicate={({ tableRow }) => (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
         >
           {params => (

@@ -1,39 +1,46 @@
 import React from 'react';
-import { createMount } from 'material-ui/test-utils';
+import { createShallow } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
+import { IconButton } from 'material-ui';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
 describe('TableDetailToggleCell', () => {
   let resetConsole;
-  let mount;
+  let shallow;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
-    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+    shallow = createShallow({ dive: true });
   });
   afterAll(() => {
     resetConsole();
-    mount.cleanUp();
   });
 
   it('should render IconButton', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableDetailToggleCell />
     ));
 
-    expect(tree.find('IconButton').exists())
+    expect(tree.find(IconButton).exists())
       .toBeTruthy();
   });
 
-  it('should handle click', () => {
+  it('should handle click with stopPropagation', () => {
     const toggleExpanded = jest.fn();
-    const tree = mount((
+    const mockEvent = {
+      stopPropagation: jest.fn(),
+    };
+    const tree = shallow((
       <TableDetailToggleCell
         toggleExpanded={toggleExpanded}
       />
     ));
 
-    tree.find('IconButton').simulate('click');
+    const buttonClickHandler = tree.find(IconButton).prop('onClick');
+
+    buttonClickHandler(mockEvent);
     expect(toggleExpanded)
+      .toHaveBeenCalled();
+    expect(mockEvent.stopPropagation)
       .toHaveBeenCalled();
   });
 });

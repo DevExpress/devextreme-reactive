@@ -64,7 +64,7 @@ const getEditCommandsTableCellTemplateArgs = (
 
 const pluginDependencies = [
   { pluginName: 'EditingState' },
-  { pluginName: 'TableView' },
+  { pluginName: 'Table' },
 ];
 
 export class TableEditColumn extends React.PureComponent {
@@ -90,7 +90,7 @@ export class TableEditColumn extends React.PureComponent {
         <Getter name="tableColumns" computed={tableColumnsComputed} />
 
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) =>
             isHeadingEditCommandsTableCell(tableRow, tableColumn)}
         >
@@ -112,7 +112,7 @@ export class TableEditColumn extends React.PureComponent {
           )}
         </Template>
         <Template
-          name="tableViewCell"
+          name="tableCell"
           predicate={({ tableRow, tableColumn }) =>
             isEditCommandsTableCell(tableRow, tableColumn)}
         >

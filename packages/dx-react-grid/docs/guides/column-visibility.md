@@ -1,11 +1,11 @@
 # React Grid - Controlling Column Visibility
 
-A Grid component with the [TableColumnVisibility](../reference/table-column-visibility.md) plugin provides the capability to hide existing columns in the table view. You can also use the [ColumnChooser](../components/column-chooser.md) component to allow a user to show or hide columns at runtime.
+A Grid component with the [TableColumnVisibility](../reference/table-column-visibility.md) plugin provides the capability to hide existing columns in the table view. You can also use the [ColumnChooser](../reference/column-chooser.md) component to allow a user to show or hide columns at runtime.
 
 ## Related Components and Plugins
 
 - The Grid component's [TableColumnVisibility](../reference/table-column-visibility.md) plugin manages column visibility.
-- The [ColumnChooser](../components/column-chooser.md) component provides the UI for column visibility management.
+- The [ColumnChooser](../reference/column-chooser.md) component provides the UI for column visibility management.
 
 ## Basic configuration
 

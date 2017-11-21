@@ -24,14 +24,14 @@ const getSelectTableCellTemplateArgs = (
 
 const getSelectAllTableCellTemplateArgs = (
   params,
-  { availableToSelect, selection },
-  { setRowsSelection },
+  { availableToSelect, selection, selectAllAvailable, allSelected }, // getters
+  { setRowsSelection, toggleAllSelection }, // actions
 ) => ({
   ...params,
-  selectionAvailable: !!availableToSelect.length,
-  allSelected: selection.length === availableToSelect.length && selection.length !== 0,
+  selectionAvailable: selectAllAvailable, // !!availableToSelect.length,
+  allSelected, // selection.length === availableToSelect.length && selection.length !== 0,
   someSelected: selection.length !== availableToSelect.length && selection.length !== 0,
-  toggleAll: () => setRowsSelection({ rowIds: availableToSelect }),
+  toggleAll: () => toggleAllSelection,
 });
 
 const getSelectTableRowTemplateArgs = (

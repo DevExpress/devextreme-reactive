@@ -4,7 +4,7 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   setRowsSelection,
   getAvailableSelection,
-  getAvailableToSelect,
+  selectAllAvaliable,
 } from '@devexpress/dx-grid-core';
 
 const availableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
@@ -29,21 +29,20 @@ export class SelectionState extends React.PureComponent {
   render() {
     const selection = this.props.selection || this.state.selection;
 
-    const selectionComputed = ({ availableToSelect }) =>
-      getAvailableSelection(selection, availableToSelect);
+    const selectionComputed = ({ selectAllAvailable }) =>
+      selectAllAvaliable(selection, selectAllAvailable);
 
     return (
       <PluginContainer
         pluginName="SelectionState"
       >
         <Action
-          name="setRowsSelection"
+          name="toggleSelection"
           action={({ rowIds, selected }) => {
             this.changeSelection(setRowsSelection(selection, { rowIds, selected }));
           }}
         />
 
-        <Getter name="availableToSelect" computed={availableToSelectComputed} />
         <Getter name="selection" computed={selectionComputed} />
       </PluginContainer>
     );

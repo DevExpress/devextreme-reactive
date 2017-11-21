@@ -37,12 +37,13 @@ export class SelectionState extends React.PureComponent {
         pluginName="SelectionState"
       >
         <Action
-          name="toggleSelection"
+          name="setRowsSelection"
           action={({ rowIds, selected }) => {
             this.changeSelection(setRowsSelection(selection, { rowIds, selected }));
           }}
         />
 
+        <Getter name="availableToSelect" computed={availableToSelectComputed} />
         <Getter name="selection" computed={selectionComputed} />
       </PluginContainer>
     );

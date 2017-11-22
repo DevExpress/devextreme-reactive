@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalSorting,
+  LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -85,6 +85,7 @@ export default class Demo extends React.PureComponent {
           <LocalGrouping />
 
           <SelectionState />
+          <LocalSelection />
 
           <VirtualTable
             tableCellTemplate={this.tableCellTemplate}

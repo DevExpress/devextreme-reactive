@@ -31,7 +31,7 @@ const getSelectAllTableCellTemplateArgs = (
   selectionAvailable: selectAllAvailable, // !!availableToSelect.length, !!! true if select-all is available
   allSelected, // selection.length === availableToSelect.length && selection.length !== 0, !!! true if all checkboxes are selected
   someSelected: selection.length !== 0 && !allSelected, // selection.length !== availableToSelect.length && selection.length !== 0, !!! true if something is selected
-  toggleAll: () => toggleSelectAll(), // action - control select-all
+  toggleAll: select => toggleSelectAll(select), // action - control select-all
 });
 
 const getSelectTableRowTemplateArgs = (

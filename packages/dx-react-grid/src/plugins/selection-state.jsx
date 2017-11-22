@@ -8,9 +8,6 @@ import {
   getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
 
-const availableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
-  getAvailableToSelect(rows, getRowId, isGroupRow);
-
 export class SelectionState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -32,7 +29,8 @@ export class SelectionState extends React.PureComponent {
 
     const selectionComputed = ({ rows, getRowId, isGroupRow }) => {
       const availableToSelect = [...getAvailableToSelect(rows, getRowId, isGroupRow)];
-      return getAvailableSelection(selection, availableToSelect);
+      const result = getAvailableSelection(selection, availableToSelect);
+      return result;
     };
 
     return (
@@ -47,7 +45,7 @@ export class SelectionState extends React.PureComponent {
           }}
         />
 
-        <Getter name="selection" computed={selectionComputed} />
+        <Getter name="selection" value={selection} />
       </PluginContainer>
     );
   }

@@ -11,41 +11,63 @@ const pluginDependencies = [
   { pluginName: 'SelectionState' },
 ];
 
-const selectAllAvailable = ({ selection, rows, getRowId, isGroupRow }) => {
-  const availableToSelect = [...getAvailableToSelect(rows, getRowId, isGroupRow)];
+const selectAllAvailable = ({ rows, getRowId, isGroupRow }) => {
+  const availableToSelect = getAvailableToSelect(rows, getRowId, isGroupRow);
+  debugger // selectAllAvailable
   return !!availableToSelect.length;
 };
 
 const allSelected = ({ selection, rows, getRowId, isGroupRow }) => {
-  const availableToSelect = [...getAvailableToSelect(rows, getRowId, isGroupRow)];
-  return selection.length === availableToSelect.length && selection.length !== 0;
+  const availableToSelect = getAvailableToSelect(rows, getRowId, isGroupRow);
+  const result = selection.length === availableToSelect.length && selection.length !== 0;
+  return result;
 };
 
 export class LocalSelection extends React.PureComponent {
-  render() {
-    this.toggleSelectAll = ({
-      select,
-      selection,
-      rows,
-      getRowId,
-      isGroupRow,
-      selected,
-      toggleSelection,
-    }) => {
-      if (select === undefined) {
-        toggleSelection({ rowIds: getAvailableToSelect(rows, getRowId, isGroupRow) });
-        // newSelection = setRowsSelection(selection, { rowIds: getAvailableToSelect(rows, getRowId, isGroupRow), selected });
-      } else if (select) {
-        // choose all available rows
-        toggleSelection({ rowIds: getAvailableToSelect(rows, getRowId, isGroupRow) });
-        // newSelection = setRowsSelection(selection, { rowIds: getAvailableToSelect(rows, getRowId, isGroupRow), selected });
-      } else {
-        // choose no rows []
-        toggleSelection({ rowIds: getAvailableToSelect(rows, getRowId, isGroupRow) });
-        // newSelection = setRowsSelection(selection, { rowId: [], selected });
-      }
-    };
+  constructor(props) {
+    super(props);
 
+    this.state = { availableToSelect: [] };
+
+    this.toggleSelectAll = this.toggleSelectAll.bind(this);
+    this.allSelected = this.allSelected.bind(this);
+    this.selectAllAvailable = this.selectAllAvailable.bind(this);
+    // this.availableToSelect = this.availableToSelect.bind(this);
+
+    this.availableToSelect = ({ rows, getRowId, isGroupRow }) => {
+      debugger
+      const av = getAvailableToSelect(rows, getRowId, isGroupRow);
+      this.setState({ availableToSelect: av });
+      return rows;
+    };
+  }
+  toggleSelectAll(select, { selection }, { toggleSelection }) {
+    const { availableToSelect } = this.state;
+    debugger // toggleSelectAll
+    if (select === undefined) {
+      toggleSelection({ rowIds: availableToSelect });
+    } else if (select) {
+      toggleSelection({ rowIds: availableToSelect, selected: true });
+    } else {
+      toggleSelection({ rowIds: selection, selected: false });
+    }
+  }
+  allSelected({ selection }) {
+    debugger // allSelected
+    const { availableToSelect } = this.state;
+    const result = selection.length === availableToSelect.length && selection.length !== 0;
+    return result;
+  }
+  selectAllAvailable() {
+    const { availableToSelect } = this.state;
+    debugger // selectAllAvailable
+    return !!availableToSelect.length;
+  }
+  availableToSelect({ rows, getRowId, isGroupRow }) {
+    this.setState({ availableToSelect: getAvailableToSelect(rows, getRowId, isGroupRow) });
+    return rows;
+  }
+  render() {
     return (
       <PluginContainer
         pluginName="LocalSelection"
@@ -53,13 +75,12 @@ export class LocalSelection extends React.PureComponent {
       >
         <Action
           name="toggleSelectAll"
-          action={(props, { selection, rows, isGroupRow, getRowId }, { toggleSelection }) => {
-            console.log('toggleSelectAll');
-            this.toggleSelectAll({ select: true, selected: false, selection, rows, isGroupRow, getRowId, toggleSelection });
-          }}
+          action={this.toggleSelectAll}
         />
 
-        <Getter name="allSelected" computed={allSelected} />
+        <Getter name="rows" computed={this.availableToSelect} />
+        <Getter name="allSelected" computed={this.allSelected} />
+        {/* <Getter name="someSelected" computed={this.sameSelected} /> */}
         <Getter name="selectAllAvailable" computed={selectAllAvailable} />
       </PluginContainer>
     );

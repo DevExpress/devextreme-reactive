@@ -31,11 +31,11 @@ getCellValue | (row: any, columnName: string) => any | Specifies the function us
 
 ### GridRootProps
 
-Describes properties passed to a component that renders the grid root.
+Describes properties passed to a component that renders the grid root layout.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed into the root.
+children? | ReactElement | A React element to be placed into the root layout.
 
 ### GridHeaderPlaceholderProps
 

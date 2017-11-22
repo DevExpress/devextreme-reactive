@@ -11,7 +11,7 @@ module.exports = {
 
       if (!errorMessage.includes('react-error-boundaries') &&
         config.ignore &&
-        config.ignore.filter(message => errorMessage.includes(message)).length) {
+        !config.ignore.filter(message => errorMessage.includes(message)).length) {
         throw new Error(format(...args).replace(/^Error: (?:Warning: )?/, ''));
       }
     };

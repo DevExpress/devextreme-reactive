@@ -1,11 +1,20 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
 describe('TableDetailToggleCell', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should handle click with stopPropagation', () => {
     const toggleExpanded = jest.fn();
     const mockEvent = {

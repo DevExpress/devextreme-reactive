@@ -1,42 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Root = ({
-  headerTemplate,
-  bodyTemplate,
-  footerTemplate,
-}) => (
+export const Root = ({ children }) => (
   <div className="panel panel-default">
-    {headerTemplate()}
-    {bodyTemplate()}
-    {footerTemplate()}
+    {children}
   </div>
 );
 
 Root.propTypes = {
-  headerTemplate: PropTypes.func.isRequired,
-  bodyTemplate: PropTypes.func.isRequired,
-  footerTemplate: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+};
+
+Root.defaultProps = {
+  children: undefined,
 };
 
 export const Header = ({ children }) =>
   children && <div className="panel-heading" style={{ paddingBottom: '5px' }}>{children}</div>;
 
 Header.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 Header.defaultProps = {
-  children: null,
+  children: undefined,
 };
 
 export const Footer = ({ children }) =>
   children && <div className="panel-footer">{children}</div>;
 
 Footer.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 Footer.defaultProps = {
-  children: null,
+  children: undefined,
 };

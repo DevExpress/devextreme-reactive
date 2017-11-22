@@ -14,7 +14,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultProps = {
   rows: [{ a: 1 }],
   columns: [{ name: 'a' }],
-  rootTemplate: () => null,
+  rootComponent: () => null,
 };
 
 describe('Grid', () => {
@@ -39,17 +39,9 @@ describe('Grid', () => {
       <PluginHost>
         <GridCore
           {...defaultProps}
-          rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
+          rootComponent={({ children }) => (
             <div className="root">
-              <div className="header">
-                {headerTemplate()}
-              </div>
-              <div className="body">
-                {bodyTemplate()}
-              </div>
-              <div className="footer">
-                {footerTemplate()}
-              </div>
+              {children}
             </div>
           )}
         />
@@ -61,9 +53,9 @@ describe('Grid', () => {
 
     const root = tree.find('.root');
     expect(root.exists()).toBeTruthy();
-    expect(root.find('.header').find('.header-content').exists()).toBeTruthy();
-    expect(root.find('.body').find('.body-content').exists()).toBeTruthy();
-    expect(root.find('.footer').find('.footer-content').exists()).toBeTruthy();
+    expect(root.children().at(0).find('.header-content').exists()).toBeTruthy();
+    expect(root.children().at(1).find('.body-content').exists()).toBeTruthy();
+    expect(root.children().at(2).find('.footer-content').exists()).toBeTruthy();
   });
 
   it('should render header placeholder', () => {
@@ -71,14 +63,8 @@ describe('Grid', () => {
       <PluginHost>
         <GridCore
           {...defaultProps}
-          rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
-            <div>
-              {headerTemplate()}
-              {bodyTemplate()}
-              {footerTemplate()}
-            </div>
-          )}
-          headerPlaceholderTemplate={({ children }) =>
+          rootComponent={({ children }) => (<div>{children}</div>)}
+          headerPlaceholderComponent={({ children }) =>
             <div className="header-placeholder">{children}</div>}
         />
         <Template name="header"><div className="header-content" /></Template>
@@ -93,14 +79,8 @@ describe('Grid', () => {
       <PluginHost>
         <GridCore
           {...defaultProps}
-          rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
-            <div>
-              {headerTemplate()}
-              {bodyTemplate()}
-              {footerTemplate()}
-            </div>
-          )}
-          headerPlaceholderTemplate={({ children }) =>
+          rootComponent={({ children }) => (<div>{children}</div>)}
+          headerPlaceholderComponent={({ children }) =>
             children && <div className="header-placeholder">{children}</div>}
         />
       </PluginHost>
@@ -114,14 +94,8 @@ describe('Grid', () => {
       <PluginHost>
         <GridCore
           {...defaultProps}
-          rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
-            <div>
-              {headerTemplate()}
-              {bodyTemplate()}
-              {footerTemplate()}
-            </div>
-          )}
-          footerPlaceholderTemplate={({ children }) =>
+          rootComponent={({ children }) => (<div>{children}</div>)}
+          footerPlaceholderComponent={({ children }) =>
             <div className="footer-placeholder">{children}</div>}
         />
         <Template name="footer"><div className="footer-content" /></Template>
@@ -136,14 +110,8 @@ describe('Grid', () => {
       <PluginHost>
         <GridCore
           {...defaultProps}
-          rootTemplate={({ headerTemplate, bodyTemplate, footerTemplate }) => (
-            <div>
-              {headerTemplate()}
-              {bodyTemplate()}
-              {footerTemplate()}
-            </div>
-          )}
-          footerPlaceholderTemplate={({ children }) =>
+          rootComponent={({ children }) => (<div>{children}</div>)}
+          footerPlaceholderComponent={({ children }) =>
             children && <div className="footer-placeholder">{children}</div>}
         />
       </PluginHost>

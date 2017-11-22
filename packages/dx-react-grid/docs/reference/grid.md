@@ -35,7 +35,7 @@ Describes properties passed to a component that renders the grid root layout.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed into the root layout.
+children? | ReactElement | A React element to be placed in the root layout.
 
 ### GridHeaderPlaceholderProps
 
@@ -43,7 +43,7 @@ Describes properties passed to a component that renders the grid header placehol
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed into the header.
+children? | ReactElement | A React element to be placed in the header.
 
 ### GridFooterPlaceholderProps
 
@@ -51,7 +51,7 @@ Describes properties passed to a component that renders the grid footer placehol
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed into the footer.
+children? | ReactElement | A React element to be placed in the footer.
 
 ## Plugin Developer Reference
 
@@ -62,7 +62,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;any&gt; | Grid rows.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a given row's column value.
 root | Template | Object? | A template that renders the grid root layout.
 header | Template | Object? | A template that renders the grid header.
 body | Template | Object? | A template that renders the grid body.

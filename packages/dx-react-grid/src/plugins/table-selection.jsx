@@ -24,13 +24,13 @@ const getSelectTableCellTemplateArgs = (
 
 const getSelectAllTableCellTemplateArgs = (
   params,
-  { selection, selectAllAvailable, allSelected }, // getters
-  { toggleSelection, toggleSelectAll }, // actions
+  { selectAllAvailable, allSelected, someSelected }, // getters
+  { toggleSelectAll }, // actions
 ) => ({
   ...params,
   selectionAvailable: selectAllAvailable, // !!availableToSelect.length, !!! true if select-all is available
   allSelected, // selection.length === availableToSelect.length && selection.length !== 0, !!! true if all checkboxes are selected
-  someSelected: selection.length !== 0 && !allSelected, // selection.length !== availableToSelect.length && selection.length !== 0, !!! true if something is selected
+  someSelected, // selection.length !== availableToSelect.length && selection.length !== 0, !!! true if something is selected
   toggleAll: select => toggleSelectAll(select), // action - control select-all
 });
 

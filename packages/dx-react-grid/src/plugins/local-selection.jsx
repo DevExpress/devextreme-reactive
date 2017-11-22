@@ -32,22 +32,18 @@ export class LocalSelection extends React.PureComponent {
     this.toggleSelectAll = this.toggleSelectAll.bind(this);
     this.allSelected = this.allSelected.bind(this);
     this.selectAllAvailable = this.selectAllAvailable.bind(this);
-    // this.availableToSelect = this.availableToSelect.bind(this);
-
-    this.availableToSelect = ({ rows, getRowId, isGroupRow }) => {
-      debugger
-      const av = getAvailableToSelect(rows, getRowId, isGroupRow);
-      this.setState({ availableToSelect: av });
-      return rows;
-    };
+    this.availableToSelect = this.availableToSelect.bind(this);
+    this.someSelected = this.someSelected.bind(this);
   }
+
   toggleSelectAll(select, { selection }, { toggleSelection }) {
     const { availableToSelect } = this.state;
+    const av = availableToSelect.length ? availableToSelect : this.av;
     debugger // toggleSelectAll
     if (select === undefined) {
-      toggleSelection({ rowIds: availableToSelect });
+      toggleSelection({ rowIds: av });
     } else if (select) {
-      toggleSelection({ rowIds: availableToSelect, selected: true });
+      toggleSelection({ rowIds: av, selected: true });
     } else {
       toggleSelection({ rowIds: selection, selected: false });
     }
@@ -55,17 +51,29 @@ export class LocalSelection extends React.PureComponent {
   allSelected({ selection }) {
     debugger // allSelected
     const { availableToSelect } = this.state;
-    const result = selection.length === availableToSelect.length && selection.length !== 0;
+    const av = availableToSelect.length ? availableToSelect : this.av;
+    const result = selection.length === av.length && selection.length !== 0;
     return result;
   }
   selectAllAvailable() {
     const { availableToSelect } = this.state;
+    const av = availableToSelect.length ? availableToSelect : this.av;
     debugger // selectAllAvailable
-    return !!availableToSelect.length;
+    return !!av.length;
   }
   availableToSelect({ rows, getRowId, isGroupRow }) {
-    this.setState({ availableToSelect: getAvailableToSelect(rows, getRowId, isGroupRow) });
+    debugger
+    const av = getAvailableToSelect(rows, getRowId, isGroupRow);
+    this.setState({ availableToSelect: av });
+    this.av = av;
     return rows;
+  }
+  someSelected({ selection }) {
+    const { availableToSelect } = this.state;
+    debugger // someSelected
+    const av = availableToSelect.length ? availableToSelect : this.av;
+    const result = selection.length !== av.length && selection.length !== 0;
+    return result;
   }
   render() {
     return (
@@ -79,8 +87,8 @@ export class LocalSelection extends React.PureComponent {
         />
 
         <Getter name="rows" computed={this.availableToSelect} />
-        <Getter name="allSelected" computed={this.allSelected} />
-        {/* <Getter name="someSelected" computed={this.sameSelected} /> */}
+        <Getter name="allSelected" computed={allSelected} />
+        <Getter name="someSelected" computed={this.someSelected} />
         <Getter name="selectAllAvailable" computed={selectAllAvailable} />
       </PluginContainer>
     );

@@ -6,7 +6,13 @@ export const getAvailableToSelect = (rows, getRowId, isGroupRow) => {
   return dataRows.map(row => getRowId(row));
 };
 
-export const selectAllAvaliable = (selection, availableToSelect) => {
+export const getAvailableSelection = (selection, availableToSelect) => {
   const availableToSelectSet = new Set(availableToSelect);
-  return selection.filter(selected => availableToSelectSet.has(selected)).length > 0;
+  return selection.filter(selected => availableToSelectSet.has(selected));
 };
+
+// move to local-selection computeds
+// export const selectAllAvaliable = (selection, availableToSelect) => {
+//   const availableToSelectSet = new Set(availableToSelect);
+//   return selection.filter(selected => availableToSelectSet.has(selected)).length > 0;
+// };

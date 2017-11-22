@@ -4,34 +4,45 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   selectAllAvaliable,
   setRowsSelection,
+  getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'SelectionState' },
 ];
 
-const selectAllAvailable = ({ rows, getRowId, isGroupRow }) =>
-  selectAllAvaliable(rows, getRowId, isGroupRow);
+const selectAllAvailable = ({ selection, rows, getRowId, isGroupRow }) => {
+  const availableToSelect = [...getAvailableToSelect(rows, getRowId, isGroupRow)];
+  return !!availableToSelect.length;
+};
 
-const allSelected = ({ selection, availableToSelect }) =>
-  selection.length === availableToSelect.length && selection.length !== 0;
+const allSelected = ({ selection, rows, getRowId, isGroupRow }) => {
+  const availableToSelect = [...getAvailableToSelect(rows, getRowId, isGroupRow)];
+  return selection.length === availableToSelect.length && selection.length !== 0;
+};
 
 export class LocalSelection extends React.PureComponent {
   render() {
     this.toggleSelectAll = ({
       select,
       selection,
-      rowIds,
+      rows,
+      getRowId,
+      isGroupRow,
       selected,
+      toggleSelection,
     }) => {
       if (select === undefined) {
-        setRowsSelection(selection, { rowIds, selected });
+        toggleSelection({ rowIds: getAvailableToSelect(rows, getRowId, isGroupRow) });
+        // newSelection = setRowsSelection(selection, { rowIds: getAvailableToSelect(rows, getRowId, isGroupRow), selected });
       } else if (select) {
         // choose all available rows
-        setRowsSelection(selection, { rowIds: selectAllAvaliable, selected });
+        toggleSelection({ rowIds: getAvailableToSelect(rows, getRowId, isGroupRow) });
+        // newSelection = setRowsSelection(selection, { rowIds: getAvailableToSelect(rows, getRowId, isGroupRow), selected });
       } else {
         // choose no rows []
-        setRowsSelection(selection, { rowId: [], selected });
+        toggleSelection({ rowIds: getAvailableToSelect(rows, getRowId, isGroupRow) });
+        // newSelection = setRowsSelection(selection, { rowId: [], selected });
       }
     };
 
@@ -42,8 +53,9 @@ export class LocalSelection extends React.PureComponent {
       >
         <Action
           name="toggleSelectAll"
-          action={({ rows, getRowId, isGroupRow }) => {
-            this.toggleSelectAll({ rows, getRowId, isGroupRow });
+          action={(props, { selection, rows, isGroupRow, getRowId }, { toggleSelection }) => {
+            console.log('toggleSelectAll');
+            this.toggleSelectAll({ select: true, selected: false, selection, rows, isGroupRow, getRowId, toggleSelection });
           }}
         />
 

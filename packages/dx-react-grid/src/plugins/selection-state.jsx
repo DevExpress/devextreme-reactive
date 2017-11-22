@@ -5,6 +5,7 @@ import {
   setRowsSelection,
   getAvailableSelection,
   selectAllAvaliable,
+  getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
 
 const availableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
@@ -29,8 +30,10 @@ export class SelectionState extends React.PureComponent {
   render() {
     const selection = this.props.selection || this.state.selection;
 
-    const selectionComputed = ({ selectAllAvailable }) =>
-      selectAllAvaliable(selection, selectAllAvailable);
+    const selectionComputed = ({ rows, getRowId, isGroupRow }) => {
+      const availableToSelect = [...getAvailableToSelect(rows, getRowId, isGroupRow)];
+      return getAvailableSelection(selection, availableToSelect);
+    };
 
     return (
       <PluginContainer
@@ -39,6 +42,7 @@ export class SelectionState extends React.PureComponent {
         <Action
           name="toggleSelection"
           action={({ rowIds, selected }) => {
+            console.log('toggleSelection');
             this.changeSelection(setRowsSelection(selection, { rowIds, selected }));
           }}
         />

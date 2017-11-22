@@ -14,37 +14,37 @@ import {
 const getSelectTableCellTemplateArgs = (
   params,
   { selection },
-  { setRowsSelection },
+  { toggleSelection },
 ) => ({
   ...params,
   row: params.tableRow.row,
   selected: selection.indexOf(params.tableRow.rowId) > -1,
-  changeSelected: () => setRowsSelection({ rowIds: [params.tableRow.rowId] }),
+  changeSelected: () => toggleSelection({ rowIds: [params.tableRow.rowId] }),
 });
 
 const getSelectAllTableCellTemplateArgs = (
   params,
-  { availableToSelect, selection, selectAllAvailable, allSelected }, // getters
-  { setRowsSelection, toggleAllSelection }, // actions
+  { selection, selectAllAvailable, allSelected }, // getters
+  { toggleSelection, toggleSelectAll }, // actions
 ) => ({
   ...params,
-  selectionAvailable: selectAllAvailable, // !!availableToSelect.length,
-  allSelected, // selection.length === availableToSelect.length && selection.length !== 0,
-  someSelected: selection.length !== availableToSelect.length && selection.length !== 0,
-  toggleAll: () => toggleAllSelection,
+  selectionAvailable: selectAllAvailable, // !!availableToSelect.length, !!! true if select-all is available
+  allSelected, // selection.length === availableToSelect.length && selection.length !== 0, !!! true if all checkboxes are selected
+  someSelected: selection.length !== 0 && !allSelected, // selection.length !== availableToSelect.length && selection.length !== 0, !!! true if something is selected
+  toggleAll: () => toggleSelectAll(), // action - control select-all
 });
 
 const getSelectTableRowTemplateArgs = (
   { selectByRowClick, highlightSelected, ...restParams },
   { selection },
-  { setRowsSelection },
+  { toggleSelection },
 ) => {
   const { rowId } = restParams.tableRow;
   return ({
     ...restParams,
     selectByRowClick,
     selected: highlightSelected && selection.indexOf(rowId) > -1,
-    changeSelected: () => setRowsSelection({ rowIds: [rowId] }),
+    changeSelected: () => toggleSelection({ rowIds: [rowId] }), // action - control select some
   });
 };
 

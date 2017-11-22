@@ -14,34 +14,34 @@ const styles = theme => ({
   },
 });
 
-export const Root = ({
-  headerTemplate,
-  bodyTemplate,
-  footerTemplate,
-}) => (
-  <div>
-    {headerTemplate()}
-    {bodyTemplate()}
-    {footerTemplate()}
-  </div>
+export const Root = ({ children }) => (
+  <div>{children}</div>
 );
 
 Root.propTypes = {
-  headerTemplate: PropTypes.func.isRequired,
-  bodyTemplate: PropTypes.func.isRequired,
-  footerTemplate: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+};
+
+Root.defaultProps = {
+  children: undefined,
 };
 
 const HeaderBase = ({ children, classes }) =>
   children && <div className={classes.headingPanel}>{children}</div>;
 
 HeaderBase.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
   classes: PropTypes.object.isRequired,
 };
 
 HeaderBase.defaultProps = {
-  children: null,
+  children: undefined,
 };
 
 export const Header = withStyles(styles, { name: 'GridLayout' })(HeaderBase);
@@ -50,12 +50,15 @@ const FooterBase = ({ children, classes }) =>
   children && <div className={classes.footerPanel}>{children}</div>;
 
 FooterBase.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
   classes: PropTypes.object.isRequired,
 };
 
 FooterBase.defaultProps = {
-  children: null,
+  children: undefined,
 };
 
 export const Footer = withStyles(styles, { name: 'GridLayout' })(FooterBase);

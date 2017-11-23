@@ -95,7 +95,7 @@ cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => 
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `changedRows` array.
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows specified by the ID for deletion, adding them to the `deletedRows` array.
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `deletedRows` array.
-tableCell | Template | [TableCellProps](table-view.md#tablecellprops) | A template that renders a table cell.
+tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 

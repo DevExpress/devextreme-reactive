@@ -1,34 +1,16 @@
 import React from 'react';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { getAvailableToSelect } from '@devexpress/dx-grid-core';
+import {
+  getAvailableToSelect,
+  allAvailableInSelection,
+  consistSelectionInAvailable,
+  isSomeSelected,
+  isAllSelected,
+} from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'SelectionState' },
 ];
-
-const allArray1inArray2 = (availableToSelect, selectionRows) => {
-  let consist = true;
-  availableToSelect.forEach((elem) => {
-    if (!selectionRows.has(elem)) {
-      consist = false;
-      return false;
-    }
-    return true;
-  });
-  return consist;
-};
-
-const someArray1InArray2 = (selectionRows, availableToSelect) => {
-  let consistSelectionInAvailable = false; // need when pager selection consist in available
-  availableToSelect.forEach((elem) => {
-    if (selectionRows.has(elem)) {
-      consistSelectionInAvailable = true;
-      return true;
-    }
-    return false;
-  });
-  return consistSelectionInAvailable;
-};
 
 export class LocalSelection extends React.PureComponent {
   constructor(props) {
@@ -59,19 +41,10 @@ export class LocalSelection extends React.PureComponent {
 
     const selectAllAvailableComputed = () =>
       !!availableToSelect.length;
-    const allSelectedComputed = ({ selection }) => {
-      const selectionRows = new Set(selection);
-      const allAvailableInSelection = () => allArray1inArray2(availableToSelect, selectionRows);
-      return selection.length !== 0 && availableToSelect.length !== 0 && allAvailableInSelection();
-    };
-    const someSelectedComputed = ({ selection }) => {
-      const selectionRows = new Set(selection);
-      const allAvailableInSelection = () => allArray1inArray2(availableToSelect, selectionRows);
-      const consistSelectionInAvailable = () =>
-        someArray1InArray2(selectionRows, availableToSelect);
-      return availableToSelect.length !== 0 && selection.length !== 0
-        && consistSelectionInAvailable() && !allAvailableInSelection();
-    };
+    const allSelectedComputed = ({ selection }) =>
+      isAllSelected({ selection, availableToSelect });
+    const someSelectedComputed = ({ selection }) =>
+      isSomeSelected({ selection, availableToSelect });
 
     return (
       <PluginContainer

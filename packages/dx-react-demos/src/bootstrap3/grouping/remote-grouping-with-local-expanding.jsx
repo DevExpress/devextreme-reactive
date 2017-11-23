@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   GroupingState,
-  CustomGrouping,
+  CustomGroupingPlugin,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -113,7 +113,7 @@ export default class Demo extends React.PureComponent {
             expandedGroups={expandedGroups}
             onExpandedGroupsChange={this.changeExpandedGroups}
           />
-          <CustomGrouping
+          <CustomGroupingPlugin
             getChildGroups={getChildGroups}
             grouping={tempGrouping}
             expandedGroups={tempExpandedGroups}

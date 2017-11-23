@@ -9,7 +9,7 @@ import {
   expandedGroupRows,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { CustomGrouping } from './custom-grouping';
+import { CustomGroupingPlugin } from './custom-grouping';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -34,7 +34,7 @@ const defaultProps = {
   getChildGroups: () => {},
 };
 
-describe('CustomGrouping', () => {
+describe('CustomGroupingPlugin', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -58,7 +58,7 @@ describe('CustomGrouping', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <CustomGrouping
+        <CustomGroupingPlugin
           {...defaultProps}
         />
       </PluginHost>
@@ -72,7 +72,7 @@ describe('CustomGrouping', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <CustomGrouping
+        <CustomGroupingPlugin
           {...defaultProps}
         />
       </PluginHost>
@@ -86,7 +86,7 @@ describe('CustomGrouping', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <CustomGrouping
+        <CustomGroupingPlugin
           {...defaultProps}
         />
       </PluginHost>
@@ -114,7 +114,7 @@ describe('CustomGrouping', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <CustomGrouping
+        <CustomGroupingPlugin
           {...defaultProps}
         />
       </PluginHost>
@@ -138,7 +138,7 @@ describe('CustomGrouping', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <CustomGrouping
+          <CustomGroupingPlugin
             {...defaultProps}
             grouping={grouping}
             expandedGroups={expandedGroups}
@@ -159,7 +159,7 @@ describe('CustomGrouping', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <CustomGrouping
+          <CustomGroupingPlugin
             {...defaultProps}
             grouping={grouping}
             expandedGroups={expandedGroups}

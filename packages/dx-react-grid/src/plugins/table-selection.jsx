@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
@@ -19,7 +19,7 @@ const getSelectTableCellProps = (
   ...params,
   row: params.tableRow.row,
   selected: selection.indexOf(params.tableRow.rowId) > -1,
-  changeSelected: () => setRowsSelection({ rowIds: [params.tableRow.rowId] }),
+  onToggle: () => setRowsSelection({ rowIds: [params.tableRow.rowId] }),
 });
 
 const getSelectAllTableCellProps = (
@@ -28,10 +28,10 @@ const getSelectAllTableCellProps = (
   { setRowsSelection },
 ) => ({
   ...params,
-  selectionAvailable: !!availableToSelect.length,
-  allSelected: selection.length === availableToSelect.length && selection.length !== 0,
-  someSelected: selection.length !== availableToSelect.length && selection.length !== 0,
-  toggleAll: () => setRowsSelection({ rowIds: availableToSelect }),
+  disabled: !availableToSelect.length,
+  selected: selection.length === availableToSelect.length && selection.length !== 0,
+  partiallySelected: selection.length !== availableToSelect.length && selection.length !== 0,
+  onToggle: () => setRowsSelection({ rowIds: availableToSelect }),
 });
 
 const getSelectTableRowProps = (
@@ -44,7 +44,7 @@ const getSelectTableRowProps = (
     ...restParams,
     selectByRowClick,
     selected: highlightSelected && selection.indexOf(rowId) > -1,
-    changeSelected: () => setRowsSelection({ rowIds: [rowId] }),
+    onToggle: () => setRowsSelection({ rowIds: [rowId] }),
   });
 };
 

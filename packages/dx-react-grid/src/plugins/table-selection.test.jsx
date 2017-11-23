@@ -144,7 +144,7 @@ describe('Table Selection', () => {
         />
       </PluginHost>
     ));
-    tree.find(defaultProps.selectRowComponent).props().changeSelected();
+    tree.find(defaultProps.selectRowComponent).props().onToggle();
 
     expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
 

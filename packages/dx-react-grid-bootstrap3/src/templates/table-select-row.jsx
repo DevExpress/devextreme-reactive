@@ -5,7 +5,7 @@ export const TableSelectRow = ({
   selected,
   children,
   style,
-  changeSelected,
+  onToggle,
   selectByRowClick,
 }) => (
   <tr
@@ -14,7 +14,7 @@ export const TableSelectRow = ({
     onClick={(e) => {
       if (!selectByRowClick) return;
       e.stopPropagation();
-      changeSelected();
+      onToggle();
     }}
   >
     {children}
@@ -24,14 +24,14 @@ export const TableSelectRow = ({
 TableSelectRow.propTypes = {
   selected: PropTypes.bool,
   children: PropTypes.node,
-  changeSelected: PropTypes.func,
+  onToggle: PropTypes.func,
   selectByRowClick: PropTypes.bool,
   style: PropTypes.object,
 };
 
 TableSelectRow.defaultProps = {
   children: null,
-  changeSelected: () => {},
+  onToggle: () => {},
   selected: false,
   selectByRowClick: false,
   style: null,

@@ -31,10 +31,10 @@ A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the
 
 Field | Type | Description
 ------|------|------------
-selectionAvailable | boolean | True if at least one row can be selected.
-allSelected | boolean | True if all the rows available for selection are selected.
-someSelected | boolean | True if at least one but not all rows available for selection are selected.
-toggleAll | () => void | Selects or deselects all rows.
+disabled | boolean | True if there are no rows that can be selected.
+selected | boolean | True if all the rows available for selection are selected.
+partiallySelected | boolean | True if at least one but not all rows available for selection are selected.
+onToggle | () => void | An event that initiates selecting or deselecting of all rows.
 
 ### SelectCellProps
 
@@ -46,7 +46,7 @@ Field | Type | Description
 ------|------|------------
 row | any | A row.
 selected | boolean | Specifies whether a row is selected.
-changeSelected | () => void | Selects or deselects a row.
+onToggle | () => void | An event that initiates selecting or deselecting of a row.
 
 ## Plugin Developer Reference
 

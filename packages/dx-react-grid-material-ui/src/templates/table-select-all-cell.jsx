@@ -17,11 +17,11 @@ const styles = theme => ({
 });
 
 const TableSelectAllCellBase = ({
-  style, allSelected, someSelected, selectionAvailable, toggleAll, classes,
+  style, selected, partiallySelected, disabled, onToggle, classes,
 }) => {
   const cellClasses = classNames({
     [classes.cell]: true,
-    [classes.pointer]: selectionAvailable,
+    [classes.pointer]: !disabled,
   });
 
   return (
@@ -31,14 +31,14 @@ const TableSelectAllCellBase = ({
       className={cellClasses}
     >
       <Checkbox
-        checked={allSelected}
-        indeterminate={someSelected}
-        disabled={!selectionAvailable}
+        checked={selected}
+        indeterminate={partiallySelected}
+        disabled={disabled}
         onClick={(e) => {
-          if (!selectionAvailable) return;
+          if (disabled) return;
 
           e.stopPropagation();
-          toggleAll();
+          onToggle();
         }}
       />
     </TableCell>
@@ -47,19 +47,19 @@ const TableSelectAllCellBase = ({
 
 TableSelectAllCellBase.propTypes = {
   style: PropTypes.object,
-  allSelected: PropTypes.bool,
-  someSelected: PropTypes.bool,
-  selectionAvailable: PropTypes.bool,
-  toggleAll: PropTypes.func,
+  selected: PropTypes.bool,
+  partiallySelected: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onToggle: PropTypes.func,
   classes: PropTypes.object.isRequired,
 };
 
 TableSelectAllCellBase.defaultProps = {
   style: null,
-  allSelected: false,
-  someSelected: false,
-  selectionAvailable: false,
-  toggleAll: () => {},
+  selected: false,
+  partiallySelected: false,
+  disabled: false,
+  onToggle: () => {},
 };
 
 export const TableSelectAllCell = withStyles(styles, { name: 'TableSelectAllCell' })(TableSelectAllCellBase);

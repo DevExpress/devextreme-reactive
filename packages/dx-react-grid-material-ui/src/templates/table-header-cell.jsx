@@ -82,7 +82,7 @@ class TableHeaderCellBase extends React.PureComponent {
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
       classes, getMessage, className,
       changeSortingDirection,
-      tableRow, // eslint-disable-line react/prop-types
+      tableRow,
       ...restProps
     } = this.props;
 
@@ -167,6 +167,7 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
+  tableRow: PropTypes.object,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -183,6 +184,7 @@ TableHeaderCellBase.defaultProps = {
   changeColumnWidth: undefined,
   changeDraftColumnWidth: undefined,
   className: undefined,
+  tableRow: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

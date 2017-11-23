@@ -43,7 +43,6 @@ export class TableHeaderCell extends React.PureComponent {
       allowDragging, dragPayload,
       allowResizing, changeColumnWidth, changeDraftColumnWidth,
       changeSortingDirection,
-      // eslint-disable-next-line react/prop-types
       tableRow, getMessage,
       ...restProps
     } = this.props;
@@ -133,6 +132,8 @@ TableHeaderCell.propTypes = {
   allowResizing: PropTypes.bool,
   changeColumnWidth: PropTypes.func,
   changeDraftColumnWidth: PropTypes.func,
+  tableRow: PropTypes.object,
+  getMessage: PropTypes.func,
 };
 
 TableHeaderCell.defaultProps = {
@@ -148,4 +149,6 @@ TableHeaderCell.defaultProps = {
   allowResizing: false,
   changeColumnWidth: undefined,
   changeDraftColumnWidth: undefined,
+  tableRow: undefined,
+  getMessage: undefined,
 };

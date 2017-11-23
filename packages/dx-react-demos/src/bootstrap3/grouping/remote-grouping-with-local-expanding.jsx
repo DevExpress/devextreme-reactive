@@ -13,7 +13,7 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap3';
 import { Loading } from '../components/loading';
 
-const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi';
+const URL = 'https://js.devexpress.com/Demos/Mvc/api/DataGridWebApi/Orders';
 
 const getRowId = row => row.OrderID;
 const getChildGroups = groups => groups
@@ -76,9 +76,9 @@ export default class Demo extends React.PureComponent {
     const queryString = this.queryString();
     fetch(queryString, { mode: 'cors' })
       .then(response => response.json())
-      .then((data) => {
+      .then((orders) => {
         this.setState({
-          data,
+          data: orders.data,
           tempGrouping: null,
           tempExpandedGroups: null,
           loading: false,

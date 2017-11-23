@@ -10,9 +10,9 @@ export class GridCore extends React.PureComponent {
       columns,
       getRowId,
       getCellValue,
-      rootTemplate,
-      headerPlaceholderTemplate,
-      footerPlaceholderTemplate,
+      rootComponent: Root,
+      headerPlaceholderComponent: HeaderPlaceholder,
+      footerPlaceholderComponent: FooterPlaceholder,
     } = this.props;
 
     return (
@@ -25,23 +25,19 @@ export class GridCore extends React.PureComponent {
         <Template name="body" />
         <Template name="footer" />
         <Template name="root">
-          {() => rootTemplate({
-            headerTemplate: () => (
-              <TemplatePlaceholder name="header">
-                {content => (headerPlaceholderTemplate
-                  ? headerPlaceholderTemplate({ children: content })
-                  : content)}
-              </TemplatePlaceholder>
-            ),
-            bodyTemplate: () => <TemplatePlaceholder name="body" />,
-            footerTemplate: () => (
-              <TemplatePlaceholder name="footer">
-                {content => (footerPlaceholderTemplate
-                  ? footerPlaceholderTemplate({ children: content })
-                  : content)}
-              </TemplatePlaceholder>
-            ),
-          })}
+          <Root>
+            <TemplatePlaceholder name="header">
+              {content => (HeaderPlaceholder
+                ? <HeaderPlaceholder>{content}</HeaderPlaceholder>
+                : content)}
+            </TemplatePlaceholder>
+            <TemplatePlaceholder name="body" />
+            <TemplatePlaceholder name="footer">
+              {content => (FooterPlaceholder
+                ? <FooterPlaceholder>{content}</FooterPlaceholder>
+                : content)}
+            </TemplatePlaceholder>
+          </Root>
         </Template>
       </PluginContainer>
     );
@@ -53,14 +49,14 @@ GridCore.propTypes = {
   getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
-  rootTemplate: PropTypes.func.isRequired,
-  headerPlaceholderTemplate: PropTypes.func,
-  footerPlaceholderTemplate: PropTypes.func,
+  rootComponent: PropTypes.func.isRequired,
+  headerPlaceholderComponent: PropTypes.func,
+  footerPlaceholderComponent: PropTypes.func,
 };
 
 GridCore.defaultProps = {
   getRowId: null,
   getCellValue: null,
-  headerPlaceholderTemplate: null,
-  footerPlaceholderTemplate: null,
+  headerPlaceholderComponent: null,
+  footerPlaceholderComponent: null,
 };

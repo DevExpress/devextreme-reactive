@@ -2,15 +2,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-// eslint-disable-next-line camelcase
-import { unstable_batchedUpdates } from 'react-dom';
 import { Draggable } from './draggable';
-
-jest.mock('react-dom', () => {
-  const ReactDOM = require.requireActual('react-dom');
-  jest.spyOn(ReactDOM, 'unstable_batchedUpdates');
-  return ReactDOM;
-});
 
 describe('Draggable', () => {
   let rootNode = null;
@@ -68,8 +60,6 @@ describe('Draggable', () => {
         .toHaveBeenCalledTimes(1);
       expect(onStart)
         .toHaveBeenCalledWith({ x: 10, y: 10 });
-      expect(unstable_batchedUpdates)
-        .toHaveBeenCalledTimes(1);
     });
 
     it('should prevent default browser behavior on dragging', () => {
@@ -116,8 +106,6 @@ describe('Draggable', () => {
         .toHaveBeenCalledWith({ x: 30, y: 30 });
       expect(onUpdate)
         .toHaveBeenCalledWith({ x: 40, y: 40 });
-      expect(unstable_batchedUpdates)
-        .toHaveBeenCalledTimes(2);
     });
 
     it('should fire the "onEnd" callback on mouseup', () => {
@@ -141,8 +129,6 @@ describe('Draggable', () => {
         .toHaveBeenCalledTimes(1);
       expect(onEnd)
         .toHaveBeenCalledWith({ x: 30, y: 30 });
-      expect(unstable_batchedUpdates)
-        .toHaveBeenCalledTimes(1);
     });
 
     it('should enable gesture cover while dragging', () => {
@@ -190,8 +176,6 @@ describe('Draggable', () => {
         .toHaveBeenCalledTimes(1);
       expect(onStart)
         .toHaveBeenCalledWith({ x: 10, y: 10 });
-      expect(unstable_batchedUpdates)
-        .toHaveBeenCalledTimes(1);
     });
 
     it('should prevent default browser behavior on dragging', () => {
@@ -236,8 +220,6 @@ describe('Draggable', () => {
         .toHaveBeenCalledTimes(1);
       expect(onUpdate)
         .toHaveBeenCalledWith({ x: 20, y: 20 });
-      expect(unstable_batchedUpdates)
-        .toHaveBeenCalledTimes(1);
     });
 
     it('should fire the "onEnd" callback on touchend', () => {
@@ -262,8 +244,6 @@ describe('Draggable', () => {
         .toHaveBeenCalledTimes(1);
       expect(onEnd)
         .toHaveBeenCalledWith({ x: 20, y: 20 });
-      expect(unstable_batchedUpdates)
-        .toHaveBeenCalledTimes(1);
     });
   });
 });

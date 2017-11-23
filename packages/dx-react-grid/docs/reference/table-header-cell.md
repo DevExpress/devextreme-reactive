@@ -8,4 +8,4 @@ A component that represents the table header cell and is designed to be used as 
 
 The default component properties conform the [HeaderCellArgs](../reference/table-header-row.md#header-cell-args).
 
-All the properties specified will be applied to the root header cell.
+All the rest properties will be spread to the root element.

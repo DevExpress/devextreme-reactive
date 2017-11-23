@@ -5,9 +5,9 @@ import { Root, Header, Footer } from './templates/layout';
 
 export const Grid = ({ children, ...props }) => (
   <GridBase
-    rootTemplate={Root}
-    headerPlaceholderTemplate={Header}
-    footerPlaceholderTemplate={Footer}
+    rootComponent={Root}
+    headerPlaceholderComponent={Header}
+    footerPlaceholderComponent={Footer}
     {...props}
   >
     {children}

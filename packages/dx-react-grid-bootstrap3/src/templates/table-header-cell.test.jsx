@@ -41,15 +41,9 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when user interaction disallowed', () => {
     const tree = mount((
-      <table>
-        <thead>
-          <tr>
-            <TableHeaderCell
-              column={{}}
-            />
-          </tr>
-        </thead>
-      </table>
+      <TableHeaderCell
+        column={{}}
+      />
     ));
 
     expect(tree.find('th').prop('style'))
@@ -65,16 +59,10 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when sorting is allowed', () => {
     const tree = mount((
-      <table>
-        <thead>
-          <tr>
-            <TableHeaderCell
-              column={{ name: 'a' }}
-              allowSorting
-            />
-          </tr>
-        </thead>
-      </table>
+      <TableHeaderCell
+        column={{ name: 'a' }}
+        allowSorting
+      />
     ));
 
     expect(tree.find('th').prop('style'))
@@ -89,16 +77,10 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when dragging is allowed', () => {
     const tree = mount((
       <DragDropContext>
-        <table>
-          <thead>
-            <tr>
-              <TableHeaderCell
-                column={{}}
-                allowDragging
-              />
-            </tr>
-          </thead>
-        </table>
+        <TableHeaderCell
+          column={{}}
+          allowDragging
+        />
       </DragDropContext>
     ));
 
@@ -114,16 +96,10 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when dragging', () => {
     const tree = mount((
       <DragDropContext>
-        <table>
-          <thead>
-            <tr>
-              <TableHeaderCell
-                column={{}}
-                allowDragging
-              />
-            </tr>
-          </thead>
-        </table>
+        <TableHeaderCell
+          column={{}}
+          allowDragging
+        />
       </DragDropContext>
     ));
 
@@ -133,6 +109,7 @@ describe('TableHeaderCell', () => {
       });
 
     tree.find(DragSource).prop('onStart')();
+    tree.update();
 
     expect(tree.find('th').prop('style'))
       .toMatchObject({
@@ -140,6 +117,7 @@ describe('TableHeaderCell', () => {
       });
 
     tree.find(DragSource).prop('onEnd')();
+    tree.update();
 
     expect(tree.find('th').prop('style'))
       .not.toMatchObject({

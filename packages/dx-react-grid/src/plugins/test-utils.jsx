@@ -62,4 +62,19 @@ export const pluginDepsToComponents = (
   </PluginContainer>
 );
 
-export const getComputedState = tree => tree.find(ComputedStateContainer).props();
+export const getComputedState = (tree) => {
+  const state = tree.find(ComputedStateContainer).props();
+
+  return {
+    ...state,
+    actions: Object.keys(state.actions)
+      .map(key => [
+        key,
+        (...args) => {
+          state.actions[key](...args);
+          tree.update();
+        },
+      ])
+      .reduce((acc, [key, value]) => Object.assign(acc, { [key]: value }), {}),
+  };
+};

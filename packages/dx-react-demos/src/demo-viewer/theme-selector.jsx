@@ -5,19 +5,25 @@ import { Dropdown, MenuItem } from 'react-bootstrap';
 import './theme-selector.css';
 import { themes } from '../demo-registry';
 
-const Toggle = ({ children, onClick }) => (
-  <a
-    className="toggle"
-    href=""
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-  >
-    <span className="caption">{children}</span>
-    <span className="caret" />
-  </a>
-);
+class Toggle extends React.PureComponent {
+  render() {
+    const { children, onClick } = this.props;
+
+    return (
+      <a
+        className="toggle"
+        href=""
+        onClick={(e) => {
+          e.preventDefault();
+          onClick(e);
+        }}
+      >
+        <span className="caption">{children}</span>
+        <span className="caret" />
+      </a>
+    );
+  }
+}
 
 Toggle.propTypes = {
   children: PropTypes.node.isRequired,

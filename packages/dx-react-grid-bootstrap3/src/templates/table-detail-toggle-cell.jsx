@@ -8,9 +8,9 @@ const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
-  const handleKeyDown = (event) => {
-    if (event.keyCode === ENTER_KEY_CODE || event.keyCode === SPACE_KEY_CODE) {
-      event.preventDefault();
+  const handleKeyDown = (e) => {
+    if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
+      e.preventDefault();
       toggleExpanded();
     }
   };
@@ -21,7 +21,8 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
         verticalAlign: 'middle',
         ...style,
       }}
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation();
         toggleExpanded();
       }}
 

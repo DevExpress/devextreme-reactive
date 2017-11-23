@@ -14,7 +14,7 @@ describe('ResizingControl', () => {
   let mount;
   let classes;
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['SheetsRegistry'] });
+    resetConsole = setupConsole();
     mount = createMount();
     classes = getClasses(<ResizingControl {...defaultProps} />);
   });
@@ -26,14 +26,15 @@ describe('ResizingControl', () => {
   it('should have correct styles while resizing', () => {
     const tree = mount(<ResizingControl {...defaultProps} />);
 
-    const handle = tree.find(`.${classes.resizeHandle}`);
-    expect(handle.exists()).toBeTruthy();
+    expect(tree.find(`.${classes.resizeHandle}`).exists()).toBeTruthy();
 
     tree.find(Draggable).prop('onStart')({ x: 0, y: 0 });
-    expect(handle.hasClass(classes.resizeHandleActive)).toBeTruthy();
+    tree.update();
+    expect(tree.find(`.${classes.resizeHandle}`).hasClass(classes.resizeHandleActive)).toBeTruthy();
 
     tree.find(Draggable).prop('onEnd')({ x: 0, y: 0 });
-    expect(handle.hasClass(classes.resizeHandleActive)).toBeFalsy();
+    tree.update();
+    expect(tree.find(`.${classes.resizeHandle}`).hasClass(classes.resizeHandleActive)).toBeFalsy();
   });
 
   it('should trigger changeColumnWidth with correct change on resize end', () => {
@@ -46,7 +47,6 @@ describe('ResizingControl', () => {
     ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
-
     tree.find(Draggable).prop('onEnd')({ x: 10 });
     expect(changeColumnWidth)
       .toBeCalledWith({ shift: 10 });
@@ -62,7 +62,6 @@ describe('ResizingControl', () => {
     ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
-
     tree.find(Draggable).prop('onUpdate')({ x: 10 });
     expect(changeDraftColumnWidth)
       .toBeCalledWith({ shift: 10 });

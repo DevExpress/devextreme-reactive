@@ -22,7 +22,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('input').getNode().indeterminate)
+    expect(tree.find('input').getDOMNode().indeterminate)
       .toBeTruthy();
   });
 

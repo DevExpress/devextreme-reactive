@@ -34,7 +34,7 @@ describe('Layout', () => {
         </Header>
       ));
 
-      expect(tree.find(Header).hasClass(classes.headingPanel)).toBeTruthy();
+      expect(tree.find(`.${classes.headingPanel}`).exists()).toBeTruthy();
     });
   });
 
@@ -60,7 +60,7 @@ describe('Layout', () => {
         </Footer>
       ));
 
-      expect(tree.find(Footer).hasClass(classes.footerPanel)).toBeTruthy();
+      expect(tree.find(`.${classes.footerPanel}`).exists()).toBeTruthy();
     });
   });
 });

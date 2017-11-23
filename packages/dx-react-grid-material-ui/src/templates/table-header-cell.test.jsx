@@ -118,9 +118,11 @@ describe('TableHeaderCell', () => {
     expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
 
     tree.find(DragSource).prop('onStart')();
+    tree.update();
     expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeTruthy();
 
     tree.find(DragSource).prop('onEnd')();
+    tree.update();
     expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
   });
 

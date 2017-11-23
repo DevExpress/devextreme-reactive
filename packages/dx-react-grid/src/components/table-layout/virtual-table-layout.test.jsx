@@ -52,7 +52,7 @@ const defaultProps = {
   ],
   containerTemplate: props => <div {...props} />,
   headTableTemplate: () => null,
-  tableTemplate: props => <TablePlugin {...props} />,
+  tableTemplate: props => <table {...props} />,
   headTemplate: () => null,
   bodyTemplate: props => <tbody {...props} />,
   rowTemplate: () => null,

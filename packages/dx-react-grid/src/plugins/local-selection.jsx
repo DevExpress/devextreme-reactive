@@ -35,10 +35,55 @@ export class LocalSelection extends React.PureComponent {
 
     const selectAllAvailableComputed = () =>
       !!availableToSelect.length;
-    const allSelectedComputed = ({ selection }) =>
-      selection.length === availableToSelect.length && selection.length !== 0;
-    const someSelectedComputed = ({ selection }) =>
-      selection.length !== availableToSelect.length && selection.length !== 0;
+    const allSelectedComputed = ({ selection }) => {
+      const selectionRows = new Set(selection);
+      let consist = true;
+      availableToSelect.forEach((elem) => {
+        if (!selectionRows.has(elem)) {
+          consist = false;
+          return false;
+        }
+        return true;
+      });
+      return consist && selection.length !== 0 && availableToSelect.length !== 0; // if all of available consist in selection selection.length === availableToSelect.length
+    };
+    const someSelectedComputed = ({ selection }) => {
+      // const availableRows = new Set(availableToSelect);
+      const selectionRows = new Set(selection);
+      let consist = true;
+      debugger;
+      // availableToSelect.forEach((elem) => {
+      //   if (selection.indexOf(elem) === -1) {
+      //     consist = false;
+      //     return false;
+      //   }
+      //   return true;
+      // });
+      // let consistInAvailable = false;
+      // availableToSelect.forEach((elem) => {
+      //   if (selection.indexOf(elem) !== -1) {
+      //     consistInAvailable = true;
+      //     return true;
+      //   }
+      //   return false;
+      // });
+      availableToSelect.forEach((elem) => {
+        if (!selectionRows.has(elem)) {
+          consist = false;
+          return false;
+        }
+        return true;
+      });
+      let consistInAvailable = false;
+      availableToSelect.forEach((elem) => {
+        if (selectionRows.has(elem)) {
+          consistInAvailable = true;
+          return true;
+        }
+        return false;
+      });
+      return availableToSelect.length !== 0 && !consist && selection.length !== 0 && consistInAvailable; // selection.length !== availableToSelect.length
+    };
 
     return (
       <PluginContainer

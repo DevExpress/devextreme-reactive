@@ -6,7 +6,7 @@ import {
   isDataTableRow,
 } from './helpers';
 
-describe('Table Plugin helpers', () => {
+describe('TablePlugin helpers', () => {
   describe('#isNoDataTableRow', () => {
     it('should work', () => {
       expect(isNoDataTableRow({ type: TABLE_NODATA_TYPE }))

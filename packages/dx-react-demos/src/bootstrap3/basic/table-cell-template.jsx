@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -70,7 +70,7 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <Table tableCellTemplate={this.tableCellTemplate} />
+        <TablePlugin tableCellTemplate={this.tableCellTemplate} />
         <TableHeaderRow />
       </Grid>
     );

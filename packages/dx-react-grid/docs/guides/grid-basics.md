@@ -20,7 +20,7 @@ The Grid component displays data specified via the `rows` property. You should a
 
 The grid requires the following plugins for basic data visualization:
 
-- [Table](../reference/table.md)
+- [TablePlugin](../reference/table-plugin.md)
  Renders a data table.
 
 - [TableHeaderRow](../reference/table-header-row.md)
@@ -31,7 +31,7 @@ The grid requires the following plugins for basic data visualization:
   rows={rows}
   columns={columns}
 >
-  <Table />
+  <TablePlugin />
   <TableHeaderRow />
 </Grid>
 ```

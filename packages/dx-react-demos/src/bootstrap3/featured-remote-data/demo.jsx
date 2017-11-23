@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -126,7 +126,7 @@ export default class Demo extends React.PureComponent {
             onPageSizeChange={this.changePageSize}
             totalCount={totalCount}
           />
-          <Table
+          <TablePlugin
             tableCellTemplate={({ row, column }) => {
               if (column.name === 'SaleAmount') {
                 return (

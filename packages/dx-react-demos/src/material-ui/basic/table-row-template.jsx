@@ -2,7 +2,7 @@
 import React from 'react';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
@@ -46,7 +46,7 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <Table tableRowTemplate={this.tableRowTemplate} />
+          <TablePlugin tableRowTemplate={this.tableRowTemplate} />
           <TableHeaderRow />
         </Grid>
       </Paper>

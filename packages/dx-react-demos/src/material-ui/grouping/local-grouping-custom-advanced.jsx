@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   TableGroupRow,
 } from '@devexpress/dx-react-grid-material-ui';
@@ -96,7 +96,7 @@ export default class Demo extends React.PureComponent {
           <LocalGrouping
             getColumnIdentity={this.getColumnIdentity}
           />
-          <Table />
+          <TablePlugin />
           <TableHeaderRow />
           <TableGroupRow
             groupCellTemplate={(props) => {

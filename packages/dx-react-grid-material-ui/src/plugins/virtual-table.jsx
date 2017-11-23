@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
-import { Table as TableBase } from '@devexpress/dx-react-grid';
+import { TablePlugin as TablePluginBase } from '@devexpress/dx-react-grid';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableRow } from '../templates/table-row';
 import { TableCell } from '../templates/table-cell';
@@ -35,7 +35,7 @@ export class VirtualTable extends React.PureComponent {
     } = this.props;
 
     return (
-      <TableBase
+      <TablePluginBase
         tableLayoutTemplate={props => tableLayoutTemplate({
           ...props,
           height,

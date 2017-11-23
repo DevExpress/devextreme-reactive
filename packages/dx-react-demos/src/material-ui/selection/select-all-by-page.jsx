@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   TableSelection,
   PagingPanel,
@@ -53,7 +53,7 @@ export default class Demo extends React.PureComponent {
               selection={selection}
               onSelectionChange={this.changeSelection}
             />
-            <Table />
+            <TablePlugin />
             <TableHeaderRow />
             <TableSelection />
             <PagingPanel />

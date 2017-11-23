@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   TableEditRow,
   TableEditColumn,
@@ -99,7 +99,7 @@ export default class Demo extends React.PureComponent {
         <EditingState
           onCommitChanges={this.commitChanges}
         />
-        <Table />
+        <TablePlugin />
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn allowAdding allowEditing allowDeleting />

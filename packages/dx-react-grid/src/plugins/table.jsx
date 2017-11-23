@@ -60,7 +60,7 @@ const cellTemplate = params =>
 const rowTemplate = params =>
   <TemplatePlaceholder name="tableRow" params={params} />;
 
-export class Table extends React.PureComponent {
+export class TablePlugin extends React.PureComponent {
   render() {
     const {
       tableLayoutTemplate,
@@ -194,7 +194,7 @@ export class Table extends React.PureComponent {
   }
 }
 
-Table.propTypes = {
+TablePlugin.propTypes = {
   tableLayoutTemplate: PropTypes.func.isRequired,
   tableCellTemplate: PropTypes.func.isRequired,
   tableRowTemplate: PropTypes.func.isRequired,
@@ -205,6 +205,6 @@ Table.propTypes = {
   messages: PropTypes.object,
 };
 
-Table.defaultProps = {
+TablePlugin.defaultProps = {
   messages: {},
 };

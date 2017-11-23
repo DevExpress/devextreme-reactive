@@ -4,7 +4,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -55,7 +55,7 @@ export default class Demo extends React.PureComponent {
       >
         <CurrencyTypeProvider />
         <DateTypeProvider />
-        <Table />
+        <TablePlugin />
         <TableHeaderRow />
       </Grid>
     );

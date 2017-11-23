@@ -6,7 +6,7 @@ export { GroupingPanel } from './plugins/grouping-panel';
 export { TableRowDetail } from './plugins/table-row-detail';
 export { TableGroupRow } from './plugins/table-group-row';
 export { TableSelection } from './plugins/table-selection';
-export { Table } from './plugins/table';
+export { TablePlugin } from './plugins/table';
 export { VirtualTable } from './plugins/virtual-table';
 export { TableFilterRow } from './plugins/table-filter-row';
 export { TableHeaderRow } from './plugins/table-header-row';

@@ -11,7 +11,7 @@ const MINIMAL_COLUMN_WIDTH = 120;
 
 const HeadTable = props => <Table use="head" {...props} />;
 const TableHead = props => <thead {...props} />;
-const TableBody = props => <thead {...props} />;
+const TableBody = props => <tbody {...props} />;
 
 export const VirtualTableLayout = ({
   headerRows,

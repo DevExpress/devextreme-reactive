@@ -10,7 +10,7 @@ import { Table } from './table';
 const MINIMAL_COLUMN_WIDTH = 120;
 
 const TableHead = props => <thead {...props} />;
-const TableBody = props => <thead {...props} />;
+const TableBody = props => <tbody {...props} />;
 
 export const TableLayout = ({
   headerRows,

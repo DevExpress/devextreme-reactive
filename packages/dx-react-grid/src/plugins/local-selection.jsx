@@ -2,8 +2,6 @@ import React from 'react';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getAvailableToSelect,
-  allAvailableInSelection,
-  consistSelectionInAvailable,
   isSomeSelected,
   isAllSelected,
 } from '@devexpress/dx-grid-core';

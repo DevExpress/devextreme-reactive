@@ -53,7 +53,7 @@ Components:
 
 Plugins:
 
-- [TablePlugin](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/)
+- [TablePlugin](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-plugin/)
 - [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)
 - [TableSelection](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-selection/)
 - [TableFilterRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-filter-row/)

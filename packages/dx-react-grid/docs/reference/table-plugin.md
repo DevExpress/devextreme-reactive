@@ -1,4 +1,4 @@
-# Table Plugin Reference
+# TablePlugin Reference
 
 This plugin renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
 
@@ -46,7 +46,7 @@ cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The t
 
 ### <a name="table-row"></a>TableRow
 
-Describes properties of a table row the Table plugin renders.
+Describes properties of a table row the TablePlugin renders.
 
 A value with the following shape:
 
@@ -60,7 +60,7 @@ height? | number | Specifies the table row height.
 
 ### <a name="table-column"></a>TableColumn
 
-Describes table column properties that the Table plugin takes into account.
+Describes table column properties that the TablePlugin takes into account.
 
 A value with the following shape:
 

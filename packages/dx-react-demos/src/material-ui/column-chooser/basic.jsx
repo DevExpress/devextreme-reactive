@@ -5,7 +5,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   ColumnChooser,
   TableColumnVisibility,
@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
               rows={rows}
               columns={columns}
             >
-              <Table />
+              <TablePlugin />
               <TableHeaderRow />
               <TableColumnVisibility
                 hiddenColumns={hiddenColumns}

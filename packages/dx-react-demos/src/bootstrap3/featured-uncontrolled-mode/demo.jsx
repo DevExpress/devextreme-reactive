@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
+  TablePlugin, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
@@ -75,7 +75,7 @@ export default class Demo extends React.PureComponent {
 
         <DragDropContext />
 
-        <Table
+        <TablePlugin
           tableCellTemplate={({ row, column, style }) => {
             if (column.name === 'discount') {
               return (

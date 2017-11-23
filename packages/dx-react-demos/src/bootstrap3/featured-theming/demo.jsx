@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table, TableHeaderRow, TableSelection, TableGroupRow,
+  TablePlugin, TableHeaderRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
   TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -180,7 +180,7 @@ export default class Demo extends React.PureComponent {
 
         <DragDropContext />
 
-        <Table />
+        <TablePlugin />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 

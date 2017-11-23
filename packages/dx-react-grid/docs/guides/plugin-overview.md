@@ -27,7 +27,7 @@ const App = () => (
   <Grid rows={[/* ... */]} columns={[/* ... */]}>
     <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
-    <Table/>
+    <TablePlugin />
   </Grid>
 );
 ```
@@ -39,14 +39,14 @@ import {
   FilteringState, LocalFiltering
 } from '@devexpress/dx-react-grid'
 import {
-  Grid, Table, TableFilterRow
+  Grid, TablePlugin, TableFilterRow
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
 const App = () => (
   <Grid rows={[/* ... */]} columns={[/* ... */]}>
     <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
-    <Table/>
+    <TablePlugin />
     <TableFilterRow filterCellTemplate={ /* ... */ }/>
   </Grid>
 );

@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
+  TablePlugin, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -32,7 +32,7 @@ const GridDetailContainer = ({
       rows={data.tasks}
       columns={columns}
     >
-      <Table />
+      <TablePlugin />
       <TableHeaderRow />
     </Grid>
   </div>
@@ -110,7 +110,7 @@ const GridContainer = ({
 
     <DragDropContext />
 
-    <Table />
+    <TablePlugin />
 
     <TableColumnReordering
       order={columnOrder}

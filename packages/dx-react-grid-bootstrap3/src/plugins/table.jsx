@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { combineTemplates } from '@devexpress/dx-react-core';
-import { Table as TableBase } from '@devexpress/dx-react-grid';
+import { TablePlugin as TablePluginBase } from '@devexpress/dx-react-grid';
 import { TableLayout } from '../templates/table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
@@ -21,7 +21,7 @@ const defaultMessages = {
   noData: 'No data',
 };
 
-export class Table extends React.PureComponent {
+export class TablePlugin extends React.PureComponent {
   render() {
     const {
       tableCellTemplate,
@@ -35,7 +35,7 @@ export class Table extends React.PureComponent {
     } = this.props;
 
     return (
-      <TableBase
+      <TablePluginBase
         tableLayoutTemplate={tableLayoutTemplate}
         tableRowTemplate={combineTemplates(
           tableRowTemplate,
@@ -68,7 +68,7 @@ export class Table extends React.PureComponent {
   }
 }
 
-Table.propTypes = {
+TablePlugin.propTypes = {
   tableCellTemplate: PropTypes.func,
   tableRowTemplate: PropTypes.func,
   tableNoDataRowTemplate: PropTypes.func,
@@ -80,7 +80,7 @@ Table.propTypes = {
   }),
 };
 
-Table.defaultProps = {
+TablePlugin.defaultProps = {
   tableCellTemplate: undefined,
   tableRowTemplate: undefined,
   tableNoDataRowTemplate: undefined,

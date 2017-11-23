@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
       >
         <FilteringState defaultFilters={[]} />
         <LocalFiltering />
-        <Table />
+        <TablePlugin />
         <TableHeaderRow />
         <TableFilterRow />
       </Grid>

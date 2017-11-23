@@ -14,7 +14,7 @@ Add the required modules to your project:
 
 ```js
 import {
-  Grid, Table, TableHeaderRow
+  Grid, TablePlugin, TableHeaderRow
 } from '@devexpress/dx-react-grid-material-ui';
 
 const App = () => (
@@ -28,7 +28,7 @@ const App = () => (
       { name: 'product', title: 'Product' },
       { name: 'owner', title: 'Owner' },
     ]}>
-    <Table />
+    <TablePlugin />
     <TableHeaderRow />
   </Grid>
 );
@@ -53,7 +53,7 @@ Components:
 
 Plugins:
 
-- [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/)
+- [TablePlugin](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/)
 - [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)
 - [TableSelection](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-selection/)
 - [TableFilterRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-filter-row/)

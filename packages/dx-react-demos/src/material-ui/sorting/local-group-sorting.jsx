@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
@@ -51,7 +51,7 @@ export default class Demo extends React.PureComponent {
           />
           <LocalSorting />
           <LocalGrouping />
-          <Table />
+          <TablePlugin />
           <TableHeaderRow allowSorting />
           <TableGroupRow />
           <GroupingPanel allowSorting />

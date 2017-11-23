@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
             pageSize={5}
           />
           <LocalPaging />
-          <Table />
+          <TablePlugin />
           <TableHeaderRow />
           <PagingPanel />
         </Grid>

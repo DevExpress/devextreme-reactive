@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table,
+  TablePlugin,
   TableHeaderRow,
   TableGroupRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
@@ -59,7 +59,7 @@ export default class Demo extends React.PureComponent {
         <CustomGrouping
           getChildGroups={getChildGroups}
         />
-        <Table />
+        <TablePlugin />
         <TableHeaderRow />
         <TableGroupRow />
       </Grid>

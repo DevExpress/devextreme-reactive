@@ -71,7 +71,7 @@ You can also assign a function that returns a Boolean value depending on the `co
       grouping={[{ columnName: 'city' }, { columnName: 'car' }]}
     />
     <LocalGrouping />
-    <Table />
+    <TablePlugin />
     <TableHeaderRow showColumnWhenGrouped={columnName => columnName === 'city' || columnName === 'car'}/>
     <TableGroupRow />
   </Grid>

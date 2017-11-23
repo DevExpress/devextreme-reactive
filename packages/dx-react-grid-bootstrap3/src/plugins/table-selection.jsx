@@ -5,17 +5,13 @@ import { TableSelectAllCell } from '../templates/table-select-all-cell';
 import { TableSelectCell } from '../templates/table-select-cell';
 import { TableSelectRow } from '../templates/table-select-row';
 
-const selectCellTemplate = props => <TableSelectCell {...props} />;
-const selectAllCellTemplate = props => <TableSelectAllCell {...props} />;
-const selectRowTemplate = props => <TableSelectRow {...props} />;
-
 export class TableSelection extends React.PureComponent {
   render() {
     return (
       <TableSelectionBase
-        selectCellTemplate={selectCellTemplate}
-        selectRowTemplate={selectRowTemplate}
-        selectAllCellTemplate={selectAllCellTemplate}
+        selectRowComponent={TableSelectRow}
+        selectCellComponent={TableSelectCell}
+        selectAllCellComponent={TableSelectAllCell}
         selectionColumnWidth={40}
         {...this.props}
       />

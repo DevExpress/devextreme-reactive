@@ -17,23 +17,15 @@ highlightSelected | boolean | false | If true, selected rows are highlighted. No
 selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `Table` plugin's `tableRowTemplate` is ignored in this case.
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row.
 showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row.
-selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox.
-selectAllCellTemplate | (args: [SelectAllCellArgs](#select-all-cell-args)) => ReactElement | | A component that renders the Select All checkbox.
+selectCellComponent | ElementType&lt;[SelectCellProps](#selectcellprops)&gt; | | A component that renders a cell with data row selection checkbox.
+selectAllCellComponent | ElementType&lt;[SelectAllCellProps](#selectallcellprops)&gt; | | A component that renders a cell with the Select All checkbox.
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces
 
-### <a name="table-row"></a>TableRow (Extension)
+### SelectAllCellProps
 
-A value with the [TableRow](table.md#table-row) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-selected? | boolean | Specifies if a row is selected.
-
-### <a name="select-all-cell-args"></a>SelectAllCellArgs
-
-Describes properties passed to the template that renders a cell with selection control.
+Describes properties passed to a component that renders a cell with data row selection checkbox.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
@@ -44,9 +36,9 @@ allSelected | boolean | True if all the rows available for selection are selecte
 someSelected | boolean | True if at least one but not all rows available for selection are selected.
 toggleAll | () => void | Selects or deselects all rows.
 
-### <a name="select-cell-args"></a>SelectCellArgs
+### SelectCellProps
 
-Describes properties passed to a template that renders a cell with the selection control inside the heading row.
+Describes properties passed to a component that renders a cell with the Select All checkbox.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
@@ -63,7 +55,7 @@ changeSelected | () => void | Selects or deselects a row.
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Body rows to be rendered.
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows.
 availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection.
 setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean }) => void | Selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
@@ -75,4 +67,4 @@ tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns including the selection column.
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered including the selected ones.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Body rows to be rendered including the selected ones.

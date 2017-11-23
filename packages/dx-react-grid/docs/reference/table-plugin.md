@@ -46,7 +46,7 @@ cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The t
 
 ### <a name="table-row"></a>TableRow
 
-Describes properties of a table row the TablePlugin renders.
+Describes properties of a table row TablePlugin renders.
 
 A value with the following shape:
 
@@ -60,7 +60,7 @@ height? | number | Specifies the table row height.
 
 ### <a name="table-column"></a>TableColumn
 
-Describes table column properties that the TablePlugin takes into account.
+Describes table column properties that TablePlugin takes into account.
 
 A value with the following shape:
 

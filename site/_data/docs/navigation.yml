@@ -40,10 +40,14 @@ react:
           path: /react/grid/docs/guides/column-visibility
         - title: Localization
           path: /react/grid/docs/guides/localization
-    - title: API Reference
+    - title: Components API
       items:
         - title: Grid
           path: /react/grid/docs/reference/grid
+        - title: ColumnChooser
+          path: /react/grid/docs/reference/column-chooser
+    - title: Grid Plugins API
+      items:
         - title: FilteringState
           path: /react/grid/docs/reference/filtering-state
         - title: SortingState
@@ -98,7 +102,9 @@ react:
           path: /react/grid/docs/reference/drag-drop-context
         - title: DataTypeProvider
           path: /react/grid/docs/reference/data-type-provider
-        - title: ColumnChooser
-          path: /react/grid/docs/reference/column-chooser
         - title: TableColumnVisibility
           path: /react/grid/docs/reference/table-column-visibility
+    - title: Plugin Components API
+      items:
+        - title: TableHeaderCell
+          path: /react/grid/docs/reference/table-header-cell

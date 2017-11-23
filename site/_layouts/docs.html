@@ -9,7 +9,7 @@ layout: default
         <h3>{{ group.title }}</h3>
 
         <ul class="list-unstyled">
-        {% if group.title == 'API Reference' %}
+        {% if group.title contains 'API' %}
           {% assign groupItems = group.items | sort: 'title' %}
         {% else %}
           {% assign groupItems = group.items %}

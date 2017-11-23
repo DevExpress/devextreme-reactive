@@ -6,6 +6,30 @@ const pluginDependencies = [
   { pluginName: 'SelectionState' },
 ];
 
+const allArray1inArray2 = (availableToSelect, selectionRows) => {
+  let consist = true;
+  availableToSelect.forEach((elem) => {
+    if (!selectionRows.has(elem)) {
+      consist = false;
+      return false;
+    }
+    return true;
+  });
+  return consist;
+};
+
+const someArray1InArray2 = (selectionRows, availableToSelect) => {
+  let consistSelectionInAvailable = false; // need when pager selection consist in available
+  availableToSelect.forEach((elem) => {
+    if (selectionRows.has(elem)) {
+      consistSelectionInAvailable = true;
+      return true;
+    }
+    return false;
+  });
+  return consistSelectionInAvailable;
+};
+
 export class LocalSelection extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -37,52 +61,16 @@ export class LocalSelection extends React.PureComponent {
       !!availableToSelect.length;
     const allSelectedComputed = ({ selection }) => {
       const selectionRows = new Set(selection);
-      let consist = true;
-      availableToSelect.forEach((elem) => {
-        if (!selectionRows.has(elem)) {
-          consist = false;
-          return false;
-        }
-        return true;
-      });
-      return consist && selection.length !== 0 && availableToSelect.length !== 0; // if all of available consist in selection selection.length === availableToSelect.length
+      const allAvailableInSelection = () => allArray1inArray2(availableToSelect, selectionRows);
+      return selection.length !== 0 && availableToSelect.length !== 0 && allAvailableInSelection();
     };
     const someSelectedComputed = ({ selection }) => {
-      // const availableRows = new Set(availableToSelect);
       const selectionRows = new Set(selection);
-      let consist = true;
-      debugger;
-      // availableToSelect.forEach((elem) => {
-      //   if (selection.indexOf(elem) === -1) {
-      //     consist = false;
-      //     return false;
-      //   }
-      //   return true;
-      // });
-      // let consistInAvailable = false;
-      // availableToSelect.forEach((elem) => {
-      //   if (selection.indexOf(elem) !== -1) {
-      //     consistInAvailable = true;
-      //     return true;
-      //   }
-      //   return false;
-      // });
-      availableToSelect.forEach((elem) => {
-        if (!selectionRows.has(elem)) {
-          consist = false;
-          return false;
-        }
-        return true;
-      });
-      let consistInAvailable = false;
-      availableToSelect.forEach((elem) => {
-        if (selectionRows.has(elem)) {
-          consistInAvailable = true;
-          return true;
-        }
-        return false;
-      });
-      return availableToSelect.length !== 0 && !consist && selection.length !== 0 && consistInAvailable; // selection.length !== availableToSelect.length
+      const allAvailableInSelection = () => allArray1inArray2(availableToSelect, selectionRows);
+      const consistSelectionInAvailable = () =>
+        someArray1InArray2(selectionRows, availableToSelect);
+      return availableToSelect.length !== 0 && selection.length !== 0
+        && consistSelectionInAvailable() && !allAvailableInSelection();
     };
 
     return (

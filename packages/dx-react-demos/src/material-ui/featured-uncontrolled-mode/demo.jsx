@@ -70,10 +70,10 @@ export default class Demo extends React.PureComponent {
 
 
           <LocalGrouping />
-          <LocalSelection />
           <LocalFiltering />
           <LocalSorting />
           <LocalPaging />
+          <LocalSelection />
 
 
 

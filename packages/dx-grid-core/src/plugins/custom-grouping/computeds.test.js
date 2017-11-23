@@ -8,7 +8,7 @@ import {
   GRID_GROUP_LEVEL_KEY,
 } from '../local-grouping/constants';
 
-describe('CustomGrouping Plugin computeds', () => {
+describe('CustomGroupingPlugin computeds', () => {
   const groupRow = ({ groupedBy, ...restParams }) => ({
     ...restParams,
     groupedBy,

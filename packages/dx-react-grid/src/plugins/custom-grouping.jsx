@@ -18,7 +18,7 @@ const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
 const getRowIdComputed = ({ getRowId, rows }) =>
   customGroupingRowIdGetter(getRowId, rows);
 
-export class CustomGrouping extends React.PureComponent {
+export class CustomGroupingPlugin extends React.PureComponent {
   render() {
     const {
       getChildGroups,
@@ -49,13 +49,13 @@ export class CustomGrouping extends React.PureComponent {
   }
 }
 
-CustomGrouping.propTypes = {
+CustomGroupingPlugin.propTypes = {
   getChildGroups: PropTypes.func.isRequired,
   grouping: PropTypes.array,
   expandedGroups: PropTypes.array,
 };
 
-CustomGrouping.defaultProps = {
+CustomGroupingPlugin.defaultProps = {
   grouping: undefined,
   expandedGroups: undefined,
 };

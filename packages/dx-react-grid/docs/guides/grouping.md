@@ -8,7 +8,7 @@ The following plugins implement grouping features:
 
 - [GroupingState](../reference/grouping-state.md) - controls the grouping state
 - [LocalGrouping](../reference/local-grouping.md) - performs local data grouping
-- [CustomGrouping](../reference/custom-grouping.md) - converts custom formatted grouped data to a supported format
+- [CustomGroupingPlugin](../reference/custom-grouping-plugin.md) - converts custom formatted grouped data to a supported format
 - [TableGroupRow](../reference/table-group-row.md) - renders group rows
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging
 - [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
@@ -17,7 +17,7 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Grouping Setup
 
-Use the `GroupingState`, `LocalGrouping` (or `CustomGrouping`) and `TableGroupRow` plugins to set up a Grid with simple static grouping.
+Use the `GroupingState`, `LocalGrouping` (or `CustomGroupingPlugin`) and `TableGroupRow` plugins to set up a Grid with simple static grouping.
 
 In the following examples, the grouping options are specified using the `GroupingState` plugin's `grouping` property, which is usual for the controlled mode. However, the `onGroupingChange` event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.
 
@@ -29,9 +29,9 @@ In the following example, the data is specified as plain rows. In this case, the
 
 ### Custom Grouping
 
-If the data has a hierarchical structure (already grouped), use the `CustomGrouping` plugin.
+If the data has a hierarchical structure (already grouped), use `CustomGroupingPlugin`.
 
-In the following example, the data is specified as an array of groups. Specify the `CustomGrouping` plugin's `getChildGroups` property to parse a custom group structure.
+In the following example, the data is specified as an array of groups. Specify the `getChildGroups` property of `CustomGroupingPlugin` to parse a custom group structure.
 
 .embedded-demo(grouping/custom-grouping-static)
 
@@ -87,9 +87,9 @@ You can perform grouping remotely by handling grouping state changes, generating
 
 Grouping options are updated whenever an end-user interacts with the grouping UI. Handle grouping option changes using the `GroupingState` plugin's `onGroupingChange` and `onExpandedGroupsChange` events and request data from the server using the newly applied grouping options.
 
-For remote grouping, you should use the `CustomGrouping` plugin instead of the `LocalGrouping` plugin.
+For remote grouping, you should use `CustomGroupingPlugin` instead of the `LocalGrouping` plugin.
 
-While waiting for a response from a server, there is a timeframe where the grouping state does not match the data available to the `Grid` in its `rows` property. To avoid any issues due to this discrepancy, you should temporarily assign the "old" values of the `grouping` and `expandedGroups` state fields to the properties with the same names on the `GroupingState` plugin. The result is that the `Grid` does not yet see the configuration change. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` becomes aware of the change to its grouping configuration, and it reeceives the updated set of data at the same time.
+While waiting for a response from a server, there is a time frame where the grouping state does not match the data available to the `Grid` in its `rows` property. To avoid any issues due to this discrepancy, you should temporarily assign the "old" values of the `grouping` and `expandedGroups` state fields to the properties with the same names on the `GroupingState` plugin. The result is that the `Grid` does not yet see the configuration change. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `grouping` and `expandedGroups` properties of `CustomGroupingPlugin` (set their values to `null`). At this point, the `Grid` becomes aware of the change to its grouping configuration, and it receives the updated set of data at the same time.
 
 The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach outlined in the previous paragraph:
 

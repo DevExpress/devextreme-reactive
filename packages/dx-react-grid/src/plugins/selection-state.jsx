@@ -13,13 +13,6 @@ export class SelectionState extends React.PureComponent {
       selection: props.defaultSelection || [],
     };
 
-    // this.changeSelection = (selection) => {
-    //   const { onSelectionChange } = this.props;
-    //   this.setState({ selection });
-    //   if (onSelectionChange) {
-    //     onSelectionChange(selection);
-    //   }
-    // };
     this.changeSelection = this.changeSelection.bind(this);
   }
   changeSelection(selection) {

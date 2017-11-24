@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableStubHeaderCell = ({ style }) => (
+export const TableHeaderStubCell = ({ style }) => (
   <th
     style={{
       padding: 0,
@@ -10,10 +10,10 @@ export const TableStubHeaderCell = ({ style }) => (
   />
 );
 
-TableStubHeaderCell.propTypes = {
+TableHeaderStubCell.propTypes = {
   style: PropTypes.object,
 };
 
-TableStubHeaderCell.defaultProps = {
+TableHeaderStubCell.defaultProps = {
   style: null,
 };

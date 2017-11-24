@@ -46,7 +46,7 @@ export class VirtualTable extends React.PureComponent {
         noDataRowComponent={TableRow}
         noDataCellComponent={TableNoDataCell}
         stubCellComponent={TableStubCell}
-        stubHeaderCellComponent={TableStubCell}
+        headerStubCellComponent={TableStubCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

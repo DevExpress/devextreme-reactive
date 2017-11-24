@@ -43,7 +43,7 @@ const defaultProps = {
   getCellComponent: () => defaultCellComponent,
   rowComponent: () => null,
   stubCellComponent: () => null,
-  stubHeaderCellComponent: () => null,
+  headerStubCellComponent: () => null,
   noDataCellComponent: () => null,
   noDataRowComponent: () => null,
 };
@@ -206,7 +206,7 @@ describe('Table', () => {
 
     expect(isHeaderStubTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).getters.tableHeaderRows);
-    expect(tree.find(defaultProps.stubHeaderCellComponent).props())
+    expect(tree.find(defaultProps.headerStubCellComponent).props())
       .toMatchObject(tableCellArgs);
   });
 

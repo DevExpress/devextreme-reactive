@@ -5,7 +5,7 @@ import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { TableLayout } from '../templates/table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
-import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
+import { TableHeaderStubCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableRow } from '../templates/table-row';
 
@@ -34,7 +34,7 @@ export class Table extends React.PureComponent {
         noDataRowComponent={TableRow}
         noDataCellComponent={TableNoDataCell}
         stubCellComponent={TableStubCell}
-        stubHeaderCellComponent={TableStubHeaderCell}
+        headerStubCellComponent={TableHeaderStubCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

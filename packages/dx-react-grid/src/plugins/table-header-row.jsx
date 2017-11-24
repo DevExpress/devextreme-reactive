@@ -32,13 +32,13 @@ const getHeaderTableCellProps = (
     allowDragging: allowDragging && (!grouping || groupingSupported),
     allowResizing,
     column: params.tableColumn.column,
-    changeSortingDirection: ({ keepOther, cancel }) =>
+    onSortingDirectionChange: ({ keepOther, cancel }) =>
       setColumnSorting({ columnName: column.name, keepOther, cancel }),
-    groupByColumn: () =>
+    onGroupByColumn: () =>
       groupByColumn({ columnName: column.name }),
-    changeColumnWidth: ({ shift }) =>
+    onColumnWidthChange: ({ shift }) =>
       changeTableColumnWidths({ shifts: { [column.name]: shift } }),
-    changeDraftColumnWidth: ({ shift }) =>
+    onDraftColumnWidthChange: ({ shift }) =>
       changeDraftTableColumnWidths({ shifts: { [column.name]: shift } }),
   };
 

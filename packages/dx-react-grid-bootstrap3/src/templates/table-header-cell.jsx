@@ -18,7 +18,7 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
     this.onClick = (e) => {
-      const { allowSorting, changeSortingDirection } = this.props;
+      const { allowSorting, onSortingDirectionChange } = this.props;
       const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
       const isMouseClick = e.keyCode === undefined;
 
@@ -29,7 +29,7 @@ export class TableHeaderCell extends React.PureComponent {
         || (isActionKeyDown && cancelSortingRelatedKey);
 
       e.preventDefault();
-      changeSortingDirection({
+      onSortingDirectionChange({
         keepOther: e.shiftKey || cancelSortingRelatedKey,
         cancel,
       });
@@ -39,9 +39,9 @@ export class TableHeaderCell extends React.PureComponent {
     const {
       style, column, tableColumn,
       allowSorting, sortingDirection,
-      allowGroupingByClick, groupByColumn,
+      allowGroupingByClick, onGroupByColumn,
       allowDragging, dragPayload,
-      allowResizing, changeColumnWidth, changeDraftColumnWidth,
+      allowResizing, onColumnWidthChange, onDraftColumnWidthChange,
     } = this.props;
     const { dragging } = this.state;
     const align = column.align || 'left';
@@ -66,7 +66,7 @@ export class TableHeaderCell extends React.PureComponent {
         {allowGroupingByClick && (
           <GroupingControl
             align={align}
-            groupByColumn={groupByColumn}
+            onGroupByColumn={onGroupByColumn}
           />
         )}
         <div
@@ -92,8 +92,8 @@ export class TableHeaderCell extends React.PureComponent {
         </div>
         {allowResizing && (
           <ResizingControl
-            changeColumnWidth={changeColumnWidth}
-            changeDraftColumnWidth={changeDraftColumnWidth}
+            onColumnWidthChange={onColumnWidthChange}
+            onDraftColumnWidthChange={onDraftColumnWidthChange}
           />
         )}
       </th>
@@ -120,14 +120,14 @@ TableHeaderCell.propTypes = {
   style: PropTypes.object,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortingDirection: PropTypes.func,
+  onSortingDirectionChange: PropTypes.func,
   allowGroupingByClick: PropTypes.bool,
-  groupByColumn: PropTypes.func,
+  onGroupByColumn: PropTypes.func,
   allowDragging: PropTypes.bool,
   dragPayload: PropTypes.any,
   allowResizing: PropTypes.bool,
-  changeColumnWidth: PropTypes.func,
-  changeDraftColumnWidth: PropTypes.func,
+  onColumnWidthChange: PropTypes.func,
+  onDraftColumnWidthChange: PropTypes.func,
 };
 
 TableHeaderCell.defaultProps = {
@@ -135,12 +135,12 @@ TableHeaderCell.defaultProps = {
   style: null,
   allowSorting: false,
   sortingDirection: undefined,
-  changeSortingDirection: undefined,
+  onSortingDirectionChange: undefined,
   allowGroupingByClick: false,
-  groupByColumn: undefined,
+  onGroupByColumn: undefined,
   allowDragging: false,
   dragPayload: null,
   allowResizing: false,
-  changeColumnWidth: undefined,
-  changeDraftColumnWidth: undefined,
+  onColumnWidthChange: undefined,
+  onDraftColumnWidthChange: undefined,
 };

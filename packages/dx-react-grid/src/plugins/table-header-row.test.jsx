@@ -185,12 +185,12 @@ describe('TableHeaderRow', () => {
       expect(tree.find(defaultHeaderCellComponent).props())
         .toMatchObject({
           allowResizing: true,
-          changeColumnWidth: expect.any(Function),
-          changeDraftColumnWidth: expect.any(Function),
+          onColumnWidthChange: expect.any(Function),
+          onDraftColumnWidthChange: expect.any(Function),
         });
     });
 
-    it('should call correct action when on changeColumnWidth', () => {
+    it('should call correct action when on onColumnWidthChange', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {
@@ -209,13 +209,13 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      const { changeColumnWidth } = tree.find(defaultHeaderCellComponent).props();
-      changeColumnWidth({ shift: 10 });
+      const { onColumnWidthChange } = tree.find(defaultHeaderCellComponent).props();
+      onColumnWidthChange({ shift: 10 });
       expect(deps.action.changeTableColumnWidths.mock.calls[0][0])
         .toEqual({ shifts: { a: 10 } });
     });
 
-    it('should call correct action when on changeDraftColumnWidth', () => {
+    it('should call correct action when on onDraftColumnWidthChange', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {
@@ -234,8 +234,8 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      const { changeDraftColumnWidth } = tree.find(defaultHeaderCellComponent).props();
-      changeDraftColumnWidth({ shift: 10 });
+      const { onDraftColumnWidthChange } = tree.find(defaultHeaderCellComponent).props();
+      onDraftColumnWidthChange({ shift: 10 });
       expect(deps.action.changeDraftTableColumnWidths.mock.calls[0][0])
         .toEqual({ shifts: { a: 10 } });
     });

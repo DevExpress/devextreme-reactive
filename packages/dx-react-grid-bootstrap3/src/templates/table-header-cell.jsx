@@ -40,8 +40,10 @@ export class TableHeaderCell extends React.PureComponent {
       style, column, tableColumn,
       allowSorting, sortingDirection,
       allowGroupingByClick, groupByColumn,
-      allowDragging, dragPayload,
-      allowResizing, changeColumnWidth, changeDraftColumnWidth,
+      allowDragging, dragPayload, allowResizing,
+      changeColumnWidth, changeDraftColumnWidth, changeSortingDirection,
+      tableRow, getMessage,
+      ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = column.align || 'left';
@@ -62,6 +64,7 @@ export class TableHeaderCell extends React.PureComponent {
           ...style,
         }}
         onClick={this.onClick}
+        {...restProps}
       >
         {allowGroupingByClick && (
           <GroupingControl
@@ -114,6 +117,7 @@ export class TableHeaderCell extends React.PureComponent {
 
 TableHeaderCell.propTypes = {
   tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
@@ -128,10 +132,12 @@ TableHeaderCell.propTypes = {
   allowResizing: PropTypes.bool,
   changeColumnWidth: PropTypes.func,
   changeDraftColumnWidth: PropTypes.func,
+  getMessage: PropTypes.func,
 };
 
 TableHeaderCell.defaultProps = {
   tableColumn: {},
+  tableRow: undefined,
   style: null,
   allowSorting: false,
   sortingDirection: undefined,
@@ -143,4 +149,5 @@ TableHeaderCell.defaultProps = {
   allowResizing: false,
   changeColumnWidth: undefined,
   changeDraftColumnWidth: undefined,
+  getMessage: undefined,
 };

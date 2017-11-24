@@ -35,6 +35,9 @@ export class TableHeaderRow extends React.PureComponent {
   }
 }
 
+TableHeaderRow.Cell = TableHeaderCell;
+TableHeaderRow.Row = TableRow;
+
 TableHeaderRow.propTypes = {
   headerCellTemplate: PropTypes.func,
   headerRowTemplate: PropTypes.func,

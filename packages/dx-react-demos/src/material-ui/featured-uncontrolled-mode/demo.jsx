@@ -75,8 +75,6 @@ export default class Demo extends React.PureComponent {
           <LocalPaging />
           <LocalSelection />
 
-
-
           <DragDropContext />
 
           <Table

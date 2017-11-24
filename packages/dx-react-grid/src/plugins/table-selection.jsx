@@ -24,14 +24,14 @@ const getSelectTableCellTemplateArgs = (
 
 const getSelectAllTableCellTemplateArgs = (
   params,
-  { selectAllAvailable, allSelected, someSelected }, // getters
-  { toggleSelectAll }, // actions
+  { selectAllAvailable, allSelected, someSelected },
+  { toggleSelectAll },
 ) => ({
   ...params,
-  selectionAvailable: selectAllAvailable, // !!availableToSelect.length, !!! true if select-all is available
-  allSelected, // selection.length === availableToSelect.length && selection.length !== 0, !!! true if all checkboxes are selected
-  someSelected, // selection.length !== availableToSelect.length && selection.length !== 0, !!! true if something is selected
-  toggleAll: select => toggleSelectAll(select), // action - control select-all
+  selectionAvailable: selectAllAvailable,
+  allSelected,
+  someSelected,
+  toggleAll: select => toggleSelectAll(select),
 });
 
 const getSelectTableRowTemplateArgs = (
@@ -44,7 +44,7 @@ const getSelectTableRowTemplateArgs = (
     ...restParams,
     selectByRowClick,
     selected: highlightSelected && selection.indexOf(rowId) > -1,
-    changeSelected: () => toggleSelection({ rowIds: [rowId] }), // action - control select some
+    changeSelected: () => toggleSelection({ rowIds: [rowId] }),
   });
 };
 

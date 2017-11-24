@@ -20,13 +20,10 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {
   getter: {
-    tableColumns: [{ type: 'undefined', column: 'column' }],
-    tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
     selection: [1, 2],
-    availableToSelect: [1, 2, 3, 4],
   },
   action: {
-    setRowsSelection: jest.fn(),
+    toggleSelection: jest.fn(),
   },
   template: {
     tableCell: {
@@ -150,6 +147,7 @@ describe('Table Selection', () => {
         />
       </PluginHost>
     ));
+
     selectRowTemplate.mock.calls[0][0].changeSelected();
 
     expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
@@ -161,7 +159,7 @@ describe('Table Selection', () => {
         selected: false,
       }));
 
-    expect(defaultDeps.action.setRowsSelection.mock.calls[0][0])
+    expect(defaultDeps.action.toggleSelection.mock.calls[0][0])
       .toEqual({
         rowIds: [defaultDeps.template.tableRow.tableRow.rowId],
       });

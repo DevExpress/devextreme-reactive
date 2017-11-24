@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const TableSelectAllCell = ({
-  style, selected, partiallySelected, disabled, onToggle,
+  style, allSelected, someSelected, disabled, onToggle,
 }) => {
   const toggle = (e) => {
     if (disabled) return;
@@ -28,11 +28,11 @@ export const TableSelectAllCell = ({
         }}
         type="checkbox"
         disabled={disabled}
-        checked={selected}
+        checked={allSelected}
         ref={(ref) => {
           if (ref) {
             const checkbox = ref;
-            checkbox.indeterminate = partiallySelected;
+            checkbox.indeterminate = someSelected;
           }
         }}
         onChange={toggle}
@@ -44,16 +44,16 @@ export const TableSelectAllCell = ({
 
 TableSelectAllCell.propTypes = {
   style: PropTypes.object,
-  selected: PropTypes.bool,
-  partiallySelected: PropTypes.bool,
+  allSelected: PropTypes.bool,
+  someSelected: PropTypes.bool,
   disabled: PropTypes.bool,
   onToggle: PropTypes.func,
 };
 
 TableSelectAllCell.defaultProps = {
   style: null,
-  selected: false,
-  partiallySelected: false,
+  allSelected: false,
+  someSelected: false,
   disabled: false,
   onToggle: () => {},
 };

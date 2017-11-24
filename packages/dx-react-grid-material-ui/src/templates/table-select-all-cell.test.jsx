@@ -17,13 +17,13 @@ describe('TableHeaderCell', () => {
     mount.cleanUp();
   });
 
-  it('should render indeterminate state checkbox if the `partiallySelected` property is true', () => {
+  it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
     const tree = mount((
       <TableSelectAllCell
         column={{
           name: 'Test',
         }}
-        partiallySelected
+        someSelected
       />
     ));
 

@@ -29,8 +29,8 @@ const getSelectAllTableCellProps = (
 ) => ({
   ...params,
   disabled: !availableToSelect.length,
-  selected: selection.length === availableToSelect.length && selection.length !== 0,
-  partiallySelected: selection.length !== availableToSelect.length && selection.length !== 0,
+  allSelected: selection.length === availableToSelect.length && selection.length !== 0,
+  someSelected: selection.length !== availableToSelect.length && selection.length !== 0,
   onToggle: () => setRowsSelection({ rowIds: availableToSelect }),
 });
 

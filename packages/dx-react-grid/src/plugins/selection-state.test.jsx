@@ -77,8 +77,7 @@ describe('SelectionState', () => {
       </PluginHost>
     ));
 
-    const result = getComputedState(tree).actions.toggleSelection;
-    result({ rowIds: [0, 1, 2] });
+    getComputedState(tree).actions.toggleSelection({ rowIds: [0, 1, 2] });
     expect(mockSetRowsSelection)
       .toHaveBeenCalled();
   });

@@ -30,7 +30,7 @@ export class TemplateConnector extends React.Component {
     pluginHost.unregisterSubscription(this.subscription);
   }
   prepareForRendering(props) {
-    const { children } = props || this.props;
+    const children = props.children || this.props.children;
     const { pluginHost } = this.context;
 
     const { getters, trackedDependencies } = getAvailableGetters(pluginHost);
@@ -51,6 +51,9 @@ export class TemplateConnector extends React.Component {
     return this.state.children;
   }
 }
+TemplateConnector.propTypes = {
+  children: PropTypes.func.isRequired,
+};
 
 TemplateConnector.contextTypes = {
   pluginHost: PropTypes.object.isRequired,

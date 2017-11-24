@@ -16,7 +16,7 @@ Name | Type | Default | Description
 highlightSelected | boolean | false | If true, selected rows are highlighted. Note that the `Table` plugin's `tableRowTemplate` is ignored in this case.
 selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `Table` plugin's `tableRowTemplate` is ignored in this case.
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row.
-showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row.
+showSelectionColumn | boolean | true | If true, selection checkboxes are rendered inside each data row.
 selectCellComponent | ElementType&lt;[SelectCellProps](#selectcellprops)&gt; | | A component that renders a cell with data row selection checkbox.
 selectAllCellComponent | ElementType&lt;[SelectAllCellProps](#selectallcellprops)&gt; | | A component that renders a cell with the Select All checkbox.
 selectionColumnWidth | number | | The selection column's width.

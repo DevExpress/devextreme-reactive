@@ -190,7 +190,7 @@ export default class Demo extends React.PureComponent {
         />
         <TableSelection />
         <TableRowDetail
-          detailComponent={GridDetailContainer}
+          contentComponent={GridDetailContainer}
         />
         <TableGroupRow />
         <GroupingPanel allowSorting allowDragging />

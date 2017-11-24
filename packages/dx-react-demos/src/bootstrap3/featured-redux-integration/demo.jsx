@@ -128,7 +128,7 @@ const GridContainer = ({
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
-      detailComponent={ReduxGridDetailContainer}
+      contentComponent={ReduxGridDetailContainer}
     />
     <GroupingPanel allowSorting allowDragging />
     <TableGroupRow />

@@ -56,7 +56,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableRowDetail
-            detailComponent={RowDetail}
+            contentComponent={RowDetail}
           />
         </Grid>
       </Paper>

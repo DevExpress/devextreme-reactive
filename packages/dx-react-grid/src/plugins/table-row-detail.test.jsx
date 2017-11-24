@@ -44,11 +44,11 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  detailToggleCellComponent: () => null,
-  detailCellComponent: ({ children }) => children,
-  detailRowComponent: () => null,
-  detailComponent: () => null,
-  detailToggleColumnWidth: 100,
+  detailCellComponent: () => null,
+  cellComponent: ({ children }) => children,
+  rowComponent: () => null,
+  contentComponent: () => null,
+  toggleColumnWidth: 100,
 };
 
 describe('TableRowDetail', () => {
@@ -95,7 +95,7 @@ describe('TableRowDetail', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableRowDetail
             {...defaultProps}
-            detailToggleColumnWidth={120}
+            toggleColumnWidth={120}
           />
         </PluginHost>
       ));
@@ -124,7 +124,7 @@ describe('TableRowDetail', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(tree.find(defaultProps.detailToggleCellComponent).props())
+    expect(tree.find(defaultProps.detailCellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
@@ -145,18 +145,18 @@ describe('TableRowDetail', () => {
 
     expect(isDetailTableRow)
       .toBeCalledWith(defaultDeps.template.tableCell.tableRow);
-    expect(tree.find(defaultProps.detailCellComponent).props())
+    expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
       });
-    expect(tree.find(defaultProps.detailComponent).props())
+    expect(tree.find(defaultProps.contentComponent).props())
       .toMatchObject({
         row: defaultDeps.template.tableCell.tableRow.row,
       });
   });
 
-  it('should render row by using detailRowComponent', () => {
+  it('should render row by using rowComponent', () => {
     isDetailTableRow.mockImplementation(() => true);
 
     const tree = mount((
@@ -169,7 +169,7 @@ describe('TableRowDetail', () => {
     ));
 
     expect(isDetailTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(tree.find(defaultProps.detailRowComponent).props())
+    expect(tree.find(defaultProps.rowComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableRow,
         row: defaultDeps.template.tableRow.tableRow.row,

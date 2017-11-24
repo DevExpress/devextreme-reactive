@@ -13,11 +13,11 @@ A plugin that renders a table detail row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-detailComponent | ElementType&lt;[TableDetailContentProps](#tabledetailcontentprops)&gt; | | A component that renders row details.
-detailCellComponent | ElementType&lt;[TableDetailCellProps](#tabledetailcellprops)&gt; | | A component that renders a detail cell.
-detailRowComponent | ElementType&lt;[TableDetailRowProps](#tabledetailrowprops)&gt; | | A component that renders a detail row.
-detailToggleCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders the detail toggle control.
-detailToggleColumnWidth | number | | Specifies the detail toggle cell width.
+contentComponent | ElementType&lt;[TableDetailContentProps](#tabledetailcontentprops)&gt; | | A component that renders row details.
+cellComponent | ElementType&lt;[TableDetailCellProps](#tabledetailcellprops)&gt; | | A component that renders a detail cell.
+rowComponent | ElementType&lt;[TableDetailRowProps](#tabledetailrowprops)&gt; | | A component that renders a detail row.
+detailCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders the detail toggle control.
+toggleColumnWidth | number | | Specifies the detail toggle cell width.
 rowHeight | number | | Specifies the detail row height.
 
 ## Interfaces

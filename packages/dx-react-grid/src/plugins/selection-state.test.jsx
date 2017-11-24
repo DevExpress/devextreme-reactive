@@ -10,8 +10,6 @@ import { SelectionState } from './selection-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   setRowsSelection: jest.fn(),
-  getAvailableSelection: jest.fn(),
-  getAvailableToSelect: jest.fn(),
 }));
 
 const defaultDeps = {

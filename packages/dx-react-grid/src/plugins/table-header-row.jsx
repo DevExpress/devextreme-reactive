@@ -62,8 +62,8 @@ export class TableHeaderRow extends React.PureComponent {
       allowGroupingByClick,
       allowDragging,
       allowResizing,
-      getHeaderCellComponent,
-      headerRowComponent: HeaderRow,
+      getCellComponent,
+      rowComponent: HeaderRow,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -86,7 +86,7 @@ export class TableHeaderRow extends React.PureComponent {
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {(params) => {
-            const HeaderCell = getHeaderCellComponent(params.tableColumn.column.name);
+            const HeaderCell = getCellComponent(params.tableColumn.column.name);
             return (
               <TemplateConnector>
                 {(getters, actions) => (
@@ -125,8 +125,8 @@ TableHeaderRow.propTypes = {
   allowGroupingByClick: PropTypes.bool,
   allowDragging: PropTypes.bool,
   allowResizing: PropTypes.bool,
-  getHeaderCellComponent: PropTypes.func.isRequired,
-  headerRowComponent: PropTypes.func.isRequired,
+  getCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

@@ -14,18 +14,18 @@ const defaultMessages = {
 export class TableHeaderRow extends React.PureComponent {
   render() {
     const {
-      getHeaderCellComponent,
+      getCellComponent,
       messages,
       ...restProps
     } = this.props;
 
     return (
       <TableHeaderRowBase
-        getHeaderCellComponent={combineTemplates(
-          getHeaderCellComponent,
+        getCellComponent={combineTemplates(
+          getCellComponent,
           defaultGetHeaderCellComponent,
         )}
-        headerRowComponent={TableRow}
+        rowComponent={TableRow}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -34,13 +34,13 @@ export class TableHeaderRow extends React.PureComponent {
 }
 
 TableHeaderRow.propTypes = {
-  getHeaderCellComponent: PropTypes.func,
+  getCellComponent: PropTypes.func,
   messages: PropTypes.shape({
     sortingHint: PropTypes.string,
   }),
 };
 
 TableHeaderRow.defaultProps = {
-  getHeaderCellComponent: undefined,
+  getCellComponent: undefined,
   messages: {},
 };

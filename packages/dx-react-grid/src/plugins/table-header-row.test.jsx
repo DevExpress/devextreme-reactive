@@ -40,8 +40,8 @@ const defaultDeps = {
 
 const defaultHeaderCellComponent = () => null;
 const defaultProps = {
-  getHeaderCellComponent: () => defaultHeaderCellComponent,
-  headerRowComponent: () => null,
+  getCellComponent: () => defaultHeaderCellComponent,
+  rowComponent: () => null,
 };
 
 describe('TableHeaderRow', () => {
@@ -83,14 +83,14 @@ describe('TableHeaderRow', () => {
 
   it('should render heading cell on user-defined column and heading row intersection', () => {
     isHeadingTableCell.mockImplementation(() => true);
-    const getHeaderCellComponent = jest.fn(() => defaultHeaderCellComponent);
+    const getCellComponent = jest.fn(() => defaultHeaderCellComponent);
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableHeaderRow
           {...defaultProps}
-          getHeaderCellComponent={getHeaderCellComponent}
+          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -100,7 +100,7 @@ describe('TableHeaderRow', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(getHeaderCellComponent)
+    expect(getCellComponent)
       .toBeCalledWith(defaultDeps.template.tableCell.tableColumn.column.name);
     expect(tree.find(defaultHeaderCellComponent).props())
       .toMatchObject({
@@ -109,7 +109,7 @@ describe('TableHeaderRow', () => {
       });
   });
 
-  it('should render row by using headerRowComponent', () => {
+  it('should render row by using rowComponent', () => {
     isHeadingTableRow.mockImplementation(() => true);
 
     const tree = mount((
@@ -123,7 +123,7 @@ describe('TableHeaderRow', () => {
 
     expect(isHeadingTableRow)
       .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(tree.find(defaultProps.headerRowComponent).props())
+    expect(tree.find(defaultProps.rowComponent).props())
       .toMatchObject(defaultDeps.template.tableRow);
   });
 
@@ -166,7 +166,7 @@ describe('TableHeaderRow', () => {
         .toThrow();
     });
 
-    it('should pass correct props to getHeaderCellComponent', () => {
+    it('should pass correct props to getCellComponent', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {

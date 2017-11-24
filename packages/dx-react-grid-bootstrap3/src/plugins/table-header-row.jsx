@@ -9,15 +9,15 @@ const defaultGetHeaderCellComponent = () => TableHeaderCell;
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
-    const { getHeaderCellComponent, ...restProps } = this.props;
+    const { getCellComponent, ...restProps } = this.props;
 
     return (
       <TableHeaderRowBase
-        getHeaderCellComponent={combineTemplates(
-          getHeaderCellComponent,
+        getCellComponent={combineTemplates(
+          getCellComponent,
           defaultGetHeaderCellComponent,
         )}
-        headerRowComponent={TableRow}
+        rowComponent={TableRow}
         {...restProps}
       />
     );
@@ -25,9 +25,9 @@ export class TableHeaderRow extends React.PureComponent {
 }
 
 TableHeaderRow.propTypes = {
-  getHeaderCellComponent: PropTypes.func,
+  getCellComponent: PropTypes.func,
 };
 
 TableHeaderRow.defaultProps = {
-  getHeaderCellComponent: undefined,
+  getCellComponent: undefined,
 };

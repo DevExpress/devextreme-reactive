@@ -18,8 +18,8 @@ The plugin also allows an end-user to manage a column's sorting and grouping sta
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getHeaderCellComponent | (columnName: string) => ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A function returning a component that renders a header cell.
-headerRowComponent | ElementType&lt;[TableRowArgs](table.md#table-row-args)&gt; | | A component that renders a header row.
+getCellComponent | (columnName: string) => ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A function returning a component that renders a header cell.
+rowComponent | ElementType&lt;[TableRowArgs](table.md#table-row-args)&gt; | | A component that renders a header row.
 allowSorting | boolean | false | If true, it allows an end-user to change sorting by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | If true, it allows an end-user to drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowGroupingByClick | boolean | false | If true, it renders a component that toggles a column's grouping state. Requires the [GroupingState](grouping-state.md) dependency.

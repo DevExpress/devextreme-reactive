@@ -13,18 +13,18 @@ A plugin that renders a table detail row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-template | (args: [DetailContentArgs](#detail-content-args)) => ReactElement | | A component that renders row details.
-detailCellTemplate | (args: [DetailCellArgs](#detail-cell-args)) => ReactElement | | A component that renders a detail cell.
-detailToggleCellTemplate | (args: [DetailToggleArgs](#detail-toggle-args)) => ReactElement | | A component that renders the detail toggle control.
-detailRowTemplate | (args: [DetailRowArgs](#detail-row-args)) => ReactElement | | A component that renders a detail row.
-detailToggleCellWidth | number | | Specifies the detail toggle cell width.
-rowHeight | number &#124; string | 'auto' | Specifies the detail row height.
+detailComponent | ElementType&lt;[TableDetailContentProps](#tabledetailcontentprops)&gt; | | A component that renders row details.
+detailCellComponent | ElementType&lt;[TableDetailCellProps](#tabledetailcellprops)&gt; | | A component that renders a detail cell.
+detailRowComponent | ElementType&lt;[TableDetailRowProps](#tabledetailrowprops)&gt; | | A component that renders a detail row.
+detailToggleCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders the detail toggle control.
+detailToggleColumnWidth | number | | Specifies the detail toggle cell width.
+rowHeight | number | | Specifies the detail row height.
 
 ## Interfaces
 
-### <a name="detail-content-args"></a>DetailContentArgs
+### TableDetailContentProps
 
-Describes properties passed to the template that renders row details
+Describes properties passed to component that renders row details.
 
 A value with the following shape:
 
@@ -32,20 +32,20 @@ Field | Type | Description
 ------|------|------------
 row | any | A row.
 
-### <a name="detail-cell-args"></a>DetailCellArgs
+### TableDetailCellProps
 
-Describes properties passed to the template that renders a detail cell for a row
+Describes properties passed to a component that renders a detail cell.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
 row | any | A row.
-template | () => ReactElement | A component that renders row details.
+children? | ReactElement | A React element to be placed in a detail cell.
 
-### <a name="detail-row-args"></a>DetailRowArgs
+### TableDetailRowProps
 
-Describes properties passed to the template that renders a detail row
+Describes properties passed to a component that renders a detail row.
 
 A value with the [TableRowArgs](table.md#table-row-args) shape extended by the following fields:
 
@@ -53,9 +53,9 @@ Field | Type | Description
 ------|------|------------
 row | any | A row.
 
-### <a name="detail-toggle-args"></a>DetailToggleArgs
+### TableDetailToggleCellProps
 
-Describes properties passed to the template that renders the detail toggle control
+Describes properties passed to a component that renders the detail toggle control.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
@@ -63,7 +63,7 @@ Field | Type | Description
 ------|------|------------
 row | any | A row.
 expanded | boolean | Specifies if row details are displayed.
-toggleExpanded | () => void | Toggles a row's expanded state.
+onToggle | () => void | An event that initiates toggling a row's expanded state.
 
 ## Plugin Developer Reference
 

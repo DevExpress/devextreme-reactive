@@ -37,9 +37,10 @@ const defaultDeps = {
   },
 };
 
+const defaultCellComponent = () => null;
 const defaultProps = {
   layoutComponent: () => null,
-  getCellComponent: () => () => null,
+  getCellComponent: () => defaultCellComponent,
   rowComponent: () => null,
   stubCellComponent: () => null,
   stubHeaderCellComponent: () => null,
@@ -105,8 +106,7 @@ describe('Table', () => {
 
   it('should render data cell on user-defined column and row intersection', () => {
     isDataTableCell.mockImplementation(() => true);
-    const tableCellComponent = jest.fn(() => null);
-    const getCellComponent = jest.fn(() => tableCellComponent);
+    const getCellComponent = jest.fn(() => defaultCellComponent);
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'a' } },
@@ -129,7 +129,7 @@ describe('Table', () => {
       .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
     expect(getCellComponent)
       .toBeCalledWith(tableCellArgs.tableColumn.column.name);
-    expect(tree.find(tableCellComponent).props())
+    expect(tree.find(defaultCellComponent).props())
       .toMatchObject({
         ...tableCellArgs,
         row: tableCellArgs.tableRow.row,
@@ -139,8 +139,7 @@ describe('Table', () => {
 
   it('can render custom formatted data in table cell', () => {
     isDataTableCell.mockImplementation(() => true);
-    const tableCellComponent = jest.fn(() => null);
-    const getCellComponent = jest.fn(() => tableCellComponent);
+    const getCellComponent = jest.fn(() => defaultCellComponent);
     const valueFormatter = jest.fn(() => <span />);
     const tableCellArgs = {
       tableRow: { row: 'row' },
@@ -170,7 +169,7 @@ describe('Table', () => {
         row: tableCellArgs.tableRow.row,
         value: tableCellArgs.value,
       });
-    expect(tree.find(tableCellComponent).props().children)
+    expect(tree.find(defaultCellComponent).props().children)
       .toBeDefined();
   });
 

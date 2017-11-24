@@ -97,16 +97,15 @@ const GridContainer = ({
       expandedRows={expandedRows}
       onExpandedRowsChange={onExpandedRowsChange}
     />
+    <SelectionState
+      selection={selection}
+      onSelectionChange={onSelectionChange}
+    />
 
     <LocalFiltering />
     <LocalSorting />
     <LocalGrouping />
     <LocalPaging />
-
-    <SelectionState
-      selection={selection}
-      onSelectionChange={onSelectionChange}
-    />
     <LocalSelection />
 
     <DragDropContext />

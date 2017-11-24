@@ -79,12 +79,11 @@ export default class Demo extends React.PureComponent {
             defaultGrouping={[{ columnName: 'product' }]}
             defaultExpandedGroups={['EnviroCare Max']}
           />
+          <SelectionState />
 
           <LocalFiltering />
           <LocalSorting />
           <LocalGrouping />
-
-          <SelectionState />
           <LocalSelection />
 
           <VirtualTable

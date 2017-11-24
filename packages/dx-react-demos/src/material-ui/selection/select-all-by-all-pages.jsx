@@ -49,11 +49,11 @@ export default class Demo extends React.PureComponent {
               selection={selection}
               onSelectionChange={this.changeSelection}
             />
-            <LocalSelection />
             <PagingState
               defaultCurrentPage={0}
               pageSize={6}
             />
+            <LocalSelection />
             <LocalPaging />
             <Table />
             <TableHeaderRow />

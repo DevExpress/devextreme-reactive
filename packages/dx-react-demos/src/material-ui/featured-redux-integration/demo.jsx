@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -112,16 +112,16 @@ const GridContainer = ({
         expandedRows={expandedRows}
         onExpandedRowsChange={onExpandedRowsChange}
       />
+      <SelectionState
+        selection={selection}
+        onSelectionChange={onSelectionChange}
+      />
 
       <LocalFiltering />
       <LocalSorting />
       <LocalGrouping />
       <LocalPaging />
-
-      <SelectionState
-        selection={selection}
-        onSelectionChange={onSelectionChange}
-      />
+      <LocalSelection />
 
       <DragDropContext />
 

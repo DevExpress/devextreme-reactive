@@ -5,23 +5,19 @@ import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid'
 import { TableHeaderCell } from '../templates/table-header-cell';
 import { TableRow } from '../templates/table-row';
 
-const defaultHeaderCellTemplate = props => <TableHeaderCell {...props} />;
-const defaultHeaderRowTemplate = props => <TableRow {...props} />;
+const defaultGetHeaderCellComponent = () => TableHeaderCell;
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
-    const { headerCellTemplate, headerRowTemplate, ...restProps } = this.props;
+    const { getHeaderCellComponent, ...restProps } = this.props;
 
     return (
       <TableHeaderRowBase
-        headerCellTemplate={combineTemplates(
-          headerCellTemplate,
-          defaultHeaderCellTemplate,
+        getHeaderCellComponent={combineTemplates(
+          getHeaderCellComponent,
+          defaultGetHeaderCellComponent,
         )}
-        headerRowTemplate={combineTemplates(
-          headerRowTemplate,
-          defaultHeaderRowTemplate,
-        )}
+        headerRowComponent={TableRow}
         {...restProps}
       />
     );
@@ -29,11 +25,9 @@ export class TableHeaderRow extends React.PureComponent {
 }
 
 TableHeaderRow.propTypes = {
-  headerCellTemplate: PropTypes.func,
-  headerRowTemplate: PropTypes.func,
+  getHeaderCellComponent: PropTypes.func,
 };
 
 TableHeaderRow.defaultProps = {
-  headerCellTemplate: undefined,
-  headerRowTemplate: undefined,
+  getHeaderCellComponent: undefined,
 };

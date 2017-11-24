@@ -5,8 +5,8 @@ import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid'
 import { TableHeaderCell } from '../templates/table-header-cell';
 import { TableRow } from '../templates/table-row';
 
-const defaultHeaderCellTemplate = props => <TableHeaderCell {...props} />;
-const defaultHeaderRowTemplate = props => <TableRow {...props} />;
+const defaultGetHeaderCellComponent = () => TableHeaderCell;
+
 const defaultMessages = {
   sortingHint: 'Sort',
 };
@@ -14,20 +14,18 @@ const defaultMessages = {
 export class TableHeaderRow extends React.PureComponent {
   render() {
     const {
-      headerCellTemplate, headerRowTemplate,
-      messages, ...restProps
+      getHeaderCellComponent,
+      messages,
+      ...restProps
     } = this.props;
 
     return (
       <TableHeaderRowBase
-        headerCellTemplate={combineTemplates(
-          headerCellTemplate,
-          defaultHeaderCellTemplate,
+        getHeaderCellComponent={combineTemplates(
+          getHeaderCellComponent,
+          defaultGetHeaderCellComponent,
         )}
-        headerRowTemplate={combineTemplates(
-          headerRowTemplate,
-          defaultHeaderRowTemplate,
-        )}
+        headerRowComponent={TableRow}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -36,15 +34,13 @@ export class TableHeaderRow extends React.PureComponent {
 }
 
 TableHeaderRow.propTypes = {
-  headerCellTemplate: PropTypes.func,
-  headerRowTemplate: PropTypes.func,
+  getHeaderCellComponent: PropTypes.func,
   messages: PropTypes.shape({
     sortingHint: PropTypes.string,
   }),
 };
 
 TableHeaderRow.defaultProps = {
-  headerCellTemplate: undefined,
-  headerRowTemplate: undefined,
+  getHeaderCellComponent: undefined,
   messages: {},
 };

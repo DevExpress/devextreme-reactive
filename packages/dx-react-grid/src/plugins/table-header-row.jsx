@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Getter, Template, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
@@ -12,7 +11,7 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
-const getHeaderTableCellTemplateArgs = (
+const getHeaderTableCellProps = (
   {
     allowSorting, allowDragging, allowGroupingByClick, allowResizing, getMessage, ...params
   },
@@ -63,8 +62,8 @@ export class TableHeaderRow extends React.PureComponent {
       allowGroupingByClick,
       allowDragging,
       allowResizing,
-      headerCellTemplate,
-      headerRowTemplate,
+      getHeaderCellComponent,
+      headerRowComponent: HeaderRow,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -86,38 +85,35 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
-          {params => (
-            <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={headerCellTemplate}
-                  params={getHeaderTableCellTemplateArgs(
-                    {
-                      allowDragging,
-                      allowGroupingByClick,
-                      allowSorting,
-                      allowResizing,
-                      getMessage,
-                      ...params,
-                    },
-                    getters,
-                    actions,
-                  )}
-                />
-              )}
-            </TemplateConnector>
-          )}
+          {(params) => {
+            const HeaderCell = getHeaderCellComponent(params.tableColumn.column.name);
+            return (
+              <TemplateConnector>
+                {(getters, actions) => (
+                  <HeaderCell
+                    {...getHeaderTableCellProps(
+                      {
+                        allowDragging,
+                        allowGroupingByClick,
+                        allowSorting,
+                        allowResizing,
+                        getMessage,
+                        ...params,
+                      },
+                      getters,
+                      actions,
+                    )}
+                  />
+                )}
+              </TemplateConnector>
+            );
+          }}
         </Template>
         <Template
           name="tableRow"
           predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
         >
-          {params => (
-            <TemplateRenderer
-              template={headerRowTemplate}
-              params={params}
-            />
-          )}
+          {params => <HeaderRow {...params} />}
         </Template>
       </PluginContainer>
     );
@@ -129,8 +125,8 @@ TableHeaderRow.propTypes = {
   allowGroupingByClick: PropTypes.bool,
   allowDragging: PropTypes.bool,
   allowResizing: PropTypes.bool,
-  headerCellTemplate: PropTypes.func.isRequired,
-  headerRowTemplate: PropTypes.func.isRequired,
+  getHeaderCellComponent: PropTypes.func.isRequired,
+  headerRowComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

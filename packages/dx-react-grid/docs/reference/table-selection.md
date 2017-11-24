@@ -42,7 +42,7 @@ Field | Type | Description
 selectionAvailable | boolean | True if at least one row can be selected.
 allSelected | boolean | True if all the rows available for selection are selected.
 someSelected | boolean | True if at least one but not all rows available for selection are selected.
-toggleAll | () => void | Selects or deselects all rows.
+toggleAll | (select?) => void | Selects or deselects all rows. If `select` is `true` always select rows, else deselect.
 
 ### <a name="select-cell-args"></a>SelectCellArgs
 
@@ -65,7 +65,7 @@ Name | Plugin | Type | Description
 tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows.
 toggleSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean  }) => void | A function that selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
-toggleSelectAll | Action | (select: boolean, selection: Getter, toggleSelection: Action) => void | A function that selects/deselects all rows. The `select` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
+toggleSelectAll | Action | (select?: boolean, selection: Getter, toggleSelection: Action) => void | A function that selects/deselects all rows. The `select` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
 selectAllAvailable | Getter | boolean | Return `true` if any select boxes are available.
 allSelected | Getter | boolean | True if all the rows available for selection are selected.
 someSelected | Getter | boolean | True if some rows are selected. False if all/zero rows are selected.

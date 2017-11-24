@@ -20,7 +20,6 @@ export * from './plugins/local-paging/computeds';
 export * from './plugins/paging-panel/helpers';
 
 export * from './plugins/selection-state/reducers';
-export * from './plugins/selection-state/computeds';
 export * from './plugins/local-selection/computeds';
 
 export * from './plugins/editing-state/reducers';

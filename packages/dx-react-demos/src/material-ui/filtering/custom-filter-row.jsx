@@ -100,7 +100,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableFilterRow
-            getFilterCellComponent={this.getFilterCellComponent}
+            getCellComponent={this.getFilterCellComponent}
           />
         </Grid>
       </Paper>

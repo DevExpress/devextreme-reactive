@@ -5,7 +5,7 @@ import { TableFilterRow as TableFilterRowBase } from '@devexpress/dx-react-grid'
 import { TableFilterCell } from '../templates/table-filter-cell';
 import { TableRow } from '../templates/table-row';
 
-const defaultGetFilterCellComponent = () => TableFilterCell;
+const defaultGetCellComponent = () => TableFilterCell;
 
 const defaultMessages = {
   filterPlaceholder: 'Filter...',
@@ -14,16 +14,16 @@ const defaultMessages = {
 export class TableFilterRow extends React.PureComponent {
   render() {
     const {
-      getFilterCellComponent, messages, ...restProps
+      getCellComponent, messages, ...restProps
     } = this.props;
 
     return (
       <TableFilterRowBase
-        getFilterCellComponent={combineTemplates(
-          getFilterCellComponent,
-          defaultGetFilterCellComponent,
+        getCellComponent={combineTemplates(
+          getCellComponent,
+          defaultGetCellComponent,
         )}
-        filterRowComponent={TableRow}
+        rowComponent={TableRow}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -32,13 +32,13 @@ export class TableFilterRow extends React.PureComponent {
 }
 
 TableFilterRow.propTypes = {
-  getFilterCellComponent: PropTypes.func,
+  getCellComponent: PropTypes.func,
   messages: PropTypes.shape({
     filterPlaceholder: PropTypes.string,
   }),
 };
 
 TableFilterRow.defaultProps = {
-  getFilterCellComponent: undefined,
+  getCellComponent: undefined,
   messages: {},
 };

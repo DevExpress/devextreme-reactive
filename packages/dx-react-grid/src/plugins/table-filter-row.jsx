@@ -38,8 +38,8 @@ export class TableFilterRow extends React.PureComponent {
   render() {
     const {
       rowHeight,
-      getFilterCellComponent,
-      filterRowComponent: FilterRow,
+      getCellComponent,
+      rowComponent: FilterRow,
       messages,
     } = this.props;
 
@@ -61,7 +61,7 @@ export class TableFilterRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters, actions) => {
-                const FilterCell = getFilterCellComponent(params.tableColumn.column.name);
+                const FilterCell = getCellComponent(params.tableColumn.column.name);
                 const templateArgs = getFilterTableCellProps(
                   { getMessage, ...params },
                   getters,
@@ -97,8 +97,8 @@ export class TableFilterRow extends React.PureComponent {
 TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
   messages: PropTypes.object,
-  getFilterCellComponent: PropTypes.func.isRequired,
-  filterRowComponent: PropTypes.func.isRequired,
+  getCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
 };
 
 TableFilterRow.defaultProps = {

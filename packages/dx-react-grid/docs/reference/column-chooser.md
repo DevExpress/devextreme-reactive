@@ -26,6 +26,7 @@ Field | Type | Description
 ------|------|------------
 items | Array&lt;[ColumnChooserItem](#columnchooseritem)&gt; | An array of column chooser items.
 onItemToggle | (item: [ColumnChooserItem](#columnchooseritem)) => void | Handles item visibility changes.
+children | Array&lt;ReactElement&gt; | React elements used to render column chooser items.
 
 ### ColumnChooserItemProps
 

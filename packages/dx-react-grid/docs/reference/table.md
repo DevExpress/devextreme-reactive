@@ -134,6 +134,19 @@ Field | Type | Default | Description
 ------|------|---------|------------
 noData? | string | 'No data' | Specifies text shown when the Grid does not contain data.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+Table.Cell | [TableDataCellArgs](#table-data-cell-args) | A component that renders a table data cell.
+Table.Row | [TableDataRowArgs](#table-data-row-args) | A component that renders a table data row.
+Table.NoDataCell | [TableCellArgs](#table-cell-args) | A component that renders a table cell when a table has no data.
+Table.NoDataRow | [TableRowArgs](#table-row-args) | A component that renders a table row when a table has no data.
+Table.StubCell | [TableCellArgs](#table-cell-args) | A component that renders a stub table cell.
+Table.StubHeaderCell | [TableCellArgs](#table-cell-args) | A component that renders a stub table header cell.
+
+All other component's properties will be spreaded to the root element of this component.
+
 ## Plugin Developer Reference
 
 ### Imports

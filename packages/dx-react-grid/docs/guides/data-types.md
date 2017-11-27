@@ -16,7 +16,7 @@ Assign a function rendering the formatted value to the `DataTypeProvider` plugin
 
 ```js
 const rows = [
-  { product: 'SolarOne', price: '3039' },
+  { product: 'SolarOne', amount: '3039' },
 ];
 const columns = [
   { name: 'product', title: 'Product' },

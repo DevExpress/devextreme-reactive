@@ -33,7 +33,7 @@ export class Table extends React.PureComponent {
         noDataRowComponent={TableRow}
         noDataCellComponent={TableNoDataCell}
         stubCellComponent={TableStubCell}
-        headerStubCellComponent={TableStubCell}
+        stubHeaderCellComponent={TableStubCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

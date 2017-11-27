@@ -68,7 +68,7 @@ export class Table extends React.PureComponent {
       noDataRowComponent: TableNoDataRow,
       noDataCellComponent: TableNoDataCell,
       stubCellComponent: TableStubCell,
-      headerStubCellComponent: TableHeaderStubCell,
+      stubHeaderCellComponent: TableStubHeaderCell,
       messages,
     } = this.props;
 
@@ -106,7 +106,7 @@ export class Table extends React.PureComponent {
             <TemplateConnector>
               {({ tableHeaderRows: headerRows }) =>
                 (isHeaderStubTableCell(params.tableRow, headerRows)
-                  ? <TableHeaderStubCell {...params} />
+                  ? <TableStubHeaderCell {...params} />
                   : <TableStubCell {...params} />
                 )
               }
@@ -164,7 +164,7 @@ Table.propTypes = {
   noDataCellComponent: PropTypes.func.isRequired,
   noDataRowComponent: PropTypes.func.isRequired,
   stubCellComponent: PropTypes.func.isRequired,
-  headerStubCellComponent: PropTypes.func.isRequired,
+  stubHeaderCellComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

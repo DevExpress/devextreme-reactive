@@ -62,7 +62,7 @@ describe('LocalSelection', () => {
       );
   });
 
-  it('should call isAllSelected in getter', () => {
+  it('should provide isAllSelected getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -79,7 +79,7 @@ describe('LocalSelection', () => {
         availableToSelect: [],
       });
   });
-  it('should call isSomeSelected in getter', () => {
+  it('should provide isSomeSelected getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -96,7 +96,7 @@ describe('LocalSelection', () => {
         availableToSelect: [],
       });
   });
-  it('should return selectAllAvailable value in getter', () => {
+  it('should provide selectAllAvailable getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -107,7 +107,7 @@ describe('LocalSelection', () => {
     expect(getComputedState(tree).getters.selectAllAvailable)
       .toBe(!!defaultDeps.getter.rows.length);
   });
-  it('should call toggleSelection in action', () => {
+  it('should provide toggleSelection action', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

@@ -68,7 +68,6 @@ export class Table extends React.PureComponent {
   }
 }
 
-Table.Layout = TableLayout;
 Table.Cell = TableCell;
 Table.Row = TableRow;
 Table.NoDataCell = TableNoDataCell;

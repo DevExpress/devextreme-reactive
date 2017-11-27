@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 type | string | | Specifies the data type to which the templates are applied.
 formatterComponent | ElementType&lt;[ValueFormatterProps](#valueformatterprops)&gt; | | A component that renders the formatted value.
-editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops) | | A component that renders a custom editor.
+editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops)&gt; | | A component that renders a custom editor.
 
 ## Interfaces
 
@@ -28,7 +28,7 @@ dataType | string | Specifies the column's data type.
 
 ### ValueFormatterProps
 
-Describes the value formatter component properties.
+Describes the properties passed to a component that renders the formatted value.
 
 A value with the following shape:
 
@@ -40,7 +40,7 @@ value | any | Specifies the value to be formatted.
 
 ### ValueEditorProps
 
-Describes the editor component properties.
+Describes the properties passed to a component that renders the value editor.
 
 A value with the following shape:
 

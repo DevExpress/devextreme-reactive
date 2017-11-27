@@ -279,7 +279,7 @@ export default class Demo extends React.PureComponent {
 
           <TableHeaderRow allowSorting allowDragging />
           <TableEditRow
-            getEditCellComponent={this.getEditCellComponent}
+            getCellComponent={this.getEditCellComponent}
           />
           <TableEditColumn
             width={100}

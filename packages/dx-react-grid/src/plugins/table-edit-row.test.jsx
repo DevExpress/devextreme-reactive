@@ -48,10 +48,10 @@ const defaultDeps = {
   plugins: ['EditingState', 'Table'],
 };
 
-const defaultEditCellComponent = () => null;
+const defaultCellComponent = () => null;
 const defaultProps = {
-  getEditCellComponent: () => defaultEditCellComponent,
-  editRowComponent: () => null,
+  getCellComponent: () => defaultCellComponent,
+  rowComponent: () => null,
 };
 
 describe('TableEditRow', () => {
@@ -100,14 +100,14 @@ describe('TableEditRow', () => {
 
   it('should render edit cell on user-defined column and edit row intersection', () => {
     isEditTableCell.mockImplementation(() => true);
-    const getEditCellComponent = jest.fn(() => defaultEditCellComponent);
+    const getCellComponent = jest.fn(() => defaultCellComponent);
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
-          getEditCellComponent={getEditCellComponent}
+          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -122,9 +122,9 @@ describe('TableEditRow', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(getEditCellComponent)
+    expect(getCellComponent)
       .toBeCalledWith(defaultDeps.template.tableCell.tableColumn.column.name);
-    expect(tree.find(defaultEditCellComponent).props())
+    expect(tree.find(defaultCellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
@@ -132,7 +132,7 @@ describe('TableEditRow', () => {
       });
   });
 
-  it('should render edit row by using editRowComponent', () => {
+  it('should render edit row by using rowComponent', () => {
     isEditTableRow.mockImplementation(() => true);
 
     const tree = mount((
@@ -146,14 +146,14 @@ describe('TableEditRow', () => {
 
     expect(isEditTableRow)
       .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(tree.find(defaultProps.editRowComponent).props())
+    expect(tree.find(defaultProps.rowComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableRow,
         row: defaultDeps.template.tableRow.tableRow.row,
       });
   });
 
-  it('should render new row by using editRowComponent', () => {
+  it('should render new row by using rowComponent', () => {
     isAddedTableRow.mockImplementation(() => true);
 
     const tree = mount((
@@ -167,7 +167,7 @@ describe('TableEditRow', () => {
 
     expect(isAddedTableRow)
       .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(tree.find(defaultProps.editRowComponent).props())
+    expect(tree.find(defaultProps.rowComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableRow,
         row: defaultDeps.template.tableRow.tableRow.row,
@@ -195,7 +195,7 @@ describe('TableEditRow', () => {
       </PluginHost>
     ));
 
-    const { onValueChange } = tree.find(defaultEditCellComponent).props();
+    const { onValueChange } = tree.find(defaultCellComponent).props();
     onValueChange('test');
 
     expect(defaultDeps.getter.createRowChange)
@@ -240,7 +240,7 @@ describe('TableEditRow', () => {
         value: deps.getter.getCellValue(),
         onValueChange: expect.any(Function),
       });
-    expect(tree.find(defaultEditCellComponent).props())
+    expect(tree.find(defaultCellComponent).props())
       .toHaveProperty('children');
   });
 });

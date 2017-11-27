@@ -63,8 +63,8 @@ const pluginDependencies = [
 export class TableEditRow extends React.PureComponent {
   render() {
     const {
-      getEditCellComponent,
-      editRowComponent: EditRow,
+      getCellComponent,
+      rowComponent: EditRow,
       rowHeight,
     } = this.props;
 
@@ -84,7 +84,7 @@ export class TableEditRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters, actions) => {
-                const EditCell = getEditCellComponent(params.tableColumn.column.name);
+                const EditCell = getCellComponent(params.tableColumn.column.name);
                 const templateArgs = getEditTableCellProps(params, getters, actions);
                 return (
                   <TemplatePlaceholder
@@ -117,8 +117,8 @@ export class TableEditRow extends React.PureComponent {
 
 TableEditRow.propTypes = {
   rowHeight: PropTypes.any,
-  getEditCellComponent: PropTypes.func.isRequired,
-  editRowComponent: PropTypes.func.isRequired,
+  getCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
 };
 
 TableEditRow.defaultProps = {

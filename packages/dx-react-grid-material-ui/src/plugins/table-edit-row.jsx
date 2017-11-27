@@ -5,22 +5,22 @@ import { TableEditRow as TableEditRowBase } from '@devexpress/dx-react-grid';
 import { EditCell } from '../templates/table-edit-cell';
 import { TableRow } from '../templates/table-row';
 
-const defaultGetEditCellComponent = () => EditCell;
+const defaultGetCellComponent = () => EditCell;
 
 export class TableEditRow extends React.PureComponent {
   render() {
     const {
-      getEditCellComponent,
+      getCellComponent,
       ...restProps
     } = this.props;
 
     return (
       <TableEditRowBase
-        getEditCellComponent={combineTemplates(
-          getEditCellComponent,
-          defaultGetEditCellComponent,
+        getCellComponent={combineTemplates(
+          getCellComponent,
+          defaultGetCellComponent,
         )}
-        editRowComponent={TableRow}
+        rowComponent={TableRow}
         {...restProps}
       />
     );
@@ -28,9 +28,9 @@ export class TableEditRow extends React.PureComponent {
 }
 
 TableEditRow.propTypes = {
-  getEditCellComponent: PropTypes.func,
+  getCellComponent: PropTypes.func,
 };
 
 TableEditRow.defaultProps = {
-  getEditCellComponent: undefined,
+  getCellComponent: undefined,
 };

@@ -46,7 +46,7 @@ describe('LocalSelection', () => {
     jest.resetAllMocks();
   });
 
-  it('should call availableToSelect on the start', () => {
+  it('should call availableToSelect after component render', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -62,7 +62,7 @@ describe('LocalSelection', () => {
       );
   });
 
-  it('should call getter allSelected', () => {
+  it('should call isAllSelected in getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -79,7 +79,7 @@ describe('LocalSelection', () => {
         availableToSelect: [],
       });
   });
-  it('should call getter someSelected', () => {
+  it('should call isSomeSelected in getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -96,7 +96,7 @@ describe('LocalSelection', () => {
         availableToSelect: [],
       });
   });
-  it('should call getter selectAllAvailable', () => {
+  it('should return selectAllAvailable value in getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -107,7 +107,7 @@ describe('LocalSelection', () => {
     expect(getComputedState(tree).getters.selectAllAvailable)
       .toBe(!!defaultDeps.getter.rows.length);
   });
-  it('should call action toggleSelectAll', () => {
+  it('should call toggleSelection in action', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

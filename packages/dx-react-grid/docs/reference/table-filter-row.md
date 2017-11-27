@@ -30,7 +30,7 @@ A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the
 Field | Type | Description
 ------|------|------------
 filter | [Filter](filtering-state.md#filter) | A filter applied to a column.
-setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Applies a new filter to a column.
+onFilter | (filter: [Filter](filtering-state.md#filter)) => void | An event that initialtes apply of a new filter to a column.
 column | [Column](grid.md#column) | Specifies a column.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 

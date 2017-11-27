@@ -16,7 +16,7 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const UnitsFilterCell = ({ filter, setFilter }) => (
+const UnitsFilterCell = ({ filter, onFilter }) => (
   <th style={{ fontWeight: 'normal' }}>
     <input
       type="number"
@@ -24,7 +24,7 @@ const UnitsFilterCell = ({ filter, setFilter }) => (
       value={filter ? filter.value : ''}
       min={1}
       max={4}
-      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+      onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
     />
   </th>
 );
@@ -36,7 +36,7 @@ UnitsFilterCell.propTypes = {
       PropTypes.number,
     ]).isRequired,
   }),
-  setFilter: PropTypes.func.isRequired,
+  onFilter: PropTypes.func.isRequired,
 };
 
 UnitsFilterCell.defaultProps = {

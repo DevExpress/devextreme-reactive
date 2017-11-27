@@ -31,13 +31,13 @@ const styles = theme => ({
   },
 });
 
-const UnitsFilterCellBase = ({ filter, setFilter, classes }) => (
+const UnitsFilterCellBase = ({ filter, onFilter, classes }) => (
   <TableCell className={classes.cell}>
     <Input
       className={classes.input}
       type="number"
       value={filter ? filter.value : ''}
-      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+      onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
       placeholder="Filter..."
       inputProps={{
         style: { textAlign: 'right' },
@@ -55,7 +55,7 @@ UnitsFilterCellBase.propTypes = {
       PropTypes.number,
     ]).isRequired,
   }),
-  setFilter: PropTypes.func.isRequired,
+  onFilter: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

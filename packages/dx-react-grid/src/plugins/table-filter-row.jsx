@@ -19,13 +19,13 @@ const getFilterTableCellProps = (
   ...params,
   column: params.tableColumn.column,
   filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
-  setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
+  onFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
 });
 
 const getValueEditorProps = params => ({
   column: params.column,
   value: params.filter ? params.filter.value : null,
-  onValueChange: newValue => params.setFilter(newValue ? { value: newValue } : null),
+  onValueChange: newValue => params.onFilter(newValue ? { value: newValue } : null),
 });
 
 const pluginDependencies = [

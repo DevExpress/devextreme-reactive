@@ -18,7 +18,7 @@ getColumnPredicate | (columnName: string) => [Predicate](#predicate) &#124; unde
 
 ### <a name="predicate"></a>Predicate
 
-A function with the following signature `(value: any, filter: Object, row: any) => boolean`. The `filter` parameter accepts an object containing the 'value' field. Note that you can use the [setFilter](table-filter-row.md#filter-cell-args) function to extend this object to the fields your filtering algorithm requires.
+A function with the following signature `(value: any, filter: Object, row: any) => boolean`. The `filter` parameter accepts an object containing the 'value' field. Note that you can use the [onFilter](table-filter-row.md#tablefiltercellprop) function to extend this object to the fields your filtering algorithm requires.
 
 ## Plugin Developer Reference
 

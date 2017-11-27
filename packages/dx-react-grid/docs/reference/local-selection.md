@@ -14,7 +14,7 @@ A plugin that performs local data selection.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-selection | Getter | Array&lt;number &#124; string&gt; | Selected rows.
+selection | Getter | Set&lt;number &#124; string&gt; | Selected rows.
 rows | Getter | Array&lt;any&gt; | Rows to be filtered.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.

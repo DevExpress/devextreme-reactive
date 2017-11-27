@@ -78,6 +78,13 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
+
+    this.getFilterCellComponent = (columnName) => {
+      if (columnName === 'units') {
+        return UnitsFilterCell;
+      }
+      return undefined;
+    };
   }
   render() {
     const { rows, columns } = this.state;
@@ -93,13 +100,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableFilterRow
-            filterCellTemplate={({ column, filter, setFilter }) => {
-              if (column.name === 'units') {
-                return <UnitsFilterCell filter={filter} setFilter={setFilter} />;
-              }
-
-              return undefined;
-            }}
+            getFilterCellComponent={this.getFilterCellComponent}
           />
         </Grid>
       </Paper>

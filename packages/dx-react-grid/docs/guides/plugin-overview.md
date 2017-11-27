@@ -47,7 +47,7 @@ const App = () => (
     <FilteringState defaultFilters={[/* ... */]}/>
     <LocalFiltering/>
     <Table/>
-    <TableFilterRow filterCellTemplate={ /* ... */ }/>
+    <TableFilterRow/>
   </Grid>
 );
 ```

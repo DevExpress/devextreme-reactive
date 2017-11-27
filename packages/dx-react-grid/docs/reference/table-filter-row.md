@@ -14,16 +14,16 @@ A plugin that renders a filter row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
+getFilterCellComponent | ElementType&lt;[TableFilterCellProps](#tablefiltercellprops)&gt; | | A function returning a component that renders a filter cell for a specific column.
+filterRowComponent | ElementType&lt;[TableRowArgs](table.md#table-row-args)&gt; | | A component that renders a filter row.
 rowHeight | number | | Specifies the filter row's height.
-filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a filter cell.
-filterRowTemplate | (args: [TableRowArgs](table.md#table-row-args)) => ReactElement | | A component that renders a filter row.
 messages | object | | The object specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
-### <a name="filter-cell-args"></a>FilterCellArgs
+### TableFilterCellProps
 
-Describes properties passed to the filter row cell template.
+Describes properties passed to a component that renders a filter cell.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 

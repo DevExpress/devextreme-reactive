@@ -5,8 +5,7 @@ import { TableFilterRow as TableFilterRowBase } from '@devexpress/dx-react-grid'
 import { TableFilterCell } from '../templates/table-filter-cell';
 import { TableRow } from '../templates/table-row';
 
-const defaultFilterCellTemplate = props => <TableFilterCell {...props} />;
-const defaultFilterRowTemplate = props => <TableRow {...props} />;
+const defaultGetFilterCellComponent = () => TableFilterCell;
 
 const defaultMessages = {
   filterPlaceholder: 'Filter...',
@@ -15,19 +14,16 @@ const defaultMessages = {
 export class TableFilterRow extends React.PureComponent {
   render() {
     const {
-      filterCellTemplate, filterRowTemplate, messages, ...restProps
+      getFilterCellComponent, messages, ...restProps
     } = this.props;
 
     return (
       <TableFilterRowBase
-        filterCellTemplate={combineTemplates(
-          filterCellTemplate,
-          defaultFilterCellTemplate,
+        getFilterCellComponent={combineTemplates(
+          getFilterCellComponent,
+          defaultGetFilterCellComponent,
         )}
-        filterRowTemplate={combineTemplates(
-          filterRowTemplate,
-          defaultFilterRowTemplate,
-        )}
+        filterRowComponent={TableRow}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -36,15 +32,13 @@ export class TableFilterRow extends React.PureComponent {
 }
 
 TableFilterRow.propTypes = {
-  filterCellTemplate: PropTypes.func,
-  filterRowTemplate: PropTypes.func,
+  getFilterCellComponent: PropTypes.func,
   messages: PropTypes.shape({
     filterPlaceholder: PropTypes.string,
   }),
 };
 
 TableFilterRow.defaultProps = {
-  filterCellTemplate: undefined,
-  filterRowTemplate: undefined,
+  getFilterCellComponent: undefined,
   messages: {},
 };

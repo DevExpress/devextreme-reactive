@@ -1,27 +1,46 @@
 import React from 'react';
-import { Table } from 'material-ui';
-import { createMount } from 'material-ui/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import { TableNoDataCell } from './table-no-data-cell';
 
 describe('TableNoDataCell', () => {
-  let resetConsole;
-  let mount;
+  let shallow;
+  let classes;
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    const mountMUI = createMount();
-    mount = component => mountMUI(<Table>{component}</Table>);
-  });
-  afterAll(() => {
-    resetConsole();
-    mount.cleanUp();
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<TableNoDataCell getMessage={key => key} />);
   });
 
   it('should use "noData" text if defined', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableNoDataCell getMessage={key => key} />
     ));
 
     expect(tree.find('big').text()).toBe('noData');
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <TableNoDataCell
+        getMessage={key => key}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableNoDataCell
+        getMessage={key => key}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

@@ -41,6 +41,12 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
+const availableValues = {
+  product: globalSalesValues.product,
+  region: globalSalesValues.region,
+  customer: globalSalesValues.customer,
+};
+
 const styles = theme => ({
   commandButton: {
     minWidth: '40px',
@@ -94,27 +100,30 @@ const commandTemplates = {
   ),
 };
 
-const LookupEditCellBase = (({
-  value, onValueChange, availableValues, classes,
-}) => (
-  <TableCell
-    className={classes.lookupEditCell}
-  >
-    <Select
-      value={value}
-      onChange={event => onValueChange(event.target.value)}
-      InputClasses={{ root: classes.inputRoot }}
+const LookupEditCellBase = ({
+  column, value, onValueChange, classes,
+}) => {
+  const availableColumnValues = availableValues[column.name];
+  return (
+    <TableCell
+      className={classes.lookupEditCell}
     >
-      {availableValues.map(item => (
-        <MenuItem key={item} value={item}>{item}</MenuItem>
-      ))}
-    </Select>
-  </TableCell>
-));
+      <Select
+        value={value}
+        onChange={event => onValueChange(event.target.value)}
+        InputClasses={{ root: classes.inputRoot }}
+      >
+        {availableColumnValues.map(item => (
+          <MenuItem key={item} value={item}>{item}</MenuItem>
+        ))}
+      </Select>
+    </TableCell>
+  );
+};
 LookupEditCellBase.propTypes = {
+  column: PropTypes.object.isRequired,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
-  availableValues: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
 };
 LookupEditCellBase.defaultProps = {
@@ -122,12 +131,6 @@ LookupEditCellBase.defaultProps = {
 };
 
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
-
-const availableValues = {
-  product: globalSalesValues.product,
-  region: globalSalesValues.region,
-  customer: globalSalesValues.customer,
-};
 
 const getRowId = row => row.id;
 
@@ -220,17 +223,9 @@ class DemoBase extends React.PureComponent {
       }
       return undefined;
     };
-    this.editCellTemplate = ({ column, value, onValueChange }) => {
-      const columnValues = availableValues[column.name];
-      if (columnValues) {
-        return (
-          <LookupEditCell
-            column={column}
-            value={value}
-            onValueChange={onValueChange}
-            availableValues={columnValues}
-          />
-        );
+    this.getEditCellComponent = (columnName) => {
+      if (availableValues[columnName]) {
+        return LookupEditCell;
       }
       return undefined;
     };
@@ -312,7 +307,7 @@ class DemoBase extends React.PureComponent {
 
           <TableHeaderRow allowSorting allowDragging />
           <TableEditRow
-            editCellTemplate={this.editCellTemplate}
+            getEditCellComponent={this.getEditCellComponent}
           />
           <TableEditColumn
             width={120}

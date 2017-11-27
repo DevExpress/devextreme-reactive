@@ -48,9 +48,10 @@ const defaultDeps = {
   plugins: ['EditingState', 'Table'],
 };
 
+const defaultEditCellComponent = () => null;
 const defaultProps = {
-  editCellTemplate: () => null,
-  editRowTemplate: () => null,
+  getEditCellComponent: () => defaultEditCellComponent,
+  editRowComponent: () => null,
 };
 
 describe('TableEditRow', () => {
@@ -99,14 +100,14 @@ describe('TableEditRow', () => {
 
   it('should render edit cell on user-defined column and edit row intersection', () => {
     isEditTableCell.mockImplementation(() => true);
-    const editCellTemplate = jest.fn(() => null);
+    const getEditCellComponent = jest.fn(() => defaultEditCellComponent);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
-          editCellTemplate={editCellTemplate}
+          getEditCellComponent={getEditCellComponent}
         />
       </PluginHost>
     ));
@@ -121,54 +122,56 @@ describe('TableEditRow', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(editCellTemplate)
-      .toBeCalledWith(expect.objectContaining({
+    expect(getEditCellComponent)
+      .toBeCalledWith(defaultDeps.template.tableCell.tableColumn.column.name);
+    expect(tree.find(defaultEditCellComponent).props())
+      .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
         column: defaultDeps.template.tableCell.tableColumn.column,
-      }));
+      });
   });
 
-  it('should render edit row by using editRowTemplate', () => {
+  it('should render edit row by using editRowComponent', () => {
     isEditTableRow.mockImplementation(() => true);
-    const editRowTemplate = jest.fn(() => null);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
-          editRowTemplate={editRowTemplate}
         />
       </PluginHost>
     ));
 
-    expect(isEditTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...defaultDeps.template.tableRow,
-      row: defaultDeps.template.tableRow.tableRow.row,
-    }));
+    expect(isEditTableRow)
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(tree.find(defaultProps.editRowComponent).props())
+      .toMatchObject({
+        ...defaultDeps.template.tableRow,
+        row: defaultDeps.template.tableRow.tableRow.row,
+      });
   });
 
-  it('should render new row by using editRowTemplate', () => {
+  it('should render new row by using editRowComponent', () => {
     isAddedTableRow.mockImplementation(() => true);
-    const editRowTemplate = jest.fn(() => null);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
-          editRowTemplate={editRowTemplate}
         />
       </PluginHost>
     ));
 
-    expect(isAddedTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(editRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...defaultDeps.template.tableRow,
-      row: defaultDeps.template.tableRow.tableRow.row,
-    }));
+    expect(isAddedTableRow)
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(tree.find(defaultProps.editRowComponent).props())
+      .toMatchObject({
+        ...defaultDeps.template.tableRow,
+        row: defaultDeps.template.tableRow.tableRow.row,
+      });
   });
 
   it('should handle edit cell onValueChange event', () => {
@@ -182,19 +185,17 @@ describe('TableEditRow', () => {
         },
       },
     };
-    const editCellTemplate = jest.fn(() => null);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableEditRow
           {...defaultProps}
-          editCellTemplate={editCellTemplate}
         />
       </PluginHost>
     ));
 
-    const { onValueChange } = editCellTemplate.mock.calls[0][0];
+    const { onValueChange } = tree.find(defaultEditCellComponent).props();
     onValueChange('test');
 
     expect(defaultDeps.getter.createRowChange)
@@ -217,10 +218,9 @@ describe('TableEditRow', () => {
         },
       },
     };
-    const editCellTemplate = jest.fn(() => null);
     const valueEditor = jest.fn(() => <input />);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         <DataTypeProvider
           type="column"
@@ -229,7 +229,6 @@ describe('TableEditRow', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableEditRow
           {...defaultProps}
-          editCellTemplate={editCellTemplate}
         />
       </PluginHost>
     ));
@@ -241,7 +240,7 @@ describe('TableEditRow', () => {
         value: deps.getter.getCellValue(),
         onValueChange: expect.any(Function),
       });
-    expect(editCellTemplate.mock.calls[0][0])
+    expect(tree.find(defaultEditCellComponent).props())
       .toHaveProperty('children');
   });
 });

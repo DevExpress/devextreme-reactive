@@ -14,15 +14,15 @@ A plugin that renders a row being edited.
 
 Name | Type | Default | Description
 -----|------|---------|------------
+getEditCellComponent | (columnName: string) => ElementType&lt;[TableEditCellProps](#tableeditrowprops)&gt; | | A function returning a component that renders an editable cell for a specific column.
+editRowComponent | ElementType&lt;[TableEditRowProps](#tableeditrowprops)&gt; | | A component that renders an editable row.
 rowHeight | number | | Specifies the edit row height.
-editCellTemplate | (args: [EditCellArgs](#edit-cell-args)) => ReactElement | | A component that renders an editable cell.
-editRowTemplate | (args: [EditRowArgs](#edit-row-args)) => ReactElement | | A component that renders an editable row.
 
 ## Interfaces
 
-### <a name="edit-cell-args"></a>EditCellArgs
+### TableEditCellProps
 
-Describes properties passed to the edit row's cell template.
+Describes properties passed to a component that renders an editable cell.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
@@ -33,9 +33,9 @@ column | [Column](grid.md#column) | Specifies a column.
 value | any | Specifies a value to be edited.
 onValueChange | (newValue: any) => void | Handles value changes.
 
-### <a name="edit-row-args"></a>EditRowArgs
+### TableEditRowProps
 
-Describes properties passed to the edit row template.
+Describes properties passed to a component that renders an editable row.
 
 A value with the [TableRowArgs](table.md#table-row-args) shape extended by the following fields:
 

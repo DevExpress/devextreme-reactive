@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-  TemplateConnector,
-  TemplateRenderer,
-  PluginContainer,
+  Getter, Template, TemplatePlaceholder, TemplateConnector, PluginContainer,
 } from '@devexpress/dx-react-core';
 import {
   getRowChange,
@@ -16,7 +11,7 @@ import {
   isEditTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getEditTableCellTemplateArgs = (
+const getEditTableCellProps = (
   params,
   getters,
   { changeRow, changeAddedRow },
@@ -54,7 +49,7 @@ const getValueEditorArgs = params => ({
   onValueChange: params.onValueChange,
 });
 
-const getEditTableRowTemplateArgs = params => ({
+const getEditTableRowProps = params => ({
   ...params,
   row: params.tableRow.row,
 });
@@ -67,7 +62,11 @@ const pluginDependencies = [
 
 export class TableEditRow extends React.PureComponent {
   render() {
-    const { editCellTemplate, editRowTemplate, rowHeight } = this.props;
+    const {
+      getEditCellComponent,
+      editRowComponent: EditRow,
+      rowHeight,
+    } = this.props;
 
     const tableBodyRowsComputed = ({ tableBodyRows, editingRows, addedRows }) =>
       tableRowsWithEditing(tableBodyRows, editingRows, addedRows, rowHeight);
@@ -85,19 +84,17 @@ export class TableEditRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters, actions) => {
-                const templateArgs = getEditTableCellTemplateArgs(params, getters, actions);
+                const EditCell = getEditCellComponent(params.tableColumn.column.name);
+                const templateArgs = getEditTableCellProps(params, getters, actions);
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
                     params={getValueEditorArgs(templateArgs)}
                   >
                     {content => (
-                      <TemplateRenderer
-                        template={editCellTemplate}
-                        params={templateArgs}
-                      >
+                      <EditCell {...templateArgs}>
                         {content}
-                      </TemplateRenderer>
+                      </EditCell>
                     )}
                   </TemplatePlaceholder>
                 );
@@ -110,14 +107,7 @@ export class TableEditRow extends React.PureComponent {
           predicate={({ tableRow }) => (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
         >
           {params => (
-            <TemplateConnector>
-              {() => (
-                <TemplateRenderer
-                  template={editRowTemplate}
-                  params={getEditTableRowTemplateArgs(params)}
-                />
-              )}
-            </TemplateConnector>
+            <EditRow {...getEditTableRowProps(params)} />
           )}
         </Template>
       </PluginContainer>
@@ -127,8 +117,8 @@ export class TableEditRow extends React.PureComponent {
 
 TableEditRow.propTypes = {
   rowHeight: PropTypes.any,
-  editCellTemplate: PropTypes.func.isRequired,
-  editRowTemplate: PropTypes.func.isRequired,
+  getEditCellComponent: PropTypes.func.isRequired,
+  editRowComponent: PropTypes.func.isRequired,
 };
 
 TableEditRow.defaultProps = {

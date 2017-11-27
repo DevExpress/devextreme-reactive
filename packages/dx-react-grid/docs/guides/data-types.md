@@ -58,7 +58,7 @@ const columns = [
         value={value}
         onChange={e => onValueChange(e.target.value === 'true')}
       >
-        <option value={false}>No</options>
+        <option value={false}>No</option>
         <option value>Yes</option>
       </select>
     )}

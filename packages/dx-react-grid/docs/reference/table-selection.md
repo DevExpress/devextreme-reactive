@@ -7,6 +7,7 @@ This plugin visualizes the selection state within a table by rendering selection
 ### Dependencies
 
 - [SelectionState](selection-state.md)
+- [LocalSelection](local-selection.md)
 - [Table](table.md)
 
 ### Properties

@@ -27,8 +27,8 @@ const getGroupTableCellProps = (
     ...params,
     row: params.tableRow.row,
     column: params.tableColumn.column,
-    isExpanded: expandedGroups.has(compoundKey),
-    toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: compoundKey }),
+    expanded: expandedGroups.has(compoundKey),
+    onToggle: () => toggleGroupExpanded({ groupKey: compoundKey }),
   };
 };
 

@@ -289,13 +289,13 @@ describe('TableGroupRow', () => {
       ));
       expect(tree.find(defaultCellComponent).props())
         .toMatchObject({
-          isExpanded: 'hasTest',
-          toggleGroupExpanded: expect.any(Function),
+          expanded: 'hasTest',
+          onToggle: expect.any(Function),
         });
       expect(deps.getter.expandedGroups.has)
         .toBeCalledWith('1');
 
-      tree.find(defaultCellComponent).props().toggleGroupExpanded();
+      tree.find(defaultCellComponent).props().onToggle();
       expect(defaultDeps.action.toggleGroupExpanded.mock.calls[0][0])
         .toEqual({ groupKey: '1' });
     });

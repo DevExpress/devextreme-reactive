@@ -19,16 +19,16 @@ import {
 const GroupCellTemplate = ({
   colSpan,
   row,
-  isExpanded,
-  toggleGroupExpanded,
+  expanded,
+  onToggle,
 }) => (
   <TableCell
     colSpan={colSpan}
     style={{ cursor: 'pointer' }}
-    onClick={toggleGroupExpanded}
+    onClick={onToggle}
   >
     <span>
-      { isExpanded ? '- ' : '+ ' }
+      { expanded ? '- ' : '+ ' }
     </span>
     <strong>
       Names from {row.value.from} to {row.value.to}
@@ -39,15 +39,15 @@ const GroupCellTemplate = ({
 GroupCellTemplate.propTypes = {
   colSpan: PropTypes.number,
   row: PropTypes.object,
-  isExpanded: PropTypes.bool,
-  toggleGroupExpanded: PropTypes.func,
+  expanded: PropTypes.bool,
+  onToggle: PropTypes.func,
 };
 
 GroupCellTemplate.defaultProps = {
   colSpan: 1,
   row: {},
-  isExpanded: false,
-  toggleGroupExpanded: () => {},
+  expanded: false,
+  onToggle: () => {},
 };
 
 export default class Demo extends React.PureComponent {

@@ -41,8 +41,8 @@ Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
 column | [Column](#column-extension) | The column associated with the group.
-isExpanded | boolean | Specifies if the row is expanded.
-toggleGroupExpanded | () => void | Toggles the group row's expanded state.
+expanded | boolean | Specifies if the row is expanded.
+onToggle | () => void | An event that initiates toggle the group row's expanded state.
 
 ### TableGroupRowProps
 

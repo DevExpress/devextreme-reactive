@@ -33,12 +33,12 @@ const TableGroupCellBase = ({
   colSpan,
   row,
   column,
-  isExpanded,
-  toggleGroupExpanded,
+  expanded,
+  onToggle,
   classes,
   children,
 }) => {
-  const handleClick = () => toggleGroupExpanded();
+  const handleClick = () => onToggle();
 
   return (
     <TableCell
@@ -51,7 +51,7 @@ const TableGroupCellBase = ({
         className={classes.groupButton}
       >
         {
-          isExpanded
+          expanded
             ? <ExpandMore />
             : <ChevronRight />
         }
@@ -69,8 +69,8 @@ TableGroupCellBase.propTypes = {
   colSpan: PropTypes.number,
   row: PropTypes.object,
   column: PropTypes.object,
-  isExpanded: PropTypes.bool,
-  toggleGroupExpanded: PropTypes.func,
+  expanded: PropTypes.bool,
+  onToggle: PropTypes.func,
   classes: PropTypes.object.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.node,
@@ -83,8 +83,8 @@ TableGroupCellBase.defaultProps = {
   colSpan: 1,
   row: {},
   column: {},
-  isExpanded: false,
-  toggleGroupExpanded: () => {},
+  expanded: false,
+  onToggle: () => {},
   children: undefined,
 };
 

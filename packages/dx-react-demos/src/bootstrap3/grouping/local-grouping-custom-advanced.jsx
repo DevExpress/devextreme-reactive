@@ -16,7 +16,7 @@ import {
 } from '../../demo-data/generator';
 
 const GroupCellTemplate = ({
-  style, colSpan, row, isExpanded, toggleGroupExpanded,
+  style, colSpan, row, expanded, onToggle,
 }) => (
   <td
     colSpan={colSpan}
@@ -24,9 +24,9 @@ const GroupCellTemplate = ({
       cursor: 'pointer',
       ...style,
     }}
-    onClick={toggleGroupExpanded}
+    onClick={onToggle}
   >
-    { isExpanded ? '- ' : '+ ' }
+    { expanded ? '- ' : '+ ' }
     <strong>Names from {row.value.from} to {row.value.to}</strong>
   </td>
 );
@@ -35,16 +35,16 @@ GroupCellTemplate.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.object,
-  isExpanded: PropTypes.bool,
-  toggleGroupExpanded: PropTypes.func,
+  expanded: PropTypes.bool,
+  onToggle: PropTypes.func,
 };
 
 GroupCellTemplate.defaultProps = {
   style: null,
   colSpan: 1,
   row: {},
-  isExpanded: false,
-  toggleGroupExpanded: () => {},
+  expanded: false,
+  onToggle: () => {},
 };
 
 export default class Demo extends React.PureComponent {

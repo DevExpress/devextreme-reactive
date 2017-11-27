@@ -13,35 +13,35 @@ describe('ResizingControl', () => {
     resetConsole();
   });
 
-  it('should trigger onColumnWidthChange with correct change on resize end', () => {
-    const onColumnWidthChange = jest.fn();
+  it('should trigger onColumnResize with correct change on resize end', () => {
+    const onColumnResize = jest.fn();
     const tree = mount((
       <ResizingControl
-        onDraftColumnWidthChange={() => {}}
-        onColumnWidthChange={onColumnWidthChange}
+        onDraftColumnResize={() => {}}
+        onColumnResize={onColumnResize}
       />
     ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
 
     tree.find(Draggable).prop('onEnd')({ x: 10 });
-    expect(onColumnWidthChange)
+    expect(onColumnResize)
       .toBeCalledWith({ shift: 10 });
   });
 
-  it('should trigger onDraftColumnWidthChange with correct change on resize update', () => {
-    const onDraftColumnWidthChange = jest.fn();
+  it('should trigger onDraftColumnResize with correct change on resize update', () => {
+    const onDraftColumnResize = jest.fn();
     const tree = mount((
       <ResizingControl
-        onDraftColumnWidthChange={onDraftColumnWidthChange}
-        onColumnWidthChange={() => {}}
+        onDraftColumnResize={onDraftColumnResize}
+        onColumnResize={() => {}}
       />
     ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
 
     tree.find(Draggable).prop('onUpdate')({ x: 10 });
-    expect(onDraftColumnWidthChange)
+    expect(onDraftColumnResize)
       .toBeCalledWith({ shift: 10 });
   });
 });

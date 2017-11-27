@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 columnWidths | { [columnName: string]: number } | | Specifies column widths.
 defaultColumnWidths | { [columnName: string]: number } | {} | Specifies initial column widths in the uncontrolled mode.
-onColumnWidthChange | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles changes to column widths.
+onColumnWidthsChange | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles changes to column widths.
 
 ## Plugin Developer Reference
 

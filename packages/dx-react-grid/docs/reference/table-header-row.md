@@ -47,13 +47,13 @@ Field | Type | Description
 column | [Column](#column-extension) | A column object.
 allowSorting | boolean | If true, an end-user can change sorting by a column.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the column's sorting order.
-onSortingDirectionChange | ({ keepOther: boolean, cancel: boolean }) | An event that initiates changing column sorting direction. Keeps the existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
+onSort | ({ keepOther: boolean, cancel: boolean }) | An event that initiates changing column sorting direction. Keeps the existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 allowGroupingByClick | boolean | If true, a component that toggles a column's grouping state is rendered.
-onGroupByColumn | () => void | An event that initiates grouping by the column.
+onGroup | () => void | An event that initiates grouping by the column.
 allowDragging | boolean | If true, an end-user can start dragging a column by the header cell.
 dragPayload | any | A data object that identifies the corresponding column in the drag-and-drop context.
-onColumnWidthChange | ({ shift: number }) => void | An event that initiates changing the column width. A shift is added to the original column width value.
-onDraftColumnWidthChange | ({ shift: number }) => void | An event that initiates changing the draft column's width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
+onColumnResize | ({ shift: number }) => void | An event that initiates changing the column width. A shift is added to the original column width value.
+onDraftColumnResize | ({ shift: number }) => void | An event that initiates changing the draft column's width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in sorting controls within the sorting table header cell.
 
 ## Localization Messages

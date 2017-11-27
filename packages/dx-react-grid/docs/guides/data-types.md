@@ -20,7 +20,7 @@ const rows = [
 ];
 const columns = [
   { name: 'product', title: 'Product' },
-  { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
+  { name: 'price', title: 'Sale Price', dataType: 'currency' },
 ];
 <Grid
   rows={rows}

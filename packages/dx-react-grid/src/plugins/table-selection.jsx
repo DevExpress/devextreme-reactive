@@ -18,7 +18,7 @@ const getSelectTableCellTemplateArgs = (
 ) => ({
   ...params,
   row: params.tableRow.row,
-  selected: selection.indexOf(params.tableRow.rowId) > -1,
+  selected: selection.has(params.tableRow.rowId),
   changeSelected: () => toggleSelection({ rowIds: [params.tableRow.rowId] }),
 });
 
@@ -43,7 +43,7 @@ const getSelectTableRowTemplateArgs = (
   return ({
     ...restParams,
     selectByRowClick,
-    selected: highlightSelected && selection.indexOf(rowId) > -1,
+    selected: highlightSelected && selection.has(rowId),
     changeSelected: () => toggleSelection({ rowIds: [rowId] }),
   });
 };

@@ -36,7 +36,7 @@ export class SelectionState extends React.PureComponent {
           }}
         />
 
-        <Getter name="selection" value={selection} />
+        <Getter name="selection" value={new Set(selection)} />
       </PluginContainer>
     );
   }

@@ -45,7 +45,7 @@ describe('SelectionState', () => {
     ));
 
     expect(getComputedState(tree).getters.selection)
-      .toBe(defaultSelection);
+      .toEqual(new Set(defaultSelection));
   });
 
   it('should provide selection defined in selection', () => {
@@ -61,7 +61,7 @@ describe('SelectionState', () => {
     ));
 
     expect(getComputedState(tree).getters.selection)
-      .toBe(selection);
+      .toEqual(new Set(selection));
   });
 
   it('should call setRowsSelection in action', () => {

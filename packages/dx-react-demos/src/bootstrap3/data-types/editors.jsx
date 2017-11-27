@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   DataTypeProvider,
   EditingState,
@@ -18,23 +19,28 @@ import {
 
 const getRowId = row => row.id;
 
-const BooleanTypeProvider = () => (
-  <DataTypeProvider
-    type="boolean"
-    formatterTemplate={({ value }) =>
-      <span className="label label-default">{value ? 'Yes' : 'No'}</span>}
-    editorTemplate={({ value, onValueChange }) => (
-      <select
-        className="form-control"
-        value={value}
-        onChange={e => onValueChange(e.target.value === 'true')}
-      >
-        <option value={false}>No</option>
-        <option value>Yes</option>
-      </select>
-    )}
-  />
+const BooleanFormatter = ({ value }) =>
+  <span className="label label-default">{value ? 'Yes' : 'No'}</span>;
+
+BooleanFormatter.propTypes = {
+  value: PropTypes.bool.isRequired,
+};
+
+const BooleanEditor = ({ value, onValueChange }) => (
+  <select
+    className="form-control"
+    value={value}
+    onChange={e => onValueChange(e.target.value === 'true')}
+  >
+    <option value={false}>No</option>
+    <option value>Yes</option>
+  </select>
 );
+
+BooleanEditor.propTypes = {
+  value: PropTypes.bool.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -84,7 +90,11 @@ export default class Demo extends React.PureComponent {
         columns={columns}
         getRowId={getRowId}
       >
-        <BooleanTypeProvider />
+        <DataTypeProvider
+          type="boolean"
+          formatterComponent={BooleanFormatter}
+          editorComponent={BooleanEditor}
+        />
         <EditingState
           onCommitChanges={this.commitChanges}
           defaultEditingRows={[0]}

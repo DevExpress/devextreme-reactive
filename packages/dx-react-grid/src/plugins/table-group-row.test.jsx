@@ -10,7 +10,6 @@ import {
   isGroupIndentTableCell,
   isGroupTableRow,
 } from '@devexpress/dx-grid-core';
-import { DataTypeProvider } from './data-type-provider';
 import { TableGroupRow } from './table-group-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -302,41 +301,25 @@ describe('TableGroupRow', () => {
 
   it('can render custom formatted data in group row cell', () => {
     isGroupTableCell.mockImplementation(() => true);
-    const groupCellTemplate = jest.fn(() => null);
-    const valueFormatter = jest.fn(() => <span />);
-    const deps = {
-      template: {
-        tableCell: {
-          tableRow: {
-            type: 'undefined', id: 1, value: 'row', row: { key: '1' },
-          },
-          tableColumn: { type: 'undefined', id: 1, column: { name: 'column', dataType: 'column' } },
-          style: {},
-        },
-      },
-    };
 
-    mount((
+    const tree = mount((
       <PluginHost>
-        <DataTypeProvider
-          type="column"
-          formatterTemplate={valueFormatter}
-        />
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <TableGroupRow
           {...defaultProps}
-          groupCellTemplate={groupCellTemplate}
         />
       </PluginHost>
     ));
 
-    expect(valueFormatter)
-      .toHaveBeenCalledWith({
-        column: deps.template.tableCell.tableColumn.column,
-        value: deps.template.tableCell.tableRow.row.value,
+    const valueFormatterTemplatePlaceholder = tree
+      .find('TemplatePlaceholder')
+      .findWhere(node => node.prop('name') === 'valueFormatter');
+
+    expect(valueFormatterTemplatePlaceholder.prop('params'))
+      .toMatchObject({
+        column: defaultDeps.template.tableCell.tableColumn.column,
+        value: defaultDeps.template.tableCell.tableRow.row.value,
       });
-    expect(groupCellTemplate.mock.calls[0][0])
-      .toHaveProperty('children');
   });
 
   it('should render row by using groupRowTemplate', () => {

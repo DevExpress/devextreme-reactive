@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   DataTypeProvider,
   EditingState,
@@ -23,22 +24,29 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const BooleanTypeProvider = () => (
-  <DataTypeProvider
-    type="boolean"
-    formatterTemplate={({ value }) => <Chip label={value ? 'Yes' : 'No'} />}
-    editorTemplate={({ value, onValueChange }) => (
-      <Select
-        input={<Input />}
-        value={value ? 'Yes' : 'No'}
-        onChange={event => onValueChange(event.target.value === 'Yes')}
-      >
-        <MenuItem value="Yes">Yes</MenuItem>
-        <MenuItem value="No">No</MenuItem>
-      </Select>
-    )}
-  />
+const BooleanFormatter = ({ value }) =>
+  <Chip label={value ? 'Yes' : 'No'} />;
+
+BooleanFormatter.propTypes = {
+  value: PropTypes.bool.isRequired,
+};
+
+const BooleanEditor = ({ value, onValueChange }) => (
+  <Select
+    input={<Input />}
+    value={value ? 'Yes' : 'No'}
+    onChange={event => onValueChange(event.target.value === 'Yes')}
+    style={{ width: '100%' }}
+  >
+    <MenuItem value="Yes">Yes</MenuItem>
+    <MenuItem value="No">No</MenuItem>
+  </Select>
 );
+
+BooleanEditor.propTypes = {
+  value: PropTypes.bool.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -89,7 +97,11 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={row => row.id}
         >
-          <BooleanTypeProvider />
+          <DataTypeProvider
+            type="boolean"
+            formatterComponent={BooleanFormatter}
+            editorComponent={BooleanEditor}
+          />
           <EditingState
             onCommitChanges={this.commitChanges}
             defaultEditingRows={[0]}

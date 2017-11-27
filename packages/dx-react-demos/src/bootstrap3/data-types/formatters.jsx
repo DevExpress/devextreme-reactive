@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
@@ -13,21 +14,19 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const CurrencyTypeProvider = () => (
-  <DataTypeProvider
-    type="currency"
-    formatterTemplate={({ value }) => (
-      <b className="text-primary">${value}</b>
-    )}
-  />
-);
-const DateTypeProvider = () => (
-  <DataTypeProvider
-    type="date"
-    formatterTemplate={({ value }) =>
-      value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3.$2.$1')}
-  />
-);
+const CurrencyFormatter = ({ value }) =>
+  <b className="text-primary">${value}</b>;
+
+CurrencyFormatter.propTypes = {
+  value: PropTypes.number.isRequired,
+};
+
+const DateFormatter = ({ value }) =>
+  value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3.$2.$1');
+
+DateFormatter.propTypes = {
+  value: PropTypes.string.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -53,8 +52,14 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <CurrencyTypeProvider />
-        <DateTypeProvider />
+        <DataTypeProvider
+          type="currency"
+          formatterComponent={CurrencyFormatter}
+        />
+        <DataTypeProvider
+          type="date"
+          formatterComponent={DateFormatter}
+        />
         <Table />
         <TableHeaderRow />
       </Grid>

@@ -9,7 +9,6 @@ import {
   isFilterTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { DataTypeProvider } from './data-type-provider';
 import { TableFilterRow } from './table-filter-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -115,43 +114,26 @@ describe('TableFilterRow', () => {
   it('can render custom editor', () => {
     isFilterTableCell.mockImplementation(() => true);
     getColumnFilterConfig.mockImplementation(() => defaultDeps.getter.filters[0]);
-    const filterCellTemplate = jest.fn(() => null);
-    const valueEditor = jest.fn(() => <span />);
-    const deps = {
-      getter: {
-        filters: [{ columnName: 'a', value: 'b' }],
-      },
-      template: {
-        tableCell: {
-          tableRow: { type: 'undefined', rowId: 1, row: 'row' },
-          tableColumn: { type: 'undefined', column: { name: 'column', dataType: 'column' } },
-          style: {},
-        },
-      },
-    };
 
-    mount((
+    const tree = mount((
       <PluginHost>
-        <DataTypeProvider
-          type="column"
-          editorTemplate={valueEditor}
-        />
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
-          filterCellTemplate={filterCellTemplate}
         />
       </PluginHost>
     ));
 
-    expect(valueEditor)
-      .toHaveBeenCalledWith({
-        column: deps.template.tableCell.tableColumn.column,
-        value: deps.getter.filters[0].value,
+    const valueEditorTemplatePlaceholder = tree
+      .find('TemplatePlaceholder')
+      .findWhere(node => node.prop('name') === 'valueEditor');
+
+    expect(valueEditorTemplatePlaceholder.prop('params'))
+      .toMatchObject({
+        column: defaultDeps.template.tableCell.tableColumn.column,
+        value: defaultDeps.getter.filters[0].value,
         onValueChange: expect.any(Function),
       });
-    expect(filterCellTemplate.mock.calls[0][0])
-      .toHaveProperty('children');
   });
 
   it('should render row by using filterRowTemplate', () => {

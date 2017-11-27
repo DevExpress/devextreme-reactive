@@ -13,8 +13,8 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 type | string | | Specifies the data type to which the templates are applied.
-formatterTemplate | (args: [ValueFormatterArgs](#value-formatter-args)) => ReactElement | | Specifies the formatted value template.
-editorTemplate | (args: [ValueEditorArgs](#value-editor-args)) => ReactElement | | Specifies the editor template.
+formatterComponent | ElementType&lt;[ValueFormatterProps](#valueformatterprops)&gt; | | A component that renders the formatted value.
+editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops) | | A component that renders a custom editor.
 
 ## Interfaces
 
@@ -26,9 +26,9 @@ Field | Type | Description
 ------|------|------------
 dataType | string | Specifies the column's data type.
 
-### <a name="value-formatter-args"></a>ValueFormatterArgs
+### ValueFormatterProps
 
-Describes properties passed to the formatter template.
+Describes the value formatter component properties.
 
 A value with the following shape:
 
@@ -38,9 +38,9 @@ column | [Column](#column) | A column object.
 row? | any | A row.
 value | any | Specifies the value to be formatted.
 
-### <a name="value-editor-args"></a>ValueEditorArgs
+### ValueEditorProps
 
-Describes properties passed to the editor template.
+Describes the editor component properties.
 
 A value with the following shape:
 

@@ -72,7 +72,7 @@ Table.Cell = TableCell;
 Table.Row = TableRow;
 Table.NoDataCell = TableNoDataCell;
 Table.NoDataRow = TableRow;
-Table.StubCellTemplate = TableStubCell;
+Table.StubCell = TableStubCell;
 Table.StubHeaderCell = TableStubCell;
 
 Table.propTypes = {

@@ -38,6 +38,5 @@ export const setRowsSelection = (selection, { rowIds, selected }) => {
     ];
   }
 
-  const result = selection.filter(rowId => !rowIdsSet.has(rowId));
-  return result;
+  return selection.filter(rowId => !rowIdsSet.has(rowId));
 };

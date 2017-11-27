@@ -30,7 +30,7 @@ export class TemplateConnector extends React.Component {
     pluginHost.unregisterSubscription(this.subscription);
   }
   prepareForRendering(props) {
-    const { children } = props || this.props;
+    const children = props ? props.children : this.props.children;
     const { pluginHost } = this.context;
 
     const { getters, trackedDependencies } = getAvailableGetters(pluginHost);
@@ -52,7 +52,6 @@ export class TemplateConnector extends React.Component {
   }
 }
 TemplateConnector.propTypes = {
-  // eslint-disable-next-line react/no-unused-prop-types
   children: PropTypes.func.isRequired,
 };
 

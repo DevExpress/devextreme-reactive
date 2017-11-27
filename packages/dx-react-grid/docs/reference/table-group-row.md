@@ -14,10 +14,10 @@ A plugin that renders group rows. Enables expanding and collapsing them.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getGroupCellComponent | (columnName: string) => ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A function returning a component that renders a group cell for specific column.
-groupRowComponent | ElementType&lt;[TableGroupRowProps](#tablegrouprowprops)&gt; | | A component that renders a group row.
-groupIndentCellComponent | ElementType&lt;[TableGroupIndentCellProps](#tablegroupindentcellprops)&gt; | null | A component that renders a group indent cell.
-groupIndentColumnWidth | number | | The group indent column's width.
+getCellComponent | (columnName: string) => ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A function returning a component that renders a group cell for specific column.
+rowComponent | ElementType&lt;[TableGroupRowProps](#tablegrouprowprops)&gt; | | A component that renders a group row.
+indentCellComponent | ElementType&lt;[TableGroupIndentCellProps](#tablegroupindentcellprops)&gt; | null | A component that renders a group indent cell.
+indentColumnWidth | number | | The group indent column's width.
 showColumnWhenGrouped | (args: columnName) => boolean | null | A custom function that returns a boolean value specifying if the grid displays the column by which data is grouped.
 
 ## Interfaces

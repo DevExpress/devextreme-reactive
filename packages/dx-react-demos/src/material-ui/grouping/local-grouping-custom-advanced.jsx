@@ -104,7 +104,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableGroupRow
-            getGroupCellComponent={this.getGroupCellComponent}
+            getCellComponent={this.getGroupCellComponent}
           />
         </Grid>
       </Paper>

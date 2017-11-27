@@ -63,10 +63,10 @@ const createShowWhenGrouped = (columns) => {
 export class TableGroupRow extends React.PureComponent {
   render() {
     const {
-      getGroupCellComponent,
-      groupRowComponent: GroupRow,
-      groupIndentCellComponent: GroupIndentCell,
-      groupIndentColumnWidth,
+      getCellComponent,
+      rowComponent: GroupRow,
+      indentCellComponent: GroupIndentCell,
+      indentColumnWidth,
       showColumnWhenGrouped,
     } = this.props;
 
@@ -77,7 +77,7 @@ export class TableGroupRow extends React.PureComponent {
         tableColumns,
         grouping,
         draftGrouping,
-        groupIndentColumnWidth,
+        indentColumnWidth,
         showColumnWhenGrouped || createShowWhenGrouped(columns),
       );
 
@@ -96,7 +96,7 @@ export class TableGroupRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters, actions) => {
-                const GroupCell = getGroupCellComponent(params.tableColumn.column.name);
+                const GroupCell = getCellComponent(params.tableColumn.column.name);
                 const templateArgs = getGroupTableCellProps(params, getters, actions);
                 return (
                   <TemplatePlaceholder
@@ -136,14 +136,14 @@ export class TableGroupRow extends React.PureComponent {
 }
 
 TableGroupRow.propTypes = {
-  getGroupCellComponent: PropTypes.func.isRequired,
-  groupRowComponent: PropTypes.func.isRequired,
-  groupIndentCellComponent: PropTypes.func,
-  groupIndentColumnWidth: PropTypes.number.isRequired,
+  getCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  indentCellComponent: PropTypes.func,
+  indentColumnWidth: PropTypes.number.isRequired,
   showColumnWhenGrouped: PropTypes.func,
 };
 
 TableGroupRow.defaultProps = {
-  groupIndentCellComponent: null,
+  indentCellComponent: null,
   showColumnWhenGrouped: undefined,
 };

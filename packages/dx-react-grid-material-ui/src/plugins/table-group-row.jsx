@@ -5,20 +5,20 @@ import { TableGroupRow as TableGroupRowBase } from '@devexpress/dx-react-grid';
 import { TableGroupCell } from '../templates/table-group-row-cell';
 import { TableRow } from '../templates/table-row';
 
-const defaultGetGroupCellTemplate = () => TableGroupCell;
+const defaultGetCellComponent = () => TableGroupCell;
 
 export class TableGroupRow extends React.PureComponent {
   render() {
-    const { getGroupCellComponent, ...restProps } = this.props;
+    const { getCellComponent, ...restProps } = this.props;
 
     return (
       <TableGroupRowBase
-        getGroupCellComponent={combineTemplates(
-          getGroupCellComponent,
-          defaultGetGroupCellTemplate,
+        getCellComponent={combineTemplates(
+          getCellComponent,
+          defaultGetCellComponent,
         )}
-        groupRowComponent={TableRow}
-        groupIndentColumnWidth={48}
+        rowComponent={TableRow}
+        indentColumnWidth={48}
         {...restProps}
       />
     );
@@ -26,10 +26,10 @@ export class TableGroupRow extends React.PureComponent {
 }
 
 TableGroupRow.propTypes = {
-  getGroupCellComponent: PropTypes.func,
+  getCellComponent: PropTypes.func,
 };
 
 TableGroupRow.defaultProps = {
-  getGroupCellComponent: undefined,
+  getCellComponent: undefined,
 };
 

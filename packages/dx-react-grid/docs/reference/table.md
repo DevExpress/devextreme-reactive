@@ -1,6 +1,6 @@
 # Table Plugin Reference
 
-This plugin renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
+A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
 
 ## User Reference
 
@@ -14,12 +14,12 @@ This plugin renders Grid data as a table. It contains the Table Row and Table Ce
 Name | Type | Default | Description
 -----|------|---------|------------
 layoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | A component that renders a table layout.
-getCellComponent | (columnName: string) => ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A function returning a component that renders a table cell for specific column.
+getCellComponent | (columnName: string) => ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A function returning a component that renders a table cell for a specific column.
 rowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ElementType&lt;[TableNoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
 noDataRowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
 stubCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
-headerStubCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
+stubHeaderCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
@@ -35,25 +35,25 @@ width? | number | Specifies the table column width in pixels.
 
 ### TableLayoutProps
 
-Describes properties passed to a component  that renders a table layout.
+Describes properties passed to a component that renders a table layout.
 
 Field | Type | Description
 ------|------|------------
-headerRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies rows rendered in the table header.
-bodyRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies rows rendered in the table body.
-columns | Array&lt;[TableColumn](#tablecolumn)&gt; | Specifies the rendered table columns.
-rowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | The component used to render table rows.
-cellComponent | ElementType&lt;[TableCellArgs](#tablecellprops)&gt; | The component used to render table cells.
+headerRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies the table header rows.
+bodyRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies the table body rows.
+columns | Array&lt;[TableColumn](#tablecolumn)&gt; | Specifies the table columns.
+rowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | A component that renders table rows.
+cellComponent | ElementType&lt;[TableCellArgs](#tablecellprops)&gt; | A component that renders table cells.
 
 ### TableRow
 
-Describes properties of a table row the Table plugin renders.
+Describes properties of a table row that the Table plugin renders.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A table row's unique identifier.
+key | string | A unique table row identifier.
 type | string | Specifies the table row type. The specified value defines which cell template is used to render the row.
 rowId? | number &#124; string | Specifies the associated row's ID.
 row? | any | Specifies the associated row.
@@ -61,13 +61,13 @@ height? | number | Specifies the table row height.
 
 ### TableColumn
 
-Describes properties of a table column the Table plugin renders.
+Describes properties of a table column that the Table plugin renders.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A table column's unique identifier.
+key | string | A unique table column identifier.
 type | string | Specifies the table column type. The specified value defines which cell template is used to render the column.
 column? | [Column](#column-extension) | Specifies the associated user column.
 width? | number | Specifies the table column width.
@@ -83,7 +83,7 @@ Field | Type | Description
 tableRow | [TableRow](#tablerow) | Specifies a table row.
 tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
 style? | Object | Styles that should be applied to the root cell element.
-colSpan? | number | The column count that the root cell element spans.
+colSpan? | number | The count of columns that the root cell element spans.
 
 ### TableDataCellProps
 

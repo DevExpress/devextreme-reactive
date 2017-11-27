@@ -11,12 +11,12 @@ Name | Type | Default | Description
 columns | Array&lt;[Column](grid.md#column)&gt; | | Specifies for which row object fields columns are created.
 hiddenColumns | Array&lt;string&gt; | [] | An array containing hidden columns' names.
 onHiddenColumnsChange | (nextHiddenColumns: Array&lt;string&gt;) => void | | Handles column visibility changes.
-containerTemplate | (args: [ColumnChooserContainerArgs](#column-chooser-container-args)) => ReactElement | | A template that renders the column chooser container.
-itemTemplate | (args: [ColumnChooserItemArgs](#column-chooser-item-args)) => ReactElement | | A template that renders column chooser items.
+containerComponent | ElementType&lt;[ColumnChooserContainerProps](#columnchoosercontainerprops)&gt; | | A component that renders the column chooser container.
+itemComponent | ElementType&lt;[ColumnChooserItemProps](#columnchooseritemprops)&gt; | | A component that renders column chooser items.
 
 ## Interfaces
 
-### <a name="column-chooser-container-args"></a>ColumnChooserContainerArgs
+### ColumnChooserContainerProps
 
 Describes properties passed to the container template when it is being rendered.
 
@@ -24,10 +24,10 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-items | Array&lt;[ColumnChooserItem](#column-chooser-item)&gt; | An array of column chooser items.
-onItemToggle | (item: [ColumnChooserItem](#column-chooser-item)) => void | Handles item visibility changes.
+items | Array&lt;[ColumnChooserItem](#columnchooseritem)&gt; | An array of column chooser items.
+onItemToggle | (item: [ColumnChooserItem](#columnchooseritem)) => void | Handles item visibility changes.
 
-### <a name="column-chooser-item-args"></a>ColumnChooserItemArgs
+### ColumnChooserItemProps
 
 Describes properties passed to the item template when it is being rendered.
 
@@ -35,10 +35,10 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-item | [ColumnChooserItem](#column-chooser-item) | Specifies the column chooser item.
+item | [ColumnChooserItem](#columnchooseritem) | Specifies the column chooser item.
 onToggle | () => void | Handles the item click event.
 
-### <a name="column-chooser-item"></a>ColumnChooserItem
+### ColumnChooserItem
 
 An object representing a column chooser item.
 

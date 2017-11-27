@@ -78,8 +78,13 @@ export default class Demo extends React.PureComponent {
       }
       return undefined;
     };
+    this.getGroupCellComponent = (columnName) => {
+      if (columnName === 'name') {
+        return GroupCellTemplate;
+      }
+      return undefined;
+    };
   }
-
   render() {
     const { rows, columns, grouping } = this.state;
 
@@ -99,13 +104,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableGroupRow
-            groupCellTemplate={(props) => {
-              const { column } = props;
-              if (column.name === 'name') {
-                return <GroupCellTemplate {...props} />;
-              }
-              return undefined;
-            }}
+            getGroupCellComponent={this.getGroupCellComponent}
           />
         </Grid>
       </Paper>

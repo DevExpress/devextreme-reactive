@@ -14,15 +14,15 @@ A plugin that renders group rows. Enables expanding and collapsing them.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-groupCellTemplate | (args: [GroupCellArgs](#group-cell-args)) => ReactElement | | A component that renders a group row.
-groupIndentCellTemplate | (args: [GroupIndentCellArgs](#group-indent-cell-args)) => ReactElement | null | A component that renders a group indent cell.
-groupRowTemplate | (args: [GroupRowArgs](#group-row-args)) => ReactElement | | A component that renders a group row.
+getGroupCellComponent | (columnName: string) => ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A function returning a component that renders a group cell for specific column.
+groupRowComponent | ElementType&lt;[TableGroupRowProps](#tablegrouprowprops)&gt; | | A component that renders a group row.
+groupIndentCellComponent | ElementType&lt;[TableGroupIndentCellProps](#tablegroupindentcellprops)&gt; | null | A component that renders a group indent cell.
 groupIndentColumnWidth | number | | The group indent column's width.
 showColumnWhenGrouped | (args: columnName) => boolean | null | A custom function that returns a boolean value specifying if the grid displays the column by which data is grouped.
 
 ## Interfaces
 
-### <a name="column"></a>Column (Extension)
+### Column (Extension)
 
 A value with the [Column](grid.md#column) shape extended by the following fields:
 
@@ -31,41 +31,41 @@ Field | Type | Description
 showWhenGrouped? | boolean | Specifies if the grid displays the column by which data is grouped.
 title? | string | Specifies a table column title.
 
-### <a name="group-cell-args"></a>GroupCellArgs
+### TableGroupCellProps
 
-Describes the properties passed to the template that renders a group row.
+Describes the properties passed to a component that renders a group cell.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row.
-column | [Column](#column) | The column associated with the group.
+row | [GroupRow](#grouprow) | The group row.
+column | [Column](#column-extension) | The column associated with the group.
 isExpanded | boolean | Specifies if the row is expanded.
 toggleGroupExpanded | () => void | Toggles the group row's expanded state.
 
-### <a name="group-row-args"></a>GroupRowArgs
+### TableGroupRowProps
 
-Describes the properties passed to the template that renders a group row.
+Describes the properties passed to a component that renders a group row.
 
 A value with the [TableRowArgs](table.md#table-row-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row.
+row | [GroupRow](#grouprow) | The group row.
 
-### <a name="group-indent-cell-args"></a>GroupIndentCellArgs
+### TableGroupIndentCellProps
 
-Describes properties passed to the template that renders a group indent cell.
+Describes properties passed to a component that renders a group indent cell.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-row | [GroupRow](#group-row) | The group row.
-column | [Column](#column) | The column associated with the group.
+row | [GroupRow](#grouprow) | The group row.
+column | [Column](#column-extension) | The column associated with the group.
 
-### <a name="group-row"></a>GroupRow
+### GroupRow
 
 Describes the group row structure.
 

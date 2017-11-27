@@ -77,7 +77,7 @@ You can also assign a function that returns a Boolean value depending on the `co
   </Grid>
 ```
 
-Note that if the `getColumnIdentity` function returns an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `groupCellTemplate` property as demonstrated in the following example:
+Note that if the `getColumnIdentity` function returns an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `getGroupCellComponent` property as demonstrated in the following example:
 
 .embedded-demo(grouping/local-grouping-custom-advanced)
 

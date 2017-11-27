@@ -63,7 +63,6 @@ export default class Demo extends React.PureComponent {
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });
-
     this.getColumnIdentity = (columnName) => {
       if (columnName === 'name') {
         return (value) => {
@@ -73,6 +72,12 @@ export default class Demo extends React.PureComponent {
             key: firstLetter < 'n' ? 'A-M' : 'N-Z',
           };
         };
+      }
+      return undefined;
+    };
+    this.getGroupCellComponent = (columnName) => {
+      if (columnName === 'name') {
+        return GroupCellTemplate;
       }
       return undefined;
     };
@@ -95,13 +100,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableGroupRow
-          groupCellTemplate={(props) => {
-            const { column } = props;
-            if (column.name === 'name') {
-              return <GroupCellTemplate {...props} />;
-            }
-            return undefined;
-          }}
+          getGroupCellComponent={this.getGroupCellComponent}
         />
       </Grid>
     );

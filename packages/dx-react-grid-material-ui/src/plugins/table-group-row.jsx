@@ -29,6 +29,9 @@ export class TableGroupRow extends React.PureComponent {
   }
 }
 
+TableGroupRow.Row = TableRow;
+TableGroupRow.Cell = TableGroupCell;
+
 TableGroupRow.propTypes = {
   groupRowTemplate: PropTypes.func,
   groupCellTemplate: PropTypes.func,

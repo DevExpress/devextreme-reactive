@@ -1,25 +1,15 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { shallow } from 'enzyme';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
   const mountTableCell = column =>
-    mount((
+    shallow((
       <TableCell
         column={column}
         value="text"
       />
     ));
-
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-
-  afterAll(() => {
-    resetConsole();
-  });
 
   it('should have correct text alignment', () => {
     let tree = mountTableCell({});
@@ -38,13 +28,22 @@ describe('TableCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableCell>
         <span className="test" />
       </TableCell>
     ));
 
     expect(tree.find('.test').exists())
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableCell className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
 });

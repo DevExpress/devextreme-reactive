@@ -48,7 +48,7 @@ The `Table` plugin allows you to customize table cell appearance using the `getC
 
 .embedded-demo(basic/table-cell-template)
 
-The `Table` plugin's `rowComponent` property enables you to handle row events like `onClick`, `onContextMenu` etc. as demonstrated in the following demo:
+The `Table` plugin's `rowComponent` property enables you to handle row events like `onClick`, `onContextMenu`, etc., as demonstrated in the following demo:
 
 .embedded-demo(basic/table-row-template)
 

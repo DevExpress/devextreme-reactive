@@ -11,23 +11,6 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
-const getFilterTableCellProps = (
-  params,
-  { filters },
-  { setColumnFilter },
-) => ({
-  ...params,
-  column: params.tableColumn.column,
-  filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
-  onFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
-});
-
-const getValueEditorProps = params => ({
-  column: params.column,
-  value: params.filter ? params.filter.value : null,
-  onValueChange: newValue => params.onFilter(newValue ? { value: newValue } : null),
-});
-
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
   { pluginName: 'Table' },
@@ -60,20 +43,28 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => {
-                const FilterCell = getCellComponent(params.tableColumn.column.name);
-                const templateArgs = getFilterTableCellProps(
-                  { getMessage, ...params },
-                  getters,
-                  actions,
-                );
+              {({ filters }, { setColumnFilter }) => {
+                const { name: columnName } = params.tableColumn.column;
+                const FilterCell = getCellComponent(columnName);
+                const filter = getColumnFilterConfig(filters, columnName);
+                const onFilter = config => setColumnFilter({ columnName, config });
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
-                    params={getValueEditorProps(templateArgs)}
+                    params={{
+                      column: params.tableColumn.column,
+                      value: filter ? filter.value : null,
+                      onValueChange: newValue => onFilter(newValue ? { value: newValue } : null),
+                    }}
                   >
                     {content => (
-                      <FilterCell {...templateArgs}>
+                      <FilterCell
+                        {...params}
+                        getMessage={getMessage}
+                        column={params.tableColumn.column}
+                        filter={filter}
+                        onFilter={onFilter}
+                      >
                         {content}
                       </FilterCell>
                     )}

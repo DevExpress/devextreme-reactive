@@ -81,7 +81,7 @@ Name | Properties | Description
 TableGroupRow.Row | [GroupRowArgs](#group-row-args) | A component that renders a group row.
 TableGroupRow.Cell | [GroupCellArgs](#group-cell-args) | A component that renders a group cell.
 
-All other component's properties will be spreaded to the root element of this component.
+If you specify additional properties, they are added to the component's root element.
 
 ## Plugin Developer Reference
 

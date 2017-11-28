@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 
 export const TableFilterCell = ({
   style, filter, setFilter, children,
+  tableRow, tableColumn, getMessage,
+  ...restProps
 }) => (
   <th
     style={{
       fontWeight: 'normal',
       ...style,
     }}
+    {...restProps}
   >
     {children || (
       <input
@@ -29,6 +32,9 @@ TableFilterCell.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
+  getMessage: PropTypes.func,
 };
 
 TableFilterCell.defaultProps = {
@@ -36,4 +42,7 @@ TableFilterCell.defaultProps = {
   filter: null,
   setFilter: () => {},
   children: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
+  getMessage: undefined,
 };

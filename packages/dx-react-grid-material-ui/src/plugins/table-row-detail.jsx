@@ -8,7 +8,7 @@ export class TableRowDetail extends React.PureComponent {
   render() {
     return (
       <TableRowDetailBase
-        detailCellComponent={TableDetailToggleCell}
+        toggleCellComponent={TableDetailToggleCell}
         cellComponent={TableDetailCell}
         rowComponent={TableRow}
         toggleColumnWidth={48}

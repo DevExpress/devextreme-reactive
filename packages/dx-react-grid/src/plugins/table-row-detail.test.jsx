@@ -44,7 +44,7 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  detailCellComponent: () => null,
+  toggleCellComponent: () => null,
   cellComponent: ({ children }) => children,
   rowComponent: () => null,
   contentComponent: () => null,
@@ -124,7 +124,7 @@ describe('TableRowDetail', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(tree.find(defaultProps.detailCellComponent).props())
+    expect(tree.find(defaultProps.toggleCellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,

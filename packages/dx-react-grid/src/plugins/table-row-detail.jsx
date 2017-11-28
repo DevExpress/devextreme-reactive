@@ -11,27 +11,6 @@ import {
   isDetailTableRow,
 } from '@devexpress/dx-grid-core';
 
-const getDetailToggleCellProps = (
-  params,
-  { expandedRows },
-  { setDetailRowExpanded },
-) => ({
-  ...params,
-  row: params.tableRow.row,
-  expanded: isDetailRowExpanded(expandedRows, params.tableRow.rowId),
-  onToggle: () => setDetailRowExpanded({ rowId: params.tableRow.rowId }),
-});
-
-const getDetailCellProps = ({ contentComponent, ...params }) => ({
-  ...params,
-  row: params.tableRow.row,
-});
-
-const getDetailRowProps = params => ({
-  ...params,
-  row: params.tableRow.row,
-});
-
 const pluginDependencies = [
   { pluginName: 'Table' },
 ];
@@ -40,10 +19,10 @@ export class TableRowDetail extends React.PureComponent {
   render() {
     const {
       rowHeight,
-      contentComponent: DetailContent,
-      detailCellComponent: DetailToggleCell,
-      cellComponent: DetailCell,
-      rowComponent: DetailRow,
+      contentComponent: Content,
+      toggleCellComponent: ToggleCell,
+      cellComponent: Cell,
+      rowComponent: Row,
       toggleColumnWidth,
     } = this.props;
 
@@ -65,8 +44,13 @@ export class TableRowDetail extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => (
-                <DetailToggleCell {...getDetailToggleCellProps(params, getters, actions)} />
+              {({ expandedRows }, { setDetailRowExpanded }) => (
+                <ToggleCell
+                  {...params}
+                  row={params.tableRow.row}
+                  expanded={isDetailRowExpanded(expandedRows, params.tableRow.rowId)}
+                  onToggle={() => setDetailRowExpanded({ rowId: params.tableRow.rowId })}
+                />
               )}
             </TemplateConnector>
           )}
@@ -76,18 +60,24 @@ export class TableRowDetail extends React.PureComponent {
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (
-            <DetailCell
-              {...getDetailCellProps(params)}
+            <Cell
+              {...params}
+              row={params.tableRow.row}
             >
-              <DetailContent row={params.tableRow.row} />
-            </DetailCell>
+              <Content row={params.tableRow.row} />
+            </Cell>
           )}
         </Template>
         <Template
           name="tableRow"
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
-          {params => <DetailRow {...getDetailRowProps(params)} />}
+          {params => (
+            <Row
+              {...params}
+              row={params.tableRow.row}
+            />
+          )}
         </Template>
       </PluginContainer>
     );
@@ -96,7 +86,7 @@ export class TableRowDetail extends React.PureComponent {
 
 TableRowDetail.propTypes = {
   contentComponent: PropTypes.func,
-  detailCellComponent: PropTypes.func.isRequired,
+  toggleCellComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   toggleColumnWidth: PropTypes.number.isRequired,

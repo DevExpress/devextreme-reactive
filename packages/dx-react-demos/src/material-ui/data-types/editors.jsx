@@ -48,6 +48,14 @@ BooleanEditor.propTypes = {
   onValueChange: PropTypes.func.isRequired,
 };
 
+const BooleanTypeProvider = () => (
+  <DataTypeProvider
+    type="boolean"
+    formatterComponent={BooleanFormatter}
+    editorComponent={BooleanEditor}
+  />
+);
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -97,11 +105,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={row => row.id}
         >
-          <DataTypeProvider
-            type="boolean"
-            formatterComponent={BooleanFormatter}
-            editorComponent={BooleanEditor}
-          />
+          <BooleanTypeProvider />
           <EditingState
             onCommitChanges={this.commitChanges}
             defaultEditingRows={[0]}

@@ -21,12 +21,26 @@ CurrencyFormatter.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
+const CurrencyTypeProvider = () => (
+  <DataTypeProvider
+    type="currency"
+    formatterComponent={CurrencyFormatter}
+  />
+);
+
 const DateFormatter = ({ value }) =>
   value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3.$2.$1');
 
 DateFormatter.propTypes = {
   value: PropTypes.string.isRequired,
 };
+
+const DateTypeProvider = () => (
+  <DataTypeProvider
+    type="date"
+    formatterComponent={DateFormatter}
+  />
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -52,14 +66,8 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <DataTypeProvider
-          type="currency"
-          formatterComponent={CurrencyFormatter}
-        />
-        <DataTypeProvider
-          type="date"
-          formatterComponent={DateFormatter}
-        />
+        <CurrencyTypeProvider />
+        <DateTypeProvider />
         <Table />
         <TableHeaderRow />
       </Grid>

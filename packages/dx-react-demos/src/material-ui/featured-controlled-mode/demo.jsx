@@ -56,7 +56,7 @@ const styles = theme => ({
   },
 });
 
-const AddCommandButton = ({ onExecute }) => (
+const AddButton = ({ onExecute }) => (
   <div style={{ textAlign: 'center' }}>
     <Button
       color="primary"
@@ -67,52 +67,52 @@ const AddCommandButton = ({ onExecute }) => (
     </Button>
   </div>
 );
-AddCommandButton.propTypes = {
+AddButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const EditCommandButton = ({ onExecute }) => (
+const EditButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Edit row">
     <EditIcon />
   </IconButton>
 );
-EditCommandButton.propTypes = {
+EditButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const DeleteCommandButton = ({ onExecute }) => (
+const DeleteButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Delete row">
     <DeleteIcon />
   </IconButton>
 );
-DeleteCommandButton.propTypes = {
+DeleteButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const CommitCommandButton = ({ onExecute }) => (
+const CommitButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Save changes">
     <SaveIcon />
   </IconButton>
 );
-CommitCommandButton.propTypes = {
+CommitButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const CancelCommandButton = ({ onExecute }) => (
+const CancelButton = ({ onExecute }) => (
   <IconButton color="accent" onClick={onExecute} title="Cancel changes">
     <CancelIcon />
   </IconButton>
 );
-CancelCommandButton.propTypes = {
+CancelButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
 const commandComponents = {
-  add: AddCommandButton,
-  edit: EditCommandButton,
-  delete: DeleteCommandButton,
-  commit: CommitCommandButton,
-  cancel: CancelCommandButton,
+  add: AddButton,
+  edit: EditButton,
+  delete: DeleteButton,
+  commit: CommitButton,
+  cancel: CancelButton,
 };
 
 const LookupEditCellBase = (({

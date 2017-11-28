@@ -56,70 +56,70 @@ CommandButton.defaultProps = {
   isDanger: false,
 };
 
-const AddCommandButton = ({ onExecute }) => (
-  <CommandButton
+const AddButton = ({ onExecute }) => (
+  <Button
     text="New"
     hint="Create new row"
     icon="plus"
     onExecute={onExecute}
   />
 );
-AddCommandButton.propTypes = {
+AddButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const EditCommandButton = ({ onExecute }) => (
-  <CommandButton
+const EditButton = ({ onExecute }) => (
+  <Button
     text="Edit"
     hint="Edit row"
     onExecute={onExecute}
   />
 );
-EditCommandButton.propTypes = {
+EditButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const DeleteCommandButton = ({ onExecute }) => (
-  <CommandButton
+const DeleteButton = ({ onExecute }) => (
+  <Button
     icon="trash"
     hint="Delete row"
     onExecute={onExecute}
     isDanger
   />
 );
-DeleteCommandButton.propTypes = {
+DeleteButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const CommitCommandButton = ({ onExecute }) => (
-  <CommandButton
+const CommitButton = ({ onExecute }) => (
+  <Button
     text="Save"
     hint="Save changes"
     onExecute={onExecute}
   />
 );
-CommitCommandButton.propTypes = {
+CommitButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const CancelCommandButton = ({ onExecute }) => (
-  <CommandButton
+const CancelButton = ({ onExecute }) => (
+  <Button
     icon="remove"
     hint="Cancel changes"
     onExecute={onExecute}
     isDanger
   />
 );
-CancelCommandButton.propTypes = {
+CancelButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
 const commandComponents = {
-  add: AddCommandButton,
-  edit: EditCommandButton,
-  delete: DeleteCommandButton,
-  commit: CommitCommandButton,
-  cancel: CancelCommandButton,
+  add: AddButton,
+  edit: EditButton,
+  delete: DeleteButton,
+  commit: CommitButton,
+  cancel: CancelButton,
 };
 
 export const LookupEditCell = ({

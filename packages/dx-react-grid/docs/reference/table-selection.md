@@ -17,13 +17,13 @@ highlightRow | boolean | false | If true, selected rows are highlighted. Note th
 selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `Table` plugin's `rowComponent` is ignored in this case.
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the header row.
 showSelectionColumn | boolean | true | If true, selection checkboxes are rendered inside each data row.
-cellComponent | ElementType&lt;[SelectCellProps](#selectcellprops)&gt; | | A component that renders a cell with data row selection checkbox.
-headerCellComponent | ElementType&lt;[SelectAllCellProps](#selectallcellprops)&gt; | | A component that renders a cell with the Select All checkbox.
+cellComponent | ElementType&lt;[TableSelectCellProps](#tableselectcellprops)&gt; | | A component that renders a cell with data row selection checkbox.
+headerCellComponent | ElementType&lt;[TableSelectHeaderellProps](#tableselectcellprops)&gt; | | A component that renders a cell with the Select All checkbox.
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces
 
-### SelectAllCellProps
+### TableSelectHeaderCellProps
 
 Describes properties passed to a component that renders a cell with data row selection checkbox.
 
@@ -36,7 +36,7 @@ allSelected | boolean | True if all the rows available for selection are selecte
 someSelected | boolean | True if at least one but not all rows available for selection are selected.
 onToggle | () => void | An event that initiates selecting or deselecting of all rows.
 
-### SelectCellProps
+### TableSelectCellProps
 
 Describes properties passed to a component that renders a cell with the Select All checkbox.
 

@@ -42,6 +42,13 @@ export class Table extends React.PureComponent {
   }
 }
 
+Table.Cell = TableCell;
+Table.Row = TableRow;
+Table.NoDataCell = TableNoDataCell;
+Table.NoDataRow = TableRow;
+Table.StubCell = TableStubCell;
+Table.StubHeaderCell = TableStubCell;
+
 Table.propTypes = {
   getCellComponent: PropTypes.func,
   messages: PropTypes.shape({

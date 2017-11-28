@@ -145,8 +145,8 @@ describe('TableHeaderRow', () => {
       expect(tree.find(defaultCommandComponents.add).props())
         .toMatchObject({ text: 'addCommand' });
 
-      const { executeCommand } = tree.find(defaultCommandComponents.add).props();
-      executeCommand();
+      const { onExecute } = tree.find(defaultCommandComponents.add).props();
+      onExecute();
       expect(defaultDeps.action.addRow)
         .toBeCalled();
     });
@@ -201,8 +201,8 @@ describe('TableHeaderRow', () => {
       expect(tree.find(defaultCommandComponents.edit).props())
         .toMatchObject({ text: 'editCommand' });
 
-      const { executeCommand } = tree.find(defaultCommandComponents.edit).props();
-      executeCommand();
+      const { onExecute } = tree.find(defaultCommandComponents.edit).props();
+      onExecute();
       expect(defaultDeps.action.startEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
     });
@@ -259,8 +259,8 @@ describe('TableHeaderRow', () => {
       expect(tree.find(defaultCommandComponents.delete).props())
         .toMatchObject({ text: 'deleteCommand' });
 
-      const { executeCommand } = tree.find(defaultCommandComponents.delete).props();
-      executeCommand();
+      const { onExecute } = tree.find(defaultCommandComponents.delete).props();
+      onExecute();
       expect(defaultDeps.action.deleteRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
       expect(defaultDeps.action.commitDeletedRows.mock.calls[0][0])
@@ -319,8 +319,8 @@ describe('TableHeaderRow', () => {
       expect(tree.find(defaultCommandComponents.commit).props())
         .toMatchObject({ text: 'commitCommand' });
 
-      const { executeCommand } = tree.find(defaultCommandComponents.commit).props();
-      executeCommand();
+      const { onExecute } = tree.find(defaultCommandComponents.commit).props();
+      onExecute();
       expect(defaultDeps.action.stopEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
       expect(defaultDeps.action.commitChangedRows.mock.calls[0][0])
@@ -343,8 +343,8 @@ describe('TableHeaderRow', () => {
       expect(tree.find(defaultCommandComponents.commit).props())
         .toMatchObject({ text: 'commitCommand' });
 
-      const { executeCommand } = tree.find(defaultCommandComponents.commit).props();
-      executeCommand();
+      const { onExecute } = tree.find(defaultCommandComponents.commit).props();
+      onExecute();
       expect(defaultDeps.action.commitAddedRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
     });
@@ -365,8 +365,8 @@ describe('TableHeaderRow', () => {
       expect(tree.find(defaultCommandComponents.cancel).props())
         .toMatchObject({ text: 'cancelCommand' });
 
-      const { executeCommand } = tree.find(defaultCommandComponents.cancel).props();
-      executeCommand();
+      const { onExecute } = tree.find(defaultCommandComponents.cancel).props();
+      onExecute();
       expect(defaultDeps.action.stopEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
       expect(defaultDeps.action.cancelChangedRows.mock.calls[0][0])
@@ -389,8 +389,8 @@ describe('TableHeaderRow', () => {
       expect(tree.find(defaultCommandComponents.cancel).props())
         .toMatchObject({ text: 'cancelCommand' });
 
-      const { executeCommand } = tree.find(defaultCommandComponents.cancel).props();
-      executeCommand();
+      const { onExecute } = tree.find(defaultCommandComponents.cancel).props();
+      onExecute();
       expect(defaultDeps.action.cancelAddedRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
     });

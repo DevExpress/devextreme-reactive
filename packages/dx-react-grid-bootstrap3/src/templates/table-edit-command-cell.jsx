@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const CommandButton = ({ executeCommand, text }) => (
+export const CommandButton = ({ onExecute, text }) => (
   <button
     className="btn btn-link"
     onClick={(e) => {
-      executeCommand();
       e.stopPropagation();
+      onExecute();
     }}
   >
     {text}
@@ -15,7 +15,7 @@ export const CommandButton = ({ executeCommand, text }) => (
 
 CommandButton.propTypes = {
   text: PropTypes.string.isRequired,
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
 export const EditCommandHeadingCell = ({

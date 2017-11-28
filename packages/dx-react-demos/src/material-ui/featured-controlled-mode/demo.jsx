@@ -56,11 +56,11 @@ const styles = theme => ({
   },
 });
 
-const AddCommandButtton = ({ executeCommand }) => (
+const AddCommandButtton = ({ onExecute }) => (
   <div style={{ textAlign: 'center' }}>
     <Button
       color="primary"
-      onClick={executeCommand}
+      onClick={onExecute}
       title="Create new row"
     >
       New
@@ -68,43 +68,43 @@ const AddCommandButtton = ({ executeCommand }) => (
   </div>
 );
 AddCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
-const EditCommandButtton = ({ executeCommand }) => (
-  <IconButton onClick={executeCommand} title="Edit row">
+const EditCommandButtton = ({ onExecute }) => (
+  <IconButton onClick={onExecute} title="Edit row">
     <EditIcon />
   </IconButton>
 );
 EditCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
-const DeleteCommandButtton = ({ executeCommand }) => (
-  <IconButton onClick={executeCommand} title="Delete row">
+const DeleteCommandButtton = ({ onExecute }) => (
+  <IconButton onClick={onExecute} title="Delete row">
     <DeleteIcon />
   </IconButton>
 );
 DeleteCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
-const CommitCommandButtton = ({ executeCommand }) => (
-  <IconButton onClick={executeCommand} title="Save changes">
+const CommitCommandButtton = ({ onExecute }) => (
+  <IconButton onClick={onExecute} title="Save changes">
     <SaveIcon />
   </IconButton>
 );
 CommitCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
-const CancelCommandButtton = ({ executeCommand }) => (
-  <IconButton color="accent" onClick={executeCommand} title="Cancel changes">
+const CancelCommandButtton = ({ onExecute }) => (
+  <IconButton color="accent" onClick={onExecute} title="Cancel changes">
     <CancelIcon />
   </IconButton>
 );
 CancelCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
 const commandComponents = {

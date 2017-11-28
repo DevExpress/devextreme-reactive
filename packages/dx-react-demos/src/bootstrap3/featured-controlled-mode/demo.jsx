@@ -26,12 +26,12 @@ import {
 } from '../../demo-data/generator';
 
 const CommandButton = ({
-  executeCommand, icon, text, hint, isDanger,
+  onExecute, icon, text, hint, isDanger,
 }) => (
   <button
     className="btn btn-link"
     onClick={(e) => {
-      executeCommand();
+      onExecute();
       e.stopPropagation();
     }}
     title={hint}
@@ -43,7 +43,7 @@ const CommandButton = ({
   </button>
 );
 CommandButton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
   icon: PropTypes.string,
   text: PropTypes.string,
   hint: PropTypes.string,
@@ -56,62 +56,62 @@ CommandButton.defaultProps = {
   isDanger: false,
 };
 
-const AddCommandButtton = ({ executeCommand }) => (
+const AddCommandButtton = ({ onExecute }) => (
   <CommandButton
     text="New"
     hint="Create new row"
     icon="plus"
-    executeCommand={executeCommand}
+    onExecute={onExecute}
   />
 );
 AddCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
-const EditCommandButtton = ({ executeCommand }) => (
+const EditCommandButtton = ({ onExecute }) => (
   <CommandButton
     text="Edit"
     hint="Edit row"
-    executeCommand={executeCommand}
+    onExecute={onExecute}
   />
 );
 EditCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
-const DeleteCommandButtton = ({ executeCommand }) => (
+const DeleteCommandButtton = ({ onExecute }) => (
   <CommandButton
     icon="trash"
     hint="Delete row"
-    executeCommand={executeCommand}
+    onExecute={onExecute}
     isDanger
   />
 );
 DeleteCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
-const CommitCommandButtton = ({ executeCommand }) => (
+const CommitCommandButtton = ({ onExecute }) => (
   <CommandButton
     text="Save"
     hint="Save changes"
-    executeCommand={executeCommand}
+    onExecute={onExecute}
   />
 );
 CommitCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
-const CancelCommandButtton = ({ executeCommand }) => (
+const CancelCommandButtton = ({ onExecute }) => (
   <CommandButton
     icon="remove"
     hint="Cancel changes"
-    executeCommand={executeCommand}
+    onExecute={onExecute}
     isDanger
   />
 );
 CancelCommandButtton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
 const commandComponents = {

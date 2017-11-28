@@ -56,7 +56,7 @@ export class TableEditColumn extends React.PureComponent {
                   {allowAdding && (
                     <AddCommand
                       text={getMessage('addCommand')}
-                      executeCommand={() => actions.addRow()}
+                      onExecute={() => actions.addRow()}
                     />
                   )}
                 </HeaderCell>
@@ -84,13 +84,13 @@ export class TableEditColumn extends React.PureComponent {
                     {allowEditing && !isEditing && (
                       <EditCommand
                         text={getMessage('editCommand')}
-                        executeCommand={() => actions.startEditRows({ rowIds })}
+                        onExecute={() => actions.startEditRows({ rowIds })}
                       />
                     )}
                     {allowDeleting && !isEditing && (
                       <DeleteCommand
                         text={getMessage('deleteCommand')}
-                        executeCommand={() => {
+                        onExecute={() => {
                           actions.deleteRows({ rowIds });
                           actions.commitDeletedRows({ rowIds });
                         }}
@@ -99,7 +99,7 @@ export class TableEditColumn extends React.PureComponent {
                     {isEditing && (
                       <CommitCommand
                         text={getMessage('commitCommand')}
-                        executeCommand={() => {
+                        onExecute={() => {
                           if (isNew) {
                             actions.commitAddedRows({ rowIds });
                           } else {
@@ -112,7 +112,7 @@ export class TableEditColumn extends React.PureComponent {
                     {isEditing && (
                       <CancelCommand
                         text={getMessage('cancelCommand')}
-                        executeCommand={() => {
+                        onExecute={() => {
                           if (isNew) {
                             actions.cancelAddedRows({ rowIds });
                           } else {

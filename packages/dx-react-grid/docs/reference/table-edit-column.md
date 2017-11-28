@@ -53,8 +53,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-text | string | Specifies the text to be rendered within the command control.
-executeCommand | () => void | Executes the command.
+text | string | A text describing the command action.
+onExecute | () => void | An event initiating execute of the command.
 
 ## Localization Messages
 

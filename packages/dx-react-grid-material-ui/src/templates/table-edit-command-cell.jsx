@@ -15,33 +15,31 @@ const styles = theme => ({
   headingCell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 2,
+    padding: [0, theme.spacing.unit * 2, 0, theme.spacing.unit * 3],
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 2,
+    padding: [0, theme.spacing.unit * 2, 0, theme.spacing.unit * 3],
   },
 });
 
 const withEditColumnStyles = withStyles(styles, { name: 'EditColumn' });
 
-const CommandButtonBase = ({ executeCommand, text, classes }) => (
+const CommandButtonBase = ({ onExecute, text, classes }) => (
   <Button
     color="primary"
     className={classes.button}
     onClick={(e) => {
-      executeCommand();
       e.stopPropagation();
+      onExecute();
     }}
   >
     {text}
   </Button>
 );
 CommandButtonBase.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
 };

@@ -25,6 +25,9 @@ const styles = theme => ({
 
 const TableCellBase = ({
   style, column, value, children, classes,
+  tableRow, tableColumn, row,
+  className,
+  ...restProps
 }) => (
   <TableCellMUI
     style={{
@@ -33,7 +36,8 @@ const TableCellBase = ({
     className={classNames({
       [classes.cell]: true,
       [classes.cellRightAlign]: column.align === 'right',
-    })}
+    }, className)}
+    {...restProps}
   >
     {children || value}
   </TableCellMUI>
@@ -43,18 +47,26 @@ TableCellBase.propTypes = {
   style: PropTypes.object,
   value: PropTypes.any,
   column: PropTypes.object,
+  row: PropTypes.object,
   classes: PropTypes.object.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
+  className: PropTypes.string,
 };
 
 TableCellBase.defaultProps = {
   style: null,
   value: undefined,
   column: {},
+  row: undefined,
   children: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
+  className: undefined,
 };
 
 export const TableCell = withStyles(styles, { name: 'TableCell' })(TableCellBase);

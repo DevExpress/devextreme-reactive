@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TemplateRenderer } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
 import { RowsBlockLayout } from './rows-block-layout';
 
@@ -11,47 +10,38 @@ export class StaticTableLayout extends React.PureComponent {
       rows,
       columns,
       minWidth,
-      containerTemplate,
-      tableTemplate,
-      headTemplate,
-      bodyTemplate,
-      rowTemplate,
-      cellTemplate,
+      containerComponent: Container,
+      tableComponent: Table,
+      headComponent,
+      bodyComponent,
+      rowComponent,
+      cellComponent,
     } = this.props;
 
     return (
-      <TemplateRenderer
-        template={containerTemplate}
-      >
-        <TemplateRenderer
-          template={tableTemplate}
-          params={{
-            style: {
-              minWidth: `${minWidth}px`,
-            },
-          }}
+      <Container>
+        <Table
+          style={{ minWidth: `${minWidth}px` }}
         >
           <ColumnGroup columns={columns} />
           {!!headerRows.length && (
             <RowsBlockLayout
-              key="head"
               rows={headerRows}
               columns={columns}
-              blockTemplate={headTemplate}
-              rowTemplate={rowTemplate}
-              cellTemplate={cellTemplate}
+              blockComponent={headComponent}
+              rowComponent={rowComponent}
+              cellComponent={cellComponent}
             />
           )}
           <RowsBlockLayout
-            key="body"
             rows={rows}
             columns={columns}
-            blockTemplate={bodyTemplate}
-            rowTemplate={rowTemplate}
-            cellTemplate={cellTemplate}
+            blockComponent={bodyComponent}
+            rowComponent={rowComponent}
+            cellComponent={cellComponent}
           />
-        </TemplateRenderer>
-      </TemplateRenderer>
+        </Table>
+      </Container>
     );
   }
 }
@@ -61,15 +51,15 @@ StaticTableLayout.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   minWidth: PropTypes.number.isRequired,
-  containerTemplate: PropTypes.func.isRequired,
-  tableTemplate: PropTypes.func.isRequired,
-  headTemplate: PropTypes.func,
-  bodyTemplate: PropTypes.func.isRequired,
-  rowTemplate: PropTypes.func.isRequired,
-  cellTemplate: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
+  tableComponent: PropTypes.func.isRequired,
+  headComponent: PropTypes.func,
+  bodyComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
 };
 
 StaticTableLayout.defaultProps = {
   headerRows: [],
-  headTemplate: () => null,
+  headComponent: () => null,
 };

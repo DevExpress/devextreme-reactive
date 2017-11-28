@@ -1,42 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TableCell, Paper } from 'material-ui';
 import {
   Grid,
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { TableCell, Paper } from 'material-ui';
-
 import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const HighlightedTableCell = ({ value, style, colSpan }) => (
+const HighlightedCell = ({ value, style }) => (
   <TableCell
     style={{
-      backgroundColor: 'red',
+      backgroundColor: value < 5000 ? 'red' : undefined,
       ...style,
     }}
-    colSpan={colSpan}
   >
-    <span style={{ color: 'white' }}>{value}</span>
+    <span
+      style={{
+        color: value < 5000 ? 'white' : undefined,
+      }}
+    >
+      {value}
+    </span>
   </TableCell>
 );
 
-HighlightedTableCell.propTypes = {
+HighlightedCell.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
   style: PropTypes.object,
-  colSpan: PropTypes.number,
 };
 
-HighlightedTableCell.defaultProps = {
+HighlightedCell.defaultProps = {
   style: {},
-  colSpan: 1,
+};
+
+const getCellComponent = (columnName) => {
+  if (columnName === 'amount') {
+    return HighlightedCell;
+  }
+  return undefined;
 };
 
 export default class Demo extends React.PureComponent {
@@ -54,15 +63,6 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
-
-    this.tableCellTemplate = ({
-      column, value, style, colSpan,
-    }) => {
-      if (column.name === 'amount' && value < 5000) {
-        return <HighlightedTableCell value={value} style={style} colSpan={colSpan} />;
-      }
-      return undefined;
-    };
   }
   render() {
     const { rows, columns } = this.state;
@@ -73,7 +73,9 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <Table tableCellTemplate={this.tableCellTemplate} />
+          <Table
+            getCellComponent={getCellComponent}
+          />
           <TableHeaderRow />
         </Grid>
       </Paper>

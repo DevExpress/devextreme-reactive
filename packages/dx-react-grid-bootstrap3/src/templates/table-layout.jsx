@@ -9,17 +9,15 @@ import { Table } from './table';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
-const containerTemplate = props => <TableContainer {...props} />;
-const tableTemplate = props => <Table {...props} />;
-const headTemplate = props => <thead {...props} />;
-const bodyTemplate = props => <tbody {...props} />;
+const TableHead = props => <thead {...props} />;
+const TableBody = props => <tbody {...props} />;
 
 export const TableLayout = ({
   headerRows,
   bodyRows,
   columns,
-  cellTemplate,
-  rowTemplate,
+  cellComponent,
+  rowComponent,
 }) => (
   <TableLayoutCore
     layoutComponent={StaticTableLayout}
@@ -27,12 +25,12 @@ export const TableLayout = ({
     rows={bodyRows}
     columns={columns}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
-    containerTemplate={containerTemplate}
-    tableTemplate={tableTemplate}
-    headTemplate={headTemplate}
-    bodyTemplate={bodyTemplate}
-    rowTemplate={rowTemplate}
-    cellTemplate={cellTemplate}
+    containerComponent={TableContainer}
+    tableComponent={Table}
+    headComponent={TableHead}
+    bodyComponent={TableBody}
+    rowComponent={rowComponent}
+    cellComponent={cellComponent}
   />
 );
 
@@ -40,6 +38,6 @@ TableLayout.propTypes = {
   headerRows: PropTypes.array.isRequired,
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  cellTemplate: PropTypes.func.isRequired,
-  rowTemplate: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
 };

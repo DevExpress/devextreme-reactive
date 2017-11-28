@@ -22,38 +22,6 @@ const Row = props =>
 const Cell = props =>
   <TemplatePlaceholder name="tableCell" params={props} />;
 
-const getTableLayoutProps = (
-  params,
-  { tableHeaderRows, tableBodyRows, tableColumns },
-) => ({
-  headerRows: tableHeaderRows,
-  bodyRows: tableBodyRows,
-  columns: tableColumns,
-  rowComponent: Row,
-  cellComponent: Cell,
-});
-
-const getDataTableCellTemplateArgs = (
-  params,
-  { getCellValue },
-) => ({
-  ...params,
-  row: params.tableRow.row,
-  column: params.tableColumn.column,
-  value: getCellValue(params.tableRow.row, params.tableColumn.column.name),
-});
-
-const getValueFormatterArgs = params => ({
-  row: params.row,
-  column: params.column,
-  value: params.value,
-});
-
-const getDataTableRowTemplateArgs = params => ({
-  ...params,
-  row: params.tableRow.row,
-});
-
 const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) =>
   tableRowsWithDataRows(rows, getRowId);
@@ -90,13 +58,13 @@ export class Table extends React.PureComponent {
         </Template>
         <Template name="table">
           <TemplateConnector>
-            {(getters, actions) => (
+            {({ tableHeaderRows: headerRows, tableBodyRows: bodyRows, tableColumns: columns }) => (
               <TableLayout
-                {...getTableLayoutProps(
-                  {},
-                  getters,
-                  actions,
-                )}
+                headerRows={headerRows}
+                bodyRows={bodyRows}
+                columns={columns}
+                rowComponent={Row}
+                cellComponent={Cell}
               />
             )}
           </TemplateConnector>
@@ -119,15 +87,28 @@ export class Table extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters) => {
+              {({ getCellValue }) => {
                 const TableCell = getCellComponent(params.tableColumn.column.name);
-                const templateArgs = getDataTableCellTemplateArgs(params, getters);
+                const value = getCellValue(params.tableRow.row, params.tableColumn.column.name);
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
-                    params={getValueFormatterArgs(templateArgs)}
+                    params={{
+                      row: params.tableRow.row,
+                      column: params.tableColumn.column,
+                      value,
+                    }}
                   >
-                    {content => <TableCell {...templateArgs}>{content}</TableCell>}
+                    {content => (
+                      <TableCell
+                        {...params}
+                        row={params.tableRow.row}
+                        column={params.tableColumn.column}
+                        value={value}
+                      >
+                        {content}
+                      </TableCell>
+                    )}
                   </TemplatePlaceholder>
                 );
               }}
@@ -144,7 +125,12 @@ export class Table extends React.PureComponent {
           name="tableRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
-          {params => <TableRow {...getDataTableRowTemplateArgs(params)} />}
+          {params => (
+            <TableRow
+              {...params}
+              row={params.tableRow.row}
+            />
+          )}
         </Template>
         <Template
           name="tableRow"

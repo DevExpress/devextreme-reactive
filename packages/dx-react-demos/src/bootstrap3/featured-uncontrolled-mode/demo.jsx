@@ -36,6 +36,16 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       allowedPageSizes: [5, 10, 15],
     };
+
+    this.getCellComponent = (columnName) => {
+      if (columnName === 'discount') {
+        return ProgressBarCell;
+      }
+      if (columnName === 'amount') {
+        return HighlightedCell;
+      }
+      return undefined;
+    };
   }
   render() {
     const { rows, columns, allowedPageSizes } = this.state;
@@ -76,18 +86,7 @@ export default class Demo extends React.PureComponent {
         <DragDropContext />
 
         <Table
-          tableCellTemplate={({ row, column, style }) => {
-            if (column.name === 'discount') {
-              return (
-                <ProgressBarCell value={row.discount * 100} style={style} />
-              );
-            } else if (column.name === 'amount') {
-              return (
-                <HighlightedCell align={column.align} value={row.amount} style={style} />
-              );
-            }
-            return undefined;
-          }}
+          getCellComponent={this.getCellComponent}
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

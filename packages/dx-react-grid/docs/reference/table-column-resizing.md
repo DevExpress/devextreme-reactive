@@ -22,13 +22,13 @@ onColumnWidthChange | (nextColumnWidths: { [columnName: string]: number }) => vo
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns the widths are associated with.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns the widths are associated with.
 
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns with associated widths.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns with associated widths.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. Each shift is added to the original column width value.
 changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.

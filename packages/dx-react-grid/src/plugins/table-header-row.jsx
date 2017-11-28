@@ -11,48 +11,6 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
-const getHeaderTableCellProps = (
-  {
-    allowSorting, allowDragging, allowGroupingByClick, allowResizing, getMessage, ...params
-  },
-  { sorting, columns, grouping },
-  {
-    setColumnSorting, groupByColumn, changeTableColumnWidths, changeDraftTableColumnWidths,
-  },
-) => {
-  const { column } = params.tableColumn;
-  const groupingSupported = grouping !== undefined &&
-      grouping.length < columns.length - 1;
-
-  const result = {
-    ...params,
-    getMessage,
-    allowSorting: allowSorting && sorting !== undefined,
-    allowGroupingByClick: allowGroupingByClick && groupingSupported,
-    allowDragging: allowDragging && (!grouping || groupingSupported),
-    allowResizing,
-    column: params.tableColumn.column,
-    onSort: ({ keepOther, cancel }) =>
-      setColumnSorting({ columnName: column.name, keepOther, cancel }),
-    onGroup: () =>
-      groupByColumn({ columnName: column.name }),
-    onColumnResize: ({ shift }) =>
-      changeTableColumnWidths({ shifts: { [column.name]: shift } }),
-    onDraftColumnResize: ({ shift }) =>
-      changeDraftTableColumnWidths({ shifts: { [column.name]: shift } }),
-  };
-
-  if (result.allowSorting) {
-    result.sortingDirection = getColumnSortingDirection(sorting, column.name);
-  }
-
-  if (result.allowDragging) {
-    result.dragPayload = [{ type: 'column', columnName: column.name }];
-  }
-
-  return result;
-};
-
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
 export class TableHeaderRow extends React.PureComponent {
@@ -85,29 +43,44 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
-          {(params) => {
-            const HeaderCell = getCellComponent(params.tableColumn.column.name);
-            return (
-              <TemplateConnector>
-                {(getters, actions) => (
+          {params => (
+            <TemplateConnector>
+              {({
+                sorting, grouping, columns,
+              }, {
+                setColumnSorting, groupByColumn,
+                changeTableColumnWidths, changeDraftTableColumnWidths,
+              }) => {
+                const { name: columnName } = params.tableColumn.column;
+                const HeaderCell = getCellComponent(columnName);
+                const groupingSupported = grouping !== undefined &&
+                    grouping.length < columns.length - 1;
+
+                return (
                   <HeaderCell
-                    {...getHeaderTableCellProps(
-                      {
-                        allowDragging,
-                        allowGroupingByClick,
-                        allowSorting,
-                        allowResizing,
-                        getMessage,
-                        ...params,
-                      },
-                      getters,
-                      actions,
-                    )}
+                    {...params}
+                    column={params.tableColumn.column}
+                    getMessage={getMessage}
+                    allowSorting={allowSorting && sorting !== undefined}
+                    allowGroupingByClick={allowGroupingByClick && groupingSupported}
+                    allowDragging={allowDragging && (!grouping || groupingSupported)}
+                    allowResizing={allowResizing}
+                    sortingDirection={allowSorting
+                      ? getColumnSortingDirection(sorting, columnName) : undefined}
+                    dragPayload={allowDragging ? [{ type: 'column', columnName }] : undefined}
+                    onSort={({ keepOther, cancel }) =>
+                      setColumnSorting({ columnName, keepOther, cancel })}
+                    onGroup={() =>
+                      groupByColumn({ columnName })}
+                    onColumnResize={({ shift }) =>
+                      changeTableColumnWidths({ shifts: { [columnName]: shift } })}
+                    onDraftColumnResize={({ shift }) =>
+                      changeDraftTableColumnWidths({ shifts: { [columnName]: shift } })}
                   />
-                )}
-              </TemplateConnector>
-            );
-          }}
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
         <Template
           name="tableRow"

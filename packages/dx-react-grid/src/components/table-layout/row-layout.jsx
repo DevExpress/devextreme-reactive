@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TemplateRenderer } from '@devexpress/dx-react-core';
 import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
 
 const getColumnStyle = ({ column }) => column.animationState;
@@ -14,34 +13,28 @@ export class RowLayout extends React.PureComponent {
     const {
       row,
       columns,
-      rowTemplate,
-      cellTemplate,
+      rowComponent: Row,
+      cellComponent: Cell,
     } = this.props;
 
     return (
-      <TemplateRenderer
-        template={rowTemplate}
-        params={{
-          tableRow: row,
-          style: getRowStyle({ row }),
-        }}
+      <Row
+        tableRow={row}
+        style={getRowStyle({ row })}
       >
         {
           getTableRowColumnsWithColSpan(columns, row.colSpanStart)
             .map(column => (
-              <TemplateRenderer
+              <Cell
                 key={column.key}
-                template={cellTemplate}
-                params={{
-                  tableRow: row,
-                  tableColumn: column,
-                  style: getColumnStyle({ column }),
-                  ...column.colSpan ? { colSpan: column.colSpan } : null,
-                }}
+                tableRow={row}
+                tableColumn={column}
+                style={getColumnStyle({ column })}
+                colSpan={column.colSpan}
               />
             ))
         }
-      </TemplateRenderer>
+      </Row>
     );
   }
 }
@@ -49,6 +42,6 @@ export class RowLayout extends React.PureComponent {
 RowLayout.propTypes = {
   row: PropTypes.object.isRequired,
   columns: PropTypes.array.isRequired,
-  rowTemplate: PropTypes.func.isRequired,
-  cellTemplate: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
 };

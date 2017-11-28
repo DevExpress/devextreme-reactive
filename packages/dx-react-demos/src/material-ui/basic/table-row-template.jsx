@@ -1,17 +1,33 @@
-/* eslint-disable no-alert */
 import React from 'react';
+import PropTypes from 'prop-types';
+import { TableRow as TableRowMUI, Paper } from 'material-ui';
 import {
   Grid,
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { TableRow, Paper } from 'material-ui';
-
 import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
+
+const TableRow = ({ children, row }) => (
+  <TableRowMUI
+    // eslint-disable-next-line no-alert
+    onClick={() => alert(JSON.stringify(row))}
+  >
+    {children}
+  </TableRowMUI>
+);
+
+TableRow.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  row: PropTypes.any.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -28,14 +44,6 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
-
-    this.tableRowTemplate = ({ children, row }) => (
-      <TableRow
-        onClick={() => alert(JSON.stringify(row))}
-      >
-        {children}
-      </TableRow>
-    );
   }
   render() {
     const { rows, columns } = this.state;
@@ -46,7 +54,9 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <Table tableRowTemplate={this.tableRowTemplate} />
+          <Table
+            rowComponent={TableRow}
+          />
           <TableHeaderRow />
         </Grid>
       </Paper>

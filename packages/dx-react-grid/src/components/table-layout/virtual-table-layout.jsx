@@ -1,7 +1,6 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
-import { TemplateRenderer } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
 import { RowLayout } from './row-layout';
 import {
@@ -113,52 +112,48 @@ export class VirtualTableLayout extends React.PureComponent {
   }
   render() {
     const {
-      headerRows, columns, minWidth, height,
-      containerTemplate, headTableTemplate, tableTemplate, headTemplate, bodyTemplate,
-      rowTemplate, cellTemplate,
+      headerRows, columns,
+      minWidth, height,
+      containerComponent: Container,
+      headTableComponent: HeadTable,
+      tableComponent: Table,
+      headComponent: Head,
+      bodyComponent: Body,
+      rowComponent, cellComponent,
     } = this.props;
     const {
       visibleBodyRows,
     } = this.state;
 
     return (
-      <TemplateRenderer
-        template={containerTemplate}
-        params={{
-          style: { height: `${height}px` },
-          onScroll: this.updateViewport,
-        }}
+      <Container
+        style={{ height: `${height}px` }}
+        onScroll={this.updateViewport}
       >
         {!!headerRows.length && (
-          <TemplateRenderer
-            template={headTableTemplate}
-            params={{ style: { minWidth: `${minWidth}px` } }}
+          <HeadTable
+            style={{ minWidth: `${minWidth}px` }}
           >
             <ColumnGroup columns={columns} />
-            <TemplateRenderer
-              template={headTemplate}
-            >
+            <Head>
               {headerRows.map(row => (
                 <RowLayout
                   key={row.key}
                   ref={ref => this.registerRowRef(row, ref)}
                   row={row}
                   columns={columns}
-                  rowTemplate={rowTemplate}
-                  cellTemplate={cellTemplate}
+                  rowComponent={rowComponent}
+                  cellComponent={cellComponent}
                 />
               ))}
-            </TemplateRenderer>
-          </TemplateRenderer>
+            </Head>
+          </HeadTable>
         )}
-        <TemplateRenderer
-          template={tableTemplate}
-          params={{ style: { minWidth: `${minWidth}px` } }}
+        <Table
+          style={{ minWidth: `${minWidth}px` }}
         >
           <ColumnGroup columns={columns} />
-          <TemplateRenderer
-            template={bodyTemplate}
-          >
+          <Body>
             {visibleBodyRows.map((visibleRow) => {
               if (visibleRow.type === 'stub') {
                 return (
@@ -172,14 +167,14 @@ export class VirtualTableLayout extends React.PureComponent {
                   ref={ref => this.registerRowRef(row, ref)}
                   row={row}
                   columns={columns}
-                  rowTemplate={rowTemplate}
-                  cellTemplate={cellTemplate}
+                  rowComponent={rowComponent}
+                  cellComponent={cellComponent}
                 />
               );
             })}
-          </TemplateRenderer>
-        </TemplateRenderer>
-      </TemplateRenderer>
+          </Body>
+        </Table>
+      </Container>
     );
   }
 }
@@ -190,18 +185,18 @@ VirtualTableLayout.propTypes = {
   headerRows: PropTypes.array,
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  cellTemplate: PropTypes.func.isRequired,
-  rowTemplate: PropTypes.func.isRequired,
-  bodyTemplate: PropTypes.func.isRequired,
-  headTemplate: PropTypes.func,
-  tableTemplate: PropTypes.func.isRequired,
-  headTableTemplate: PropTypes.func,
-  containerTemplate: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  bodyComponent: PropTypes.func.isRequired,
+  headComponent: PropTypes.func,
+  tableComponent: PropTypes.func.isRequired,
+  headTableComponent: PropTypes.func,
+  containerComponent: PropTypes.func.isRequired,
   estimatedRowHeight: PropTypes.number.isRequired,
 };
 
 VirtualTableLayout.defaultProps = {
   headerRows: [],
-  headTemplate: () => null,
-  headTableTemplate: () => null,
+  headComponent: () => null,
+  headTableComponent: () => null,
 };

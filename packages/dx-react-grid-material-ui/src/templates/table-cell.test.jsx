@@ -1,28 +1,21 @@
 import React from 'react';
 import { TableCell as TableCellMUI } from 'material-ui';
-import { createMount, getClasses } from 'material-ui/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
-  let resetConsole;
-  let mount;
   let classes;
+  let shallow;
   const mountTableCell = column =>
-    mount((
+    shallow((
       <TableCell
         column={column}
         value="text"
       />
     ));
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<TableCell />);
-    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
-  });
-  afterAll(() => {
-    resetConsole();
-    mount.cleanUp();
+    shallow = createShallow({ dive: true });
   });
 
   it('should have correct text alignment', () => {
@@ -38,11 +31,11 @@ describe('TableCell', () => {
 
   it('should have correct text', () => {
     const tree = mountTableCell({});
-    expect(tree.find(TableCellMUI).text()).toBe('text');
+    expect(tree.childAt(0).text()).toBe('text');
   });
 
   it('should render children if passed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableCell>
         <span className="test" />
       </TableCell>
@@ -50,5 +43,25 @@ describe('TableCell', () => {
 
     expect(tree.find('.test').exists())
       .toBeTruthy();
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <TableCell className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableCell data={{ a: 1 }} />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

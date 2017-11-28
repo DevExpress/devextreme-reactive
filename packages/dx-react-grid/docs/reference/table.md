@@ -139,12 +139,12 @@ noData? | string | 'No data' | Specifies text shown when the Grid does not conta
 
 Name | Properties | Description
 -----|------------|------------
-Table.Cell | [TableDataCellArgs](#table-data-cell-args) | A component that renders a table data cell.
-Table.Row | [TableDataRowArgs](#table-data-row-args) | A component that renders a table data row.
-Table.NoDataCell | [TableCellArgs](#table-cell-args) | A component that renders a table cell when the table is empty.
-Table.NoDataRow | [TableRowArgs](#table-row-args) | A component that renders a table row when the table is empty.
-Table.StubCell | [TableCellArgs](#table-cell-args) | A component that renders a stub table cell.
-Table.StubHeaderCell | [TableCellArgs](#table-cell-args) | A component that renders a stub table header cell.
+Table.Cell | [TableDataCellProps](#tabledatacellprops) | A component that renders a table data cell.
+Table.Row | [TableDataRowProps](#tabledatarowprops) | A component that renders a table data row.
+Table.NoDataCell | [TableCellProps](#tablecellprops) | A component that renders a table cell when the table is empty.
+Table.NoDataRow | [TableRowProps](#tablerowprops) | A component that renders a table row when the table is empty.
+Table.StubCell | [TableCellProps](#tablecellprops) | A component that renders a stub table cell.
+Table.StubHeaderCell | [TableCellProps](#tablecellprops) | A component that renders a stub table header cell.
 
 If you specify additional properties, they are added to the component's root element.
 

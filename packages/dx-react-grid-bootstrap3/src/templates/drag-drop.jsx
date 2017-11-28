@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Container = ({
-  clientOffset, columns, columnTemplate,
-}) => (
+export const Container = ({ clientOffset, children }) => (
   <ul
     className="list-group"
     style={{
@@ -16,11 +14,7 @@ export const Container = ({
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
     }}
   >
-    {columns
-      .map(column => React.cloneElement(
-        columnTemplate({ column }),
-        { key: column.name },
-      ))}
+    {children}
   </ul>
 );
 
@@ -29,8 +23,14 @@ Container.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
   }).isRequired,
-  columns: PropTypes.array.isRequired,
-  columnTemplate: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+};
+
+Container.defaultProps = {
+  children: undefined,
 };
 
 export const Column = ({ column }) => (

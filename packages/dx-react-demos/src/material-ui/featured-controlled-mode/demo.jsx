@@ -42,9 +42,6 @@ import {
 } from '../../demo-data/generator';
 
 const styles = theme => ({
-  commandButton: {
-    minWidth: '40px',
-  },
   lookupEditCell: {
     verticalAlign: 'top',
     paddingRight: theme.spacing.unit,
@@ -59,39 +56,63 @@ const styles = theme => ({
   },
 });
 
-const commandTemplates = {
-  add: (onClick, allowAdding) => (
-    <div style={{ textAlign: 'center' }}>
-      <Button
-        color="primary"
-        onClick={onClick}
-        title="Create new row"
-        disabled={!allowAdding}
-      >
-        New
-      </Button>
-    </div>
-  ),
-  edit: onClick => (
-    <IconButton onClick={onClick} title="Edit row">
-      <EditIcon />
-    </IconButton>
-  ),
-  delete: onClick => (
-    <IconButton onClick={onClick} title="Delete row">
-      <DeleteIcon />
-    </IconButton>
-  ),
-  commit: onClick => (
-    <IconButton onClick={onClick} title="Save changes">
-      <SaveIcon />
-    </IconButton>
-  ),
-  cancel: onClick => (
-    <IconButton color="accent" onClick={onClick} title="Cancel changes">
-      <CancelIcon />
-    </IconButton>
-  ),
+const AddCommandButtton = ({ executeCommand }) => (
+  <div style={{ textAlign: 'center' }}>
+    <Button
+      color="primary"
+      onClick={executeCommand}
+      title="Create new row"
+    >
+      New
+    </Button>
+  </div>
+);
+AddCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const EditCommandButtton = ({ executeCommand }) => (
+  <IconButton onClick={executeCommand} title="Edit row">
+    <EditIcon />
+  </IconButton>
+);
+EditCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const DeleteCommandButtton = ({ executeCommand }) => (
+  <IconButton onClick={executeCommand} title="Delete row">
+    <DeleteIcon />
+  </IconButton>
+);
+DeleteCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const CommitCommandButtton = ({ executeCommand }) => (
+  <IconButton onClick={executeCommand} title="Save changes">
+    <SaveIcon />
+  </IconButton>
+);
+CommitCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const CancelCommandButtton = ({ executeCommand }) => (
+  <IconButton color="accent" onClick={executeCommand} title="Cancel changes">
+    <CancelIcon />
+  </IconButton>
+);
+CancelCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const commandComponents = {
+  add: AddCommandButtton,
+  edit: EditCommandButtton,
+  delete: DeleteCommandButtton,
+  commit: CommitCommandButtton,
+  cancel: CancelCommandButtton,
 };
 
 const LookupEditCellBase = (({
@@ -234,21 +255,7 @@ class DemoBase extends React.PureComponent {
       }
       return undefined;
     };
-    this.commandTemplate = ({ executeCommand, id }) => {
-      const template = commandTemplates[id];
-      if (template) {
-        const allowAdding = !this.state.addedRows.length;
-        const onClick = (e) => {
-          executeCommand();
-          e.stopPropagation();
-        };
-        return template(
-          onClick,
-          allowAdding,
-        );
-      }
-      return undefined;
-    };
+    this.getEditCommandComponent = id => commandComponents[id];
   }
   render() {
     const {
@@ -316,10 +323,10 @@ class DemoBase extends React.PureComponent {
           />
           <TableEditColumn
             width={120}
-            allowAdding
+            allowAdding={!this.state.addedRows.length}
             allowEditing
             allowDeleting
-            commandTemplate={this.commandTemplate}
+            getCommandComponent={this.getEditCommandComponent}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}

@@ -13,10 +13,10 @@ A plugin that renders a command column (a column containing controls used for ro
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellTemplate | (args: [CommandCellArgs](#command-cell-args)) => ReactElement | | A component that renders a cell within the command column and data row.
-headingCellTemplate | (args: [CommandHeadingCellArgs](#command-heading-cell-args)) => ReactElement | | A component that renders a cell within the command column and heading row.
-commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | | A component that renders command controls within the command column cell.
-allowAdding | boolean | false | If set to true, the 'New' command is rendered within the heading row's command cell.
+cellComponent | ElementType&lt;[TableEditColumnCellProps](#tableeditcolumncellprops)&gt; | | A component that renders a cell within the command column and data row.
+headerCellComponent | ElementType&lt;[TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a cell within the command column and header row.
+getCommandComponent | (id: 'add' &#124; 'edit' &#124; 'delete' &#124; 'commit' &#124; 'cancel') => ElementType&lt;[EditCommandProps](#editcommandprops)&gt; | | A function returning a component that renders command controls within the command column cell for a specific command.
+allowAdding | boolean | false | If set to true, the 'New' command is rendered within the header row's command cell.
 allowEditing | boolean | false | If set to true, the 'Edit' command is rendered within the data row's command cell.
 allowDeleting | boolean | false | If set to true, the 'Delete' command is rendered within the data row's command cell.
 width | number &#124; string | | Specifies the edit column's width.
@@ -24,7 +24,7 @@ messages | object | | An object that specifies the [localization messages](#loca
 
 ## Interfaces
 
-### <a name="command-cell-args"></a>CommandCellArgs
+### TableEditColumnCellProps
 
 Describes properties passed to a data row's command cell template.
 
@@ -33,39 +33,28 @@ A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the
 Field | Type | Description
 ------|------|------------
 row | any | Specifies an edited table row with applied changes.
-column | [Column](grid.md#column) | Specifies a table column.
-startEditing | () => void | Switches a row to the editing mode.
-cancelEditing | () => void | Switches a row to the read-only mode.
-commitChanges | () => void | Initiates row changes committing.
-deleteRow | () => void | Initiates row deletion.
-allowEditing | boolean | Specifies if a row can be edited.
-allowDeleting | boolean | Specifies if a row can be deleted.
-commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in command controls within the command column cell.
+children? | ReactElement | A React element to be placed inside.
 
-### <a name="command-heading-cell-args"></a>CommandHeadingCellArgs
+### TableEditColumnHeaderCellProps
 
-Describes properties passed to a heading row's command cell template.
+Describes properties passed to a component that renders a cell within the command column and header row.
 
 A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-addRow | () => void | Creates a new row.
-allowAdding | boolean | Specifies if a new row can be created.
-commandTemplate | (args: [CommandArgs](#command-args)) => ReactElement | A component that renders command controls within the command column cell.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in command control within the command column cell.
+children? | ReactElement | A React element to be placed inside.
 
-### <a name="command-args"></a>CommandArgs
+### EditCommandProps
 
-Describes properties passed to the command control template.
+Describes properties passed to a component that renders command controls within the command column cell.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-executeCommand | () => void | Executes the command.
 text | string | Specifies the text to be rendered within the command control.
+executeCommand | () => void | Executes the command.
 
 ## Localization Messages
 

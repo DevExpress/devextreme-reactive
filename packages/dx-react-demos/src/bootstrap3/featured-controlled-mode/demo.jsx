@@ -56,30 +56,70 @@ CommandButton.defaultProps = {
   isDanger: false,
 };
 
-const commands = {
-  add: {
-    text: 'New',
-    hint: 'Create new row',
-    icon: 'plus',
-  },
-  edit: {
-    text: 'Edit',
-    hint: 'Edit row',
-  },
-  delete: {
-    icon: 'trash',
-    hint: 'Delete row',
-    isDanger: true,
-  },
-  commit: {
-    text: 'Save',
-    hint: 'Save changes',
-  },
-  cancel: {
-    icon: 'remove',
-    hint: 'Cancel changes',
-    isDanger: true,
-  },
+const AddCommandButtton = ({ executeCommand }) => (
+  <CommandButton
+    text="New"
+    hint="Create new row"
+    icon="plus"
+    executeCommand={executeCommand}
+  />
+);
+AddCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const EditCommandButtton = ({ executeCommand }) => (
+  <CommandButton
+    text="Edit"
+    hint="Edit row"
+    executeCommand={executeCommand}
+  />
+);
+EditCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const DeleteCommandButtton = ({ executeCommand }) => (
+  <CommandButton
+    icon="trash"
+    hint="Delete row"
+    executeCommand={executeCommand}
+    isDanger
+  />
+);
+DeleteCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const CommitCommandButtton = ({ executeCommand }) => (
+  <CommandButton
+    text="Save"
+    hint="Save changes"
+    executeCommand={executeCommand}
+  />
+);
+CommitCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const CancelCommandButtton = ({ executeCommand }) => (
+  <CommandButton
+    icon="remove"
+    hint="Cancel changes"
+    executeCommand={executeCommand}
+    isDanger
+  />
+);
+CancelCommandButtton.propTypes = {
+  executeCommand: PropTypes.func.isRequired,
+};
+
+const commandComponents = {
+  add: AddCommandButtton,
+  edit: EditCommandButtton,
+  delete: DeleteCommandButtton,
+  commit: CommitCommandButtton,
+  cancel: CancelCommandButtton,
 };
 
 export const LookupEditCell = ({
@@ -220,11 +260,7 @@ export default class Demo extends React.PureComponent {
       }
       return undefined;
     };
-    this.commandTemplate = ({ executeCommand, id }) => (
-      commands[id]
-        ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
-        : undefined
-    );
+    this.getEditCommandComponent = id => commandComponents[id];
   }
   render() {
     const {
@@ -292,7 +328,7 @@ export default class Demo extends React.PureComponent {
             allowAdding={!this.state.addedRows.length}
             allowEditing
             allowDeleting
-            commandTemplate={this.commandTemplate}
+            getCommandComponent={this.getEditCommandComponent}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}

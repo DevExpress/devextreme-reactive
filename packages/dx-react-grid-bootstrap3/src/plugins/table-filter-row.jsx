@@ -29,6 +29,7 @@ export class TableFilterRow extends React.PureComponent {
 }
 
 TableFilterRow.Cell = TableFilterCell;
+TableFilterRow.Row = TableRow;
 
 TableFilterRow.propTypes = {
   filterCellTemplate: PropTypes.func,

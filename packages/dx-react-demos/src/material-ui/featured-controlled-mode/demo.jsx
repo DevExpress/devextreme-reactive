@@ -56,7 +56,7 @@ const styles = theme => ({
   },
 });
 
-const AddCommandButtton = ({ onExecute }) => (
+const AddCommandButton = ({ onExecute }) => (
   <div style={{ textAlign: 'center' }}>
     <Button
       color="primary"
@@ -67,52 +67,52 @@ const AddCommandButtton = ({ onExecute }) => (
     </Button>
   </div>
 );
-AddCommandButtton.propTypes = {
+AddCommandButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const EditCommandButtton = ({ onExecute }) => (
+const EditCommandButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Edit row">
     <EditIcon />
   </IconButton>
 );
-EditCommandButtton.propTypes = {
+EditCommandButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const DeleteCommandButtton = ({ onExecute }) => (
+const DeleteCommandButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Delete row">
     <DeleteIcon />
   </IconButton>
 );
-DeleteCommandButtton.propTypes = {
+DeleteCommandButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const CommitCommandButtton = ({ onExecute }) => (
+const CommitCommandButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Save changes">
     <SaveIcon />
   </IconButton>
 );
-CommitCommandButtton.propTypes = {
+CommitCommandButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
-const CancelCommandButtton = ({ onExecute }) => (
+const CancelCommandButton = ({ onExecute }) => (
   <IconButton color="accent" onClick={onExecute} title="Cancel changes">
     <CancelIcon />
   </IconButton>
 );
-CancelCommandButtton.propTypes = {
+CancelCommandButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
 };
 
 const commandComponents = {
-  add: AddCommandButtton,
-  edit: EditCommandButtton,
-  delete: DeleteCommandButtton,
-  commit: CommitCommandButtton,
-  cancel: CancelCommandButtton,
+  add: AddCommandButton,
+  edit: EditCommandButton,
+  delete: DeleteCommandButton,
+  commit: CommitCommandButton,
+  cancel: CancelCommandButton,
 };
 
 const LookupEditCellBase = (({

@@ -37,14 +37,15 @@ const defaultDeps = {
   },
 };
 
+const defaultCellComponent = () => null;
 const defaultProps = {
-  tableLayoutTemplate: () => null,
-  tableCellTemplate: () => null,
-  tableRowTemplate: () => null,
-  tableStubCellTemplate: () => null,
-  tableStubHeaderCellTemplate: () => null,
-  tableNoDataCellTemplate: () => null,
-  tableNoDataRowTemplate: () => null,
+  layoutComponent: () => null,
+  getCellComponent: () => defaultCellComponent,
+  rowComponent: () => null,
+  stubCellComponent: () => null,
+  stubHeaderCellComponent: () => null,
+  noDataCellComponent: () => null,
+  noDataRowComponent: () => null,
 };
 
 describe('Table', () => {
@@ -105,29 +106,31 @@ describe('Table', () => {
 
   it('should render data cell on user-defined column and row intersection', () => {
     isDataTableCell.mockImplementation(() => true);
-    const tableCellTemplate = jest.fn(() => null);
+    const getCellComponent = jest.fn(() => defaultCellComponent);
     const tableCellArgs = {
       tableRow: { row: 'row' },
-      tableColumn: { column: 'column' },
+      tableColumn: { column: { name: 'a' } },
       style: {},
       value: undefined,
     };
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
-          tableCellTemplate={tableCellTemplate}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
 
     expect(isDataTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
-    expect(tableCellTemplate)
-      .toBeCalledWith({
+    expect(getCellComponent)
+      .toBeCalledWith(tableCellArgs.tableColumn.column.name);
+    expect(tree.find(defaultCellComponent).props())
+      .toMatchObject({
         ...tableCellArgs,
         row: tableCellArgs.tableRow.row,
         column: tableCellArgs.tableColumn.column,
@@ -136,7 +139,7 @@ describe('Table', () => {
 
   it('can render custom formatted data in table cell', () => {
     isDataTableCell.mockImplementation(() => true);
-    const tableCellTemplate = jest.fn(() => null);
+    const getCellComponent = jest.fn(() => defaultCellComponent);
     const valueFormatter = jest.fn(() => <span />);
     const tableCellArgs = {
       tableRow: { row: 'row' },
@@ -145,7 +148,7 @@ describe('Table', () => {
       value: undefined,
     };
 
-    mount((
+    const tree = mount((
       <PluginHost>
         <DataTypeProvider
           type="column"
@@ -154,8 +157,8 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
-          tableCellTemplate={tableCellTemplate}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -166,32 +169,11 @@ describe('Table', () => {
         row: tableCellArgs.tableRow.row,
         value: tableCellArgs.value,
       });
-    expect(tableCellTemplate.mock.calls[0][0])
-      .toHaveProperty('children');
+    expect(tree.find(defaultCellComponent).props().children)
+      .toBeDefined();
   });
 
   it('should render stub cell on plugin-defined column and row intersection', () => {
-    const tableStubCellTemplate = jest.fn(() => null);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
-
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Table
-          {...defaultProps}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
-          tableStubCellTemplate={tableStubCellTemplate}
-        />
-      </PluginHost>
-    ));
-
-    expect(tableStubCellTemplate)
-      .toBeCalledWith(tableCellArgs);
-  });
-
-  it('should render stub header cell on plugin-defined column and row intersection', () => {
-    isHeaderStubTableCell.mockImplementation(() => true);
-    const tableStubHeaderCellTemplate = jest.fn(() => null);
     const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
     const tree = mount((
@@ -199,94 +181,107 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
-          tableStubHeaderCellTemplate={tableStubHeaderCellTemplate}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.stubCellComponent).props())
+      .toMatchObject(tableCellArgs);
+  });
+
+  it('should render stub header cell on plugin-defined column and row intersection', () => {
+    isHeaderStubTableCell.mockImplementation(() => true);
+    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Table
+          {...defaultProps}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
         />
       </PluginHost>
     ));
 
     expect(isHeaderStubTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).getters.tableHeaderRows);
-    expect(tableStubHeaderCellTemplate)
-      .toBeCalledWith(tableCellArgs);
+    expect(tree.find(defaultProps.stubHeaderCellComponent).props())
+      .toMatchObject(tableCellArgs);
   });
 
   it('should render no data cell if rows are empty', () => {
     isNoDataTableRow.mockImplementation(() => true);
-    const tableNoDataCellTemplate = jest.fn(() => null);
     const tableCellArgs = {
       tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4,
     };
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
           messages={{ noData: 'No data' }}
-          tableLayoutTemplate={({ cellTemplate }) => cellTemplate(tableCellArgs)}
-          tableNoDataCellTemplate={tableNoDataCellTemplate}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
         />
 
       </PluginHost>
     ));
-    const { getMessage } = tableNoDataCellTemplate.mock.calls[0][0];
 
     expect(isNoDataTableRow)
       .toBeCalledWith(tableCellArgs.tableRow);
-    expect(tableNoDataCellTemplate)
-      .toBeCalledWith(expect.objectContaining(tableCellArgs));
-    expect(getMessage('noData')).toBe('No data');
+    expect(tree.find(defaultProps.noDataCellComponent).props())
+      .toMatchObject(tableCellArgs);
+    expect(tree.find(defaultProps.noDataCellComponent).props().getMessage('noData'))
+      .toBe('No data');
   });
 
-  it('should render row by using tableRowTemplate', () => {
+  it('should render row by using rowComponent', () => {
     isDataTableRow.mockImplementation(() => true);
-    const tableRowTemplate = jest.fn(() => null);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'data' },
       style: {},
       children: null,
     };
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
-          tableRowTemplate={tableRowTemplate}
+          layoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
         />
       </PluginHost>
     ));
 
     expect(isDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
-    expect(tableRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...tableRowArgs,
-      row: tableRowArgs.tableRow.row,
-    }));
+    expect(tree.find(defaultProps.rowComponent).props())
+      .toMatchObject({
+        ...tableRowArgs,
+        row: tableRowArgs.tableRow.row,
+      });
   });
 
-  it('should render empty row by using tableNoDataRowTemplate', () => {
+  it('should render empty row by using noDataRowComponent', () => {
     isNoDataTableRow.mockImplementation(() => true);
-    const tableNoDataRowTemplate = jest.fn(() => null);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'nodata' },
       style: {},
       children: null,
     };
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          tableLayoutTemplate={({ rowTemplate }) => rowTemplate(tableRowArgs)}
-          tableNoDataRowTemplate={tableNoDataRowTemplate}
+          layoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
         />
       </PluginHost>
     ));
 
     expect(isNoDataTableRow).toBeCalledWith(tableRowArgs.tableRow);
-    expect(tableNoDataRowTemplate).toBeCalledWith(tableRowArgs);
+    expect(tree.find(defaultProps.noDataRowComponent).props())
+      .toMatchObject(tableRowArgs);
   });
 });

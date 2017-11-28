@@ -16,7 +16,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 rowHeight | number | | Specifies the filter row's height.
 filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a filter cell.
-filterRowTemplate | (args: [TableRowArgs](table.md#table-row-args)) => ReactElement | | A component that renders a filter row.
+filterRowTemplate | (args: [TableRowProps](table.md#tablerowprops)) => ReactElement | | A component that renders a filter row.
 messages | object | | The object specifies [localization messages](#localization-messages).
 
 ## Interfaces
@@ -25,7 +25,7 @@ messages | object | | The object specifies [localization messages](#localization
 
 Describes properties passed to the filter row cell template.
 
-A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -48,14 +48,14 @@ filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text. 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters.
 setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter. Removes the filter if config is `null`.
-tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
-tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
+tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows with filters to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows with filters to be rendered.

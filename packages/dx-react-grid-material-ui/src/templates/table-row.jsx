@@ -4,7 +4,7 @@ import { TableRow as TableRowMUI } from 'material-ui';
 
 export const TableRow = ({
   children, style,
-  tableRow, tableColumn,
+  row, tableRow, tableColumn,
   toggleGroupExpanded,
   isExpanded, ...restProps
 }) => (
@@ -19,6 +19,7 @@ export const TableRow = ({
 TableRow.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object,
+  row: PropTypes.object,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   toggleGroupExpanded: PropTypes.func,
@@ -28,6 +29,7 @@ TableRow.propTypes = {
 TableRow.defaultProps = {
   children: null,
   style: null,
+  row: undefined,
   tableRow: undefined,
   tableColumn: undefined,
   toggleGroupExpanded: undefined,

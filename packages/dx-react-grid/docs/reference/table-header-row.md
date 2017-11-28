@@ -47,13 +47,13 @@ Field | Type | Description
 column | [Column](#column) | A column object.
 allowSorting | boolean | If true, an end-user can change sorting by a column.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the column's sorting order.
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) | Changes column sorting direction. Keeps the existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
+changeSortingDirection | ({ keepOther: boolean, cancel: boolean }) | Changes the column's sorting direction. Keeps the existing sorting if `keepOther` is set to `true`. Cancels sorting by the current column if `cancel` is set to true.
 allowGroupingByClick | boolean | If true, a component that toggles a column's grouping state is rendered.
 groupByColumn | () => void | Toggles grouping for a column.
 allowDragging | boolean | If true, an end-user can start dragging a column by the header cell.
 dragPayload | any | A data object that identifies the corresponding column in the drag-and-drop context.
 changeColumnWidth | ({ shift: number }) => void | Changes the column width. A shift is added to the original column width value.
-changeDraftColumnWidth | ({ shift: number }) => void | Changes the draft column's width. A shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
+changeDraftColumnWidth | ({ shift: number }) => void | Changes the draft column's width. A shift is added to the original column width value. If a shift is `null`, the column's draft width is cleared.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in sorting controls within the sorting table header cell.
 
 ## Localization Messages
@@ -77,7 +77,7 @@ grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Column
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. Each shift is added to the original column width value.
-changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the draft width for the column is cleared.
+changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes draft column widths. Each shift is added to the original column width value. If a shift is `null`, the column's draft width is cleared.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   PagingState,
   SortingState,
@@ -12,6 +13,19 @@ import {
 import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
+
+const SaleAmountCell = ({ value, classes }) => (
+  <td
+    className={classes.saleAmountCell}
+  >
+    ${value}
+  </td>
+);
+
+SaleAmountCell.propTypes = {
+  value: PropTypes.any.isRequired,
+  classes: PropTypes.object.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -38,6 +52,13 @@ export default class Demo extends React.PureComponent {
     this.changeSorting = this.changeSorting.bind(this);
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
+
+    this.getCellComponent = (columnName) => {
+      if (columnName === 'SaleAmount') {
+        return SaleAmountCell;
+      }
+      return undefined;
+    };
   }
   componentDidMount() {
     this.loadData();
@@ -127,25 +148,7 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <Table
-            tableCellTemplate={({ row, column }) => {
-              if (column.name === 'SaleAmount') {
-                return (
-                  <td style={{ textAlign: 'right' }}>${row.SaleAmount}</td>
-                );
-              }
-              return undefined;
-            }}
-            tableNoDataCellTemplate={({ colSpan }) => (
-              <td
-                style={{
-                  textAlign: 'center',
-                  padding: '40px 0',
-                }}
-                colSpan={colSpan}
-              >
-                <big className="text-muted">{loading ? '' : 'No data'}</big>
-              </td>
-            )}
+            getCellComponent={this.getCellComponent}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

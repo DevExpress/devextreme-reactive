@@ -15,7 +15,7 @@ A plugin that renders a filter row.
 Name | Type | Default | Description
 -----|------|---------|------------
 getCellComponent | (columnName: string) => ElementType&lt;[TableFilterCellProps](#tablefiltercellprops)&gt; | | A function returning a component that renders a filter cell for a specific column.
-rowComponent | ElementType&lt;[TableRowArgs](table.md#table-row-args)&gt; | | A component that renders a filter row.
+rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
 rowHeight | number | | Specifies the filter row's height.
 messages | object | | The object specifies [localization messages](#localization-messages).
 
@@ -25,7 +25,7 @@ messages | object | | The object specifies [localization messages](#localization
 
 Describes properties passed to a component that renders a filter cell.
 
-A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -48,14 +48,14 @@ filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text. 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters.
 setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter. Removes the filter if config is `null`.
-tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
-tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
+tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows with filters to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows with filters to be rendered.

@@ -9,7 +9,7 @@ The plugins that provide all the Grid's functionality can be divided into four g
 
 Note that the plugins are composable and can be nested into each other.
 
-Refer to the [Reference](../../reference/grid.md) to see the complete plugin list.
+Refer to the [Reference](../reference/grid.md) to see the complete plugin list.
 
 ## <a name="plugin-order">Plugin Order
 

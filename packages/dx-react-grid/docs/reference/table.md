@@ -1,6 +1,6 @@
 # Table Plugin Reference
 
-A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
+A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
 
 ## User Reference
 
@@ -30,8 +30,8 @@ A value with a [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-align? | 'left' &#124; 'right' | Specifies the table column alignment.
-width? | number | Specifies the table column width in pixels.
+align? | 'left' &#124; 'right' | Specifies the table's column alignment.
+width? | number | Specifies the table's column width in pixels.
 
 ### TableLayoutProps
 

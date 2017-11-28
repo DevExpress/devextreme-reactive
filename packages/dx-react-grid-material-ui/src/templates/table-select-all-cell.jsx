@@ -14,21 +14,27 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     textAlign: 'center',
   },
+  pointer: {
+    cursor: 'pointer',
+  },
 });
 
 const TableSelectAllCellBase = ({
   style, allSelected, someSelected, selectionAvailable, toggleAll, classes,
+  className, tableRow, tableColumn,
+  ...restProps
 }) => {
   const cellClasses = classNames({
     [classes.cell]: true,
     [classes.pointer]: selectionAvailable,
-  });
+  }, className);
 
   return (
     <TableCell
       padding="checkbox"
       style={style}
       className={cellClasses}
+      {...restProps}
     >
       <Checkbox
         checked={allSelected}
@@ -52,6 +58,9 @@ TableSelectAllCellBase.propTypes = {
   selectionAvailable: PropTypes.bool,
   toggleAll: PropTypes.func,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 TableSelectAllCellBase.defaultProps = {
@@ -60,6 +69,9 @@ TableSelectAllCellBase.defaultProps = {
   someSelected: false,
   selectionAvailable: false,
   toggleAll: () => {},
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };
 
 export const TableSelectAllCell = withStyles(styles, { name: 'TableSelectAllCell' })(TableSelectAllCellBase);

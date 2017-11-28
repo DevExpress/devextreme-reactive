@@ -78,8 +78,8 @@ value | any | The current group value.
 
 Name | Properties | Description
 -----|------------|------------
-TableGroupRow.Row | [GroupRowArgs](#group-row-args) | A component that renders a group row.
-TableGroupRow.Cell | [GroupCellArgs](#group-cell-args) | A component that renders a group cell.
+TableGroupRow.Row | [TableGroupRowProps](#tablegrouprowprops) | A component that renders a group row.
+TableGroupRow.Cell | [TableGroupCellProps](#tablegroupcellprops) | A component that renders a group cell.
 
 If you specify additional properties, they are added to the component's root element.
 

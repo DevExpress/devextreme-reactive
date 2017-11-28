@@ -5,7 +5,7 @@ export const TableSelectCell = ({
   style,
   selected,
   changeSelected,
-  tableRow, tableColumn,
+  row, tableRow, tableColumn,
   ...restProps
 }) => (
   <td
@@ -37,6 +37,7 @@ TableSelectCell.propTypes = {
   style: PropTypes.object,
   selected: PropTypes.bool,
   changeSelected: PropTypes.func,
+  row: PropTypes.object,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };
@@ -45,6 +46,7 @@ TableSelectCell.defaultProps = {
   style: null,
   selected: false,
   changeSelected: () => {},
+  row: undefined,
   tableRow: undefined,
   tableColumn: undefined,
 };

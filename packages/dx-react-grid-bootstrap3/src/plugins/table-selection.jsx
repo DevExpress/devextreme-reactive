@@ -9,9 +9,9 @@ export class TableSelection extends React.PureComponent {
   render() {
     return (
       <TableSelectionBase
-        selectRowComponent={TableSelectRow}
-        selectCellComponent={TableSelectCell}
-        selectAllCellComponent={TableSelectAllCell}
+        rowComponent={TableSelectRow}
+        cellComponent={TableSelectCell}
+        headerCellComponent={TableSelectAllCell}
         selectionColumnWidth={40}
         {...this.props}
       />

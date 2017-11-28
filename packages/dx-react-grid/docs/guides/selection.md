@@ -6,7 +6,7 @@ The Grid component supports selecting/deselecting rows programmatically or via t
 
 The following plugins implement selection features:
 
-- [SelectionState](../reference/selection-state.md) - controls the selection state  
+- [SelectionState](../reference/selection-state.md) - controls the selection state
 - [TableSelection](../reference/table-selection.md) - renders selection check boxes or highlights the selected rows
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
@@ -23,7 +23,7 @@ A user can select a row using a check box click by default. Set the `TableSelect
 
 .embedded-demo(selection/select-by-row-click)
 
-In some scenarios, it is useful to highlight selected rows instead of using check boxes. For this, hide check boxes setting the `TableSelection` plugin's `showSelectionColumn` property to false and assign true to the `selectByRowClick` and `highlightSelected` properties as demonstrated in the following demo:
+In some scenarios, it is useful to highlight selected rows instead of using check boxes. For this, hide check boxes setting the `TableSelection` plugin's `showSelectionColumn` property to false and assign true to the `selectByRowClick` and `highlightRow` properties as demonstrated in the following demo:
 
 .embedded-demo(selection/hidden-checkboxes)
 

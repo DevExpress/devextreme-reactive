@@ -43,9 +43,9 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  selectAllCellComponent: () => null,
-  selectCellComponent: () => null,
-  selectRowComponent: () => null,
+  headerCellComponent: () => null,
+  cellComponent: () => null,
+  rowComponent: () => null,
   selectionColumnWidth: 100,
 };
 
@@ -104,7 +104,7 @@ describe('Table Selection', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(tree.find(defaultProps.selectCellComponent).props())
+    expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
@@ -128,11 +128,11 @@ describe('Table Selection', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(tree.find(defaultProps.selectAllCellComponent).props())
+    expect(tree.find(defaultProps.headerCellComponent).props())
       .toMatchObject(defaultDeps.template.tableCell);
   });
 
-  it('should render row by using selectRowComponent if selectByRowClick is true', () => {
+  it('should render row by using rowComponent if selectByRowClick is true', () => {
     isDataTableRow.mockImplementation(() => true);
 
     const tree = mount((
@@ -144,11 +144,11 @@ describe('Table Selection', () => {
         />
       </PluginHost>
     ));
-    tree.find(defaultProps.selectRowComponent).props().onToggle();
+    tree.find(defaultProps.rowComponent).props().onToggle();
 
     expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
 
-    expect(tree.find(defaultProps.selectRowComponent).props())
+    expect(tree.find(defaultProps.rowComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableRow,
         selectByRowClick: true,
@@ -161,7 +161,7 @@ describe('Table Selection', () => {
       });
   });
 
-  it('should render row by using selectRowComponent if highlightSelected is true', () => {
+  it('should render row by using rowComponent if highlightRow is true', () => {
     isDataTableRow.mockImplementation(() => true);
 
     const tree = mount((
@@ -169,21 +169,21 @@ describe('Table Selection', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
-          highlightSelected
+          highlightRow
         />
       </PluginHost>
     ));
 
     expect(isDataTableRow)
       .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(tree.find(defaultProps.selectRowComponent).props())
+    expect(tree.find(defaultProps.rowComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableRow,
         selected: true,
       });
   });
 
-  it('should not use selectRowComponent if highlightSelected & selectByRowClick are false', () => {
+  it('should not use rowComponent if highlightRow & selectByRowClick are false', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -194,7 +194,7 @@ describe('Table Selection', () => {
     ));
 
 
-    expect(tree.find(defaultProps.selectRowComponent).exists())
+    expect(tree.find(defaultProps.rowComponent).exists())
       .toBeFalsy();
   });
 });

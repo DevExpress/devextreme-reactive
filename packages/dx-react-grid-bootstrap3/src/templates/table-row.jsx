@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 export const TableRow = ({
   children, style,
   row, tableRow, tableColumn,
-  isExpanded, toggleGroupExpanded,
   ...restProps
 }) => (
   <tr
@@ -18,8 +17,6 @@ export const TableRow = ({
 TableRow.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object,
-  toggleGroupExpanded: PropTypes.func,
-  isExpanded: PropTypes.bool,
   row: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
@@ -28,8 +25,6 @@ TableRow.propTypes = {
 TableRow.defaultProps = {
   children: null,
   style: null,
-  toggleGroupExpanded: undefined,
-  isExpanded: undefined,
   row: undefined,
   tableColumn: undefined,
   tableRow: undefined,

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import ChevronRight from 'material-ui-icons/ChevronRight';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import IconButton from 'material-ui/IconButton';
@@ -29,14 +30,12 @@ const styles = theme => ({
 });
 
 const TableGroupCellBase = ({
-  style,
-  colSpan,
-  row,
-  column,
-  isExpanded,
+  style, colSpan, row,
+  column, isExpanded,
   toggleGroupExpanded,
-  classes,
-  children,
+  classes, children,
+  className, tableRow,
+  tableColumn, ...restProps
 }) => {
   const handleClick = () => toggleGroupExpanded();
 
@@ -44,8 +43,9 @@ const TableGroupCellBase = ({
     <TableCell
       colSpan={colSpan}
       style={style}
-      className={classes.cell}
+      className={classNames(classes.cell, className)}
       onClick={handleClick}
+      {...restProps}
     >
       <IconButton
         className={classes.groupButton}
@@ -76,6 +76,9 @@ TableGroupCellBase.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 TableGroupCellBase.defaultProps = {
@@ -86,6 +89,9 @@ TableGroupCellBase.defaultProps = {
   isExpanded: false,
   toggleGroupExpanded: () => {},
   children: undefined,
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };
 
 export const TableGroupCell = withStyles(styles, { name: 'TableGroupCell' })(TableGroupCellBase);

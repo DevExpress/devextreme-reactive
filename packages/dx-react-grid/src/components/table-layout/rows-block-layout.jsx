@@ -1,10 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import {
-  TemplateRenderer,
-} from '@devexpress/dx-react-core';
-
 import { RowLayout } from './row-layout';
 
 export class RowsBlockLayout extends React.PureComponent {
@@ -12,15 +7,13 @@ export class RowsBlockLayout extends React.PureComponent {
     const {
       rows,
       columns,
-      blockTemplate,
-      rowTemplate,
-      cellTemplate,
+      blockComponent: Block,
+      rowComponent,
+      cellComponent,
     } = this.props;
 
     return (
-      <TemplateRenderer
-        template={blockTemplate}
-      >
+      <Block>
         {
           rows
             .map(row => (
@@ -28,12 +21,12 @@ export class RowsBlockLayout extends React.PureComponent {
                 key={row.key}
                 row={row}
                 columns={columns}
-                rowTemplate={rowTemplate}
-                cellTemplate={cellTemplate}
+                rowComponent={rowComponent}
+                cellComponent={cellComponent}
               />
             ))
         }
-      </TemplateRenderer>
+      </Block>
     );
   }
 }
@@ -41,7 +34,7 @@ export class RowsBlockLayout extends React.PureComponent {
 RowsBlockLayout.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  blockTemplate: PropTypes.func.isRequired,
-  rowTemplate: PropTypes.func.isRequired,
-  cellTemplate: PropTypes.func.isRequired,
+  blockComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
 };

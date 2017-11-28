@@ -229,15 +229,11 @@ class DemoBase extends React.PureComponent {
       this.setState({ columnOrder: order });
     };
 
-    this.tableCellTemplate = ({ row, column, style }) => {
-      if (column.name === 'discount') {
-        return (
-          <ProgressBarCell value={row.discount * 100} style={style} />
-        );
-      } else if (column.name === 'amount') {
-        return (
-          <HighlightedCell align={column.align} value={row.amount} style={style} />
-        );
+    this.getCellComponent = (columnName) => {
+      if (columnName === 'discount') {
+        return ProgressBarCell;
+      } else if (columnName === 'amount') {
+        return HighlightedCell;
       }
       return undefined;
     };
@@ -309,7 +305,7 @@ class DemoBase extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            tableCellTemplate={this.tableCellTemplate}
+            getCellComponent={this.getCellComponent}
           />
 
           <TableColumnReordering
@@ -349,7 +345,7 @@ class DemoBase extends React.PureComponent {
                 columns={columns}
               >
                 <Table
-                  tableCellTemplate={this.tableCellTemplate}
+                  getCellComponent={this.getCellComponent}
                 />
                 <TableHeaderRow />
               </Grid>

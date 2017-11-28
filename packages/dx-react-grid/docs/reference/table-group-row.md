@@ -74,6 +74,15 @@ Field | Type | Description
 key | number &#124; string | The current group key.
 value | any | The current group value.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+TableGroupRow.Row | [GroupRowArgs](#group-row-args) | A component that renders a group row.
+TableGroupRow.Cell | [GroupCellArgs](#group-cell-args) | A component that renders a group cell.
+
+All other component's properties will be spreaded to the root element of this component.
+
 ## Plugin Developer Reference
 
 ### Imports

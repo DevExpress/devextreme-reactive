@@ -1,9 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectAllCell } from './table-select-all-cell';
 
-describe('TableHeaderCell', () => {
+describe('TableSelectAllCell', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -41,5 +41,14 @@ describe('TableHeaderCell', () => {
 
     expect(toggleAll)
       .toHaveBeenCalledTimes(1);
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableSelectAllCell className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
   });
 });

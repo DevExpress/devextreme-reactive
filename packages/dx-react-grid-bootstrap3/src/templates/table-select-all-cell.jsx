@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 export const TableSelectAllCell = ({
   style, allSelected, someSelected, selectionAvailable, toggleAll,
+  tableColumn, tableRow,
+  ...restProps
 }) => (
   <th
     style={{
@@ -16,6 +18,7 @@ export const TableSelectAllCell = ({
       e.stopPropagation();
       toggleAll();
     }}
+    {...restProps}
   >
     <input
       style={{
@@ -44,6 +47,8 @@ TableSelectAllCell.propTypes = {
   someSelected: PropTypes.bool,
   selectionAvailable: PropTypes.bool,
   toggleAll: PropTypes.func,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 TableSelectAllCell.defaultProps = {
@@ -52,4 +57,6 @@ TableSelectAllCell.defaultProps = {
   someSelected: false,
   selectionAvailable: false,
   toggleAll: () => {},
+  tableRow: undefined,
+  tableColumn: undefined,
 };

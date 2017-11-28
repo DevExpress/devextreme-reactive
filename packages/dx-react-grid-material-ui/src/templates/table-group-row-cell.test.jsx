@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
-import { Table, TableCell } from 'material-ui';
+import { TableCell } from 'material-ui';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableGroupCell } from './table-group-row-cell';
 
@@ -12,9 +12,8 @@ describe('TableCell', () => {
   beforeAll(() => {
     classes = getClasses(<TableGroupCell />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    const mountMUI = createMount();
     shallow = createShallow({ dive: true });
-    mount = component => mountMUI(<Table>{component}</Table>);
+    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
   });
 
   afterAll(() => {

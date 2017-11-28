@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { TableCell } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
@@ -9,20 +10,34 @@ const styles = {
   },
 };
 
-const TableStubCellBase = ({ style, classes }) => (
+const TableStubCellBase = ({
+  style,
+  classes,
+  className,
+  tableRow,
+  tableColumn,
+  ...restProps
+}) => (
   <TableCell
     style={style}
-    className={classes.cell}
+    className={classNames(classes.cell, className)}
+    {...restProps}
   />
 );
 
 TableStubCellBase.propTypes = {
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 TableStubCellBase.defaultProps = {
   style: {},
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };
 
 export const TableStubCell = withStyles(styles, { name: 'TableStubCell' })(TableStubCellBase);

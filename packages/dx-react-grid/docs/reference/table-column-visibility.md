@@ -13,7 +13,7 @@ A plugin that manages Grid columns' visibility.
 Name | Type | Default | Description
 -----|------|---------|------------
 hiddenColumns | Array&lt;string&gt; | [] | Specifies the hidden columns' names.
-emptyMessageTemplate | () => ReactElement | | A template that renders a message displayed when all columns are hidden.
+emptyMessageTemplate | () => ReactElement | | A template that renders a message that is displayed when all columns are hidden.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ### <a name="empty-message-args"></a>EmptyMessageArgs
@@ -38,10 +38,10 @@ noColumns? | string | 'Nothing to show' | Specifies the text displayed when the 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Table columns.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#table-column)&gt; | Visible table columns.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.

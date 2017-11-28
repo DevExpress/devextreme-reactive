@@ -8,7 +8,10 @@ const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableGroupCell = ({
-  style, colSpan, row, column, expanded, onToggle, children,
+  style, colSpan, row, column,
+  expanded, onToggle,
+  children, tableRow, tableColumn,
+  ...restProps
 }) => {
   const handleClick = () => onToggle();
   const handleKeyDown = (e) => {
@@ -27,6 +30,7 @@ export const TableGroupCell = ({
         ...style,
       }}
       onClick={handleClick}
+      {...restProps}
     >
       <i
         className={`glyphicon glyphicon-triangle-${expanded ? 'bottom' : 'right'}`}
@@ -57,6 +61,8 @@ TableGroupCell.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 TableGroupCell.defaultProps = {
@@ -67,4 +73,6 @@ TableGroupCell.defaultProps = {
   expanded: false,
   onToggle: () => {},
   children: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };

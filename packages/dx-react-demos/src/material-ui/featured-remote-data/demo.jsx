@@ -20,43 +20,22 @@ const styles = {
   saleAmountCell: {
     textAlign: 'right',
   },
-  noDataCell: {
-    textAlign: 'center',
-    padding: '40px 0',
-  },
 };
 
-const SaleAmountCellBase = ({ row, classes }) => (
+const SaleAmountCellBase = ({ value, classes }) => (
   <TableCell
     className={classes.saleAmountCell}
   >
-    ${row.SaleAmount}
+    ${value}
   </TableCell>
 );
 
 SaleAmountCellBase.propTypes = {
-  row: PropTypes.object.isRequired,
+  value: PropTypes.any.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 const SaleAmountCell = withStyles(styles)(SaleAmountCellBase);
-
-const NoDataCellBase = ({ loading, colSpan, classes }) => (
-  <TableCell
-    className={classes.noDataCell}
-    colSpan={colSpan}
-  >
-    <big>{loading ? '' : 'No data'}</big>
-  </TableCell>
-);
-
-NoDataCellBase.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  colSpan: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
-};
-
-const NoDataCell = withStyles(styles, { name: 'RemoteDataDemo' })(NoDataCellBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -83,6 +62,13 @@ export default class Demo extends React.PureComponent {
     this.changeSorting = this.changeSorting.bind(this);
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
+
+    this.getCellComponent = (columnName) => {
+      if (columnName === 'SaleAmount') {
+        return SaleAmountCell;
+      }
+      return undefined;
+    };
   }
   componentDidMount() {
     this.loadData();
@@ -172,15 +158,7 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <Table
-            tableCellTemplate={({ row, column }) => {
-              if (column.name === 'SaleAmount') {
-                return <SaleAmountCell row={row} />;
-              }
-              return undefined;
-            }}
-            tableNoDataCellTemplate={({ colSpan }) => (
-              <NoDataCell loading={loading} colSpan={colSpan} />
-            )}
+            getCellComponent={this.getCellComponent}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

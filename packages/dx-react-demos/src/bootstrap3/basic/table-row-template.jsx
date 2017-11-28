@@ -1,5 +1,5 @@
-/* eslint-disable no-alert */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Grid,
   Table,
@@ -10,6 +10,23 @@ import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
+
+const TableRow = ({ children, row }) => (
+  <tr
+    // eslint-disable-next-line no-alert
+    onClick={() => alert(JSON.stringify(row))}
+  >
+    {children}
+  </tr>
+);
+
+TableRow.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  row: PropTypes.any.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -26,14 +43,6 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
-
-    this.tableRowTemplate = ({ children, row }) => (
-      <tr
-        onClick={() => alert(JSON.stringify(row))}
-      >
-        {children}
-      </tr>
-    );
   }
   render() {
     const { rows, columns } = this.state;
@@ -43,7 +52,9 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <Table tableRowTemplate={this.tableRowTemplate} />
+        <Table
+          rowComponent={TableRow}
+        />
         <TableHeaderRow />
       </Grid>
     );

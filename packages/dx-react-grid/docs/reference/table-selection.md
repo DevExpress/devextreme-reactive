@@ -56,6 +56,15 @@ row | any | A row.
 selected | boolean | Specifies whether a row is selected.
 changeSelected | () => void | Selects or deselects a row.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+TableSelection.SelectAllCell | [SelectAllCellArgs](#select-all-cell-args) | A component that renders a cell with the selection control inside the heading row.
+TableSelection.SelectCell | [SelectCellArgs](#select-cell-args) | A component that renders a cell with selection control.
+
+All other component's properties will be spreaded to the root element of this component.
+
 ## Plugin Developer Reference
 
 ### Imports

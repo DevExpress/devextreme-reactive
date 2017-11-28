@@ -16,11 +16,11 @@ const defaultProps = {
     { key: 2, rowId: 2 },
     { key: 3, rowId: 3 },
   ],
-  containerTemplate: () => null,
-  tableTemplate: () => null,
-  bodyTemplate: () => null,
-  cellTemplate: () => null,
-  rowTemplate: () => null,
+  containerComponent: () => null,
+  tableComponent: () => null,
+  bodyComponent: () => null,
+  cellComponent: () => null,
+  rowComponent: () => null,
 };
 
 describe('StaticTableLayout', () => {
@@ -56,50 +56,47 @@ describe('StaticTableLayout', () => {
 
     expect(tree.find('RowsBlockLayout').props())
       .toMatchObject({
-        blockTemplate: defaultProps.bodyTemplate,
-        cellTemplate: defaultProps.cellTemplate,
-        rowTemplate: defaultProps.rowTemplate,
+        blockComponent: defaultProps.bodyComponent,
+        cellComponent: defaultProps.cellComponent,
+        rowComponent: defaultProps.rowComponent,
         columns: defaultProps.columns,
         rows: defaultProps.rows,
       });
   });
 
   it('should render the head RowsBlockLayout', () => {
-    const headTemplate = () => null;
+    const headComponent = () => null;
     const headerRows = defaultProps.rows.slice(0, 1);
 
     const tree = shallow((
       <StaticTableLayout
         {...defaultProps}
-        headTemplate={headTemplate}
+        headComponent={headComponent}
         headerRows={headerRows}
       />
     ));
 
     expect(tree.find('RowsBlockLayout').at(0).props())
       .toMatchObject({
-        blockTemplate: headTemplate,
-        cellTemplate: defaultProps.cellTemplate,
-        rowTemplate: defaultProps.rowTemplate,
+        blockComponent: headComponent,
+        cellComponent: defaultProps.cellComponent,
+        rowComponent: defaultProps.rowComponent,
         columns: defaultProps.columns,
         rows: headerRows,
       });
   });
 
-  it('should pass correct styles to the tableTemplate', () => {
+  it('should pass correct styles to the tableComponent', () => {
     const tree = shallow((
       <StaticTableLayout
         {...defaultProps}
       />
     ));
 
-    expect(tree.find('TemplateRenderer').at(0).children('TemplateRenderer').props())
+    expect(tree.find(defaultProps.tableComponent).props())
       .toMatchObject(expect.objectContaining({
-        template: defaultProps.tableTemplate,
-        params: {
-          style: {
-            minWidth: '400px',
-          },
+        style: {
+          minWidth: '400px',
         },
       }));
   });

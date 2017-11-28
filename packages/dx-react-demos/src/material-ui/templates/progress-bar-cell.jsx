@@ -16,18 +16,21 @@ const styles = theme => ({
   },
 });
 
-export const ProgressBarCellBase = ({ value, classes, style }) => (
-  <TableCell
-    className={classes.progressBarCell}
-    style={style}
-  >
-    <div
-      className={classes.progressBar}
-      style={{ width: `${value}%` }}
-      title={`${value.toFixed(1)}%`}
-    />
-  </TableCell>
-);
+export const ProgressBarCellBase = ({ value, classes, style }) => {
+  const percent = value * 100;
+  return (
+    <TableCell
+      className={classes.progressBarCell}
+      style={style}
+    >
+      <div
+        className={classes.progressBar}
+        style={{ width: `${percent}%` }}
+        title={`${percent.toFixed(1)}%`}
+      />
+    </TableCell>
+  );
+};
 ProgressBarCellBase.propTypes = {
   value: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,

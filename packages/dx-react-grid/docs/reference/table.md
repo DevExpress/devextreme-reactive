@@ -1,6 +1,6 @@
 # Table Plugin Reference
 
-This plugin renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins, and provides ways to customize table rows and columns.
+A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
 
 ## User Reference
 
@@ -13,114 +13,115 @@ This plugin renders Grid data as a table. It contains the Table Row and Table Ce
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tableLayoutTemplate | (args: [TableArgs](#table-args)) => ReactElement | | Renders a table layout using the specified parameters.
-tableCellTemplate | (args: [TableDataCellArgs](#table-data-cell-args)) => ReactElement | | Renders a table cell using the specified parameters.
-tableRowTemplate | (args: [TableDataRowArgs](#table-data-row-args)) => ReactElement | | Renders a table row using the specified parameters.
-tableNoDataCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a table cell using the specified parameters when the table is empty.
-tableNoDataRowTemplate | (args: [TableRowArgs](#table-row-args)) => ReactElement | | Renders a table row using the specified parameters when the table is empty.
-tableStubCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub table cell if the cell value is not provided.
-tableStubHeaderCellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | | Renders a stub header cell if the cell value is not provided.
+layoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | A component that renders a table layout.
+getCellComponent | (columnName: string) => ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A function returning a component that renders a table cell for a specific column.
+rowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
+noDataCellComponent | ElementType&lt;[TableNoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
+noDataRowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
+stubCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
+stubHeaderCellComponent | ElementType&lt;[TableCellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 
-### <a name="column"></a>Column (Extension)
+### Column (Extension)
 
 A value with a [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-align? | 'left' &#124; 'right' | Specifies the table column alignment.
-width? | number | Specifies the table column width in pixels.
+align? | 'left' &#124; 'right' | Specifies the table's column alignment.
+width? | number | Specifies the table's column width in pixels.
 
-### <a name="table-args"></a>TableArgs
+### TableLayoutProps
 
-Describes properties passed to the table template when it is being rendered.
+Describes properties passed to a component that renders a table layout.
 
 Field | Type | Description
 ------|------|------------
-headerRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table header.
-bodyRows | Array&lt;[TableRow](#table-row)&gt; | Specifies rows rendered in the table body.
-columns | Array&lt;[TableColumn](#table-column)&gt; | Specifies the rendered table columns.
-cellTemplate | (args: [TableCellArgs](#table-cell-args)) => ReactElement | The template used to render table cells.
+headerRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies the table header rows.
+bodyRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies the table body rows.
+columns | Array&lt;[TableColumn](#tablecolumn)&gt; | Specifies the table columns.
+rowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | A component that renders table rows.
+cellComponent | ElementType&lt;[TableCellArgs](#tablecellprops)&gt; | A component that renders table cells.
 
-### <a name="table-row"></a>TableRow
+### TableRow
 
-Describes properties of a table row the Table plugin renders.
+Describes properties of a table row that the Table plugin renders.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A table row's unique identifier.
+key | string | A unique table row identifier.
 type | string | Specifies the table row type. The specified value defines which cell template is used to render the row.
 rowId? | number &#124; string | Specifies the associated row's ID.
 row? | any | Specifies the associated row.
 height? | number | Specifies the table row height.
 
-### <a name="table-column"></a>TableColumn
+### TableColumn
 
-Describes table column properties that the Table plugin takes into account.
+Describes properties of a table column that the Table plugin renders.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-key | string | A table column's unique identifier.
+key | string | A unique table column identifier.
 type | string | Specifies the table column type. The specified value defines which cell template is used to render the column.
-column? | [Column](#column) | Specifies the associated user column.
+column? | [Column](#column-extension) | Specifies the associated user column.
 width? | number | Specifies the table column width.
 
-### <a name="table-cell-args"></a>TableCellArgs
+### TableCellProps
 
-Describes properties passed to a cell template when it is being rendered.
+Describes properties passed to a component that renders a generic table cell.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#table-row) | Specifies a table row.
-tableColumn | [TableColumn](#table-column) | Specifies a table column.
+tableRow | [TableRow](#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
 style? | Object | Styles that should be applied to the root cell element.
-colSpan? | number | The column count that the root cell element spans.
+colSpan? | number | The count of columns that the root cell element spans.
 
-### <a name="table-data-cell-args"></a>TableDataCellArgs
+### TableDataCellProps
 
-Describes properties passed to the table cell template when it is being rendered.
+Describes properties passed to a component that renders a table cell.
 
-A value with the [TableCellArgs](#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
 value | any | Specifies a value to be rendered within the cell.
 row | any | Specifies the cell's row.
-column | [Column](#column) | Specifies the cell's column.
+column | [Column](#column-extension) | Specifies the cell's column.
 
-### <a name="table-no-data-cell-args"></a>TableNoDataCellArgs
+### TableNoDataCellProps
 
-Describes properties passed to the table cell being rendered when using an empty template.
+Describes properties passed to a component that renders a table cell when the table is empty.
 
 Field | Type | Description
 ------|------|------------
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a cell when a table is empty.
 
-### <a name="table-row-args"></a>TableRowArgs
+### TableRowProps
 
-Describes properties passed to a row template when it is being rendered.
+Describes properties passed to a component that renders a generic table row.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#table-row) | A table row.
+tableRow | [TableRow](#tablerow) | A table row.
 children | ReactElement | A React element used to render a table row.
 style? | Object | Styles that should be applied to the root row element.
 
-### <a name="table-data-row-args"></a>TableDataRowArgs
+### TableDataRowProps
 
-Describes properties passed to the table row template when it is being rendered.
+Describes properties passed to a component that renders a table row.
 
-A value with the [TableRowArgs](#table-row-args) shape extended by the following fields:
+A value with the [TableRowProps](#tablerowprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -138,12 +139,12 @@ noData? | string | 'No data' | Specifies text shown when the Grid does not conta
 
 Name | Properties | Description
 -----|------------|------------
-Table.Cell | [TableDataCellArgs](#table-data-cell-args) | A component that renders a table data cell.
-Table.Row | [TableDataRowArgs](#table-data-row-args) | A component that renders a table data row.
-Table.NoDataCell | [TableCellArgs](#table-cell-args) | A component that renders a table cell when the table is empty.
-Table.NoDataRow | [TableRowArgs](#table-row-args) | A component that renders a table row when the table is empty.
-Table.StubCell | [TableCellArgs](#table-cell-args) | A component that renders a stub table cell.
-Table.StubHeaderCell | [TableCellArgs](#table-cell-args) | A component that renders a stub table header cell.
+Table.Cell | [TableDataCellProps](#tabledatacellprops) | A component that renders a table data cell.
+Table.Row | [TableDataRowProps](#tabledatarowprops) | A component that renders a table data row.
+Table.NoDataCell | [TableCellProps](#tablecellprops) | A component that renders a table cell when the table is empty.
+Table.NoDataRow | [TableRowProps](#tablerowprops) | A component that renders a table row when the table is empty.
+Table.StubCell | [TableCellProps](#tablecellprops) | A component that renders a stub table cell.
+Table.StubHeaderCell | [TableCellProps](#tablecellprops) | A component that renders a stub table header cell.
 
 If you specify additional properties, they are added to the component's root element.
 
@@ -154,7 +155,7 @@ If you specify additional properties, they are added to the component's root ele
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows to be rendered by the table view.
-columns | Getter | Array&lt;[Column](#column)&gt; | Columns to be rendered by the table view.
+columns | Getter | Array&lt;[Column](#column-extension)&gt; | Columns to be rendered by the table view.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 
@@ -162,9 +163,9 @@ getCellValue | Getter | (row: any, columnName: string) => any | A function used 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Header rows to be rendered.
-tableBodyRows | Getter | Array&lt;[TableRow](#table-row)&gt; | Body rows to be rendered.
-tableColumns | Getter | Array&lt;[TableColumn](#table-column)&gt; | Columns to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
+tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
 table | Template | Object? | A template that renders the table.
-tableCell | Template | [TableCellArgs](#table-cell-args) | A template that renders a table cell.
-tableRow | Template | [TableRowArgs](#table-row-args) | A template that renders a table row.
+tableCell | Template | [TableCellProps](#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [TableRowProps](#tablerowprops) | A template that renders a table row.

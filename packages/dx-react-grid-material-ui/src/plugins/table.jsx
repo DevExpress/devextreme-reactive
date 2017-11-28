@@ -8,12 +8,7 @@ import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 
-const tableLayoutTemplate = props => <TableLayout {...props} />;
-const defaultRowTemplate = props => <TableRow {...props} />;
-const defaultNoDataRowTemplate = props => <TableRow {...props} />;
-const defaultCellTemplate = props => <TableCell {...props} />;
-const defaultStubCellTemplate = props => <TableStubCell {...props} />;
-const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
+const defaultGetCellComponent = () => TableCell;
 
 const defaultMessages = {
   noData: 'No data',
@@ -22,43 +17,23 @@ const defaultMessages = {
 export class Table extends React.PureComponent {
   render() {
     const {
-      tableCellTemplate,
-      tableRowTemplate,
-      tableNoDataRowTemplate,
-      tableStubCellTemplate,
-      tableStubHeaderCellTemplate,
-      tableNoDataCellTemplate,
+      getCellComponent,
       messages,
       ...restProps
     } = this.props;
 
     return (
       <TableBase
-        tableLayoutTemplate={tableLayoutTemplate}
-        tableRowTemplate={combineTemplates(
-          tableRowTemplate,
-          defaultRowTemplate,
+        layoutComponent={TableLayout}
+        rowComponent={TableRow}
+        getCellComponent={combineTemplates(
+          getCellComponent,
+          defaultGetCellComponent,
         )}
-        tableNoDataRowTemplate={combineTemplates(
-          tableNoDataRowTemplate,
-          defaultNoDataRowTemplate,
-        )}
-        tableCellTemplate={combineTemplates(
-          tableCellTemplate,
-          defaultCellTemplate,
-        )}
-        tableStubCellTemplate={combineTemplates(
-          tableStubCellTemplate,
-          defaultStubCellTemplate,
-        )}
-        tableStubHeaderCellTemplate={combineTemplates(
-          tableStubHeaderCellTemplate,
-          defaultStubCellTemplate,
-        )}
-        tableNoDataCellTemplate={combineTemplates(
-          tableNoDataCellTemplate,
-          defaultNoDataCellTemplate,
-        )}
+        noDataRowComponent={TableRow}
+        noDataCellComponent={TableNoDataCell}
+        stubCellComponent={TableStubCell}
+        stubHeaderCellComponent={TableStubCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -74,23 +49,13 @@ Table.StubCell = TableStubCell;
 Table.StubHeaderCell = TableStubCell;
 
 Table.propTypes = {
-  tableCellTemplate: PropTypes.func,
-  tableRowTemplate: PropTypes.func,
-  tableNoDataRowTemplate: PropTypes.func,
-  tableStubCellTemplate: PropTypes.func,
-  tableStubHeaderCellTemplate: PropTypes.func,
-  tableNoDataCellTemplate: PropTypes.func,
+  getCellComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
 };
 
 Table.defaultProps = {
-  tableCellTemplate: undefined,
-  tableRowTemplate: undefined,
-  tableNoDataRowTemplate: undefined,
-  tableStubCellTemplate: undefined,
-  tableStubHeaderCellTemplate: undefined,
-  tableNoDataCellTemplate: undefined,
+  getCellComponent: undefined,
   messages: {},
 };

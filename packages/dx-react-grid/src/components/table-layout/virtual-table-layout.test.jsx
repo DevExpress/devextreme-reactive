@@ -50,13 +50,13 @@ const defaultProps = {
     { key: 5 },
     { key: 6 },
   ],
-  containerTemplate: props => <div {...props} />,
-  headTableTemplate: () => null,
-  tableTemplate: props => <table {...props} />,
-  headTemplate: () => null,
-  bodyTemplate: props => <tbody {...props} />,
-  rowTemplate: () => null,
-  cellTemplate: () => null,
+  containerComponent: props => <div {...props} />,
+  headTableComponent: () => null,
+  tableComponent: props => <table {...props} />,
+  headComponent: () => null,
+  bodyComponent: props => <tbody {...props} />,
+  rowComponent: () => null,
+  cellComponent: () => null,
 };
 
 describe('VirtualTableLayout', () => {
@@ -89,13 +89,13 @@ describe('VirtualTableLayout', () => {
     };
 
     tree
-      .findWhere(wrapper => wrapper.prop('template') === defaultProps.containerTemplate)
-      .prop('params').onScroll(eventData);
+      .find(defaultProps.containerComponent)
+      .prop('onScroll')(eventData);
     tree.update();
   };
 
   describe('body', () => {
-    it('should render ColumnGroup for tableTemplate', () => {
+    it('should render ColumnGroup for tableComponent', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
@@ -206,7 +206,7 @@ describe('VirtualTableLayout', () => {
   });
 
   describe('header', () => {
-    it('should render ColumnGroup for headTableTemplate', () => {
+    it('should render ColumnGroup for headTableComponent', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
@@ -215,14 +215,14 @@ describe('VirtualTableLayout', () => {
       ));
 
       expect(tree
-        .findWhere(wrapper => wrapper.prop('template') === defaultProps.headTableTemplate)
-        .children('ColumnGroup').at(0).props())
+        .find(defaultProps.headTableComponent)
+        .find('ColumnGroup').props())
         .toMatchObject({
           columns: defaultProps.columns,
         });
     });
 
-    it('should render header rows for headTableTemplate', () => {
+    it('should render header rows for headTableComponent', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
@@ -231,7 +231,7 @@ describe('VirtualTableLayout', () => {
       ));
 
       expect(tree
-        .findWhere(wrapper => wrapper.prop('template') === defaultProps.headTableTemplate)
+        .find(defaultProps.headTableComponent)
         .find('RowLayout'))
         .toHaveLength(1);
     });

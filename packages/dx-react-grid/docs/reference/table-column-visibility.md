@@ -13,12 +13,14 @@ A plugin that manages Grid columns' visibility.
 Name | Type | Default | Description
 -----|------|---------|------------
 hiddenColumns | Array&lt;string&gt; | [] | Specifies the hidden columns' names.
-emptyMessageTemplate | () => ReactElement | | A template that renders a message that is displayed when all columns are hidden.
+emptyMessageComponent | ElementType&lt;[EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message displayed when all columns are hidden.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
-### <a name="empty-message-args"></a>EmptyMessageArgs
+## Interfaces
 
-Describes properties passed to the empty message template when it is being rendered.
+### EmptyMessageProps
+
+Describes the empty message component properties.
 
 Field | Type | Description
 ------|------|------------

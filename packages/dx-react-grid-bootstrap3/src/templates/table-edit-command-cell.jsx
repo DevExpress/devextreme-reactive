@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const CommandButton = ({ executeCommand, text }) => (
+export const CommandButton = ({
+  executeCommand,
+  text,
+  className,
+  ...restProps
+}) => (
   <button
-    className="btn btn-link"
+    className={classNames('btn', 'btn-link', className)}
     onClick={(e) => {
       executeCommand();
       e.stopPropagation();
     }}
+    {...restProps}
   >
     {text}
   </button>
@@ -16,6 +23,11 @@ export const CommandButton = ({ executeCommand, text }) => (
 CommandButton.propTypes = {
   executeCommand: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
+
+CommandButton.defaultProps = {
+  className: undefined,
 };
 
 export const EditCommandHeadingCell = ({
@@ -24,6 +36,8 @@ export const EditCommandHeadingCell = ({
   allowAdding,
   style,
   getMessage,
+  tableColumn, tableRow,
+  ...restProps
 }) => (
   <th
     style={{
@@ -32,6 +46,7 @@ export const EditCommandHeadingCell = ({
       padding: 0,
       ...style,
     }}
+    {...restProps}
   >
     {allowAdding && commandTemplate({
       id: 'add',
@@ -47,10 +62,14 @@ EditCommandHeadingCell.propTypes = {
   getMessage: PropTypes.func.isRequired,
   allowAdding: PropTypes.bool.isRequired,
   style: PropTypes.object,
+  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
 };
 
 EditCommandHeadingCell.defaultProps = {
   style: {},
+  tableColumn: undefined,
+  tableRow: undefined,
 };
 
 export const EditCommandCell = ({
@@ -64,6 +83,8 @@ export const EditCommandCell = ({
   allowDeleting,
   style,
   getMessage,
+  tableColumn, tableRow,
+  ...restProps
 }) => {
   let commands = [];
   if (!isEditing) {
@@ -103,6 +124,7 @@ export const EditCommandCell = ({
         padding: 0,
         ...style,
       }}
+      {...restProps}
     >
       {commands.map(command => (<span key={command.id}>{commandTemplate(command)}</span>))}
     </td>
@@ -120,8 +142,12 @@ EditCommandCell.propTypes = {
   commandTemplate: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   style: PropTypes.object,
+  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
 };
 
 EditCommandCell.defaultProps = {
   style: {},
+  tableColumn: undefined,
+  tableRow: undefined,
 };

@@ -1,18 +1,8 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
-import { EditCommandHeadingCell, EditCommandCell } from './table-edit-command-cell';
+import { shallow } from 'enzyme';
+import { EditCommandHeadingCell, EditCommandCell, CommandButton } from './table-edit-command-cell';
 
 describe('EditCommandCells', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-
-  afterAll(() => {
-    resetConsole();
-  });
-
   // eslint-disable-next-line react/prop-types
   const commandTemplate = ({ text }) => (<div className="command-template">{text}</div>);
 
@@ -26,7 +16,7 @@ describe('EditCommandCells', () => {
       allowDeleting = true,
       isEditing = false,
       getMessage = key => key,
-    }) => mount((
+    }) => shallow((
       <EditCommandCell
         startEditing={startEditing}
         deleteRow={deleteRow}
@@ -57,13 +47,34 @@ describe('EditCommandCells', () => {
       expect(commands.at(0).text()).toBe('commitCommand');
       expect(commands.at(1).text()).toBe('cancelCommand');
     });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <EditCommandCell
+          startEditing={() => {}}
+          deleteRow={() => {}}
+          cancelEditing={() => {}}
+          commitChanges={() => {}}
+          allowEditing
+          allowDeleting
+          isEditing={false}
+          commandTemplate={() => (<div />)}
+          getMessage={key => key}
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
   });
+
   describe('EditCommandHeadingCell', () => {
     const mountEditCommandHeadingCell = ({
       addRow = () => {},
       allowAdding = true,
       getMessage = key => key,
-    }) => mount((
+    }) => shallow((
       <EditCommandHeadingCell
         addRow={addRow}
         commandTemplate={commandTemplate}
@@ -77,6 +88,53 @@ describe('EditCommandCells', () => {
       const command = tree.find('.command-template');
 
       expect(command.text()).toBe('addCommand');
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <EditCommandHeadingCell
+          addRow={() => {}}
+          commandTemplate={() => (<div />)}
+          allowAdding
+          getMessage={key => key}
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+  });
+
+  describe('CommandButton', () => {
+    it('should pass the className prop to the root element', () => {
+      const tree = shallow((
+        <CommandButton
+          executeCommand={() => {}}
+          text=""
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+      expect(tree.is('.btn'))
+        .toBeTruthy();
+      expect(tree.is('.btn-link'))
+        .toBeTruthy();
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <CommandButton
+          executeCommand={() => {}}
+          text=""
+          data={{ a: 1 }}
+        />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 });

@@ -15,15 +15,15 @@ Name | Type | Default | Description
 order | Array&lt;string&gt; | | Specifies the column order.
 defaultOrder | Array&lt;string&gt; | | Specifies the initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
-tableContainerTemplate | (args: [TableContainerArgs](#table-container-args)) => ReactElement | | A component that renders a table wrapper containing a drop target.
-reorderingRowTemplate | (args: [TableRowProps](table.md#tablerowprops)) => ReactElement | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
-reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A non-visual component that renders an invisible cell required for drag-and-drop reordering.
+tableContainerComponent | ElementType&lt;[TableContainerProps](#tablecontainerprops)&gt; | | A component that renders a table container containing a drop target.
+reorderingRowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
+reorderingCellComponent | ElementType&lt;[ReorderingCellProps](#reorderingcellprops)&gt; | | A non-visual component that renders an invisible cell required for drag-and-drop reordering.
 
 ## Interfaces
 
-### <a name="table-container-args"></a>TableContainerArgs
+### TableContainerProps
 
-Describes properties passed to the table container template.
+Describes the table container component properties.
 
 A value with the following shape:
 
@@ -33,9 +33,9 @@ onOver | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { 
 onLeave | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "drag leave" event.
 onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "drop" event.
 
-### <a name="reordering-cell-args"></a>ReorderingCellArgs
+### ReorderingCellProps
 
-Describes properties passed to the reordering row cell template.
+Describes the reordering row cell component properties.
 
 A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 

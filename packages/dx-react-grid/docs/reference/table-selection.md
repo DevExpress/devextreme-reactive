@@ -18,7 +18,7 @@ selectByRowClick | boolean | false | If true, the row's selection state is toggl
 showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered in the header row.
 showSelectionColumn | boolean | true | If true, the selection column (that displays a selection checkboxes) is rendered.
 cellComponent | ElementType&lt;[TableSelectCellProps](#tableselectcellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
-headerCellComponent | ElementType&lt;[TableSelectHeaderellProps](#tableselectcellprops)&gt; | | A component that renders a cell containing the 'Select All' checkbox.
+headerCellComponent | ElementType&lt;[TableSelectHeaderCellProps](#tableselectcellprops)&gt; | | A component that renders a cell containing the 'Select All' checkbox.
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces

@@ -12,13 +12,13 @@ A plugin that renders a panel, allowing end-users to navigate through data pages
 
 Name | Type | Default | Description
 -----|------|---------|------------
-pagerTemplate | (args: [PagerArgs](#pager-args)) => ReactElement | | A component that renders a pager based on the specified parameters.
+pagerComponent | ElementType&lt;[PagerProps](#pagerprops)&gt; | | A component that renders a pager.
 allowedPageSizes | Array&lt;number&gt; | [] | Specifies the page sizes that a user can select.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 
-### <a name="pager-args"></a>PagerArgs
+### PagerProps
 
 Describes properties passed to a pager template when it is being rendered.
 

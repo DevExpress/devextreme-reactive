@@ -16,8 +16,8 @@ Name | Type | Default | Description
 contentComponent | ElementType&lt;[DetailContentProps](#detailcontentprops)&gt; | | A component that renders row details.
 cellComponent | ElementType&lt;[TableDetailCellProps](#tabledetailcellprops)&gt; | | A component that renders a detail cell.
 rowComponent | ElementType&lt;[TableDetailRowProps](#tabledetailrowprops)&gt; | | A component that renders a detail row.
-toggleCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders the detail toggle control.
-toggleColumnWidth | number | | Specifies the detail toggle cell width.
+toggleCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders a cell with the detail toggle control.
+toggleColumnWidth | number | | Specifies the detail toggle column width.
 rowHeight | number | | Specifies the detail row height.
 
 ## Interfaces
@@ -55,7 +55,7 @@ row | any | A row.
 
 ### TableDetailToggleCellProps
 
-Describes properties passed to a component that renders the detail toggle control.
+Describes properties passed to a component that renders a cell with the detail toggle control.
 
 A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 

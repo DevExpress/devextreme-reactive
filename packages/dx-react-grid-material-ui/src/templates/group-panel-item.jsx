@@ -33,10 +33,10 @@ const label = (allowSorting, sortingDirection, column) => {
 };
 
 const GroupPanelItemBase = ({
-  column,
-  groupByColumn, allowUngroupingByClick,
-  allowSorting, sortingDirection, changeSortingDirection,
-  classes, draft,
+  item: { column, draft },
+  onGroup, allowUngroupingByClick,
+  allowSorting, sortingDirection, onSort,
+  classes,
 }) => {
   const chipClassNames = classNames({
     [classes.button]: true,
@@ -50,7 +50,7 @@ const GroupPanelItemBase = ({
     const cancel = (isMouseClick && cancelSortingRelatedKey)
       || (isActionKeyDown && cancelSortingRelatedKey);
 
-    changeSortingDirection({
+    onSort({
       keepOther: cancelSortingRelatedKey,
       cancel,
       columnName: column.name,
@@ -61,31 +61,32 @@ const GroupPanelItemBase = ({
     label={label(allowSorting, sortingDirection, column)}
     className={chipClassNames}
     {...allowUngroupingByClick
-      ? { onRequestDelete: () => groupByColumn({ columnName: column.name }) }
+      ? { onRequestDelete: () => onGroup({ columnName: column.name }) }
       : null}
     onClick={onClick}
   />);
 };
 
 GroupPanelItemBase.propTypes = {
-  column: PropTypes.shape({
-    title: PropTypes.string,
+  item: PropTypes.shape({
+    column: PropTypes.shape({
+      title: PropTypes.string,
+    }).isRequired,
+    draft: PropTypes.string,
   }).isRequired,
-  draft: PropTypes.string,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortingDirection: PropTypes.func,
-  groupByColumn: PropTypes.func,
+  onSort: PropTypes.func,
+  onGroup: PropTypes.func,
   allowUngroupingByClick: PropTypes.bool,
   classes: PropTypes.object.isRequired,
 };
 
 GroupPanelItemBase.defaultProps = {
-  draft: undefined,
   allowSorting: false,
   sortingDirection: undefined,
-  changeSortingDirection: undefined,
-  groupByColumn: undefined,
+  onSort: undefined,
+  onGroup: undefined,
   allowUngroupingByClick: false,
 };
 

@@ -20,7 +20,7 @@ allowSorting | boolean | false | Specifies whether an end-user can sort data by 
 allowDragging | boolean | false | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 groupPanelComponent | ElementType&lt;[GroupPanelProps](#grouppanelprops)&gt; | | A component that renders a group panel.
-getGroupPanelItemComponent? | (columnName: string) => ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | | A function returning a component that renders a group panel item for specific column. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
+groupPanelItemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | | A component that renders a group panel item.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
@@ -52,17 +52,13 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-allowSorting | boolean | Specifies whether an end-user can sort data by columns in the grouping panel.
 allowDragging | boolean | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header.
-sorting | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the specified column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the specified column if `cancel` is set to true.
 groupingPanelItems | Array&lt;[GroupingPanelItem](#groupingpanelitem)&gt; | The Grouping Panel items.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
-groupByColumn | ({ columnName: string }) => void | Toggles the column's grouping state.
-draftGroupingChange | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
-cancelGroupingChange | () => void | Resets the `groupingChange` state.
-allowUngroupingByClick | boolean | Specifies whether column headers display a button that cancels grouping by the column.
-getGroupPanelItemComponent | (args: [GroupPanelItemProps](#group-panel-item-props)) => ReactElement | Renders a group panel item. Available for the [Bootstrap 3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3) and [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) template suites only.
+onGroup | ({ columnName: string }) => void | An event that initiates grouping by the column.
+onDraftGroup | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
+onCancelDraftGroup | () => void | Resets the `groupingChange` state.
+groupPanelItemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | A component that renders a group panel item.
 
 ### GroupPanelItemProps
 
@@ -72,12 +68,11 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column-extension) | Specifies the column associated with the item.
-draft | boolean | Specifies whether the item should be rendered for the preview.
+item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
 allowSorting | boolean | Specifies whether an end-user can sort data by the column while it is in the grouping panel.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
-changeSortingDirection | ({ keepOther: boolean, cancel: boolean, columnName: string }) => void | Changes the specified column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
-groupByColumn | ({ columnName: string }) | Toggles the column's grouping state.
+onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
+onGroup | () => void | An event that initiates grouping by the column.
 allowUngroupingByClick | boolean | Specifies whether to display a button that cancels grouping by the column.
 
 ## Localization Messages

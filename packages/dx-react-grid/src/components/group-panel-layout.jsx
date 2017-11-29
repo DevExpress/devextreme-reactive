@@ -3,21 +3,8 @@ import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from '@devexpress/dx-react-core';
 import {
   GROUP_ADD_MODE,
-  getColumnSortingDirection,
   getGroupCellTargetIndex,
 } from '@devexpress/dx-grid-core';
-
-const getSortingConfig = (sorting, column) => {
-  const result = {
-    sortingSupported: sorting !== undefined,
-  };
-
-  if (result.sortingSupported) {
-    result.sortingDirection = getColumnSortingDirection(sorting, column.name);
-  }
-
-  return result;
-};
 
 export class GroupPanelLayout extends React.PureComponent {
   constructor(props) {
@@ -34,7 +21,7 @@ export class GroupPanelLayout extends React.PureComponent {
       });
     };
     this.onOver = ({ clientOffset }) => {
-      const { draftGroupingChange, groupingPanelItems } = this.props;
+      const { onDraftGroup, groupingPanelItems } = this.props;
       const { sourceColumnName, targetColumnIndex: prevTargetColumnIndex } = this.state;
       const itemGeometries = this.itemRefs.map(element => element.getBoundingClientRect());
       const sourceColumnIndex = groupingPanelItems
@@ -47,14 +34,14 @@ export class GroupPanelLayout extends React.PureComponent {
 
       if (prevTargetColumnIndex === targetColumnIndex) return;
 
-      draftGroupingChange({
+      onDraftGroup({
         columnName: sourceColumnName,
         groupIndex: targetColumnIndex,
       });
       this.setState({ targetColumnIndex });
     };
     this.onLeave = () => {
-      const { draftGroupingChange, groupingPanelItems } = this.props;
+      const { onDraftGroup, groupingPanelItems } = this.props;
       const { sourceColumnName } = this.state;
       const sourceItem = groupingPanelItems.filter(item =>
         item.column.name === sourceColumnName)[0];
@@ -62,7 +49,7 @@ export class GroupPanelLayout extends React.PureComponent {
         this.resetState();
         return;
       }
-      draftGroupingChange({
+      onDraftGroup({
         columnName: sourceColumnName,
         groupIndex: -1,
       });
@@ -71,19 +58,19 @@ export class GroupPanelLayout extends React.PureComponent {
       });
     };
     this.onDrop = () => {
-      const { groupByColumn } = this.props;
+      const { onGroup } = this.props;
       const { sourceColumnName, targetColumnIndex } = this.state;
       this.resetState();
-      groupByColumn({
+      onGroup({
         columnName: sourceColumnName,
         groupIndex: targetColumnIndex,
       });
     };
     this.onDragEnd = () => {
       const { sourceColumnName, targetColumnIndex } = this.state;
-      const { groupByColumn } = this.props;
+      const { onGroup } = this.props;
       if (sourceColumnName && targetColumnIndex === -1) {
-        groupByColumn({
+        onGroup({
           columnName: sourceColumnName,
         });
       }
@@ -93,62 +80,49 @@ export class GroupPanelLayout extends React.PureComponent {
 
   getItems() {
     const {
-      allowSorting, sorting, changeSortingDirection,
       groupingPanelItems,
-      groupByColumn,
-      getGroupPanelItemComponent,
+      groupPanelItemComponent: Item,
       allowDragging,
-      allowUngroupingByClick,
     } = this.props;
 
     this.itemRefs = [];
-    return groupingPanelItems.map(({ column, draft }) => {
-      const { sortingSupported, sortingDirection } = getSortingConfig(sorting, column);
-      const Item = getGroupPanelItemComponent(column.name);
-      const item = (
+    return groupingPanelItems.map((item) => {
+      const itemElement = (
         <Item
-          {...{
-            column,
-            draft,
-            allowSorting: allowSorting && sortingSupported,
-            sortingDirection,
-            changeSortingDirection,
-            groupByColumn,
-            allowUngroupingByClick,
-          }}
+          item={item}
         />
       );
 
       return allowDragging
         ? (
           <DragSource
-            key={column.name}
-            getPayload={() => [{ type: 'column', columnName: column.name }]}
+            key={item.column.name}
+            getPayload={() => [{ type: 'column', columnName: item.column.name }]}
             onEnd={this.onDragEnd}
           >
             <div
               ref={element => element && this.itemRefs.push(element)}
               style={{ display: 'inline-block' }}
             >
-              {item}
+              {itemElement}
             </div>
           </DragSource>
         )
         : (
           <div
             ref={element => element && this.itemRefs.push(element)}
-            key={column.name}
+            key={item.column.name}
             style={{ display: 'inline-block' }}
           >
-            {item}
+            {itemElement}
           </div>
         );
     });
   }
 
   resetState() {
-    const { cancelGroupingChange } = this.props;
-    cancelGroupingChange();
+    const { onCancelDraftGroup } = this.props;
+    onCancelDraftGroup();
     this.setState({
       sourceColumnName: null,
       targetColumnIndex: -1,
@@ -186,31 +160,23 @@ export class GroupPanelLayout extends React.PureComponent {
 }
 
 GroupPanelLayout.propTypes = {
-  allowSorting: PropTypes.bool,
-  sorting: PropTypes.any,
-  changeSortingDirection: PropTypes.func,
   groupingPanelItems: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.object,
     draft: PropTypes.string,
   })).isRequired,
-  groupByColumn: PropTypes.func,
+  onGroup: PropTypes.func,
   groupByColumnText: PropTypes.any,
-  allowUngroupingByClick: PropTypes.bool,
-  getGroupPanelItemComponent: PropTypes.func.isRequired,
+  groupPanelItemComponent: PropTypes.func.isRequired,
   panelComponent: PropTypes.func.isRequired,
   allowDragging: PropTypes.bool,
-  draftGroupingChange: PropTypes.func,
-  cancelGroupingChange: PropTypes.func,
+  onDraftGroup: PropTypes.func,
+  onCancelDraftGroup: PropTypes.func,
 };
 
 GroupPanelLayout.defaultProps = {
-  allowSorting: false,
-  sorting: undefined,
-  changeSortingDirection: () => {},
-  groupByColumn: () => {},
+  onGroup: () => {},
   groupByColumnText: undefined,
-  allowUngroupingByClick: false,
   allowDragging: false,
-  draftGroupingChange: () => {},
-  cancelGroupingChange: () => {},
+  onDraftGroup: () => {},
+  onCancelDraftGroup: () => {},
 };

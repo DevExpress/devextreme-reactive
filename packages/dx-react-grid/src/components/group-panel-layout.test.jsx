@@ -5,10 +5,9 @@ import { DragDropContext } from '@devexpress/dx-react-core';
 import { GROUP_ADD_MODE, GROUP_REMOVE_MODE } from '@devexpress/dx-grid-core';
 import { GroupPanelLayout } from './group-panel-layout';
 
-const defaultGroupPanelItemComponent = () => null;
 const defaultProps = {
   panelComponent: ({ children }) => children,
-  getGroupPanelItemComponent: () => defaultGroupPanelItemComponent,
+  groupPanelItemComponent: () => null,
 };
 
 describe('GroupPanelLayout', () => {
@@ -34,7 +33,7 @@ describe('GroupPanelLayout', () => {
       />
     ));
 
-    expect(tree.find(defaultGroupPanelItemComponent).length)
+    expect(tree.find(defaultProps.groupPanelItemComponent).length)
       .toBe(groupingPanelItems.length);
   });
 
@@ -50,54 +49,6 @@ describe('GroupPanelLayout', () => {
 
     expect(tree.text())
       .toBe(groupByColumnText);
-  });
-
-  it('should pass correct sorting parameters to item template', () => {
-    const groupingPanelItems = [
-      { column: { name: 'a' } },
-      { column: { name: 'b' } },
-    ];
-    const sorting = [{ columnName: 'a', direction: 'desc' }];
-
-    const tree = mount((
-      <GroupPanelLayout
-        {...defaultProps}
-        groupingPanelItems={groupingPanelItems}
-        allowSorting
-        sorting={sorting}
-      />
-    ));
-
-    expect(tree.find(defaultGroupPanelItemComponent).at(0).props())
-      .toMatchObject({
-        sortingDirection: 'desc',
-        allowSorting: true,
-      });
-    expect(tree.find(defaultGroupPanelItemComponent).at(1).props())
-      .toMatchObject({
-        sortingDirection: null,
-        allowSorting: true,
-      });
-  });
-
-  it('should pass correct sorting parameters to item template if sorting is disabled', () => {
-    const groupingPanelItems = [{ column: { name: 'a' } }];
-    const sorting = [{ columnName: 'a', direction: 'desc' }];
-
-    const tree = mount((
-      <GroupPanelLayout
-        {...defaultProps}
-        groupingPanelItems={groupingPanelItems}
-        allowSorting={false}
-        sorting={sorting}
-      />
-    ));
-
-    expect(tree.find(defaultGroupPanelItemComponent).at(0).props())
-      .toMatchObject({
-        sortingDirection: 'desc',
-        allowSorting: false,
-      });
   });
 
   describe('drag\'n\'drop grouping', () => {
@@ -141,12 +92,12 @@ describe('GroupPanelLayout', () => {
         </DragDropContext>
       ));
 
-      expect(tree.find('DragSource').find(defaultGroupPanelItemComponent).length)
+      expect(tree.find('DragSource').find(defaultProps.groupPanelItemComponent).length)
         .toBe(groupingPanelItems.length);
     });
 
-    it('should call draftGroupingChange when dragging a column over the group panel', () => {
-      const draftGroupingChange = jest.fn();
+    it('should call onDraftGroup when dragging a column over the group panel', () => {
+      const onDraftGroup = jest.fn();
       const column = { name: 'a' };
 
       const tree = mount((
@@ -154,7 +105,7 @@ describe('GroupPanelLayout', () => {
           <GroupPanelLayout
             {...defaultProps}
             groupingPanelItems={[]}
-            draftGroupingChange={draftGroupingChange}
+            onDraftGroup={onDraftGroup}
             allowDragging
           />
         </DragDropContext>
@@ -170,16 +121,16 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 20 },
       });
 
-      expect(draftGroupingChange)
+      expect(onDraftGroup)
         .toHaveBeenCalledWith({
           columnName: column.name,
           groupIndex: 0,
         });
     });
 
-    it('should call draftGroupingChange on drag leave from Group panel', () => {
-      const draftGroupingChange = jest.fn();
-      const cancelGroupingChange = jest.fn();
+    it('should call onDraftGroup on drag leave from Group panel', () => {
+      const onDraftGroup = jest.fn();
+      const onCancelDraftGroup = jest.fn();
       const column = { name: 'a' };
 
       const tree = mount((
@@ -187,8 +138,8 @@ describe('GroupPanelLayout', () => {
           <GroupPanelLayout
             {...defaultProps}
             groupingPanelItems={[{ column, draft: GROUP_REMOVE_MODE }]}
-            draftGroupingChange={draftGroupingChange}
-            cancelGroupingChange={cancelGroupingChange}
+            onDraftGroup={onDraftGroup}
+            onCancelDraftGroup={onCancelDraftGroup}
             allowDragging
           />
         </DragDropContext>
@@ -204,19 +155,19 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 60 },
       });
 
-      expect(draftGroupingChange)
+      expect(onDraftGroup)
         .toHaveBeenCalledWith({
           columnName: column.name,
           groupIndex: -1,
         });
-      expect(cancelGroupingChange)
+      expect(onCancelDraftGroup)
         .toHaveBeenCalledTimes(0);
     });
 
     it('should apply grouping and reset grouping change on drop', () => {
       const column = { name: 'a' };
-      const groupByColumn = jest.fn();
-      const cancelGroupingChange = jest.fn();
+      const onGroup = jest.fn();
+      const onCancelDraftGroup = jest.fn();
 
       const tree = mount((
         <DragDropContext>
@@ -224,8 +175,8 @@ describe('GroupPanelLayout', () => {
             {...defaultProps}
             groupingPanelItems={[]}
             columns={[column]}
-            groupByColumn={groupByColumn}
-            cancelGroupingChange={cancelGroupingChange}
+            onGroup={onGroup}
+            onCancelDraftGroup={onCancelDraftGroup}
             allowDragging
           />
         </DragDropContext>
@@ -245,27 +196,27 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 20 },
       });
 
-      expect(groupByColumn)
+      expect(onGroup)
         .toHaveBeenCalledTimes(1);
-      expect(groupByColumn)
+      expect(onGroup)
         .toHaveBeenCalledWith({ columnName: column.name, groupIndex: 0 });
 
-      expect(cancelGroupingChange)
+      expect(onCancelDraftGroup)
         .toHaveBeenCalledTimes(1);
     });
 
     it('should apply grouping and reset grouping change on drag end', () => {
       const column = { name: 'a' };
-      const groupByColumn = jest.fn();
-      const cancelGroupingChange = jest.fn();
+      const onGroup = jest.fn();
+      const onCancelDraftGroup = jest.fn();
 
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
             groupingPanelItems={[{ column }]}
-            groupByColumn={groupByColumn}
-            cancelGroupingChange={cancelGroupingChange}
+            onGroup={onGroup}
+            onCancelDraftGroup={onCancelDraftGroup}
             allowDragging
           />
         </DragDropContext>
@@ -290,26 +241,26 @@ describe('GroupPanelLayout', () => {
 
       dragSource.prop('onEnd')();
 
-      expect(groupByColumn)
+      expect(onGroup)
         .toHaveBeenCalledTimes(1);
-      expect(groupByColumn)
+      expect(onGroup)
         .toHaveBeenCalledWith({ columnName: column.name });
 
-      expect(cancelGroupingChange)
+      expect(onCancelDraftGroup)
         .toHaveBeenCalledTimes(1);
     });
 
-    it('should call cancelGroupingChange on drag leave when the draft is "add"', () => {
+    it('should call onCancelDraftGroup on drag leave when the draft is "add"', () => {
       const column = { name: 'a' };
-      const cancelGroupingChange = jest.fn();
-      const draftGroupingChange = jest.fn();
+      const onCancelDraftGroup = jest.fn();
+      const onDraftGroup = jest.fn();
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
             groupingPanelItems={[{ column, draft: GROUP_ADD_MODE }]}
-            cancelGroupingChange={cancelGroupingChange}
-            draftGroupingChange={draftGroupingChange}
+            onCancelDraftGroup={onCancelDraftGroup}
+            onDraftGroup={onDraftGroup}
             allowDragging
           />
         </DragDropContext>
@@ -326,9 +277,9 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 20 },
       });
 
-      expect(cancelGroupingChange)
+      expect(onCancelDraftGroup)
         .toHaveBeenCalledTimes(1);
-      expect(draftGroupingChange)
+      expect(onDraftGroup)
         .toHaveBeenCalledTimes(0);
     });
   });

@@ -4,35 +4,16 @@ import {
   Template, TemplatePlaceholder, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  groupingPanelItems, getMessagesFormatter,
+  groupingPanelItems,
+  getColumnSortingDirection,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-
-const getGroupPanelProps = (
-  {
-    allowDragging, allowSorting, allowUngroupingByClick, getMessage,
-  },
-  { columns, draftGrouping, sorting },
-  {
-    groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange,
-  },
-) => ({
-  allowSorting,
-  allowDragging,
-  allowUngroupingByClick,
-  sorting,
-  groupByColumn,
-  getMessage,
-  groupingPanelItems: groupingPanelItems(columns, draftGrouping),
-  changeSortingDirection: ({ columnName, keepOther, cancel }) =>
-    setColumnSorting({ columnName, keepOther, cancel }),
-  draftGroupingChange: groupingChange => draftGroupingChange(groupingChange),
-  cancelGroupingChange: () => cancelGroupingChange(),
-});
 
 export class GroupingPanel extends React.PureComponent {
   render() {
     const {
       groupPanelComponent: GroupPanel,
+      groupPanelItemComponent: GroupPanelItem,
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
@@ -40,6 +21,26 @@ export class GroupingPanel extends React.PureComponent {
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
+
+    const Item = ({ item }) => {
+      const { name: columnName } = item.column;
+      return (
+        <TemplateConnector>
+          {({ sorting }, { groupByColumn, setColumnSorting }) => (
+            <GroupPanelItem
+              item={item}
+              allowSorting={allowSorting && sorting !== undefined}
+              sortingDirection={sorting !== undefined
+                ? getColumnSortingDirection(sorting, columnName) : undefined}
+              allowUngroupingByClick={allowUngroupingByClick}
+              onGroup={() => groupByColumn({ columnName })}
+              onSort={({ keepOther, cancel }) =>
+                setColumnSorting({ columnName, keepOther, cancel })}
+            />
+          )}
+        </TemplateConnector>
+      );
+    };
 
     return (
       <PluginContainer
@@ -52,15 +53,19 @@ export class GroupingPanel extends React.PureComponent {
         <Template name="header">
           <div>
             <TemplateConnector>
-              {(getters, actions) => (
+              {({
+                columns, draftGrouping,
+              }, {
+                groupByColumn, draftGroupingChange, cancelGroupingChange,
+              }) => (
                 <GroupPanel
-                  {...getGroupPanelProps(
-                    {
-                      allowDragging, allowSorting, allowUngroupingByClick, getMessage,
-                    },
-                    getters,
-                    actions,
-                  )}
+                  allowDragging={allowDragging}
+                  onGroup={groupByColumn}
+                  getMessage={getMessage}
+                  groupingPanelItems={groupingPanelItems(columns, draftGrouping)}
+                  onDraftGroup={groupingChange => draftGroupingChange(groupingChange)}
+                  onCancelDraftGroup={() => cancelGroupingChange()}
+                  groupPanelItemComponent={Item}
                 />
               )}
             </TemplateConnector>
@@ -77,6 +82,7 @@ GroupingPanel.propTypes = {
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
   groupPanelComponent: PropTypes.func.isRequired,
+  groupPanelItemComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

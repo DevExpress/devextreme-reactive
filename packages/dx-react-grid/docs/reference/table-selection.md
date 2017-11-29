@@ -60,7 +60,7 @@ changeSelected | () => void | Selects or deselects a row.
 
 Name | Properties | Description
 -----|------------|------------
-TableSelection.HeaderCell | [TableSelectHeaderellProps](#tableselectheadercellprops) | A component that renders a cell with the selection control inside the heading row.
+TableSelection.HeaderCell | [TableSelectHeaderСellProps](#tableselectheadercellprops) | A component that renders a cell with the selection control inside the heading row.
 TableSelection.Cell | [TableSelectCellProps](#tableselectcellprops) | A component that renders a cell with selection control.
 
 All other component's properties will be spreaded to the root element of this component.

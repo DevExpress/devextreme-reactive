@@ -125,8 +125,8 @@ export class TableColumnReordering extends React.PureComponent {
   render() {
     const {
       tableContainerComponent: Container,
-      reorderingRowComponent: Row,
-      reorderingCellComponent: Cell,
+      rowComponent: Row,
+      cellComponent: Cell,
     } = this.props;
     const columnsComputed = ({ tableColumns }) =>
       orderedColumns(tableColumns, this.getDraftOrder());
@@ -185,8 +185,8 @@ TableColumnReordering.propTypes = {
   defaultOrder: PropTypes.arrayOf(PropTypes.string),
   onOrderChange: PropTypes.func,
   tableContainerComponent: PropTypes.func.isRequired,
-  reorderingRowComponent: PropTypes.func.isRequired,
-  reorderingCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
 };
 
 TableColumnReordering.defaultProps = {

@@ -30,8 +30,8 @@ const ReorderingRow = ({ style, ...restParams }) => (
 export const TableColumnReordering = props => (
   <TableColumnReorderingBase
     tableContainerComponent={TableContainer}
-    reorderingRowComponent={ReorderingRow}
-    reorderingCellComponent={TableReorderingCell}
+    rowComponent={ReorderingRow}
+    cellComponent={TableReorderingCell}
     {...props}
   />
 );

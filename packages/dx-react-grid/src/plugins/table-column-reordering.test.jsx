@@ -72,8 +72,8 @@ describe('TableColumnReordering', () => {
           <TableColumnReordering
             defaultOrder={['b', 'a']}
             tableContainerComponent={DefaultContainer}
-            reorderingRowComponent={DefaultRow}
-            reorderingCellComponent={DefaultCell}
+            rowComponent={DefaultRow}
+            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
@@ -93,8 +93,8 @@ describe('TableColumnReordering', () => {
           <TableColumnReordering
             order={['b', 'a']}
             tableContainerComponent={DefaultContainer}
-            reorderingRowComponent={DefaultRow}
-            reorderingCellComponent={DefaultCell}
+            rowComponent={DefaultRow}
+            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
@@ -114,8 +114,8 @@ describe('TableColumnReordering', () => {
           <TableColumnReordering
             order={['b', 'a']}
             tableContainerComponent={DefaultContainer}
-            reorderingRowComponent={DefaultRow}
-            reorderingCellComponent={DefaultCell}
+            rowComponent={DefaultRow}
+            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
@@ -160,8 +160,8 @@ describe('TableColumnReordering', () => {
           <TableColumnReordering
             defaultOrder={defaultOrder}
             tableContainerComponent={props => <TableMock {...props} />}
-            reorderingRowComponent={DefaultRow}
-            reorderingCellComponent={DefaultCell}
+            rowComponent={DefaultRow}
+            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>

@@ -5,13 +5,11 @@ import { DragDropContext } from '@devexpress/dx-react-core';
 import { GROUP_ADD_MODE, GROUP_REMOVE_MODE } from '@devexpress/dx-grid-core';
 import { GroupPanelLayout } from './group-panel-layout';
 
-const groupPanelItemTemplate = () => (
-  <div
-    className="item"
-  />
-);
-// eslint-disable-next-line react/prop-types
-const panelTemplate = ({ items }) => <div>{items}</div>;
+const defaultGroupPanelItemComponent = () => null;
+const defaultProps = {
+  panelComponent: ({ children }) => children,
+  getGroupPanelItemComponent: () => defaultGroupPanelItemComponent,
+};
 
 describe('GroupPanelLayout', () => {
   let resetConsole;
@@ -22,7 +20,6 @@ describe('GroupPanelLayout', () => {
     resetConsole();
   });
 
-
   it('should render group panel with items', () => {
     const groupingPanelItems = [
       { column: { name: 'a' } },
@@ -32,13 +29,12 @@ describe('GroupPanelLayout', () => {
     ];
     const tree = mount((
       <GroupPanelLayout
+        {...defaultProps}
         groupingPanelItems={groupingPanelItems}
-        groupPanelItemTemplate={groupPanelItemTemplate}
-        panelTemplate={panelTemplate}
       />
     ));
 
-    expect(tree.find('.item').length)
+    expect(tree.find(defaultGroupPanelItemComponent).length)
       .toBe(groupingPanelItems.length);
   });
 
@@ -46,10 +42,9 @@ describe('GroupPanelLayout', () => {
     const groupByColumnText = 'no items';
     const tree = mount((
       <GroupPanelLayout
+        {...defaultProps}
         groupingPanelItems={[]}
         groupByColumnText={groupByColumnText}
-        groupPanelItemTemplate={groupPanelItemTemplate}
-        panelTemplate={panelTemplate}
       />
     ));
 
@@ -63,45 +58,46 @@ describe('GroupPanelLayout', () => {
       { column: { name: 'b' } },
     ];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
-    const itemTemplate = jest.fn(groupPanelItemTemplate);
-    mount((
+
+    const tree = mount((
       <GroupPanelLayout
+        {...defaultProps}
         groupingPanelItems={groupingPanelItems}
         allowSorting
         sorting={sorting}
-        groupPanelItemTemplate={itemTemplate}
-        panelTemplate={panelTemplate}
       />
     ));
 
-    expect(itemTemplate.mock.calls[0][0].sortingDirection)
-      .toBe('desc');
-    expect(itemTemplate.mock.calls[0][0].allowSorting)
-      .toBeTruthy();
-    expect(itemTemplate.mock.calls[1][0].sortingDirection)
-      .toBeNull();
-    expect(itemTemplate.mock.calls[1][0].allowSorting)
-      .toBeTruthy();
+    expect(tree.find(defaultGroupPanelItemComponent).at(0).props())
+      .toMatchObject({
+        sortingDirection: 'desc',
+        allowSorting: true,
+      });
+    expect(tree.find(defaultGroupPanelItemComponent).at(1).props())
+      .toMatchObject({
+        sortingDirection: null,
+        allowSorting: true,
+      });
   });
 
   it('should pass correct sorting parameters to item template if sorting is disabled', () => {
     const groupingPanelItems = [{ column: { name: 'a' } }];
     const sorting = [{ columnName: 'a', direction: 'desc' }];
-    const itemTemplate = jest.fn(groupPanelItemTemplate);
-    mount((
+
+    const tree = mount((
       <GroupPanelLayout
+        {...defaultProps}
         groupingPanelItems={groupingPanelItems}
         allowSorting={false}
         sorting={sorting}
-        groupPanelItemTemplate={itemTemplate}
-        panelTemplate={panelTemplate}
       />
     ));
 
-    expect(itemTemplate.mock.calls[0][0].sortingDirection)
-      .toBe('desc');
-    expect(itemTemplate.mock.calls[0][0].allowSorting)
-      .toBeFalsy();
+    expect(tree.find(defaultGroupPanelItemComponent).at(0).props())
+      .toMatchObject({
+        sortingDirection: 'desc',
+        allowSorting: false,
+      });
   });
 
   describe('drag\'n\'drop grouping', () => {
@@ -112,12 +108,12 @@ describe('GroupPanelLayout', () => {
         { column: { name: 'c' } },
         { column: { name: 'd' } },
       ];
+
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
+            {...defaultProps}
             groupingPanelItems={groupingPanelItems}
-            groupPanelItemTemplate={groupPanelItemTemplate}
-            panelTemplate={panelTemplate}
             allowDragging
           />
         </DragDropContext>
@@ -134,31 +130,30 @@ describe('GroupPanelLayout', () => {
         { column: { name: 'c' } },
         { column: { name: 'd' } },
       ];
+
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
+            {...defaultProps}
             groupingPanelItems={groupingPanelItems}
-            groupPanelItemTemplate={groupPanelItemTemplate}
-            panelTemplate={panelTemplate}
             allowDragging
           />
         </DragDropContext>
       ));
 
-      expect(tree.find('DragSource').find('.item').length)
+      expect(tree.find('DragSource').find(defaultGroupPanelItemComponent).length)
         .toBe(groupingPanelItems.length);
     });
 
     it('should call draftGroupingChange when dragging a column over the group panel', () => {
       const draftGroupingChange = jest.fn();
       const column = { name: 'a' };
+
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
+            {...defaultProps}
             groupingPanelItems={[]}
-            groupPanelItemTemplate={groupPanelItemTemplate}
-            panelTemplate={panelTemplate}
-            columns={[column]}
             draftGroupingChange={draftGroupingChange}
             allowDragging
           />
@@ -186,13 +181,12 @@ describe('GroupPanelLayout', () => {
       const draftGroupingChange = jest.fn();
       const cancelGroupingChange = jest.fn();
       const column = { name: 'a' };
+
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
+            {...defaultProps}
             groupingPanelItems={[{ column, draft: GROUP_REMOVE_MODE }]}
-            groupPanelItemTemplate={groupPanelItemTemplate}
-            panelTemplate={panelTemplate}
-            columns={[column]}
             draftGroupingChange={draftGroupingChange}
             cancelGroupingChange={cancelGroupingChange}
             allowDragging
@@ -223,12 +217,12 @@ describe('GroupPanelLayout', () => {
       const column = { name: 'a' };
       const groupByColumn = jest.fn();
       const cancelGroupingChange = jest.fn();
+
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
+            {...defaultProps}
             groupingPanelItems={[]}
-            groupPanelItemTemplate={groupPanelItemTemplate}
-            panelTemplate={panelTemplate}
             columns={[column]}
             groupByColumn={groupByColumn}
             cancelGroupingChange={cancelGroupingChange}
@@ -264,13 +258,12 @@ describe('GroupPanelLayout', () => {
       const column = { name: 'a' };
       const groupByColumn = jest.fn();
       const cancelGroupingChange = jest.fn();
+
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
-            columns={[column]}
+            {...defaultProps}
             groupingPanelItems={[{ column }]}
-            groupPanelItemTemplate={groupPanelItemTemplate}
-            panelTemplate={panelTemplate}
             groupByColumn={groupByColumn}
             cancelGroupingChange={cancelGroupingChange}
             allowDragging
@@ -313,10 +306,8 @@ describe('GroupPanelLayout', () => {
       const tree = mount((
         <DragDropContext>
           <GroupPanelLayout
-            columns={[column]}
+            {...defaultProps}
             groupingPanelItems={[{ column, draft: GROUP_ADD_MODE }]}
-            groupPanelItemTemplate={groupPanelItemTemplate}
-            panelTemplate={panelTemplate}
             cancelGroupingChange={cancelGroupingChange}
             draftGroupingChange={draftGroupingChange}
             allowDragging

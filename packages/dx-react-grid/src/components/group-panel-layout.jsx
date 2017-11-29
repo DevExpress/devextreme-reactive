@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { DragSource, DropTarget } from '@devexpress/dx-react-core';
 import {
   GROUP_ADD_MODE,
@@ -97,7 +96,7 @@ export class GroupPanelLayout extends React.PureComponent {
       allowSorting, sorting, changeSortingDirection,
       groupingPanelItems,
       groupByColumn,
-      groupPanelItemTemplate,
+      getGroupPanelItemComponent,
       allowDragging,
       allowUngroupingByClick,
     } = this.props;
@@ -105,15 +104,20 @@ export class GroupPanelLayout extends React.PureComponent {
     this.itemRefs = [];
     return groupingPanelItems.map(({ column, draft }) => {
       const { sortingSupported, sortingDirection } = getSortingConfig(sorting, column);
-      const item = groupPanelItemTemplate({
-        column,
-        draft,
-        allowSorting: allowSorting && sortingSupported,
-        sortingDirection,
-        changeSortingDirection,
-        groupByColumn,
-        allowUngroupingByClick,
-      });
+      const Item = getGroupPanelItemComponent(column.name);
+      const item = (
+        <Item
+          {...{
+            column,
+            draft,
+            allowSorting: allowSorting && sortingSupported,
+            sortingDirection,
+            changeSortingDirection,
+            groupByColumn,
+            allowUngroupingByClick,
+          }}
+        />
+      );
 
       return allowDragging
         ? (
@@ -154,7 +158,7 @@ export class GroupPanelLayout extends React.PureComponent {
   render() {
     const {
       groupByColumnText,
-      panelTemplate,
+      panelComponent: Panel,
       allowDragging,
     } = this.props;
 
@@ -162,7 +166,7 @@ export class GroupPanelLayout extends React.PureComponent {
 
     const groupPanel = (
       items.length
-        ? panelTemplate({ items })
+        ? <Panel>{items}</Panel>
         : <span>{groupByColumnText}</span>
     );
 
@@ -192,8 +196,8 @@ GroupPanelLayout.propTypes = {
   groupByColumn: PropTypes.func,
   groupByColumnText: PropTypes.any,
   allowUngroupingByClick: PropTypes.bool,
-  groupPanelItemTemplate: PropTypes.func.isRequired,
-  panelTemplate: PropTypes.func.isRequired,
+  getGroupPanelItemComponent: PropTypes.func.isRequired,
+  panelComponent: PropTypes.func.isRequired,
   allowDragging: PropTypes.bool,
   draftGroupingChange: PropTypes.func,
   cancelGroupingChange: PropTypes.func,

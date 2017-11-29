@@ -46,14 +46,14 @@ describe('GroupingPanel', () => {
     jest.resetAllMocks();
   });
 
-  it('should pass correct getMessage prop to groupPanelTemplate', () => {
-    const groupPanelTemplate = jest.fn().mockReturnValue(null);
-    const deps = {};
-    mount((
+  it('should pass correct getMessage prop to groupPanelComponent', () => {
+    const groupPanelComponent = () => null;
+
+    const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <GroupingPanel
-          groupPanelTemplate={groupPanelTemplate}
+          groupPanelComponent={groupPanelComponent}
           messages={{
             groupByColumn: 'Group By Column',
           }}
@@ -61,8 +61,8 @@ describe('GroupingPanel', () => {
       </PluginHost>
     ));
 
-    const { getMessage } = groupPanelTemplate.mock.calls[0][0];
-
-    expect(getMessage('groupByColumn')).toBe('Group By Column');
+    const { getMessage } = tree.find(groupPanelComponent).props();
+    expect(getMessage('groupByColumn'))
+      .toBe('Group By Column');
   });
 });

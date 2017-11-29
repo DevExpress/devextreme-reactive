@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
-  Template, TemplatePlaceholder, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Template, TemplatePlaceholder, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { groupingPanelItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
+import {
+  groupingPanelItems, getMessagesFormatter,
+} from '@devexpress/dx-grid-core';
 
-const getGroupPanelTemplateArgs = (
+const getGroupPanelProps = (
   {
     allowDragging, allowSorting, allowUngroupingByClick, getMessage,
   },
@@ -32,7 +32,7 @@ const getGroupPanelTemplateArgs = (
 export class GroupingPanel extends React.PureComponent {
   render() {
     const {
-      groupPanelTemplate,
+      groupPanelComponent: GroupPanel,
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
@@ -53,9 +53,8 @@ export class GroupingPanel extends React.PureComponent {
           <div>
             <TemplateConnector>
               {(getters, actions) => (
-                <TemplateRenderer
-                  template={groupPanelTemplate}
-                  params={getGroupPanelTemplateArgs(
+                <GroupPanel
+                  {...getGroupPanelProps(
                     {
                       allowDragging, allowSorting, allowUngroupingByClick, getMessage,
                     },
@@ -77,7 +76,7 @@ GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
-  groupPanelTemplate: PropTypes.func.isRequired,
+  groupPanelComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

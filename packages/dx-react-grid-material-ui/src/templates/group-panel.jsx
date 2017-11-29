@@ -77,20 +77,18 @@ GroupPanelTextBase.defaultProps = {
 
 const GroupPanelText = withStyles(styles, { name: 'GroupPanel' })(GroupPanelTextBase);
 
-const PanelTemplateBase = ({ classes, items }) => (
+const PanelBase = ({ classes, children }) => (
   <div className={classes.panel}>
-    {items}
+    {children}
   </div>
 );
 
-PanelTemplateBase.propTypes = {
+PanelBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  items: PropTypes.arrayOf(PropTypes.node).isRequired,
+  children: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 
-const PanelTemplate = withStyles(styles, { name: 'GroupPanel' })(PanelTemplateBase);
-
-const panelTemplate = props => <PanelTemplate {...props} />;
+const Panel = withStyles(styles, { name: 'GroupPanel' })(PanelBase);
 
 const GroupPanelBase = ({ getMessage, classes, ...restProps }) => {
   const groupPanelText = (
@@ -103,7 +101,7 @@ const GroupPanelBase = ({ getMessage, classes, ...restProps }) => {
     <div className={classes.panel}>
       <GroupPanelLayout
         groupByColumnText={groupPanelText}
-        panelTemplate={panelTemplate}
+        panelComponent={Panel}
         {...restProps}
       />
     </div>

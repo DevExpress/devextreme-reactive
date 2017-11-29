@@ -48,13 +48,11 @@ const getText = (allowDragging, allowUngroupingByClick, getMessage) => {
   );
 };
 
-const PanelTemplate = ({ items }) => <div>{items}</div>;
+const Panel = ({ children }) => <div>{children}</div>;
 
-PanelTemplate.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.node).isRequired,
+Panel.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
-
-const panelTemplate = props => <PanelTemplate {...props} />;
 
 export const GroupPanel = ({ getMessage, ...restProps }) => (
   <GroupPanelLayout
@@ -63,7 +61,7 @@ export const GroupPanel = ({ getMessage, ...restProps }) => (
       restProps.allowUngroupingByClick,
       getMessage,
     )}
-    panelTemplate={panelTemplate}
+    panelComponent={Panel}
     {...restProps}
   />
 );

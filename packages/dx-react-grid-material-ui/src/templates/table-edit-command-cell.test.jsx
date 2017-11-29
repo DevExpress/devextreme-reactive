@@ -1,6 +1,5 @@
 import React from 'react';
-import { createMount } from 'material-ui/test-utils';
-import { Table } from 'material-ui';
+import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   CommandButton,
@@ -8,21 +7,27 @@ import {
   EditCommandCell,
 } from './table-edit-command-cell';
 
-describe('Table command column', () => {
-  let resetConsole;
-  let mount;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    const mountMUI = createMount();
-    mount = component => mountMUI(<Table>{component}</Table>);
-  });
-  afterAll(() => {
-    resetConsole();
-    mount.cleanUp();
-  });
-
-
+describe('TablCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {
+    let resetConsole;
+    let mount;
+    let shallow;
+    let classes;
+    beforeAll(() => {
+      resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+      mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+      shallow = createShallow({ dive: true });
+      classes = getClasses((
+        <EditCommandHeadingCell
+          getMessage={key => key}
+          commandTemplate={() => (<div />)}
+        />
+      ));
+    });
+    afterAll(() => {
+      resetConsole();
+      mount.cleanUp();
+    });
     it('should render without exceptions in view mode', () => {
       const tree = mount((
         <EditCommandHeadingCell
@@ -82,9 +87,61 @@ describe('Table command column', () => {
         text: 'addCommand',
       });
     });
+
+    it('should pass className to the root element', () => {
+      const tree = shallow((
+        <EditCommandHeadingCell
+          addRow={() => {}}
+          commandTemplate={() => (<div />)}
+          allowAdding
+          getMessage={key => key}
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is(`.${classes.headingCell}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <EditCommandHeadingCell
+          addRow={() => {}}
+          commandTemplate={() => (<div />)}
+          allowAdding
+          getMessage={key => key}
+          data={{ a: 1 }}
+        />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
+    });
   });
 
   describe('EditCommandCell', () => {
+    let resetConsole;
+    let mount;
+    let shallow;
+    let classes;
+    beforeAll(() => {
+      resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+      mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+      shallow = createShallow({ dive: true });
+      classes = getClasses((
+        <EditCommandCell
+          getMessage={key => key}
+          commandTemplate={() => (<div />)}
+        />
+      ));
+    });
+    afterAll(() => {
+      resetConsole();
+      mount.cleanUp();
+    });
+
     it('should render without exceptions in view mode', () => {
       const tree = mount((
         <EditCommandCell
@@ -195,7 +252,6 @@ describe('Table command column', () => {
           isEditing
           commitChanges={commitChanges}
           cancelEditing={cancelEditing}
-          allowAdding
           allowDeleting
           commandTemplate={template}
           getMessage={key => key}
@@ -213,6 +269,76 @@ describe('Table command column', () => {
         id: 'cancel',
         text: 'cancelCommand',
       });
+    });
+
+    it('should pass className to the root element', () => {
+      const tree = shallow((
+        <EditCommandCell
+          getMessage={key => key}
+          commandTemplate={() => (<div />)}
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is(`.${classes.cell}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <EditCommandCell
+          getMessage={key => key}
+          commandTemplate={() => (<div />)}
+          data={{ a: 1 }}
+        />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
+    });
+  });
+
+  describe('CommandButton', () => {
+    let shallow;
+    let classes;
+    beforeAll(() => {
+      shallow = createShallow({ dive: true });
+      classes = getClasses((
+        <CommandButton
+          executeCommand={() => {}}
+          text=""
+        />
+      ));
+    });
+
+    it('should pass the className prop to the root element', () => {
+      const tree = shallow((
+        <CommandButton
+          executeCommand={() => {}}
+          text=""
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is(`.${classes.button}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <CommandButton
+          executeCommand={() => {}}
+          text=""
+          data={{ a: 1 }}
+        />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 });

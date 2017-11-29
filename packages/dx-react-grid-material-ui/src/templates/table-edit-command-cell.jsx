@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 
 import {
@@ -28,14 +29,21 @@ const styles = theme => ({
 
 const withEditColumnStyles = withStyles(styles, { name: 'EditColumn' });
 
-const CommandButtonBase = ({ executeCommand, text, classes }) => (
+const CommandButtonBase = ({
+  executeCommand,
+  text,
+  classes,
+  className,
+  ...restProps
+}) => (
   <Button
     color="primary"
-    className={classes.button}
+    className={classNames(classes.button, className)}
     onClick={(e) => {
       executeCommand();
       e.stopPropagation();
     }}
+    {...restProps}
   >
     {text}
   </Button>
@@ -44,6 +52,11 @@ CommandButtonBase.propTypes = {
   executeCommand: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+CommandButtonBase.defaultProps = {
+  className: undefined,
 };
 
 export const CommandButton = withEditColumnStyles(CommandButtonBase);
@@ -55,10 +68,14 @@ const EditCommandHeadingCellBase = ({
   style = {},
   getMessage,
   classes,
+  className,
+  tableRow, tableColumn,
+  ...restProps
 }) => (
   <TableCell
-    className={classes.headingCell}
+    className={classNames(classes.headingCell, className)}
     style={style}
+    {...restProps}
   >
     {allowAdding && commandTemplate({
       id: 'add',
@@ -74,11 +91,17 @@ EditCommandHeadingCellBase.propTypes = {
   commandTemplate: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 EditCommandHeadingCellBase.defaultProps = {
   addRow: () => {},
   allowAdding: false,
   style: undefined,
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };
 
 export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
@@ -94,7 +117,10 @@ const EditCommandCellBase = ({
   allowDeleting,
   style = {},
   classes,
+  className,
   getMessage,
+  tableRow, tableColumn,
+  ...restProps
 }) => {
   let commands = [];
   if (!isEditing) {
@@ -128,8 +154,9 @@ const EditCommandCellBase = ({
   }
   return (
     <TableCell
-      className={classes.cell}
+      className={classNames(classes.cell, className)}
       style={style}
+      {...restProps}
     >
       {commands.map(command => (<span key={command.id}>{commandTemplate(command)}</span>))}
     </TableCell>
@@ -143,10 +170,13 @@ EditCommandCellBase.propTypes = {
   isEditing: PropTypes.bool,
   allowEditing: PropTypes.bool,
   allowDeleting: PropTypes.bool,
-  commandTemplate: PropTypes.func,
+  commandTemplate: PropTypes.func.isRequired,
   style: PropTypes.object,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 EditCommandCellBase.defaultProps = {
   startEditing: () => {},
@@ -156,8 +186,10 @@ EditCommandCellBase.defaultProps = {
   isEditing: false,
   allowEditing: false,
   allowDeleting: false,
-  commandTemplate: PropTypes.func,
   style: undefined,
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };
 
 export const EditCommandCell = withEditColumnStyles(EditCommandCellBase);

@@ -1,6 +1,6 @@
 # TableRowDetail Plugin Reference
 
-A plugin that renders a table detail row.
+A plugin that renders detail rows.
 
 ## User Reference
 
@@ -13,18 +13,18 @@ A plugin that renders a table detail row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-contentComponent | ElementType&lt;[DetailContentProps](#detailcontentprops)&gt; | | A component that renders row details.
+contentComponent | ElementType&lt;[DetailContentProps](#detailcontentprops)&gt; | | A component that renders the detail row's content within the detail cell.
 cellComponent | ElementType&lt;[TableDetailCellProps](#tabledetailcellprops)&gt; | | A component that renders a detail cell.
 rowComponent | ElementType&lt;[TableDetailRowProps](#tabledetailrowprops)&gt; | | A component that renders a detail row.
-toggleCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders a cell with the detail toggle control.
-toggleColumnWidth | number | | Specifies the detail toggle column width.
+toggleCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders a cell containing the expand/collaps control.
+toggleColumnWidth | number | | Specifies the width of the column containing expand/collapse controls.
 rowHeight | number | | Specifies the detail row height.
 
 ## Interfaces
 
 ### DetailContentProps
 
-Describes properties passed to component that renders row details.
+Describes properties passed to a component that renders a detail row's content.
 
 A value with the following shape:
 
@@ -41,7 +41,7 @@ A value with the [TableCellProps](table.md#tablecellprops) shape extended by the
 Field | Type | Description
 ------|------|------------
 row | any | A row.
-children? | ReactElement | A React element to be placed in a detail cell.
+children? | ReactElement | A detail cell's child React element.
 
 ### TableDetailRowProps
 
@@ -55,15 +55,15 @@ row | any | A row.
 
 ### TableDetailToggleCellProps
 
-Describes properties passed to a component that renders a cell with the detail toggle control.
+Describes properties passed to a component that renders a cell containing the expand/collaps control.
 
 A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
 row | any | A row.
-expanded | boolean | Specifies if row details are displayed.
-onToggle | () => void | An event that initiates toggling a row's expanded state.
+expanded | boolean | Specifies whether to expand the detail row.
+onToggle | () => void | An event that initiates row expanding or collapsing state.
 
 ## Plugin Developer Reference
 

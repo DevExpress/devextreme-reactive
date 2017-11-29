@@ -12,7 +12,7 @@ export class GroupPanelLayout extends React.PureComponent {
 
     this.state = {
       sourceColumnName: null,
-      targetColumnIndex: -1,
+      targetItemIndex: -1,
     };
 
     this.onEnter = ({ payload }) => {
@@ -21,30 +21,28 @@ export class GroupPanelLayout extends React.PureComponent {
       });
     };
     this.onOver = ({ clientOffset }) => {
-      const { onDraftGroup, groupingPanelItems } = this.props;
-      const { sourceColumnName, targetColumnIndex: prevTargetColumnIndex } = this.state;
+      const { onDraftGroup, items } = this.props;
+      const { sourceColumnName, targetItemIndex: prevTargetItemIndex } = this.state;
       const itemGeometries = this.itemRefs.map(element => element.getBoundingClientRect());
-      const sourceColumnIndex = groupingPanelItems
-        .findIndex(column => column.name === sourceColumnName);
-      const targetColumnIndex = getGroupCellTargetIndex(
+      const sourceItemIndex = items.findIndex(({ column }) => column.name === sourceColumnName);
+      const targetItemIndex = getGroupCellTargetIndex(
         itemGeometries,
-        sourceColumnIndex,
+        sourceItemIndex,
         clientOffset,
       );
 
-      if (prevTargetColumnIndex === targetColumnIndex) return;
+      if (prevTargetItemIndex === targetItemIndex) return;
 
       onDraftGroup({
         columnName: sourceColumnName,
-        groupIndex: targetColumnIndex,
+        groupIndex: targetItemIndex,
       });
-      this.setState({ targetColumnIndex });
+      this.setState({ targetItemIndex });
     };
     this.onLeave = () => {
-      const { onDraftGroup, groupingPanelItems } = this.props;
+      const { onDraftGroup, items } = this.props;
       const { sourceColumnName } = this.state;
-      const sourceItem = groupingPanelItems.filter(item =>
-        item.column.name === sourceColumnName)[0];
+      const sourceItem = items.filter(({ column }) => column.name === sourceColumnName)[0];
       if (sourceItem && sourceItem.draft === GROUP_ADD_MODE) {
         this.resetState();
         return;
@@ -54,22 +52,22 @@ export class GroupPanelLayout extends React.PureComponent {
         groupIndex: -1,
       });
       this.setState({
-        targetColumnIndex: -1,
+        targetItemIndex: -1,
       });
     };
     this.onDrop = () => {
       const { onGroup } = this.props;
-      const { sourceColumnName, targetColumnIndex } = this.state;
+      const { sourceColumnName, targetItemIndex } = this.state;
       this.resetState();
       onGroup({
         columnName: sourceColumnName,
-        groupIndex: targetColumnIndex,
+        groupIndex: targetItemIndex,
       });
     };
     this.onDragEnd = () => {
-      const { sourceColumnName, targetColumnIndex } = this.state;
+      const { sourceColumnName, targetItemIndex } = this.state;
       const { onGroup } = this.props;
-      if (sourceColumnName && targetColumnIndex === -1) {
+      if (sourceColumnName && targetItemIndex === -1) {
         onGroup({
           columnName: sourceColumnName,
         });
@@ -80,13 +78,13 @@ export class GroupPanelLayout extends React.PureComponent {
 
   getItems() {
     const {
-      groupingPanelItems,
+      items,
       groupPanelItemComponent: Item,
       allowDragging,
     } = this.props;
 
     this.itemRefs = [];
-    return groupingPanelItems.map((item) => {
+    return items.map((item) => {
       const itemElement = (
         <Item
           item={item}
@@ -125,7 +123,7 @@ export class GroupPanelLayout extends React.PureComponent {
     onCancelDraftGroup();
     this.setState({
       sourceColumnName: null,
-      targetColumnIndex: -1,
+      targetItemIndex: -1,
     });
   }
 
@@ -160,7 +158,7 @@ export class GroupPanelLayout extends React.PureComponent {
 }
 
 GroupPanelLayout.propTypes = {
-  groupingPanelItems: PropTypes.arrayOf(PropTypes.shape({
+  items: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.object,
     draft: PropTypes.string,
   })).isRequired,

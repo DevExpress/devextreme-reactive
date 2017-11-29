@@ -20,7 +20,7 @@ describe('GroupPanelLayout', () => {
   });
 
   it('should render group panel with items', () => {
-    const groupingPanelItems = [
+    const items = [
       { column: { name: 'a' } },
       { column: { name: 'b' } },
       { column: { name: 'c' } },
@@ -29,12 +29,12 @@ describe('GroupPanelLayout', () => {
     const tree = mount((
       <GroupPanelLayout
         {...defaultProps}
-        groupingPanelItems={groupingPanelItems}
+        items={items}
       />
     ));
 
     expect(tree.find(defaultProps.groupPanelItemComponent).length)
-      .toBe(groupingPanelItems.length);
+      .toBe(items.length);
   });
 
   it('should render group panel with text when no grouping is specified', () => {
@@ -42,7 +42,7 @@ describe('GroupPanelLayout', () => {
     const tree = mount((
       <GroupPanelLayout
         {...defaultProps}
-        groupingPanelItems={[]}
+        items={[]}
         groupByColumnText={groupByColumnText}
       />
     ));
@@ -53,7 +53,7 @@ describe('GroupPanelLayout', () => {
 
   describe('drag\'n\'drop grouping', () => {
     it('should render DropTarget if allowDragging property is true', () => {
-      const groupingPanelItems = [
+      const items = [
         { column: { name: 'a' } },
         { column: { name: 'b' } },
         { column: { name: 'c' } },
@@ -64,7 +64,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
-            groupingPanelItems={groupingPanelItems}
+            items={items}
             allowDragging
           />
         </DragDropContext>
@@ -75,7 +75,7 @@ describe('GroupPanelLayout', () => {
     });
 
     it('should render DragSource for each item of allowDragging is true', () => {
-      const groupingPanelItems = [
+      const items = [
         { column: { name: 'a' } },
         { column: { name: 'b' } },
         { column: { name: 'c' } },
@@ -86,14 +86,14 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
-            groupingPanelItems={groupingPanelItems}
+            items={items}
             allowDragging
           />
         </DragDropContext>
       ));
 
       expect(tree.find('DragSource').find(defaultProps.groupPanelItemComponent).length)
-        .toBe(groupingPanelItems.length);
+        .toBe(items.length);
     });
 
     it('should call onDraftGroup when dragging a column over the group panel', () => {
@@ -104,7 +104,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
-            groupingPanelItems={[]}
+            items={[]}
             onDraftGroup={onDraftGroup}
             allowDragging
           />
@@ -137,7 +137,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
-            groupingPanelItems={[{ column, draft: GROUP_REMOVE_MODE }]}
+            items={[{ column, draft: GROUP_REMOVE_MODE }]}
             onDraftGroup={onDraftGroup}
             onCancelDraftGroup={onCancelDraftGroup}
             allowDragging
@@ -173,7 +173,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
-            groupingPanelItems={[]}
+            items={[]}
             columns={[column]}
             onGroup={onGroup}
             onCancelDraftGroup={onCancelDraftGroup}
@@ -214,7 +214,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
-            groupingPanelItems={[{ column }]}
+            items={[{ column }]}
             onGroup={onGroup}
             onCancelDraftGroup={onCancelDraftGroup}
             allowDragging
@@ -258,7 +258,7 @@ describe('GroupPanelLayout', () => {
         <DragDropContext>
           <GroupPanelLayout
             {...defaultProps}
-            groupingPanelItems={[{ column, draft: GROUP_ADD_MODE }]}
+            items={[{ column, draft: GROUP_ADD_MODE }]}
             onCancelDraftGroup={onCancelDraftGroup}
             onDraftGroup={onDraftGroup}
             allowDragging

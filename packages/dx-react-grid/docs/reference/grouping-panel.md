@@ -52,13 +52,13 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+items | Array&lt;[GroupingPanelItem](#groupingpanelitem)&gt; | The Grouping Panel items.
 allowDragging | boolean | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header.
-groupingPanelItems | Array&lt;[GroupingPanelItem](#groupingpanelitem)&gt; | The Grouping Panel items.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
 onGroup | ({ columnName: string }) => void | An event that initiates grouping by the column.
 onDraftGroup | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
 onCancelDraftGroup | () => void | Resets the `groupingChange` state.
 groupPanelItemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | A component that renders a group panel item.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
 
 ### GroupPanelItemProps
 

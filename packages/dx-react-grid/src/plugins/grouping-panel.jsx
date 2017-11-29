@@ -62,7 +62,7 @@ export class GroupingPanel extends React.PureComponent {
                   allowDragging={allowDragging}
                   onGroup={groupByColumn}
                   getMessage={getMessage}
-                  groupingPanelItems={groupingPanelItems(columns, draftGrouping)}
+                  items={groupingPanelItems(columns, draftGrouping)}
                   onDraftGroup={groupingChange => draftGroupingChange(groupingChange)}
                   onCancelDraftGroup={() => cancelGroupingChange()}
                   groupPanelItemComponent={Item}

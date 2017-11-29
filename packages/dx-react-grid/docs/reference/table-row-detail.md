@@ -63,7 +63,7 @@ Field | Type | Description
 ------|------|------------
 row | any | A row.
 expanded | boolean | Specifies whether to expand the detail row.
-onToggle | () => void | An event that initiates row expanding or collapsing state.
+onToggle | () => void | An event that initiates row expanding or collapsing.
 
 ## Plugin Developer Reference
 

@@ -79,7 +79,7 @@ class TableHeaderCellBase extends React.PureComponent {
       allowSorting, sortingDirection,
       allowGroupingByClick, onGroup,
       allowDragging, dragPayload,
-      allowResizing, onColumnResize, onDraftColumnResize,
+      allowResizing, onWidthChange, onDraftWidthChange,
       classes, getMessage,
     } = this.props;
 
@@ -123,8 +123,8 @@ class TableHeaderCellBase extends React.PureComponent {
         )}
         {allowResizing && (
           <ResizingControl
-            onColumnResize={onColumnResize}
-            onDraftColumnResize={onDraftColumnResize}
+            onWidthChange={onWidthChange}
+            onDraftWidthChange={onDraftWidthChange}
           />
         )}
       </TableCell>
@@ -157,8 +157,8 @@ TableHeaderCellBase.propTypes = {
   allowDragging: PropTypes.bool,
   dragPayload: PropTypes.any,
   allowResizing: PropTypes.bool,
-  onColumnResize: PropTypes.func,
-  onDraftColumnResize: PropTypes.func,
+  onWidthChange: PropTypes.func,
+  onDraftWidthChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
 };
@@ -174,8 +174,8 @@ TableHeaderCellBase.defaultProps = {
   allowDragging: false,
   dragPayload: null,
   allowResizing: false,
-  onColumnResize: undefined,
-  onDraftColumnResize: undefined,
+  onWidthChange: undefined,
+  onDraftWidthChange: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

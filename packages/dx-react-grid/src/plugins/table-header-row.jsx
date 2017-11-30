@@ -72,9 +72,9 @@ export class TableHeaderRow extends React.PureComponent {
                       setColumnSorting({ columnName, keepOther, cancel })}
                     onGroup={() =>
                       groupByColumn({ columnName })}
-                    onColumnResize={({ shift }) =>
+                    onWidthChange={({ shift }) =>
                       changeTableColumnWidths({ shifts: { [columnName]: shift } })}
-                    onDraftColumnResize={({ shift }) =>
+                    onDraftWidthChange={({ shift }) =>
                       changeDraftTableColumnWidths({ shifts: { [columnName]: shift } })}
                   />
                 );

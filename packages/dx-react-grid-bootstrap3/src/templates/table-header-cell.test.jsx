@@ -126,23 +126,23 @@ describe('TableHeaderCell', () => {
   });
 
   it('should render resize control if resize allowed', () => {
-    const onColumnResize = () => {};
-    const onDraftColumnResize = () => {};
+    const onWidthChange = () => {};
+    const onDraftWidthChange = () => {};
     const tree = mount((
       <TableHeaderCell
         column={{}}
         allowResizing
-        onDraftColumnResize={onDraftColumnResize}
-        onColumnResize={onColumnResize}
+        onDraftWidthChange={onDraftWidthChange}
+        onWidthChange={onWidthChange}
       />
     ));
 
     expect(tree.find(ResizingControl).exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('onDraftColumnResize'))
-      .toBe(onDraftColumnResize);
-    expect(tree.find(ResizingControl).prop('onColumnResize'))
-      .toBe(onColumnResize);
+    expect(tree.find(ResizingControl).prop('onDraftWidthChange'))
+      .toBe(onDraftWidthChange);
+    expect(tree.find(ResizingControl).prop('onWidthChange'))
+      .toBe(onWidthChange);
   });
 
   it('should have correct styles when grouping by click is not allowed and column align is left', () => {

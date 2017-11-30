@@ -5,8 +5,8 @@ import { Draggable } from '@devexpress/dx-react-core';
 import { ResizingControl } from './resizing-control';
 
 const defaultProps = {
-  onColumnResize: () => {},
-  onDraftColumnResize: () => {},
+  onWidthChange: () => {},
+  onDraftWidthChange: () => {},
 };
 
 describe('ResizingControl', () => {
@@ -37,33 +37,33 @@ describe('ResizingControl', () => {
     expect(tree.find(`.${classes.resizeHandle}`).hasClass(classes.resizeHandleActive)).toBeFalsy();
   });
 
-  it('should trigger onColumnResize with correct change on resize end', () => {
-    const onColumnResize = jest.fn();
+  it('should trigger onWidthChange with correct change on resize end', () => {
+    const onWidthChange = jest.fn();
     const tree = mount((
       <ResizingControl
         {...defaultProps}
-        onColumnResize={onColumnResize}
+        onWidthChange={onWidthChange}
       />
     ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
     tree.find(Draggable).prop('onEnd')({ x: 10 });
-    expect(onColumnResize)
+    expect(onWidthChange)
       .toBeCalledWith({ shift: 10 });
   });
 
-  it('should trigger onDraftColumnResize with correct change on resize update', () => {
-    const onDraftColumnResize = jest.fn();
+  it('should trigger onDraftWidthChange with correct change on resize update', () => {
+    const onDraftWidthChange = jest.fn();
     const tree = mount((
       <ResizingControl
         {...defaultProps}
-        onDraftColumnResize={onDraftColumnResize}
+        onDraftWidthChange={onDraftWidthChange}
       />
     ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
     tree.find(Draggable).prop('onUpdate')({ x: 10 });
-    expect(onDraftColumnResize)
+    expect(onDraftWidthChange)
       .toBeCalledWith({ shift: 10 });
   });
 });

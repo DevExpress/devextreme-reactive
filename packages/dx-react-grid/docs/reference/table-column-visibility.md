@@ -32,6 +32,14 @@ Field | Type | Default | Description
 ------|------|---------|------------
 noColumns? | string | 'Nothing to show' | Specifies the text displayed when the plugin does not contain visible columns.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+TableColumnVisibility.EmptyMessage | [EmptyMessageProps](#emptymessageprops) | A component that renders a message displayed when all columns are hidden.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

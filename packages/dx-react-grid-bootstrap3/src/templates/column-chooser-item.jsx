@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const ColumnChooserItem = ({ item: { column, hidden }, onToggle }) => {
+export const ColumnChooserItem = ({
+  item: { column, hidden },
+  onToggle,
+  className,
+  ...restProps
+}) => {
   const handleChange = () => onToggle();
   return (
     <button
-      className="list-group-item"
+      className={classNames('list-group-item', className)}
       style={{ outline: 'none' }}
       type="button"
       onClick={handleChange}
+      {...restProps}
     >
       <input
         type="checkbox"
@@ -30,8 +37,10 @@ ColumnChooserItem.propTypes = {
     hidden: PropTypes.bool,
   }).isRequired,
   onToggle: PropTypes.func,
+  className: PropTypes.string,
 };
 
 ColumnChooserItem.defaultProps = {
   onToggle: () => {},
+  className: undefined,
 };

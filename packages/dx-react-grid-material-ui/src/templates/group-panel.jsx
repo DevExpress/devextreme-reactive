@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import List from 'material-ui-icons/List';
 import { GroupPanelLayout } from '@devexpress/dx-react-grid';
 
 export const styles = theme => ({
@@ -22,61 +21,6 @@ export const styles = theme => ({
   },
 });
 
-const GroupPanelTextBase = ({
-  classes,
-  allowDragging,
-  allowUngroupingByClick,
-  getMessage,
-}) => {
-  const message = getMessage('groupByColumn');
-  if (message) {
-    return (
-      <span className={classes.groupInfo}>
-        {message}
-      </span>
-    );
-  }
-  if (allowDragging) {
-    return (
-      <span className={classes.groupInfo}>
-        Drag a column header here to group by that column
-      </span>
-    );
-  }
-  if (allowUngroupingByClick) {
-    return (
-      <span className={classes.groupInfo}>
-        Click
-        &nbsp;
-        <span className={classes.groupIcon}>
-          <List />
-        </span>
-        &nbsp;
-        icon in the column header to group by that column
-      </span>
-    );
-  }
-  return (
-    <span className={classes.groupInfo}>
-      Grouping is not available
-    </span>
-  );
-};
-
-GroupPanelTextBase.propTypes = {
-  classes: PropTypes.object.isRequired,
-  allowDragging: PropTypes.bool,
-  allowUngroupingByClick: PropTypes.bool,
-  getMessage: PropTypes.func.isRequired,
-};
-
-GroupPanelTextBase.defaultProps = {
-  allowDragging: false,
-  allowUngroupingByClick: false,
-};
-
-const GroupPanelText = withStyles(styles, { name: 'GroupPanel' })(GroupPanelTextBase);
-
 const PanelBase = ({ classes, children }) => (
   <div className={classes.panel}>
     {children}
@@ -90,23 +34,19 @@ PanelBase.propTypes = {
 
 const Panel = withStyles(styles, { name: 'GroupPanel' })(PanelBase);
 
-const GroupPanelBase = ({ getMessage, classes, ...restProps }) => {
-  const groupPanelText = (
-    <GroupPanelText
-      allowDragging={restProps.allowDragging}
-      allowUngroupingByClick={restProps.allowUngroupingByClick}
-      getMessage={getMessage}
-    />);
-  return (
-    <div className={classes.panel}>
-      <GroupPanelLayout
-        groupByColumnText={groupPanelText}
-        panelComponent={Panel}
-        {...restProps}
-      />
-    </div>
-  );
-};
+const GroupPanelBase = ({ getMessage, classes, ...restProps }) => (
+  <div className={classes.panel}>
+    <GroupPanelLayout
+      groupByColumnText={(
+        <span className={classes.groupInfo}>
+          {getMessage('groupByColumn')}
+        </span>
+      )}
+      panelComponent={Panel}
+      {...restProps}
+    />
+  </div>
+);
 
 GroupPanelBase.propTypes = {
   getMessage: PropTypes.func.isRequired,

@@ -79,9 +79,9 @@ allowUngroupingByClick | boolean | Specifies whether to display a button that ca
 
 An object with the following shape:
 
-Field | Type | Description
+Field | Type | Default | Description
 ------|------|---------|------------
-groupByColumn? | string | The text displayed in the group panel if the grid is not grouped.
+groupByColumn? | string | 'Drag a column header here to group by that column' | The text displayed in the group panel if the grid is not grouped.
 
 ## Plugin Developer Reference
 

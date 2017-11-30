@@ -5,7 +5,7 @@ import { GroupPanel } from '../templates/group-panel';
 import { GroupPanelItem } from '../templates/group-panel-item';
 
 const defaultMessages = {
-  groupByColumn: '',
+  groupByColumn: 'Drag a column header here to group by that column',
 };
 
 export class GroupingPanel extends React.PureComponent {

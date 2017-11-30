@@ -13,8 +13,8 @@ export class GroupingPanel extends React.PureComponent {
     const { messages, ...restProps } = this.props;
     return (
       <GroupingPanelBase
-        groupPanelComponent={GroupPanel}
-        groupPanelItemComponent={GroupPanelItem}
+        layoutComponent={GroupPanel}
+        itemComponent={GroupPanelItem}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

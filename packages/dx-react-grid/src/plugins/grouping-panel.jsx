@@ -12,8 +12,8 @@ import {
 export class GroupingPanel extends React.PureComponent {
   render() {
     const {
-      groupPanelComponent: GroupPanel,
-      groupPanelItemComponent: GroupPanelItem,
+      layoutComponent: Layout,
+      itemComponent: Item,
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
@@ -22,12 +22,12 @@ export class GroupingPanel extends React.PureComponent {
 
     const getMessage = getMessagesFormatter(messages);
 
-    const Item = ({ item }) => {
+    const ItemPlaceholder = ({ item }) => {
       const { name: columnName } = item.column;
       return (
         <TemplateConnector>
           {({ sorting }, { groupByColumn, setColumnSorting }) => (
-            <GroupPanelItem
+            <Item
               item={item}
               allowSorting={allowSorting && sorting !== undefined}
               sortingDirection={sorting !== undefined
@@ -58,14 +58,14 @@ export class GroupingPanel extends React.PureComponent {
               }, {
                 groupByColumn, draftGroupingChange, cancelGroupingChange,
               }) => (
-                <GroupPanel
+                <Layout
                   allowDragging={allowDragging}
                   onGroup={groupByColumn}
                   getMessage={getMessage}
                   items={groupingPanelItems(columns, draftGrouping)}
                   onDraftGroup={groupingChange => draftGroupingChange(groupingChange)}
                   onCancelDraftGroup={() => cancelGroupingChange()}
-                  groupPanelItemComponent={Item}
+                  itemComponent={ItemPlaceholder}
                 />
               )}
             </TemplateConnector>
@@ -81,8 +81,8 @@ GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
-  groupPanelComponent: PropTypes.func.isRequired,
-  groupPanelItemComponent: PropTypes.func.isRequired,
+  layoutComponent: PropTypes.func.isRequired,
+  itemComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

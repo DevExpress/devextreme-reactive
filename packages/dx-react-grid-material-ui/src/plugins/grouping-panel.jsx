@@ -14,8 +14,8 @@ export class GroupingPanel extends React.PureComponent {
 
     return (
       <GroupingPanelBase
-        groupPanelComponent={GroupPanel}
-        groupPanelItemComponent={GroupPanelItem}
+        layoutComponent={GroupPanel}
+        itemComponent={GroupPanelItem}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

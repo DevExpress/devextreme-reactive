@@ -16,7 +16,7 @@ jest.mock('@devexpress/dx-react-core', () => ({
 
 const defaultProps = {
   panelComponent: ({ children }) => children,
-  groupPanelItemComponent: () => null,
+  itemComponent: () => null,
 };
 
 describe('GroupPanelLayout', () => {
@@ -42,7 +42,7 @@ describe('GroupPanelLayout', () => {
       />
     ));
 
-    expect(tree.find(defaultProps.groupPanelItemComponent).length)
+    expect(tree.find(defaultProps.itemComponent).length)
       .toBe(items.length);
   });
 
@@ -97,7 +97,7 @@ describe('GroupPanelLayout', () => {
         />
       ));
 
-      expect(tree.find(DragSource).find(defaultProps.groupPanelItemComponent).length)
+      expect(tree.find(DragSource).find(defaultProps.itemComponent).length)
         .toBe(items.length);
     });
 
@@ -204,7 +204,7 @@ describe('GroupPanelLayout', () => {
         .toHaveBeenCalledTimes(1);
     });
 
-    fit('should apply grouping and reset grouping change on drag end', () => {
+    it('should apply grouping and reset grouping change on drag end', () => {
       findDOMNode.mockImplementation(() => ({
         getBoundingClientRect: () => ({}),
       }));

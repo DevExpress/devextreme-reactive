@@ -35,8 +35,8 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  groupPanelComponent: () => null,
-  groupPanelItemComponent: () => null,
+  layoutComponent: () => null,
+  itemComponent: () => null,
 };
 
 describe('GroupingPanel', () => {
@@ -57,7 +57,7 @@ describe('GroupingPanel', () => {
     jest.resetAllMocks();
   });
 
-  it('should pass correct getMessage prop to groupPanelComponent', () => {
+  it('should pass correct getMessage prop to layoutComponent', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -70,7 +70,7 @@ describe('GroupingPanel', () => {
       </PluginHost>
     ));
 
-    const { getMessage } = tree.find(defaultProps.groupPanelComponent).props();
+    const { getMessage } = tree.find(defaultProps.layoutComponent).props();
     expect(getMessage('groupByColumn'))
       .toBe('Group By Column');
   });
@@ -84,7 +84,7 @@ describe('GroupingPanel', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <GroupingPanel
           {...defaultProps}
-          groupPanelComponent={({ groupPanelItemComponent: Item }) =>
+          layoutComponent={({ itemComponent: Item }) =>
             <Item item={{ column: { name: 'a' } }} />}
           allowSorting
           allowUngroupingByClick
@@ -92,7 +92,7 @@ describe('GroupingPanel', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.groupPanelItemComponent).props())
+    expect(tree.find(defaultProps.itemComponent).props())
       .toMatchObject({
         allowSorting: true,
         allowUngroupingByClick: true,

@@ -91,7 +91,7 @@ export class GroupPanelLayout extends React.PureComponent {
       items,
       groupByColumnText,
       panelComponent: Panel,
-      groupPanelItemComponent,
+      itemComponent,
       allowDragging,
     } = this.props;
 
@@ -104,7 +104,7 @@ export class GroupPanelLayout extends React.PureComponent {
             key={item.column.name}
             ref={element => element && this.itemRefs.push(element)}
             item={item}
-            itemComponent={groupPanelItemComponent}
+            itemComponent={itemComponent}
             allowDragging={allowDragging}
             onDragEnd={this.onDragEnd}
           />
@@ -136,7 +136,7 @@ GroupPanelLayout.propTypes = {
   })).isRequired,
   onGroup: PropTypes.func,
   groupByColumnText: PropTypes.any,
-  groupPanelItemComponent: PropTypes.func.isRequired,
+  itemComponent: PropTypes.func.isRequired,
   panelComponent: PropTypes.func.isRequired,
   allowDragging: PropTypes.bool,
   onDraftGroup: PropTypes.func,

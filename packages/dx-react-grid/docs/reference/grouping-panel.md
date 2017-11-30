@@ -19,8 +19,8 @@ Name | Type | Default | Description
 allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
-groupPanelComponent | ElementType&lt;[GroupPanelProps](#grouppanelprops)&gt; | | A component that renders a group panel.
-groupPanelItemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | | A component that renders a group panel item.
+layoutComponent | ElementType&lt;[GroupPanelProps](#grouppanelprops)&gt; | | A component that renders a group panel.
+itemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | | A component that renders a group panel item.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
@@ -57,7 +57,7 @@ allowDragging | boolean | Specifies whether an end-user can change the grouping 
 onGroup | ({ columnName: string }) => void | An event that initiates grouping by the column.
 onDraftGroup | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
 onCancelDraftGroup | () => void | Resets the `groupingChange` state.
-groupPanelItemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | A component that renders a group panel item.
+itemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | A component that renders a group panel item.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
 
 ### GroupPanelItemProps

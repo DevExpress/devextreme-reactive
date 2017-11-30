@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DragSource, DropTarget } from '@devexpress/dx-react-core';
+import { findDOMNode } from 'react-dom';
+import { DropTarget } from '@devexpress/dx-react-core';
 import {
   GROUP_ADD_MODE,
   getGroupCellTargetIndex,
 } from '@devexpress/dx-grid-core';
+import { ItemLayout } from './group-panel-layout/item-layout';
 
 export class GroupPanelLayout extends React.PureComponent {
   constructor(props) {
@@ -23,7 +25,8 @@ export class GroupPanelLayout extends React.PureComponent {
     this.onOver = ({ clientOffset }) => {
       const { onDraftGroup, items } = this.props;
       const { sourceColumnName, targetItemIndex: prevTargetItemIndex } = this.state;
-      const itemGeometries = this.itemRefs.map(element => element.getBoundingClientRect());
+      // eslint-disable-next-line react/no-find-dom-node
+      const itemGeometries = this.itemRefs.map(ref => findDOMNode(ref).getBoundingClientRect());
       const sourceItemIndex = items.findIndex(({ column }) => column.name === sourceColumnName);
       const targetItemIndex = getGroupCellTargetIndex(
         itemGeometries,
@@ -75,49 +78,6 @@ export class GroupPanelLayout extends React.PureComponent {
       this.resetState();
     };
   }
-
-  getItems() {
-    const {
-      items,
-      groupPanelItemComponent: Item,
-      allowDragging,
-    } = this.props;
-
-    this.itemRefs = [];
-    return items.map((item) => {
-      const itemElement = (
-        <Item
-          item={item}
-        />
-      );
-
-      return allowDragging
-        ? (
-          <DragSource
-            key={item.column.name}
-            getPayload={() => [{ type: 'column', columnName: item.column.name }]}
-            onEnd={this.onDragEnd}
-          >
-            <div
-              ref={element => element && this.itemRefs.push(element)}
-              style={{ display: 'inline-block' }}
-            >
-              {itemElement}
-            </div>
-          </DragSource>
-        )
-        : (
-          <div
-            ref={element => element && this.itemRefs.push(element)}
-            key={item.column.name}
-            style={{ display: 'inline-block' }}
-          >
-            {itemElement}
-          </div>
-        );
-    });
-  }
-
   resetState() {
     const { onCancelDraftGroup } = this.props;
     onCancelDraftGroup();
@@ -126,21 +86,33 @@ export class GroupPanelLayout extends React.PureComponent {
       targetItemIndex: -1,
     });
   }
-
   render() {
     const {
+      items,
       groupByColumnText,
       panelComponent: Panel,
+      groupPanelItemComponent,
       allowDragging,
     } = this.props;
 
-    const items = this.getItems();
+    this.itemRefs = [];
 
-    const groupPanel = (
-      items.length
-        ? <Panel>{items}</Panel>
-        : <span>{groupByColumnText}</span>
-    );
+    const groupPanel = (items.length ? (
+      <Panel>
+        {items.map(item => (
+          <ItemLayout
+            key={item.column.name}
+            ref={element => element && this.itemRefs.push(element)}
+            item={item}
+            itemComponent={groupPanelItemComponent}
+            allowDragging={allowDragging}
+            onDragEnd={this.onDragEnd}
+          />
+        ))}
+      </Panel>
+    ) : (
+      <span>{groupByColumnText}</span>
+    ));
 
     return allowDragging
       ? (

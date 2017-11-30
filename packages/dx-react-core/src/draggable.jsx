@@ -57,6 +57,7 @@ export class Draggable extends React.Component {
   setupNodeSubscription() {
     // eslint-disable-next-line react/no-find-dom-node
     const node = findDOMNode(this);
+    if (!node) return;
     node.removeEventListener('mousedown', this.mouseDownListener);
     node.removeEventListener('touchstart', this.touchStartListener);
     node.addEventListener('mousedown', this.mouseDownListener, { passive: true });

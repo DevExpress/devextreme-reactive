@@ -1,9 +1,18 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { findDOMNode } from 'react-dom';
 import { setupConsole } from '@devexpress/dx-testing';
-import { DragDropContext } from '@devexpress/dx-react-core';
+import { DragSource, DropTarget } from '@devexpress/dx-react-core';
 import { GROUP_ADD_MODE, GROUP_REMOVE_MODE } from '@devexpress/dx-grid-core';
 import { GroupPanelLayout } from './group-panel-layout';
+
+jest.mock('react-dom', () => ({
+  findDOMNode: jest.fn(),
+}));
+jest.mock('@devexpress/dx-react-core', () => ({
+  DragSource: jest.fn(({ children }) => children),
+  DropTarget: jest.fn(({ children }) => children),
+}));
 
 const defaultProps = {
   panelComponent: ({ children }) => children,
@@ -61,16 +70,14 @@ describe('GroupPanelLayout', () => {
       ];
 
       const tree = mount((
-        <DragDropContext>
-          <GroupPanelLayout
-            {...defaultProps}
-            items={items}
-            allowDragging
-          />
-        </DragDropContext>
+        <GroupPanelLayout
+          {...defaultProps}
+          items={items}
+          allowDragging
+        />
       ));
 
-      expect(tree.find('DropTarget').exists())
+      expect(tree.find(DropTarget).exists())
         .toBeTruthy();
     });
 
@@ -83,16 +90,14 @@ describe('GroupPanelLayout', () => {
       ];
 
       const tree = mount((
-        <DragDropContext>
-          <GroupPanelLayout
-            {...defaultProps}
-            items={items}
-            allowDragging
-          />
-        </DragDropContext>
+        <GroupPanelLayout
+          {...defaultProps}
+          items={items}
+          allowDragging
+        />
       ));
 
-      expect(tree.find('DragSource').find(defaultProps.groupPanelItemComponent).length)
+      expect(tree.find(DragSource).find(defaultProps.groupPanelItemComponent).length)
         .toBe(items.length);
     });
 
@@ -101,17 +106,15 @@ describe('GroupPanelLayout', () => {
       const column = { name: 'a' };
 
       const tree = mount((
-        <DragDropContext>
-          <GroupPanelLayout
-            {...defaultProps}
-            items={[]}
-            onDraftGroup={onDraftGroup}
-            allowDragging
-          />
-        </DragDropContext>
+        <GroupPanelLayout
+          {...defaultProps}
+          items={[]}
+          onDraftGroup={onDraftGroup}
+          allowDragging
+        />
       ));
 
-      const dropTarget = tree.find('DropTarget');
+      const dropTarget = tree.find(DropTarget);
       dropTarget.prop('onEnter')({
         payload: [{ type: 'column', columnName: column.name }],
         clientOffset: { x: 170, y: 20 },
@@ -134,18 +137,16 @@ describe('GroupPanelLayout', () => {
       const column = { name: 'a' };
 
       const tree = mount((
-        <DragDropContext>
-          <GroupPanelLayout
-            {...defaultProps}
-            items={[{ column, draft: GROUP_REMOVE_MODE }]}
-            onDraftGroup={onDraftGroup}
-            onCancelDraftGroup={onCancelDraftGroup}
-            allowDragging
-          />
-        </DragDropContext>
+        <GroupPanelLayout
+          {...defaultProps}
+          items={[{ column, draft: GROUP_REMOVE_MODE }]}
+          onDraftGroup={onDraftGroup}
+          onCancelDraftGroup={onCancelDraftGroup}
+          allowDragging
+        />
       ));
 
-      const dropTarget = tree.find('DropTarget');
+      const dropTarget = tree.find(DropTarget);
       dropTarget.prop('onEnter')({
         payload: [{ type: 'column', columnName: column.name }],
         clientOffset: { x: 170, y: 20 },
@@ -170,19 +171,17 @@ describe('GroupPanelLayout', () => {
       const onCancelDraftGroup = jest.fn();
 
       const tree = mount((
-        <DragDropContext>
-          <GroupPanelLayout
-            {...defaultProps}
-            items={[]}
-            columns={[column]}
-            onGroup={onGroup}
-            onCancelDraftGroup={onCancelDraftGroup}
-            allowDragging
-          />
-        </DragDropContext>
+        <GroupPanelLayout
+          {...defaultProps}
+          items={[]}
+          columns={[column]}
+          onGroup={onGroup}
+          onCancelDraftGroup={onCancelDraftGroup}
+          allowDragging
+        />
       ));
 
-      const dropTarget = tree.find('DropTarget');
+      const dropTarget = tree.find(DropTarget);
       dropTarget.prop('onEnter')({
         payload: [{ type: 'column', columnName: column.name }],
         clientOffset: { x: 170, y: 20 },
@@ -205,27 +204,25 @@ describe('GroupPanelLayout', () => {
         .toHaveBeenCalledTimes(1);
     });
 
-    it('should apply grouping and reset grouping change on drag end', () => {
+    fit('should apply grouping and reset grouping change on drag end', () => {
+      findDOMNode.mockImplementation(() => ({
+        getBoundingClientRect: () => ({}),
+      }));
       const column = { name: 'a' };
       const onGroup = jest.fn();
       const onCancelDraftGroup = jest.fn();
 
       const tree = mount((
-        <DragDropContext>
-          <GroupPanelLayout
-            {...defaultProps}
-            items={[{ column }]}
-            onGroup={onGroup}
-            onCancelDraftGroup={onCancelDraftGroup}
-            allowDragging
-          />
-        </DragDropContext>
+        <GroupPanelLayout
+          {...defaultProps}
+          items={[{ column }]}
+          onGroup={onGroup}
+          onCancelDraftGroup={onCancelDraftGroup}
+          allowDragging
+        />
       ));
 
-      const dragSource = tree.find('DragSource');
-      dragSource.prop('onStart')();
-
-      const dropTarget = tree.find('DropTarget');
+      const dropTarget = tree.find(DropTarget);
       dropTarget.prop('onEnter')({
         payload: [{ type: 'column', columnName: column.name }],
         clientOffset: { x: 170, y: 20 },
@@ -239,6 +236,7 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 20 },
       });
 
+      const dragSource = tree.find(DragSource);
       dragSource.prop('onEnd')();
 
       expect(onGroup)
@@ -255,18 +253,16 @@ describe('GroupPanelLayout', () => {
       const onCancelDraftGroup = jest.fn();
       const onDraftGroup = jest.fn();
       const tree = mount((
-        <DragDropContext>
-          <GroupPanelLayout
-            {...defaultProps}
-            items={[{ column, draft: GROUP_ADD_MODE }]}
-            onCancelDraftGroup={onCancelDraftGroup}
-            onDraftGroup={onDraftGroup}
-            allowDragging
-          />
-        </DragDropContext>
+        <GroupPanelLayout
+          {...defaultProps}
+          items={[{ column, draft: GROUP_ADD_MODE }]}
+          onCancelDraftGroup={onCancelDraftGroup}
+          onDraftGroup={onDraftGroup}
+          allowDragging
+        />
       ));
 
-      const dropTarget = tree.find('DropTarget');
+      const dropTarget = tree.find(DropTarget);
 
       dropTarget.prop('onEnter')({
         payload: [{ type: 'column', columnName: column.name }],

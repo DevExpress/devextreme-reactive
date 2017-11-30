@@ -35,7 +35,6 @@ const styles = theme => ({
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
-    width: '100%',
   },
   cellDraggable: {
     cursor: 'pointer',

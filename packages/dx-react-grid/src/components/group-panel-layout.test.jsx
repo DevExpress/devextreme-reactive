@@ -15,8 +15,9 @@ jest.mock('@devexpress/dx-react-core', () => ({
 }));
 
 const defaultProps = {
-  panelComponent: ({ children }) => children,
+  containerComponent: ({ children }) => children,
   itemComponent: () => null,
+  emptyMessageComponent: () => null,
 };
 
 describe('GroupPanelLayout', () => {
@@ -47,17 +48,15 @@ describe('GroupPanelLayout', () => {
   });
 
   it('should render group panel with text when no grouping is specified', () => {
-    const groupByColumnText = 'no items';
     const tree = mount((
       <GroupPanelLayout
         {...defaultProps}
         items={[]}
-        groupByColumnText={groupByColumnText}
       />
     ));
 
-    expect(tree.text())
-      .toBe(groupByColumnText);
+    expect(tree.find(defaultProps.emptyMessageComponent).exists())
+      .toBeTruthy();
   });
 
   describe('drag\'n\'drop grouping', () => {

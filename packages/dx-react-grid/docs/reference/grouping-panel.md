@@ -19,8 +19,10 @@ Name | Type | Default | Description
 allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
-layoutComponent | ElementType&lt;[GroupPanelProps](#grouppanelprops)&gt; | | A component that renders a group panel.
+layoutComponent | ElementType&lt;[GroupPanelLayoutProps](#grouppanellayoutprops)&gt; | | A component that renders a group panel layout.
+containerComponent | ElementType&lt;[GroupPanelContainerProps](#grouppanelcontainerprops)&gt; | | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | | A component that renders a group panel item.
+emptyMessageComponent | ElementType&lt;[GroupPanelEmptyMessageProps](#grouppanelemptymessageprops)&gt; | | A component that renders a group panel empty message.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
@@ -44,9 +46,9 @@ Field | Type | Description
 column | [Column](#column-extension) | Specifies the column associated with the item.
 draft? | string | Specifies pre-grouping mode "add", "remove" or "reorder".
 
-### GroupPanelProps
+### GroupPanelLayoutProps
 
-Describes properties passed to the group panel template when it is being rendered.
+Describes properties passed to a component that renders a group panel layout.
 
 A value with the following shape:
 
@@ -57,8 +59,17 @@ allowDragging | boolean | Specifies whether an end-user can change the grouping 
 onGroup | ({ columnName: string }) => void | An event that initiates grouping by the column.
 onDraftGroup | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
 onCancelDraftGroup | () => void | Resets the `groupingChange` state.
+containerComponent | ElementType&lt;[GroupPanelContainerProps](#grouppanelcontainerprops)&gt; | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | A component that renders a group panel item.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
+emptyMessageComponent | ElementType&lt;[GroupPanelEmptyMessageProps](#grouppanelemptymessageprops)&gt; | A component that renders a group panel empty message.
+
+### GroupPanelContainerProps
+
+Describes properties passed to a component that renders a group panel container.
+
+Field | Type | Description
+------|------|------------
+children? | ReactElement | A React element to be placed in the root layout.
 
 ### GroupPanelItemProps
 
@@ -69,11 +80,21 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
+allowUngroupingByClick | boolean | Specifies whether to display a button that cancels grouping by the column.
 allowSorting | boolean | Specifies whether an end-user can sort data by the column while it is in the grouping panel.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
 onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
 onGroup | () => void | An event that initiates grouping by the column.
-allowUngroupingByClick | boolean | Specifies whether to display a button that cancels grouping by the column.
+
+### GroupPanelEmptyMessageProps
+
+Describes properties passed to a component that renders a group panel empty message.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
 
 ## Localization Messages
 

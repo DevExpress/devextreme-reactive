@@ -89,29 +89,29 @@ export class GroupPanelLayout extends React.PureComponent {
   render() {
     const {
       items,
-      groupByColumnText,
-      panelComponent: Panel,
-      itemComponent,
+      emptyMessageComponent: EmptyMessage,
+      containerComponent: Container,
+      itemComponent: Item,
       allowDragging,
     } = this.props;
 
     this.itemRefs = [];
 
     const groupPanel = (items.length ? (
-      <Panel>
+      <Container>
         {items.map(item => (
           <ItemLayout
             key={item.column.name}
             ref={element => element && this.itemRefs.push(element)}
             item={item}
-            itemComponent={itemComponent}
+            itemComponent={Item}
             allowDragging={allowDragging}
             onDragEnd={this.onDragEnd}
           />
         ))}
-      </Panel>
+      </Container>
     ) : (
-      <span>{groupByColumnText}</span>
+      <EmptyMessage />
     ));
 
     return allowDragging
@@ -135,9 +135,9 @@ GroupPanelLayout.propTypes = {
     draft: PropTypes.string,
   })).isRequired,
   onGroup: PropTypes.func,
-  groupByColumnText: PropTypes.any,
   itemComponent: PropTypes.func.isRequired,
-  panelComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
+  emptyMessageComponent: PropTypes.func.isRequired,
   allowDragging: PropTypes.bool,
   onDraftGroup: PropTypes.func,
   onCancelDraftGroup: PropTypes.func,
@@ -145,7 +145,6 @@ GroupPanelLayout.propTypes = {
 
 GroupPanelLayout.defaultProps = {
   onGroup: () => {},
-  groupByColumnText: undefined,
   allowDragging: false,
   onDraftGroup: () => {},
   onCancelDraftGroup: () => {},

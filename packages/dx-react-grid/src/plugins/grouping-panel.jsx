@@ -13,7 +13,9 @@ export class GroupingPanel extends React.PureComponent {
   render() {
     const {
       layoutComponent: Layout,
+      containerComponent: Container,
       itemComponent: Item,
+      emptyMessageComponent: EmptyMessage,
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
@@ -21,6 +23,12 @@ export class GroupingPanel extends React.PureComponent {
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
+
+    const EmptyMessagePlaceholder = () => (
+      <EmptyMessage
+        getMessage={getMessage}
+      />
+    );
 
     const ItemPlaceholder = ({ item }) => {
       const { name: columnName } = item.column;
@@ -59,13 +67,14 @@ export class GroupingPanel extends React.PureComponent {
                 groupByColumn, draftGroupingChange, cancelGroupingChange,
               }) => (
                 <Layout
+                  items={groupingPanelItems(columns, draftGrouping)}
                   allowDragging={allowDragging}
                   onGroup={groupByColumn}
-                  getMessage={getMessage}
-                  items={groupingPanelItems(columns, draftGrouping)}
                   onDraftGroup={groupingChange => draftGroupingChange(groupingChange)}
                   onCancelDraftGroup={() => cancelGroupingChange()}
                   itemComponent={ItemPlaceholder}
+                  emptyMessageComponent={EmptyMessagePlaceholder}
+                  containerComponent={Container}
                 />
               )}
             </TemplateConnector>
@@ -82,7 +91,9 @@ GroupingPanel.propTypes = {
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
   layoutComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,
+  emptyMessageComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

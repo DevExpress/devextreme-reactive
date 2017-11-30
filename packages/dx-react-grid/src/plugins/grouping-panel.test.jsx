@@ -36,7 +36,9 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
+  containerComponent: () => null,
   itemComponent: () => null,
+  emptyMessageComponent: () => null,
 };
 
 describe('GroupingPanel', () => {
@@ -57,12 +59,37 @@ describe('GroupingPanel', () => {
     jest.resetAllMocks();
   });
 
-  it('should pass correct getMessage prop to layoutComponent', () => {
+  it('should pass correct parameters to layoutComponent', () => {
+    const deps = {
+      plugins: ['SortingState'],
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <GroupingPanel
+          {...defaultProps}
+          allowDragging
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.layoutComponent).props())
+      .toMatchObject({
+        allowDragging: true,
+        onGroup: expect.any(Function),
+        onDraftGroup: expect.any(Function),
+        onCancelDraftGroup: expect.any(Function),
+      });
+  });
+
+  it('should pass correct getMessage prop to emptyMessageComponent', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <GroupingPanel
           {...defaultProps}
+          layoutComponent={({ emptyMessageComponent: EmptyMessage }) =>
+            <EmptyMessage />}
           messages={{
             groupByColumn: 'Group By Column',
           }}
@@ -70,12 +97,12 @@ describe('GroupingPanel', () => {
       </PluginHost>
     ));
 
-    const { getMessage } = tree.find(defaultProps.layoutComponent).props();
+    const { getMessage } = tree.find(defaultProps.emptyMessageComponent).props();
     expect(getMessage('groupByColumn'))
       .toBe('Group By Column');
   });
 
-  it('should pass correct sorting parameters to item', () => {
+  it('should pass correct parameters to itemComponent', () => {
     const deps = {
       plugins: ['SortingState'],
     };
@@ -97,6 +124,7 @@ describe('GroupingPanel', () => {
         allowSorting: true,
         allowUngroupingByClick: true,
         sortingDirection: getColumnSortingDirection(),
+        onGroup: expect.any(Function),
       });
   });
 });

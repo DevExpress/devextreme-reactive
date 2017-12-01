@@ -43,7 +43,7 @@ Field | Type | Description
 selectionAvailable | boolean | True if at least one row can be selected.
 allSelected | boolean | True if all the rows available for selection are selected.
 someSelected | boolean | True if at least one but not all rows available for selection are selected.
-toggleAll | (select?) => void | Selects or deselects all rows. If `select` is `true` always select rows, else deselect.
+toggleAll | (select?: boolean) => void | Toggle rows selection.
 
 ### <a name="select-cell-args"></a>SelectCellArgs
 

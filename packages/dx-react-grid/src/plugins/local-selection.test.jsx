@@ -4,15 +4,15 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   getAvailableToSelect,
-  isSomeSelected,
-  isAllSelected,
+  someSelected,
+  allSelected,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 import { LocalSelection } from './local-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  isSomeSelected: jest.fn(),
-  isAllSelected: jest.fn(),
+  someSelected: jest.fn(),
+  allSelected: jest.fn(),
   getAvailableToSelect: jest.fn(),
 }));
 
@@ -38,8 +38,8 @@ describe('LocalSelection', () => {
     resetConsole();
   });
   beforeEach(() => {
-    isSomeSelected.mockImplementation(() => 'someSelected');
-    isAllSelected.mockImplementation(() => 'allSelected');
+    someSelected.mockImplementation(() => 'someSelected');
+    allSelected.mockImplementation(() => 'allSelected');
     getAvailableToSelect.mockImplementation(() => [0, 1, 2]);
   });
   afterEach(() => {
@@ -62,7 +62,7 @@ describe('LocalSelection', () => {
       );
   });
 
-  it('should provide isAllSelected getter', () => {
+  it('should provide allSelected getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -73,13 +73,13 @@ describe('LocalSelection', () => {
     expect(getComputedState(tree).getters.allSelected)
       .toBe('allSelected');
 
-    expect(isAllSelected)
+    expect(allSelected)
       .toHaveBeenCalledWith({
         selection: defaultDeps.getter.selection,
         availableToSelect: [],
       });
   });
-  it('should provide isSomeSelected getter', () => {
+  it('should provide someSelected getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -90,7 +90,7 @@ describe('LocalSelection', () => {
     expect(getComputedState(tree).getters.someSelected)
       .toBe('someSelected');
 
-    expect(isSomeSelected)
+    expect(someSelected)
       .toHaveBeenCalledWith({
         selection: defaultDeps.getter.selection,
         availableToSelect: [],

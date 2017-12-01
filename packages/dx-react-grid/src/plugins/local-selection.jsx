@@ -2,8 +2,8 @@ import React from 'react';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   getAvailableToSelect,
-  isSomeSelected,
-  isAllSelected,
+  someSelected,
+  allSelected,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -37,12 +37,10 @@ export class LocalSelection extends React.PureComponent {
   render() {
     const { availableToSelect } = this.state;
 
-    const selectAllAvailableComputed = () =>
-      !!availableToSelect.length;
     const allSelectedComputed = ({ selection }) =>
-      isAllSelected({ selection, availableToSelect });
+      allSelected({ selection, availableToSelect });
     const someSelectedComputed = ({ selection }) =>
-      isSomeSelected({ selection, availableToSelect });
+      someSelected({ selection, availableToSelect });
 
     return (
       <PluginContainer
@@ -52,7 +50,7 @@ export class LocalSelection extends React.PureComponent {
         <Getter name="rows" computed={this.availableToSelect} />
         <Getter name="allSelected" computed={allSelectedComputed} />
         <Getter name="someSelected" computed={someSelectedComputed} />
-        <Getter name="selectAllAvailable" value={selectAllAvailableComputed()} />
+        <Getter name="selectAllAvailable" value={!!availableToSelect.length} />
 
         <Action name="toggleSelectAll" action={this.toggleSelectAll} />
       </PluginContainer>

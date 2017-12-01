@@ -1,7 +1,7 @@
 import {
   getAvailableToSelect,
-  isSomeSelected,
-  isAllSelected,
+  someSelected,
+  allSelected,
 } from './computeds';
 
 describe('LocalSelection computeds', () => {
@@ -34,32 +34,32 @@ describe('LocalSelection computeds', () => {
         .toEqual([2]);
     });
   });
-  describe('#isSomeSelected', () => {
+  describe('#someSelected', () => {
     it('should work with simple scenarios', () => {
-      expect(isSomeSelected({ selection: selectionNone, availableToSelect: [] })).toBeFalsy();
-      expect(isSomeSelected({ selection: selectionNone, availableToSelect: [1] })).toBeFalsy();
-      expect(isSomeSelected({ selection: selectionOne, availableToSelect: [] })).toBeFalsy();
+      expect(someSelected({ selection: selectionNone, availableToSelect: [] })).toBeFalsy();
+      expect(someSelected({ selection: selectionNone, availableToSelect: [1] })).toBeFalsy();
+      expect(someSelected({ selection: selectionOne, availableToSelect: [] })).toBeFalsy();
     });
     it('should work when all available rows consist in selection rows', () => {
-      expect(isSomeSelected({ selection: selectionTwo, availableToSelect: [1] })).toBeFalsy();
-      expect(isSomeSelected({ selection: selectionTwo, availableToSelect: [1, 3] })).toBeTruthy();
+      expect(someSelected({ selection: selectionTwo, availableToSelect: [1] })).toBeFalsy();
+      expect(someSelected({ selection: selectionTwo, availableToSelect: [1, 3] })).toBeTruthy();
     });
     it('should work when selection rows consist in available rows', () => {
-      expect(isSomeSelected({ selection: selectionOne, availableToSelect: [1, 2] })).toBeTruthy();
-      expect(isSomeSelected({ selection: selectionOne, availableToSelect: [2] })).toBeFalsy();
+      expect(someSelected({ selection: selectionOne, availableToSelect: [1, 2] })).toBeTruthy();
+      expect(someSelected({ selection: selectionOne, availableToSelect: [2] })).toBeFalsy();
     });
   });
-  describe('#isAllSelected', () => {
+  describe('#allSelected', () => {
     it('should work with simple scenarios', () => {
-      expect(isAllSelected({ selection: selectionNone, availableToSelect: [] })).toBeFalsy();
-      expect(isAllSelected({ selection: selectionOne, availableToSelect: [] })).toBeFalsy();
-      expect(isAllSelected({ selection: selectionNone, availableToSelect: [1] })).toBeFalsy();
+      expect(allSelected({ selection: selectionNone, availableToSelect: [] })).toBeFalsy();
+      expect(allSelected({ selection: selectionOne, availableToSelect: [] })).toBeFalsy();
+      expect(allSelected({ selection: selectionNone, availableToSelect: [1] })).toBeFalsy();
     });
     it('should work when all available rows consist in selection rows', () => {
-      expect(isAllSelected({
+      expect(allSelected({
         selection: selectionThree, availableToSelect: [2, 3],
       })).toBeTruthy();
-      expect(isAllSelected({
+      expect(allSelected({
         selection: selectionThree, availableToSelect: [2, 3, 4],
       })).toBeFalsy();
     });

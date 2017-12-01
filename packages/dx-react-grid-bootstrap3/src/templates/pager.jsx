@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Pagination, Pager as BootstrapPager } from 'react-bootstrap';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 import { PageSizeSelector } from './page-size-selector';
@@ -13,12 +14,17 @@ export const Pager = ({
   allowedPageSizes,
   totalCount,
   getMessage,
+  className,
+  ...restProps
 }) => {
   const from = firstRowOnPage(currentPage, pageSize, totalCount);
   const to = lastRowOnPage(currentPage, pageSize, totalCount);
 
   return (
-    <div className="clearfix">
+    <div
+      className={classNames('clearfix', className)}
+      {...restProps}
+    >
       {!!allowedPageSizes.length && <PageSizeSelector
         pageSize={pageSize}
         onPageSizeChange={onPageSizeChange}
@@ -73,4 +79,9 @@ Pager.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   totalCount: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+Pager.defaultProps = {
+  className: undefined,
 };

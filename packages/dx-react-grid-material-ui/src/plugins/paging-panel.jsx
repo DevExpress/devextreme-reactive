@@ -26,6 +26,8 @@ export class PagingPanel extends React.PureComponent {
   }
 }
 
+PagingPanel.Pager = Pager;
+
 PagingPanel.propTypes = {
   messages: PropTypes.shape({
     showAll: PropTypes.string,

@@ -82,7 +82,8 @@
     "rollup-plugin-node-resolve": "^3.0.0"
   },
   "dependencies": {
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "classnames": "^2.2.5"
   },
   "peerDependencies": {
     "@devexpress/dx-grid-core": "1.0.0-beta.1",

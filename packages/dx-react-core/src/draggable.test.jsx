@@ -178,7 +178,7 @@ describe('Draggable', () => {
         .toHaveBeenCalledWith({ x: 10, y: 10 });
     });
 
-    it('should not fire the "onStart" callback on before timeout in conjunction with mouse event', () => {
+    it('should not fire the "onStart" callback before timeout in conjunction with mouse', () => {
       const onStart = jest.fn();
 
       tree = mount(

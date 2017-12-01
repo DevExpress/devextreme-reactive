@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { ColumnChooserItem } from './column-chooser-item';
 
 describe('ColumnChooserItem', () => {
@@ -61,5 +61,20 @@ describe('ColumnChooserItem', () => {
 
     expect(tree.find(ListItemText).text().trim())
       .toBe('b');
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <ColumnChooserItem
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

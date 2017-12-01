@@ -13,3 +13,6 @@ export const ColumnChooser = props => (
     {...props}
   />
 );
+
+ColumnChooser.Container = ColumnChooserContainer;
+ColumnChooser.Item = ColumnChooserItem;

@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 
-export const ColumnChooserItem = ({ item: { column, hidden }, onToggle }) => {
+export const ColumnChooserItem = ({
+  item: { column, hidden },
+  onToggle,
+  ...restProps
+}) => {
   const handleClick = () => onToggle();
   return (
     <ListItem
       key={column.name}
       button
       onClick={handleClick}
+      {...restProps}
     >
       <Checkbox
         checked={!hidden}

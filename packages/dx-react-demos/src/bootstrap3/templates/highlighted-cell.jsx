@@ -14,11 +14,11 @@ const getColor = (amount) => {
   return '#c3e2b7';
 };
 
-export const HighlightedCell = ({ align, value, style }) => (
+export const HighlightedCell = ({ column, value, style }) => (
   <td
     style={{
       backgroundColor: getColor(value),
-      textAlign: align,
+      textAlign: column.align,
       ...style,
     }}
   >
@@ -27,10 +27,10 @@ export const HighlightedCell = ({ align, value, style }) => (
 );
 HighlightedCell.propTypes = {
   value: PropTypes.number.isRequired,
-  align: PropTypes.string,
+  column: PropTypes.object,
   style: PropTypes.object,
 };
 HighlightedCell.defaultProps = {
   style: {},
-  align: 'left',
+  column: {},
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { combineTemplates } from '@devexpress/dx-react-core';
+import { combineTemplates, createRenderComponent } from '@devexpress/dx-react-core';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableRow } from '../templates/table-row';
@@ -8,26 +8,21 @@ import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 
-const tableLayoutTemplate = props => <VirtualTableLayout {...props} />;
-const defaultRowTemplate = props => <TableRow {...props} />;
-const defaultNoDataRowTemplate = props => <TableRow {...props} />;
-const defaultCellTemplate = props => <TableCell {...props} />;
-const defaultStubCellTemplate = props => <TableStubCell {...props} />;
-const defaultNoDataCellTemplate = props => <TableNoDataCell {...props} />;
+const defaultGetCellComponent = () => TableCell;
 
 const defaultMessages = {
   noData: 'No data',
 };
 
 export class VirtualTable extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.layoutRenderComponent = createRenderComponent();
+  }
   render() {
     const {
-      tableCellTemplate,
-      tableRowTemplate,
-      tableNoDataRowTemplate,
-      tableStubCellTemplate,
-      tableStubHeaderCellTemplate,
-      tableNoDataCellTemplate,
+      getCellComponent,
       height,
       estimatedRowHeight,
       messages,
@@ -36,35 +31,22 @@ export class VirtualTable extends React.PureComponent {
 
     return (
       <TableBase
-        tableLayoutTemplate={props => tableLayoutTemplate({
-          ...props,
-          height,
-          estimatedRowHeight,
-        })}
-        tableRowTemplate={combineTemplates(
-          tableRowTemplate,
-          defaultRowTemplate,
+        layoutComponent={this.layoutRenderComponent(props => (
+          <VirtualTableLayout
+            {...props}
+            height={height}
+            estimatedRowHeight={estimatedRowHeight}
+          />
+        ))}
+        rowComponent={TableRow}
+        getCellComponent={combineTemplates(
+          getCellComponent,
+          defaultGetCellComponent,
         )}
-        tableNoDataRowTemplate={combineTemplates(
-          tableNoDataRowTemplate,
-          defaultNoDataRowTemplate,
-        )}
-        tableCellTemplate={combineTemplates(
-          tableCellTemplate,
-          defaultCellTemplate,
-        )}
-        tableStubCellTemplate={combineTemplates(
-          tableStubCellTemplate,
-          defaultStubCellTemplate,
-        )}
-        tableStubHeaderCellTemplate={combineTemplates(
-          tableStubHeaderCellTemplate,
-          defaultStubCellTemplate,
-        )}
-        tableNoDataCellTemplate={combineTemplates(
-          tableNoDataCellTemplate,
-          defaultNoDataCellTemplate,
-        )}
+        noDataRowComponent={TableRow}
+        noDataCellComponent={TableNoDataCell}
+        stubCellComponent={TableStubCell}
+        stubHeaderCellComponent={TableStubCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -73,12 +55,7 @@ export class VirtualTable extends React.PureComponent {
 }
 
 VirtualTable.propTypes = {
-  tableCellTemplate: PropTypes.func,
-  tableRowTemplate: PropTypes.func,
-  tableNoDataRowTemplate: PropTypes.func,
-  tableStubCellTemplate: PropTypes.func,
-  tableStubHeaderCellTemplate: PropTypes.func,
-  tableNoDataCellTemplate: PropTypes.func,
+  getCellComponent: PropTypes.func,
   estimatedRowHeight: PropTypes.number,
   height: PropTypes.number,
   messages: PropTypes.shape({
@@ -87,12 +64,7 @@ VirtualTable.propTypes = {
 };
 
 VirtualTable.defaultProps = {
-  tableCellTemplate: undefined,
-  tableRowTemplate: undefined,
-  tableNoDataRowTemplate: undefined,
-  tableStubCellTemplate: undefined,
-  tableStubHeaderCellTemplate: undefined,
-  tableNoDataCellTemplate: undefined,
+  getCellComponent: undefined,
   estimatedRowHeight: 48,
   height: 530,
   messages: {},

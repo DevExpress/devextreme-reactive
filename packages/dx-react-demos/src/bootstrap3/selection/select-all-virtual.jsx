@@ -48,7 +48,7 @@ export default class Demo extends React.PureComponent {
           <LocalSelection />
           <VirtualTable />
           <TableHeaderRow />
-          <TableSelection />
+          <TableSelection showSelectAll />
         </Grid>
       </div>
     );

@@ -93,7 +93,7 @@ export default class Demo extends React.PureComponent {
 
         <TableHeaderRow allowSorting allowDragging />
         <TableFilterRow rowHeight={51} />
-        <TableSelection />
+        <TableSelection showSelectAll />
         <TableGroupRow />
         <GroupingPanel allowSorting allowDragging />
       </Grid>

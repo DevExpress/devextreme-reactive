@@ -188,7 +188,7 @@ export default class Demo extends React.PureComponent {
         <PagingPanel
           allowedPageSizes={allowedPageSizes}
         />
-        <TableSelection />
+        <TableSelection showSelectAll />
         <TableRowDetail
           template={({ row }) => (
             <GridDetailContainer

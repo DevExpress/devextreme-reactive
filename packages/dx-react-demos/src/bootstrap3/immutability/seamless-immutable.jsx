@@ -70,7 +70,7 @@ export default class Demo extends React.PureComponent {
         <LocalSelection />
         <Table />
         <TableHeaderRow allowSorting />
-        <TableSelection />
+        <TableSelection showSelectAll />
       </Grid>
     );
   }

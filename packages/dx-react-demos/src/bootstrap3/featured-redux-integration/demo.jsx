@@ -124,7 +124,7 @@ const GridContainer = ({
 
     <TableHeaderRow allowSorting allowDragging allowResizing />
     <TableFilterRow />
-    <TableSelection />
+    <TableSelection showSelectAll />
     <TableRowDetail
       template={({ row }) => (
         <GridDetailContainer

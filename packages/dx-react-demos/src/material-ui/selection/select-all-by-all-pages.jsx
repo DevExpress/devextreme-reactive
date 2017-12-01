@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
             <LocalPaging />
             <Table />
             <TableHeaderRow />
-            <TableSelection />
+            <TableSelection showSelectAll />
             <PagingPanel />
           </Grid>
         </Paper>

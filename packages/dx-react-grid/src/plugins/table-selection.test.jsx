@@ -36,7 +36,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['SelectionState', 'Table'],
+  plugins: ['SelectionState', 'Table', 'LocalSelection'],
 };
 
 const defaultProps = {
@@ -119,6 +119,7 @@ describe('Table Selection', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
+          showSelectAll
           selectAllCellTemplate={selectAllCellTemplate}
         />
       </PluginHost>

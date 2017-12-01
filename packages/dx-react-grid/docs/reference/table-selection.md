@@ -7,7 +7,7 @@ This plugin visualizes the selection state within a table by rendering selection
 ### Dependencies
 
 - [SelectionState](selection-state.md)
-- [LocalSelection](local-selection.md)
+- [LocalSelection](local-selection.md) [Optional]
 - [Table](table.md)
 
 ### Properties
@@ -16,7 +16,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 highlightSelected | boolean | false | If true, selected rows are highlighted. Note that the `Table` plugin's `tableRowTemplate` is ignored in this case.
 selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `Table` plugin's `tableRowTemplate` is ignored in this case.
-showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row.
+showSelectAll | boolean | false | If true, the 'select all' checkbox is rendered inside the heading row. Requires the [LocalSelection](local-selection.md) dependency.
 showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row.
 selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox.
 selectAllCellTemplate | (args: [SelectAllCellArgs](#select-all-cell-args)) => ReactElement | | A component that renders the Select All checkbox.

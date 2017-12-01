@@ -48,11 +48,6 @@ const getSelectTableRowTemplateArgs = (
   });
 };
 
-const pluginDependencies = [
-  { pluginName: 'SelectionState' },
-  { pluginName: 'Table' },
-];
-
 export class TableSelection extends React.PureComponent {
   render() {
     const {
@@ -72,7 +67,11 @@ export class TableSelection extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="TableSelection"
-        dependencies={pluginDependencies}
+        dependencies={[
+          { pluginName: 'Table' },
+          { pluginName: 'SelectionState' },
+          { pluginName: 'LocalSelection', optional: !showSelectAll },
+        ]}
       >
         {showSelectionColumn && (
           <Getter name="tableColumns" computed={tableColumnsComputed} />
@@ -154,6 +153,6 @@ TableSelection.propTypes = {
 TableSelection.defaultProps = {
   highlightSelected: false,
   selectByRowClick: false,
-  showSelectAll: true,
+  showSelectAll: false,
   showSelectionColumn: true,
 };

@@ -90,7 +90,7 @@ export default class Demo extends React.PureComponent {
               return undefined;
             }}
           />
-          <TableSelection />
+          <TableSelection showSelectAll />
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 

@@ -32,7 +32,7 @@ export const TableSelectAllCell = ({
           checkbox.indeterminate = someSelected;
         }
       }}
-      onChange={toggleAll}
+      onChange={() => toggleAll()}
       onClick={e => e.stopPropagation()}
     />
   </th>

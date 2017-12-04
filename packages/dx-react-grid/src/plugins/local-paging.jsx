@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Watcher, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, PluginContainer } from '@devexpress/dx-react-core';
 import { paginatedRows, rowsWithPageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -11,6 +11,13 @@ const rowsWithHeadersComputed = ({ rows, pageSize, getRowLevelKey }) =>
 const totalCountComputed = ({ rows }) => rowCount(rows);
 const paginatedRowsComputed = ({ rows, pageSize, currentPage }) =>
   paginatedRows(rows, pageSize, currentPage);
+const changesComputed = (returnedValue, getters, actions) => {
+  const totalPages = pageCount(getters.totalCount, getters.pageSize);
+  if (totalPages - 1 < getters.currentPage) {
+    actions.setCurrentPage(Math.max(totalPages - 1, 0));
+  }
+  return returnedValue;
+};
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class LocalPaging extends React.PureComponent {
@@ -22,18 +29,23 @@ export class LocalPaging extends React.PureComponent {
       >
         <Getter name="rows" computed={rowsWithHeadersComputed} />
         <Getter name="totalCount" computed={totalCountComputed} />
-        <Watcher
-          watch={getter => [
-            getter('totalCount'),
-            getter('currentPage'),
-            getter('pageSize'),
-          ]}
-          onChange={(action, totalCount, currentPage, pageSize) => {
-            const totalPages = pageCount(totalCount, pageSize);
-            if (totalPages - 1 < currentPage) {
-              action('setCurrentPage')(Math.max(totalPages - 1, 0));
-            }
-          }}
+        <Getter
+          name="currentPage"
+          computed={(getters, actions) =>
+            changesComputed(getters.currentPage, getters, actions)
+          }
+        />
+        <Getter
+          name="totalCount"
+          computed={(getters, actions) =>
+            changesComputed(getters.totalCount, getters, actions)
+          }
+        />
+        <Getter
+          name="pageSize"
+          computed={(getters, actions) =>
+            changesComputed(getters.pageSize, getters, actions)
+          }
         />
         <Getter name="rows" computed={paginatedRowsComputed} />
       </PluginContainer>

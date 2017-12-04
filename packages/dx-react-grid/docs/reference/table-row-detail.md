@@ -16,7 +16,7 @@ Name | Type | Default | Description
 contentComponent | ElementType&lt;[DetailContentProps](#detailcontentprops)&gt; | | A component that renders the detail row's content within the detail cell.
 cellComponent | ElementType&lt;[TableDetailCellProps](#tabledetailcellprops)&gt; | | A component that renders a detail cell.
 rowComponent | ElementType&lt;[TableDetailRowProps](#tabledetailrowprops)&gt; | | A component that renders a detail row.
-toggleCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders a cell containing the expand/collaps control.
+toggleCellComponent | ElementType&lt;[TableDetailToggleCellProps](#tabledetailtogglecellprops)&gt; | | A component that renders a cell containing the expand/collapse control.
 toggleColumnWidth | number | | Specifies the width of the column containing expand/collapse controls.
 rowHeight | number | | Specifies the detail row height.
 
@@ -55,7 +55,7 @@ row | any | A row.
 
 ### TableDetailToggleCellProps
 
-Describes properties passed to a component that renders a cell containing the expand/collaps control.
+Describes properties passed to a component that renders a cell containing the expand/collapse control.
 
 A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 

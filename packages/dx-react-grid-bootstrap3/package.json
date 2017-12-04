@@ -72,10 +72,10 @@
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
     "raf": "^3.4.0",
-    "react": "^16.1.1",
+    "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
-    "react-dom": "^16.1.1",
-    "react-test-renderer": "^16.1.1",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-license": "^0.5.0",
@@ -88,7 +88,7 @@
     "@devexpress/dx-grid-core": "1.0.0-beta.1",
     "@devexpress/dx-react-core": "1.0.0-beta.1",
     "@devexpress/dx-react-grid": "1.0.0-beta.1",
-    "react": "^15.6.1 || ^16.0.0",
+    "react": "^16.2.0",
     "react-bootstrap": "^0.31.5"
   }
 }

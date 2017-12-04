@@ -13,11 +13,3 @@ export const getSharedEventEmitter = () => {
   }
   return eventEmitter;
 };
-
-let touchEvents = false;
-export const touchEventsSupported = () => {
-  if (!touchEvents) {
-    touchEvents = 'ontouchstart' in window;
-  }
-  return touchEvents;
-};

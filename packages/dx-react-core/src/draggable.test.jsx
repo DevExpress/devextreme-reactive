@@ -178,6 +178,27 @@ describe('Draggable', () => {
         .toHaveBeenCalledWith({ x: 10, y: 10 });
     });
 
+    it('should ignore the mouse event which is fired right after the touch one', () => {
+      const onStart = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onStart={onStart}
+        >
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggable = tree.find('div');
+      draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
+      draggable.simulate('mousedown', { touches: [{ clientX: 10, clientY: 10 }] });
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+
+      expect(onStart)
+        .toHaveBeenCalledTimes(0);
+    });
+
     it('should prevent default browser behavior on dragging', () => {
       const onStart = jest.fn();
 

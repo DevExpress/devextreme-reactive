@@ -24,11 +24,11 @@ const styles = theme => ({
 });
 
 const TableDetailToggleCellBase = ({
-  style, expanded, classes, toggleExpanded,
+  style, expanded, classes, onToggle,
 }) => {
   const handleClick = (e) => {
     e.stopPropagation();
-    toggleExpanded();
+    onToggle();
   };
   return (
     <TableCell
@@ -53,13 +53,13 @@ TableDetailToggleCellBase.propTypes = {
   style: PropTypes.object,
   expanded: PropTypes.bool,
   classes: PropTypes.object.isRequired,
-  toggleExpanded: PropTypes.func,
+  onToggle: PropTypes.func,
 };
 
 TableDetailToggleCellBase.defaultProps = {
   style: null,
   expanded: false,
-  toggleExpanded: () => {},
+  onToggle: () => {},
 };
 
 export const TableDetailToggleCell = withStyles(styles, { name: 'TableDetailToggleCell' })(TableDetailToggleCellBase);

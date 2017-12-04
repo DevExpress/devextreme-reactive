@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableSelection
           selectByRowClick
-          highlightSelected
+          highlightRow
           showSelectionColumn={false}
         />
       </Grid>

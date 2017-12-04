@@ -14,9 +14,9 @@ import { Loading } from '../components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
 
-const SaleAmountCell = ({ value, classes }) => (
+const SaleAmountCell = ({ value }) => (
   <td
-    className={classes.saleAmountCell}
+    style={{ textAlign: 'right' }}
   >
     ${value}
   </td>
@@ -24,7 +24,6 @@ const SaleAmountCell = ({ value, classes }) => (
 
 SaleAmountCell.propTypes = {
   value: PropTypes.any.isRequired,
-  classes: PropTypes.object.isRequired,
 };
 
 export default class Demo extends React.PureComponent {

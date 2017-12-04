@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableSelectCell = ({ style, selected, changeSelected }) => (
+export const TableSelectCell = ({ style, selected, onToggle }) => (
   <td
     style={{
       cursor: 'pointer',
@@ -10,7 +10,7 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
     }}
     onClick={(e) => {
       e.stopPropagation();
-      changeSelected();
+      onToggle();
     }}
   >
     <input
@@ -21,7 +21,7 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
       }}
       type="checkbox"
       checked={selected}
-      onChange={changeSelected}
+      onChange={onToggle}
       onClick={e => e.stopPropagation()}
     />
   </td>
@@ -29,10 +29,10 @@ export const TableSelectCell = ({ style, selected, changeSelected }) => (
 TableSelectCell.defaultProps = {
   style: null,
   selected: false,
-  changeSelected: () => {},
+  onToggle: () => {},
 };
 TableSelectCell.propTypes = {
   style: PropTypes.object,
   selected: PropTypes.bool,
-  changeSelected: PropTypes.func,
+  onToggle: PropTypes.func,
 };

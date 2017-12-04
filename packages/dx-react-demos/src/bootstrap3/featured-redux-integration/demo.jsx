@@ -21,31 +21,33 @@ import {
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
 const GridDetailContainer = ({
-  columns,
-  data,
+  detailColumns,
+  row,
 }) => (
   <div style={{ margin: '20px' }}>
     <div>
-      <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
+      <h5>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
     </div>
     <Grid
-      rows={data.tasks}
-      columns={columns}
+      rows={row.tasks}
+      columns={detailColumns}
     >
       <Table />
       <TableHeaderRow />
     </Grid>
   </div>
 );
+
 GridDetailContainer.propTypes = {
-  data: PropTypes.object.isRequired,
-  columns: PropTypes.array.isRequired,
+  row: PropTypes.object.isRequired,
+  detailColumns: PropTypes.array.isRequired,
 };
+
+const ReduxGridDetailContainer = connect(state => state)(GridDetailContainer);
 
 const GridContainer = ({
   rows,
   columns,
-  detailColumns,
 
   sorting,
   onSortingChange,
@@ -126,12 +128,7 @@ const GridContainer = ({
     <TableFilterRow />
     <TableSelection />
     <TableRowDetail
-      template={({ row }) => (
-        <GridDetailContainer
-          data={row}
-          columns={detailColumns}
-        />
-      )}
+      contentComponent={ReduxGridDetailContainer}
     />
     <GroupingPanel allowSorting allowDragging />
     <TableGroupRow />
@@ -141,10 +138,10 @@ const GridContainer = ({
 
   </Grid>
 );
+
 GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  detailColumns: PropTypes.array.isRequired,
   sorting: PropTypes.array.isRequired,
   onSortingChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,

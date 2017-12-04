@@ -16,20 +16,20 @@ describe('TableDetailToggleCell', () => {
   });
 
   it('should handle click with stopPropagation', () => {
-    const toggleExpanded = jest.fn();
+    const onToggle = jest.fn();
     const mockEvent = {
       stopPropagation: jest.fn(),
     };
     const tree = shallow((
       <TableDetailToggleCell
-        toggleExpanded={toggleExpanded}
+        onToggle={onToggle}
       />
     ));
 
     const buttonClickHandler = tree.find('td').prop('onClick');
 
     buttonClickHandler(mockEvent);
-    expect(toggleExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
     expect(mockEvent.stopPropagation)
       .toHaveBeenCalled();
@@ -45,26 +45,26 @@ describe('TableDetailToggleCell', () => {
   });
 
   it('should handle the "Enter" and "Space" keys down', () => {
-    const toggleExpanded = jest.fn();
+    const onToggle = jest.fn();
     const tree = mount((
       <TableDetailToggleCell
-        toggleExpanded={toggleExpanded}
+        onToggle={onToggle}
       />
     ));
 
     const targetElement = tree.find('i');
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-    expect(toggleExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
 
-    toggleExpanded.mockClear();
+    onToggle.mockClear();
     targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-    expect(toggleExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
 
-    toggleExpanded.mockClear();
+    onToggle.mockClear();
     targetElement.simulate('keydown', { keyCode: 51 });
-    expect(toggleExpanded)
+    expect(onToggle)
       .not.toHaveBeenCalled();
   });
 });

@@ -7,11 +7,11 @@ const SPACE_KEY_CODE = 32;
 const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
-export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
+export const TableDetailToggleCell = ({ style, expanded, onToggle }) => {
   const handleKeyDown = (e) => {
     if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
       e.preventDefault();
-      toggleExpanded();
+      onToggle();
     }
   };
   return (
@@ -23,7 +23,7 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
       }}
       onClick={(e) => {
         e.stopPropagation();
-        toggleExpanded();
+        onToggle();
       }}
 
     >
@@ -46,11 +46,11 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
 TableDetailToggleCell.propTypes = {
   style: PropTypes.object,
   expanded: PropTypes.bool,
-  toggleExpanded: PropTypes.func,
+  onToggle: PropTypes.func,
 };
 
 TableDetailToggleCell.defaultProps = {
   style: null,
   expanded: false,
-  toggleExpanded: () => {},
+  onToggle: () => {},
 };

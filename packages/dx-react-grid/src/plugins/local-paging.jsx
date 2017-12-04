@@ -11,7 +11,7 @@ const rowsWithHeadersComputed = ({ rows, pageSize, getRowLevelKey }) =>
 const totalCountComputed = ({ rows }) => rowCount(rows);
 const paginatedRowsComputed = ({ rows, pageSize, currentPage }) =>
   paginatedRows(rows, pageSize, currentPage);
-const changesComputed = (returnedValue, getters, actions) => {
+const gettersChangesComputed = (returnedValue, getters, actions) => {
   const totalPages = pageCount(getters.totalCount, getters.pageSize);
   if (totalPages - 1 < getters.currentPage) {
     actions.setCurrentPage(Math.max(totalPages - 1, 0));
@@ -32,19 +32,19 @@ export class LocalPaging extends React.PureComponent {
         <Getter
           name="currentPage"
           computed={(getters, actions) =>
-            changesComputed(getters.currentPage, getters, actions)
+            gettersChangesComputed(getters.currentPage, getters, actions)
           }
         />
         <Getter
           name="totalCount"
           computed={(getters, actions) =>
-            changesComputed(getters.totalCount, getters, actions)
+            gettersChangesComputed(getters.totalCount, getters, actions)
           }
         />
         <Getter
           name="pageSize"
           computed={(getters, actions) =>
-            changesComputed(getters.pageSize, getters, actions)
+            gettersChangesComputed(getters.pageSize, getters, actions)
           }
         />
         <Getter name="rows" computed={paginatedRowsComputed} />

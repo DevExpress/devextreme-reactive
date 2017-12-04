@@ -12,7 +12,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-type | string | | Specifies the data type to which the templates are applied.
+type | string | | Specifies the data type associated with the specified formatter and editor.
 formatterComponent | ElementType&lt;[ValueFormatterProps](#valueformatterprops)&gt; | | A component that renders the formatted value.
 editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops)&gt; | | A component that renders a custom editor.
 
@@ -28,7 +28,7 @@ dataType | string | Specifies the column's data type.
 
 ### ValueFormatterProps
 
-Describes the properties passed to a component that renders the formatted value.
+Describes properties passed to a component that renders the formatted value.
 
 A value with the following shape:
 
@@ -36,11 +36,11 @@ Field | Type | Description
 ------|------|------------
 column | [Column](#column) | A column object.
 row? | any | A row.
-value | any | Specifies the value to be formatted.
+value | any | The value to be formatted.
 
 ### ValueEditorProps
 
-Describes the properties passed to a component that renders the value editor.
+Describes properties passed to a component that renders the value editor.
 
 A value with the following shape:
 
@@ -61,5 +61,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-valueFormatter | Template | [ValueFormatterArgs](#valueformatterprops) | A template that renders a formatted value.
-valueEditor | Template | [ValueEditorArgs](#valueeditorprops) | A template that renders an editor.
+valueFormatter | Template | [ValueFormatterArgs](#valueformatterprops) | A component that renders the formatted value.
+valueEditor | Template | [ValueEditorArgs](#valueeditorprops) | A component that renders the editor.

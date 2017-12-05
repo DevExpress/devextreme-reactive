@@ -15,16 +15,16 @@ describe('TableSelectCell', () => {
     classes = getClasses(<TableSelectCell />);
   });
 
-  it('should call the `changeSelected` function on cell click if selection is available', () => {
-    const changeSelected = jest.fn();
+  it('should fire the `onToggle` event on cell click if selection is available', () => {
+    const onToggle = jest.fn();
     const tree = mount((
       <TableSelectCell
-        changeSelected={changeSelected}
+        onToggle={onToggle}
       />
     ));
     tree.find(Checkbox).simulate('click');
 
-    expect(changeSelected)
+    expect(onToggle)
       .toHaveBeenCalledTimes(1);
   });
 

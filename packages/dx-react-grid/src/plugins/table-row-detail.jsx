@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Getter, Template, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
@@ -12,28 +11,6 @@ import {
   isDetailTableRow,
 } from '@devexpress/dx-grid-core';
 
-const getDetailToggleTableCellTemplateArgs = (
-  params,
-  { expandedRows },
-  { setDetailRowExpanded },
-) => ({
-  ...params,
-  row: params.tableRow.row,
-  expanded: isDetailRowExpanded(expandedRows, params.tableRow.rowId),
-  toggleExpanded: () => setDetailRowExpanded({ rowId: params.tableRow.rowId }),
-});
-
-const getDetailTableCellTemplateArgs = ({ template, ...params }) => ({
-  ...params,
-  row: params.tableRow.row,
-  template: () => template({ row: params.tableRow.row }),
-});
-
-const getDetailTableRowTemplateArgs = params => ({
-  ...params,
-  row: params.tableRow.row,
-});
-
 const pluginDependencies = [
   { pluginName: 'Table' },
 ];
@@ -42,15 +19,15 @@ export class TableRowDetail extends React.PureComponent {
   render() {
     const {
       rowHeight,
-      template,
-      detailToggleCellTemplate,
-      detailCellTemplate,
-      detailRowTemplate,
-      detailToggleCellWidth,
+      contentComponent: Content,
+      toggleCellComponent: ToggleCell,
+      cellComponent: Cell,
+      rowComponent: Row,
+      toggleColumnWidth,
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) =>
-      tableColumnsWithDetail(tableColumns, detailToggleCellWidth);
+      tableColumnsWithDetail(tableColumns, toggleColumnWidth);
     const tableBodyRowsComputed = ({ tableBodyRows, expandedRows }) =>
       tableRowsWithExpandedDetail(tableBodyRows, expandedRows, rowHeight);
 
@@ -67,10 +44,12 @@ export class TableRowDetail extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={detailToggleCellTemplate}
-                  params={getDetailToggleTableCellTemplateArgs(params, getters, actions)}
+              {({ expandedRows }, { setDetailRowExpanded }) => (
+                <ToggleCell
+                  {...params}
+                  row={params.tableRow.row}
+                  expanded={isDetailRowExpanded(expandedRows, params.tableRow.rowId)}
+                  onToggle={() => setDetailRowExpanded({ rowId: params.tableRow.rowId })}
                 />
               )}
             </TemplateConnector>
@@ -81,10 +60,12 @@ export class TableRowDetail extends React.PureComponent {
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (
-            <TemplateRenderer
-              template={detailCellTemplate}
-              params={getDetailTableCellTemplateArgs({ template, ...params })}
-            />
+            <Cell
+              {...params}
+              row={params.tableRow.row}
+            >
+              <Content row={params.tableRow.row} />
+            </Cell>
           )}
         </Template>
         <Template
@@ -92,14 +73,10 @@ export class TableRowDetail extends React.PureComponent {
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (
-            <TemplateConnector>
-              {() => (
-                <TemplateRenderer
-                  template={detailRowTemplate}
-                  params={getDetailTableRowTemplateArgs(params)}
-                />
-              )}
-            </TemplateConnector>
+            <Row
+              {...params}
+              row={params.tableRow.row}
+            />
           )}
         </Template>
       </PluginContainer>
@@ -108,15 +85,15 @@ export class TableRowDetail extends React.PureComponent {
 }
 
 TableRowDetail.propTypes = {
-  template: PropTypes.func,
-  detailToggleCellTemplate: PropTypes.func.isRequired,
-  detailCellTemplate: PropTypes.func.isRequired,
-  detailRowTemplate: PropTypes.func.isRequired,
-  detailToggleCellWidth: PropTypes.number.isRequired,
+  contentComponent: PropTypes.func,
+  toggleCellComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  toggleColumnWidth: PropTypes.number.isRequired,
   rowHeight: PropTypes.number,
 };
 
 TableRowDetail.defaultProps = {
-  template: undefined,
+  contentComponent: () => null,
   rowHeight: undefined,
 };

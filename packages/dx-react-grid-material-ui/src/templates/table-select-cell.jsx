@@ -25,7 +25,7 @@ const styles = theme => ({
 });
 
 export const TableSelectCellBase = ({
-  style, selected, changeSelected, classes,
+  style, selected, onToggle, classes,
   className, row, tableRow, tableColumn,
   ...restProps
 }) => (
@@ -40,7 +40,7 @@ export const TableSelectCellBase = ({
       checked={selected}
       onClick={(e) => {
         e.stopPropagation();
-        changeSelected();
+        onToggle();
       }}
     />
   </TableCell>
@@ -49,7 +49,7 @@ export const TableSelectCellBase = ({
 TableSelectCellBase.propTypes = {
   style: PropTypes.object,
   selected: PropTypes.bool,
-  changeSelected: PropTypes.func,
+  onToggle: PropTypes.func,
   classes: PropTypes.object.isRequired,
   row: PropTypes.object,
   tableRow: PropTypes.object,
@@ -60,7 +60,7 @@ TableSelectCellBase.propTypes = {
 TableSelectCellBase.defaultProps = {
   style: null,
   selected: false,
-  changeSelected: () => {},
+  onToggle: () => {},
   row: undefined,
   tableRow: undefined,
   tableColumn: undefined,

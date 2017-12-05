@@ -24,7 +24,7 @@ editRowTemplate | (args: [EditRowArgs](#edit-row-args)) => ReactElement | | A co
 
 Describes properties passed to the edit row's cell template.
 
-A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -37,7 +37,7 @@ onValueChange | (newValue: any) => void | Handles value changes.
 
 Describes properties passed to the edit row template.
 
-A value with the [TableRowArgs](table.md#table-row-args) shape extended by the following fields:
+A value with the [TableRowProps](table.md#tablerowprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -49,7 +49,7 @@ row | any | Specifies the initial row.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Rows to be rendered inside the table body.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Rows to be rendered inside the table body.
 editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows being edited.
 addedRows | Getter | Array&lt;any&gt; | Created but not committed rows.
 changeAddedRow | Action | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
@@ -57,11 +57,11 @@ changedRows | Getter | { [key: string]: any } | An associative array storing cha
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 createRowChange | Getter | (row: any, columnName: string, value: string &#124; string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.
-tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
-tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
+tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Table data rows including editing rows.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table data rows including editing rows.

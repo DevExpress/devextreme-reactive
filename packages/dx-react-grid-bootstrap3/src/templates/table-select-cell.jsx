@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 export const TableSelectCell = ({
   style,
   selected,
-  changeSelected,
+  onToggle,
   row, tableRow, tableColumn,
   ...restProps
 }) => (
+
   <td
     style={{
       cursor: 'pointer',
@@ -16,7 +17,7 @@ export const TableSelectCell = ({
     }}
     onClick={(e) => {
       e.stopPropagation();
-      changeSelected();
+      onToggle();
     }}
     {...restProps}
   >
@@ -28,15 +29,16 @@ export const TableSelectCell = ({
       }}
       type="checkbox"
       checked={selected}
-      onChange={changeSelected}
+      onChange={onToggle}
       onClick={e => e.stopPropagation()}
     />
   </td>
 );
+
 TableSelectCell.propTypes = {
   style: PropTypes.object,
   selected: PropTypes.bool,
-  changeSelected: PropTypes.func,
+  onToggle: PropTypes.func,
   row: PropTypes.object,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
@@ -45,7 +47,7 @@ TableSelectCell.propTypes = {
 TableSelectCell.defaultProps = {
   style: null,
   selected: false,
-  changeSelected: () => {},
+  onToggle: () => {},
   row: undefined,
   tableRow: undefined,
   tableColumn: undefined,

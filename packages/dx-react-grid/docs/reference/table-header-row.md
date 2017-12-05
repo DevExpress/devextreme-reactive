@@ -68,10 +68,10 @@ sortingHint? | string | 'Sort' | Specifies the 'Sort' hint's text. Available in 
 
 Name | Properties | Description
 -----|------------|------------
-TableHeaderRow.Row | [TableRowArgs](table.md#table-row-args) | A component that renders a header row.
-TableHeaderRow.Cell | [HeaderCellArgs](#header-cell-args) | A component that renders a header cell.
+TableHeaderRow.Row | [TableRowProps](table.md#tablerowprops) | A component that renders a header row.
+TableHeaderRow.Cell | [TableHeaderCellProps](#tableheadercellprops) | A component that renders a header cell.
 
-All other component's properties will be spreaded to the root element of this component.
+If you specify additional properties, they are added to the component's root element.
 
 ## Plugin Developer Reference
 

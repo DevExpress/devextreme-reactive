@@ -79,7 +79,7 @@ class TableHeaderCellBase extends React.PureComponent {
       allowGroupingByClick, onGroup,
       allowDragging, dragPayload,
       allowResizing, onWidthChange, onDraftWidthChange,
-      classes, getMessage, tableRow, className,
+      classes, getMessage, tableRow, className, onSort,
       ...restProps
     } = this.props;
 

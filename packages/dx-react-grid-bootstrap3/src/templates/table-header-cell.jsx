@@ -42,7 +42,7 @@ export class TableHeaderCell extends React.PureComponent {
       allowGroupingByClick, onGroup,
       allowDragging, dragPayload,
       allowResizing, onWidthChange, onDraftWidthChange,
-      tableRow, getMessage,
+      tableRow, getMessage, onSort,
       ...restProps
     } = this.props;
     const { dragging } = this.state;

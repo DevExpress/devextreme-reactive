@@ -10,14 +10,14 @@ const handleBlur = (e) => { e.target.style.outline = ''; };
 export const TableDetailToggleCell = ({
   style,
   expanded,
-  toggleExpanded,
+  onToggle,
   tableColumn, tableRow, row,
   ...restProps
 }) => {
   const handleKeyDown = (e) => {
     if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
       e.preventDefault();
-      toggleExpanded();
+      onToggle();
     }
   };
   return (
@@ -29,7 +29,7 @@ export const TableDetailToggleCell = ({
       }}
       onClick={(e) => {
         e.stopPropagation();
-        toggleExpanded();
+        onToggle();
       }}
       {...restProps}
     >
@@ -52,7 +52,7 @@ export const TableDetailToggleCell = ({
 TableDetailToggleCell.propTypes = {
   style: PropTypes.object,
   expanded: PropTypes.bool,
-  toggleExpanded: PropTypes.func,
+  onToggle: PropTypes.func,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.object,
@@ -61,7 +61,7 @@ TableDetailToggleCell.propTypes = {
 TableDetailToggleCell.defaultProps = {
   style: null,
   expanded: false,
-  toggleExpanded: () => {},
+  onToggle: () => {},
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,

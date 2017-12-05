@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export const TableDetailCell = ({
   colSpan,
   style,
-  template,
+  children,
   className,
   tableColumn, tableRow, row,
   ...restProps
@@ -16,14 +16,17 @@ export const TableDetailCell = ({
     className={classNames('active', className)}
     {...restProps}
   >
-    {template()}
+    {children}
   </td>
 );
 
 TableDetailCell.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
-  template: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   className: PropTypes.string,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
@@ -37,4 +40,5 @@ TableDetailCell.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,
+  children: undefined,
 };

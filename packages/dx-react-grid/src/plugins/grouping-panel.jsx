@@ -50,23 +50,21 @@ export class GroupingPanel extends React.PureComponent {
         ]}
       >
         <Template name="header">
-          <div>
-            <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={groupPanelTemplate}
-                  params={getGroupPanelTemplateArgs(
-                    {
-                      allowDragging, allowSorting, allowUngroupingByClick, getMessage,
-                    },
-                    getters,
-                    actions,
-                  )}
-                />
-              )}
-            </TemplateConnector>
-            <TemplatePlaceholder />
-          </div>
+          <TemplateConnector>
+            {(getters, actions) => (
+              <TemplateRenderer
+                template={groupPanelTemplate}
+                params={getGroupPanelTemplateArgs(
+                  {
+                    allowDragging, allowSorting, allowUngroupingByClick, getMessage,
+                  },
+                  getters,
+                  actions,
+                )}
+              />
+            )}
+          </TemplateConnector>
+          <TemplatePlaceholder />
         </Template>
       </PluginContainer>
     );

@@ -25,14 +25,14 @@ const styles = theme => ({
 });
 
 const TableDetailToggleCellBase = ({
-  style, expanded, classes, toggleExpanded,
+  style, expanded, classes, onToggle,
   tableColumn, tableRow, row,
   className,
   ...restProps
 }) => {
   const handleClick = (e) => {
     e.stopPropagation();
-    toggleExpanded();
+    onToggle();
   };
   return (
     <TableCell
@@ -58,7 +58,7 @@ TableDetailToggleCellBase.propTypes = {
   style: PropTypes.object,
   expanded: PropTypes.bool,
   classes: PropTypes.object.isRequired,
-  toggleExpanded: PropTypes.func,
+  onToggle: PropTypes.func,
   className: PropTypes.string,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
@@ -68,7 +68,7 @@ TableDetailToggleCellBase.propTypes = {
 TableDetailToggleCellBase.defaultProps = {
   style: null,
   expanded: false,
-  toggleExpanded: () => {},
+  onToggle: () => {},
   className: undefined,
   tableColumn: undefined,
   tableRow: undefined,

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithSelection,
@@ -11,54 +11,17 @@ import {
   isDataTableRow,
 } from '@devexpress/dx-grid-core';
 
-const getSelectTableCellTemplateArgs = (
-  params,
-  { selection },
-  { toggleSelection },
-) => ({
-  ...params,
-  row: params.tableRow.row,
-  selected: selection.has(params.tableRow.rowId),
-  changeSelected: () => toggleSelection({ rowIds: [params.tableRow.rowId] }),
-});
-
-const getSelectAllTableCellTemplateArgs = (
-  params,
-  { selectAllAvailable, allSelected, someSelected },
-  { toggleSelectAll },
-) => ({
-  ...params,
-  selectionAvailable: selectAllAvailable,
-  allSelected,
-  someSelected,
-  toggleAll: select => toggleSelectAll(select),
-});
-
-const getSelectTableRowTemplateArgs = (
-  { selectByRowClick, highlightSelected, ...restParams },
-  { selection },
-  { toggleSelection },
-) => {
-  const { rowId } = restParams.tableRow;
-  return ({
-    ...restParams,
-    selectByRowClick,
-    selected: highlightSelected && selection.has(rowId),
-    changeSelected: () => toggleSelection({ rowIds: [rowId] }),
-  });
-};
-
 export class TableSelection extends React.PureComponent {
   render() {
     const {
-      highlightSelected,
+      highlightRow,
+      selectByRowClick,
       showSelectionColumn,
       showSelectAll,
+      headerCellComponent: HeaderCell,
+      cellComponent: Cell,
+      rowComponent: Row,
       selectionColumnWidth,
-      selectAllCellTemplate,
-      selectCellTemplate,
-      selectRowTemplate,
-      selectByRowClick,
     } = this.props;
 
     const tableColumnsComputed = ({ tableColumns }) =>
@@ -84,10 +47,13 @@ export class TableSelection extends React.PureComponent {
           >
             {params => (
               <TemplateConnector>
-                {(getters, actions) => (
-                  <TemplateRenderer
-                    template={selectAllCellTemplate}
-                    params={getSelectAllTableCellTemplateArgs(params, getters, actions)}
+                {({ selectAllAvailable, allSelected, someSelected }, { toggleSelectAll }) => (
+                  <HeaderCell
+                    {...params}
+                    disabled={!selectAllAvailable}
+                    allSelected={allSelected}
+                    someSelected={someSelected}
+                    onToggle={select => toggleSelectAll(select)}
                   />
                 )}
               </TemplateConnector>
@@ -101,33 +67,31 @@ export class TableSelection extends React.PureComponent {
           >
             {params => (
               <TemplateConnector>
-                {(getters, actions) => (
-                  <TemplateRenderer
-                    template={selectCellTemplate}
-                    params={getSelectTableCellTemplateArgs(params, getters, actions)}
+                {({ selection }, { toggleSelection }) => (
+                  <Cell
+                    {...params}
+                    row={params.tableRow.row}
+                    selected={selection.has(params.tableRow.rowId)}
+                    onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
                   />
                 )}
               </TemplateConnector>
             )}
           </Template>
         )}
-        {(highlightSelected || selectByRowClick) && (
+        {(highlightRow || selectByRowClick) && (
           <Template
             name="tableRow"
             predicate={({ tableRow }) => isDataTableRow(tableRow)}
           >
             {params => (
               <TemplateConnector>
-                {(getters, actions) => (
-                  <TemplateRenderer
-                    template={selectRowTemplate}
-                    params={
-                      getSelectTableRowTemplateArgs({
-                        selectByRowClick,
-                        highlightSelected,
-                        ...params,
-                      }, getters, actions)
-                    }
+                {({ selection }, { toggleSelection }) => (
+                  <Row
+                    {...params}
+                    selectByRowClick
+                    selected={highlightRow && selection.has(params.tableRow.rowId)}
+                    onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
                   />
                 )}
               </TemplateConnector>
@@ -140,10 +104,10 @@ export class TableSelection extends React.PureComponent {
 }
 
 TableSelection.propTypes = {
-  selectAllCellTemplate: PropTypes.func.isRequired,
-  selectCellTemplate: PropTypes.func.isRequired,
-  selectRowTemplate: PropTypes.func.isRequired,
-  highlightSelected: PropTypes.bool,
+  headerCellComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  highlightRow: PropTypes.bool,
   selectByRowClick: PropTypes.bool,
   showSelectAll: PropTypes.bool,
   showSelectionColumn: PropTypes.bool,
@@ -151,7 +115,7 @@ TableSelection.propTypes = {
 };
 
 TableSelection.defaultProps = {
-  highlightSelected: false,
+  highlightRow: false,
   selectByRowClick: false,
   showSelectAll: false,
   showSelectionColumn: true,

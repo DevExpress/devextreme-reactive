@@ -31,36 +31,36 @@ describe('TableHeaderCell', () => {
       .toBeTruthy();
   });
 
-  it('should not call the `toggleAll` function on cell click if selection is not available', () => {
-    const toggleAll = jest.fn();
+  it('should not fire the `onToggle` event on cell click if selection is not available', () => {
+    const onToggle = jest.fn();
     const tree = mount((
       <TableSelectAllCell
         column={{
           name: 'Test',
         }}
-        toggleAll={toggleAll}
+        disabled
+        onToggle={onToggle}
       />
     ));
     tree.find(Checkbox).simulate('click');
 
-    expect(toggleAll)
+    expect(onToggle)
       .not.toHaveBeenCalled();
   });
 
-  it('should call the `toggleAll` function on cell click if selection is available', () => {
-    const toggleAll = jest.fn();
+  it('should fire the `onToggle` event on cell click if selection is available', () => {
+    const onToggle = jest.fn();
     const tree = mount((
       <TableSelectAllCell
         column={{
           name: 'Test',
         }}
-        selectionAvailable
-        toggleAll={toggleAll}
+        onToggle={onToggle}
       />
     ));
     tree.find(Checkbox).simulate('click');
 
-    expect(toggleAll)
+    expect(onToggle)
       .toHaveBeenCalledTimes(1);
   });
 });

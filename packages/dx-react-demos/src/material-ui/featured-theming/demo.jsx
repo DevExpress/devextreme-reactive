@@ -97,7 +97,7 @@ class GridDetailContainerBase extends React.PureComponent {
     this.handleChange = this.handleChange.bind(this);
   }
   findTasks(priority) {
-    return this.props.data.tasks.filter(task => task.priority === priority);
+    return this.props.row.tasks.filter(task => task.priority === priority);
   }
   firstSelectedItem() {
     let result = 0;
@@ -116,12 +116,12 @@ class GridDetailContainerBase extends React.PureComponent {
     const {
       lowPriorityTasks, normalPriorityTasks, highPriorityTasks, value,
     } = this.state;
-    const { data, classes } = this.props;
+    const { row, classes } = this.props;
 
     return (
       <div className={classes.root}>
         <Typography type="title" component="h5" className={classes.title}>
-          {data.firstName} {data.lastName}&apos;s Tasks by Priority:
+          {row.firstName} {row.lastName}&apos;s Tasks by Priority:
         </Typography>
         <Paper>
           <AppBar position="static" color="inherit">
@@ -145,7 +145,7 @@ class GridDetailContainerBase extends React.PureComponent {
 }
 
 GridDetailContainerBase.propTypes = {
-  data: PropTypes.object.isRequired,
+  row: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -217,11 +217,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableSelection showSelectAll />
           <TableRowDetail
-            template={({ row }) => (
-              <GridDetailContainer
-                data={row}
-              />
-            )}
+            contentComponent={GridDetailContainer}
           />
           <TableGroupRow />
           <GroupingPanel allowSorting allowDragging />

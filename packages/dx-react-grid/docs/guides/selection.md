@@ -20,11 +20,11 @@ Import the `SelectionState` and `TableSelection` plugins to set up a simple Grid
 
 ## Select by Row Click
 
-A user can select a row using a check box click by default. Set the `TableSelection` plugin's `selectByRowClick` property to true to check/uncheck a check box by a row click as demonstrated in the following example:
+A user can select a row using a checkbox click by default. Set the `TableSelection` plugin's `selectByRowClick` property to true to check/uncheck a checkbox by a row click as demonstrated in the following example:
 
 .embedded-demo(selection/select-by-row-click)
 
-In some scenarios, it is useful to highlight selected rows instead of using check boxes. For this, hide check boxes setting the `TableSelection` plugin's `showSelectionColumn` property to false and assign true to the `selectByRowClick` and `highlightSelected` properties as demonstrated in the following demo:
+In some scenarios, it is useful to highlight selected rows instead of using checkboxes. For this, hide checkboxes by setting the `TableSelection` plugin's `showSelectionColumn` property to false and assign true to the `selectByRowClick` and `highlightRow` properties as demonstrated in the following demo:
 
 .embedded-demo(selection/hidden-checkboxes)
 
@@ -38,7 +38,7 @@ If you want your Grid can select/deselect all rows, you need to perform the foll
 
 ### Without Paging
 
-The following example demonstrates selection without paging. We increase the row count using the Table's [virtual mode](virtual-scrolling.md).
+The following example demonstrates selection without paging. You can increase the row count using the Table's [virtual mode](virtual-scrolling.md).
 
 .embedded-demo(selection/select-all-virtual)
 

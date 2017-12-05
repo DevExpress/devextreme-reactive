@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  SortingState,
-  SelectionState,
   LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
@@ -11,11 +9,12 @@ import {
   TableSelection,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
-import Immutable from 'seamless-immutable';
-
 import {
   generateRows,
 } from '../../demo-data/generator';
+
+import SortingStateContainer from './containers/sorting-state-container';
+import SelectionStateContainer from './containers/selection-state-container';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -29,42 +28,31 @@ export default class Demo extends React.PureComponent {
     ];
     const rows = generateRows({ length: 14 });
     this.state = {
-      data: Immutable({
-        columns,
-        rows,
-        sorting: [],
-        selection: [],
-      }),
+      columns,
+      rows,
+      sorting: [],
+      selection: [],
     };
 
-    this.changeSorting = (sorting) => {
-      this.setState({
-        data: this.state.data.setIn(['sorting'], sorting),
-      });
-    };
-
-    this.changeSelection = (selection) => {
-      this.setState({
-        data: this.state.data.setIn(['selection'], selection),
-      });
-    };
+    this.changeSorting = sorting => this.setState({ sorting });
+    this.changeSelection = selection => this.setState({ selection });
   }
   render() {
     const {
       rows, columns, sorting, selection,
-    } = this.state.data;
+    } = this.state;
 
     return (
       <Grid
         rows={rows}
         columns={columns}
       >
-        <SortingState
+        <SortingStateContainer
           sorting={sorting}
           onSortingChange={this.changeSorting}
         />
         <LocalSorting />
-        <SelectionState
+        <SelectionStateContainer
           selection={selection}
           onSelectionChange={this.changeSelection}
         />

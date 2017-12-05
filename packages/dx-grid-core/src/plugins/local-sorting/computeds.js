@@ -8,7 +8,8 @@ const defaultCompare = (a, b) => {
 };
 
 const createCompare = (sorting, getColumnCompare, getComparableValue) =>
-  Array.from(sorting)
+  // Array.from(sorting)
+  sorting.slice()
     .reverse()
     .reduce(
       (prevCompare, columnSorting) => {

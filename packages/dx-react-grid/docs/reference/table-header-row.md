@@ -1,8 +1,8 @@
 # TableHeaderRow Plugin Reference
 
-A plugin that renders the table header row. The [Column](#column-extension)'s `title` field specifies the column title displayed in the header row.
+A plugin that renders the table's header row. The [Column](#column-extension)'s `title` field specifies the column title in the header row.
 
-The plugin also allows you to manage column's sorting and grouping state and initiate column dragging.
+The plugin also allows you to manage a column's sorting and grouping state and initiate column dragging.
 
 ## User Reference
 
@@ -18,7 +18,7 @@ The plugin also allows you to manage column's sorting and grouping state and ini
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getCellComponent | (columnName: string) => ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A function that returns a cell rendering component for the specified column.
+getCellComponent | (columnName: string) => ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A function that returns the specified column's cell rendering component.
 rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
 allowSorting | boolean | false | Specifies whether a user can change the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | Specifies whether a user can drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
@@ -47,13 +47,13 @@ Field | Type | Description
 column | [Column](#column-extension) | A column object associated with the header cell.
 allowSorting | boolean | Specifies whether a user can change the associated column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
-onSort | ({ keepOther: boolean, cancel: boolean }) | An event that invokes changing of the associated column's sorting state. The `keepOther` and `cancel` arguments specify whether to keep existing sorting and cancel sorting by the associated column respectively.
-allowGroupingByClick | boolean | Specifies wheter to render a control that toggles the associated column's grouping state.
+onSort | ({ keepOther: boolean, cancel: boolean }) | An event that changes the associated column's sorting state. The `keepOther` and `cancel` arguments specify whether to keep existing sorting and cancel sorting by the associated column.
+allowGroupingByClick | boolean | Specifies whether to render a control that toggles the associated column's grouping state.
 onGroup | () => void | An event that invokes grouping by the associated column.
 allowDragging | boolean | Specifies whether a user can drag a column by the header cell.
 dragPayload | any | A data object that identifies the associated column in the drag-and-drop context.
-onWidthChange | ({ shift: number }) => void | An event that initiates the column width changing. The initial column width is increased by the `shift` value, or decreased if `shift` is less than zero.
-onDraftWidthChange | ({ shift: number }) => void | An event that initiates the column width changing used for preview. The initial column width is increased by the `shift` value, or decreased if `shift` is less than zero. Setting `shift` to `null` clears the column's draft width.
+onWidthChange | ({ shift: number }) => void | An event that initiates the column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative
+onDraftWidthChange | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the  header cell.
 
 ## Localization Messages
@@ -76,8 +76,8 @@ columns | Getter | Array&lt;[Column](#column-extension)&gt; | Table columns.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean &#124; Array&lt;String&gt;, cancel: boolean }) => void | A function used to set column's sorting state. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
-changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. The initial column width is increased by the corresponding `shift` value, or decreased if `shift` is less than zero.
-changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths used for preview. The initial column width is increased by the corresponding `shift` value, or decreased if `shift` is less than zero. Setting `shift` to `null` clears the column's draft width.
+changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. The initial column width increases by the `shift` value or decreases if `shift` is negative.
+changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 

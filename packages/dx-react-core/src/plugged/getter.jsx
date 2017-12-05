@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   isTrackedDependenciesChanged,
-  getAvailableGetters,
-  getAvailableActions,
+  getAvaliableGetters,
+  getAvaliableActions,
 } from '../utils/plugin-helpers';
 
 export const UPDATE_CONNECTION = 'updateConnection';
@@ -32,8 +32,8 @@ export class Getter extends React.PureComponent {
           return lastResult;
         }
 
-        const { getters, trackedDependencies } = getAvailableGetters(pluginHost, getGetterValue);
-        const actions = getAvailableActions(pluginHost);
+        const { getters, trackedDependencies } = getAvaliableGetters(pluginHost, getGetterValue);
+        const actions = getAvaliableActions(pluginHost);
 
         lastComputed = computed;
         lastTrackedDependencies = trackedDependencies;

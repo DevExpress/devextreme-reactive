@@ -232,6 +232,10 @@ export const demos = {
       bootstrap3: require('./bootstrap3/selection/select-all-by-all-pages').default,
       'material-ui': require('./material-ui/selection/select-all-by-all-pages').default,
     },
+    'hidden-select-all': {
+      bootstrap3: require('./bootstrap3/selection/hidden-select-all').default,
+      'material-ui': require('./material-ui/selection/hidden-select-all').default,
+    },
   },
   sorting: {
     'local-header-sorting': {

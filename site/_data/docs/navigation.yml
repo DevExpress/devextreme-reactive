@@ -62,8 +62,6 @@ react:
           path: /react/grid/docs/reference/table-column-reordering
         - title: LocalFiltering
           path: /react/grid/docs/reference/local-filtering
-        - title: LocalSelection
-          path: /react/grid/docs/reference/local-selection
         - title: LocalSorting
           path: /react/grid/docs/reference/local-sorting
         - title: LocalGrouping

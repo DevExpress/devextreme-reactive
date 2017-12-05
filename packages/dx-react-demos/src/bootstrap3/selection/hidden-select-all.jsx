@@ -10,8 +10,8 @@ import {
   TableHeaderRow,
   TableSelection,
   PagingPanel,
-} from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+} from '@devexpress/dx-react-grid-bootstrap3';
+
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -37,29 +37,26 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, selection } = this.state;
 
     return (
-      <div>
-        <span>Total rows selected: {selection.length}</span>
-        <Paper>
-          <Grid
-            rows={rows}
-            columns={columns}
-          >
-            <SelectionState
-              selection={selection}
-              onSelectionChange={this.changeSelection}
-            />
-            <PagingState
-              defaultCurrentPage={0}
-              pageSize={6}
-            />
-            <LocalPaging />
-            <Table />
-            <TableHeaderRow />
-            <TableSelection />
-            <PagingPanel />
-          </Grid>
-        </Paper>
-      </div>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SelectionState
+          selection={selection}
+          onSelectionChange={this.changeSelection}
+        />
+        <PagingState
+          defaultCurrentPage={0}
+          pageSize={6}
+        />
+        <LocalPaging />
+        <Table />
+        <TableHeaderRow />
+        <TableSelection
+          showSelectAll={false}
+        />
+        <PagingPanel />
+      </Grid>
     );
   }
 }

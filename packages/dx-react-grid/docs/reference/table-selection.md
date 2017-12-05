@@ -48,6 +48,15 @@ row | any | A row.
 selected | boolean | Indicates if a row is selected.
 onToggle | () => void | An event that initiates row selecting or deselecting.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+TableSelection.HeaderCell | [TableSelectHeaderCellProps](#tableselectheadercellprops) | A component that renders a cell with the selection control inside the heading row.
+TableSelection.Cell | [TableSelectCellProps](#tableselectcellprops) | A component that renders a cell with selection control.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

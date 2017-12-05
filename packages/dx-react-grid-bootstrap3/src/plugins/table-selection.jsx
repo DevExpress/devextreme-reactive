@@ -19,3 +19,5 @@ export class TableSelection extends React.PureComponent {
   }
 }
 
+TableSelection.Cell = TableSelectCell;
+TableSelection.HeaderCell = TableSelectAllCell;

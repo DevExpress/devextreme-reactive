@@ -55,7 +55,7 @@ Name | Properties | Description
 TableSelection.HeaderCell | [TableSelectHeaderCellProps](#tableselectheadercellprops) | A component that renders a cell with the selection control inside the heading row.
 TableSelection.Cell | [TableSelectCellProps](#tableselectcellprops) | A component that renders a cell with selection control.
 
-All other component's properties will be spreaded to the root element of this component.
+If you specify additional properties, they are added to the component's root element.
 
 ## Plugin Developer Reference
 

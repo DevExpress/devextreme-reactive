@@ -19,27 +19,36 @@ export class TemplateConnector extends React.Component {
   componentWillMount() {
     const { pluginHost } = this.context;
     pluginHost.registerSubscription(this.subscription);
+
+    this.prepareForRendering();
+  }
+  componentWillReceiveProps(props) {
+    this.prepareForRendering(props);
   }
   componentWillUnmount() {
     const { pluginHost } = this.context;
     pluginHost.unregisterSubscription(this.subscription);
   }
-  updateConnection() {
-    const { pluginHost } = this.context;
-
-    if (isTrackedDependenciesChanged(pluginHost, this.trackedDependencies)) {
-      this.forceUpdate();
-    }
-  }
-  render() {
-    const { children } = this.props;
+  prepareForRendering(props) {
+    const children = props ? props.children : this.props.children;
     const { pluginHost } = this.context;
 
     const { getters, trackedDependencies } = getAvaliableGetters(pluginHost);
     this.trackedDependencies = trackedDependencies;
     const actions = getAvaliableActions(pluginHost);
 
-    return children(getters, actions);
+    this.setState({ children: children(getters, actions) });
+  }
+  updateConnection() {
+    const { pluginHost } = this.context;
+
+    if (isTrackedDependenciesChanged(pluginHost, this.trackedDependencies)) {
+      this.prepareForRendering();
+      this.forceUpdate();
+    }
+  }
+  render() {
+    return this.state.children;
   }
 }
 

@@ -29,18 +29,18 @@ const styles = {
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
 const GridDetailContainerBase = ({
-  columns,
-  data,
+  detailColumns,
+  row,
   classes,
 }) => (
   <div className={classes.detailContainer}>
     <div>
-      <h5>{data.firstName} {data.lastName}&apos;s Tasks:</h5>
+      <h5>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
     </div>
     <Paper>
       <Grid
-        rows={data.tasks}
-        columns={columns}
+        rows={row.tasks}
+        columns={detailColumns}
       >
         <Table />
         <TableHeaderRow />
@@ -49,17 +49,18 @@ const GridDetailContainerBase = ({
   </div>
 );
 GridDetailContainerBase.propTypes = {
-  data: PropTypes.object.isRequired,
-  columns: PropTypes.array.isRequired,
+  row: PropTypes.object.isRequired,
+  detailColumns: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 const GridDetailContainer = withStyles(styles, { name: 'ReduxIntegrationDemo' })(GridDetailContainerBase);
 
+const ReduxGridDetailContainer = connect(state => state)(GridDetailContainer);
+
 const GridContainer = ({
   rows,
   columns,
-  detailColumns,
 
   sorting,
   onSortingChange,
@@ -141,12 +142,7 @@ const GridContainer = ({
       <TableFilterRow />
       <TableSelection />
       <TableRowDetail
-        template={({ row }) => (
-          <GridDetailContainer
-            data={row}
-            columns={detailColumns}
-          />
-        )}
+        contentComponent={ReduxGridDetailContainer}
       />
       <TableGroupRow />
       <GroupingPanel allowSorting allowDragging />
@@ -156,10 +152,10 @@ const GridContainer = ({
     </Grid>
   </Paper>
 );
+
 GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
-  detailColumns: PropTypes.array.isRequired,
   sorting: PropTypes.array.isRequired,
   onSortingChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,

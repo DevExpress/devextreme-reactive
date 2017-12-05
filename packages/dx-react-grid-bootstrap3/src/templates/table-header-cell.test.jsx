@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
@@ -28,7 +28,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should use column name if title is not specified', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{
           name: 'Test',
@@ -40,7 +40,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when user interaction disallowed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{}}
       />
@@ -58,7 +58,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when sorting is allowed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
         allowSorting
@@ -75,7 +75,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when dragging is allowed', () => {
-    const tree = mount((
+    const tree = shallow((
       <DragDropContext>
         <TableHeaderCell
           column={{}}
@@ -84,7 +84,7 @@ describe('TableHeaderCell', () => {
       </DragDropContext>
     ));
 
-    expect(tree.find('th').prop('style'))
+    expect(tree.dive().find('th').prop('style'))
       .toMatchObject({
         userSelect: 'none',
         MozUserSelect: 'none',
@@ -128,7 +128,7 @@ describe('TableHeaderCell', () => {
   it('should render resize control if resize allowed', () => {
     const onWidthChange = () => {};
     const onDraftWidthChange = () => {};
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{}}
         allowResizing
@@ -146,7 +146,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when grouping by click is not allowed and column align is left', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{}}
         allowGroupingByClick={false}
@@ -162,7 +162,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when grouping by click is allowed and column align is left', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{}}
         allowGroupingByClick
@@ -179,7 +179,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when grouping by click is not allowed and column align is right', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{ align: 'right' }}
         allowGroupingByClick={false}
@@ -195,7 +195,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when grouping by click is allowed and column align is right', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{ align: 'right' }}
         allowGroupingByClick
@@ -210,6 +210,19 @@ describe('TableHeaderCell', () => {
         textOverflow: 'ellipsis',
       });
   });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableHeaderCell
+        column={{ title: 'a' }}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
   describe('with keyboard navigation', () => {
     const ENTER_KEY_CODE = 13;
     const SPACE_KEY_CODE = 32;

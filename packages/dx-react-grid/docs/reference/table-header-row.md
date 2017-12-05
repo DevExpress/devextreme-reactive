@@ -64,6 +64,15 @@ Field | Type | Default | Description
 ------|------|---------|------------
 sortingHint? | string | 'Sort' | Specifies the 'Sort' hint's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+TableHeaderRow.Row | [TableRowProps](table.md#tablerowprops) | A component that renders a header row.
+TableHeaderRow.Cell | [TableHeaderCellProps](#tableheadercellprops) | A component that renders a header cell.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

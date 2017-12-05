@@ -79,7 +79,8 @@ class TableHeaderCellBase extends React.PureComponent {
       allowGroupingByClick, onGroup,
       allowDragging, dragPayload,
       allowResizing, onWidthChange, onDraftWidthChange,
-      classes, getMessage,
+      classes, getMessage, tableRow, className, onSort,
+      ...restProps
     } = this.props;
 
     const { dragging } = this.state;
@@ -93,12 +94,13 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellNoUserSelect]: allowDragging || allowSorting,
       [classes.cellDraggable]: allowDragging,
       [classes.cellDimmed]: dragging || tableColumn.draft,
-    });
+    }, className);
     const cellLayout = (
       <TableCell
         style={style}
         className={tableCellClasses}
         numeric={align === 'right'}
+        {...restProps}
       >
         {allowGroupingByClick && (
           <GroupingControl
@@ -144,6 +146,7 @@ class TableHeaderCellBase extends React.PureComponent {
 
 TableHeaderCellBase.propTypes = {
   tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
   column: PropTypes.shape({
     title: PropTypes.string,
   }).isRequired,
@@ -160,10 +163,12 @@ TableHeaderCellBase.propTypes = {
   onDraftWidthChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 TableHeaderCellBase.defaultProps = {
   tableColumn: {},
+  tableRow: undefined,
   style: null,
   allowSorting: false,
   sortingDirection: undefined,
@@ -175,6 +180,7 @@ TableHeaderCellBase.defaultProps = {
   allowResizing: false,
   onWidthChange: undefined,
   onDraftWidthChange: undefined,
+  className: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

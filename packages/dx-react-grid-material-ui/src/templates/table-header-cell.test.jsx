@@ -1,6 +1,6 @@
 import React from 'react';
 import { TableCell, TableSortLabel } from 'material-ui';
-import { createMount, getClasses } from 'material-ui/test-utils';
+import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
@@ -15,11 +15,13 @@ jest.mock('./table-header-cell/grouping-control', () => ({
 describe('TableHeaderCell', () => {
   let resetConsole;
   let mount;
+  let shallow;
   let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<TableHeaderCell column={{}} getMessage={jest.fn()} />);
     mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+    shallow = createShallow({ dive: true });
   });
   afterAll(() => {
     resetConsole();
@@ -34,7 +36,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should use column name if title is not specified', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         getMessage={jest.fn()}
         column={{
@@ -66,7 +68,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when user interaction disallowed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{}}
         getMessage={jest.fn()}
@@ -78,7 +80,7 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when sorting is allowed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
         allowSorting
@@ -129,7 +131,7 @@ describe('TableHeaderCell', () => {
   it('should render resize control if resize allowed', () => {
     const onWidthChange = () => {};
     const onDraftWidthChange = () => {};
-    const tree = mount((
+    const tree = shallow((
       <TableHeaderCell
         column={{}}
         allowResizing
@@ -161,6 +163,34 @@ describe('TableHeaderCell', () => {
       .toBeTruthy();
     expect(tooltip.prop('title'))
       .toBe('Sort');
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <TableHeaderCell
+        className="custom-class"
+        column={{ title: 'a' }}
+        getMessage={() => null}
+      />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableHeaderCell
+        data={{ a: 1 }}
+        column={{ title: 'a' }}
+        getMessage={() => null}
+      />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 
   describe('with keyboard navigation', () => {

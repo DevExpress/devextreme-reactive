@@ -1,66 +1,97 @@
 import React from 'react';
-import { createMount, getClasses } from 'material-ui/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
-import { Header, Footer } from './layout';
+import { shallow } from 'enzyme';
+import { getClasses, createShallow } from 'material-ui/test-utils';
+import { Header, Footer, Root } from './layout';
 
 describe('Layout', () => {
-  let resetConsole;
+  let shallowWrapper;
+  const children = <div />;
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['SheetsRegistry'] });
-  });
-  afterAll(() => {
-    resetConsole();
+    shallowWrapper = createShallow({ dive: true });
   });
 
   describe('Header', () => {
-    let mount;
     let classes;
     beforeAll(() => {
       classes = getClasses((
         <Header>
-          <div />
+          {children}
         </Header>
       ));
-      mount = createMount();
     });
-    afterAll(() => {
-      mount.cleanUp();
-    });
-
-    it('should have a correct css class', () => {
-      const tree = mount((
-        <Header>
-          <div />
+    it('should pass className to the root element', () => {
+      const tree = shallowWrapper((
+        <Header className="custom-class">
+          {children}
         </Header>
       ));
 
-      expect(tree.find(`.${classes.headingPanel}`).exists()).toBeTruthy();
+      expect(tree.is(`.${classes.headingPanel}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+    it('should pass rest props to the root element', () => {
+      const tree = shallowWrapper((
+        <Header data={{ a: 1 }}>
+          {children}
+        </Header>
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 
   describe('Footer', () => {
-    let mount;
     let classes;
     beforeAll(() => {
       classes = getClasses((
         <Footer>
-          <div />
+          {children}
         </Footer>
       ));
-      mount = createMount();
     });
-    afterAll(() => {
-      mount.cleanUp();
-    });
-
-    it('should have a correct css class', () => {
-      const tree = mount((
-        <Footer>
-          <div />
+    it('should pass className to the root element', () => {
+      const tree = shallowWrapper((
+        <Footer className="custom-class">
+          {children}
         </Footer>
       ));
 
-      expect(tree.find(`.${classes.footerPanel}`).exists()).toBeTruthy();
+      expect(tree.is(`.${classes.footerPanel}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+    it('should pass rest props to the root element', () => {
+      const tree = shallowWrapper((
+        <Header data={{ a: 1 }}>
+          {children}
+        </Header>
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
+    });
+  });
+
+  describe('Root', () => {
+    it('should pass className to the root element', () => {
+      const tree = shallow((
+        <Root className="custom-class" />
+      ));
+
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <Root data={{ a: 1 }} />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 });

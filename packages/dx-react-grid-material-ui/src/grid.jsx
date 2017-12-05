@@ -14,6 +14,10 @@ export const Grid = ({ children, ...props }) => (
   </GridBase>
 );
 
+Grid.Root = Root;
+Grid.Header = Header;
+Grid.Footer = Footer;
+
 Grid.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

@@ -25,23 +25,21 @@ export class PagingPanel extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="footer">
-          <div>
-            <TemplatePlaceholder />
-            <TemplateConnector>
-              {({ currentPage, pageSize, totalCount }, { setCurrentPage, setPageSize }) => (
-                <Pager
-                  currentPage={currentPage}
-                  pageSize={pageSize}
-                  totalCount={totalCount}
-                  totalPages={pageCount(totalCount, pageSize)}
-                  allowedPageSizes={allowedPageSizes}
-                  getMessage={getMessage}
-                  onCurrentPageChange={setCurrentPage}
-                  onPageSizeChange={setPageSize}
-                />
-              )}
-            </TemplateConnector>
-          </div>
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {({ currentPage, pageSize, totalCount }, { setCurrentPage, setPageSize }) => (
+              <Pager
+                currentPage={currentPage}
+                pageSize={pageSize}
+                totalCount={totalCount}
+                totalPages={pageCount(totalCount, pageSize)}
+                allowedPageSizes={allowedPageSizes}
+                getMessage={getMessage}
+                onCurrentPageChange={setCurrentPage}
+                onPageSizeChange={setPageSize}
+              />
+            )}
+          </TemplateConnector>
         </Template>
       </PluginContainer>
     );

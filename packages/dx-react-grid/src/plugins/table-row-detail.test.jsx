@@ -44,10 +44,11 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  detailToggleCellTemplate: () => null,
-  detailCellTemplate: () => null,
-  detailRowTemplate: () => null,
-  detailToggleCellWidth: 100,
+  toggleCellComponent: () => null,
+  cellComponent: ({ children }) => children,
+  rowComponent: () => null,
+  contentComponent: () => null,
+  toggleColumnWidth: 100,
 };
 
 describe('TableRowDetail', () => {
@@ -94,7 +95,7 @@ describe('TableRowDetail', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableRowDetail
             {...defaultProps}
-            detailToggleCellWidth={120}
+            toggleColumnWidth={120}
           />
         </PluginHost>
       ));
@@ -108,14 +109,12 @@ describe('TableRowDetail', () => {
 
   it('should render detailToggle cell on detail column and user-defined row intersection', () => {
     isDetailToggleTableCell.mockImplementation(() => true);
-    const detailToggleCellTemplate = jest.fn(() => null);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableRowDetail
           {...defaultProps}
-          detailToggleCellTemplate={detailToggleCellTemplate}
         />
       </PluginHost>
     ));
@@ -125,53 +124,55 @@ describe('TableRowDetail', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(detailToggleCellTemplate)
-      .toBeCalledWith(expect.objectContaining({
+    expect(tree.find(defaultProps.toggleCellComponent).props())
+      .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
-      }));
+      });
   });
 
   it('should render detail cell on detail row', () => {
     isDetailTableRow.mockImplementation(() => true);
-    const detailCellTemplate = jest.fn(() => null);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableRowDetail
           {...defaultProps}
-          detailCellTemplate={detailCellTemplate}
         />
       </PluginHost>
     ));
 
     expect(isDetailTableRow)
       .toBeCalledWith(defaultDeps.template.tableCell.tableRow);
-    expect(detailCellTemplate)
-      .toBeCalledWith(expect.objectContaining({
+    expect(tree.find(defaultProps.cellComponent).props())
+      .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
-      }));
+      });
+    expect(tree.find(defaultProps.contentComponent).props())
+      .toMatchObject({
+        row: defaultDeps.template.tableCell.tableRow.row,
+      });
   });
-  it('should render row by using detailRowTemplate', () => {
-    isDetailTableRow.mockImplementation(() => true);
-    const detailRowTemplate = jest.fn(() => null);
 
-    mount((
+  it('should render row by using rowComponent', () => {
+    isDetailTableRow.mockImplementation(() => true);
+
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableRowDetail
           {...defaultProps}
-          detailRowTemplate={detailRowTemplate}
         />
       </PluginHost>
     ));
 
     expect(isDetailTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(detailRowTemplate).toBeCalledWith(expect.objectContaining({
-      ...defaultDeps.template.tableRow,
-      row: defaultDeps.template.tableRow.tableRow.row,
-    }));
+    expect(tree.find(defaultProps.rowComponent).props())
+      .toMatchObject({
+        ...defaultDeps.template.tableRow,
+        row: defaultDeps.template.tableRow.tableRow.row,
+      });
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  SelectionState, LocalSelection,
+  SelectionState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -45,10 +45,9 @@ export default class Demo extends React.PureComponent {
             selection={selection}
             onSelectionChange={this.changeSelection}
           />
-          <LocalSelection />
           <VirtualTable />
           <TableHeaderRow />
-          <TableSelection showSelectAll />
+          <TableSelection />
         </Grid>
       </div>
     );

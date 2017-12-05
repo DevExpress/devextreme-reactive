@@ -14,7 +14,6 @@ export { LocalGrouping } from './plugins/local-grouping';
 export { CustomGrouping } from './plugins/custom-grouping';
 
 export { SelectionState } from './plugins/selection-state';
-export { LocalSelection } from './plugins/local-selection';
 
 export { SortingState } from './plugins/sorting-state';
 export { LocalSorting } from './plugins/local-sorting';

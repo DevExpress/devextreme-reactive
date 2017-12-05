@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
+  LocalFiltering, LocalGrouping, LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -75,12 +75,12 @@ export default class Demo extends React.PureComponent {
           defaultGrouping={[{ columnName: 'product' }]}
           defaultExpandedGroups={['EnviroCare Max']}
         />
-        <SelectionState />
 
         <LocalFiltering />
         <LocalSorting />
         <LocalGrouping />
-        <LocalSelection />
+
+        <SelectionState />
 
         <VirtualTable
           getCellComponent={this.getCellComponent}
@@ -90,7 +90,7 @@ export default class Demo extends React.PureComponent {
 
         <TableHeaderRow allowSorting allowDragging />
         <TableFilterRow rowHeight={51} />
-        <TableSelection showSelectAll />
+        <TableSelection />
         <TableGroupRow />
         <GroupingPanel allowSorting allowDragging />
       </Grid>

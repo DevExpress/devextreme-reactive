@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { UPDATE_CONNECTION } from './getter';
 import {
   isTrackedDependenciesChanged,
-  getAvailableGetters,
-  getAvailableActions,
+  getAvaliableGetters,
+  getAvaliableActions,
 } from '../utils/plugin-helpers';
 
 export class TemplateConnector extends React.Component {
@@ -33,9 +33,9 @@ export class TemplateConnector extends React.Component {
     const children = props ? props.children : this.props.children;
     const { pluginHost } = this.context;
 
-    const { getters, trackedDependencies } = getAvailableGetters(pluginHost);
+    const { getters, trackedDependencies } = getAvaliableGetters(pluginHost);
     this.trackedDependencies = trackedDependencies;
-    const actions = getAvailableActions(pluginHost);
+    const actions = getAvaliableActions(pluginHost);
 
     this.setState({ children: children(getters, actions) });
   }
@@ -51,6 +51,7 @@ export class TemplateConnector extends React.Component {
     return this.state.children;
   }
 }
+
 TemplateConnector.propTypes = {
   children: PropTypes.func.isRequired,
 };

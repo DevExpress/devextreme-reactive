@@ -33,6 +33,9 @@ export default class Demo extends React.PureComponent {
       <Grid
         rows={rows}
         columns={columns}
+        rootComponent={({ children }) => <Grid.Root style={{ color: 'red' }} className="root" data="data1"> {children} </Grid.Root>}
+        headerPlaceholderComponent={({ children }) => <Grid.Header style={{ backgroundColor: 'green' }} className="header" data="data2">{ children } </Grid.Header>}
+        footerPlaceholderComponent={({ children }) => <Grid.Footer className="footer" data="data3">{ children } </Grid.Footer>}
       >
         <Table />
         <TableHeaderRow />

@@ -46,7 +46,7 @@ describe('PagingPanel', () => {
     jest.resetAllMocks();
   });
 
-  it('should render the "pagerComponent" template in the "footer" template placeholder', () => {
+  it('should render the "pagerComponent" in the "footer" template placeholder', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

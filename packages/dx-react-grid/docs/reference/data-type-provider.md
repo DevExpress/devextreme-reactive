@@ -61,5 +61,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-valueFormatter | Template | [ValueFormatterArgs](#valueformatterprops) | A template that renders the formatted value.
-valueEditor | Template | [ValueEditorArgs](#valueeditorprops) | A template that renders the editor.
+valueFormatter | Template | [ValueFormatterProps](#valueformatterprops) | A template that renders the formatted value.
+valueEditor | Template | [ValueEditorProps](#valueeditorprops) | A template that renders the editor.

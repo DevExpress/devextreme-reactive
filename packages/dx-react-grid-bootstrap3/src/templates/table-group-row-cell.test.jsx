@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableGroupCell } from './table-group-row-cell';
 
@@ -70,5 +70,14 @@ describe('TableCell', () => {
     targetElement.simulate('keydown', { keyCode: 51 });
     expect(toggleGroupExpanded)
       .not.toHaveBeenCalled();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableGroupCell className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
   });
 });

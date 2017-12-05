@@ -8,19 +8,23 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getTableRowColumnsWithColSpan: jest.fn(),
 }));
 
-const defaultRow = { key: 1, rowId: 1, height: 20 };
-const defaultColumns = [
-  { key: 'a', column: { name: 'a' } },
-  { key: 'b', column: { name: 'b' } },
-  { key: 'c', column: { name: 'c' } },
-  { key: 'd', column: { name: 'd' } },
-];
+const defaultProps = {
+  row: { key: 1, rowId: 1, height: 20 },
+  columns: [
+    { key: 'a', column: { name: 'a' } },
+    { key: 'b', column: { name: 'b' } },
+    { key: 'c', column: { name: 'c' } },
+    { key: 'd', column: { name: 'd' } },
+  ],
+  rowComponent: () => null,
+  cellComponent: () => null,
+};
 
 describe('RowLayout', () => {
   let resetConsole;
   beforeEach(() => {
     resetConsole = setupConsole();
-    getTableRowColumnsWithColSpan.mockImplementation(() => defaultColumns);
+    getTableRowColumnsWithColSpan.mockImplementation(() => defaultProps.columns);
   });
 
   afterEach(() => {
@@ -28,49 +32,33 @@ describe('RowLayout', () => {
     jest.resetAllMocks();
   });
 
-  it('should render the "rowTemplate" with correct properties', () => {
-    const rowTemplate = () => null;
-
+  it('should render the "rowComponent" with correct properties', () => {
     const tree = shallow((
       <RowLayout
-        row={defaultRow}
-        columns={defaultColumns}
-        rowTemplate={rowTemplate}
-        cellTemplate={() => null}
+        {...defaultProps}
       />
     ));
 
-    expect(tree.find('TemplateRenderer').at(0).props())
+    expect(tree.find(defaultProps.rowComponent).at(0).props())
       .toMatchObject({
-        template: rowTemplate,
-        params: {
-          tableRow: defaultRow,
-          style: { height: '20px' },
-        },
+        tableRow: defaultProps.row,
+        style: { height: '20px' },
       });
   });
 
-  it('should render the "cellTemplate" for each column', () => {
-    const cellTemplate = () => null;
-
+  it('should render the "cellComponent" for each column', () => {
     const tree = shallow((
       <RowLayout
-        row={defaultRow}
-        columns={defaultColumns}
-        rowTemplate={() => null}
-        cellTemplate={cellTemplate}
+        {...defaultProps}
       />
     ));
 
-    tree.find('TemplateRenderer').at(0).children().forEach((component, index) => {
-      const column = defaultColumns[index];
+    tree.find(defaultProps.rowComponent).at(0).children().forEach((component, index) => {
+      const column = defaultProps.columns[index];
       expect(component.props())
         .toMatchObject({
-          template: cellTemplate,
-          params: {
-            tableRow: defaultRow,
-            tableColumn: column,
-          },
+          tableRow: defaultProps.row,
+          tableColumn: column,
         });
     });
   });
@@ -81,19 +69,15 @@ describe('RowLayout', () => {
 
     const tree = shallow((
       <RowLayout
-        row={defaultRow}
-        columns={[column]}
-        rowTemplate={() => null}
-        cellTemplate={() => null}
+        {...defaultProps}
+        row={defaultProps.row}
       />
     ));
 
-    expect(tree.find('TemplateRenderer').at(1).props())
+    expect(tree.find(defaultProps.cellComponent).at(0).props())
       .toMatchObject({
-        params: {
-          tableRow: defaultRow,
-          tableColumn: { ...column, colspan: 2 },
-        },
+        tableRow: defaultProps.row,
+        tableColumn: { ...column, colspan: 2 },
       });
   });
 });

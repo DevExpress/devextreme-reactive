@@ -49,13 +49,13 @@ describe('TableHeaderCell', () => {
   });
 
   it('should cancel sorting by using the Ctrl key', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <TableHeaderCell
         column={{
           name: 'Test',
         }}
-        changeSortingDirection={changeSortingDirection}
+        onSort={onSort}
         allowSorting
         getMessage={jest.fn()}
       />
@@ -63,8 +63,8 @@ describe('TableHeaderCell', () => {
 
     tree.find(TableSortLabel).simulate('click', { ctrlKey: true });
 
-    expect(changeSortingDirection.mock.calls).toHaveLength(1);
-    expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
+    expect(onSort.mock.calls).toHaveLength(1);
+    expect(onSort.mock.calls[0][0].cancel).toBeTruthy();
   });
 
   it('should have correct styles when user interaction disallowed', () => {
@@ -129,24 +129,24 @@ describe('TableHeaderCell', () => {
   });
 
   it('should render resize control if resize allowed', () => {
-    const changeColumnWidth = () => {};
-    const changeDraftColumnWidth = () => {};
+    const onWidthChange = () => {};
+    const onDraftWidthChange = () => {};
     const tree = shallow((
       <TableHeaderCell
         column={{}}
         allowResizing
-        changeDraftColumnWidth={changeDraftColumnWidth}
-        changeColumnWidth={changeColumnWidth}
+        onDraftWidthChange={onDraftWidthChange}
+        onWidthChange={onWidthChange}
         getMessage={jest.fn()}
       />
     ));
 
     expect(tree.find(ResizingControl).exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('changeDraftColumnWidth'))
-      .toBe(changeDraftColumnWidth);
-    expect(tree.find(ResizingControl).prop('changeColumnWidth'))
-      .toBe(changeColumnWidth);
+    expect(tree.find(ResizingControl).prop('onDraftWidthChange'))
+      .toBe(onDraftWidthChange);
+    expect(tree.find(ResizingControl).prop('onWidthChange'))
+      .toBe(onWidthChange);
   });
 
   it('should pass correct text to SortingControl', () => {
@@ -223,10 +223,10 @@ describe('TableHeaderCell', () => {
     });
 
     it('should handle the "Enter" and "Space" keys down', () => {
-      const changeSortingDirection = jest.fn();
+      const onSort = jest.fn();
       const tree = mount((
         <TableHeaderCell
-          changeSortingDirection={changeSortingDirection}
+          onSort={onSort}
           column={{ align: 'right', title: 'test' }}
           allowSorting
           getMessage={jest.fn()}
@@ -235,25 +235,25 @@ describe('TableHeaderCell', () => {
       const SortLabel = tree.find(TableSortLabel);
 
       SortLabel.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-      expect(changeSortingDirection)
+      expect(onSort)
         .toHaveBeenCalled();
 
-      changeSortingDirection.mockClear();
+      onSort.mockClear();
       SortLabel.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-      expect(changeSortingDirection)
+      expect(onSort)
         .toHaveBeenCalled();
 
-      changeSortingDirection.mockClear();
+      onSort.mockClear();
       SortLabel.simulate('keydown', { keyCode: 51 });
-      expect(changeSortingDirection)
+      expect(onSort)
         .not.toHaveBeenCalled();
     });
 
     it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
-      const changeSortingDirection = jest.fn();
+      const onSort = jest.fn();
       const tree = mount((
         <TableHeaderCell
-          changeSortingDirection={changeSortingDirection}
+          onSort={onSort}
           column={{ align: 'right', title: 'test' }}
           allowSorting
           getMessage={jest.fn()}
@@ -261,15 +261,15 @@ describe('TableHeaderCell', () => {
       ));
 
       tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
-      expect(changeSortingDirection)
+      expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
     });
 
     it('should handle the "Ctrl" key with sorting', () => {
-      const changeSortingDirection = jest.fn();
+      const onSort = jest.fn();
       const tree = mount((
         <TableHeaderCell
-          changeSortingDirection={changeSortingDirection}
+          onSort={onSort}
           column={{ align: 'right', title: 'test' }}
           allowSorting
           getMessage={jest.fn()}
@@ -277,7 +277,7 @@ describe('TableHeaderCell', () => {
       ));
 
       tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-      expect(changeSortingDirection)
+      expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, cancel: true });
     });
   });

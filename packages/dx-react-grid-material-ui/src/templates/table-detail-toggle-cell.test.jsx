@@ -25,20 +25,20 @@ describe('TableDetailToggleCell', () => {
   });
 
   it('should handle click with stopPropagation', () => {
-    const toggleExpanded = jest.fn();
+    const onToggle = jest.fn();
     const mockEvent = {
       stopPropagation: jest.fn(),
     };
     const tree = shallow((
       <TableDetailToggleCell
-        toggleExpanded={toggleExpanded}
+        onToggle={onToggle}
       />
     ));
 
     const buttonClickHandler = tree.find(IconButton).prop('onClick');
 
     buttonClickHandler(mockEvent);
-    expect(toggleExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
     expect(mockEvent.stopPropagation)
       .toHaveBeenCalled();

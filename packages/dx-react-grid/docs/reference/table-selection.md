@@ -1,6 +1,6 @@
 # TableSelection Plugin Reference
 
-This plugin visualizes the selection state within a table by rendering selection checkboxes and highlighting the selected rows.
+A plugin that visualizes table rows' selection state by rendering selection checkboxes and highlighting the selected rows.
 
 ## User Reference
 
@@ -13,48 +13,40 @@ This plugin visualizes the selection state within a table by rendering selection
 
 Name | Type | Default | Description
 -----|------|---------|------------
-highlightSelected | boolean | false | If true, selected rows are highlighted. Note that the `Table` plugin's `rowComponent` is ignored in this case.
-selectByRowClick | boolean | false | If true, a selected row is toggled by click. Note that the `Table` plugin's `rowComponent` is ignored in this case.
-showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered inside the heading row.
-showSelectionColumn | boolean | false | If true, selection checkboxes are rendered inside each data row.
-selectCellTemplate | (args: [SelectCellArgs](#select-cell-args)) => ReactElement | | A component that renders a data row selection checkbox.
-selectAllCellTemplate | (args: [SelectAllCellArgs](#select-all-cell-args)) => ReactElement | | A component that renders the Select All checkbox.
+highlightRow | boolean | false | If true, selected rows are highlighted. Note that `Table` plugin's `rowComponent` is ignored in this case.
+selectByRowClick | boolean | false | If true, the row's selection state is toggled when a user clicks the row. Note that `Table` plugin's `rowComponent` is ignored in this case.
+showSelectAll | boolean | true | If true, the 'select all' checkbox is rendered in the header row.
+showSelectionColumn | boolean | true | If true, the selection column (that displays a selection checkbox) is rendered.
+cellComponent | ElementType&lt;[TableSelectCellProps](#tableselectcellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
+headerCellComponent | ElementType&lt;[TableSelectHeaderCellProps](#tableselectcellprops)&gt; | | A component that renders a cell containing the 'Select All' checkbox.
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces
 
-### <a name="table-row"></a>TableRow (Extension)
+### TableSelectHeaderCellProps
 
-A value with the [TableRow](table.md#tablerow) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-selected? | boolean | Specifies if a row is selected.
-
-### <a name="select-all-cell-args"></a>SelectAllCellArgs
-
-Describes properties passed to the template that renders a cell with selection control.
+Describes properties passed to a component that renders a cell containing the Select All checkbox.
 
 A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-selectionAvailable | boolean | True if at least one row can be selected.
-allSelected | boolean | True if all the rows available for selection are selected.
-someSelected | boolean | True if at least one but not all rows available for selection are selected.
-toggleAll | () => void | Selects or deselects all rows.
+disabled | boolean | Indicates if there are no rows that can be selected.
+allSelected | boolean | Indicates if all the rows available for selection are selected.
+someSelected | boolean | Indicates if one or more but not all rows available for selection are selected.
+onToggle | () => void | An event that initiates selecting or deselecting of all rows.
 
-### <a name="select-cell-args"></a>SelectCellArgs
+### TableSelectCellProps
 
-Describes properties passed to a template that renders a cell with the selection control inside the heading row.
+Describes properties passed to a component that renders a cell containing a selection checkbox.
 
 A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
 row | any | A row.
-selected | boolean | Specifies whether a row is selected.
-changeSelected | () => void | Selects or deselects a row.
+selected | boolean | Indicates if a row is selected.
+onToggle | () => void | An event that initiates row selecting or deselecting.
 
 ## Plugin Developer Reference
 
@@ -63,7 +55,7 @@ changeSelected | () => void | Selects or deselects a row.
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
 selection | Getter | Array&lt;number &#124; string&gt; | Selected rows.
 availableToSelect | Getter | Array&lt;number &#124; string&gt; | Rows to be rendered, which are available for selection.
 setRowsSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean }) => void | Selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
@@ -75,4 +67,4 @@ tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the selection column.
-tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered including the selected ones.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows (including selected) to be rendered.

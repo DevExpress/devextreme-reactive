@@ -29,6 +29,7 @@ export default class Demo extends React.PureComponent {
   render() {
     const { rows, columns } = this.state;
 
+    // TODO remove all custom components from Grid demo
     return (
       <Grid
         rows={rows}

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  SortingState, SelectionState, PagingState, GroupingState,
-  LocalGrouping, LocalPaging, LocalSorting, RowDetailState,
+  SortingState, SelectionState, PagingState,
+  LocalSorting, RowDetailState, GroupingState,
+  LocalSelection, LocalGrouping, LocalPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -195,14 +196,14 @@ export default class Demo extends React.PureComponent {
           <RowDetailState
             defaultExpandedRows={[2]}
           />
+          <SelectionState
+            defaultSelection={[1, 3, 18]}
+          />
 
           <LocalSorting />
           <LocalGrouping />
           <LocalPaging />
-
-          <SelectionState
-            defaultSelection={[1, 3, 18]}
-          />
+          <LocalSelection />
 
           <DragDropContext />
 
@@ -214,7 +215,7 @@ export default class Demo extends React.PureComponent {
           <PagingPanel
             allowedPageSizes={allowedPageSizes}
           />
-          <TableSelection />
+          <TableSelection showSelectAll />
           <TableRowDetail
             contentComponent={GridDetailContainer}
           />

@@ -3,6 +3,7 @@ import {
   SelectionState,
   PagingState,
   LocalPaging,
+  LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -48,14 +49,15 @@ export default class Demo extends React.PureComponent {
               defaultCurrentPage={0}
               pageSize={6}
             />
-            <LocalPaging />
             <SelectionState
               selection={selection}
               onSelectionChange={this.changeSelection}
             />
+            <LocalPaging />
+            <LocalSelection />
             <Table />
             <TableHeaderRow />
-            <TableSelection />
+            <TableSelection showSelectAll />
             <PagingPanel />
           </Grid>
         </Paper>

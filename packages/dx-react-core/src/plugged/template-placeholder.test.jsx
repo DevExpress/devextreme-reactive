@@ -65,8 +65,7 @@ describe('TemplatePlaceholder', () => {
     const tree = mount(<Test text="old" />);
 
     tree.setProps({ text: 'new' });
-
-    expect(tree.render().find('h1').text())
+    expect(tree.find('h1').text())
       .toBe('new');
   });
 

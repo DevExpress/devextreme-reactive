@@ -20,13 +20,13 @@ export class PluginHost extends React.PureComponent {
     const { children } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         <PluginIndexer>
           <Template name="root" />
           {children}
         </PluginIndexer>
         <TemplatePlaceholder name="root" />
-      </div>
+      </React.Fragment>
     );
   }
 }

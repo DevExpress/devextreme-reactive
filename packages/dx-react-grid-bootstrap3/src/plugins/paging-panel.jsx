@@ -15,7 +15,7 @@ export class PagingPanel extends React.PureComponent {
 
     return (
       <PagingPanelBase
-        pagerComponent={Pager}
+        containerComponent={Pager}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

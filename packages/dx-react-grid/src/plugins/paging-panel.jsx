@@ -13,7 +13,7 @@ const pluginDependencies = [
 export class PagingPanel extends React.PureComponent {
   render() {
     const {
-      pagerComponent: Pager,
+      containerComponent: Pager,
       allowedPageSizes,
       messages,
     } = this.props;
@@ -48,7 +48,7 @@ export class PagingPanel extends React.PureComponent {
 
 PagingPanel.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number),
-  pagerComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

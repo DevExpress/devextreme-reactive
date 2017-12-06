@@ -46,12 +46,12 @@ describe('PagingPanel', () => {
     jest.resetAllMocks();
   });
 
-  it('should render the "pagerComponent" in the "footer" template placeholder', () => {
+  it('should render the "containerComponent" in the "footer" template placeholder', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <PagingPanel
-          pagerComponent={DefaultPager}
+          containerComponent={DefaultPager}
           allowedPageSizes={[3, 5, 0]}
         />
       </PluginHost>
@@ -72,12 +72,12 @@ describe('PagingPanel', () => {
       .toEqual(3);
   });
 
-  it('should pass correct getMessage prop to pagerComponent', () => {
+  it('should pass correct getMessage prop to containerComponent', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <PagingPanel
-          pagerComponent={DefaultPager}
+          containerComponent={DefaultPager}
           messages={{
             showAll: 'Show all',
           }}

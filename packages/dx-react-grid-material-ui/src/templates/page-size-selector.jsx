@@ -65,10 +65,12 @@ const PageSizeSelectorBase = ({
           select: classes.select,
           icon: classes.selectIcon,
         }}
-        input={<Input
-          disableUnderline
-          classes={{ root: classes.inputRoot }}
-        />}
+        input={
+          <Input
+            disableUnderline
+            classes={{ root: classes.inputRoot }}
+          />
+        }
       >
         {allowedPageSizes.map(item => (
           <MenuItem key={item} value={item}>

@@ -33,7 +33,7 @@ A value with the [Column](grid.md#column) shape extended by the following fields
 
 Field | Type | Description
 ------|------|------------
-title? | string | Specifies a table column title.
+title? | string | Specifies the table column title.
 
 ### GroupingPanelItem
 
@@ -43,10 +43,10 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column-extension) | Specifies the column associated with the item.
-draft? | string | Specifies pre-grouping mode "add", "remove" or "reorder".
+column | [Column](#column-extension) | A column associated with the item.
+draft? | string | The item preview mode. Contains the "add", "remove" or "reorder" value.
 
-### GroupPanelLayoutProps
+### GroupingPanelLayoutProps
 
 Describes properties passed to a component that renders a group panel layout.
 
@@ -61,9 +61,9 @@ onDraftGroup | ({ columnName: string, groupIndex?: number }) => void | Sets the 
 onCancelDraftGroup | () => void | Resets the `groupingChange` state.
 containerComponent | ElementType&lt;[GroupPanelContainerProps](#grouppanelcontainerprops)&gt; | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | A component that renders a group panel item.
-emptyMessageComponent | ElementType&lt;[GroupPanelEmptyMessageProps](#grouppanelemptymessageprops)&gt; | A component that renders a group panel empty message.
+emptyMessageComponent | ElementType&lt;[GroupPanelEmptyMessageProps](#grouppanelemptymessageprops)&gt; | A component that renders the group panel empty message.
 
-### GroupPanelContainerProps
+### GroupingPanelContainerProps
 
 Describes properties passed to a component that renders a group panel container.
 
@@ -71,9 +71,9 @@ Field | Type | Description
 ------|------|------------
 children? | ReactElement | A React element to be placed in the root layout.
 
-### GroupPanelItemProps
+### GroupingPanelItemProps
 
-Describes properties passed to the group panel item template when it is being rendered.
+Describes properties passed to a group panel item template when it is being rendered.
 
 A value with the following shape:
 
@@ -86,7 +86,7 @@ sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
 onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
 onGroup | () => void | An event that initiates grouping by the column.
 
-### GroupPanelEmptyMessageProps
+### GroupingPanelEmptyMessageProps
 
 Describes properties passed to a component that renders a group panel empty message.
 
@@ -113,7 +113,7 @@ Name | Plugin | Type | Description
 columns | Getter | Array&lt;[Column](#column-extension)&gt; | Grid columns.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
-groupByColumn | Action | ({ columnName: string }) => void | Toggles a column's grouping state.
+groupByColumn | Action | ({ columnName: string }) => void | Toggles the column's grouping state.
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
 cancelGroupingChange | Action | () => void | Resets the groupingChange state.

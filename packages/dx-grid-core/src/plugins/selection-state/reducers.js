@@ -1,6 +1,4 @@
 const setRowSelection = (selection, { rowId, selected }) => {
-  // const selectedRows = Array.from(selection);
-  // const selectedRows = Array.prototype.slice.call(selection);
   const selectedRows = selection.slice();
   const selectedIndex = selectedRows.indexOf(rowId);
 

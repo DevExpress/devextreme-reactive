@@ -55,8 +55,7 @@
     "jest": "^21.2.1",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-license": "^0.5.0",
-    "seamless-immutable": "^7.1.2"
+    "rollup-plugin-license": "^0.5.0"
   },
   "peerDependencies": {
     "@devexpress/dx-core": "1.0.0-beta.1"

@@ -15,8 +15,6 @@ export const Grid = ({ children, ...props }) => (
 );
 
 Grid.Root = Root;
-Grid.HeaderPlaceholder = Header;
-Grid.FooterPlaceholder = Footer;
 
 Grid.propTypes = {
   children: PropTypes.oneOfType([

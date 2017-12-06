@@ -21,47 +21,38 @@ Root.defaultProps = {
   className: undefined,
 };
 
-export const Header = ({
-  children, className,
-  style, ...restProps
-}) => !!children && (
-  <div
-    className={classNames('panel-heading', className)}
-    style={{ paddingBottom: '5px', ...style }}
-    {...restProps}
-  >
-    {children}
-  </div>
-);
+export const Header = ({ children }) =>
+  !!children && (
+    <div
+      className="panel-heading"
+      style={{ paddingBottom: '5px' }}
+    >
+      {children}
+    </div>
+  );
 
 Header.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
-  className: PropTypes.string,
-  style: PropTypes.object,
 };
 
 Header.defaultProps = {
   children: undefined,
-  className: undefined,
-  style: null,
 };
 
-export const Footer = ({ children, className, ...restProps }) =>
+export const Footer = ({ children }) =>
   !!children &&
-    <div className={classNames('panel-footer', className)} {...restProps}>{children}</div>;
+    <div className="panel-footer">{children}</div>;
 
 Footer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
-  className: PropTypes.string,
 };
 
 Footer.defaultProps = {
   children: undefined,
-  className: undefined,
 };

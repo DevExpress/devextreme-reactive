@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
@@ -30,12 +29,9 @@ Root.defaultProps = {
   children: undefined,
 };
 
-const HeaderBase = ({
-  children, classes,
-  className, ...restProps
-}) =>
+const HeaderBase = ({ children, classes }) =>
   !!children &&
-    <div className={classNames(classes.headingPanel, className)} {...restProps}>{children}</div>;
+    <div className={classes.headingPanel}>{children}</div>;
 
 HeaderBase.propTypes = {
   children: PropTypes.oneOfType([
@@ -43,22 +39,19 @@ HeaderBase.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]),
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
 };
 
 HeaderBase.defaultProps = {
   children: undefined,
-  className: undefined,
 };
 
 export const Header = withStyles(styles, { name: 'GridLayout' })(HeaderBase);
 
 const FooterBase = ({
   children, classes,
-  className, ...restProps
 }) =>
   !!children &&
-    <div className={classNames(classes.footerPanel, className)} {...restProps}>{children}</div>;
+    <div className={classes.footerPanel}>{children}</div>;
 
 FooterBase.propTypes = {
   children: PropTypes.oneOfType([
@@ -66,12 +59,10 @@ FooterBase.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]),
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
 };
 
 FooterBase.defaultProps = {
   children: undefined,
-  className: undefined,
 };
 
 export const Footer = withStyles(styles, { name: 'GridLayout' })(FooterBase);

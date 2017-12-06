@@ -57,9 +57,9 @@ children? | ReactElement | A React element to be placed in the footer.
 
 Name | Properties | Description
 -----|------------|------------
-Grid.Root | [GridRootProps](#gridrootprops) | A component that renders tables body.
-Grid.Header | [GridHeaderPlaceholderProps](#gridheaderplaceholderprops) | A component that renders tables header.
-Grid.Footer | [GridFooterPlaceholderProps](#gridfooterplaceholderprops) | A component that renders tables footer.
+Grid.Root | [GridRootProps](#gridrootprops) | A component that renders the grid root layout.
+Grid.Header | [GridHeaderPlaceholderProps](#gridheaderplaceholderprops) | A component that renders the grid header placeholder.
+Grid.Footer | [GridFooterPlaceholderProps](#gridfooterplaceholderprops) | A component that renders the grid footer placeholder.
 
 If you specify additional properties, they are added to the component's root element.
 ## Plugin Developer Reference

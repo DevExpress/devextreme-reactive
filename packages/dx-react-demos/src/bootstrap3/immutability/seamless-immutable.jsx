@@ -20,8 +20,6 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-// static data
-
 const rows = generateRows({ length: 14 });
 const columns = [
   { name: 'name', title: 'Name' },
@@ -29,8 +27,6 @@ const columns = [
   { name: 'city', title: 'City' },
   { name: 'car', title: 'Car' },
 ];
-
-// reducers
 
 const SORTING_STATE_CHANGE_ACTION = 'SORTING_STATE_CHANGE';
 const SELECTION_STATE_CHANGE_ACTION = 'SELECTION_STATE_CHANGE';
@@ -86,8 +82,8 @@ const mapSelectionDispatchToProps = dispatch => ({
   }),
 });
 
-// components
-
+// NOTE: not sure about the *Container postfix here
+// Maybe SortingStateComponent?
 const SortingStateContainer = ({
   sorting,
   onSortingChange,
@@ -136,8 +132,6 @@ const ReduxSortingStateContainer =
   connect(mapSortingStateToProps, mapSortingDispatchToProps)(SortingStateContainer);
 const ReduxSelectionStateContainer =
   connect(mapSelectionStateToProps, mapSelectionDispatchToProps)(SelectionStateContainer);
-
-// store
 
 const store = createStore(rootReducer);
 

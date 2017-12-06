@@ -13,6 +13,7 @@ import {
   TableCell,
   Button,
   IconButton,
+  Input,
   Dialog,
   DialogActions,
   DialogContent,
@@ -103,7 +104,11 @@ const LookupEditCellBase = (({
     <Select
       value={value}
       onChange={event => onValueChange(event.target.value)}
-      InputClasses={{ root: classes.inputRoot }}
+      input={
+        <Input
+          classes={{ root: classes.inputRoot }}
+        />
+      }
     >
       {availableValues.map(item => (
         <MenuItem key={item} value={item}>{item}</MenuItem>

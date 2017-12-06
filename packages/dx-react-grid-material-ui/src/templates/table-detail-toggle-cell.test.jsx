@@ -1,18 +1,14 @@
 import React from 'react';
-import { createShallow } from 'material-ui/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import { IconButton } from 'material-ui';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
 describe('TableDetailToggleCell', () => {
-  let resetConsole;
   let shallow;
+  let classes;
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     shallow = createShallow({ dive: true });
-  });
-  afterAll(() => {
-    resetConsole();
+    classes = getClasses(<TableDetailToggleCell />);
   });
 
   it('should render IconButton', () => {
@@ -25,22 +21,46 @@ describe('TableDetailToggleCell', () => {
   });
 
   it('should handle click with stopPropagation', () => {
-    const toggleExpanded = jest.fn();
+    const onToggle = jest.fn();
     const mockEvent = {
       stopPropagation: jest.fn(),
     };
     const tree = shallow((
       <TableDetailToggleCell
-        toggleExpanded={toggleExpanded}
+        onToggle={onToggle}
       />
     ));
 
     const buttonClickHandler = tree.find(IconButton).prop('onClick');
 
     buttonClickHandler(mockEvent);
-    expect(toggleExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
     expect(mockEvent.stopPropagation)
       .toHaveBeenCalled();
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <TableDetailToggleCell
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is(`.${classes.toggleCell}`))
+      .toBeTruthy();
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableDetailToggleCell
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

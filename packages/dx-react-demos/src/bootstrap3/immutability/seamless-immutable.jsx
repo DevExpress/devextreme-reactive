@@ -20,8 +20,7 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const SORTING_STATE_CHANGE_ACTION = 'SORTING_STATE_CHANGE';
-const SELECTION_STATE_CHANGE_ACTION = 'SELECTION_STATE_CHANGE';
+// components
 
 const SortingStateContainer = ({
   sorting,
@@ -61,56 +60,64 @@ const columns = [
   { name: 'car', title: 'Car' },
 ];
 
-const GridContainer = ({
-  sorting,
-  selection,
-  onSortingChange,
-  onSelectionChange,
-}) => {
-  return (
-    <Grid
-      rows={rows}
-      columns={columns}
-    >
-      <SortingStateContainer
-        sorting={sorting}
-        onSortingChange={onSortingChange}
-      />
-      <LocalSorting />
-      <SelectionStateContainer
-        selection={selection}
-        onSelectionChange={onSelectionChange}
-      />
-      <Table />
-      <TableHeaderRow allowSorting />
-      <TableSelection />
-    </Grid>
-  );
-};
+const GridContainer = () => (
+  <Grid
+    rows={rows}
+    columns={columns}
+  >
+    <ReduxSortingStateContainer />
+    <LocalSorting />
+    <ReduxSelectionStateContainer />
+    <Table />
+    <TableHeaderRow allowSorting />
+    <TableSelection />
+  </Grid>
+);
 
-GridContainer.propTypes = {
-  sorting: PropTypes.array.isRequired,
-  selection: PropTypes.array.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
-  onSelectionChange: PropTypes.func.isRequired,
-};
+// reducers
+
+const SORTING_STATE_CHANGE_ACTION = 'SORTING_STATE_CHANGE';
+const SELECTION_STATE_CHANGE_ACTION = 'SELECTION_STATE_CHANGE';
+
+const mapSortingStateToProps = ({ sorting }) => ({
+  sorting: sorting.data,
+});
+
+const mapSelectionStateToProps = ({ selection }) => ({
+  selection: selection.data,
+});
+
+const mapSortingDispatchToProps = dispatch => ({
+  onSortingChange: sorting => dispatch({
+    type: SORTING_STATE_CHANGE_ACTION,
+    payload: sorting,
+  }),
+});
+
+const mapSelectionDispatchToProps = dispatch => ({
+  onSelectionChange: selection => dispatch({
+    type: SELECTION_STATE_CHANGE_ACTION,
+    payload: selection,
+  }),
+});
+
+const ReduxSortingStateContainer =
+  connect(mapSortingStateToProps, mapSortingDispatchToProps)(SortingStateContainer);
+const ReduxSelectionStateContainer =
+  connect(mapSelectionStateToProps, mapSelectionDispatchToProps)(SelectionStateContainer);
 
 const initialSelectionState = {
-  data: Immutable({
-    selection: [],
-  }),
+  data: Immutable([]),
 };
 
 const initialSortingState = {
-  data: Immutable({
-    sorting: [],
-  }),
+  data: Immutable([]),
 };
 
 const selectionStateReducer = (state = initialSelectionState, action) => {
   const { type, payload } = action;
   if (type === SELECTION_STATE_CHANGE_ACTION) {
-    return { data: state.data.set('selection', payload) };
+    return { data: Immutable(payload) };
   }
   return state;
 };
@@ -118,7 +125,7 @@ const selectionStateReducer = (state = initialSelectionState, action) => {
 const sortingStateReducer = (state = initialSortingState, action) => {
   const { type, payload } = action;
   if (type === SORTING_STATE_CHANGE_ACTION) {
-    return { data: state.data.set('sorting', payload) };
+    return { data: Immutable(payload) };
   }
   return state;
 };
@@ -128,33 +135,12 @@ const rootReducer = combineReducers({
   sorting: sortingStateReducer,
 });
 
-const mapStateToProps = state => ({
-  selection: state.selection.data.selection,
-  sorting: state.sorting.data.sorting,
-});
-
-const mapDispatchToProps = dispatch => ({
-  onSortingChange: (sorting) => {
-    return dispatch({
-      type: SORTING_STATE_CHANGE_ACTION,
-      payload: sorting,
-    });
-  },
-  onSelectionChange: (selection) => {
-    return dispatch({
-      type: SELECTION_STATE_CHANGE_ACTION,
-      payload: selection,
-    });
-  },
-});
-
-const ReduxGridContainer =
-  connect(mapStateToProps, mapDispatchToProps)(GridContainer);
+// store
 
 const store = createStore(rootReducer);
 
 export default () => (
   <Provider store={store}>
-    <ReduxGridContainer />
+    <GridContainer />
   </Provider>
 );

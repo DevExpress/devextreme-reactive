@@ -1,6 +1,6 @@
 # DragDropContext Plugin Reference
 
-This plugin implements the drag-and-drop functionality and visualizes columns being dragged.
+A plugin that implements the drag-and-drop functionality and visualizes columns that are being dragged.
 
 ## User Reference
 
@@ -33,8 +33,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-clientOffset | { x: number, y: number } | The current offset of a column being dragged, against the application's client area.
-children | ReactElement &#124; Array&lt;ReactElement&gt; | A React element or an array of React element representing columns being dragged.
+clientOffset | { x: number, y: number } | The current offset of a column that is being dragged. The offset is measured against the application's client area.
+children | ReactElement &#124; Array&lt;ReactElement&gt; | A React element or a React element array representing columns being dragged.
 
 ### ColumnProps
 

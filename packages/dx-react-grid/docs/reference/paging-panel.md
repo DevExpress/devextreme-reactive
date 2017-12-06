@@ -20,7 +20,7 @@ messages | object | | An object that specifies the [localization messages](#loca
 
 ### ContainerProps
 
-Describes properties passed to a container template when it is being rendered.
+Describes the container component properties.
 
 A value with the following shape:
 

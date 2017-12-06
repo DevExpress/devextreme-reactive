@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { TableCell } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
@@ -25,6 +26,9 @@ const styles = theme => ({
 
 const TableDetailToggleCellBase = ({
   style, expanded, classes, onToggle,
+  tableColumn, tableRow, row,
+  className,
+  ...restProps
 }) => {
   const handleClick = (e) => {
     e.stopPropagation();
@@ -32,8 +36,9 @@ const TableDetailToggleCellBase = ({
   };
   return (
     <TableCell
-      className={classes.toggleCell}
+      className={classNames(classes.toggleCell, className)}
       style={style}
+      {...restProps}
     >
       <IconButton
         className={classes.toggleCellButton}
@@ -54,12 +59,20 @@ TableDetailToggleCellBase.propTypes = {
   expanded: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   onToggle: PropTypes.func,
+  className: PropTypes.string,
+  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
+  row: PropTypes.object,
 };
 
 TableDetailToggleCellBase.defaultProps = {
   style: null,
   expanded: false,
   onToggle: () => {},
+  className: undefined,
+  tableColumn: undefined,
+  tableRow: undefined,
+  row: undefined,
 };
 
 export const TableDetailToggleCell = withStyles(styles, { name: 'TableDetailToggleCell' })(TableDetailToggleCellBase);

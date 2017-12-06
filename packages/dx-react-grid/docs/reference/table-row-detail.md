@@ -65,6 +65,16 @@ row | any | A row.
 expanded | boolean | Specifies whether to expand the detail row.
 onToggle | () => void | An event that initiates row expanding or collapsing.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+TableRowDetail.Cell | [TableDetailCellProps](#tabledetailcellprops) | A component that renders a detail cell.
+TableRowDetail.Row | [TableDetailRowProps](#tabledetailrowprops) | A component that renders a detail row.
+TableRowDetail.ToggleCell | [TableDetailToggleCellProps](#tabledetailtogglecellprops) | A component that renders a cell containing the expand/collaps control.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

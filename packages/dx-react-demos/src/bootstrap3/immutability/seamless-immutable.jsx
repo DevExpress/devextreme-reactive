@@ -20,6 +20,72 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
+// static data
+
+const rows = generateRows({ length: 14 });
+const columns = [
+  { name: 'name', title: 'Name' },
+  { name: 'sex', title: 'Sex' },
+  { name: 'city', title: 'City' },
+  { name: 'car', title: 'Car' },
+];
+
+// reducers
+
+const SORTING_STATE_CHANGE_ACTION = 'SORTING_STATE_CHANGE';
+const SELECTION_STATE_CHANGE_ACTION = 'SELECTION_STATE_CHANGE';
+
+const initialSelectionState = {
+  data: Immutable([]),
+};
+
+const initialSortingState = {
+  data: Immutable([]),
+};
+
+const selectionStateReducer = (state = initialSelectionState, action) => {
+  const { type, payload } = action;
+  if (type === SELECTION_STATE_CHANGE_ACTION) {
+    return { data: Immutable(payload) };
+  }
+  return state;
+};
+
+const sortingStateReducer = (state = initialSortingState, action) => {
+  const { type, payload } = action;
+  if (type === SORTING_STATE_CHANGE_ACTION) {
+    return { data: Immutable(payload) };
+  }
+  return state;
+};
+
+const rootReducer = combineReducers({
+  selection: selectionStateReducer,
+  sorting: sortingStateReducer,
+});
+
+const mapSortingStateToProps = ({ sorting }) => ({
+  sorting: sorting.data,
+});
+
+const mapSelectionStateToProps = ({ selection }) => ({
+  selection: selection.data,
+});
+
+const mapSortingDispatchToProps = dispatch => ({
+  onSortingChange: sorting => dispatch({
+    type: SORTING_STATE_CHANGE_ACTION,
+    payload: sorting,
+  }),
+});
+
+const mapSelectionDispatchToProps = dispatch => ({
+  onSelectionChange: selection => dispatch({
+    type: SELECTION_STATE_CHANGE_ACTION,
+    payload: selection,
+  }),
+});
+
 // components
 
 const SortingStateContainer = ({
@@ -52,14 +118,6 @@ SelectionStateContainer.propTypes = {
   onSelectionChange: PropTypes.func.isRequired,
 };
 
-const rows = generateRows({ length: 14 });
-const columns = [
-  { name: 'name', title: 'Name' },
-  { name: 'sex', title: 'Sex' },
-  { name: 'city', title: 'City' },
-  { name: 'car', title: 'Car' },
-];
-
 const GridContainer = () => (
   <Grid
     rows={rows}
@@ -74,66 +132,10 @@ const GridContainer = () => (
   </Grid>
 );
 
-// reducers
-
-const SORTING_STATE_CHANGE_ACTION = 'SORTING_STATE_CHANGE';
-const SELECTION_STATE_CHANGE_ACTION = 'SELECTION_STATE_CHANGE';
-
-const mapSortingStateToProps = ({ sorting }) => ({
-  sorting: sorting.data,
-});
-
-const mapSelectionStateToProps = ({ selection }) => ({
-  selection: selection.data,
-});
-
-const mapSortingDispatchToProps = dispatch => ({
-  onSortingChange: sorting => dispatch({
-    type: SORTING_STATE_CHANGE_ACTION,
-    payload: sorting,
-  }),
-});
-
-const mapSelectionDispatchToProps = dispatch => ({
-  onSelectionChange: selection => dispatch({
-    type: SELECTION_STATE_CHANGE_ACTION,
-    payload: selection,
-  }),
-});
-
 const ReduxSortingStateContainer =
   connect(mapSortingStateToProps, mapSortingDispatchToProps)(SortingStateContainer);
 const ReduxSelectionStateContainer =
   connect(mapSelectionStateToProps, mapSelectionDispatchToProps)(SelectionStateContainer);
-
-const initialSelectionState = {
-  data: Immutable([]),
-};
-
-const initialSortingState = {
-  data: Immutable([]),
-};
-
-const selectionStateReducer = (state = initialSelectionState, action) => {
-  const { type, payload } = action;
-  if (type === SELECTION_STATE_CHANGE_ACTION) {
-    return { data: Immutable(payload) };
-  }
-  return state;
-};
-
-const sortingStateReducer = (state = initialSortingState, action) => {
-  const { type, payload } = action;
-  if (type === SORTING_STATE_CHANGE_ACTION) {
-    return { data: Immutable(payload) };
-  }
-  return state;
-};
-
-const rootReducer = combineReducers({
-  selection: selectionStateReducer,
-  sorting: sortingStateReducer,
-});
 
 // store
 

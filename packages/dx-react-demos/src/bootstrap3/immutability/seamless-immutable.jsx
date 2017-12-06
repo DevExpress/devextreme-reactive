@@ -28,6 +28,8 @@ const columns = [
   { name: 'car', title: 'Car' },
 ];
 
+// Reducers
+
 const SORTING_STATE_CHANGE_ACTION = 'SORTING_STATE_CHANGE';
 const SELECTION_STATE_CHANGE_ACTION = 'SELECTION_STATE_CHANGE';
 
@@ -55,10 +57,15 @@ const sortingStateReducer = (state = initialSortingState, action) => {
   return state;
 };
 
+
+// Combine reducers
+
 const rootReducer = combineReducers({
   selection: selectionStateReducer,
   sorting: sortingStateReducer,
 });
+
+// Map state to properties
 
 const mapSortingStateToProps = ({ sorting }) => ({
   sorting: sorting.data,
@@ -67,6 +74,8 @@ const mapSortingStateToProps = ({ sorting }) => ({
 const mapSelectionStateToProps = ({ selection }) => ({
   selection: selection.data,
 });
+
+// Dispatch actions
 
 const mapSortingDispatchToProps = dispatch => ({
   onSortingChange: sorting => dispatch({
@@ -81,6 +90,8 @@ const mapSelectionDispatchToProps = dispatch => ({
     payload: selection,
   }),
 });
+
+// Independent state management components
 
 // NOTE: not sure about the *Container postfix here
 // Maybe SortingStateComponent?
@@ -114,6 +125,9 @@ SelectionStateContainer.propTypes = {
   onSelectionChange: PropTypes.func.isRequired,
 };
 
+// Presentation component
+
+// NOTE: the same about *Container
 const GridContainer = () => (
   <Grid
     rows={rows}
@@ -127,6 +141,8 @@ const GridContainer = () => (
     <TableSelection />
   </Grid>
 );
+
+// Container components
 
 const ReduxSortingStateContainer =
   connect(mapSortingStateToProps, mapSortingDispatchToProps)(SortingStateContainer);

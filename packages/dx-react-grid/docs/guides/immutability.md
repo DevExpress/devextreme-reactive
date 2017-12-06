@@ -14,61 +14,10 @@ The idea is keeping the Grid's state management plugins as separate components a
 
 As you know, to use React and Redux together you need to install the [react-redux](https://www.npmjs.com/package/react-redux) library.
 
-In term of this, we have to implement [presentation and container components](https://redux.js.org/docs/basics/UsageWithReact.html#presentational-and-container-components), then [use they together](https://redux.js.org/docs/basics/UsageWithReact.html#tying-the-containers-together-within-a-component).
-
-This small piece of code shows how it can look like:
-
-```js
-const initialState = {
-  // Note, that the state is a plain JavaScript object that contains immutable fields.
-  data: Immutable([]),
-};
-
-const reducer = (state = initialState, action) => {
-  const { type, payload } = action;
-  if (type === ACTION_TYPE) {
-    // Use the seamless-immutable library to create a new state.
-    return { data: Immutable(payload) };
-  }
-  return state;
-};
-
-const SelectionStateComponent = (props) => (
-  <SelectionState {...props} />
-);
-
-const Grid = () => (
-  <Grid
-    /* Grid's props */
-  >
-    {/* Grid's plugins */}
-    <SelectionStateContainer />
-  </Grid>
-);
-
-const mapStateToProps = (state) => state;
-
-const mapDispatchToProps = dispatch => ({
-  onSelectionChange: selection => dispatch({
-    type: ACTION_TYPE,
-    payload: selection,
-  }),
-});
-
-const SelectionStateContainer =
-  connect(mapStateToProps, mapDispatchToProps)(SelectionStateComponent);
-
-const store = createStore(reducer);
-
-render (
-  <Provider store={store}>
-    <Grid />
-  </Provider>
-)
-```
+In term of this, we have to implement [presentation and container components](https://redux.js.org/docs/basics/UsageWithReact.html#presentational-and-container-components), then [use them together](https://redux.js.org/docs/basics/UsageWithReact.html#tying-the-containers-together-within-a-component).
 
 Of cource, in real cases you will use more than one Grid's state management plugin: `SortingState`, `SelectionState` etc. You can combine them using the [combineReducers](https://redux.js.org/docs/recipes/reducers/UsingCombineReducers.html) function.
 
-The following demo show how to do it:
+The following demo shows how to do it. Refer the comments in code.
 
 .embedded-demo(immutability/seamless-immutable)

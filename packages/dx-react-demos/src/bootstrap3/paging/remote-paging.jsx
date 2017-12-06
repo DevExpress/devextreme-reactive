@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   PagingState,
+  CustomPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -84,6 +85,8 @@ export default class Demo extends React.PureComponent {
             currentPage={currentPage}
             onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
+          />
+          <CustomPaging
             totalCount={totalCount}
           />
           <Table />

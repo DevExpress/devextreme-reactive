@@ -161,31 +161,31 @@ describe('PagingState', () => {
     });
   });
 
-  describe('total count', () => {
-    it('should provide value from the "totalCount" property', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <PagingState
-            totalCount={100}
-          />
-        </PluginHost>
-      ));
+  // describe('total count', () => {
+  //   it('should provide value from the "totalCount" property', () => {
+  //     const tree = mount((
+  //       <PluginHost>
+  //         {pluginDepsToComponents(defaultDeps)}
+  //         <PagingState
+  //           totalCount={100}
+  //         />
+  //       </PluginHost>
+  //     ));
 
-      expect(getComputedState(tree).getters.totalCount)
-        .toBe(100);
-    });
+  //     expect(getComputedState(tree).getters.totalCount)
+  //       .toBe(100);
+  //   });
 
-    it('should provide \'0\' if a value for the "totalCount" property undefined', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <PagingState />
-        </PluginHost>
-      ));
+  //   it('should provide \'0\' if a value for the "totalCount" property undefined', () => {
+  //     const tree = mount((
+  //       <PluginHost>
+  //         {pluginDepsToComponents(defaultDeps)}
+  //         <PagingState />
+  //       </PluginHost>
+  //     ));
 
-      expect(getComputedState(tree).getters.totalCount)
-        .toBe(0);
-    });
-  });
+  //     expect(getComputedState(tree).getters.totalCount)
+  //       .toBe(0);
+  //   });
+  // });
 });

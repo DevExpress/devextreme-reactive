@@ -44,6 +44,19 @@ describe('Layout', () => {
         .toBeTruthy();
     });
 
+    it('should combine style on the root element', () => {
+      const tree = shallow((
+        <Header
+          style={{ color: 'red' }}
+        >
+          {children}
+        </Header>
+      ));
+
+      expect(tree.props().style)
+        .toMatchObject({ paddingBottom: '5px', color: 'red' });
+    });
+
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Header

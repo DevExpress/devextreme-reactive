@@ -24,7 +24,7 @@ Root.defaultProps = {
 export const Header = ({
   children, className,
   style, ...restProps
-}) => children && (
+}) => !!children && (
   <div
     className={classNames('panel-heading', className)}
     style={{ paddingBottom: '5px', ...style }}
@@ -50,7 +50,7 @@ Header.defaultProps = {
 };
 
 export const Footer = ({ children, className, ...restProps }) =>
-  children &&
+  !!children &&
     <div className={classNames('panel-footer', className)} {...restProps}>{children}</div>;
 
 Footer.propTypes = {

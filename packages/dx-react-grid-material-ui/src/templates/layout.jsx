@@ -34,7 +34,7 @@ const HeaderBase = ({
   children, classes,
   className, ...restProps
 }) =>
-  children &&
+  !!children &&
     <div className={classNames(classes.headingPanel, className)} {...restProps}>{children}</div>;
 
 HeaderBase.propTypes = {
@@ -57,7 +57,7 @@ const FooterBase = ({
   children, classes,
   className, ...restProps
 }) =>
-  children &&
+  !!children &&
     <div className={classNames(classes.footerPanel, className)} {...restProps}>{children}</div>;
 
 FooterBase.propTypes = {

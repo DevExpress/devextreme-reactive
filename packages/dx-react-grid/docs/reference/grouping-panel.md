@@ -19,7 +19,6 @@ Name | Type | Default | Description
 allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
-layoutComponent | ElementType&lt;[GroupingPanelLayoutProps](#groupingpanellayoutprops)&gt; | | A component that renders a group panel layout.
 containerComponent | ElementType&lt;[GroupingPanelContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupingPanelItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
 emptyMessageComponent | ElementType&lt;[GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders a group panel empty message.
@@ -45,23 +44,6 @@ Field | Type | Description
 ------|------|------------
 column | [Column](#column-extension) | A column associated with the item.
 draft? | string | The item preview mode. Contains the "add", "remove" or "reorder" value.
-
-### GroupingPanelLayoutProps
-
-Describes properties passed to a component that renders a group panel layout.
-
-A value with the following shape:
-
-Field | Type | Description
-------|------|------------
-items | Array&lt;[GroupingPanelItem](#groupingpanelitem)&gt; | The Grouping Panel items.
-allowDragging | boolean | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header.
-onGroup | ({ columnName: string }) => void | An event that initiates grouping by the column.
-onDraftGroup | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
-onCancelDraftGroup | () => void | Resets the `groupingChange` state.
-containerComponent | ElementType&lt;[GroupPanelContainerProps](#groupingpanelcontainerprops)&gt; | A component that renders a group panel container.
-itemComponent | ElementType&lt;[GroupingPanelItemProps](#groupingpanelitemprops)&gt; | A component that renders a group panel item.
-emptyMessageComponent | ElementType&lt;[GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops)&gt; | A component that renders the group panel empty message.
 
 ### GroupingPanelContainerProps
 

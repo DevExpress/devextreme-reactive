@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TableSelectCell = ({ style, selected, onToggle }) => (
+export const TableSelectCell = ({
+  style,
+  selected,
+  onToggle,
+  row, tableRow, tableColumn,
+  ...restProps
+}) => (
+
   <td
     style={{
       cursor: 'pointer',
@@ -12,6 +19,7 @@ export const TableSelectCell = ({ style, selected, onToggle }) => (
       e.stopPropagation();
       onToggle();
     }}
+    {...restProps}
   >
     <input
       style={{
@@ -26,13 +34,21 @@ export const TableSelectCell = ({ style, selected, onToggle }) => (
     />
   </td>
 );
-TableSelectCell.defaultProps = {
-  style: null,
-  selected: false,
-  onToggle: () => {},
-};
+
 TableSelectCell.propTypes = {
   style: PropTypes.object,
   selected: PropTypes.bool,
   onToggle: PropTypes.func,
+  row: PropTypes.object,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
+};
+
+TableSelectCell.defaultProps = {
+  style: null,
+  selected: false,
+  onToggle: () => {},
+  row: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };

@@ -19,10 +19,10 @@ Name | Type | Default | Description
 allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
-layoutComponent | ElementType&lt;[GroupPanelLayoutProps](#grouppanellayoutprops)&gt; | | A component that renders a group panel layout.
-containerComponent | ElementType&lt;[GroupPanelContainerProps](#grouppanelcontainerprops)&gt; | | A component that renders a group panel container.
-itemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | | A component that renders a group panel item.
-emptyMessageComponent | ElementType&lt;[GroupPanelEmptyMessageProps](#grouppanelemptymessageprops)&gt; | | A component that renders a group panel empty message.
+layoutComponent | ElementType&lt;[GroupingPanelLayoutProps](#groupingpanellayoutprops)&gt; | | A component that renders a group panel layout.
+containerComponent | ElementType&lt;[GroupingPanelContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
+itemComponent | ElementType&lt;[GroupingPanelItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
+emptyMessageComponent | ElementType&lt;[GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders a group panel empty message.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
@@ -59,9 +59,9 @@ allowDragging | boolean | Specifies whether an end-user can change the grouping 
 onGroup | ({ columnName: string }) => void | An event that initiates grouping by the column.
 onDraftGroup | ({ columnName: string, groupIndex?: number }) => void | Sets the `groupingChange` state to the specified value.
 onCancelDraftGroup | () => void | Resets the `groupingChange` state.
-containerComponent | ElementType&lt;[GroupPanelContainerProps](#grouppanelcontainerprops)&gt; | A component that renders a group panel container.
-itemComponent | ElementType&lt;[GroupPanelItemProps](#grouppanelitemprops)&gt; | A component that renders a group panel item.
-emptyMessageComponent | ElementType&lt;[GroupPanelEmptyMessageProps](#grouppanelemptymessageprops)&gt; | A component that renders the group panel empty message.
+containerComponent | ElementType&lt;[GroupPanelContainerProps](#groupingpanelcontainerprops)&gt; | A component that renders a group panel container.
+itemComponent | ElementType&lt;[GroupingPanelItemProps](#groupingpanelitemprops)&gt; | A component that renders a group panel item.
+emptyMessageComponent | ElementType&lt;[GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops)&gt; | A component that renders the group panel empty message.
 
 ### GroupingPanelContainerProps
 

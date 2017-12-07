@@ -17,7 +17,7 @@ Name | Type | Default | Description
 getCellComponent | (columnName: string) => ElementType&lt;[TableFilterCellProps](#tablefiltercellprops)&gt; | | A function returning a component that renders a filter cell for a specific column.
 rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
 rowHeight | number | | The filter row's height.
-messages | object | | And object that specifies [localization messages](#localization-messages).
+messages | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -30,7 +30,7 @@ A value with the [TableCellProps](table.md#tablecellprops) shape extended by the
 Field | Type | Description
 ------|------|------------
 filter | [Filter](filtering-state.md#filter) | Filtering options that are applied to a column.
-onFilter | (filter: [Filter](filtering-state.md#filter)) => void | An event that initialtes applying of a new filter to a column.
+onFilter | (filter: [Filter](filtering-state.md#filter)) => void | An event that initiates applying a new filter to a column.
 column | [Column](grid.md#column) | A column.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
@@ -50,7 +50,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | The filtering options.
-setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter or clears if config is null.
+setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter or clears it if config is null.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 

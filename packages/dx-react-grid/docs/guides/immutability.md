@@ -2,22 +2,12 @@
 
 DevExpress Data Grid for React conforms to the React [optimization principles](https://reactjs.org/docs/optimizing-performance.html). According to these principles, the Grid does not mutate data passed through a state and uses memoization and [React.PureComponents](https://reactjs.org/docs/react-api.html#reactpurecomponent). A `React.PureComponent` compares old and new state values using a simple comparison. In this case, if you update a state object field, React does not update the component because it compares two references to the same object. Immutable data structures [help](https://reactjs.org/docs/optimizing-performance.html#the-power-of-not-mutating-data) to solve this problem.
 
-You can use the [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) library to make a React Grid state immutable.
+Let's see how to use our Grid and reach the best performance.
 
-Now we show how to use this library with our Grid.
+The idea is keeping the Grid's state management plugins as separate components and update their properties independently. This approach allows Grid rerenders only related UI elements.
 
-To update a Grid state correctly it's helpful to use a state management library like [Redux](https://redux.js.org/).
+In this case, the state management library like [Redux](https://redux.js.org/) can help us working with indepent componets state easily.
 
-What does "update a Grid state correctly" mean? It means a user will be able to change only required state field, not a full state object. In this case, React Grid rerenders only related UI elements. Let's say we change a Grid selection by clicking on a checkbox. Well, I'd expect the Grid updates a selection column only. Let's look how to achieve the described behavior.
-
-The idea is keeping the Grid's state management plugins as separate components and update their properties independently.
-
-As you know, to use React and Redux together you need to install the [react-redux](https://www.npmjs.com/package/react-redux) library.
-
-In term of this, we have to implement [presentation and container components](https://redux.js.org/docs/basics/UsageWithReact.html#presentational-and-container-components), then [use them together](https://redux.js.org/docs/basics/UsageWithReact.html#tying-the-containers-together-within-a-component).
-
-Of cource, in real cases you will use more than one Grid's state management plugin: `SortingState`, `SelectionState` etc. You can combine them using the [combineReducers](https://redux.js.org/docs/recipes/reducers/UsingCombineReducers.html) function.
-
-The following demo shows how to do it. Refer the comments in code.
+The following demo shows how to implement the described approach using Redux, [react-redux](https://github.com/reactjs/react-redux) and [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) libraries.
 
 .embedded-demo(immutability/seamless-immutable)

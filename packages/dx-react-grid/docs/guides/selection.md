@@ -7,7 +7,7 @@ The Grid component supports selecting/deselecting rows programmatically or via t
 The following plugins implement selection features:
 
 - [SelectionState](../reference/selection-state.md) - controls the selection state
-- [LocalSelection](../reference/local-selection.md) - performs local data selection
+- [LocalSelection](../reference/local-selection.md) - performs local selection
 - [TableSelection](../reference/table-selection.md) - renders selection check boxes or highlights the selected rows
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
@@ -30,7 +30,7 @@ In some scenarios, it is useful to highlight selected rows instead of using chec
 
 ## Select All
 
-If you want your Grid can select/deselect all rows, you need to perform the following steps:
+Perform the following steps to enable the "select/deselect all" capability.
 
 - Add the `LocalSelection` plugin above the `TableSelection` one.
 - Add the `TableHeaderRow` plugin.
@@ -46,7 +46,7 @@ The following example demonstrates selection without paging. You can increase th
 
 If you are using the `LocalPaging` plugin, you can integrate the Select All behavior with the `PagingState` plugin.
 
-The Select All check box selects/deselects all rows on a page or all pages depending on the `LocalSelection` and `LocalPaging` plugin's order.
+The Select All checkbox selects/deselects all rows on a page or all pages depending on the `LocalSelection` and `LocalPaging` plugin's order.
 
 Place the `LocalSelection` plugin after `LocalPaging` to implement the Select All behavior within a visible page:
 

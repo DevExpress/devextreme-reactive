@@ -28,8 +28,6 @@ const columns = [
   { name: 'car', title: 'Car' },
 ];
 
-// Reducers
-
 const SORTING_STATE_CHANGE_ACTION = 'SORTING_STATE_CHANGE';
 const SELECTION_STATE_CHANGE_ACTION = 'SELECTION_STATE_CHANGE';
 
@@ -57,45 +55,14 @@ const sortingStateReducer = (state = initialSortingState, action) => {
   return state;
 };
 
-
-// Combine reducers
-
 const rootReducer = combineReducers({
   selection: selectionStateReducer,
   sorting: sortingStateReducer,
 });
 
-// Map state to properties
+const store = createStore(rootReducer);
 
-const mapSortingStateToProps = ({ sorting }) => ({
-  sorting: sorting.data,
-});
-
-const mapSelectionStateToProps = ({ selection }) => ({
-  selection: selection.data,
-});
-
-// Dispatch actions
-
-const mapSortingDispatchToProps = dispatch => ({
-  onSortingChange: sorting => dispatch({
-    type: SORTING_STATE_CHANGE_ACTION,
-    payload: sorting,
-  }),
-});
-
-const mapSelectionDispatchToProps = dispatch => ({
-  onSelectionChange: selection => dispatch({
-    type: SELECTION_STATE_CHANGE_ACTION,
-    payload: selection,
-  }),
-});
-
-// Independent state management components
-
-// NOTE: not sure about the *Container postfix here
-// Maybe SortingStateComponent?
-const SortingStateContainer = ({
+const Sorting = ({
   sorting,
   onSortingChange,
 }) => (
@@ -105,12 +72,26 @@ const SortingStateContainer = ({
   />
 );
 
-SortingStateContainer.propTypes = {
+Sorting.propTypes = {
   sorting: PropTypes.array.isRequired,
   onSortingChange: PropTypes.func.isRequired,
 };
 
-const SelectionStateContainer = ({
+const mapSortingStateToProps = ({ sorting }) => ({
+  sorting: sorting.data,
+});
+
+const mapSortingDispatchToProps = dispatch => ({
+  onSortingChange: sorting => dispatch({
+    type: SORTING_STATE_CHANGE_ACTION,
+    payload: sorting,
+  }),
+});
+
+const SortingStateContainer =
+  connect(mapSortingStateToProps, mapSortingDispatchToProps)(Sorting);
+
+const Selection = ({
   selection,
   onSelectionChange,
 }) => (
@@ -120,39 +101,37 @@ const SelectionStateContainer = ({
   />
 );
 
-SelectionStateContainer.propTypes = {
+Selection.propTypes = {
   selection: PropTypes.array.isRequired,
   onSelectionChange: PropTypes.func.isRequired,
 };
 
-// Presentation component
+const mapSelectionStateToProps = ({ selection }) => ({
+  selection: selection.data,
+});
 
-// NOTE: the same about *Container
-const GridContainer = () => (
-  <Grid
-    rows={rows}
-    columns={columns}
-  >
-    <ReduxSortingStateContainer />
-    <LocalSorting />
-    <ReduxSelectionStateContainer />
-    <Table />
-    <TableHeaderRow allowSorting />
-    <TableSelection />
-  </Grid>
-);
+const mapSelectionDispatchToProps = dispatch => ({
+  onSelectionChange: selection => dispatch({
+    type: SELECTION_STATE_CHANGE_ACTION,
+    payload: selection,
+  }),
+});
 
-// Container components
-
-const ReduxSortingStateContainer =
-  connect(mapSortingStateToProps, mapSortingDispatchToProps)(SortingStateContainer);
-const ReduxSelectionStateContainer =
-  connect(mapSelectionStateToProps, mapSelectionDispatchToProps)(SelectionStateContainer);
-
-const store = createStore(rootReducer);
+const SelectionStateContainer =
+  connect(mapSelectionStateToProps, mapSelectionDispatchToProps)(Selection);
 
 export default () => (
   <Provider store={store}>
-    <GridContainer />
+    <Grid
+      rows={rows}
+      columns={columns}
+    >
+      <SortingStateContainer />
+      <LocalSorting />
+      <SelectionStateContainer />
+      <Table />
+      <TableHeaderRow allowSorting />
+      <TableSelection />
+    </Grid>
   </Provider>
 );

@@ -16,7 +16,7 @@ describe('TableColumnVisibility computeds', () => {
         .toEqual([{ type: TABLE_DATA_TYPE, column: { name: 'b' } }]);
     });
 
-    it('should work with only data type columns', () => {
+    it('should ignore non-data columns', () => {
       const tableColumns = [
         { key: 'editCommand' },
         { type: TABLE_DATA_TYPE, column: { name: 'a' } },

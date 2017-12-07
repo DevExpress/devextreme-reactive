@@ -1,6 +1,6 @@
 # TableGroupRow Plugin Reference
 
-A plugin that renders group rows and allows their expanding and collapsing.
+A plugin that renders group rows and enables them to expand and collapse.
 
 ## User Reference
 
@@ -14,7 +14,7 @@ A plugin that renders group rows and allows their expanding and collapsing.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getCellComponent | (columnName: string) => ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A function returning a component that renders a group cell for a specific column.
+getCellComponent | (columnName: string) => ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A function returning a component that renders a specific column's group cell.
 rowComponent | ElementType&lt;[TableGroupRowProps](#tablegrouprowprops)&gt; | | A component that renders a group row.
 indentCellComponent | ElementType&lt;[TableGroupIndentCellProps](#tablegroupindentcellprops)&gt; | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
@@ -81,7 +81,7 @@ Name | Properties | Description
 TableGroupRow.Row | [TableGroupRowProps](#tablegrouprowprops) | A component that renders a group row.
 TableGroupRow.Cell | [TableGroupCellProps](#tablegroupcellprops) | A component that renders a group cell.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

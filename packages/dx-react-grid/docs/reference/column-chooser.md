@@ -54,6 +54,6 @@ hidden | boolean | Specifies whether the related column is hidden.
 Name | Properties | Description
 -----|------------|------------
 ColumnChooser.Container | [ColumnChooserContainerProps](#columnchoosercontainerprops) | A component that renders the column chooser container.
-ColumnChooser.Item | [ColumnChooserItemProps](#columnchooseritemprops) | A component that renders column chooser items.
+ColumnChooser.Item | [ColumnChooserItemProps](#columnchooseritemprops) | A component that renders a column chooser item.
 
 If you specify additional properties, they are added to the component's root element.

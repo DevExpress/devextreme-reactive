@@ -48,7 +48,7 @@ info? | string &#124; ({ from: number, to: number, count: number }) => string | 
 
 Name | Properties | Description
 -----|------------|------------
-PagingPanel.Pager | [PagerProps](#pagerprops) | A component that renders a pager.
+PagingPanel.Container | [ContainerProps](#containerprops) | A component that renders the paging panel.
 
 If you specify additional properties, they are added to the component's root element.
 

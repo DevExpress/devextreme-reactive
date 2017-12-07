@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Getter, Template, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
@@ -11,48 +10,6 @@ import {
   isHeadingTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-
-const getHeaderTableCellTemplateArgs = (
-  {
-    allowSorting, allowDragging, allowGroupingByClick, allowResizing, getMessage, ...params
-  },
-  { sorting, columns, grouping },
-  {
-    setColumnSorting, groupByColumn, changeTableColumnWidths, changeDraftTableColumnWidths,
-  },
-) => {
-  const { column } = params.tableColumn;
-  const groupingSupported = grouping !== undefined &&
-      grouping.length < columns.length - 1;
-
-  const result = {
-    ...params,
-    getMessage,
-    allowSorting: allowSorting && sorting !== undefined,
-    allowGroupingByClick: allowGroupingByClick && groupingSupported,
-    allowDragging: allowDragging && (!grouping || groupingSupported),
-    allowResizing,
-    column: params.tableColumn.column,
-    changeSortingDirection: ({ keepOther, cancel }) =>
-      setColumnSorting({ columnName: column.name, keepOther, cancel }),
-    groupByColumn: () =>
-      groupByColumn({ columnName: column.name }),
-    changeColumnWidth: ({ shift }) =>
-      changeTableColumnWidths({ shifts: { [column.name]: shift } }),
-    changeDraftColumnWidth: ({ shift }) =>
-      changeDraftTableColumnWidths({ shifts: { [column.name]: shift } }),
-  };
-
-  if (result.allowSorting) {
-    result.sortingDirection = getColumnSortingDirection(sorting, column.name);
-  }
-
-  if (result.allowDragging) {
-    result.dragPayload = [{ type: 'column', columnName: column.name }];
-  }
-
-  return result;
-};
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
@@ -63,8 +20,8 @@ export class TableHeaderRow extends React.PureComponent {
       allowGroupingByClick,
       allowDragging,
       allowResizing,
-      headerCellTemplate,
-      headerRowTemplate,
+      getCellComponent,
+      rowComponent: HeaderRow,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -88,23 +45,40 @@ export class TableHeaderRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={headerCellTemplate}
-                  params={getHeaderTableCellTemplateArgs(
-                    {
-                      allowDragging,
-                      allowGroupingByClick,
-                      allowSorting,
-                      allowResizing,
-                      getMessage,
-                      ...params,
-                    },
-                    getters,
-                    actions,
-                  )}
-                />
-              )}
+              {({
+                sorting, grouping, columns,
+              }, {
+                setColumnSorting, groupByColumn,
+                changeTableColumnWidths, changeDraftTableColumnWidths,
+              }) => {
+                const { name: columnName } = params.tableColumn.column;
+                const HeaderCell = getCellComponent(columnName);
+                const groupingSupported = grouping !== undefined &&
+                    grouping.length < columns.length - 1;
+
+                return (
+                  <HeaderCell
+                    {...params}
+                    column={params.tableColumn.column}
+                    getMessage={getMessage}
+                    allowSorting={allowSorting && sorting !== undefined}
+                    allowGroupingByClick={allowGroupingByClick && groupingSupported}
+                    allowDragging={allowDragging && (!grouping || groupingSupported)}
+                    allowResizing={allowResizing}
+                    sortingDirection={allowSorting && sorting !== undefined
+                      ? getColumnSortingDirection(sorting, columnName) : undefined}
+                    dragPayload={allowDragging ? [{ type: 'column', columnName }] : undefined}
+                    onSort={({ keepOther, cancel }) =>
+                      setColumnSorting({ columnName, keepOther, cancel })}
+                    onGroup={() =>
+                      groupByColumn({ columnName })}
+                    onWidthChange={({ shift }) =>
+                      changeTableColumnWidths({ shifts: { [columnName]: shift } })}
+                    onDraftWidthChange={({ shift }) =>
+                      changeDraftTableColumnWidths({ shifts: { [columnName]: shift } })}
+                  />
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>
@@ -112,12 +86,7 @@ export class TableHeaderRow extends React.PureComponent {
           name="tableRow"
           predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
         >
-          {params => (
-            <TemplateRenderer
-              template={headerRowTemplate}
-              params={params}
-            />
-          )}
+          {params => <HeaderRow {...params} />}
         </Template>
       </PluginContainer>
     );
@@ -129,8 +98,8 @@ TableHeaderRow.propTypes = {
   allowGroupingByClick: PropTypes.bool,
   allowDragging: PropTypes.bool,
   allowResizing: PropTypes.bool,
-  headerCellTemplate: PropTypes.func.isRequired,
-  headerRowTemplate: PropTypes.func.isRequired,
+  getCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

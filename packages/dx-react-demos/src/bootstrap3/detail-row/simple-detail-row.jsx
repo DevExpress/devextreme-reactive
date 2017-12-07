@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   RowDetailState,
 } from '@devexpress/dx-react-grid';
@@ -13,6 +14,14 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
+const RowDetail = ({ row }) => (
+  <div>Details for {row.name} from {row.city}</div>
+);
+
+RowDetail.propTypes = {
+  row: PropTypes.any.isRequired,
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -26,8 +35,6 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ length: 7 }),
     };
-
-    this.rowTemplate = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
   }
   render() {
     const { rows, columns } = this.state;
@@ -43,7 +50,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableRowDetail
-          template={this.rowTemplate}
+          contentComponent={RowDetail}
         />
       </Grid>
     );

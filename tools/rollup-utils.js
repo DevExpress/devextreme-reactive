@@ -40,9 +40,13 @@ const knownGlobals = {
 
 export const globals = () => {
   return (moduleId) => {
-      if (knownGlobals[moduleId]) return knownGlobals[moduleId];
+      if (moduleId in knownGlobals) return knownGlobals[moduleId];
 
-      const modulePkg = JSON.parse(readFileSync(require.resolve(join(moduleId, 'package.json'))));
-      return modulePkg.globalName;
+      try {
+        const modulePkg = JSON.parse(readFileSync(require.resolve(join(moduleId, 'package.json'))));
+        return modulePkg.globalName;
+      } catch (e) {
+        return null;
+      }
     }
 };

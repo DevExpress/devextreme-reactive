@@ -1,21 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { shallow } from 'enzyme';
 import { TableFilterCell } from './table-filter-cell';
 
 describe('TableFilterCell', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-
-  afterAll(() => {
-    resetConsole();
-  });
-
   it('should not set filter with an empty value', () => {
     const onFilterMock = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <TableFilterCell
         column={{
           name: 'Test',
@@ -30,13 +20,22 @@ describe('TableFilterCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableFilterCell>
         <span className="test" />
       </TableFilterCell>
     ));
 
     expect(tree.find('.test').exists())
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableFilterCell className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
 });

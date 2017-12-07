@@ -1,24 +1,18 @@
 import React from 'react';
-import { createMount } from 'material-ui/test-utils';
-import { Table } from 'material-ui';
-import { setupConsole } from '@devexpress/dx-testing';
+import { createShallow, getClasses } from 'material-ui/test-utils';
+import { Input } from 'material-ui';
 import { TableFilterCell } from './table-filter-cell';
 
 describe('TableFilterCell', () => {
-  let resetConsole;
-  let mount;
+  let shallow;
+  let classes;
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    const mountMUI = createMount();
-    mount = component => mountMUI(<Table>{component}</Table>);
-  });
-  afterAll(() => {
-    resetConsole();
-    mount.cleanUp();
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<TableFilterCell getMessage={key => key} />);
   });
 
   it('can use filter placeholder', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableFilterCell
         column={{
           name: 'Test',
@@ -27,34 +21,54 @@ describe('TableFilterCell', () => {
       />
     ));
 
-    expect(tree.find('Input').prop('placeholder')).toBe('filterPlaceholder');
+    expect(tree.find(Input).prop('placeholder')).toBe('filterPlaceholder');
   });
 
   it('should not set filter with an empty value', () => {
     const onFilterMock = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <TableFilterCell
         column={{
           name: 'Test',
         }}
         onFilter={onFilterMock}
-        getMessage={() => {}}
+        getMessage={key => key}
         value="abc"
       />
     ));
 
-    tree.find('input').simulate('change', { target: { value: '' } });
+    tree.find(Input).simulate('change', { target: { value: '' } });
     expect(onFilterMock.mock.calls[0][0]).toBeNull();
   });
 
   it('should render children if passed', () => {
-    const tree = mount((
-      <TableFilterCell getMessage={() => {}}>
+    const tree = shallow((
+      <TableFilterCell getMessage={key => key}>
         <span className="test" />
       </TableFilterCell>
     ));
 
     expect(tree.find('.test').exists())
       .toBeTruthy();
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <TableFilterCell className="custom-class" getMessage={key => key} />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableFilterCell data={{ a: 1 }} getMessage={key => key} />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

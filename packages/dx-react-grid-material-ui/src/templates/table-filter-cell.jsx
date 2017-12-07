@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { TableCell, Input } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
@@ -19,16 +20,15 @@ const styles = theme => ({
 });
 
 const TableFilterCellBase = ({
-  style,
-  filter,
-  getMessage,
-  onFilter,
-  classes,
-  children,
+  style, filter, getMessage, onFilter,
+  classes, children, className,
+  tableRow, tableColumn, column,
+  ...restProps
 }) => (
   <TableCell
-    className={classes.cell}
+    className={classNames(classes.cell, className)}
     style={style}
+    {...restProps}
   >
     {children || (
       <Input
@@ -51,6 +51,10 @@ TableFilterCellBase.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]),
   getMessage: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
+  column: PropTypes.object,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -58,6 +62,10 @@ TableFilterCellBase.defaultProps = {
   filter: null,
   onFilter: () => {},
   children: undefined,
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
+  column: undefined,
 };
 
 export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

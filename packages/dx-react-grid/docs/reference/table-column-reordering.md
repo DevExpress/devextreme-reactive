@@ -15,7 +15,7 @@ Name | Type | Default | Description
 order | Array&lt;string&gt; | | The column order.
 defaultOrder | Array&lt;string&gt; | | The initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
-tableContainerComponent | ElementType&lt;[TableContainerProps](#tablecontainerprops)&gt; | | A table container component required for dra-and.
+tableContainerComponent | ElementType&lt;[TableContainerProps](#tablecontainerprops)&gt; | | A table container component required for drag-and-drop reordering.
 rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
 cellComponent | ElementType&lt;[ReorderingCellProps](#reorderingcellprops)&gt; | | A non-visual component that renders an invisible cell required for drag-and-drop reordering.
 

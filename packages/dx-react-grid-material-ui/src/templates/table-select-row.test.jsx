@@ -10,7 +10,7 @@ describe('TableSelectRow', () => {
   const defaultProps = {
     selected: false,
     selectByRowClick: false,
-    changeSelected: () => {},
+    onToggle: () => {},
   };
 
   beforeAll(() => {
@@ -36,14 +36,14 @@ describe('TableSelectRow', () => {
   });
 
   it('should handle row click', () => {
-    const changeSelectedMock = jest.fn();
+    const onToggleMock = jest.fn();
     const tree = mount(<TableSelectRow
       {...defaultProps}
-      changeSelected={changeSelectedMock}
+      onToggle={onToggleMock}
       selectByRowClick
     />);
 
     tree.find(TableRowMUI).simulate('click');
-    expect(changeSelectedMock).toBeCalled();
+    expect(onToggleMock).toBeCalled();
   });
 });

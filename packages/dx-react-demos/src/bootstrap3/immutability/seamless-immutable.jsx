@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  LocalSorting,
   SortingState,
   SelectionState,
+  LocalSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,

@@ -25,20 +25,20 @@ describe('TableFilterCell', () => {
   });
 
   it('should not set filter with an empty value', () => {
-    const setFilterMock = jest.fn();
+    const onFilterMock = jest.fn();
     const tree = shallow((
       <TableFilterCell
         column={{
           name: 'Test',
         }}
-        setFilter={setFilterMock}
+        onFilter={onFilterMock}
         getMessage={key => key}
         value="abc"
       />
     ));
 
     tree.find(Input).simulate('change', { target: { value: '' } });
-    expect(setFilterMock.mock.calls[0][0]).toBeNull();
+    expect(onFilterMock.mock.calls[0][0]).toBeNull();
   });
 
   it('should render children if passed', () => {

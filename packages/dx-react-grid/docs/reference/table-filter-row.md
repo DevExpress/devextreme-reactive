@@ -14,24 +14,24 @@ A plugin that renders a filter row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rowHeight | number | | Specifies the filter row's height.
-filterCellTemplate | (args: [FilterCellArgs](#filter-cell-args)) => ReactElement | | A component that renders a filter cell.
-filterRowTemplate | (args: [TableRowArgs](table.md#table-row-args)) => ReactElement | | A component that renders a filter row.
-messages | object | | The object specifies [localization messages](#localization-messages).
+getCellComponent | (columnName: string) => ElementType&lt;[TableFilterCellProps](#tablefiltercellprops)&gt; | | A function returning a component that renders a filter cell for a specific column.
+rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
+rowHeight | number | | The filter row's height.
+messages | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
-### <a name="filter-cell-args"></a>FilterCellArgs
+### TableFilterCellProps
 
-Describes properties passed to the filter row cell template.
+Describes properties passed to a component that renders a filter cell.
 
-A value with the [TableCellArgs](table.md#table-cell-args) shape extended by the following fields:
+A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-filter | [Filter](filtering-state.md#filter) | A filter applied to a column.
-setFilter | (filter: [Filter](filtering-state.md#filter)) => void | Applies a new filter to a column.
-column | [Column](grid.md#column) | Specifies a column.
+filter | [Filter](filtering-state.md#filter) | Filtering options that are applied to a column.
+onFilter | (filter: [Filter](filtering-state.md#filter)) => void | An event that initiates applying a new filter to a column.
+column | [Column](grid.md#column) | A column.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Localization Messages
@@ -57,14 +57,14 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows to be rendered.
-filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Applied column filters.
-setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter. Removes the filter if config is `null`.
-tableCell | Template | [TableCellArgs](table.md#table-cell-args) | A template that renders a table cell.
-tableRow | Template | [TableRowArgs](table.md#table-row-args) | A template that renders a table row.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | The filtering options.
+setColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter or clears it if config is null.
+tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#table-row)&gt; | Header rows with filters to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.

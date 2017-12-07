@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 const TableFilterCellBase = ({
-  style, filter, getMessage, setFilter,
+  style, filter, getMessage, onFilter,
   classes, children, className,
   tableRow, tableColumn, column,
   ...restProps
@@ -35,7 +35,7 @@ const TableFilterCellBase = ({
         className={classes.input}
         value={filter ? filter.value : ''}
         placeholder={getMessage('filterPlaceholder')}
-        onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
       />
     )}
   </TableCell>
@@ -44,7 +44,7 @@ const TableFilterCellBase = ({
 TableFilterCellBase.propTypes = {
   style: PropTypes.object,
   filter: PropTypes.object,
-  setFilter: PropTypes.func,
+  onFilter: PropTypes.func,
   classes: PropTypes.object.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.node,
@@ -60,7 +60,7 @@ TableFilterCellBase.propTypes = {
 TableFilterCellBase.defaultProps = {
   style: null,
   filter: null,
-  setFilter: () => {},
+  onFilter: () => {},
   children: undefined,
   className: undefined,
   tableRow: undefined,

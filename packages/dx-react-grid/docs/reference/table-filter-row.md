@@ -46,8 +46,8 @@ filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text. 
 
 Name | Properties | Description
 -----|------------|------------
-TableFilterRow.Cell | [FilterCellArgs](#filter-cell-args) | A component that renders a filter row cell.
-TableFilterRow.Row | [TableRowArgs](table.md#table-row-args) | A component that renders a filter row.
+TableFilterRow.Cell | [TableFilterCellProps](#tablefiltercellprops) | A component that renders a filter row cell.
+TableFilterRow.Row | [TableRowProps](table.md#tablerowprops) | A component that renders a filter row.
 
 If you specify additional properties, they are added to the component's root element.
 

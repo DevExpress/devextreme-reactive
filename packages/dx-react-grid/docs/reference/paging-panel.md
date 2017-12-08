@@ -44,6 +44,14 @@ showAll? | string | 'All' | Specifies the page size selector's 'All' item text.
 rowsPerPage? | string | 'Rows per page:' | Specifies the 'Rows per page' label's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 info? | string &#124; ({ from: number, to: number, count: number }) => string | {from}-{to} of {count} | Specifies the 'Row count' text template.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+PagingPanel.Container | [ContainerProps](#containerprops) | A component that renders the paging panel.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

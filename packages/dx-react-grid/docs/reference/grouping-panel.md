@@ -21,7 +21,7 @@ allowDragging | boolean | false | Specifies whether an end-user can change the g
 allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 containerComponent | ElementType&lt;[GroupingPanelContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupingPanelItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
-emptyMessageComponent | ElementType&lt;[GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders a group panel empty message.
+emptyMessageComponent | ElementType&lt;[GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders an empty group panel message.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces

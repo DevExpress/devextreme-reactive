@@ -20,7 +20,7 @@ const styles = theme => ({
   },
 });
 
-const GroupingControlBase = ({ align, groupByColumn, classes }) => {
+const GroupingControlBase = ({ align, onGroup, classes }) => {
   const invertedAlign = align === 'left' ? 'right' : 'left';
   const groupingControlClasses = classNames({
     [classes.groupingControl]: true,
@@ -32,7 +32,7 @@ const GroupingControlBase = ({ align, groupByColumn, classes }) => {
     <div
       onClick={(e) => {
         e.stopPropagation();
-        groupByColumn(e);
+        onGroup(e);
       }}
       className={groupingControlClasses}
     >
@@ -43,7 +43,7 @@ const GroupingControlBase = ({ align, groupByColumn, classes }) => {
 
 GroupingControlBase.propTypes = {
   align: PropTypes.string.isRequired,
-  groupByColumn: PropTypes.func.isRequired,
+  onGroup: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

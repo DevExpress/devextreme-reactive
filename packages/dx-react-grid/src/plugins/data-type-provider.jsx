@@ -5,27 +5,31 @@ import { PluginContainer, Template } from '@devexpress/dx-react-core';
 // eslint-disable-next-line react/prefer-stateless-function
 export class DataTypeProvider extends React.PureComponent {
   render() {
-    const { formatterTemplate, editorTemplate, type } = this.props;
+    const {
+      type,
+      formatterComponent: Formatter,
+      editorComponent: Editor,
+    } = this.props;
     return (
       <PluginContainer name="DataTypeProvider">
-        {formatterTemplate
+        {Formatter
           ? (
             <Template
               name="valueFormatter"
               predicate={({ column }) => column.dataType === type}
             >
-              {params => formatterTemplate(params)}
+              {params => <Formatter {...params} />}
             </Template>
           )
           : null
         }
-        {editorTemplate
+        {Editor
           ? (
             <Template
               name="valueEditor"
               predicate={({ column }) => column.dataType === type}
             >
-              {params => editorTemplate(params)}
+              {params => <Editor {...params} />}
             </Template>
           )
           : null
@@ -37,12 +41,12 @@ export class DataTypeProvider extends React.PureComponent {
 
 DataTypeProvider.propTypes = {
   type: PropTypes.string,
-  formatterTemplate: PropTypes.func,
-  editorTemplate: PropTypes.func,
+  formatterComponent: PropTypes.func,
+  editorComponent: PropTypes.func,
 };
 
 DataTypeProvider.defaultProps = {
   type: undefined,
-  formatterTemplate: undefined,
-  editorTemplate: undefined,
+  formatterComponent: undefined,
+  editorComponent: undefined,
 };

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { PagingPanel as PagingPanelBase } from '@devexpress/dx-react-grid';
 import { Pager } from '../templates/pager';
 
-const pagerTemplate = props => <Pager {...props} />;
-
 const defaultMessages = {
   showAll: 'All',
   info: ({ from, to, count }) =>
@@ -17,13 +15,15 @@ export class PagingPanel extends React.PureComponent {
 
     return (
       <PagingPanelBase
-        pagerTemplate={pagerTemplate}
+        containerComponent={Pager}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
     );
   }
 }
+
+PagingPanel.Container = Pager;
 
 PagingPanel.propTypes = {
   messages: PropTypes.shape({

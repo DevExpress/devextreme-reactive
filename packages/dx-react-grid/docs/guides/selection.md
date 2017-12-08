@@ -6,7 +6,7 @@ The Grid component supports selecting/deselecting rows programmatically or via t
 
 The following plugins implement selection features:
 
-- [SelectionState](../reference/selection-state.md) - controls the selection state  
+- [SelectionState](../reference/selection-state.md) - controls the selection state
 - [TableSelection](../reference/table-selection.md) - renders selection check boxes or highlights the selected rows
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
@@ -19,21 +19,21 @@ Import the plugins listed above to set up a simple Grid with selection enabled. 
 
 ## Select by Row Click
 
-A user can select a row using a check box click by default. Set the `TableSelection` plugin's `selectByRowClick` property to true to check/uncheck a check box by a row click as demonstrated in the following example:
+A user can select a row using a checkbox click by default. Set the `TableSelection` plugin's `selectByRowClick` property to true to check/uncheck a checkbox by a row click as demonstrated in the following example:
 
 .embedded-demo(selection/select-by-row-click)
 
-In some scenarios, it is useful to highlight selected rows instead of using check boxes. For this, hide check boxes setting the `TableSelection` plugin's `showSelectionColumn` property to false and assign true to the `selectByRowClick` and `highlightSelected` properties as demonstrated in the following demo:
+In some scenarios, it is useful to highlight selected rows instead of using checkboxes. For this, hide checkboxes by setting the `TableSelection` plugin's `showSelectionColumn` property to false and assign true to the `selectByRowClick` and `highlightRow` properties as demonstrated in the following demo:
 
 .embedded-demo(selection/hidden-checkboxes)
 
 ## Select All
 
-If your Grid configuration includes the `TableHeaderRow` plugin and the `TableSelection` plugin's `showSelectionColumn` property is set to true, the header row displays the Select All check box that provides the capability to select/deselect all rows.
+If your Grid configuration includes the `TableHeaderRow` plugin and the `TableSelection` plugin's `showSelectionColumn` property is set to true, the header row displays the Select All checkbox that provides the capability to select/deselect all rows.
 
 ### Without Paging
 
-The following example demonstrates selection without paging. We increase the row count using the Table's [virtual mode](virtual-scrolling.md).
+The following example demonstrates selection without paging. You can increase the row count using the Table's [virtual mode](virtual-scrolling.md).
 
 .embedded-demo(selection/select-all-virtual)
 
@@ -41,7 +41,7 @@ The following example demonstrates selection without paging. We increase the row
 
 If you are using the `LocalPaging` plugin, you can integrate the Select All behavior with the `PagingState` plugin.
 
-The Select All check box selects/deselects all rows on a page or all pages depending on the `SelectionState` and `LocalPaging` plugin's order.
+The Select All checkbox selects/deselects all rows on a page or all pages depending on the `SelectionState` and `LocalPaging` plugin's order.
 
 Place the `SelectionState` plugin after `LocalPaging` to implement the Select All behavior within a visible page:
 

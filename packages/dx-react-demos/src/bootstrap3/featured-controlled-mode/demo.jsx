@@ -26,12 +26,12 @@ import {
 } from '../../demo-data/generator';
 
 const CommandButton = ({
-  executeCommand, icon, text, hint, isDanger,
+  onExecute, icon, text, hint, isDanger,
 }) => (
   <button
     className="btn btn-link"
     onClick={(e) => {
-      executeCommand();
+      onExecute();
       e.stopPropagation();
     }}
     title={hint}
@@ -43,7 +43,7 @@ const CommandButton = ({
   </button>
 );
 CommandButton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
   icon: PropTypes.string,
   text: PropTypes.string,
   hint: PropTypes.string,
@@ -56,30 +56,70 @@ CommandButton.defaultProps = {
   isDanger: false,
 };
 
-const commands = {
-  add: {
-    text: 'New',
-    hint: 'Create new row',
-    icon: 'plus',
-  },
-  edit: {
-    text: 'Edit',
-    hint: 'Edit row',
-  },
-  delete: {
-    icon: 'trash',
-    hint: 'Delete row',
-    isDanger: true,
-  },
-  commit: {
-    text: 'Save',
-    hint: 'Save changes',
-  },
-  cancel: {
-    icon: 'remove',
-    hint: 'Cancel changes',
-    isDanger: true,
-  },
+const AddButton = ({ onExecute }) => (
+  <Button
+    text="New"
+    hint="Create new row"
+    icon="plus"
+    onExecute={onExecute}
+  />
+);
+AddButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const EditButton = ({ onExecute }) => (
+  <Button
+    text="Edit"
+    hint="Edit row"
+    onExecute={onExecute}
+  />
+);
+EditButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const DeleteButton = ({ onExecute }) => (
+  <Button
+    icon="trash"
+    hint="Delete row"
+    onExecute={onExecute}
+    isDanger
+  />
+);
+DeleteButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const CommitButton = ({ onExecute }) => (
+  <Button
+    text="Save"
+    hint="Save changes"
+    onExecute={onExecute}
+  />
+);
+CommitButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const CancelButton = ({ onExecute }) => (
+  <Button
+    icon="remove"
+    hint="Cancel changes"
+    onExecute={onExecute}
+    isDanger
+  />
+);
+CancelButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const commandComponents = {
+  add: AddButton,
+  edit: EditButton,
+  delete: DeleteButton,
+  commit: CommitButton,
+  cancel: CancelButton,
 };
 
 export const LookupEditCell = ({
@@ -217,11 +257,7 @@ export default class Demo extends React.PureComponent {
       }
       return undefined;
     };
-    this.commandTemplate = ({ executeCommand, id }) => (
-      commands[id]
-        ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
-        : undefined
-    );
+    this.getEditCommandComponent = id => commandComponents[id];
   }
   render() {
     const {
@@ -289,7 +325,7 @@ export default class Demo extends React.PureComponent {
             allowAdding={!this.state.addedRows.length}
             allowEditing
             allowDeleting
-            commandTemplate={this.commandTemplate}
+            getCommandComponent={this.getEditCommandComponent}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}

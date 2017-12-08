@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { TableColumnVisibility as TableColumnVisibilityBase } from '@devexpress/dx-react-grid';
 import { EmptyMessage } from '../templates/empty-message';
 
-const emptyMessageTemplate = props => <EmptyMessage {...props} />;
-
 const defaultMessages = {
   noColumns: 'Nothing to show',
 };
@@ -15,7 +13,7 @@ export class TableColumnVisibility extends React.PureComponent {
 
     return (
       <TableColumnVisibilityBase
-        emptyMessageTemplate={emptyMessageTemplate}
+        emptyMessageComponent={EmptyMessage}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

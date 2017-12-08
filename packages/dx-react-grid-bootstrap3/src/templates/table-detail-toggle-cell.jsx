@@ -7,11 +7,17 @@ const SPACE_KEY_CODE = 32;
 const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
-export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
+export const TableDetailToggleCell = ({
+  style,
+  expanded,
+  onToggle,
+  tableColumn, tableRow, row,
+  ...restProps
+}) => {
   const handleKeyDown = (e) => {
     if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
       e.preventDefault();
-      toggleExpanded();
+      onToggle();
     }
   };
   return (
@@ -23,9 +29,9 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
       }}
       onClick={(e) => {
         e.stopPropagation();
-        toggleExpanded();
+        onToggle();
       }}
-
+      {...restProps}
     >
       <i
         className={`glyphicon glyphicon-triangle-${expanded ? 'bottom' : 'right'}`}
@@ -46,11 +52,17 @@ export const TableDetailToggleCell = ({ style, expanded, toggleExpanded }) => {
 TableDetailToggleCell.propTypes = {
   style: PropTypes.object,
   expanded: PropTypes.bool,
-  toggleExpanded: PropTypes.func,
+  onToggle: PropTypes.func,
+  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
+  row: PropTypes.object,
 };
 
 TableDetailToggleCell.defaultProps = {
   style: null,
   expanded: false,
-  toggleExpanded: () => {},
+  onToggle: () => {},
+  tableColumn: undefined,
+  tableRow: undefined,
+  row: undefined,
 };

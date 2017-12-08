@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export const Container = ({
   clientOffset, columns, columnTemplate,
-  style, className, ...restProps
+  style, className, children, ...restProps
 }) => (
   <ul
     className={classNames('list-group', className)}
@@ -20,11 +20,7 @@ export const Container = ({
     }}
     {...restProps}
   >
-    {columns
-      .map(column => React.cloneElement(
-        columnTemplate({ column }),
-        { key: column.name },
-      ))}
+    {children}
   </ul>
 );
 
@@ -37,11 +33,16 @@ Container.propTypes = {
   columnTemplate: PropTypes.func.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 Container.defaultProps = {
   style: {},
   className: undefined,
+  children: undefined,
 };
 
 export const Column = ({ column, className, ...restProps }) => (

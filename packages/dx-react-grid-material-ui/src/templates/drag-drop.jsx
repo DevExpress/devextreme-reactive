@@ -24,7 +24,7 @@ const styles = theme => ({
 
 const ContainerBase = ({
   clientOffset, columns, columnTemplate, classes,
-  style, className, ...restProps
+  style, className, children, ...restProps
 }) => (
   <Paper
     className={classNames(classes.container, className)}
@@ -34,11 +34,7 @@ const ContainerBase = ({
     }}
     {...restProps}
   >
-    {columns
-      .map(column => React.cloneElement(
-        columnTemplate({ column }),
-        { key: column.name },
-      ))}
+    {children}
   </Paper>
 );
 
@@ -47,6 +43,10 @@ ContainerBase.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
   }).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
   columns: PropTypes.array.isRequired,
   columnTemplate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
@@ -57,6 +57,7 @@ ContainerBase.propTypes = {
 ContainerBase.defaultProps = {
   style: {},
   className: undefined,
+  children: undefined,
 };
 
 export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase);

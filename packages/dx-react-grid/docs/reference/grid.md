@@ -53,6 +53,14 @@ Field | Type | Description
 ------|------|------------
 children? | ReactElement | A React element to be placed in the footer.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+Grid.Root | [GridRootProps](#gridrootprops) | A component that renders the grid root layout.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Exports

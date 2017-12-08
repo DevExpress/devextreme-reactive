@@ -8,7 +8,7 @@ export const PluginIndexer = (
   { children },
   { positionContext },
 ) => (
-  <div style={{ display: 'none' }}>
+  <React.Fragment>
     {
       React.Children.map(children, (child, index) => {
         if (!child || !child.type) return child;
@@ -32,7 +32,7 @@ export const PluginIndexer = (
         );
       })
     }
-  </div>
+  </React.Fragment>
 );
 
 PluginIndexer.propTypes = {

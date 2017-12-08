@@ -6,11 +6,7 @@ describe('Container', () => {
   it('should have correct styles', () => {
     const tree = shallow((
       <Container
-        columns={[{
-          name: 'Test',
-        }]}
         clientOffset={{ x: 10, y: 20 }}
-        columnTemplate={() => <div />}
       />
     ));
 

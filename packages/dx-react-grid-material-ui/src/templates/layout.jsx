@@ -14,8 +14,8 @@ const styles = theme => ({
   },
 });
 
-export const Root = ({ children }) => (
-  <div>{children}</div>
+export const Root = ({ children, ...restProps }) => (
+  <div {...restProps}>{children}</div>
 );
 
 Root.propTypes = {
@@ -30,7 +30,8 @@ Root.defaultProps = {
 };
 
 const HeaderBase = ({ children, classes }) =>
-  children && <div className={classes.headingPanel}>{children}</div>;
+  !!children &&
+    <div className={classes.headingPanel}>{children}</div>;
 
 HeaderBase.propTypes = {
   children: PropTypes.oneOfType([
@@ -46,8 +47,11 @@ HeaderBase.defaultProps = {
 
 export const Header = withStyles(styles, { name: 'GridLayout' })(HeaderBase);
 
-const FooterBase = ({ children, classes }) =>
-  children && <div className={classes.footerPanel}>{children}</div>;
+const FooterBase = ({
+  children, classes,
+}) =>
+  !!children &&
+    <div className={classes.footerPanel}>{children}</div>;
 
 FooterBase.propTypes = {
   children: PropTypes.oneOfType([

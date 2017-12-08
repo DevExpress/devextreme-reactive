@@ -1,6 +1,6 @@
 # PagingPanel Plugin Reference
 
-A plugin that renders a panel, allowing end-users to navigate through data pages if Paging is enabled.
+A plugin that renders the paging panel used for navigation through data pages.
 
 ## User Reference
 
@@ -12,15 +12,15 @@ A plugin that renders a panel, allowing end-users to navigate through data pages
 
 Name | Type | Default | Description
 -----|------|---------|------------
-pagerTemplate | (args: [PagerArgs](#pager-args)) => ReactElement | | A component that renders a pager based on the specified parameters.
-allowedPageSizes | Array&lt;number&gt; | [] | Specifies the page sizes that a user can select.
+containerComponent | ElementType&lt;[ContainerProps](#containerprops)&gt; | | A component that renders the paging panel.
+allowedPageSizes | Array&lt;number&gt; | [] | The page sizes that a user can select.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 
-### <a name="pager-args"></a>PagerArgs
+### ContainerProps
 
-Describes properties passed to a pager template when it is being rendered.
+Describes the container component properties.
 
 A value with the following shape:
 
@@ -28,11 +28,11 @@ Field | Type | Description
 ------|------|------------
 totalPages | number | Specifies the total page count.
 currentPage | number | Specifies the current page.
-onCurrentPageChange | (page: number) => void | Handles the current page change.
+onCurrentPageChange | (page: number) => void | Handles the current page changes.
 pageSize | number | Specifies the page size.
-onPageSizeChange | (size: number) => void | Handles the page size change.
+onPageSizeChange | (size: number) => void | Handles the page size changes.
 allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that a user can select.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the pager's text.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the paging panel's text.
 
 ## Localization Messages
 

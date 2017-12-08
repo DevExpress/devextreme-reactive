@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
@@ -20,8 +21,13 @@ const PagerBase = ({
   onPageSizeChange,
   totalCount,
   getMessage,
+  className,
+  ...restProps
 }) => (
-  <div className={classes.pager}>
+  <div
+    className={classNames(classes.pager, className)}
+    {...restProps}
+  >
     <Pagination
       totalPages={totalPages}
       totalCount={totalCount}
@@ -49,6 +55,11 @@ PagerBase.propTypes = {
   onPageSizeChange: PropTypes.func.isRequired,
   totalCount: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+PagerBase.defaultProps = {
+  className: undefined,
 };
 
 

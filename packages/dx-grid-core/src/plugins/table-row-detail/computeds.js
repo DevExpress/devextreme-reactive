@@ -26,7 +26,7 @@ export const tableRowsWithExpandedDetail = (tableRows, expandedRows, rowHeight) 
   return result;
 };
 
-export const tableColumnsWithDetail = (tableColumns, detailToggleCellWidth) => [
-  { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: detailToggleCellWidth },
+export const tableColumnsWithDetail = (tableColumns, toggleColumnWidth) => [
+  { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: toggleColumnWidth },
   ...tableColumns,
 ];

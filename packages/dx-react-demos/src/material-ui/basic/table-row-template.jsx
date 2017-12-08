@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableRow as TableRowMUI, Paper } from 'material-ui';
+import { Paper } from 'material-ui';
 import {
   Grid,
   Table,
@@ -12,22 +12,28 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const TableRow = ({ children, row }) => (
-  <TableRowMUI
+const TableRow = ({ row, ...restProps }) => (
+  <Table.Row
+    {...restProps}
     // eslint-disable-next-line no-alert
     onClick={() => alert(JSON.stringify(row))}
-  >
-    {children}
-  </TableRowMUI>
+    style={{ cursor: 'pointer' }}
+  />
 );
 
 TableRow.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
   row: PropTypes.any.isRequired,
 };
+
+const HeaderRow = props => (
+  <TableHeaderRow.Row
+    {...props}
+    style={{
+      backgroundColor: 'lightblue',
+      color: 'black',
+    }}
+  />
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -54,10 +60,8 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <Table
-            rowComponent={TableRow}
-          />
-          <TableHeaderRow />
+          <Table rowComponent={TableRow} />
+          <TableHeaderRow rowComponent={HeaderRow} />
         </Grid>
       </Paper>
     );

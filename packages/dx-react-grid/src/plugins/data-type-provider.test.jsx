@@ -13,12 +13,12 @@ describe('DataTypeProvider', () => {
     resetConsole();
   });
 
-  it('should define the "valueFormatter" with correct predicate if "formatterTemplate" is specified', () => {
+  it('should define the "valueFormatter" with correct predicate if "formatterComponent" is specified', () => {
     const tree = mount((
       <PluginHost>
         <DataTypeProvider
           type="test"
-          formatterTemplate={() => null}
+          formatterComponent={() => null}
         />
       </PluginHost>
     ));
@@ -35,12 +35,12 @@ describe('DataTypeProvider', () => {
       .toBeFalsy();
   });
 
-  it('should define the "valueEditor" with correct predicate if "editorTemplate" is specified', () => {
+  it('should define the "valueEditor" with correct predicate if "editorComponent" is specified', () => {
     const tree = mount((
       <PluginHost>
         <DataTypeProvider
           type="test"
-          editorTemplate={() => null}
+          editorComponent={() => null}
         />
       </PluginHost>
     ));

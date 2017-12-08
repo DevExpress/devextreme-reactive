@@ -1,6 +1,6 @@
 import React from 'react';
-import { createMount, createShallow } from 'material-ui/test-utils';
-import { Table, TableCell } from 'material-ui';
+import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
+import { TableCell } from 'material-ui';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableGroupCell } from './table-group-row-cell';
 
@@ -8,11 +8,12 @@ describe('TableCell', () => {
   let resetConsole;
   let mount;
   let shallow;
+  let classes;
   beforeAll(() => {
+    classes = getClasses(<TableGroupCell />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    const mountMUI = createMount();
     shallow = createShallow({ dive: true });
-    mount = component => mountMUI(<Table>{component}</Table>);
+    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
   });
 
   afterAll(() => {
@@ -53,15 +54,35 @@ describe('TableCell', () => {
   });
 
   it('should expand grouped row on click', () => {
-    const toggleGroupExpanded = jest.fn();
+    const onToggle = jest.fn();
     const tree = shallow((
       <TableGroupCell
-        toggleGroupExpanded={toggleGroupExpanded}
+        onToggle={onToggle}
       />
     ));
     tree.find(TableCell).simulate('click');
 
-    expect(toggleGroupExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <TableGroupCell className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableGroupCell data={{ a: 1 }} />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

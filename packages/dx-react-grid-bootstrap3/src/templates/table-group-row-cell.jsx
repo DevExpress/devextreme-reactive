@@ -8,14 +8,17 @@ const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableGroupCell = ({
-  style, colSpan, row, column, isExpanded, toggleGroupExpanded, children,
+  style, colSpan, row, column,
+  expanded, onToggle,
+  children, tableRow, tableColumn,
+  ...restProps
 }) => {
-  const handleClick = () => toggleGroupExpanded();
+  const handleClick = () => onToggle();
   const handleKeyDown = (e) => {
     const { keyCode } = e;
     if (keyCode === ENTER_KEY_CODE || keyCode === SPACE_KEY_CODE) {
       e.preventDefault();
-      toggleGroupExpanded();
+      onToggle();
     }
   };
 
@@ -27,9 +30,10 @@ export const TableGroupCell = ({
         ...style,
       }}
       onClick={handleClick}
+      {...restProps}
     >
       <i
-        className={`glyphicon glyphicon-triangle-${isExpanded ? 'bottom' : 'right'}`}
+        className={`glyphicon glyphicon-triangle-${expanded ? 'bottom' : 'right'}`}
         style={{
           fontSize: '9px',
           top: 0,
@@ -51,12 +55,14 @@ TableGroupCell.propTypes = {
   colSpan: PropTypes.number,
   row: PropTypes.object,
   column: PropTypes.object,
-  isExpanded: PropTypes.bool,
-  toggleGroupExpanded: PropTypes.func,
+  expanded: PropTypes.bool,
+  onToggle: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 TableGroupCell.defaultProps = {
@@ -64,7 +70,9 @@ TableGroupCell.defaultProps = {
   colSpan: 1,
   row: {},
   column: {},
-  isExpanded: false,
-  toggleGroupExpanded: () => {},
+  expanded: false,
+  onToggle: () => {},
   children: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };

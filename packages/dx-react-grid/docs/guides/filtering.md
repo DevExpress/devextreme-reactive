@@ -46,10 +46,10 @@ Note that in the case of remote filtering, you do not need to use the `LocalFilt
 
 ## Customizing Filter Row Appearance
 
-Pass a function that renders a custom component to the `TableFilterRow` plugin's `filterCellTemplate` property to substitute the built-in filter row editors. In this case, you should also delegate the component's state management to the `TableFilterRow` plugin assigning the function's `filter` and `setFilter` arguments to the appropriate component's properties.
+Pass a function that returns a custom component to the `TableFilterRow` plugin's `getCellComponent` property to substitute the built-in filter row editors. In this case, you should also delegate the component's state management to the `TableFilterRow` plugin assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
 
 .embedded-demo(filtering/custom-filter-row)
 
 ## Using Filtering with Other Data Processing Plugins
 
-When you use filtering features with paging or grouping, take a note of the order in which the plugins appear in the Grid's container. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `LocalFiltering` plugin before the `LocalPaging` one. Otherwise, inverse the plugins' order.
+The order in which the plugins appear in the Grid's container is important when you use filtering features with paging or grouping. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `LocalFiltering` plugin before the `LocalPaging` one. Otherwise, inverse the plugins' order.

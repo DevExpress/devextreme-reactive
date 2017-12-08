@@ -36,17 +36,15 @@ export class PagingPanel extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="footer">
-          <div>
-            <TemplatePlaceholder />
-            <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={pagerTemplate}
-                  params={getPagerTemplateArgs({ allowedPageSizes, getMessage }, getters, actions)}
-                />
-              )}
-            </TemplateConnector>
-          </div>
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {(getters, actions) => (
+              <TemplateRenderer
+                template={pagerTemplate}
+                params={getPagerTemplateArgs({ allowedPageSizes, getMessage }, getters, actions)}
+              />
+            )}
+          </TemplateConnector>
         </Template>
       </PluginContainer>
     );

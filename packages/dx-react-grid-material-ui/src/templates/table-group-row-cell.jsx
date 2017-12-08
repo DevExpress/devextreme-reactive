@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import ChevronRight from 'material-ui-icons/ChevronRight';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import IconButton from 'material-ui/IconButton';
@@ -29,29 +30,28 @@ const styles = theme => ({
 });
 
 const TableGroupCellBase = ({
-  style,
-  colSpan,
-  row,
-  column,
-  isExpanded,
-  toggleGroupExpanded,
-  classes,
-  children,
+  style, colSpan, row,
+  column, expanded,
+  onToggle,
+  classes, children,
+  className, tableRow,
+  tableColumn, ...restProps
 }) => {
-  const handleClick = () => toggleGroupExpanded();
+  const handleClick = () => onToggle();
 
   return (
     <TableCell
       colSpan={colSpan}
       style={style}
-      className={classes.cell}
+      className={classNames(classes.cell, className)}
       onClick={handleClick}
+      {...restProps}
     >
       <IconButton
         className={classes.groupButton}
       >
         {
-          isExpanded
+          expanded
             ? <ExpandMore />
             : <ChevronRight />
         }
@@ -69,13 +69,16 @@ TableGroupCellBase.propTypes = {
   colSpan: PropTypes.number,
   row: PropTypes.object,
   column: PropTypes.object,
-  isExpanded: PropTypes.bool,
-  toggleGroupExpanded: PropTypes.func,
+  expanded: PropTypes.bool,
+  onToggle: PropTypes.func,
   classes: PropTypes.object.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 TableGroupCellBase.defaultProps = {
@@ -83,9 +86,12 @@ TableGroupCellBase.defaultProps = {
   colSpan: 1,
   row: {},
   column: {},
-  isExpanded: false,
-  toggleGroupExpanded: () => {},
+  expanded: false,
+  onToggle: () => {},
   children: undefined,
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };
 
 export const TableGroupCell = withStyles(styles, { name: 'TableGroupCell' })(TableGroupCellBase);

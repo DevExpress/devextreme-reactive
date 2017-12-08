@@ -36,31 +36,29 @@ export class DragDropContext extends React.PureComponent {
         pluginName="DragDropContext"
       >
         <Template name="root">
-          <div>
-            <DragDropContextCore
-              onChange={this.change}
-            >
-              <TemplatePlaceholder />
-            </DragDropContextCore>
-            {payload && (
-              <TemplateConnector>
-                {({ columns }) => (
-                  <Container
-                    clientOffset={clientOffset}
-                  >
-                    {getTargetColumns(payload, columns)
-                      .map(column => (
-                        <Column
-                          key={column.name}
-                          column={column}
-                        />
-                      ))
-                    }
-                  </Container>
-                )}
-              </TemplateConnector>
-            )}
-          </div>
+          <DragDropContextCore
+            onChange={this.change}
+          >
+            <TemplatePlaceholder />
+          </DragDropContextCore>
+          {payload && (
+            <TemplateConnector>
+              {({ columns }) => (
+                <Container
+                  clientOffset={clientOffset}
+                >
+                  {getTargetColumns(payload, columns)
+                    .map(column => (
+                      <Column
+                        key={column.name}
+                        column={column}
+                      />
+                    ))
+                  }
+                </Container>
+              )}
+            </TemplateConnector>
+          )}
         </Template>
       </PluginContainer>
     );

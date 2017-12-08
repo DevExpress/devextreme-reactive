@@ -1,42 +1,41 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { shallow } from 'enzyme';
 import { TableFilterCell } from './table-filter-cell';
 
 describe('TableFilterCell', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-
-  afterAll(() => {
-    resetConsole();
-  });
-
   it('should not set filter with an empty value', () => {
-    const setFilterMock = jest.fn();
-    const tree = mount((
+    const onFilterMock = jest.fn();
+    const tree = shallow((
       <TableFilterCell
         column={{
           name: 'Test',
         }}
-        setFilter={setFilterMock}
+        onFilter={onFilterMock}
         value="abc"
       />
     ));
 
     tree.find('input').simulate('change', { target: { value: '' } });
-    expect(setFilterMock.mock.calls[0][0]).toBeNull();
+    expect(onFilterMock.mock.calls[0][0]).toBeNull();
   });
 
   it('should render children if passed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableFilterCell>
         <span className="test" />
       </TableFilterCell>
     ));
 
     expect(tree.find('.test').exists())
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableFilterCell className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
 });

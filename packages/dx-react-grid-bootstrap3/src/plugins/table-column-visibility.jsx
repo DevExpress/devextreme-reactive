@@ -21,6 +21,8 @@ export class TableColumnVisibility extends React.PureComponent {
   }
 }
 
+TableColumnVisibility.EmptyMessage = EmptyMessage;
+
 TableColumnVisibility.propTypes = {
   messages: PropTypes.shape({
     noColumns: PropTypes.string,

@@ -1,22 +1,30 @@
 import React from 'react';
-import { createMount } from 'material-ui/test-utils';
+import { createShallow } from 'material-ui/test-utils';
 import { Typography } from 'material-ui';
 import { EmptyMessage } from './empty-message';
 
 describe('EmptyMessage', () => {
-  let mount;
+  let shallow;
   beforeAll(() => {
-    mount = createMount();
-  });
-  afterAll(() => {
-    mount.cleanUp();
+    shallow = createShallow({ dive: true });
   });
 
   it('should use "Nothing to show" text', () => {
-    const tree = mount((
+    const tree = shallow((
       <EmptyMessage getMessage={key => key} />
     ));
+    expect(tree.find(Typography).dive().dive().text()).toBe('noColumns');
+  });
 
-    expect(tree.find(Typography).text()).toBe('noColumns');
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <EmptyMessage
+        getMessage={key => key}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
   });
 });

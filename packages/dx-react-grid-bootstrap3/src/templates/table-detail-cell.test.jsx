@@ -1,25 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { EmptyMessage } from './empty-message';
+import { TableDetailCell } from './table-detail-cell';
 
-describe('EmptyMessage', () => {
-  it('should use "noColumns" message key', () => {
-    const tree = shallow((
-      <EmptyMessage getMessage={key => key} />
-    ));
-
-    expect(tree.find('.panel-body').text()).toBe('noColumns');
-  });
-
+describe('TableDetailCell', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <EmptyMessage
-        getMessage={key => key}
+      <TableDetailCell
+        template={() => (<div />)}
         className="custom-class"
       />
     ));
 
-    expect(tree.is('.panel-body'))
+    expect(tree.is('.active'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();
@@ -27,8 +19,8 @@ describe('EmptyMessage', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <EmptyMessage
-        getMessage={key => key}
+      <TableDetailCell
+        template={() => (<div />)}
         data={{ a: 1 }}
       />
     ));

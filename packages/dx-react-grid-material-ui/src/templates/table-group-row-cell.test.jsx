@@ -54,15 +54,15 @@ describe('TableCell', () => {
   });
 
   it('should expand grouped row on click', () => {
-    const toggleGroupExpanded = jest.fn();
+    const onToggle = jest.fn();
     const tree = shallow((
       <TableGroupCell
-        toggleGroupExpanded={toggleGroupExpanded}
+        onToggle={onToggle}
       />
     ));
     tree.find(TableCell).simulate('click');
 
-    expect(toggleGroupExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
   });
 

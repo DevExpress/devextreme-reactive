@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter,
-  Template,
-  PluginContainer,
-  TemplatePlaceholder,
-  TemplateConnector,
-  TemplateRenderer,
+  Getter, Template, PluginContainer, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
@@ -15,37 +10,6 @@ import {
   isGroupIndentTableCell,
   isGroupTableRow,
 } from '@devexpress/dx-grid-core';
-
-const getGroupIndentTableCellTemplateArgs = ({ params }) => ({
-  ...params,
-  row: params.tableRow.row,
-  column: params.tableColumn.column,
-});
-
-const getGroupTableCellTemplateArgs = (
-  params,
-  { expandedGroups },
-  { toggleGroupExpanded },
-) => {
-  const { compoundKey } = params.tableRow.row;
-  return {
-    ...params,
-    row: params.tableRow.row,
-    column: params.tableColumn.column,
-    isExpanded: expandedGroups.has(compoundKey),
-    toggleGroupExpanded: () => toggleGroupExpanded({ groupKey: compoundKey }),
-  };
-};
-
-const getValueFormatterArgs = params => ({
-  column: params.column,
-  value: params.row.value,
-});
-
-const getGroupTableRowTemplateArgs = params => ({
-  ...params,
-  row: params.tableRow.row,
-});
 
 const pluginDependencies = [
   { pluginName: 'GroupingState' },
@@ -68,10 +32,10 @@ const createShowWhenGrouped = (columns) => {
 export class TableGroupRow extends React.PureComponent {
   render() {
     const {
-      groupCellTemplate,
-      groupRowTemplate,
-      groupIndentCellTemplate,
-      groupIndentColumnWidth,
+      getCellComponent,
+      rowComponent: GroupRow,
+      indentCellComponent: GroupIndentCell,
+      indentColumnWidth,
       showColumnWhenGrouped,
     } = this.props;
 
@@ -82,7 +46,7 @@ export class TableGroupRow extends React.PureComponent {
         tableColumns,
         grouping,
         draftGrouping,
-        groupIndentColumnWidth,
+        indentColumnWidth,
         showColumnWhenGrouped || createShowWhenGrouped(columns),
       );
 
@@ -100,20 +64,27 @@ export class TableGroupRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => {
-                const templateArgs = getGroupTableCellTemplateArgs(params, getters, actions);
+              {({ expandedGroups }, { toggleGroupExpanded }) => {
+                const GroupCell = getCellComponent(params.tableColumn.column.name);
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
-                    params={getValueFormatterArgs(templateArgs)}
+                    params={{
+                      column: params.tableColumn.column,
+                      value: params.tableRow.row.value,
+                    }}
                   >
                     {content => (
-                      <TemplateRenderer
-                        template={groupCellTemplate}
-                        params={templateArgs}
+                      <GroupCell
+                        {...params}
+                        row={params.tableRow.row}
+                        column={params.tableColumn.column}
+                        expanded={expandedGroups.has(params.tableRow.row.compoundKey)}
+                        onToggle={() =>
+                          toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })}
                       >
                         {content}
-                      </TemplateRenderer>
+                      </GroupCell>
                     )}
                   </TemplatePlaceholder>
                 );
@@ -121,15 +92,16 @@ export class TableGroupRow extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
-        {groupIndentCellTemplate && (
+        {GroupIndentCell && (
           <Template
             name="tableCell"
             predicate={({ tableRow, tableColumn }) => isGroupIndentTableCell(tableRow, tableColumn)}
           >
             {params => (
-              <TemplateRenderer
-                template={groupIndentCellTemplate}
-                params={getGroupIndentTableCellTemplateArgs({ params })}
+              <GroupIndentCell
+                {...params}
+                row={params.tableRow.row}
+                column={params.tableColumn.column}
               />
             )}
           </Template>
@@ -139,9 +111,9 @@ export class TableGroupRow extends React.PureComponent {
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
           {params => (
-            <TemplateRenderer
-              template={groupRowTemplate}
-              params={getGroupTableRowTemplateArgs(params)}
+            <GroupRow
+              {...params}
+              row={params.tableRow.row}
             />
           )}
         </Template>
@@ -151,14 +123,14 @@ export class TableGroupRow extends React.PureComponent {
 }
 
 TableGroupRow.propTypes = {
-  groupCellTemplate: PropTypes.func.isRequired,
-  groupRowTemplate: PropTypes.func.isRequired,
-  groupIndentCellTemplate: PropTypes.func,
-  groupIndentColumnWidth: PropTypes.number.isRequired,
+  getCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  indentCellComponent: PropTypes.func,
+  indentColumnWidth: PropTypes.number.isRequired,
   showColumnWhenGrouped: PropTypes.func,
 };
 
 TableGroupRow.defaultProps = {
-  groupIndentCellTemplate: null,
+  indentCellComponent: null,
   showColumnWhenGrouped: undefined,
 };

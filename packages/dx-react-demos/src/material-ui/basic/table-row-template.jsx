@@ -12,17 +12,24 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const TableRow = ({ row, ...restProps }) => (
-  <Table.Row
-    {...restProps}
-    // eslint-disable-next-line no-alert
-    onClick={() => alert(JSON.stringify(row))}
-    style={{ cursor: 'pointer' }}
-  />
-);
+const TableRow = ({ row, tableRow, ...restProps }) => {
+  const { rowId } = tableRow;
+  return (
+    <Table.Row
+      {...restProps}
+      // eslint-disable-next-line no-alert
+      onClick={() => alert(JSON.stringify(row))}
+      style={{
+        cursor: 'pointer',
+        ...(rowId % 2 ? { backgroundColor: '#dfeef3' } : {}),
+      }}
+    />
+  );
+};
 
 TableRow.propTypes = {
   row: PropTypes.any.isRequired,
+  tableRow: PropTypes.any.isRequired,
 };
 
 const HeaderRow = props => (

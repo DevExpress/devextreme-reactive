@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { unstable_batchedUpdates } from 'react-dom';
 import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
-import { getSharedEventEmitter, touchEventsSupported } from './draggable/shared-events';
+import { getSharedEventEmitter } from './draggable/shared-events';
 
 export class Draggable extends React.Component {
   constructor(props, context) {
@@ -74,7 +74,7 @@ export class Draggable extends React.Component {
       React.Children.only(this.props.children),
       {
         onMouseDown: (e) => {
-          if (touchEventsSupported()) return;
+          if (this.touchStrategy.isWaiting()) return;
           this.mouseStrategy.start(e);
           e.stopPropagation();
         },

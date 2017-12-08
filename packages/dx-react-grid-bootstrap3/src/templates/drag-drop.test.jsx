@@ -6,11 +6,7 @@ describe('Container', () => {
   it('should have correct styles', () => {
     const tree = mount((
       <Container
-        columns={[{
-          name: 'Test',
-        }]}
         clientOffset={{ x: 10, y: 20 }}
-        columnTemplate={() => <div />}
       />
     ));
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   RowDetailState,
 } from '@devexpress/dx-react-grid';
@@ -12,6 +13,14 @@ import {
 import {
   generateRows,
 } from '../../demo-data/generator';
+
+const RowDetail = ({ row }) => (
+  <div>Details for {row.name} from {row.city}</div>
+);
+
+RowDetail.propTypes = {
+  row: PropTypes.any.isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -29,7 +38,6 @@ export default class Demo extends React.PureComponent {
     };
 
     this.changeExpandedDetails = expandedRows => this.setState({ expandedRows });
-    this.rowTemplate = ({ row }) => <div>Details for {row.name} from {row.city}</div>;
   }
   render() {
     const { rows, columns, expandedRows } = this.state;
@@ -46,7 +54,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableRowDetail
-          template={this.rowTemplate}
+          contentComponent={RowDetail}
         />
       </Grid>
     );

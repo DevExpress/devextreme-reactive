@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-  TemplateConnector,
-  TemplateRenderer,
-  PluginContainer,
+  Getter, Template, TemplatePlaceholder, TemplateConnector, PluginContainer,
 } from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
@@ -15,23 +10,6 @@ import {
   isFilterTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-
-const getFilterTableCellTemplateArgs = (
-  params,
-  { filters },
-  { setColumnFilter },
-) => ({
-  ...params,
-  column: params.tableColumn.column,
-  filter: getColumnFilterConfig(filters, params.tableColumn.column.name),
-  setFilter: config => setColumnFilter({ columnName: params.tableColumn.column.name, config }),
-});
-
-const getValueEditorArgs = params => ({
-  column: params.column,
-  value: params.filter ? params.filter.value : null,
-  onValueChange: newValue => params.setFilter(newValue ? { value: newValue } : null),
-});
 
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
@@ -43,8 +21,8 @@ export class TableFilterRow extends React.PureComponent {
   render() {
     const {
       rowHeight,
-      filterCellTemplate,
-      filterRowTemplate,
+      getCellComponent,
+      rowComponent: FilterRow,
       messages,
     } = this.props;
 
@@ -65,24 +43,30 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => {
-                const templateArgs = getFilterTableCellTemplateArgs(
-                  { getMessage, ...params },
-                  getters,
-                  actions,
-                );
+              {({ filters }, { setColumnFilter }) => {
+                const { name: columnName } = params.tableColumn.column;
+                const FilterCell = getCellComponent(columnName);
+                const filter = getColumnFilterConfig(filters, columnName);
+                const onFilter = config => setColumnFilter({ columnName, config });
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
-                    params={getValueEditorArgs(templateArgs)}
+                    params={{
+                      column: params.tableColumn.column,
+                      value: filter ? filter.value : null,
+                      onValueChange: newValue => onFilter(newValue ? { value: newValue } : null),
+                    }}
                   >
                     {content => (
-                      <TemplateRenderer
-                        template={filterCellTemplate}
-                        params={templateArgs}
+                      <FilterCell
+                        {...params}
+                        getMessage={getMessage}
+                        column={params.tableColumn.column}
+                        filter={filter}
+                        onFilter={onFilter}
                       >
                         {content}
-                      </TemplateRenderer>
+                      </FilterCell>
                     )}
                   </TemplatePlaceholder>
                 );
@@ -94,12 +78,7 @@ export class TableFilterRow extends React.PureComponent {
           name="tableRow"
           predicate={({ tableRow }) => isFilterTableRow(tableRow)}
         >
-          {params => (
-            <TemplateRenderer
-              template={filterRowTemplate}
-              params={params}
-            />
-          )}
+          {params => <FilterRow {...params} />}
         </Template>
       </PluginContainer>
     );
@@ -109,8 +88,8 @@ export class TableFilterRow extends React.PureComponent {
 TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
   messages: PropTypes.object,
-  filterCellTemplate: PropTypes.func.isRequired,
-  filterRowTemplate: PropTypes.func.isRequired,
+  getCellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
 };
 
 TableFilterRow.defaultProps = {

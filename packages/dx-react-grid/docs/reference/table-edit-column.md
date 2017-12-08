@@ -1,6 +1,6 @@
 # TableEditColumn Plugin Reference
 
-A plugin that renders a command column. This column contains controls used for row editing, creating, or deleting and committing/canceling of changes.
+A plugin that renders a command column. This column contains controls used for row editing, creating, or deleting and committing/canceling changes.
 
 ## User Reference
 
@@ -32,7 +32,7 @@ A value with the [TableCellProps](table.md#tablecellprops) shape extended by the
 
 Field | Type | Description
 ------|------|------------
-row | any | Specifies an edited table row with applied changes.
+row | any | Specifies an edited table row with the applied changes.
 children? | ReactElement | A React element to be placed in the command cell.
 
 ### TableEditColumnHeaderCellProps
@@ -78,11 +78,11 @@ tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table
 addRow | Action | () => void | Creates a row.
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array.
 commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `addedRows` array.
-startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows specified by the ID to the edit mode.
-stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches the rows specified by the ID to the read-only mode.
-cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in the rows specified by the ID.
+startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches rows with the specified ID to the edit mode.
+stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches rows with the specified ID to the read-only mode.
+cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in rows with the specified ID.
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `changedRows` array.
-deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows specified by the ID for deletion, adding them to the `deletedRows` array.
+deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows with the specified ID for deletion, adding them to the `deletedRows` array.
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#change-set) and removes the specified rows from the `deletedRows` array.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 

@@ -49,26 +49,26 @@ describe('TableCell', () => {
   });
 
   it('should handle the "Enter" and "Space" keys down', () => {
-    const toggleGroupExpanded = jest.fn();
+    const onToggle = jest.fn();
     const tree = mount((
       <TableGroupCell
-        toggleGroupExpanded={toggleGroupExpanded}
+        onToggle={onToggle}
       />
     ));
     const targetElement = tree.find('i');
 
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-    expect(toggleGroupExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
 
-    toggleGroupExpanded.mockClear();
+    onToggle.mockClear();
     targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-    expect(toggleGroupExpanded)
+    expect(onToggle)
       .toHaveBeenCalled();
 
-    toggleGroupExpanded.mockClear();
+    onToggle.mockClear();
     targetElement.simulate('keydown', { keyCode: 51 });
-    expect(toggleGroupExpanded)
+    expect(onToggle)
       .not.toHaveBeenCalled();
   });
 

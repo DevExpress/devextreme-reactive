@@ -2,20 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   PluginContainer, Template, TemplatePlaceholder,
-  TemplateConnector, TemplateRenderer,
+  TemplateConnector,
   DragDropContext as DragDropContextCore,
 } from '@devexpress/dx-react-core';
 
-const getContainerTemplateArgs = (
-  { payload, clientOffset, columnTemplate },
-  { columns },
-) => ({
-  clientOffset,
-  columns: payload
-    .filter(item => item.type === 'column')
-    .map(item => columns.find(column => column.name === item.columnName)),
-  columnTemplate,
-});
+const getTargetColumns = (payload, columns) => payload
+  .filter(item => item.type === 'column')
+  .map(item => columns.find(column => column.name === item.columnName));
 
 export class DragDropContext extends React.PureComponent {
   constructor(props) {
@@ -30,8 +23,8 @@ export class DragDropContext extends React.PureComponent {
   }
   render() {
     const {
-      containerTemplate,
-      columnTemplate,
+      containerComponent: Container,
+      columnComponent: Column,
     } = this.props;
     const {
       payload,
@@ -50,14 +43,19 @@ export class DragDropContext extends React.PureComponent {
           </DragDropContextCore>
           {payload && (
             <TemplateConnector>
-              {getters => (
-                <TemplateRenderer
-                  template={containerTemplate}
-                  params={getContainerTemplateArgs(
-                    { payload, clientOffset, columnTemplate },
-                    getters,
-                  )}
-                />
+              {({ columns }) => (
+                <Container
+                  clientOffset={clientOffset}
+                >
+                  {getTargetColumns(payload, columns)
+                    .map(column => (
+                      <Column
+                        key={column.name}
+                        column={column}
+                      />
+                    ))
+                  }
+                </Container>
               )}
             </TemplateConnector>
           )}
@@ -68,6 +66,6 @@ export class DragDropContext extends React.PureComponent {
 }
 
 DragDropContext.propTypes = {
-  containerTemplate: PropTypes.func.isRequired,
-  columnTemplate: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
+  columnComponent: PropTypes.func.isRequired,
 };

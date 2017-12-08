@@ -1,40 +1,28 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { Pager } from './pager';
+
+const defaultProps = {
+  totalPages: 10,
+  currentPage: 1,
+  totalCount: 96,
+  pageSize: 10,
+  getMessage: key => key,
+  allowedPageSizes: [],
+  onCurrentPageChange: () => {},
+  onPageSizeChange: () => {},
+};
 
 describe('Pager', () => {
   describe('#render', () => {
-    const mountPager = ({
-      currentPage,
-      totalPages,
-      pageSize,
-      totalCount,
-      getMessage = key => key,
-      allowedPageSizes = [],
-      onPageSizeChange = () => {},
-      onCurrentPageChange = () => {},
-    }) => mount(<Pager
-      totalPages={totalPages}
-      currentPage={currentPage}
-      totalCount={totalCount}
-      pageSize={pageSize}
-      getMessage={getMessage}
-      allowedPageSizes={allowedPageSizes}
-      onCurrentPageChange={onCurrentPageChange}
-      onPageSizeChange={onPageSizeChange}
-    />);
-
     it('can show info about rendered pages', () => {
-      const getMessage = jest.fn();
-      getMessage.mockImplementation(key => key);
-
-      const tree = mountPager({
-        totalPages: 10,
-        currentPage: 1,
-        totalCount: 96,
-        pageSize: 10,
-        getMessage,
-      });
+      const getMessage = jest.fn(key => key);
+      const tree = shallow((
+        <Pager
+          {...defaultProps}
+          getMessage={getMessage}
+        />
+      ));
 
       expect(getMessage)
         .toBeCalledWith('info', { from: 11, to: 20, count: 96 });
@@ -44,13 +32,12 @@ describe('Pager', () => {
 
     it('can render pagination arrows', () => {
       const onCurrentPageChange = jest.fn();
-      const arrows = mountPager({
-        totalPages: 10,
-        currentPage: 2,
-        totalCount: 96,
-        pageSize: 10,
-        onCurrentPageChange,
-      }).find('.pager li');
+      const arrows = mount((
+        <Pager
+          {...defaultProps}
+          onCurrentPageChange={onCurrentPageChange}
+        />
+      )).find('.pager li');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);
@@ -66,13 +53,13 @@ describe('Pager', () => {
 
     it('disables the prev arrow if current page is 1', () => {
       const onCurrentPageChange = jest.fn();
-      const arrows = mountPager({
-        totalPages: 10,
-        currentPage: 0,
-        totalCount: 96,
-        pageSize: 10,
-        onCurrentPageChange,
-      }).find('.pager li');
+      const arrows = mount((
+        <Pager
+          {...defaultProps}
+          currentPage={0}
+          onCurrentPageChange={onCurrentPageChange}
+        />
+      )).find('.pager li');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);
@@ -87,13 +74,14 @@ describe('Pager', () => {
 
     it('disables the next arrow if current page equals to total page count', () => {
       const onCurrentPageChange = jest.fn();
-      const arrows = mountPager({
-        totalPages: 10,
-        currentPage: 9,
-        totalCount: 96,
-        pageSize: 5,
-        onCurrentPageChange,
-      }).find('.pager li');
+      const arrows = mount((
+        <Pager
+          {...defaultProps}
+          currentPage={9}
+          pageSize={5}
+          onCurrentPageChange={onCurrentPageChange}
+        />
+      )).find('.pager li');
 
       const prew = arrows.at(0);
       const next = arrows.at(1);
@@ -107,27 +95,51 @@ describe('Pager', () => {
     });
 
     it('renders page size selector', () => {
-      const pageSizeSelector = mountPager({
-        totalPages: 10,
-        currentPage: 9,
-        totalCount: 96,
-        pageSize: 5,
-        allowedPageSizes: [5, 10],
-      }).find('PageSizeSelector');
+      const pageSizeSelector = shallow((
+        <Pager
+          {...defaultProps}
+          allowedPageSizes={[5, 10]}
+        />
+      )).find('PageSizeSelector');
 
-      expect(pageSizeSelector).toHaveLength(1);
-      expect(pageSizeSelector.at(0).prop('getMessage')('showAll')).toBe('showAll');
+      expect(pageSizeSelector)
+        .toHaveLength(1);
+      expect(pageSizeSelector.at(0).prop('getMessage')('showAll'))
+        .toBe('showAll');
     });
 
     it('doesn\'t render page selector if the allowedPageSizes option is not defined ', () => {
-      const pageSizeSelector = mountPager({
-        totalPages: 10,
-        currentPage: 9,
-        totalCount: 96,
-        pageSize: 5,
-      }).find('PageSizeSelector');
+      const pageSizeSelector = shallow((
+        <Pager
+          {...defaultProps}
+        />
+      )).find('PageSizeSelector');
 
       expect(pageSizeSelector).toHaveLength(0);
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <Pager
+          {...defaultProps}
+          onClick="onClick"
+        />
+      ));
+
+      expect(tree.prop('onClick'))
+        .toBe('onClick');
+    });
+
+    it('should add the passed className to the root element', () => {
+      const tree = shallow((
+        <Pager
+          {...defaultProps}
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
     });
   });
 });

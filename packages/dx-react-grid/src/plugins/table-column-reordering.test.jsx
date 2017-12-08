@@ -26,12 +26,15 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getTableTargetColumnIndex: jest.fn(),
   changeColumnOrder: jest.fn(),
   tableHeaderRowsWithReordering: jest.fn(),
-  draftOrder: jest.fn(),
+  draftOrder: jest.fn(args => args),
 }));
 
-const reorderingRowTemplate = jest.fn();
-const reorderingCellTemplate = jest.fn();
-const tableContainerTemplate = jest.fn();
+/* eslint-disable react/prop-types */
+const DefaultContainer = ({ children }) => <div>{children}</div>;
+const DefaultRow = () => null;
+const DefaultCell = ({ getCellDimensions }) =>
+  <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />;
+/* eslint-enable react/prop-types */
 
 const defaultDeps = {
   getter: {
@@ -57,15 +60,8 @@ describe('TableColumnReordering', () => {
     resetConsole();
   });
 
-  beforeEach(() => {
-    tableContainerTemplate.mockImplementation(({ children }) => <div>{children}</div>);
-    reorderingRowTemplate.mockImplementation(() => <div />);
-    reorderingCellTemplate.mockImplementation(({ getCellDimensions }) =>
-      <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />);
-    draftOrder.mockImplementation(args => args);
-  });
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should apply the column order specified in the "defaultOrder" property in uncontrolled mode', () => {
@@ -75,9 +71,9 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             defaultOrder={['b', 'a']}
-            tableContainerTemplate={tableContainerTemplate}
-            reorderingRowTemplate={reorderingRowTemplate}
-            reorderingCellTemplate={reorderingCellTemplate}
+            tableContainerComponent={DefaultContainer}
+            rowComponent={DefaultRow}
+            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
@@ -96,9 +92,9 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             order={['b', 'a']}
-            tableContainerTemplate={tableContainerTemplate}
-            reorderingRowTemplate={reorderingRowTemplate}
-            reorderingCellTemplate={reorderingCellTemplate}
+            tableContainerComponent={DefaultContainer}
+            rowComponent={DefaultRow}
+            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
@@ -111,24 +107,22 @@ describe('TableColumnReordering', () => {
   });
 
   it('should render the "table" template', () => {
-    mount((
+    const tree = mount((
       <DragDropContext>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
             order={['b', 'a']}
-            tableContainerTemplate={tableContainerTemplate}
-            reorderingRowTemplate={reorderingRowTemplate}
-            reorderingCellTemplate={reorderingCellTemplate}
+            tableContainerComponent={DefaultContainer}
+            rowComponent={DefaultRow}
+            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
     ));
 
-    expect(tableContainerTemplate)
-      .toHaveBeenCalledTimes(1);
-    expect(tableContainerTemplate)
-      .toHaveBeenCalledWith({
+    expect(tree.find(DefaultContainer).props())
+      .toEqual({
         onOver: expect.any(Function),
         onLeave: expect.any(Function),
         onDrop: expect.any(Function),
@@ -165,9 +159,9 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableColumnReordering
             defaultOrder={defaultOrder}
-            tableContainerTemplate={props => <TableMock {...props} />}
-            reorderingRowTemplate={reorderingRowTemplate}
-            reorderingCellTemplate={reorderingCellTemplate}
+            tableContainerComponent={props => <TableMock {...props} />}
+            rowComponent={DefaultRow}
+            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const CommandButton = ({ executeCommand, text }) => (
+export const CommandButton = ({ onExecute, text }) => (
   <button
     className="btn btn-link"
     onClick={(e) => {
-      executeCommand();
       e.stopPropagation();
+      onExecute();
     }}
   >
     {text}
@@ -14,16 +14,13 @@ export const CommandButton = ({ executeCommand, text }) => (
 );
 
 CommandButton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
+  onExecute: PropTypes.func.isRequired,
 };
 
 export const EditCommandHeadingCell = ({
-  addRow,
-  commandTemplate,
-  allowAdding,
+  children,
   style,
-  getMessage,
 }) => (
   <th
     style={{
@@ -33,95 +30,48 @@ export const EditCommandHeadingCell = ({
       ...style,
     }}
   >
-    {allowAdding && commandTemplate({
-      id: 'add',
-      executeCommand: addRow,
-      text: getMessage('addCommand'),
-    })}
+    {children}
   </th>
 );
 
 EditCommandHeadingCell.propTypes = {
-  addRow: PropTypes.func.isRequired,
-  commandTemplate: PropTypes.func.isRequired,
-  getMessage: PropTypes.func.isRequired,
-  allowAdding: PropTypes.bool.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   style: PropTypes.object,
 };
 
 EditCommandHeadingCell.defaultProps = {
+  children: undefined,
   style: {},
 };
 
 export const EditCommandCell = ({
-  startEditing,
-  deleteRow,
-  cancelEditing,
-  commitChanges,
-  isEditing,
-  commandTemplate,
-  allowEditing,
-  allowDeleting,
+  children,
   style,
-  getMessage,
-}) => {
-  let commands = [];
-  if (!isEditing) {
-    if (allowEditing) {
-      commands.push({
-        id: 'edit',
-        executeCommand: startEditing,
-        text: getMessage('editCommand'),
-      });
-    }
-    if (allowDeleting) {
-      commands.push({
-        id: 'delete',
-        executeCommand: deleteRow,
-        text: getMessage('deleteCommand'),
-      });
-    }
-  } else {
-    commands = [
-      {
-        id: 'commit',
-        executeCommand: commitChanges,
-        text: getMessage('commitCommand'),
-      },
-      {
-        id: 'cancel',
-        executeCommand: cancelEditing,
-        text: getMessage('cancelCommand'),
-      },
-    ];
-  }
-  return (
-    <td
-      style={{
-        whiteSpace: 'nowrap',
-        textAlign: 'center',
-        padding: 0,
-        ...style,
-      }}
-    >
-      {commands.map(command => (<span key={command.id}>{commandTemplate(command)}</span>))}
-    </td>
-  );
-};
+}) => (
+  <td
+    style={{
+      whiteSpace: 'nowrap',
+      textAlign: 'center',
+      padding: 0,
+      ...style,
+    }}
+  >
+    {children}
+  </td>
+);
 
 EditCommandCell.propTypes = {
-  startEditing: PropTypes.func.isRequired,
-  deleteRow: PropTypes.func.isRequired,
-  cancelEditing: PropTypes.func.isRequired,
-  commitChanges: PropTypes.func.isRequired,
-  isEditing: PropTypes.bool.isRequired,
-  allowEditing: PropTypes.bool.isRequired,
-  allowDeleting: PropTypes.bool.isRequired,
-  commandTemplate: PropTypes.func.isRequired,
-  getMessage: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   style: PropTypes.object,
 };
 
 EditCommandCell.defaultProps = {
+  children: undefined,
   style: {},
 };

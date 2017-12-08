@@ -67,4 +67,15 @@ describe('TableDetailToggleCell', () => {
     expect(onToggle)
       .not.toHaveBeenCalled();
   });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableDetailToggleCell
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
+  });
 });

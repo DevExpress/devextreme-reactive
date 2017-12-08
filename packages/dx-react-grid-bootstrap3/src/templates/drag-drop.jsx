@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const Container = ({ clientOffset, children }) => (
+export const Container = ({
+  clientOffset, columns, columnTemplate,
+  style, className, children, ...restProps
+}) => (
   <ul
-    className="list-group"
+    className={classNames('list-group', className)}
     style={{
       cursor: 'move',
       position: 'fixed',
@@ -12,7 +16,9 @@ export const Container = ({ clientOffset, children }) => (
       top: 0,
       display: 'inline-block',
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
+      ...style,
     }}
+    {...restProps}
   >
     {children}
   </ul>
@@ -23,6 +29,10 @@ Container.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
   }).isRequired,
+  columns: PropTypes.array.isRequired,
+  columnTemplate: PropTypes.func.isRequired,
+  style: PropTypes.object,
+  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
@@ -30,13 +40,25 @@ Container.propTypes = {
 };
 
 Container.defaultProps = {
+  style: {},
+  className: undefined,
   children: undefined,
 };
 
-export const Column = ({ column }) => (
-  <li className="list-group-item">{column.title}</li>
+export const Column = ({ column, className, ...restProps }) => (
+  <li
+    className={classNames('list-group-item', className)}
+    {...restProps}
+  >
+    {column.title}
+  </li>
 );
 
 Column.propTypes = {
   column: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+Column.defaultProps = {
+  className: undefined,
 };

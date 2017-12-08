@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Paper, Typography } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
@@ -22,13 +23,16 @@ const styles = theme => ({
 });
 
 const ContainerBase = ({
-  clientOffset, classes, children,
+  clientOffset, columns, columnTemplate, classes,
+  style, className, children, ...restProps
 }) => (
   <Paper
-    className={classes.container}
+    className={classNames(classes.container, className)}
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
+      ...style,
     }}
+    {...restProps}
   >
     {children}
   </Paper>
@@ -43,20 +47,32 @@ ContainerBase.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  columns: PropTypes.array.isRequired,
+  columnTemplate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 ContainerBase.defaultProps = {
+  style: {},
+  className: undefined,
   children: undefined,
 };
 
 export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase);
 
-const ColumnBase = ({ column, classes }) => (
+const ColumnBase = ({
+  column,
+  classes,
+  className,
+  ...restProps
+}) => (
   <Typography
-    className={classes.column}
+    className={classNames(classes.column, className)}
     type="body1"
     component="p"
+    {...restProps}
   >
     {column.title}
   </Typography>
@@ -65,6 +81,11 @@ const ColumnBase = ({ column, classes }) => (
 ColumnBase.propTypes = {
   column: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+ColumnBase.defaultProps = {
+  className: undefined,
 };
 
 export const Column = withStyles(styles, { name: 'DragDrop' })(ColumnBase);

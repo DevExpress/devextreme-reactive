@@ -13,3 +13,6 @@ export class DragDropContext extends React.PureComponent {
     );
   }
 }
+
+DragDropContext.Container = Container;
+DragDropContext.Column = Column;

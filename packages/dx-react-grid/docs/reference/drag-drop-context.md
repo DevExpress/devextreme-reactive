@@ -46,6 +46,15 @@ Field | Type | Description
 ------|------|------------
 column | [Column](#column) | Specifies a column being dragged.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+DragDropContext.Container | [ContainerProps](#containerprops) | A component that renders a container for columns being dragged.
+DragDropContext.Column | [ColumnProps](#columnprops) | A component that renders a column being dragged.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

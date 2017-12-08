@@ -11,7 +11,10 @@ describe('Layout', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
+      expect(tree.is('.panel-default'))
+        .toBeTruthy();
     });
+
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Root data={{ a: 1 }} />

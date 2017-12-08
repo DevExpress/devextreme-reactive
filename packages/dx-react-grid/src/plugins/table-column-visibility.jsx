@@ -6,7 +6,6 @@ import {
   Template,
   TemplateConnector,
   TemplatePlaceholder,
-  TemplateRenderer,
 } from '@devexpress/dx-react-core';
 import { visibleTableColumns, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
@@ -16,7 +15,11 @@ const pluginDependencies = [
 
 export class TableColumnVisibility extends React.PureComponent {
   render() {
-    const { hiddenColumns, emptyMessageTemplate, messages } = this.props;
+    const {
+      hiddenColumns,
+      emptyMessageComponent: EmptyMessage,
+      messages,
+    } = this.props;
     const visibleTableColumnsComputed = ({ tableColumns }) =>
       visibleTableColumns(tableColumns, hiddenColumns);
 
@@ -33,9 +36,9 @@ export class TableColumnVisibility extends React.PureComponent {
             <TemplateConnector>
               {({ tableColumns }) => (tableColumns.length
                 ? <TemplatePlaceholder />
-                : <TemplateRenderer
-                  template={emptyMessageTemplate}
-                  params={{ getMessage, ...params }}
+                : <EmptyMessage
+                  getMessage={getMessage}
+                  {...params}
                 />
               )}
             </TemplateConnector>
@@ -48,7 +51,7 @@ export class TableColumnVisibility extends React.PureComponent {
 
 TableColumnVisibility.propTypes = {
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
-  emptyMessageTemplate: PropTypes.func.isRequired,
+  emptyMessageComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

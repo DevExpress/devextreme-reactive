@@ -5,7 +5,6 @@ import {
   PluginContainer,
   Template,
   TemplatePlaceholder,
-  TemplateRenderer,
 } from '@devexpress/dx-react-core';
 import {
   TABLE_DATA_TYPE,
@@ -125,9 +124,9 @@ export class TableColumnReordering extends React.PureComponent {
   }
   render() {
     const {
-      tableContainerTemplate,
-      reorderingRowTemplate,
-      reorderingCellTemplate,
+      tableContainerComponent: Container,
+      rowComponent: Row,
+      cellComponent: Cell,
     } = this.props;
     const columnsComputed = ({ tableColumns }) =>
       orderedColumns(tableColumns, this.getDraftOrder());
@@ -143,17 +142,14 @@ export class TableColumnReordering extends React.PureComponent {
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Template name="table">
           {params => (
-            <TemplateRenderer
-              template={tableContainerTemplate}
-              params={{
-                ...params,
-                onOver: this.onOver,
-                onLeave: this.onLeave,
-                onDrop: this.onDrop,
-              }}
+            <Container
+              {...params}
+              onOver={this.onOver}
+              onLeave={this.onLeave}
+              onDrop={this.onDrop}
             >
               <TemplatePlaceholder />
-            </TemplateRenderer>
+            </Container>
           )}
         </Template>
         <Template
@@ -161,10 +157,7 @@ export class TableColumnReordering extends React.PureComponent {
           predicate={({ tableRow }) => tableRow.type === TABLE_REORDERING_TYPE}
         >
           {params => (
-            <TemplateRenderer
-              template={reorderingRowTemplate}
-              params={params}
-            />
+            <Row {...params} />
           )}
         </Template>
         <Template
@@ -175,12 +168,9 @@ export class TableColumnReordering extends React.PureComponent {
             const cellDimensionsGetter = fn =>
               this.storeCellDimensionsGetter(params.tableColumn, fn);
             return (
-              <TemplateRenderer
-                template={reorderingCellTemplate}
-                params={{
-                  ...params,
-                  getCellDimensions: cellDimensionsGetter,
-                }}
+              <Cell
+                {...params}
+                getCellDimensions={cellDimensionsGetter}
               />
             );
           }}
@@ -194,9 +184,9 @@ TableColumnReordering.propTypes = {
   order: PropTypes.arrayOf(PropTypes.string),
   defaultOrder: PropTypes.arrayOf(PropTypes.string),
   onOrderChange: PropTypes.func,
-  tableContainerTemplate: PropTypes.func.isRequired,
-  reorderingRowTemplate: PropTypes.func.isRequired,
-  reorderingCellTemplate: PropTypes.func.isRequired,
+  tableContainerComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
 };
 
 TableColumnReordering.defaultProps = {

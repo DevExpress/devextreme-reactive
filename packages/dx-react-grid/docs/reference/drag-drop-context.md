@@ -1,6 +1,6 @@
 # DragDropContext Plugin Reference
 
-This plugin implements the drag-and-drop functionality and visualizes columns being dragged.
+A plugin that implements the drag-and-drop functionality and visualizes columns that are being dragged.
 
 ## User Reference
 
@@ -12,8 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-containerTemplate | (args: [ContainerArgs](#container-args)) => ReactElement | | A template that renders a container for columns being dragged.
-columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | | A template that renders a column being dragged.
+containerComponent | ElementType&lt;[ContainerProps](#containerprops)&gt; | | A component that renders a container for columns being dragged.
+columnComponent | ElementType&lt;[ColumnProps](#columnprops)&gt; | | A component that renders a column being dragged.
 
 ## Interfaces
 
@@ -25,21 +25,20 @@ Field | Type | Description
 ------|------|------------
 title? | string | Specifies a table column title.
 
-### <a name="container-args"></a>ContainerArgs
+### ContainerProps
 
-Describes properties passed to a template that renders a container for columns being dragged.
+Describes properties of the component that renders a container for columns being dragged.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-clientOffset | { x: number, y: number } | The current offset of a column being dragged, against the application's client area.
-columns | Array&lt;[Column](#column)&gt; | Columns being dragged.
-columnTemplate | (args: [ColumnArgs](#column-args)) => ReactElement | A template rendering columns being dragged.
+clientOffset | { x: number, y: number } | The current offset of a column that is being dragged. The offset is measured against the application's client area.
+children | ReactElement &#124; Array&lt;ReactElement&gt; | A React element or a React element array representing columns being dragged.
 
-### <a name="column-args"></a>ColumnArgs
+### ColumnProps
 
-Describes properties passed to a template rendering a column being dragged.
+Describes properties of the component that renders a column being dragged.
 
 A value with the following shape:
 

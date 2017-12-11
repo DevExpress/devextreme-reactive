@@ -4923,9 +4923,9 @@ material-ui-icons@1.0.0-beta.17:
   dependencies:
     recompose "^0.26.0"
 
-material-ui@1.0.0-beta.22:
-  version "1.0.0-beta.22"
-  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-beta.22.tgz#04e719f33230ec9eab2dd1361b44509f3ec4d98b"
+material-ui@1.0.0-beta.23:
+  version "1.0.0-beta.23"
+  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-beta.23.tgz#f3d49359c13b57f893e768de62b81f5e8ad7faa5"
   dependencies:
     babel-runtime "^6.26.0"
     brcast "^3.0.1"

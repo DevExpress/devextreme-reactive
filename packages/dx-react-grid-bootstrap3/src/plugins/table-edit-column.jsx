@@ -38,6 +38,10 @@ export class TableEditColumn extends React.PureComponent {
   }
 }
 
+TableEditColumn.Command = CommandButton;
+TableEditColumn.Cell = EditCommandCell;
+TableEditColumn.HeaderCell = EditCommandHeadingCell;
+
 TableEditColumn.propTypes = {
   getCommandComponent: PropTypes.func,
   messages: PropTypes.shape({

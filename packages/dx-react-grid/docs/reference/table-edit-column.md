@@ -68,6 +68,16 @@ deleteCommand? | string | 'Delete' | Specifies the delete command button text.
 commitCommand? | string | 'Save' | Specifies the commit command button text.
 cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+TableEditColumn.Command | [EditCommandProps](#editcommandprops) | A component that renders command controls within the command column cell for a specific command.
+TableEditColumn.Cell | [TableEditColumnCellProps](#tableeditcolumncellprops) | A component that renders a cell within the command column and data row.
+TableEditColumn.HeaderCell | [TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a cell within the command column and header row.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

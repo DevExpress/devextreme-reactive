@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const CommandButton = ({ onExecute, text }) => (
+export const CommandButton = ({
+  onExecute,
+  text,
+  className,
+  ...restProps
+}) => (
   <button
-    className="btn btn-link"
+    className={classNames('btn', 'btn-link', className)}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();
     }}
+    {...restProps}
   >
     {text}
   </button>
@@ -16,11 +23,18 @@ export const CommandButton = ({ onExecute, text }) => (
 CommandButton.propTypes = {
   text: PropTypes.string.isRequired,
   onExecute: PropTypes.func.isRequired,
+  className: PropTypes.string,
+};
+
+CommandButton.defaultProps = {
+  className: undefined,
 };
 
 export const EditCommandHeadingCell = ({
   children,
   style,
+  tableColumn, tableRow,
+  ...restProps
 }) => (
   <th
     style={{
@@ -29,6 +43,7 @@ export const EditCommandHeadingCell = ({
       padding: 0,
       ...style,
     }}
+    {...restProps}
   >
     {children}
   </th>
@@ -40,16 +55,22 @@ EditCommandHeadingCell.propTypes = {
     PropTypes.node,
   ]),
   style: PropTypes.object,
+  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
 };
 
 EditCommandHeadingCell.defaultProps = {
   children: undefined,
   style: {},
+  tableColumn: undefined,
+  tableRow: undefined,
 };
 
 export const EditCommandCell = ({
   children,
   style,
+  tableColumn, tableRow,
+  ...restProps
 }) => (
   <td
     style={{
@@ -58,6 +79,7 @@ export const EditCommandCell = ({
       padding: 0,
       ...style,
     }}
+    {...restProps}
   >
     {children}
   </td>
@@ -69,9 +91,13 @@ EditCommandCell.propTypes = {
     PropTypes.node,
   ]),
   style: PropTypes.object,
+  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
 };
 
 EditCommandCell.defaultProps = {
   children: undefined,
   style: {},
+  tableColumn: undefined,
+  tableRow: undefined,
 };

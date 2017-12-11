@@ -12,7 +12,6 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { Table } from './table';
-import { DataTypeProvider } from './data-type-provider';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -140,7 +139,6 @@ describe('Table', () => {
   it('can render custom formatted data in table cell', () => {
     isDataTableCell.mockImplementation(() => true);
     const getCellComponent = jest.fn(() => defaultCellComponent);
-    const valueFormatter = jest.fn(() => <span />);
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'column', dataType: 'column' } },
@@ -150,10 +148,6 @@ describe('Table', () => {
 
     const tree = mount((
       <PluginHost>
-        <DataTypeProvider
-          type="column"
-          formatterTemplate={valueFormatter}
-        />
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
@@ -163,8 +157,12 @@ describe('Table', () => {
       </PluginHost>
     ));
 
-    expect(valueFormatter)
-      .toHaveBeenCalledWith({
+    const valueFormatterTemplatePlaceholder = tree
+      .find('TemplatePlaceholder')
+      .findWhere(node => node.prop('name') === 'valueFormatter');
+
+    expect(valueFormatterTemplatePlaceholder.prop('params'))
+      .toMatchObject({
         column: tableCellArgs.tableColumn.column,
         row: tableCellArgs.tableRow.row,
         value: tableCellArgs.value,

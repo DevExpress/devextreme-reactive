@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { columnChooserItems, toggleColumn } from '@devexpress/dx-grid-core';
-import {
-  TemplateRenderer,
-} from '@devexpress/dx-react-core';
 
 export class ColumnChooser extends React.PureComponent {
   constructor(props) {
@@ -21,30 +18,27 @@ export class ColumnChooser extends React.PureComponent {
   }
   render() {
     const {
-      columns, hiddenColumns, containerTemplate, itemTemplate,
+      columns,
+      hiddenColumns,
+      containerComponent: Container,
+      itemComponent: Item,
     } = this.props;
     const items = columnChooserItems(columns, hiddenColumns);
     const handleItemToggle = item => this.handleColumnToggle(item.column.name);
 
     return (
-      <TemplateRenderer
-        template={containerTemplate}
-        params={{
-          items,
-          onItemToggle: handleItemToggle,
-        }}
+      <Container
+        items={items}
+        onItemToggle={handleItemToggle}
       >
         {items.map(item => (
-          <TemplateRenderer
+          <Item
             key={item.column.name}
-            template={itemTemplate}
-            params={{
-              item,
-              onToggle: () => handleItemToggle(item),
-            }}
+            item={item}
+            onToggle={() => handleItemToggle(item)}
           />
         ))}
-      </TemplateRenderer>
+      </Container>
     );
   }
 }
@@ -53,8 +47,8 @@ ColumnChooser.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
   onHiddenColumnsChange: PropTypes.func,
-  containerTemplate: PropTypes.func.isRequired,
-  itemTemplate: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
+  itemComponent: PropTypes.func.isRequired,
 };
 
 ColumnChooser.defaultProps = {

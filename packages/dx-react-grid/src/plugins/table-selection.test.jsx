@@ -43,9 +43,9 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  selectAllCellTemplate: () => null,
-  selectCellTemplate: () => null,
-  selectRowTemplate: () => null,
+  headerCellComponent: () => null,
+  cellComponent: () => null,
+  rowComponent: () => null,
   selectionColumnWidth: 100,
 };
 
@@ -89,14 +89,12 @@ describe('Table Selection', () => {
 
   it('should render select cell on select column and user-defined row intersection', () => {
     isSelectTableCell.mockImplementation(() => true);
-    const selectCellTemplate = jest.fn(() => null);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
-          selectCellTemplate={selectCellTemplate}
         />
       </PluginHost>
     ));
@@ -106,23 +104,21 @@ describe('Table Selection', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(selectCellTemplate)
-      .toBeCalledWith(expect.objectContaining({
+    expect(tree.find(defaultProps.cellComponent).props())
+      .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
-      }));
+      });
   });
 
   it('should render selectAll cell on select column and heading row intersection', () => {
     isSelectAllTableCell.mockImplementation(() => true);
-    const selectAllCellTemplate = jest.fn(() => null);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
-          selectAllCellTemplate={selectAllCellTemplate}
         />
       </PluginHost>
     ));
@@ -132,34 +128,32 @@ describe('Table Selection', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(selectAllCellTemplate)
-      .toBeCalledWith(expect.objectContaining(defaultDeps.template.tableCell));
+    expect(tree.find(defaultProps.headerCellComponent).props())
+      .toMatchObject(defaultDeps.template.tableCell);
   });
 
-  it('should render row by using selectRowTemplate if selectByRowClick is true', () => {
-    const selectRowTemplate = jest.fn(() => null);
+  it('should render row by using rowComponent if selectByRowClick is true', () => {
     isDataTableRow.mockImplementation(() => true);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
-          selectRowTemplate={selectRowTemplate}
           selectByRowClick
         />
       </PluginHost>
     ));
-    selectRowTemplate.mock.calls[0][0].changeSelected();
+    tree.find(defaultProps.rowComponent).props().onToggle();
 
     expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
 
-    expect(selectRowTemplate)
-      .toBeCalledWith(expect.objectContaining({
+    expect(tree.find(defaultProps.rowComponent).props())
+      .toMatchObject({
         ...defaultDeps.template.tableRow,
         selectByRowClick: true,
         selected: false,
-      }));
+      });
 
     expect(defaultDeps.action.setRowsSelection.mock.calls[0][0])
       .toEqual({
@@ -167,42 +161,40 @@ describe('Table Selection', () => {
       });
   });
 
-  it('should render row by using selectRowTemplate if highlightSelected is true', () => {
-    const selectRowTemplate = jest.fn(() => null);
+  it('should render row by using rowComponent if highlightRow is true', () => {
     isDataTableRow.mockImplementation(() => true);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
-          selectRowTemplate={selectRowTemplate}
-          highlightSelected
+          highlightRow
         />
       </PluginHost>
     ));
 
-    expect(isDataTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(selectRowTemplate)
-      .toBeCalledWith(expect.objectContaining({
+    expect(isDataTableRow)
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(tree.find(defaultProps.rowComponent).props())
+      .toMatchObject({
         ...defaultDeps.template.tableRow,
         selected: true,
-      }));
+      });
   });
 
-  it('should not use selectRowTemplate if highlightSelected & selectByRowClick are false', () => {
-    const selectRowTemplate = jest.fn(() => null);
-
-    mount((
+  it('should not use rowComponent if highlightRow & selectByRowClick are false', () => {
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableSelection
           {...defaultProps}
-          selectRowTemplate={selectRowTemplate}
         />
       </PluginHost>
     ));
 
-    expect(selectRowTemplate.mock.calls).toHaveLength(0);
+
+    expect(tree.find(defaultProps.rowComponent).exists())
+      .toBeFalsy();
   });
 });

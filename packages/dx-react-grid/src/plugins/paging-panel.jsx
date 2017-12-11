@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Template, TemplatePlaceholder, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
@@ -10,24 +10,13 @@ const pluginDependencies = [
   { pluginName: 'PagingState' },
 ];
 
-const getPagerTemplateArgs = (
-  { allowedPageSizes, getMessage },
-  { currentPage, pageSize, totalCount },
-  { setCurrentPage, setPageSize },
-) => ({
-  currentPage,
-  totalPages: pageCount(totalCount, pageSize),
-  pageSize,
-  totalCount,
-  allowedPageSizes,
-  getMessage,
-  onCurrentPageChange: setCurrentPage,
-  onPageSizeChange: setPageSize,
-});
-
 export class PagingPanel extends React.PureComponent {
   render() {
-    const { pagerTemplate, allowedPageSizes, messages } = this.props;
+    const {
+      containerComponent: Pager,
+      allowedPageSizes,
+      messages,
+    } = this.props;
     const getMessage = getMessagesFormatter(messages);
 
     return (
@@ -38,10 +27,16 @@ export class PagingPanel extends React.PureComponent {
         <Template name="footer">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {(getters, actions) => (
-              <TemplateRenderer
-                template={pagerTemplate}
-                params={getPagerTemplateArgs({ allowedPageSizes, getMessage }, getters, actions)}
+            {({ currentPage, pageSize, totalCount }, { setCurrentPage, setPageSize }) => (
+              <Pager
+                currentPage={currentPage}
+                pageSize={pageSize}
+                totalCount={totalCount}
+                totalPages={pageCount(totalCount, pageSize)}
+                allowedPageSizes={allowedPageSizes}
+                getMessage={getMessage}
+                onCurrentPageChange={setCurrentPage}
+                onPageSizeChange={setPageSize}
               />
             )}
           </TemplateConnector>
@@ -53,7 +48,7 @@ export class PagingPanel extends React.PureComponent {
 
 PagingPanel.propTypes = {
   allowedPageSizes: PropTypes.arrayOf(PropTypes.number),
-  pagerTemplate: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

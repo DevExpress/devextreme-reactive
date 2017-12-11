@@ -29,7 +29,7 @@ export const tableColumnsWithGrouping = (
   tableColumns,
   grouping,
   draftGrouping,
-  groupIndentColumnWidth,
+  indentColumnWidth,
   showColumnWhenGrouped,
 ) => [
   ...grouping.map((columnGrouping) => {
@@ -38,7 +38,7 @@ export const tableColumnsWithGrouping = (
       key: `${TABLE_GROUP_TYPE}_${groupedColumn.name}`,
       type: TABLE_GROUP_TYPE,
       column: groupedColumn,
-      width: groupIndentColumnWidth,
+      width: indentColumnWidth,
     };
   }),
   ...tableColumnsWithDraftGrouping(tableColumns, draftGrouping, showColumnWhenGrouped),

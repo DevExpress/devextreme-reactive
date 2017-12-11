@@ -89,6 +89,7 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
+columns | Getter | Array&lt;[Column](#column)&gt; | The grid columns.
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.

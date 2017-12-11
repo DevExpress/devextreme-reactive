@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line camelcase
-import { unstable_batchedUpdates } from 'react-dom';
+import { unstable_batchedUpdates, findDOMNode } from 'react-dom';
 import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
 import { getSharedEventEmitter } from './draggable/shared-events';
@@ -37,18 +37,42 @@ export class Draggable extends React.Component {
     this.mouseStrategy = new MouseStrategy(delegate);
     this.touchStrategy = new TouchStrategy(delegate);
 
-    this.listener = this.listener.bind(this);
+    this.mouseDownListener = this.mouseDownListener.bind(this);
+    this.touchStartListener = this.touchStartListener.bind(this);
+    this.globalListener = this.globalListener.bind(this);
   }
   componentDidMount() {
-    getSharedEventEmitter().subscribe(this.listener);
+    getSharedEventEmitter().subscribe(this.globalListener);
+    this.setupNodeSubscription();
   }
   shouldComponentUpdate(nextProps) {
     return nextProps.children !== this.props.children;
   }
-  componentWillUnmount() {
-    getSharedEventEmitter().unsubscribe(this.listener);
+  componentDidUpdate() {
+    this.setupNodeSubscription();
   }
-  listener([name, e]) {
+  componentWillUnmount() {
+    getSharedEventEmitter().unsubscribe(this.globalListener);
+  }
+  setupNodeSubscription() {
+    // eslint-disable-next-line react/no-find-dom-node
+    const node = findDOMNode(this);
+    if (!node) return;
+    node.removeEventListener('mousedown', this.mouseDownListener);
+    node.removeEventListener('touchstart', this.touchStartListener);
+    node.addEventListener('mousedown', this.mouseDownListener, { passive: true });
+    node.addEventListener('touchstart', this.touchStartListener, { passive: true });
+  }
+  mouseDownListener(e) {
+    if (this.touchStrategy.isWaiting()) return;
+    this.mouseStrategy.start(e);
+    e.stopPropagation();
+  }
+  touchStartListener(e) {
+    this.touchStrategy.start(e);
+    e.stopPropagation();
+  }
+  globalListener([name, e]) {
     switch (name) {
       case 'mousemove':
         this.mouseStrategy.move(e);
@@ -70,20 +94,7 @@ export class Draggable extends React.Component {
     }
   }
   render() {
-    return React.cloneElement(
-      React.Children.only(this.props.children),
-      {
-        onMouseDown: (e) => {
-          if (this.touchStrategy.isWaiting()) return;
-          this.mouseStrategy.start(e);
-          e.stopPropagation();
-        },
-        onTouchStart: (e) => {
-          this.touchStrategy.start(e);
-          e.stopPropagation();
-        },
-      },
-    );
+    return this.props.children;
   }
 }
 

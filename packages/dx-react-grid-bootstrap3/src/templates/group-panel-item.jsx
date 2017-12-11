@@ -8,9 +8,9 @@ const SPACE_KEY_CODE = 32;
 const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_KEY_CODE;
 
 export const GroupPanelItem = ({
-  column, draft,
-  groupByColumn, allowUngroupingByClick,
-  allowSorting, sortingDirection, changeSortingDirection,
+  item: { column, draft },
+  onGroup, allowUngroupingByClick,
+  allowSorting, sortingDirection, onSort,
 }) => {
   const handleSortingChange = (e) => {
     const isActionKeyDown = isActionKey(e.keyCode);
@@ -23,7 +23,7 @@ export const GroupPanelItem = ({
       || (isActionKeyDown && cancelSortingRelatedKey);
 
     e.preventDefault();
-    changeSortingDirection({
+    onSort({
       keepOther: cancelSortingRelatedKey,
       cancel,
       columnName: column.name,
@@ -34,7 +34,7 @@ export const GroupPanelItem = ({
     const isMouseClick = e.keyCode === undefined;
 
     if (!isActionKeyDown && !isMouseClick) return;
-    groupByColumn({ columnName: column.name });
+    onGroup({ columnName: column.name });
   };
   return (
     <div
@@ -82,22 +82,23 @@ export const GroupPanelItem = ({
 };
 
 GroupPanelItem.propTypes = {
-  column: PropTypes.shape({
-    title: PropTypes.string,
+  item: PropTypes.shape({
+    column: PropTypes.shape({
+      title: PropTypes.string,
+    }).isRequired,
+    draft: PropTypes.string,
   }).isRequired,
-  draft: PropTypes.string,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortingDirection: PropTypes.func,
-  groupByColumn: PropTypes.func,
+  onSort: PropTypes.func,
+  onGroup: PropTypes.func,
   allowUngroupingByClick: PropTypes.bool,
 };
 
 GroupPanelItem.defaultProps = {
-  draft: undefined,
   allowSorting: false,
   sortingDirection: undefined,
-  changeSortingDirection: undefined,
-  groupByColumn: undefined,
+  onSort: undefined,
+  onGroup: undefined,
   allowUngroupingByClick: false,
 };

@@ -57,7 +57,7 @@ CommandButton.defaultProps = {
 };
 
 const AddButton = ({ onExecute }) => (
-  <Button
+  <CommandButton
     text="New"
     hint="Create new row"
     icon="plus"
@@ -69,7 +69,7 @@ AddButton.propTypes = {
 };
 
 const EditButton = ({ onExecute }) => (
-  <Button
+  <CommandButton
     text="Edit"
     hint="Edit row"
     onExecute={onExecute}
@@ -80,7 +80,7 @@ EditButton.propTypes = {
 };
 
 const DeleteButton = ({ onExecute }) => (
-  <Button
+  <CommandButton
     icon="trash"
     hint="Delete row"
     onExecute={onExecute}
@@ -92,7 +92,7 @@ DeleteButton.propTypes = {
 };
 
 const CommitButton = ({ onExecute }) => (
-  <Button
+  <CommandButton
     text="Save"
     hint="Save changes"
     onExecute={onExecute}
@@ -103,7 +103,7 @@ CommitButton.propTypes = {
 };
 
 const CancelButton = ({ onExecute }) => (
-  <Button
+  <CommandButton
     icon="remove"
     hint="Cancel changes"
     onExecute={onExecute}

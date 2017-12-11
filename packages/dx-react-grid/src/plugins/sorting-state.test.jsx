@@ -123,4 +123,74 @@ describe('SortingState', () => {
     expect(sortingChange)
       .toBeCalledWith(newSorting);
   });
+
+  describe('action sequence in batch', () => {
+    it('should correctly work with the several action calls in the uncontrolled mode', () => {
+      const defaultSorting = [1];
+      const transitionalSorting = [2];
+      const newSorting = [3];
+      const payload = {};
+
+      const sortingChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SortingState
+            defaultSorting={defaultSorting}
+            onSortingChange={sortingChange}
+          />
+        </PluginHost>
+      ));
+
+      setColumnSorting.mockReturnValueOnce({ sorting: transitionalSorting });
+      setColumnSorting.mockReturnValueOnce({ sorting: newSorting });
+      executeComputedAction(tree, (actions) => {
+        actions.setColumnSorting(payload);
+        actions.setColumnSorting(payload);
+      });
+
+      expect(setColumnSorting)
+        .lastCalledWith(
+          expect.objectContaining({ sorting: transitionalSorting }),
+          payload,
+        );
+
+      expect(sortingChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should correctly work with the several action calls in the controlled mode', () => {
+      const sorting = [1];
+      const transitionalSorting = [2];
+      const newSorting = [3];
+      const payload = {};
+
+      const sortingChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SortingState
+            sorting={sorting}
+            onSortingChange={sortingChange}
+          />
+        </PluginHost>
+      ));
+
+      setColumnSorting.mockReturnValueOnce({ sorting: transitionalSorting });
+      setColumnSorting.mockReturnValueOnce({ sorting: newSorting });
+      executeComputedAction(tree, (actions) => {
+        actions.setColumnSorting(payload);
+        actions.setColumnSorting(payload);
+      });
+
+      expect(setColumnSorting)
+        .lastCalledWith(
+          expect.objectContaining({ sorting: transitionalSorting }),
+          payload,
+        );
+
+      expect(sortingChange)
+        .toHaveBeenCalledTimes(1);
+    });
+  });
 });

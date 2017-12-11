@@ -13,20 +13,32 @@ export class SortingState extends React.PureComponent {
 
     this.setColumnSorting = this.applyReducer.bind(this, setColumnSorting);
   }
-  getState() {
+  getState(temporaryState) {
     return {
+      ...this.state,
       sorting: this.props.sorting || this.state.sorting,
+      ...(this.state !== temporaryState ? temporaryState : null),
     };
   }
   applyReducer(reduce, payload) {
-    const prevState = this.getState();
-    const statePart = reduce(prevState, payload);
-    this.setState(statePart);
-    const state = { ...prevState, ...statePart };
+    const stateUpdater = (prevState) => {
+      const state = this.getState(prevState);
+      const nextState = { ...state, ...reduce(state, payload) };
 
-    const { sorting } = state;
+      if (stateUpdater === this.lastStateUpdater) {
+        this.notifyStateChange(nextState, state);
+      }
+
+      return nextState;
+    };
+    this.lastStateUpdater = stateUpdater;
+
+    this.setState(stateUpdater);
+  }
+  notifyStateChange(nextState, state) {
+    const { sorting } = nextState;
     const { onSortingChange } = this.props;
-    if (onSortingChange && sorting !== prevState.sorting) {
+    if (onSortingChange && sorting !== state.sorting) {
       onSortingChange(sorting);
     }
   }

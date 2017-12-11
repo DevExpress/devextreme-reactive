@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-  SortingState,
-  SelectionState,
-  LocalSorting,
+  SortingState, SelectionState,
+  LocalSorting, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -64,14 +63,16 @@ export default class Demo extends React.PureComponent {
             sorting={sorting}
             onSortingChange={this.changeSorting}
           />
-          <LocalSorting />
           <SelectionState
             selection={selection}
             onSelectionChange={this.changeSelection}
           />
+          <LocalSorting />
+          <LocalSelection />
+
           <Table />
           <TableHeaderRow allowSorting />
-          <TableSelection />
+          <TableSelection showSelectAll />
         </Grid>
       </Paper>
     );

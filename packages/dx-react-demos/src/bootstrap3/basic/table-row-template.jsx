@@ -11,21 +11,21 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const TableRow = ({ children, row }) => (
-  <tr
+const TableRow = ({ row, tableRow, ...restProps }) => (
+  <Table.Row
+    {...restProps}
     // eslint-disable-next-line no-alert
     onClick={() => alert(JSON.stringify(row))}
-  >
-    {children}
-  </tr>
+    className={tableRow.rowId % 2 ? 'active' : ''}
+    style={{
+      cursor: 'pointer',
+    }}
+  />
 );
 
 TableRow.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
   row: PropTypes.any.isRequired,
+  tableRow: PropTypes.any.isRequired,
 };
 
 export default class Demo extends React.PureComponent {

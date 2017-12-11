@@ -12,35 +12,22 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const TableRow = ({ row, tableRow, ...restProps }) => {
-  const { rowId } = tableRow;
-  return (
-    <Table.Row
-      {...restProps}
-      // eslint-disable-next-line no-alert
-      onClick={() => alert(JSON.stringify(row))}
-      style={{
-        cursor: 'pointer',
-        ...(rowId % 2 ? { backgroundColor: '#dfeef3' } : {}),
-      }}
-    />
-  );
-};
+const TableRow = ({ row, tableRow, ...restProps }) => (
+  <Table.Row
+    {...restProps}
+    // eslint-disable-next-line no-alert
+    onClick={() => alert(JSON.stringify(row))}
+    style={{
+      cursor: 'pointer',
+      ...(tableRow.rowId % 2 ? { backgroundColor: '#f5f5f5' } : {}),
+    }}
+  />
+);
 
 TableRow.propTypes = {
   row: PropTypes.any.isRequired,
   tableRow: PropTypes.any.isRequired,
 };
-
-const HeaderRow = props => (
-  <TableHeaderRow.Row
-    {...props}
-    style={{
-      backgroundColor: 'lightblue',
-      color: 'black',
-    }}
-  />
-);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -68,7 +55,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <Table rowComponent={TableRow} />
-          <TableHeaderRow rowComponent={HeaderRow} />
+          <TableHeaderRow />
         </Grid>
       </Paper>
     );

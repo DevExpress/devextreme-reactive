@@ -17,6 +17,19 @@ estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/packag
 
 This plugin also supports the [Table](table.md#properties) plugin's properties.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+VirtualTable.Cell | [TableDataCellProps](table.md#tabledatacellprops) | A component that renders a table data cell.
+VirtualTable.Row | [TableDataRowProps](table.md#tabledatarowprops) | A component that renders a table data row.
+VirtualTable.NoDataCell | [TableCellProps](table.md#tablecellprops) | A component that renders a table cell when the table is empty.
+VirtualTable.NoDataRow | [TableRowProps](table.md#tablerowprops) | A component that renders a table row when the table is empty.
+VirtualTable.StubCell | [TableCellProps](table.md#tablecellprops) | A component that renders a stub table cell.
+VirtualTable.StubHeaderCell | [TableCellProps](table.md#tablecellprops) | A component that renders a stub table header cell.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

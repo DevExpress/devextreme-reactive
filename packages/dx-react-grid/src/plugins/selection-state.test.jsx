@@ -56,7 +56,7 @@ describe('SelectionState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.availableToSelect)
+    expect(getComputedState(tree).availableToSelect)
       .toBe(getAvailableToSelect());
 
     expect(getAvailableToSelect)
@@ -79,7 +79,7 @@ describe('SelectionState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.selection)
+    expect(getComputedState(tree).selection)
       .toBe(getAvailableSelection());
 
     expect(getAvailableSelection)
@@ -98,7 +98,7 @@ describe('SelectionState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.selection)
+    expect(getComputedState(tree).selection)
       .toBe(getAvailableSelection());
 
     expect(getAvailableSelection)

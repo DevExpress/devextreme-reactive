@@ -130,7 +130,7 @@ describe('Grid', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.rows)
+    expect(getComputedState(tree).rows)
       .toBe(defaultProps.rows);
   });
 
@@ -149,7 +149,7 @@ describe('Grid', () => {
 
     expect(rowIdGetter)
       .toBeCalledWith(getRowId, defaultProps.rows);
-    expect(getComputedState(tree).getters.getRowId)
+    expect(getComputedState(tree).getRowId)
       .toBe(rowIdGetter());
   });
 
@@ -168,7 +168,7 @@ describe('Grid', () => {
 
     expect(cellValueGetter)
       .toBeCalledWith(getCellValue, defaultProps.columns);
-    expect(getComputedState(tree).getters.getCellValue)
+    expect(getComputedState(tree).getCellValue)
       .toEqual(cellValueGetter());
   });
 });

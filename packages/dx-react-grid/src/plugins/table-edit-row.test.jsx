@@ -84,7 +84,7 @@ describe('TableEditRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableBodyRows)
+      expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithEditing');
       expect(tableRowsWithEditing)
         .toBeCalledWith(

@@ -2,10 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import {
-  setColumnSorting,
-} from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { setColumnSorting } from '@devexpress/dx-grid-core';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SortingState } from './sorting-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -48,7 +46,7 @@ describe('SortingState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.sorting)
+    expect(getComputedState(tree).sorting)
       .toBe(defaultSorting);
   });
 
@@ -64,7 +62,7 @@ describe('SortingState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.sorting)
+    expect(getComputedState(tree).sorting)
       .toBe(sorting);
   });
 
@@ -85,12 +83,12 @@ describe('SortingState', () => {
 
     const payload = {};
     setColumnSorting.mockReturnValue({ sorting: newSorting });
-    getComputedState(tree).actions.setColumnSorting(payload);
+    executeComputedAction(tree, actions => actions.setColumnSorting(payload));
 
     expect(setColumnSorting)
       .toBeCalledWith(expect.objectContaining({ sorting: defaultSorting }), payload);
 
-    expect(getComputedState(tree).getters.sorting)
+    expect(getComputedState(tree).sorting)
       .toBe(newSorting);
 
     expect(sortingChange)
@@ -114,12 +112,12 @@ describe('SortingState', () => {
 
     const payload = {};
     setColumnSorting.mockReturnValue({ sorting: newSorting });
-    getComputedState(tree).actions.setColumnSorting(payload);
+    executeComputedAction(tree, actions => actions.setColumnSorting(payload));
 
     expect(setColumnSorting)
       .toBeCalledWith(expect.objectContaining({ sorting }), payload);
 
-    expect(getComputedState(tree).getters.sorting)
+    expect(getComputedState(tree).sorting)
       .toBe(sorting);
 
     expect(sortingChange)

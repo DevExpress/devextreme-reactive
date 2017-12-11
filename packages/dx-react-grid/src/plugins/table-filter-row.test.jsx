@@ -79,7 +79,7 @@ describe('TableFilterRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableHeaderRows)
+      expect(getComputedState(tree).tableHeaderRows)
         .toBe('tableHeaderRowsWithFilter');
       expect(tableHeaderRowsWithFilter)
         .toBeCalledWith(defaultDeps.getter.tableHeaderRows, 120);

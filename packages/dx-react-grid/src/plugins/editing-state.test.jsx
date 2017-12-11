@@ -33,7 +33,7 @@ describe('EditingState', () => {
         </PluginHost>
       ));
 
-      getComputedState(tree).getters.createRowChange(row, column.name, 3);
+      getComputedState(tree).createRowChange(row, column.name, 3);
 
       expect(createRowChangeMock)
         .toBeCalledWith(row, column.name, 3);

@@ -96,7 +96,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithEditing');
       expect(tableColumnsWithEditing)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);

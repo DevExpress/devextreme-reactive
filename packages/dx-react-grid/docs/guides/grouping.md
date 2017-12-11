@@ -47,7 +47,7 @@ Use the `GroupPanel` and `TableHeaderRow` plugins in addition to those used for 
 
 You can also set the `GroupingPanel` plugin's `allowSorting` option to true to enable sorting data by a grouped column.
 
-In the following example the Grid functions are in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls the grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
+In the following example, the Grid functions are in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls the grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
 
 .embedded-demo(grouping/local-grouping-with-ui)
 
@@ -77,7 +77,7 @@ You can also assign a function that returns a Boolean value depending on the `co
   </Grid>
 ```
 
-Note that if the `getColumnIdentity` function returns an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `groupCellTemplate` property as demonstrated in the following example:
+Note that if the `getColumnIdentity` function returns an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `getCellComponent` property as demonstrated in the following example:
 
 .embedded-demo(grouping/local-grouping-custom-advanced)
 
@@ -89,7 +89,7 @@ Grouping options are updated whenever an end-user interacts with the grouping UI
 
 For remote grouping, you should use the `CustomGrouping` plugin instead of the `LocalGrouping` plugin.
 
-While waiting for a response from a server, there is a timeframe where the grouping state does not match the data available to the `Grid` in its `rows` property. To avoid any issues due to this discrepancy, you should temporarily assign the "old" values of the `grouping` and `expandedGroups` state fields to the properties with the same names on the `GroupingState` plugin. The result is that the `Grid` does not yet see the configuration change. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` becomes aware of the change to its grouping configuration, and it reeceives the updated set of data at the same time.
+While waiting for a response from a server, there is a timeframe where the grouping state does not match the data available to the `Grid` in its `rows` property. To avoid any issues, temporarily assign the `grouping` and `expandedGroups` state fields' "old" values to the properties with the same names in the `GroupingState` plugin. The result is that the `Grid` does not yet see the configuration change. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` becomes aware of the change to its grouping configuration, and it receives the updated data set at the same time.
 
 The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach outlined in the previous paragraph:
 

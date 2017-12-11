@@ -9,7 +9,6 @@ import {
   isEditTableRow,
   isAddedTableRow,
 } from '@devexpress/dx-grid-core';
-import { DataTypeProvider } from './data-type-provider';
 import { TableEditRow } from './table-edit-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -207,40 +206,26 @@ describe('TableEditRow', () => {
 
   it('can render custom editors', () => {
     isEditTableCell.mockImplementation(() => true);
-    const deps = {
-      getter: {
-        getCellValue: jest.fn(() => 'a2'),
-      },
-      template: {
-        tableCell: {
-          tableRow: { row: { a: 'a1', b: 'b1' } },
-          tableColumn: { column: { name: 'column', dataType: 'column' } },
-        },
-      },
-    };
-    const valueEditor = jest.fn(() => <input />);
 
     const tree = mount((
       <PluginHost>
-        <DataTypeProvider
-          type="column"
-          editorTemplate={valueEditor}
-        />
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
         />
       </PluginHost>
     ));
 
-    expect(valueEditor)
-      .toHaveBeenCalledWith({
-        column: deps.template.tableCell.tableColumn.column,
-        row: deps.template.tableCell.tableRow.row,
-        value: deps.getter.getCellValue(),
+    const valueEditorTemplatePlaceholder = tree
+      .find('TemplatePlaceholder')
+      .findWhere(node => node.prop('name') === 'valueEditor');
+
+    expect(valueEditorTemplatePlaceholder.prop('params'))
+      .toMatchObject({
+        column: defaultDeps.template.tableCell.tableColumn.column,
+        row: defaultDeps.template.tableCell.tableRow.row,
+        value: defaultDeps.getter.getCellValue(),
         onValueChange: expect.any(Function),
       });
-    expect(tree.find(defaultCellComponent).props())
-      .toHaveProperty('children');
   });
 });

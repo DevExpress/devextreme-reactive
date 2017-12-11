@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { columnChooserItems } from '@devexpress/dx-grid-core';
 import { ColumnChooser } from './column-chooser';
 
@@ -16,44 +16,41 @@ describe('ColumnChooser', () => {
   });
 
   it('should render container template with correct parameters', () => {
-    const containerTemplate = jest.fn(() => null);
-    const itemTemplate = () => <div />;
-    mount((
+    const ContainerComponent = () => null;
+    const ItemComponent = () => null;
+
+    const tree = shallow((
       <ColumnChooser
-        columns={[{ name: 'a' }, { name: 'b' }]}
-        containerTemplate={containerTemplate}
-        itemTemplate={itemTemplate}
+        columns={[]}
+        containerComponent={ContainerComponent}
+        itemComponent={ItemComponent}
         onHiddenColumnsChange={() => {}}
       />
     ));
 
-    expect(containerTemplate)
-      .toHaveBeenCalledTimes(1);
-    expect(containerTemplate)
-      .toHaveBeenCalledWith({
+    expect(tree.find(ContainerComponent).props())
+      .toEqual({
         items: expect.any(Array),
         onItemToggle: expect.any(Function),
         children: expect.any(Array),
       });
   });
 
-  it('should pass correct parameters to the itemTemplate', () => {
-    // eslint-disable-next-line react/prop-types
-    const containerTemplate = ({ children }) => <div>{children}</div>;
-    const itemTemplate = jest.fn(() => <div />);
-    mount((
+  it('should pass correct parameters to the itemComponent', () => {
+    const ContainerComponent = () => null;
+    const ItemComponent = () => null;
+
+    const tree = shallow((
       <ColumnChooser
-        columns={[{ name: 'a' }, { name: 'b' }]}
-        containerTemplate={containerTemplate}
-        itemTemplate={itemTemplate}
+        columns={[]}
+        containerComponent={ContainerComponent}
+        itemComponent={ItemComponent}
         onHiddenColumnsChange={() => {}}
       />
     ));
 
-    expect(itemTemplate)
-      .toHaveBeenCalledTimes(1);
-    expect(itemTemplate)
-      .toHaveBeenCalledWith({
+    expect(tree.find(ItemComponent).props())
+      .toEqual({
         item: {
           column: { name: 'a' },
           hidden: true,
@@ -65,12 +62,13 @@ describe('ColumnChooser', () => {
   it('should calculate items via the "columnChooserItems" computed', () => {
     const columns = [{ name: 'a' }, { name: 'b' }];
     const hiddenColumns = ['a'];
-    mount((
+
+    shallow((
       <ColumnChooser
         columns={columns}
         hiddenColumns={hiddenColumns}
-        containerTemplate={() => null}
-        itemTemplate={() => <div />}
+        containerComponent={() => null}
+        itemComponent={() => null}
       />
     ));
 

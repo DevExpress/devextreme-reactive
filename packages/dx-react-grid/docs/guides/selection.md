@@ -8,7 +8,7 @@ The following plugins implement selection features:
 
 - [SelectionState](../reference/selection-state.md) - controls the selection state
 - [LocalSelection](../reference/local-selection.md) - performs local selection
-- [TableSelection](../reference/table-selection.md) - renders selection check boxes or highlights the selected rows
+- [TableSelection](../reference/table-selection.md) - renders selection checkboxes or highlights the selected rows
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -30,7 +30,7 @@ In some scenarios, it is useful to highlight selected rows instead of using chec
 
 ## Select All
 
-Perform the following steps to enable the "select/deselect all" capability.
+Perform the following steps to enable the "select/deselect all" capability:
 
 - Add the `LocalSelection` plugin above the `TableSelection` one.
 - Add the `TableHeaderRow` plugin.

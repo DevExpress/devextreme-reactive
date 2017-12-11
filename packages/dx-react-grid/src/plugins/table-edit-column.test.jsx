@@ -49,20 +49,13 @@ const defaultDeps = {
   plugins: ['EditingState', 'Table'],
 };
 
-const defaultCommandComponents = {
-  add: () => null,
-  edit: () => null,
-  delete: () => null,
-  commit: () => null,
-  cancel: () => null,
-};
 const defaultProps = {
   cellComponent: ({ children }) => children,
   headerCellComponent: ({ children }) => children,
-  getCommandComponent: id => defaultCommandComponents[id],
+  commandComponent: () => null,
 };
 
-describe('TableHeaderRow', () => {
+describe('TableEditColumn', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -125,7 +118,7 @@ describe('TableHeaderRow', () => {
         .toMatchObject({
           ...defaultDeps.template.tableCell,
         });
-      expect(tree.find(defaultCommandComponents.add).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'add').exists())
         .toBeFalsy();
     });
 
@@ -142,10 +135,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.add).props())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'add').props())
         .toMatchObject({ text: 'addCommand' });
 
-      const { onExecute } = tree.find(defaultCommandComponents.add).props();
+      const { onExecute } = tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'add').props();
       onExecute();
       expect(defaultDeps.action.addRow)
         .toBeCalled();
@@ -175,13 +168,13 @@ describe('TableHeaderRow', () => {
           ...defaultDeps.template.tableCell,
           row: defaultDeps.template.tableCell.tableRow.row,
         });
-      expect(tree.find(defaultCommandComponents.edit).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'edit').exists())
         .toBeFalsy();
-      expect(tree.find(defaultCommandComponents.delete).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'delete').exists())
         .toBeFalsy();
-      expect(tree.find(defaultCommandComponents.commit).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'commit').exists())
         .toBeFalsy();
-      expect(tree.find(defaultCommandComponents.cancel).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'cancel').exists())
         .toBeFalsy();
     });
 
@@ -198,10 +191,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.edit).props())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'edit').props())
         .toMatchObject({ text: 'editCommand' });
 
-      const { onExecute } = tree.find(defaultCommandComponents.edit).props();
+      const { onExecute } = tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'edit').props();
       onExecute();
       expect(defaultDeps.action.startEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
@@ -221,7 +214,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.edit).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'edit').exists())
         .toBeFalsy();
     });
 
@@ -239,7 +232,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.edit).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'edit').exists())
         .toBeFalsy();
     });
 
@@ -256,10 +249,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.delete).props())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'delete').props())
         .toMatchObject({ text: 'deleteCommand' });
 
-      const { onExecute } = tree.find(defaultCommandComponents.delete).props();
+      const { onExecute } = tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'delete').props();
       onExecute();
       expect(defaultDeps.action.deleteRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
@@ -281,7 +274,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.edit).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'edit').exists())
         .toBeFalsy();
     });
 
@@ -299,7 +292,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.edit).exists())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'edit').exists())
         .toBeFalsy();
     });
 
@@ -316,10 +309,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.commit).props())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'commit').props())
         .toMatchObject({ text: 'commitCommand' });
 
-      const { onExecute } = tree.find(defaultCommandComponents.commit).props();
+      const { onExecute } = tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'commit').props();
       onExecute();
       expect(defaultDeps.action.stopEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
@@ -340,10 +333,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.commit).props())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'commit').props())
         .toMatchObject({ text: 'commitCommand' });
 
-      const { onExecute } = tree.find(defaultCommandComponents.commit).props();
+      const { onExecute } = tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'commit').props();
       onExecute();
       expect(defaultDeps.action.commitAddedRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
@@ -362,10 +355,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.cancel).props())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'cancel').props())
         .toMatchObject({ text: 'cancelCommand' });
 
-      const { onExecute } = tree.find(defaultCommandComponents.cancel).props();
+      const { onExecute } = tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'cancel').props();
       onExecute();
       expect(defaultDeps.action.stopEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
@@ -386,10 +379,10 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultCommandComponents.cancel).props())
+      expect(tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'cancel').props())
         .toMatchObject({ text: 'cancelCommand' });
 
-      const { onExecute } = tree.find(defaultCommandComponents.cancel).props();
+      const { onExecute } = tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === 'cancel').props();
       onExecute();
       expect(defaultDeps.action.cancelAddedRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });

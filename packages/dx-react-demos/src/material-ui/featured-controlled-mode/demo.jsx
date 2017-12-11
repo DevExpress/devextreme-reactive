@@ -42,12 +42,6 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const availableValues = {
-  product: globalSalesValues.product,
-  region: globalSalesValues.region,
-  customer: globalSalesValues.customer,
-};
-
 const styles = theme => ({
   lookupEditCell: {
     verticalAlign: 'top',
@@ -120,6 +114,25 @@ const commandComponents = {
   delete: DeleteButton,
   commit: CommitButton,
   cancel: CancelButton,
+};
+
+const Command = ({ id, onExecute }) => {
+  const CommandButton = commandComponents[id];
+  return (
+    <CommandButton
+      onExecute={onExecute}
+    />
+  );
+};
+Command.propTypes = {
+  id: PropTypes.string.isRequired,
+  onExecute: PropTypes.func.isRequired,
+};
+
+const availableValues = {
+  product: globalSalesValues.product,
+  region: globalSalesValues.region,
+  customer: globalSalesValues.customer,
 };
 
 const LookupEditCellBase = ({
@@ -256,8 +269,6 @@ class DemoBase extends React.PureComponent {
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
     };
-
-    this.getEditCommandComponent = id => commandComponents[id];
   }
   render() {
     const {
@@ -328,7 +339,7 @@ class DemoBase extends React.PureComponent {
             allowAdding={!this.state.addedRows.length}
             allowEditing
             allowDeleting
-            getCommandComponent={this.getEditCommandComponent}
+            commandComponent={Command}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}

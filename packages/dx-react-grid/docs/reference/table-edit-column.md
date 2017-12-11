@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ElementType&lt;[TableEditColumnCellProps](#tableeditcolumncellprops)&gt; | | A component that renders a command cell within a data row.
 headerCellComponent | ElementType&lt;[TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a command cell within the header row.
-getCommandComponent | (id: 'add' &#124; 'edit' &#124; 'delete' &#124; 'commit' &#124; 'cancel') => ElementType&lt;[EditCommandProps](#editcommandprops)&gt; | | A function returning a component that renders command controls a specific command.
+commandComponent | ElementType&lt;[EditCommandProps](#editcommandprops)&gt; | | A component that renders command controls.
 allowAdding | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
 allowEditing | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
 allowDeleting | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
@@ -53,6 +53,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+id | 'add' &#124; 'edit' &#124; 'delete' &#124; 'commit' &#124; 'cancel' | The command identificator.
 text | string | The command action description.
 onExecute | () => void | An event initiating the command execution.
 

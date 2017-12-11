@@ -22,18 +22,13 @@ export class TableEditColumn extends React.PureComponent {
     const {
       cellComponent: Cell,
       headerCellComponent: HeaderCell,
-      getCommandComponent,
+      commandComponent: Command,
       allowAdding,
       allowEditing,
       allowDeleting,
       width,
       messages,
     } = this.props;
-    const AddCommand = getCommandComponent('add');
-    const EditCommand = getCommandComponent('edit');
-    const DeleteCommand = getCommandComponent('delete');
-    const CommitCommand = getCommandComponent('commit');
-    const CancelCommand = getCommandComponent('cancel');
     const getMessage = getMessagesFormatter(messages);
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
 
@@ -54,7 +49,8 @@ export class TableEditColumn extends React.PureComponent {
               {(getters, actions) => (
                 <HeaderCell {...params}>
                   {allowAdding && (
-                    <AddCommand
+                    <Command
+                      id="add"
                       text={getMessage('addCommand')}
                       onExecute={() => actions.addRow()}
                     />
@@ -82,13 +78,15 @@ export class TableEditColumn extends React.PureComponent {
                     row={params.tableRow.row}
                   >
                     {allowEditing && !isEditing && (
-                      <EditCommand
+                      <Command
+                        id="edit"
                         text={getMessage('editCommand')}
                         onExecute={() => actions.startEditRows({ rowIds })}
                       />
                     )}
                     {allowDeleting && !isEditing && (
-                      <DeleteCommand
+                      <Command
+                        id="delete"
                         text={getMessage('deleteCommand')}
                         onExecute={() => {
                           actions.deleteRows({ rowIds });
@@ -97,7 +95,8 @@ export class TableEditColumn extends React.PureComponent {
                       />
                     )}
                     {isEditing && (
-                      <CommitCommand
+                      <Command
+                        id="commit"
                         text={getMessage('commitCommand')}
                         onExecute={() => {
                           if (isNew) {
@@ -110,7 +109,8 @@ export class TableEditColumn extends React.PureComponent {
                       />
                     )}
                     {isEditing && (
-                      <CancelCommand
+                      <Command
+                        id="cancel"
                         text={getMessage('cancelCommand')}
                         onExecute={() => {
                           if (isNew) {
@@ -135,7 +135,7 @@ export class TableEditColumn extends React.PureComponent {
 TableEditColumn.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
-  getCommandComponent: PropTypes.func.isRequired,
+  commandComponent: PropTypes.func.isRequired,
   allowAdding: PropTypes.bool,
   allowEditing: PropTypes.bool,
   allowDeleting: PropTypes.bool,

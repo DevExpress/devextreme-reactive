@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 export const EditCell = ({
   column, value, onValueChange, style, children,
+  row, tableRow, tableColumn, ...restProps
 }) => (
   <td
     style={{
@@ -10,6 +11,7 @@ export const EditCell = ({
       padding: '1px',
       ...style,
     }}
+    {...restProps}
   >
     {children || (
       <input
@@ -24,6 +26,9 @@ export const EditCell = ({
 );
 EditCell.propTypes = {
   column: PropTypes.object,
+  row: PropTypes.object,
+  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
   style: PropTypes.object,
@@ -34,6 +39,9 @@ EditCell.propTypes = {
 };
 EditCell.defaultProps = {
   column: {},
+  row: undefined,
+  tableColumn: undefined,
+  tableRow: undefined,
   value: '',
   style: {},
   children: undefined,

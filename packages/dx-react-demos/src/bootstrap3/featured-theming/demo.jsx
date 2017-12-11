@@ -66,7 +66,7 @@ class GridDetailContainer extends React.PureComponent {
     this.handleChange = this.handleChange.bind(this);
   }
   findTasks(priority) {
-    return this.props.data.tasks.filter(task => task.priority === priority);
+    return this.props.row.tasks.filter(task => task.priority === priority);
   }
   firstSelectedIndex() {
     let result = 0;
@@ -85,7 +85,7 @@ class GridDetailContainer extends React.PureComponent {
     const {
       lowPriorityTasks, normalPriorityTasks, highPriorityTasks, index,
     } = this.state;
-    const { data } = this.props;
+    const { row } = this.props;
 
     return (
       <div
@@ -94,7 +94,7 @@ class GridDetailContainer extends React.PureComponent {
         <h4
           style={{ marginBottom: '20px' }}
         >
-          {data.firstName} {data.lastName}&apos;s Tasks by Priority:
+          {row.firstName} {row.lastName}&apos;s Tasks by Priority:
         </h4>
 
         <Nav
@@ -122,7 +122,7 @@ class GridDetailContainer extends React.PureComponent {
 }
 
 GridDetailContainer.propTypes = {
-  data: PropTypes.object.isRequired,
+  row: PropTypes.object.isRequired,
 };
 
 // eslint-disable-next-line
@@ -190,11 +190,7 @@ export default class Demo extends React.PureComponent {
         />
         <TableSelection />
         <TableRowDetail
-          template={({ row }) => (
-            <GridDetailContainer
-              data={row}
-            />
-          )}
+          contentComponent={GridDetailContainer}
         />
         <TableGroupRow />
         <GroupingPanel allowSorting allowDragging />

@@ -27,6 +27,8 @@ const defaultDeps = {
   plugins: ['PagingState'],
 };
 
+const DefaultPager = () => null;
+
 describe('PagingPanel', () => {
   let resetConsole;
   beforeAll(() => {
@@ -44,21 +46,19 @@ describe('PagingPanel', () => {
     jest.resetAllMocks();
   });
 
-  it('should render the "pagerTemplate" template in the "footer" template placeholder', () => {
-    const pagerTemplate = jest.fn().mockReturnValue(null);
-    const deps = {};
-
-    mount((
+  it('should render the "containerComponent" in the "footer" template placeholder', () => {
+    const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <PagingPanel
-          pagerTemplate={pagerTemplate}
+          containerComponent={DefaultPager}
           allowedPageSizes={[3, 5, 0]}
         />
       </PluginHost>
     ));
 
-    expect(pagerTemplate.mock.calls[0][0])
+    const pager = tree.find(DefaultPager);
+    expect(pager.props())
       .toMatchObject({
         currentPage: 1,
         pageSize: 2,
@@ -67,19 +67,17 @@ describe('PagingPanel', () => {
         allowedPageSizes: [3, 5, 0],
       });
 
-    pagerTemplate.mock.calls[0][0].onCurrentPageChange(3);
+    pager.prop('onCurrentPageChange')(3);
     expect(defaultDeps.action.setCurrentPage.mock.calls[0][0])
       .toEqual(3);
   });
 
-  it('should pass correct getMessage prop to pagerTemplate', () => {
-    const pagerTemplate = jest.fn().mockReturnValue(null);
-    const deps = {};
-    mount((
+  it('should pass correct getMessage prop to containerComponent', () => {
+    const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
+        {pluginDepsToComponents(defaultDeps)}
         <PagingPanel
-          pagerTemplate={pagerTemplate}
+          containerComponent={DefaultPager}
           messages={{
             showAll: 'Show all',
           }}
@@ -87,8 +85,10 @@ describe('PagingPanel', () => {
       </PluginHost>
     ));
 
-    const { getMessage } = pagerTemplate.mock.calls[0][0];
+    const getMessage = tree.find(DefaultPager)
+      .prop('getMessage');
 
-    expect(getMessage('showAll')).toBe('Show all');
+    expect(getMessage('showAll'))
+      .toBe('Show all');
   });
 });

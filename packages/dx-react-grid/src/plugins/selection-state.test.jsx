@@ -131,10 +131,7 @@ describe('SelectionState', () => {
       });
 
       expect(setRowsSelection)
-        .lastCalledWith(
-          transitionalSelection,
-          payload,
-        );
+        .lastCalledWith(transitionalSelection, payload);
 
       expect(selectionChange)
         .toHaveBeenCalledTimes(1);
@@ -165,10 +162,7 @@ describe('SelectionState', () => {
       });
 
       expect(setRowsSelection)
-        .lastCalledWith(
-          transitionalSelection,
-          payload,
-        );
+        .lastCalledWith(transitionalSelection, payload);
 
       expect(selectionChange)
         .toHaveBeenCalledTimes(1);

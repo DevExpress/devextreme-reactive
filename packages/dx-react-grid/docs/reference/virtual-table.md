@@ -1,12 +1,13 @@
 # VirtualTable Plugin Reference
 
-The plugin extends the [Table](table.md) plugin. It renders a scrollable table instead of a static one.
+A plugin that renders a scrollable table instead of a static one. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize virtual table rows and columns.
 
 ## User Reference
 
 ### Dependencies
 
-Same as the [Table](table.md#dependencies)'s.
+- [DragDropContext](drag-drop-context.md) [Optional]
+- [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
 
@@ -14,19 +15,33 @@ Name | Type | Default | Description
 -----|------|---------|------------
 height | number | 530 | The virtual table's height.
 estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | An estimated value of the row height. For a table whose rows have a variable height, specify an average value. The more accurately you estimate the row height, the better the virtual table performs.
+layoutComponent | ElementType&lt;[TableLayoutProps](table.md#tablelayoutprops)&gt; | | A component that renders a virtual table layout.
+getCellComponent | (columnName: string) => ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A function returning a component that renders a virtual table cell for a specific column.
+rowComponent | ElementType&lt;[TableDataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a virtual table row.
+noDataCellComponent | ElementType&lt;[TableNoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a virtual table cell when the virtual table is empty.
+noDataRowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a virtual table row when the virtual table is empty.
+stubCellComponent | ElementType&lt;[TableCellProps](table.md#tablecellprops)&gt; | | A component that renders a stub virtual table cell if the cell value is not provided.
+stubHeaderCellComponent | ElementType&lt;[TableCellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
+messages | object | | An object that specifies the [localization messages](#localization-messages).
 
-This plugin also supports the [Table](table.md#properties) plugin's properties.
+## Localization Messages
+
+An object with the following shape:
+
+Field | Type | Default | Description
+------|------|---------|------------
+noData? | string | 'No data' | Specifies text shown when the Grid does not contain data.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-VirtualTable.Cell | [TableDataCellProps](table.md#tabledatacellprops) | A component that renders a table data cell.
-VirtualTable.Row | [TableDataRowProps](table.md#tabledatarowprops) | A component that renders a table data row.
-VirtualTable.NoDataCell | [TableCellProps](table.md#tablecellprops) | A component that renders a table cell when the table is empty.
-VirtualTable.NoDataRow | [TableRowProps](table.md#tablerowprops) | A component that renders a table row when the table is empty.
-VirtualTable.StubCell | [TableCellProps](table.md#tablecellprops) | A component that renders a stub table cell.
-VirtualTable.StubHeaderCell | [TableCellProps](table.md#tablecellprops) | A component that renders a stub table header cell.
+VirtualTable.Cell | [TableDataCellProps](table.md#tabledatacellprops) | A component that renders a virtual table data cell.
+VirtualTable.Row | [TableDataRowProps](table.md#tabledatarowprops) | A component that renders a virtual table data row.
+VirtualTable.NoDataCell | [TableCellProps](table.md#tablecellprops) | A component that renders a virtual table cell when the table is empty.
+VirtualTable.NoDataRow | [TableRowProps](table.md#tablerowprops) | A component that renders a virtual table row when the table is empty.
+VirtualTable.StubCell | [TableCellProps](table.md#tablecellprops) | A component that renders a stub virtual table cell.
+VirtualTable.StubHeaderCell | [TableCellProps](table.md#tablecellprops) | A component that renders a stub virtual table header cell.
 
 If you specify additional properties, they are added to the component's root element.
 
@@ -34,8 +49,20 @@ If you specify additional properties, they are added to the component's root ele
 
 ### Imports
 
-Same as the [Table](table.md#imports)'s.
+Name | Plugin | Type | Description
+-----|--------|------|------------
+rows | Getter | Array&lt;any&gt; | Rows to be rendered by the virtual table view.
+columns | Getter | Array&lt;[Column](#column-extension)&gt; | Columns to be rendered by the virtual table view.
+getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 
 ### Exports
 
-Same as the [Table](table.md#exports)'s.
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableHeaderRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
+tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
+table | Template | Object? | A template that renders the virtual table.
+tableCell | Template | [TableCellProps](#tablecellprops) | A template that renders a virtual table cell.
+tableRow | Template | [TableRowProps](#tablerowprops) | A template that renders a virtual table row.

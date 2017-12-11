@@ -52,7 +52,7 @@ If you specify additional properties, they are added to the component's root ele
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows to be rendered by the virtual table view.
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | Columns to be rendered by the virtual table view.
+columns | Getter | Array&lt;[Column](table.md#column-extension)&gt; | Columns to be rendered by the virtual table view.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
 
@@ -60,9 +60,9 @@ getCellValue | Getter | (row: any, columnName: string) => any | A function used 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
-tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
-tableColumns | Getter | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Columns to be rendered.
 table | Template | Object? | A template that renders the virtual table.
-tableCell | Template | [TableCellProps](#tablecellprops) | A template that renders a virtual table cell.
-tableRow | Template | [TableRowProps](#tablerowprops) | A template that renders a virtual table row.
+tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a virtual table cell.
+tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a virtual table row.

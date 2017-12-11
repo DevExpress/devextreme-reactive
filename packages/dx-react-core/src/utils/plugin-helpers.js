@@ -5,9 +5,9 @@ export const getActionExecutor = (pluginHost, actionToExecuteName) => {
   return (startingPayload) => {
     let payload = startingPayload;
     // eslint-disable-next-line no-use-before-define
-    const { getters } = getAvaliableGetters(pluginHost);
+    const { getters } = getAvailableGetters(pluginHost);
     // eslint-disable-next-line no-use-before-define
-    const actions = getAvaliableActions(
+    const actions = getAvailableActions(
       pluginHost,
       actionName => (actionName === actionToExecuteName
         ? (newPayload) => { payload = newPayload; }
@@ -23,7 +23,7 @@ export const getActionExecutor = (pluginHost, actionToExecuteName) => {
   };
 };
 
-export const getAvaliableGetters = (
+export const getAvailableGetters = (
   pluginHost,
   getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
 ) => {
@@ -56,7 +56,7 @@ export const isTrackedDependenciesChanged = (
   return !shallowEqual(prevTrackedDependencies, trackedDependencies);
 };
 
-export const getAvaliableActions = (
+export const getAvailableActions = (
   pluginHost,
   getAction = actionName => getActionExecutor(pluginHost, actionName),
 ) =>

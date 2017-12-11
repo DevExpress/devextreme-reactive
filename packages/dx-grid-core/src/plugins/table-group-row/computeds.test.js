@@ -23,9 +23,15 @@ describe('TableGroupRow Plugin computeds', () => {
       { columnName: 'a' },
       { columnName: 'c' },
     ];
+    const columns = [
+      { name: 'a' },
+      { name: 'b' },
+      { name: 'c' },
+      { name: 'd' },
+    ];
 
     it('should work', () => {
-      expect(tableColumnsWithGrouping(tableColumns, grouping, grouping, 123, () => false))
+      expect(tableColumnsWithGrouping(columns, tableColumns, grouping, grouping, 123, () => false))
         .toEqual([
           {
             key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
@@ -44,19 +50,21 @@ describe('TableGroupRow Plugin computeds', () => {
         { columnName: 'a' },
         { columnName: 'c', draft: GROUP_ADD_MODE },
       ];
-      expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123, () => false))
-        .toEqual([
-          {
-            key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
-          },
-          {
-            key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
-          },
-          { type: 'undefined', column: { name: 'a' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
-          { type: TABLE_DATA_TYPE, column: { name: 'd' } },
-        ]);
+      expect(tableColumnsWithGrouping(
+        columns, tableColumns, grouping,
+        draftGrouping, 123, () => false,
+      )).toEqual([
+        {
+          key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
+        },
+        {
+          key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
+        },
+        { type: 'undefined', column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
+        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
+      ]);
     });
 
     it('should add a draft column when ungrouping', () => {
@@ -64,19 +72,21 @@ describe('TableGroupRow Plugin computeds', () => {
         { columnName: 'a' },
         { columnName: 'c', draft: GROUP_REMOVE_MODE },
       ];
-      expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123, () => false))
-        .toEqual([
-          {
-            key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
-          },
-          {
-            key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
-          },
-          { type: 'undefined', column: { name: 'a' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
-          { type: TABLE_DATA_TYPE, column: { name: 'd' } },
-        ]);
+      expect(tableColumnsWithGrouping(
+        columns, tableColumns, grouping,
+        draftGrouping, 123, () => false,
+      )).toEqual([
+        {
+          key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
+        },
+        {
+          key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
+        },
+        { type: 'undefined', column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
+        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
+      ]);
     });
 
     it('should add a draft column when reordering groups', () => {
@@ -84,34 +94,38 @@ describe('TableGroupRow Plugin computeds', () => {
         { columnName: 'a' },
         { columnName: 'c', draft: GROUP_REORDER_MODE },
       ];
-      expect(tableColumnsWithGrouping(tableColumns, grouping, draftGrouping, 123, () => false))
-        .toEqual([
-          {
-            key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
-          },
-          {
-            key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
-          },
-          { type: 'undefined', column: { name: 'a' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'd' } },
-        ]);
+      expect(tableColumnsWithGrouping(
+        columns, tableColumns, grouping,
+        draftGrouping, 123, () => false,
+      )).toEqual([
+        {
+          key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
+        },
+        {
+          key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
+        },
+        { type: 'undefined', column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
+      ]);
     });
 
     it('can keep grouped columns in table', () => {
-      expect(tableColumnsWithGrouping(tableColumns, grouping, grouping, 123, columnName => columnName === 'c'))
-        .toEqual([
-          {
-            key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
-          },
-          {
-            key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
-          },
-          { type: 'undefined', column: { name: 'a' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'c' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'd' } },
-        ]);
+      expect(tableColumnsWithGrouping(
+        columns, tableColumns, grouping,
+        grouping, 123, columnName => columnName === 'c',
+      )).toEqual([
+        {
+          key: `${TABLE_GROUP_TYPE}_a`, type: TABLE_GROUP_TYPE, column: { name: 'a' }, width: 123,
+        },
+        {
+          key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
+        },
+        { type: 'undefined', column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'c' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
+      ]);
     });
   });
 

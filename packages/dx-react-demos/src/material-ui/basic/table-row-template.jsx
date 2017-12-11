@@ -12,21 +12,38 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const TableRow = ({ row, tableRow, ...restProps }) => (
+const styles = {
+  banking: {
+    backgroundColor: '#f5f5f5',
+  },
+  health: {
+    backgroundColor: '#c8e6c9',
+  },
+  telecom: {
+    backgroundColor: '#b3e5fc',
+  },
+  energy: {
+    backgroundColor: '#ffcdd2',
+  },
+  insurance: {
+    backgroundColor: '#f0f4c3',
+  },
+};
+
+const TableRow = ({ row, ...restProps }) => (
   <Table.Row
     {...restProps}
     // eslint-disable-next-line no-alert
     onClick={() => alert(JSON.stringify(row))}
     style={{
       cursor: 'pointer',
-      ...(tableRow.rowId % 2 ? { backgroundColor: '#f5f5f5' } : {}),
+      ...styles[row.sector.toLowerCase()],
     }}
   />
 );
 
 TableRow.propTypes = {
   row: PropTypes.any.isRequired,
-  tableRow: PropTypes.any.isRequired,
 };
 
 export default class Demo extends React.PureComponent {

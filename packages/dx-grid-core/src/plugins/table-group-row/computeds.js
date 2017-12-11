@@ -25,6 +25,7 @@ const tableColumnsWithDraftGrouping = (tableColumns, draftGrouping, showColumnWh
     }, []);
 
 export const tableColumnsWithGrouping = (
+  columns,
   tableColumns,
   grouping,
   draftGrouping,
@@ -32,11 +33,7 @@ export const tableColumnsWithGrouping = (
   showColumnWhenGrouped,
 ) => [
   ...grouping.map((columnGrouping) => {
-    const groupedColumn = tableColumns
-      .find(tableColumn =>
-        tableColumn.type === TABLE_DATA_TYPE &&
-        tableColumn.column.name === columnGrouping.columnName)
-      .column;
+    const groupedColumn = columns.find(column => column.name === columnGrouping.columnName);
     return {
       key: `${TABLE_GROUP_TYPE}_${groupedColumn.name}`,
       type: TABLE_GROUP_TYPE,

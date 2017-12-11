@@ -6,7 +6,7 @@ import {
   EditCommandCell,
 } from './table-edit-command-cell';
 
-describe('TablCommandColumn', () => {
+describe('TableCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {
     let shallow;
     let classes;

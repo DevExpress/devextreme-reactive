@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip } from 'material-ui';
-import { createMount } from 'material-ui/test-utils';
+import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { GroupPanelItem } from './group-panel-item';
 
 const ENTER_KEY_CODE = 13;
@@ -8,25 +8,30 @@ const SPACE_KEY_CODE = 32;
 
 describe('GroupPanelItem', () => {
   let mount;
+  let shallow;
+  let classes;
   beforeAll(() => {
     mount = createMount();
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<GroupPanelItem item={{ column: {} }} />);
   });
   afterAll(() => {
     mount.cleanUp();
   });
 
   it('should use column name if title is not specified', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
       />
     ));
 
-    expect(tree.text()).toBe('test');
+    expect(tree.dive().dive().text())
+      .toBe('test');
   });
 
   it('should not render the "TableSortLabel" component if sorting is disabled', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
       />
@@ -136,5 +141,31 @@ describe('GroupPanelItem', () => {
     tree.find(Chip).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.prop('data'))
+      .toEqual({ a: 1 });
+  });
+
+  it('should add the passed className to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.hasClass('custom-class'))
+      .toBeTruthy();
+    expect(tree.hasClass(classes.button))
+      .toBeTruthy();
   });
 });

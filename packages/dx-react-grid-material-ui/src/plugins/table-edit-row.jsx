@@ -27,6 +27,9 @@ export class TableEditRow extends React.PureComponent {
   }
 }
 
+TableEditRow.Cell = EditCell;
+TableEditRow.Row = TableRow;
+
 TableEditRow.propTypes = {
   getCellComponent: PropTypes.func,
 };

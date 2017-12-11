@@ -18,13 +18,40 @@ export class SelectionState extends React.PureComponent {
       selection: props.defaultSelection || [],
     };
 
-    this.changeSelection = (selection) => {
-      const { onSelectionChange } = this.props;
-      this.setState({ selection });
-      if (onSelectionChange) {
-        onSelectionChange(selection);
-      }
+    this.setRowsSelection = (payload) => {
+      this.applyReducer(state => ({
+        selection: setRowsSelection(state.selection, payload),
+      }));
     };
+  }
+  getState(temporaryState) {
+    return {
+      ...this.state,
+      selection: this.props.selection || this.state.selection,
+      ...(this.state !== temporaryState ? temporaryState : null),
+    };
+  }
+  applyReducer(reduce, payload) {
+    const stateUpdater = (prevState) => {
+      const state = this.getState(prevState);
+      const nextState = { ...state, ...reduce(state, payload) };
+
+      if (stateUpdater === this.lastStateUpdater) {
+        this.notifyStateChange(nextState, state);
+      }
+
+      return nextState;
+    };
+    this.lastStateUpdater = stateUpdater;
+
+    this.setState(stateUpdater);
+  }
+  notifyStateChange(nextState, state) {
+    const { selection } = nextState;
+    const { onSelectionChange } = this.props;
+    if (onSelectionChange && selection !== state.selection) {
+      onSelectionChange(selection);
+    }
   }
   render() {
     const selection = this.props.selection || this.state.selection;
@@ -36,15 +63,9 @@ export class SelectionState extends React.PureComponent {
       <PluginContainer
         pluginName="SelectionState"
       >
-        <Action
-          name="setRowsSelection"
-          action={({ rowIds, selected }) => {
-            this.changeSelection(setRowsSelection(selection, { rowIds, selected }));
-          }}
-        />
-
         <Getter name="availableToSelect" computed={availableToSelectComputed} />
         <Getter name="selection" computed={selectionComputed} />
+        <Action name="setRowsSelection" action={this.setRowsSelection} />
       </PluginContainer>
     );
   }

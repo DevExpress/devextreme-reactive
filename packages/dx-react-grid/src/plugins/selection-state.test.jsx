@@ -7,7 +7,7 @@ import {
   getAvailableSelection,
   getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SelectionState } from './selection-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -103,5 +103,75 @@ describe('SelectionState', () => {
 
     expect(getAvailableSelection)
       .toHaveBeenCalledWith(selection, getAvailableToSelect());
+  });
+
+  describe('action sequence in batch', () => {
+    it('should correctly work with the several action calls in the uncontrolled mode', () => {
+      const defaultSelection = [1];
+      const transitionalSelection = [2];
+      const newSelection = [3];
+      const payload = {};
+
+      const selectionChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SelectionState
+            defaultSelection={defaultSelection}
+            onSelectionChange={selectionChange}
+          />
+        </PluginHost>
+      ));
+
+      setRowsSelection.mockReturnValueOnce(transitionalSelection);
+      setRowsSelection.mockReturnValueOnce(newSelection);
+      executeComputedAction(tree, (actions) => {
+        actions.setRowsSelection(payload);
+        actions.setRowsSelection(payload);
+      });
+
+      expect(setRowsSelection)
+        .lastCalledWith(
+          transitionalSelection,
+          payload,
+        );
+
+      expect(selectionChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should correctly work with the several action calls in the controlled mode', () => {
+      const selection = [1];
+      const transitionalSelection = [2];
+      const newSelection = [3];
+      const payload = {};
+
+      const selectionChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SelectionState
+            selection={selection}
+            onSelectionChange={selectionChange}
+          />
+        </PluginHost>
+      ));
+
+      setRowsSelection.mockReturnValueOnce(transitionalSelection);
+      setRowsSelection.mockReturnValueOnce(newSelection);
+      executeComputedAction(tree, (actions) => {
+        actions.setRowsSelection(payload);
+        actions.setRowsSelection(payload);
+      });
+
+      expect(setRowsSelection)
+        .lastCalledWith(
+          transitionalSelection,
+          payload,
+        );
+
+      expect(selectionChange)
+        .toHaveBeenCalledTimes(1);
+    });
   });
 });

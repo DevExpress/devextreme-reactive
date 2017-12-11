@@ -23,6 +23,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {
   getter: {
+    columns: [{ name: 'a' }, { name: 'b' }],
     tableColumns: [{ type: 'undefined', id: 1, column: 'column' }],
     tableBodyRows: [{ type: 'undefined', id: 1, row: 'row' }],
     grouping: [{ columnName: 'a' }],
@@ -109,6 +110,7 @@ describe('TableGroupRow', () => {
         .toBe('tableColumnsWithGrouping');
       expect(tableColumnsWithGrouping)
         .toBeCalledWith(
+          defaultDeps.getter.columns,
           defaultDeps.getter.tableColumns,
           defaultDeps.getter.grouping,
           defaultDeps.getter.draftGrouping,
@@ -141,7 +143,7 @@ describe('TableGroupRow', () => {
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithGrouping');
-      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
       expect(showColumnWhenGrouped('A')).toBe(false);
       expect(showColumnWhenGrouped('B')).toBe(false);
     });
@@ -168,7 +170,7 @@ describe('TableGroupRow', () => {
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithGrouping');
-      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
       expect(showColumnWhenGrouped('A')).toBe(true);
       expect(showColumnWhenGrouped('B')).toBe(false);
     });
@@ -199,7 +201,7 @@ describe('TableGroupRow', () => {
 
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithGrouping');
-      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][4];
+      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
       expect(showColumnWhenGrouped('A')).toBe(false);
       expect(showColumnWhenGrouped('B')).toBe(true);
     });

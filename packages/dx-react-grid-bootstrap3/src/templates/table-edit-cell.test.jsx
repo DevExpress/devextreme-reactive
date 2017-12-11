@@ -1,20 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { shallow } from 'enzyme';
 import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-
-  afterAll(() => {
-    resetConsole();
-  });
-
   it('should pass style to the root element', () => {
-    const tree = mount((
+    const tree = shallow((
       <EditCell
         value="a"
         onValueChange={() => {}}
@@ -32,7 +22,7 @@ describe('EditCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount((
+    const tree = shallow((
       <EditCell
         onValueChange={() => {}}
       >
@@ -41,6 +31,18 @@ describe('EditCell', () => {
     ));
 
     expect(tree.find('.test').exists())
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <EditCell
+        onValueChange={() => {}}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
 });

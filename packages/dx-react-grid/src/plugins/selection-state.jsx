@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   setRowsSelection,
-  getAvailableSelection,
-  getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
-
-const availableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
-  getAvailableToSelect(rows, getRowId, isGroupRow);
 
 export class SelectionState extends React.PureComponent {
   constructor(props) {
@@ -18,33 +13,30 @@ export class SelectionState extends React.PureComponent {
       selection: props.defaultSelection || [],
     };
 
-    this.changeSelection = (selection) => {
-      const { onSelectionChange } = this.props;
-      this.setState({ selection });
-      if (onSelectionChange) {
-        onSelectionChange(selection);
-      }
-    };
+    this.changeSelection = this.changeSelection.bind(this);
+  }
+  changeSelection(selection) {
+    const { onSelectionChange } = this.props;
+    this.setState({ selection });
+    if (onSelectionChange) {
+      onSelectionChange(selection);
+    }
   }
   render() {
     const selection = this.props.selection || this.state.selection;
-
-    const selectionComputed = ({ availableToSelect }) =>
-      getAvailableSelection(selection, availableToSelect);
 
     return (
       <PluginContainer
         pluginName="SelectionState"
       >
         <Action
-          name="setRowsSelection"
+          name="toggleSelection"
           action={({ rowIds, selected }) => {
             this.changeSelection(setRowsSelection(selection, { rowIds, selected }));
           }}
         />
 
-        <Getter name="availableToSelect" computed={availableToSelectComputed} />
-        <Getter name="selection" computed={selectionComputed} />
+        <Getter name="selection" value={new Set(selection)} />
       </PluginContainer>
     );
   }

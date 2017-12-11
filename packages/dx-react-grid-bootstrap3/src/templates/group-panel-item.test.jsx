@@ -9,21 +9,17 @@ describe('GroupPanelItem', () => {
   it('should use column name if title is not specified', () => {
     const tree = mount((
       <GroupPanelItem
-        column={{
-          name: 'Test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
-    expect(tree.find('div').text()).toBe('Test');
+    expect(tree.find('div').text()).toBe('test');
   });
 
   it('can render the ungroup button', () => {
     const tree = mount((
       <GroupPanelItem
-        column={{
-          name: 'test',
-        }}
+        item={{ column: { name: 'test' } }}
         allowUngroupingByClick
       />
     ));
@@ -35,9 +31,7 @@ describe('GroupPanelItem', () => {
   it('does not get focus if sorting is not allowed', () => {
     const tree = mount((
       <GroupPanelItem
-        column={{
-          name: 'test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
@@ -47,69 +41,65 @@ describe('GroupPanelItem', () => {
   });
 
   it('should handle the "Enter" and "Space" keys down and "Mouse click" for sorting change', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
+        onSort={onSort}
         allowSorting
-        column={{
-          name: 'test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
     const targetElement = tree.find('span').first();
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     targetElement.simulate('click');
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     targetElement.simulate('keydown', { keyCode: 51 });
-    expect(changeSortingDirection)
+    expect(onSort)
       .not.toHaveBeenCalled();
   });
 
   it('should handle the "Mouse click" for ungrouping', () => {
-    const groupByColumn = jest.fn();
+    const onGroup = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        groupByColumn={groupByColumn}
+        onGroup={onGroup}
         allowUngroupingByClick
-        column={{
-          name: 'test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
     const targetElement = tree.find('span').last();
     targetElement.simulate('click');
-    expect(groupByColumn)
+    expect(onGroup)
       .toHaveBeenCalled();
   });
 
   it('should cancel sorting on sorting direction change when the "Ctrl" key is pressed', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
-        column={{ name: 'test' }}
+        onSort={onSort}
+        item={{ column: { name: 'test' } }}
         allowSorting
       />
     ));
 
     const targetElement = tree.find('span').first();
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
   });
 });

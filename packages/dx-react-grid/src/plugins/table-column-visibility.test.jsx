@@ -25,6 +25,8 @@ const defaultDeps = {
   plugins: ['Table'],
 };
 
+const DefaultEmptyMessage = () => null;
+
 describe('TableColumnVisibility', () => {
   let resetConsole;
   beforeAll(() => {
@@ -49,7 +51,7 @@ describe('TableColumnVisibility', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
           hiddenColumns={hiddenColumns}
-          emptyMessageTemplate={() => null}
+          emptyMessageComponent={DefaultEmptyMessage}
         />
       </PluginHost>
     ));
@@ -65,7 +67,7 @@ describe('TableColumnVisibility', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
           hiddenColumns={hiddenColumns}
-          emptyMessageTemplate={() => null}
+          emptyMessageComponent={DefaultEmptyMessage}
         />
       </PluginHost>
     ));
@@ -75,25 +77,23 @@ describe('TableColumnVisibility', () => {
   });
 
   it('should force the empty message rendering if all columns are hidden', () => {
-    const emptyMessageTemplate = jest.fn(() => null);
     visibleTableColumns.mockImplementation(() => []);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
           hiddenColumns={[]}
-          emptyMessageTemplate={emptyMessageTemplate}
+          emptyMessageComponent={DefaultEmptyMessage}
           messages={{
             noColumns: 'Nothing to show',
           }}
         />
       </PluginHost>
     ));
-    const { getMessage } = emptyMessageTemplate.mock.calls[0][0];
+    const getMessage = tree.find(DefaultEmptyMessage)
+      .prop('getMessage');
 
-    expect(emptyMessageTemplate)
-      .toHaveBeenCalledTimes(1);
     expect(getMessage('noColumns'))
       .toBe('Nothing to show');
   });

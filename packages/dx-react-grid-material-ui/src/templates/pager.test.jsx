@@ -1,77 +1,91 @@
 import React from 'react';
-import { createMount } from 'material-ui/test-utils';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import { Pager } from './pager';
 import { Pagination } from './pagination';
 import { PageSizeSelector } from './page-size-selector';
 
+const defaultProps = {
+  currentPage: 1,
+  totalPages: 3,
+  pageSize: 5,
+  totalCount: 15,
+  getMessage: key => key,
+  allowedPageSizes: [],
+  onCurrentPageChange: () => {},
+  onPageSizeChange: () => {},
+};
+
 describe('Pager', () => {
-  let mount;
+  let shallow;
+  let classes;
+
   beforeAll(() => {
-    mount = createMount();
-  });
-  afterAll(() => {
-    mount.cleanUp();
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<Pager {...defaultProps} />);
   });
 
   describe('#render', () => {
-    const mountPager = ({
-      currentPage,
-      totalPages,
-      pageSize,
-      totalCount,
-      classes = {},
-      allowedPageSizes = [],
-      onCurrentPageChange = () => {},
-      onPageSizeChange = () => {},
-    }) => mount((
-      <Pager
-        currentPage={currentPage}
-        allowedPageSizes={allowedPageSizes}
-        totalPages={totalPages}
-        pageSize={pageSize}
-        classes={classes}
-        totalCount={totalCount}
-        onCurrentPageChange={onCurrentPageChange}
-        onPageSizeChange={onPageSizeChange}
-        getMessage={() => {}}
-      />
-    ));
-
     it('can render pagination', () => {
-      const pager = mountPager({
-        currentPage: 1,
-        totalPages: 3,
-        pageSize: 5,
-        totalCount: 15,
-      });
+      const pager = shallow((
+        <Pager
+          {...defaultProps}
+        />
+      ));
       const pagination = pager.find(Pagination);
 
-      expect(pagination).toHaveLength(1);
+      expect(pagination)
+        .toHaveLength(1);
     });
 
     it('can render page size selector', () => {
-      const pager = mountPager({
-        currentPage: 1,
-        totalPages: 3,
-        pageSize: 5,
-        totalCount: 15,
-        allowedPageSizes: [5, 10],
-      });
+      const pager = shallow((
+        <Pager
+          {...defaultProps}
+          allowedPageSizes={[5, 10]}
+        />
+      ));
       const pageSizeSelector = pager.find(PageSizeSelector);
 
-      expect(pageSizeSelector).toHaveLength(1);
+      expect(pageSizeSelector)
+        .toHaveLength(1);
     });
 
     it('doesn\'t render page size selector if the allowedPageSizes option is not defined', () => {
-      const pager = mountPager({
-        currentPage: 1,
-        totalPages: 3,
-        pageSize: 5,
-        totalCount: 15,
-      });
+      const pager = shallow((
+        <Pager
+          {...defaultProps}
+        />
+      ));
       const pageSizeSelector = pager.find(PageSizeSelector);
 
-      expect(pageSizeSelector).toHaveLength(0);
+      expect(pageSizeSelector)
+        .toHaveLength(0);
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <Pager
+          {...defaultProps}
+          onClick="onClick"
+        />
+      ));
+
+      expect(tree.prop('onClick'))
+        .toBe('onClick');
+    });
+
+    it('should add the passed className to the root element', () => {
+      const tree = shallow((
+        <Pager
+          {...defaultProps}
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.hasClass(classes.pager))
+        .toBeTruthy();
+      expect(tree.hasClass('custom-class'))
+        .toBeTruthy();
     });
   });
 });

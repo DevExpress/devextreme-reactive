@@ -1,37 +1,30 @@
 import React from 'react';
-import { Input } from 'material-ui';
-import { createMount, getClasses } from 'material-ui/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
+import { Input, TableCell } from 'material-ui';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {
-  let resetConsole;
-  let mount;
+  let shallow;
   let classes;
 
   beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<EditCell onValueChange={() => {}} />);
-    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
-  });
-  afterAll(() => {
-    resetConsole();
-    mount.cleanUp();
+    shallow = createShallow({ dive: true });
   });
 
   it('should render without exceptions', () => {
-    const tree = mount((
+    const tree = shallow((
       <EditCell
         value=""
         onValueChange={() => {}}
       />
     ));
-    expect(tree.find(EditCell).exists()).toBeTruthy();
+    expect(tree.find(`.${classes.cell}`).exists()).toBeTruthy();
   });
 
   it('should work with editor properly', () => {
     const onValueChange = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <EditCell
         value="test"
         onValueChange={onValueChange}
@@ -39,17 +32,18 @@ describe('EditCell', () => {
     ));
 
     const input = tree.find(Input);
+
     expect(input.props()).toMatchObject({
       value: 'test',
     });
 
-    input.find('input').simulate('change', { target: { value: 'changed' } });
+    input.simulate('change', { target: { value: 'changed' } });
     expect(onValueChange.mock.calls).toHaveLength(1);
     expect(onValueChange.mock.calls[0][0]).toBe('changed');
   });
 
   it('should take column align into account', () => {
-    const tree = mount((
+    const tree = shallow((
       <EditCell
         value=""
         onValueChange={() => {}}
@@ -57,13 +51,14 @@ describe('EditCell', () => {
     ));
 
     const inputRoot = tree.find(Input);
-    const input = inputRoot.find('input');
+    const input = inputRoot.dive().dive().find('input');
+
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
     expect(input.hasClass(classes.inputRight)).toBeFalsy();
   });
 
   it('should take column align into account if align is "right"', () => {
-    const tree = mount((
+    const tree = shallow((
       <EditCell
         value=""
         onValueChange={() => {}}
@@ -71,13 +66,13 @@ describe('EditCell', () => {
       />
     ));
     const inputRoot = tree.find(Input);
-    const input = inputRoot.find('input');
+    const input = inputRoot.dive().dive().find('input');
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
     expect(input.hasClass(classes.inputRight)).toBeTruthy();
   });
 
   it('should pass style to the root element', () => {
-    const tree = mount((
+    const tree = shallow((
       <EditCell
         value="a"
         onValueChange={() => {}}
@@ -87,7 +82,7 @@ describe('EditCell', () => {
         }}
       />
     ));
-    expect(tree.find('td').prop('style'))
+    expect(tree.find(TableCell).prop('style'))
       .toMatchObject({
         width: '40px',
         height: '10px',
@@ -95,7 +90,7 @@ describe('EditCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount((
+    const tree = shallow((
       <EditCell
         onValueChange={() => {}}
       >
@@ -105,5 +100,31 @@ describe('EditCell', () => {
 
     expect(tree.find('.test').exists())
       .toBeTruthy();
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <EditCell
+        onValueChange={() => {}}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <EditCell
+        onValueChange={() => {}}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

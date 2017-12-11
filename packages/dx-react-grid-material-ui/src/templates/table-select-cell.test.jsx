@@ -1,15 +1,18 @@
 import React from 'react';
-import { Checkbox, Table } from 'material-ui';
-import { createMount } from 'material-ui/test-utils';
+import { Checkbox } from 'material-ui';
+import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectCell } from './table-select-cell';
 
-describe('TableHeaderCell', () => {
+describe('TableSelectCell', () => {
   let mount;
+  let shallow;
+  let classes;
   beforeAll(() => {
     setupConsole({ ignore: ['validateDOMNesting'] });
-    const mountMUI = createMount();
-    mount = component => mountMUI(<Table>{component}</Table>);
+    mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<TableSelectCell />);
   });
 
   it('should fire the `onToggle` event on cell click if selection is available', () => {
@@ -23,5 +26,25 @@ describe('TableHeaderCell', () => {
 
     expect(onToggle)
       .toHaveBeenCalledTimes(1);
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <TableSelectCell className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.cell}`))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableSelectCell data={{ a: 1 }} />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

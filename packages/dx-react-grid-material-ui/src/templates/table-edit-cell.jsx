@@ -25,6 +25,7 @@ const styles = theme => ({
 
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
+  row, tableRow, tableColumn, className, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: column.align === 'right',
@@ -32,8 +33,9 @@ const EditCellBase = ({
 
   return (
     <TableCell
-      className={classes.cell}
+      className={classNames(classes.cell, className)}
       style={style}
+      {...restProps}
     >
       {children || (
         <Input
@@ -49,6 +51,9 @@ const EditCellBase = ({
 
 EditCellBase.propTypes = {
   column: PropTypes.object,
+  row: PropTypes.object,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
   style: PropTypes.object,
@@ -57,13 +62,18 @@ EditCellBase.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  className: PropTypes.string,
 };
 
 EditCellBase.defaultProps = {
   column: {},
+  row: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
   value: '',
   style: {},
   children: undefined,
+  className: undefined,
 };
 
 export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

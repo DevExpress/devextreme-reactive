@@ -5,8 +5,20 @@ import {
   Getter, PluginHost,
   DragDropContext as DragDropContextCore,
 } from '@devexpress/dx-react-core';
-
 import { DragDropContext } from './drag-drop-context';
+
+// eslint-disable-next-line react/prop-types
+const DefaultContainer = ({ clientOffset, children }) => (
+  <ul className="container" style={{ top: clientOffset.y, left: clientOffset.x }}>
+    {children}
+  </ul>
+);
+// eslint-disable-next-line react/prop-types
+const DefaultColumn = ({ column }) => (
+  <li className="column" >
+    {column.title}
+  </li>
+);
 
 describe('DragDropContext', () => {
   let resetConsole;
@@ -25,8 +37,8 @@ describe('DragDropContext', () => {
           value={[{ name: 'a' }, { name: 'b' }]}
         />
         <DragDropContext
-          containerTemplate={() => <ul className="container" />}
-          columnTemplate={() => <li />}
+          containerComponent={DefaultContainer}
+          columnComponent={DefaultColumn}
         />
       </PluginHost>
     ));
@@ -43,19 +55,8 @@ describe('DragDropContext', () => {
           value={[{ name: 'a', title: 'A' }, { name: 'b', title: 'B' }]}
         />
         <DragDropContext
-          containerTemplate={({ clientOffset, columns, columnTemplate }) => (
-            <ul className="container" style={{ top: clientOffset.y, left: clientOffset.x }}>
-              {columns.map(column => React.cloneElement(
-                columnTemplate({ column }),
-                { key: column.name },
-              ))}
-            </ul>
-          )}
-          columnTemplate={({ column }) => (
-            <li className="column" >
-              {column.title}
-            </li>
-          )}
+          containerComponent={DefaultContainer}
+          columnComponent={DefaultColumn}
         />
       </PluginHost>
     ));

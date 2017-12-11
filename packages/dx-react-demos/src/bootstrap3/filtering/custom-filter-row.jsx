@@ -16,7 +16,7 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const UnitsFilterCell = ({ filter, setFilter }) => (
+const UnitsFilterCell = ({ filter, onFilter }) => (
   <th style={{ fontWeight: 'normal' }}>
     <input
       type="number"
@@ -24,7 +24,7 @@ const UnitsFilterCell = ({ filter, setFilter }) => (
       value={filter ? filter.value : ''}
       min={1}
       max={4}
-      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+      onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
     />
   </th>
 );
@@ -36,7 +36,7 @@ UnitsFilterCell.propTypes = {
       PropTypes.number,
     ]).isRequired,
   }),
-  setFilter: PropTypes.func.isRequired,
+  onFilter: PropTypes.func.isRequired,
 };
 
 UnitsFilterCell.defaultProps = {
@@ -56,6 +56,13 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
+
+    this.getFilterCellComponent = (columnName) => {
+      if (columnName === 'units') {
+        return UnitsFilterCell;
+      }
+      return undefined;
+    };
   }
   render() {
     const { rows, columns } = this.state;
@@ -70,13 +77,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableFilterRow
-          filterCellTemplate={({ column, filter, setFilter }) => {
-            if (column.name === 'units') {
-              return <UnitsFilterCell filter={filter} setFilter={setFilter} />;
-            }
-
-            return undefined;
-          }}
+          getCellComponent={this.getFilterCellComponent}
         />
       </Grid>
     );

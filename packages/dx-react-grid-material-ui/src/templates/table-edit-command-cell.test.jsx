@@ -1,218 +1,113 @@
 import React from 'react';
-import { createMount } from 'material-ui/test-utils';
-import { Table } from 'material-ui';
-import { setupConsole } from '@devexpress/dx-testing';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import {
   CommandButton,
   EditCommandHeadingCell,
   EditCommandCell,
 } from './table-edit-command-cell';
 
-describe('Table command column', () => {
-  let resetConsole;
-  let mount;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    const mountMUI = createMount();
-    mount = component => mountMUI(<Table>{component}</Table>);
-  });
-  afterAll(() => {
-    resetConsole();
-    mount.cleanUp();
-  });
-
-
+describe('TableCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {
-    it('should render without exceptions in view mode', () => {
-      const tree = mount((
-        <EditCommandHeadingCell
-          allowAdding
-          getMessage={key => key}
-          commandTemplate={props => <CommandButton {...props} />}
-        />
+    let shallow;
+    let classes;
+    beforeAll(() => {
+      shallow = createShallow({ dive: true });
+      classes = getClasses((
+        <EditCommandHeadingCell />
       ));
-
-      const button = tree.find(CommandButton);
-      expect(button.exists()).toBeTruthy();
-      expect(button.text()).toBe('addCommand');
     });
 
-    it('should not render a command button if allowAdding is false', () => {
-      const tree = mount((
-        <EditCommandHeadingCell
-          commandTemplate={props => <CommandButton {...props} />}
-          getMessage={() => {}}
-        />
+    it('should pass className to the root element', () => {
+      const tree = shallow((
+        <EditCommandHeadingCell className="custom-class" />
       ));
 
-      const button = tree.find(CommandButton);
-      expect(button.exists()).toBeFalsy();
+      expect(tree.is(`.${classes.headingCell}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
     });
 
-    it('should render a command button if allowAdding is true', () => {
-      const tree = mount((
-        <EditCommandHeadingCell
-          commandTemplate={props => <CommandButton {...props} />}
-          allowAdding
-          getMessage={key => key}
-        />
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <EditCommandHeadingCell data={{ a: 1 }} />
       ));
 
-      const button = tree.find(CommandButton);
-      expect(button.exists()).toBeTruthy();
-    });
-
-    it('should use commandTemplate with proper arguments', () => {
-      const template = jest.fn();
-      const addRow = () => {};
-
-      mount((
-        <EditCommandHeadingCell
-          addRow={addRow}
-          allowAdding
-          commandTemplate={template}
-          getMessage={key => key}
-        />
-      ));
-
-      expect(template.mock.calls).toHaveLength(1);
-      expect(template.mock.calls[0][0]).toMatchObject({
-        executeCommand: addRow,
-        id: 'add',
-        text: 'addCommand',
-      });
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 
   describe('EditCommandCell', () => {
-    it('should render without exceptions in view mode', () => {
-      const tree = mount((
-        <EditCommandCell
-          allowEditing
-          allowDeleting
-          commandTemplate={props => <CommandButton {...props} />}
-          getMessage={key => key}
-        />
+    let shallow;
+    let classes;
+    beforeAll(() => {
+      shallow = createShallow({ dive: true });
+      classes = getClasses((
+        <EditCommandCell />
       ));
-
-      const buttons = tree.find(CommandButton);
-      expect(buttons).toHaveLength(2);
-      expect(buttons.at(0).text()).toBe('editCommand');
-      expect(buttons.at(1).text()).toBe('deleteCommand');
     });
 
-    it('should render without exceptions in edit mode', () => {
-      const tree = mount((
-        <EditCommandCell
-          isEditing
-          allowEditing
-          allowDeleting
-          commandTemplate={props => <CommandButton {...props} />}
-          getMessage={key => key}
-        />
+    it('should pass className to the root element', () => {
+      const tree = shallow((
+        <EditCommandCell className="custom-class" />
       ));
 
-      const buttons = tree.find(CommandButton);
-      expect(buttons).toHaveLength(2);
-      expect(buttons.at(0).text()).toBe('commitCommand');
-      expect(buttons.at(1).text()).toBe('cancelCommand');
+      expect(tree.is(`.${classes.cell}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
     });
 
-    it('should not render command buttons if allowEditing and allowDeleting are false', () => {
-      const tree = mount((
-        <EditCommandCell
-          commandTemplate={props => <CommandButton {...props} />}
-          getMessage={() => {}}
-        />
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <EditCommandCell data={{ a: 1 }} />
       ));
 
-      const buttons = tree.find(CommandButton);
-      expect(buttons).toHaveLength(0);
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
+    });
+  });
+
+  describe('CommandButton', () => {
+    let shallow;
+    let classes;
+    beforeAll(() => {
+      shallow = createShallow({ dive: true });
+      classes = getClasses((
+        <CommandButton
+          onExecute={() => {}}
+          text=""
+        />
+      ));
     });
 
-    it('should render a command button if allowEditing is true', () => {
-      const tree = mount((
-        <EditCommandCell
-          commandTemplate={props => <CommandButton {...props} />}
-          allowEditing
-          getMessage={key => key}
+    it('should pass the className prop to the root element', () => {
+      const tree = shallow((
+        <CommandButton
+          onExecute={() => {}}
+          text=""
+          className="custom-class"
         />
       ));
 
-      const button = tree.find(CommandButton);
-      expect(button.exists()).toBeTruthy();
+      expect(tree.is(`.${classes.button}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
     });
 
-    it('should render a command button if allowDeleting is true', () => {
-      const tree = mount((
-        <EditCommandCell
-          commandTemplate={props => <CommandButton {...props} />}
-          allowDeleting
-          getMessage={key => key}
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <CommandButton
+          onExecute={() => {}}
+          text=""
+          data={{ a: 1 }}
         />
       ));
 
-      const button = tree.find(CommandButton);
-      expect(button.exists()).toBeTruthy();
-    });
-
-    it('should use commandTemplate with proper arguments in view mode', () => {
-      const template = jest.fn();
-      const startEditing = () => {};
-      const deleteRow = () => {};
-
-      mount((
-        <EditCommandCell
-          startEditing={startEditing}
-          deleteRow={deleteRow}
-          allowEditing
-          allowDeleting
-          commandTemplate={template}
-          getMessage={key => key}
-        />
-      ));
-
-      expect(template.mock.calls).toHaveLength(2);
-      expect(template.mock.calls[0][0]).toMatchObject({
-        executeCommand: startEditing,
-        id: 'edit',
-        text: 'editCommand',
-      });
-      expect(template.mock.calls[1][0]).toMatchObject({
-        executeCommand: deleteRow,
-        id: 'delete',
-        text: 'deleteCommand',
-      });
-    });
-
-    it('should use commandTemplate with proper arguments in edit mode', () => {
-      const template = jest.fn();
-      const commitChanges = () => {};
-      const cancelEditing = () => {};
-
-      mount((
-        <EditCommandCell
-          isEditing
-          commitChanges={commitChanges}
-          cancelEditing={cancelEditing}
-          allowAdding
-          allowDeleting
-          commandTemplate={template}
-          getMessage={key => key}
-        />
-      ));
-
-      expect(template.mock.calls).toHaveLength(2);
-      expect(template.mock.calls[0][0]).toMatchObject({
-        executeCommand: commitChanges,
-        id: 'commit',
-        text: 'commitCommand',
-      });
-      expect(template.mock.calls[1][0]).toMatchObject({
-        executeCommand: cancelEditing,
-        id: 'cancel',
-        text: 'cancelCommand',
-      });
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 });

@@ -1,6 +1,6 @@
 # ColumnChooser Reference
 
-ColumnChooser is a component that allows a user to show and hide grid columns at runtime. The component contains a column list with a checkboxes that control each column's visiblity. Use the Grid component's [TableColumnVisiblity](table-column-visibility.md) plugin that manages column visibility if you need to associate the ColumnChooser with a Grid.
+ColumnChooser is a component that allows a user to show and hide grid columns at runtime. The component contains a column list with checkboxes that control each column's visibility. Use the Grid component's [TableColumnVisiblity](table-column-visibility.md) plugin that manages column visibility if you need to associate the ColumnChooser with a Grid.
 
 ## User reference
 

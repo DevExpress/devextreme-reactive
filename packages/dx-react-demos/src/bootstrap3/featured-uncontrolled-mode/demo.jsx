@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -72,16 +72,15 @@ export default class Demo extends React.PureComponent {
           defaultCurrentPage={0}
           defaultPageSize={10}
         />
+        <SelectionState
+          defaultSelection={[1, 3, 18]}
+        />
 
         <LocalGrouping />
         <LocalFiltering />
         <LocalSorting />
-
         <LocalPaging />
-
-        <SelectionState
-          defaultSelection={[1, 3, 18]}
-        />
+        <LocalSelection />
 
         <DragDropContext />
 
@@ -96,7 +95,7 @@ export default class Demo extends React.PureComponent {
         <PagingPanel
           allowedPageSizes={allowedPageSizes}
         />
-        <TableSelection />
+        <TableSelection showSelectAll />
         <GroupingPanel allowSorting allowDragging />
         <TableGroupRow />
 

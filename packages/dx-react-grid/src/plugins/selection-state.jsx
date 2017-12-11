@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
   setRowsSelection,
-  getAvailableSelection,
-  getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
-
-const availableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
-  getAvailableToSelect(rows, getRowId, isGroupRow);
 
 export class SelectionState extends React.PureComponent {
   constructor(props) {
@@ -18,7 +13,7 @@ export class SelectionState extends React.PureComponent {
       selection: props.defaultSelection || [],
     };
 
-    this.setRowsSelection = (payload) => {
+    this.toggleSelection = (payload) => {
       this.applyReducer(state => ({
         selection: setRowsSelection(state.selection, payload),
       }));
@@ -56,16 +51,12 @@ export class SelectionState extends React.PureComponent {
   render() {
     const selection = this.props.selection || this.state.selection;
 
-    const selectionComputed = ({ availableToSelect }) =>
-      getAvailableSelection(selection, availableToSelect);
-
     return (
       <PluginContainer
         pluginName="SelectionState"
       >
-        <Getter name="availableToSelect" computed={availableToSelectComputed} />
-        <Getter name="selection" computed={selectionComputed} />
-        <Action name="setRowsSelection" action={this.setRowsSelection} />
+        <Getter name="selection" value={new Set(selection)} />
+        <Action name="toggleSelection" action={this.toggleSelection} />
       </PluginContainer>
     );
   }

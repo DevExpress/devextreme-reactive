@@ -4,16 +4,12 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   setRowsSelection,
-  getAvailableSelection,
-  getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SelectionState } from './selection-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   setRowsSelection: jest.fn(),
-  getAvailableSelection: jest.fn(),
-  getAvailableToSelect: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -32,39 +28,8 @@ describe('SelectionState', () => {
   afterAll(() => {
     resetConsole();
   });
-
-  beforeEach(() => {
-    setRowsSelection.mockImplementation(() => ({}));
-    getAvailableSelection.mockImplementation(() => 'avaliableSelection');
-    getAvailableToSelect.mockImplementation(() => 'availableToSelect');
-  });
   afterEach(() => {
     jest.resetAllMocks();
-  });
-
-  it('should provide avaliableToSelect', () => {
-    const deps = {
-      getter: {
-        isGroupRow: () => false,
-      },
-    };
-
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <SelectionState />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).availableToSelect)
-      .toBe(getAvailableToSelect());
-
-    expect(getAvailableToSelect)
-      .toHaveBeenCalledWith(
-        defaultDeps.getter.rows,
-        defaultDeps.getter.getRowId,
-        deps.getter.isGroupRow,
-      );
   });
 
   it('should provide selection defined in defaultSelection', () => {
@@ -80,10 +45,7 @@ describe('SelectionState', () => {
     ));
 
     expect(getComputedState(tree).selection)
-      .toBe(getAvailableSelection());
-
-    expect(getAvailableSelection)
-      .toHaveBeenCalledWith(defaultSelection, getAvailableToSelect());
+      .toEqual(new Set(defaultSelection));
   });
 
   it('should provide selection defined in selection', () => {
@@ -99,10 +61,25 @@ describe('SelectionState', () => {
     ));
 
     expect(getComputedState(tree).selection)
-      .toBe(getAvailableSelection());
+      .toEqual(new Set(selection));
+  });
 
-    expect(getAvailableSelection)
-      .toHaveBeenCalledWith(selection, getAvailableToSelect());
+  it('should call toggleSelection in action', () => {
+    const selection = [1, 2, 3];
+    const mockSetRowsSelection = setRowsSelection;
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <SelectionState
+          selection={selection}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, actions => actions.toggleSelection({ rowIds: [0, 1, 2] }));
+    expect(mockSetRowsSelection)
+      .toHaveBeenCalled();
   });
 
   describe('action sequence in batch', () => {
@@ -126,8 +103,8 @@ describe('SelectionState', () => {
       setRowsSelection.mockReturnValueOnce(transitionalSelection);
       setRowsSelection.mockReturnValueOnce(newSelection);
       executeComputedAction(tree, (actions) => {
-        actions.setRowsSelection(payload);
-        actions.setRowsSelection(payload);
+        actions.toggleSelection(payload);
+        actions.toggleSelection(payload);
       });
 
       expect(setRowsSelection)
@@ -157,8 +134,8 @@ describe('SelectionState', () => {
       setRowsSelection.mockReturnValueOnce(transitionalSelection);
       setRowsSelection.mockReturnValueOnce(newSelection);
       executeComputedAction(tree, (actions) => {
-        actions.setRowsSelection(payload);
-        actions.setRowsSelection(payload);
+        actions.toggleSelection(payload);
+        actions.toggleSelection(payload);
       });
 
       expect(setRowsSelection)

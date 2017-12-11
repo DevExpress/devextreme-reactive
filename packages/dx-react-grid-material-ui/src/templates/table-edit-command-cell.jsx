@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 
 import {
@@ -26,14 +27,21 @@ const styles = theme => ({
 
 const withEditColumnStyles = withStyles(styles, { name: 'EditColumn' });
 
-const CommandButtonBase = ({ onExecute, text, classes }) => (
+const CommandButtonBase = ({
+  onExecute,
+  text,
+  classes,
+  className,
+  ...restProps
+}) => (
   <Button
     color="primary"
-    className={classes.button}
+    className={classNames(classes.button, className)}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();
     }}
+    {...restProps}
   >
     {text}
   </Button>
@@ -42,6 +50,11 @@ CommandButtonBase.propTypes = {
   onExecute: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+CommandButtonBase.defaultProps = {
+  className: undefined,
 };
 
 export const CommandButton = withEditColumnStyles(CommandButtonBase);
@@ -50,10 +63,14 @@ const EditCommandHeadingCellBase = ({
   children,
   style,
   classes,
+  className,
+  tableRow, tableColumn,
+  ...restProps
 }) => (
   <TableCell
-    className={classes.headingCell}
+    className={classNames(classes.headingCell, className)}
     style={style}
+    {...restProps}
   >
     {children}
   </TableCell>
@@ -66,11 +83,17 @@ EditCommandHeadingCellBase.propTypes = {
   ]),
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 EditCommandHeadingCellBase.defaultProps = {
   children: undefined,
   style: {},
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };
 
 export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
@@ -79,10 +102,14 @@ const EditCommandCellBase = ({
   children,
   style,
   classes,
+  className,
+  tableRow, tableColumn,
+  ...restProps
 }) => (
   <TableCell
-    className={classes.cell}
+    className={classNames(classes.cell, className)}
     style={style}
+    {...restProps}
   >
     {children}
   </TableCell>
@@ -95,11 +122,17 @@ EditCommandCellBase.propTypes = {
   ]),
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  tableRow: PropTypes.object,
+  tableColumn: PropTypes.object,
 };
 
 EditCommandCellBase.defaultProps = {
   children: undefined,
   style: {},
+  className: undefined,
+  tableRow: undefined,
+  tableColumn: undefined,
 };
 
 export const EditCommandCell = withEditColumnStyles(EditCommandCellBase);

@@ -1,10 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { ColumnChooserItem } from './column-chooser-item';
 
 describe('ColumnChooserItem', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
-    const tree = mount((
+    const tree = shallow((
       <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
@@ -24,7 +24,7 @@ describe('ColumnChooserItem', () => {
 
   it('should call the "onToggle" on the checkbox "onChange" event', () => {
     const toggleHandler = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
@@ -44,7 +44,7 @@ describe('ColumnChooserItem', () => {
 
   it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
@@ -63,7 +63,7 @@ describe('ColumnChooserItem', () => {
   });
 
   it('should render column title or name in each item', () => {
-    const tree = mount((
+    const tree = shallow((
       <ColumnChooserItem
         item={{
           column: { name: 'a', title: 'A' },
@@ -79,5 +79,37 @@ describe('ColumnChooserItem', () => {
 
     expect(tree.find('button').text().trim())
       .toBe('b');
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <ColumnChooserItem
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is('.list-group-item'))
+      .toBeTruthy();
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <ColumnChooserItem
+        item={{
+          column: { name: 'a', title: 'A' },
+          hidden: false,
+        }}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

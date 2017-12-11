@@ -11,14 +11,40 @@ export class FilteringState extends React.PureComponent {
       filters: props.defaultFilters || [],
     };
 
-    this.setColumnFilter = (filters, { columnName, config }) => {
-      const { onFiltersChange } = this.props;
-      const nextFilters = setColumnFilter(filters, { columnName, config });
-      this.setState({ filters: nextFilters });
-      if (onFiltersChange) {
-        onFiltersChange(nextFilters);
-      }
+    this.setColumnFilter = (payload) => {
+      this.applyReducer(state => ({
+        filters: setColumnFilter(state.filters, payload),
+      }));
     };
+  }
+  getState(temporaryState) {
+    return {
+      ...this.state,
+      filters: this.props.filters || this.state.filters,
+      ...(this.state !== temporaryState ? temporaryState : null),
+    };
+  }
+  applyReducer(reduce, payload) {
+    const stateUpdater = (prevState) => {
+      const state = this.getState(prevState);
+      const nextState = { ...state, ...reduce(state, payload) };
+
+      if (stateUpdater === this.lastStateUpdater) {
+        this.notifyStateChange(nextState, state);
+      }
+
+      return nextState;
+    };
+    this.lastStateUpdater = stateUpdater;
+
+    this.setState(stateUpdater);
+  }
+  notifyStateChange(nextState, state) {
+    const { filters } = nextState;
+    const { onFiltersChange } = this.props;
+    if (onFiltersChange && filters !== state.filters) {
+      onFiltersChange(filters);
+    }
   }
   render() {
     const filters = this.props.filters || this.state.filters;
@@ -27,14 +53,8 @@ export class FilteringState extends React.PureComponent {
       <PluginContainer
         pluginName="FilteringState"
       >
-        <Action
-          name="setColumnFilter"
-          action={({ columnName, config }) =>
-            this.setColumnFilter(filters, { columnName, config })
-          }
-        />
-
         <Getter name="filters" value={filters} />
+        <Action name="setColumnFilter" action={this.setColumnFilter} />
       </PluginContainer>
     );
   }

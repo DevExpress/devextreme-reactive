@@ -129,34 +129,56 @@ const commandComponents = {
 };
 
 export const LookupEditCell = ({
-  column, value, onValueChange,
-}) => {
-  const availableColumnValues = availableValues[column.name];
-  return (
-    <td
-      style={{
-        verticalAlign: 'middle',
-        padding: 1,
-      }}
+  column, availableColumnValues, value, onValueChange,
+}) => (
+  <td
+    style={{
+      verticalAlign: 'middle',
+      padding: 1,
+    }}
+  >
+    <select
+      className="form-control"
+      style={{ width: '100%', textAlign: column.align }}
+      value={value}
+      onChange={e => onValueChange(e.target.value)}
     >
-      <select
-        className="form-control"
-        style={{ width: '100%', textAlign: column.align }}
-        value={value}
-        onChange={e => onValueChange(e.target.value)}
-      >
-        {availableColumnValues.map(val => <option key={val} value={val}>{val}</option>)}
-      </select>
-    </td>
-  );
-};
+      {availableColumnValues.map(val => <option key={val} value={val}>{val}</option>)}
+    </select>
+  </td>
+);
 LookupEditCell.propTypes = {
   column: PropTypes.object.isRequired,
+  availableColumnValues: PropTypes.array.isRequired,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
 };
 LookupEditCell.defaultProps = {
   value: undefined,
+};
+
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
+
+const EditCell = (props) => {
+  const availableColumnValues = availableValues[props.column.name];
+  if (availableColumnValues) {
+    return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
+  }
+  return <TableEditRow.Cell {...props} />;
+};
+EditCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 const getRowId = row => row.id;
@@ -236,21 +258,6 @@ export default class Demo extends React.PureComponent {
       this.setState({ columnOrder: order });
     };
 
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'discount') {
-        return ProgressBarCell;
-      }
-      if (columnName === 'amount') {
-        return HighlightedCell;
-      }
-      return undefined;
-    };
-    this.getEditCellComponent = (columnName) => {
-      if (availableValues[columnName]) {
-        return LookupEditCell;
-      }
-      return undefined;
-    };
     this.getEditCommandComponent = id => commandComponents[id];
   }
   render() {
@@ -302,7 +309,7 @@ export default class Demo extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            getCellComponent={this.getCellComponent}
+            cellComponent={Cell}
           />
 
           <TableColumnReordering
@@ -312,7 +319,7 @@ export default class Demo extends React.PureComponent {
 
           <TableHeaderRow allowSorting allowDragging />
           <TableEditRow
-            getCellComponent={this.getEditCellComponent}
+            cellComponent={EditCell}
           />
           <TableEditColumn
             width={100}
@@ -341,7 +348,7 @@ export default class Demo extends React.PureComponent {
               columns={columns}
             >
               <Table
-                getCellComponent={this.getCellComponent}
+                cellComponent={Cell}
               />
               <TableHeaderRow />
             </Grid>

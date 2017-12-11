@@ -47,9 +47,8 @@ const defaultDeps = {
   plugins: ['EditingState', 'Table'],
 };
 
-const defaultCellComponent = () => null;
 const defaultProps = {
-  getCellComponent: () => defaultCellComponent,
+  cellComponent: () => null,
   rowComponent: () => null,
 };
 
@@ -99,14 +98,12 @@ describe('TableEditRow', () => {
 
   it('should render edit cell on user-defined column and edit row intersection', () => {
     isEditTableCell.mockImplementation(() => true);
-    const getCellComponent = jest.fn(() => defaultCellComponent);
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableEditRow
           {...defaultProps}
-          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -121,9 +118,7 @@ describe('TableEditRow', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(getCellComponent)
-      .toBeCalledWith(defaultDeps.template.tableCell.tableColumn.column.name);
-    expect(tree.find(defaultCellComponent).props())
+    expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
@@ -194,7 +189,7 @@ describe('TableEditRow', () => {
       </PluginHost>
     ));
 
-    const { onValueChange } = tree.find(defaultCellComponent).props();
+    const { onValueChange } = tree.find(defaultProps.cellComponent).props();
     onValueChange('test');
 
     expect(defaultDeps.getter.createRowChange)

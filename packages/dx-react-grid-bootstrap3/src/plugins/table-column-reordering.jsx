@@ -4,7 +4,7 @@ import { TableColumnReordering as TableColumnReorderingBase } from '@devexpress/
 import { TableRow } from '../templates/table-row';
 import { TableReorderingCell } from '../templates/table-reordering-cell';
 
-const tableContainerTemplate = ({
+const TableContainer = ({
   onOver, onLeave, onDrop, children, // eslint-disable-line react/prop-types
 }) => (
   <DropTarget
@@ -17,7 +17,7 @@ const tableContainerTemplate = ({
 );
 
 // eslint-disable-next-line react/prop-types
-const reorderingRowTemplate = ({ style, ...restParams }) => (
+const ReorderingRow = ({ style, ...restParams }) => (
   <TableRow
     style={{
       ...style,
@@ -26,13 +26,12 @@ const reorderingRowTemplate = ({ style, ...restParams }) => (
     {...restParams}
   />
 );
-const reorderingCellTemplate = params => <TableReorderingCell {...params} />;
 
 export const TableColumnReordering = props => (
   <TableColumnReorderingBase
-    tableContainerTemplate={tableContainerTemplate}
-    reorderingRowTemplate={reorderingRowTemplate}
-    reorderingCellTemplate={reorderingCellTemplate}
+    tableContainerComponent={TableContainer}
+    rowComponent={ReorderingRow}
+    cellComponent={TableReorderingCell}
     {...props}
   />
 );

@@ -1,38 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
-  Template, TemplatePlaceholder, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Template, TemplatePlaceholder, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { groupingPanelItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
-
-const getGroupPanelTemplateArgs = (
-  {
-    allowDragging, allowSorting, allowUngroupingByClick, getMessage,
-  },
-  { columns, draftGrouping, sorting },
-  {
-    groupByColumn, setColumnSorting, draftGroupingChange, cancelGroupingChange,
-  },
-) => ({
-  allowSorting,
-  allowDragging,
-  allowUngroupingByClick,
-  sorting,
-  groupByColumn,
-  getMessage,
-  groupingPanelItems: groupingPanelItems(columns, draftGrouping),
-  changeSortingDirection: ({ columnName, keepOther, cancel }) =>
-    setColumnSorting({ columnName, keepOther, cancel }),
-  draftGroupingChange: groupingChange => draftGroupingChange(groupingChange),
-  cancelGroupingChange: () => cancelGroupingChange(),
-});
+import {
+  groupingPanelItems,
+  getColumnSortingDirection,
+  getMessagesFormatter,
+} from '@devexpress/dx-grid-core';
 
 export class GroupingPanel extends React.PureComponent {
   render() {
     const {
-      groupPanelTemplate,
+      layoutComponent: Layout,
+      containerComponent: Container,
+      itemComponent: Item,
+      emptyMessageComponent: EmptyMessage,
       allowSorting,
       allowDragging,
       allowUngroupingByClick,
@@ -40,6 +23,32 @@ export class GroupingPanel extends React.PureComponent {
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
+
+    const EmptyMessagePlaceholder = () => (
+      <EmptyMessage
+        getMessage={getMessage}
+      />
+    );
+
+    const ItemPlaceholder = ({ item }) => {
+      const { name: columnName } = item.column;
+      return (
+        <TemplateConnector>
+          {({ sorting }, { groupByColumn, setColumnSorting }) => (
+            <Item
+              item={item}
+              allowSorting={allowSorting && sorting !== undefined}
+              sortingDirection={sorting !== undefined
+                ? getColumnSortingDirection(sorting, columnName) : undefined}
+              allowUngroupingByClick={allowUngroupingByClick}
+              onGroup={() => groupByColumn({ columnName })}
+              onSort={({ keepOther, cancel }) =>
+                setColumnSorting({ columnName, keepOther, cancel })}
+            />
+          )}
+        </TemplateConnector>
+      );
+    };
 
     return (
       <PluginContainer
@@ -51,16 +60,20 @@ export class GroupingPanel extends React.PureComponent {
       >
         <Template name="header">
           <TemplateConnector>
-            {(getters, actions) => (
-              <TemplateRenderer
-                template={groupPanelTemplate}
-                params={getGroupPanelTemplateArgs(
-                  {
-                    allowDragging, allowSorting, allowUngroupingByClick, getMessage,
-                  },
-                  getters,
-                  actions,
-                )}
+            {({
+              columns, draftGrouping,
+            }, {
+              groupByColumn, draftGroupingChange, cancelGroupingChange,
+            }) => (
+              <Layout
+                items={groupingPanelItems(columns, draftGrouping)}
+                allowDragging={allowDragging}
+                onGroup={groupByColumn}
+                onDraftGroup={groupingChange => draftGroupingChange(groupingChange)}
+                onCancelDraftGroup={() => cancelGroupingChange()}
+                itemComponent={ItemPlaceholder}
+                emptyMessageComponent={EmptyMessagePlaceholder}
+                containerComponent={Container}
               />
             )}
           </TemplateConnector>
@@ -75,7 +88,10 @@ GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
   allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
-  groupPanelTemplate: PropTypes.func.isRequired,
+  layoutComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
+  itemComponent: PropTypes.func.isRequired,
+  emptyMessageComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

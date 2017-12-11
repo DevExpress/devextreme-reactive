@@ -55,6 +55,13 @@ export class VirtualTable extends React.PureComponent {
   }
 }
 
+VirtualTable.Cell = TableCell;
+VirtualTable.Row = TableRow;
+VirtualTable.NoDataCell = TableNoDataCell;
+VirtualTable.NoDataRow = TableRow;
+VirtualTable.StubCell = TableStubCell;
+VirtualTable.StubHeaderCell = TableStubCell;
+
 VirtualTable.propTypes = {
   getCellComponent: PropTypes.func,
   estimatedRowHeight: PropTypes.number,

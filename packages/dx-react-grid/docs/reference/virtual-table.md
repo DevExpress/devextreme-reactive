@@ -16,7 +16,7 @@ Name | Type | Default | Description
 height | number | 530 | The virtual table's height.
 estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | An estimated value of the row height. For a table whose rows have a variable height, specify an average value. The more accurately you estimate the row height, the better the virtual table performs.
 layoutComponent | ElementType&lt;[TableLayoutProps](table.md#tablelayoutprops)&gt; | | A component that renders a table layout.
-getCellComponent | (columnName: string) => ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A function returning a component that renders a table cell for a specific column.
+getCellComponent | (columnName: string) => ElementType&lt;[TableDataCellProps](table.md#tabledatacellprops)&gt; | | A function returning a component that renders a table cell for a specific column.
 rowComponent | ElementType&lt;[TableDataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ElementType&lt;[TableNoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
 noDataRowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a table row when the table is empty.

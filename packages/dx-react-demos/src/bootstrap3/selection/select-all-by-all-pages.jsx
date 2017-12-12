@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-  SelectionState,
-  PagingState,
-  LocalPaging,
+  SelectionState, PagingState,
+  LocalPaging, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -52,10 +51,11 @@ export default class Demo extends React.PureComponent {
             defaultCurrentPage={0}
             pageSize={6}
           />
+          <LocalSelection />
           <LocalPaging />
           <Table />
           <TableHeaderRow />
-          <TableSelection />
+          <TableSelection showSelectAll />
           <PagingPanel />
         </Grid>
       </div>

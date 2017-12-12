@@ -12,30 +12,30 @@ A plugin that manages the displayed columns' order.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-order | Array&lt;string&gt; | | Specifies the column order.
-defaultOrder | Array&lt;string&gt; | | Specifies the initial column order in the uncontrolled mode.
-onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles column order changes.
-tableContainerTemplate | (args: [TableContainerArgs](#table-container-args)) => ReactElement | | A component that renders a table wrapper containing a drop target.
-reorderingRowTemplate | (args: [TableRowProps](table.md#tablerowprops)) => ReactElement | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
-reorderingCellTemplate | (args: [ReorderingCellArgs](#reordering-cell-args)) => ReactElement | | A non-visual component that renders an invisible cell required for drag-and-drop reordering.
+order | Array&lt;string&gt; | | The column order.
+defaultOrder | Array&lt;string&gt; | | The initial column order in the uncontrolled mode.
+onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles changes to the column order.
+tableContainerComponent | ElementType&lt;[TableContainerProps](#tablecontainerprops)&gt; | | A table container component required for drag-and-drop reordering.
+rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A non-visual component that renders an invisible row required for drag-and-drop reordering.
+cellComponent | ElementType&lt;[ReorderingCellProps](#reorderingcellprops)&gt; | | A non-visual component that renders an invisible cell required for drag-and-drop reordering.
 
 ## Interfaces
 
-### <a name="table-container-args"></a>TableContainerArgs
+### TableContainerProps
 
-Describes properties passed to the table container template.
+Describes the table container component's properties.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-onOver | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "drag over" event.
-onLeave | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "drag leave" event.
+onOver | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "dragover" event.
+onLeave | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "dragleave" event.
 onDrop | (args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) => void | Handles the column's "drop" event.
 
-### <a name="reordering-cell-args"></a>ReorderingCellArgs
+### ReorderingCellProps
 
-Describes properties passed to the reordering row cell template.
+Describes the reordering row cell component's properties.
 
 A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
@@ -60,4 +60,4 @@ tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template th
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Ordered table columns.
-tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows including the service reordering row to be rendered.
+tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered including the service reordering row.

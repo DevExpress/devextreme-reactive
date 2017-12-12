@@ -9,7 +9,6 @@ import {
   isFilterTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { DataTypeProvider } from './data-type-provider';
 import { TableFilterRow } from './table-filter-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -32,7 +31,7 @@ const defaultDeps = {
   template: {
     tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: 'row' },
-      tableColumn: { type: 'undefined', column: 'column' },
+      tableColumn: { type: 'undefined', column: { name: 'a' } },
       style: {},
     },
     tableRow: {
@@ -43,9 +42,10 @@ const defaultDeps = {
   plugins: ['FilteringState', 'Table'],
 };
 
+const defaultCellComponent = () => null;
 const defaultProps = {
-  filterCellTemplate: () => null,
-  filterRowTemplate: () => null,
+  getCellComponent: () => defaultCellComponent,
+  rowComponent: () => null,
 };
 
 describe('TableFilterRow', () => {
@@ -88,14 +88,14 @@ describe('TableFilterRow', () => {
 
   it('should render heading cell on user-defined column and filter row intersection', () => {
     isFilterTableCell.mockImplementation(() => true);
-    const filterCellTemplate = jest.fn(() => null);
+    const getCellComponent = jest.fn(() => defaultCellComponent);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
-          filterCellTemplate={filterCellTemplate}
+          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -105,77 +105,61 @@ describe('TableFilterRow', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(filterCellTemplate)
-      .toBeCalledWith(expect.objectContaining({
+    expect(getCellComponent)
+      .toBeCalledWith(defaultDeps.template.tableCell.tableColumn.column.name);
+    expect(tree.find(defaultCellComponent).props())
+      .toMatchObject({
         ...defaultDeps.template.tableCell,
         column: defaultDeps.template.tableCell.tableColumn.column,
-      }));
+      });
   });
 
   it('can render custom editor', () => {
     isFilterTableCell.mockImplementation(() => true);
     getColumnFilterConfig.mockImplementation(() => defaultDeps.getter.filters[0]);
-    const filterCellTemplate = jest.fn(() => null);
-    const valueEditor = jest.fn(() => <span />);
-    const deps = {
-      getter: {
-        filters: [{ columnName: 'a', value: 'b' }],
-      },
-      template: {
-        tableCell: {
-          tableRow: { type: 'undefined', rowId: 1, row: 'row' },
-          tableColumn: { type: 'undefined', column: { name: 'column', dataType: 'column' } },
-          style: {},
-        },
-      },
-    };
 
-    mount((
-      <PluginHost>
-        <DataTypeProvider
-          type="column"
-          editorTemplate={valueEditor}
-        />
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <TableFilterRow
-          {...defaultProps}
-          filterCellTemplate={filterCellTemplate}
-        />
-      </PluginHost>
-    ));
-
-    expect(valueEditor)
-      .toHaveBeenCalledWith({
-        column: deps.template.tableCell.tableColumn.column,
-        value: deps.getter.filters[0].value,
-        onValueChange: expect.any(Function),
-      });
-    expect(filterCellTemplate.mock.calls[0][0])
-      .toHaveProperty('children');
-  });
-
-  it('should render row by using filterRowTemplate', () => {
-    isFilterTableRow.mockImplementation(() => true);
-    const filterRowTemplate = jest.fn(() => null);
-
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
-          filterRowTemplate={filterRowTemplate}
         />
       </PluginHost>
     ));
-    expect(isFilterTableRow).toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(filterRowTemplate).toBeCalledWith(defaultDeps.template.tableRow);
+
+    const valueEditorTemplatePlaceholder = tree
+      .find('TemplatePlaceholder')
+      .findWhere(node => node.prop('name') === 'valueEditor');
+
+    expect(valueEditorTemplatePlaceholder.prop('params'))
+      .toMatchObject({
+        column: defaultDeps.template.tableCell.tableColumn.column,
+        value: defaultDeps.getter.filters[0].value,
+        onValueChange: expect.any(Function),
+      });
+  });
+
+  it('should render row by using rowComponent', () => {
+    isFilterTableRow.mockImplementation(() => true);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    expect(isFilterTableRow)
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(tree.find(defaultProps.rowComponent).props())
+      .toMatchObject(defaultDeps.template.tableRow);
   });
 
   it('should pass getMessage function to filterTableCellTemplate', () => {
     isFilterTableCell.mockImplementation(() => true);
-    const filterCellTemplate = jest.fn(() => null);
 
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
@@ -183,11 +167,11 @@ describe('TableFilterRow', () => {
           messages={{
             filterPlaceholder: 'Filter...',
           }}
-          filterCellTemplate={filterCellTemplate}
         />
       </PluginHost>
     ));
-    const { getMessage } = filterCellTemplate.mock.calls[0][0];
+
+    const { getMessage } = tree.find(defaultCellComponent).props();
     expect(getMessage('filterPlaceholder')).toBe('Filter...');
   });
 });

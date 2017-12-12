@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -57,6 +57,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState
+
             defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
           />
           <SortingState
@@ -65,6 +66,9 @@ export default class Demo extends React.PureComponent {
               { columnName: 'saleDate', direction: 'asc' },
             ]}
           />
+
+          <SelectionState />
+
           <GroupingState
             defaultGrouping={[{ columnName: 'product' }]}
             defaultExpandedGroups={['EnviroCare Max']}
@@ -77,18 +81,15 @@ export default class Demo extends React.PureComponent {
           <LocalGrouping />
           <LocalFiltering />
           <LocalSorting />
-
           <LocalPaging />
-
-          <SelectionState
-            defaultSelection={[1, 3, 18]}
-          />
+          <LocalSelection />
 
           <DragDropContext />
 
           <Table
             getCellComponent={this.getCellComponent}
           />
+          <TableSelection showSelectAll />
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
@@ -97,7 +98,7 @@ export default class Demo extends React.PureComponent {
           <PagingPanel
             allowedPageSizes={allowedPageSizes}
           />
-          <TableSelection />
+
           <TableGroupRow />
           <GroupingPanel allowSorting allowDragging />
         </Grid>

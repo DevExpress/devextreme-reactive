@@ -157,4 +157,74 @@ describe('TableColumnReordering', () => {
     expect(tableColumnsWithWidths)
       .toBeCalledWith(defaultDeps.getter.tableColumns, { a: 100 }, { a: 150 });
   });
+
+  describe('action sequence in batch', () => {
+    it('should correctly work with the several action calls in the uncontrolled mode', () => {
+      const defaultColumnWidths = { a: 1 };
+      const transitionalColumnWidths = { a: 2 };
+      const newColumnWidths = { a: 3 };
+      const payload = {};
+
+      const columnWidthsChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnResizing
+            defaultColumnWidths={defaultColumnWidths}
+            onColumnWidthsChange={columnWidthsChange}
+          />
+        </PluginHost>
+      ));
+
+      changeTableColumnWidths.mockReturnValueOnce({ columnWidths: transitionalColumnWidths });
+      changeTableColumnWidths.mockReturnValueOnce({ columnWidths: newColumnWidths });
+      executeComputedAction(tree, (actions) => {
+        actions.changeTableColumnWidths(payload);
+        actions.changeTableColumnWidths(payload);
+      });
+
+      expect(changeTableColumnWidths)
+        .lastCalledWith(
+          expect.objectContaining({ columnWidths: transitionalColumnWidths }),
+          payload,
+        );
+
+      expect(columnWidthsChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should correctly work with the several action calls in the controlled mode', () => {
+      const columnWidths = { a: 1 };
+      const transitionalColumnWidths = { a: 2 };
+      const newColumnWidths = { a: 3 };
+      const payload = {};
+
+      const columnWidthsChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnResizing
+            columnWidths={columnWidths}
+            onColumnWidthsChange={columnWidthsChange}
+          />
+        </PluginHost>
+      ));
+
+      changeTableColumnWidths.mockReturnValueOnce({ columnWidths: transitionalColumnWidths });
+      changeTableColumnWidths.mockReturnValueOnce({ columnWidths: newColumnWidths });
+      executeComputedAction(tree, (actions) => {
+        actions.changeTableColumnWidths(payload);
+        actions.changeTableColumnWidths(payload);
+      });
+
+      expect(changeTableColumnWidths)
+        .lastCalledWith(
+          expect.objectContaining({ columnWidths: transitionalColumnWidths }),
+          payload,
+        );
+
+      expect(columnWidthsChange)
+        .toHaveBeenCalledTimes(1);
+    });
+  });
 });

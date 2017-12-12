@@ -188,4 +188,54 @@ describe('PagingState', () => {
         .toBe(0);
     });
   });
+
+  describe('action sequence in batch', () => {
+    it('should correctly work with the several action calls in the uncontrolled mode', () => {
+      const currentPageChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <PagingState
+            defaultCurrentPage={2}
+            onCurrentPageChange={currentPageChange}
+          />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, (actions) => {
+        actions.setCurrentPage(3);
+        actions.setCurrentPage(4);
+      });
+
+      expect(currentPageChange)
+        .toBeCalledWith(4);
+
+      expect(currentPageChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should correctly work with the several action calls in the controlled mode', () => {
+      const currentPageChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <PagingState
+            currentPage={2}
+            onCurrentPageChange={currentPageChange}
+          />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, (actions) => {
+        actions.setCurrentPage(3);
+        actions.setCurrentPage(4);
+      });
+
+      expect(currentPageChange)
+        .toBeCalledWith(4);
+
+      expect(currentPageChange)
+        .toHaveBeenCalledTimes(1);
+    });
+  });
 });

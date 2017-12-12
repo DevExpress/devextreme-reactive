@@ -12,41 +12,66 @@ export class PagingState extends React.PureComponent {
       pageSize: props.defaultPageSize,
     };
 
-    this.setCurrentPage = (page) => {
-      const { onCurrentPageChange } = this.props;
-      const currentPage = setCurrentPage(this.state.currentPage, page);
-      this.setState({ currentPage });
-      if (onCurrentPageChange) {
-        onCurrentPageChange(currentPage);
-      }
+    this.setCurrentPage = (payload) => {
+      this.applyReducer(state => ({
+        currentPage: setCurrentPage(state.currentPage, payload),
+      }));
     };
-
-    this.setPageSize = (size) => {
-      const { onPageSizeChange } = this.props;
-      const pageSize = setPageSize(this.state.pageSize, size);
-      this.setState({ pageSize });
-      if (onPageSizeChange) {
-        onPageSizeChange(pageSize);
-      }
+    this.setPageSize = (payload) => {
+      this.applyReducer(state => ({
+        pageSize: setPageSize(state.pageSize, payload),
+      }));
     };
   }
+  getState(temporaryState) {
+    return {
+      ...this.state,
+      currentPage: this.props.currentPage || this.state.currentPage,
+      pageSize: this.props.pageSize || this.state.pageSize,
+      totalCount: this.props.totalCount,
+      ...(this.state !== temporaryState ? temporaryState : null),
+    };
+  }
+  applyReducer(reduce, payload) {
+    const stateUpdater = (prevState) => {
+      const state = this.getState(prevState);
+      const nextState = { ...state, ...reduce(state, payload) };
+
+      if (stateUpdater === this.lastStateUpdater) {
+        this.notifyStateChange(nextState, state);
+      }
+
+      return nextState;
+    };
+    this.lastStateUpdater = stateUpdater;
+
+    this.setState(stateUpdater);
+  }
+  notifyStateChange(nextState, state) {
+    const { currentPage } = nextState;
+    const { onCurrentPageChange } = this.props;
+    if (onCurrentPageChange && currentPage !== state.currentPage) {
+      onCurrentPageChange(currentPage);
+    }
+
+    const { pageSize } = nextState;
+    const { onPageSizeChange } = this.props;
+    if (onPageSizeChange && pageSize !== state.pageSize) {
+      onPageSizeChange(pageSize);
+    }
+  }
   render() {
-    const {
-      pageSize = this.state.pageSize,
-      currentPage = this.state.currentPage,
-      totalCount,
-    } = this.props;
+    const { pageSize, currentPage, totalCount } = this.getState();
 
     return (
       <PluginContainer
         pluginName="PagingState"
       >
-        <Action name="setCurrentPage" action={page => this.setCurrentPage(page)} />
-        <Action name="setPageSize" action={size => this.setPageSize(size)} />
-
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
         <Getter name="totalCount" value={totalCount} />
+        <Action name="setCurrentPage" action={this.setCurrentPage} />
+        <Action name="setPageSize" action={this.setPageSize} />
       </PluginContainer>
     );
   }

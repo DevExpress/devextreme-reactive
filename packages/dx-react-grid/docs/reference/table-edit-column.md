@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ElementType&lt;[TableEditColumnCellProps](#tableeditcolumncellprops)&gt; | | A component that renders a command cell within a data row.
 headerCellComponent | ElementType&lt;[TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a command cell within the header row.
-commandComponent | ElementType&lt;[EditCommandProps](#editcommandprops)&gt; | | A component that renders command controls.
+commandComponent | ElementType&lt;[EditCommandProps](#editcommandprops)&gt; | | A component that renders command control within the command column cell.
 allowAdding | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
 allowEditing | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
 allowDeleting | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
@@ -47,7 +47,7 @@ children? | ReactElement | A React element to be placed in the command cell.
 
 ### EditCommandProps
 
-Describes properties passed to a component that renders command controls within the command column cell.
+Describes properties passed to a component that renders command control within the command column cell.
 
 A value with the following shape:
 
@@ -73,7 +73,7 @@ cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
 
 Name | Properties | Description
 -----|------------|------------
-TableEditColumn.Command | [EditCommandProps](#editcommandprops) | A component that renders command controls within the command column cell for a specific command.
+TableEditColumn.Command | [EditCommandProps](#editcommandprops) | A component that renders command control within the command column cell.
 TableEditColumn.Cell | [TableEditColumnCellProps](#tableeditcolumncellprops) | A component that renders a cell within the command column and data row.
 TableEditColumn.HeaderCell | [TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a cell within the command column and header row.
 

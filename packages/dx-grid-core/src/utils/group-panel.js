@@ -11,7 +11,7 @@ export const getGroupCellTargetIndex = (geometries, sourceIndex, { x, y }) => {
 
   const targetIndex = targetGeometries.findIndex((geometry, index) => {
     const inVerticalBounds = isOnTheSameLine(geometry, y);
-    const inHorizontalBounds = x >= geometry.left && x <= geometry.right;
+    const inHorizontalBounds = x >= geometry.left - 5 && x <= geometry.right + 5;
     const shouldGoFirst = index === 0 && x < geometry.left;
     const shouldGoOnLineBreak = !inVerticalBounds &&
       !!geometries[index - 1] &&

@@ -30,7 +30,7 @@ export class FilteringState extends React.PureComponent {
     }
   }
   render() {
-    const filters = this.props.filters || this.state.filters;
+    const { filters } = this.getState();
 
     return (
       <PluginContainer

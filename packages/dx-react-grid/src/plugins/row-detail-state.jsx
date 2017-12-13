@@ -31,7 +31,8 @@ export class RowDetailState extends React.PureComponent {
     }
   }
   render() {
-    const expandedRows = this.props.expandedRows || this.state.expandedRows;
+    const { expandedRows } = this.getState();
+
     return (
       <PluginContainer
         pluginName="RowDetailState"

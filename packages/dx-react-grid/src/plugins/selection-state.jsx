@@ -30,7 +30,7 @@ export class SelectionState extends React.PureComponent {
     }
   }
   render() {
-    const selection = this.props.selection || this.state.selection;
+    const { selection } = this.getState();
 
     return (
       <PluginContainer

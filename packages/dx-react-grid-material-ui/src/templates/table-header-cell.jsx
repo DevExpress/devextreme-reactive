@@ -77,7 +77,7 @@ class TableHeaderCellBase extends React.PureComponent {
       style, column, tableColumn,
       allowSorting, sortingDirection,
       allowGroupingByClick, onGroup,
-      allowDragging, dragPayload,
+      allowDragging,
       allowResizing, onWidthChange, onDraftWidthChange,
       classes, getMessage, tableRow, className, onSort,
       ...restProps
@@ -134,7 +134,7 @@ class TableHeaderCellBase extends React.PureComponent {
     return allowDragging ? (
       <DragSource
         ref={(element) => { this.cellRef = element; }}
-        getPayload={() => dragPayload}
+        getPayload={() => [{ type: 'column', columnName: column.name }]}
         onStart={() => this.setState({ dragging: true })}
         onEnd={() => this.cellRef && this.setState({ dragging: false })}
       >
@@ -157,7 +157,6 @@ TableHeaderCellBase.propTypes = {
   allowGroupingByClick: PropTypes.bool,
   onGroup: PropTypes.func,
   allowDragging: PropTypes.bool,
-  dragPayload: PropTypes.any,
   allowResizing: PropTypes.bool,
   onWidthChange: PropTypes.func,
   onDraftWidthChange: PropTypes.func,
@@ -176,7 +175,6 @@ TableHeaderCellBase.defaultProps = {
   allowGroupingByClick: false,
   onGroup: undefined,
   allowDragging: false,
-  dragPayload: null,
   allowResizing: false,
   onWidthChange: undefined,
   onDraftWidthChange: undefined,

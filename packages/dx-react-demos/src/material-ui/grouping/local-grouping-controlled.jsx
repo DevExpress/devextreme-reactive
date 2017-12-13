@@ -49,9 +49,9 @@ export default class Demo extends React.PureComponent {
           />
           <LocalGrouping />
           <Table />
-          <TableHeaderRow allowDragging allowGroupingByClick />
+          <TableHeaderRow allowGroupingByClick />
           <TableGroupRow />
-          <GroupingPanel allowDragging allowUngroupingByClick />
+          <GroupingPanel allowUngroupingByClick />
         </Grid>
       </Paper>
     );

@@ -211,7 +211,7 @@ export default class Demo extends React.PureComponent {
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow allowSorting />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}
           />
@@ -220,7 +220,7 @@ export default class Demo extends React.PureComponent {
             contentComponent={GridDetailContainer}
           />
           <TableGroupRow />
-          <GroupingPanel allowSorting allowDragging />
+          <GroupingPanel allowSorting />
         </Grid>
       </Paper>
     );

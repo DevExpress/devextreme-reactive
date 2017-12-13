@@ -21,7 +21,6 @@ Name | Type | Default | Description
 cellComponent | ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A component that renders a header cell.
 rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
 allowSorting | boolean | false | Specifies whether a user can change the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
-allowDragging | boolean | false | Specifies whether a user can drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
 allowGroupingByClick | boolean | false | Specifies whether to render controls that toggle the column's grouping state. Requires the [GroupingState](grouping-state.md) dependency.
 allowResizing | boolean | false | Specifies whether a user can resize columns. Requires the [TableColumnResizing](table-column-resizing.md) dependency.
 messages | object | | An object that specifies [localization messages](#localization-messages).
@@ -50,8 +49,6 @@ sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sort
 onSort | ({ keepOther: boolean, cancel: boolean }) | An event that changes the associated column's sorting state. The `keepOther` and `cancel` arguments specify whether to keep existing sorting and cancel sorting by the associated column.
 allowGroupingByClick | boolean | Specifies whether to render a control that toggles the associated column's grouping state.
 onGroup | () => void | An event that invokes grouping by the associated column.
-allowDragging | boolean | Specifies whether a user can drag a column by the header cell.
-dragPayload | any | A data object that identifies the associated column in the drag-and-drop context.
 onWidthChange | ({ shift: number }) => void | An event that initiates the column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative
 onDraftWidthChange | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the  header cell.

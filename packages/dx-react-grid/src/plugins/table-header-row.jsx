@@ -18,7 +18,6 @@ export class TableHeaderRow extends React.PureComponent {
     const {
       allowSorting,
       allowGroupingByClick,
-      allowDragging,
       allowResizing,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
@@ -33,7 +32,7 @@ export class TableHeaderRow extends React.PureComponent {
           { pluginName: 'Table' },
           { pluginName: 'SortingState', optional: !allowSorting },
           { pluginName: 'GroupingState', optional: !allowGroupingByClick },
-          { pluginName: 'DragDropContext', optional: !allowDragging },
+          { pluginName: 'DragDropContext', optional: true },
           { pluginName: 'TableColumnResizing', optional: !allowResizing },
         ]}
       >
@@ -46,7 +45,7 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting, grouping, columns,
+                sorting, grouping, columns, enableDragging,
               }, {
                 setColumnSorting, groupByColumn,
                 changeTableColumnWidths, changeDraftTableColumnWidths,
@@ -62,11 +61,10 @@ export class TableHeaderRow extends React.PureComponent {
                     getMessage={getMessage}
                     allowSorting={allowSorting && sorting !== undefined}
                     allowGroupingByClick={allowGroupingByClick && groupingSupported}
-                    allowDragging={allowDragging && (!grouping || groupingSupported)}
+                    allowDragging={enableDragging && (!grouping || groupingSupported)}
                     allowResizing={allowResizing}
                     sortingDirection={allowSorting && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
-                    dragPayload={allowDragging ? [{ type: 'column', columnName }] : undefined}
                     onSort={({ keepOther, cancel }) =>
                       setColumnSorting({ columnName, keepOther, cancel })}
                     onGroup={() =>
@@ -95,7 +93,6 @@ export class TableHeaderRow extends React.PureComponent {
 TableHeaderRow.propTypes = {
   allowSorting: PropTypes.bool,
   allowGroupingByClick: PropTypes.bool,
-  allowDragging: PropTypes.bool,
   allowResizing: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
@@ -105,7 +102,6 @@ TableHeaderRow.propTypes = {
 TableHeaderRow.defaultProps = {
   allowSorting: false,
   allowGroupingByClick: false,
-  allowDragging: false,
   allowResizing: false,
   messages: null,
 };

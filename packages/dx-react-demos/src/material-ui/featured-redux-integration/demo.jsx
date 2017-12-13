@@ -138,14 +138,14 @@ const GridContainer = ({
         onColumnWidthsChange={onColumnWidthsChange}
       />
 
-      <TableHeaderRow allowSorting allowDragging allowResizing />
+      <TableHeaderRow allowSorting allowResizing />
       <TableFilterRow />
       <TableSelection showSelectAll />
       <TableRowDetail
         contentComponent={ReduxGridDetailContainer}
       />
       <TableGroupRow />
-      <GroupingPanel allowSorting allowDragging />
+      <GroupingPanel allowSorting />
       <PagingPanel
         allowedPageSizes={allowedPageSizes}
       />

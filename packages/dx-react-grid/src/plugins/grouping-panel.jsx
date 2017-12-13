@@ -17,7 +17,6 @@ export class GroupingPanel extends React.PureComponent {
       itemComponent: Item,
       emptyMessageComponent: EmptyMessage,
       allowSorting,
-      allowDragging,
       allowUngroupingByClick,
       messages,
     } = this.props;
@@ -61,13 +60,13 @@ export class GroupingPanel extends React.PureComponent {
         <Template name="header">
           <TemplateConnector>
             {({
-              columns, draftGrouping,
+              columns, draftGrouping, enableDragging,
             }, {
               groupByColumn, draftGroupingChange, cancelGroupingChange,
             }) => (
               <Layout
                 items={groupingPanelItems(columns, draftGrouping)}
-                allowDragging={allowDragging}
+                allowDragging={enableDragging}
                 onGroup={groupByColumn}
                 onDraftGroup={groupingChange => draftGroupingChange(groupingChange)}
                 onCancelDraftGroup={() => cancelGroupingChange()}
@@ -86,7 +85,6 @@ export class GroupingPanel extends React.PureComponent {
 
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
-  allowDragging: PropTypes.bool,
   allowUngroupingByClick: PropTypes.bool,
   layoutComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
@@ -97,7 +95,6 @@ GroupingPanel.propTypes = {
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
-  allowDragging: false,
   allowUngroupingByClick: false,
   messages: {},
 };

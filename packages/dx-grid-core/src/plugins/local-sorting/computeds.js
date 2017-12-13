@@ -8,7 +8,7 @@ const defaultCompare = (a, b) => {
 };
 
 const createCompare = (sorting, getColumnCompare, getComparableValue) =>
-  Array.from(sorting)
+  sorting.slice()
     .reverse()
     .reduce(
       (prevCompare, columnSorting) => {
@@ -65,7 +65,7 @@ export const sortedRows = (
 
   if (!getRowLevelKey) {
     const compare = createCompare(sorting, getColumnCompare, getCellValue);
-    return mergeSort(Array.from(rows), compare);
+    return mergeSort(rows.slice(), compare);
   }
 
   const compare = createCompare(sorting, getColumnCompare, (row, columnName) => {

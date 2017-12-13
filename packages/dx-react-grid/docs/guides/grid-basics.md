@@ -52,4 +52,6 @@ The `Table` plugin's `rowComponent` property enables you to handle row events li
 
 .embedded-demo(basic/table-row-template)
 
+You can create a custom appearance from scratch or modify the default appearance settings the grid's `Table.Row` component provides. Read [Plugin Components](../reference/table.md#plugin-components) for details.
+
 Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar API for appearance customization.

@@ -13,7 +13,6 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 
 Name | Type | Default | Description
 -----|------|---------|------------
-layoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | A component that renders a table layout.
 getCellComponent | (columnName: string) => ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A function returning a component that renders a table cell for a specific column.
 rowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ElementType&lt;[TableNoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -33,17 +32,6 @@ Field | Type | Description
 align? | 'left' &#124; 'right' | Specifies the table's column alignment.
 width? | number | Specifies the table's column width in pixels.
 
-### TableLayoutProps
-
-Describes properties passed to a component that renders a table layout.
-
-Field | Type | Description
-------|------|------------
-headerRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies the table header rows.
-bodyRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies the table body rows.
-columns | Array&lt;[TableColumn](#tablecolumn)&gt; | Specifies the table columns.
-rowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | A component that renders table rows.
-cellComponent | ElementType&lt;[TableCellArgs](#tablecellprops)&gt; | A component that renders table cells.
 
 ### TableRow
 

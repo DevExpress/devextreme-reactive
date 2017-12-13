@@ -52,6 +52,6 @@ The `Table` plugin's `rowComponent` property enables you to handle row events li
 
 .embedded-demo(basic/table-row-template)
 
-Note that we use the `Table.Row` component to render a table row. This component contains all required styles, classes etc. Refer to the [Plugin Components](../reference/table.md#plugin-components) section to read more abour Table's components.
+If your application does not require custom row appearance, render grid rows using the `Table.Row` component, which provides the default row appearance settings. Read [Plugin Components](../reference/table.md#plugin-components) for details.
 
 Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar API for appearance customization.

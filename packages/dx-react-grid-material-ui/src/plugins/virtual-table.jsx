@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { combineTemplates, createRenderComponent } from '@devexpress/dx-react-core';
+import { createRenderComponent } from '@devexpress/dx-react-core';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableRow } from '../templates/table-row';
 import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
-
-const defaultGetCellComponent = () => TableCell;
 
 const defaultMessages = {
   noData: 'No data',
@@ -22,7 +20,6 @@ export class VirtualTable extends React.PureComponent {
   }
   render() {
     const {
-      getCellComponent,
       height,
       estimatedRowHeight,
       messages,
@@ -39,10 +36,7 @@ export class VirtualTable extends React.PureComponent {
           />
         ))}
         rowComponent={TableRow}
-        getCellComponent={combineTemplates(
-          getCellComponent,
-          defaultGetCellComponent,
-        )}
+        cellComponent={TableCell}
         noDataRowComponent={TableRow}
         noDataCellComponent={TableNoDataCell}
         stubCellComponent={TableStubCell}
@@ -54,8 +48,14 @@ export class VirtualTable extends React.PureComponent {
   }
 }
 
+VirtualTable.Cell = TableCell;
+VirtualTable.Row = TableRow;
+VirtualTable.NoDataCell = TableNoDataCell;
+VirtualTable.NoDataRow = TableRow;
+VirtualTable.StubCell = TableStubCell;
+VirtualTable.StubHeaderCell = TableStubCell;
+
 VirtualTable.propTypes = {
-  getCellComponent: PropTypes.func,
   estimatedRowHeight: PropTypes.number,
   height: PropTypes.number,
   messages: PropTypes.shape({
@@ -64,7 +64,6 @@ VirtualTable.propTypes = {
 };
 
 VirtualTable.defaultProps = {
-  getCellComponent: undefined,
   estimatedRowHeight: 48,
   height: 530,
   messages: {},

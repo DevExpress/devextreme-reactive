@@ -21,9 +21,18 @@ const SaleAmountCell = ({ value }) => (
     ${value}
   </td>
 );
-
 SaleAmountCell.propTypes = {
   value: PropTypes.any.isRequired,
+};
+
+const Cell = (props) => {
+  if (props.column.name === 'SaleAmount') {
+    return <SaleAmountCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -51,13 +60,6 @@ export default class Demo extends React.PureComponent {
     this.changeSorting = this.changeSorting.bind(this);
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'SaleAmount') {
-        return SaleAmountCell;
-      }
-      return undefined;
-    };
   }
   componentDidMount() {
     this.loadData();
@@ -147,7 +149,7 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <Table
-            getCellComponent={this.getCellComponent}
+            cellComponent={Cell}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

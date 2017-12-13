@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Paper from 'material-ui/Paper';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
   LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
@@ -8,17 +10,31 @@ import {
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   GroupingPanel, DragDropContext, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+
 import {
   ProgressBarCell,
 } from '../templates/progress-bar-cell';
 import {
   HighlightedCell,
 } from '../templates/highlighted-cell';
+
 import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
+
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <VirtualTable.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
 
 const getRowId = row => row.id;
 
@@ -39,16 +55,6 @@ export default class Demo extends React.PureComponent {
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200000,
       }),
-    };
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'discount') {
-        return ProgressBarCell;
-      }
-      if (columnName === 'amount') {
-        return HighlightedCell;
-      }
-      return undefined;
     };
   }
   render() {
@@ -84,7 +90,7 @@ export default class Demo extends React.PureComponent {
           <LocalSelection />
 
           <VirtualTable
-            getCellComponent={this.getCellComponent}
+            cellComponent={Cell}
           />
           <TableHeaderRow allowSorting allowDragging />
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

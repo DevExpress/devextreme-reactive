@@ -27,7 +27,6 @@ const HighlightedCell = ({ value, style }) => (
     </span>
   </td>
 );
-
 HighlightedCell.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -35,16 +34,18 @@ HighlightedCell.propTypes = {
   ]).isRequired,
   style: PropTypes.object,
 };
-
 HighlightedCell.defaultProps = {
   style: {},
 };
 
-const getCellComponent = (columnName) => {
-  if (columnName === 'amount') {
-    return HighlightedCell;
+const Cell = (props) => {
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
   }
-  return undefined;
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -72,7 +73,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <Table
-          getCellComponent={getCellComponent}
+          cellComponent={Cell}
         />
         <TableHeaderRow />
       </Grid>

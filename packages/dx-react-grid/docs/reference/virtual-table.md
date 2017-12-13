@@ -54,7 +54,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;any&gt; | Rows to be rendered by the virtual table view.
 columns | Getter | Array&lt;[Column](table.md#column-extension)&gt; | Columns the virtual table view should render.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a cell’s value.
 
 ### Exports
 

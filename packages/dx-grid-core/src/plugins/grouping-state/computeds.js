@@ -4,7 +4,7 @@ export const draftGrouping = (grouping, groupingChange) => {
   if (!groupingChange) return grouping;
 
   const { columnName, groupIndex } = groupingChange;
-  let result = Array.from(grouping);
+  let result = grouping.slice();
 
   if (groupIndex !== -1) {
     result = result.filter(g => g.columnName !== columnName);

@@ -20,7 +20,7 @@ export class TableHeaderRow extends React.PureComponent {
       allowGroupingByClick,
       allowDragging,
       allowResizing,
-      getCellComponent,
+      cellComponent: HeaderCell,
       rowComponent: HeaderRow,
       messages,
     } = this.props;
@@ -52,7 +52,6 @@ export class TableHeaderRow extends React.PureComponent {
                 changeTableColumnWidths, changeDraftTableColumnWidths,
               }) => {
                 const { name: columnName } = params.tableColumn.column;
-                const HeaderCell = getCellComponent(columnName);
                 const groupingSupported = grouping !== undefined &&
                     grouping.length < columns.length - 1;
 
@@ -98,7 +97,7 @@ TableHeaderRow.propTypes = {
   allowGroupingByClick: PropTypes.bool,
   allowDragging: PropTypes.bool,
   allowResizing: PropTypes.bool,
-  getCellComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };

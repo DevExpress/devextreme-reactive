@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { combineTemplates } from '@devexpress/dx-react-core';
 import { TableEditColumn as TableEditColumnBase } from '@devexpress/dx-react-grid';
 import {
   EditCommandCell,
   EditCommandHeadingCell,
   CommandButton,
 } from '../templates/table-edit-command-cell';
-
-const defaultGetCommandComponent = () => CommandButton;
 
 const defaultMessages = {
   addCommand: 'New',
@@ -21,7 +18,6 @@ const defaultMessages = {
 export class TableEditColumn extends React.PureComponent {
   render() {
     const {
-      getCommandComponent,
       messages,
       ...restProps
     } = this.props;
@@ -30,7 +26,7 @@ export class TableEditColumn extends React.PureComponent {
       <TableEditColumnBase
         cellComponent={EditCommandCell}
         headerCellComponent={EditCommandHeadingCell}
-        getCommandComponent={combineTemplates(getCommandComponent, defaultGetCommandComponent)}
+        commandComponent={CommandButton}
         messages={{ ...defaultMessages, ...messages }}
         width={150}
         {...restProps}
@@ -44,7 +40,6 @@ TableEditColumn.Cell = EditCommandCell;
 TableEditColumn.HeaderCell = EditCommandHeadingCell;
 
 TableEditColumn.propTypes = {
-  getCommandComponent: PropTypes.func,
   messages: PropTypes.shape({
     addCommand: PropTypes.string,
     editCommand: PropTypes.string,
@@ -55,6 +50,5 @@ TableEditColumn.propTypes = {
 };
 
 TableEditColumn.defaultProps = {
-  getCommandComponent: undefined,
   messages: {},
 };

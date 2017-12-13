@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { SortingIndicator } from './parts/sorting-indicator';
 
 const ENTER_KEY_CODE = 13;
@@ -10,7 +11,8 @@ const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_K
 export const GroupPanelItem = ({
   item: { column, draft },
   onGroup, allowUngroupingByClick,
-  allowSorting, sortingDirection, onSort,
+  allowSorting, sortingDirection, onSort, className,
+  ...restProps
 }) => {
   const handleSortingChange = (e) => {
     const isActionKeyDown = isActionKey(e.keyCode);
@@ -38,12 +40,13 @@ export const GroupPanelItem = ({
   };
   return (
     <div
-      className="btn-group"
+      className={classNames('btn-group', className)}
       style={{
         marginRight: '5px',
         marginBottom: '5px',
         ...draft ? { opacity: 0.3 } : null,
       }}
+      {...restProps}
     >
       <span
         className="btn btn-default"
@@ -90,6 +93,7 @@ GroupPanelItem.propTypes = {
   }).isRequired,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  className: PropTypes.string,
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
   allowUngroupingByClick: PropTypes.bool,
@@ -98,6 +102,7 @@ GroupPanelItem.propTypes = {
 GroupPanelItem.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
+  className: undefined,
   onSort: undefined,
   onGroup: undefined,
   allowUngroupingByClick: false,

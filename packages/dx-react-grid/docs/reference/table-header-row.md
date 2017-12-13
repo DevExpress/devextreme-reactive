@@ -18,7 +18,7 @@ The plugin also allows you to manage a column's sorting and grouping state and i
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getCellComponent | (columnName: string) => ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A function that returns the specified column's cell rendering component.
+cellComponent | ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A component that renders a header cell.
 rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
 allowSorting | boolean | false | Specifies whether a user can change the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | Specifies whether a user can drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.

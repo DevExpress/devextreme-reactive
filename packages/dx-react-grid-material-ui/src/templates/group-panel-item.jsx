@@ -36,12 +36,13 @@ const GroupPanelItemBase = ({
   item: { column, draft },
   onGroup, allowUngroupingByClick,
   allowSorting, sortingDirection, onSort,
-  classes,
+  classes, className,
+  ...restProps
 }) => {
   const chipClassNames = classNames({
     [classes.button]: true,
     [classes.draftCell]: draft,
-  });
+  }, className);
   const onClick = (e) => {
     if (!allowSorting) return;
     const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
@@ -57,14 +58,17 @@ const GroupPanelItemBase = ({
     });
   };
 
-  return (<Chip
-    label={label(allowSorting, sortingDirection, column)}
-    className={chipClassNames}
-    {...allowUngroupingByClick
-      ? { onRequestDelete: () => onGroup({ columnName: column.name }) }
-      : null}
-    onClick={onClick}
-  />);
+  return (
+    <Chip
+      label={label(allowSorting, sortingDirection, column)}
+      className={chipClassNames}
+      {...allowUngroupingByClick
+        ? { onRequestDelete: () => onGroup({ columnName: column.name }) }
+        : null}
+      onClick={onClick}
+      {...restProps}
+    />
+  );
 };
 
 GroupPanelItemBase.propTypes = {
@@ -80,6 +84,7 @@ GroupPanelItemBase.propTypes = {
   onGroup: PropTypes.func,
   allowUngroupingByClick: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
 GroupPanelItemBase.defaultProps = {
@@ -88,6 +93,7 @@ GroupPanelItemBase.defaultProps = {
   onSort: undefined,
   onGroup: undefined,
   allowUngroupingByClick: false,
+  className: undefined,
 };
 
 export const GroupPanelItem = withStyles(styles, { name: 'GroupPanelItem' })(GroupPanelItemBase);

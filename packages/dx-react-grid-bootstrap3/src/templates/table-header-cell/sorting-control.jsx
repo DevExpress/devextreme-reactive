@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { SortingIndicator } from '../parts/sorting-indicator';
 
-const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
+const handleFocus = (e) => { e.currentTarget.style.outline = 'none'; };
 const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
 export const SortingControl = ({
@@ -13,7 +13,7 @@ export const SortingControl = ({
     <span
       className={sortingDirection ? 'text-primary' : ''}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onMouseDown={handleMouseDown}
+      onFocus={handleFocus}
       onBlur={handleBlur}
       onKeyDown={onClick}
       style={{
@@ -31,7 +31,7 @@ export const SortingControl = ({
     <span
       className={sortingDirection ? 'text-primary' : ''}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onMouseDown={handleMouseDown}
+      onFocus={handleFocus}
       onBlur={handleBlur}
       onKeyDown={onClick}
       style={{

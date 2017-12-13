@@ -11,20 +11,37 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const TableRow = ({ children, row }) => (
-  <tr
+const styles = {
+  banking: {
+    backgroundColor: '#f5f5f5',
+  },
+  health: {
+    backgroundColor: '#dff0d8',
+  },
+  telecom: {
+    backgroundColor: '#d9edf7',
+  },
+  energy: {
+    backgroundColor: '#f2dede',
+  },
+  insurance: {
+    backgroundColor: '#fcf8e3',
+  },
+};
+
+const TableRow = ({ row, ...restProps }) => (
+  <Table.Row
+    {...restProps}
     // eslint-disable-next-line no-alert
     onClick={() => alert(JSON.stringify(row))}
-  >
-    {children}
-  </tr>
+    style={{
+      cursor: 'pointer',
+      ...styles[row.sector.toLowerCase()],
+    }}
+  />
 );
 
 TableRow.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
   row: PropTypes.any.isRequired,
 };
 

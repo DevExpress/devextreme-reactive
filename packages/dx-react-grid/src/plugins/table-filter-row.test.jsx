@@ -42,9 +42,8 @@ const defaultDeps = {
   plugins: ['FilteringState', 'Table'],
 };
 
-const defaultCellComponent = () => null;
 const defaultProps = {
-  getCellComponent: () => defaultCellComponent,
+  cellComponent: () => null,
   rowComponent: () => null,
 };
 
@@ -88,14 +87,12 @@ describe('TableFilterRow', () => {
 
   it('should render heading cell on user-defined column and filter row intersection', () => {
     isFilterTableCell.mockImplementation(() => true);
-    const getCellComponent = jest.fn(() => defaultCellComponent);
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
-          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -105,9 +102,7 @@ describe('TableFilterRow', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(getCellComponent)
-      .toBeCalledWith(defaultDeps.template.tableCell.tableColumn.column.name);
-    expect(tree.find(defaultCellComponent).props())
+    expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         column: defaultDeps.template.tableCell.tableColumn.column,
@@ -171,7 +166,7 @@ describe('TableFilterRow', () => {
       </PluginHost>
     ));
 
-    const { getMessage } = tree.find(defaultCellComponent).props();
+    const { getMessage } = tree.find(defaultProps.cellComponent).props();
     expect(getMessage('filterPlaceholder')).toBe('Filter...');
   });
 });

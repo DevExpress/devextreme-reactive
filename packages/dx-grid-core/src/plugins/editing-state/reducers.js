@@ -9,7 +9,7 @@ export const stopEditRows = (prevEditingRows, { rowIds }) => {
 export const addRow = (addedRows, { row }) => [...addedRows, row];
 
 export const changeAddedRow = (addedRows, { rowId, change }) => {
-  const result = Array.from(addedRows);
+  const result = addedRows.slice();
   result[rowId] = { ...result[rowId], ...change };
   return result;
 };

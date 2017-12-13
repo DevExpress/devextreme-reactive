@@ -36,10 +36,9 @@ const defaultDeps = {
   },
 };
 
-const defaultCellComponent = () => null;
 const defaultProps = {
   layoutComponent: () => null,
-  getCellComponent: () => defaultCellComponent,
+  cellComponent: () => null,
   rowComponent: () => null,
   stubCellComponent: () => null,
   stubHeaderCellComponent: () => null,
@@ -105,7 +104,6 @@ describe('Table', () => {
 
   it('should render data cell on user-defined column and row intersection', () => {
     isDataTableCell.mockImplementation(() => true);
-    const getCellComponent = jest.fn(() => defaultCellComponent);
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'a' } },
@@ -119,16 +117,13 @@ describe('Table', () => {
         <Table
           {...defaultProps}
           layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
-          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
 
     expect(isDataTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
-    expect(getCellComponent)
-      .toBeCalledWith(tableCellArgs.tableColumn.column.name);
-    expect(tree.find(defaultCellComponent).props())
+    expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...tableCellArgs,
         row: tableCellArgs.tableRow.row,
@@ -138,7 +133,6 @@ describe('Table', () => {
 
   it('can render custom formatted data in table cell', () => {
     isDataTableCell.mockImplementation(() => true);
-    const getCellComponent = jest.fn(() => defaultCellComponent);
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'column', dataType: 'column' } },
@@ -152,7 +146,6 @@ describe('Table', () => {
         <Table
           {...defaultProps}
           layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
-          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -167,7 +160,7 @@ describe('Table', () => {
         row: tableCellArgs.tableRow.row,
         value: tableCellArgs.value,
       });
-    expect(tree.find(defaultCellComponent).props().children)
+    expect(tree.find(defaultProps.cellComponent).props().children)
       .toBeDefined();
   });
 

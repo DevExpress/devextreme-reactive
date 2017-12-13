@@ -4,7 +4,7 @@ DevExpress Data Grid for React conforms to the React [optimization principles](h
 
 Keep the Grid's state management plugins as separate components and update their properties independently to optimize performance. This allows the Grid to avoid rendering unchanged UI elements.
 
-In this case, you can use a state management library like [Redux](https://redux.js.org/) to work with independent componets' states.
+In this case, you can use a state management library like [Redux](https://redux.js.org/) to work with independent components' states.
 
 The following demo shows how to work with immutable data using Redux, [react-redux](https://github.com/reactjs/react-redux) and [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) libraries:
 

@@ -43,6 +43,7 @@ export class TableGroupRow extends React.PureComponent {
       columns, tableColumns, grouping, draftGrouping,
     }) =>
       tableColumnsWithGrouping(
+        columns,
         tableColumns,
         grouping,
         draftGrouping,

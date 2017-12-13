@@ -2,7 +2,7 @@ import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_REORDERING_TYPE } from './constants';
 
 export const orderedColumns = (tableColumns, order) => {
-  const result = Array.from(tableColumns);
+  const result = tableColumns.slice();
 
   result.sort((a, b) => {
     if (a.type !== TABLE_DATA_TYPE || b.type !== TABLE_DATA_TYPE) return 0;

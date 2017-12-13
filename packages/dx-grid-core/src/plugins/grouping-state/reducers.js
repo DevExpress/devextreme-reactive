@@ -1,7 +1,7 @@
 import { GROUP_KEY_SEPARATOR } from './constants';
 
 export const groupByColumn = (state, { columnName, groupIndex }) => {
-  const grouping = Array.from(state.grouping);
+  const grouping = state.grouping.slice();
   const groupingIndex = grouping.findIndex(g => g.columnName === columnName);
   let targetIndex = groupIndex;
 
@@ -41,7 +41,7 @@ export const groupByColumn = (state, { columnName, groupIndex }) => {
 };
 
 export const toggleExpandedGroups = (state, { groupKey }) => {
-  const expandedGroups = Array.from(state.expandedGroups);
+  const expandedGroups = state.expandedGroups.slice();
   const groupKeyIndex = expandedGroups.indexOf(groupKey);
 
   if (groupKeyIndex > -1) {

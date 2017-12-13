@@ -23,8 +23,8 @@ const styles = theme => ({
 });
 
 const ContainerBase = ({
-  clientOffset, columns, columnTemplate, classes,
-  style, className, children, ...restProps
+  clientOffset, classes, style, className, children,
+  ...restProps
 }) => (
   <Paper
     className={classNames(classes.container, className)}
@@ -47,8 +47,6 @@ ContainerBase.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
-  columns: PropTypes.array.isRequired,
-  columnTemplate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,

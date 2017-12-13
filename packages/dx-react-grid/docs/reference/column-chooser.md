@@ -49,3 +49,12 @@ Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | The grid column associated with the item.
 hidden | boolean | Specifies whether the associated column is hidden.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+ColumnChooser.Container | [ColumnChooserContainerProps](#columnchoosercontainerprops) | A component that renders the column chooser container.
+ColumnChooser.Item | [ColumnChooserItemProps](#columnchooseritemprops) | A component that renders a column chooser item.
+
+If you specify additional properties, they are added to the component's root element.

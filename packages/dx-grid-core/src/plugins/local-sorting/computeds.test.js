@@ -1,5 +1,3 @@
-import Immutable from 'seamless-immutable';
-
 import {
   sortedRows,
 } from './computeds';
@@ -68,31 +66,6 @@ describe('LocalSorting computeds', () => {
           { a: 1, b: 1 },
           { a: 2, b: 2 },
           { a: 2, b: 1 },
-        ]);
-      });
-
-      it('should work with immutable data', () => {
-        const immutableRows = Immutable(rows);
-        const immutableSorting = Immutable([{ columnName: 'a', direction: 'desc' }]);
-
-        const sorted = sortedRows(immutableRows, immutableSorting, getCellValue);
-        expect(sorted).toEqual([
-          { a: 2, b: 2 },
-          { a: 2, b: 1 },
-          { a: 1, b: 1 },
-          { a: 1, b: 2 },
-        ]);
-      });
-
-      it('should work with immutable data', () => {
-        const immutableSorting = Immutable([{ columnName: 'a', direction: 'desc' }]);
-
-        const sorted = sortedRows(rows, immutableSorting, getCellValue);
-        expect(sorted).toEqual([
-          { a: 2, b: 2 },
-          { a: 2, b: 1 },
-          { a: 1, b: 1 },
-          { a: 1, b: 2 },
         ]);
       });
 

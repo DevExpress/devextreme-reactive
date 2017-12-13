@@ -48,9 +48,8 @@ const defaultDeps = {
   plugins: ['GroupingState', 'Table'],
 };
 
-const defaultCellComponent = () => null;
 const defaultProps = {
-  getCellComponent: () => defaultCellComponent,
+  cellComponent: () => null,
   indentCellComponent: () => null,
   rowComponent: () => null,
   indentColumnWidth: 100,
@@ -234,17 +233,15 @@ describe('TableGroupRow', () => {
       });
   });
 
-  describe('getCellComponent', () => {
+  describe('cellComponent', () => {
     it('should render group cell on select group column and group row intersection', () => {
       isGroupTableCell.mockImplementation(() => true);
-      const getCellComponent = jest.fn(() => defaultCellComponent);
 
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
             {...defaultProps}
-            getCellComponent={getCellComponent}
           />
         </PluginHost>
       ));
@@ -254,9 +251,7 @@ describe('TableGroupRow', () => {
           defaultDeps.template.tableCell.tableRow,
           defaultDeps.template.tableCell.tableColumn,
         );
-      expect(getCellComponent)
-        .toBeCalledWith(defaultDeps.template.tableCell.tableColumn.column.name);
-      expect(tree.find(defaultCellComponent).props())
+      expect(tree.find(defaultProps.cellComponent).props())
         .toMatchObject({
           ...defaultDeps.template.tableCell,
           row: defaultDeps.template.tableCell.tableRow.row,
@@ -288,7 +283,7 @@ describe('TableGroupRow', () => {
           />
         </PluginHost>
       ));
-      expect(tree.find(defaultCellComponent).props())
+      expect(tree.find(defaultProps.cellComponent).props())
         .toMatchObject({
           expanded: 'hasTest',
           onToggle: expect.any(Function),
@@ -296,7 +291,7 @@ describe('TableGroupRow', () => {
       expect(deps.getter.expandedGroups.has)
         .toBeCalledWith('1');
 
-      tree.find(defaultCellComponent).props().onToggle();
+      tree.find(defaultProps.cellComponent).props().onToggle();
       expect(defaultDeps.action.toggleGroupExpanded.mock.calls[0][0])
         .toEqual({ groupKey: '1' });
     });

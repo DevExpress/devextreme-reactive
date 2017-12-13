@@ -1,5 +1,3 @@
-import Immutable from 'seamless-immutable';
-
 import {
   groupByColumn,
   draftGroupingChange,
@@ -66,20 +64,6 @@ describe('GroupingState reducers', () => {
           expandedGroups: [],
         });
     });
-
-    it('should work with immutable grouping', () => {
-      const state = {
-        grouping: Immutable([]),
-      };
-      const payload = { columnName: 'test' };
-
-      expect(groupByColumn(state, payload))
-        .toEqual({
-          grouping: [
-            { columnName: 'test' },
-          ],
-        });
-    });
   });
 
   describe('#toggleExpandedGroups', () => {
@@ -100,18 +84,6 @@ describe('GroupingState reducers', () => {
         expandedGroups: ['a', 'b', 'c'],
       };
       const payload = { groupKey: 'c' };
-
-      expect(toggleExpandedGroups(state, payload))
-        .toEqual({
-          expandedGroups: ['a', 'b'],
-        });
-    });
-
-    it('should work with immutable groups', () => {
-      const state = {
-        expandedGroups: Immutable(['a']),
-      };
-      const payload = { groupKey: 'b' };
 
       expect(toggleExpandedGroups(state, payload))
         .toEqual({

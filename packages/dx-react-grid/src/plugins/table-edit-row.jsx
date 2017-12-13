@@ -20,7 +20,7 @@ const pluginDependencies = [
 export class TableEditRow extends React.PureComponent {
   render() {
     const {
-      getCellComponent,
+      cellComponent: EditCell,
       rowComponent: EditRow,
       rowHeight,
     } = this.props;
@@ -43,8 +43,6 @@ export class TableEditRow extends React.PureComponent {
               {({ getCellValue, createRowChange, changedRows }, { changeAddedRow, changeRow }) => {
                 const { rowId, row } = params.tableRow;
                 const { name: columnName } = params.tableColumn.column;
-
-                const EditCell = getCellComponent(columnName);
 
                 const isNew = isAddedTableRow(params.tableRow);
                 const changedRow = isNew
@@ -108,7 +106,7 @@ export class TableEditRow extends React.PureComponent {
 
 TableEditRow.propTypes = {
   rowHeight: PropTypes.any,
-  getCellComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
 };
 

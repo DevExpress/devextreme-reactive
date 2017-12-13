@@ -86,6 +86,16 @@ Field | Type | Default | Description
 ------|------|---------|------------
 groupByColumn? | string | 'Drag a column header here to group by that column' | The text displayed in the group panel if the grid is not grouped.
 
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+GroupingPanel.Container | [GroupingPanelContainerProps](#groupingpanelcontainerprops) | A component that renders a grouping panel container.
+GroupingPanel.Item | [GroupingPanelItemProps](#groupingpanelitemprops) | A component that renders a grouping panel item.
+GroupingPanel.EmptyMessage | [GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops) | A component that renders an empty grouping panel message.
+
+If you specify additional properties, they are added to the component's root element.
+
 ## Plugin Developer Reference
 
 ### Imports

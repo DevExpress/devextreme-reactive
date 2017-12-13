@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const GroupPanelContainer = ({ children }) => (
-  <div>{children}</div>
+export const GroupPanelContainer = ({ children, ...restProps }) => (
+  <div
+    {...restProps}
+  >
+    {children}
+  </div>
 );
 
 GroupPanelContainer.propTypes = {

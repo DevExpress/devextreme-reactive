@@ -8,6 +8,7 @@ import {
   draftGroupingChange,
   cancelGroupingChange,
 } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 const dependencies = [
   { pluginName: 'SortingState', optional: true },
@@ -36,18 +37,19 @@ export class GroupingState extends React.PureComponent {
       expandedGroups: props.defaultExpandedGroups,
     };
 
+    this.stateHelper = createStateHelper(this);
+
     this.groupByColumn = this.groupByColumn.bind(this);
-    this.toggleGroupExpanded = this.applyReducer.bind(this, toggleExpandedGroups);
-    this.draftGroupingChange = this.applyReducer.bind(this, draftGroupingChange);
-    this.cancelGroupingChange = this.applyReducer.bind(this, cancelGroupingChange);
+    this.toggleGroupExpanded = this.stateHelper.applyReducer.bind(null, toggleExpandedGroups);
+    this.draftGroupingChange = this.stateHelper.applyReducer.bind(null, draftGroupingChange);
+    this.cancelGroupingChange = this.stateHelper.applyReducer.bind(null, cancelGroupingChange);
     this.setColumnSorting = this.setColumnSorting.bind(this);
   }
-  getState(temporaryState) {
+  getState() {
     return {
       ...this.state,
       grouping: this.props.grouping || this.state.grouping,
       expandedGroups: this.props.expandedGroups || this.state.expandedGroups,
-      ...(this.state !== temporaryState ? temporaryState : null),
     };
   }
   setColumnSorting({ columnName, keepOther, ...restParams }, { sorting }, { setColumnSorting }) {
@@ -73,7 +75,7 @@ export class GroupingState extends React.PureComponent {
     return false;
   }
   groupByColumn({ columnName, groupIndex }, getters, actions) {
-    this.applyReducer(
+    this.stateHelper.applyReducer(
       groupByColumn,
       { columnName, groupIndex },
       (nextState, state) => {
@@ -109,24 +111,6 @@ export class GroupingState extends React.PureComponent {
         });
       },
     );
-  }
-  applyReducer(reduce, payload, callback) {
-    const stateUpdater = (prevState) => {
-      const state = this.getState(prevState);
-      const nextState = { ...state, ...reduce(state, payload) };
-
-      if (typeof callback === 'function') {
-        callback(nextState, state);
-      }
-      if (stateUpdater === this.lastStateUpdater) {
-        this.notifyStateChange(nextState, state);
-      }
-
-      return nextState;
-    };
-    this.lastStateUpdater = stateUpdater;
-
-    this.setState(stateUpdater);
   }
   notifyStateChange(nextState, state) {
     const { grouping } = nextState;

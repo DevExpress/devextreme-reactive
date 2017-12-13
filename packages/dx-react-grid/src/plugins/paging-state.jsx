@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 export class PagingState extends React.PureComponent {
   constructor(props) {
@@ -12,40 +13,20 @@ export class PagingState extends React.PureComponent {
       pageSize: props.defaultPageSize,
     };
 
-    this.setCurrentPage = (payload) => {
-      this.applyReducer(state => ({
-        currentPage: setCurrentPage(state.currentPage, payload),
-      }));
-    };
-    this.setPageSize = (payload) => {
-      this.applyReducer(state => ({
-        pageSize: setPageSize(state.pageSize, payload),
-      }));
-    };
+    const stateHelper = createStateHelper(this);
+
+    this.setCurrentPage = stateHelper.applyFieldReducer
+      .bind(null, 'currentPage', setCurrentPage);
+    this.setPageSize = stateHelper.applyFieldReducer
+      .bind(null, 'pageSize', setPageSize);
   }
-  getState(temporaryState) {
+  getState() {
     return {
       ...this.state,
       currentPage: this.props.currentPage || this.state.currentPage,
       pageSize: this.props.pageSize || this.state.pageSize,
       totalCount: this.props.totalCount,
-      ...(this.state !== temporaryState ? temporaryState : null),
     };
-  }
-  applyReducer(reduce, payload) {
-    const stateUpdater = (prevState) => {
-      const state = this.getState(prevState);
-      const nextState = { ...state, ...reduce(state, payload) };
-
-      if (stateUpdater === this.lastStateUpdater) {
-        this.notifyStateChange(nextState, state);
-      }
-
-      return nextState;
-    };
-    this.lastStateUpdater = stateUpdater;
-
-    this.setState(stateUpdater);
   }
   notifyStateChange(nextState, state) {
     const { currentPage } = nextState;

@@ -18,6 +18,7 @@ import {
   deleteRows,
   cancelDeletedRows,
 } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 export class EditingState extends React.PureComponent {
   constructor(props) {
@@ -30,27 +31,17 @@ export class EditingState extends React.PureComponent {
       deletedRows: props.defaultDeletedRows || [],
     };
 
-    this.startEditRows = (payload) => {
-      this.applyReducer(state => ({
-        editingRows: startEditRows(state.editingRows, payload),
-      }));
-    };
-    this.stopEditRows = (payload) => {
-      this.applyReducer(state => ({
-        editingRows: stopEditRows(state.editingRows, payload),
-      }));
-    };
+    const stateHelper = createStateHelper(this);
 
-    this.changeRow = (payload) => {
-      this.applyReducer(state => ({
-        changedRows: changeRow(state.changedRows, payload),
-      }));
-    };
-    this.cancelChangedRows = (payload) => {
-      this.applyReducer(state => ({
-        changedRows: cancelChanges(state.changedRows, payload),
-      }));
-    };
+    this.startEditRows = stateHelper.applyFieldReducer
+      .bind(null, 'editingRows', startEditRows);
+    this.stopEditRows = stateHelper.applyFieldReducer
+      .bind(null, 'editingRows', stopEditRows);
+
+    this.changeRow = stateHelper.applyFieldReducer
+      .bind(null, 'changedRows', changeRow);
+    this.cancelChangedRows = stateHelper.applyFieldReducer
+      .bind(null, 'changedRows', cancelChanges);
     this.commitChangedRows = ({ rowIds }) => {
       this.props.onCommitChanges({
         changed: changedRowsByIds(this.getState().changedRows, rowIds),
@@ -58,21 +49,12 @@ export class EditingState extends React.PureComponent {
       this.cancelAddedRows({ rowIds });
     };
 
-    this.addRow = (payload) => {
-      this.applyReducer(state => ({
-        addedRows: addRow(state.addedRows, payload),
-      }));
-    };
-    this.changeAddedRow = (payload) => {
-      this.applyReducer(state => ({
-        addedRows: changeAddedRow(state.addedRows, payload),
-      }));
-    };
-    this.cancelAddedRows = (payload) => {
-      this.applyReducer(state => ({
-        addedRows: cancelAddedRows(state.addedRows, payload),
-      }));
-    };
+    this.addRow = stateHelper.applyFieldReducer
+      .bind(null, 'addedRows', addRow);
+    this.changeAddedRow = stateHelper.applyFieldReducer
+      .bind(null, 'addedRows', changeAddedRow);
+    this.cancelAddedRows = stateHelper.applyFieldReducer
+      .bind(null, 'addedRows', cancelAddedRows);
     this.commitAddedRows = ({ rowIds }) => {
       this.props.onCommitChanges({
         added: addedRowsByIds(this.getState().addedRows, rowIds),
@@ -80,45 +62,23 @@ export class EditingState extends React.PureComponent {
       this.cancelAddedRows({ rowIds });
     };
 
-    this.deleteRows = (payload) => {
-      this.applyReducer(state => ({
-        deletedRows: deleteRows(state.deletedRows, payload),
-      }));
-    };
-    this.cancelDeletedRows = (payload) => {
-      this.applyReducer(state => ({
-        deletedRows: cancelDeletedRows(state.deletedRows, payload),
-      }));
-    };
+    this.deleteRows = stateHelper.applyFieldReducer
+      .bind(null, 'deletedRows', deleteRows);
+    this.cancelDeletedRows = stateHelper.applyFieldReducer
+      .bind(null, 'deletedRows', cancelDeletedRows);
     this.commitDeletedRows = ({ rowIds }) => {
       this.props.onCommitChanges({ deleted: rowIds });
       this.cancelDeletedRows({ rowIds });
     };
   }
-  getState(temporaryState) {
+  getState() {
     return {
       ...this.state,
       editingRows: this.props.editingRows || this.state.editingRows,
       changedRows: this.props.changedRows || this.state.changedRows,
       addedRows: this.props.addedRows || this.state.addedRows,
       deletedRows: this.props.deletedRows || this.state.deletedRows,
-      ...(this.state !== temporaryState ? temporaryState : null),
     };
-  }
-  applyReducer(reduce, payload) {
-    const stateUpdater = (prevState) => {
-      const state = this.getState(prevState);
-      const nextState = { ...state, ...reduce(state, payload) };
-
-      if (stateUpdater === this.lastStateUpdater) {
-        this.notifyStateChange(nextState, state);
-      }
-
-      return nextState;
-    };
-    this.lastStateUpdater = stateUpdater;
-
-    this.setState(stateUpdater);
   }
   notifyStateChange(nextState, state) {
     const { editingRows } = nextState;

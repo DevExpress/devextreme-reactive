@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnFilter } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 export class FilteringState extends React.PureComponent {
   constructor(props) {
@@ -10,34 +11,16 @@ export class FilteringState extends React.PureComponent {
     this.state = {
       filters: props.defaultFilters || [],
     };
+    const stateHelper = createStateHelper(this);
 
-    this.setColumnFilter = (payload) => {
-      this.applyReducer(state => ({
-        filters: setColumnFilter(state.filters, payload),
-      }));
-    };
+    this.setColumnFilter = stateHelper.applyFieldReducer
+      .bind(null, 'filters', setColumnFilter);
   }
-  getState(temporaryState) {
+  getState() {
     return {
       ...this.state,
       filters: this.props.filters || this.state.filters,
-      ...(this.state !== temporaryState ? temporaryState : null),
     };
-  }
-  applyReducer(reduce, payload) {
-    const stateUpdater = (prevState) => {
-      const state = this.getState(prevState);
-      const nextState = { ...state, ...reduce(state, payload) };
-
-      if (stateUpdater === this.lastStateUpdater) {
-        this.notifyStateChange(nextState, state);
-      }
-
-      return nextState;
-    };
-    this.lastStateUpdater = stateUpdater;
-
-    this.setState(stateUpdater);
   }
   notifyStateChange(nextState, state) {
     const { filters } = nextState;

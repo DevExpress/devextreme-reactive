@@ -6,6 +6,7 @@ import {
   changeTableColumnWidths,
   changeDraftTableColumnWidths,
 } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 const pluginDependencies = [
   { pluginName: 'Table' },
@@ -20,34 +21,19 @@ export class TableColumnResizing extends React.PureComponent {
       draftColumnWidths: {},
     };
 
-    this.changeTableColumnWidthsAction = (payload) => {
-      this.applyReducer(state => changeTableColumnWidths(state, payload));
-    };
-    this.changeDraftTableColumnWidthsAction = (payload) => {
-      this.applyReducer(state => changeDraftTableColumnWidths(state, payload));
-    };
+    const stateHelper = createStateHelper(this);
+
+    this.changeTableColumnWidthsAction =
+      stateHelper.applyReducer.bind(null, changeTableColumnWidths);
+
+    this.changeDraftTableColumnWidthsAction =
+      stateHelper.applyReducer.bind(null, changeDraftTableColumnWidths);
   }
-  getState(temporaryState) {
+  getState() {
     return {
       ...this.state,
       columnWidths: this.props.columnWidths || this.state.columnWidths,
-      ...(this.state !== temporaryState ? temporaryState : null),
     };
-  }
-  applyReducer(reduce, payload) {
-    const stateUpdater = (prevState) => {
-      const state = this.getState(prevState);
-      const nextState = { ...state, ...reduce(state, payload) };
-
-      if (stateUpdater === this.lastStateUpdater) {
-        this.notifyStateChange(nextState, state);
-      }
-
-      return nextState;
-    };
-    this.lastStateUpdater = stateUpdater;
-
-    this.setState(stateUpdater);
   }
   notifyStateChange(nextState, state) {
     const { columnWidths } = nextState;

@@ -11,11 +11,7 @@ describe('DragDrop', () => {
       shallow = createShallow({ dive: true });
       classes = getClasses((
         <Container
-          columns={[{
-            name: 'Test',
-          }]}
           clientOffset={{ x: 10, y: 20 }}
-          columnTemplate={() => <div />}
         />
       ));
     });
@@ -23,11 +19,7 @@ describe('DragDrop', () => {
     it('should have correct styles', () => {
       const tree = shallow((
         <Container
-          columns={[{
-            name: 'Test',
-          }]}
           clientOffset={{ x: 10, y: 20 }}
-          columnTemplate={() => <div />}
         />
       ));
 
@@ -38,11 +30,7 @@ describe('DragDrop', () => {
     it('should apply custom styles', () => {
       const tree = shallow((
         <Container
-          columns={[{
-            name: 'Test',
-          }]}
           clientOffset={{ x: 10, y: 20 }}
-          columnTemplate={() => <div />}
           style={{ color: 'red' }}
         />
       ));
@@ -57,11 +45,7 @@ describe('DragDrop', () => {
     it('should pass the className prop to the root element', () => {
       const tree = shallow((
         <Container
-          columns={[{
-            name: 'Test',
-          }]}
           clientOffset={{ x: 10, y: 20 }}
-          columnTemplate={() => <div />}
           className="custom-class"
         />
       ));
@@ -75,11 +59,7 @@ describe('DragDrop', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Container
-          columns={[{
-            name: 'Test',
-          }]}
           clientOffset={{ x: 10, y: 20 }}
-          columnTemplate={() => <div />}
           data={{ a: 1 }}
         />
       ));

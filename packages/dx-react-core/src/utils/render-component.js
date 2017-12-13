@@ -1,13 +1,5 @@
 import React from 'react';
 
-export const combineTemplates = (userTemplate = () => undefined, defaultTemplate) => (...args) => {
-  let result = userTemplate(...args);
-  if (result === undefined) {
-    result = defaultTemplate(...args);
-  }
-  return result;
-};
-
 export const createRenderComponent = () => {
   let storedRender = () => null;
   const components = new Set();

@@ -32,7 +32,7 @@ const createShowWhenGrouped = (columns) => {
 export class TableGroupRow extends React.PureComponent {
   render() {
     const {
-      getCellComponent,
+      cellComponent: GroupCell,
       rowComponent: GroupRow,
       indentCellComponent: GroupIndentCell,
       indentColumnWidth,
@@ -65,31 +65,28 @@ export class TableGroupRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ expandedGroups }, { toggleGroupExpanded }) => {
-                const GroupCell = getCellComponent(params.tableColumn.column.name);
-                return (
-                  <TemplatePlaceholder
-                    name="valueFormatter"
-                    params={{
-                      column: params.tableColumn.column,
-                      value: params.tableRow.row.value,
-                    }}
-                  >
-                    {content => (
-                      <GroupCell
-                        {...params}
-                        row={params.tableRow.row}
-                        column={params.tableColumn.column}
-                        expanded={expandedGroups.has(params.tableRow.row.compoundKey)}
-                        onToggle={() =>
-                          toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })}
-                      >
-                        {content}
-                      </GroupCell>
-                    )}
-                  </TemplatePlaceholder>
-                );
-              }}
+              {({ expandedGroups }, { toggleGroupExpanded }) => (
+                <TemplatePlaceholder
+                  name="valueFormatter"
+                  params={{
+                    column: params.tableColumn.column,
+                    value: params.tableRow.row.value,
+                  }}
+                >
+                  {content => (
+                    <GroupCell
+                      {...params}
+                      row={params.tableRow.row}
+                      column={params.tableColumn.column}
+                      expanded={expandedGroups.has(params.tableRow.row.compoundKey)}
+                      onToggle={() =>
+                        toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })}
+                    >
+                      {content}
+                    </GroupCell>
+                  )}
+                </TemplatePlaceholder>
+              )}
             </TemplateConnector>
           )}
         </Template>
@@ -124,7 +121,7 @@ export class TableGroupRow extends React.PureComponent {
 }
 
 TableGroupRow.propTypes = {
-  getCellComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   indentCellComponent: PropTypes.func,
   indentColumnWidth: PropTypes.number.isRequired,

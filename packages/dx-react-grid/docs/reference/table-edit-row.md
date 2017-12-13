@@ -14,7 +14,7 @@ A plugin that renders a row being edited.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getCellComponent | (columnName: string) => ElementType&lt;[TableEditCellProps](#tableeditrowprops)&gt; | | A function returning a component that renders an editable cell for a specific column.
+cellComponent | ElementType&lt;[TableEditCellProps](#tableeditrowprops)&gt; | | A component that renders an editable cell.
 rowComponent | ElementType&lt;[TableEditRowProps](#tableeditrowprops)&gt; | | A component that renders an editable row.
 rowHeight | number | | Specifies the editable row's height.
 

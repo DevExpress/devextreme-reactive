@@ -16,11 +16,8 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const GroupCellTemplate = ({
-  colSpan,
-  row,
-  expanded,
-  onToggle,
+const NameGroupCell = ({
+  colSpan, row, expanded, onToggle,
 }) => (
   <TableCell
     colSpan={colSpan}
@@ -35,19 +32,27 @@ const GroupCellTemplate = ({
     </strong>
   </TableCell>
 );
-
-GroupCellTemplate.propTypes = {
+NameGroupCell.propTypes = {
   colSpan: PropTypes.number,
   row: PropTypes.object,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
 };
-
-GroupCellTemplate.defaultProps = {
+NameGroupCell.defaultProps = {
   colSpan: 1,
   row: {},
   expanded: false,
   onToggle: () => {},
+};
+
+const GroupCell = (props) => {
+  if (props.column.name === 'name') {
+    return <NameGroupCell {...props} />;
+  }
+  return <TableGroupRow.Cell {...props} />;
+};
+GroupCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -78,12 +83,6 @@ export default class Demo extends React.PureComponent {
       }
       return undefined;
     };
-    this.getGroupCellComponent = (columnName) => {
-      if (columnName === 'name') {
-        return GroupCellTemplate;
-      }
-      return undefined;
-    };
   }
   render() {
     const { rows, columns, grouping } = this.state;
@@ -104,7 +103,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableGroupRow
-            getCellComponent={this.getGroupCellComponent}
+            cellComponent={GroupCell}
           />
         </Grid>
       </Paper>

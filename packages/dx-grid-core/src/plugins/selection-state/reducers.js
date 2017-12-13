@@ -1,5 +1,5 @@
 const setRowSelection = (selection, { rowId, selected }) => {
-  const selectedRows = Array.from(selection);
+  const selectedRows = selection.slice();
   const selectedIndex = selectedRows.indexOf(rowId);
 
   let isRowSelected = selected;

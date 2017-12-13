@@ -25,12 +25,6 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const availableValues = {
-  product: globalSalesValues.product,
-  region: globalSalesValues.region,
-  customer: globalSalesValues.customer,
-};
-
 const CommandButton = ({
   onExecute, icon, text, hint, isDanger,
 }) => (
@@ -62,101 +56,101 @@ CommandButton.defaultProps = {
   isDanger: false,
 };
 
-const AddButton = ({ onExecute }) => (
+const commandComponentProps = {
+  add: {
+    icon: 'plus',
+    text: 'New',
+    hint: 'Create new row',
+  },
+  edit: {
+    text: 'Edit',
+    hint: 'Edit row',
+  },
+  delete: {
+    icon: 'trash',
+    hint: 'Delete row',
+    isDanger: true,
+  },
+  commit: {
+    text: 'Save',
+    hint: 'Save changes',
+  },
+  cancel: {
+    icon: 'remove',
+    hint: 'Cancel changes',
+    isDanger: true,
+  },
+};
+
+const Command = ({ id, onExecute }) => (
   <CommandButton
-    text="New"
-    hint="Create new row"
-    icon="plus"
+    {...commandComponentProps[id]}
     onExecute={onExecute}
   />
 );
-AddButton.propTypes = {
+Command.propTypes = {
+  id: PropTypes.string.isRequired,
   onExecute: PropTypes.func.isRequired,
 };
 
-const EditButton = ({ onExecute }) => (
-  <CommandButton
-    text="Edit"
-    hint="Edit row"
-    onExecute={onExecute}
-  />
-);
-EditButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
 
-const DeleteButton = ({ onExecute }) => (
-  <CommandButton
-    icon="trash"
-    hint="Delete row"
-    onExecute={onExecute}
-    isDanger
-  />
-);
-DeleteButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
-
-const CommitButton = ({ onExecute }) => (
-  <CommandButton
-    text="Save"
-    hint="Save changes"
-    onExecute={onExecute}
-  />
-);
-CommitButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
-
-const CancelButton = ({ onExecute }) => (
-  <CommandButton
-    icon="remove"
-    hint="Cancel changes"
-    onExecute={onExecute}
-    isDanger
-  />
-);
-CancelButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
-
-const commandComponents = {
-  add: AddButton,
-  edit: EditButton,
-  delete: DeleteButton,
-  commit: CommitButton,
-  cancel: CancelButton,
+const availableValues = {
+  product: globalSalesValues.product,
+  region: globalSalesValues.region,
+  customer: globalSalesValues.customer,
 };
 
 export const LookupEditCell = ({
-  column, value, onValueChange,
-}) => {
-  const availableColumnValues = availableValues[column.name];
-  return (
-    <td
-      style={{
-        verticalAlign: 'middle',
-        padding: 1,
-      }}
+  column, availableColumnValues, value, onValueChange,
+}) => (
+  <td
+    style={{
+      verticalAlign: 'middle',
+      padding: 1,
+    }}
+  >
+    <select
+      className="form-control"
+      style={{ width: '100%', textAlign: column.align }}
+      value={value}
+      onChange={e => onValueChange(e.target.value)}
     >
-      <select
-        className="form-control"
-        style={{ width: '100%', textAlign: column.align }}
-        value={value}
-        onChange={e => onValueChange(e.target.value)}
-      >
-        {availableColumnValues.map(val => <option key={val} value={val}>{val}</option>)}
-      </select>
-    </td>
-  );
-};
+      {availableColumnValues.map(val => <option key={val} value={val}>{val}</option>)}
+    </select>
+  </td>
+);
 LookupEditCell.propTypes = {
   column: PropTypes.object.isRequired,
+  availableColumnValues: PropTypes.array.isRequired,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
 };
 LookupEditCell.defaultProps = {
   value: undefined,
+};
+
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
+
+const EditCell = (props) => {
+  const availableColumnValues = availableValues[props.column.name];
+  if (availableColumnValues) {
+    return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
+  }
+  return <TableEditRow.Cell {...props} />;
+};
+EditCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 const getRowId = row => row.id;
@@ -235,23 +229,6 @@ export default class Demo extends React.PureComponent {
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
     };
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'discount') {
-        return ProgressBarCell;
-      }
-      if (columnName === 'amount') {
-        return HighlightedCell;
-      }
-      return undefined;
-    };
-    this.getEditCellComponent = (columnName) => {
-      if (availableValues[columnName]) {
-        return LookupEditCell;
-      }
-      return undefined;
-    };
-    this.getEditCommandComponent = id => commandComponents[id];
   }
   render() {
     const {
@@ -302,7 +279,7 @@ export default class Demo extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            getCellComponent={this.getCellComponent}
+            cellComponent={Cell}
           />
 
           <TableColumnReordering
@@ -312,14 +289,14 @@ export default class Demo extends React.PureComponent {
 
           <TableHeaderRow allowSorting allowDragging />
           <TableEditRow
-            getCellComponent={this.getEditCellComponent}
+            cellComponent={EditCell}
           />
           <TableEditColumn
             width={100}
             allowAdding={!this.state.addedRows.length}
             allowEditing
             allowDeleting
-            getCommandComponent={this.getEditCommandComponent}
+            commandComponent={Command}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}
@@ -341,7 +318,7 @@ export default class Demo extends React.PureComponent {
               columns={columns}
             >
               <Table
-                getCellComponent={this.getCellComponent}
+                cellComponent={Cell}
               />
               <TableHeaderRow />
             </Grid>

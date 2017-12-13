@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { GroupPanelItem } from './group-panel-item';
 
 const ENTER_KEY_CODE = 13;
@@ -7,17 +7,18 @@ const SPACE_KEY_CODE = 32;
 
 describe('GroupPanelItem', () => {
   it('should use column name if title is not specified', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
       />
     ));
 
-    expect(tree.find('div').text()).toBe('test');
+    expect(tree.find('div').text())
+      .toBe('test');
   });
 
   it('can render the ungroup button', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
         allowUngroupingByClick
@@ -29,7 +30,7 @@ describe('GroupPanelItem', () => {
   });
 
   it('does not get focus if sorting is not allowed', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
       />
@@ -101,5 +102,31 @@ describe('GroupPanelItem', () => {
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.prop('data'))
+      .toEqual({ a: 1 });
+  });
+
+  it('should add the passed className to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.hasClass('custom-class'))
+      .toBeTruthy();
+    expect(tree.hasClass('btn-group'))
+      .toBeTruthy();
   });
 });

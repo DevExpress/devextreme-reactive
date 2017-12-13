@@ -42,12 +42,6 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const availableValues = {
-  product: globalSalesValues.product,
-  region: globalSalesValues.region,
-  customer: globalSalesValues.customer,
-};
-
 const styles = theme => ({
   lookupEditCell: {
     verticalAlign: 'top',
@@ -122,32 +116,48 @@ const commandComponents = {
   cancel: CancelButton,
 };
 
-const LookupEditCellBase = ({
-  column, value, onValueChange, classes,
-}) => {
-  const availableColumnValues = availableValues[column.name];
+const Command = ({ id, onExecute }) => {
+  const CommandButton = commandComponents[id];
   return (
-    <TableCell
-      className={classes.lookupEditCell}
-    >
-      <Select
-        value={value}
-        onChange={event => onValueChange(event.target.value)}
-        input={
-          <Input
-            classes={{ root: classes.inputRoot }}
-          />
-        }
-      >
-        {availableColumnValues.map(item => (
-          <MenuItem key={item} value={item}>{item}</MenuItem>
-        ))}
-      </Select>
-    </TableCell>
+    <CommandButton
+      onExecute={onExecute}
+    />
   );
 };
+Command.propTypes = {
+  id: PropTypes.string.isRequired,
+  onExecute: PropTypes.func.isRequired,
+};
+
+const availableValues = {
+  product: globalSalesValues.product,
+  region: globalSalesValues.region,
+  customer: globalSalesValues.customer,
+};
+
+const LookupEditCellBase = ({
+  availableColumnValues, value, onValueChange, classes,
+}) => (
+  <TableCell
+    className={classes.lookupEditCell}
+  >
+    <Select
+      value={value}
+      onChange={event => onValueChange(event.target.value)}
+      input={
+        <Input
+          classes={{ root: classes.inputRoot }}
+        />
+      }
+    >
+      {availableColumnValues.map(item => (
+        <MenuItem key={item} value={item}>{item}</MenuItem>
+      ))}
+    </Select>
+  </TableCell>
+);
 LookupEditCellBase.propTypes = {
-  column: PropTypes.object.isRequired,
+  availableColumnValues: PropTypes.array.isRequired,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
@@ -155,8 +165,31 @@ LookupEditCellBase.propTypes = {
 LookupEditCellBase.defaultProps = {
   value: undefined,
 };
-
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
+
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
+
+const EditCell = (props) => {
+  const availableColumnValues = availableValues[props.column.name];
+  if (availableColumnValues) {
+    return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
+  }
+  return <TableEditRow.Cell {...props} />;
+};
+EditCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
 
 const getRowId = row => row.id;
 
@@ -236,22 +269,6 @@ class DemoBase extends React.PureComponent {
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
     };
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'discount') {
-        return ProgressBarCell;
-      } else if (columnName === 'amount') {
-        return HighlightedCell;
-      }
-      return undefined;
-    };
-    this.getEditCellComponent = (columnName) => {
-      if (availableValues[columnName]) {
-        return LookupEditCell;
-      }
-      return undefined;
-    };
-    this.getEditCommandComponent = id => commandComponents[id];
   }
   render() {
     const {
@@ -305,7 +322,7 @@ class DemoBase extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            getCellComponent={this.getCellComponent}
+            cellComponent={Cell}
           />
 
           <TableColumnReordering
@@ -315,14 +332,14 @@ class DemoBase extends React.PureComponent {
 
           <TableHeaderRow allowSorting allowDragging />
           <TableEditRow
-            getCellComponent={this.getEditCellComponent}
+            cellComponent={EditCell}
           />
           <TableEditColumn
             width={120}
             allowAdding={!this.state.addedRows.length}
             allowEditing
             allowDeleting
-            getCommandComponent={this.getEditCommandComponent}
+            commandComponent={Command}
           />
           <PagingPanel
             allowedPageSizes={allowedPageSizes}
@@ -345,7 +362,7 @@ class DemoBase extends React.PureComponent {
                 columns={columns}
               >
                 <Table
-                  getCellComponent={this.getCellComponent}
+                  cellComponent={Cell}
                 />
                 <TableHeaderRow />
               </Grid>

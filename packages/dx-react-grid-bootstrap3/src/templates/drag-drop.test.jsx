@@ -7,10 +7,6 @@ describe('Container', () => {
     const tree = shallow((
       <Container
         clientOffset={{ x: 10, y: 20 }}
-        columns={[{
-          name: 'Test',
-        }]}
-        columnTemplate={() => <div />}
       />
     ));
 
@@ -24,11 +20,7 @@ describe('Container', () => {
   it('should apply custom styles', () => {
     const tree = shallow((
       <Container
-        columns={[{
-          name: 'Test',
-        }]}
         clientOffset={{ x: 10, y: 20 }}
-        columnTemplate={() => <div />}
         style={{ color: 'red' }}
       />
     ));
@@ -43,11 +35,7 @@ describe('Container', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <Container
-        columns={[{
-          name: 'Test',
-        }]}
         clientOffset={{ x: 10, y: 20 }}
-        columnTemplate={() => <div />}
         className="custom-class"
       />
     ));
@@ -61,11 +49,7 @@ describe('Container', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <Container
-        columns={[{
-          name: 'Test',
-        }]}
         clientOffset={{ x: 10, y: 20 }}
-        columnTemplate={() => <div />}
         data={{ a: 1 }}
       />
     ));

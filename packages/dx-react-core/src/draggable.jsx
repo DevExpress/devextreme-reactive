@@ -6,6 +6,8 @@ import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
 import { getSharedEventEmitter } from './draggable/shared-events';
 
+const isDragging = Symbol('isDragging');
+
 export class Draggable extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -64,13 +66,14 @@ export class Draggable extends React.Component {
     node.addEventListener('touchstart', this.touchStartListener, { passive: true });
   }
   mouseDownListener(e) {
-    if (this.touchStrategy.isWaiting()) return;
+    if (this.touchStrategy.isWaiting() || e[isDragging]) return;
     this.mouseStrategy.start(e);
-    e.stopPropagation();
+    e[isDragging] = true;
   }
   touchStartListener(e) {
+    if (e[isDragging]) return;
     this.touchStrategy.start(e);
-    e.stopPropagation();
+    e[isDragging] = true;
   }
   globalListener([name, e]) {
     switch (name) {

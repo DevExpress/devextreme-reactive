@@ -16,19 +16,4 @@ describe('with keyboard navigation', () => {
     expect(tree.find('span').prop('tabIndex'))
       .toBe(0);
   });
-
-  it('can remove outline on focus', () => {
-    const tree = mount((
-      <SortingControl
-        align="Right"
-        columnTitle="Test"
-        onClick={() => {}}
-      />
-    ));
-
-    expect(tree.find('span').simulate('focus').props().style)
-      .toMatchObject({
-        margin: '2px',
-      });
-  });
 });

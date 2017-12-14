@@ -8,7 +8,7 @@ const rectToObject = ({
   top, right, bottom, left,
 });
 
-const createGeometriesWithIndents = geometries =>
+const collapseGapsBetweenItems = geometries =>
   geometries.map((geometry, index) => {
     if (index !== geometries.length - 1 && geometry.top === geometries[index + 1].top) {
       return {
@@ -26,7 +26,7 @@ export const getGroupCellTargetIndex = (geometries, sourceIndex, { x, y }) => {
     ? getTargetColumnGeometries(geometries, sourceIndex)
     : geometries.map(rectToObject);
 
-  const targetIndex = createGeometriesWithIndents(targetGeometries)
+  const targetIndex = collapseGapsBetweenItems(targetGeometries)
     .findIndex((geometry, index) => {
       const inVerticalBounds = isOnTheSameLine(geometry, y);
       const inHorizontalBounds = x >= geometry.left && x <= geometry.right;

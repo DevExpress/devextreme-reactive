@@ -6,12 +6,12 @@ describe('PageSizeSelector', () => {
   describe('#render', () => {
     const mountPageSizeSelector = ({
       pageSize,
-      allowedPageSizes,
+      pageSizes,
       getMessage = key => key,
       onPageSizeChange = () => {},
     }) => mount(<PageSizeSelector
       pageSize={pageSize}
-      allowedPageSizes={allowedPageSizes}
+      pageSizes={pageSizes}
       getMessage={getMessage}
       onPageSizeChange={onPageSizeChange}
     />);
@@ -19,7 +19,7 @@ describe('PageSizeSelector', () => {
     it('can show info about page sizes', () => {
       const tree = mountPageSizeSelector({
         pageSize: 10,
-        allowedPageSizes: [5, 10],
+        pageSizes: [5, 10],
       });
 
       const mobileSelector = tree.find('select');
@@ -46,7 +46,7 @@ describe('PageSizeSelector', () => {
     it('can render the "All" item', () => {
       const tree = mountPageSizeSelector({
         pageSize: 10,
-        allowedPageSizes: [5, 10, 0],
+        pageSizes: [5, 10, 0],
       });
 
       const mobileSelector = tree.find('select');
@@ -66,7 +66,7 @@ describe('PageSizeSelector', () => {
       const onPageSizeChange = jest.fn();
       const tree = mountPageSizeSelector({
         pageSize: 5,
-        allowedPageSizes: [5, 10],
+        pageSizes: [5, 10],
         onPageSizeChange,
       });
 

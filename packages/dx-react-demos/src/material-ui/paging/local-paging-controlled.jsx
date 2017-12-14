@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ length: 14 }),
       currentPage: 0,
       pageSize: 5,
-      allowedPageSizes: [5, 10, 15],
+      pageSizes: [5, 10, 15],
     };
 
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, pageSize, allowedPageSizes,
+      rows, columns, pageSize, pageSizes,
     } = this.state;
 
     return (
@@ -55,7 +55,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
         </Grid>
       </Paper>

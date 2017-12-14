@@ -24,12 +24,12 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 60 }),
-      allowedPageSizes: [5, 10, 15, 0],
+      pageSizes: [5, 10, 15, 0],
     };
   }
 
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const { rows, columns, pageSizes } = this.state;
 
     return (
       <Paper>
@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
         </Grid>
       </Paper>

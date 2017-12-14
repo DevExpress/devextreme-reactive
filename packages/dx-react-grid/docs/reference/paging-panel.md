@@ -13,7 +13,7 @@ A plugin that renders the paging panel used for navigation through data pages.
 Name | Type | Default | Description
 -----|------|---------|------------
 containerComponent | ElementType&lt;[ContainerProps](#containerprops)&gt; | | A component that renders the paging panel.
-allowedPageSizes | Array&lt;number&gt; | [] | The page sizes that a user can select.
+pageSizes | Array&lt;number&gt; | [] | The page sizes that a user can select.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
@@ -31,7 +31,7 @@ currentPage | number | Specifies the current page.
 onCurrentPageChange | (page: number) => void | Handles the current page changes.
 pageSize | number | Specifies the page size.
 onPageSizeChange | (size: number) => void | Handles the page size changes.
-allowedPageSizes | Array&lt;number&gt; | Specifies the page sizes that a user can select.
+pageSizes | Array&lt;number&gt; | Specifies the page sizes that a user can select.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the paging panel's text.
 
 ## Localization Messages

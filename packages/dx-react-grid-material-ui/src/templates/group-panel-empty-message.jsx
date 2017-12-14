@@ -5,8 +5,6 @@ import { withStyles } from 'material-ui/styles';
 
 export const styles = theme => ({
   groupInfo: {
-    padding: `${theme.spacing.unit * 0.75}px 0`,
-    marginBottom: theme.spacing.unit * 1.5,
     color: theme.typography.title.color,
   },
 });

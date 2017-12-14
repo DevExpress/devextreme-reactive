@@ -1,8 +1,6 @@
 import React from 'react';
 import { HeaderToolbar as HeaderToolbarBase } from '@devexpress/dx-react-grid';
-import { Toolbar as ToolbarMUI } from 'material-ui';
-
-const Toolbar = props => <ToolbarMUI {...props} />;
+import { Toolbar } from '../templates/toolbar';
 
 export class HeaderToolbar extends React.PureComponent {
   render() {

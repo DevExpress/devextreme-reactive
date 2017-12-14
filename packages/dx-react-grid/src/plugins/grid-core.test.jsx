@@ -58,37 +58,6 @@ describe('Grid', () => {
     expect(root.children().at(2).find('.footer-content').exists()).toBeTruthy();
   });
 
-  it('should render header placeholder', () => {
-    const tree = mount((
-      <PluginHost>
-        <GridCore
-          {...defaultProps}
-          rootComponent={({ children }) => (<div>{children}</div>)}
-          headerPlaceholderComponent={({ children }) =>
-            <div className="header-placeholder">{children}</div>}
-        />
-        <Template name="header"><div className="header-content" /></Template>
-      </PluginHost>
-    ));
-
-    expect(tree.find('.header-placeholder').find('.header-content').exists()).toBeTruthy();
-  });
-
-  it('should render header placeholder with null children if there are no header elements', () => {
-    const tree = mount((
-      <PluginHost>
-        <GridCore
-          {...defaultProps}
-          rootComponent={({ children }) => (<div>{children}</div>)}
-          headerPlaceholderComponent={({ children }) =>
-            children && <div className="header-placeholder">{children}</div>}
-        />
-      </PluginHost>
-    ));
-
-    expect(!tree.find('.header-placeholder').exists()).toBeTruthy();
-  });
-
   it('should render footer placeholder', () => {
     const tree = mount((
       <PluginHost>

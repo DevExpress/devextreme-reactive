@@ -11,7 +11,6 @@ export class GridCore extends React.PureComponent {
       getRowId,
       getCellValue,
       rootComponent: Root,
-      headerPlaceholderComponent: HeaderPlaceholder,
       footerPlaceholderComponent: FooterPlaceholder,
     } = this.props;
 
@@ -27,11 +26,7 @@ export class GridCore extends React.PureComponent {
         <Template name="footer" />
         <Template name="root">
           <Root>
-            <TemplatePlaceholder name="header">
-              {content => (HeaderPlaceholder
-                ? <HeaderPlaceholder>{content}</HeaderPlaceholder>
-                : content)}
-            </TemplatePlaceholder>
+            <TemplatePlaceholder name="header" />
             <TemplatePlaceholder name="body" />
             <TemplatePlaceholder name="footer">
               {content => (FooterPlaceholder
@@ -51,13 +46,11 @@ GridCore.propTypes = {
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  headerPlaceholderComponent: PropTypes.func,
   footerPlaceholderComponent: PropTypes.func,
 };
 
 GridCore.defaultProps = {
   getRowId: null,
   getCellValue: null,
-  headerPlaceholderComponent: null,
   footerPlaceholderComponent: null,
 };

@@ -29,24 +29,6 @@ Root.defaultProps = {
   children: undefined,
 };
 
-const HeaderBase = ({ children, classes }) =>
-  !!children &&
-    <div className={classes.headingPanel}>{children}</div>;
-
-HeaderBase.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
-  classes: PropTypes.object.isRequired,
-};
-
-HeaderBase.defaultProps = {
-  children: undefined,
-};
-
-export const Header = withStyles(styles, { name: 'GridLayout' })(HeaderBase);
-
 const FooterBase = ({
   children, classes,
 }) =>

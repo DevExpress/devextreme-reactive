@@ -24,7 +24,6 @@ describe('Grid', () => {
       getRowId: () => {},
       getCellValue: () => {},
       rootComponent: () => {},
-      headerPlaceholderComponent: () => {},
       footerPlaceholderComponent: () => {},
     };
 

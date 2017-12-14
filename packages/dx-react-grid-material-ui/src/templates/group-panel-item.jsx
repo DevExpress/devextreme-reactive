@@ -10,7 +10,6 @@ const SPACE_KEY_CODE = 32;
 const styles = theme => ({
   button: {
     marginRight: theme.spacing.unit,
-    marginBottom: '12px',
   },
   draftCell: {
     opacity: 0.3,

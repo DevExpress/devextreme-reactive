@@ -9,7 +9,6 @@ export const Grid = ({
   getRowId,
   getCellValue,
   rootComponent,
-  headerPlaceholderComponent,
   footerPlaceholderComponent,
   children,
 }) => (
@@ -20,7 +19,6 @@ export const Grid = ({
       getRowId={getRowId}
       getCellValue={getCellValue}
       rootComponent={rootComponent}
-      headerPlaceholderComponent={headerPlaceholderComponent}
       footerPlaceholderComponent={footerPlaceholderComponent}
     />
     {children}
@@ -33,7 +31,6 @@ Grid.propTypes = {
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  headerPlaceholderComponent: PropTypes.func,
   footerPlaceholderComponent: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
@@ -44,7 +41,6 @@ Grid.propTypes = {
 Grid.defaultProps = {
   getRowId: undefined,
   getCellValue: undefined,
-  headerPlaceholderComponent: undefined,
   footerPlaceholderComponent: undefined,
   children: undefined,
 };

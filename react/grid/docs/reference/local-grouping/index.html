@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -317,6 +317,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
           
 
@@ -358,6 +366,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
           
 
         
@@ -445,15 +461,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
         
@@ -491,7 +499,7 @@
       <td>getColumnIdentity</td>
       <td>(columnName: string) =&gt; <a href="#identity">Identity</a> | undefined</td>
       <td> </td>
-      <td>A function calculating a grouping identity. See the <a href="/devextreme-reactive/react/grid/docs/guides/grouping/#custom-grouping-values">Grouping guide</a> for more details.</td>
+      <td>A function that defines a column’s grouping identity. See <a href="/devextreme-reactive/react/grid/docs/guides/grouping/#local-grouping-with-custom-values">Grouping</a> for details.</td>
     </tr>
   </tbody>
 </table>
@@ -500,7 +508,7 @@
 
 <h3 id="identity"><a name="identity"></a>Identity</h3>
 
-<p>A function with the following signature <code class="highlighter-rouge">(value: any) =&gt; { key: string | number, value?: any }</code>.</p>
+<p>A function with the following signature: <code class="highlighter-rouge">(value: any) =&gt; { key: string | number, value?: any }</code>. This function returns an object by whose <strong>key</strong> field data is grouped. If you need to group data by a non-primitive value (for example, a date), assign its string representation to the <strong>key</strong> field and the value to the <strong>value</strong> field.</p>
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
@@ -538,7 +546,7 @@
       <td>getCellValue</td>
       <td>Getter</td>
       <td>(row: any, columnName: string) =&gt; any</td>
-      <td>The function used to get a cell value.</td>
+      <td>A function that returns a cell value.</td>
     </tr>
   </tbody>
 </table>
@@ -565,13 +573,13 @@
       <td>isGroupRow</td>
       <td>Getter</td>
       <td>(row: any) =&gt; boolean</td>
-      <td>A function used to identify a group row within ordinary rows.</td>
+      <td>A function that returns a value defining if the row is a group row.</td>
     </tr>
     <tr>
       <td>getRowLevelKey</td>
       <td>Getter</td>
       <td>(row: any) =&gt; string?</td>
-      <td>A function used to get group row level key.</td>
+      <td>A function that returns a group level key for the row.</td>
     </tr>
   </tbody>
 </table>
@@ -580,7 +588,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
 
 
     <footer>
@@ -618,7 +626,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
     <script>
         trackingCookie.check();
     </script>

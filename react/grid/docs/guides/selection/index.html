@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -317,6 +317,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
           
 
@@ -358,6 +366,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
           
 
         
@@ -445,15 +461,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
         
@@ -473,19 +481,20 @@
 
 <ul>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a> - controls the selection state</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a> - renders selection check boxes or highlights the selected rows</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a> - performs local selection</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a> - renders selection checkboxes or highlights the selected rows</li>
 </ul>
 
 <p>Note that <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
 
 <h2 id="basic-setup">Basic setup</h2>
 
-<p>Import the plugins listed above to set up a simple Grid with selection enabled. The following example demonstrates how to configure selection in the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>. Pass the initially selected rows to the <code class="highlighter-rouge">SelectionState</code> plugin’s <code class="highlighter-rouge">selection</code> property and handle the <code class="highlighter-rouge">onSelectionChange</code> event to control the selection.</p>
+<p>Import the <code class="highlighter-rouge">SelectionState</code> and <code class="highlighter-rouge">TableSelection</code> plugins to set up a simple Grid with selection enabled. The following example demonstrates how to configure selection in the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>. Pass the initially selected rows to the <code class="highlighter-rouge">SelectionState</code> plugin’s <code class="highlighter-rouge">selection</code> property and handle the <code class="highlighter-rouge">onSelectionChange</code> event to control the selection.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
           &quot;path&quot;: &quot;/demo/selection/basic&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430238&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163253&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -494,24 +503,24 @@
 
 <h2 id="select-by-row-click">Select by Row Click</h2>
 
-<p>A user can select a row using a check box click by default. Set the <code class="highlighter-rouge">TableSelection</code> plugin’s <code class="highlighter-rouge">selectByRowClick</code> property to true to check/uncheck a check box by a row click as demonstrated in the following example:</p>
+<p>A user can select a row using a checkbox click by default. Set the <code class="highlighter-rouge">TableSelection</code> plugin’s <code class="highlighter-rouge">selectByRowClick</code> property to true to check/uncheck a checkbox by a row click as demonstrated in the following example:</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
           &quot;path&quot;: &quot;/demo/selection/select-by-row-click&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430238&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163253&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
         </div>
       </div>
 
-<p>In some scenarios, it is useful to highlight selected rows instead of using check boxes. For this, hide check boxes setting the <code class="highlighter-rouge">TableSelection</code> plugin’s <code class="highlighter-rouge">showSelectionColumn</code> property to false and assign true to the <code class="highlighter-rouge">selectByRowClick</code> and <code class="highlighter-rouge">highlightSelected</code> properties as demonstrated in the following demo:</p>
+<p>In some scenarios, it is useful to highlight selected rows instead of using checkboxes. For this, hide checkboxes by setting the <code class="highlighter-rouge">TableSelection</code> plugin’s <code class="highlighter-rouge">showSelectionColumn</code> property to false and assign true to the <code class="highlighter-rouge">selectByRowClick</code> and <code class="highlighter-rouge">highlightRow</code> properties as demonstrated in the following demo:</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
           &quot;path&quot;: &quot;/demo/selection/hidden-checkboxes&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430238&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163253&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -520,16 +529,22 @@
 
 <h2 id="select-all">Select All</h2>
 
-<p>If your Grid configuration includes the <code class="highlighter-rouge">TableHeaderRow</code> plugin and the <code class="highlighter-rouge">TableSelection</code> plugin’s <code class="highlighter-rouge">showSelectionColumn</code> property is set to true, the header row displays the Select All check box that provides the capability to select/deselect all rows.</p>
+<p>Perform the following steps to enable the “select/deselect all” capability:</p>
+
+<ul>
+  <li>Add the <code class="highlighter-rouge">LocalSelection</code> plugin above the <code class="highlighter-rouge">TableSelection</code> one.</li>
+  <li>Add the <code class="highlighter-rouge">TableHeaderRow</code> plugin.</li>
+  <li>Set the <code class="highlighter-rouge">TableSelection</code> plugin’s <code class="highlighter-rouge">showSelectAll</code> property to true.</li>
+</ul>
 
 <h3 id="without-paging">Without Paging</h3>
 
-<p>The following example demonstrates selection without paging. We increase the row count using the TableView’s <a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">virtual mode</a>.</p>
+<p>The following example demonstrates selection without paging. You can increase the row count using the Table’s <a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">virtual mode</a>.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
           &quot;path&quot;: &quot;/demo/selection/select-all-virtual&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430238&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163253&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -540,40 +555,26 @@
 
 <p>If you are using the <code class="highlighter-rouge">LocalPaging</code> plugin, you can integrate the Select All behavior with the <code class="highlighter-rouge">PagingState</code> plugin.</p>
 
-<p>The Select All check box selects/deselects all rows on a page or all pages depending on the <code class="highlighter-rouge">SelectionState</code> and <code class="highlighter-rouge">LocalPaging</code> plugin’s order.</p>
+<p>The Select All checkbox selects/deselects all rows on a page or all pages depending on the <code class="highlighter-rouge">LocalSelection</code> and <code class="highlighter-rouge">LocalPaging</code> plugin’s order.</p>
 
-<p>Place the <code class="highlighter-rouge">SelectionState</code> plugin after <code class="highlighter-rouge">LocalPaging</code> to implement the Select All behavior within a visible page:</p>
+<p>Place the <code class="highlighter-rouge">LocalSelection</code> plugin after <code class="highlighter-rouge">LocalPaging</code> to implement the Select All behavior within a visible page:</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
           &quot;path&quot;: &quot;/demo/selection/select-all-by-page&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430238&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163253&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
         </div>
       </div>
 
-<p>Place the <code class="highlighter-rouge">SelectionState</code> plugin before <code class="highlighter-rouge">LocalPaging</code> to select/deselect all rows on all pages:</p>
+<p>Place the <code class="highlighter-rouge">LocalSelection</code> plugin before <code class="highlighter-rouge">LocalPaging</code> to select/deselect all rows on all pages:</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
           &quot;path&quot;: &quot;/demo/selection/select-all-by-all-pages&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430238&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
-        </div>
-      </div>
-
-<h3 id="hide-select-all-check-box">Hide Select All Check Box</h3>
-
-<p>Hide the Select All check box by assigning false to the <code class="highlighter-rouge">TableSelection</code> plugin’s <code class="highlighter-rouge">showSelectAll</code> property:</p>
-
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
-          &quot;path&quot;: &quot;/demo/selection/hidden-select-all&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430238&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163253&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -584,7 +585,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
 
 
     <footer>
@@ -622,7 +623,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
     <script>
         trackingCookie.check();
     </script>

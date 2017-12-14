@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -317,6 +317,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
           
 
@@ -358,6 +366,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
           
 
         
@@ -445,15 +461,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
         
@@ -472,7 +480,7 @@
 <h3 id="dependencies">Dependencies</h3>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
 </ul>
 
 <h3 id="properties">Properties</h3>
@@ -491,35 +499,35 @@
       <td>order</td>
       <td>Array&lt;string&gt;</td>
       <td> </td>
-      <td>Specifies the column order.</td>
+      <td>The column order.</td>
     </tr>
     <tr>
       <td>defaultOrder</td>
       <td>Array&lt;string&gt;</td>
       <td> </td>
-      <td>Specifies the initial column order in the uncontrolled mode.</td>
+      <td>The initial column order in the uncontrolled mode.</td>
     </tr>
     <tr>
       <td>onOrderChange</td>
       <td>(nextOrder: Array&lt;string&gt;) =&gt; void</td>
       <td> </td>
-      <td>Handles column order changes.</td>
+      <td>Handles changes to the column order.</td>
     </tr>
     <tr>
-      <td>tableContainerTemplate</td>
-      <td>(args: <a href="#table-container-args">TableContainerArgs</a>) =&gt; ReactElement</td>
+      <td>tableContainerComponent</td>
+      <td>ElementType&lt;<a href="#tablecontainerprops">TableContainerProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders a table wrapper containing a drop target.</td>
+      <td>A table container component required for drag-and-drop reordering.</td>
     </tr>
     <tr>
-      <td>reorderingRowTemplate</td>
-      <td>(args: <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a>) =&gt; ReactElement</td>
+      <td>rowComponent</td>
+      <td>ElementType&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">TableRowProps</a>&gt;</td>
       <td> </td>
       <td>A non-visual component that renders an invisible row required for drag-and-drop reordering.</td>
     </tr>
     <tr>
-      <td>reorderingCellTemplate</td>
-      <td>(args: <a href="#reordering-cell-args">ReorderingCellArgs</a>) =&gt; ReactElement</td>
+      <td>cellComponent</td>
+      <td>ElementType&lt;<a href="#reorderingcellprops">ReorderingCellProps</a>&gt;</td>
       <td> </td>
       <td>A non-visual component that renders an invisible cell required for drag-and-drop reordering.</td>
     </tr>
@@ -528,9 +536,9 @@
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="tablecontainerargs"><a name="table-container-args"></a>TableContainerArgs</h3>
+<h3 id="tablecontainerprops">TableContainerProps</h3>
 
-<p>Describes properties passed to the table container template.</p>
+<p>Describes the table container component’s properties.</p>
 
 <p>A value with the following shape:</p>
 
@@ -546,12 +554,12 @@
     <tr>
       <td>onOver</td>
       <td>(args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) =&gt; void</td>
-      <td>Handles the column’s “drag over” event.</td>
+      <td>Handles the column’s “dragover” event.</td>
     </tr>
     <tr>
       <td>onLeave</td>
       <td>(args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) =&gt; void</td>
-      <td>Handles the column’s “drag leave” event.</td>
+      <td>Handles the column’s “dragleave” event.</td>
     </tr>
     <tr>
       <td>onDrop</td>
@@ -561,11 +569,11 @@
   </tbody>
 </table>
 
-<h3 id="reorderingcellargs"><a name="reordering-cell-args"></a>ReorderingCellArgs</h3>
+<h3 id="reorderingcellprops">ReorderingCellProps</h3>
 
-<p>Describes properties passed to the reordering row cell template.</p>
+<p>Describes the reordering row cell component’s properties.</p>
 
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a> shape extended by the following fields:</p>
+<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">TableCellProps</a> shape extended by the following fields:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -601,31 +609,31 @@
     <tr>
       <td>tableColumns</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
       <td>Table columns.</td>
     </tr>
     <tr>
       <td>tableHeaderRows</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
       <td>Header rows to be rendered.</td>
     </tr>
     <tr>
-      <td>tableView</td>
+      <td>table</td>
       <td>Template</td>
       <td>Object?</td>
       <td>A template that renders the table.</td>
     </tr>
     <tr>
-      <td>tableViewRow</td>
+      <td>tableRow</td>
       <td>Template</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row-args">TableRowArgs</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">TableRowProps</a></td>
       <td>A template that renders a table row.</td>
     </tr>
     <tr>
-      <td>tableViewCell</td>
+      <td>tableCell</td>
       <td>Template</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-cell-args">TableCellArgs</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">TableCellProps</a></td>
       <td>A template that renders a table cell.</td>
     </tr>
   </tbody>
@@ -646,14 +654,14 @@
     <tr>
       <td>tableColumns</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
       <td>Ordered table columns.</td>
     </tr>
     <tr>
       <td>tableHeaderRows</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-row">TableRow</a>&gt;</td>
-      <td>Header rows including the service reordering row to be rendered.</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Header rows to be rendered including the service reordering row.</td>
     </tr>
   </tbody>
 </table>
@@ -662,7 +670,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
 
 
     <footer>
@@ -700,7 +708,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
     <script>
         trackingCookie.check();
     </script>

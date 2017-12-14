@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -317,6 +317,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
           
 
@@ -358,6 +366,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
           
 
         
@@ -445,15 +461,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
         
@@ -465,7 +473,7 @@
     <div class="col-md-9 docs-content">
         <h1 id="columnchooser-reference">ColumnChooser Reference</h1>
 
-<p>ColumnChooser is a component that allows a user to show and hide grid columns at runtime. The component contains a column list with a checkbox that controls each item’s related column visibility. Use the Grid component’s <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisiblity</a> plugin that manages column visibility if you need to associate the ColumnChooser with the Grid.</p>
+<p>ColumnChooser is a component that allows a user to show and hide grid columns at runtime. The component contains a column list with checkboxes that control each column’s visibility. Use the Grid component’s <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisiblity</a> plugin that manages column visibility if you need to associate the ColumnChooser with a Grid.</p>
 
 <h2 id="user-reference">User reference</h2>
 
@@ -485,13 +493,13 @@
       <td>columns</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
       <td> </td>
-      <td>Specifies for which row object fields columns are created.</td>
+      <td>Columns that ColumnsChooser operates on.</td>
     </tr>
     <tr>
       <td>hiddenColumns</td>
       <td>Array&lt;string&gt;</td>
       <td>[]</td>
-      <td>An array containing hidden columns’ names.</td>
+      <td>An array containing hidden column names.</td>
     </tr>
     <tr>
       <td>onHiddenColumnsChange</td>
@@ -500,25 +508,25 @@
       <td>Handles column visibility changes.</td>
     </tr>
     <tr>
-      <td>containerTemplate</td>
-      <td>(args: <a href="#column-chooser-container-args">ColumnChooserContainerArgs</a>) =&gt; ReactElement</td>
+      <td>containerComponent</td>
+      <td>ElementType&lt;<a href="#columnchoosercontainerprops">ColumnChooserContainerProps</a>&gt;</td>
       <td> </td>
-      <td>A template that renders the column chooser container.</td>
+      <td>A component that renders the column chooser container.</td>
     </tr>
     <tr>
-      <td>itemTemplate</td>
-      <td>(args: <a href="#column-chooser-item-args">ColumnChooserItemArgs</a>) =&gt; ReactElement</td>
+      <td>itemComponent</td>
+      <td>ElementType&lt;<a href="#columnchooseritemprops">ColumnChooserItemProps</a>&gt;</td>
       <td> </td>
-      <td>A template that renders column chooser items.</td>
+      <td>A component that renders a column chooser item.</td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="columnchoosercontainerargs"><a name="column-chooser-container-args"></a>ColumnChooserContainerArgs</h3>
+<h3 id="columnchoosercontainerprops">ColumnChooserContainerProps</h3>
 
-<p>Describes properties passed to the container template when it is being rendered.</p>
+<p>Describes properties passed to a component that renders the column chooser container.</p>
 
 <p>A value with the following shape:</p>
 
@@ -533,20 +541,25 @@
   <tbody>
     <tr>
       <td>items</td>
-      <td>Array&lt;<a href="#column-chooser-item">ColumnChooserItem</a>&gt;</td>
-      <td>An array of column chooser items.</td>
+      <td>Array&lt;<a href="#columnchooseritem">ColumnChooserItem</a>&gt;</td>
+      <td>Column chooser items.</td>
     </tr>
     <tr>
       <td>onItemToggle</td>
-      <td>(item: <a href="#column-chooser-item">ColumnChooserItem</a>) =&gt; void</td>
+      <td>(item: <a href="#columnchooseritem">ColumnChooserItem</a>) =&gt; void</td>
       <td>Handles item visibility changes.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>Array&lt;ReactElement&gt;</td>
+      <td>React elements used to render column chooser items.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="columnchooseritemargs"><a name="column-chooser-item-args"></a>ColumnChooserItemArgs</h3>
+<h3 id="columnchooseritemprops">ColumnChooserItemProps</h3>
 
-<p>Describes properties passed to the item template when it is being rendered.</p>
+<p>Describes properties passed to a component that renders a column chooser item.</p>
 
 <p>A value with the following shape:</p>
 
@@ -561,18 +574,18 @@
   <tbody>
     <tr>
       <td>item</td>
-      <td><a href="#column-chooser-item">ColumnChooserItem</a></td>
-      <td>Specifies the column chooser item.</td>
+      <td><a href="#columnchooseritem">ColumnChooserItem</a></td>
+      <td>A column chooser item.</td>
     </tr>
     <tr>
       <td>onToggle</td>
       <td>() =&gt; void</td>
-      <td>Handles the item click event.</td>
+      <td>Handles the item visbility changes.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="columnchooseritem"><a name="column-chooser-item"></a>ColumnChooserItem</h3>
+<h3 id="columnchooseritem">ColumnChooserItem</h3>
 
 <p>An object representing a column chooser item.</p>
 
@@ -590,21 +603,47 @@
     <tr>
       <td>column</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>The related grid column.</td>
+      <td>The grid column associated with the item.</td>
     </tr>
     <tr>
       <td>hidden</td>
       <td>boolean</td>
-      <td>Specifies whether the related column is hidden.</td>
+      <td>Specifies whether the associated column is hidden.</td>
     </tr>
   </tbody>
 </table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ColumnChooser.Container</td>
+      <td><a href="#columnchoosercontainerprops">ColumnChooserContainerProps</a></td>
+      <td>A component that renders the column chooser container.</td>
+    </tr>
+    <tr>
+      <td>ColumnChooser.Item</td>
+      <td><a href="#columnchooseritemprops">ColumnChooserItemProps</a></td>
+      <td>A component that renders a column chooser item.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you specify additional properties, they are added to the component’s root element.</p>
 
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
 
 
     <footer>
@@ -642,7 +681,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
     <script>
         trackingCookie.check();
     </script>

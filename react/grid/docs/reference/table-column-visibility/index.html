@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -317,6 +317,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
           
 
@@ -358,6 +366,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
           
 
         
@@ -445,15 +461,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
         
@@ -472,7 +480,7 @@
 <h3 id="dependencies">Dependencies</h3>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
 </ul>
 
 <h3 id="properties">Properties</h3>
@@ -491,13 +499,13 @@
       <td>hiddenColumns</td>
       <td>Array&lt;string&gt;</td>
       <td>[]</td>
-      <td>Specifies the hidden columns’ names.</td>
+      <td>The hidden column names.</td>
     </tr>
     <tr>
-      <td>emptyMessageTemplate</td>
-      <td>() =&gt; ReactElement</td>
+      <td>emptyMessageComponent</td>
+      <td>ElementType&lt;<a href="#emptymessageprops">EmptyMessageProps</a>&gt;</td>
       <td> </td>
-      <td>A template that renders a message displayed when all columns are hidden.</td>
+      <td>A component that renders a message that is displayed when all columns are hidden.</td>
     </tr>
     <tr>
       <td>messages</td>
@@ -508,9 +516,11 @@
   </tbody>
 </table>
 
-<h3 id="emptymessageargs"><a name="empty-message-args"></a>EmptyMessageArgs</h3>
+<h2 id="interfaces">Interfaces</h2>
 
-<p>Describes properties passed to the empty message template when it is being rendered.</p>
+<h3 id="emptymessageprops">EmptyMessageProps</h3>
+
+<p>Describes empty message component’s properties.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -547,10 +557,31 @@
       <td>noColumns?</td>
       <td>string</td>
       <td>‘Nothing to show’</td>
-      <td>Specifies the text displayed when the plugin does not contain visible columns.</td>
+      <td>Specifies the text that is displayed when the plugin does not contain visible columns.</td>
     </tr>
   </tbody>
 </table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TableColumnVisibility.EmptyMessage</td>
+      <td><a href="#emptymessageprops">EmptyMessageProps</a></td>
+      <td>A component that renders a message displayed when all columns are hidden.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you specify additional properties, they are added to the component’s root element.</p>
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
@@ -569,7 +600,7 @@
     <tr>
       <td>tableColumns</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
       <td>Table columns.</td>
     </tr>
   </tbody>
@@ -590,7 +621,7 @@
     <tr>
       <td>tableColumns</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-view/#table-column">TableColumn</a>&gt;</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
       <td>Visible table columns.</td>
     </tr>
   </tbody>
@@ -600,7 +631,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
 
 
     <footer>
@@ -638,7 +669,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
     <script>
         trackingCookie.check();
     </script>

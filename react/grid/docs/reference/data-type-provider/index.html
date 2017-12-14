@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -317,6 +317,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
           
 
@@ -358,6 +366,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
           
 
         
@@ -445,15 +461,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
         
@@ -489,19 +497,19 @@
       <td>type</td>
       <td>string</td>
       <td> </td>
-      <td>Specifies the data type to which the templates are applied.</td>
+      <td>Specifies the data type associated with the specified formatter and editor.</td>
     </tr>
     <tr>
-      <td>formatterTemplate</td>
-      <td>(args: <a href="#value-formatter-args">ValueFormatterArgs</a>) =&gt; ReactElement</td>
+      <td>formatterComponent</td>
+      <td>ElementType&lt;<a href="#valueformatterprops">ValueFormatterProps</a>&gt;</td>
       <td> </td>
-      <td>Specifies the formatted value template.</td>
+      <td>A component that renders the formatted value.</td>
     </tr>
     <tr>
-      <td>editorTemplate</td>
-      <td>(args: <a href="#value-editor-args">ValueEditorArgs</a>) =&gt; ReactElement</td>
+      <td>editorComponent</td>
+      <td>ElementType&lt;<a href="#valueeditorprops">ValueEditorProps</a>&gt;</td>
       <td> </td>
-      <td>Specifies the editor template.</td>
+      <td>A component that renders a custom editor.</td>
     </tr>
   </tbody>
 </table>
@@ -529,9 +537,9 @@
   </tbody>
 </table>
 
-<h3 id="valueformatterargs"><a name="value-formatter-args"></a>ValueFormatterArgs</h3>
+<h3 id="valueformatterprops">ValueFormatterProps</h3>
 
-<p>Describes properties passed to the formatter template.</p>
+<p>Describes properties passed to a component that renders the formatted value.</p>
 
 <p>A value with the following shape:</p>
 
@@ -557,14 +565,14 @@
     <tr>
       <td>value</td>
       <td>any</td>
-      <td>Specifies the value to be formatted.</td>
+      <td>The value to be formatted.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="valueeditorargs"><a name="value-editor-args"></a>ValueEditorArgs</h3>
+<h3 id="valueeditorprops">ValueEditorProps</h3>
 
-<p>Describes properties passed to the editor template.</p>
+<p>Describes properties passed to a component that renders the value editor.</p>
 
 <p>A value with the following shape:</p>
 
@@ -621,14 +629,14 @@
     <tr>
       <td>valueFormatter</td>
       <td>Template</td>
-      <td><a href="#value-formatter-args">ValueFormatterArgs</a></td>
-      <td>A template that renders a formatted value.</td>
+      <td><a href="#valueformatterprops">ValueFormatterProps</a></td>
+      <td>A template that renders the formatted value.</td>
     </tr>
     <tr>
       <td>valueEditor</td>
       <td>Template</td>
-      <td><a href="#value-editor-args">ValueEditorArgs</a></td>
-      <td>A template that renders an editor.</td>
+      <td><a href="#valueeditorprops">ValueEditorProps</a></td>
+      <td>A template that renders the editor.</td>
     </tr>
   </tbody>
 </table>
@@ -637,7 +645,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
 
 
     <footer>
@@ -675,7 +683,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
     <script>
         trackingCookie.check();
     </script>

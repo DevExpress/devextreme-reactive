@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -317,6 +317,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
           
 
@@ -358,6 +366,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
           
 
         
@@ -445,15 +461,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
         
@@ -465,9 +473,9 @@
     <div class="col-md-9 docs-content">
         <h1 id="data-types">Data Types</h1>
 
-<p>The Grid component supports custom value formatting and the use of a custom editor for cell value editing (depending on column’s data type).</p>
+<p>The Grid component supports custom value formatting and using a custom editor for cell value editing (depending on column’s data type).</p>
 
-<p>The <a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> plugin holds the <code class="highlighter-rouge">type</code>, <code class="highlighter-rouge">formatterTemplate</code> and <code class="highlighter-rouge">editorTemplate</code> properties that enable you to associate the data type provider with a data type, specify custom formatting and a custom editor respectively.</p>
+<p>The <a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> plugin holds the <code class="highlighter-rouge">type</code>, <code class="highlighter-rouge">formatterComponent</code> and <code class="highlighter-rouge">editorComponent</code> properties that enable you to associate the data type provider with a data type, specify custom formatting and a custom editor.</p>
 
 <p>Associate a column with a data type using the <code class="highlighter-rouge">Column</code> object’s <code class="highlighter-rouge">dataType</code> field.</p>
 
@@ -479,31 +487,34 @@
 
 <h2 id="value-formatting">Value Formatting</h2>
 
-<p>Assign a function rendering the formatted value to the <code class="highlighter-rouge">DataTypeProvider</code> plugin’s <code class="highlighter-rouge">formatterTemplate</code> property to apply the required formatting to cells of a column associated with the specified type.</p>
+<p>Assign a function rendering the formatted value to the <code class="highlighter-rouge">DataTypeProvider</code> plugin’s <code class="highlighter-rouge">formatterComponent</code> property to apply the required formatting to cells of a column associated with the specified type.</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'SolarOne'</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="s1">'3039'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'SolarOne'</span><span class="p">,</span> <span class="na">amount</span><span class="p">:</span> <span class="s1">'3039'</span> <span class="p">},</span>
 <span class="p">];</span>
 <span class="kr">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'amount'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Sale Amount'</span><span class="p">,</span> <span class="na">dataType</span><span class="p">:</span> <span class="s1">'currency'</span> <span class="p">},</span>
 <span class="p">];</span>
+
+<span class="kr">const</span> <span class="nx">CurrencyFormatter</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">value</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">$</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span&gt;</span><span class="err">;
+</span>
 <span class="o">&lt;</span><span class="nx">Grid</span>
   <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">}</span>
   <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
 <span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">DataTypeProvider</span>
     <span class="nx">type</span><span class="o">=</span><span class="s2">"currency"</span>
-    <span class="nx">formatterTemplate</span><span class="o">=</span><span class="p">{({</span> <span class="nx">value</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">$</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span&gt;</span><span class="err">}
-</span>  <span class="o">/&gt;</span>
-<span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
+    <span class="nx">formatterComponent</span><span class="o">=</span><span class="p">{</span><span class="nx">CurrencyFormatter</span><span class="p">}</span>
+  <span class="sr">/</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span></code></pre>
 </div>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
           &quot;path&quot;: &quot;/demo/data-types/formatters&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430220&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163238&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -512,7 +523,7 @@
 
 <h2 id="custom-editors">Custom Editors</h2>
 
-<p>If the grid supports editing or header row filtering, assign a function rendering the required editor to the <code class="highlighter-rouge">DataTypeProvider</code> plugin’s <code class="highlighter-rouge">editorTemplate</code> property. In this case, the Grid uses the specified editor to edit all values of the specified type.</p>
+<p>If the grid supports editing or header row filtering, assign a function rendering the required editor to the <code class="highlighter-rouge">DataTypeProvider</code> plugin’s <code class="highlighter-rouge">editorComponent</code> property. In this case, the Grid uses the specified editor to edit all values of the specified type.</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'SolarOne'</span><span class="p">,</span> <span class="na">shipped</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
@@ -521,30 +532,33 @@
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'shipped'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Shipped'</span><span class="p">,</span> <span class="na">dataType</span><span class="p">:</span> <span class="s1">'boolean'</span> <span class="p">},</span>
 <span class="p">];</span>
+
+<span class="kr">const</span> <span class="nx">BooleanEditor</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">onValueChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">select</span>
+    <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span>
+    <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">e</span> <span class="o">=&gt;</span> <span class="nx">onValueChange</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">'true'</span><span class="p">)}</span>
+  <span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">No</span><span class="o">&lt;</span><span class="sr">/options</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">&gt;</span><span class="nx">Yes</span><span class="o">&lt;</span><span class="sr">/option</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="sr">/select</span><span class="err">&gt;
+</span><span class="p">);</span>
+
 <span class="o">&lt;</span><span class="nx">Grid</span>
   <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">}</span>
   <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
 <span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">DataTypeProvider</span>
     <span class="nx">type</span><span class="o">=</span><span class="s2">"boolean"</span>
-    <span class="nx">editorTemplate</span><span class="o">=</span><span class="p">{({</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">onValueChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">select</span>
-        <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span>
-        <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">e</span> <span class="o">=&gt;</span> <span class="nx">onValueChange</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">'true'</span><span class="p">)}</span>
-      <span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">No</span><span class="o">&lt;</span><span class="sr">/options</span><span class="err">&gt;
-</span>        <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">&gt;</span><span class="nx">Yes</span><span class="o">&lt;</span><span class="sr">/option</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="sr">/select</span><span class="err">&gt;
-</span>    <span class="p">)}</span>
+    <span class="nx">editorComponent</span><span class="o">=</span><span class="p">{</span><span class="nx">BooleanEditor</span><span class="p">}</span>
   <span class="sr">/</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
 </span></code></pre>
 </div>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.1&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
           &quot;path&quot;: &quot;/demo/data-types/editors&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307430220&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163238&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -555,7 +569,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
 
 
     <footer>
@@ -593,7 +607,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
     <script>
         trackingCookie.check();
     </script>

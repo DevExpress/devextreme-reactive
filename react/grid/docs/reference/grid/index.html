@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1510307432">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1510307432">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -317,6 +317,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
           
 
@@ -358,6 +366,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
           
 
         
@@ -445,15 +461,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-view/">TableView</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table-view/">VirtualTableView</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
         
@@ -496,32 +504,32 @@
     <tr>
       <td>getRowId</td>
       <td>(row: any) =&gt; number | string</td>
-      <td>null</td>
+      <td> </td>
       <td>Specifies the function used to get a unique row identifier.</td>
     </tr>
     <tr>
       <td>getCellValue</td>
       <td>(row: any, columnName: string) =&gt; any</td>
-      <td>null</td>
+      <td> </td>
       <td>Specifies the function used to get a cell’s value.</td>
     </tr>
     <tr>
-      <td>rootTemplate</td>
-      <td>(args: <a href="#root-args">RootArgs</a>) =&gt; ReactElement</td>
+      <td>rootComponent</td>
+      <td>ElementType&lt;<a href="#gridrootprops">GridRootProps</a>&gt;</td>
       <td> </td>
-      <td>A template that renders the grid root layout.</td>
+      <td>A component that renders the grid root layout.</td>
     </tr>
     <tr>
-      <td>headerPlaceholderTemplate</td>
-      <td>(args: <a href="#header-placeholder-args">HeaderPlaceholderArgs</a>) =&gt; ReactElement</td>
-      <td>null</td>
-      <td>A template that renders the header placeholder.</td>
+      <td>headerPlaceholderComponent</td>
+      <td>ElementType&lt;<a href="#gridheaderplaceholderprops">GridHeaderPlaceholderProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the grid header placeholder.</td>
     </tr>
     <tr>
-      <td>footerPlaceholderTemplate</td>
-      <td>(args: <a href="#footer-placeholder-args">FooterPlaceholderArgs</a>) =&gt; ReactElement</td>
-      <td>null</td>
-      <td>A template that renders the footer placeholder.</td>
+      <td>footerPlaceholderComponent</td>
+      <td>ElementType&lt;<a href="#gridfooterplaceholderprops">GridFooterPlaceholderProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the grid footer placeholder.</td>
     </tr>
   </tbody>
 </table>
@@ -556,40 +564,9 @@
   </tbody>
 </table>
 
-<h3 id="rootargs"><a name="root-args"></a>RootArgs</h3>
+<h3 id="gridrootprops">GridRootProps</h3>
 
-<p>Describes properties passed to the root template when it is being rendered.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>headerTemplate</td>
-      <td>() =&gt; ReactElement</td>
-      <td>A template that renders the grid header.</td>
-    </tr>
-    <tr>
-      <td>bodyTemplate</td>
-      <td>() =&gt; ReactElement</td>
-      <td>A template that renders the grid body.</td>
-    </tr>
-    <tr>
-      <td>footerTemplate</td>
-      <td>() =&gt; ReactElement</td>
-      <td>A template that renders the grid footer.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="headerplaceholderargs"><a name="header-placeholder-args"></a>HeaderPlaceholderArgs</h3>
-
-<p>Describes properties passed to the header placeholder template when it is being rendered.</p>
+<p>Describes properties passed to a component that renders the grid root layout.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -603,14 +580,14 @@
     <tr>
       <td>children?</td>
       <td>ReactElement</td>
-      <td>A React element to be placed into the header.</td>
+      <td>A React element to be placed in the root layout.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="footerplaceholderargs"><a name="footer-placeholder-args"></a>FooterPlaceholderArgs</h3>
+<h3 id="gridheaderplaceholderprops">GridHeaderPlaceholderProps</h3>
 
-<p>Describes properties passed to the footer placeholder template when it is being rendered.</p>
+<p>Describes properties passed to a component that renders the grid header placeholder.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -624,10 +601,52 @@
     <tr>
       <td>children?</td>
       <td>ReactElement</td>
-      <td>A React element to be placed into the footer.</td>
+      <td>A React element to be placed in the header.</td>
     </tr>
   </tbody>
 </table>
+
+<h3 id="gridfooterplaceholderprops">GridFooterPlaceholderProps</h3>
+
+<p>Describes properties passed to a component that renders the grid footer placeholder.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>children?</td>
+      <td>ReactElement</td>
+      <td>A React element to be placed in the footer.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Grid.Root</td>
+      <td><a href="#gridrootprops">GridRootProps</a></td>
+      <td>A component that renders the grid root layout.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you specify additional properties, they are added to the component’s root element.</p>
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
@@ -665,7 +684,7 @@
       <td>getCellValue</td>
       <td>Getter</td>
       <td>(row: any, columnName: string) =&gt; any</td>
-      <td>A function used to get the column value for a given row.</td>
+      <td>A function used to get a given row’s column value.</td>
     </tr>
     <tr>
       <td>root</td>
@@ -698,7 +717,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1510307432"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
 
 
     <footer>
@@ -736,7 +755,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1510307432"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
     <script>
         trackingCookie.check();
     </script>

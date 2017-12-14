@@ -40,7 +40,7 @@
 
 * **react-grid:** add components for ColumnChooser ([#543](https://github.com/DevExpress/devextreme-reactive/issues/543)) ([7c24c91](https://github.com/DevExpress/devextreme-reactive/commit/7c24c91))
 * **react-grid:** add components for DragDropContext plugin ([#526](https://github.com/DevExpress/devextreme-reactive/issues/526)) ([49d9662](https://github.com/DevExpress/devextreme-reactive/commit/49d9662))
-* **react-grid:** add components for the Grid plugin ([#553](https://github.com/DevExpress/devextreme-reactive/issues/553)) ([314f0d8](https://github.com/DevExpress/devextreme-reactive/commit/314f0d8))
+* **react-grid:** add components for the Grid component ([#553](https://github.com/DevExpress/devextreme-reactive/issues/553)) ([314f0d8](https://github.com/DevExpress/devextreme-reactive/commit/314f0d8))
 * **react-grid:** add components for the GroupingPanel plugin ([#565](https://github.com/DevExpress/devextreme-reactive/issues/565)) ([e79ba9c](https://github.com/DevExpress/devextreme-reactive/commit/e79ba9c))
 * **react-grid:** add components for the PagingPanel plugin ([#542](https://github.com/DevExpress/devextreme-reactive/issues/542)) ([3d226bb](https://github.com/DevExpress/devextreme-reactive/commit/3d226bb))
 * **react-grid:** add components for the Table plugin ([#516](https://github.com/DevExpress/devextreme-reactive/issues/516)) ([37b4393](https://github.com/DevExpress/devextreme-reactive/commit/37b4393))
@@ -57,7 +57,7 @@
 ### BREAKING CHANGES
 
 * **react-core:** To get rid of redundant 'div' elements in markup, we have updated the minimum React version the grid requires to 16.2.0.
-* **react-grid:** Some times ago, we created a [pool request](https://github.com/DevExpress/devextreme-reactive/pull/179) that allows using our React Grid with the [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) library. The main change is that we switched from the `Array.prototype.slice()` function to the `Array.from()` one to copy arrays. It was not a good decision, because `Array.from()` is [slower](https://jsperf.com/array-from-vs-array-slice) than `Array.prototype.slice()`. Now we return back to `Array.prototype.slice()` for performance reasons.
+* **react-grid:** Some times ago, we created a [pull request](https://github.com/DevExpress/devextreme-reactive/pull/179) that allows using our React Grid with the [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) library. The main change is that we switched from the `Array.prototype.slice()` function to the `Array.from()` one to copy arrays. It was not a good decision, because `Array.from()` is [slower](https://jsperf.com/array-from-vs-array-slice) than `Array.prototype.slice()`. Now we return back to `Array.prototype.slice()` for performance reasons.
 
   If you are using the seamless-immutable library, change your code as follows:
 

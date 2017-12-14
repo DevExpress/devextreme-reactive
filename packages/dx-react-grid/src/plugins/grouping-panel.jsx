@@ -58,7 +58,7 @@ export class GroupingPanel extends React.PureComponent {
           { pluginName: 'SortingState', optional: !allowSorting },
         ]}
       >
-        <Template name="header">
+        <Template name="toolbarContent">
           <TemplateConnector>
             {({
               columns, draftGrouping,

@@ -22,6 +22,7 @@ export class GridCore extends React.PureComponent {
         <Getter name="columns" value={columns} />
         <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
         <Template name="header" />
+        <Template name="toolbarContent" />
         <Template name="body" />
         <Template name="footer" />
         <Template name="root">

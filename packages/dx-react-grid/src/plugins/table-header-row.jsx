@@ -9,6 +9,7 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   getMessagesFormatter,
+  TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
@@ -45,14 +46,14 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting, grouping, columns, enableDragging,
+                sorting, tableColumns, draggingEnabled,
               }, {
                 setColumnSorting, groupByColumn,
                 changeTableColumnWidths, changeDraftTableColumnWidths,
               }) => {
                 const { name: columnName } = params.tableColumn.column;
-                const groupingSupported = grouping !== undefined &&
-                    grouping.length < columns.length - 1;
+                const isNotTheLastVisible = tableColumns
+                  .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
 
                 return (
                   <HeaderCell
@@ -60,8 +61,8 @@ export class TableHeaderRow extends React.PureComponent {
                     column={params.tableColumn.column}
                     getMessage={getMessage}
                     allowSorting={allowSorting && sorting !== undefined}
-                    allowGroupingByClick={allowGroupingByClick && groupingSupported}
-                    allowDragging={enableDragging && (!grouping || groupingSupported)}
+                    allowGroupingByClick={allowGroupingByClick && isNotTheLastVisible}
+                    draggingEnabled={draggingEnabled && isNotTheLastVisible}
                     allowResizing={allowResizing}
                     sortingDirection={allowSorting && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}

@@ -77,9 +77,8 @@ If you specify additional properties, they are added to the component's root ele
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Columns' sorting state.
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | Table columns.
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean &#124; Array&lt;String&gt;, cancel: boolean }) => void | A function used to set column's sorting state. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. The initial column width increases by the `shift` value or decreases if `shift` is negative.

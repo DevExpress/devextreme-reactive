@@ -79,7 +79,7 @@ describe('TableHeaderCell', () => {
       <DragDropContext>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
       </DragDropContext>
     ));
@@ -98,7 +98,7 @@ describe('TableHeaderCell', () => {
       <DragDropContext>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
       </DragDropContext>
     ));

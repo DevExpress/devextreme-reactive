@@ -35,7 +35,7 @@ export class DragDropContext extends React.PureComponent {
       <PluginContainer
         pluginName="DragDropContext"
       >
-        <Getter name="enableDragging" value />
+        <Getter name="draggingEnabled" value />
         <Template name="root">
           <DragDropContextCore
             onChange={this.change}

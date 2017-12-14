@@ -96,7 +96,7 @@ describe('TableHeaderCell', () => {
       <DragDropContext>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
           getMessage={jest.fn()}
         />
       </DragDropContext>
@@ -111,7 +111,7 @@ describe('TableHeaderCell', () => {
       <DragDropContext>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
           getMessage={jest.fn()}
         />
       </DragDropContext>

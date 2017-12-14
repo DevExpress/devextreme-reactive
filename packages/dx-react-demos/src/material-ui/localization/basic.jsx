@@ -106,7 +106,7 @@ export default class Demo extends React.PureComponent {
             messages={filterRowMessages}
           />
           <GroupingPanel
-            allowUngroupingByClick
+            showGroupingControls
             allowDragging
             messages={groupingPanelMessages}
           />

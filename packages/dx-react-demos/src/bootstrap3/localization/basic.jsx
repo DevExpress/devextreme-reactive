@@ -99,7 +99,7 @@ export default class Demo extends React.PureComponent {
 
         <TableFilterRow />
         <GroupingPanel
-          allowUngroupingByClick
+          showGroupingControls
           allowDragging
           messages={groupingPanelMessages}
         />

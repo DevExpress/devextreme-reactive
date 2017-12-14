@@ -75,7 +75,7 @@ describe('GroupPanelItem', () => {
     const tree = mount((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
-        allowUngroupingByClick
+        showGroupingControls
       />
     ));
     expect(tree.find(Chip).props())

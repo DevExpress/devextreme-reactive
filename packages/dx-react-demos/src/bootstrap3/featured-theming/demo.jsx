@@ -8,7 +8,7 @@ import {
   Grid,
   Table, TableHeaderRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
-  TableColumnReordering,
+  TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import { Nav, NavItem, ListGroup, ListGroupItem } from 'react-bootstrap';
 
@@ -193,6 +193,7 @@ export default class Demo extends React.PureComponent {
           contentComponent={GridDetailContainer}
         />
         <TableGroupRow />
+        <Toolbar />
         <GroupingPanel allowSorting allowDragging />
       </Grid>
     );

@@ -31,7 +31,7 @@ const defaultDeps = {
   template: {
     toolbarContent: {},
   },
-  plugins: ['GroupingState'],
+  plugins: ['GroupingState', 'Toolbar'],
 };
 
 const defaultProps = {

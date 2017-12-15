@@ -55,6 +55,7 @@ export class GroupingPanel extends React.PureComponent {
         pluginName="GroupingPanel"
         dependencies={[
           { pluginName: 'GroupingState' },
+          { pluginName: 'Toolbar' },
           { pluginName: 'SortingState', optional: !allowSorting },
         ]}
       >

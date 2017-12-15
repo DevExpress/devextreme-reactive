@@ -13,7 +13,6 @@ columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields colu
 getRowId | (row: any) => number &#124; string | | Specifies the function used to get a unique row identifier.
 getCellValue | (row: any, columnName: string) => any | | Specifies the function used to get a cell's value.
 rootComponent | ElementType&lt;[GridRootProps](#gridrootprops)&gt; | | A component that renders the grid root layout.
-footerPlaceholderComponent | ElementType&lt;[GridFooterPlaceholderProps](#gridfooterplaceholderprops)&gt; | | A component that renders the grid footer placeholder.
 
 ## Interfaces
 

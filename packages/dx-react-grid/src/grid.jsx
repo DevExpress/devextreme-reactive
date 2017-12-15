@@ -9,7 +9,6 @@ export const Grid = ({
   getRowId,
   getCellValue,
   rootComponent,
-  footerPlaceholderComponent,
   children,
 }) => (
   <PluginHost>
@@ -19,7 +18,6 @@ export const Grid = ({
       getRowId={getRowId}
       getCellValue={getCellValue}
       rootComponent={rootComponent}
-      footerPlaceholderComponent={footerPlaceholderComponent}
     />
     {children}
   </PluginHost>
@@ -31,7 +29,6 @@ Grid.propTypes = {
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  footerPlaceholderComponent: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -41,6 +38,5 @@ Grid.propTypes = {
 Grid.defaultProps = {
   getRowId: undefined,
   getCellValue: undefined,
-  footerPlaceholderComponent: undefined,
   children: undefined,
 };

@@ -20,18 +20,3 @@ Root.defaultProps = {
   children: undefined,
   className: undefined,
 };
-
-export const Footer = ({ children }) =>
-  !!children &&
-    <div className="panel-footer">{children}</div>;
-
-Footer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
-};
-
-Footer.defaultProps = {
-  children: undefined,
-};

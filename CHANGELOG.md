@@ -1,3 +1,186 @@
+<a name="1.0.0-beta.2"></a>
+# [1.0.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-12-14)
+
+### Bug Fixes
+
+* **grid-core:** allow to place TableColumnVisibility after another table plugins ([#557](https://github.com/DevExpress/devextreme-reactive/issues/557)) ([6788ba6](https://github.com/DevExpress/devextreme-reactive/commit/6788ba6))
+* **grid-core:** fix problem when grouped columns are hidden ([#562](https://github.com/DevExpress/devextreme-reactive/issues/562)) ([8fbc2c9](https://github.com/DevExpress/devextreme-reactive/commit/8fbc2c9))
+* **react-core:** fix drag by mouse on a touch-enabled devices ([#541](https://github.com/DevExpress/devextreme-reactive/issues/541)) ([fd9b7f9](https://github.com/DevExpress/devextreme-reactive/commit/fd9b7f9)), closes [#535](https://github.com/DevExpress/devextreme-reactive/issues/535)
+* **react-core:** remove redundant markup elements ([#544](https://github.com/DevExpress/devextreme-reactive/issues/544)) ([f5e24a6](https://github.com/DevExpress/devextreme-reactive/commit/f5e24a6))
+* **react-demos:** fix the Featured Remote Data demo ([#548](https://github.com/DevExpress/devextreme-reactive/issues/548)) ([35729d1](https://github.com/DevExpress/devextreme-reactive/commit/35729d1))
+* **react-grid:** clean drag-drop grouping variables ([#479](https://github.com/DevExpress/devextreme-reactive/issues/479)) ([fdfab56](https://github.com/DevExpress/devextreme-reactive/commit/fdfab56))
+* **react-grid:** get rid of console error during column dragging ([#570](https://github.com/DevExpress/devextreme-reactive/issues/570)) ([c508953](https://github.com/DevExpress/devextreme-reactive/commit/c508953))
+* **react-grid:** prevent click event propagation on detail toggle ([#494](https://github.com/DevExpress/devextreme-reactive/issues/494)) ([f5b861b](https://github.com/DevExpress/devextreme-reactive/commit/f5b861b)), closes [#492](https://github.com/DevExpress/devextreme-reactive/issues/492)
+* **react-grid-material-ui:** correct header cell width ([#536](https://github.com/DevExpress/devextreme-reactive/issues/536)) ([858ee1c](https://github.com/DevExpress/devextreme-reactive/commit/858ee1c))
+* **react-grid-material-ui:** replace click action from Cell to CheckBox ([#490](https://github.com/DevExpress/devextreme-reactive/issues/490)) ([8a12806](https://github.com/DevExpress/devextreme-reactive/commit/8a12806))
+* **react-grid-material-ui:** rework cell paddings ([#480](https://github.com/DevExpress/devextreme-reactive/issues/480)) ([1bc29f2](https://github.com/DevExpress/devextreme-reactive/commit/1bc29f2))
+
+
+### Code Refactoring
+
+*  **react-grid:** replace render functions with components in TableEditRow (#518) ([9bc0993](https://github.com/DevExpress/devextreme-reactive/commit/9bc0993))
+*  **react-grid:** replace render functions with components in TableEditColumn (#522) ([9273e04](https://github.com/DevExpress/devextreme-reactive/commit/9273e04))
+*  **react-grid:** replace render functions with components in TableFilterRow (#512) ([1b95ae5](https://github.com/DevExpress/devextreme-reactive/commit/1b95ae5))
+* **react-grid:** replace Watcher with the Getter ([#545](https://github.com/DevExpress/devextreme-reactive/issues/545)) ([138c7c0](https://github.com/DevExpress/devextreme-reactive/commit/138c7c0))
+* **react-grid:** get rid of internal seamless-immutable support ([#556](https://github.com/DevExpress/devextreme-reactive/issues/556)) ([195ad79](https://github.com/DevExpress/devextreme-reactive/commit/195ad79))
+* **react-grid:** rename TableView and VirtualTableView components to Table and VirtualTable ([#482](https://github.com/DevExpress/devextreme-reactive/issues/482)) ([3874da9](https://github.com/DevExpress/devextreme-reactive/commit/3874da9))
+* **react-grid:** replace render functions with components in Grid ([#486](https://github.com/DevExpress/devextreme-reactive/issues/486)) ([cb409a1](https://github.com/DevExpress/devextreme-reactive/commit/cb409a1))
+* **react-grid:** replace render functions with components in GroupingPanel ([#540](https://github.com/DevExpress/devextreme-reactive/issues/540)) ([fbca230](https://github.com/DevExpress/devextreme-reactive/commit/fbca230))
+* **react-grid:** replace render functions with components in TableGroupRow ([#511](https://github.com/DevExpress/devextreme-reactive/issues/511)) ([7d7d3a1](https://github.com/DevExpress/devextreme-reactive/commit/7d7d3a1))
+* **react-grid:** replace render functions with components in TableHeaderRow ([#508](https://github.com/DevExpress/devextreme-reactive/issues/508)) ([255e729](https://github.com/DevExpress/devextreme-reactive/commit/255e729))
+* **react-grid:** replace render functions with components in TableRowDetail ([#505](https://github.com/DevExpress/devextreme-reactive/issues/505)) ([844330b](https://github.com/DevExpress/devextreme-reactive/commit/844330b))
+* **react-grid:** replace render functions with components in TableSelection ([#502](https://github.com/DevExpress/devextreme-reactive/issues/502)) ([f9e3c88](https://github.com/DevExpress/devextreme-reactive/commit/f9e3c88))
+* **react-grid:** replace render functions with components in TableView ([#485](https://github.com/DevExpress/devextreme-reactive/issues/485)) ([f5bd4e0](https://github.com/DevExpress/devextreme-reactive/commit/f5bd4e0))
+* **react-grid:** split SelectionState to SelectionState and LocalSelection ([#506](https://github.com/DevExpress/devextreme-reactive/issues/506)) ([e49ad0d](https://github.com/DevExpress/devextreme-reactive/commit/e49ad0d))
+* **react-grid:** split SelectionState to SelectionState and LocalSelection ([#552](https://github.com/DevExpress/devextreme-reactive/issues/552)) ([be42695](https://github.com/DevExpress/devextreme-reactive/commit/be42695))
+* **react-grid-material-ui:** get rid of the Paper wrapper ([#487](https://github.com/DevExpress/devextreme-reactive/issues/487)) ([2e40de9](https://github.com/DevExpress/devextreme-reactive/commit/2e40de9))
+
+
+### Features
+
+* **react-grid:** add components for ColumnChooser ([#543](https://github.com/DevExpress/devextreme-reactive/issues/543)) ([7c24c91](https://github.com/DevExpress/devextreme-reactive/commit/7c24c91))
+* **react-grid:** add components for DragDropContext plugin ([#526](https://github.com/DevExpress/devextreme-reactive/issues/526)) ([49d9662](https://github.com/DevExpress/devextreme-reactive/commit/49d9662))
+* **react-grid:** add components for the Grid component ([#553](https://github.com/DevExpress/devextreme-reactive/issues/553)) ([314f0d8](https://github.com/DevExpress/devextreme-reactive/commit/314f0d8))
+* **react-grid:** add components for the GroupingPanel plugin ([#565](https://github.com/DevExpress/devextreme-reactive/issues/565)) ([e79ba9c](https://github.com/DevExpress/devextreme-reactive/commit/e79ba9c))
+* **react-grid:** add components for the PagingPanel plugin ([#542](https://github.com/DevExpress/devextreme-reactive/issues/542)) ([3d226bb](https://github.com/DevExpress/devextreme-reactive/commit/3d226bb))
+* **react-grid:** add components for the Table plugin ([#516](https://github.com/DevExpress/devextreme-reactive/issues/516)) ([37b4393](https://github.com/DevExpress/devextreme-reactive/commit/37b4393))
+* **react-grid:** add components for the TableColumnVisibility plugin ([#539](https://github.com/DevExpress/devextreme-reactive/issues/539)) ([2d12091](https://github.com/DevExpress/devextreme-reactive/commit/2d12091))
+* **react-grid:** add components for the TableEditColumn plugin ([#534](https://github.com/DevExpress/devextreme-reactive/issues/534)) ([a24a9ce](https://github.com/DevExpress/devextreme-reactive/commit/a24a9ce))
+* **react-grid:** add components for the TableEditRow plugin ([#529](https://github.com/DevExpress/devextreme-reactive/issues/529)) ([5615ecf](https://github.com/DevExpress/devextreme-reactive/commit/5615ecf))
+* **react-grid:** add components for the TableFilterRow plugin ([#523](https://github.com/DevExpress/devextreme-reactive/issues/523)) ([06afae1](https://github.com/DevExpress/devextreme-reactive/commit/06afae1))
+* **react-grid:** add components for the TableGroupRow plugin ([#520](https://github.com/DevExpress/devextreme-reactive/issues/520)) ([dc9903c](https://github.com/DevExpress/devextreme-reactive/commit/dc9903c))
+* **react-grid:** add components for the TableRowDetail plugin ([#538](https://github.com/DevExpress/devextreme-reactive/issues/538)) ([a721d36](https://github.com/DevExpress/devextreme-reactive/commit/a721d36))
+* **react-grid:** add components for the TableSelection plugin ([#521](https://github.com/DevExpress/devextreme-reactive/issues/521)) ([4574aaf](https://github.com/DevExpress/devextreme-reactive/commit/4574aaf))
+* **react-grid:** add components for the VirtualTable plugin ([#566](https://github.com/DevExpress/devextreme-reactive/issues/566)) ([d67ec6f](https://github.com/DevExpress/devextreme-reactive/commit/d67ec6f))
+* **react-grid:** add table header row & cell components ([#507](https://github.com/DevExpress/devextreme-reactive/issues/507)) ([826cda8](https://github.com/DevExpress/devextreme-reactive/commit/826cda8))
+
+### BREAKING CHANGES
+
+* **react-core:** To get rid of redundant 'div' elements in markup, we have updated the minimum React version the grid requires to 16.2.0.
+* **react-grid:** Some times ago, we created a [pull request](https://github.com/DevExpress/devextreme-reactive/pull/179) that allows using our React Grid with the [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) library. The main change is that we switched from the `Array.prototype.slice()` function to the `Array.from()` one to copy arrays. It was not a good decision, because `Array.from()` is [slower](https://jsperf.com/array-from-vs-array-slice) than `Array.prototype.slice()`. Now we return back to `Array.prototype.slice()` for performance reasons.
+
+  If you are using the seamless-immutable library, change your code as follows:
+
+  ```js
+  const state = {
+    data: Immutable({
+      selection: [],
+    })
+  };
+
+  <Grid>
+    { /* ...*/ }
+    <SelectionState
+      // selection: this.state.data.selection -> before
+      selection: this.state.data.selection.asMutable() // now
+    />
+  </Grid>
+  ```
+  The related [guide](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/immutability/) is updated as well.
+* **react-grid-material-ui:** To make Grid for Material UI more flexible we've stopped using the [Paper](https://material-ui-1dab0.firebaseapp.com/demos/paper/) component inside the Grid's layout.
+ 
+It allows placing our Grid to an existing Paper with other components. For example:
+
+  ```js
+  <Paper>
+    <Button>Products</Button>
+    <Button>Customers</Button>
+    <Button>Sales</Button>
+    <Grid
+      /* ... */
+    >
+      {/* ... */}
+    </Grid>
+  </Paper>
+  ```
+
+* **react-grid:** To simplify working with selection features and make the selection plugin's purposes clearer, the functionality that computes the selection state has been moved from the `SelectionState` plugin to the `LocalSelection` one:
+  * The `availableToSelect` getter has been deleted from the `SelectionState` plugin, while the `selectAllAvailable`, `allSelected`, and `someSelected` getters have been added to the `LocalSelection` plugin.
+  * The `SelectionState` plugin's `setRowsSelection` action has been renamed to `toggleSelection`.
+  * The `selection` getter's return value type has been changed to `Set`.
+  * The default value of the `TableSelection` plugin's `showSelectAll` property has been changed to `false`.
+
+  Both plugins are available from the `@devexpress/dx-react-grid` package.
+  Note that `LocalSelection` should be linked after `SelectionState` if you use the `TableSelection` plugin.
+* **react-core:** To simplify working with plugins, we have got rid of the Watcher.
+Now, you can use a Getter instead.
+
+  Before:
+  ```
+  ...
+  <Watcher
+    watch={
+      getter = getter('someGetter')
+    }
+    onChange={(action, someGetter) => {
+      action('someAction')(someGetter);
+    }}
+  />
+  ...
+  ```
+
+  After:
+  ```
+  ...
+  <Getter
+    name="someGetter"
+    computed={(getters, actions) => {
+        actions.someAction(getters.someGetter);
+      return getters.someGetter;
+    }}
+  />
+  ...
+  ```
+
+* **react-grid:** Such plugin names as `TableView` and `VirtualTableView` don't correspond to other plugins like `TableFilterRow`, `TableGroupRow`, `TableSelection`, which do not have "view" in their names. To keep the names of plugins consistent, the following changes have been introduced:
+
+  * the `TableView` plugin has been renamed to `Table`;
+  * the `VirtualTableView` plugin has been renamed to `VirtualTable`;
+
+* **react-grid:** The TableEditRow plugin's `editCellTemplate`, and `editRowTemplate` properties have been replaced with `cellComponent`, and `rowComponent` ones, which accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+* **react-grid:** The GroupingPanel plugin's `groupPanelTemplate`, and `groupPanelItemTemplate` properties have been replaced with  `containerComponent`, and `itemComponent` ones, which accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+  `containerComponent` takes on the `children` property instead of all arguments passed to the `groupPanelTemplate` function.
+
+  The `onSort`, and `onGroup` properties passed to `itemComponent` are used instead of the `changeSortingDirection`, and `groupByColumn` arguments passed to the `groupPanelItemTemplate` function. The `item`, and `draft` properties are no longer available, use the `item` property instead.
+* **react-grid:** The TableEditColumn plugin's `commandTemplate`, `cellTemplate` and `headingCellTemplate` properties have been replaced with `commandComponent`, `cellComponent`, and `headerCellComponent` ones, which accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+  Properties passed to a component returned from `commandComponent` have the same names as arguments passed to the `commandTemplate` function with the following exception. The `onExecute` property is used instead of the `executeCommand` argument.
+
+  All properties passed to the `cellComponent` except `row` have been replaced by the `children` property providing configured commands.
+
+  All properties passed to the `headingCellComponent` have been replaced by the `children` property providing configured commands.
+* **react-grid:** The TableGroupRow plugin's `groupIndentColumnWidth` property has been renamed to `indentColumnWidth`. The `groupCellTemplate`, `groupRowTemplate` and `groupIndentCellTemplate` properties have been replaced with `cellComponent`, `rowComponent`, and `indentCellComponent` ones, which accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+  Properties passed to `cellComponent` have the same names as arguments passed to the `groupCellTemplate` function with the following exceptions:
+  * The `onToggle` property is used instead of the `toggleGroupExpanded` argument.
+  * The `expanded` property is used instead of the `isExpanded` argument.
+* **react-grid:** The TableFilterRow plugin's `filterCellTemplate` and `filterRowTemplate` properties have been replaced with `cellComponent`, and `rowComponent` ones, which accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+  Properties passed to `cellComponent` have the same names as arguments passed to the `filterCellTemplate` function except for the `onFilter` property, which is used instead of the `setFilter` argument.
+* **react-grid:** The TableHeaderRow's `headerCellTemplate`, and `headerRowTemplate` properties have been replaced with `cellComponent`, and `rowComponent`, which accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+  Properties passed to `cellComponent` have the same names as arguments passed to the `headerCellTemplate` function with the following exceptions: the `onSort`, `onGroup`, `onWidthChange` and `onDraftWidthChange` properties are used instead of the `changeSortingDirection`, `groupByColumn`, `changeColumnWidth` and `changeDraftColumnWidth` arguments respectively.
+
+* **react-grid:** The TableRowDetail plugin's `detailToggleCellWidth` property has been renamed to `toggleColumnWidth`. The `template`, `detailCellTemplate`, `detailRowTemplate`, and `detailToggleCellTemplate` properties have been replaced with  `contentComponent`, `cellComponent`, `rowComponent`, and `toggleCellComponent` ones, which accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+  Properties passed to `cellComponent` have the same names as arguments passed to the `detailCellTemplate` function except for the `children` property, which is used instead of the `template` argument.
+
+  Properties passed to `toggleCellComponent` have the same names as arguments passed to the `detailToggleCellTemplate` function except for the `onToggle` property, which is used instead of the `toggleExpanded` argument.
+* **react-grid:** The TableSelection plugin's `highlightSelected` property has been renamed to `highlightRow`. The `selectCellTemplate` and `selectAllCellTemplate` properties have been replaced with `cellComponent`, and `headerCellComponent` ones, which accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+  Properties passed to `headerCellComponent` have the same names as arguments passed to the `selectAllCellTemplate` function with the following exceptions:
+  * The `onToggle` property is used instead of the `toggleAll` argument.
+  * The `disabled` property is used instead of the `selectionAvailable` argument and it's value is inverted.
+
+  Properties passed to `cellComponent` have the same names as arguments passed to the `selectCellTemplate` function except for the `onToggle` property, which is used instead of the `changeSelected` argument.
+
+* **react-grid:** The Table's `tableLayoutTemplate`, `tableCellTemplate`, `tableRowTemplate`, `tableNoDataCellTemplate`, `tableNoDataRowTemplate`, `tableStubCellTemplate`, and `tableStubHeaderCellComponent` properties have been replaced with `layoutComponent`, `cellComponent`, `rowComponent`, `noDataCellComponent`, `noDataRowComponent`, `stubCellComponent` and `stubHeaderCellComponent`. This also means that they accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+* **react-grid:** The Grid's `rootTemplate`, `headerPlaceholderTemplate`, and `footerPlaceholderTemplate` properties have been replaced with `rootComponent`, `headerPlaceholderComponent`, and `footerPlaceholderComponent`. This also means that they accept components instead of render functions. Find more details here: [#496](https://github.com/DevExpress/devextreme-reactive/issues/496)
+
+  The `headerTemplate`, `bodyTemplate`, and `footerTemplate` properties have been replaced with the `children` property in `rootTemplate`.
+
 <a name="1.0.0-beta.1"></a>
 # [1.0.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-alpha.14...v1.0.0-beta.1) (2017-11-10)
 

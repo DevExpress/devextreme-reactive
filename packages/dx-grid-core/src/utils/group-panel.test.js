@@ -101,5 +101,22 @@ describe('GroupPanel utils', () => {
       expect(getGroupCellTargetIndex(geometries, -1, { x: 300, y: 20 }))
         .toBe(2);
     });
+
+    it('should return target index correctly if columns have indent', () => {
+      const geometries = [
+        {
+          top: 0, right: 100, bottom: 40, left: 0,
+        },
+        {
+          top: 0, right: 200, bottom: 40, left: 150,
+        },
+        {
+          top: 0, right: 350, bottom: 40, left: 250,
+        },
+      ];
+
+      expect(getGroupCellTargetIndex(geometries, 1, { x: 60, y: 20 }))
+        .toBe(0);
+    });
   });
 });

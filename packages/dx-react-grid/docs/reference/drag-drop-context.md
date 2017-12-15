@@ -17,14 +17,6 @@ columnComponent | ElementType&lt;[ColumnProps](#columnprops)&gt; | | A component
 
 ## Interfaces
 
-### <a name="column"></a>Column (Extension)
-
-A value with the [Column](grid.md#column) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-title? | string | Specifies a table column title.
-
 ### ContainerProps
 
 Describes properties of the component that renders a container for columns being dragged.
@@ -44,7 +36,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column) | Specifies a column being dragged.
+column | [Column](grid.md#column) | Specifies a column being dragged.
 
 ## Plugin Components
 
@@ -61,7 +53,7 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column)&gt; | Columns available for dragging.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging.
 root | Template | Object? | A template that renders the grid's root layout.
 
 ### Exports

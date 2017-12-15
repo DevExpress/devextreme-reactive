@@ -26,14 +26,6 @@ messages | object | | An object that specifies the [localization messages](#loca
 
 ## Interfaces
 
-### Column (Extension)
-
-A value with the [Column](grid.md#column) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-title? | string | Specifies the table column title.
-
 ### GroupingPanelItem
 
 Describes grouping panel item properties.
@@ -42,7 +34,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column-extension) | A column associated with the item.
+column | [Column](grid.md#column) | A column associated with the item.
 draft? | string | The item preview mode. Contains the "add", "remove" or "reorder" value.
 
 ### GroupingPanelContainerProps
@@ -102,7 +94,7 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | Grid columns.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
 groupByColumn | Action | ({ columnName: string }) => void | Toggles the column's grouping state.

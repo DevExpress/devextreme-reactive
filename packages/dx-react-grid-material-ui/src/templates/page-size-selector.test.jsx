@@ -10,7 +10,7 @@ describe('PageSizeSelector', () => {
     mount = createMount();
     classes = getClasses(<PageSizeSelector
       pageSize={0}
-      allowedPageSizes={[]}
+      pageSizes={[]}
       getMessage={() => {}}
       onPageSizeChange={() => {}}
     />);
@@ -22,23 +22,23 @@ describe('PageSizeSelector', () => {
   describe('#render', () => {
     const mountPageSizeSelector = ({
       pageSize,
-      allowedPageSizes,
+      pageSizes,
       onPageSizeChange = () => {},
       getMessage = key => key,
     }) => mount((
       <PageSizeSelector
         pageSize={pageSize}
-        allowedPageSizes={allowedPageSizes}
+        pageSizes={pageSizes}
         getMessage={getMessage}
         onPageSizeChange={onPageSizeChange}
       />
     ));
 
     it('can show info about page sizes', () => {
-      const allowedPageSizes = [5, 10];
+      const pageSizes = [5, 10];
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 10,
-        allowedPageSizes,
+        pageSizes,
       });
       const select = pageSizeSelector.find(Select);
       const selectItems = select.prop('children');
@@ -46,14 +46,14 @@ describe('PageSizeSelector', () => {
       expect(select).toHaveLength(1);
       expect(select.prop('value')).toBe(10);
       expect(selectItems).toHaveLength(2);
-      expect(selectItems[0].props.value).toBe(allowedPageSizes[0]);
-      expect(selectItems[1].props.value).toBe(allowedPageSizes[1]);
+      expect(selectItems[0].props.value).toBe(pageSizes[0]);
+      expect(selectItems[1].props.value).toBe(pageSizes[1]);
     });
 
     it('can render the "All" item', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
-        allowedPageSizes: [5, 10, 0],
+        pageSizes: [5, 10, 0],
       });
       const select = pageSizeSelector.find(Select);
       const selectItems = select.prop('children');
@@ -64,7 +64,7 @@ describe('PageSizeSelector', () => {
     it('should render "Rows per page" text', () => {
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 0,
-        allowedPageSizes: [5, 10, 15],
+        pageSizes: [5, 10, 15],
       });
       const label = pageSizeSelector.find(`.${classes.label}`);
 
@@ -75,7 +75,7 @@ describe('PageSizeSelector', () => {
       const onPageSizeChange = jest.fn();
       const pageSizeSelector = mountPageSizeSelector({
         pageSize: 5,
-        allowedPageSizes: [5, 10],
+        pageSizes: [5, 10],
         onPageSizeChange,
       });
       const select = pageSizeSelector.find(Select);

@@ -43,7 +43,7 @@ Use the `GroupPanel` and `TableHeaderRow` plugins in addition to those used for 
  Import the [DragDropContext](../reference/drag-drop-context.md) plugin.
 
 - Use the corresponding button in a header cell
- Assign true to the `TableHeaderRow` plugin's `allowGroupingByClick` and the `GroupingPanel` plugin's `allowUngroupingByClick` properties.
+ Assign true to the `TableHeaderRow` plugin's `showGroupingControls` and the `GroupingPanel` plugin's `showGroupingControls` properties.
 
 You can also set the `GroupingPanel` plugin's `allowSorting` option to true to enable sorting data by a grouped column.
 

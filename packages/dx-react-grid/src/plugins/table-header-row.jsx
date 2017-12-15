@@ -18,7 +18,7 @@ export class TableHeaderRow extends React.PureComponent {
   render() {
     const {
       allowSorting,
-      allowGroupingByClick,
+      showGroupingControls,
       allowResizing,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
@@ -32,7 +32,7 @@ export class TableHeaderRow extends React.PureComponent {
         dependencies={[
           { pluginName: 'Table' },
           { pluginName: 'SortingState', optional: !allowSorting },
-          { pluginName: 'GroupingState', optional: !allowGroupingByClick },
+          { pluginName: 'GroupingState', optional: !showGroupingControls },
           { pluginName: 'DragDropContext', optional: true },
           { pluginName: 'TableColumnResizing', optional: !allowResizing },
         ]}
@@ -61,7 +61,7 @@ export class TableHeaderRow extends React.PureComponent {
                     column={params.tableColumn.column}
                     getMessage={getMessage}
                     allowSorting={allowSorting && sorting !== undefined}
-                    allowGroupingByClick={allowGroupingByClick && isNotTheLastVisible}
+                    showGroupingControls={allowGroupingByClick && isNotTheLastVisible}
                     draggingEnabled={draggingEnabled && isNotTheLastVisible}
                     allowResizing={allowResizing}
                     sortingDirection={allowSorting && sorting !== undefined
@@ -93,7 +93,7 @@ export class TableHeaderRow extends React.PureComponent {
 
 TableHeaderRow.propTypes = {
   allowSorting: PropTypes.bool,
-  allowGroupingByClick: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
   allowResizing: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
@@ -102,7 +102,7 @@ TableHeaderRow.propTypes = {
 
 TableHeaderRow.defaultProps = {
   allowSorting: false,
-  allowGroupingByClick: false,
+  showGroupingControls: false,
   allowResizing: false,
   messages: null,
 };

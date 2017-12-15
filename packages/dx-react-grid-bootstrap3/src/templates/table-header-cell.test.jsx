@@ -149,7 +149,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
-        allowGroupingByClick={false}
+        showGroupingControls={false}
       />
     ));
     expect(tree.find('th > div').prop('style'))
@@ -165,7 +165,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
-        allowGroupingByClick
+        showGroupingControls
       />
     ));
     expect(tree.find('th > div').prop('style'))
@@ -182,7 +182,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ align: 'right' }}
-        allowGroupingByClick={false}
+        showGroupingControls={false}
       />
     ));
     expect(tree.find('th > div').prop('style'))
@@ -198,7 +198,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ align: 'right' }}
-        allowGroupingByClick
+        showGroupingControls
       />
     ));
     expect(tree.find('th > div').prop('style'))

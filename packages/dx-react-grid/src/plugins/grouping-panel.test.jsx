@@ -116,7 +116,7 @@ describe('GroupingPanel', () => {
           layoutComponent={({ itemComponent: Item }) =>
             <Item item={{ column: { name: 'a' } }} />}
           allowSorting
-          allowUngroupingByClick
+          showGroupingControls
         />
       </PluginHost>
     ));
@@ -124,7 +124,7 @@ describe('GroupingPanel', () => {
     expect(tree.find(defaultProps.itemComponent).props())
       .toMatchObject({
         allowSorting: true,
-        allowUngroupingByClick: true,
+        showGroupingControls: true,
         sortingDirection: getColumnSortingDirection(),
         onGroup: expect.any(Function),
       });

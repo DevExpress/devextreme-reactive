@@ -219,7 +219,7 @@ class DemoBase extends React.PureComponent {
       currentPage: 0,
       deletingRows: [],
       pageSize: 0,
-      allowedPageSizes: [5, 10, 0],
+      pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
@@ -284,7 +284,7 @@ class DemoBase extends React.PureComponent {
       currentPage,
       deletingRows,
       pageSize,
-      allowedPageSizes,
+      pageSizes,
       columnOrder,
     } = this.state;
 
@@ -342,7 +342,7 @@ class DemoBase extends React.PureComponent {
             commandComponent={Command}
           />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
         </Grid>
 

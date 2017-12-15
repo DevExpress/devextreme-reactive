@@ -17,21 +17,13 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 Name | Type | Default | Description
 -----|------|---------|------------
 allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
-allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
+showGroupingControls | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 containerComponent | ElementType&lt;[GroupingPanelContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupingPanelItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
 emptyMessageComponent | ElementType&lt;[GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders an empty group panel message.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
-
-### Column (Extension)
-
-A value with the [Column](grid.md#column) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-title? | string | Specifies the table column title.
 
 ### GroupingPanelItem
 
@@ -41,7 +33,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column-extension) | A column associated with the item.
+column | [Column](grid.md#column) | A column associated with the item.
 draft? | string | The item preview mode. Contains the "add", "remove" or "reorder" value.
 
 ### GroupingPanelContainerProps
@@ -61,7 +53,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
-allowUngroupingByClick | boolean | Specifies whether to display a button that cancels grouping by the column.
+showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by the column.
 allowSorting | boolean | Specifies whether an end-user can sort data by the column while it is in the grouping panel.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
 onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
@@ -101,7 +93,7 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | Grid columns.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
 groupByColumn | Action | ({ columnName: string }) => void | Toggles the column's grouping state.

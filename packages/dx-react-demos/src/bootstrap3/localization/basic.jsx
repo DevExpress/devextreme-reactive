@@ -99,12 +99,12 @@ export default class Demo extends React.PureComponent {
 
         <TableFilterRow />
         <GroupingPanel
-          allowUngroupingByClick
+          showGroupingControls
           messages={groupingPanelMessages}
         />
         <TableGroupRow />
         <PagingPanel
-          allowedPageSizes={[5, 10, 15, 0]}
+          pageSizes={[5, 10, 15, 0]}
           messages={pagingPanelMessages}
         />
       </Grid>

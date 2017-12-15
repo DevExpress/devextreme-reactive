@@ -39,7 +39,7 @@ export class TableHeaderCell extends React.PureComponent {
     const {
       style, column, tableColumn,
       allowSorting, sortingDirection,
-      allowGroupingByClick, onGroup,
+      showGroupingControls, onGroup,
       draggingEnabled,
       allowResizing, onWidthChange, onDraftWidthChange,
       tableRow, getMessage, onSort,
@@ -66,7 +66,7 @@ export class TableHeaderCell extends React.PureComponent {
         onClick={this.onClick}
         {...restProps}
       >
-        {allowGroupingByClick && (
+        {showGroupingControls && (
           <GroupingControl
             align={align}
             onGroup={onGroup}
@@ -74,7 +74,7 @@ export class TableHeaderCell extends React.PureComponent {
         )}
         <div
           style={{
-            ...(allowGroupingByClick ? { [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px' } : null),
+            ...(showGroupingControls ? { [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px' } : null),
             textAlign: align,
             whiteSpace: 'nowrap',
             overflow: 'hidden',
@@ -125,7 +125,7 @@ TableHeaderCell.propTypes = {
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
-  allowGroupingByClick: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
   onGroup: PropTypes.func,
   draggingEnabled: PropTypes.bool,
   allowResizing: PropTypes.bool,
@@ -141,7 +141,7 @@ TableHeaderCell.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
   onSort: undefined,
-  allowGroupingByClick: false,
+  showGroupingControls: false,
   onGroup: undefined,
   draggingEnabled: false,
   allowResizing: false,

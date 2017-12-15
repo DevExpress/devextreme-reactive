@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Container = ({
-  clientOffset, columns, columnTemplate,
-  style, className, children, ...restProps
+  clientOffset, style, className, children,
+  ...restProps
 }) => (
   <ul
     className={classNames('list-group', className)}
@@ -29,8 +29,6 @@ Container.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
   }).isRequired,
-  columns: PropTypes.array.isRequired,
-  columnTemplate: PropTypes.func.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
   children: PropTypes.oneOfType([

@@ -26,6 +26,10 @@ export class GroupingPanel extends React.PureComponent {
   }
 }
 
+GroupingPanel.Container = GroupPanelContainer;
+GroupingPanel.Item = GroupPanelItem;
+GroupingPanel.EmptyMessage = GroupPanelEmptyMessage;
+
 GroupingPanel.propTypes = {
   messages: PropTypes.shape({
     groupByColumn: PropTypes.string,

@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-grid-core",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Core library for the DevExtreme Reactive Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -39,7 +39,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-core": "1.0.0-beta.1",
+    "@devexpress/dx-core": "1.0.0-beta.2",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.2.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -55,10 +55,9 @@
     "jest": "^21.2.1",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-license": "^0.5.0",
-    "seamless-immutable": "^7.1.2"
+    "rollup-plugin-license": "^0.5.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "1.0.0-beta.1"
+    "@devexpress/dx-core": "1.0.0-beta.2"
   }
 }

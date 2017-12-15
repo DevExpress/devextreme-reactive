@@ -14,7 +14,7 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 Name | Type | Default | Description
 -----|------|---------|------------
 layoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | A component that renders a table layout.
-getCellComponent | (columnName: string) => ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A function returning a component that renders a table cell for a specific column.
+cellComponent | ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ElementType&lt;[TableNoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
 noDataRowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
@@ -157,7 +157,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;any&gt; | Rows to be rendered by the table view.
 columns | Getter | Array&lt;[Column](#column-extension)&gt; | Columns to be rendered by the table view.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get the column value for a given row.
+getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a cell’s value.
 
 ### Exports
 

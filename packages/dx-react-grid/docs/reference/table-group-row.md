@@ -14,7 +14,7 @@ A plugin that renders group rows and enables them to expand and collapse.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getCellComponent | (columnName: string) => ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A function returning a component that renders a specific column's group cell.
+cellComponent | ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A component that renders a group cell.
 rowComponent | ElementType&lt;[TableGroupRowProps](#tablegrouprowprops)&gt; | | A component that renders a group row.
 indentCellComponent | ElementType&lt;[TableGroupIndentCellProps](#tablegroupindentcellprops)&gt; | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.

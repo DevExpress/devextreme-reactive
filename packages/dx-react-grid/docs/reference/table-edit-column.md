@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ElementType&lt;[TableEditColumnCellProps](#tableeditcolumncellprops)&gt; | | A component that renders a command cell within a data row.
 headerCellComponent | ElementType&lt;[TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a command cell within the header row.
-getCommandComponent | (id: 'add' &#124; 'edit' &#124; 'delete' &#124; 'commit' &#124; 'cancel') => ElementType&lt;[EditCommandProps](#editcommandprops)&gt; | | A function returning a component that renders command controls a specific command.
+commandComponent | ElementType&lt;[EditCommandProps](#editcommandprops)&gt; | | A component that renders command control within a command cell.
 allowAdding | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
 allowEditing | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
 allowDeleting | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
@@ -37,7 +37,7 @@ children? | ReactElement | A React element to be placed in the command cell.
 
 ### TableEditColumnHeaderCellProps
 
-Describes properties passed to a component that renders a cell within the command column and header row.
+Describes properties passed to a component that renders a command cell within the header row.
 
 A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
 
@@ -47,12 +47,13 @@ children? | ReactElement | A React element to be placed in the command cell.
 
 ### EditCommandProps
 
-Describes properties passed to a component that renders command controls within the command column cell.
+Describes properties passed to a component that renders command control within a command cell.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+id | 'add' &#124; 'edit' &#124; 'delete' &#124; 'commit' &#124; 'cancel' | The command identifier.
 text | string | The command action description.
 onExecute | () => void | An event initiating the command execution.
 
@@ -72,9 +73,9 @@ cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
 
 Name | Properties | Description
 -----|------------|------------
-TableEditColumn.Command | [EditCommandProps](#editcommandprops) | A component that renders command controls within the command column cell for a specific command.
-TableEditColumn.Cell | [TableEditColumnCellProps](#tableeditcolumncellprops) | A component that renders a cell within the command column and data row.
-TableEditColumn.HeaderCell | [TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a cell within the command column and header row.
+TableEditColumn.Command | [EditCommandProps](#editcommandprops) | A component that renders command control within a command cell.
+TableEditColumn.Cell | [TableEditColumnCellProps](#tableeditcolumncellprops) | A component that renders a command cell within a data row.
+TableEditColumn.HeaderCell | [TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a command cell within the header row.
 
 If you specify additional properties, they are added to the component's root element.
 

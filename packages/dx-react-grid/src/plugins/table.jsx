@@ -17,9 +17,9 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
-const Row = props =>
+const RowPlaceholder = props =>
   <TemplatePlaceholder name="tableRow" params={props} />;
-const Cell = props =>
+const CellPlaceholder = props =>
   <TemplatePlaceholder name="tableCell" params={props} />;
 
 const tableHeaderRows = [];
@@ -30,13 +30,13 @@ const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 export class Table extends React.PureComponent {
   render() {
     const {
-      layoutComponent: TableLayout,
-      getCellComponent,
-      rowComponent: TableRow,
-      noDataRowComponent: TableNoDataRow,
-      noDataCellComponent: TableNoDataCell,
-      stubCellComponent: TableStubCell,
-      stubHeaderCellComponent: TableStubHeaderCell,
+      layoutComponent: Layout,
+      cellComponent: Cell,
+      rowComponent: Row,
+      noDataRowComponent: NoDataRow,
+      noDataCellComponent: NoDataCell,
+      stubCellComponent: StubCell,
+      stubHeaderCellComponent: StubHeaderCell,
       messages,
     } = this.props;
 
@@ -59,12 +59,12 @@ export class Table extends React.PureComponent {
         <Template name="table">
           <TemplateConnector>
             {({ tableHeaderRows: headerRows, tableBodyRows: bodyRows, tableColumns: columns }) => (
-              <TableLayout
+              <Layout
                 headerRows={headerRows}
                 bodyRows={bodyRows}
                 columns={columns}
-                rowComponent={Row}
-                cellComponent={Cell}
+                rowComponent={RowPlaceholder}
+                cellComponent={CellPlaceholder}
               />
             )}
           </TemplateConnector>
@@ -74,8 +74,8 @@ export class Table extends React.PureComponent {
             <TemplateConnector>
               {({ tableHeaderRows: headerRows }) =>
                 (isHeaderStubTableCell(params.tableRow, headerRows)
-                  ? <TableStubHeaderCell {...params} />
-                  : <TableStubCell {...params} />
+                  ? <StubHeaderCell {...params} />
+                  : <StubCell {...params} />
                 )
               }
             </TemplateConnector>
@@ -88,7 +88,6 @@ export class Table extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({ getCellValue }) => {
-                const TableCell = getCellComponent(params.tableColumn.column.name);
                 const value = getCellValue(params.tableRow.row, params.tableColumn.column.name);
                 return (
                   <TemplatePlaceholder
@@ -100,14 +99,14 @@ export class Table extends React.PureComponent {
                     }}
                   >
                     {content => (
-                      <TableCell
+                      <Cell
                         {...params}
                         row={params.tableRow.row}
                         column={params.tableColumn.column}
                         value={value}
                       >
                         {content}
-                      </TableCell>
+                      </Cell>
                     )}
                   </TemplatePlaceholder>
                 );
@@ -119,14 +118,14 @@ export class Table extends React.PureComponent {
           name="tableCell"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {params => <TableNoDataCell {...{ getMessage, ...params }} />}
+          {params => <NoDataCell {...{ getMessage, ...params }} />}
         </Template>
         <Template
           name="tableRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
           {params => (
-            <TableRow
+            <Row
               {...params}
               row={params.tableRow.row}
             />
@@ -136,7 +135,7 @@ export class Table extends React.PureComponent {
           name="tableRow"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {params => <TableNoDataRow {...params} />}
+          {params => <NoDataRow {...params} />}
         </Template>
       </PluginContainer>
     );
@@ -145,7 +144,7 @@ export class Table extends React.PureComponent {
 
 Table.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
-  getCellComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   noDataCellComponent: PropTypes.func.isRequired,
   noDataRowComponent: PropTypes.func.isRequired,

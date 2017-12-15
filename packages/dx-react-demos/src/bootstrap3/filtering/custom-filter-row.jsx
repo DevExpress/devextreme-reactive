@@ -28,7 +28,6 @@ const UnitsFilterCell = ({ filter, onFilter }) => (
     />
   </th>
 );
-
 UnitsFilterCell.propTypes = {
   filter: PropTypes.shape({
     value: PropTypes.oneOfType([
@@ -38,9 +37,18 @@ UnitsFilterCell.propTypes = {
   }),
   onFilter: PropTypes.func.isRequired,
 };
-
 UnitsFilterCell.defaultProps = {
   filter: null,
+};
+
+const FilterCell = (props) => {
+  if (props.column.name === 'units') {
+    return <UnitsFilterCell {...props} />;
+  }
+  return <TableFilterRow.Cell {...props} />;
+};
+FilterCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -56,13 +64,6 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
-
-    this.getFilterCellComponent = (columnName) => {
-      if (columnName === 'units') {
-        return UnitsFilterCell;
-      }
-      return undefined;
-    };
   }
   render() {
     const { rows, columns } = this.state;
@@ -77,7 +78,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableFilterRow
-          getCellComponent={this.getFilterCellComponent}
+          cellComponent={FilterCell}
         />
       </Grid>
     );

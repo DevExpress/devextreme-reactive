@@ -15,7 +15,7 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const GroupCellTemplate = ({
+const NameGroupCell = ({
   style, colSpan, row, expanded, onToggle,
 }) => (
   <td
@@ -30,21 +30,29 @@ const GroupCellTemplate = ({
     <strong>Names from {row.value.from} to {row.value.to}</strong>
   </td>
 );
-
-GroupCellTemplate.propTypes = {
+NameGroupCell.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.object,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
 };
-
-GroupCellTemplate.defaultProps = {
+NameGroupCell.defaultProps = {
   style: null,
   colSpan: 1,
   row: {},
   expanded: false,
   onToggle: () => {},
+};
+
+const GroupCell = (props) => {
+  if (props.column.name === 'name') {
+    return <NameGroupCell {...props} />;
+  }
+  return <TableGroupRow.Cell {...props} />;
+};
+GroupCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -62,7 +70,6 @@ export default class Demo extends React.PureComponent {
       grouping: [{ columnName: 'name' }],
     };
 
-    this.changeGrouping = grouping => this.setState({ grouping });
     this.getColumnIdentity = (columnName) => {
       if (columnName === 'name') {
         return (value) => {
@@ -72,12 +79,6 @@ export default class Demo extends React.PureComponent {
             key: firstLetter < 'n' ? 'A-M' : 'N-Z',
           };
         };
-      }
-      return undefined;
-    };
-    this.getGroupCellComponent = (columnName) => {
-      if (columnName === 'name') {
-        return GroupCellTemplate;
       }
       return undefined;
     };
@@ -100,7 +101,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableGroupRow
-          getCellComponent={this.getGroupCellComponent}
+          cellComponent={GroupCell}
         />
       </Grid>
     );

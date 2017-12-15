@@ -107,7 +107,7 @@ describe('TableHeaderRow', () => {
         draft: undefined,
         cellComponent: defaultProps.cellComponent,
         allowSorting: false,
-        allowGroupingByClick: false,
+        showGroupingControls: false,
         allowDragging: false,
         allowResizing: false,
         sortingDirection: undefined,

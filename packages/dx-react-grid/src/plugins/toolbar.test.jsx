@@ -9,7 +9,7 @@ describe('Toolbar', () => {
     const tree = mount((
       <PluginHost>
         <Toolbar
-          toolbarComponent={ToolbarComponent}
+          rootComponent={ToolbarComponent}
           flexibleSpaceComponent={() => null}
         />
         <TemplatePlaceholder name="header" />
@@ -25,7 +25,7 @@ describe('Toolbar', () => {
     const tree = mount((
       <PluginHost>
         <Toolbar
-          toolbarComponent={() => null}
+          rootComponent={() => null}
           flexibleSpaceComponent={FlexibleSpaceComponent}
         />
         <TemplatePlaceholder name="toolbarContent" />

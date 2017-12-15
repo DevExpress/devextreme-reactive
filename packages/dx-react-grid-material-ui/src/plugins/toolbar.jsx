@@ -8,7 +8,7 @@ export class Toolbar extends React.PureComponent {
   render() {
     return (
       <ToolbarBase
-        toolbarComponent={ToolbarComponent}
+        rootComponent={ToolbarComponent}
         flexibleSpaceComponent={FlexibleSpace}
         {...this.props}
       />

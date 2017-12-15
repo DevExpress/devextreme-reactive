@@ -1,6 +1,6 @@
 # TableHeaderRow Plugin Reference
 
-A plugin that renders the table's header row. The [Column](#column-extension)'s `title` field specifies the column title in the header row.
+A plugin that renders the table's header row. The [Column](grid.md#column)'s `title` field specifies the column title in the header row.
 
 The plugin also allows you to manage a column's sorting and grouping state and initiate column dragging.
 
@@ -28,14 +28,6 @@ messages | object | | An object that specifies [localization messages](#localiza
 
 ## Interfaces
 
-### Column (Extension)
-
-A value with the [Column](grid.md#column) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-title? | string | Specifies a table column's title.
-
 ### TableHeaderCellProps
 
 Describes properties used to render a table header cell.
@@ -44,7 +36,7 @@ A value with the [TableCellProps](table.md#tablecellprops) shape extended by the
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column-extension) | A column object associated with the header cell.
+column | [Column](grid.md#column) | A column object associated with the header cell.
 allowSorting | boolean | Specifies whether a user can change the associated column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
 onSort | ({ keepOther: boolean, cancel: boolean }) | An event that changes the associated column's sorting state. The `keepOther` and `cancel` arguments specify whether to keep existing sorting and cancel sorting by the associated column.
@@ -81,7 +73,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Columns' sorting state.
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | Table columns.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Table columns.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Columns used for grouping.
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean &#124; Array&lt;String&gt;, cancel: boolean }) => void | A function used to set column's sorting state. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.

@@ -35,5 +35,5 @@ Toolbar.propTypes = {
 
 Toolbar.defaultProps = {
   className: undefined,
-  style: undefined,
+  style: null,
 };

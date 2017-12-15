@@ -15,3 +15,5 @@ export class Toolbar extends React.PureComponent {
     );
   }
 }
+
+Toolbar.Root = ToolbarComponent;

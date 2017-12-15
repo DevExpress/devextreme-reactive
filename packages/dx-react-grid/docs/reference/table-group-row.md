@@ -29,7 +29,6 @@ A value with the [Column](grid.md#column) shape extended by the following fields
 Field | Type | Description
 ------|------|------------
 showWhenGrouped? | boolean | Specifies whether the grid displays the column by which data is grouped.
-title? | string | Specifies the column title.
 
 ### TableGroupCellProps
 
@@ -89,7 +88,7 @@ Additional properties are added to the component's root element.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column)&gt; | The grid columns.
+columns | Getter | Array&lt;[Column](#column-extension)&gt; | The grid columns.
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Current grouping options.

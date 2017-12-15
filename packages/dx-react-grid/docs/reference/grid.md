@@ -27,7 +27,8 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 name | string | Specifies the column name or the name of a row field whose value the column displays. If the column name does not match any field name, specify the `getCellValue` function.
-getCellValue | (row: any, columnName: string) => any | Specifies the function used to get the column value for a given row.
+title? | string | Specifies the column title.
+getCellValue? | (row: any, columnName: string) => any | Specifies the function used to get the column value for a given row.
 
 ### GridRootProps
 

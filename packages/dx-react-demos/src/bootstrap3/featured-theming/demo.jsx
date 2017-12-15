@@ -154,12 +154,12 @@ export default class Demo extends React.PureComponent {
         },
         length: 40,
       }),
-      allowedPageSizes: [5, 10, 15],
+      pageSizes: [5, 10, 15],
     };
   }
   render() {
     const {
-      rows, columns, tableColumnExtensions, allowedPageSizes,
+      rows, columns, tableColumnExtensions, pageSizes,
     } = this.state;
 
     return (
@@ -195,7 +195,7 @@ export default class Demo extends React.PureComponent {
 
         <TableHeaderRow allowSorting allowDragging />
         <PagingPanel
-          allowedPageSizes={allowedPageSizes}
+          pageSizes={pageSizes}
         />
         <TableSelection showSelectAll />
         <TableRowDetail

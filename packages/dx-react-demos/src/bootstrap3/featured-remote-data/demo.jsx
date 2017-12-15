@@ -46,7 +46,7 @@ export default class Demo extends React.PureComponent {
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
       pageSize: 10,
-      allowedPageSizes: [5, 10, 15],
+      pageSizes: [5, 10, 15],
       currentPage: 0,
       loading: true,
     };
@@ -120,7 +120,7 @@ export default class Demo extends React.PureComponent {
       tableColumnExtensions,
       sorting,
       pageSize,
-      allowedPageSizes,
+      pageSizes,
       currentPage,
       totalCount,
       loading,
@@ -148,7 +148,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableHeaderRow allowSorting />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
         </Grid>
         {loading && <Loading />}

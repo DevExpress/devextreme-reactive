@@ -40,12 +40,12 @@ export default class Demo extends React.PureComponent {
         { columnName: 'discount', cellComponent: ProgressBarCell },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
-      allowedPageSizes: [5, 10, 15],
+      pageSizes: [5, 10, 15],
     };
   }
   render() {
     const {
-      rows, columns, tableColumnExtensions, allowedPageSizes,
+      rows, columns, tableColumnExtensions, pageSizes,
     } = this.state;
 
     return (
@@ -94,7 +94,7 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow allowSorting allowDragging />
           <TableFilterRow />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
 
           <TableGroupRow />

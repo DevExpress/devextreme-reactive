@@ -5,6 +5,7 @@ import classNames from 'classnames';
 export const Toolbar = ({
   children,
   className,
+  style,
   ...restProps
 }) => (
   <div
@@ -15,6 +16,7 @@ export const Toolbar = ({
       position: 'relative',
       minHeight: '55px',
       padding: '5px 15px 0 15px',
+      ...style,
     }}
     {...restProps}
   >
@@ -28,8 +30,10 @@ Toolbar.propTypes = {
     PropTypes.node,
   ]).isRequired,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 Toolbar.defaultProps = {
   className: undefined,
+  style: undefined,
 };

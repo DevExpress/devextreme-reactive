@@ -68,7 +68,7 @@ class TableHeaderCellBase extends React.PureComponent {
     const {
       style, column, tableColumn,
       allowSorting, sortingDirection,
-      allowGroupingByClick, onGroup,
+      showGroupingControls, onGroup,
       allowDragging, draft,
       allowResizing, onWidthChange, onDraftWidthChange,
       classes, getMessage, tableRow, className, onSort,
@@ -94,7 +94,7 @@ class TableHeaderCellBase extends React.PureComponent {
         numeric={align === 'right'}
         {...restProps}
       >
-        {allowGroupingByClick && (
+        {showGroupingControls && (
           <GroupingControl
             align={align}
             onGroup={onGroup}
@@ -106,7 +106,6 @@ class TableHeaderCellBase extends React.PureComponent {
             sortingDirection={sortingDirection}
             columnTitle={columnTitle}
             onClick={this.onClick}
-            allowGroupingByClick={allowGroupingByClick}
             text={tooltipText}
           />
         ) : (
@@ -135,7 +134,7 @@ TableHeaderCellBase.propTypes = {
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
-  allowGroupingByClick: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
   onGroup: PropTypes.func,
   allowDragging: PropTypes.bool,
   draft: PropTypes.bool,
@@ -154,7 +153,7 @@ TableHeaderCellBase.defaultProps = {
   allowSorting: false,
   sortingDirection: undefined,
   onSort: undefined,
-  allowGroupingByClick: false,
+  showGroupingControls: false,
   onGroup: undefined,
   allowDragging: false,
   draft: false,

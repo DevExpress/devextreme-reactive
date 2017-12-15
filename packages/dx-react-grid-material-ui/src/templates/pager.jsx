@@ -13,7 +13,7 @@ const styles = {
 
 const PagerBase = ({
   currentPage,
-  allowedPageSizes,
+  pageSizes,
   totalPages,
   pageSize,
   classes,
@@ -36,10 +36,10 @@ const PagerBase = ({
       pageSize={pageSize}
       getMessage={getMessage}
     />
-    {!!allowedPageSizes.length && <PageSizeSelector
+    {!!pageSizes.length && <PageSizeSelector
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
-      allowedPageSizes={allowedPageSizes}
+      pageSizes={pageSizes}
       getMessage={getMessage}
     />}
   </div>
@@ -48,7 +48,7 @@ const PagerBase = ({
 PagerBase.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   pageSize: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,

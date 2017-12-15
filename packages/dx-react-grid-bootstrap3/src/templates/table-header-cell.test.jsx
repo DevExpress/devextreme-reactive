@@ -1,8 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
-
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
@@ -76,15 +74,13 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when dragging is allowed', () => {
     const tree = shallow((
-      <DragDropContext>
-        <TableHeaderCell
-          column={{}}
-          allowDragging
-        />
-      </DragDropContext>
+      <TableHeaderCell
+        column={{}}
+        allowDragging
+      />
     ));
 
-    expect(tree.dive().find('th').prop('style'))
+    expect(tree.find('th').prop('style'))
       .toMatchObject({
         userSelect: 'none',
         MozUserSelect: 'none',
@@ -93,34 +89,16 @@ describe('TableHeaderCell', () => {
       });
   });
 
-  it('should have correct styles when dragging', () => {
+  it('should have correct styles in the "draft" mode', () => {
     const tree = mount((
-      <DragDropContext>
-        <TableHeaderCell
-          column={{}}
-          allowDragging
-        />
-      </DragDropContext>
+      <TableHeaderCell
+        column={{}}
+        draft
+      />
     ));
 
     expect(tree.find('th').prop('style'))
-      .not.toMatchObject({
-        opacity: 0.3,
-      });
-
-    tree.find(DragSource).prop('onStart')();
-    tree.update();
-
-    expect(tree.find('th').prop('style'))
       .toMatchObject({
-        opacity: 0.3,
-      });
-
-    tree.find(DragSource).prop('onEnd')();
-    tree.update();
-
-    expect(tree.find('th').prop('style'))
-      .not.toMatchObject({
         opacity: 0.3,
       });
   });

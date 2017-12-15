@@ -41,6 +41,7 @@ const defaultDeps = {
 const defaultProps = {
   cellComponent: () => null,
   rowComponent: () => null,
+  cellLayoutComponent: () => null,
 };
 
 describe('TableHeaderRow', () => {
@@ -80,7 +81,7 @@ describe('TableHeaderRow', () => {
     });
   });
 
-  it('should render heading cell on user-defined column and heading row intersection', () => {
+  it('should render header cell layout on user-defined column and header row intersection', () => {
     isHeadingTableCell.mockImplementation(() => true);
 
     const tree = mount((
@@ -92,15 +93,28 @@ describe('TableHeaderRow', () => {
       </PluginHost>
     ));
 
+    const tableCellProps = defaultDeps.template.tableCell;
+
     expect(isHeadingTableCell)
       .toBeCalledWith(
-        defaultDeps.template.tableCell.tableRow,
-        defaultDeps.template.tableCell.tableColumn,
+        tableCellProps.tableRow,
+        tableCellProps.tableColumn,
       );
-    expect(tree.find(defaultProps.cellComponent).props())
+    expect(tree.find(defaultProps.cellLayoutComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
-        column: defaultDeps.template.tableCell.tableColumn.column,
+        column: tableCellProps.tableColumn.column,
+        draft: undefined,
+        cellComponent: defaultProps.cellComponent,
+        allowSorting: false,
+        allowGroupingByClick: false,
+        allowDragging: false,
+        allowResizing: false,
+        sortingDirection: undefined,
+        onSort: expect.any(Function),
+        onGroup: expect.any(Function),
+        onWidthChange: expect.any(Function),
+        onDraftWidthChange: expect.any(Function),
       });
   });
 
@@ -122,7 +136,7 @@ describe('TableHeaderRow', () => {
       .toMatchObject(defaultDeps.template.tableRow);
   });
 
-  it('should pass correct getMessage prop to TableHeaderRowTemplate', () => {
+  it('should pass correct getMessage prop to cellLayoutComponent', () => {
     isHeadingTableCell.mockImplementation(() => true);
 
     const deps = {
@@ -141,8 +155,9 @@ describe('TableHeaderRow', () => {
       </PluginHost>
     ));
 
-    const { getMessage } = tree.find(defaultProps.cellComponent).props();
-    expect(getMessage('sortingHint')).toBe('test');
+    const { getMessage } = tree.find(defaultProps.cellLayoutComponent).props();
+    expect(getMessage('sortingHint'))
+      .toBe('test');
   });
 
   describe('resizing', () => {
@@ -161,7 +176,7 @@ describe('TableHeaderRow', () => {
         .toThrow();
     });
 
-    it('should pass correct props to cellComponent', () => {
+    it('should pass correct props to cellLayoutComponent', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {
@@ -177,7 +192,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(tree.find(defaultProps.cellComponent).props())
+      expect(tree.find(defaultProps.cellLayoutComponent).props())
         .toMatchObject({
           allowResizing: true,
           onWidthChange: expect.any(Function),
@@ -185,7 +200,7 @@ describe('TableHeaderRow', () => {
         });
     });
 
-    it('should call correct action when on onWidthChange', () => {
+    it('should call correct action on the onWidthChange event', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {
@@ -204,13 +219,13 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      const { onWidthChange } = tree.find(defaultProps.cellComponent).props();
+      const { onWidthChange } = tree.find(defaultProps.cellLayoutComponent).props();
       onWidthChange({ shift: 10 });
       expect(deps.action.changeTableColumnWidths.mock.calls[0][0])
         .toEqual({ shifts: { a: 10 } });
     });
 
-    it('should call correct action when on onDraftWidthChange', () => {
+    it('should call correct action on the onDraftWidthChange event', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {
@@ -229,7 +244,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      const { onDraftWidthChange } = tree.find(defaultProps.cellComponent).props();
+      const { onDraftWidthChange } = tree.find(defaultProps.cellLayoutComponent).props();
       onDraftWidthChange({ shift: 10 });
       expect(deps.action.changeDraftTableColumnWidths.mock.calls[0][0])
         .toEqual({ shifts: { a: 10 } });

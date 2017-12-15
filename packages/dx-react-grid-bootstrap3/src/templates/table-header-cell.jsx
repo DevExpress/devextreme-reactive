@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { DragSource } from '@devexpress/dx-react-core';
-
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { SortingControl } from './table-header-cell/sorting-control';
@@ -14,9 +11,6 @@ export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      dragging: false,
-    };
     this.onClick = (e) => {
       const { allowSorting, onSort } = this.props;
       const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
@@ -40,16 +34,15 @@ export class TableHeaderCell extends React.PureComponent {
       style, column, tableColumn,
       allowSorting, sortingDirection,
       allowGroupingByClick, onGroup,
-      allowDragging, dragPayload,
+      allowDragging, draft,
       allowResizing, onWidthChange, onDraftWidthChange,
       tableRow, getMessage, onSort,
       ...restProps
     } = this.props;
-    const { dragging } = this.state;
     const align = column.align || 'left';
     const columnTitle = column.title || column.name;
 
-    const cellLayout = (
+    return (
       <th
         style={{
           position: 'relative',
@@ -59,7 +52,7 @@ export class TableHeaderCell extends React.PureComponent {
             WebkitUserSelect: 'none',
           } : {}),
           ...(allowSorting || allowDragging ? { cursor: 'pointer' } : null),
-          ...(dragging || tableColumn.draft ? { opacity: 0.3 } : null),
+          ...(draft ? { opacity: 0.3 } : null),
           padding: '5px',
           ...style,
         }}
@@ -101,17 +94,6 @@ export class TableHeaderCell extends React.PureComponent {
         )}
       </th>
     );
-
-    return allowDragging ? (
-      <DragSource
-        ref={(element) => { this.cellRef = element; }}
-        getPayload={() => dragPayload}
-        onStart={() => this.setState({ dragging: true })}
-        onEnd={() => this.cellRef && this.setState({ dragging: false })}
-      >
-        {cellLayout}
-      </DragSource>
-    ) : cellLayout;
   }
 }
 
@@ -128,7 +110,7 @@ TableHeaderCell.propTypes = {
   allowGroupingByClick: PropTypes.bool,
   onGroup: PropTypes.func,
   allowDragging: PropTypes.bool,
-  dragPayload: PropTypes.any,
+  draft: PropTypes.bool,
   allowResizing: PropTypes.bool,
   onWidthChange: PropTypes.func,
   onDraftWidthChange: PropTypes.func,
@@ -145,7 +127,7 @@ TableHeaderCell.defaultProps = {
   allowGroupingByClick: false,
   onGroup: undefined,
   allowDragging: false,
-  dragPayload: null,
+  draft: false,
   allowResizing: false,
   onWidthChange: undefined,
   onDraftWidthChange: undefined,

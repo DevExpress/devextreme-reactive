@@ -2,7 +2,6 @@ import React from 'react';
 import { TableCell, TableSortLabel } from 'material-ui';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { SortingControl } from './table-header-cell/sorting-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
@@ -93,39 +92,28 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when dragging is allowed', () => {
     const tree = mount((
-      <DragDropContext>
-        <TableHeaderCell
-          column={{}}
-          allowDragging
-          getMessage={jest.fn()}
-        />
-      </DragDropContext>
+      <TableHeaderCell
+        column={{}}
+        allowDragging
+        getMessage={jest.fn()}
+      />
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
     expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeTruthy();
   });
 
-  it('should have correct styles while dragging', () => {
+  it('should have correct styles in the "draft" mode', () => {
     const tree = mount((
-      <DragDropContext>
-        <TableHeaderCell
-          column={{}}
-          allowDragging
-          getMessage={jest.fn()}
-        />
-      </DragDropContext>
+      <TableHeaderCell
+        column={{}}
+        draft
+        getMessage={jest.fn()}
+      />
     ));
 
-    expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
-
-    tree.find(DragSource).prop('onStart')();
-    tree.update();
-    expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeTruthy();
-
-    tree.find(DragSource).prop('onEnd')();
-    tree.update();
-    expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
+    expect(tree.find(TableCell).hasClass(classes.cellDimmed))
+      .toBeTruthy();
   });
 
   it('should render resize control if resize allowed', () => {

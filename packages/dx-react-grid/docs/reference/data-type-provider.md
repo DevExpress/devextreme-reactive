@@ -18,13 +18,13 @@ editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops)&gt; | | A
 
 ## Interfaces
 
-### <a name="column"></a>Column (Extension)
+### Column (Extension)
 
 A value with the [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-dataType | string | Specifies the column's data type.
+dataType? | string | Specifies the column's data type.
 
 ### ValueFormatterProps
 
@@ -34,7 +34,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column) | A column object.
+column | [Column](#column-extension) | A column object.
 row? | any | A row.
 value | any | The value to be formatted.
 
@@ -46,7 +46,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column) | A column object.
+column | [Column](#column-extension) | A column object.
 row? | any | A row.
 value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.

@@ -21,7 +21,7 @@ describe('GroupPanelItem', () => {
     const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
-        allowUngroupingByClick
+        showGroupingControls
       />
     ));
 
@@ -77,7 +77,7 @@ describe('GroupPanelItem', () => {
     const tree = mount((
       <GroupPanelItem
         onGroup={onGroup}
-        allowUngroupingByClick
+        showGroupingControls
         item={{ column: { name: 'test' } }}
       />
     ));

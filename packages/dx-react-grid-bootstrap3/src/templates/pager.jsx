@@ -11,7 +11,7 @@ export const Pager = ({
   totalPages,
   pageSize,
   onPageSizeChange,
-  allowedPageSizes,
+  pageSizes,
   totalCount,
   getMessage,
   className,
@@ -25,10 +25,10 @@ export const Pager = ({
       className={classNames('clearfix', className)}
       {...restProps}
     >
-      {!!allowedPageSizes.length && <PageSizeSelector
+      {!!pageSizes.length && <PageSizeSelector
         pageSize={pageSize}
         onPageSizeChange={onPageSizeChange}
-        allowedPageSizes={allowedPageSizes}
+        pageSizes={pageSizes}
         getMessage={getMessage}
       />}
       <Pagination
@@ -76,7 +76,7 @@ Pager.propTypes = {
   totalPages: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   totalCount: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,

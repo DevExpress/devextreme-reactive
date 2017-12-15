@@ -108,14 +108,14 @@ export default class Demo extends React.PureComponent {
           />
           <Toolbar />
           <GroupingPanel
-            allowUngroupingByClick
+            showGroupingControls
             allowDragging
             messages={groupingPanelMessages}
           />
 
           <TableGroupRow />
           <PagingPanel
-            allowedPageSizes={[5, 10, 15, 0]}
+            pageSizes={[5, 10, 15, 0]}
             messages={pagingPanelMessages}
           />
         </Grid>

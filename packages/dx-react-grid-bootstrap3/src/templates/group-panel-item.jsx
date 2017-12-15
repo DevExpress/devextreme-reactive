@@ -10,7 +10,7 @@ const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_K
 
 export const GroupPanelItem = ({
   item: { column, draft },
-  onGroup, allowUngroupingByClick,
+  onGroup, showGroupingControls,
   allowSorting, sortingDirection, onSort, className,
   ...restProps
 }) => {
@@ -65,7 +65,7 @@ export const GroupPanelItem = ({
         )}
       </span>
 
-      {allowUngroupingByClick && (
+      {showGroupingControls && (
         <span
           className="btn btn-default"
           onClick={handleUngroup}
@@ -96,7 +96,7 @@ GroupPanelItem.propTypes = {
   className: PropTypes.string,
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
-  allowUngroupingByClick: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
 };
 
 GroupPanelItem.defaultProps = {
@@ -105,5 +105,5 @@ GroupPanelItem.defaultProps = {
   className: undefined,
   onSort: undefined,
   onGroup: undefined,
-  allowUngroupingByClick: false,
+  showGroupingControls: false,
 };

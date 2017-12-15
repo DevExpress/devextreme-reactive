@@ -34,7 +34,7 @@ const label = (allowSorting, sortingDirection, column) => {
 
 const GroupPanelItemBase = ({
   item: { column, draft },
-  onGroup, allowUngroupingByClick,
+  onGroup, showGroupingControls,
   allowSorting, sortingDirection, onSort,
   classes, className,
   ...restProps
@@ -62,7 +62,7 @@ const GroupPanelItemBase = ({
     <Chip
       label={label(allowSorting, sortingDirection, column)}
       className={chipClassNames}
-      {...allowUngroupingByClick
+      {...showGroupingControls
         ? { onRequestDelete: () => onGroup({ columnName: column.name }) }
         : null}
       onClick={onClick}
@@ -82,7 +82,7 @@ GroupPanelItemBase.propTypes = {
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
-  allowUngroupingByClick: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
@@ -92,7 +92,7 @@ GroupPanelItemBase.defaultProps = {
   sortingDirection: undefined,
   onSort: undefined,
   onGroup: undefined,
-  allowUngroupingByClick: false,
+  showGroupingControls: false,
   className: undefined,
 };
 

@@ -10,18 +10,21 @@ import {
 export class Toolbar extends React.PureComponent {
   render() {
     const {
-      toolbarComponent: ToolbarContent,
+      toolbarComponent: ToolbarComponent,
+      flexibleSpaceComponent: FlexibleSpaceComponent,
     } = this.props;
-
     return (
       <PluginContainer
         pluginName="Toolbar"
       >
         <Template name="header">
-          <ToolbarContent>
+          <ToolbarComponent>
             <TemplatePlaceholder name="toolbarContent" />
-          </ToolbarContent>
+          </ToolbarComponent>
           <TemplatePlaceholder />
+        </Template>
+        <Template name="toolbarContent">
+          <FlexibleSpaceComponent />
         </Template>
       </PluginContainer>
     );
@@ -30,4 +33,5 @@ export class Toolbar extends React.PureComponent {
 
 Toolbar.propTypes = {
   toolbarComponent: PropTypes.func.isRequired,
+  flexibleSpaceComponent: PropTypes.func.isRequired,
 };

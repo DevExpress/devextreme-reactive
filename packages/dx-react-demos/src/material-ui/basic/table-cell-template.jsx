@@ -62,11 +62,14 @@ export default class Demo extends React.PureComponent {
         { name: 'product', title: 'Product' },
         { name: 'amount', title: 'Sale Amount' },
       ],
+      tableColumnExtensions: [
+        { columnName: 'amount', cellComponent: HighlightedCell },
+      ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -75,7 +78,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <Table
-            cellComponent={Cell}
+            columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
         </Grid>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
   LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
@@ -21,19 +20,6 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const Cell = (props) => {
-  if (props.column.name === 'discount') {
-    return <ProgressBarCell {...props} />;
-  }
-  if (props.column.name === 'amount') {
-    return <HighlightedCell {...props} />;
-  }
-  return <VirtualTable.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
-};
-
 const getRowId = row => row.id;
 
 export default class Demo extends React.PureComponent {
@@ -44,10 +30,14 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right', cellComponent: HighlightedCell },
+        { columnName: 'discount', cellComponent: ProgressBarCell },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -56,7 +46,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Grid
@@ -87,7 +77,7 @@ export default class Demo extends React.PureComponent {
         <LocalSelection />
 
         <VirtualTable
-          cellComponent={Cell}
+          columnExtensions={tableColumnExtensions}
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

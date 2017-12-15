@@ -18,9 +18,12 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex', width: 100 },
+        { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'sex', width: 100 },
       ],
       rows: generateRows({ length: 6 }),
       columnOrder: ['city', 'sex', 'car', 'name'],
@@ -32,7 +35,9 @@ export default class Demo extends React.PureComponent {
     this.setState({ columnOrder: newOrder });
   }
   render() {
-    const { rows, columns, columnOrder } = this.state;
+    const {
+      rows, columns, tableColumnExtensions, columnOrder,
+    } = this.state;
 
     return (
       <Paper>
@@ -41,7 +46,9 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <DragDropContext />
-          <Table />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
           <TableColumnReordering
             order={columnOrder}
             onOrderChange={this.changeColumnOrder}

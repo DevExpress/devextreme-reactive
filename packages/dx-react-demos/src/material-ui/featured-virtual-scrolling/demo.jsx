@@ -46,10 +46,14 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right', cellComponent: HighlightedCell },
+        { columnName: 'discount', cellComponent: ProgressBarCell },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -58,7 +62,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -90,7 +94,7 @@ export default class Demo extends React.PureComponent {
           <LocalSelection />
 
           <VirtualTable
-            cellComponent={Cell}
+            columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow allowSorting allowDragging />
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

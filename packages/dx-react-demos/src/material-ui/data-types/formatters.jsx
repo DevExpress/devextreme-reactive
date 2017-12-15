@@ -51,15 +51,16 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
         { name: 'saleDate', title: 'Sale Date', dataType: 'date' },
-        {
-          name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right',
-        },
+        { name: 'amount', title: 'Sale Amount', dataType: 'currency' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -69,7 +70,9 @@ export default class Demo extends React.PureComponent {
         >
           <CurrencyTypeProvider />
           <DateTypeProvider />
-          <Table />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
           <TableHeaderRow />
         </Grid>
       </Paper>

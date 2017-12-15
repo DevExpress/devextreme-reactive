@@ -15,6 +15,7 @@ import {
   isHeaderStubTableCell,
   isDataTableRow,
   getMessagesFormatter,
+  getColumnExtension,
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = props =>
@@ -25,22 +26,24 @@ const CellPlaceholder = props =>
 const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) =>
   tableRowsWithDataRows(rows, getRowId);
-const tableColumnsComputed = ({ columns }) => tableColumnsWithDataRows(columns);
 
 export class Table extends React.PureComponent {
   render() {
     const {
       layoutComponent: Layout,
-      cellComponent: Cell,
+      cellComponent: DefaultCell,
       rowComponent: Row,
       noDataRowComponent: NoDataRow,
       noDataCellComponent: NoDataCell,
       stubCellComponent: StubCell,
       stubHeaderCellComponent: StubHeaderCell,
+      columnExtensions,
       messages,
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
+    const tableColumnsComputed = ({ columns }) =>
+      tableColumnsWithDataRows(columns, columnExtensions);
 
     return (
       <PluginContainer
@@ -88,7 +91,10 @@ export class Table extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({ getCellValue }) => {
-                const value = getCellValue(params.tableRow.row, params.tableColumn.column.name);
+                const columnName = params.tableColumn.column.name;
+                const Cell = getColumnExtension(columnExtensions, columnName).cellComponent
+                  || DefaultCell;
+                const value = getCellValue(params.tableRow.row, columnName);
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
@@ -150,9 +156,11 @@ Table.propTypes = {
   noDataRowComponent: PropTypes.func.isRequired,
   stubCellComponent: PropTypes.func.isRequired,
   stubHeaderCellComponent: PropTypes.func.isRequired,
+  columnExtensions: PropTypes.array,
   messages: PropTypes.object,
 };
 
 Table.defaultProps = {
+  columnExtensions: undefined,
   messages: {},
 };

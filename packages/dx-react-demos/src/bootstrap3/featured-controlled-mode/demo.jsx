@@ -129,19 +129,6 @@ LookupEditCell.defaultProps = {
   value: undefined,
 };
 
-const Cell = (props) => {
-  if (props.column.name === 'discount') {
-    return <ProgressBarCell {...props} />;
-  }
-  if (props.column.name === 'amount') {
-    return <HighlightedCell {...props} />;
-  }
-  return <Table.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
-};
-
 const EditCell = (props) => {
   const availableColumnValues = availableValues[props.column.name];
   if (availableColumnValues) {
@@ -163,10 +150,14 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right', cellComponent: HighlightedCell },
+        { columnName: 'discount', cellComponent: ProgressBarCell },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -234,6 +225,7 @@ export default class Demo extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       editingRows,
       addedRows,
@@ -279,7 +271,7 @@ export default class Demo extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            cellComponent={Cell}
+            columnExtensions={tableColumnExtensions}
           />
 
           <TableColumnReordering
@@ -318,7 +310,7 @@ export default class Demo extends React.PureComponent {
               columns={columns}
             >
               <Table
-                cellComponent={Cell}
+                columnExtensions={tableColumnExtensions}
               />
               <TableHeaderRow />
             </Grid>

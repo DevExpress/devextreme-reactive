@@ -167,19 +167,6 @@ LookupEditCellBase.defaultProps = {
 };
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
-const Cell = (props) => {
-  if (props.column.name === 'discount') {
-    return <ProgressBarCell {...props} />;
-  }
-  if (props.column.name === 'amount') {
-    return <HighlightedCell {...props} />;
-  }
-  return <Table.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
-};
-
 const EditCell = (props) => {
   const availableColumnValues = availableValues[props.column.name];
   if (availableColumnValues) {
@@ -200,13 +187,15 @@ class DemoBase extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region', width: 110 },
-        {
-          name: 'amount', title: 'Amount', align: 'right', width: 90,
-        },
-        { name: 'discount', title: 'Discount', width: 110 },
+        { name: 'region', title: 'Region' },
+        { name: 'amount', title: 'Sale Amount' },
+        { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right', cellComponent: HighlightedCell },
+        { columnName: 'discount', cellComponent: ProgressBarCell },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -277,6 +266,7 @@ class DemoBase extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       editingRows,
       addedRows,
@@ -322,7 +312,7 @@ class DemoBase extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            cellComponent={Cell}
+            columnExtensions={tableColumnExtensions}
           />
 
           <TableColumnReordering
@@ -362,7 +352,7 @@ class DemoBase extends React.PureComponent {
                 columns={columns}
               >
                 <Table
-                  cellComponent={Cell}
+                  columnExtensions={tableColumnExtensions}
                 />
                 <TableHeaderRow />
               </Grid>

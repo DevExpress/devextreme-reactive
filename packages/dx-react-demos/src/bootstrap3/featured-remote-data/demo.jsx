@@ -25,28 +25,22 @@ SaleAmountCell.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-const Cell = (props) => {
-  if (props.column.name === 'SaleAmount') {
-    return <SaleAmountCell {...props} />;
-  }
-  return <Table.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
-};
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       columns: [
-        { name: 'OrderNumber', title: 'Order #', align: 'right' },
+        { name: 'OrderNumber', title: 'Order #' },
         { name: 'OrderDate', title: 'Order Date' },
         { name: 'StoreCity', title: 'Store City' },
         { name: 'StoreState', title: 'Store State' },
         { name: 'Employee', title: 'Employee' },
-        { name: 'SaleAmount', title: 'Sale Amount', align: 'right' },
+        { name: 'SaleAmount', title: 'Sale Amount' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'OrderNumber', align: 'right' },
+        { columnName: 'SaleAmount', align: 'right', cellComponent: SaleAmountCell },
       ],
       rows: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
@@ -123,6 +117,7 @@ export default class Demo extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       pageSize,
       allowedPageSizes,
@@ -149,7 +144,7 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <Table
-            cellComponent={Cell}
+            columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

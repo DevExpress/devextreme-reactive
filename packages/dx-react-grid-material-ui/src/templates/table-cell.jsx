@@ -35,7 +35,7 @@ const TableCellBase = ({
     }}
     className={classNames({
       [classes.cell]: true,
-      [classes.cellRightAlign]: column.align === 'right',
+      [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
     }, className)}
     {...restProps}
   >
@@ -61,7 +61,7 @@ TableCellBase.propTypes = {
 TableCellBase.defaultProps = {
   style: null,
   value: undefined,
-  column: {},
+  column: undefined,
   row: undefined,
   children: undefined,
   tableRow: undefined,

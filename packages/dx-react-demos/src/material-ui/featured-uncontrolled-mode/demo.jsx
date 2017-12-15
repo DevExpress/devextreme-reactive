@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
@@ -23,19 +22,6 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const Cell = (props) => {
-  if (props.column.name === 'discount') {
-    return <ProgressBarCell {...props} />;
-  }
-  if (props.column.name === 'amount') {
-    return <HighlightedCell {...props} />;
-  }
-  return <Table.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
-};
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -44,17 +30,23 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right', cellComponent: HighlightedCell },
+        { columnName: 'discount', cellComponent: ProgressBarCell },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       allowedPageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const {
+      rows, columns, tableColumnExtensions, allowedPageSizes,
+    } = this.state;
 
     return (
       <Paper>
@@ -93,7 +85,7 @@ export default class Demo extends React.PureComponent {
           <DragDropContext />
 
           <Table
-            cellComponent={Cell}
+            columnExtensions={tableColumnExtensions}
           />
           <TableSelection showSelectAll />
 

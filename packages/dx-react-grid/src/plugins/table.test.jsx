@@ -9,6 +9,7 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
+  getColumnExtension,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { Table } from './table';
@@ -21,6 +22,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
+  getColumnExtension: jest.fn(),
   getMessagesFormatter: jest.fn(),
 }));
 
@@ -62,6 +64,7 @@ describe('Table', () => {
     isDataTableCell.mockImplementation(() => false);
     isHeaderStubTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
+    getColumnExtension.mockImplementation(() => ({}));
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
@@ -86,17 +89,20 @@ describe('Table', () => {
     });
 
     it('should extend tableColumns', () => {
+      const columnExtensions = [{ columnName: 'field', width: 100 }];
+
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <Table
             {...defaultProps}
+            columnExtensions={columnExtensions}
           />
         </PluginHost>
       ));
 
       expect(tableColumnsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.columns);
+        .toBeCalledWith(defaultDeps.getter.columns, columnExtensions);
       expect(getComputedState(tree).getters.tableColumns)
         .toBe('tableColumnsWithDataRows');
     });
@@ -108,7 +114,6 @@ describe('Table', () => {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'a' } },
       style: {},
-      value: undefined,
     };
 
     const tree = mount((
@@ -131,13 +136,36 @@ describe('Table', () => {
       });
   });
 
+  it('should render data cell on user-defined column and row intersection defined by columnExtension', () => {
+    const cellComponent = () => null;
+    isDataTableCell.mockImplementation(() => true);
+    getColumnExtension.mockImplementation(() => ({ cellComponent }));
+    const tableCellArgs = {
+      tableRow: { row: 'row' },
+      tableColumn: { column: { name: 'a' } },
+      style: {},
+    };
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Table
+          {...defaultProps}
+          layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(cellComponent).exists())
+      .toBeTruthy();
+  });
+
   it('can render custom formatted data in table cell', () => {
     isDataTableCell.mockImplementation(() => true);
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'column', dataType: 'column' } },
       style: {},
-      value: undefined,
     };
 
     const tree = mount((

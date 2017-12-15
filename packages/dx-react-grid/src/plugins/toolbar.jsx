@@ -7,20 +7,20 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-export class HeaderToolbar extends React.PureComponent {
+export class Toolbar extends React.PureComponent {
   render() {
     const {
-      toolbarComponent: Toolbar,
+      toolbarComponent: ToolbarContent,
     } = this.props;
 
     return (
       <PluginContainer
-        pluginName="HeaderToolbar"
+        pluginName="Toolbar"
       >
         <Template name="header">
-          <Toolbar>
+          <ToolbarContent>
             <TemplatePlaceholder name="toolbarContent" />
-          </Toolbar>
+          </ToolbarContent>
           <TemplatePlaceholder />
         </Template>
       </PluginContainer>
@@ -28,6 +28,6 @@ export class HeaderToolbar extends React.PureComponent {
   }
 }
 
-HeaderToolbar.propTypes = {
+Toolbar.propTypes = {
   toolbarComponent: PropTypes.func.isRequired,
 };

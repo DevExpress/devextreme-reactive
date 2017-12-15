@@ -48,4 +48,4 @@ export { VirtualTableLayout } from './components/table-layout/virtual-table-layo
 export { StaticTableLayout } from './components/table-layout/static-table-layout';
 export { GroupPanelLayout } from './components/group-panel-layout';
 
-export { HeaderToolbar } from './plugins/header-toolbar';
+export { Toolbar } from './plugins/toolbar';

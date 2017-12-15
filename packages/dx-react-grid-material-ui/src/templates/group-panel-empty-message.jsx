@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 export const styles = theme => ({
   groupInfo: {
     color: theme.typography.title.color,
+    marginBottom: theme.spacing.unit * 1.5,
   },
 });
 

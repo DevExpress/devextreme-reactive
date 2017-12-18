@@ -43,7 +43,6 @@ onSort | ({ keepOther: boolean, cancel: boolean }) | An event that changes the a
 showGroupingControls | boolean | Specifies whether to render a control that toggles the associated column's grouping state.
 onGroup | () => void | An event that invokes grouping by the associated column.
 allowDragging | boolean | Specifies whether a user can drag a column by the header cell.
-dragPayload | any | A data object that identifies the associated column in the drag-and-drop context.
 onWidthChange | ({ shift: number }) => void | An event that initiates the column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative
 onDraftWidthChange | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the header cell.

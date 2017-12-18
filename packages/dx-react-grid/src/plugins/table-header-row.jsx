@@ -20,8 +20,9 @@ export class TableHeaderRow extends React.PureComponent {
       showGroupingControls,
       allowDragging,
       allowResizing,
-      cellComponent: HeaderCell,
+      cellComponent,
       rowComponent: HeaderRow,
+      cellLayoutComponent: CellLayout,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -51,22 +52,24 @@ export class TableHeaderRow extends React.PureComponent {
                 setColumnSorting, groupByColumn,
                 changeTableColumnWidths, changeDraftTableColumnWidths,
               }) => {
-                const { name: columnName } = params.tableColumn.column;
+                const { tableColumn: { column, draft } } = params;
+                const { name: columnName } = column;
                 const groupingSupported = grouping !== undefined &&
-                    grouping.length < columns.length - 1;
+                  grouping.length < columns.length - 1;
 
                 return (
-                  <HeaderCell
+                  <CellLayout
                     {...params}
-                    column={params.tableColumn.column}
+                    column={column}
+                    draft={draft}
                     getMessage={getMessage}
+                    cellComponent={cellComponent}
                     allowSorting={allowSorting && sorting !== undefined}
                     showGroupingControls={showGroupingControls && groupingSupported}
                     allowDragging={allowDragging && (!grouping || groupingSupported)}
                     allowResizing={allowResizing}
                     sortingDirection={allowSorting && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
-                    dragPayload={allowDragging ? [{ type: 'column', columnName }] : undefined}
                     onSort={({ keepOther, cancel }) =>
                       setColumnSorting({ columnName, keepOther, cancel })}
                     onGroup={() =>
@@ -99,6 +102,7 @@ TableHeaderRow.propTypes = {
   allowResizing: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  cellLayoutComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

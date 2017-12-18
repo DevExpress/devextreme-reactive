@@ -52,7 +52,7 @@ export class TableHeaderRow extends React.PureComponent {
                 changeTableColumnWidths, changeDraftTableColumnWidths,
               }) => {
                 const { name: columnName } = params.tableColumn.column;
-                const isNotTheLastVisible = tableColumns
+                const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
 
                 return (
@@ -61,8 +61,8 @@ export class TableHeaderRow extends React.PureComponent {
                     column={params.tableColumn.column}
                     getMessage={getMessage}
                     allowSorting={allowSorting && sorting !== undefined}
-                    showGroupingControls={showGroupingControls && isNotTheLastVisible}
-                    draggingEnabled={draggingEnabled && isNotTheLastVisible}
+                    showGroupingControls={showGroupingControls && atLeastOneDataColumn}
+                    draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     allowResizing={allowResizing}
                     sortingDirection={allowSorting && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}

@@ -30,10 +30,12 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 /* eslint-disable react/prop-types */
-const DefaultContainer = ({ children }) => <div>{children}</div>;
-const DefaultRow = () => null;
-const DefaultCell = ({ getCellDimensions }) =>
-  <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />;
+const defaultProps = {
+  tableContainerComponent: ({ children }) => <div>{children}</div>,
+  rowComponent: () => null,
+  cellComponent: ({ getCellDimensions }) =>
+    <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />,
+};
 /* eslint-enable react/prop-types */
 
 const defaultDeps = {
@@ -70,10 +72,8 @@ describe('TableColumnReordering', () => {
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
+            {...defaultProps}
             defaultOrder={['b', 'a']}
-            tableContainerComponent={DefaultContainer}
-            rowComponent={DefaultRow}
-            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
@@ -91,10 +91,8 @@ describe('TableColumnReordering', () => {
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
+            {...defaultProps}
             order={['b', 'a']}
-            tableContainerComponent={DefaultContainer}
-            rowComponent={DefaultRow}
-            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
@@ -112,16 +110,14 @@ describe('TableColumnReordering', () => {
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
+            {...defaultProps}
             order={['b', 'a']}
-            tableContainerComponent={DefaultContainer}
-            rowComponent={DefaultRow}
-            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>
     ));
 
-    expect(tree.find(DefaultContainer).props())
+    expect(tree.find(defaultProps.tableContainerComponent).props())
       .toEqual({
         onOver: expect.any(Function),
         onLeave: expect.any(Function),
@@ -158,10 +154,9 @@ describe('TableColumnReordering', () => {
           </Template>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableColumnReordering
+            {...defaultProps}
             defaultOrder={defaultOrder}
             tableContainerComponent={props => <TableMock {...props} />}
-            rowComponent={DefaultRow}
-            cellComponent={DefaultCell}
           />
         </PluginHost>
       </DragDropContext>

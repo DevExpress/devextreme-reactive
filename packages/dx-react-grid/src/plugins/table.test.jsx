@@ -81,13 +81,11 @@ describe('Table', () => {
 
       expect(tableRowsWithDataRows)
         .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
-      expect(getComputedState(tree).getters.tableBodyRows)
+      expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithDataRows');
     });
 
     it('should extend tableColumns', () => {
-      const columnExtensions = [{ columnName: 'field', width: 100 }];
-
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -99,8 +97,8 @@ describe('Table', () => {
       ));
 
       expect(tableColumnsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.columns, columnExtensions);
-      expect(getComputedState(tree).getters.tableColumns)
+        .toBeCalledWith(defaultDeps.getter.columns);
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithDataRows');
     });
   });
@@ -197,7 +195,7 @@ describe('Table', () => {
     ));
 
     expect(isHeaderStubTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).getters.tableHeaderRows);
+      .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).tableHeaderRows);
     expect(tree.find(defaultProps.stubHeaderCellComponent).props())
       .toMatchObject(tableCellArgs);
   });

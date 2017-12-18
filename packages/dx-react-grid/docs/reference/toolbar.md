@@ -37,8 +37,12 @@ If you specify additional properties, they are added to the component's root ele
 
 ### Imports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+header | Template | Object? | A template that renders the grid header.
 
 ### Exports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+toolbarContent | Template | Object? | A template that renders the toolbar content.

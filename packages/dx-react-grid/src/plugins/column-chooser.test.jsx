@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { columnChooserItems } from '@devexpress/dx-grid-core';
+import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { ColumnChooser } from './column-chooser';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -19,21 +20,17 @@ describe('ColumnChooser', () => {
     const ContainerComponent = () => null;
     const ItemComponent = () => null;
 
-    const tree = shallow((
-      <ColumnChooser
-        columns={[]}
-        containerComponent={ContainerComponent}
-        itemComponent={ItemComponent}
-        onHiddenColumnsChange={() => {}}
-      />
+    const tree = mount((
+      <PluginHost>
+        <ColumnChooser
+          containerComponent={ContainerComponent}
+          itemComponent={ItemComponent}
+        />
+        <TemplatePlaceholder name="toolbarContent" />
+      </PluginHost>
     ));
 
-    expect(tree.find(ContainerComponent).props())
-      .toEqual({
-        items: expect.any(Array),
-        onItemToggle: expect.any(Function),
-        children: expect.any(Array),
-      });
+    expect(tree.find(ContainerComponent).exists());
   });
 
   it('should pass correct parameters to the itemComponent', () => {

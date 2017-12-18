@@ -11,6 +11,7 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 - [SortingState](sorting-state.md) [Optional]
 - [DragDropContext](drag-drop-context.md) [Optional]
 - [GroupingState](grouping-state.md)
+- [Toolbar](toolbar.md)
 
 ### Properties
 

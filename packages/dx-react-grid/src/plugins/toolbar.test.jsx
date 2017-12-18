@@ -5,18 +5,18 @@ import { Toolbar } from './toolbar';
 
 describe('Toolbar', () => {
   it('should render Toolbar', () => {
-    const ToolbarComponent = () => null;
+    const Root = () => null;
     const tree = mount((
       <PluginHost>
         <Toolbar
-          rootComponent={ToolbarComponent}
+          rootComponent={Root}
           flexibleSpaceComponent={() => null}
         />
         <TemplatePlaceholder name="header" />
       </PluginHost>
     ));
 
-    expect(tree.find(ToolbarComponent).exists())
+    expect(tree.find(Root).exists())
       .toBeTruthy();
   });
 

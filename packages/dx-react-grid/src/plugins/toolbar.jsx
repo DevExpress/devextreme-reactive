@@ -10,7 +10,7 @@ import {
 export class Toolbar extends React.PureComponent {
   render() {
     const {
-      rootComponent: ToolbarComponent,
+      rootComponent: Root,
       flexibleSpaceComponent: FlexibleSpaceComponent,
     } = this.props;
     return (
@@ -18,9 +18,9 @@ export class Toolbar extends React.PureComponent {
         pluginName="Toolbar"
       >
         <Template name="header">
-          <ToolbarComponent>
+          <Root>
             <TemplatePlaceholder name="toolbarContent" />
-          </ToolbarComponent>
+          </Root>
           <TemplatePlaceholder />
         </Template>
         <Template name="toolbarContent">

@@ -27,10 +27,13 @@ export class TableColumnVisibility extends React.PureComponent {
     this.handleColumnToggle = this.handleColumnToggle.bind(this);
     this.visibleTableColumnsComputed = this.visibleTableColumnsComputed.bind(this);
   }
-  handleColumnToggle(columnName) {
+  handleColumnToggle(columns, columnName) {
     const { hiddenColumns } = this.state;
     const nextHiddenColumnNames = toggleColumn(hiddenColumns, columnName);
-    this.setState({ hiddenColumns: nextHiddenColumnNames });
+    this.setState({
+      hiddenColumns: nextHiddenColumnNames,
+      items: columnChooserItems(columns, nextHiddenColumnNames),
+    });
   }
   visibleTableColumnsComputed({ tableColumns, columns }) {
     const { hiddenColumns } = this.state;
@@ -54,7 +57,7 @@ export class TableColumnVisibility extends React.PureComponent {
         <Getter name="items" value={items} />
         <Action
           name="toggleVisibility"
-          action={(getters, actions, columnName) => this.handleColumnToggle(columnName)}
+          action={({ columns }, actions, columnName) => this.handleColumnToggle(columns, columnName)}
         />
 
         <Template name="table">

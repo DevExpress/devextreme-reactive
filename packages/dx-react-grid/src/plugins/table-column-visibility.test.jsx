@@ -19,6 +19,11 @@ const defaultDeps = {
       { column: { name: 'b' } },
       { column: { name: 'c' } },
     ],
+    columns: [
+      { name: 'a' },
+      { name: 'b' },
+      { name: 'c' },
+    ],
   },
   template: {
     table: {},

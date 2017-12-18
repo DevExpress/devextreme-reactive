@@ -5,8 +5,6 @@ export const GroupPanelContainer = ({ children, ...restProps }) => (
   <div
     style={{
       width: '100%',
-      display: 'flex',
-      flexWrap: 'wrap',
     }}
     {...restProps}
   >

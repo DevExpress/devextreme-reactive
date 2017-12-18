@@ -167,6 +167,19 @@ LookupEditCellBase.defaultProps = {
 };
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
+
 const EditCell = (props) => {
   const availableColumnValues = availableValues[props.column.name];
   if (availableColumnValues) {
@@ -194,8 +207,7 @@ class DemoBase extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       tableColumnExtensions: [
-        { columnName: 'amount', align: 'right', cellComponent: HighlightedCell },
-        { columnName: 'discount', cellComponent: ProgressBarCell },
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -313,6 +325,7 @@ class DemoBase extends React.PureComponent {
 
           <Table
             columnExtensions={tableColumnExtensions}
+            cellComponent={Cell}
           />
 
           <TableColumnReordering
@@ -353,6 +366,7 @@ class DemoBase extends React.PureComponent {
               >
                 <Table
                   columnExtensions={tableColumnExtensions}
+                  cellComponent={Cell}
                 />
                 <TableHeaderRow />
               </Grid>

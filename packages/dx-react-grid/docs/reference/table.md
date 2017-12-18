@@ -36,7 +36,6 @@ Field | Type | Description
 columnName | string | Specifies the name of the column to extend.
 width? | number | Specifies the table's column width in pixels.
 align? | 'left' &#124; 'right' | Specifies the table's column alignment.
-cellComponent? | ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell for the table's column.
 
 ### TableLayoutProps
 

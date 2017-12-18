@@ -15,7 +15,6 @@ import {
   isHeaderStubTableCell,
   isDataTableRow,
   getMessagesFormatter,
-  getColumnExtension,
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = props =>
@@ -31,7 +30,7 @@ export class Table extends React.PureComponent {
   render() {
     const {
       layoutComponent: Layout,
-      cellComponent: DefaultCell,
+      cellComponent: Cell,
       rowComponent: Row,
       noDataRowComponent: NoDataRow,
       noDataCellComponent: NoDataCell,
@@ -92,8 +91,6 @@ export class Table extends React.PureComponent {
             <TemplateConnector>
               {({ getCellValue }) => {
                 const columnName = params.tableColumn.column.name;
-                const Cell = getColumnExtension(columnExtensions, columnName).cellComponent
-                  || DefaultCell;
                 const value = getCellValue(params.tableRow.row, columnName);
                 return (
                   <TemplatePlaceholder

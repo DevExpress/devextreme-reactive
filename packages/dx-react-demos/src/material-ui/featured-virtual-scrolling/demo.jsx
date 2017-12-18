@@ -52,8 +52,8 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       tableColumnExtensions: [
-        { columnName: 'amount', align: 'right', cellComponent: HighlightedCell },
-        { columnName: 'discount', cellComponent: ProgressBarCell },
+        { columnName: 'amount', align: 'right' },
+        { columnName: 'discount' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -95,6 +95,7 @@ export default class Demo extends React.PureComponent {
 
           <VirtualTable
             columnExtensions={tableColumnExtensions}
+            cellComponent={Cell}
           />
           <TableHeaderRow allowSorting allowDragging />
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />

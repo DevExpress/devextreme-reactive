@@ -25,6 +25,16 @@ SaleAmountCell.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
+const Cell = (props) => {
+  if (props.column.name === 'SaleAmount') {
+    return <SaleAmountCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -40,7 +50,7 @@ export default class Demo extends React.PureComponent {
       ],
       tableColumnExtensions: [
         { columnName: 'OrderNumber', align: 'right' },
-        { columnName: 'SaleAmount', align: 'right', cellComponent: SaleAmountCell },
+        { columnName: 'SaleAmount', align: 'right' },
       ],
       rows: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
@@ -145,6 +155,7 @@ export default class Demo extends React.PureComponent {
           />
           <Table
             columnExtensions={tableColumnExtensions}
+            cellComponent={Cell}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel

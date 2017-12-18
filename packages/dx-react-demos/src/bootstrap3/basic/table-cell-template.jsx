@@ -38,6 +38,16 @@ HighlightedCell.defaultProps = {
   style: {},
 };
 
+const Cell = (props) => {
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -51,14 +61,11 @@ export default class Demo extends React.PureComponent {
         { name: 'product', title: 'Product' },
         { name: 'amount', title: 'Sale Amount' },
       ],
-      tableColumnExtensions: [
-        { columnName: 'amount', cellComponent: HighlightedCell },
-      ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { rows, columns, tableColumnExtensions } = this.state;
+    const { rows, columns } = this.state;
 
     return (
       <Grid
@@ -66,7 +73,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <Table
-          columnExtensions={tableColumnExtensions}
+          cellComponent={Cell}
         />
         <TableHeaderRow />
       </Grid>

@@ -86,6 +86,8 @@ describe('Table', () => {
     });
 
     it('should extend tableColumns', () => {
+      const columnExtensions = [{ columnName: 'field', width: 100 }];
+
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -97,7 +99,7 @@ describe('Table', () => {
       ));
 
       expect(tableColumnsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.columns);
+        .toBeCalledWith(defaultDeps.getter.columns, columnExtensions);
       expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithDataRows');
     });

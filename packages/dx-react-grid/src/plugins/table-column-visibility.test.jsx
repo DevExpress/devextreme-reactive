@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { visibleTableColumns, getMessagesFormatter } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
@@ -9,6 +9,7 @@ import { TableColumnVisibility } from './table-column-visibility';
 jest.mock('@devexpress/dx-grid-core', () => ({
   visibleTableColumns: jest.fn(),
   getMessagesFormatter: jest.fn(),
+  columnChooserItems: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -39,6 +40,7 @@ describe('TableColumnVisibility', () => {
   beforeEach(() => {
     visibleTableColumns.mockImplementation(() => [{ column: { name: 'c' } }]);
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
+    columnChooserItems.mockImplementation(args => (args));
   });
   afterEach(() => {
     jest.resetAllMocks();

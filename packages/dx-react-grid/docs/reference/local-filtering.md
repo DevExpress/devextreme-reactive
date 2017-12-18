@@ -12,13 +12,20 @@ A plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnPredicate | (columnName: string) => [Predicate](#predicate) &#124; undefined | | A function that applies a filter predicate to a cell depending on its column. See the [Filtering guide](../guides/filtering.md#using-custom-filtering-algorithm) for more information.
+columnExtensions | Array&lg;[LocalFilteringColumnExtension](#localfilteringcolumnextension)&gt; | An array additional column properties that can be handled by the plugin.
 
 ## Interfaces
 
-### <a name="predicate"></a>Predicate
+### LocalFilteringColumnExtension
 
-A function with the `(value: any, filter: Object, row: any) => boolean` signature. The `filter` parameter accepts an object containing the 'value' field. Note that you can use the [onFilter](table-filter-row.md#tablefiltercellprop) event to extend this object to the fields your filtering algorithm requires.
+Describes additional column properties that can be handled by the plugin.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+columnName | string | Specifies the name of the column to extend.
+predicate? | (value: any, filter: Object, row: any) => boolean | A filter predicate. The `filter` parameter accepts an object containing the 'value' field. Note that you can use the [onFilter](table-filter-row.md#tablefiltercellprop) event to extend this object to the fields your filtering algorithm requires.
 
 ## Plugin Developer Reference
 

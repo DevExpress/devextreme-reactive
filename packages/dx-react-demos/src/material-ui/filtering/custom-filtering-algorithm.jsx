@@ -15,8 +15,7 @@ import {
 } from '../../demo-data/generator';
 
 const toLowerCase = value => String(value).toLowerCase();
-const filterByCity = (value, filter) => toLowerCase(value).startsWith(toLowerCase(filter.value));
-const getColumnPredicate = columnName => (columnName === 'city' ? filterByCity : undefined);
+const cityPredicate = (value, filter) => toLowerCase(value).startsWith(toLowerCase(filter.value));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -29,11 +28,14 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
+      localFilteringColumnExtensions: [
+        { columnName: 'city', predicate: cityPredicate },
+      ],
       rows: generateRows({ length: 14 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, localFilteringColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -42,7 +44,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState defaultFilters={[{ columnName: 'city', value: 'Paris' }]} />
-          <LocalFiltering getColumnPredicate={getColumnPredicate} />
+          <LocalFiltering columnExtensions={localFilteringColumnExtensions} />
           <Table />
           <TableHeaderRow />
           <TableFilterRow />

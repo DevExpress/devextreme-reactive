@@ -16,12 +16,12 @@ const styles = theme => ({
   headingCell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    padding: [0, theme.spacing.unit * 2, 0, theme.spacing.unit * 3],
+    padding: `0 ${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 3}px`,
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
-    padding: [0, theme.spacing.unit * 2, 0, theme.spacing.unit * 3],
+    padding: `0 ${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 3}px`,
   },
 });
 

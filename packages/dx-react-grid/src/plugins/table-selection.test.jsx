@@ -117,7 +117,6 @@ describe('Table Selection', () => {
         <TableSelection
           {...defaultProps}
           showSelectAll
-          // selectAllCellTemplate={selectAllCellTemplate}
         />
       </PluginHost>
     ));

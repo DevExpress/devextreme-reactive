@@ -40,9 +40,12 @@ export class GroupingState extends React.PureComponent {
     this.stateHelper = createStateHelper(this);
 
     this.groupByColumn = this.groupByColumn.bind(this);
-    this.toggleGroupExpanded = this.stateHelper.applyReducer.bind(null, toggleExpandedGroups);
-    this.draftGroupingChange = this.stateHelper.applyReducer.bind(null, draftGroupingChange);
-    this.cancelGroupingChange = this.stateHelper.applyReducer.bind(null, cancelGroupingChange);
+    this.toggleGroupExpanded = this.stateHelper.applyReducer
+      .bind(this.stateHelper, toggleExpandedGroups);
+    this.draftGroupingChange = this.stateHelper.applyReducer
+      .bind(this.stateHelper, draftGroupingChange);
+    this.cancelGroupingChange = this.stateHelper.applyReducer
+      .bind(this.stateHelper, cancelGroupingChange);
     this.setColumnSorting = this.setColumnSorting.bind(this);
   }
   getState() {

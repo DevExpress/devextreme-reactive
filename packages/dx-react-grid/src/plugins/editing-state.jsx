@@ -34,14 +34,14 @@ export class EditingState extends React.PureComponent {
     const stateHelper = createStateHelper(this);
 
     this.startEditRows = stateHelper.applyFieldReducer
-      .bind(null, 'editingRows', startEditRows);
+      .bind(stateHelper, 'editingRows', startEditRows);
     this.stopEditRows = stateHelper.applyFieldReducer
-      .bind(null, 'editingRows', stopEditRows);
+      .bind(stateHelper, 'editingRows', stopEditRows);
 
     this.changeRow = stateHelper.applyFieldReducer
-      .bind(null, 'changedRows', changeRow);
+      .bind(stateHelper, 'changedRows', changeRow);
     this.cancelChangedRows = stateHelper.applyFieldReducer
-      .bind(null, 'changedRows', cancelChanges);
+      .bind(stateHelper, 'changedRows', cancelChanges);
     this.commitChangedRows = ({ rowIds }) => {
       this.props.onCommitChanges({
         changed: changedRowsByIds(this.getState().changedRows, rowIds),
@@ -50,11 +50,11 @@ export class EditingState extends React.PureComponent {
     };
 
     this.addRow = stateHelper.applyFieldReducer
-      .bind(null, 'addedRows', addRow);
+      .bind(stateHelper, 'addedRows', addRow);
     this.changeAddedRow = stateHelper.applyFieldReducer
-      .bind(null, 'addedRows', changeAddedRow);
+      .bind(stateHelper, 'addedRows', changeAddedRow);
     this.cancelAddedRows = stateHelper.applyFieldReducer
-      .bind(null, 'addedRows', cancelAddedRows);
+      .bind(stateHelper, 'addedRows', cancelAddedRows);
     this.commitAddedRows = ({ rowIds }) => {
       this.props.onCommitChanges({
         added: addedRowsByIds(this.getState().addedRows, rowIds),
@@ -63,9 +63,9 @@ export class EditingState extends React.PureComponent {
     };
 
     this.deleteRows = stateHelper.applyFieldReducer
-      .bind(null, 'deletedRows', deleteRows);
+      .bind(stateHelper, 'deletedRows', deleteRows);
     this.cancelDeletedRows = stateHelper.applyFieldReducer
-      .bind(null, 'deletedRows', cancelDeletedRows);
+      .bind(stateHelper, 'deletedRows', cancelDeletedRows);
     this.commitDeletedRows = ({ rowIds }) => {
       this.props.onCommitChanges({ deleted: rowIds });
       this.cancelDeletedRows({ rowIds });

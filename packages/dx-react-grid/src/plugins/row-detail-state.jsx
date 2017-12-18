@@ -15,7 +15,7 @@ export class RowDetailState extends React.PureComponent {
     const stateHelper = createStateHelper(this);
 
     this.setDetailRowExpanded = stateHelper.applyFieldReducer
-      .bind(null, 'expandedRows', setDetailRowExpanded);
+      .bind(stateHelper, 'expandedRows', setDetailRowExpanded);
   }
   getState() {
     return {

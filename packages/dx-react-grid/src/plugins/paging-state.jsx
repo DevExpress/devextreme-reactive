@@ -16,9 +16,9 @@ export class PagingState extends React.PureComponent {
     const stateHelper = createStateHelper(this);
 
     this.setCurrentPage = stateHelper.applyFieldReducer
-      .bind(null, 'currentPage', setCurrentPage);
+      .bind(stateHelper, 'currentPage', setCurrentPage);
     this.setPageSize = stateHelper.applyFieldReducer
-      .bind(null, 'pageSize', setPageSize);
+      .bind(stateHelper, 'pageSize', setPageSize);
   }
   getState() {
     return {

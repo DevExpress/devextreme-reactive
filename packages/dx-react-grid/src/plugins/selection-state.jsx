@@ -14,7 +14,8 @@ export class SelectionState extends React.PureComponent {
 
     const stateHelper = createStateHelper(this);
 
-    this.toggleSelection = stateHelper.applyFieldReducer.bind(null, 'selection', setRowsSelection);
+    this.toggleSelection = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'selection', setRowsSelection);
   }
   getState() {
     return {

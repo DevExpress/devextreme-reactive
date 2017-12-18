@@ -14,7 +14,8 @@ export class SortingState extends React.PureComponent {
 
     const stateHelper = createStateHelper(this);
 
-    this.setColumnSorting = stateHelper.applyReducer.bind(null, setColumnSorting);
+    this.setColumnSorting = stateHelper.applyReducer
+      .bind(stateHelper, setColumnSorting);
   }
   getState() {
     return {

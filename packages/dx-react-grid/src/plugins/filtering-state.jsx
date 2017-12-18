@@ -14,7 +14,7 @@ export class FilteringState extends React.PureComponent {
     const stateHelper = createStateHelper(this);
 
     this.setColumnFilter = stateHelper.applyFieldReducer
-      .bind(null, 'filters', setColumnFilter);
+      .bind(stateHelper, 'filters', setColumnFilter);
   }
   getState() {
     return {

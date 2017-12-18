@@ -23,7 +23,6 @@ Describes properties passed to a component that renders the toolbar root element
 Field | Type | Description
 ------|------|------------
 children? | ReactElement | A React element to be placed in the toolbar.
-style? | Object | Styles that should be applied to the root toolbar element.
 
 ## Plugin Components
 

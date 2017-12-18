@@ -52,7 +52,7 @@ describe('LocalPaging', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.totalCount)
+    expect(getComputedState(tree).totalCount)
       .toBe(6);
   });
 
@@ -64,7 +64,7 @@ describe('LocalPaging', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.rows)
+    expect(getComputedState(tree).rows)
       .toEqual([{ id: 2 }, { id: 3 }]);
   });
 

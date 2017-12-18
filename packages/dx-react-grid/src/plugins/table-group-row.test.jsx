@@ -88,7 +88,7 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableBodyRows)
+      expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithGrouping');
       expect(tableRowsWithGrouping)
         .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.isGroupRow);
@@ -105,7 +105,7 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       expect(tableColumnsWithGrouping)
         .toBeCalledWith(
@@ -140,7 +140,7 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
       expect(showColumnWhenGrouped('A')).toBe(false);
@@ -167,7 +167,7 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
       expect(showColumnWhenGrouped('A')).toBe(true);
@@ -198,7 +198,7 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
       expect(showColumnWhenGrouped('A')).toBe(false);

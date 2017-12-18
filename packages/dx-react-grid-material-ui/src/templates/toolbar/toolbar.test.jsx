@@ -2,7 +2,7 @@ import React from 'react';
 import { getClasses, createShallow } from 'material-ui/test-utils';
 import { Toolbar } from './toolbar';
 
-describe('TableHeaderCell', () => {
+describe('Toolbar', () => {
   let classes;
   let shallow;
   beforeAll(() => {

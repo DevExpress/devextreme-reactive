@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Toolbar } from './toolbar';
 
-describe('TableHeaderCell', () => {
+describe('Toolbar', () => {
   it('should pass custom class to the root element', () => {
     const tree = shallow((
       <Toolbar

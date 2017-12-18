@@ -8,7 +8,7 @@ const defaultProps = {
   totalCount: 96,
   pageSize: 10,
   getMessage: key => key,
-  allowedPageSizes: [],
+  pageSizes: [],
   onCurrentPageChange: () => {},
   onPageSizeChange: () => {},
 };
@@ -98,7 +98,7 @@ describe('Pager', () => {
       const pageSizeSelector = shallow((
         <Pager
           {...defaultProps}
-          allowedPageSizes={[5, 10]}
+          pageSizes={[5, 10]}
         />
       )).find('PageSizeSelector');
 
@@ -108,7 +108,7 @@ describe('Pager', () => {
         .toBe('showAll');
     });
 
-    it('doesn\'t render page selector if the allowedPageSizes option is not defined ', () => {
+    it('doesn\'t render page selector if the pageSizes option is not defined ', () => {
       const pageSizeSelector = shallow((
         <Pager
           {...defaultProps}

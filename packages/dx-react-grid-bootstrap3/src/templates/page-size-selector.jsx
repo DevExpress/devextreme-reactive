@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const PageSizeSelector = ({
   pageSize,
   onPageSizeChange,
-  allowedPageSizes,
+  pageSizes,
   getMessage,
 }) => {
   const showAll = getMessage('showAll');
@@ -16,7 +16,7 @@ export const PageSizeSelector = ({
         value={pageSize}
         onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
       >
-        {allowedPageSizes.map(val => (
+        {pageSizes.map(val => (
           <option key={val} value={val}>
             {val || showAll}
           </option>
@@ -29,7 +29,7 @@ export const PageSizeSelector = ({
           verticalAlign: 'bottom',
         }}
       >
-        {allowedPageSizes.map(item => (
+        {pageSizes.map(item => (
           <li key={item} className={item === pageSize ? 'active' : ''}>
             <a
               href="#"
@@ -50,7 +50,7 @@ export const PageSizeSelector = ({
 PageSizeSelector.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   getMessage: PropTypes.func.isRequired,
 };
 

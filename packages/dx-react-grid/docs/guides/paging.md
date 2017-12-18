@@ -26,7 +26,7 @@ In the following example, the page size is specified using the `PagingState` plu
 
 ## Page Size Selection
 
-Assign an array of available page sizes to the `PagingPanel` plugin's `allowedPageSizes` property to enable page size selection via the UI. The Page Size Selector displays the 'All' item if the specified array contains an item whose value is 0. You can specify custom text for this Page Size Selector item using the `messages.showAll` property.
+Assign an array of available page sizes to the `PagingPanel` plugin's `pageSizes` property to enable page size selection via the UI. The Page Size Selector displays the 'All' item if the specified array contains an item whose value is 0. You can specify custom text for this Page Size Selector item using the `messages.showAll` property.
 
 The example below demonstrates the basic configuration for the uncontrolled mode. The `PagingState` plugin's `defaultPageSize` property defines the initial page size.
 
@@ -39,7 +39,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 - `currentPage` and `onCurrentPageChange` - the currently displayed page's index
 - `pageSize` and `onPageSizeChange` - the page size
 
-Note that the `onPageSizeChange` handler makes sense only if the `allowedPageSizes` option is specified. Otherwise, a user is not able to change the page size.
+Note that the `onPageSizeChange` handler makes sense only if the `pageSizes` option is specified. Otherwise, a user is not able to change the page size.
 
 .embedded-demo(paging/local-paging-controlled)
 

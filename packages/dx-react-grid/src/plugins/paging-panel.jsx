@@ -14,7 +14,7 @@ export class PagingPanel extends React.PureComponent {
   render() {
     const {
       containerComponent: Pager,
-      allowedPageSizes,
+      pageSizes,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -33,7 +33,7 @@ export class PagingPanel extends React.PureComponent {
                 pageSize={pageSize}
                 totalCount={totalCount}
                 totalPages={pageCount(totalCount, pageSize)}
-                allowedPageSizes={allowedPageSizes}
+                pageSizes={pageSizes}
                 getMessage={getMessage}
                 onCurrentPageChange={setCurrentPage}
                 onPageSizeChange={setPageSize}
@@ -47,12 +47,12 @@ export class PagingPanel extends React.PureComponent {
 }
 
 PagingPanel.propTypes = {
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number),
+  pageSizes: PropTypes.arrayOf(PropTypes.number),
   containerComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 
 PagingPanel.defaultProps = {
-  allowedPageSizes: [],
+  pageSizes: [],
   messages: {},
 };

@@ -48,7 +48,7 @@ export const styles = theme => ({
 const PageSizeSelectorBase = ({
   pageSize,
   onPageSizeChange,
-  allowedPageSizes,
+  pageSizes,
   getMessage,
   classes,
 }) => {
@@ -72,7 +72,7 @@ const PageSizeSelectorBase = ({
           />
         }
       >
-        {allowedPageSizes.map(item => (
+        {pageSizes.map(item => (
           <MenuItem key={item} value={item}>
             {item !== 0 ? item : showAll }
           </MenuItem>
@@ -85,7 +85,7 @@ const PageSizeSelectorBase = ({
 PageSizeSelectorBase.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
 };

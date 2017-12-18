@@ -65,7 +65,7 @@ const GridContainer = ({
   onCurrentPageChange,
   pageSize,
   onPageSizeChange,
-  allowedPageSizes,
+  pageSizes,
   columnOrder,
   onColumnOrderChange,
   columnWidths,
@@ -133,7 +133,7 @@ const GridContainer = ({
     <GroupingPanel allowSorting allowDragging />
     <TableGroupRow />
     <PagingPanel
-      allowedPageSizes={allowedPageSizes}
+      pageSizes={pageSizes}
     />
 
   </Grid>
@@ -158,7 +158,7 @@ GridContainer.propTypes = {
   onCurrentPageChange: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
-  allowedPageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   columnOrder: PropTypes.array.isRequired,
   onColumnOrderChange: PropTypes.func.isRequired,
   columnWidths: PropTypes.objectOf(PropTypes.number).isRequired,
@@ -202,7 +202,7 @@ const gridInitialState = {
   filters: [],
   currentPage: 0,
   pageSize: 10,
-  allowedPageSizes: [5, 10, 15],
+  pageSizes: [5, 10, 15],
   columnOrder: ['prefix', 'firstName', 'lastName', 'position', 'state', 'birthDate'],
   columnWidths: {
     prefix: 75,

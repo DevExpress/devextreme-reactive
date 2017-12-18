@@ -48,11 +48,11 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
-      allowedPageSizes: [5, 10, 15],
+      pageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const { rows, columns, pageSizes } = this.state;
 
     return (
       <Grid
@@ -97,7 +97,7 @@ export default class Demo extends React.PureComponent {
         <TableHeaderRow allowSorting allowDragging />
         <TableFilterRow />
         <PagingPanel
-          allowedPageSizes={allowedPageSizes}
+          pageSizes={pageSizes}
         />
         <TableSelection showSelectAll />
         <GroupingPanel allowSorting allowDragging />

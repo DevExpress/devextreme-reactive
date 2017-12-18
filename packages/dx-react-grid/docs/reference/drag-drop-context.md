@@ -58,4 +58,6 @@ root | Template | Object? | A template that renders the grid's root layout.
 
 ### Exports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+draggingEnabled | Getter | boolean | Specifies whether a drag-and-drop functionality is enabled.

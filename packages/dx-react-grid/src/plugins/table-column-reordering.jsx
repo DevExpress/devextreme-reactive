@@ -51,8 +51,13 @@ export class TableColumnReordering extends React.PureComponent {
       .filter(columnName => !!this.cellDimensionGetters[columnName]);
   }
   getCellDimensions() {
-    return this.getAvailableColumns()
-      .map(columnName => this.cellDimensionGetters[columnName]());
+    this.cellDimensions = (this.cellDimensions && this.cellDimensions.length)
+      ? this.cellDimensions
+      : this.getAvailableColumns()
+        .map(columnName => this.cellDimensionGetters[columnName]());
+  }
+  resetCellDimensions() {
+    this.cellDimensions = [];
   }
   storeCellDimensionsGetter(tableColumn, data) {
     if (tableColumn.type === TABLE_DATA_TYPE) {
@@ -66,8 +71,7 @@ export class TableColumnReordering extends React.PureComponent {
 
     if (relativeSourceColumnIndex === -1) return;
 
-    this.cellDimensions = (this.cellDimensions && this.cellDimensions.length)
-      ? this.cellDimensions : this.getCellDimensions();
+    this.getCellDimensions();
     const { cellDimensions } = this;
 
     const overlappedColumns = cellDimensions
@@ -106,6 +110,8 @@ export class TableColumnReordering extends React.PureComponent {
       sourceColumnIndex: -1,
       targetColumnIndex: -1,
     });
+
+    this.resetCellDimensions();
   }
   handleDrop() {
     const { sourceColumnIndex, targetColumnIndex, order } = this.getState();
@@ -125,7 +131,7 @@ export class TableColumnReordering extends React.PureComponent {
       onOrderChange(nextOrder);
     }
 
-    this.cellDimensions = [];
+    this.resetCellDimensions();
   }
   render() {
     const {

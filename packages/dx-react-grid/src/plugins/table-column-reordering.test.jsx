@@ -24,16 +24,17 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   TABLE_REORDERING_TYPE: 'r',
   orderedColumns: jest.fn(),
   getTableTargetColumnIndex: jest.fn(),
-  changeColumnOrder: jest.fn(),
+  changeColumnOrder: jest.fn(args => args),
   tableHeaderRowsWithReordering: jest.fn(),
   draftOrder: jest.fn(args => args),
 }));
 
 /* eslint-disable react/prop-types */
+const getBoundingClientRect = jest.fn(node => node.getBoundingClientRect());
 const DefaultContainer = ({ children }) => <div>{children}</div>;
 const DefaultRow = () => null;
 const DefaultCell = ({ getCellDimensions }) =>
-  <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />;
+  <div ref={node => getCellDimensions(() => getBoundingClientRect(node))} />;
 /* eslint-enable react/prop-types */
 
 const defaultDeps = {
@@ -269,6 +270,31 @@ describe('TableColumnReordering', () => {
       onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       expect(draftOrder)
         .toHaveBeenLastCalledWith(['c', 'a', 'b'], 1, 2);
+    });
+
+    it('should reset cell dimensions after leave and drop events', () => {
+      const { onOver, onLeave, onDrop } = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
+        .find(TableMock)
+        .props();
+
+      getBoundingClientRect.mockClear();
+
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+
+      onLeave();
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+
+      onDrop();
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+
+      expect(getBoundingClientRect)
+        .toHaveBeenCalledTimes(6);
     });
   });
 });

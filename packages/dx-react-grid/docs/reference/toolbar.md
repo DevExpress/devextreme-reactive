@@ -29,7 +29,7 @@ style? | Object | Styles that should be applied to the root toolbar element.
 
 Name | Properties | Description
 -----|------------|------------
-Toolbar.Root | [ToolbarRootProps](#toolbarrootprops) | A component that renders a table data cell.
+Toolbar.Root | [ToolbarRootProps](#toolbarrootprops) | A component that renders the toolbar root element.
 
 If you specify additional properties, they are added to the component's root element.
 

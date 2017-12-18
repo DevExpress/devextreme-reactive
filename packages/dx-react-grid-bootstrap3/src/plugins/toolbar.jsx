@@ -1,8 +1,7 @@
 import React from 'react';
 import { Toolbar as ToolbarBase } from '@devexpress/dx-react-grid';
-import { Toolbar as Root } from '../templates/toolbar';
-
-const FlexibleSpace = () => (<div style={{ flex: '1 0' }} />);
+import { Toolbar as Root } from '../templates/toolbar/toolbar';
+import { FlexibleSpace } from '../templates/toolbar/flexible-space';
 
 export class Toolbar extends React.PureComponent {
   render() {

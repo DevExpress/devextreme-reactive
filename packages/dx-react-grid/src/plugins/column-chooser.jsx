@@ -7,6 +7,7 @@ import {
 
 const pluginDependencies = [
   { pluginName: 'TableColumnVisibility' },
+  { pluginName: 'Toolbar' },
 ];
 export class ColumnChooser extends React.PureComponent {
   constructor(props) {
@@ -45,7 +46,7 @@ export class ColumnChooser extends React.PureComponent {
         pluginName="ColumnChooser"
         dependencies={pluginDependencies}
       >
-        <Template name="header">
+        <Template name="toolbarContent">
           <TemplatePlaceholder />
           <div>
             <Button

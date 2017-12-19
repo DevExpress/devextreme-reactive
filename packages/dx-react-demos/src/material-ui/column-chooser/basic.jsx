@@ -6,6 +6,7 @@ import {
   TableHeaderRow,
   ColumnChooser,
   TableColumnVisibility,
+  Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   generateRows,
@@ -40,6 +41,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <Table />
+          <Toolbar />
           <TableHeaderRow />
           <TableColumnVisibility
             hiddenColumns={hiddenColumns}

@@ -92,13 +92,13 @@ export default class Demo extends React.PureComponent {
           <VirtualTable
             cellComponent={Cell}
           />
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow allowDragging />
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
           <TableFilterRow />
           <TableSelection showSelectAll />
           <TableGroupRow />
           <Toolbar />
-          <GroupingPanel allowSorting allowDragging />
+          <GroupingPanel allowDragging />
         </Grid>
       </Paper>
     );

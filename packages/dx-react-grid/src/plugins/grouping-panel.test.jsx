@@ -104,6 +104,9 @@ describe('GroupingPanel', () => {
 
   it('should pass correct parameters to itemComponent', () => {
     const deps = {
+      getter: {
+        getSortingColumnExtension: () => ({ enabled: true }),
+      },
       plugins: ['SortingState'],
     };
     const tree = mount((
@@ -113,7 +116,6 @@ describe('GroupingPanel', () => {
           {...defaultProps}
           layoutComponent={({ itemComponent: Item }) =>
             <Item item={{ column: { name: 'a' } }} />}
-          allowSorting
           showGroupingControls
         />
       </PluginHost>
@@ -121,7 +123,6 @@ describe('GroupingPanel', () => {
 
     expect(tree.find(defaultProps.itemComponent).props())
       .toMatchObject({
-        allowSorting: true,
         showGroupingControls: true,
         sortingDirection: getColumnSortingDirection(),
         onGroup: expect.any(Function),

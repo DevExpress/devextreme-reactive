@@ -20,7 +20,6 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A component that renders a header cell.
 rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
-allowSorting | boolean | false | Specifies whether a user can change the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 allowDragging | boolean | false | Specifies whether a user can drag a column by the header cell. Requires the [DragDropContext](drag-drop-context.md) dependency.
 showGroupingControls | boolean | false | Specifies whether to render controls that toggle the column's grouping state. Requires the [GroupingState](grouping-state.md) dependency.
 allowResizing | boolean | false | Specifies whether a user can resize columns. Requires the [TableColumnResizing](table-column-resizing.md) dependency.

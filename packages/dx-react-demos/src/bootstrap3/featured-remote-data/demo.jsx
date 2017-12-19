@@ -151,7 +151,7 @@ export default class Demo extends React.PureComponent {
           <Table
             cellComponent={Cell}
           />
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow />
           <PagingPanel
             pageSizes={pageSizes}
           />

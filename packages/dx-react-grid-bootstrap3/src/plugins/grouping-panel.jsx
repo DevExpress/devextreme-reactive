@@ -31,13 +31,11 @@ GroupingPanel.Item = GroupPanelItem;
 GroupingPanel.EmptyMessage = GroupPanelEmptyMessage;
 
 GroupingPanel.propTypes = {
-  allowSorting: PropTypes.bool,
   messages: PropTypes.shape({
     groupByColumn: PropTypes.string,
   }),
 };
 
 GroupingPanel.defaultProps = {
-  allowSorting: false,
   messages: {},
 };

@@ -138,7 +138,7 @@ const GridContainer = ({
         onColumnWidthsChange={onColumnWidthsChange}
       />
 
-      <TableHeaderRow allowSorting allowDragging allowResizing />
+      <TableHeaderRow allowDragging allowResizing />
       <TableFilterRow />
       <TableSelection showSelectAll />
       <TableRowDetail
@@ -146,7 +146,7 @@ const GridContainer = ({
       />
       <TableGroupRow />
       <Toolbar />
-      <GroupingPanel allowSorting allowDragging />
+      <GroupingPanel allowDragging />
       <PagingPanel
         pageSizes={pageSizes}
       />

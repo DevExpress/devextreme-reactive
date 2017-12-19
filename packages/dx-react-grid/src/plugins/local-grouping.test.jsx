@@ -55,7 +55,7 @@ describe('LocalGrouping', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.isGroupRow)
+    expect(getComputedState(tree).isGroupRow)
       .toBe(groupRowChecker);
   });
 
@@ -67,7 +67,7 @@ describe('LocalGrouping', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.getRowLevelKey)
+    expect(getComputedState(tree).getRowLevelKey)
       .toBe(groupRowLevelKeyGetter);
   });
 
@@ -94,7 +94,7 @@ describe('LocalGrouping', () => {
         defaultDeps.getter.expandedGroups,
       );
 
-    expect(getComputedState(tree).getters.rows)
+    expect(getComputedState(tree).rows)
       .toBe(expandedGroupRows());
   });
 

@@ -73,7 +73,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableHeaderRows)
+      expect(getComputedState(tree).tableHeaderRows)
         .toBe('tableRowsWithHeading');
       expect(tableRowsWithHeading)
         .toBeCalledWith(defaultDeps.getter.tableHeaderRows);

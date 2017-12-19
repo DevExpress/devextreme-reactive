@@ -5,11 +5,12 @@ import { withStyles } from 'material-ui/styles';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
 
-const styles = {
+const styles = theme => ({
   pager: {
     overflow: 'hidden',
+    padding: theme.spacing.unit * 1.5,
   },
-};
+});
 
 const PagerBase = ({
   currentPage,

@@ -12,6 +12,7 @@ The following plugins implement grouping features:
 - [TableGroupRow](../reference/table-group-row.md) - renders group rows
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging
 - [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
+- [Toolbar](../reference/toolbar.md) - renders the Grid Toolbar
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -37,7 +38,7 @@ In the following example, the data is specified as an array of groups. Specify t
 
 ## Configure the Grouping UI
 
-Use the `GroupPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to allow a user to use any of the following methods to specify grouping options:
+Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to allow a user to use any of the following methods to specify grouping options:
 
 - Drag a column header to or from the Group Panel
  Set the `TableHeaderRow` and `GroupingPanel` plugins' `allowDragging` properties to true.

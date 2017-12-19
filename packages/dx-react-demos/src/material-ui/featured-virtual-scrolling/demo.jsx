@@ -8,7 +8,7 @@ import {
 import {
   Grid,
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  GroupingPanel, DragDropContext, TableColumnReordering,
+  GroupingPanel, DragDropContext, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
@@ -102,6 +102,7 @@ export default class Demo extends React.PureComponent {
           <TableFilterRow />
           <TableSelection showSelectAll />
           <TableGroupRow />
+          <Toolbar />
           <GroupingPanel allowSorting allowDragging />
         </Grid>
       </Paper>

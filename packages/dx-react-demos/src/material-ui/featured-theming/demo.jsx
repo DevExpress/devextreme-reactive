@@ -9,7 +9,7 @@ import {
   Grid,
   Table, TableHeaderRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
-  TableColumnReordering,
+  TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   AppBar, Paper, Typography, IconButton,
@@ -229,6 +229,7 @@ export default class Demo extends React.PureComponent {
             contentComponent={GridDetailContainer}
           />
           <TableGroupRow />
+          <Toolbar />
           <GroupingPanel allowSorting allowDragging />
         </Grid>
       </Paper>

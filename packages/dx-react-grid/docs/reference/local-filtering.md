@@ -12,13 +12,13 @@ A plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions | Array&lg;[LocalFilteringColumnExtension](#localfilteringcolumnextension)&gt; | | Additional column properties that can be handled by the plugin.
+columnExtensions | Array&lg;[LocalFilteringColumnExtension](#localfilteringcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 
 ### LocalFilteringColumnExtension
 
-Describes additional column properties that can be handled by the plugin.
+Describes additional column properties that the plugin can handle.
 
 A value with the following shape:
 

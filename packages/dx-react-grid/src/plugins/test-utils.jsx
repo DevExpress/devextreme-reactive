@@ -16,7 +16,14 @@ const entries = object =>
 const computedEntries = object => Object.getOwnPropertyNames(object)
   .reduce((acc, key) => Object.assign(acc, { [key]: object[key] }), {});
 
-const ComputedStateContainer = () => null;
+let actionExecutor = () => {};
+// eslint-disable-next-line react/prop-types
+const ComputedStateContainer = ({ actions }) => (
+  <button
+    className="actionExecutor"
+    onClick={() => actionExecutor(actions)}
+  />
+);
 
 export const pluginDepsToComponents = (
   deps,
@@ -45,36 +52,22 @@ export const pluginDepsToComponents = (
         </Template>
       ))}
     <Template name="root">
-      {() => (
-        <div>
-          <TemplateConnector>
-            {(getters, actions) => (
-              <ComputedStateContainer
-                getters={computedEntries(getters)}
-                actions={computedEntries(actions)}
-              />
-            )}
-          </TemplateConnector>
-          <TemplatePlaceholder />
-        </div>
-      )}
+      <TemplateConnector>
+        {(getters, actions) => (
+          <ComputedStateContainer
+            getters={computedEntries(getters)}
+            actions={computedEntries(actions)}
+          />
+        )}
+      </TemplateConnector>
+      <TemplatePlaceholder />
     </Template>
   </PluginContainer>
 );
 
-export const getComputedState = (tree) => {
-  const state = tree.find(ComputedStateContainer).props();
+export const getComputedState = tree => tree.find(ComputedStateContainer).props().getters;
 
-  return {
-    ...state,
-    actions: Object.keys(state.actions)
-      .map(key => [
-        key,
-        (...args) => {
-          state.actions[key](...args);
-          tree.update();
-        },
-      ])
-      .reduce((acc, [key, value]) => Object.assign(acc, { [key]: value }), {}),
-  };
+export const executeComputedAction = (tree, executor) => {
+  actionExecutor = executor;
+  tree.find(ComputedStateContainer).find('.actionExecutor').simulate('click');
 };

@@ -15,34 +15,13 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const NameGroupCell = ({
-  style, colSpan, row, expanded, onToggle,
-}) => (
-  <td
-    colSpan={colSpan}
-    style={{
-      cursor: 'pointer',
-      ...style,
-    }}
-    onClick={onToggle}
-  >
-    { expanded ? '- ' : '+ ' }
-    <strong>Names from {row.value.from} to {row.value.to}</strong>
-  </td>
+const NameGroupCell = props => (
+  <TableGroupRow.Cell {...props}>
+    from {props.row.value.from} to {props.row.value.to}
+  </TableGroupRow.Cell>
 );
 NameGroupCell.propTypes = {
-  style: PropTypes.object,
-  colSpan: PropTypes.number,
-  row: PropTypes.object,
-  expanded: PropTypes.bool,
-  onToggle: PropTypes.func,
-};
-NameGroupCell.defaultProps = {
-  style: null,
-  colSpan: 1,
-  row: {},
-  expanded: false,
-  onToggle: () => {},
+  row: PropTypes.object.isRequired,
 };
 
 const GroupCell = (props) => {

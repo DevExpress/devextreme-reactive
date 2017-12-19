@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnSorting } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 export class SortingState extends React.PureComponent {
   constructor(props) {
@@ -11,22 +12,21 @@ export class SortingState extends React.PureComponent {
       sorting: props.defaultSorting,
     };
 
-    this.setColumnSorting = this.applyReducer.bind(this, setColumnSorting);
+    const stateHelper = createStateHelper(this);
+
+    this.setColumnSorting = stateHelper.applyReducer
+      .bind(stateHelper, setColumnSorting);
   }
   getState() {
     return {
+      ...this.state,
       sorting: this.props.sorting || this.state.sorting,
     };
   }
-  applyReducer(reduce, payload) {
-    const prevState = this.getState();
-    const statePart = reduce(prevState, payload);
-    this.setState(statePart);
-    const state = { ...prevState, ...statePart };
-
-    const { sorting } = state;
+  notifyStateChange(nextState, state) {
+    const { sorting } = nextState;
     const { onSortingChange } = this.props;
-    if (onSortingChange && sorting !== prevState.sorting) {
+    if (onSortingChange && sorting !== state.sorting) {
       onSortingChange(sorting);
     }
   }

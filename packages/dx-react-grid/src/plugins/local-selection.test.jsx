@@ -7,7 +7,7 @@ import {
   someSelected,
   allSelected,
 } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { LocalSelection } from './local-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -70,7 +70,7 @@ describe('LocalSelection', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.allSelected)
+    expect(getComputedState(tree).allSelected)
       .toBe('allSelected');
 
     expect(allSelected)
@@ -87,7 +87,7 @@ describe('LocalSelection', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.someSelected)
+    expect(getComputedState(tree).someSelected)
       .toBe('someSelected');
 
     expect(someSelected)
@@ -104,7 +104,7 @@ describe('LocalSelection', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.selectAllAvailable)
+    expect(getComputedState(tree).selectAllAvailable)
       .toBe(!!defaultDeps.getter.rows.length);
   });
   it('should provide toggleSelection action', () => {
@@ -115,7 +115,7 @@ describe('LocalSelection', () => {
       </PluginHost>
     ));
 
-    getComputedState(tree).actions.toggleSelectAll();
+    executeComputedAction(tree, actions => actions.toggleSelectAll());
     expect(defaultDeps.action.toggleSelection.mock.calls.length).toBe(1);
   });
 });

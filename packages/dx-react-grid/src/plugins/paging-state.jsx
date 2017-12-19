@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 export class PagingState extends React.PureComponent {
   constructor(props) {
@@ -12,41 +13,46 @@ export class PagingState extends React.PureComponent {
       pageSize: props.defaultPageSize,
     };
 
-    this.setCurrentPage = (page) => {
-      const { onCurrentPageChange } = this.props;
-      const currentPage = setCurrentPage(this.state.currentPage, page);
-      this.setState({ currentPage });
-      if (onCurrentPageChange) {
-        onCurrentPageChange(currentPage);
-      }
-    };
+    const stateHelper = createStateHelper(this);
 
-    this.setPageSize = (size) => {
-      const { onPageSizeChange } = this.props;
-      const pageSize = setPageSize(this.state.pageSize, size);
-      this.setState({ pageSize });
-      if (onPageSizeChange) {
-        onPageSizeChange(pageSize);
-      }
+    this.setCurrentPage = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'currentPage', setCurrentPage);
+    this.setPageSize = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'pageSize', setPageSize);
+  }
+  getState() {
+    return {
+      ...this.state,
+      currentPage: this.props.currentPage || this.state.currentPage,
+      pageSize: this.props.pageSize || this.state.pageSize,
+      totalCount: this.props.totalCount,
     };
   }
+  notifyStateChange(nextState, state) {
+    const { currentPage } = nextState;
+    const { onCurrentPageChange } = this.props;
+    if (onCurrentPageChange && currentPage !== state.currentPage) {
+      onCurrentPageChange(currentPage);
+    }
+
+    const { pageSize } = nextState;
+    const { onPageSizeChange } = this.props;
+    if (onPageSizeChange && pageSize !== state.pageSize) {
+      onPageSizeChange(pageSize);
+    }
+  }
   render() {
-    const {
-      pageSize = this.state.pageSize,
-      currentPage = this.state.currentPage,
-      totalCount,
-    } = this.props;
+    const { pageSize, currentPage, totalCount } = this.getState();
 
     return (
       <PluginContainer
         pluginName="PagingState"
       >
-        <Action name="setCurrentPage" action={page => this.setCurrentPage(page)} />
-        <Action name="setPageSize" action={size => this.setPageSize(size)} />
-
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
         <Getter name="totalCount" value={totalCount} />
+        <Action name="setCurrentPage" action={this.setCurrentPage} />
+        <Action name="setPageSize" action={this.setPageSize} />
       </PluginContainer>
     );
   }

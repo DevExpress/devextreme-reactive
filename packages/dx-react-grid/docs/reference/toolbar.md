@@ -1,6 +1,6 @@
 # Toolbar Plugin Reference
 
-A plugin that renders Grid's toolbar.
+A plugin that renders the Grid toolbar.
 
 ## User Reference
 

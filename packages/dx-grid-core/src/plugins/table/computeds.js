@@ -3,9 +3,10 @@ import { getColumnExtension } from '../../utils/column';
 
 export const tableColumnsWithDataRows = (columns, columnExtensions) =>
   columns.map((column) => {
-    const columnExtension = getColumnExtension(columnExtensions, column.name);
+    const { name } = column;
+    const columnExtension = getColumnExtension(columnExtensions, name);
     return {
-      key: `${TABLE_DATA_TYPE}_${column.name}`,
+      key: `${TABLE_DATA_TYPE}_${name}`,
       type: TABLE_DATA_TYPE,
       width: columnExtension.width,
       align: columnExtension.align,

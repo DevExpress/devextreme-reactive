@@ -1,15 +1,16 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { visibleTableColumns, getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessagesFormatter, columnChooserItems, toggleColumn } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   visibleTableColumns: jest.fn(),
   getMessagesFormatter: jest.fn(),
   columnChooserItems: jest.fn(),
+  toggleColumn: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -43,6 +44,7 @@ describe('TableColumnVisibility', () => {
   });
 
   beforeEach(() => {
+    toggleColumn.mockImplementation(args => (args));
     visibleTableColumns.mockImplementation(() => [{ column: { name: 'c' } }]);
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     columnChooserItems.mockImplementation(args => (args));
@@ -51,20 +53,54 @@ describe('TableColumnVisibility', () => {
     jest.resetAllMocks();
   });
 
-  it('should call the visibleTableColumns computed with correct arguments', () => {
-    const hiddenColumns = ['b', 'a'];
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableColumnVisibility
-          hiddenColumns={hiddenColumns}
-          emptyMessageComponent={DefaultEmptyMessage}
-        />
-      </PluginHost>
-    ));
+  describe('table layout getters extending', () => {
+    it('should extend hiddenColumns from hiddenColumns property', () => {
+      const hiddenColumns = ['b', 'a'];
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnVisibility
+            hiddenColumns={hiddenColumns}
+            emptyMessageComponent={DefaultEmptyMessage}
+          />
+        </PluginHost>
+      ));
 
-    expect(visibleTableColumns)
-      .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, hiddenColumns);
+      expect(getComputedState(tree).hiddenColumns)
+        .toBe(hiddenColumns);
+    });
+
+    it('should extend hiddenColumns from defaultHiddenColumns property', () => {
+      const hiddenColumns = ['b', 'a'];
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnVisibility
+            defaultHiddenColumns={hiddenColumns}
+            emptyMessageComponent={DefaultEmptyMessage}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).hiddenColumns)
+        .toBe(hiddenColumns);
+    });
+
+    it('should call the visibleTableColumns computed with correct arguments', () => {
+      const hiddenColumns = ['b', 'a'];
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnVisibility
+            hiddenColumns={hiddenColumns}
+            emptyMessageComponent={DefaultEmptyMessage}
+          />
+        </PluginHost>
+      ));
+
+      expect(visibleTableColumns)
+        .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, hiddenColumns);
+    });
   });
 
   it('should remove hidden columns from tableColumns', () => {
@@ -103,5 +139,24 @@ describe('TableColumnVisibility', () => {
 
     expect(getMessage('noColumns'))
       .toBe('Nothing to show');
+  });
+
+  it('should call toggleVisibility in action', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableColumnVisibility
+          hiddenColumns={[]}
+          emptyMessageComponent={DefaultEmptyMessage}
+          messages={{
+            noColumns: 'Nothing to show',
+          }}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, actions => actions.toggleVisibility(defaultDeps.getter.tableColumns, 'test'));
+    expect(toggleColumn)
+      .toHaveBeenCalled();
   });
 });

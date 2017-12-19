@@ -37,6 +37,7 @@ export class ColumnChooser extends React.PureComponent {
   }
   render() {
     const {
+      popoverComponent: PopoverComponent,
       containerComponent: ContainerComponent,
       itemComponent: ItemComponent,
       buttonComponent: Button,
@@ -57,19 +58,21 @@ export class ColumnChooser extends React.PureComponent {
             />
             <TemplateConnector>
               {({ columns, hiddenColumns }, { toggleVisibility }) => (
-                <ContainerComponent
+                <PopoverComponent
                   open={open}
                   anchorEl={anchorEl}
                   onRequestClose={this.handleRequestClose}
                 >
-                  {columnChooserItems(columns, hiddenColumns).map(item => (
-                    <ItemComponent
-                      key={item.column.name}
-                      item={item}
-                      onToggle={() => toggleVisibility(item.column.name)}
-                    />
-                  ))}
-                </ContainerComponent>
+                  <ContainerComponent>
+                    {columnChooserItems(columns, hiddenColumns).map(item => ( //
+                      <ItemComponent
+                        key={item.column.name}
+                        item={item}
+                        onToggle={() => toggleVisibility(item.column.name)}
+                      />
+                    ))}
+                  </ContainerComponent>
+                </PopoverComponent>
               )}
             </TemplateConnector>
           </div>
@@ -80,6 +83,7 @@ export class ColumnChooser extends React.PureComponent {
 }
 
 ColumnChooser.propTypes = {
+  popoverComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,
   buttonComponent: PropTypes.func.isRequired,

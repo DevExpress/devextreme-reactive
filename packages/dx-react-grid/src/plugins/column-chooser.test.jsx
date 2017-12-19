@@ -2,11 +2,32 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { columnChooserItems } from '@devexpress/dx-grid-core';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { pluginDepsToComponents } from './test-utils';
 import { ColumnChooser } from './column-chooser';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   columnChooserItems: jest.fn(),
 }));
+
+const defaultDeps = {
+  getter: {
+    columns: [
+      { name: 'a' },
+      { name: 'b' },
+      { name: 'c' },
+    ],
+    hiddenColumns: ['a'],
+  },
+  action: {
+    toggleVisibility: () => {},
+  },
+  plugins: ['TableColumnVisibility', 'Toolbar'],
+};
+
+const ContainerComponent = () => null;
+const ItemComponent = () => null;
+const PopoverComponent = () => null;
+const ButtonComponent = () => null;
 
 describe('ColumnChooser', () => {
   beforeEach(() => {
@@ -16,34 +37,42 @@ describe('ColumnChooser', () => {
     jest.resetAllMocks();
   });
 
-  it('should render container template with correct parameters', () => {
-    const ContainerComponent = () => null;
-    const ItemComponent = () => null;
-
-    const tree = mount((
+  it('should render container component with correct parameters', () => {
+    const tree = shallow((
       <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TemplatePlaceholder name="toolbarContent" />
         <ColumnChooser
           containerComponent={ContainerComponent}
           itemComponent={ItemComponent}
+          popoverComponent={PopoverComponent}
+          buttonComponent={ButtonComponent}
         />
-        <TemplatePlaceholder name="toolbarContent" />
       </PluginHost>
     ));
 
-    expect(tree.find(ContainerComponent).exists());
+    expect(tree.find(ContainerComponent).props())
+      .toEqual({
+        item: {
+          column: { name: 'a' },
+          hidden: true,
+        },
+        onToggle: expect.any(Function),
+      });
   });
 
   it('should pass correct parameters to the itemComponent', () => {
-    const ContainerComponent = () => null;
-    const ItemComponent = () => null;
-
-    const tree = shallow((
-      <ColumnChooser
-        columns={[]}
-        containerComponent={ContainerComponent}
-        itemComponent={ItemComponent}
-        onHiddenColumnsChange={() => {}}
-      />
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TemplatePlaceholder name="toolbarContent" />
+        <ColumnChooser
+          containerComponent={ContainerComponent}
+          itemComponent={ItemComponent}
+          popoverComponent={PopoverComponent}
+          buttonComponent={ButtonComponent}
+        />
+      </PluginHost>
     ));
 
     expect(tree.find(ItemComponent).props())
@@ -61,12 +90,16 @@ describe('ColumnChooser', () => {
     const hiddenColumns = ['a'];
 
     shallow((
-      <ColumnChooser
-        columns={columns}
-        hiddenColumns={hiddenColumns}
-        containerComponent={() => null}
-        itemComponent={() => null}
-      />
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TemplatePlaceholder name="toolbarContent" />
+        <ColumnChooser
+          containerComponent={ContainerComponent}
+          itemComponent={ItemComponent}
+          popoverComponent={PopoverComponent}
+          buttonComponent={ButtonComponent}
+        />
+      </PluginHost>
     ));
 
     expect(columnChooserItems)

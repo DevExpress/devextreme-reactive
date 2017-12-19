@@ -19,6 +19,7 @@ import {
   TableEditColumn,
   PagingPanel,
   DragDropContext,
+  Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -98,6 +99,7 @@ export default class Demo extends React.PureComponent {
         />
 
         <TableFilterRow />
+        <Toolbar />
         <GroupingPanel
           showGroupingControls
           allowDragging

@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering,
+  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
@@ -100,6 +100,7 @@ export default class Demo extends React.PureComponent {
           pageSizes={pageSizes}
         />
         <TableSelection showSelectAll />
+        <Toolbar />
         <GroupingPanel allowSorting allowDragging />
         <TableGroupRow />
 

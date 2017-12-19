@@ -10,6 +10,7 @@ import {
   TableGroupRow,
   GroupingPanel,
   DragDropContext,
+  Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import { Loading } from '../components/loading';
 
@@ -121,6 +122,7 @@ export default class Demo extends React.PureComponent {
           <VirtualTable />
           <TableHeaderRow allowDragging />
           <TableGroupRow />
+          <Toolbar />
           <GroupingPanel allowDragging />
         </Grid>
         {loading && <Loading />}

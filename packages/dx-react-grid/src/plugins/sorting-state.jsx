@@ -4,6 +4,8 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnSorting } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
+const getSortingColumnExtension = () => ({ enabled: true });
+
 export class SortingState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -37,6 +39,7 @@ export class SortingState extends React.PureComponent {
       <PluginContainer
         pluginName="SortingState"
       >
+        <Getter name="getSortingColumnExtension" value={getSortingColumnExtension} />
         <Getter name="sorting" value={sorting} />
         <Action name="setColumnSorting" action={this.setColumnSorting} />
       </PluginContainer>

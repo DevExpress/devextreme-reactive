@@ -63,7 +63,7 @@ export default class Demo extends React.PureComponent {
             getColumnCompare={getColumnCompare}
           />
           <Table />
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow />
         </Grid>
       </Paper>
     );

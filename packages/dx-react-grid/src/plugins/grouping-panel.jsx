@@ -16,7 +16,6 @@ export class GroupingPanel extends React.PureComponent {
       containerComponent: Container,
       itemComponent: Item,
       emptyMessageComponent: EmptyMessage,
-      allowSorting,
       allowDragging,
       showGroupingControls,
       messages,
@@ -30,14 +29,18 @@ export class GroupingPanel extends React.PureComponent {
       />
     );
 
-    const ItemPlaceholder = ({ item }) => {
-      const { name: columnName } = item.column;
-      return (
-        <TemplateConnector>
-          {({ sorting }, { groupByColumn, setColumnSorting }) => (
+    const ItemPlaceholder = ({ item }) => (
+      <TemplateConnector>
+        {({ sorting, getSortingColumnExtension }, { groupByColumn, setColumnSorting }) => {
+          const { name: columnName } = item.column;
+          const sortingExtension = getSortingColumnExtension
+            ? getSortingColumnExtension(columnName)
+            : { enabled: false };
+
+          return (
             <Item
               item={item}
-              allowSorting={allowSorting && sorting !== undefined}
+              allowSorting={sortingExtension.enabled}
               sortingDirection={sorting !== undefined
                 ? getColumnSortingDirection(sorting, columnName) : undefined}
               showGroupingControls={showGroupingControls}
@@ -45,10 +48,10 @@ export class GroupingPanel extends React.PureComponent {
               onSort={({ keepOther, cancel }) =>
                 setColumnSorting({ columnName, keepOther, cancel })}
             />
-          )}
-        </TemplateConnector>
-      );
-    };
+          );
+        }}
+      </TemplateConnector>
+    );
 
     return (
       <PluginContainer
@@ -56,7 +59,7 @@ export class GroupingPanel extends React.PureComponent {
         dependencies={[
           { pluginName: 'GroupingState' },
           { pluginName: 'Toolbar' },
-          { pluginName: 'SortingState', optional: !allowSorting },
+          { pluginName: 'SortingState', optional: true },
         ]}
       >
         <Template name="toolbarContent">
@@ -86,7 +89,6 @@ export class GroupingPanel extends React.PureComponent {
 }
 
 GroupingPanel.propTypes = {
-  allowSorting: PropTypes.bool,
   allowDragging: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   layoutComponent: PropTypes.func.isRequired,
@@ -97,7 +99,6 @@ GroupingPanel.propTypes = {
 };
 
 GroupingPanel.defaultProps = {
-  allowSorting: false,
   allowDragging: false,
   showGroupingControls: false,
   messages: {},

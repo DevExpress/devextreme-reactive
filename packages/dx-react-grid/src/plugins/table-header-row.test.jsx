@@ -126,6 +126,9 @@ describe('TableHeaderRow', () => {
     isHeadingTableCell.mockImplementation(() => true);
 
     const deps = {
+      getter: {
+        getSortingColumnExtension: () => ({ enabled: true }),
+      },
       plugins: ['SortingState'],
     };
     const tree = mount((
@@ -133,7 +136,6 @@ describe('TableHeaderRow', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableHeaderRow
           {...defaultProps}
-          allowSorting
           messages={{
             sortingHint: 'test',
           }}

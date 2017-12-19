@@ -26,10 +26,6 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ length: 6 }),
       hiddenColumns: ['sex', 'car'],
     };
-
-    this.hiddenColumnsChange = (hiddenColumns) => {
-      this.setState({ hiddenColumns });
-    };
   }
 
   render() {
@@ -45,6 +41,9 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableColumnVisibility
             hiddenColumns={hiddenColumns}
+            onHiddenColumnsChange={(nextHiddenColumns) => {
+              this.setState({ hiddenColumns: nextHiddenColumns });
+            }}
           />
           <ColumnChooser />
         </Grid>

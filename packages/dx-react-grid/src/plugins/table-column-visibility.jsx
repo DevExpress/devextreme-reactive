@@ -8,57 +8,58 @@ import {
   TemplateConnector,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { visibleTableColumns, getMessagesFormatter, columnChooserItems, toggleColumn } from '@devexpress/dx-grid-core';
+import { getMessagesFormatter, toggleColumn, visibleTableColumns } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 const pluginDependencies = [
   { pluginName: 'Table' },
 ];
+
+const visibleTableColumnsComputed = ({ tableColumns, hiddenColumns }) =>
+  visibleTableColumns(tableColumns, hiddenColumns);
 
 export class TableColumnVisibility extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      hiddenColumns: props.hiddenColumns,
-      items: [],
+      hiddenColumns: props.defaultHiddenColumns || props.hiddenColumns,
     };
+    const stateHelper = createStateHelper(this);
 
-    this.handleColumnToggle = this.handleColumnToggle.bind(this);
-    this.visibleTableColumnsComputed = this.visibleTableColumnsComputed.bind(this);
+    this.toggleColumnVisibility = stateHelper.applyFieldReducer.bind(stateHelper, 'hiddenColumns', toggleColumn);
   }
-  handleColumnToggle(columns, columnName) {
-    const { hiddenColumns } = this.state;
-    const nextHiddenColumnNames = toggleColumn(hiddenColumns, columnName);
-    const items = columnChooserItems(columns, nextHiddenColumnNames);
-    this.setState({
-      hiddenColumns: nextHiddenColumnNames,
-      items,
-    });
+  getState() {
+    return {
+      ...this.state,
+      hiddenColumns: this.props.hiddenColumns || this.state.hiddenColumns,
+    };
   }
-  visibleTableColumnsComputed({ tableColumns, columns }) {
-    const { hiddenColumns } = this.state;
-    this.setState({ items: columnChooserItems(columns, hiddenColumns) });
-    return visibleTableColumns(tableColumns, hiddenColumns);
+  notifyStateChange(nextState, state) {
+    const { hiddenColumns } = nextState;
+    const { onHiddenColumnsChange } = this.props;
+    if (onHiddenColumnsChange && hiddenColumns !== state.hiddenColumns) {
+      onHiddenColumnsChange(hiddenColumns);
+    }
   }
   render() {
     const {
       emptyMessageComponent: EmptyMessage,
       messages,
     } = this.props;
-    const { items } = this.state;
     const getMessage = getMessagesFormatter(messages);
+    const { hiddenColumns } = this.getState();
 
     return (
       <PluginContainer
         pluginName="TableColumnVisibility"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={this.visibleTableColumnsComputed} />
-        <Getter name="items" value={items} />
+        <Getter name="hiddenColumns" value={hiddenColumns} />
+        <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
         <Action
           name="toggleVisibility"
-          action={(columnName, { columns }) =>
-            this.handleColumnToggle(columns, columnName)}
+          action={this.toggleColumnVisibility}
         />
 
         <Template name="table">
@@ -81,11 +82,15 @@ export class TableColumnVisibility extends React.PureComponent {
 
 TableColumnVisibility.propTypes = {
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
+  defaultHiddenColumns: PropTypes.arrayOf(PropTypes.string),
   emptyMessageComponent: PropTypes.func.isRequired,
+  onHiddenColumnsChange: PropTypes.func,
   messages: PropTypes.object,
 };
 
 TableColumnVisibility.defaultProps = {
-  hiddenColumns: [],
+  hiddenColumns: undefined,
+  defaultHiddenColumns: undefined,
+  onHiddenColumnsChange: undefined,
   messages: {},
 };

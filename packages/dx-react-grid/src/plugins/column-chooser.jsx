@@ -5,6 +5,8 @@ import {
   Template, TemplatePlaceholder, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
 
+import { columnChooserItems } from '@devexpress/dx-grid-core';
+
 const pluginDependencies = [
   { pluginName: 'TableColumnVisibility' },
   { pluginName: 'Toolbar' },
@@ -54,23 +56,21 @@ export class ColumnChooser extends React.PureComponent {
               onButtonClick={this.handleClickButton}
             />
             <TemplateConnector>
-              {({ items }, { toggleVisibility }) => {
-                return (
-                  <ContainerComponent
-                    open={open}
-                    anchorEl={anchorEl}
-                    onRequestClose={this.handleRequestClose}
-                  >
-                    {items.map(item => (
-                      <ItemComponent
-                        key={item.column.name}
-                        item={item}
-                        onToggle={() => toggleVisibility(item.column.name)}
-                      />
-                    ))}
-                  </ContainerComponent>
-                );
-              }}
+              {({ columns, hiddenColumns }, { toggleVisibility }) => (
+                <ContainerComponent
+                  open={open}
+                  anchorEl={anchorEl}
+                  onRequestClose={this.handleRequestClose}
+                >
+                  {columnChooserItems(columns, hiddenColumns).map(item => (
+                    <ItemComponent
+                      key={item.column.name}
+                      item={item}
+                      onToggle={() => toggleVisibility(item.column.name)}
+                    />
+                  ))}
+                </ContainerComponent>
+              )}
             </TemplateConnector>
           </div>
         </Template>

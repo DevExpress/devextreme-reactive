@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 export const GroupPanelContainer = ({ children, ...restProps }) => (
   <div
+    style={{
+      width: '100%',
+    }}
     {...restProps}
   >
     {children}

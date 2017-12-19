@@ -29,9 +29,9 @@ const defaultDeps = {
     cancelGroupingChange: jest.fn(),
   },
   template: {
-    header: {},
+    toolbarContent: {},
   },
-  plugins: ['GroupingState'],
+  plugins: ['GroupingState', 'Toolbar'],
 };
 
 const defaultProps = {

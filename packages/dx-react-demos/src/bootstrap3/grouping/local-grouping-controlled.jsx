@@ -10,6 +10,7 @@ import {
   TableGroupRow,
   GroupingPanel,
   DragDropContext,
+  Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -50,6 +51,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow showGroupingControls />
         <TableGroupRow />
+        <Toolbar />
         <GroupingPanel showGroupingControls />
       </Grid>
     );

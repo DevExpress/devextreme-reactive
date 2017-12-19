@@ -24,15 +24,12 @@ const styles = theme => ({
 });
 
 const TableCellBase = ({
-  style, column, value, children, classes,
+  column, value, children, classes,
   tableRow, tableColumn, row,
   className,
   ...restProps
 }) => (
   <TableCellMUI
-    style={{
-      ...style,
-    }}
     className={classNames({
       [classes.cell]: true,
       [classes.cellRightAlign]: column.align === 'right',
@@ -44,7 +41,6 @@ const TableCellBase = ({
 );
 
 TableCellBase.propTypes = {
-  style: PropTypes.object,
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
@@ -59,7 +55,6 @@ TableCellBase.propTypes = {
 };
 
 TableCellBase.defaultProps = {
-  style: null,
   value: undefined,
   column: {},
   row: undefined,

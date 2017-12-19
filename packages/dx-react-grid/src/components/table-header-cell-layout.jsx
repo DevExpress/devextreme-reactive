@@ -16,16 +16,7 @@ export class TableHeaderCellLayout extends React.PureComponent {
       allowDragging,
       draft,
       cellComponent: HeaderCell,
-      ...restProps
     } = this.props;
-
-    const headerCell = (
-      <HeaderCell
-        column={column}
-        draft={draft || this.state.dragging}
-        {...restProps}
-      />
-    );
 
     return allowDragging
       ? (
@@ -35,10 +26,16 @@ export class TableHeaderCellLayout extends React.PureComponent {
           onStart={() => this.setState({ dragging: true })}
           onEnd={() => this.cellRef && this.setState({ dragging: false })}
         >
-          {headerCell}
+          <HeaderCell
+            draft={draft || this.state.dragging}
+          />
         </DragSource>
       )
-      : headerCell;
+      : (
+        <HeaderCell
+          draft={draft}
+        />
+      );
   }
 }
 

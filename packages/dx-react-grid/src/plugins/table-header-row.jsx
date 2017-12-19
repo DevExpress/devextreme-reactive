@@ -10,6 +10,7 @@ import {
   isHeadingTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
+import { TableHeaderCellLayout } from '../components/table-header-cell-layout';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
@@ -20,12 +21,49 @@ export class TableHeaderRow extends React.PureComponent {
       showGroupingControls,
       allowDragging,
       allowResizing,
-      cellComponent,
+      cellComponent: Cell,
       rowComponent: HeaderRow,
-      cellLayoutComponent: CellLayout,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
+
+    const getCellComponent = ({ groupingSupported, allowCellDragging, ...restParams }) =>
+      ({ draft }) => (
+        <TemplateConnector>
+          {({
+            sorting,
+          }, {
+            setColumnSorting, groupByColumn,
+            changeTableColumnWidths, changeDraftTableColumnWidths,
+          }) => {
+            const { tableColumn: { column } } = restParams;
+            const { name: columnName } = column;
+
+            return (
+              <Cell
+                {...restParams}
+                column={column}
+                draft={draft}
+                getMessage={getMessage}
+                allowSorting={allowSorting && sorting !== undefined}
+                showGroupingControls={showGroupingControls && groupingSupported}
+                allowDragging={allowCellDragging}
+                allowResizing={allowResizing}
+                sortingDirection={allowSorting && sorting !== undefined
+                  ? getColumnSortingDirection(sorting, columnName) : undefined}
+                onSort={({ keepOther, cancel }) =>
+                  setColumnSorting({ columnName, keepOther, cancel })}
+                onGroup={() =>
+                  groupByColumn({ columnName })}
+                onWidthChange={({ shift }) =>
+                  changeTableColumnWidths({ shifts: { [columnName]: shift } })}
+                onDraftWidthChange={({ shift }) =>
+                  changeDraftTableColumnWidths({ shifts: { [columnName]: shift } })}
+              />
+            );
+          }}
+        </TemplateConnector>
+      );
 
     return (
       <PluginContainer
@@ -46,38 +84,24 @@ export class TableHeaderRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({
-                sorting, grouping, columns,
-              }, {
-                setColumnSorting, groupByColumn,
-                changeTableColumnWidths, changeDraftTableColumnWidths,
-              }) => {
+              {({ grouping, columns }) => {
                 const { tableColumn: { column, draft } } = params;
-                const { name: columnName } = column;
                 const groupingSupported = grouping !== undefined &&
                   grouping.length < columns.length - 1;
+                const allowCellDragging = allowDragging && (!grouping || groupingSupported);
+
+                const CellComponent = getCellComponent({
+                  ...params,
+                  groupingSupported,
+                  allowCellDragging,
+                });
 
                 return (
-                  <CellLayout
-                    {...params}
+                  <TableHeaderCellLayout
                     column={column}
+                    allowDragging={allowCellDragging}
                     draft={draft}
-                    getMessage={getMessage}
-                    cellComponent={cellComponent}
-                    allowSorting={allowSorting && sorting !== undefined}
-                    showGroupingControls={showGroupingControls && groupingSupported}
-                    allowDragging={allowDragging && (!grouping || groupingSupported)}
-                    allowResizing={allowResizing}
-                    sortingDirection={allowSorting && sorting !== undefined
-                      ? getColumnSortingDirection(sorting, columnName) : undefined}
-                    onSort={({ keepOther, cancel }) =>
-                      setColumnSorting({ columnName, keepOther, cancel })}
-                    onGroup={() =>
-                      groupByColumn({ columnName })}
-                    onWidthChange={({ shift }) =>
-                      changeTableColumnWidths({ shifts: { [columnName]: shift } })}
-                    onDraftWidthChange={({ shift }) =>
-                      changeDraftTableColumnWidths({ shifts: { [columnName]: shift } })}
+                    cellComponent={CellComponent}
                   />
                 );
               }}
@@ -102,7 +126,6 @@ TableHeaderRow.propTypes = {
   allowResizing: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
-  cellLayoutComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

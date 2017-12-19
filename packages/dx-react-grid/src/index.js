@@ -47,4 +47,3 @@ export { TableLayout } from './components/table-layout';
 export { VirtualTableLayout } from './components/table-layout/virtual-table-layout';
 export { StaticTableLayout } from './components/table-layout/static-table-layout';
 export { GroupPanelLayout } from './components/group-panel-layout';
-export { TableHeaderCellLayout } from './components/table-header-cell-layout';

@@ -12,14 +12,12 @@ describe('TableHeaderCellLayout', () => {
     const tree = shallow((
       <TableHeaderCellLayout
         {...defaultProps}
-        otherProp
       />
     ));
 
     expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
-        column: defaultProps.column,
-        otherProp: true,
+        draft: false,
       });
   });
 

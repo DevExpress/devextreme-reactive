@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableHeaderRow as TableHeaderRowBase, TableHeaderCellLayout } from '@devexpress/dx-react-grid';
+import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
 import { TableHeaderCell } from '../templates/table-header-cell';
 import { TableRow } from '../templates/table-row';
 
@@ -8,7 +8,6 @@ export class TableHeaderRow extends React.PureComponent {
     return (
       <TableHeaderRowBase
         cellComponent={TableHeaderCell}
-        cellLayoutComponent={TableHeaderCellLayout}
         rowComponent={TableRow}
         {...this.props}
       />

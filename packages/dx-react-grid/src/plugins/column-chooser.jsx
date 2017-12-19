@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-import { Template, TemplateConnector } from '@devexpress/dx-grid-core';
-import { PluginContainer, Getter, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import {
+  Template, TemplatePlaceholder, PluginContainer,
+} from '@devexpress/dx-react-core';
 
 const pluginDependencies = [
   { pluginName: 'TableColumnVisibility' },
@@ -18,7 +19,6 @@ export class ColumnChooser extends React.PureComponent {
     this.button = null;
 
     this.handleClickButton = this.handleClickButton.bind(this);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
   handleClickButton() {
     this.setState({
@@ -26,53 +26,26 @@ export class ColumnChooser extends React.PureComponent {
       anchorEl: findDOMNode(this.button),
     });
   }
-  handleRequestClose() {
-    this.setState({
-      open: false,
-    });
-  }
+
   render() {
     const {
-      containerComponent: Container,
-      itemComponent: Item,
+      containerComponent,
+      itemComponent,
       buttonComponent: Button,
     } = this.props;
-    const { open, anchorEl } = this.state;
+
     return (
       <PluginContainer
         pluginName="ColumnChooser"
         dependencies={pluginDependencies}
       >
-        <Template name="toolbarContent" >
+        <Template name="header">
           <TemplatePlaceholder />
           <Button
             refFunc={(node) => { this.button = node; }}
             onButtonClick={this.handleClickButton}
           />
-
-          {params => (
-            <TemplateConnector>
-              {({ items }, { toggleVisibility }) => (
-                <Container
-                  {...params}
-                  open={open}
-                  anchorEl={anchorEl}
-                  onRequestClose={this.handleRequestClose}
-                >
-                  {items.map(item => (
-                    <Item
-                      key={item.column.name}
-                      item={item}
-                      onToggle={() => toggleVisibility(item)}
-                    />
-                  ))}
-                </Container>
-              )}
-            </TemplateConnector>
-          )}
         </Template>
-
-        <Getter name="tableColumns" computed={this.tableColumnsComputed} />
       </PluginContainer>
     );
   }

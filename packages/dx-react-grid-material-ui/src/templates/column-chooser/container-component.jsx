@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Popover, List } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
-export class ButtonComponent extends React.PureComponent {
+export class ContainerComponent extends React.PureComponent {
   render() {
     const { open, anchorEl, requestClose, children } = this.props;
     return (
@@ -22,13 +22,13 @@ export class ButtonComponent extends React.PureComponent {
   }
 }
 
-ButtonComponent.propTypes = {
+ContainerComponent.propTypes = {
   anchorEl: PropTypes.node.isRequired,
   requestClose: PropTypes.func.isRequired,
   children: PropTypes.array.isRequired,
   open: PropTypes.bool,
 };
 
-ButtonComponent.defaultProps = {
+ContainerComponent.defaultProps = {
   open: false,
 };

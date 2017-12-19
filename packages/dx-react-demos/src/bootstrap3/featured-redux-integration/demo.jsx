@@ -124,7 +124,7 @@ const GridContainer = ({
       onColumnWidthsChange={onColumnWidthsChange}
     />
 
-    <TableHeaderRow allowSorting allowDragging allowResizing />
+    <TableHeaderRow allowSorting allowDragging />
     <TableFilterRow />
     <TableSelection showSelectAll />
     <TableRowDetail

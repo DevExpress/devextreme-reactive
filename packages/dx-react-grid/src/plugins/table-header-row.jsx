@@ -19,7 +19,6 @@ export class TableHeaderRow extends React.PureComponent {
       allowSorting,
       showGroupingControls,
       allowDragging,
-      allowResizing,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
       messages,
@@ -34,7 +33,7 @@ export class TableHeaderRow extends React.PureComponent {
           { pluginName: 'SortingState', optional: !allowSorting },
           { pluginName: 'GroupingState', optional: !showGroupingControls },
           { pluginName: 'DragDropContext', optional: !allowDragging },
-          { pluginName: 'TableColumnResizing', optional: !allowResizing },
+          { pluginName: 'TableColumnResizing', optional: true },
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
@@ -46,7 +45,7 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting, grouping, columns,
+                sorting, grouping, columns, allowTableColumnResizing,
               }, {
                 setColumnSorting, groupByColumn,
                 changeTableColumnWidths, changeDraftTableColumnWidths,
@@ -63,7 +62,7 @@ export class TableHeaderRow extends React.PureComponent {
                     allowSorting={allowSorting && sorting !== undefined}
                     showGroupingControls={showGroupingControls && groupingSupported}
                     allowDragging={allowDragging && (!grouping || groupingSupported)}
-                    allowResizing={allowResizing}
+                    allowResizing={allowTableColumnResizing}
                     sortingDirection={allowSorting && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     dragPayload={allowDragging ? [{ type: 'column', columnName }] : undefined}
@@ -96,7 +95,6 @@ TableHeaderRow.propTypes = {
   allowSorting: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   allowDragging: PropTypes.bool,
-  allowResizing: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
@@ -106,6 +104,5 @@ TableHeaderRow.defaultProps = {
   allowSorting: false,
   showGroupingControls: false,
   allowDragging: false,
-  allowResizing: false,
   messages: null,
 };

@@ -16,10 +16,6 @@ The [plugin's order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a simple Grid with column resizing enabled.
 
-Enable end-user interactions:
-
-- set the `TableHeaderRow` plugin's `allowResizing` property to `true`.
-
 ## Uncontrolled Mode
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), use the `TableColumnResizing` plugin's `defaultColumnWidths` property to specify the initial column widths. This property should define the width of every column; otherwise, it throws an error.

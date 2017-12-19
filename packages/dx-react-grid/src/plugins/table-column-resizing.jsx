@@ -53,6 +53,7 @@ export class TableColumnResizing extends React.PureComponent {
         pluginName="TableColumnResizing"
         dependencies={pluginDependencies}
       >
+        <Getter name="allowTableColumnResizing" value />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Action name="changeTableColumnWidths" action={this.changeTableColumnWidthsAction} />
         <Action

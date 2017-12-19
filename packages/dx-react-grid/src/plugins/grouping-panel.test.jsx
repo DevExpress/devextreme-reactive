@@ -62,7 +62,7 @@ describe('GroupingPanel', () => {
   it('should pass correct parameters to layoutComponent', () => {
     const deps = {
       getter: {
-        draggingEnabled: true,
+        allowDragging: true,
       },
       plugins: ['DragDropContext'],
     };
@@ -77,7 +77,7 @@ describe('GroupingPanel', () => {
 
     expect(tree.find(defaultProps.layoutComponent).props())
       .toMatchObject({
-        draggingEnabled: true,
+        allowDragging: true,
         onGroup: expect.any(Function),
         onDraftGroup: expect.any(Function),
         onCancelDraftGroup: expect.any(Function),

@@ -5,12 +5,11 @@ import { withStyles } from 'material-ui/styles';
 
 export class ContainerComponent extends React.PureComponent {
   render() {
-    const { open, anchorEl, requestClose, children } = this.props;
+    const { open, anchorEl, onRequestClose, children } = this.props;
     return (
       <Popover
         open={open}
-        anchorEl={anchorEl}
-        onRequestClose={requestClose}
+        onClose={onRequestClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
@@ -23,8 +22,8 @@ export class ContainerComponent extends React.PureComponent {
 }
 
 ContainerComponent.propTypes = {
-  anchorEl: PropTypes.node.isRequired,
-  requestClose: PropTypes.func.isRequired,
+  // anchorEl: PropTypes.node.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
   children: PropTypes.array.isRequired,
   open: PropTypes.bool,
 };

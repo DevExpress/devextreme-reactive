@@ -7,9 +7,8 @@ import {
   Template,
   TemplateConnector,
   TemplatePlaceholder,
-  toggleColumn,
 } from '@devexpress/dx-react-core';
-import { visibleTableColumns, getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessagesFormatter, columnChooserItems, toggleColumn } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'Table' },
@@ -30,9 +29,10 @@ export class TableColumnVisibility extends React.PureComponent {
   handleColumnToggle(columns, columnName) {
     const { hiddenColumns } = this.state;
     const nextHiddenColumnNames = toggleColumn(hiddenColumns, columnName);
+    const items = columnChooserItems(columns, nextHiddenColumnNames);
     this.setState({
       hiddenColumns: nextHiddenColumnNames,
-      items: columnChooserItems(columns, nextHiddenColumnNames),
+      items,
     });
   }
   visibleTableColumnsComputed({ tableColumns, columns }) {
@@ -57,7 +57,8 @@ export class TableColumnVisibility extends React.PureComponent {
         <Getter name="items" value={items} />
         <Action
           name="toggleVisibility"
-          action={({ columns }, actions, columnName) => this.handleColumnToggle(columns, columnName)}
+          action={(columnName, { columns }) =>
+            this.handleColumnToggle(columns, columnName)}
         />
 
         <Template name="table">

@@ -64,7 +64,7 @@ describe('CustomGrouping', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.isGroupRow)
+    expect(getComputedState(tree).isGroupRow)
       .toBe(groupRowChecker);
   });
 
@@ -78,7 +78,7 @@ describe('CustomGrouping', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.getRowLevelKey)
+    expect(getComputedState(tree).getRowLevelKey)
       .toBe(groupRowLevelKeyGetter);
   });
 
@@ -106,7 +106,7 @@ describe('CustomGrouping', () => {
         defaultDeps.getter.expandedGroups,
       );
 
-    expect(getComputedState(tree).getters.rows)
+    expect(getComputedState(tree).rows)
       .toBe(expandedGroupRows());
   });
 
@@ -126,7 +126,7 @@ describe('CustomGrouping', () => {
         customGroupedRows(),
       );
 
-    expect(getComputedState(tree).getters.getRowId)
+    expect(getComputedState(tree).getRowId)
       .toBe(customGroupingRowIdGetter());
   });
 
@@ -146,9 +146,9 @@ describe('CustomGrouping', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.grouping)
+      expect(getComputedState(tree).grouping)
         .toBe(grouping);
-      expect(getComputedState(tree).getters.expandedGroups)
+      expect(getComputedState(tree).expandedGroups)
         .toEqual(new Set(expandedGroups));
     });
 
@@ -181,7 +181,7 @@ describe('CustomGrouping', () => {
           new Set(expandedGroups),
         );
 
-      expect(getComputedState(tree).getters.rows)
+      expect(getComputedState(tree).rows)
         .toBe(expandedGroupRows());
     });
   });

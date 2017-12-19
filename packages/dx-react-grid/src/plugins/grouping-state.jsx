@@ -8,6 +8,7 @@ import {
   draftGroupingChange,
   cancelGroupingChange,
 } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 const dependencies = [
   { pluginName: 'SortingState', optional: true },
@@ -36,10 +37,15 @@ export class GroupingState extends React.PureComponent {
       expandedGroups: props.defaultExpandedGroups,
     };
 
+    this.stateHelper = createStateHelper(this);
+
     this.groupByColumn = this.groupByColumn.bind(this);
-    this.toggleGroupExpanded = this.applyReducer.bind(this, toggleExpandedGroups);
-    this.draftGroupingChange = this.applyReducer.bind(this, draftGroupingChange);
-    this.cancelGroupingChange = this.applyReducer.bind(this, cancelGroupingChange);
+    this.toggleGroupExpanded = this.stateHelper.applyReducer
+      .bind(this.stateHelper, toggleExpandedGroups);
+    this.draftGroupingChange = this.stateHelper.applyReducer
+      .bind(this.stateHelper, draftGroupingChange);
+    this.cancelGroupingChange = this.stateHelper.applyReducer
+      .bind(this.stateHelper, cancelGroupingChange);
     this.setColumnSorting = this.setColumnSorting.bind(this);
   }
   getState() {
@@ -71,55 +77,56 @@ export class GroupingState extends React.PureComponent {
     });
     return false;
   }
-  groupByColumn({ columnName, groupIndex }, { sorting }, { setColumnSorting }) {
-    const { grouping: prevGrouping } = this.state;
-    const { grouping } = this.applyReducer(groupByColumn, { columnName, groupIndex });
+  groupByColumn({ columnName, groupIndex }, getters, actions) {
+    this.stateHelper.applyReducer(
+      groupByColumn,
+      { columnName, groupIndex },
+      (nextState, state) => {
+        const { grouping } = nextState;
+        const { grouping: prevGrouping } = state;
+        const { sorting } = getters;
+        const { setColumnSorting } = actions;
 
-    if (!sorting) return;
+        if (!sorting) return;
 
-    const columnSortingIndex = sorting
-      .findIndex(columnSorting => columnSorting.columnName === columnName);
-    const prevGroupingIndex = prevGrouping
-      .findIndex(columnGrouping => columnGrouping.columnName === columnName);
-    const groupingIndex = grouping
-      .findIndex(columnGrouping => columnGrouping.columnName === columnName);
+        const columnSortingIndex = sorting
+          .findIndex(columnSorting => columnSorting.columnName === columnName);
+        const prevGroupingIndex = prevGrouping
+          .findIndex(columnGrouping => columnGrouping.columnName === columnName);
+        const groupingIndex = grouping
+          .findIndex(columnGrouping => columnGrouping.columnName === columnName);
 
-    if (columnSortingIndex === -1
-      || (prevGroupingIndex === prevGrouping.length - 1 && groupingIndex === -1)) return;
+        if (columnSortingIndex === -1
+          || (prevGroupingIndex === prevGrouping.length - 1 && groupingIndex === -1)) return;
 
-    const sortIndex = adjustSortIndex(
-      groupingIndex === -1 ? grouping.length : groupingIndex,
-      grouping,
-      sorting,
+        const sortIndex = adjustSortIndex(
+          groupingIndex === -1 ? grouping.length : groupingIndex,
+          grouping,
+          sorting,
+        );
+
+        if (columnSortingIndex === sortIndex) return;
+
+        setColumnSorting({
+          keepOther: true,
+          sortIndex,
+          ...sorting[columnSortingIndex],
+        });
+      },
     );
-
-    if (columnSortingIndex === sortIndex) return;
-
-    setColumnSorting({
-      keepOther: true,
-      sortIndex,
-      ...sorting[columnSortingIndex],
-    });
   }
-  applyReducer(reduce, payload) {
-    const prevState = this.getState();
-    const statePart = reduce(prevState, payload);
-    this.setState(statePart);
-    const state = { ...prevState, ...statePart };
-
-    const { grouping } = state;
+  notifyStateChange(nextState, state) {
+    const { grouping } = nextState;
     const { onGroupingChange } = this.props;
-    if (onGroupingChange && grouping !== prevState.grouping) {
+    if (onGroupingChange && grouping !== state.grouping) {
       onGroupingChange(grouping);
     }
 
-    const { expandedGroups } = state;
+    const { expandedGroups } = nextState;
     const { onExpandedGroupsChange } = this.props;
-    if (onExpandedGroupsChange && expandedGroups !== prevState.expandedGroups) {
+    if (onExpandedGroupsChange && expandedGroups !== state.expandedGroups) {
       onExpandedGroupsChange(expandedGroups);
     }
-
-    return state;
   }
   render() {
     const { grouping, groupingChange, expandedGroups } = this.getState();

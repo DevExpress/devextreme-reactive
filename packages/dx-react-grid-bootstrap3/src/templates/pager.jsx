@@ -22,7 +22,7 @@ export const Pager = ({
 
   return (
     <div
-      className={classNames('clearfix', className)}
+      className={classNames('clearfix', 'panel-footer', className)}
       {...restProps}
     >
       {!!pageSizes.length && <PageSizeSelector

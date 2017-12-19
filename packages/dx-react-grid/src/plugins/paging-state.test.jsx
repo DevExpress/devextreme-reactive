@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 
 import { PagingState } from './paging-state';
 
@@ -28,7 +28,7 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.currentPage)
+      expect(getComputedState(tree).currentPage)
         .toBe(2);
     });
 
@@ -42,7 +42,7 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.currentPage)
+      expect(getComputedState(tree).currentPage)
         .toBe(3);
     });
 
@@ -59,9 +59,9 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      getComputedState(tree).actions.setCurrentPage(3);
+      executeComputedAction(tree, actions => actions.setCurrentPage(3));
 
-      expect(getComputedState(tree).getters.currentPage)
+      expect(getComputedState(tree).currentPage)
         .toEqual(3);
       expect(currentPageChangeMock)
         .toBeCalledWith(3);
@@ -80,9 +80,9 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      getComputedState(tree).actions.setCurrentPage(3);
+      executeComputedAction(tree, actions => actions.setCurrentPage(3));
 
-      expect(getComputedState(tree).getters.currentPage)
+      expect(getComputedState(tree).currentPage)
         .toEqual(2);
       expect(currentPageChangeMock)
         .toBeCalledWith(3);
@@ -100,7 +100,7 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.pageSize)
+      expect(getComputedState(tree).pageSize)
         .toBe(2);
     });
 
@@ -114,7 +114,7 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.pageSize)
+      expect(getComputedState(tree).pageSize)
         .toBe(2);
     });
 
@@ -131,9 +131,9 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      getComputedState(tree).actions.setPageSize(3);
+      executeComputedAction(tree, actions => actions.setPageSize(3));
 
-      expect(getComputedState(tree).getters.pageSize)
+      expect(getComputedState(tree).pageSize)
         .toEqual(3);
       expect(pageSizeChangeMock)
         .toBeCalledWith(3);
@@ -152,9 +152,9 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      getComputedState(tree).actions.setPageSize(3);
+      executeComputedAction(tree, actions => actions.setPageSize(3));
 
-      expect(getComputedState(tree).getters.pageSize)
+      expect(getComputedState(tree).pageSize)
         .toEqual(2);
       expect(pageSizeChangeMock)
         .toBeCalledWith(3);
@@ -172,7 +172,7 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.totalCount)
+      expect(getComputedState(tree).totalCount)
         .toBe(100);
     });
 
@@ -184,8 +184,58 @@ describe('PagingState', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.totalCount)
+      expect(getComputedState(tree).totalCount)
         .toBe(0);
+    });
+  });
+
+  describe('action sequence in batch', () => {
+    it('should correctly work with the several action calls in the uncontrolled mode', () => {
+      const currentPageChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <PagingState
+            defaultCurrentPage={2}
+            onCurrentPageChange={currentPageChange}
+          />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, (actions) => {
+        actions.setCurrentPage(3);
+        actions.setCurrentPage(4);
+      });
+
+      expect(currentPageChange)
+        .toBeCalledWith(4);
+
+      expect(currentPageChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should correctly work with the several action calls in the controlled mode', () => {
+      const currentPageChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <PagingState
+            currentPage={2}
+            onCurrentPageChange={currentPageChange}
+          />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, (actions) => {
+        actions.setCurrentPage(3);
+        actions.setCurrentPage(4);
+      });
+
+      expect(currentPageChange)
+        .toBeCalledWith(4);
+
+      expect(currentPageChange)
+        .toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -6,7 +6,7 @@ import { PluginContainer, Template } from '@devexpress/dx-react-core';
 export class DataTypeProvider extends React.PureComponent {
   render() {
     const {
-      for: forColumnNames,
+      for: columnNames,
       formatterComponent: Formatter,
       editorComponent: Editor,
     } = this.props;
@@ -16,7 +16,7 @@ export class DataTypeProvider extends React.PureComponent {
           ? (
             <Template
               name="valueFormatter"
-              predicate={({ column }) => forColumnNames.includes(column.name)}
+              predicate={({ column }) => columnNames.includes(column.name)}
             >
               {params => <Formatter {...params} />}
             </Template>
@@ -27,7 +27,7 @@ export class DataTypeProvider extends React.PureComponent {
           ? (
             <Template
               name="valueEditor"
-              predicate={({ column }) => forColumnNames.includes(column.name)}
+              predicate={({ column }) => columnNames.includes(column.name)}
             >
               {params => <Editor {...params} />}
             </Template>

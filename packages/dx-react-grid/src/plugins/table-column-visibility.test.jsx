@@ -72,7 +72,7 @@ describe('TableColumnVisibility', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.tableColumns)
+    expect(getComputedState(tree).tableColumns)
       .toEqual([{ column: { name: 'c' } }]);
   });
 

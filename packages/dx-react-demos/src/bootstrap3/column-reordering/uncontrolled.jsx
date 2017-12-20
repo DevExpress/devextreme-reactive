@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
         <TableColumnReordering
           defaultOrder={['city', 'sex', 'car', 'name']}
         />
-        <TableHeaderRow allowDragging />
+        <TableHeaderRow />
       </Grid>
     );
   }

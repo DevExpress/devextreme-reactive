@@ -8,7 +8,7 @@ import {
   Grid,
   Table, TableHeaderRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
-  TableColumnReordering,
+  TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import { Nav, NavItem, ListGroup, ListGroupItem } from 'react-bootstrap';
 
@@ -184,7 +184,7 @@ export default class Demo extends React.PureComponent {
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-        <TableHeaderRow allowSorting allowDragging />
+        <TableHeaderRow allowSorting />
         <PagingPanel
           pageSizes={pageSizes}
         />
@@ -193,7 +193,8 @@ export default class Demo extends React.PureComponent {
           contentComponent={GridDetailContainer}
         />
         <TableGroupRow />
-        <GroupingPanel allowSorting allowDragging />
+        <Toolbar />
+        <GroupingPanel allowSorting />
       </Grid>
     );
   }

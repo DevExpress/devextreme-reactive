@@ -287,7 +287,7 @@ export default class Demo extends React.PureComponent {
             onOrderChange={this.changeColumnOrder}
           />
 
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow allowSorting />
           <TableEditRow
             cellComponent={EditCell}
           />

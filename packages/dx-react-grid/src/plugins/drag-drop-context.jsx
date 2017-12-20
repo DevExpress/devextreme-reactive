@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  PluginContainer, Template, TemplatePlaceholder,
+  PluginContainer, Getter, Template, TemplatePlaceholder,
   TemplateConnector,
   DragDropContext as DragDropContextCore,
 } from '@devexpress/dx-react-core';
@@ -35,6 +35,7 @@ export class DragDropContext extends React.PureComponent {
       <PluginContainer
         pluginName="DragDropContext"
       >
+        <Getter name="allowDragging" value />
         <Template name="root">
           <DragDropContextCore
             onChange={this.change}

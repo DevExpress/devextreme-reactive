@@ -9,7 +9,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing,
+  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -124,13 +124,14 @@ const GridContainer = ({
       onColumnWidthsChange={onColumnWidthsChange}
     />
 
-    <TableHeaderRow allowSorting allowDragging allowResizing />
+    <TableHeaderRow allowSorting allowResizing />
     <TableFilterRow />
     <TableSelection showSelectAll />
     <TableRowDetail
       contentComponent={ReduxGridDetailContainer}
     />
-    <GroupingPanel allowSorting allowDragging />
+    <Toolbar />
+    <GroupingPanel allowSorting />
     <TableGroupRow />
     <PagingPanel
       pageSizes={pageSizes}

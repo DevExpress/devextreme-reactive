@@ -54,7 +54,7 @@ export class ColumnChooser extends React.PureComponent {
               <div>
                 <ToggleButton
                   getRef={(button) => { this.button = button; }}
-                  onClick={this.handleClickButton}
+                  onToggle={this.handleClickButton}
                 />
                 <Overlay
                   visible={visible}

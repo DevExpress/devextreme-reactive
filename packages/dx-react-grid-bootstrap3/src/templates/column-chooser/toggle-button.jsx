@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const ToggleButton = ({
-  onClick, className,
+  onToggle, className,
   getRef, ...restProps
 }) => (
   <button
     className={classNames('btn btn-link', className)}
-    onClick={onClick}
+    onClick={onToggle}
     ref={getRef}
     {...restProps}
   >
@@ -17,7 +17,7 @@ export const ToggleButton = ({
 );
 
 ToggleButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
   getRef: PropTypes.func.isRequired,
   className: PropTypes.string,
 };

@@ -17,6 +17,7 @@ overlayComponent | ElementType&lt;[ColumnChooserOverlayProps](#columnchooserover
 toggleButtonComponent | ElementType&lt;[ColumnChooserToggleButtonProps](#columnchoosertogglebuttonprops)&gt; | | A component that renders the column chooser toggle button.
 containerComponent | ElementType&lt;[ColumnChooserContainerProps](#columnchoosercontainerprops)&gt; | | A component that renders the column chooser container.
 itemComponent | ElementType&lt;[ColumnChooserItemProps](#columnchooseritemprops)&gt; | | A component that renders a column chooser item.
+messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -42,6 +43,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 onToggle | () => void | An event that initiates overlay showing or hiding.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns title for the column chooser toggle button. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ### ColumnChooserContainerProps
 
@@ -74,6 +76,14 @@ Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | The grid column associated with the item.
 hidden | boolean | Specifies whether the associated column is hidden.
+
+## Localization Messages
+
+An object with the following shape:
+
+Field | Type | Default | Description
+------|------|---------|------------
+hiddenColumns? | string | 'Hidden Columns' | Specifies title for the column chooser toggle button. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Plugin Components
 

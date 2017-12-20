@@ -91,9 +91,9 @@ export default class Demo extends React.PureComponent {
 
         <TableEditRow />
         <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
+          showAddCommand
+          showEditCommand
+          showDeleteCommand
           width={200}
           messages={editColumnMessages}
         />

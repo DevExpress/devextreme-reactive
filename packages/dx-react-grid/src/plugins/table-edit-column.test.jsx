@@ -125,7 +125,7 @@ describe('TableEditColumn', () => {
         .toBeFalsy();
     });
 
-    it('should render add command when allowAdding is true', () => {
+    it('should render add command when showAddCommand is true', () => {
       isHeadingEditCommandsTableCell.mockImplementation(() => true);
 
       const tree = mount((
@@ -133,7 +133,7 @@ describe('TableEditColumn', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
-            allowAdding
+            showAddCommand
           />
         </PluginHost>
       ));
@@ -181,7 +181,7 @@ describe('TableEditColumn', () => {
         .toBeFalsy();
     });
 
-    it('should render edit command when allowEditing is true', () => {
+    it('should render edit command when showEditCommand is true', () => {
       isEditCommandsTableCell.mockImplementation(() => true);
 
       const tree = mount((
@@ -189,7 +189,7 @@ describe('TableEditColumn', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
-            allowEditing
+            showEditCommand
           />
         </PluginHost>
       ));
@@ -212,7 +212,7 @@ describe('TableEditColumn', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
-            allowEditing
+            showEditCommand
           />
         </PluginHost>
       ));
@@ -230,7 +230,7 @@ describe('TableEditColumn', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
-            allowEditing
+            showEditCommand
           />
         </PluginHost>
       ));
@@ -239,7 +239,7 @@ describe('TableEditColumn', () => {
         .toBeFalsy();
     });
 
-    it('should render delete command when allowDeleting is true', () => {
+    it('should render delete command when showDeleteCommand is true', () => {
       isEditCommandsTableCell.mockImplementation(() => true);
 
       const tree = mount((
@@ -247,7 +247,7 @@ describe('TableEditColumn', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
-            allowDeleting
+            showDeleteCommand
           />
         </PluginHost>
       ));
@@ -272,7 +272,7 @@ describe('TableEditColumn', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
-            allowDeleting
+            showDeleteCommand
           />
         </PluginHost>
       ));
@@ -290,7 +290,7 @@ describe('TableEditColumn', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableEditColumn
             {...defaultProps}
-            allowDeleting
+            showDeleteCommand
           />
         </PluginHost>
       ));

@@ -22,4 +22,4 @@ export class ColumnChooser extends React.PureComponent {
 ColumnChooser.Container = ContainerComponent;
 ColumnChooser.Button = ButtonComponent;
 ColumnChooser.Item = ItemComponent;
-ColumnChooser.Popover = PopoverComponent;
+ColumnChooser.Overlay = OverlayComponent;

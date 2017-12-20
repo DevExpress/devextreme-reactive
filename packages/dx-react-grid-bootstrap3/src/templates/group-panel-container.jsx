@@ -5,6 +5,7 @@ export const GroupPanelContainer = ({ children, ...restProps }) => (
   <div
     style={{
       width: '100%',
+      marginTop: '5px',
     }}
     {...restProps}
   >

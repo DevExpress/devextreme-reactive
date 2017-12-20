@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { IconButton, Tooltip } from 'material-ui';
 import { VisibilityOff } from 'material-ui-icons';
 
-export const ToggleButton = ({ onToggle, getRef, ...restProps }) => (
+export const ToggleButton = ({
+  onToggle, getRef,
+  getMessage, ...restProps
+}) => (
   <Tooltip
-    title="Hidden columns" //TODO add custom messages
+    title={getMessage('hiddenColumns')}
     placement="bottom-end"
     enterDelay={300}
     {...restProps}
@@ -22,4 +25,5 @@ export const ToggleButton = ({ onToggle, getRef, ...restProps }) => (
 ToggleButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
   getRef: PropTypes.func.isRequired,
+  getMessage: PropTypes.func.isRequired,
 };

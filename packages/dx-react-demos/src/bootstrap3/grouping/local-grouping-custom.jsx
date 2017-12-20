@@ -14,6 +14,8 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
+const cityIdentity = value => ({ key: value.substr(0, 1) });
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -25,23 +27,19 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City', showWhenGrouped: true },
         { name: 'car', title: 'Car' },
       ],
+      localGroupingColumnExtension: [
+        { columnName: 'city', identity: cityIdentity },
+      ],
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'city' }],
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });
-
-    this.getColumnIdentity = (columnName) => {
-      if (columnName === 'city') {
-        return value => ({
-          key: value.substr(0, 1),
-        });
-      }
-      return undefined;
-    };
   }
   render() {
-    const { rows, columns, grouping } = this.state;
+    const {
+      rows, columns, localGroupingColumnExtension, grouping,
+    } = this.state;
 
     return (
       <Grid
@@ -52,7 +50,7 @@ export default class Demo extends React.PureComponent {
           grouping={grouping}
         />
         <LocalGrouping
-          getColumnIdentity={this.getColumnIdentity}
+          columnExtensions={localGroupingColumnExtension}
         />
         <Table />
         <TableHeaderRow />

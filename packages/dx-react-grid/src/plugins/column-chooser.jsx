@@ -5,7 +5,7 @@ import {
   Template, TemplatePlaceholder, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
 
-import { columnChooserItems } from '@devexpress/dx-grid-core';
+import { getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'TableColumnVisibility' },
@@ -21,7 +21,7 @@ export class ColumnChooser extends React.PureComponent {
     };
 
     this.handleClickButton = this.handleClickButton.bind(this);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleHide = this.handleHide.bind(this);
   }
   handleClickButton() {
     this.setState({
@@ -29,7 +29,7 @@ export class ColumnChooser extends React.PureComponent {
       overlayTarget: findDOMNode(this.button), // eslint-disable-line react/no-find-dom-node
     });
   }
-  handleRequestClose() {
+  handleHide() {
     this.setState({
       visible: false,
     });
@@ -40,7 +40,9 @@ export class ColumnChooser extends React.PureComponent {
       containerComponent: Container,
       itemComponent: Item,
       toggleButtonComponent: ToggleButton,
+      messages,
     } = this.props;
+    const getMessage = getMessagesFormatter(messages);
     const { visible, overlayTarget } = this.state;
     return (
       <PluginContainer
@@ -55,11 +57,12 @@ export class ColumnChooser extends React.PureComponent {
                 <ToggleButton
                   getRef={(button) => { this.button = button; }}
                   onClick={this.handleClickButton}
+                  getMessage={getMessage}
                 />
                 <Overlay
                   visible={visible}
                   target={overlayTarget}
-                  onHide={this.handleRequestClose}
+                  onHide={this.handleHide}
                 >
                   <Container>
                     {columnChooserItems(columns, hiddenColumns)
@@ -86,4 +89,9 @@ ColumnChooser.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
+  messages: PropTypes.object,
+};
+
+ColumnChooser.defaultProps = {
+  messages: {},
 };

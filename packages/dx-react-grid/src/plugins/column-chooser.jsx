@@ -53,7 +53,7 @@ export class ColumnChooser extends React.PureComponent {
             {({ columns, hiddenColumns }, { toggleVisibility }) => (
               <div>
                 <ToggleButton
-                  ref={(button) => { this.button = button; }}
+                  getRef={(button) => { this.button = button; }}
                   onClick={this.handleClickButton}
                 />
                 <Overlay
@@ -73,7 +73,7 @@ export class ColumnChooser extends React.PureComponent {
                   </Container>
                 </Overlay>
               </div>
-              )}
+            )}
           </TemplateConnector>
         </Template>
       </PluginContainer>

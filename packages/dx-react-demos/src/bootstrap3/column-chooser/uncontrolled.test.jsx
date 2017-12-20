@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Demo from './basic';
+import Demo from './uncontrolled';
 
-describe('BS3 column chooser: basic demo', () => {
+describe('BS3 column chooser: uncontrolled demo', () => {
   it('should work', () => {
     mount(<Demo />);
   });

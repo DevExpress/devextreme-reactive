@@ -262,9 +262,13 @@ export const demos = {
     },
   },
   'column-chooser': {
-    basic: {
-      bootstrap3: require('./bootstrap3/column-chooser/basic').default,
-      'material-ui': require('./material-ui/column-chooser/basic').default,
+    controlled: {
+      bootstrap3: require('./bootstrap3/column-chooser/controlled').default,
+      'material-ui': require('./material-ui/column-chooser/controlled').default,
+    },
+    uncontrolled: {
+      bootstrap3: require('./bootstrap3/column-chooser/uncontrolled').default,
+      'material-ui': require('./material-ui/column-chooser/uncontrolled').default,
     },
   },
 };

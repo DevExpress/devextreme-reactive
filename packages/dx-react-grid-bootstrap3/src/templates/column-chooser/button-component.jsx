@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export class ButtonComponent extends React.PureComponent {
   render() {
-    const { onButtonClick, refFunc } = this.props;
+    const { onButtonClick } = this.props;
     return (
       <button
         className="btn btn-link"
@@ -17,5 +17,4 @@ export class ButtonComponent extends React.PureComponent {
 
 ButtonComponent.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
-  refFunc: PropTypes.func.isRequired,
 };

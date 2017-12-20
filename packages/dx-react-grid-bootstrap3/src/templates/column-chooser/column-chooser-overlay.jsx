@@ -4,16 +4,17 @@ import { Overlay, Popover } from 'react-bootstrap';
 
 export class OverlayComponent extends React.PureComponent {
   render() {
-    const { open, anchorEl, children } = this.props;
+    const { open, anchorEl, children, onRequestClose } = this.props;
+
     return (
       <Overlay
         show={open}
         target={anchorEl}
+        onHide={onRequestClose}
         placement="bottom"
-        container={this}
-        containerPadding={20}
+        rootClose
       >
-        <Popover id="popover-contained" title="Popover bottom" rootClose>
+        <Popover id="popover-contained">
           {children}
         </Popover>
       </Overlay>
@@ -24,6 +25,7 @@ export class OverlayComponent extends React.PureComponent {
 OverlayComponent.propTypes = {
   anchorEl: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
   open: PropTypes.bool,
 };
 

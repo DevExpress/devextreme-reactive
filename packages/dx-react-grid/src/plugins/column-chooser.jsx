@@ -47,7 +47,6 @@ export class ColumnChooser extends React.PureComponent {
       buttonComponent: ToggleButton,
     } = this.props;
     const { open, anchorEl } = this.state;
-
     return (
       <PluginContainer
         pluginName="ColumnChooser"

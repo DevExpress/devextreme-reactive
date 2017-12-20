@@ -51,31 +51,31 @@ export class ColumnChooser extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ columns, hiddenColumns }, { toggleVisibility }) => (
-              <div>
-                <ToggleButton
-                  ref={(button) => { this.button = button; }}
-                  onToggle={this.handleClickButton}
-                  getMessage={getMessage}
-                />
-                <Overlay
-                  visible={visible}
-                  target={overlayTarget}
-                  onHide={this.handleHide}
-                >
-                  <Container>
-                    {columnChooserItems(columns, hiddenColumns)
-                      .map(item => (
-                        <Item
-                          key={item.column.name}
-                          item={item}
-                          onToggle={() => toggleVisibility(item.column.name)}
-                        />
-                    ))}
-                  </Container>
-                </Overlay>
-              </div>
-            )}
+            {({ columns, hiddenColumns }, { toggleVisibility }) => ([
+              <ToggleButton
+                key="toggleButton"
+                ref={(button) => { this.button = button; }}
+                onToggle={this.handleClickButton}
+                getMessage={getMessage}
+              />,
+              <Overlay
+                key="overlay"
+                visible={visible}
+                target={overlayTarget}
+                onHide={this.handleHide}
+              >
+                <Container>
+                  {columnChooserItems(columns, hiddenColumns)
+                    .map(item => (
+                      <Item
+                        key={item.column.name}
+                        item={item}
+                        onToggle={() => toggleVisibility(item.column.name)}
+                      />
+                  ))}
+                </Container>
+              </Overlay>,
+            ])}
           </TemplateConnector>
         </Template>
       </PluginContainer>

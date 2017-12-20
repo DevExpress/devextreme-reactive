@@ -1,12 +1,13 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { columnChooserItems } from '@devexpress/dx-grid-core';
+import { columnChooserItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from './test-utils';
 import { ColumnChooser } from './column-chooser';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   columnChooserItems: jest.fn(),
+  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -32,6 +33,7 @@ const ButtonComponent = () => null;
 describe('ColumnChooser', () => {
   beforeEach(() => {
     columnChooserItems.mockImplementation(() => [{ column: { name: 'a' }, hidden: true }]);
+    getMessagesFormatter.mockImplementation(() => {});
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -45,8 +47,8 @@ describe('ColumnChooser', () => {
         <ColumnChooser
           containerComponent={ContainerComponent}
           itemComponent={ItemComponent}
-          popoverComponent={PopoverComponent}
-          buttonComponent={ButtonComponent}
+          overlayComponent={PopoverComponent}
+          toggleButtonComponent={ButtonComponent}
         />
       </PluginHost>
     ));
@@ -69,8 +71,8 @@ describe('ColumnChooser', () => {
         <ColumnChooser
           containerComponent={ContainerComponent}
           itemComponent={ItemComponent}
-          popoverComponent={PopoverComponent}
-          buttonComponent={ButtonComponent}
+          overlayComponent={PopoverComponent}
+          toggleButtonComponent={ButtonComponent}
         />
       </PluginHost>
     ));
@@ -96,8 +98,8 @@ describe('ColumnChooser', () => {
         <ColumnChooser
           containerComponent={ContainerComponent}
           itemComponent={ItemComponent}
-          popoverComponent={PopoverComponent}
-          buttonComponent={ButtonComponent}
+          overlayComponent={PopoverComponent}
+          toggleButtonComponent={ButtonComponent}
         />
       </PluginHost>
     ));

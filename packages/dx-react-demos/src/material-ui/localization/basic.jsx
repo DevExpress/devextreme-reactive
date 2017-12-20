@@ -19,6 +19,7 @@ import {
   TableEditColumn,
   PagingPanel,
   DragDropContext,
+  Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
 import {
@@ -91,7 +92,7 @@ export default class Demo extends React.PureComponent {
           <Table
             messages={tableMessages}
           />
-          <TableHeaderRow allowDragging />
+          <TableHeaderRow />
 
           <TableEditRow />
           <TableEditColumn
@@ -105,9 +106,9 @@ export default class Demo extends React.PureComponent {
           <TableFilterRow
             messages={filterRowMessages}
           />
+          <Toolbar />
           <GroupingPanel
             showGroupingControls
-            allowDragging
             messages={groupingPanelMessages}
           />
 

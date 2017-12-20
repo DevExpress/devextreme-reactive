@@ -40,7 +40,7 @@ export class TableHeaderCell extends React.PureComponent {
       style, column, tableColumn,
       allowSorting, sortingDirection,
       showGroupingControls, onGroup,
-      allowDragging, dragPayload,
+      allowDragging,
       allowResizing, onWidthChange, onDraftWidthChange,
       tableRow, getMessage, onSort,
       ...restProps
@@ -105,7 +105,7 @@ export class TableHeaderCell extends React.PureComponent {
     return allowDragging ? (
       <DragSource
         ref={(element) => { this.cellRef = element; }}
-        getPayload={() => dragPayload}
+        getPayload={() => [{ type: 'column', columnName: column.name }]}
         onStart={() => this.setState({ dragging: true })}
         onEnd={() => this.cellRef && this.setState({ dragging: false })}
       >
@@ -128,7 +128,6 @@ TableHeaderCell.propTypes = {
   showGroupingControls: PropTypes.bool,
   onGroup: PropTypes.func,
   allowDragging: PropTypes.bool,
-  dragPayload: PropTypes.any,
   allowResizing: PropTypes.bool,
   onWidthChange: PropTypes.func,
   onDraftWidthChange: PropTypes.func,
@@ -145,7 +144,6 @@ TableHeaderCell.defaultProps = {
   showGroupingControls: false,
   onGroup: undefined,
   allowDragging: false,
-  dragPayload: null,
   allowResizing: false,
   onWidthChange: undefined,
   onDraftWidthChange: undefined,

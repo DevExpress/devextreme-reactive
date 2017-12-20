@@ -10,6 +10,7 @@ import {
   TableGroupRow,
   GroupingPanel,
   DragDropContext,
+  Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
 import { Loading } from '../components/loading';
@@ -120,9 +121,10 @@ export default class Demo extends React.PureComponent {
             expandedGroups={tempExpandedGroups}
           />
           <VirtualTable />
-          <TableHeaderRow allowDragging />
+          <TableHeaderRow />
           <TableGroupRow />
-          <GroupingPanel allowDragging />
+          <Toolbar />
+          <GroupingPanel />
         </Grid>
         {loading && <Loading />}
       </Paper>

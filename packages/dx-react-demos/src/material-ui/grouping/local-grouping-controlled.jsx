@@ -10,6 +10,7 @@ import {
   TableGroupRow,
   GroupingPanel,
   DragDropContext,
+  Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
 import {
@@ -49,9 +50,10 @@ export default class Demo extends React.PureComponent {
           />
           <LocalGrouping />
           <Table />
-          <TableHeaderRow allowDragging showGroupingControls />
+          <TableHeaderRow showGroupingControls />
           <TableGroupRow />
-          <GroupingPanel allowDragging showGroupingControls />
+          <Toolbar />
+          <GroupingPanel showGroupingControls />
         </Grid>
       </Paper>
     );

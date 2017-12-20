@@ -29,9 +29,9 @@ const defaultDeps = {
     cancelGroupingChange: jest.fn(),
   },
   template: {
-    header: {},
+    toolbarContent: {},
   },
-  plugins: ['GroupingState'],
+  plugins: ['GroupingState', 'Toolbar'],
 };
 
 const defaultProps = {
@@ -61,14 +61,16 @@ describe('GroupingPanel', () => {
 
   it('should pass correct parameters to layoutComponent', () => {
     const deps = {
-      plugins: ['SortingState'],
+      getter: {
+        allowDragging: true,
+      },
+      plugins: ['DragDropContext'],
     };
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <GroupingPanel
           {...defaultProps}
-          allowDragging
         />
       </PluginHost>
     ));

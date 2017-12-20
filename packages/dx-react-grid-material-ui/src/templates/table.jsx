@@ -12,7 +12,6 @@ const styles = {
     position: 'sticky',
     top: 0,
     zIndex: 1,
-    background: 'white',
     overflow: 'visible',
     fallbacks: {
       position: '-webkit-sticky',

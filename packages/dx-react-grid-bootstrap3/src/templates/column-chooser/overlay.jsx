@@ -22,12 +22,13 @@ export const Overlay = ({
 );
 
 Overlay.propTypes = {
-  target: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   onHide: PropTypes.func.isRequired,
   visible: PropTypes.bool,
+  target: PropTypes.object,
 };
 
 Overlay.defaultProps = {
   visible: false,
+  target: null,
 };

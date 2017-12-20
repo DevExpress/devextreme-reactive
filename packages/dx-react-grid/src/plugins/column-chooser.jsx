@@ -17,7 +17,7 @@ export class ColumnChooser extends React.PureComponent {
 
     this.state = {
       visible: false,
-      overlayTarget: findDOMNode(this.button),
+      overlayTarget: findDOMNode(this.button), // eslint-disable-line react/no-find-dom-node
     };
 
     this.handleClickButton = this.handleClickButton.bind(this);
@@ -26,7 +26,7 @@ export class ColumnChooser extends React.PureComponent {
   handleClickButton() {
     this.setState({
       visible: true,
-      overlayTarget: findDOMNode(this.button),
+      overlayTarget: findDOMNode(this.button), // eslint-disable-line react/no-find-dom-node
     });
   }
   handleRequestClose() {

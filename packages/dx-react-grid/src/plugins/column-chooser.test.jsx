@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { columnChooserItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from './test-utils';
 import { ColumnChooser } from './column-chooser';
 
@@ -20,59 +20,59 @@ const defaultDeps = {
     hiddenColumns: ['a'],
   },
   action: {
-    toggleVisibility: () => {},
+    toggleVisibility: () => { },
+  },
+  template: {
+    toolbarContent: {},
   },
   plugins: ['TableColumnVisibility', 'Toolbar'],
 };
 
-const ContainerComponent = () => null;
+// eslint-disable-next-line react/prop-types
+const ContainerComponent = ({ children }) => <div>{children}</div>;
+// eslint-disable-next-line react/prop-types
+const OverlayComponent = ({ children }) => <div>{children}</div>;
+const ToggleButtonComponent = () => null;
 const ItemComponent = () => null;
-const PopoverComponent = () => null;
-const ButtonComponent = () => null;
 
 describe('ColumnChooser', () => {
   beforeEach(() => {
     columnChooserItems.mockImplementation(() => [{ column: { name: 'a' }, hidden: true }]);
-    getMessagesFormatter.mockImplementation(() => {});
+    getMessagesFormatter.mockImplementation(() => { });
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
-  it('should render container component with correct parameters', () => {
-    const tree = shallow((
+  it('should pass correct parameters to the ContainerComponent', () => {
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TemplatePlaceholder name="toolbarContent" />
+
         <ColumnChooser
           containerComponent={ContainerComponent}
           itemComponent={ItemComponent}
-          overlayComponent={PopoverComponent}
-          toggleButtonComponent={ButtonComponent}
+          overlayComponent={OverlayComponent}
+          toggleButtonComponent={ToggleButtonComponent}
         />
       </PluginHost>
     ));
 
     expect(tree.find(ContainerComponent).props())
       .toEqual({
-        item: {
-          column: { name: 'a' },
-          hidden: true,
-        },
-        onToggle: expect.any(Function),
+        children: expect.any(Array),
       });
   });
 
-  it('should pass correct parameters to the itemComponent', () => {
+  it('should pass correct parameters to the ItemComponent', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TemplatePlaceholder name="toolbarContent" />
         <ColumnChooser
           containerComponent={ContainerComponent}
           itemComponent={ItemComponent}
-          overlayComponent={PopoverComponent}
-          toggleButtonComponent={ButtonComponent}
+          overlayComponent={OverlayComponent}
+          toggleButtonComponent={ToggleButtonComponent}
         />
       </PluginHost>
     ));
@@ -87,19 +87,32 @@ describe('ColumnChooser', () => {
       });
   });
 
-  it('should calculate items via the "columnChooserItems" computed', () => {
-    const columns = [{ name: 'a' }, { name: 'b' }];
-    const hiddenColumns = ['a'];
-
-    shallow((
+  it('should render OverlayComponent', () => {
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TemplatePlaceholder name="toolbarContent" />
         <ColumnChooser
-          containerComponent={ContainerComponent}
+          containerComponent={() => null}
           itemComponent={ItemComponent}
-          overlayComponent={PopoverComponent}
-          toggleButtonComponent={ButtonComponent}
+          overlayComponent={OverlayComponent}
+          toggleButtonComponent={ToggleButtonComponent}
+        />
+      </PluginHost>
+    ));
+
+    expect(OverlayComponent)
+      .toBeTruthy();
+  });
+
+  it('should calculate items via the "columnChooserItems" computed', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ColumnChooser
+          containerComponent={() => null}
+          itemComponent={ItemComponent}
+          overlayComponent={OverlayComponent}
+          toggleButtonComponent={ToggleButtonComponent}
         />
       </PluginHost>
     ));
@@ -107,6 +120,6 @@ describe('ColumnChooser', () => {
     expect(columnChooserItems)
       .toHaveBeenCalledTimes(1);
     expect(columnChooserItems)
-      .toHaveBeenCalledWith(columns, hiddenColumns);
+      .toHaveBeenCalledWith(defaultDeps.getter.columns, defaultDeps.getter.hiddenColumns);
   });
 });

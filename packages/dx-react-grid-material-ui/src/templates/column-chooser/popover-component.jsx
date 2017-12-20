@@ -4,11 +4,15 @@ import { Popover } from 'material-ui';
 
 export class PopoverComponent extends React.PureComponent {
   render() {
-    const { open, onRequestClose, children } = this.props;
+    const {
+      open, onRequestClose,
+      children, anchorEl,
+    } = this.props;
     return (
       <Popover
         open={open}
-        onClose={onRequestClose}
+        anchorEl={anchorEl}
+        onRequestClose={onRequestClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
@@ -22,8 +26,10 @@ PopoverComponent.propTypes = {
   onRequestClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   open: PropTypes.bool,
+  anchorEl: PropTypes.object,
 };
 
 PopoverComponent.defaultProps = {
   open: false,
+  anchorEl: null,
 };

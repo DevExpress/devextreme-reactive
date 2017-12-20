@@ -330,7 +330,7 @@ class DemoBase extends React.PureComponent {
             onOrderChange={this.changeColumnOrder}
           />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableEditRow
             cellComponent={EditCell}
           />

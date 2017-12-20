@@ -56,7 +56,7 @@ describe('TableHeaderCell', () => {
           name: 'Test',
         }}
         onSort={onSort}
-        allowSorting
+        showSortingControls
         getMessage={jest.fn()}
       />
     ));
@@ -83,7 +83,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
-        allowSorting
+        showSortingControls
         getMessage={jest.fn()}
       />
     ));
@@ -152,7 +152,7 @@ describe('TableHeaderCell', () => {
   it('should pass correct text to SortingControl', () => {
     const tree = mount((
       <TableHeaderCell
-        allowSorting
+        showSortingControls
         column={{ align: 'right', title: 'test' }}
         getMessage={() => {}}
       />
@@ -213,7 +213,7 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           column={{ align: 'right', title: 'test' }}
-          allowSorting
+          showSortingControls
           getMessage={jest.fn()}
         />
       ));
@@ -228,7 +228,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           onSort={onSort}
           column={{ align: 'right', title: 'test' }}
-          allowSorting
+          showSortingControls
           getMessage={jest.fn()}
         />
       ));
@@ -255,7 +255,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           onSort={onSort}
           column={{ align: 'right', title: 'test' }}
-          allowSorting
+          showSortingControls
           getMessage={jest.fn()}
         />
       ));
@@ -271,7 +271,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           onSort={onSort}
           column={{ align: 'right', title: 'test' }}
-          allowSorting
+          showSortingControls
           getMessage={jest.fn()}
         />
       ));

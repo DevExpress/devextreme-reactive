@@ -46,7 +46,7 @@ Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to t
 - Use the corresponding button in a header cell
  Assign true to the `TableHeaderRow` plugin's `showGroupingControls` and the `GroupingPanel` plugin's `showGroupingControls` properties.
 
-You can also set the `GroupingPanel` plugin's `allowSorting` option to true to enable sorting data by a grouped column.
+You can also set the `GroupingPanel` plugin's `showSortingControls` option to true to enable sorting data by a grouped column.
 
 In the following example, the Grid functions are in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls the grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
 

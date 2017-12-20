@@ -46,7 +46,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
         onSort={onSort}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -62,7 +62,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
         onSort={onSort}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -103,7 +103,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
-        allowSorting
+        showSortingControls
       />
     ));
     const сhipElem = tree.find(Chip);
@@ -134,7 +134,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
-        allowSorting
+        showSortingControls
       />
     ));
 

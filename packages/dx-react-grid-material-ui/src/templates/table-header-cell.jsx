@@ -75,7 +75,7 @@ class TableHeaderCellBase extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
-      allowSorting, sortingDirection,
+      showSortingControls, sortingDirection,
       showGroupingControls, onGroup,
       allowDragging,
       allowResizing, onWidthChange, onDraftWidthChange,
@@ -91,7 +91,7 @@ class TableHeaderCellBase extends React.PureComponent {
     const tableCellClasses = classNames({
       [classes.cell]: true,
       [classes.cellRight]: align === 'right',
-      [classes.cellNoUserSelect]: allowDragging || allowSorting,
+      [classes.cellNoUserSelect]: allowDragging || showSortingControls,
       [classes.cellDraggable]: allowDragging,
       [classes.cellDimmed]: dragging || tableColumn.draft,
     }, className);
@@ -108,7 +108,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onGroup={onGroup}
           />
         )}
-        {allowSorting ? (
+        {showSortingControls ? (
           <SortingControl
             align={align}
             sortingDirection={sortingDirection}
@@ -150,7 +150,7 @@ TableHeaderCellBase.propTypes = {
     title: PropTypes.string,
   }).isRequired,
   style: PropTypes.object,
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   showGroupingControls: PropTypes.bool,
@@ -168,7 +168,7 @@ TableHeaderCellBase.defaultProps = {
   tableColumn: {},
   tableRow: undefined,
   style: null,
-  allowSorting: false,
+  showSortingControls: false,
   sortingDirection: undefined,
   onSort: undefined,
   showGroupingControls: false,

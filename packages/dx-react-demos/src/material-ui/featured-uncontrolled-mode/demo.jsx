@@ -99,7 +99,7 @@ export default class Demo extends React.PureComponent {
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableFilterRow />
           <PagingPanel
             pageSizes={pageSizes}
@@ -107,7 +107,7 @@ export default class Demo extends React.PureComponent {
 
           <TableGroupRow />
           <Toolbar />
-          <GroupingPanel allowSorting />
+          <GroupingPanel showSortingControls />
         </Grid>
       </Paper>
     );

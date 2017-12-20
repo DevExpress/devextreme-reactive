@@ -23,11 +23,10 @@ export class ToggleButton extends React.PureComponent {
 
 ToggleButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
+  getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
-  getMessage: PropTypes.func,
 };
 
 ToggleButton.defaultProps = {
   className: undefined,
-  getMessage: undefined,
 };

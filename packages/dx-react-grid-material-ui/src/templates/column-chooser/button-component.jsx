@@ -5,12 +5,13 @@ import { VisibilityOff } from 'material-ui-icons';
 
 export class ButtonComponent extends React.PureComponent {
   render() {
-    const { onButtonClick } = this.props;
+    const { onButtonClick, ...restProps } = this.props;
     return (
       <Tooltip
-        title="Hidden columns"
+        title="Hidden columns" //TODO add custom messages
         placement="bottom-end"
         enterDelay={300}
+        {...restProps}
       >
         <IconButton
           onClick={onButtonClick}

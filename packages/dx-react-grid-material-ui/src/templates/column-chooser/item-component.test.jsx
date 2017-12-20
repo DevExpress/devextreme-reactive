@@ -2,12 +2,12 @@ import React from 'react';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import { mount, shallow } from 'enzyme';
-import { ColumnChooserItem } from './column-chooser-item';
+import { ItemComponent } from './item-component';
 
 describe('ColumnChooserItem', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
-    const tree = mount((
-      <ColumnChooserItem
+    const tree = shallow((
+      <ItemComponent
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
@@ -26,8 +26,8 @@ describe('ColumnChooserItem', () => {
 
   it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
-    const tree = mount((
-      <ColumnChooserItem
+    const tree = shallow((
+      <ItemComponent
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
@@ -46,7 +46,7 @@ describe('ColumnChooserItem', () => {
 
   it('should render column title or name in each item', () => {
     const tree = mount((
-      <ColumnChooserItem
+      <ItemComponent
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
@@ -65,7 +65,7 @@ describe('ColumnChooserItem', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <ColumnChooserItem
+      <ItemComponent
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,

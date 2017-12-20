@@ -4,9 +4,12 @@ import { List } from 'material-ui';
 
 export class ContainerComponent extends React.PureComponent {
   render() {
-    const { children } = this.props;
+    const { children, ...restProps } = this.props;
     return (
-      <List dense>
+      <List
+        dense
+        {...restProps}
+      >
         {children}
       </List>
     );

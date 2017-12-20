@@ -19,7 +19,7 @@ export class ColumnChooser extends React.PureComponent {
   }
 }
 
-this.Container = ContainerComponent;
-this.Button = ButtonComponent;
-this.Item = ItemComponent;
-this.Popover = PopoverComponent;
+ColumnChooser.Container = ContainerComponent;
+ColumnChooser.Button = ButtonComponent;
+ColumnChooser.Item = ItemComponent;
+ColumnChooser.Popover = PopoverComponent;

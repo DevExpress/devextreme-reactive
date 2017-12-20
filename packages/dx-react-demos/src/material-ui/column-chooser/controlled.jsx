@@ -1,4 +1,5 @@
 import React from 'react';
+import Paper from 'material-ui/Paper';
 import {
   Grid,
   Table,
@@ -6,7 +7,7 @@ import {
   ColumnChooser,
   TableColumnVisibility,
   Toolbar,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-material-ui';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -18,7 +19,7 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex', width: 100 },
+        { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
@@ -34,21 +35,21 @@ export default class Demo extends React.PureComponent {
   render() {
     const { columns, rows, hiddenColumns } = this.state;
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <Table />
-        <TableHeaderRow />
-        <TableColumnVisibility
-          hiddenColumns={hiddenColumns}
-          onHiddenColumnsChange={(nextHiddenColumns) => {
-            this.setState({ hiddenColumns: nextHiddenColumns });
-          }}
-        />
-        <Toolbar />
-        <ColumnChooser />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <Table />
+          <Toolbar />
+          <TableHeaderRow />
+          <TableColumnVisibility
+            hiddenColumns={hiddenColumns}
+            onHiddenColumnsChange={this.hiddenColumnsChange}
+          />
+          <ColumnChooser />
+        </Grid>
+      </Paper>
     );
   }
 }

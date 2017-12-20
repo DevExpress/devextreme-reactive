@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
           order={columnOrder}
           onOrderChange={this.changeColumnOrder}
         />
-        <TableHeaderRow allowDragging />
+        <TableHeaderRow />
       </Grid>
     );
   }

@@ -17,8 +17,6 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a simple Grid with column reordering enabled.
 
-Enable end-user interactions by setting the [TableHeaderRow](../reference/table-header-row.md) plugin's `allowDragging` property to true.
-
 ## Uncontrolled Mode
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial column order in the [TableColumnReordering](../reference/table-column-reordering.md) plugin's `defaultOrder` property.

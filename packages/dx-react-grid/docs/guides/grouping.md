@@ -41,7 +41,7 @@ In the following example, the data is specified as an array of groups. Specify t
 Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to allow a user to use any of the following methods to specify grouping options:
 
 - Drag a column header to or from the Group Panel
- Set the `TableHeaderRow` and `GroupingPanel` plugins' `allowDragging` properties to true.
+ Import the [DragDropContext](../reference/drag-drop-context.md) plugin.
 
 - Use the corresponding button in a header cell
  Assign true to the `TableHeaderRow` plugin's `showGroupingControls` and the `GroupingPanel` plugin's `showGroupingControls` properties.

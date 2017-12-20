@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const ColumnChooserContainer = ({
+export const Container = ({
   children,
-  items,
-  onItemToggle,
   className,
   ...restProps
 }) => (
@@ -17,15 +15,11 @@ export const ColumnChooserContainer = ({
   </div>
 );
 
-ColumnChooserContainer.propTypes = {
+Container.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
-  items: PropTypes.arrayOf(PropTypes.object),
   className: PropTypes.string,
-  onItemToggle: PropTypes.func,
 };
 
-ColumnChooserContainer.defaultProps = {
+Container.defaultProps = {
   className: undefined,
-  onItemToggle: undefined,
-  items: [],
 };

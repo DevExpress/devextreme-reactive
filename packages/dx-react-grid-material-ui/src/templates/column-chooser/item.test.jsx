@@ -2,12 +2,12 @@ import React from 'react';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import { mount, shallow } from 'enzyme';
-import { ItemComponent } from './item-component';
+import { Item } from './item';
 
-describe('ColumnChooserItem', () => {
+describe('Item', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
     const tree = shallow((
-      <ItemComponent
+      <Item
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
@@ -27,7 +27,7 @@ describe('ColumnChooserItem', () => {
   it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
     const tree = shallow((
-      <ItemComponent
+      <Item
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
@@ -46,7 +46,7 @@ describe('ColumnChooserItem', () => {
 
   it('should render column title or name in each item', () => {
     const tree = mount((
-      <ItemComponent
+      <Item
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,
@@ -65,7 +65,7 @@ describe('ColumnChooserItem', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <ItemComponent
+      <Item
         item={{
           column: { name: 'a', title: 'A' },
           hidden: false,

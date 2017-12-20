@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const ColumnChooserItem = ({
+export const Item = ({
   item: { column, hidden },
   onToggle,
   className,
@@ -29,7 +29,7 @@ export const ColumnChooserItem = ({
   );
 };
 
-ColumnChooserItem.propTypes = {
+Item.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.shape({
       name: PropTypes.string,
@@ -40,7 +40,7 @@ ColumnChooserItem.propTypes = {
   className: PropTypes.string,
 };
 
-ColumnChooserItem.defaultProps = {
+Item.defaultProps = {
   onToggle: () => {},
   className: undefined,
 };

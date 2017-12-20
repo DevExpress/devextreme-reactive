@@ -1,19 +1,21 @@
 import React from 'react';
 import { ColumnChooser as ColumnChooserBase } from '@devexpress/dx-react-grid';
-import { OverlayComponent } from '../templates/column-chooser/column-chooser-overlay';
-import { ColumnChooserContainer } from '../templates/column-chooser/column-chooser-container';
-import { ColumnChooserItem } from '../templates/column-chooser/column-chooser-item';
-import { ButtonComponent } from '../templates/column-chooser/button-component';
+import { Overlay } from '../templates/column-chooser/overlay';
+import { Container } from '../templates/column-chooser/container';
+import { Item } from '../templates/column-chooser/item';
+import { ToggleButton } from '../templates/column-chooser/toggle-button';
 
 export const ColumnChooser = props => (
   <ColumnChooserBase
-    overlayComponent={OverlayComponent}
-    containerComponent={ColumnChooserContainer}
-    itemComponent={ColumnChooserItem}
-    buttonComponent={ButtonComponent}
+    overlayComponent={Overlay}
+    containerComponent={Container}
+    itemComponent={Item}
+    buttonComponent={ToggleButton}
     {...props}
   />
 );
 
-ColumnChooser.Container = ColumnChooserContainer;
-ColumnChooser.Item = ColumnChooserItem;
+ColumnChooser.Container = Container;
+ColumnChooser.Item = Item;
+ColumnChooser.Overlay = Overlay;
+ColumnChooser.ToggleButton = ToggleButton;

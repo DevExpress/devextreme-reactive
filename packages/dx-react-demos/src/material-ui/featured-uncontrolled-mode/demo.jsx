@@ -8,7 +8,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering,
+  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
@@ -99,14 +99,15 @@ export default class Demo extends React.PureComponent {
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow allowSorting />
           <TableFilterRow />
           <PagingPanel
             pageSizes={pageSizes}
           />
 
           <TableGroupRow />
-          <GroupingPanel allowSorting allowDragging />
+          <Toolbar />
+          <GroupingPanel allowSorting />
         </Grid>
       </Paper>
     );

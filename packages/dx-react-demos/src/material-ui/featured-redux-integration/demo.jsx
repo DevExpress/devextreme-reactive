@@ -9,7 +9,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing,
+  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
@@ -138,14 +138,15 @@ const GridContainer = ({
         onColumnWidthsChange={onColumnWidthsChange}
       />
 
-      <TableHeaderRow allowSorting allowDragging />
+      <TableHeaderRow allowSorting />
       <TableFilterRow />
       <TableSelection showSelectAll />
       <TableRowDetail
         contentComponent={ReduxGridDetailContainer}
       />
       <TableGroupRow />
-      <GroupingPanel allowSorting allowDragging />
+      <Toolbar />
+      <GroupingPanel allowSorting />
       <PagingPanel
         pageSizes={pageSizes}
       />

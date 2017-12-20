@@ -104,3 +104,5 @@ react:
           path: /react/grid/docs/reference/column-chooser
         - title: TableColumnVisibility
           path: /react/grid/docs/reference/table-column-visibility
+        - title: Toolbar
+          path: /react/grid/docs/reference/toolbar

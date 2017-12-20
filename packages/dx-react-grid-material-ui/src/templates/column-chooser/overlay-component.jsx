@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Popover } from 'material-ui';
 
-export class PopoverComponent extends React.PureComponent {
+export class OverlayComponent extends React.PureComponent {
   render() {
     const { open, onRequestClose, children } = this.props;
     return (
@@ -18,12 +18,12 @@ export class PopoverComponent extends React.PureComponent {
   }
 }
 
-PopoverComponent.propTypes = {
+OverlayComponent.propTypes = {
   onRequestClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   open: PropTypes.bool,
 };
 
-PopoverComponent.defaultProps = {
+OverlayComponent.defaultProps = {
   open: false,
 };

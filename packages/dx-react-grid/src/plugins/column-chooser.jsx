@@ -37,10 +37,10 @@ export class ColumnChooser extends React.PureComponent {
   }
   render() {
     const {
-      popoverComponent: PopoverComponent,
-      containerComponent: ContainerComponent,
-      itemComponent: ItemComponent,
-      buttonComponent: Button,
+      overlayComponent: Overlay,
+      containerComponent: Container,
+      itemComponent: Item,
+      buttonComponent: ToggleButton,
     } = this.props;
     const { open, anchorEl } = this.state;
 
@@ -52,27 +52,27 @@ export class ColumnChooser extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <div>
-            <Button
+            <ToggleButton
               refFunc={(node) => { this.button = node; }}
               onButtonClick={this.handleClickButton}
             />
             <TemplateConnector>
               {({ columns, hiddenColumns }, { toggleVisibility }) => (
-                <PopoverComponent
+                <Overlay
                   open={open}
                   anchorEl={anchorEl}
                   onRequestClose={this.handleRequestClose}
                 >
-                  <ContainerComponent>
+                  <Container>
                     {columnChooserItems(columns, hiddenColumns).map(item => ( //
-                      <ItemComponent
+                      <Item
                         key={item.column.name}
                         item={item}
                         onToggle={() => toggleVisibility(item.column.name)}
                       />
                     ))}
-                  </ContainerComponent>
-                </PopoverComponent>
+                  </Container>
+                </Overlay>
               )}
             </TemplateConnector>
           </div>
@@ -83,7 +83,7 @@ export class ColumnChooser extends React.PureComponent {
 }
 
 ColumnChooser.propTypes = {
-  popoverComponent: PropTypes.func.isRequired,
+  overlayComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,
   buttonComponent: PropTypes.func.isRequired,

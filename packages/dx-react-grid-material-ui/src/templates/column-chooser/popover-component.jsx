@@ -7,6 +7,7 @@ export class PopoverComponent extends React.PureComponent {
     const {
       open, onRequestClose,
       children, anchorEl,
+      ...restProps
     } = this.props;
     return (
       <Popover
@@ -15,6 +16,7 @@ export class PopoverComponent extends React.PureComponent {
         onRequestClose={onRequestClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        {...restProps}
       >
         {children}
       </Popover>

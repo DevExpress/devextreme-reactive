@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const ToggleButton = ({ onButtonClick, className, ...restProps }) => (
+export const ToggleButton = ({ onClick, className, ...restProps }) => (
   <button
     className={classNames('btn btn-link', className)}
-    onClick={onButtonClick}
+    onClick={onClick}
     {...restProps}
   >
     <i className="glyphicon glyphicon-eye-close" />
@@ -13,7 +13,7 @@ export const ToggleButton = ({ onButtonClick, className, ...restProps }) => (
 );
 
 ToggleButton.propTypes = {
-  onButtonClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 

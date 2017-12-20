@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Popover } from 'material-ui';
 
 export const Overlay = ({
-  open, onRequestClose,
-  children, anchorEl,
+  visible, onHide,
+  children, target,
   ...restProps
 }) => (
   <Popover
-    open={open}
-    anchorEl={anchorEl}
-    onRequestClose={onRequestClose}
+    open={visible}
+    anchorEl={target}
+    onRequestClose={onHide}
     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     {...restProps}
@@ -20,13 +20,13 @@ export const Overlay = ({
 );
 
 Overlay.propTypes = {
-  onRequestClose: PropTypes.func.isRequired,
+  onHide: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  open: PropTypes.bool,
-  anchorEl: PropTypes.object,
+  visible: PropTypes.bool,
+  target: PropTypes.object,
 };
 
 Overlay.defaultProps = {
-  open: false,
-  anchorEl: null,
+  visible: false,
+  target: null,
 };

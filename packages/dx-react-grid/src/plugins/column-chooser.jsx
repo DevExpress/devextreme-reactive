@@ -16,23 +16,22 @@ export class ColumnChooser extends React.PureComponent {
     super(props);
 
     this.state = {
-      open: false,
-      anchorEl: findDOMNode(this.button),
+      visible: false,
+      overlayTarget: findDOMNode(this.button),
     };
-    this.button = null;
 
     this.handleClickButton = this.handleClickButton.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
   handleClickButton() {
     this.setState({
-      open: true,
-      anchorEl: findDOMNode(this.button),
+      visible: true,
+      overlayTarget: findDOMNode(this.button),
     });
   }
   handleRequestClose() {
     this.setState({
-      open: false,
+      visible: false,
     });
   }
   render() {
@@ -40,9 +39,9 @@ export class ColumnChooser extends React.PureComponent {
       overlayComponent: Overlay,
       containerComponent: Container,
       itemComponent: Item,
-      buttonComponent: ToggleButton,
+      toggleButtonComponent: ToggleButton,
     } = this.props;
-    const { open, anchorEl } = this.state;
+    const { visible, overlayTarget } = this.state;
     return (
       <PluginContainer
         pluginName="ColumnChooser"
@@ -54,21 +53,22 @@ export class ColumnChooser extends React.PureComponent {
             {({ columns, hiddenColumns }, { toggleVisibility }) => (
               <div>
                 <ToggleButton
-                  ref={this.saveButtonRef}
-                  onButtonClick={this.handleClickButton}
+                  ref={(button) => { this.button = button; }}
+                  onClick={this.handleClickButton}
                 />
                 <Overlay
-                  open={open}
-                  anchorEl={anchorEl}
-                  onRequestClose={this.handleRequestClose}
+                  visible={visible}
+                  target={overlayTarget}
+                  onHide={this.handleRequestClose}
                 >
                   <Container>
-                    {columnChooserItems(columns, hiddenColumns).map(item => ( //
-                      <Item
-                        key={item.column.name}
-                        item={item}
-                        onToggle={() => toggleVisibility(item.column.name)}
-                      />
+                    {columnChooserItems(columns, hiddenColumns)
+                      .map(item => (
+                        <Item
+                          key={item.column.name}
+                          item={item}
+                          onToggle={() => toggleVisibility(item.column.name)}
+                        />
                     ))}
                   </Container>
                 </Overlay>
@@ -85,5 +85,5 @@ ColumnChooser.propTypes = {
   overlayComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,
-  buttonComponent: PropTypes.func.isRequired,
+  toggleButtonComponent: PropTypes.func.isRequired,
 };

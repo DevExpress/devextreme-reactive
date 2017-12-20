@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { IconButton, Tooltip } from 'material-ui';
 import { VisibilityOff } from 'material-ui-icons';
 
-export const ToggleButton = ({ onButtonClick, ...restProps }) => (
+export const ToggleButton = ({ onClick, ...restProps }) => (
   <Tooltip
     title="Hidden columns" //TODO add custom messages
     placement="bottom-end"
@@ -11,7 +11,7 @@ export const ToggleButton = ({ onButtonClick, ...restProps }) => (
     {...restProps}
   >
     <IconButton
-      onClick={onButtonClick}
+      onClick={onClick}
     >
       <VisibilityOff />
     </IconButton>
@@ -19,5 +19,5 @@ export const ToggleButton = ({ onButtonClick, ...restProps }) => (
 );
 
 ToggleButton.propTypes = {
-  onButtonClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

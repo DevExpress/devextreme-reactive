@@ -10,7 +10,7 @@ export const ColumnChooser = props => (
     overlayComponent={Overlay}
     containerComponent={Container}
     itemComponent={Item}
-    buttonComponent={ToggleButton}
+    toggleButtonComponent={ToggleButton}
     {...props}
   />
 );

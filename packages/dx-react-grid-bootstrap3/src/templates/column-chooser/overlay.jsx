@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Overlay as OverlayBS3, Popover } from 'react-bootstrap';
 
 export const Overlay = ({
-  open, anchorEl,
-  children, onRequestClose,
+  visible, target,
+  children, onHide,
   ...restProps
 }) => (
   <OverlayBS3
-    show={open}
-    target={anchorEl}
-    onHide={onRequestClose}
+    show={visible}
+    target={target}
+    onHide={onHide}
     placement="bottom"
     rootClose
     {...restProps}
@@ -22,12 +22,12 @@ export const Overlay = ({
 );
 
 Overlay.propTypes = {
-  anchorEl: PropTypes.object.isRequired,
+  target: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
-  onRequestClose: PropTypes.func.isRequired,
-  open: PropTypes.bool,
+  onHide: PropTypes.func.isRequired,
+  visible: PropTypes.bool,
 };
 
 Overlay.defaultProps = {
-  open: false,
+  visible: false,
 };

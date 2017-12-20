@@ -11,7 +11,7 @@ export class ColumnChooser extends React.PureComponent {
       <ColumnChooserBase
         overlayComponent={Overlay}
         containerComponent={Container}
-        buttonComponent={ToggleButton}
+        toggleButtonComponent={ToggleButton}
         itemComponent={Item}
         {...this.props}
       />

@@ -17,7 +17,6 @@ export class ColumnChooser extends React.PureComponent {
 
     this.state = {
       visible: false,
-      overlayTarget: findDOMNode(this.button), // eslint-disable-line react/no-find-dom-node
     };
 
     this.handleClickButton = this.handleClickButton.bind(this);
@@ -55,7 +54,7 @@ export class ColumnChooser extends React.PureComponent {
             {({ columns, hiddenColumns }, { toggleVisibility }) => (
               <div>
                 <ToggleButton
-                  getRef={(button) => { this.button = button; }}
+                  ref={(button) => { this.button = button; }}
                   onToggle={this.handleClickButton}
                   getMessage={getMessage}
                 />

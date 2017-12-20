@@ -13,7 +13,7 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions | Array&lg;[TableColumnExtension](#tablecolumnextension)&gt; | | An array additional column properties that can be handled by the plugin.
+columnExtensions | Array&lg;[TableColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 layoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | A component that renders a table layout.
 cellComponent | ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
@@ -27,15 +27,15 @@ messages | object | | An object that specifies the [localization messages](#loca
 
 ### TableColumnExtension
 
-Describes additional column properties that can be handled by the plugin.
+Describes additional column properties that the plugin can handle.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-columnName | string | Specifies the name of the column to extend.
-width? | number | Specifies the table's column width in pixels.
-align? | 'left' &#124; 'right' | Specifies the table's column alignment.
+columnName | string | The name of the column to extend.
+width? | number | The table column width in pixels.
+align? | 'left' &#124; 'right' | The table column alignment.
 
 ### TableLayoutProps
 

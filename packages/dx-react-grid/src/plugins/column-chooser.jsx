@@ -23,6 +23,7 @@ export class ColumnChooser extends React.PureComponent {
 
     this.handleClickButton = this.handleClickButton.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.saveButtonRef = this.saveButtonRef.bind(this);
   }
   handleClickButton() {
     this.setState({
@@ -34,6 +35,9 @@ export class ColumnChooser extends React.PureComponent {
     this.setState({
       open: false,
     });
+  }
+  saveButtonRef(node) {
+    this.button = node;
   }
   render() {
     const {
@@ -51,13 +55,13 @@ export class ColumnChooser extends React.PureComponent {
       >
         <Template name="toolbarContent">
           <TemplatePlaceholder />
-          <div>
-            <ToggleButton
-              refFunc={(node) => { this.button = node; }}
-              onButtonClick={this.handleClickButton}
-            />
-            <TemplateConnector>
-              {({ columns, hiddenColumns }, { toggleVisibility }) => (
+          <TemplateConnector>
+            {({ columns, hiddenColumns }, { toggleVisibility }) => (
+              <div>
+                <ToggleButton
+                  ref={this.saveButtonRef}
+                  onButtonClick={this.handleClickButton}
+                />
                 <Overlay
                   open={open}
                   anchorEl={anchorEl}
@@ -73,9 +77,9 @@ export class ColumnChooser extends React.PureComponent {
                     ))}
                   </Container>
                 </Overlay>
+              </div>
               )}
-            </TemplateConnector>
-          </div>
+          </TemplateConnector>
         </Template>
       </PluginContainer>
     );

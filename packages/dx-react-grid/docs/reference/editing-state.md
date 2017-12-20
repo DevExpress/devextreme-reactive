@@ -12,6 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
+createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a value specifying row changes depending on row's editor values. This function is called each time a row editor's value changes.
+columnExtensions | Array&lg;[EditingColumnExtension](#editingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 editingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows being edited.
 defaultEditingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows initially added to the `editingRows` array in the uncontrolled mode.
 onEditingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row from the `editingRows` array.
@@ -24,20 +26,22 @@ onChangedRowsChange | (changedRows: { [key: string]: any }) => void | | Handles 
 deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows prepared for deletion.
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRows` array in the uncontrolled mode.
 onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRows` array.
-onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
-createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a value specifying row changes depending on row's editor values. This function is called each time a row editor's value changes.
+onCommitChanges | (Array&lt;[ChangeSet](#changeset)&gt;) => void | | Handles row changes committing.
 
 ## Interfaces
 
-### Column (Extension)
+### EditingColumnExtension
 
-A value with the [Column](grid.md#column) shape extended by the following fields:
+Describes additional column properties that the plugin can handle.
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+columnName | string | The name of a column to extend.
 createRowChange? | (row: any, value: string &#124; number, columnName: string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.
 
-### <a name="change-set"></a>ChangeSet
+### ChangeSet
 
 Describes uncommitted changes made to the grid data.
 
@@ -53,9 +57,7 @@ deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing the 
 
 ### Imports
 
-Name | Plugin | Type | Description
------|--------|------|------------
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | The grid columns.
+none
 
 ### Exports
 
@@ -68,13 +70,13 @@ addedRows | Getter | Array&lt;any&gt; | Created but not committed rows.
 addRow | Action | () => void | Adds an item to the `addedRows` array.
 changeAddedRow | Action | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
 cancelAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Removes the specified rows from the `addedRows` array.
-commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `addedRows` array.
+commitAddedRows | Action | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes the specified rows from the `addedRows` array.
 changedRows | Getter | { [key: string]: any } | An associative array storing changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 changeRow | Action | ({ rowId: number &#124; string, change: any }) => void | Adds an item representing changes made to an exsiting row to the `changedRows` array.
 cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows' data from the `changedRows` array.
-commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `changedRows` array.
+commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes the specified rows from the `changedRows` array.
 deletedRows | Getter | Array&lt;number &#124; string&gt; | Rows prepared for deletion.
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows the ID specifies to the `deletedRows` array.
 cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows from the `deletedRows` array.
-commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `deletedRows` array.
+commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes the specified rows from the `deletedRows` array.
 createRowChange | Getter | (row: any, columnName: string, value: string &#124; string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.

@@ -17,10 +17,14 @@ export const addedRowsByIds = (addedRows, rowIds) => {
   return result;
 };
 
-export const computedCreateRowChange = (columns) => {
-  const map = columns.reduce((acc, column) => {
-    if (column.createRowChange) {
-      acc[column.name] = column.createRowChange;
+export const createRowChangeGetter = (createRowChange, columnExtensions = []) => {
+  if (createRowChange) {
+    return createRowChange;
+  }
+
+  const map = columnExtensions.reduce((acc, columnExtension) => {
+    if (columnExtension.createRowChange) {
+      acc[columnExtension.columnName] = columnExtension.createRowChange;
     }
     return acc;
   }, {});

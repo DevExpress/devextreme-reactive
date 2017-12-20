@@ -27,6 +27,23 @@ export default class Demo extends React.PureComponent {
           name: 'firstName',
           title: 'First Name',
           getCellValue: row => (row.user ? row.user.firstName : undefined),
+        },
+        {
+          name: 'lastName',
+          title: 'Last Name',
+          getCellValue: row => (row.user ? row.user.lastName : undefined),
+        },
+        {
+          name: 'car',
+          title: 'Car',
+          getCellValue: row => (row.car ? row.car.model : undefined),
+        },
+        { name: 'position', title: 'Position' },
+        { name: 'city', title: 'City' },
+      ],
+      editingColumnExtensions: [
+        {
+          columnName: 'firstName',
           createRowChange: (row, value) => ({
             user: {
               ...row.user,
@@ -35,9 +52,7 @@ export default class Demo extends React.PureComponent {
           }),
         },
         {
-          name: 'lastName',
-          title: 'Last Name',
-          getCellValue: row => (row.user ? row.user.lastName : undefined),
+          columnName: 'lastName',
           createRowChange: (row, value) => ({
             user: {
               ...row.user,
@@ -46,17 +61,13 @@ export default class Demo extends React.PureComponent {
           }),
         },
         {
-          name: 'car',
-          title: 'Car',
-          getCellValue: row => (row.car ? row.car.model : undefined),
+          columnName: 'car',
           createRowChange: (row, value) => ({
             car: {
               model: value,
             },
           }),
         },
-        { name: 'position', title: 'Position' },
-        { name: 'city', title: 'City' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
@@ -88,7 +99,7 @@ export default class Demo extends React.PureComponent {
     this.setState({ rows });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, editingColumnExtensions } = this.state;
 
     return (
       <Grid
@@ -97,6 +108,7 @@ export default class Demo extends React.PureComponent {
         getRowId={getRowId}
       >
         <EditingState
+          columnExtensions={editingColumnExtensions}
           onCommitChanges={this.commitChanges}
         />
         <Table />

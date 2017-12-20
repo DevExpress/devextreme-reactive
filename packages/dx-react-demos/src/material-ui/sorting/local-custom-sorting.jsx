@@ -29,9 +29,6 @@ const comparePriority = (a, b) => {
   return (priorityA < priorityB) ? -1 : 1;
 };
 
-const getColumnCompare = columnName =>
-  (columnName === 'priority' ? comparePriority : undefined);
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -43,6 +40,9 @@ export default class Demo extends React.PureComponent {
         { name: 'dueDate', title: 'Due Date' },
         { name: 'priority', title: 'Priority' },
       ],
+      localSortingColumnExtensions: [
+        { columnName: 'priority', compare: comparePriority },
+      ],
       rows: generateRows({
         columnValues: employeeTaskValues,
         length: 15,
@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, localSortingColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -60,7 +60,7 @@ export default class Demo extends React.PureComponent {
         >
           <SortingState />
           <LocalSorting
-            getColumnCompare={getColumnCompare}
+            columnExtensions={localSortingColumnExtensions}
           />
           <Table />
           <TableHeaderRow allowSorting />

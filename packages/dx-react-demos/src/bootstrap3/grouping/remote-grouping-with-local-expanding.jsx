@@ -120,10 +120,10 @@ export default class Demo extends React.PureComponent {
             expandedGroups={tempExpandedGroups}
           />
           <VirtualTable />
-          <TableHeaderRow allowDragging />
+          <TableHeaderRow />
           <TableGroupRow />
           <Toolbar />
-          <GroupingPanel allowDragging />
+          <GroupingPanel />
         </Grid>
         {loading && <Loading />}
       </div>

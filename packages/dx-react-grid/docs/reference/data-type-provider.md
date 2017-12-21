@@ -12,19 +12,11 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-type | string | | Specifies the data type associated with the specified formatter and editor.
+for | Array&lt;string&gt; | | The names of columns associated with the specified formatter and editor.
 formatterComponent | ElementType&lt;[ValueFormatterProps](#valueformatterprops)&gt; | | A component that renders the formatted value.
 editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops)&gt; | | A component that renders a custom editor.
 
 ## Interfaces
-
-### Column (Extension)
-
-A value with the [Column](grid.md#column) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-dataType? | string | Specifies the column's data type.
 
 ### ValueFormatterProps
 
@@ -34,7 +26,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column-extension) | A column object.
+column | [Column](grid.md#column) | A column object.
 row? | any | A row.
 value | any | The value to be formatted.
 
@@ -46,7 +38,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column-extension) | A column object.
+column | [Column](grid.md#column) | A column object.
 row? | any | A row.
 value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.

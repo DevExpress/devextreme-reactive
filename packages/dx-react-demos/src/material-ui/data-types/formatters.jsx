@@ -21,10 +21,10 @@ CurrencyFormatter.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-const CurrencyTypeProvider = () => (
+const CurrencyTypeProvider = props => (
   <DataTypeProvider
-    type="currency"
     formatterComponent={CurrencyFormatter}
+    {...props}
   />
 );
 
@@ -35,10 +35,10 @@ DateFormatter.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-const DateTypeProvider = () => (
+const DateTypeProvider = props => (
   <DataTypeProvider
-    type="date"
     formatterComponent={DateFormatter}
+    {...props}
   />
 );
 
@@ -50,16 +50,18 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
-        { name: 'saleDate', title: 'Sale Date', dataType: 'date' },
-        {
-          name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right',
-        },
+        { name: 'saleDate', title: 'Sale Date' },
+        { name: 'amount', title: 'Sale Amount', align: 'right' },
       ],
+      dateColumns: ['saleDate'],
+      currencyColumns: ['amount'],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const {
+      rows, columns, dateColumns, currencyColumns,
+    } = this.state;
 
     return (
       <Paper>
@@ -67,8 +69,12 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <CurrencyTypeProvider />
-          <DateTypeProvider />
+          <CurrencyTypeProvider
+            for={currencyColumns}
+          />
+          <DateTypeProvider
+            for={dateColumns}
+          />
           <Table />
           <TableHeaderRow />
         </Grid>

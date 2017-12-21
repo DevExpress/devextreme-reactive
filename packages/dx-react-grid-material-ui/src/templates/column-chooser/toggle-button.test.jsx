@@ -10,7 +10,7 @@ describe('ToggleButton', () => {
         data={{ a: 1 }}
         getMessage={key => key}
         onClick={() => {}}
-        getRef={() => {}}
+        refHandler={() => {}}
       />
     ));
 
@@ -24,7 +24,7 @@ describe('ToggleButton', () => {
         data={{ a: 1 }}
         getMessage={key => key}
         onClick={() => {}}
-        getRef={() => {}}
+        refHandler={() => {}}
       />
     ));
 

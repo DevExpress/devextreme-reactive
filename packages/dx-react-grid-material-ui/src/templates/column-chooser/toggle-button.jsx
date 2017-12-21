@@ -6,18 +6,18 @@ import { VisibilityOff } from 'material-ui-icons';
 export const ToggleButton = ({
   onToggle,
   getMessage,
-  getTarget,
+  refHandler,
   ...restProps
 }) => (
   <Tooltip
     title={getMessage('hiddenColumns')}
     placement="bottom-end"
     enterDelay={300}
-    ref={getTarget}
     {...restProps}
   >
     <IconButton
       onClick={onToggle}
+      ref={refHandler}
     >
       <VisibilityOff />
     </IconButton>
@@ -27,5 +27,5 @@ export const ToggleButton = ({
 ToggleButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
-  getTarget: PropTypes.func.isRequired,
+  refHandler: PropTypes.func.isRequired,
 };

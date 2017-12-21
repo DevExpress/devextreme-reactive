@@ -5,13 +5,13 @@ import Checkbox from 'material-ui/Checkbox';
 
 export const Item = ({
   item: { column, hidden },
-  onToggle: handleClick,
+  onToggle,
   ...restProps
 }) => (
   <ListItem
     key={column.name}
     button
-    onClick={handleClick}
+    onClick={onToggle}
     {...restProps}
   >
     <Checkbox

@@ -2,14 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Item } from './item';
 
-describe('ColumnChooserItem', () => {
+const defaultProps = {
+  item: {
+    column: { name: 'a', title: 'A' },
+    hidden: false,
+  },
+};
+
+describe('Item', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
       />
     ));
 
@@ -26,10 +30,7 @@ describe('ColumnChooserItem', () => {
     const toggleHandler = jest.fn();
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
         onToggle={toggleHandler}
       />
     ));
@@ -46,10 +47,7 @@ describe('ColumnChooserItem', () => {
     const toggleHandler = jest.fn();
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
         onToggle={toggleHandler}
       />
     ));
@@ -65,10 +63,7 @@ describe('ColumnChooserItem', () => {
   it('should render column title or name in each item', () => {
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
       />
     ));
 
@@ -84,10 +79,7 @@ describe('ColumnChooserItem', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
         className="custom-class"
       />
     ));
@@ -101,10 +93,7 @@ describe('ColumnChooserItem', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
         data={{ a: 1 }}
       />
     ));

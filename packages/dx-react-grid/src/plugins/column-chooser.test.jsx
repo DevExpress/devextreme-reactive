@@ -35,6 +35,13 @@ const OverlayComponent = ({ children }) => <div>{children}</div>;
 const ToggleButtonComponent = () => null;
 const ItemComponent = () => null;
 
+const defaultProps = {
+  containerComponent: ContainerComponent,
+  itemComponent: ItemComponent,
+  overlayComponent: OverlayComponent,
+  toggleButtonComponent: ToggleButtonComponent,
+};
+
 describe('ColumnChooser', () => {
   beforeEach(() => {
     columnChooserItems.mockImplementation(() => [{ column: { name: 'a' }, hidden: true }]);
@@ -50,10 +57,7 @@ describe('ColumnChooser', () => {
         {pluginDepsToComponents(defaultDeps)}
 
         <ColumnChooser
-          containerComponent={ContainerComponent}
-          itemComponent={ItemComponent}
-          overlayComponent={OverlayComponent}
-          toggleButtonComponent={ToggleButtonComponent}
+          {...defaultProps}
         />
       </PluginHost>
     ));
@@ -69,10 +73,7 @@ describe('ColumnChooser', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ColumnChooser
-          containerComponent={ContainerComponent}
-          itemComponent={ItemComponent}
-          overlayComponent={OverlayComponent}
-          toggleButtonComponent={ToggleButtonComponent}
+          {...defaultProps}
         />
       </PluginHost>
     ));
@@ -92,10 +93,8 @@ describe('ColumnChooser', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ColumnChooser
+          {...defaultProps}
           containerComponent={() => null}
-          itemComponent={ItemComponent}
-          overlayComponent={OverlayComponent}
-          toggleButtonComponent={ToggleButtonComponent}
         />
       </PluginHost>
     ));
@@ -109,10 +108,8 @@ describe('ColumnChooser', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ColumnChooser
+          {...defaultProps}
           containerComponent={() => null}
-          itemComponent={ItemComponent}
-          overlayComponent={OverlayComponent}
-          toggleButtonComponent={ToggleButtonComponent}
         />
       </PluginHost>
     ));

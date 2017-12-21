@@ -2,14 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ToggleButton } from './toggle-button';
 
+const defaultProps = {
+  onToggle: () => {},
+  getMessage: () => {},
+  getOverlayTarget: () => {},
+};
+
 describe('ToggleButton', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <ToggleButton
+        {...defaultProps}
         className="custom-class"
-        onToggle={() => {}}
-        getMessage={() => {}}
-        getOverlayTarget={() => {}}
       />
     ));
 
@@ -22,10 +26,8 @@ describe('ToggleButton', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <ToggleButton
+        {...defaultProps}
         data={{ a: 1 }}
-        onToggle={() => {}}
-        getMessage={() => {}}
-        getOverlayTarget={() => {}}
       />
     ));
 

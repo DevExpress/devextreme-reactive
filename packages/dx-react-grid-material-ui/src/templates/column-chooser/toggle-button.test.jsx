@@ -3,14 +3,18 @@ import { shallow } from 'enzyme';
 import { Tooltip } from 'material-ui';
 import { ToggleButton } from './toggle-button';
 
+const defaultProps = {
+  onToggle: () => {},
+  getMessage: key => key,
+  getOverlayTarget: () => {},
+};
+
 describe('ToggleButton', () => {
   it('should provide a hiddenColumns message text', () => {
     const tree = shallow((
       <ToggleButton
+        {...defaultProps}
         data={{ a: 1 }}
-        getMessage={key => key}
-        getOverlayTarget={() => {}}
-        onToggle={() => {}}
       />
     ));
 
@@ -21,10 +25,8 @@ describe('ToggleButton', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <ToggleButton
+        {...defaultProps}
         data={{ a: 1 }}
-        getMessage={key => key}
-        getOverlayTarget={() => {}}
-        onToggle={() => {}}
       />
     ));
 

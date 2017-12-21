@@ -4,14 +4,18 @@ import Checkbox from 'material-ui/Checkbox';
 import { mount, shallow } from 'enzyme';
 import { Item } from './item';
 
+const defaultProps = {
+  item: {
+    column: { name: 'a', title: 'A' },
+    hidden: false,
+  },
+};
+
 describe('Item', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
       />
     ));
 
@@ -28,11 +32,8 @@ describe('Item', () => {
     const toggleHandler = jest.fn();
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
         onToggle={toggleHandler}
+        {...defaultProps}
       />
     ));
 
@@ -47,10 +48,7 @@ describe('Item', () => {
   it('should render column title or name in each item', () => {
     const tree = mount((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
       />
     ));
 
@@ -66,10 +64,7 @@ describe('Item', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <Item
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+        {...defaultProps}
         data={{ a: 1 }}
       />
     ));

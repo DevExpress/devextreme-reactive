@@ -1,32 +1,28 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Container } from './container';
+import { Overlay } from './overlay';
 
-describe('Container', () => {
+describe('Overlay', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <Container
+      <Overlay
         className="custom-class"
       >
         <div />
-        <div />
-      </Container>
+      </Overlay>
     ));
 
-    expect(tree.is('.list-group'))
-      .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <Container
+      <Overlay
         data={{ a: 1 }}
       >
         <div />
-        <div />
-      </Container>
+      </Overlay>
     ));
 
     expect(tree.props().data)

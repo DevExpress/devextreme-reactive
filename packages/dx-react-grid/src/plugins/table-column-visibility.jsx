@@ -65,22 +65,12 @@ export class TableColumnVisibility extends React.PureComponent {
         <Template name="table">
           {params => (
             <TemplateConnector>
-              {({ columns }) => (columns.length !== hiddenColumns.length
-                ? <TemplatePlaceholder />
-                : <EmptyMessage
+              {({ columns }) => (columns.length === hiddenColumns.length
+                ? <EmptyMessage
                   getMessage={getMessage}
                   {...params}
                 />
-              )}
-            </TemplateConnector>
-          )}
-        </Template>
-        <Template name="footer">
-          {() => (
-            <TemplateConnector>
-              {({ columns }) => (columns.length !== hiddenColumns.length
-                ? <TemplatePlaceholder />
-                : null
+                : <TemplatePlaceholder />
               )}
             </TemplateConnector>
           )}

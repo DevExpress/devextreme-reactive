@@ -17,6 +17,7 @@ export const Item = ({
   >
     <input
       type="checkbox"
+      style={{ cursor: 'pointer' }}
       tabIndex={-1}
       checked={!hidden}
       onChange={onToggle}

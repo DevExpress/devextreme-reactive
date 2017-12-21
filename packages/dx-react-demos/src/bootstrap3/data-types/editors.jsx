@@ -42,11 +42,11 @@ BooleanEditor.propTypes = {
   onValueChange: PropTypes.func.isRequired,
 };
 
-const BooleanTypeProvider = () => (
+const BooleanTypeProvider = props => (
   <DataTypeProvider
-    type="boolean"
     formatterComponent={BooleanFormatter}
     editorComponent={BooleanEditor}
+    {...props}
   />
 );
 
@@ -59,8 +59,9 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
         { name: 'units', title: 'Units' },
-        { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
+        { name: 'shipped', title: 'Shipped' },
       ],
+      booleanColumns: ['shipped'],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 14,
@@ -90,7 +91,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, booleanColumns } = this.state;
 
     return (
       <Grid
@@ -98,7 +99,9 @@ export default class Demo extends React.PureComponent {
         columns={columns}
         getRowId={getRowId}
       >
-        <BooleanTypeProvider />
+        <BooleanTypeProvider
+          for={booleanColumns}
+        />
         <EditingState
           onCommitChanges={this.commitChanges}
           defaultEditingRows={[0]}

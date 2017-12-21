@@ -1,7 +1,6 @@
 import {
   changedRowsByIds,
   addedRowsByIds,
-  defaultCreateRowChange,
   createRowChangeGetter,
 } from './computeds';
 
@@ -37,9 +36,9 @@ describe('EditingState computeds', () => {
   });
   describe('#createRowChangeGetter', () => {
     it('should work with default cell access', () => {
-      expect(createRowChangeGetter(defaultCreateRowChange)({ a: 1 }, 'a', 2))
+      expect(createRowChangeGetter(undefined)({ a: 1 }, 'a', 2))
         .toEqual({ a: 2 });
-      expect(createRowChangeGetter(defaultCreateRowChange)({ b: 2 }, 'a', 1))
+      expect(createRowChangeGetter(undefined)({ b: 2 }, 'a', 1))
         .toEqual({ a: 1 });
     });
 
@@ -49,9 +48,9 @@ describe('EditingState computeds', () => {
         createRowChange: (row, value, columnName) => ({ [`_${columnName}`]: value }),
       }];
 
-      expect(createRowChangeGetter(defaultCreateRowChange, columnExtensions)({ a: 1 }, 'a', 2))
+      expect(createRowChangeGetter(undefined, columnExtensions)({ a: 1 }, 'a', 2))
         .toEqual({ _a: 2 });
-      expect(createRowChangeGetter(defaultCreateRowChange, columnExtensions)({ b: 2 }, 'a', 1))
+      expect(createRowChangeGetter(undefined, columnExtensions)({ b: 2 }, 'a', 1))
         .toEqual({ _a: 1 });
     });
 

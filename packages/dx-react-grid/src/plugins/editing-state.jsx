@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
-  defaultCreateRowChange,
   createRowChangeGetter,
 
   startEditRows,
@@ -170,7 +169,7 @@ EditingState.propTypes = {
 };
 
 EditingState.defaultProps = {
-  createRowChange: defaultCreateRowChange,
+  createRowChange: undefined,
   columnExtensions: undefined,
 
   editingRows: undefined,

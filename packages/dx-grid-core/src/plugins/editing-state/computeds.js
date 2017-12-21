@@ -17,8 +17,11 @@ export const addedRowsByIds = (addedRows, rowIds) => {
   return result;
 };
 
-export const defaultCreateRowChange = (row, columnName, value) => ({ [columnName]: value });
-export const createRowChangeGetter = (createRowChange, columnExtensions = []) => {
+const defaultCreateRowChange = (row, columnName, value) => ({ [columnName]: value });
+export const createRowChangeGetter = (
+  createRowChange = defaultCreateRowChange,
+  columnExtensions = [],
+) => {
   const map = columnExtensions.reduce((acc, columnExtension) => {
     if (columnExtension.createRowChange) {
       acc[columnExtension.columnName] = columnExtension.createRowChange;

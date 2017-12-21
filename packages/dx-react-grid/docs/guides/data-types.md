@@ -39,7 +39,7 @@ const CurrencyFormatter = ({ value }) => <span>${value}</span>;
 
 ## Custom Editors
 
-If the grid supports editing or header row filtering, assign a function rendering the required editor to the `DataTypeProvider` plugin's `editorComponent` property. In this case, the Grid uses the specified editor to edit all values of the specified type.
+If the grid supports editing or header row filtering, assign a function rendering the required editor to the `DataTypeProvider` plugin's `editorComponent` property. In this case, the Grid uses the specified editor to edit all the specified type values.
 
 ```js
 const rows = [

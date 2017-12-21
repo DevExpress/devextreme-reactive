@@ -6,11 +6,8 @@ export const rowIdGetter = (getRowId, rows) => {
   return getRowId;
 };
 
-export const cellValueGetter = (getCellValue, columns) => {
-  if (getCellValue) {
-    return getCellValue;
-  }
-
+const defaultGetCellValue = (row, columnName) => row[columnName];
+export const cellValueGetter = (getCellValue = defaultGetCellValue, columns) => {
   let useFastAccessor = true;
   const map = columns.reduce((acc, column) => {
     if (column.getCellValue) {
@@ -20,7 +17,11 @@ export const cellValueGetter = (getCellValue, columns) => {
     return acc;
   }, {});
 
-  return useFastAccessor ?
-    (row, columnName) => row[columnName] :
-    (row, columnName) => (map[columnName] ? map[columnName](row, columnName) : row[columnName]);
+  if (useFastAccessor) {
+    return getCellValue;
+  }
+
+  return (row, columnName) => (map[columnName]
+    ? map[columnName](row, columnName)
+    : getCellValue(row, columnName));
 };

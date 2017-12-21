@@ -43,6 +43,6 @@ GridCore.propTypes = {
 };
 
 GridCore.defaultProps = {
-  getRowId: null,
-  getCellValue: null,
+  getRowId: undefined,
+  getCellValue: undefined,
 };

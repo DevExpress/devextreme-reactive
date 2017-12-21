@@ -55,31 +55,31 @@ export class ColumnChooser extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ columns, hiddenColumns }, { toggleColumnVisibility }) => ([
-              <ToggleButton
-                key="toggleButton"
-                getOverlayTarget={this.getOverlayTarget}
-                onToggle={this.handleToggle}
-                getMessage={getMessage}
-              />,
-              <Overlay
-                key="overlay"
-                visible={visible}
-                target={overlayTarget}
-                onHide={this.handleHide}
-              >
-                <Container>
-                  {columnChooserItems(columns, hiddenColumns)
-                    .map(item => (
-                      <Item
-                        key={item.column.name}
-                        item={item}
-                        onToggle={() => toggleColumnVisibility(item.column.name)}
-                      />
-                  ))}
-                </Container>
-              </Overlay>,
-            ])}
+            {({ columns, hiddenColumns }, { toggleColumnVisibility }) => (
+              <React.Fragment>
+                <ToggleButton
+                  getOverlayTarget={this.getOverlayTarget}
+                  onToggle={this.handleToggle}
+                  getMessage={getMessage}
+                />
+                <Overlay
+                  visible={visible}
+                  target={overlayTarget}
+                  onHide={this.handleHide}
+                >
+                  <Container>
+                    {columnChooserItems(columns, hiddenColumns)
+                      .map(item => (
+                        <Item
+                          key={item.column.name}
+                          item={item}
+                          onToggle={() => toggleColumnVisibility(item.column.name)}
+                        />
+                    ))}
+                  </Container>
+                </Overlay>
+              </React.Fragment>
+            )}
           </TemplateConnector>
         </Template>
       </PluginContainer>

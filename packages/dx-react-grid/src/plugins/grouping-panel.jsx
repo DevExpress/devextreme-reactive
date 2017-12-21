@@ -17,7 +17,6 @@ export class GroupingPanel extends React.PureComponent {
       itemComponent: Item,
       emptyMessageComponent: EmptyMessage,
       allowSorting,
-      allowDragging,
       showGroupingControls,
       messages,
     } = this.props;
@@ -62,7 +61,7 @@ export class GroupingPanel extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplateConnector>
             {({
-              columns, draftGrouping,
+              columns, draftGrouping, allowDragging,
             }, {
               groupByColumn, draftGroupingChange, cancelGroupingChange,
             }) => (
@@ -87,7 +86,6 @@ export class GroupingPanel extends React.PureComponent {
 
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
-  allowDragging: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   layoutComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
@@ -98,7 +96,6 @@ GroupingPanel.propTypes = {
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
-  allowDragging: false,
   showGroupingControls: false,
   messages: {},
 };

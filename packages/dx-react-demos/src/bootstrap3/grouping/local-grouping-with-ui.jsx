@@ -43,10 +43,10 @@ export default class Demo extends React.PureComponent {
         <GroupingState defaultGrouping={[{ columnName: 'city' }]} />
         <LocalGrouping />
         <Table />
-        <TableHeaderRow allowDragging />
+        <TableHeaderRow />
         <TableGroupRow />
         <Toolbar />
-        <GroupingPanel allowDragging />
+        <GroupingPanel />
       </Grid>
     );
   }

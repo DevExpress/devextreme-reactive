@@ -26,6 +26,10 @@ const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) =>
   tableRowsWithDataRows(rows, getRowId);
 
+const pluginDependencies = [
+  { pluginName: 'DataTypeProvider', optional: true },
+];
+
 export class Table extends React.PureComponent {
   render() {
     const {
@@ -47,9 +51,7 @@ export class Table extends React.PureComponent {
     return (
       <PluginContainer
         pluginName="Table"
-        dependencies={[
-          { pluginName: 'DataTypeProvider', optional: true },
-        ]}
+        dependencies={pluginDependencies}
       >
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />

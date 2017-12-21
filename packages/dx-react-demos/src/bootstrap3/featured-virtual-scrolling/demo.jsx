@@ -95,13 +95,12 @@ export default class Demo extends React.PureComponent {
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-
-        <TableHeaderRow allowSorting allowDragging />
+        <TableHeaderRow allowSorting />
         <TableFilterRow />
         <TableSelection showSelectAll />
         <TableGroupRow />
         <Toolbar />
-        <GroupingPanel allowSorting allowDragging />
+        <GroupingPanel allowSorting />
       </Grid>
     );
   }

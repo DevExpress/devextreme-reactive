@@ -5,7 +5,6 @@ export const GroupPanelEmptyMessage = ({ getMessage, ...restProps }) => (
   <div
     style={{
       padding: '7px 0',
-      marginBottom: '5px',
     }}
     {...restProps}
   >

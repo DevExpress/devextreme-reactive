@@ -26,15 +26,10 @@ export class ColumnChooser extends React.PureComponent {
     this.button = button;
   }
   handleToggle() {
-    this.setState({
-      visible: true,
-      overlayTarget: this.button,
-    });
+    this.setState({ visible: true });
   }
   handleHide() {
-    this.setState({
-      visible: false,
-    });
+    this.setState({ visible: false });
   }
   render() {
     const {
@@ -45,7 +40,8 @@ export class ColumnChooser extends React.PureComponent {
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
-    const { visible, overlayTarget } = this.state;
+    const { visible } = this.state;
+
     return (
       <PluginContainer
         pluginName="ColumnChooser"
@@ -63,7 +59,7 @@ export class ColumnChooser extends React.PureComponent {
                 />
                 <Overlay
                   visible={visible}
-                  target={overlayTarget}
+                  target={this.button}
                   onHide={this.handleHide}
                 >
                   <Container>

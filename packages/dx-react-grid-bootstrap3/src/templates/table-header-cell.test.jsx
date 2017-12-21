@@ -181,7 +181,7 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when grouping by click is not allowed and column align is right', () => {
     const tree = shallow((
       <TableHeaderCell
-        column={{ align: 'right' }}
+        tableColumn={{ align: 'right' }}
         showGroupingControls={false}
       />
     ));
@@ -197,7 +197,7 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when grouping by click is allowed and column align is right', () => {
     const tree = shallow((
       <TableHeaderCell
-        column={{ align: 'right' }}
+        tableColumn={{ align: 'right' }}
         showGroupingControls
       />
     ));
@@ -232,7 +232,8 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
+          column={{ title: 'test' }}
+          tableColumn={{ align: 'right' }}
           allowSorting
         />
       ));
@@ -258,7 +259,8 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
+          column={{ title: 'test' }}
+          tableColumn={{ align: 'right' }}
           allowSorting
         />
       ));
@@ -274,7 +276,8 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
+          column={{ title: 'test' }}
+          tableColumn={{ align: 'right' }}
           allowSorting
         />
       ));

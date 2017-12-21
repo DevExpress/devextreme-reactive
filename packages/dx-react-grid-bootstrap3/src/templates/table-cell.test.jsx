@@ -3,27 +3,19 @@ import { shallow } from 'enzyme';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
-  const mountTableCell = column =>
-    shallow((
-      <TableCell
-        column={column}
-        value="text"
-      />
-    ));
-
   it('should have correct text alignment', () => {
-    let tree = mountTableCell({});
+    let tree = shallow(<TableCell />);
     expect(tree.find('td').prop('style').textAlign).toBe('left');
 
-    tree = mountTableCell({ align: 'left' });
+    tree = shallow(<TableCell tableColumn={{ align: 'left' }} />);
     expect(tree.find('td').prop('style').textAlign).toBe('left');
 
-    tree = mountTableCell({ align: 'right' });
+    tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
     expect(tree.find('td').prop('style').textAlign).toBe('right');
   });
 
   it('should have correct text', () => {
-    const tree = mountTableCell({});
+    const tree = shallow(<TableCell value="text" />);
     expect(tree.find('td').text()).toBe('text');
   });
 

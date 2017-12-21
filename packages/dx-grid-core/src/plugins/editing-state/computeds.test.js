@@ -1,6 +1,7 @@
 import {
   changedRowsByIds,
   addedRowsByIds,
+  defaultCreateRowChange,
   createRowChangeGetter,
 } from './computeds';
 
@@ -36,12 +37,9 @@ describe('EditingState computeds', () => {
   });
   describe('#createRowChangeGetter', () => {
     it('should work with default cell access', () => {
-      const columnExtensions = undefined;
-      const createRowChange = null;
-
-      expect(createRowChangeGetter(createRowChange, columnExtensions)({ a: 1 }, 'a', 2))
+      expect(createRowChangeGetter(defaultCreateRowChange)({ a: 1 }, 'a', 2))
         .toEqual({ a: 2 });
-      expect(createRowChangeGetter(createRowChange, columnExtensions)({ b: 2 }, 'a', 1))
+      expect(createRowChangeGetter(defaultCreateRowChange)({ b: 2 }, 'a', 1))
         .toEqual({ a: 1 });
     });
 
@@ -50,21 +48,19 @@ describe('EditingState computeds', () => {
         columnName: 'a',
         createRowChange: (row, value, columnName) => ({ [`_${columnName}`]: value }),
       }];
-      const createRowChange = null;
 
-      expect(createRowChangeGetter(createRowChange, columnExtensions)({ a: 1 }, 'a', 2))
+      expect(createRowChangeGetter(defaultCreateRowChange, columnExtensions)({ a: 1 }, 'a', 2))
         .toEqual({ _a: 2 });
-      expect(createRowChangeGetter(createRowChange, columnExtensions)({ b: 2 }, 'a', 1))
+      expect(createRowChangeGetter(defaultCreateRowChange, columnExtensions)({ b: 2 }, 'a', 1))
         .toEqual({ _a: 1 });
     });
 
     it('should work with defined cell access', () => {
-      const columnExtensions = undefined;
       const createRowChange = (row, columnName, value) => ({ [`_${columnName}`]: value });
 
-      expect(createRowChangeGetter(createRowChange, columnExtensions)({ a: 1 }, 'a', 2))
+      expect(createRowChangeGetter(createRowChange)({ a: 1 }, 'a', 2))
         .toEqual({ _a: 2 });
-      expect(createRowChangeGetter(createRowChange, columnExtensions)({ b: 2 }, 'a', 1))
+      expect(createRowChangeGetter(createRowChange)({ b: 2 }, 'a', 1))
         .toEqual({ _a: 1 });
     });
   });

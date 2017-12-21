@@ -87,7 +87,7 @@ export default class Demo extends React.PureComponent {
         <Table
           messages={tableMessages}
         />
-        <TableHeaderRow allowDragging />
+        <TableHeaderRow />
 
         <TableEditRow />
         <TableEditColumn
@@ -102,7 +102,6 @@ export default class Demo extends React.PureComponent {
         <Toolbar />
         <GroupingPanel
           showGroupingControls
-          allowDragging
           messages={groupingPanelMessages}
         />
         <TableGroupRow />

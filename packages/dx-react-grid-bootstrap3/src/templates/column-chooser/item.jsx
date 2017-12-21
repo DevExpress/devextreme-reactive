@@ -7,27 +7,25 @@ export const Item = ({
   onToggle,
   className,
   ...restProps
-}) => {
-  const handleChange = () => onToggle();
-  return (
-    <button
-      className={classNames('list-group-item', className)}
-      style={{ outline: 'none' }}
-      type="button"
-      onClick={handleChange}
-      {...restProps}
-    >
-      <input
-        type="checkbox"
-        tabIndex={-1}
-        checked={!hidden}
-        onChange={handleChange}
-      />
-      &nbsp;
-      {column.title || column.name}
-    </button>
-  );
-};
+}) => (
+  <button
+    className={classNames('list-group-item', className)}
+    style={{ outline: 'none' }}
+    type="button"
+    onClick={onToggle}
+    {...restProps}
+  >
+    <input
+      type="checkbox"
+      tabIndex={-1}
+      checked={!hidden}
+      onChange={onToggle}
+      onClick={e => e.stopPropagation()}
+    />
+    &nbsp;
+    {column.title || column.name}
+  </button>
+);
 
 Item.propTypes = {
   item: PropTypes.shape({

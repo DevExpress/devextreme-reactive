@@ -30,7 +30,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filteri
 
 ### <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
 
-You can also specify a filtering predicate using the `LocalFiltering` plugin's `getColumnPredicate` property to implement a custom filtering logic.
+You can also specify a filtering predicate using the `LocalFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
 .embedded-demo(filtering/custom-filtering-algorithm)
 

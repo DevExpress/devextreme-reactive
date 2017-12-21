@@ -32,13 +32,7 @@ const defaultDeps = {
 const ContainerComponent = ({ children }) => <div>{children}</div>;
 // eslint-disable-next-line react/prop-types
 const OverlayComponent = ({ children }) => <div>{children}</div>;
-// eslint-disable-next-line react/prefer-stateless-function
-class ToggleButtonComponent extends React.PureComponent {
-  render() {
-    return <div />;
-  }
-}
-
+const ToggleButtonComponent = () => null;
 const ItemComponent = () => null;
 
 describe('ColumnChooser', () => {

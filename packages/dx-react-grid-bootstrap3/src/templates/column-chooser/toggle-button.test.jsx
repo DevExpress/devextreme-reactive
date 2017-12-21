@@ -9,6 +9,7 @@ describe('ToggleButton', () => {
         className="custom-class"
         onToggle={() => {}}
         getMessage={() => {}}
+        refHandler={() => {}}
       />
     ));
 
@@ -24,6 +25,7 @@ describe('ToggleButton', () => {
         data={{ a: 1 }}
         onToggle={() => {}}
         getMessage={() => {}}
+        refHandler={() => {}}
       />
     ));
 

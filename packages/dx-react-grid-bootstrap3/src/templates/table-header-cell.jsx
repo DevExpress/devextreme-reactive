@@ -46,8 +46,8 @@ export class TableHeaderCell extends React.PureComponent {
       ...restProps
     } = this.props;
     const { dragging } = this.state;
-    const align = column.align || 'left';
-    const columnTitle = column.title || column.name;
+    const align = (tableColumn && tableColumn.align) || 'left';
+    const columnTitle = column && (column.title || column.name);
 
     const cellLayout = (
       <th
@@ -59,7 +59,7 @@ export class TableHeaderCell extends React.PureComponent {
             WebkitUserSelect: 'none',
           } : {}),
           ...(allowSorting || allowDragging ? { cursor: 'pointer' } : null),
-          ...(dragging || tableColumn.draft ? { opacity: 0.3 } : null),
+          ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           padding: '5px',
           ...style,
         }}
@@ -74,7 +74,9 @@ export class TableHeaderCell extends React.PureComponent {
         )}
         <div
           style={{
-            ...(showGroupingControls ? { [`margin${column.align === 'right' ? 'Left' : 'Right'}`]: '14px' } : null),
+            ...(showGroupingControls
+              ? { [`margin${align === 'right' ? 'Left' : 'Right'}`]: '14px' }
+              : null),
             textAlign: align,
             whiteSpace: 'nowrap',
             overflow: 'hidden',
@@ -118,9 +120,7 @@ export class TableHeaderCell extends React.PureComponent {
 TableHeaderCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  column: PropTypes.shape({
-    title: PropTypes.string,
-  }).isRequired,
+  column: PropTypes.object,
   style: PropTypes.object,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
@@ -135,7 +135,8 @@ TableHeaderCell.propTypes = {
 };
 
 TableHeaderCell.defaultProps = {
-  tableColumn: {},
+  column: undefined,
+  tableColumn: undefined,
   tableRow: undefined,
   style: null,
   allowSorting: false,

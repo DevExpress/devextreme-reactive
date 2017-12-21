@@ -84,8 +84,8 @@ class TableHeaderCellBase extends React.PureComponent {
     } = this.props;
 
     const { dragging } = this.state;
-    const align = column.align || 'left';
-    const columnTitle = column.title || column.name;
+    const align = (tableColumn && tableColumn.align) || 'left';
+    const columnTitle = column && (column.title || column.name);
     const tooltipText = getMessage('sortingHint');
 
     const tableCellClasses = classNames({
@@ -93,7 +93,7 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellRight]: align === 'right',
       [classes.cellNoUserSelect]: allowDragging || allowSorting,
       [classes.cellDraggable]: allowDragging,
-      [classes.cellDimmed]: dragging || tableColumn.draft,
+      [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
     const cellLayout = (
       <TableCell
@@ -146,9 +146,7 @@ class TableHeaderCellBase extends React.PureComponent {
 TableHeaderCellBase.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  column: PropTypes.shape({
-    title: PropTypes.string,
-  }).isRequired,
+  column: PropTypes.object,
   style: PropTypes.object,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
@@ -165,7 +163,8 @@ TableHeaderCellBase.propTypes = {
 };
 
 TableHeaderCellBase.defaultProps = {
-  tableColumn: {},
+  column: undefined,
+  tableColumn: undefined,
   tableRow: undefined,
   style: null,
   allowSorting: false,

@@ -19,7 +19,10 @@ export const EditCell = ({
         className="form-control"
         value={value}
         onChange={e => onValueChange(e.target.value)}
-        style={{ width: '100%', textAlign: column.align }}
+        style={{
+          width: '100%',
+          textAlign: tableColumn && tableColumn.align,
+        }}
       />
     )}
   </td>
@@ -38,7 +41,7 @@ EditCell.propTypes = {
   ]),
 };
 EditCell.defaultProps = {
-  column: {},
+  column: undefined,
   row: undefined,
   tableColumn: undefined,
   tableRow: undefined,

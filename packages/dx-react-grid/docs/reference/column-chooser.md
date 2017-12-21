@@ -32,7 +32,7 @@ Field | Type | Description
 visible | boolean | Specifies whether an overlay is visible.
 target | DOM element | The DOM element that is used to set the position of the overlay.
 onHide | () => void | An event that initiates overlay hiding.
-children | Array&lt;ReactElement&gt; | React elements used to render overlay items.
+children | Array&lt;ReactElement&gt; | React elements used to render overlay content.
 
 ### ColumnChooserToggleButtonProps
 
@@ -105,7 +105,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 hiddenColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be hidden.
-toggleVisibility | Action | ({ columnName: string }) => void | Toggles the column's visibility.
+toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles the column's visibility.
 toolbarContent | Template | Object? | A template that renders the toolbar content.
 
 ### Exports

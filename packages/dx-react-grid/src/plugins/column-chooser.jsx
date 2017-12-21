@@ -19,14 +19,14 @@ export class ColumnChooser extends React.PureComponent {
       visible: false,
     };
 
-    this.handleClickButton = this.handleClickButton.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
     this.getOverlayTarget = this.getOverlayTarget.bind(this);
   }
   getOverlayTarget(button) {
     this.button = button;
   }
-  handleClickButton() {
+  handleToggle() {
     this.setState({
       visible: true,
       overlayTarget: findDOMNode(this.button), // eslint-disable-line react/no-find-dom-node
@@ -55,11 +55,11 @@ export class ColumnChooser extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ columns, hiddenColumns }, { toggleVisibility }) => ([
+            {({ columns, hiddenColumns }, { toggleColumnVisibility }) => ([
               <ToggleButton
                 key="toggleButton"
                 getOverlayTarget={this.getOverlayTarget}
-                onToggle={this.handleClickButton}
+                onToggle={this.handleToggle}
                 getMessage={getMessage}
               />,
               <Overlay
@@ -74,7 +74,7 @@ export class ColumnChooser extends React.PureComponent {
                       <Item
                         key={item.column.name}
                         item={item}
-                        onToggle={() => toggleVisibility(item.column.name)}
+                        onToggle={() => toggleColumnVisibility(item.column.name)}
                       />
                   ))}
                 </Container>

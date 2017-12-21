@@ -155,7 +155,7 @@ describe('TableColumnVisibility', () => {
       </PluginHost>
     ));
 
-    executeComputedAction(tree, actions => actions.toggleVisibility(defaultDeps.getter.tableColumns, 'test'));
+    executeComputedAction(tree, actions => actions.toggleColumnVisibility(defaultDeps.getter.tableColumns, 'test'));
     expect(toggleColumn)
       .toHaveBeenCalled();
   });

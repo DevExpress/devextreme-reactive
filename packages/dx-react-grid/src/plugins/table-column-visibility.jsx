@@ -58,7 +58,7 @@ export class TableColumnVisibility extends React.PureComponent {
         <Getter name="hiddenColumns" value={hiddenColumns} />
         <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
         <Action
-          name="toggleVisibility"
+          name="toggleColumnVisibility"
           action={this.toggleColumnVisibility}
         />
 

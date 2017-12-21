@@ -126,7 +126,7 @@ describe('TableColumnVisibility', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
-          hiddenColumns={[]}
+          defaultHiddenColumns={['a', 'b', 'c']}
           emptyMessageComponent={DefaultEmptyMessage}
           messages={{
             noColumns: 'Nothing to show',

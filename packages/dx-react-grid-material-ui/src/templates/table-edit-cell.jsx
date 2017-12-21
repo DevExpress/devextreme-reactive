@@ -28,7 +28,7 @@ const EditCellBase = ({
   row, tableRow, tableColumn, className, ...restProps
 }) => {
   const inputClasses = classNames({
-    [classes.inputRight]: column.align === 'right',
+    [classes.inputRight]: tableColumn && tableColumn.align === 'right',
   });
 
   return (
@@ -66,7 +66,7 @@ EditCellBase.propTypes = {
 };
 
 EditCellBase.defaultProps = {
-  column: {},
+  column: undefined,
   row: undefined,
   tableRow: undefined,
   tableColumn: undefined,

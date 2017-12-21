@@ -41,12 +41,16 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'OrderNumber', title: 'Order #', align: 'right' },
+        { name: 'OrderNumber', title: 'Order #' },
         { name: 'OrderDate', title: 'Order Date' },
         { name: 'StoreCity', title: 'Store City' },
         { name: 'StoreState', title: 'Store State' },
         { name: 'Employee', title: 'Employee' },
-        { name: 'SaleAmount', title: 'Sale Amount', align: 'right' },
+        { name: 'SaleAmount', title: 'Sale Amount' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'OrderNumber', align: 'right' },
+        { columnName: 'SaleAmount', align: 'right' },
       ],
       rows: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
@@ -123,6 +127,7 @@ export default class Demo extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       pageSize,
       pageSizes,
@@ -149,6 +154,7 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <Table
+            columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
           <TableHeaderRow allowSorting />

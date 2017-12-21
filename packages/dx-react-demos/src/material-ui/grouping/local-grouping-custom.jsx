@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City', showWhenGrouped: true },
         { name: 'car', title: 'Car' },
       ],
-      localGroupingColumnExtension: [
+      localGroupingColumnExtensions: [
         { columnName: 'city', identity: cityIdentity },
       ],
       rows: generateRows({ length: 14 }),
@@ -39,7 +39,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, localGroupingColumnExtension, grouping,
+      rows, columns, localGroupingColumnExtensions, grouping,
     } = this.state;
 
     return (
@@ -52,7 +52,7 @@ export default class Demo extends React.PureComponent {
             grouping={grouping}
           />
           <LocalGrouping
-            columnExtensions={localGroupingColumnExtension}
+            columnExtensions={localGroupingColumnExtensions}
           />
           <Table />
           <TableHeaderRow />

@@ -1,6 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Overlay as OverlayBS3, Popover } from 'react-bootstrap';
+import { Overlay as OverlayBS3 } from 'react-bootstrap';
+
+const Popover = ({ children, style }) => (
+  <div
+    className="dropdown-menu"
+    style={{
+      ...style,
+      padding: 0,
+      display: 'block',
+      border: 'none',
+    }}
+  >
+    {children}
+  </div>
+);
+
+Popover.propTypes = {
+  children: PropTypes.node.isRequired,
+  style: PropTypes.object,
+};
+
+Popover.defaultProps = {
+  style: undefined,
+};
 
 export const Overlay = ({
   visible, target,
@@ -13,9 +36,10 @@ export const Overlay = ({
     onHide={onHide}
     placement="bottom"
     rootClose
+    animation={false}
     {...restProps}
   >
-    <Popover id="popover-contained">
+    <Popover>
       {children}
     </Popover>
   </OverlayBS3>

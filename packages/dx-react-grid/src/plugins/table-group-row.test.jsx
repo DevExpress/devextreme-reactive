@@ -134,7 +134,7 @@ describe('TableGroupRow', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableGroupRow
             {...defaultProps}
-            showColumnWhenGrouped
+            showColumnsWhenGrouped
           />
         </PluginHost>
       ));
@@ -142,8 +142,8 @@ describe('TableGroupRow', () => {
       expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
-      expect(showColumnWhenGrouped('A')).toBe(true);
-      expect(showColumnWhenGrouped('B')).toBe(true);
+      expect(showColumnWhenGrouped('A')).toBeTruthy();
+      expect(showColumnWhenGrouped('B')).toBeTruthy();
     });
 
     it('should keep column in table if column value specified', () => {
@@ -152,7 +152,7 @@ describe('TableGroupRow', () => {
           {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
             {...defaultProps}
-            showColumnWhenGrouped={false}
+            showColumnsWhenGrouped={false}
             columnExtensions={[
               { columnName: 'A', showWhenGrouped: true },
             ]}
@@ -163,8 +163,8 @@ describe('TableGroupRow', () => {
       expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
-      expect(showColumnWhenGrouped('A')).toBe(true);
-      expect(showColumnWhenGrouped('B')).toBe(false);
+      expect(showColumnWhenGrouped('A')).toBeTruthy();
+      expect(showColumnWhenGrouped('B')).toBeFalsy();
     });
   });
 

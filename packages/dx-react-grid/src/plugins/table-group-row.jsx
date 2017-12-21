@@ -20,13 +20,13 @@ const pluginDependencies = [
 const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
   tableRowsWithGrouping(tableBodyRows, isGroupRow);
 
-const showColumnWhenGroupedGetter = (showColumnWhenGrouped, columnExtensions = []) => {
+const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = []) => {
   const map = columnExtensions.reduce((acc, columnExtension) => {
     acc[columnExtension.columnName] = columnExtension.showWhenGrouped;
     return acc;
   }, {});
 
-  return columnName => map[columnName] || showColumnWhenGrouped;
+  return columnName => map[columnName] || showColumnsWhenGrouped;
 };
 
 export class TableGroupRow extends React.PureComponent {
@@ -36,7 +36,7 @@ export class TableGroupRow extends React.PureComponent {
       rowComponent: GroupRow,
       indentCellComponent: GroupIndentCell,
       indentColumnWidth,
-      showColumnWhenGrouped,
+      showColumnsWhenGrouped,
       columnExtensions,
     } = this.props;
 
@@ -49,7 +49,7 @@ export class TableGroupRow extends React.PureComponent {
         grouping,
         draftGrouping,
         indentColumnWidth,
-        showColumnWhenGroupedGetter(showColumnWhenGrouped, columnExtensions),
+        showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
       );
 
     return (
@@ -126,12 +126,12 @@ TableGroupRow.propTypes = {
   rowComponent: PropTypes.func.isRequired,
   indentCellComponent: PropTypes.func,
   indentColumnWidth: PropTypes.number.isRequired,
-  showColumnWhenGrouped: PropTypes.bool,
+  showColumnsWhenGrouped: PropTypes.bool,
   columnExtensions: PropTypes.array,
 };
 
 TableGroupRow.defaultProps = {
   indentCellComponent: null,
-  showColumnWhenGrouped: false,
+  showColumnsWhenGrouped: false,
   columnExtensions: undefined,
 };

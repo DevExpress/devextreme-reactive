@@ -9,7 +9,7 @@ describe('ToggleButton', () => {
         className="custom-class"
         onToggle={() => {}}
         getMessage={() => {}}
-        refHandler={() => {}}
+        getOverlayTarget={() => {}}
       />
     ));
 
@@ -25,7 +25,7 @@ describe('ToggleButton', () => {
         data={{ a: 1 }}
         onToggle={() => {}}
         getMessage={() => {}}
-        refHandler={() => {}}
+        getOverlayTarget={() => {}}
       />
     ));
 

@@ -9,7 +9,7 @@ describe('ToggleButton', () => {
       <ToggleButton
         data={{ a: 1 }}
         getMessage={key => key}
-        refHandler={() => {}}
+        getOverlayTarget={() => {}}
         onToggle={() => {}}
       />
     ));
@@ -23,7 +23,7 @@ describe('ToggleButton', () => {
       <ToggleButton
         data={{ a: 1 }}
         getMessage={key => key}
-        refHandler={() => {}}
+        getOverlayTarget={() => {}}
         onToggle={() => {}}
       />
     ));

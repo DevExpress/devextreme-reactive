@@ -62,7 +62,7 @@ describe('EditCell', () => {
       <EditCell
         value=""
         onValueChange={() => {}}
-        column={{ align: 'right' }}
+        tableColumn={{ align: 'right' }}
       />
     ));
     const inputRoot = tree.find(Input);

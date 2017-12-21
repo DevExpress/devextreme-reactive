@@ -200,13 +200,14 @@ class DemoBase extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region', width: 110 },
-        {
-          name: 'amount', title: 'Amount', align: 'right', width: 90,
-        },
-        { name: 'discount', title: 'Discount', width: 110 },
+        { name: 'region', title: 'Region' },
+        { name: 'amount', title: 'Sale Amount' },
+        { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -277,6 +278,7 @@ class DemoBase extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       editingRows,
       addedRows,
@@ -322,6 +324,7 @@ class DemoBase extends React.PureComponent {
           <DragDropContext />
 
           <Table
+            columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
 
@@ -362,6 +365,7 @@ class DemoBase extends React.PureComponent {
                 columns={columns}
               >
                 <Table
+                  columnExtensions={tableColumnExtensions}
                   cellComponent={Cell}
                 />
                 <TableHeaderRow />

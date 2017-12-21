@@ -18,15 +18,18 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex', width: 100 },
+        { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'sex', width: 100 },
       ],
       rows: generateRows({ length: 6 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Grid
@@ -34,7 +37,9 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <DragDropContext />
-        <Table />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
         <TableColumnReordering
           defaultOrder={['city', 'sex', 'car', 'name']}
         />

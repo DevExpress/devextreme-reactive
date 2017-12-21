@@ -13,6 +13,7 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 
 Name | Type | Default | Description
 -----|------|---------|------------
+columnExtensions | Array&lg;[TableColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 layoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | A component that renders a table layout.
 cellComponent | ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
@@ -24,14 +25,17 @@ messages | object | | An object that specifies the [localization messages](#loca
 
 ## Interfaces
 
-### Column (Extension)
+### TableColumnExtension
 
-A value with a [Column](grid.md#column) shape extended by the following fields:
+Describes additional column properties that the plugin can handle.
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-align? | 'left' &#124; 'right' | Specifies the table's column alignment.
-width? | number | Specifies the table's column width in pixels.
+columnName | string | The name of the column to extend.
+width? | number | The table column width in pixels.
+align? | 'left' &#124; 'right' | The table column alignment.
 
 ### TableLayoutProps
 
@@ -69,8 +73,9 @@ Field | Type | Description
 ------|------|------------
 key | string | A unique table column identifier.
 type | string | Specifies the table column type. The specified value defines which cell template is used to render the column.
-column? | [Column](#column-extension) | Specifies the associated user column.
+column? | [Column](grid.md#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
+align? | 'left' &#124; 'right' | Specifies the table's column alignment.
 
 ### TableCellProps
 
@@ -95,7 +100,7 @@ Field | Type | Description
 ------|------|------------
 value | any | Specifies a value to be rendered within the cell.
 row | any | Specifies the cell's row.
-column | [Column](#column-extension) | Specifies the cell's column.
+column | [Column](grid.md#column) | Specifies the cell's column.
 
 ### TableNoDataCellProps
 
@@ -155,7 +160,7 @@ If you specify additional properties, they are added to the component's root ele
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows to be rendered by the table view.
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | Columns to be rendered by the table view.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a cell’s value.
 

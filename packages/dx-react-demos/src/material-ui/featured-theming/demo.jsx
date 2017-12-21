@@ -158,11 +158,16 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'prefix', title: 'Title', width: 100 },
+        { name: 'prefix', title: 'Title' },
         { name: 'firstName', title: 'First Name' },
         { name: 'lastName', title: 'Last Name' },
-        { name: 'position', title: 'Position', width: 170 },
-        { name: 'state', title: 'State', width: 125 },
+        { name: 'position', title: 'Position' },
+        { name: 'state', title: 'State' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'prefix', width: 100 },
+        { columnName: 'position', width: 170 },
+        { columnName: 'state', width: 125 },
       ],
       rows: generateRows({
         columnValues: {
@@ -179,7 +184,9 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, pageSizes } = this.state;
+    const {
+      rows, columns, tableColumnExtensions, pageSizes,
+    } = this.state;
 
     return (
       <Paper>
@@ -207,7 +214,9 @@ export default class Demo extends React.PureComponent {
 
           <DragDropContext />
 
-          <Table />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 

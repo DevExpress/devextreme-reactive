@@ -44,17 +44,22 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       pageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { rows, columns, pageSizes } = this.state;
+    const {
+      rows, columns, tableColumnExtensions, pageSizes,
+    } = this.state;
 
     return (
       <Paper>
@@ -93,6 +98,7 @@ export default class Demo extends React.PureComponent {
           <DragDropContext />
 
           <Table
+            columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
           <TableSelection showSelectAll />

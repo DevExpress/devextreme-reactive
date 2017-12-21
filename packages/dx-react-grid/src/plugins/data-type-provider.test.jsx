@@ -17,7 +17,7 @@ describe('DataTypeProvider', () => {
     const tree = mount((
       <PluginHost>
         <DataTypeProvider
-          type="test"
+          for={['test']}
           formatterComponent={() => null}
         />
       </PluginHost>
@@ -29,9 +29,9 @@ describe('DataTypeProvider', () => {
       .toBeTruthy();
     expect(tree.findWhere(n => n.prop('name') === 'valueEditor').exists())
       .toBeFalsy();
-    expect(valueFormatter.prop('predicate')({ column: { dataType: 'test' } }))
+    expect(valueFormatter.prop('predicate')({ column: { name: 'test' } }))
       .toBeTruthy();
-    expect(valueFormatter.prop('predicate')({ column: { dataType: 'value' } }))
+    expect(valueFormatter.prop('predicate')({ column: { name: 'value' } }))
       .toBeFalsy();
   });
 
@@ -39,7 +39,7 @@ describe('DataTypeProvider', () => {
     const tree = mount((
       <PluginHost>
         <DataTypeProvider
-          type="test"
+          for={['test']}
           editorComponent={() => null}
         />
       </PluginHost>
@@ -51,9 +51,9 @@ describe('DataTypeProvider', () => {
       .toBeTruthy();
     expect(tree.findWhere(n => n.prop('name') === 'valueFormatter').exists())
       .toBeFalsy();
-    expect(valueEditor.prop('predicate')({ column: { dataType: 'test' } }))
+    expect(valueEditor.prop('predicate')({ column: { name: 'test' } }))
       .toBeTruthy();
-    expect(valueEditor.prop('predicate')({ column: { dataType: 'value' } }))
+    expect(valueEditor.prop('predicate')({ column: { name: 'value' } }))
       .toBeFalsy();
   });
 });

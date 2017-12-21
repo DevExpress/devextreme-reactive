@@ -20,6 +20,28 @@ import {
   employeeTaskValues,
 } from '../../demo-data/generator';
 
+const columns = [
+  { name: 'prefix', title: 'Title' },
+  { name: 'firstName', title: 'First Name' },
+  { name: 'lastName', title: 'Last Name' },
+  { name: 'position', title: 'Position' },
+  { name: 'state', title: 'State' },
+  { name: 'birthDate', title: 'Birth Date' },
+];
+const detailColumns = [
+  { name: 'subject', title: 'Subject' },
+  { name: 'startDate', title: 'Start Date' },
+  { name: 'dueDate', title: 'Due Date' },
+  { name: 'priority', title: 'Priority' },
+  { name: 'status', title: 'Status' },
+];
+const tableDetailColumnExtensions = [
+  { columnName: 'startDate', width: 115 },
+  { columnName: 'dueDate', width: 115 },
+  { columnName: 'priority', width: 100 },
+  { columnName: 'status', width: 125 },
+];
+
 const styles = {
   detailContainer: {
     margin: 20,
@@ -28,11 +50,7 @@ const styles = {
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-const GridDetailContainerBase = ({
-  detailColumns,
-  row,
-  classes,
-}) => (
+const GridDetailContainerBase = ({ row, classes }) => (
   <div className={classes.detailContainer}>
     <div>
       <h5>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
@@ -42,7 +60,9 @@ const GridDetailContainerBase = ({
         rows={row.tasks}
         columns={detailColumns}
       >
-        <Table />
+        <Table
+          columnExtensions={tableDetailColumnExtensions}
+        />
         <TableHeaderRow />
       </Grid>
     </Paper>
@@ -50,7 +70,6 @@ const GridDetailContainerBase = ({
 );
 GridDetailContainerBase.propTypes = {
   row: PropTypes.object.isRequired,
-  detailColumns: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -60,8 +79,6 @@ const ReduxGridDetailContainer = connect(state => state)(GridDetailContainer);
 
 const GridContainer = ({
   rows,
-  columns,
-
   sorting,
   onSortingChange,
   selection,
@@ -156,7 +173,6 @@ const GridContainer = ({
 
 GridContainer.propTypes = {
   rows: PropTypes.array.isRequired,
-  columns: PropTypes.array.isRequired,
   sorting: PropTypes.array.isRequired,
   onSortingChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
@@ -181,23 +197,6 @@ GridContainer.propTypes = {
 };
 
 const gridInitialState = {
-  columns: [
-    { name: 'prefix', title: 'Title', width: 100 },
-    { name: 'firstName', title: 'First Name' },
-    { name: 'lastName', title: 'Last Name' },
-    { name: 'position', title: 'Position', width: 160 },
-    { name: 'state', title: 'State', width: 125 },
-    { name: 'birthDate', title: 'Birth Date', width: 135 },
-  ],
-  detailColumns: [
-    { name: 'subject', title: 'Subject' },
-    { name: 'startDate', title: 'Start Date', width: 115 },
-    { name: 'dueDate', title: 'Due Date', width: 115 },
-    { name: 'priority', title: 'Priority', width: 100 },
-    {
-      name: 'status', title: 'Status', caption: 'Completed', width: 125,
-    },
-  ],
   rows: generateRows({
     columnValues: {
       ...employeeValues,

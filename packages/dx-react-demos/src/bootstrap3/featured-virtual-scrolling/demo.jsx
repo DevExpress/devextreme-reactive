@@ -21,6 +21,8 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
+const getRowId = row => row.id;
+
 const Cell = (props) => {
   if (props.column.name === 'discount') {
     return <ProgressBarCell {...props} />;
@@ -34,8 +36,6 @@ Cell.propTypes = {
   column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
-const getRowId = row => row.id;
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -44,10 +44,13 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -56,7 +59,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Grid
@@ -87,6 +90,7 @@ export default class Demo extends React.PureComponent {
         <LocalSelection />
 
         <VirtualTable
+          columnExtensions={tableColumnExtensions}
           cellComponent={Cell}
         />
 

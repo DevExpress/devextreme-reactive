@@ -18,7 +18,7 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex', width: 100 },
+        { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],

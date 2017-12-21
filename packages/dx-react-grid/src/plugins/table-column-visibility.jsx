@@ -90,7 +90,7 @@ TableColumnVisibility.propTypes = {
 
 TableColumnVisibility.defaultProps = {
   hiddenColumns: undefined,
-  defaultHiddenColumns: undefined,
+  defaultHiddenColumns: [],
   onHiddenColumnsChange: undefined,
   messages: {},
 };

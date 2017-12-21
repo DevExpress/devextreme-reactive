@@ -4,13 +4,13 @@ import classNames from 'classnames';
 
 export const ToggleButton = ({
   onToggle, className,
-  getMessage, getOverlayTarget,
+  getMessage, getButtonRef,
   ...restProps
 }) => (
   <button
     className={classNames('btn btn-link', className)}
     onClick={onToggle}
-    ref={getOverlayTarget}
+    ref={getButtonRef}
     {...restProps}
   >
     <i className="glyphicon glyphicon-eye-close" />
@@ -20,7 +20,7 @@ export const ToggleButton = ({
 ToggleButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
-  getOverlayTarget: PropTypes.func.isRequired,
+  getButtonRef: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 

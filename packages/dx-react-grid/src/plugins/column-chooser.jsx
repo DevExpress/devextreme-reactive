@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
 import {
   Template, TemplatePlaceholder, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
@@ -21,15 +20,15 @@ export class ColumnChooser extends React.PureComponent {
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
-    this.getOverlayTarget = this.getOverlayTarget.bind(this);
+    this.getButtonRef = this.getButtonRef.bind(this);
   }
-  getOverlayTarget(button) {
+  getButtonRef(button) {
     this.button = button;
   }
   handleToggle() {
     this.setState({
       visible: true,
-      overlayTarget: findDOMNode(this.button), // eslint-disable-line react/no-find-dom-node
+      overlayTarget: this.button,
     });
   }
   handleHide() {
@@ -58,7 +57,7 @@ export class ColumnChooser extends React.PureComponent {
             {({ columns, hiddenColumns }, { toggleColumnVisibility }) => (
               <React.Fragment>
                 <ToggleButton
-                  getOverlayTarget={this.getOverlayTarget}
+                  getButtonRef={this.getButtonRef}
                   onToggle={this.handleToggle}
                   getMessage={getMessage}
                 />

@@ -44,7 +44,7 @@ Field | Type | Description
 ------|------|------------
 onToggle | () => void | An event that initiates overlay showing or hiding.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns title for the column chooser toggle button. Available in the "@devexpress/dx-react-grid-material-ui" package.
-getOverlayTarget | () => node | A function that returns a `ref` of the root element.
+getButtonRef | () => node | A function that returns a `ref` of the root element.
 
 ### ColumnChooserContainerProps
 

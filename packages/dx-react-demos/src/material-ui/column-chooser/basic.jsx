@@ -21,9 +21,12 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex', width: 100 },
+        { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'sex', width: 100 },
       ],
       rows: generateRows({ length: 6 }),
       hiddenColumns: ['sex', 'car'],
@@ -35,7 +38,9 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { columns, rows, hiddenColumns } = this.state;
+    const {
+      columns, rows, hiddenColumns, tableColumnExtensions,
+    } = this.state;
     return (
       <MUIGrid container>
         <MUIGrid item xs={12} sm={9}>
@@ -44,7 +49,9 @@ export default class Demo extends React.PureComponent {
               rows={rows}
               columns={columns}
             >
-              <Table />
+              <Table
+                columnExtensions={tableColumnExtensions}
+              />
               <TableHeaderRow />
               <TableColumnVisibility
                 hiddenColumns={hiddenColumns}

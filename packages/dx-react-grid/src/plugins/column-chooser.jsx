@@ -26,7 +26,7 @@ export class ColumnChooser extends React.PureComponent {
     this.button = button;
   }
   handleToggle() {
-    this.setState({ visible: true });
+    this.setState({ visible: !this.state.visible });
   }
   handleHide() {
     this.setState({ visible: false });

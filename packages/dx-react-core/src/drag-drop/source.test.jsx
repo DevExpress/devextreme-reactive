@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { Draggable } from '../draggable';
-import { DragDropProvider } from './context';
+import { DragDropProvider } from './provider';
 import { DragSource } from './source';
 
 describe('DragDropProvider', () => {

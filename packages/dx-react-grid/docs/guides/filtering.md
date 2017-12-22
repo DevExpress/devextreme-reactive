@@ -26,7 +26,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the in
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filtering options to the `FilteringState` plugin's `filters` property and handle the `onFiltersChange` event to control the filtering state externally.
 
-.embedded-demo(filtering/integrated-filtering-controlled)
+.embedded-demo(filtering/local-filtering-controlled)
 
 ### <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
 

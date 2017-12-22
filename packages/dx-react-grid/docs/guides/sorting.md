@@ -31,7 +31,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the in
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `SortingState` plugin's `sorting` property and handle the `onSortingChange` event to control the sorting state externally.
 
-.embedded-demo(sorting/integrated-sorting-controlled)
+.embedded-demo(sorting/local-sorting-controlled)
 
 ## Using Sorting with Grouping
 

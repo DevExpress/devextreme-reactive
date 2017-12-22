@@ -41,7 +41,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 
 Note that the `onPageSizeChange` handler makes sense only if the `pageSizes` option is specified. Otherwise, a user is not able to change the page size.
 
-.embedded-demo(paging/integrated-paging-controlled)
+.embedded-demo(paging/local-paging-controlled)
 
 ## Remote Paging
 

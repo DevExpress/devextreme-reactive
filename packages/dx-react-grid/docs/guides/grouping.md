@@ -26,7 +26,7 @@ In the following examples, the grouping options are specified using the `Groupin
 
 In the following example, the data is specified as plain rows. In this case, the data should be grouped locally using the `IntegratedGrouping` plugin.
 
-.embedded-demo(grouping/integrated-grouping-static)
+.embedded-demo(grouping/local-grouping-static)
 
 ### Custom Grouping
 
@@ -50,19 +50,19 @@ You can also set the `GroupingPanel` plugin's `allowSorting` option to true to e
 
 In the following example, the Grid functions are in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls the grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
 
-.embedded-demo(grouping/integrated-grouping-with-ui)
+.embedded-demo(grouping/local-grouping-with-ui)
 
 ## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grouping state.
 
-.embedded-demo(grouping/integrated-grouping-controlled)
+.embedded-demo(grouping/local-grouping-controlled)
 
 ## Local Grouping with Custom Values
 
 Pass a grouping function to the `IntegratedGrouping` plugin’s [getColumnIdentity](../reference/integrated-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column's values while still displaying the column.
 
-.embedded-demo(grouping/integrated-grouping-custom)
+.embedded-demo(grouping/local-grouping-custom)
 
 You can also assign a function that returns a Boolean value depending on the `columnName` parameter value to the `TableGroupRow` plugin's `showColumnWhenGrouped` property to define which columns should remain visible when data is grouped by them.
 
@@ -80,7 +80,7 @@ You can also assign a function that returns a Boolean value depending on the `co
 
 Note that if the `getColumnIdentity` function returns an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `cellComponent` property as demonstrated in the following example:
 
-.embedded-demo(grouping/integrated-grouping-custom-advanced)
+.embedded-demo(grouping/local-grouping-custom-advanced)
 
 ## Remote Grouping
 

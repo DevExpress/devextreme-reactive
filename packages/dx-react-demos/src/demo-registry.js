@@ -137,8 +137,8 @@ export const demos = {
       'material-ui': require('./material-ui/filtering/local-filter-row').default,
     },
     'integrated-filtering-controlled': {
-      bootstrap3: require('./bootstrap3/filtering/integrated-filtering-controlled').default,
-      'material-ui': require('./material-ui/filtering/integrated-filtering-controlled').default,
+      bootstrap3: require('./bootstrap3/filtering/local-filtering-controlled').default,
+      'material-ui': require('./material-ui/filtering/local-filtering-controlled').default,
     },
     'custom-filter-row': {
       bootstrap3: require('./bootstrap3/filtering/custom-filter-row').default,
@@ -155,28 +155,28 @@ export const demos = {
   },
   grouping: {
     'integrated-grouping-static': {
-      bootstrap3: require('./bootstrap3/grouping/integrated-grouping-static').default,
-      'material-ui': require('./material-ui/grouping/integrated-grouping-static').default,
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-static').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-static').default,
     },
     'custom-grouping-static': {
       bootstrap3: require('./bootstrap3/grouping/custom-grouping-static').default,
       'material-ui': require('./material-ui/grouping/custom-grouping-static').default,
     },
     'integrated-grouping-with-ui': {
-      bootstrap3: require('./bootstrap3/grouping/integrated-grouping-with-ui').default,
-      'material-ui': require('./material-ui/grouping/integrated-grouping-with-ui').default,
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-with-ui').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-with-ui').default,
     },
     'integrated-grouping-controlled': {
-      bootstrap3: require('./bootstrap3/grouping/integrated-grouping-controlled').default,
-      'material-ui': require('./material-ui/grouping/integrated-grouping-controlled').default,
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-controlled').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-controlled').default,
     },
     'integrated-grouping-custom': {
-      bootstrap3: require('./bootstrap3/grouping/integrated-grouping-custom').default,
-      'material-ui': require('./material-ui/grouping/integrated-grouping-custom').default,
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-custom').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-custom').default,
     },
     'integrated-grouping-custom-advanced': {
-      bootstrap3: require('./bootstrap3/grouping/integrated-grouping-custom-advanced').default,
-      'material-ui': require('./material-ui/grouping/integrated-grouping-custom-advanced').default,
+      bootstrap3: require('./bootstrap3/grouping/local-grouping-custom-advanced').default,
+      'material-ui': require('./material-ui/grouping/local-grouping-custom-advanced').default,
     },
     'remote-grouping-with-local-expanding': {
       bootstrap3: require('./bootstrap3/grouping/remote-grouping-with-local-expanding').default,
@@ -191,16 +191,16 @@ export const demos = {
   },
   paging: {
     'integrated-paging': {
-      bootstrap3: require('./bootstrap3/paging/integrated-paging').default,
-      'material-ui': require('./material-ui/paging/integrated-paging').default,
+      bootstrap3: require('./bootstrap3/paging/local-paging').default,
+      'material-ui': require('./material-ui/paging/local-paging').default,
     },
     'page-size-selector': {
       bootstrap3: require('./bootstrap3/paging/page-size-selector').default,
       'material-ui': require('./material-ui/paging/page-size-selector').default,
     },
     'integrated-paging-controlled': {
-      bootstrap3: require('./bootstrap3/paging/integrated-paging-controlled').default,
-      'material-ui': require('./material-ui/paging/integrated-paging-controlled').default,
+      bootstrap3: require('./bootstrap3/paging/local-paging-controlled').default,
+      'material-ui': require('./material-ui/paging/local-paging-controlled').default,
     },
     'remote-paging': {
       bootstrap3: require('./bootstrap3/paging/remote-paging').default,
@@ -243,8 +243,8 @@ export const demos = {
       'material-ui': require('./material-ui/sorting/local-group-sorting').default,
     },
     'integrated-sorting-controlled': {
-      bootstrap3: require('./bootstrap3/sorting/integrated-sorting-controlled').default,
-      'material-ui': require('./material-ui/sorting/integrated-sorting-controlled').default,
+      bootstrap3: require('./bootstrap3/sorting/local-sorting-controlled').default,
+      'material-ui': require('./material-ui/sorting/local-sorting-controlled').default,
     },
     'local-custom-sorting': {
       bootstrap3: require('./bootstrap3/sorting/local-custom-sorting').default,

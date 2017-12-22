@@ -18,7 +18,7 @@ Import the plugins listed above to set up a simple Grid with column resizing ena
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), use the `TableColumnResizing` plugin's `defaultColumnWidths` property to specify the initial column widths. This property should define the width of every column; otherwise, it throws an error.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), use the `TableColumnResizing` plugin's `defaultColumnWidths` property to specify the initial column widths. This property should define every column's width; otherwise, it throws an error.
 
 .embedded-demo(column-resizing/uncontrolled)
 

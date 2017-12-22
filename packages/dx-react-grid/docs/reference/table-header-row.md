@@ -39,7 +39,7 @@ column | [Column](grid.md#column) | A column object associated with the header c
 showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
 onSort | ({ keepOther: boolean, cancel: boolean }) | An event that changes the associated column's sorting state. The `keepOther` and `cancel` arguments specify whether to keep existing sorting and cancel sorting by the associated column.
-showGroupingControls | boolean | Specifies whether to display a button that groups by the column.
+showGroupingControls | boolean | Specifies whether to display a button that groups data by the column.
 onGroup | () => void | An event that invokes grouping by the associated column.
 onWidthChange | ({ shift: number }) => void | An event that initiates the column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative
 onDraftWidthChange | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.

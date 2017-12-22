@@ -3,9 +3,9 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   Getter, PluginHost,
-  DragDropContext as DragDropContextCore,
+  DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
-import { DragDropContext } from './drag-drop-context';
+import { DragDropProvider } from './drag-drop-provider';
 
 // eslint-disable-next-line react/prop-types
 const DefaultContainer = ({ clientOffset, children }) => (
@@ -20,7 +20,7 @@ const DefaultColumn = ({ column }) => (
   </li>
 );
 
-describe('DragDropContext', () => {
+describe('DragDropProvider', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -36,7 +36,7 @@ describe('DragDropContext', () => {
           name="columns"
           value={[{ name: 'a' }, { name: 'b' }]}
         />
-        <DragDropContext
+        <DragDropProvider
           containerComponent={DefaultContainer}
           columnComponent={DefaultColumn}
         />
@@ -54,15 +54,15 @@ describe('DragDropContext', () => {
           name="columns"
           value={[{ name: 'a', title: 'A' }, { name: 'b', title: 'B' }]}
         />
-        <DragDropContext
+        <DragDropProvider
           containerComponent={DefaultContainer}
           columnComponent={DefaultColumn}
         />
       </PluginHost>
     ));
 
-    const dragDropContext = tree.find(DragDropContextCore);
-    dragDropContext.prop('onChange')({
+    const dragDropProvider = tree.find(DragDropProviderCore);
+    dragDropProvider.prop('onChange')({
       payload: [{ type: 'column', columnName: 'a' }],
       clientOffset: { x: 10, y: 10 },
     });

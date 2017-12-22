@@ -1,4 +1,4 @@
-# DragDropContext Plugin Reference
+# DragDropProvider Plugin Reference
 
 A plugin that implements the drag-and-drop functionality and visualizes columns that are being dragged.
 
@@ -42,8 +42,8 @@ column | [Column](grid.md#column) | Specifies a column being dragged.
 
 Name | Properties | Description
 -----|------------|------------
-DragDropContext.Container | [ContainerProps](#containerprops) | A component that renders a container for columns being dragged.
-DragDropContext.Column | [ColumnProps](#columnprops) | A component that renders a column being dragged.
+DragDropProvider.Container | [ContainerProps](#containerprops) | A component that renders a container for columns being dragged.
+DragDropProvider.Column | [ColumnProps](#columnprops) | A component that renders a column being dragged.
 
 If you specify additional properties, they are added to the component's root element.
 

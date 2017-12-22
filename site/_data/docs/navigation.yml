@@ -96,8 +96,8 @@ react:
           path: /react/grid/docs/reference/paging-panel
         - title: GroupingPanel
           path: /react/grid/docs/reference/grouping-panel
-        - title: DragDropContext
-          path: /react/grid/docs/reference/drag-drop-context
+        - title: DragDropProvider
+          path: /react/grid/docs/reference/drag-drop-provider
         - title: DataTypeProvider
           path: /react/grid/docs/reference/data-type-provider
         - title: ColumnChooser

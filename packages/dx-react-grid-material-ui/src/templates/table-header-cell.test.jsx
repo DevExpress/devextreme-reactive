@@ -2,7 +2,7 @@ import React from 'react';
 import { TableCell, TableSortLabel } from 'material-ui';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
+import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { SortingControl } from './table-header-cell/sorting-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
@@ -92,12 +92,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when dragging is allowed', () => {
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <TableHeaderCell
           allowDragging
           getMessage={jest.fn()}
         />
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
@@ -106,12 +106,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles while dragging', () => {
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <TableHeaderCell
           allowDragging
           getMessage={jest.fn()}
         />
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();

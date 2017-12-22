@@ -10,7 +10,7 @@ The plugin also allows you to manage a column's sorting and grouping state and i
 
 - [SortingState](sorting-state.md) [Optional]
 - [GroupingState](grouping-state.md) [Optional]
-- [DragDropContext](drag-drop-context.md) [Optional]
+- [DragDropProvider](drag-drop-provider.md) [Optional]
 - [Table](table.md)
 - [TableColumnResizing](table-column-resizing.md) [Optional]
 

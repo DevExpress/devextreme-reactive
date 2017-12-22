@@ -7,7 +7,7 @@ A plugin that visualizes table rows' selection state by rendering selection chec
 ### Dependencies
 
 - [SelectionState](selection-state.md)
-- [LocalSelection](local-selection.md) [Optional]
+- [IntegratedSelection](integrated-selection.md) [Optional]
 - [Table](table.md)
 
 ### Properties

@@ -7,7 +7,7 @@ const pluginDependencies = [
   { pluginName: 'SortingState' },
 ];
 
-export class LocalSorting extends React.PureComponent {
+export class IntegratedSorting extends React.PureComponent {
   render() {
     const { getColumnCompare } = this.props;
     const rowsComputed = ({
@@ -21,7 +21,7 @@ export class LocalSorting extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="LocalSorting"
+        pluginName="IntegratedSorting"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />
@@ -30,10 +30,10 @@ export class LocalSorting extends React.PureComponent {
   }
 }
 
-LocalSorting.propTypes = {
+IntegratedSorting.propTypes = {
   getColumnCompare: PropTypes.func,
 };
 
-LocalSorting.defaultProps = {
+IntegratedSorting.defaultProps = {
   getColumnCompare: undefined,
 };

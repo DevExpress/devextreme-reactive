@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -88,10 +88,10 @@ export default class Demo extends React.PureComponent {
           />
           <SelectionState />
 
-          <LocalFiltering />
-          <LocalSorting />
-          <LocalGrouping />
-          <LocalSelection />
+          <IntegratedFiltering />
+          <IntegratedSorting />
+          <IntegratedGrouping />
+          <IntegratedSelection />
 
           <VirtualTable
             columnExtensions={tableColumnExtensions}

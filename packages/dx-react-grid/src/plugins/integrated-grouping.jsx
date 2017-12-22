@@ -15,7 +15,7 @@ const pluginDependencies = [
 const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
   expandedGroupRows(rows, grouping, expandedGroups);
 
-export class LocalGrouping extends React.PureComponent {
+export class IntegratedGrouping extends React.PureComponent {
   render() {
     const { getColumnIdentity } = this.props;
 
@@ -24,7 +24,7 @@ export class LocalGrouping extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="LocalGrouping"
+        pluginName="IntegratedGrouping"
         dependencies={pluginDependencies}
       >
         <Getter name="isGroupRow" value={groupRowChecker} />
@@ -36,10 +36,10 @@ export class LocalGrouping extends React.PureComponent {
   }
 }
 
-LocalGrouping.propTypes = {
+IntegratedGrouping.propTypes = {
   getColumnIdentity: PropTypes.func,
 };
 
-LocalGrouping.defaultProps = {
+IntegratedGrouping.defaultProps = {
   getColumnIdentity: undefined,
 };

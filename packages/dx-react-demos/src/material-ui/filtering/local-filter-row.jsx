@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   FilteringState,
-  LocalFiltering,
+  IntegratedFiltering,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState defaultFilters={[]} />
-          <LocalFiltering />
+          <IntegratedFiltering />
           <Table />
           <TableHeaderRow />
           <TableFilterRow />

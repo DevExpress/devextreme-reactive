@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   SortingState,
-  LocalSorting,
+  IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -61,7 +61,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <SortingState />
-        <LocalSorting
+        <IntegratedSorting
           getColumnCompare={getColumnCompare}
         />
         <Table

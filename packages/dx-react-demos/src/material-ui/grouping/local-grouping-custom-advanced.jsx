@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Paper } from 'material-ui';
 import {
   GroupingState,
-  LocalGrouping,
+  IntegratedGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -77,7 +77,7 @@ export default class Demo extends React.PureComponent {
             grouping={grouping}
             defaultExpandedGroups={['N-Z']}
           />
-          <LocalGrouping
+          <IntegratedGrouping
             getColumnIdentity={this.getColumnIdentity}
           />
           <Table />

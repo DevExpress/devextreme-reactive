@@ -2,7 +2,7 @@ import {
   filteredRows,
 } from './computeds';
 
-describe('LocalFiltering computeds', () => {
+describe('IntegratedFiltering computeds', () => {
   describe('#filteredRows', () => {
     const getCellValue = (row, columnName) => row[columnName];
 

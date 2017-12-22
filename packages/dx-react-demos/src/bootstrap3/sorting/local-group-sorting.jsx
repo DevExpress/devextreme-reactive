@@ -2,8 +2,8 @@ import React from 'react';
 import {
   SortingState,
   GroupingState,
-  LocalSorting,
-  LocalGrouping,
+  IntegratedSorting,
+  IntegratedGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -49,8 +49,8 @@ export default class Demo extends React.PureComponent {
         <GroupingState
           defaultGrouping={[{ columnName: 'city' }]}
         />
-        <LocalSorting />
-        <LocalGrouping />
+        <IntegratedSorting />
+        <IntegratedGrouping />
         <Table />
         <TableHeaderRow allowSorting />
         <TableGroupRow />

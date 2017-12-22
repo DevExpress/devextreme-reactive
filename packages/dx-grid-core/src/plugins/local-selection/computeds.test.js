@@ -4,7 +4,7 @@ import {
   allSelected,
 } from './computeds';
 
-describe('LocalSelection computeds', () => {
+describe('IntegratedSelection computeds', () => {
   const selectionNone = new Set([]);
   const selectionOne = new Set([1]);
   const selectionTwo = new Set([1, 2]);

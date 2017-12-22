@@ -1,4 +1,4 @@
-# LocalFiltering Plugin Reference
+# IntegratedFiltering Plugin Reference
 
 A plugin that performs local data filtering.
 
@@ -12,11 +12,11 @@ A plugin that performs local data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions | Array&lg;[LocalFilteringColumnExtension](#localfilteringcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions | Array&lg;[IntegratedFilteringColumnExtension](#localfilteringcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 
-### LocalFilteringColumnExtension
+### IntegratedFilteringColumnExtension
 
 Describes additional column properties that the plugin can handle.
 

@@ -17,7 +17,7 @@ The plugin order is important. Plugins implementing an interface should be linke
 
 ```js
 import {
-  FilteringState, LocalFiltering
+  FilteringState, IntegratedFiltering
 } from '@devexpress/dx-react-grid'
 import {
   Grid, Table
@@ -26,7 +26,7 @@ import {
 const App = () => (
   <Grid rows={[/* ... */]} columns={[/* ... */]}>
     <FilteringState defaultFilters={[/* ... */]}/>
-    <LocalFiltering/>
+    <IntegratedFiltering/>
     <Table/>
   </Grid>
 );
@@ -36,7 +36,7 @@ Some visualization plugins extend the `Table`'s functionality, and should follow
 
 ```js
 import {
-  FilteringState, LocalFiltering
+  FilteringState, IntegratedFiltering
 } from '@devexpress/dx-react-grid'
 import {
   Grid, Table, TableFilterRow
@@ -45,7 +45,7 @@ import {
 const App = () => (
   <Grid rows={[/* ... */]} columns={[/* ... */]}>
     <FilteringState defaultFilters={[/* ... */]}/>
-    <LocalFiltering/>
+    <IntegratedFiltering/>
     <Table/>
     <TableFilterRow/>
   </Grid>
@@ -54,7 +54,7 @@ const App = () => (
 
 NOTE: Refer to the plugin's reference for information on its dependencies.
 
-The data processing plugins' order is also important because they transform data in the same order they appear. For example, if the `LocalPaging` plugin precedes the `LocalFiltering`, the Grid filters the current page's data. Swap the plugins to paginate filtered data.
+The data processing plugins' order is also important because they transform data in the same order they appear. For example, if the `IntegratedPaging` plugin precedes the `IntegratedFiltering`, the Grid filters the current page's data. Swap the plugins to paginate filtered data.
 
 ## UI Plugins
 

@@ -10,7 +10,7 @@ import {
   GRID_GROUP_LEVEL_KEY,
 } from './constants';
 
-describe('LocalGrouping computeds', () => {
+describe('IntegratedGrouping computeds', () => {
   describe('#groupRowChecker', () => {
     it('should work', () => {
       expect(groupRowChecker({}))

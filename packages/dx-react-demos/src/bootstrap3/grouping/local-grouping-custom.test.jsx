@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Demo from './local-grouping-custom';
+import Demo from './integrated-grouping-custom';
 
-describe('BS3: local-grouping-custom', () => {
+describe('BS3: integrated-grouping-custom', () => {
   it('should work', () => {
     mount(<Demo />);
   });

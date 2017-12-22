@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { paginatedRows, rowsWithPageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { LocalPaging } from './integrated-paging';
+import { IntegratedPaging } from './integrated-paging';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -26,7 +26,7 @@ const defaultDeps = {
   plugins: ['PagingState'],
 };
 
-describe('LocalPaging', () => {
+describe('IntegratedPaging', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -48,7 +48,7 @@ describe('LocalPaging', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalPaging />
+        <IntegratedPaging />
       </PluginHost>
     ));
 
@@ -60,7 +60,7 @@ describe('LocalPaging', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalPaging />
+        <IntegratedPaging />
       </PluginHost>
     ));
 
@@ -77,7 +77,7 @@ describe('LocalPaging', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
-        <LocalPaging />
+        <IntegratedPaging />
       </PluginHost>
     ));
 
@@ -90,7 +90,7 @@ describe('LocalPaging', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
-        <LocalPaging />
+        <IntegratedPaging />
       </PluginHost>
     ));
 

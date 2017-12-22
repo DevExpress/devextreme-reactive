@@ -8,7 +8,7 @@ import {
   expandedGroupRows,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { LocalGrouping } from './integrated-grouping';
+import { IntegratedGrouping } from './integrated-grouping';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -28,7 +28,7 @@ const defaultDeps = {
   plugins: ['GroupingState'],
 };
 
-describe('LocalGrouping', () => {
+describe('IntegratedGrouping', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -51,7 +51,7 @@ describe('LocalGrouping', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalGrouping />
+        <IntegratedGrouping />
       </PluginHost>
     ));
 
@@ -63,7 +63,7 @@ describe('LocalGrouping', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalGrouping />
+        <IntegratedGrouping />
       </PluginHost>
     ));
 
@@ -75,7 +75,7 @@ describe('LocalGrouping', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalGrouping />
+        <IntegratedGrouping />
       </PluginHost>
     ));
 
@@ -104,7 +104,7 @@ describe('LocalGrouping', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalGrouping
+        <IntegratedGrouping
           getColumnIdentity={getColumnIdentity}
         />
       </PluginHost>

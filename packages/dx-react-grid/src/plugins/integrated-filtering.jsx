@@ -7,7 +7,7 @@ const pluginDependencies = [
   { pluginName: 'FilteringState' },
 ];
 
-export class LocalFiltering extends React.PureComponent {
+export class IntegratedFiltering extends React.PureComponent {
   render() {
     const { columnExtensions } = this.props;
     const getColumnPredicate = columnName =>
@@ -24,7 +24,7 @@ export class LocalFiltering extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="LocalFiltering"
+        pluginName="IntegratedFiltering"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />
@@ -33,11 +33,11 @@ export class LocalFiltering extends React.PureComponent {
   }
 }
 
-LocalFiltering.propTypes = {
+IntegratedFiltering.propTypes = {
   columnExtensions: PropTypes.array,
 };
 
-LocalFiltering.defaultProps = {
+IntegratedFiltering.defaultProps = {
   columnExtensions: undefined,
 };
 

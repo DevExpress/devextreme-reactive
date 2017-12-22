@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   SortingState,
-  LocalSorting,
+  IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
           sorting={this.state.sorting}
           onSortingChange={this.changeSorting}
         />
-        <LocalSorting />
+        <IntegratedSorting />
         <Table />
         <TableHeaderRow allowSorting />
       </Grid>

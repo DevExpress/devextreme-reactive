@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   GroupingState,
-  LocalGrouping,
+  IntegratedGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
       >
         <DragDropContext />
         <GroupingState defaultGrouping={[{ columnName: 'city' }]} />
-        <LocalGrouping />
+        <IntegratedGrouping />
         <Table />
         <TableHeaderRow />
         <TableGroupRow />

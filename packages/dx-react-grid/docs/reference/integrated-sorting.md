@@ -1,4 +1,4 @@
-# LocalSorting Plugin Reference
+# IntegratedSorting Plugin Reference
 
 A plugin that performs local data sorting.
 

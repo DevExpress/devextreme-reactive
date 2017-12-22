@@ -3,7 +3,7 @@ import {
   rowsWithPageHeaders,
 } from './computeds';
 
-describe('LocalPaging computeds', () => {
+describe('IntegratedPaging computeds', () => {
   describe('#paginatedRows', () => {
     it('should work', () => {
       const rows = [1, 2, 3];

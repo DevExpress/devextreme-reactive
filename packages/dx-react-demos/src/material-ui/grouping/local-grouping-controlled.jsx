@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   GroupingState,
-  LocalGrouping,
+  IntegratedGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -48,7 +48,7 @@ export default class Demo extends React.PureComponent {
             grouping={this.state.grouping}
             onGroupingChange={this.changeGrouping}
           />
-          <LocalGrouping />
+          <IntegratedGrouping />
           <Table />
           <TableHeaderRow showGroupingControls />
           <TableGroupRow />

@@ -23,11 +23,11 @@ const currentPageComputed = ({ currentPage, totalCount, pageSize }, { setCurrent
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
-export class LocalPaging extends React.PureComponent {
+export class IntegratedPaging extends React.PureComponent {
   render() {
     return (
       <PluginContainer
-        pluginName="LocalPaging"
+        pluginName="IntegratedPaging"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsWithHeadersComputed} />

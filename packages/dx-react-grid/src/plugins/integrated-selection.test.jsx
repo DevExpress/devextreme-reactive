@@ -8,7 +8,7 @@ import {
   allSelected,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { LocalSelection } from './integrated-selection';
+import { IntegratedSelection } from './integrated-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   someSelected: jest.fn(),
@@ -29,7 +29,7 @@ const defaultDeps = {
   plugins: ['SelectionState'],
 };
 
-describe('LocalSelection', () => {
+describe('IntegratedSelection', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole();
@@ -50,7 +50,7 @@ describe('LocalSelection', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalSelection />
+        <IntegratedSelection />
       </PluginHost>
     ));
 
@@ -66,7 +66,7 @@ describe('LocalSelection', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalSelection />
+        <IntegratedSelection />
       </PluginHost>
     ));
 
@@ -83,7 +83,7 @@ describe('LocalSelection', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalSelection />
+        <IntegratedSelection />
       </PluginHost>
     ));
 
@@ -100,7 +100,7 @@ describe('LocalSelection', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalSelection />
+        <IntegratedSelection />
       </PluginHost>
     ));
 
@@ -111,7 +111,7 @@ describe('LocalSelection', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <LocalSelection />
+        <IntegratedSelection />
       </PluginHost>
     ));
 

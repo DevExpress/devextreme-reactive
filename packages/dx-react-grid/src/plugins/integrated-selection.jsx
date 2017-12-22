@@ -10,7 +10,7 @@ const pluginDependencies = [
   { pluginName: 'SelectionState' },
 ];
 
-export class LocalSelection extends React.PureComponent {
+export class IntegratedSelection extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -44,7 +44,7 @@ export class LocalSelection extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="LocalSelection"
+        pluginName="IntegratedSelection"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={this.availableToSelect} />

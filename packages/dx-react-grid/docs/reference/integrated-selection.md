@@ -1,4 +1,4 @@
-# LocalSelection Plugin Reference
+# IntegratedSelection Plugin Reference
 
 A plugin that performs local selection.
 

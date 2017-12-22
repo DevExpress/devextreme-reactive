@@ -2,7 +2,7 @@ import {
   sortedRows,
 } from './computeds';
 
-describe('LocalSorting computeds', () => {
+describe('IntegratedSorting computeds', () => {
   describe('#sortedRows', () => {
     const getCellValue = (row, columnName) => row[columnName];
 

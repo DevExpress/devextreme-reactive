@@ -1,6 +1,6 @@
 # IntegratedSorting Plugin Reference
 
-A plugin that performs local data sorting.
+A plugin that performs built-in data sorting.
 
 ## User Reference
 

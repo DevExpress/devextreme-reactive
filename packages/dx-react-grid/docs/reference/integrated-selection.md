@@ -1,6 +1,6 @@
 # IntegratedSelection Plugin Reference
 
-A plugin that performs local selection.
+A plugin that performs built-in selection.
 
 ## User Reference
 

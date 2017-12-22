@@ -1,6 +1,6 @@
 # IntegratedPaging Plugin Reference
 
-A plugin that performs local data paging. It also changes the current page if the provided one cannot be applied due to fewer available pages.
+A plugin that performs built-in data paging. It also changes the current page if the provided one cannot be applied due to fewer available pages.
 
 ## User Reference
 

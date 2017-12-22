@@ -8,7 +8,10 @@ export const tableColumnsWithWidths = (tableColumns, columnWidths, draftColumnWi
     .reduce((acc, tableColumn) => {
       if (tableColumn.type === 'data') {
         const columnName = tableColumn.column.name;
-        const width = draftColumnWidths[columnName] || columnWidths[columnName];
+        const column = draftColumnWidths.find(elem =>
+          elem.columnName === columnName) ||
+          columnWidths.find(elem => elem.columnName === columnName);
+        const width = column && column.width;
         if (width === undefined) {
           throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', columnName));
         }

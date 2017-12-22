@@ -18,7 +18,7 @@ export class TableColumnResizing extends React.PureComponent {
 
     this.state = {
       columnWidths: props.defaultColumnWidths,
-      draftColumnWidths: {},
+      draftColumnWidths: [],
     };
 
     const stateHelper = createStateHelper(this);
@@ -65,13 +65,13 @@ export class TableColumnResizing extends React.PureComponent {
 }
 
 TableColumnResizing.propTypes = {
-  defaultColumnWidths: PropTypes.objectOf(PropTypes.number),
-  columnWidths: PropTypes.objectOf(PropTypes.number),
+  defaultColumnWidths: PropTypes.array,
+  columnWidths: PropTypes.array,
   onColumnWidthsChange: PropTypes.func,
 };
 
 TableColumnResizing.defaultProps = {
-  defaultColumnWidths: {},
+  defaultColumnWidths: [],
   columnWidths: undefined,
   onColumnWidthsChange: undefined,
 };

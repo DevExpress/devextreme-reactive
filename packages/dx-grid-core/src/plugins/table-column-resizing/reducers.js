@@ -2,31 +2,31 @@ const MIN_SIZE = 40;
 
 export const changeTableColumnWidths = (state, { shifts }) => {
   const { columnWidths } = state;
-  const updatedColumnWidths = Object.keys(shifts)
-    .reduce((acc, columnName) => {
-      const size = Math.max(MIN_SIZE, columnWidths[columnName] + shifts[columnName]);
-      return Object.assign(acc, { [columnName]: size });
-    }, {});
+  let index;
+  const updatedColumn = columnWidths.find((elem, elemIndex) => {
+    index = elemIndex;
+    return !!shifts[elem.columnName];
+  });
+  const size = Math.max(MIN_SIZE, updatedColumn.width + shifts[updatedColumn.columnName]);
+  columnWidths.splice(index, 1, { columnName: updatedColumn.columnName, width: size });
+
   return {
     ...state,
-    columnWidths: { ...columnWidths, ...updatedColumnWidths },
-    draftColumnWidths: {},
+    columnWidths,
+    draftColumnWidths: [],
   };
 };
 
 export const changeDraftTableColumnWidths = (state, { shifts }) => {
-  const { columnWidths, draftColumnWidths } = state;
-  const updatedDraftColumnWidths = Object.keys(shifts)
-    .reduce((acc, columnName) => {
-      if (shifts[columnName] === null) {
-        delete acc[columnName];
-        return acc;
-      }
-      const size = Math.max(MIN_SIZE, columnWidths[columnName] + shifts[columnName]);
-      return Object.assign(acc, { [columnName]: size });
-    }, Object.assign({}, draftColumnWidths));
+  const { columnWidths } = state;
+  const updatedColumn = columnWidths.find(elem => !!shifts[elem.columnName]);
+  if (!updatedColumn) {
+    return { ...state, draftColumnWidths: [] };
+  }
+  const size = Math.max(MIN_SIZE, updatedColumn.width + shifts[updatedColumn.columnName]);
+
   return {
     ...state,
-    draftColumnWidths: updatedDraftColumnWidths,
+    draftColumnWidths: [{ columnName: updatedColumn.columnName, width: size }],
   };
 };

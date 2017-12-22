@@ -9,7 +9,7 @@ Click several columns while holding `Shift` to sort data by these columns. Click
 The following plugins implement sorting features:
 
 - [SortingState](../reference/sorting-state.md) - controls the sorting state
-- [IntegratedSorting](../reference/integrated-sorting.md) - performs local data sorting
+- [IntegratedSorting](../reference/integrated-sorting.md) - performs built-in data sorting
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row with sorting indicators
 - [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel with sorting indicators
 

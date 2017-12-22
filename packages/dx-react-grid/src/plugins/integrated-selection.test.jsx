@@ -8,7 +8,7 @@ import {
   allSelected,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { LocalSelection } from './local-selection';
+import { LocalSelection } from './integrated-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   someSelected: jest.fn(),

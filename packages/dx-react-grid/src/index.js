@@ -2,22 +2,22 @@ export { Grid } from './grid';
 export { ColumnChooser } from './column-chooser';
 
 export { FilteringState } from './plugins/filtering-state';
-export { LocalFiltering } from './plugins/local-filtering';
+export { LocalFiltering } from './plugins/integrated-filtering';
 
 export { EditingState } from './plugins/editing-state';
 
 export { PagingState } from './plugins/paging-state';
-export { LocalPaging } from './plugins/local-paging';
+export { LocalPaging } from './plugins/integrated-paging';
 
 export { GroupingState } from './plugins/grouping-state';
-export { LocalGrouping } from './plugins/local-grouping';
+export { LocalGrouping } from './plugins/integrated-grouping';
 export { CustomGrouping } from './plugins/custom-grouping';
 
 export { SelectionState } from './plugins/selection-state';
-export { LocalSelection } from './plugins/local-selection';
+export { LocalSelection } from './plugins/integrated-selection';
 
 export { SortingState } from './plugins/sorting-state';
-export { LocalSorting } from './plugins/local-sorting';
+export { LocalSorting } from './plugins/integrated-sorting';
 
 export { DragDropContext } from './plugins/drag-drop-context';
 

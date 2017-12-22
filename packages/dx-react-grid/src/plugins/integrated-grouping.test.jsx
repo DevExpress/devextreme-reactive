@@ -8,7 +8,7 @@ import {
   expandedGroupRows,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { LocalGrouping } from './local-grouping';
+import { LocalGrouping } from './integrated-grouping';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({

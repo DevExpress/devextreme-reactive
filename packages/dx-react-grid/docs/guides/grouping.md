@@ -7,7 +7,7 @@ The Grid component supports grouping data by one or several column values. Use t
 The following plugins implement grouping features:
 
 - [GroupingState](../reference/grouping-state.md) - controls the grouping state
-- [IntegratedGrouping](../reference/integrated-grouping.md) - performs local data grouping
+- [IntegratedGrouping](../reference/integrated-grouping.md) - performs built-in data grouping
 - [CustomGrouping](../reference/custom-grouping.md) - converts custom formatted grouped data to a supported format
 - [TableGroupRow](../reference/table-group-row.md) - renders group rows
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging

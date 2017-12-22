@@ -1,13 +1,13 @@
 # React Grid - Data Paging
 
-The Grid component supports data paging. You can specify the page size and switch pages programmatically or via the Paging Panel's UI controls. The paging state management, Paging Panel rendering, and local paging logic are implemented in the corresponding plugins. You can also configure the Grid to use server-side paging if your data service supports it.
+The Grid component supports data paging. You can specify the page size and switch pages programmatically or via the Paging Panel's UI controls. The paging state management, Paging Panel rendering, and built-in paging logic are implemented in the corresponding plugins. You can also configure the Grid to use server-side paging if your data service supports it.
 
 ## Related Plugins
 
 The following plugins implement filtering features:
 
 - [PagingState](../reference/paging-state.md) - controls the paging state
-- [IntegratedPaging](../reference/integrated-paging.md) - performs local data paging
+- [IntegratedPaging](../reference/integrated-paging.md) - performs built-in data paging
 - [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
@@ -22,7 +22,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the in
 
 In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is usual for the controlled mode. However, the `onPageSizeChange` event handler is not specified because page size is not supposed to be changed internally as the Page Size Selector is not available.
 
-.embedded-demo(paging/integrated-paging)
+.embedded-demo(paging/local-paging)
 
 ## Page Size Selection
 

@@ -7,7 +7,7 @@ The Grid component supports selecting/deselecting rows programmatically or via t
 The following plugins implement selection features:
 
 - [SelectionState](../reference/selection-state.md) - controls the selection state
-- [IntegratedSelection](../reference/integrated-selection.md) - performs local selection
+- [IntegratedSelection](../reference/integrated-selection.md) - performs built-in selection
 - [TableSelection](../reference/table-selection.md) - renders selection checkboxes or highlights the selected rows
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.

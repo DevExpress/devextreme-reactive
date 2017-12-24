@@ -23,11 +23,14 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'id', title: 'ID', width: 60 },
+        { name: 'id', title: 'ID' },
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'id', width: 60 },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
@@ -76,7 +79,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, editingRows, changedRows, addedRows,
+      rows, columns, tableColumnExtensions, editingRows, changedRows, addedRows,
     } = this.state;
 
     return (
@@ -94,7 +97,9 @@ export default class Demo extends React.PureComponent {
           onAddedRowsChange={this.changeAddedRows}
           onCommitChanges={this.commitChanges}
         />
-        <Table />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn

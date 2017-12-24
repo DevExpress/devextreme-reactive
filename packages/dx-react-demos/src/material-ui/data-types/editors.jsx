@@ -24,6 +24,8 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
+const getRowId = row => row.id;
+
 const BooleanFormatter = ({ value }) =>
   <Chip label={value ? 'Yes' : 'No'} />;
 
@@ -48,11 +50,11 @@ BooleanEditor.propTypes = {
   onValueChange: PropTypes.func.isRequired,
 };
 
-const BooleanTypeProvider = () => (
+const BooleanTypeProvider = props => (
   <DataTypeProvider
-    type="boolean"
     formatterComponent={BooleanFormatter}
     editorComponent={BooleanEditor}
+    {...props}
   />
 );
 
@@ -67,6 +69,7 @@ export default class Demo extends React.PureComponent {
         { name: 'units', title: 'Units' },
         { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
       ],
+      booleanColumns: ['shipped'],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 14,
@@ -96,16 +99,18 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, booleanColumns } = this.state;
 
     return (
       <Paper>
         <Grid
           rows={rows}
           columns={columns}
-          getRowId={row => row.id}
+          getRowId={getRowId}
         >
-          <BooleanTypeProvider />
+          <BooleanTypeProvider
+            for={booleanColumns}
+          />
           <EditingState
             onCommitChanges={this.commitChanges}
             defaultEditingRows={[0]}

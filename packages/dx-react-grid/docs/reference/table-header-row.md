@@ -60,7 +60,7 @@ Name | Properties | Description
 TableHeaderRow.Row | [TableRowProps](table.md#tablerowprops) | A component that renders a header row.
 TableHeaderRow.Cell | [TableHeaderCellProps](#tableheadercellprops) | A component that renders a header cell.
 
-Additional properties are added to the component's root element.
+If you specify additional properties, they are added to the component's root element.
 
 ## Plugin Developer Reference
 

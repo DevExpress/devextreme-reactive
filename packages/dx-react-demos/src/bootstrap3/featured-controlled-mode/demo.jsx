@@ -298,9 +298,9 @@ export default class Demo extends React.PureComponent {
           />
           <TableEditColumn
             width={100}
-            allowAdding={!this.state.addedRows.length}
-            allowEditing
-            allowDeleting
+            showAddCommand={!this.state.addedRows.length}
+            showEditCommand
+            showDeleteCommand
             commandComponent={Command}
           />
           <PagingPanel

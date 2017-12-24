@@ -339,9 +339,9 @@ class DemoBase extends React.PureComponent {
           />
           <TableEditColumn
             width={120}
-            allowAdding={!this.state.addedRows.length}
-            allowEditing
-            allowDeleting
+            showAddCommand={!this.state.addedRows.length}
+            showEditCommand
+            showDeleteCommand
             commandComponent={Command}
           />
           <PagingPanel

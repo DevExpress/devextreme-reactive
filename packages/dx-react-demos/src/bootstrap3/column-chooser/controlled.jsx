@@ -22,6 +22,9 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
+      tableColumnExtensions: [
+        { columnName: 'sex', width: 100 },
+      ],
       rows: generateRows({ length: 6 }),
       hiddenColumns: ['sex', 'car'],
     };
@@ -32,13 +35,18 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { columns, rows, hiddenColumns } = this.state;
+    const {
+      columns, rows, tableColumnExtensions, hiddenColumns,
+    } = this.state;
+
     return (
       <Grid
         rows={rows}
         columns={columns}
       >
-        <Table />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
         <TableHeaderRow />
         <TableColumnVisibility
           hiddenColumns={hiddenColumns}

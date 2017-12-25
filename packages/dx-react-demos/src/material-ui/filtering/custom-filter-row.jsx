@@ -81,13 +81,16 @@ export default class Demo extends React.PureComponent {
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
         { name: 'sector', title: 'Sector' },
-        { name: 'units', title: 'Quantity', align: 'right' },
+        { name: 'units', title: 'Quantity' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'units', align: 'right' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -97,7 +100,9 @@ export default class Demo extends React.PureComponent {
         >
           <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
           <LocalFiltering />
-          <Table />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
           <TableHeaderRow />
           <TableFilterRow
             cellComponent={FilterCell}

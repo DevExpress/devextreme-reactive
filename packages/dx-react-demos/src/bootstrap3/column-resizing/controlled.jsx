@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
           columnWidths={columnWidths}
           onColumnWidthsChange={this.changeColumnWidths}
         />
-        <TableHeaderRow allowResizing />
+        <TableHeaderRow />
       </Grid>
     );
   }

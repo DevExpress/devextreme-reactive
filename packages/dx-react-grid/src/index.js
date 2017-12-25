@@ -19,7 +19,7 @@ export { LocalSelection } from './plugins/local-selection';
 export { SortingState } from './plugins/sorting-state';
 export { LocalSorting } from './plugins/local-sorting';
 
-export { DragDropContext } from './plugins/drag-drop-context';
+export { DragDropProvider } from './plugins/drag-drop-provider';
 
 export { TableColumnReordering } from './plugins/table-column-reordering';
 

@@ -15,7 +15,6 @@ export class CustomPaging extends React.PureComponent {
         pluginName="CustomPaging"
         dependencies={pluginDependencies}
       >
-
         <Getter name="totalCount" value={totalCount} />
       </PluginContainer>
     );

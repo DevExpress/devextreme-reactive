@@ -106,3 +106,5 @@ react:
           path: /react/grid/docs/reference/table-column-visibility
         - title: Toolbar
           path: /react/grid/docs/reference/toolbar
+        - title: CustomPaging
+          path: /react/grid/docs/reference/custom-paging

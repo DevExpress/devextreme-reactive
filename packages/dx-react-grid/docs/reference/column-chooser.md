@@ -30,7 +30,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 visible | boolean | Specifies whether an overlay is visible.
-target | DOM element | The DOM element that is used to set the position of the overlay.
+target | React element | The React element that is used to set the position of the overlay.
 onHide | () => void | An event that initiates overlay hiding.
 children | Array&lt;ReactElement&gt; | React elements used to render overlay content.
 
@@ -44,7 +44,7 @@ Field | Type | Description
 ------|------|------------
 onToggle | () => void | An event that initiates overlay showing or hiding.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns title for the column chooser toggle button. Available in the "@devexpress/dx-react-grid-material-ui" package.
-getButtonRef | () => node | A function that returns a `ref` of the root element.
+buttonRef | (node) => void | A function that take a React element of the root element.
 
 ### ColumnChooserContainerProps
 

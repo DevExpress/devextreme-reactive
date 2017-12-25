@@ -5,7 +5,7 @@ import { ToggleButton } from './toggle-button';
 const defaultProps = {
   onToggle: () => {},
   getMessage: () => {},
-  getButtonRef: () => {},
+  buttonRef: () => {},
 };
 
 describe('ToggleButton', () => {

@@ -12,41 +12,33 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-type | string | | Specifies the data type to which the templates are applied.
-formatterTemplate | (args: [ValueFormatterArgs](#value-formatter-args)) => ReactElement | | Specifies the formatted value template.
-editorTemplate | (args: [ValueEditorArgs](#value-editor-args)) => ReactElement | | Specifies the editor template.
+for | Array&lt;string&gt; | | The names of columns associated with the specified formatter and editor.
+formatterComponent | ElementType&lt;[ValueFormatterProps](#valueformatterprops)&gt; | | A component that renders the formatted value.
+editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops)&gt; | | A component that renders a custom editor.
 
 ## Interfaces
 
-### <a name="column"></a>Column (Extension)
+### ValueFormatterProps
 
-A value with the [Column](grid.md#column) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-dataType | string | Specifies the column's data type.
-
-### <a name="value-formatter-args"></a>ValueFormatterArgs
-
-Describes properties passed to the formatter template.
+Describes properties passed to a component that renders the formatted value.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column) | A column object.
+column | [Column](grid.md#column) | A column object.
 row? | any | A row.
-value | any | Specifies the value to be formatted.
+value | any | The value to be formatted.
 
-### <a name="value-editor-args"></a>ValueEditorArgs
+### ValueEditorProps
 
-Describes properties passed to the editor template.
+Describes properties passed to a component that renders the value editor.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column) | A column object.
+column | [Column](grid.md#column) | A column object.
 row? | any | A row.
 value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.
@@ -61,5 +53,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-valueFormatter | Template | [ValueFormatterArgs](#value-formatter-args) | A template that renders a formatted value.
-valueEditor | Template | [ValueEditorArgs](#value-editor-args) | A template that renders an editor.
+valueFormatter | Template | [ValueFormatterProps](#valueformatterprops) | A template that renders the formatted value.
+valueEditor | Template | [ValueEditorProps](#valueeditorprops) | A template that renders the editor.

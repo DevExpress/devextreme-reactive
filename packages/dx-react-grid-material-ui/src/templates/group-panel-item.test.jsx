@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip } from 'material-ui';
-import { createMount } from 'material-ui/test-utils';
+import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { GroupPanelItem } from './group-panel-item';
 
 const ENTER_KEY_CODE = 13;
@@ -8,31 +8,32 @@ const SPACE_KEY_CODE = 32;
 
 describe('GroupPanelItem', () => {
   let mount;
+  let shallow;
+  let classes;
   beforeAll(() => {
     mount = createMount();
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<GroupPanelItem item={{ column: {} }} />);
   });
   afterAll(() => {
     mount.cleanUp();
   });
 
   it('should use column name if title is not specified', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
-        column={{
-          name: 'Test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
-    expect(tree.text()).toBe('Test');
+    expect(tree.dive().dive().text())
+      .toBe('test');
   });
 
   it('should not render the "TableSortLabel" component if sorting is disabled', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
-        column={{
-          name: 'Test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
@@ -40,47 +41,41 @@ describe('GroupPanelItem', () => {
   });
 
   it('should cancel sorting by using the Ctrl key', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        column={{
-          name: 'Test',
-        }}
-        changeSortingDirection={changeSortingDirection}
+        item={{ column: { name: 'test' } }}
+        onSort={onSort}
         allowSorting
       />
     ));
 
     tree.find(Chip).simulate('click', { ctrlKey: true });
 
-    expect(changeSortingDirection.mock.calls).toHaveLength(1);
-    expect(changeSortingDirection.mock.calls[0][0].cancel).toBeTruthy();
+    expect(onSort.mock.calls).toHaveLength(1);
+    expect(onSort.mock.calls[0][0].cancel).toBeTruthy();
   });
 
   it('should use column name for sorting', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        column={{
-          name: 'Test',
-        }}
-        changeSortingDirection={changeSortingDirection}
+        item={{ column: { name: 'test' } }}
+        onSort={onSort}
         allowSorting
       />
     ));
 
     tree.find(Chip).simulate('click');
 
-    expect(changeSortingDirection.mock.calls[0][0].columnName).toBe('Test');
+    expect(onSort.mock.calls[0][0].columnName).toBe('test');
   });
 
   it('can render the ungroup button', () => {
     const tree = mount((
       <GroupPanelItem
-        column={{
-          name: 'test',
-        }}
-        allowUngroupingByClick
+        item={{ column: { name: 'test' } }}
+        showGroupingControls
       />
     ));
     expect(tree.find(Chip).props())
@@ -88,69 +83,89 @@ describe('GroupPanelItem', () => {
   });
 
   it('should not change sorting if sorting is not allowed', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
-        column={{
-          name: 'test',
-        }}
+        onSort={onSort}
+        item={{ column: { name: 'test' } }}
       />
     ));
     const сhipElem = tree.find(Chip);
 
     сhipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-    expect(changeSortingDirection)
+    expect(onSort)
       .not.toHaveBeenCalled();
   });
 
   it('should handle the "Enter" and "Space" keys down and "Mouse click" for sorting change', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
-        column={{
-          name: 'test',
-        }}
+        onSort={onSort}
+        item={{ column: { name: 'test' } }}
         allowSorting
       />
     ));
     const сhipElem = tree.find(Chip);
 
     сhipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     сhipElem.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     сhipElem.simulate('click');
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     сhipElem.simulate('keydown', { keyCode: 51 });
-    expect(changeSortingDirection)
+    expect(onSort)
       .not.toHaveBeenCalled();
   });
 
   it('should cancel sorting on sorting direction change when the "Ctrl" key is pressed', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
-        column={{
-          name: 'test',
-        }}
+        onSort={onSort}
+        item={{ column: { name: 'test' } }}
         allowSorting
       />
     ));
 
     tree.find(Chip).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.prop('data'))
+      .toEqual({ a: 1 });
+  });
+
+  it('should add the passed className to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.hasClass('custom-class'))
+      .toBeTruthy();
+    expect(tree.hasClass(classes.button))
+      .toBeTruthy();
   });
 });

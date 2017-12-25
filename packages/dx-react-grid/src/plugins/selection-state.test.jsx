@@ -4,16 +4,12 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   setRowsSelection,
-  getAvailableSelection,
-  getAvailableToSelect,
 } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SelectionState } from './selection-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   setRowsSelection: jest.fn(),
-  getAvailableSelection: jest.fn(),
-  getAvailableToSelect: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -32,39 +28,8 @@ describe('SelectionState', () => {
   afterAll(() => {
     resetConsole();
   });
-
-  beforeEach(() => {
-    setRowsSelection.mockImplementation(() => ({}));
-    getAvailableSelection.mockImplementation(() => 'avaliableSelection');
-    getAvailableToSelect.mockImplementation(() => 'availableToSelect');
-  });
   afterEach(() => {
     jest.resetAllMocks();
-  });
-
-  it('should provide avaliableToSelect', () => {
-    const deps = {
-      getter: {
-        isGroupRow: () => false,
-      },
-    };
-
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <SelectionState />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).getters.availableToSelect)
-      .toBe(getAvailableToSelect());
-
-    expect(getAvailableToSelect)
-      .toHaveBeenCalledWith(
-        defaultDeps.getter.rows,
-        defaultDeps.getter.getRowId,
-        deps.getter.isGroupRow,
-      );
   });
 
   it('should provide selection defined in defaultSelection', () => {
@@ -79,11 +44,8 @@ describe('SelectionState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.selection)
-      .toBe(getAvailableSelection());
-
-    expect(getAvailableSelection)
-      .toHaveBeenCalledWith(defaultSelection, getAvailableToSelect());
+    expect(getComputedState(tree).selection)
+      .toEqual(new Set(defaultSelection));
   });
 
   it('should provide selection defined in selection', () => {
@@ -98,10 +60,89 @@ describe('SelectionState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getters.selection)
-      .toBe(getAvailableSelection());
+    expect(getComputedState(tree).selection)
+      .toEqual(new Set(selection));
+  });
 
-    expect(getAvailableSelection)
-      .toHaveBeenCalledWith(selection, getAvailableToSelect());
+  it('should call toggleSelection in action', () => {
+    const selection = [1, 2, 3];
+    const mockSetRowsSelection = setRowsSelection;
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <SelectionState
+          selection={selection}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, actions => actions.toggleSelection({ rowIds: [0, 1, 2] }));
+    expect(mockSetRowsSelection)
+      .toHaveBeenCalled();
+  });
+
+  describe('action sequence in batch', () => {
+    it('should correctly work with the several action calls in the uncontrolled mode', () => {
+      const defaultSelection = [1];
+      const transitionalSelection = [2];
+      const newSelection = [3];
+      const payload = {};
+
+      const selectionChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SelectionState
+            defaultSelection={defaultSelection}
+            onSelectionChange={selectionChange}
+          />
+        </PluginHost>
+      ));
+
+      setRowsSelection.mockReturnValueOnce(transitionalSelection);
+      setRowsSelection.mockReturnValueOnce(newSelection);
+      executeComputedAction(tree, (actions) => {
+        actions.toggleSelection(payload);
+        actions.toggleSelection(payload);
+      });
+
+      expect(setRowsSelection)
+        .lastCalledWith(transitionalSelection, payload);
+
+      expect(selectionChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should correctly work with the several action calls in the controlled mode', () => {
+      const selection = [1];
+      const transitionalSelection = [2];
+      const newSelection = [3];
+      const payload = {};
+
+      const selectionChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SelectionState
+            selection={selection}
+            onSelectionChange={selectionChange}
+          />
+        </PluginHost>
+      ));
+
+      setRowsSelection.mockReturnValueOnce(transitionalSelection);
+      setRowsSelection.mockReturnValueOnce(newSelection);
+      executeComputedAction(tree, (actions) => {
+        actions.toggleSelection(payload);
+        actions.toggleSelection(payload);
+      });
+
+      expect(setRowsSelection)
+        .lastCalledWith(transitionalSelection, payload);
+
+      expect(selectionChange)
+        .toHaveBeenCalledTimes(1);
+    });
   });
 });

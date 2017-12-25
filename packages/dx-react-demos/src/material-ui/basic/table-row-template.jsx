@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableRow as TableRowMUI, Paper } from 'material-ui';
+import { Paper } from 'material-ui';
 import {
   Grid,
   Table,
@@ -12,20 +12,37 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const TableRow = ({ children, row }) => (
-  <TableRowMUI
+const styles = {
+  banking: {
+    backgroundColor: '#f5f5f5',
+  },
+  health: {
+    backgroundColor: '#c8e6c9',
+  },
+  telecom: {
+    backgroundColor: '#b3e5fc',
+  },
+  energy: {
+    backgroundColor: '#ffcdd2',
+  },
+  insurance: {
+    backgroundColor: '#f0f4c3',
+  },
+};
+
+const TableRow = ({ row, ...restProps }) => (
+  <Table.Row
+    {...restProps}
     // eslint-disable-next-line no-alert
     onClick={() => alert(JSON.stringify(row))}
-  >
-    {children}
-  </TableRowMUI>
+    style={{
+      cursor: 'pointer',
+      ...styles[row.sector.toLowerCase()],
+    }}
+  />
 );
 
 TableRow.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
   row: PropTypes.any.isRequired,
 };
 
@@ -54,9 +71,7 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <Table
-            rowComponent={TableRow}
-          />
+          <Table rowComponent={TableRow} />
           <TableHeaderRow />
         </Grid>
       </Paper>

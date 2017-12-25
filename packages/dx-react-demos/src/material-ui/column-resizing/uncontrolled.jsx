@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
         >
           <Table />
           <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
-          <TableHeaderRow allowResizing />
+          <TableHeaderRow />
         </Grid>
       </Paper>
     );

@@ -8,13 +8,13 @@ describe('Draggable', () => {
   let rootNode = null;
   let tree = null;
 
-  const dispatchEvent = (name, params) => {
+  const dispatchEvent = (name, params, node = rootNode) => {
     const event = new Event(name, {
       bubbles: true,
       cancelable: true,
     });
     Object.assign(event, params);
-    rootNode.dispatchEvent(event);
+    node.dispatchEvent(event);
     return event;
   };
 
@@ -52,8 +52,8 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
       dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
 
       expect(onStart)
@@ -74,11 +74,10 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
 
       const event = dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
-
       expect(event.defaultPrevented)
         .toBeTruthy();
     });
@@ -95,8 +94,8 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
       dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
       dispatchEvent('mousemove', { clientX: 40, clientY: 40 });
 
@@ -120,8 +119,8 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
       dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
       dispatchEvent('mouseup', { clientX: 30, clientY: 30 });
 
@@ -139,8 +138,8 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('mousedown', { clientX: 10, clientY: 10 });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
 
       dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
       const bodyNodes = document.body.childNodes;
@@ -150,6 +149,35 @@ describe('Draggable', () => {
       dispatchEvent('mouseup', { clientX: 30, clientY: 30 });
       expect(bodyNodes[bodyNodes.length - 1].style.pointerEvents)
         .toBe('none');
+    });
+
+    it('should work with one Draggable at a time', () => {
+      const onStart1 = jest.fn();
+      const onStart2 = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onStart={onStart1}
+        >
+          <div>
+            <Draggable
+              onStart={onStart2}
+            >
+              <div className="inner" />
+            </Draggable>
+          </div>
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('.inner').getDOMNode();
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+
+      expect(onStart1)
+        .toHaveBeenCalledTimes(0);
+      expect(onStart2)
+        .toHaveBeenCalledTimes(1);
     });
   });
 
@@ -168,8 +196,8 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
       jest.runAllTimers();
 
       expect(onStart)
@@ -211,11 +239,11 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
       jest.runAllTimers();
-      const event = dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
 
+      const event = dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
       expect(event.defaultPrevented)
         .toBeTruthy();
     });
@@ -232,8 +260,8 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
       jest.runAllTimers();
       dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
 
@@ -255,8 +283,8 @@ describe('Draggable', () => {
         { attachTo: rootNode },
       );
 
-      const draggable = tree.find('div');
-      draggable.simulate('touchstart', { touches: [{ clientX: 10, clientY: 10 }] });
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
       jest.runAllTimers();
       dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
       dispatchEvent('touchend', { changedTouches: [{ clientX: 20, clientY: 20 }] });
@@ -265,6 +293,35 @@ describe('Draggable', () => {
         .toHaveBeenCalledTimes(1);
       expect(onEnd)
         .toHaveBeenCalledWith({ x: 20, y: 20 });
+    });
+
+    it('should work with one Draggable at a time', () => {
+      const onStart1 = jest.fn();
+      const onStart2 = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onStart={onStart1}
+        >
+          <div>
+            <Draggable
+              onStart={onStart2}
+            >
+              <div className="inner" />
+            </Draggable>
+          </div>
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('.inner').getDOMNode();
+      dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
+      jest.runAllTimers();
+
+      expect(onStart1)
+        .toHaveBeenCalledTimes(0);
+      expect(onStart2)
+        .toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -15,36 +15,23 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const GroupCellTemplate = ({
-  style, colSpan, row, isExpanded, toggleGroupExpanded,
-}) => (
-  <td
-    colSpan={colSpan}
-    style={{
-      cursor: 'pointer',
-      ...style,
-    }}
-    onClick={toggleGroupExpanded}
-  >
-    { isExpanded ? '- ' : '+ ' }
-    <strong>Names from {row.value.from} to {row.value.to}</strong>
-  </td>
+const NameGroupCell = props => (
+  <TableGroupRow.Cell {...props}>
+    from {props.row.value.from} to {props.row.value.to}
+  </TableGroupRow.Cell>
 );
-
-GroupCellTemplate.propTypes = {
-  style: PropTypes.object,
-  colSpan: PropTypes.number,
-  row: PropTypes.object,
-  isExpanded: PropTypes.bool,
-  toggleGroupExpanded: PropTypes.func,
+NameGroupCell.propTypes = {
+  row: PropTypes.object.isRequired,
 };
 
-GroupCellTemplate.defaultProps = {
-  style: null,
-  colSpan: 1,
-  row: {},
-  isExpanded: false,
-  toggleGroupExpanded: () => {},
+const GroupCell = (props) => {
+  if (props.column.name === 'name') {
+    return <NameGroupCell {...props} />;
+  }
+  return <TableGroupRow.Cell {...props} />;
+};
+GroupCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -61,8 +48,6 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'name' }],
     };
-
-    this.changeGrouping = grouping => this.setState({ grouping });
 
     this.getColumnIdentity = (columnName) => {
       if (columnName === 'name') {
@@ -95,13 +80,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableGroupRow
-          groupCellTemplate={(props) => {
-            const { column } = props;
-            if (column.name === 'name') {
-              return <GroupCellTemplate {...props} />;
-            }
-            return undefined;
-          }}
+          cellComponent={GroupCell}
         />
       </Grid>
     );

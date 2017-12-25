@@ -1,44 +1,116 @@
 import React from 'react';
 import { Paper } from 'material-ui';
-import { createMount, getClasses } from 'material-ui/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
-import { Container } from './drag-drop';
+import { createShallow, getClasses } from 'material-ui/test-utils';
+import { Container, Column } from './drag-drop';
 
-describe('Container', () => {
-  let mount;
-  let classes;
-  let resetConsole;
+describe('DragDrop', () => {
+  describe('Container', () => {
+    let shallow;
+    let classes;
+    beforeAll(() => {
+      shallow = createShallow({ dive: true });
+      classes = getClasses((
+        <Container
+          clientOffset={{ x: 10, y: 20 }}
+        />
+      ));
+    });
 
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['SheetsRegistry'] });
-    mount = createMount();
-    classes = getClasses((
-      <Container
-        columns={[{
-          name: 'Test',
-        }]}
-        clientOffset={{ x: 10, y: 20 }}
-        columnTemplate={() => <div />}
-      />
-    ));
+    it('should have correct styles', () => {
+      const tree = shallow((
+        <Container
+          clientOffset={{ x: 10, y: 20 }}
+        />
+      ));
+
+      expect(tree.find(Paper).hasClass(classes.container))
+        .toBeTruthy();
+    });
+
+    it('should apply custom styles', () => {
+      const tree = shallow((
+        <Container
+          clientOffset={{ x: 10, y: 20 }}
+          style={{ color: 'red' }}
+        />
+      ));
+
+      expect(tree.find(Paper).prop('style'))
+        .toMatchObject({
+          transform: 'translate(calc(10px - 50%), calc(20px - 50%))',
+          color: 'red',
+        });
+    });
+
+    it('should pass the className prop to the root element', () => {
+      const tree = shallow((
+        <Container
+          clientOffset={{ x: 10, y: 20 }}
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is(`.${classes.container}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <Container
+          clientOffset={{ x: 10, y: 20 }}
+          data={{ a: 1 }}
+        />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
+    });
   });
-  afterAll(() => {
-    mount.cleanUp();
-    resetConsole();
-  });
 
-  it('should have correct styles', () => {
-    const tree = mount((
-      <Container
-        columns={[{
-          name: 'Test',
-        }]}
-        clientOffset={{ x: 10, y: 20 }}
-        columnTemplate={() => <div />}
-      />
-    ));
+  describe('Column', () => {
+    let shallow;
+    let classes;
+    beforeAll(() => {
+      shallow = createShallow({ dive: true });
+      classes = getClasses((
+        <Column
+          column={{
+            title: 'Test',
+          }}
+        />
+      ));
+    });
 
-    expect(tree.find(Paper).hasClass(classes.container))
-      .toBeTruthy();
+    it('should pass the className prop to the root element', () => {
+      const tree = shallow((
+        <Column
+          column={{
+            title: 'Test',
+          }}
+          className="custom-class"
+        />
+      ));
+
+      expect(tree.is(`.${classes.column}`))
+        .toBeTruthy();
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = shallow((
+        <Column
+          column={{
+            title: 'Test',
+          }}
+          data={{ a: 1 }}
+        />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
+    });
   });
 });

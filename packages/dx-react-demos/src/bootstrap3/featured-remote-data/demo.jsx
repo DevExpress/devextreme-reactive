@@ -22,9 +22,18 @@ const SaleAmountCell = ({ value }) => (
     ${value}
   </td>
 );
-
 SaleAmountCell.propTypes = {
   value: PropTypes.any.isRequired,
+};
+
+const Cell = (props) => {
+  if (props.column.name === 'SaleAmount') {
+    return <SaleAmountCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -33,18 +42,22 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'OrderNumber', title: 'Order #', align: 'right' },
+        { name: 'OrderNumber', title: 'Order #' },
         { name: 'OrderDate', title: 'Order Date' },
         { name: 'StoreCity', title: 'Store City' },
         { name: 'StoreState', title: 'Store State' },
         { name: 'Employee', title: 'Employee' },
-        { name: 'SaleAmount', title: 'Sale Amount', align: 'right' },
+        { name: 'SaleAmount', title: 'Sale Amount' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'OrderNumber', align: 'right' },
+        { columnName: 'SaleAmount', align: 'right' },
       ],
       rows: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       totalCount: 0,
       pageSize: 10,
-      allowedPageSizes: [5, 10, 15],
+      pageSizes: [5, 10, 15],
       currentPage: 0,
       loading: true,
     };
@@ -52,13 +65,6 @@ export default class Demo extends React.PureComponent {
     this.changeSorting = this.changeSorting.bind(this);
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'SaleAmount') {
-        return SaleAmountCell;
-      }
-      return undefined;
-    };
   }
   componentDidMount() {
     this.loadData();
@@ -122,9 +128,10 @@ export default class Demo extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       pageSize,
-      allowedPageSizes,
+      pageSizes,
       currentPage,
       totalCount,
       loading,
@@ -150,11 +157,12 @@ export default class Demo extends React.PureComponent {
             totalCount={totalCount}
           />
           <Table
-            getCellComponent={this.getCellComponent}
+            columnExtensions={tableColumnExtensions}
+            cellComponent={Cell}
           />
           <TableHeaderRow allowSorting />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
         </Grid>
         {loading && <Loading />}

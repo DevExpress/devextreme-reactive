@@ -6,10 +6,10 @@ export const stopEditRows = (prevEditingRows, { rowIds }) => {
   return prevEditingRows.filter(id => !rowIdSet.has(id));
 };
 
-export const addRow = (addedRows, { row }) => [...addedRows, row];
+export const addRow = (addedRows, { row } = { row: {} }) => [...addedRows, row];
 
 export const changeAddedRow = (addedRows, { rowId, change }) => {
-  const result = Array.from(addedRows);
+  const result = addedRows.slice();
   result[rowId] = { ...result[rowId], ...change };
   return result;
 };

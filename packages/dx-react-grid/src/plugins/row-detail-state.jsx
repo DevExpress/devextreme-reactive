@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setDetailRowExpanded } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 export class RowDetailState extends React.PureComponent {
   constructor(props) {
@@ -11,29 +12,33 @@ export class RowDetailState extends React.PureComponent {
       expandedRows: props.defaultExpandedRows || [],
     };
 
-    this.setDetailRowExpanded = ({ rowId }) => {
-      const prevExpandedDetails = this.props.expandedRows || this.state.expandedRows;
-      const expandedRows = setDetailRowExpanded(prevExpandedDetails, { rowId });
-      const { onExpandedRowsChange } = this.props;
-      this.setState({ expandedRows });
-      if (onExpandedRowsChange) {
-        onExpandedRowsChange(expandedRows);
-      }
+    const stateHelper = createStateHelper(this);
+
+    this.setDetailRowExpanded = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'expandedRows', setDetailRowExpanded);
+  }
+  getState() {
+    return {
+      ...this.state,
+      expandedRows: this.props.expandedRows || this.state.expandedRows,
     };
   }
-
+  notifyStateChange(nextState, state) {
+    const { expandedRows } = nextState;
+    const { onExpandedRowsChange } = this.props;
+    if (onExpandedRowsChange && expandedRows !== state.expandedRows) {
+      onExpandedRowsChange(expandedRows);
+    }
+  }
   render() {
-    const expandedRows = this.props.expandedRows || this.state.expandedRows;
+    const { expandedRows } = this.getState();
+
     return (
       <PluginContainer
         pluginName="RowDetailState"
       >
-        <Action
-          name="setDetailRowExpanded"
-          action={({ rowId }) => this.setDetailRowExpanded({ rowId })}
-        />
-
         <Getter name="expandedRows" value={expandedRows} />
+        <Action name="setDetailRowExpanded" action={this.setDetailRowExpanded} />
       </PluginContainer>
     );
   }

@@ -38,9 +38,8 @@ const defaultDeps = {
   plugins: ['Table'],
 };
 
-const defaultHeaderCellComponent = () => null;
 const defaultProps = {
-  getCellComponent: () => defaultHeaderCellComponent,
+  cellComponent: () => null,
   rowComponent: () => null,
 };
 
@@ -74,7 +73,7 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableHeaderRows)
+      expect(getComputedState(tree).tableHeaderRows)
         .toBe('tableRowsWithHeading');
       expect(tableRowsWithHeading)
         .toBeCalledWith(defaultDeps.getter.tableHeaderRows);
@@ -83,14 +82,12 @@ describe('TableHeaderRow', () => {
 
   it('should render heading cell on user-defined column and heading row intersection', () => {
     isHeadingTableCell.mockImplementation(() => true);
-    const getCellComponent = jest.fn(() => defaultHeaderCellComponent);
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableHeaderRow
           {...defaultProps}
-          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
@@ -100,9 +97,7 @@ describe('TableHeaderRow', () => {
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(getCellComponent)
-      .toBeCalledWith(defaultDeps.template.tableCell.tableColumn.column.name);
-    expect(tree.find(defaultHeaderCellComponent).props())
+    expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         column: defaultDeps.template.tableCell.tableColumn.column,
@@ -146,30 +141,18 @@ describe('TableHeaderRow', () => {
       </PluginHost>
     ));
 
-    const { getMessage } = tree.find(defaultHeaderCellComponent).props();
+    const { getMessage } = tree.find(defaultProps.cellComponent).props();
     expect(getMessage('sortingHint')).toBe('test');
   });
 
   describe('resizing', () => {
-    it('should require TableColumnResizing plugin', () => {
-      expect(() => {
-        mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <TableHeaderRow
-              {...defaultProps}
-              allowResizing
-            />
-          </PluginHost>
-        ));
-      })
-        .toThrow();
-    });
-
-    it('should pass correct props to getCellComponent', () => {
+    it('should pass correct props to cellComponent', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {
+        getter: {
+          allowTableColumnResizing: true,
+        },
         plugins: ['TableColumnResizing'],
       };
       const tree = mount((
@@ -177,12 +160,11 @@ describe('TableHeaderRow', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
             {...defaultProps}
-            allowResizing
           />
         </PluginHost>
       ));
 
-      expect(tree.find(defaultHeaderCellComponent).props())
+      expect(tree.find(defaultProps.cellComponent).props())
         .toMatchObject({
           allowResizing: true,
           onWidthChange: expect.any(Function),
@@ -195,6 +177,9 @@ describe('TableHeaderRow', () => {
 
       const deps = {
         plugins: ['TableColumnResizing'],
+        getter: {
+          allowTableColumnResizing: true,
+        },
         action: {
           changeTableColumnWidths: jest.fn(),
         },
@@ -204,12 +189,11 @@ describe('TableHeaderRow', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
             {...defaultProps}
-            allowResizing
           />
         </PluginHost>
       ));
 
-      const { onWidthChange } = tree.find(defaultHeaderCellComponent).props();
+      const { onWidthChange } = tree.find(defaultProps.cellComponent).props();
       onWidthChange({ shift: 10 });
       expect(deps.action.changeTableColumnWidths.mock.calls[0][0])
         .toEqual({ shifts: { a: 10 } });
@@ -223,18 +207,20 @@ describe('TableHeaderRow', () => {
         action: {
           changeDraftTableColumnWidths: jest.fn(),
         },
+        getter: {
+          allowTableColumnResizing: true,
+        },
       };
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
             {...defaultProps}
-            allowResizing
           />
         </PluginHost>
       ));
 
-      const { onDraftWidthChange } = tree.find(defaultHeaderCellComponent).props();
+      const { onDraftWidthChange } = tree.find(defaultProps.cellComponent).props();
       onDraftWidthChange({ shift: 10 });
       expect(deps.action.changeDraftTableColumnWidths.mock.calls[0][0])
         .toEqual({ shifts: { a: 10 } });

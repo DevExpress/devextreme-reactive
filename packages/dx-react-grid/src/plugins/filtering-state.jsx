@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { setColumnFilter } from '@devexpress/dx-grid-core';
+import { createStateHelper } from '../utils/state-helper';
 
 export class FilteringState extends React.PureComponent {
   constructor(props) {
@@ -10,31 +11,33 @@ export class FilteringState extends React.PureComponent {
     this.state = {
       filters: props.defaultFilters || [],
     };
+    const stateHelper = createStateHelper(this);
 
-    this.setColumnFilter = (filters, { columnName, config }) => {
-      const { onFiltersChange } = this.props;
-      const nextFilters = setColumnFilter(filters, { columnName, config });
-      this.setState({ filters: nextFilters });
-      if (onFiltersChange) {
-        onFiltersChange(nextFilters);
-      }
+    this.setColumnFilter = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'filters', setColumnFilter);
+  }
+  getState() {
+    return {
+      ...this.state,
+      filters: this.props.filters || this.state.filters,
     };
   }
+  notifyStateChange(nextState, state) {
+    const { filters } = nextState;
+    const { onFiltersChange } = this.props;
+    if (onFiltersChange && filters !== state.filters) {
+      onFiltersChange(filters);
+    }
+  }
   render() {
-    const filters = this.props.filters || this.state.filters;
+    const { filters } = this.getState();
 
     return (
       <PluginContainer
         pluginName="FilteringState"
       >
-        <Action
-          name="setColumnFilter"
-          action={({ columnName, config }) =>
-            this.setColumnFilter(filters, { columnName, config })
-          }
-        />
-
         <Getter name="filters" value={filters} />
+        <Action name="setColumnFilter" action={this.setColumnFilter} />
       </PluginContainer>
     );
   }

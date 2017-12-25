@@ -50,12 +50,15 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  cellTemplate: () => null,
-  headingCellTemplate: () => null,
-  commandTemplate: () => null,
+  cellComponent: ({ children }) => children,
+  headerCellComponent: ({ children }) => children,
+  commandComponent: () => null,
 };
 
-describe('TableHeaderRow', () => {
+const findCommandWithId = (tree, id) =>
+  tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === id);
+
+describe('TableEditColumn', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -89,99 +92,303 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithEditing');
       expect(tableColumnsWithEditing)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
     });
   });
 
-  it('should render edit commands cell on edit-commands column and header row intersection', () => {
-    isHeadingEditCommandsTableCell.mockImplementation(() => true);
-    const headingCellTemplate = jest.fn(() => null);
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableEditColumn
-          {...defaultProps}
-          headingCellTemplate={headingCellTemplate}
-        />
-      </PluginHost>
-    ));
+  describe('headerCell', () => {
+    it('should render edit commands cell on edit-commands column and header row intersection', () => {
+      isHeadingEditCommandsTableCell.mockImplementation(() => true);
 
-    expect(isHeadingEditCommandsTableCell)
-      .toBeCalledWith(
-        defaultDeps.template.tableCell.tableRow,
-        defaultDeps.template.tableCell.tableColumn,
-      );
-    expect(headingCellTemplate)
-      .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableCell,
-      }));
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(isHeadingEditCommandsTableCell)
+        .toBeCalledWith(
+          defaultDeps.template.tableCell.tableRow,
+          defaultDeps.template.tableCell.tableColumn,
+        );
+      expect(tree.find(defaultProps.headerCellComponent).props())
+        .toMatchObject({
+          ...defaultDeps.template.tableCell,
+        });
+      expect(findCommandWithId(tree, 'add').exists())
+        .toBeFalsy();
+    });
+
+    it('should render add command when showAddCommand is true', () => {
+      isHeadingEditCommandsTableCell.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+            showAddCommand
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'add').props())
+        .toMatchObject({ text: 'addCommand' });
+
+      const { onExecute } = findCommandWithId(tree, 'add').props();
+      onExecute();
+      expect(defaultDeps.action.addRow)
+        .toBeCalled();
+    });
   });
 
-  it('should render edit commands cell on edit-commands column and added row intersection', () => {
-    isEditCommandsTableCell.mockImplementation(() => true);
-    const cellTemplate = jest.fn(() => null);
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableEditColumn
-          {...defaultProps}
-          cellTemplate={cellTemplate}
-        />
-      </PluginHost>
-    ));
+  describe('cell', () => {
+    it('should render edit commands cell on edit-commands column and added row intersection', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
 
-    expect(isEditCommandsTableCell)
-      .toBeCalledWith(
-        defaultDeps.template.tableCell.tableRow,
-        defaultDeps.template.tableCell.tableColumn,
-      );
-    expect(cellTemplate)
-      .toBeCalledWith(expect.objectContaining({
-        ...defaultDeps.template.tableCell,
-        row: defaultDeps.template.tableCell.tableRow.row,
-        isEditing: false,
-      }));
-  });
-  it('should pass getMessage function to heading command cell template', () => {
-    isHeadingEditCommandsTableCell.mockImplementation(() => true);
-    const headingCellTemplate = jest.fn(() => null);
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableEditColumn
-          {...defaultProps}
-          messages={{
-            addCommand: 'Add',
-          }}
-          headingCellTemplate={headingCellTemplate}
-        />
-      </PluginHost>
-    ));
-    const { getMessage } = headingCellTemplate.mock.calls[0][0];
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
 
-    expect(getMessage('addCommand')).toBe('Add');
-  });
+      expect(isEditCommandsTableCell)
+        .toBeCalledWith(
+          defaultDeps.template.tableCell.tableRow,
+          defaultDeps.template.tableCell.tableColumn,
+        );
+      expect(tree.find(defaultProps.cellComponent).props())
+        .toMatchObject({
+          ...defaultDeps.template.tableCell,
+          row: defaultDeps.template.tableCell.tableRow.row,
+        });
+      expect(findCommandWithId(tree, 'edit').exists())
+        .toBeFalsy();
+      expect(findCommandWithId(tree, 'delete').exists())
+        .toBeFalsy();
+      expect(findCommandWithId(tree, 'commit').exists())
+        .toBeFalsy();
+      expect(findCommandWithId(tree, 'cancel').exists())
+        .toBeFalsy();
+    });
 
-  it('should pass getMessage function to command cell template', () => {
-    isEditCommandsTableCell.mockImplementation(() => true);
-    const cellTemplate = jest.fn(() => null);
+    it('should render edit command when showEditCommand is true', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
 
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableEditColumn
-          {...defaultProps}
-          messages={{
-            editCommand: 'Edit',
-          }}
-          cellTemplate={cellTemplate}
-        />
-      </PluginHost>
-    ));
-    const { getMessage } = cellTemplate.mock.calls[0][0];
-    expect(getMessage('editCommand')).toBe('Edit');
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+            showEditCommand
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'edit').props())
+        .toMatchObject({ text: 'editCommand' });
+
+      const { onExecute } = findCommandWithId(tree, 'edit').props();
+      onExecute();
+      expect(defaultDeps.action.startEditRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+    });
+
+    it('should not render edit command when row is editing', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+      isEditTableRow.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+            showEditCommand
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'edit').exists())
+        .toBeFalsy();
+    });
+
+    it('should not render edit command when row is added', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+      isAddedTableRow.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+            showEditCommand
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'edit').exists())
+        .toBeFalsy();
+    });
+
+    it('should render delete command when showDeleteCommand is true', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+            showDeleteCommand
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'delete').props())
+        .toMatchObject({ text: 'deleteCommand' });
+
+      const { onExecute } = findCommandWithId(tree, 'delete').props();
+      onExecute();
+      expect(defaultDeps.action.deleteRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+      expect(defaultDeps.action.commitDeletedRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+    });
+
+    it('should not render delete command when row is editing', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+      isEditTableRow.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+            showDeleteCommand
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'edit').exists())
+        .toBeFalsy();
+    });
+
+    it('should not render delete command when row is added', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+      isAddedTableRow.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+            showDeleteCommand
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'edit').exists())
+        .toBeFalsy();
+    });
+
+    it('should render commit command when row is editing', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+      isEditTableRow.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'commit').props())
+        .toMatchObject({ text: 'commitCommand' });
+
+      const { onExecute } = findCommandWithId(tree, 'commit').props();
+      onExecute();
+      expect(defaultDeps.action.stopEditRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+      expect(defaultDeps.action.commitChangedRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+    });
+
+    it('should render commit command when row is added', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+      isAddedTableRow.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'commit').props())
+        .toMatchObject({ text: 'commitCommand' });
+
+      const { onExecute } = findCommandWithId(tree, 'commit').props();
+      onExecute();
+      expect(defaultDeps.action.commitAddedRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+    });
+
+    it('should render cancel command when row is editing', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+      isEditTableRow.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'cancel').props())
+        .toMatchObject({ text: 'cancelCommand' });
+
+      const { onExecute } = findCommandWithId(tree, 'cancel').props();
+      onExecute();
+      expect(defaultDeps.action.stopEditRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+      expect(defaultDeps.action.cancelChangedRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+    });
+
+    it('should render cancel command when row is added', () => {
+      isEditCommandsTableCell.mockImplementation(() => true);
+      isAddedTableRow.mockImplementation(() => true);
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableEditColumn
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(findCommandWithId(tree, 'cancel').props())
+        .toMatchObject({ text: 'cancelCommand' });
+
+      const { onExecute } = findCommandWithId(tree, 'cancel').props();
+      onExecute();
+      expect(defaultDeps.action.cancelAddedRows.mock.calls[0][0])
+        .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
+    });
   });
 });

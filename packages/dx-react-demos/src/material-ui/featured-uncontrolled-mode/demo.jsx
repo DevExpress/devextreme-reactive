@@ -1,24 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Paper from 'material-ui/Paper';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting,
+  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering,
+  PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+
 import {
   ProgressBarCell,
 } from '../templates/progress-bar-cell';
 import {
   HighlightedCell,
 } from '../templates/highlighted-cell';
+
 import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
+
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -28,27 +44,22 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
+      ],
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
-      allowedPageSizes: [5, 10, 15],
-    };
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'discount') {
-        return ProgressBarCell;
-      }
-      if (columnName === 'amount') {
-        return HighlightedCell;
-      }
-      return undefined;
+      pageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const {
+      rows, columns, tableColumnExtensions, pageSizes,
+    } = this.state;
 
     return (
       <Paper>
@@ -57,6 +68,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState
+
             defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
           />
           <SortingState
@@ -65,6 +77,9 @@ export default class Demo extends React.PureComponent {
               { columnName: 'saleDate', direction: 'asc' },
             ]}
           />
+
+          <SelectionState />
+
           <GroupingState
             defaultGrouping={[{ columnName: 'product' }]}
             defaultExpandedGroups={['EnviroCare Max']}
@@ -77,29 +92,28 @@ export default class Demo extends React.PureComponent {
           <LocalGrouping />
           <LocalFiltering />
           <LocalSorting />
-
           <LocalPaging />
+          <LocalSelection />
 
-          <SelectionState
-            defaultSelection={[1, 3, 18]}
-          />
-
-          <DragDropContext />
+          <DragDropProvider />
 
           <Table
-            getCellComponent={this.getCellComponent}
+            columnExtensions={tableColumnExtensions}
+            cellComponent={Cell}
           />
+          <TableSelection showSelectAll />
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow allowSorting />
           <TableFilterRow />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
-          <TableSelection />
+
           <TableGroupRow />
-          <GroupingPanel allowSorting allowDragging />
+          <Toolbar />
+          <GroupingPanel allowSorting />
         </Grid>
       </Paper>
     );

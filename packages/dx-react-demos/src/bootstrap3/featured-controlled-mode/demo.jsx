@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropContext, TableColumnReordering,
+  PagingPanel, DragDropProvider, TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   Modal,
@@ -26,12 +26,12 @@ import {
 } from '../../demo-data/generator';
 
 const CommandButton = ({
-  executeCommand, icon, text, hint, isDanger,
+  onExecute, icon, text, hint, isDanger,
 }) => (
   <button
     className="btn btn-link"
     onClick={(e) => {
-      executeCommand();
+      onExecute();
       e.stopPropagation();
     }}
     title={hint}
@@ -43,7 +43,7 @@ const CommandButton = ({
   </button>
 );
 CommandButton.propTypes = {
-  executeCommand: PropTypes.func.isRequired,
+  onExecute: PropTypes.func.isRequired,
   icon: PropTypes.string,
   text: PropTypes.string,
   hint: PropTypes.string,
@@ -56,11 +56,11 @@ CommandButton.defaultProps = {
   isDanger: false,
 };
 
-const commands = {
+const commandComponentProps = {
   add: {
+    icon: 'plus',
     text: 'New',
     hint: 'Create new row',
-    icon: 'plus',
   },
   edit: {
     text: 'Edit',
@@ -82,8 +82,26 @@ const commands = {
   },
 };
 
+const Command = ({ id, onExecute }) => (
+  <CommandButton
+    {...commandComponentProps[id]}
+    onExecute={onExecute}
+  />
+);
+Command.propTypes = {
+  id: PropTypes.string.isRequired,
+  onExecute: PropTypes.func.isRequired,
+};
+
+
+const availableValues = {
+  product: globalSalesValues.product,
+  region: globalSalesValues.region,
+  customer: globalSalesValues.customer,
+};
+
 export const LookupEditCell = ({
-  column, value, onValueChange, availableValues,
+  column, availableColumnValues, value, onValueChange,
 }) => (
   <td
     style={{
@@ -97,24 +115,42 @@ export const LookupEditCell = ({
       value={value}
       onChange={e => onValueChange(e.target.value)}
     >
-      {availableValues.map(val => <option key={val} value={val}>{val}</option>)}
+      {availableColumnValues.map(val => <option key={val} value={val}>{val}</option>)}
     </select>
   </td>
 );
 LookupEditCell.propTypes = {
   column: PropTypes.object.isRequired,
+  availableColumnValues: PropTypes.array.isRequired,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
-  availableValues: PropTypes.array.isRequired,
 };
 LookupEditCell.defaultProps = {
   value: undefined,
 };
 
-const availableValues = {
-  product: globalSalesValues.product,
-  region: globalSalesValues.region,
-  customer: globalSalesValues.customer,
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
+
+const EditCell = (props) => {
+  const availableColumnValues = availableValues[props.column.name];
+  if (availableColumnValues) {
+    return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
+  }
+  return <TableEditRow.Cell {...props} />;
+};
+EditCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 const getRowId = row => row.id;
@@ -127,10 +163,13 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -143,7 +182,7 @@ export default class Demo extends React.PureComponent {
       currentPage: 0,
       deletingRows: [],
       pageSize: 0,
-      allowedPageSizes: [5, 10, 0],
+      pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
@@ -193,40 +232,12 @@ export default class Demo extends React.PureComponent {
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
     };
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'discount') {
-        return ProgressBarCell;
-      }
-      if (columnName === 'amount') {
-        return HighlightedCell;
-      }
-      return undefined;
-    };
-    this.editCellTemplate = ({ column, value, onValueChange }) => {
-      const columnValues = availableValues[column.name];
-      if (columnValues) {
-        return (
-          <LookupEditCell
-            column={column}
-            value={value}
-            onValueChange={onValueChange}
-            availableValues={columnValues}
-          />
-        );
-      }
-      return undefined;
-    };
-    this.commandTemplate = ({ executeCommand, id }) => (
-      commands[id]
-        ? <CommandButton executeCommand={executeCommand} {...commands[id]} />
-        : undefined
-    );
   }
   render() {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       editingRows,
       addedRows,
@@ -234,7 +245,7 @@ export default class Demo extends React.PureComponent {
       currentPage,
       deletingRows,
       pageSize,
-      allowedPageSizes,
+      pageSizes,
       columnOrder,
     } = this.state;
 
@@ -269,10 +280,11 @@ export default class Demo extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
 
-          <DragDropContext />
+          <DragDropProvider />
 
           <Table
-            getCellComponent={this.getCellComponent}
+            columnExtensions={tableColumnExtensions}
+            cellComponent={Cell}
           />
 
           <TableColumnReordering
@@ -280,19 +292,19 @@ export default class Demo extends React.PureComponent {
             onOrderChange={this.changeColumnOrder}
           />
 
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow allowSorting />
           <TableEditRow
-            editCellTemplate={this.editCellTemplate}
+            cellComponent={EditCell}
           />
           <TableEditColumn
             width={100}
-            allowAdding={!this.state.addedRows.length}
-            allowEditing
-            allowDeleting
-            commandTemplate={this.commandTemplate}
+            showAddCommand={!this.state.addedRows.length}
+            showEditCommand
+            showDeleteCommand
+            commandComponent={Command}
           />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
         </Grid>
 
@@ -311,7 +323,8 @@ export default class Demo extends React.PureComponent {
               columns={columns}
             >
               <Table
-                getCellComponent={this.getCellComponent}
+                columnExtensions={tableColumnExtensions}
+                cellComponent={Cell}
               />
               <TableHeaderRow />
             </Grid>

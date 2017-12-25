@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Paper } from 'material-ui';
 import {
   GroupingState,
   LocalGrouping,
@@ -11,43 +12,27 @@ import {
   TableGroupRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { TableCell, Paper } from 'material-ui';
 import {
   generateRows,
 } from '../../demo-data/generator';
 
-const GroupCellTemplate = ({
-  colSpan,
-  row,
-  isExpanded,
-  toggleGroupExpanded,
-}) => (
-  <TableCell
-    colSpan={colSpan}
-    style={{ cursor: 'pointer' }}
-    onClick={toggleGroupExpanded}
-  >
-    <span>
-      { isExpanded ? '- ' : '+ ' }
-    </span>
-    <strong>
-      Names from {row.value.from} to {row.value.to}
-    </strong>
-  </TableCell>
+const NameGroupCell = props => (
+  <TableGroupRow.Cell {...props}>
+    from {props.row.value.from} to {props.row.value.to}
+  </TableGroupRow.Cell>
 );
-
-GroupCellTemplate.propTypes = {
-  colSpan: PropTypes.number,
-  row: PropTypes.object,
-  isExpanded: PropTypes.bool,
-  toggleGroupExpanded: PropTypes.func,
+NameGroupCell.propTypes = {
+  row: PropTypes.object.isRequired,
 };
 
-GroupCellTemplate.defaultProps = {
-  colSpan: 1,
-  row: {},
-  isExpanded: false,
-  toggleGroupExpanded: () => {},
+const GroupCell = (props) => {
+  if (props.column.name === 'name') {
+    return <NameGroupCell {...props} />;
+  }
+  return <TableGroupRow.Cell {...props} />;
+};
+GroupCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -79,7 +64,6 @@ export default class Demo extends React.PureComponent {
       return undefined;
     };
   }
-
   render() {
     const { rows, columns, grouping } = this.state;
 
@@ -99,13 +83,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableGroupRow
-            groupCellTemplate={(props) => {
-              const { column } = props;
-              if (column.name === 'name') {
-                return <GroupCellTemplate {...props} />;
-              }
-              return undefined;
-            }}
+            cellComponent={GroupCell}
           />
         </Grid>
       </Paper>

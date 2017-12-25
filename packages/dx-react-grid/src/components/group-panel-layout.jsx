@@ -1,24 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { DragSource, DropTarget } from '@devexpress/dx-react-core';
+import { findDOMNode } from 'react-dom';
+import { DropTarget } from '@devexpress/dx-react-core';
 import {
   GROUP_ADD_MODE,
-  getColumnSortingDirection,
   getGroupCellTargetIndex,
 } from '@devexpress/dx-grid-core';
-
-const getSortingConfig = (sorting, column) => {
-  const result = {
-    sortingSupported: sorting !== undefined,
-  };
-
-  if (result.sortingSupported) {
-    result.sortingDirection = getColumnSortingDirection(sorting, column.name);
-  }
-
-  return result;
-};
+import { ItemLayout } from './group-panel-layout/item-layout';
 
 export class GroupPanelLayout extends React.PureComponent {
   constructor(props) {
@@ -26,7 +14,7 @@ export class GroupPanelLayout extends React.PureComponent {
 
     this.state = {
       sourceColumnName: null,
-      targetColumnIndex: -1,
+      targetItemIndex: -1,
     };
 
     this.onEnter = ({ payload }) => {
@@ -35,136 +23,96 @@ export class GroupPanelLayout extends React.PureComponent {
       });
     };
     this.onOver = ({ clientOffset }) => {
-      const { draftGroupingChange, groupingPanelItems } = this.props;
-      const { sourceColumnName, targetColumnIndex: prevTargetColumnIndex } = this.state;
-      const itemGeometries = this.itemRefs.map(element => element.getBoundingClientRect());
-      const sourceColumnIndex = groupingPanelItems
-        .findIndex(column => column.name === sourceColumnName);
-      const targetColumnIndex = getGroupCellTargetIndex(
+      const { onDraftGroup, items } = this.props;
+      const { sourceColumnName, targetItemIndex: prevTargetItemIndex } = this.state;
+      // eslint-disable-next-line react/no-find-dom-node
+      const itemGeometries = this.itemRefs.map(ref => findDOMNode(ref).getBoundingClientRect());
+      const sourceItemIndex = items.findIndex(({ column }) => column.name === sourceColumnName);
+      const targetItemIndex = getGroupCellTargetIndex(
         itemGeometries,
-        sourceColumnIndex,
+        sourceItemIndex,
         clientOffset,
       );
 
-      if (prevTargetColumnIndex === targetColumnIndex) return;
+      if (prevTargetItemIndex === targetItemIndex) return;
 
-      draftGroupingChange({
+      onDraftGroup({
         columnName: sourceColumnName,
-        groupIndex: targetColumnIndex,
+        groupIndex: targetItemIndex,
       });
-      this.setState({ targetColumnIndex });
+      this.setState({ targetItemIndex });
     };
     this.onLeave = () => {
-      const { draftGroupingChange, groupingPanelItems } = this.props;
+      const { onDraftGroup, items } = this.props;
       const { sourceColumnName } = this.state;
-      const sourceItem = groupingPanelItems.filter(item =>
-        item.column.name === sourceColumnName)[0];
+      const sourceItem = items.filter(({ column }) => column.name === sourceColumnName)[0];
       if (sourceItem && sourceItem.draft === GROUP_ADD_MODE) {
         this.resetState();
         return;
       }
-      draftGroupingChange({
+      onDraftGroup({
         columnName: sourceColumnName,
         groupIndex: -1,
       });
       this.setState({
-        targetColumnIndex: -1,
+        targetItemIndex: -1,
       });
     };
     this.onDrop = () => {
-      const { groupByColumn } = this.props;
-      const { sourceColumnName, targetColumnIndex } = this.state;
+      const { onGroup } = this.props;
+      const { sourceColumnName, targetItemIndex } = this.state;
       this.resetState();
-      groupByColumn({
+      onGroup({
         columnName: sourceColumnName,
-        groupIndex: targetColumnIndex,
+        groupIndex: targetItemIndex,
       });
     };
     this.onDragEnd = () => {
-      const { sourceColumnName, targetColumnIndex } = this.state;
-      const { groupByColumn } = this.props;
-      if (sourceColumnName && targetColumnIndex === -1) {
-        groupByColumn({
+      const { sourceColumnName, targetItemIndex } = this.state;
+      const { onGroup } = this.props;
+      if (sourceColumnName && targetItemIndex === -1) {
+        onGroup({
           columnName: sourceColumnName,
         });
       }
       this.resetState();
     };
   }
-
-  getItems() {
+  resetState() {
+    const { onCancelDraftGroup } = this.props;
+    onCancelDraftGroup();
+    this.setState({
+      sourceColumnName: null,
+      targetItemIndex: -1,
+    });
+  }
+  render() {
     const {
-      allowSorting, sorting, changeSortingDirection,
-      groupingPanelItems,
-      groupByColumn,
-      groupPanelItemTemplate,
+      items,
+      emptyMessageComponent: EmptyMessage,
+      containerComponent: Container,
+      itemComponent: Item,
       allowDragging,
-      allowUngroupingByClick,
     } = this.props;
 
     this.itemRefs = [];
-    return groupingPanelItems.map(({ column, draft }) => {
-      const { sortingSupported, sortingDirection } = getSortingConfig(sorting, column);
-      const item = groupPanelItemTemplate({
-        column,
-        draft,
-        allowSorting: allowSorting && sortingSupported,
-        sortingDirection,
-        changeSortingDirection,
-        groupByColumn,
-        allowUngroupingByClick,
-      });
 
-      return allowDragging
-        ? (
-          <DragSource
-            key={column.name}
-            getPayload={() => [{ type: 'column', columnName: column.name }]}
-            onEnd={this.onDragEnd}
-          >
-            <div
-              ref={element => element && this.itemRefs.push(element)}
-              style={{ display: 'inline-block' }}
-            >
-              {item}
-            </div>
-          </DragSource>
-        )
-        : (
-          <div
+    const groupPanel = (items.length ? (
+      <Container>
+        {items.map(item => (
+          <ItemLayout
+            key={item.column.name}
             ref={element => element && this.itemRefs.push(element)}
-            key={column.name}
-            style={{ display: 'inline-block' }}
-          >
-            {item}
-          </div>
-        );
-    });
-  }
-
-  resetState() {
-    const { cancelGroupingChange } = this.props;
-    cancelGroupingChange();
-    this.setState({
-      sourceColumnName: null,
-      targetColumnIndex: -1,
-    });
-  }
-
-  render() {
-    const {
-      groupByColumnText,
-      panelTemplate,
-      allowDragging,
-    } = this.props;
-
-    const items = this.getItems();
-
-    const groupPanel = (
-      items.length
-        ? panelTemplate({ items })
-        : <span>{groupByColumnText}</span>
-    );
+            item={item}
+            itemComponent={Item}
+            allowDragging={allowDragging}
+            onDragEnd={this.onDragEnd}
+          />
+        ))}
+      </Container>
+    ) : (
+      <EmptyMessage />
+    ));
 
     return allowDragging
       ? (
@@ -182,31 +130,22 @@ export class GroupPanelLayout extends React.PureComponent {
 }
 
 GroupPanelLayout.propTypes = {
-  allowSorting: PropTypes.bool,
-  sorting: PropTypes.any,
-  changeSortingDirection: PropTypes.func,
-  groupingPanelItems: PropTypes.arrayOf(PropTypes.shape({
+  items: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.object,
     draft: PropTypes.string,
   })).isRequired,
-  groupByColumn: PropTypes.func,
-  groupByColumnText: PropTypes.any,
-  allowUngroupingByClick: PropTypes.bool,
-  groupPanelItemTemplate: PropTypes.func.isRequired,
-  panelTemplate: PropTypes.func.isRequired,
+  onGroup: PropTypes.func,
+  itemComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
+  emptyMessageComponent: PropTypes.func.isRequired,
   allowDragging: PropTypes.bool,
-  draftGroupingChange: PropTypes.func,
-  cancelGroupingChange: PropTypes.func,
+  onDraftGroup: PropTypes.func,
+  onCancelDraftGroup: PropTypes.func,
 };
 
 GroupPanelLayout.defaultProps = {
-  allowSorting: false,
-  sorting: undefined,
-  changeSortingDirection: () => {},
-  groupByColumn: () => {},
-  groupByColumnText: undefined,
-  allowUngroupingByClick: false,
+  onGroup: () => {},
   allowDragging: false,
-  draftGroupingChange: () => {},
-  cancelGroupingChange: () => {},
+  onDraftGroup: () => {},
+  onCancelDraftGroup: () => {},
 };

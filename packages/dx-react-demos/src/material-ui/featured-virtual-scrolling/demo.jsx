@@ -1,24 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Paper from 'material-ui/Paper';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalSorting,
+  LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  GroupingPanel, DragDropContext, TableColumnReordering,
+  GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+
 import {
   ProgressBarCell,
 } from '../templates/progress-bar-cell';
 import {
   HighlightedCell,
 } from '../templates/highlighted-cell';
+
 import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
+
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <VirtualTable.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
 
 const getRowId = row => row.id;
 
@@ -30,29 +46,23 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
+        { columnName: 'discount' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200000,
       }),
     };
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'discount') {
-        return ProgressBarCell;
-      }
-      if (columnName === 'amount') {
-        return HighlightedCell;
-      }
-      return undefined;
-    };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -61,7 +71,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={getRowId}
         >
-          <DragDropContext />
+          <DragDropProvider />
 
           <FilteringState
             defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
@@ -76,22 +86,24 @@ export default class Demo extends React.PureComponent {
             defaultGrouping={[{ columnName: 'product' }]}
             defaultExpandedGroups={['EnviroCare Max']}
           />
+          <SelectionState />
 
           <LocalFiltering />
           <LocalSorting />
           <LocalGrouping />
-
-          <SelectionState />
+          <LocalSelection />
 
           <VirtualTable
-            getCellComponent={this.getCellComponent}
+            columnExtensions={tableColumnExtensions}
+            cellComponent={Cell}
           />
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow allowSorting />
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
           <TableFilterRow />
-          <TableSelection />
+          <TableSelection showSelectAll />
           <TableGroupRow />
-          <GroupingPanel allowSorting allowDragging />
+          <Toolbar />
+          <GroupingPanel allowSorting />
         </Grid>
       </Paper>
     );

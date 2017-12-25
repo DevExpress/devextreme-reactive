@@ -1,4 +1,3 @@
-import Immutable from 'seamless-immutable';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_REORDERING_TYPE } from './constants';
 import {
@@ -26,19 +25,6 @@ describe('TableColumnReordering computeds', () => {
         ]);
       expect(computed === tableColumns)
         .toBeFalsy();
-    });
-
-    it('should work with immutable columns', () => {
-      const tableColumns = Immutable([
-        { type: TABLE_DATA_TYPE, column: { name: 'a' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-      ]);
-
-      expect(orderedColumns(tableColumns, ['b', 'a']))
-        .toEqual([
-          { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-          { type: TABLE_DATA_TYPE, column: { name: 'a' } },
-        ]);
     });
 
     it('should work correctly with non-data columns', () => {

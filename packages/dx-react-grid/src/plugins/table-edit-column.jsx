@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
-  TemplateConnector, TemplateRenderer,
+  Getter, Template, PluginContainer, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithEditing,
@@ -13,55 +12,6 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
-const getHeadingEditCommandsTableCellTemplateArgs = (
-  params,
-  getters,
-  { addRow },
-) => ({
-  ...params,
-  addRow: () => addRow(),
-});
-
-const getEditCommandsTableCellTemplateArgs = (
-  params,
-  getters,
-  {
-    startEditRows, stopEditRows, cancelChangedRows, commitChangedRows,
-    deleteRows, commitDeletedRows, cancelAddedRows, commitAddedRows,
-  },
-) => {
-  const isEdit = isEditTableRow(params.tableRow);
-  const isNew = isAddedTableRow(params.tableRow);
-  const rowIds = [params.tableRow.rowId];
-
-  return {
-    ...params,
-    row: params.tableRow.row,
-    isEditing: isEdit || isNew,
-    startEditing: () => startEditRows({ rowIds: [params.tableRow.rowId] }),
-    deleteRow: () => {
-      deleteRows({ rowIds });
-      commitDeletedRows({ rowIds });
-    },
-    cancelEditing: () => {
-      if (isNew) {
-        cancelAddedRows({ rowIds });
-      } else {
-        stopEditRows({ rowIds });
-        cancelChangedRows({ rowIds });
-      }
-    },
-    commitChanges: () => {
-      if (isNew) {
-        commitAddedRows({ rowIds });
-      } else {
-        stopEditRows({ rowIds });
-        commitChangedRows({ rowIds });
-      }
-    },
-  };
-};
-
 const pluginDependencies = [
   { pluginName: 'EditingState' },
   { pluginName: 'Table' },
@@ -70,12 +20,12 @@ const pluginDependencies = [
 export class TableEditColumn extends React.PureComponent {
   render() {
     const {
-      cellTemplate,
-      headingCellTemplate,
-      commandTemplate,
-      allowAdding,
-      allowEditing,
-      allowDeleting,
+      cellComponent: Cell,
+      headerCellComponent: HeaderCell,
+      commandComponent: Command,
+      showAddCommand,
+      showEditCommand,
+      showDeleteCommand,
       width,
       messages,
     } = this.props;
@@ -97,16 +47,15 @@ export class TableEditColumn extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(getters, actions) => (
-                <TemplateRenderer
-                  template={headingCellTemplate}
-                  params={getHeadingEditCommandsTableCellTemplateArgs(
-                    {
-                      allowAdding, commandTemplate, getMessage, ...params,
-                    },
-                    getters,
-                    actions,
+                <HeaderCell {...params}>
+                  {showAddCommand && (
+                    <Command
+                      id="add"
+                      text={getMessage('addCommand')}
+                      onExecute={() => actions.addRow()}
+                    />
                   )}
-                />
+                </HeaderCell>
               )}
             </TemplateConnector>
           )}
@@ -118,22 +67,64 @@ export class TableEditColumn extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {(getters, actions) => (
-                <TemplateRenderer
-                  template={cellTemplate}
-                  params={getEditCommandsTableCellTemplateArgs(
-                    {
-                      allowEditing,
-                      allowDeleting,
-                      commandTemplate,
-                      getMessage,
-                      ...params,
-                    },
-                    getters,
-                    actions,
-                  )}
-                />
-              )}
+              {(getters, actions) => {
+                const isEdit = isEditTableRow(params.tableRow);
+                const isNew = isAddedTableRow(params.tableRow);
+                const isEditing = isEdit || isNew;
+                const rowIds = [params.tableRow.rowId];
+                return (
+                  <Cell
+                    {...params}
+                    row={params.tableRow.row}
+                  >
+                    {showEditCommand && !isEditing && (
+                      <Command
+                        id="edit"
+                        text={getMessage('editCommand')}
+                        onExecute={() => actions.startEditRows({ rowIds })}
+                      />
+                    )}
+                    {showDeleteCommand && !isEditing && (
+                      <Command
+                        id="delete"
+                        text={getMessage('deleteCommand')}
+                        onExecute={() => {
+                          actions.deleteRows({ rowIds });
+                          actions.commitDeletedRows({ rowIds });
+                        }}
+                      />
+                    )}
+                    {isEditing && (
+                      <Command
+                        id="commit"
+                        text={getMessage('commitCommand')}
+                        onExecute={() => {
+                          if (isNew) {
+                            actions.commitAddedRows({ rowIds });
+                          } else {
+                            actions.stopEditRows({ rowIds });
+                            actions.commitChangedRows({ rowIds });
+                          }
+                        }}
+                      />
+                    )}
+                    {isEditing && (
+                      <Command
+                        id="cancel"
+                        text={getMessage('cancelCommand')}
+                        onExecute={() => {
+                          if (isNew) {
+                            actions.cancelAddedRows({ rowIds });
+                          } else {
+                            actions.stopEditRows({ rowIds });
+                            actions.cancelChangedRows({ rowIds });
+                          }
+                        }}
+                      />
+                    )}
+                  </Cell>
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>
@@ -142,19 +133,19 @@ export class TableEditColumn extends React.PureComponent {
   }
 }
 TableEditColumn.propTypes = {
-  cellTemplate: PropTypes.func.isRequired,
-  headingCellTemplate: PropTypes.func.isRequired,
-  commandTemplate: PropTypes.func.isRequired,
-  allowAdding: PropTypes.bool,
-  allowEditing: PropTypes.bool,
-  allowDeleting: PropTypes.bool,
+  cellComponent: PropTypes.func.isRequired,
+  headerCellComponent: PropTypes.func.isRequired,
+  commandComponent: PropTypes.func.isRequired,
+  showAddCommand: PropTypes.bool,
+  showEditCommand: PropTypes.bool,
+  showDeleteCommand: PropTypes.bool,
   width: PropTypes.number,
   messages: PropTypes.object,
 };
 TableEditColumn.defaultProps = {
-  allowAdding: false,
-  allowEditing: false,
-  allowDeleting: false,
+  showAddCommand: false,
+  showEditCommand: false,
+  showDeleteCommand: false,
   width: 140,
   messages: {},
 };

@@ -62,6 +62,8 @@ react:
           path: /react/grid/docs/reference/table-column-reordering
         - title: LocalFiltering
           path: /react/grid/docs/reference/local-filtering
+        - title: LocalSelection
+          path: /react/grid/docs/reference/local-selection
         - title: LocalSorting
           path: /react/grid/docs/reference/local-sorting
         - title: LocalGrouping
@@ -94,11 +96,13 @@ react:
           path: /react/grid/docs/reference/paging-panel
         - title: GroupingPanel
           path: /react/grid/docs/reference/grouping-panel
-        - title: DragDropContext
-          path: /react/grid/docs/reference/drag-drop-context
+        - title: DragDropProvider
+          path: /react/grid/docs/reference/drag-drop-provider
         - title: DataTypeProvider
           path: /react/grid/docs/reference/data-type-provider
         - title: ColumnChooser
           path: /react/grid/docs/reference/column-chooser
         - title: TableColumnVisibility
           path: /react/grid/docs/reference/table-column-visibility
+        - title: Toolbar
+          path: /react/grid/docs/reference/toolbar

@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropContext, TableColumnReordering,
+  PagingPanel, DragDropProvider, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   TableCell,
@@ -43,9 +43,6 @@ import {
 } from '../../demo-data/generator';
 
 const styles = theme => ({
-  commandButton: {
-    minWidth: '40px',
-  },
   lookupEditCell: {
     verticalAlign: 'top',
     paddingRight: theme.spacing.unit,
@@ -60,43 +57,86 @@ const styles = theme => ({
   },
 });
 
-const commandTemplates = {
-  add: (onClick, allowAdding) => (
-    <div style={{ textAlign: 'center' }}>
-      <Button
-        color="primary"
-        onClick={onClick}
-        title="Create new row"
-        disabled={!allowAdding}
-      >
-        New
-      </Button>
-    </div>
-  ),
-  edit: onClick => (
-    <IconButton onClick={onClick} title="Edit row">
-      <EditIcon />
-    </IconButton>
-  ),
-  delete: onClick => (
-    <IconButton onClick={onClick} title="Delete row">
-      <DeleteIcon />
-    </IconButton>
-  ),
-  commit: onClick => (
-    <IconButton onClick={onClick} title="Save changes">
-      <SaveIcon />
-    </IconButton>
-  ),
-  cancel: onClick => (
-    <IconButton color="accent" onClick={onClick} title="Cancel changes">
-      <CancelIcon />
-    </IconButton>
-  ),
+const AddButton = ({ onExecute }) => (
+  <div style={{ textAlign: 'center' }}>
+    <Button
+      color="primary"
+      onClick={onExecute}
+      title="Create new row"
+    >
+      New
+    </Button>
+  </div>
+);
+AddButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
 };
 
-const LookupEditCellBase = (({
-  value, onValueChange, availableValues, classes,
+const EditButton = ({ onExecute }) => (
+  <IconButton onClick={onExecute} title="Edit row">
+    <EditIcon />
+  </IconButton>
+);
+EditButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const DeleteButton = ({ onExecute }) => (
+  <IconButton onClick={onExecute} title="Delete row">
+    <DeleteIcon />
+  </IconButton>
+);
+DeleteButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const CommitButton = ({ onExecute }) => (
+  <IconButton onClick={onExecute} title="Save changes">
+    <SaveIcon />
+  </IconButton>
+);
+CommitButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const CancelButton = ({ onExecute }) => (
+  <IconButton color="accent" onClick={onExecute} title="Cancel changes">
+    <CancelIcon />
+  </IconButton>
+);
+CancelButton.propTypes = {
+  onExecute: PropTypes.func.isRequired,
+};
+
+const commandComponents = {
+  add: AddButton,
+  edit: EditButton,
+  delete: DeleteButton,
+  commit: CommitButton,
+  cancel: CancelButton,
+};
+
+const Command = ({ id, onExecute }) => {
+  const CommandButton = commandComponents[id];
+  return (
+    <CommandButton
+      onExecute={onExecute}
+    />
+  );
+};
+Command.propTypes = {
+  id: PropTypes.string.isRequired,
+  onExecute: PropTypes.func.isRequired,
+};
+
+const availableValues = {
+  product: globalSalesValues.product,
+  region: globalSalesValues.region,
+  customer: globalSalesValues.customer,
+};
+
+const LookupEditCellBase = ({
+  availableColumnValues, value, onValueChange, classes,
 }) => (
   <TableCell
     className={classes.lookupEditCell}
@@ -110,28 +150,45 @@ const LookupEditCellBase = (({
         />
       }
     >
-      {availableValues.map(item => (
+      {availableColumnValues.map(item => (
         <MenuItem key={item} value={item}>{item}</MenuItem>
       ))}
     </Select>
   </TableCell>
-));
+);
 LookupEditCellBase.propTypes = {
+  availableColumnValues: PropTypes.array.isRequired,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
-  availableValues: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
 };
 LookupEditCellBase.defaultProps = {
   value: undefined,
 };
-
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
-const availableValues = {
-  product: globalSalesValues.product,
-  region: globalSalesValues.region,
-  customer: globalSalesValues.customer,
+const Cell = (props) => {
+  if (props.column.name === 'discount') {
+    return <ProgressBarCell {...props} />;
+  }
+  if (props.column.name === 'amount') {
+    return <HighlightedCell {...props} />;
+  }
+  return <Table.Cell {...props} />;
+};
+Cell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
+
+const EditCell = (props) => {
+  const availableColumnValues = availableValues[props.column.name];
+  if (availableColumnValues) {
+    return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
+  }
+  return <TableEditRow.Cell {...props} />;
+};
+EditCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 const getRowId = row => row.id;
@@ -143,13 +200,14 @@ class DemoBase extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region', width: 110 },
-        {
-          name: 'amount', title: 'Amount', align: 'right', width: 90,
-        },
-        { name: 'discount', title: 'Discount', width: 110 },
+        { name: 'region', title: 'Region' },
+        { name: 'amount', title: 'Sale Amount' },
+        { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -162,7 +220,7 @@ class DemoBase extends React.PureComponent {
       currentPage: 0,
       deletingRows: [],
       pageSize: 0,
-      allowedPageSizes: [5, 10, 0],
+      pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
@@ -212,44 +270,6 @@ class DemoBase extends React.PureComponent {
     this.changeColumnOrder = (order) => {
       this.setState({ columnOrder: order });
     };
-
-    this.getCellComponent = (columnName) => {
-      if (columnName === 'discount') {
-        return ProgressBarCell;
-      } else if (columnName === 'amount') {
-        return HighlightedCell;
-      }
-      return undefined;
-    };
-    this.editCellTemplate = ({ column, value, onValueChange }) => {
-      const columnValues = availableValues[column.name];
-      if (columnValues) {
-        return (
-          <LookupEditCell
-            column={column}
-            value={value}
-            onValueChange={onValueChange}
-            availableValues={columnValues}
-          />
-        );
-      }
-      return undefined;
-    };
-    this.commandTemplate = ({ executeCommand, id }) => {
-      const template = commandTemplates[id];
-      if (template) {
-        const allowAdding = !this.state.addedRows.length;
-        const onClick = (e) => {
-          executeCommand();
-          e.stopPropagation();
-        };
-        return template(
-          onClick,
-          allowAdding,
-        );
-      }
-      return undefined;
-    };
   }
   render() {
     const {
@@ -258,6 +278,7 @@ class DemoBase extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       editingRows,
       addedRows,
@@ -265,7 +286,7 @@ class DemoBase extends React.PureComponent {
       currentPage,
       deletingRows,
       pageSize,
-      allowedPageSizes,
+      pageSizes,
       columnOrder,
     } = this.state;
 
@@ -300,10 +321,11 @@ class DemoBase extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
 
-          <DragDropContext />
+          <DragDropProvider />
 
           <Table
-            getCellComponent={this.getCellComponent}
+            columnExtensions={tableColumnExtensions}
+            cellComponent={Cell}
           />
 
           <TableColumnReordering
@@ -311,19 +333,19 @@ class DemoBase extends React.PureComponent {
             onOrderChange={this.changeColumnOrder}
           />
 
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow allowSorting />
           <TableEditRow
-            editCellTemplate={this.editCellTemplate}
+            cellComponent={EditCell}
           />
           <TableEditColumn
             width={120}
-            allowAdding
-            allowEditing
-            allowDeleting
-            commandTemplate={this.commandTemplate}
+            showAddCommand={!this.state.addedRows.length}
+            showEditCommand
+            showDeleteCommand
+            commandComponent={Command}
           />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
         </Grid>
 
@@ -343,7 +365,8 @@ class DemoBase extends React.PureComponent {
                 columns={columns}
               >
                 <Table
-                  getCellComponent={this.getCellComponent}
+                  columnExtensions={tableColumnExtensions}
+                  cellComponent={Cell}
                 />
                 <TableHeaderRow />
               </Grid>

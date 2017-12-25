@@ -10,7 +10,7 @@ const SPACE_KEY_CODE = 32;
 const styles = theme => ({
   button: {
     marginRight: theme.spacing.unit,
-    marginBottom: '12px',
+    marginBottom: theme.spacing.unit * 1.5,
   },
   draftCell: {
     opacity: 0.3,
@@ -33,15 +33,16 @@ const label = (allowSorting, sortingDirection, column) => {
 };
 
 const GroupPanelItemBase = ({
-  column,
-  groupByColumn, allowUngroupingByClick,
-  allowSorting, sortingDirection, changeSortingDirection,
-  classes, draft,
+  item: { column, draft },
+  onGroup, showGroupingControls,
+  allowSorting, sortingDirection, onSort,
+  classes, className,
+  ...restProps
 }) => {
   const chipClassNames = classNames({
     [classes.button]: true,
     [classes.draftCell]: draft,
-  });
+  }, className);
   const onClick = (e) => {
     if (!allowSorting) return;
     const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
@@ -50,43 +51,49 @@ const GroupPanelItemBase = ({
     const cancel = (isMouseClick && cancelSortingRelatedKey)
       || (isActionKeyDown && cancelSortingRelatedKey);
 
-    changeSortingDirection({
+    onSort({
       keepOther: cancelSortingRelatedKey,
       cancel,
       columnName: column.name,
     });
   };
 
-  return (<Chip
-    label={label(allowSorting, sortingDirection, column)}
-    className={chipClassNames}
-    {...allowUngroupingByClick
-      ? { onRequestDelete: () => groupByColumn({ columnName: column.name }) }
-      : null}
-    onClick={onClick}
-  />);
+  return (
+    <Chip
+      label={label(allowSorting, sortingDirection, column)}
+      className={chipClassNames}
+      {...showGroupingControls
+        ? { onRequestDelete: () => onGroup({ columnName: column.name }) }
+        : null}
+      onClick={onClick}
+      {...restProps}
+    />
+  );
 };
 
 GroupPanelItemBase.propTypes = {
-  column: PropTypes.shape({
-    title: PropTypes.string,
+  item: PropTypes.shape({
+    column: PropTypes.shape({
+      title: PropTypes.string,
+    }).isRequired,
+    draft: PropTypes.string,
   }).isRequired,
-  draft: PropTypes.string,
   allowSorting: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  changeSortingDirection: PropTypes.func,
-  groupByColumn: PropTypes.func,
-  allowUngroupingByClick: PropTypes.bool,
+  onSort: PropTypes.func,
+  onGroup: PropTypes.func,
+  showGroupingControls: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
 GroupPanelItemBase.defaultProps = {
-  draft: undefined,
   allowSorting: false,
   sortingDirection: undefined,
-  changeSortingDirection: undefined,
-  groupByColumn: undefined,
-  allowUngroupingByClick: false,
+  onSort: undefined,
+  onGroup: undefined,
+  showGroupingControls: false,
+  className: undefined,
 };
 
 export const GroupPanelItem = withStyles(styles, { name: 'GroupPanelItem' })(GroupPanelItemBase);

@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, PagingState, GroupingState,
-  LocalGrouping, LocalPaging, LocalSorting, RowDetailState,
+  LocalGrouping, LocalPaging, LocalSorting, RowDetailState, LocalSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
-  TableColumnReordering,
+  PagingPanel, GroupingPanel, DragDropProvider, TableRowDetail,
+  TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import { Nav, NavItem, ListGroup, ListGroupItem } from 'react-bootstrap';
 
@@ -132,11 +132,16 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'prefix', title: 'Title', width: 100 },
+        { name: 'prefix', title: 'Title' },
         { name: 'firstName', title: 'First Name' },
         { name: 'lastName', title: 'Last Name' },
-        { name: 'position', title: 'Position', width: 170 },
-        { name: 'state', title: 'State', width: 125 },
+        { name: 'position', title: 'Position' },
+        { name: 'state', title: 'State' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'prefix', width: 100 },
+        { columnName: 'position', width: 170 },
+        { columnName: 'state', width: 125 },
       ],
       rows: generateRows({
         columnValues: {
@@ -149,11 +154,13 @@ export default class Demo extends React.PureComponent {
         },
         length: 40,
       }),
-      allowedPageSizes: [5, 10, 15],
+      pageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { rows, columns, allowedPageSizes } = this.state;
+    const {
+      rows, columns, tableColumnExtensions, pageSizes,
+    } = this.state;
 
     return (
       <Grid
@@ -169,31 +176,34 @@ export default class Demo extends React.PureComponent {
         <RowDetailState
           defaultExpandedRows={[2]}
         />
-
-        <LocalSorting />
-        <LocalGrouping />
-        <LocalPaging />
-
         <SelectionState
           defaultSelection={[1, 3, 18]}
         />
 
-        <DragDropContext />
+        <LocalSorting />
+        <LocalGrouping />
+        <LocalPaging />
+        <LocalSelection />
 
-        <Table />
+        <DragDropProvider />
+
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-        <TableHeaderRow allowSorting allowDragging />
+        <TableHeaderRow allowSorting />
         <PagingPanel
-          allowedPageSizes={allowedPageSizes}
+          pageSizes={pageSizes}
         />
-        <TableSelection />
+        <TableSelection showSelectAll />
         <TableRowDetail
           contentComponent={GridDetailContainer}
         />
         <TableGroupRow />
-        <GroupingPanel allowSorting allowDragging />
+        <Toolbar />
+        <GroupingPanel allowSorting />
       </Grid>
     );
   }

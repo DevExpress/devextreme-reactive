@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   DataTypeProvider,
   EditingState,
@@ -18,21 +19,34 @@ import {
 
 const getRowId = row => row.id;
 
-const BooleanTypeProvider = () => (
+const BooleanFormatter = ({ value }) =>
+  <span className="label label-default">{value ? 'Yes' : 'No'}</span>;
+
+BooleanFormatter.propTypes = {
+  value: PropTypes.bool.isRequired,
+};
+
+const BooleanEditor = ({ value, onValueChange }) => (
+  <select
+    className="form-control"
+    value={value}
+    onChange={e => onValueChange(e.target.value === 'true')}
+  >
+    <option value={false}>No</option>
+    <option value>Yes</option>
+  </select>
+);
+
+BooleanEditor.propTypes = {
+  value: PropTypes.bool.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+};
+
+const BooleanTypeProvider = props => (
   <DataTypeProvider
-    type="boolean"
-    formatterTemplate={({ value }) =>
-      <span className="label label-default">{value ? 'Yes' : 'No'}</span>}
-    editorTemplate={({ value, onValueChange }) => (
-      <select
-        className="form-control"
-        value={value}
-        onChange={e => onValueChange(e.target.value === 'true')}
-      >
-        <option value={false}>No</option>
-        <option value>Yes</option>
-      </select>
-    )}
+    formatterComponent={BooleanFormatter}
+    editorComponent={BooleanEditor}
+    {...props}
   />
 );
 
@@ -45,8 +59,9 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
         { name: 'units', title: 'Units' },
-        { name: 'shipped', title: 'Shipped', dataType: 'boolean' },
+        { name: 'shipped', title: 'Shipped' },
       ],
+      booleanColumns: ['shipped'],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 14,
@@ -76,7 +91,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, booleanColumns } = this.state;
 
     return (
       <Grid
@@ -84,7 +99,9 @@ export default class Demo extends React.PureComponent {
         columns={columns}
         getRowId={getRowId}
       >
-        <BooleanTypeProvider />
+        <BooleanTypeProvider
+          for={booleanColumns}
+        />
         <EditingState
           onCommitChanges={this.commitChanges}
           defaultEditingRows={[0]}
@@ -93,9 +110,9 @@ export default class Demo extends React.PureComponent {
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
+          showAddCommand
+          showEditCommand
+          showDeleteCommand
         />
       </Grid>
     );

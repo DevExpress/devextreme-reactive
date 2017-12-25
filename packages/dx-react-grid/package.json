@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -47,9 +47,9 @@
     ]
   },
   "devDependencies": {
-    "@devexpress/dx-core": "1.0.0-beta.1",
-    "@devexpress/dx-react-core": "1.0.0-beta.1",
-    "@devexpress/dx-testing": "1.0.0-beta.1",
+    "@devexpress/dx-core": "1.0.0-beta.2",
+    "@devexpress/dx-react-core": "1.0.0-beta.2",
+    "@devexpress/dx-testing": "1.0.0-beta.2",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.2.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -60,14 +60,14 @@
     "core-js": "^2.5.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
-    "eslint": "^4.10.0",
+    "eslint": "^4.12.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jest": "^21.3.0",
+    "eslint-plugin-jest": "^21.4.2",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-react": "^7.5.1",
     "jest": "^21.2.1",
     "raf": "^3.4.0",
     "react": "^16.2.0",
@@ -79,12 +79,12 @@
     "rollup-plugin-node-resolve": "^3.0.0"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-beta.1",
+    "@devexpress/dx-grid-core": "1.0.0-beta.2",
     "prop-types": "^15.6.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "1.0.0-beta.1",
-    "@devexpress/dx-react-core": "1.0.0-beta.1",
+    "@devexpress/dx-core": "1.0.0-beta.2",
+    "@devexpress/dx-react-core": "1.0.0-beta.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }

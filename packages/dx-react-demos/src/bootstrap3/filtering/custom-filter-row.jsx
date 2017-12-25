@@ -16,7 +16,7 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const UnitsFilterCell = ({ filter, setFilter }) => (
+const UnitsFilterCell = ({ filter, onFilter }) => (
   <th style={{ fontWeight: 'normal' }}>
     <input
       type="number"
@@ -24,11 +24,10 @@ const UnitsFilterCell = ({ filter, setFilter }) => (
       value={filter ? filter.value : ''}
       min={1}
       max={4}
-      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+      onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
     />
   </th>
 );
-
 UnitsFilterCell.propTypes = {
   filter: PropTypes.shape({
     value: PropTypes.oneOfType([
@@ -36,11 +35,20 @@ UnitsFilterCell.propTypes = {
       PropTypes.number,
     ]).isRequired,
   }),
-  setFilter: PropTypes.func.isRequired,
+  onFilter: PropTypes.func.isRequired,
 };
-
 UnitsFilterCell.defaultProps = {
   filter: null,
+};
+
+const FilterCell = (props) => {
+  if (props.column.name === 'units') {
+    return <UnitsFilterCell {...props} />;
+  }
+  return <TableFilterRow.Cell {...props} />;
+};
+FilterCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -52,13 +60,16 @@ export default class Demo extends React.PureComponent {
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
         { name: 'sector', title: 'Sector' },
-        { name: 'units', title: 'Quantity', align: 'right' },
+        { name: 'units', title: 'Quantity' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'units', align: 'right' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Grid
@@ -67,16 +78,12 @@ export default class Demo extends React.PureComponent {
       >
         <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
         <LocalFiltering />
-        <Table />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
         <TableHeaderRow />
         <TableFilterRow
-          filterCellTemplate={({ column, filter, setFilter }) => {
-            if (column.name === 'units') {
-              return <UnitsFilterCell filter={filter} setFilter={setFilter} />;
-            }
-
-            return undefined;
-          }}
+          cellComponent={FilterCell}
         />
       </Grid>
     );

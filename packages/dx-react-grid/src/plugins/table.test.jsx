@@ -12,7 +12,6 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { Table } from './table';
-import { DataTypeProvider } from './data-type-provider';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -37,10 +36,9 @@ const defaultDeps = {
   },
 };
 
-const defaultCellComponent = () => null;
 const defaultProps = {
   layoutComponent: () => null,
-  getCellComponent: () => defaultCellComponent,
+  cellComponent: () => null,
   rowComponent: () => null,
   stubCellComponent: () => null,
   stubHeaderCellComponent: () => null,
@@ -83,35 +81,36 @@ describe('Table', () => {
 
       expect(tableRowsWithDataRows)
         .toBeCalledWith(defaultDeps.getter.rows, defaultDeps.getter.getRowId);
-      expect(getComputedState(tree).getters.tableBodyRows)
+      expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithDataRows');
     });
 
     it('should extend tableColumns', () => {
+      const columnExtensions = [{ columnName: 'field', width: 100 }];
+
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <Table
             {...defaultProps}
+            columnExtensions={columnExtensions}
           />
         </PluginHost>
       ));
 
       expect(tableColumnsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.columns);
-      expect(getComputedState(tree).getters.tableColumns)
+        .toBeCalledWith(defaultDeps.getter.columns, columnExtensions);
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithDataRows');
     });
   });
 
   it('should render data cell on user-defined column and row intersection', () => {
     isDataTableCell.mockImplementation(() => true);
-    const getCellComponent = jest.fn(() => defaultCellComponent);
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'a' } },
       style: {},
-      value: undefined,
     };
 
     const tree = mount((
@@ -120,16 +119,13 @@ describe('Table', () => {
         <Table
           {...defaultProps}
           layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
-          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
 
     expect(isDataTableCell)
       .toBeCalledWith(tableCellArgs.tableRow, tableCellArgs.tableColumn);
-    expect(getCellComponent)
-      .toBeCalledWith(tableCellArgs.tableColumn.column.name);
-    expect(tree.find(defaultCellComponent).props())
+    expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...tableCellArgs,
         row: tableCellArgs.tableRow.row,
@@ -139,37 +135,33 @@ describe('Table', () => {
 
   it('can render custom formatted data in table cell', () => {
     isDataTableCell.mockImplementation(() => true);
-    const getCellComponent = jest.fn(() => defaultCellComponent);
-    const valueFormatter = jest.fn(() => <span />);
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'column', dataType: 'column' } },
       style: {},
-      value: undefined,
     };
 
     const tree = mount((
       <PluginHost>
-        <DataTypeProvider
-          type="column"
-          formatterTemplate={valueFormatter}
-        />
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
           layoutComponent={({ cellComponent: Cell }) => <Cell {...tableCellArgs} />}
-          getCellComponent={getCellComponent}
         />
       </PluginHost>
     ));
 
-    expect(valueFormatter)
-      .toHaveBeenCalledWith({
+    const valueFormatterTemplatePlaceholder = tree
+      .find('TemplatePlaceholder')
+      .findWhere(node => node.prop('name') === 'valueFormatter');
+
+    expect(valueFormatterTemplatePlaceholder.prop('params'))
+      .toMatchObject({
         column: tableCellArgs.tableColumn.column,
         row: tableCellArgs.tableRow.row,
         value: tableCellArgs.value,
       });
-    expect(tree.find(defaultCellComponent).props().children)
+    expect(tree.find(defaultProps.cellComponent).props().children)
       .toBeDefined();
   });
 
@@ -205,7 +197,7 @@ describe('Table', () => {
     ));
 
     expect(isHeaderStubTableCell)
-      .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).getters.tableHeaderRows);
+      .toBeCalledWith(tableCellArgs.tableRow, getComputedState(tree).tableHeaderRows);
     expect(tree.find(defaultProps.stubHeaderCellComponent).props())
       .toMatchObject(tableCellArgs);
   });

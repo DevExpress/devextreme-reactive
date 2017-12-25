@@ -14,7 +14,7 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
-  DragDropContext,
+  DragDropProvider,
 } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from './test-utils';
 import { TableColumnReordering } from './table-column-reordering';
@@ -26,12 +26,17 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getTableTargetColumnIndex: jest.fn(),
   changeColumnOrder: jest.fn(),
   tableHeaderRowsWithReordering: jest.fn(),
-  draftOrder: jest.fn(),
+  draftOrder: jest.fn(args => args),
 }));
 
-const reorderingRowTemplate = jest.fn();
-const reorderingCellTemplate = jest.fn();
-const tableContainerTemplate = jest.fn();
+/* eslint-disable react/prop-types */
+const defaultProps = {
+  tableContainerComponent: ({ children }) => <div>{children}</div>,
+  rowComponent: () => null,
+  cellComponent: ({ getCellDimensions }) =>
+    <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />,
+};
+/* eslint-enable react/prop-types */
 
 const defaultDeps = {
   getter: {
@@ -57,30 +62,21 @@ describe('TableColumnReordering', () => {
     resetConsole();
   });
 
-  beforeEach(() => {
-    tableContainerTemplate.mockImplementation(({ children }) => <div>{children}</div>);
-    reorderingRowTemplate.mockImplementation(() => <div />);
-    reorderingCellTemplate.mockImplementation(({ getCellDimensions }) =>
-      <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />);
-    draftOrder.mockImplementation(args => args);
-  });
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should apply the column order specified in the "defaultOrder" property in uncontrolled mode', () => {
     mount((
-      <DragDropContext>
+      <DragDropProvider>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
+            {...defaultProps}
             defaultOrder={['b', 'a']}
-            tableContainerTemplate={tableContainerTemplate}
-            reorderingRowTemplate={reorderingRowTemplate}
-            reorderingCellTemplate={reorderingCellTemplate}
           />
         </PluginHost>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(orderedColumns)
@@ -91,17 +87,15 @@ describe('TableColumnReordering', () => {
 
   it('should apply the column order specified in the "order" property in controlled mode', () => {
     mount((
-      <DragDropContext>
+      <DragDropProvider>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
+            {...defaultProps}
             order={['b', 'a']}
-            tableContainerTemplate={tableContainerTemplate}
-            reorderingRowTemplate={reorderingRowTemplate}
-            reorderingCellTemplate={reorderingCellTemplate}
           />
         </PluginHost>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(orderedColumns)
@@ -111,24 +105,20 @@ describe('TableColumnReordering', () => {
   });
 
   it('should render the "table" template', () => {
-    mount((
-      <DragDropContext>
+    const tree = mount((
+      <DragDropProvider>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
+            {...defaultProps}
             order={['b', 'a']}
-            tableContainerTemplate={tableContainerTemplate}
-            reorderingRowTemplate={reorderingRowTemplate}
-            reorderingCellTemplate={reorderingCellTemplate}
           />
         </PluginHost>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
-    expect(tableContainerTemplate)
-      .toHaveBeenCalledTimes(1);
-    expect(tableContainerTemplate)
-      .toHaveBeenCalledWith({
+    expect(tree.find(defaultProps.tableContainerComponent).props())
+      .toEqual({
         onOver: expect.any(Function),
         onLeave: expect.any(Function),
         onDrop: expect.any(Function),
@@ -140,7 +130,7 @@ describe('TableColumnReordering', () => {
     // eslint-disable-next-line react/prop-types
     const TableMock = ({ children }) => <div>{children}</div>;
     const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount((
-      <DragDropContext>
+      <DragDropProvider>
         <PluginHost>
           <Template name="table">
             <div>
@@ -164,13 +154,12 @@ describe('TableColumnReordering', () => {
           </Template>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableColumnReordering
+            {...defaultProps}
             defaultOrder={defaultOrder}
-            tableContainerTemplate={props => <TableMock {...props} />}
-            reorderingRowTemplate={reorderingRowTemplate}
-            reorderingCellTemplate={reorderingCellTemplate}
+            tableContainerComponent={props => <TableMock {...props} />}
           />
         </PluginHost>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     beforeEach(() => {

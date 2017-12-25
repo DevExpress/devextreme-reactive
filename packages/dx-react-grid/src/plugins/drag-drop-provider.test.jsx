@@ -3,12 +3,24 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   Getter, PluginHost,
-  DragDropContext as DragDropContextCore,
+  DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
+import { DragDropProvider } from './drag-drop-provider';
 
-import { DragDropContext } from './drag-drop-context';
+// eslint-disable-next-line react/prop-types
+const DefaultContainer = ({ clientOffset, children }) => (
+  <ul className="container" style={{ top: clientOffset.y, left: clientOffset.x }}>
+    {children}
+  </ul>
+);
+// eslint-disable-next-line react/prop-types
+const DefaultColumn = ({ column }) => (
+  <li className="column" >
+    {column.title}
+  </li>
+);
 
-describe('DragDropContext', () => {
+describe('DragDropProvider', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -24,9 +36,9 @@ describe('DragDropContext', () => {
           name="columns"
           value={[{ name: 'a' }, { name: 'b' }]}
         />
-        <DragDropContext
-          containerTemplate={() => <ul className="container" />}
-          columnTemplate={() => <li />}
+        <DragDropProvider
+          containerComponent={DefaultContainer}
+          columnComponent={DefaultColumn}
         />
       </PluginHost>
     ));
@@ -42,26 +54,15 @@ describe('DragDropContext', () => {
           name="columns"
           value={[{ name: 'a', title: 'A' }, { name: 'b', title: 'B' }]}
         />
-        <DragDropContext
-          containerTemplate={({ clientOffset, columns, columnTemplate }) => (
-            <ul className="container" style={{ top: clientOffset.y, left: clientOffset.x }}>
-              {columns.map(column => React.cloneElement(
-                columnTemplate({ column }),
-                { key: column.name },
-              ))}
-            </ul>
-          )}
-          columnTemplate={({ column }) => (
-            <li className="column" >
-              {column.title}
-            </li>
-          )}
+        <DragDropProvider
+          containerComponent={DefaultContainer}
+          columnComponent={DefaultColumn}
         />
       </PluginHost>
     ));
 
-    const dragDropContext = tree.find(DragDropContextCore);
-    dragDropContext.prop('onChange')({
+    const dragDropProvider = tree.find(DragDropProviderCore);
+    dragDropProvider.prop('onChange')({
       payload: [{ type: 'column', columnName: 'a' }],
       clientOffset: { x: 10, y: 10 },
     });

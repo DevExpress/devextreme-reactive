@@ -13,8 +13,6 @@ columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields colu
 getRowId | (row: any) => number &#124; string | | Specifies the function used to get a unique row identifier.
 getCellValue | (row: any, columnName: string) => any | | Specifies the function used to get a cell's value.
 rootComponent | ElementType&lt;[GridRootProps](#gridrootprops)&gt; | | A component that renders the grid root layout.
-headerPlaceholderComponent | ElementType&lt;[GridHeaderPlaceholderProps](#gridheaderplaceholderprops)&gt; | | A component that renders the grid header placeholder.
-footerPlaceholderComponent | ElementType&lt;[GridFooterPlaceholderProps](#gridfooterplaceholderprops)&gt; | | A component that renders the grid footer placeholder.
 
 ## Interfaces
 
@@ -27,7 +25,8 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 name | string | Specifies the column name or the name of a row field whose value the column displays. If the column name does not match any field name, specify the `getCellValue` function.
-getCellValue | (row: any, columnName: string) => any | Specifies the function used to get the column value for a given row.
+title? | string | Specifies the column title.
+getCellValue? | (row: any, columnName: string) => any | Specifies the function used to get the column value for a given row.
 
 ### GridRootProps
 
@@ -52,6 +51,14 @@ Describes properties passed to a component that renders the grid footer placehol
 Field | Type | Description
 ------|------|------------
 children? | ReactElement | A React element to be placed in the footer.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+Grid.Root | [GridRootProps](#gridrootprops) | A component that renders the grid root layout.
+
+If you specify additional properties, they are added to the component's root element.
 
 ## Plugin Developer Reference
 

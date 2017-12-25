@@ -31,13 +31,13 @@ const styles = theme => ({
   },
 });
 
-const UnitsFilterCellBase = ({ filter, setFilter, classes }) => (
+const UnitsFilterCellBase = ({ filter, onFilter, classes }) => (
   <TableCell className={classes.cell}>
     <Input
       className={classes.input}
       type="number"
       value={filter ? filter.value : ''}
-      onChange={e => setFilter(e.target.value ? { value: e.target.value } : null)}
+      onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
       placeholder="Filter..."
       inputProps={{
         style: { textAlign: 'right' },
@@ -47,7 +47,6 @@ const UnitsFilterCellBase = ({ filter, setFilter, classes }) => (
     />
   </TableCell>
 );
-
 UnitsFilterCellBase.propTypes = {
   filter: PropTypes.shape({
     value: PropTypes.oneOfType([
@@ -55,15 +54,23 @@ UnitsFilterCellBase.propTypes = {
       PropTypes.number,
     ]).isRequired,
   }),
-  setFilter: PropTypes.func.isRequired,
+  onFilter: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
-
 UnitsFilterCellBase.defaultProps = {
   filter: null,
 };
-
 const UnitsFilterCell = withStyles(styles, { name: 'SexFilterCell' })(UnitsFilterCellBase);
+
+const FilterCell = (props) => {
+  if (props.column.name === 'units') {
+    return <UnitsFilterCell {...props} />;
+  }
+  return <TableFilterRow.Cell {...props} />;
+};
+FilterCell.propTypes = {
+  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -74,13 +81,16 @@ export default class Demo extends React.PureComponent {
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
         { name: 'sector', title: 'Sector' },
-        { name: 'units', title: 'Quantity', align: 'right' },
+        { name: 'units', title: 'Quantity' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'units', align: 'right' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -90,16 +100,12 @@ export default class Demo extends React.PureComponent {
         >
           <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
           <LocalFiltering />
-          <Table />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
           <TableHeaderRow />
           <TableFilterRow
-            filterCellTemplate={({ column, filter, setFilter }) => {
-              if (column.name === 'units') {
-                return <UnitsFilterCell filter={filter} setFilter={setFilter} />;
-              }
-
-              return undefined;
-            }}
+            cellComponent={FilterCell}
           />
         </Grid>
       </Paper>

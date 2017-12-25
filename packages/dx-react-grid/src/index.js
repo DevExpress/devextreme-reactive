@@ -15,11 +15,12 @@ export { LocalGrouping } from './plugins/local-grouping';
 export { CustomGrouping } from './plugins/custom-grouping';
 
 export { SelectionState } from './plugins/selection-state';
+export { LocalSelection } from './plugins/local-selection';
 
 export { SortingState } from './plugins/sorting-state';
 export { LocalSorting } from './plugins/local-sorting';
 
-export { DragDropContext } from './plugins/drag-drop-context';
+export { DragDropProvider } from './plugins/drag-drop-provider';
 
 export { TableColumnReordering } from './plugins/table-column-reordering';
 
@@ -47,3 +48,5 @@ export { TableLayout } from './components/table-layout';
 export { VirtualTableLayout } from './components/table-layout/virtual-table-layout';
 export { StaticTableLayout } from './components/table-layout/static-table-layout';
 export { GroupPanelLayout } from './components/group-panel-layout';
+
+export { Toolbar } from './plugins/toolbar';

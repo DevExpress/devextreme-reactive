@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { GroupPanelItem } from './group-panel-item';
 
 const ENTER_KEY_CODE = 13;
@@ -7,24 +7,21 @@ const SPACE_KEY_CODE = 32;
 
 describe('GroupPanelItem', () => {
   it('should use column name if title is not specified', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
-        column={{
-          name: 'Test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
-    expect(tree.find('div').text()).toBe('Test');
+    expect(tree.find('div').text())
+      .toBe('test');
   });
 
   it('can render the ungroup button', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
-        column={{
-          name: 'test',
-        }}
-        allowUngroupingByClick
+        item={{ column: { name: 'test' } }}
+        showGroupingControls
       />
     ));
 
@@ -33,11 +30,9 @@ describe('GroupPanelItem', () => {
   });
 
   it('does not get focus if sorting is not allowed', () => {
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
-        column={{
-          name: 'test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
@@ -47,69 +42,91 @@ describe('GroupPanelItem', () => {
   });
 
   it('should handle the "Enter" and "Space" keys down and "Mouse click" for sorting change', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
+        onSort={onSort}
         allowSorting
-        column={{
-          name: 'test',
-        }}
+        item={{ column: { name: 'test' } }}
       />
     ));
 
     const targetElement = tree.find('span').first();
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     targetElement.simulate('click');
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    changeSortingDirection.mockClear();
+    onSort.mockClear();
     targetElement.simulate('keydown', { keyCode: 51 });
-    expect(changeSortingDirection)
+    expect(onSort)
       .not.toHaveBeenCalled();
   });
 
   it('should handle the "Mouse click" for ungrouping', () => {
-    const groupByColumn = jest.fn();
+    const onGroup = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        groupByColumn={groupByColumn}
-        allowUngroupingByClick
-        column={{
-          name: 'test',
-        }}
+        onGroup={onGroup}
+        showGroupingControls
+        item={{ column: { name: 'test' } }}
       />
     ));
 
     const targetElement = tree.find('span').last();
     targetElement.simulate('click');
-    expect(groupByColumn)
+    expect(onGroup)
       .toHaveBeenCalled();
   });
 
   it('should cancel sorting on sorting direction change when the "Ctrl" key is pressed', () => {
-    const changeSortingDirection = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
-        changeSortingDirection={changeSortingDirection}
-        column={{ name: 'test' }}
+        onSort={onSort}
+        item={{ column: { name: 'test' } }}
         allowSorting
       />
     ));
 
     const targetElement = tree.find('span').first();
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-    expect(changeSortingDirection)
+    expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.prop('data'))
+      .toEqual({ a: 1 });
+  });
+
+  it('should add the passed className to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.hasClass('custom-class'))
+      .toBeTruthy();
+    expect(tree.hasClass('btn-group'))
+      .toBeTruthy();
   });
 });

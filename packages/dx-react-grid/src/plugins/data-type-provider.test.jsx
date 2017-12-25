@@ -13,12 +13,12 @@ describe('DataTypeProvider', () => {
     resetConsole();
   });
 
-  it('should define the "valueFormatter" with correct predicate if "formatterTemplate" is specified', () => {
+  it('should define the "valueFormatter" with correct predicate if "formatterComponent" is specified', () => {
     const tree = mount((
       <PluginHost>
         <DataTypeProvider
-          type="test"
-          formatterTemplate={() => null}
+          for={['test']}
+          formatterComponent={() => null}
         />
       </PluginHost>
     ));
@@ -29,18 +29,18 @@ describe('DataTypeProvider', () => {
       .toBeTruthy();
     expect(tree.findWhere(n => n.prop('name') === 'valueEditor').exists())
       .toBeFalsy();
-    expect(valueFormatter.prop('predicate')({ column: { dataType: 'test' } }))
+    expect(valueFormatter.prop('predicate')({ column: { name: 'test' } }))
       .toBeTruthy();
-    expect(valueFormatter.prop('predicate')({ column: { dataType: 'value' } }))
+    expect(valueFormatter.prop('predicate')({ column: { name: 'value' } }))
       .toBeFalsy();
   });
 
-  it('should define the "valueEditor" with correct predicate if "editorTemplate" is specified', () => {
+  it('should define the "valueEditor" with correct predicate if "editorComponent" is specified', () => {
     const tree = mount((
       <PluginHost>
         <DataTypeProvider
-          type="test"
-          editorTemplate={() => null}
+          for={['test']}
+          editorComponent={() => null}
         />
       </PluginHost>
     ));
@@ -51,9 +51,9 @@ describe('DataTypeProvider', () => {
       .toBeTruthy();
     expect(tree.findWhere(n => n.prop('name') === 'valueFormatter').exists())
       .toBeFalsy();
-    expect(valueEditor.prop('predicate')({ column: { dataType: 'test' } }))
+    expect(valueEditor.prop('predicate')({ column: { name: 'test' } }))
       .toBeTruthy();
-    expect(valueEditor.prop('predicate')({ column: { dataType: 'value' } }))
+    expect(valueEditor.prop('predicate')({ column: { name: 'value' } }))
       .toBeFalsy();
   });
 });

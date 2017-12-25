@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
@@ -13,19 +14,31 @@ import {
   globalSalesValues,
 } from '../../demo-data/generator';
 
-const CurrencyTypeProvider = () => (
+const CurrencyFormatter = ({ value }) =>
+  <b className="text-primary">${value}</b>;
+
+CurrencyFormatter.propTypes = {
+  value: PropTypes.number.isRequired,
+};
+
+const CurrencyTypeProvider = props => (
   <DataTypeProvider
-    type="currency"
-    formatterTemplate={({ value }) => (
-      <b className="text-primary">${value}</b>
-    )}
+    formatterComponent={CurrencyFormatter}
+    {...props}
   />
 );
-const DateTypeProvider = () => (
+
+const DateFormatter = ({ value }) =>
+  value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3.$2.$1');
+
+DateFormatter.propTypes = {
+  value: PropTypes.string.isRequired,
+};
+
+const DateTypeProvider = props => (
   <DataTypeProvider
-    type="date"
-    formatterTemplate={({ value }) =>
-      value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3.$2.$1')}
+    formatterComponent={DateFormatter}
+    {...props}
   />
 );
 
@@ -37,25 +50,36 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
-        { name: 'saleDate', title: 'Sale Date', dataType: 'date' },
-        {
-          name: 'amount', title: 'Sale Amount', dataType: 'currency', align: 'right',
-        },
+        { name: 'saleDate', title: 'Sale Date' },
+        { name: 'amount', title: 'Sale Amount' },
       ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
+      ],
+      dateColumns: ['saleDate'],
+      currencyColumns: ['amount'],
       rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const {
+      rows, columns, dateColumns, currencyColumns, tableColumnExtensions,
+    } = this.state;
 
     return (
       <Grid
         rows={rows}
         columns={columns}
       >
-        <CurrencyTypeProvider />
-        <DateTypeProvider />
-        <Table />
+        <CurrencyTypeProvider
+          for={currencyColumns}
+        />
+        <DateTypeProvider
+          for={dateColumns}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
         <TableHeaderRow />
       </Grid>
     );

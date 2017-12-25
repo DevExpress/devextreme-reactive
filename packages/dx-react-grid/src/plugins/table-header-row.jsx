@@ -32,7 +32,7 @@ export class TableHeaderRow extends React.PureComponent {
           { pluginName: 'Table' },
           { pluginName: 'SortingState', optional: !allowSorting },
           { pluginName: 'GroupingState', optional: !showGroupingControls },
-          { pluginName: 'DragDropContext', optional: true },
+          { pluginName: 'DragDropProvider', optional: true },
           { pluginName: 'TableColumnResizing', optional: true },
         ]}
       >

@@ -9,7 +9,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing, Toolbar,
+  GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
@@ -141,7 +141,7 @@ const GridContainer = ({
       <LocalPaging />
       <LocalSelection />
 
-      <DragDropContext />
+      <DragDropProvider />
 
       <Table />
 

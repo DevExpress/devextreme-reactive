@@ -9,7 +9,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing, Toolbar,
+  GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -128,7 +128,7 @@ const GridContainer = ({
     <LocalPaging />
     <LocalSelection />
 
-    <DragDropContext />
+    <DragDropProvider />
 
     <Table />
 

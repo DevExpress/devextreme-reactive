@@ -12,7 +12,7 @@ A plugin that performs built-in data filtering.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions | Array&lt;[IntegratedFilteringColumnExtension](#localfilteringcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions | Array&lt;[IntegratedFilteringColumnExtension](#integratedfilteringcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 

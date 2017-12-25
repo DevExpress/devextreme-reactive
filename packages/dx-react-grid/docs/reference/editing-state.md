@@ -12,7 +12,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a value specifying row changes depending on row's editor values. This function is called each time a row editor's value changes.
+createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a row changes object depending on row's editor values. This function is called each time a row editor's value changes.
 columnExtensions | Array&lg;[EditingColumnExtension](#editingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 editingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows being edited.
 defaultEditingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows initially added to the `editingRows` array in the uncontrolled mode.

@@ -5,7 +5,7 @@ import {
 
 describe('TableColumnResizing Plugin computeds', () => {
   describe('#tableColumnsWithWidths', () => {
-    fit('should work', () => {
+    it('should work', () => {
       const tableColumns = [
         { type: TABLE_DATA_TYPE, column: { name: 'a' } },
         { type: TABLE_DATA_TYPE, column: { name: 'b' } },

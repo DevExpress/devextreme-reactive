@@ -30,7 +30,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 visible | boolean | Specifies whether an overlay is visible.
-target | ReactComponent | The React element that is used to set the position of the overlay.
+target | ReactComponent | The React component that is used to set the position of the overlay.
 onHide | () => void | An event that initiates overlay hiding.
 children | Array&lt;ReactElement&gt; | React elements used to render overlay content.
 

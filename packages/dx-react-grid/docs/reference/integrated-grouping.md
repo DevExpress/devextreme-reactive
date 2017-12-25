@@ -12,7 +12,7 @@ A plugin that performs built-in grouping and group expanding/collapsing.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnIdentity | (columnName: string) => [Identity](#identity) &#124; undefined | | A function that defines a column's grouping identity. See [Grouping](../guides/grouping.md#integrated-grouping-with-custom-values) for details.
+getColumnIdentity | (columnName: string) => [Identity](#identity) &#124; undefined | | A function that defines a column's grouping identity. See [Grouping](../guides/grouping.md#local-grouping-with-custom-values) for details.
 
 ## Interfaces
 

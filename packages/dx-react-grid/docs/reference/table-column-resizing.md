@@ -12,9 +12,22 @@ A plugin that manages table column widths.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnWidths | { [columnName: string]: number } | | Specifies column widths.
-defaultColumnWidths | { [columnName: string]: number } | {} | Specifies initial column widths in the uncontrolled mode.
+columnWidths | Array&lt;[ColumnWidths](#ColumnWidths)&gt; | | Specifies column widths.
+defaultColumnWidths | Array&lt;[ColumnWidths](#ColumnWidths)&gt; | [] | Specifies initial column widths in the uncontrolled mode.
 onColumnWidthsChange | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles column width changes.
+
+## Interfaces
+
+### ColumnWidths
+
+Describes the sorting applied to a column
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+columnName | string | Specifies a column's name to which the sorting is applied.
+width | number | Specifies a column's width.
 
 ## Plugin Developer Reference
 

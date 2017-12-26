@@ -46,7 +46,7 @@ export class EditingState extends React.PureComponent {
       this.props.onCommitChanges({
         changed: changedRowsByIds(this.getState().changedRows, rowIds),
       });
-      this.cancelAddedRows({ rowIds });
+      this.cancelChangedRows({ rowIds });
     };
 
     this.addRow = stateHelper.applyFieldReducer
@@ -89,7 +89,7 @@ export class EditingState extends React.PureComponent {
 
     const { changedRows } = nextState;
     const { onChangedRowsChange } = this.props;
-    if (onChangedRowsChange && changedRows !== state.addedRows) {
+    if (onChangedRowsChange && changedRows !== state.changedRows) {
       onChangedRowsChange(changedRows);
     }
 

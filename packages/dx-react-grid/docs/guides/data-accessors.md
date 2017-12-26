@@ -74,8 +74,6 @@ The following demo shows this approach in action:
 
 .embedded-demo(data-accessors/custom-data-accessors)
 
-Note that the Grid's `getCellValue` property has a higher priority than the column's property.
-
 The `getCellValue` implementation presented in this demo is not optimized for frequent invocation. Avoid using it in production apps operating with large amounts of data.
 
 ## Cell Value Editing

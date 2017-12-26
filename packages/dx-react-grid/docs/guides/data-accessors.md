@@ -124,5 +124,3 @@ const createRowChange = (row, columnName, value) => {
   />
 />
 ```
-
-Note that the `EditingState` plugin's `createRowChange` property has a higher priority than the column's property.

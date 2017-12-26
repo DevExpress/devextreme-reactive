@@ -40,10 +40,10 @@ describe('EditingState', () => {
         </PluginHost>
       ));
 
-      getComputedState(tree).createRowChange(row, column.name, 3);
+      getComputedState(tree).createRowChange(row, 3, column.name);
 
       expect(createRowChangeMock)
-        .toBeCalledWith(row, column.name, 3);
+        .toBeCalledWith(row, 3, column.name);
     });
   });
 

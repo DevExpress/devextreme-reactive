@@ -45,7 +45,7 @@ describe('EditingState computeds', () => {
         { name: 'b' },
       ];
       const createRowChange = computedCreateRowChange(columns);
-      const change = createRowChange(rows[1], columns[1].name, 3);
+      const change = createRowChange(rows[1], 3, columns[1].name);
 
       expect(change).toEqual({ b: 3 });
     });
@@ -56,7 +56,7 @@ describe('EditingState computeds', () => {
       const columns = [{ name: 'a', createRowChange: createRowChangeMock }];
 
       const createRowChange = computedCreateRowChange(columns);
-      createRowChange(rows[0], columns[0].name, 3);
+      createRowChange(rows[0], 3, columns[0].name);
 
       expect(createRowChangeMock).toBeCalledWith(rows[0], 3, columns[0].name);
     });

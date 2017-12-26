@@ -25,7 +25,7 @@ deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows pr
 defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRows` array in the uncontrolled mode.
 onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRows` array.
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
-createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a value specifying row changes depending on row's editor values. This function is called each time a row editor's value changes.
+createRowChange | (row: any, value: string &#124; number, columnName: string) => any | | A function that returns a value specifying row changes depending on row's editor values. This function is called each time a row editor's value changes.
 
 ## Interfaces
 
@@ -77,4 +77,4 @@ deletedRows | Getter | Array&lt;number &#124; string&gt; | Rows prepared for del
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows the ID specifies to the `deletedRows` array.
 cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows from the `deletedRows` array.
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#change-set) and removes the specified rows from the `deletedRows` array.
-createRowChange | Getter | (row: any, columnName: string, value: string &#124; string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.
+createRowChange | Getter | (row: any, value: string &#124; string, columnName: string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.

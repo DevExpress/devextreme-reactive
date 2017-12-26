@@ -131,7 +131,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
-        allowResizing
+        resizingEnabled
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
       />

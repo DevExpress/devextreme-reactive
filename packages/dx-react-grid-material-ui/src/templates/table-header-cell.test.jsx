@@ -130,7 +130,7 @@ describe('TableHeaderCell', () => {
     const onDraftWidthChange = () => {};
     const tree = shallow((
       <TableHeaderCell
-        allowResizing
+        resizingEnabled
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
         getMessage={jest.fn()}

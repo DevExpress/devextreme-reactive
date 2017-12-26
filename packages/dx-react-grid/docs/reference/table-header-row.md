@@ -40,7 +40,7 @@ sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sort
 onSort | ({ keepOther: boolean, cancel: boolean }) | An event that changes the associated column's sorting state. The `keepOther` and `cancel` arguments specify whether to keep existing sorting and cancel sorting by the associated column.
 showGroupingControls | boolean | Specifies whether to render a control that toggles the associated column's grouping state.
 onGroup | () => void | An event that invokes grouping by the associated column.
-allowResizing | boolean | false | Specifies whether table column resizing is enabled.
+resizingEnabled | boolean | false | Specifies whether table column resizing is enabled.
 onWidthChange | ({ shift: number }) => void | An event that initiates the column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative
 onDraftWidthChange | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the header cell.

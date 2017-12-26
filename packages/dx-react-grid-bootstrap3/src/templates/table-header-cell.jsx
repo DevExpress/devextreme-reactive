@@ -41,7 +41,7 @@ export class TableHeaderCell extends React.PureComponent {
       allowSorting, sortingDirection,
       showGroupingControls, onGroup,
       draggingEnabled,
-      allowResizing, onWidthChange, onDraftWidthChange,
+      resizingEnabled, onWidthChange, onDraftWidthChange,
       tableRow, getMessage, onSort,
       ...restProps
     } = this.props;
@@ -95,7 +95,7 @@ export class TableHeaderCell extends React.PureComponent {
             columnTitle
           )}
         </div>
-        {allowResizing && (
+        {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
             onDraftWidthChange={onDraftWidthChange}
@@ -128,7 +128,7 @@ TableHeaderCell.propTypes = {
   showGroupingControls: PropTypes.bool,
   onGroup: PropTypes.func,
   draggingEnabled: PropTypes.bool,
-  allowResizing: PropTypes.bool,
+  resizingEnabled: PropTypes.bool,
   onWidthChange: PropTypes.func,
   onDraftWidthChange: PropTypes.func,
   getMessage: PropTypes.func,
@@ -145,7 +145,7 @@ TableHeaderCell.defaultProps = {
   showGroupingControls: false,
   onGroup: undefined,
   draggingEnabled: false,
-  allowResizing: false,
+  resizingEnabled: false,
   onWidthChange: undefined,
   onDraftWidthChange: undefined,
   getMessage: undefined,

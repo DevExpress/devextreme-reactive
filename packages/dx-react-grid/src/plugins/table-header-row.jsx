@@ -62,7 +62,7 @@ export class TableHeaderRow extends React.PureComponent {
                     allowSorting={allowSorting && sorting !== undefined}
                     showGroupingControls={showGroupingControls && atLeastOneDataColumn}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
-                    allowResizing={tableColumnResizingEnabled}
+                    resizingEnabled={tableColumnResizingEnabled}
                     sortingDirection={allowSorting && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     onSort={({ keepOther, cancel }) =>

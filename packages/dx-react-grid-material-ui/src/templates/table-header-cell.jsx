@@ -78,7 +78,7 @@ class TableHeaderCellBase extends React.PureComponent {
       allowSorting, sortingDirection,
       showGroupingControls, onGroup,
       draggingEnabled,
-      allowResizing, onWidthChange, onDraftWidthChange,
+      resizingEnabled, onWidthChange, onDraftWidthChange,
       classes, getMessage, tableRow, className, onSort,
       ...restProps
     } = this.props;
@@ -121,7 +121,7 @@ class TableHeaderCellBase extends React.PureComponent {
             {columnTitle}
           </div>
         )}
-        {allowResizing && (
+        {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
             onDraftWidthChange={onDraftWidthChange}
@@ -154,7 +154,7 @@ TableHeaderCellBase.propTypes = {
   showGroupingControls: PropTypes.bool,
   onGroup: PropTypes.func,
   draggingEnabled: PropTypes.bool,
-  allowResizing: PropTypes.bool,
+  resizingEnabled: PropTypes.bool,
   onWidthChange: PropTypes.func,
   onDraftWidthChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
@@ -173,7 +173,7 @@ TableHeaderCellBase.defaultProps = {
   showGroupingControls: false,
   onGroup: undefined,
   draggingEnabled: false,
-  allowResizing: false,
+  resizingEnabled: false,
   onWidthChange: undefined,
   onDraftWidthChange: undefined,
   className: undefined,

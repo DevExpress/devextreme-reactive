@@ -166,7 +166,7 @@ describe('TableHeaderRow', () => {
 
       expect(tree.find(defaultProps.cellComponent).props())
         .toMatchObject({
-          allowResizing: true,
+          resizingEnabled: true,
           onWidthChange: expect.any(Function),
           onDraftWidthChange: expect.any(Function),
         });

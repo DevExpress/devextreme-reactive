@@ -8,6 +8,7 @@ The following plugins implement filtering features:
 
 - [PagingState](../reference/paging-state.md) - controls the paging state
 - [LocalPaging](../reference/local-paging.md) - performs local data paging
+- [CustomPaging](../reference/local-paging.md) - specifies custom totalCount property
 - [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.

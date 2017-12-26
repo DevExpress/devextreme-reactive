@@ -72,5 +72,4 @@ PagingState.defaultProps = {
   currentPage: undefined,
   defaultCurrentPage: 0,
   onCurrentPageChange: undefined,
-  // totalCount: 0,
 };

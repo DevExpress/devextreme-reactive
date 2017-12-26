@@ -12,7 +12,7 @@ The following plugins implement filtering features:
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
-## Basic Local Paging Setup
+## Basic Paging Setup
 
 Import the plugins listed above to set up a Grid with basic paging.
 
@@ -22,7 +22,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the in
 
 In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is usual for the controlled mode. However, the `onPageSizeChange` event handler is not specified because page size is not supposed to be changed internally as the Page Size Selector is not available.
 
-.embedded-demo(paging/local-paging)
+.embedded-demo(paging/uncontrolled-mode)
 
 ## Page Size Selection
 
@@ -41,7 +41,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 
 Note that the `onPageSizeChange` handler makes sense only if the `pageSizes` option is specified. Otherwise, a user is not able to change the page size.
 
-.embedded-demo(paging/local-paging-controlled)
+.embedded-demo(paging/controlled-mode)
 
 ## Remote Paging
 

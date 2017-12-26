@@ -15,7 +15,7 @@ The following plugins implement sorting features:
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
-## Basic Local Sorting Setup
+## Basic Setup
 
 Use the `SortingState`, `IntegratedSorting` and `TableHeaderRow` plugins to set up a Grid with simple static sorting.
 
@@ -25,13 +25,13 @@ Set the `TableHeaderRow` plugin's `allowSorting` property to true to enable chan
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `SortingState` plugin's `defaultSorting` property.
 
-.embedded-demo(sorting/local-header-sorting)
+.embedded-demo(sorting/header-sorting)
 
 ## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `SortingState` plugin's `sorting` property and handle the `onSortingChange` event to control the sorting state externally.
 
-.embedded-demo(sorting/local-sorting-controlled)
+.embedded-demo(sorting/controlled-mode)
 
 ## Using Sorting with Grouping
 
@@ -39,13 +39,13 @@ If you use grouping features, the Grid allows you to sort groups as well as data
 
 Note that the `IntegratedGrouping` plugin should follow the `IntegratedSorting` to provide the correct group row sorting.
 
-.embedded-demo(sorting/local-group-sorting)
+.embedded-demo(sorting/group-sorting)
 
 ## Custom Sorting Algorithm
 
 The [IntegratedSorting](../reference/integrated-sorting.md) plugin's `getColumnCompare` property allows you to implement a custom sorting algorithm. If the `getColumnCompare` function returns undefined, it applies the default sorting algorithm.
 
-.embedded-demo(sorting/local-custom-sorting)
+.embedded-demo(sorting/custom-sorting)
 
 ## Remote Sorting
 

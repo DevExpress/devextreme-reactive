@@ -12,7 +12,7 @@ The following plugins implement filtering features:
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
-## Setting up Local Filtering
+## Basic Setup
 
 Import the plugins listed above to set up a Grid with basic filtering.
 
@@ -20,13 +20,13 @@ Import the plugins listed above to set up a Grid with basic filtering.
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial filtering conditions in the `FilteringState` plugin's `defaultFilters` property.
 
-.embedded-demo(filtering/local-filter-row)
+.embedded-demo(filtering/filter-row)
 
 ### Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filtering options to the `FilteringState` plugin's `filters` property and handle the `onFiltersChange` event to control the filtering state externally.
 
-.embedded-demo(filtering/local-filtering-controlled)
+.embedded-demo(filtering/controlled-mode)
 
 ### <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
 
@@ -34,7 +34,7 @@ You can also specify a filtering predicate using the `IntegratedFiltering` plugi
 
 .embedded-demo(filtering/custom-filtering-algorithm)
 
-## Setting up Remote Filtering
+## Remote Filtering
 
 It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.
 

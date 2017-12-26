@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Demo from './local-grouping-custom-advanced';
+import Demo from './controlled-mode';
 
-describe('MUI: grouping with custom advanced', () => {
+describe('MUI: local filtering controlled demo', () => {
   it('should work', () => {
     mount(<Demo />);
   });

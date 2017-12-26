@@ -12,7 +12,7 @@ The following plugins implement editing features:
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
-## Set up a Simple Editable Grid
+## Basic Setup
 
 Add the plugins listed above to the Grid to set up a simple Grid supporting editing features.
 
@@ -29,7 +29,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 
 .embedded-demo(editing/edit-row)
 
-## Controlled State
+## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes:
 

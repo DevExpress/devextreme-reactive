@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Demo from './local-grouping-custom-advanced';
+import Demo from './grouping-with-ui';
 
-describe('BS3: grouping with custom advanced', () => {
+describe('MUI: grouping by drag\'n\'drop', () => {
   it('should work', () => {
     mount(<Demo />);
   });

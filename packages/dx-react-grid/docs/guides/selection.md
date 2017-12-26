@@ -12,7 +12,7 @@ The following plugins implement selection features:
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
-## Basic setup
+## Basic Setup
 
 Import the `SelectionState` and `TableSelection` plugins to set up a simple Grid with selection enabled. The following example demonstrates how to configure selection in the [controlled mode](controlled-and-uncontrolled-modes.md). Pass the initially selected rows to the `SelectionState` plugin's `selection` property and handle the `onSelectionChange` event to control the selection.
 

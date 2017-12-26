@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Demo from './local-custom-sorting';
+import Demo from './controlled-mode';
 
-describe('BS3 sorting: custom local sorting demo', () => {
+describe('BS3 filtering: controlled local filtering', () => {
   it('should work', () => {
     mount(<Demo />);
   });

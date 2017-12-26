@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Demo from './local-filter-row';
+import Demo from './static';
 
-describe('BS3 filtering: local filter row', () => {
+describe('BS3: integrated-grouping-static', () => {
   it('should work', () => {
     mount(<Demo />);
   });

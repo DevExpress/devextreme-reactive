@@ -29,13 +29,13 @@ createRowChange | (row: any, columnName: string, value: string &#124; number) =>
 
 ## Interfaces
 
-### <a name="column"></a>Column (Extension)
+### Column (Extension)
 
 A value with the [Column](grid.md#column) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
-createRowChange | (row: any, value: string &#124; number, columnName: string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.
+createRowChange? | (row: any, value: string &#124; number, columnName: string) => any | A function that returns a value specifying row changes depending on the columns's editor values for the current row. This function is called each time the editor's value changes.
 
 ### <a name="change-set"></a>ChangeSet
 
@@ -55,7 +55,7 @@ deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing the 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column)&gt; | The grid columns.
+columns | Getter | Array&lt;[Column](#column-extension)&gt; | The grid columns.
 
 ### Exports
 

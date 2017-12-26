@@ -11,6 +11,7 @@ import {
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
+  Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
@@ -53,6 +54,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow allowSorting />
         <TableGroupRow />
+        <Toolbar />
         <GroupingPanel allowSorting />
       </Grid>
     );

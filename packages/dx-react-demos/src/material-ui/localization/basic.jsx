@@ -18,7 +18,8 @@ import {
   TableEditRow,
   TableEditColumn,
   PagingPanel,
-  DragDropContext,
+  DragDropProvider,
+  Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
 import {
@@ -74,7 +75,7 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <DragDropContext />
+          <DragDropProvider />
           <FilteringState defaultFilters={[]} />
           <GroupingState defaultGrouping={[]} />
           <EditingState
@@ -91,13 +92,13 @@ export default class Demo extends React.PureComponent {
           <Table
             messages={tableMessages}
           />
-          <TableHeaderRow allowDragging />
+          <TableHeaderRow />
 
           <TableEditRow />
           <TableEditColumn
-            allowAdding
-            allowEditing
-            allowDeleting
+            showAddCommand
+            showEditCommand
+            showDeleteCommand
             width={250}
             messages={editColumnMessages}
           />
@@ -105,15 +106,15 @@ export default class Demo extends React.PureComponent {
           <TableFilterRow
             messages={filterRowMessages}
           />
+          <Toolbar />
           <GroupingPanel
-            allowUngroupingByClick
-            allowDragging
+            showGroupingControls
             messages={groupingPanelMessages}
           />
 
           <TableGroupRow />
           <PagingPanel
-            allowedPageSizes={[5, 10, 15, 0]}
+            pageSizes={[5, 10, 15, 0]}
             messages={pagingPanelMessages}
           />
         </Grid>

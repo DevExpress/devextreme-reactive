@@ -17,8 +17,7 @@ export class GroupingPanel extends React.PureComponent {
       itemComponent: Item,
       emptyMessageComponent: EmptyMessage,
       allowSorting,
-      allowDragging,
-      allowUngroupingByClick,
+      showGroupingControls,
       messages,
     } = this.props;
 
@@ -40,7 +39,7 @@ export class GroupingPanel extends React.PureComponent {
               allowSorting={allowSorting && sorting !== undefined}
               sortingDirection={sorting !== undefined
                 ? getColumnSortingDirection(sorting, columnName) : undefined}
-              allowUngroupingByClick={allowUngroupingByClick}
+              showGroupingControls={showGroupingControls}
               onGroup={() => groupByColumn({ columnName })}
               onSort={({ keepOther, cancel }) =>
                 setColumnSorting({ columnName, keepOther, cancel })}
@@ -55,13 +54,14 @@ export class GroupingPanel extends React.PureComponent {
         pluginName="GroupingPanel"
         dependencies={[
           { pluginName: 'GroupingState' },
+          { pluginName: 'Toolbar' },
           { pluginName: 'SortingState', optional: !allowSorting },
         ]}
       >
-        <Template name="header">
+        <Template name="toolbarContent">
           <TemplateConnector>
             {({
-              columns, draftGrouping,
+              columns, draftGrouping, allowDragging,
             }, {
               groupByColumn, draftGroupingChange, cancelGroupingChange,
             }) => (
@@ -86,8 +86,7 @@ export class GroupingPanel extends React.PureComponent {
 
 GroupingPanel.propTypes = {
   allowSorting: PropTypes.bool,
-  allowDragging: PropTypes.bool,
-  allowUngroupingByClick: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
   layoutComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,
@@ -97,7 +96,6 @@ GroupingPanel.propTypes = {
 
 GroupingPanel.defaultProps = {
   allowSorting: false,
-  allowDragging: false,
-  allowUngroupingByClick: false,
+  showGroupingControls: false,
   messages: {},
 };

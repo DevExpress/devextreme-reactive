@@ -2,7 +2,7 @@ import React from 'react';
 import { TableCell, TableSortLabel } from 'material-ui';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
+import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { SortingControl } from './table-header-cell/sorting-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
@@ -70,7 +70,6 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
-        column={{}}
         getMessage={jest.fn()}
       />
     ));
@@ -93,13 +92,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when dragging is allowed', () => {
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <TableHeaderCell
-          column={{}}
           allowDragging
           getMessage={jest.fn()}
         />
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
@@ -108,13 +106,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles while dragging', () => {
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <TableHeaderCell
-          column={{}}
           allowDragging
           getMessage={jest.fn()}
         />
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.find(TableCell).hasClass(classes.cellDimmed)).toBeFalsy();
@@ -133,7 +130,6 @@ describe('TableHeaderCell', () => {
     const onDraftWidthChange = () => {};
     const tree = shallow((
       <TableHeaderCell
-        column={{}}
         allowResizing
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
@@ -153,7 +149,8 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <TableHeaderCell
         allowSorting
-        column={{ align: 'right', title: 'test' }}
+        tableColumn={{ align: 'right' }}
+        column={{ title: 'test' }}
         getMessage={() => {}}
       />
     ));
@@ -200,7 +197,7 @@ describe('TableHeaderCell', () => {
     it('can not get focus if sorting is not allow', () => {
       const tree = mount((
         <TableHeaderCell
-          column={{ align: 'right', title: 'test' }}
+          column={{ title: 'text' }}
           getMessage={jest.fn()}
         />
       ));
@@ -212,7 +209,7 @@ describe('TableHeaderCell', () => {
     it('can get focus if sorting is allow', () => {
       const tree = mount((
         <TableHeaderCell
-          column={{ align: 'right', title: 'test' }}
+          column={{ title: 'text' }}
           allowSorting
           getMessage={jest.fn()}
         />
@@ -227,7 +224,7 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
+          column={{ title: 'text' }}
           allowSorting
           getMessage={jest.fn()}
         />
@@ -254,7 +251,7 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
+          column={{ title: 'text' }}
           allowSorting
           getMessage={jest.fn()}
         />
@@ -270,7 +267,7 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
+          column={{ title: 'text' }}
           allowSorting
           getMessage={jest.fn()}
         />

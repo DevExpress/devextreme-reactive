@@ -151,7 +151,7 @@ describe('TableHeaderCell', () => {
         allowSorting
         tableColumn={{ align: 'right' }}
         column={{ title: 'test' }}
-        getMessage={() => {}}
+        getMessage={key => key}
       />
     ));
 
@@ -159,7 +159,7 @@ describe('TableHeaderCell', () => {
     expect(tooltip.exists())
       .toBeTruthy();
     expect(tooltip.prop('title'))
-      .toBe('Sort');
+      .toBe('sortingHint');
   });
 
   it('should pass the className prop to the root element', () => {

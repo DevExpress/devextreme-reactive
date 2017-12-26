@@ -94,7 +94,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
-          allowDragging
+          draggingEnabled
           getMessage={jest.fn()}
         />
       </DragDropProvider>
@@ -108,7 +108,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
-          allowDragging
+          draggingEnabled
           getMessage={jest.fn()}
         />
       </DragDropProvider>

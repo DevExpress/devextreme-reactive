@@ -14,7 +14,7 @@ A plugin that renders group rows and enables them to expand and collapse.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-showColumnsWhenGrouped | boolean | false | A Boolean value that specifies whether the grid's table displays the column by which data is grouped.
+showColumnsWhenGrouped | boolean | false | A Boolean value that specifies whether the grid's table displays a column by which data is grouped.
 columnExtensions | Array&lg;[TableGroupColumnExtension](#tablegroupcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 cellComponent | ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A component that renders a group cell.
 rowComponent | ElementType&lt;[TableGroupRowProps](#tablegrouprowprops)&gt; | | A component that renders a group row.

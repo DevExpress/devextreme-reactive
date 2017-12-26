@@ -273,28 +273,29 @@ describe('TableColumnReordering', () => {
     });
 
     it('should reset cell dimensions after leave and drop events', () => {
+      const onOverArg = { payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset };
       const { onOver, onLeave, onDrop } = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
         .find(TableMock)
         .props();
 
       getBoundingClientRect.mockClear();
 
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver(onOverArg);
+      onOver(onOverArg);
+      onOver(onOverArg);
 
       onLeave();
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver(onOverArg);
+      onOver(onOverArg);
+      onOver(onOverArg);
 
       onDrop();
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
-      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+      onOver(onOverArg);
+      onOver(onOverArg);
+      onOver(onOverArg);
 
       expect(getBoundingClientRect)
-        .toHaveBeenCalledTimes(6);
+        .toHaveBeenCalledTimes(defaultDeps.getter.tableColumns.length * 3);
     });
   });
 });

@@ -62,13 +62,14 @@ class TableHeaderCellBase extends React.PureComponent {
       const isMouseClick = e.keyCode === undefined;
 
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      const cancel = (isMouseClick && cancelSortingRelatedKey)
-        || (isActionKeyDown && cancelSortingRelatedKey);
+      const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
+        ? null
+        : undefined;
 
       e.preventDefault();
       onSort({
+        direction,
         keepOther: e.shiftKey || cancelSortingRelatedKey,
-        cancel,
       });
     };
   }

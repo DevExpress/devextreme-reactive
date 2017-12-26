@@ -41,8 +41,8 @@ export class GroupingPanel extends React.PureComponent {
                 ? getColumnSortingDirection(sorting, columnName) : undefined}
               showGroupingControls={showGroupingControls}
               onGroup={() => groupByColumn({ columnName })}
-              onSort={({ keepOther, cancel }) =>
-                setColumnSorting({ columnName, keepOther, cancel })}
+              onSort={({ direction, keepOther }) =>
+                setColumnSorting({ columnName, direction, keepOther })}
             />
           )}
         </TemplateConnector>

@@ -9,6 +9,7 @@ const styles = theme => ({
   pager: {
     overflow: 'hidden',
     padding: theme.spacing.unit * 1.5,
+    borderTop: `1px solid ${theme.palette.text.lightDivider}`,
   },
 });
 

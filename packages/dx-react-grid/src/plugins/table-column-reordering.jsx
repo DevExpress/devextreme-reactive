@@ -50,7 +50,7 @@ export class TableColumnReordering extends React.PureComponent {
     return this.getDraftOrder()
       .filter(columnName => !!this.cellDimensionGetters[columnName]);
   }
-  getCellDimensions() {
+  cacheCellDimensions() {
     this.cellDimensions = (this.cellDimensions && this.cellDimensions.length)
       ? this.cellDimensions
       : this.getAvailableColumns()
@@ -71,7 +71,7 @@ export class TableColumnReordering extends React.PureComponent {
 
     if (relativeSourceColumnIndex === -1) return;
 
-    this.getCellDimensions();
+    this.cacheCellDimensions();
     const { cellDimensions } = this;
 
     const overlappedColumns = cellDimensions

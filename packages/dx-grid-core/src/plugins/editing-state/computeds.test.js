@@ -19,6 +19,7 @@ describe('EditingState computeds', () => {
       });
     });
   });
+
   describe('#addedRowsByIds', () => {
     it('should work', () => {
       const addedRows = [
@@ -34,11 +35,12 @@ describe('EditingState computeds', () => {
       ]);
     });
   });
+
   describe('#createRowChangeGetter', () => {
     it('should work with default cell access', () => {
-      expect(createRowChangeGetter(undefined)({ a: 1 }, 'a', 2))
+      expect(createRowChangeGetter(undefined)({ a: 1 }, 2, 'a'))
         .toEqual({ a: 2 });
-      expect(createRowChangeGetter(undefined)({ b: 2 }, 'a', 1))
+      expect(createRowChangeGetter(undefined)({ b: 2 }, 1, 'a'))
         .toEqual({ a: 1 });
     });
 
@@ -48,18 +50,18 @@ describe('EditingState computeds', () => {
         createRowChange: (row, value, columnName) => ({ [`_${columnName}`]: value }),
       }];
 
-      expect(createRowChangeGetter(undefined, columnExtensions)({ a: 1 }, 'a', 2))
+      expect(createRowChangeGetter(undefined, columnExtensions)({ a: 1 }, 2, 'a'))
         .toEqual({ _a: 2 });
-      expect(createRowChangeGetter(undefined, columnExtensions)({ b: 2 }, 'a', 1))
+      expect(createRowChangeGetter(undefined, columnExtensions)({ b: 2 }, 1, 'a'))
         .toEqual({ _a: 1 });
     });
 
     it('should work with defined cell access', () => {
-      const createRowChange = (row, columnName, value) => ({ [`_${columnName}`]: value });
+      const createRowChange = (row, value, columnName) => ({ [`_${columnName}`]: value });
 
-      expect(createRowChangeGetter(createRowChange)({ a: 1 }, 'a', 2))
+      expect(createRowChangeGetter(createRowChange)({ a: 1 }, 2, 'a'))
         .toEqual({ _a: 2 });
-      expect(createRowChangeGetter(createRowChange)({ b: 2 }, 'a', 1))
+      expect(createRowChangeGetter(createRowChange)({ b: 2 }, 1, 'a'))
         .toEqual({ _a: 1 });
     });
   });

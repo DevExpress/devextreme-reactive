@@ -17,7 +17,7 @@ export const addedRowsByIds = (addedRows, rowIds) => {
   return result;
 };
 
-const defaultCreateRowChange = (row, columnName, value) => ({ [columnName]: value });
+const defaultCreateRowChange = (row, value, columnName) => ({ [columnName]: value });
 export const createRowChangeGetter = (
   createRowChange = defaultCreateRowChange,
   columnExtensions = [],
@@ -29,10 +29,10 @@ export const createRowChangeGetter = (
     return acc;
   }, {});
 
-  return (row, columnName, value) => {
+  return (row, value, columnName) => {
     if (map[columnName]) {
       return map[columnName](row, value, columnName);
     }
-    return createRowChange(row, columnName, value);
+    return createRowChange(row, value, columnName);
   };
 };

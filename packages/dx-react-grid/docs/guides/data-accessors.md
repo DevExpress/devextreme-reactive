@@ -112,7 +112,7 @@ const editingColumnExtensions = [
 Specify the `EditingState` plugin's `createRowChange` property if you use a common algorithm for all columns.
 
 ```js
-const createRowChange = (row, columnName, value) => {
+const createRowChange = (row, value, columnName) => {
   /* ... */
 };
 

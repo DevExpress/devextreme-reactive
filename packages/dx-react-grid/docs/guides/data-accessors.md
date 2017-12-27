@@ -80,7 +80,7 @@ The `getCellValue` implementation presented in this demo is not optimized for fr
 
 ## Cell Value Editing
 
-If editing features are enabled, you can use the column's `createRowChange` function to create a row changes object:
+If editing features are enabled, you can use the editing column extension's `createRowChange` function to create a row changes object:
 
 ```js
 const rows = [
@@ -89,7 +89,15 @@ const rows = [
 ];
 const columns = [
   {
-    /* ... */
+    name: 'firstName',
+    title: 'First Name',
+    getCellValue: row => (row.user ? row.user.firstName : undefined),
+  },
+  /* ... */
+];
+const editingColumnExtensions = [
+  {
+    columnName: 'firstName',
     createRowChange: (row, value) => ({
       user: {
         ...row.user,
@@ -116,5 +124,3 @@ const createRowChange = (row, columnName, value) => {
   />
 />
 ```
-
-Note that the `EditingState` plugin's `createRowChange` property has a higher priority than the column's property.

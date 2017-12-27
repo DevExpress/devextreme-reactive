@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering, Toolbar,
+  PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
@@ -42,17 +42,22 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       pageSizes: [5, 10, 15],
     };
   }
   render() {
-    const { rows, columns, pageSizes } = this.state;
+    const {
+      rows, columns, tableColumnExtensions, pageSizes,
+    } = this.state;
 
     return (
       <Grid
@@ -86,24 +91,24 @@ export default class Demo extends React.PureComponent {
         <LocalPaging />
         <LocalSelection />
 
-        <DragDropContext />
+        <DragDropProvider />
 
         <Table
+          columnExtensions={tableColumnExtensions}
           cellComponent={Cell}
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <PagingPanel
           pageSizes={pageSizes}
         />
         <TableSelection showSelectAll />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
         <TableGroupRow />
-
       </Grid>
     );
   }

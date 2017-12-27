@@ -4,7 +4,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { Draggable } from '../draggable';
-import { DragDropContext } from './context';
+import { DragDropProvider } from './provider';
 import { DragSource } from './source';
 import { DropTarget } from './target';
 
@@ -30,7 +30,7 @@ describe('DropTarget', () => {
 
     const onEnter = jest.fn();
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <div>
           <DragSource
             getPayload={() => 'data'}
@@ -43,7 +43,7 @@ describe('DropTarget', () => {
             <div className="target" />
           </DropTarget>
         </div>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     const draggable = tree.find(Draggable);
@@ -66,7 +66,7 @@ describe('DropTarget', () => {
 
     const onOver = jest.fn();
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <div>
           <DragSource
             getPayload={() => 'data'}
@@ -79,7 +79,7 @@ describe('DropTarget', () => {
             <div className="target" />
           </DropTarget>
         </div>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     const draggable = tree.find(Draggable);
@@ -103,7 +103,7 @@ describe('DropTarget', () => {
 
     const onLeave = jest.fn();
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <div>
           <DragSource
             getPayload={() => 'data'}
@@ -116,7 +116,7 @@ describe('DropTarget', () => {
             <div className="target" />
           </DropTarget>
         </div>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     const draggable = tree.find(Draggable);
@@ -140,7 +140,7 @@ describe('DropTarget', () => {
 
     const onDrop = jest.fn();
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <div>
           <DragSource
             getPayload={() => 'data'}
@@ -153,7 +153,7 @@ describe('DropTarget', () => {
             <div className="target" />
           </DropTarget>
         </div>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     const draggable = tree.find(Draggable);

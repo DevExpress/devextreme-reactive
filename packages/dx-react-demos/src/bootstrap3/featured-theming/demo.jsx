@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
+  PagingPanel, GroupingPanel, DragDropProvider, TableRowDetail,
   TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import { Nav, NavItem, ListGroup, ListGroupItem } from 'react-bootstrap';
@@ -132,11 +132,16 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'prefix', title: 'Title', width: 100 },
+        { name: 'prefix', title: 'Title' },
         { name: 'firstName', title: 'First Name' },
         { name: 'lastName', title: 'Last Name' },
-        { name: 'position', title: 'Position', width: 170 },
-        { name: 'state', title: 'State', width: 125 },
+        { name: 'position', title: 'Position' },
+        { name: 'state', title: 'State' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'prefix', width: 100 },
+        { columnName: 'position', width: 170 },
+        { columnName: 'state', width: 125 },
       ],
       rows: generateRows({
         columnValues: {
@@ -153,7 +158,9 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, pageSizes } = this.state;
+    const {
+      rows, columns, tableColumnExtensions, pageSizes,
+    } = this.state;
 
     return (
       <Grid
@@ -178,13 +185,15 @@ export default class Demo extends React.PureComponent {
         <LocalPaging />
         <LocalSelection />
 
-        <DragDropContext />
+        <DragDropProvider />
 
-        <Table />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <PagingPanel
           pageSizes={pageSizes}
         />
@@ -194,7 +203,7 @@ export default class Demo extends React.PureComponent {
         />
         <TableGroupRow />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
       </Grid>
     );
   }

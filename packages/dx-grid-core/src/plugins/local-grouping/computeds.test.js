@@ -122,12 +122,12 @@ describe('LocalGrouping computeds', () => {
         .toEqual(secondGroupedRows);
     });
 
-    it('should use getColumnIdentity', () => {
-      const getColumnIdentity = () => value => ({
+    it('should use getColumnCriteria', () => {
+      const getColumnCriteria = () => value => ({
         key: String(value).substr(0, 1),
         value: `${value}_test`,
       });
-      expect(groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity))
+      expect(groupedRows(rows, firstGrouping, getCellValue, getColumnCriteria))
         .toEqual([
           groupRow({
             groupedBy: 'a',
@@ -148,12 +148,12 @@ describe('LocalGrouping computeds', () => {
         ]);
     });
 
-    it('should use getColumnIdentity argument for each grouping', () => {
-      const getColumnIdentity = () => value => ({
+    it('should use getColumnCriteria argument for each grouping', () => {
+      const getColumnCriteria = () => value => ({
         key: `${value}_test`,
       });
 
-      expect(groupedRows(rows, secondGrouping, getCellValue, getColumnIdentity))
+      expect(groupedRows(rows, secondGrouping, getCellValue, getColumnCriteria))
         .toEqual([
           groupRow({
             groupedBy: 'a',
@@ -198,18 +198,18 @@ describe('LocalGrouping computeds', () => {
         ]);
     });
 
-    it('should pass column name to getColumnIdentity', () => {
-      const getColumnIdentity = jest.fn(() => value => value);
+    it('should pass column name to getColumnCriteria', () => {
+      const getColumnCriteria = jest.fn(() => value => value);
 
-      groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity);
+      groupedRows(rows, firstGrouping, getCellValue, getColumnCriteria);
 
-      expect(getColumnIdentity)
+      expect(getColumnCriteria)
         .toHaveBeenCalledWith(firstGrouping[0].columnName);
     });
 
-    it('should group using default getColumnIdentity if custom getColumnIdentity returns nothing', () => {
-      const getColumnIdentity = () => undefined;
-      expect(groupedRows(rows, firstGrouping, getCellValue, getColumnIdentity))
+    it('should group using default getColumnCriteria if custom getColumnCriteria returns nothing', () => {
+      const getColumnCriteria = () => undefined;
+      expect(groupedRows(rows, firstGrouping, getCellValue, getColumnCriteria))
         .toEqual(firstGroupedRows);
     });
   });

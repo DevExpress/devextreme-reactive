@@ -12,13 +12,20 @@ A plugin that performs local grouping and group expanding/collapsing.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnIdentity | (columnName: string) => [Identity](#identity) &#124; undefined | | A function that defines a column's grouping identity. See [Grouping](../guides/grouping.md#local-grouping-with-custom-values) for details.
+columnExtensions | Array&lg;[LocalGroupingColumnExtension](#localgroupingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 
-### <a name="identity"></a>Identity
+### LocalGroupingColumnExtension
 
-A function with the following signature: `(value: any) => { key: string | number, value?: any }`. This function returns an object by whose **key** field data is grouped. If you need to group data by a non-primitive value (for example, a date), assign its string representation to the **key** field and the value to the **value** field.
+Describes additional column properties that the plugin can handle.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+columnName | string | The name of a column to extend.
+criteria? | (value: any) => { key: string | number, value?: any } | A grouping criterion function. It returns an object with the **key** field by which data is grouped. If you need to group data by a non-primitive value (for example, a date), assign its string representation to the **key** field and the value to the **value** field.
 
 ## Plugin Developer Reference
 

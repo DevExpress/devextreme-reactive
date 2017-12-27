@@ -34,6 +34,17 @@ GroupCell.propTypes = {
   column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
+const nameGroupCriteria = (value) => {
+  const firstLetter = String(value).substr(0, 1).toLowerCase();
+  const groupValue = firstLetter < 'n'
+    ? { from: 'A', to: 'M' }
+    : { from: 'N', to: 'Z' };
+  return {
+    value: groupValue,
+    key: `${groupValue.from}-${groupValue.to}`,
+  };
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -45,29 +56,19 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
+      localGroupingColumnExtensions: [
+        { columnName: 'name', criteria: nameGroupCriteria },
+      ],
       tableGroupColumnExtension: [
         { columnName: 'name', showWhenGrouped: true },
       ],
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'name' }],
     };
-
-    this.getColumnIdentity = (columnName) => {
-      if (columnName === 'name') {
-        return (value) => {
-          const firstLetter = String(value).substr(0, 1).toLowerCase();
-          return {
-            value: firstLetter < 'n' ? { from: 'A', to: 'M' } : { from: 'N', to: 'Z' },
-            key: firstLetter < 'n' ? 'A-M' : 'N-Z',
-          };
-        };
-      }
-      return undefined;
-    };
   }
   render() {
     const {
-      rows, columns, tableGroupColumnExtension, grouping,
+      rows, columns, localGroupingColumnExtensions, tableGroupColumnExtension, grouping,
     } = this.state;
 
     return (
@@ -80,7 +81,7 @@ export default class Demo extends React.PureComponent {
           defaultExpandedGroups={['N-Z']}
         />
         <LocalGrouping
-          getColumnIdentity={this.getColumnIdentity}
+          columnExtensions={localGroupingColumnExtensions}
         />
         <Table />
         <TableHeaderRow />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
+import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
@@ -61,7 +61,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -76,12 +76,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when dragging is allowed', () => {
     const tree = shallow((
-      <DragDropContext>
+      <DragDropProvider>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.dive().find('th').prop('style'))
@@ -95,12 +95,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when dragging', () => {
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.find('th').prop('style'))
@@ -131,7 +131,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
-        allowResizing
+        resizingEnabled
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
       />
@@ -234,7 +234,7 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
@@ -261,7 +261,7 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
@@ -278,7 +278,7 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 

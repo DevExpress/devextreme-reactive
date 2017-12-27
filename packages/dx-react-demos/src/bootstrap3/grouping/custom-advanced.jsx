@@ -40,10 +40,13 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'name', title: 'Name', showWhenGrouped: true },
+        { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
+      ],
+      tableGroupColumnExtension: [
+        { columnName: 'name', showWhenGrouped: true },
       ],
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'name' }],
@@ -63,7 +66,9 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, grouping } = this.state;
+    const {
+      rows, columns, tableGroupColumnExtension, grouping,
+    } = this.state;
 
     return (
       <Grid
@@ -80,6 +85,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableGroupRow
+          columnExtensions={tableGroupColumnExtension}
           cellComponent={GroupCell}
         />
       </Grid>

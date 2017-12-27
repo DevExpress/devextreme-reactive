@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering, Toolbar,
+  PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
@@ -91,7 +91,7 @@ export default class Demo extends React.PureComponent {
         <IntegratedPaging />
         <IntegratedSelection />
 
-        <DragDropContext />
+        <DragDropProvider />
 
         <Table
           columnExtensions={tableColumnExtensions}
@@ -100,14 +100,14 @@ export default class Demo extends React.PureComponent {
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <PagingPanel
           pageSizes={pageSizes}
         />
         <TableSelection showSelectAll />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
         <TableGroupRow />
       </Grid>
     );

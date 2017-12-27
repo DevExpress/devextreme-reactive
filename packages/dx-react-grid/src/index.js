@@ -19,7 +19,7 @@ export { IntegratedSelection } from './plugins/integrated-selection';
 export { SortingState } from './plugins/sorting-state';
 export { IntegratedSorting } from './plugins/integrated-sorting';
 
-export { DragDropContext } from './plugins/drag-drop-context';
+export { DragDropProvider } from './plugins/drag-drop-provider';
 
 export { TableColumnReordering } from './plugins/table-column-reordering';
 

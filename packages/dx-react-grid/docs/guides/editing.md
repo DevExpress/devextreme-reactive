@@ -41,5 +41,3 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 Note, you can also use the `onAddedRowsChange` event to initialize a created row with default property values.
 
 .embedded-demo(editing/edit-row-controlled)
-
-

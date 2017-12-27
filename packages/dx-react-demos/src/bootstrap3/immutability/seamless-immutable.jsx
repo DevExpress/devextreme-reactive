@@ -130,7 +130,7 @@ export default () => (
       <IntegratedSorting />
       <IntegratedSelection />
       <Table />
-      <TableHeaderRow allowSorting />
+      <TableHeaderRow showSortingControls />
       <TableSelection />
     </Grid>
   </Provider>

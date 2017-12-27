@@ -2,14 +2,14 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { Draggable } from '../draggable';
-import { DragDropContext } from './context';
+import { DragDropProvider } from './provider';
 import { DragSource } from './source';
 
-describe('DragDropContext', () => {
+describe('DragDropProvider', () => {
   it('should fire the "onChange" callback while dragging a source', () => {
     const onChange = jest.fn();
     const tree = mount((
-      <DragDropContext
+      <DragDropProvider
         onChange={onChange}
       >
         <div>
@@ -19,7 +19,7 @@ describe('DragDropContext', () => {
             <div className="source" />
           </DragSource>
         </div>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     const draggable = tree.find(Draggable);

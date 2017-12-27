@@ -1,18 +1,18 @@
 # React Grid - Data Paging
 
-The Grid component supports data paging. You can specify the page size and switch pages programmatically or via the Paging Panel's UI controls. The paging state management, Paging Panel rendering, and local paging logic are implemented in the corresponding plugins. You can also configure the Grid to use server-side paging if your data service supports it.
+The Grid component supports data paging. You can specify the page size and switch pages programmatically or via the Paging Panel's UI controls. The paging state management, Paging Panel rendering, and built-in paging logic are implemented in the corresponding plugins. You can also configure the Grid to use server-side paging if your data service supports it.
 
 ## Related Plugins
 
 The following plugins implement filtering features:
 
 - [PagingState](../reference/paging-state.md) - controls the paging state
-- [LocalPaging](../reference/local-paging.md) - performs local data paging
+- [IntegratedPaging](../reference/integrated-paging.md) - performs built-in data paging
 - [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
-## Basic Local Paging Setup
+## Basic Paging Setup
 
 Import the plugins listed above to set up a Grid with basic paging.
 
@@ -22,7 +22,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the in
 
 In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is usual for the controlled mode. However, the `onPageSizeChange` event handler is not specified because page size is not supposed to be changed internally as the Page Size Selector is not available.
 
-.embedded-demo(paging/local-paging)
+.embedded-demo(paging/uncontrolled-mode)
 
 ## Page Size Selection
 
@@ -41,7 +41,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 
 Note that the `onPageSizeChange` handler makes sense only if the `pageSizes` option is specified. Otherwise, a user is not able to change the page size.
 
-.embedded-demo(paging/local-paging-controlled)
+.embedded-demo(paging/controlled-mode)
 
 ## Remote Paging
 
@@ -49,10 +49,10 @@ You can handle the Grid's paging state changes to request a page data from the s
 
 Paging options are updated once an end-user interacts with Paging Panel controls. Handle paging option changes using the `PagingState` plugin's `onCurrentPageChange` and `onPageSizeChange` events and request data from the server using the applied paging options. Once the page data is received from the server, pass it to the `Grid` component's `rows` property.
 
-Note that in the case of remote paging, you do not need to use the `LocalPaging` plugin.
+Note that in the case of remote paging, you do not need to use the `IntegratedPaging` plugin.
 
 .embedded-demo(paging/remote-paging)
 
 ## Using Paging with Other Data Processing Plugins
 
-When you use paging features with sorting, grouping, or filtering, take a note of the order in which the plugins appear in the Grid's container. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `LocalFiltering` plugin before the `LocalPaging` one. Otherwise, inverse the plugins' order.
+When you use paging features with sorting, grouping, or filtering, take a note of the order in which the plugins appear in the Grid's container. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `IntegratedFiltering` plugin before the `IntegratedPaging` one. Otherwise, inverse the plugins' order.

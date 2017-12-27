@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, EditingState, PagingState,
-  LocalPaging, LocalSorting,
+  IntegratedPaging, IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -308,8 +308,8 @@ class DemoBase extends React.PureComponent {
             onPageSizeChange={this.changePageSize}
           />
 
-          <LocalSorting />
-          <LocalPaging />
+          <IntegratedSorting />
+          <IntegratedPaging />
 
           <EditingState
             editingRows={editingRows}

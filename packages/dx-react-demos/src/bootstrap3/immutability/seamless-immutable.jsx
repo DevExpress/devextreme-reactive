@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState,
-  LocalSorting, LocalSelection,
+  IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -127,8 +127,8 @@ export default () => (
     >
       <SortingStateContainer />
       <SelectionStateContainer />
-      <LocalSorting />
-      <LocalSelection />
+      <IntegratedSorting />
+      <IntegratedSelection />
       <Table />
       <TableHeaderRow showSortingControls />
       <TableSelection />

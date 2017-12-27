@@ -8,7 +8,7 @@ export { TemplateConnector } from './plugged/template-connector';
 
 export { Draggable } from './draggable';
 
-export { DragDropContext } from './drag-drop/context';
+export { DragDropProvider } from './drag-drop/provider';
 export { DragSource } from './drag-drop/source';
 export { DropTarget } from './drag-drop/target';
 

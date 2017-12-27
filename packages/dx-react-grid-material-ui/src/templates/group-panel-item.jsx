@@ -63,7 +63,7 @@ const GroupPanelItemBase = ({
       label={label(showSortingControls, sortingDirection, column)}
       className={chipClassNames}
       {...showGroupingControls
-        ? { onRequestDelete: () => onGroup({ columnName: column.name }) }
+        ? { onDelete: () => onGroup({ columnName: column.name }) }
         : null}
       onClick={onClick}
       {...restProps}

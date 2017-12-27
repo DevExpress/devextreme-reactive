@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import {
   PluginContainer, Getter, Template, TemplatePlaceholder,
   TemplateConnector,
-  DragDropContext as DragDropContextCore,
+  DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
 
 const getTargetColumns = (payload, columns) => payload
   .filter(item => item.type === 'column')
   .map(item => columns.find(column => column.name === item.columnName));
 
-export class DragDropContext extends React.PureComponent {
+export class DragDropProvider extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -33,15 +33,15 @@ export class DragDropContext extends React.PureComponent {
 
     return (
       <PluginContainer
-        pluginName="DragDropContext"
+        pluginName="DragDropProvider"
       >
         <Getter name="allowDragging" value />
         <Template name="root">
-          <DragDropContextCore
+          <DragDropProviderCore
             onChange={this.change}
           >
             <TemplatePlaceholder />
-          </DragDropContextCore>
+          </DragDropProviderCore>
           {payload && (
             <TemplateConnector>
               {({ columns }) => (
@@ -66,7 +66,7 @@ export class DragDropContext extends React.PureComponent {
   }
 }
 
-DragDropContext.propTypes = {
+DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   columnComponent: PropTypes.func.isRequired,
 };

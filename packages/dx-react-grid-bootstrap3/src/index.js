@@ -1,6 +1,6 @@
 export { Grid } from './grid';
 export { ColumnChooser } from './column-chooser';
-export { DragDropContext } from './plugins/drag-drop-context';
+export { DragDropProvider } from './plugins/drag-drop-provider';
 export { PagingPanel } from './plugins/paging-panel';
 export { GroupingPanel } from './plugins/grouping-panel';
 export { TableRowDetail } from './plugins/table-row-detail';

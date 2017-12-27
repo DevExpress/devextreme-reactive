@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
+  PagingPanel, GroupingPanel, DragDropProvider, TableRowDetail,
   TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import { Nav, NavItem, ListGroup, ListGroupItem } from 'react-bootstrap';
@@ -185,7 +185,7 @@ export default class Demo extends React.PureComponent {
         <LocalPaging />
         <LocalSelection />
 
-        <DragDropContext />
+        <DragDropProvider />
 
         <Table
           columnExtensions={tableColumnExtensions}

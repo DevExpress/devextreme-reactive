@@ -6,7 +6,7 @@ A plugin that renders a scrollable table instead of a static one. It contains th
 
 ### Dependencies
 
-- [DragDropContext](drag-drop-context.md) [Optional]
+- [DragDropProvider](drag-drop-provider.md) [Optional]
 - [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties

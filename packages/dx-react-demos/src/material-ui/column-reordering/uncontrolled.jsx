@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Grid,
-  DragDropContext,
+  DragDropProvider,
   Table,
   TableHeaderRow,
   TableColumnReordering,
@@ -37,7 +37,7 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <DragDropContext />
+          <DragDropProvider />
           <Table
             columnExtensions={tableColumnExtensions}
           />

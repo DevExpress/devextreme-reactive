@@ -10,7 +10,7 @@ The plugin also allows you to manage a column's sorting and grouping state and i
 
 - [SortingState](sorting-state.md) [Optional]
 - [GroupingState](grouping-state.md) [Optional]
-- [DragDropContext](drag-drop-context.md) [Optional]
+- [DragDropProvider](drag-drop-provider.md) [Optional]
 - [Table](table.md)
 - [TableColumnResizing](table-column-resizing.md) [Optional]
 
@@ -22,7 +22,6 @@ cellComponent | ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt;
 rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
 showSortingControls | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 showGroupingControls | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
-allowResizing | boolean | false | Specifies whether a user can resize columns. Requires the [TableColumnResizing](table-column-resizing.md) dependency.
 messages | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
@@ -41,7 +40,8 @@ sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sort
 onSort | ({ keepOther: boolean, cancel: boolean }) | An event that changes the associated column's sorting state. The `keepOther` and `cancel` arguments specify whether to keep existing sorting and cancel sorting by the associated column.
 showGroupingControls | boolean | Specifies whether to display a button that groups data by column.
 onGroup | () => void | An event that invokes grouping by the associated column.
-onWidthChange | ({ shift: number }) => void | An event that initiates column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative
+allowResizing | boolean | false | Specifies whether table column resizing is enabled.
+onWidthChange | ({ shift: number }) => void | An event that initiates column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative.
 onDraftWidthChange | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the header cell.
 
@@ -73,6 +73,7 @@ tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Columns' sorting state.
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean &#124; Array&lt;String&gt;, cancel: boolean }) => void | A function used to set column's sorting state. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
+allowTableColumnResizing | Getter | boolean | Specifies whether table column resizing is enabled.
 changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths. The initial column width increases by the `shift` value or decreases if `shift` is negative.
 changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.

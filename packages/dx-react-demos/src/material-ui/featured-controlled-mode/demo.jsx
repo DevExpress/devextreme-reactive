@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropContext, TableColumnReordering,
+  PagingPanel, DragDropProvider, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   TableCell,
@@ -321,7 +321,7 @@ class DemoBase extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
 
-          <DragDropContext />
+          <DragDropProvider />
 
           <Table
             columnExtensions={tableColumnExtensions}
@@ -339,9 +339,9 @@ class DemoBase extends React.PureComponent {
           />
           <TableEditColumn
             width={120}
-            allowAdding={!this.state.addedRows.length}
-            allowEditing
-            allowDeleting
+            showAddCommand={!this.state.addedRows.length}
+            showEditCommand
+            showDeleteCommand
             commandComponent={Command}
           />
           <PagingPanel
@@ -351,7 +351,7 @@ class DemoBase extends React.PureComponent {
 
         <Dialog
           open={!!deletingRows.length}
-          onRequestClose={this.cancelDelete}
+          onClose={this.cancelDelete}
           classes={{ paper: classes.dialog }}
         >
           <DialogTitle>Delete Row</DialogTitle>

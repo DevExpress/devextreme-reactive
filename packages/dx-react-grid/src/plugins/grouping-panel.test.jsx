@@ -64,7 +64,7 @@ describe('GroupingPanel', () => {
       getter: {
         allowDragging: true,
       },
-      plugins: ['DragDropContext'],
+      plugins: ['DragDropProvider'],
     };
     const tree = mount((
       <PluginHost>

@@ -9,7 +9,7 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 ### Dependencies
 
 - [SortingState](sorting-state.md) [Optional]
-- [DragDropContext](drag-drop-context.md) [Optional]
+- [DragDropProvider](drag-drop-provider.md) [Optional]
 - [GroupingState](grouping-state.md)
 - [Toolbar](toolbar.md)
 

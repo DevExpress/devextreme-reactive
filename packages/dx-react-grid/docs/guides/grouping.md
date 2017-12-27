@@ -41,7 +41,7 @@ In the following example, the data is specified as an array of groups. Specify t
 Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to allow a user to use any of the following methods to specify grouping options:
 
 - Drag a column header to or from the Group Panel
- Import the [DragDropContext](../reference/drag-drop-context.md) plugin.
+ Import the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
 
 - Use the corresponding button in a header cell
  Assign true to the `TableHeaderRow` plugin's `showGroupingControls` and the `GroupingPanel` plugin's `showGroupingControls` properties.
@@ -64,7 +64,7 @@ Pass a grouping function to the `LocalGrouping` plugin’s [getColumnIdentity](.
 
 .embedded-demo(grouping/local-grouping-custom)
 
-You can also assign a function that returns a Boolean value depending on the `columnName` parameter value to the `TableGroupRow` plugin's `showColumnWhenGrouped` property to define which columns should remain visible when data is grouped by them.
+You can also assign a Boolean value to the `TableGroupRow` plugin's `showColumnsWhenGrouped` property to define what columns should remain visible when data is grouped by them.
 
 ```js
   <Grid>
@@ -73,8 +73,8 @@ You can also assign a function that returns a Boolean value depending on the `co
     />
     <LocalGrouping />
     <Table />
-    <TableHeaderRow showColumnWhenGrouped={columnName => columnName === 'city' || columnName === 'car'}/>
-    <TableGroupRow />
+    <TableHeaderRow />
+    <TableGroupRow showColumnsWhenGrouped />
   </Grid>
 ```
 

@@ -7,6 +7,7 @@ describe('Overlay', () => {
     const tree = shallow((
       <Overlay
         className="custom-class"
+        onHide={() => {}}
       >
         <div />
       </Overlay>
@@ -20,6 +21,7 @@ describe('Overlay', () => {
     const tree = shallow((
       <Overlay
         data={{ a: 1 }}
+        onHide={() => {}}
       >
         <div />
       </Overlay>

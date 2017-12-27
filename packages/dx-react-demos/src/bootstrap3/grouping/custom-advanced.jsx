@@ -56,7 +56,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      localGroupingColumnExtensions: [
+      intergatedGroupingColumnExtensions: [
         { columnName: 'name', criteria: nameGroupCriteria },
       ],
       tableGroupColumnExtension: [
@@ -68,7 +68,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, localGroupingColumnExtensions, tableGroupColumnExtension, grouping,
+      rows, columns, intergatedGroupingColumnExtensions, tableGroupColumnExtension, grouping,
     } = this.state;
 
     return (
@@ -81,7 +81,7 @@ export default class Demo extends React.PureComponent {
           defaultExpandedGroups={['N-Z']}
         />
         <IntegratedGrouping
-          columnExtensions={localGroupingColumnExtensions}
+          columnExtensions={intergatedGroupingColumnExtensions}
         />
         <Table />
         <TableHeaderRow />

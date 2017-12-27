@@ -11,7 +11,7 @@ export const groupRowChecker = row => row[GRID_GROUP_CHECK];
 
 export const groupRowLevelKeyGetter = row => row[GRID_GROUP_LEVEL_KEY];
 
-const defaultColumnIdentity = value => ({
+const defaultColumnCriteria = value => ({
   key: String(value),
   value,
 });
@@ -20,17 +20,17 @@ export const groupedRows = (
   rows,
   grouping,
   getCellValue,
-  getColumnIdentity,
+  getColumnCriteria,
   keyPrefix = '',
 ) => {
   if (!grouping.length) return rows;
 
   const { columnName } = grouping[0];
-  const groupIdentity = (getColumnIdentity && getColumnIdentity(columnName))
-    || defaultColumnIdentity;
+  const groupCriteria = (getColumnCriteria && getColumnCriteria(columnName))
+    || defaultColumnCriteria;
   const groups = rows
     .reduce((acc, row) => {
-      const { key, value = key } = groupIdentity(getCellValue(row, columnName), row);
+      const { key, value = key } = groupCriteria(getCellValue(row, columnName), row);
       const sameKeyItems = acc.get(key);
 
       if (!sameKeyItems) {
@@ -58,7 +58,7 @@ export const groupedRows = (
         items,
         nestedGrouping,
         getCellValue,
-        getColumnIdentity,
+        getColumnCriteria,
         `${compoundKey}${GROUP_KEY_SEPARATOR}`,
       ));
       return acc;

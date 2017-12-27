@@ -1,4 +1,5 @@
 import React from 'react';
+import Paper from 'material-ui/Paper';
 import {
   GroupingState,
   LocalGrouping,
@@ -9,10 +10,12 @@ import {
   TableHeaderRow,
   TableGroupRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+
 import {
   generateRows,
 } from '../../demo-data/generator';
+
+const cityGroupCriteria = value => ({ key: value.substr(0, 1) });
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -22,25 +25,25 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City', showWhenGrouped: true },
+        { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
+      ],
+      localGroupingColumnExtensions: [
+        { columnName: 'city', criteria: cityGroupCriteria },
+      ],
+      tableGroupColumnExtension: [
+        { columnName: 'city', showWhenGrouped: true },
       ],
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'city' }],
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });
-    this.getColumnIdentity = (columnName) => {
-      if (columnName === 'city') {
-        return value => ({
-          key: value.substr(0, 1),
-        });
-      }
-      return undefined;
-    };
   }
   render() {
-    const { rows, columns, grouping } = this.state;
+    const {
+      rows, columns, localGroupingColumnExtensions, tableGroupColumnExtension, grouping,
+    } = this.state;
 
     return (
       <Paper>
@@ -52,11 +55,13 @@ export default class Demo extends React.PureComponent {
             grouping={grouping}
           />
           <LocalGrouping
-            getColumnIdentity={this.getColumnIdentity}
+            columnExtensions={localGroupingColumnExtensions}
           />
           <Table />
           <TableHeaderRow />
-          <TableGroupRow />
+          <TableGroupRow
+            columnExtensions={tableGroupColumnExtension}
+          />
         </Grid>
       </Paper>
     );

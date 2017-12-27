@@ -12,13 +12,20 @@ A plugin that performs local data sorting.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getColumnCompare | (columnName: string) => [Compare](#compare) &#124; undefined | | A function implementing custom sorting. See the [Sorting guide](../guides/sorting.md#custom-sorting-algorithm) for more information.
+columnExtensions | Array&lg;[LocalSortingColumnExtension](#localsortingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 
-### <a name="compare"></a>Compare
+### LocalSortingColumnExtension
 
-A function with the following signature `(a: any, b: any) => number`
+Describes additional column properties that the plugin can handle.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+columnName | string | The name of a column to extend.
+compare? | (a: any, b: any) => number | A sort compare function. See the [Sorting guide](../guides/sorting.md#custom-sorting-algorithm) for more information.
 
 ## Plugin Developer Reference
 

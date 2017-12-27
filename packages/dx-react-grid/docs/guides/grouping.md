@@ -11,8 +11,8 @@ The following plugins implement grouping features:
 - [CustomGrouping](../reference/custom-grouping.md) - converts custom formatted grouped data to a supported format
 - [TableGroupRow](../reference/table-group-row.md) - renders group rows
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging
-- [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
 - [Toolbar](../reference/toolbar.md) - renders the Grid Toolbar
+- [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -46,25 +46,25 @@ Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to t
 - Use the corresponding button in a header cell
  Assign true to the `TableHeaderRow` plugin's `showGroupingControls` and the `GroupingPanel` plugin's `showGroupingControls` properties.
 
-You can also set the `GroupingPanel` plugin's `allowSorting` option to true to enable sorting data by a grouped column.
+You can also set the `GroupingPanel` plugin's `showSortingControls` option to true to enable sorting data by a grouped column.
 
-In the following example, the Grid functions are in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls the grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
+In the following example, the Grid functions are in [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls its grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
 
 .embedded-demo(grouping/local-grouping-with-ui)
 
 ## Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grouping state.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grid grouping state.
 
 .embedded-demo(grouping/local-grouping-controlled)
 
 ## Local Grouping with Custom Values
 
-Pass a grouping function to the `LocalGrouping` plugin’s [getColumnIdentity](../reference/local-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column's values while still displaying the column.
+Pass a grouping criterion function to the `LocalGrouping` plugin’s [columnExtensions](../reference/local-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column's values while still displaying the column.
 
 .embedded-demo(grouping/local-grouping-custom)
 
-You can also assign a function that returns a Boolean value depending on the `columnName` parameter value to the `TableGroupRow` plugin's `showColumnWhenGrouped` property to define which columns should remain visible when data is grouped by them.
+You can also assign a Boolean value to the `TableGroupRow` plugin's `showColumnsWhenGrouped` property to define what columns should remain visible when data is grouped by them.
 
 ```js
   <Grid>
@@ -73,12 +73,12 @@ You can also assign a function that returns a Boolean value depending on the `co
     />
     <LocalGrouping />
     <Table />
-    <TableHeaderRow showColumnWhenGrouped={columnName => columnName === 'city' || columnName === 'car'}/>
-    <TableGroupRow />
+    <TableHeaderRow />
+    <TableGroupRow showColumnsWhenGrouped />
   </Grid>
 ```
 
-Note that if the `getColumnIdentity` function returns an object, you should also specify a custom group cell template using the `TableGroupRow` plugin's `cellComponent` property as demonstrated in the following example:
+Note that if the grouping criterion function returns a non-primitive value, you should also specify a custom group cell template using the `TableGroupRow` plugin's `cellComponent` property as demonstrated in the following example:
 
 .embedded-demo(grouping/local-grouping-custom-advanced)
 

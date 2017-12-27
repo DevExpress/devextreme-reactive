@@ -60,7 +60,7 @@ describe('GroupPanelLayout', () => {
   });
 
   describe('drag\'n\'drop grouping', () => {
-    it('should render DropTarget if allowDragging property is true', () => {
+    it('should render DropTarget if draggingEnabled property is true', () => {
       const items = [
         { column: { name: 'a' } },
         { column: { name: 'b' } },
@@ -72,7 +72,7 @@ describe('GroupPanelLayout', () => {
         <GroupPanelLayout
           {...defaultProps}
           items={items}
-          allowDragging
+          draggingEnabled
         />
       ));
 
@@ -80,7 +80,7 @@ describe('GroupPanelLayout', () => {
         .toBeTruthy();
     });
 
-    it('should render DragSource for each item of allowDragging is true', () => {
+    it('should render DragSource for each item of draggingEnabled is true', () => {
       const items = [
         { column: { name: 'a' } },
         { column: { name: 'b' } },
@@ -92,7 +92,7 @@ describe('GroupPanelLayout', () => {
         <GroupPanelLayout
           {...defaultProps}
           items={items}
-          allowDragging
+          draggingEnabled
         />
       ));
 
@@ -109,7 +109,7 @@ describe('GroupPanelLayout', () => {
           {...defaultProps}
           items={[]}
           onDraftGroup={onDraftGroup}
-          allowDragging
+          draggingEnabled
         />
       ));
 
@@ -141,7 +141,7 @@ describe('GroupPanelLayout', () => {
           items={[{ column, draft: GROUP_REMOVE_MODE }]}
           onDraftGroup={onDraftGroup}
           onCancelDraftGroup={onCancelDraftGroup}
-          allowDragging
+          draggingEnabled
         />
       ));
 
@@ -176,7 +176,7 @@ describe('GroupPanelLayout', () => {
           columns={[column]}
           onGroup={onGroup}
           onCancelDraftGroup={onCancelDraftGroup}
-          allowDragging
+          draggingEnabled
         />
       ));
 
@@ -217,7 +217,7 @@ describe('GroupPanelLayout', () => {
           items={[{ column }]}
           onGroup={onGroup}
           onCancelDraftGroup={onCancelDraftGroup}
-          allowDragging
+          draggingEnabled
         />
       ));
 
@@ -257,7 +257,7 @@ describe('GroupPanelLayout', () => {
           items={[{ column, draft: GROUP_ADD_MODE }]}
           onCancelDraftGroup={onCancelDraftGroup}
           onDraftGroup={onDraftGroup}
-          allowDragging
+          draggingEnabled
         />
       ));
 

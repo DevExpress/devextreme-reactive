@@ -19,6 +19,7 @@ describe('EditingState computeds', () => {
       });
     });
   });
+
   describe('#addedRowsByIds', () => {
     it('should work', () => {
       const addedRows = [
@@ -34,6 +35,7 @@ describe('EditingState computeds', () => {
       ]);
     });
   });
+
   describe('#createRowChangeGetter', () => {
     it('should work with default cell access', () => {
       expect(createRowChangeGetter(undefined)({ a: 1 }, 2, 'a'))

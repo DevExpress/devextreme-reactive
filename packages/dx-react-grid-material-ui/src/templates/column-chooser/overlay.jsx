@@ -10,7 +10,7 @@ export const Overlay = ({
   <Popover
     open={visible}
     anchorEl={target}
-    onRequestClose={onHide}
+    onClose={onHide}
     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     {...restProps}

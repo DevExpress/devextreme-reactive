@@ -29,7 +29,6 @@ export const createRowChangeGetter = (
     return acc;
   }, {});
 
-
   return (row, value, columnName) => {
     if (map[columnName]) {
       return map[columnName](row, value, columnName);

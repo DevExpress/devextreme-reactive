@@ -53,22 +53,7 @@ describe('GroupPanelItem', () => {
     tree.find(Chip).simulate('click', { ctrlKey: true });
 
     expect(onSort.mock.calls).toHaveLength(1);
-    expect(onSort.mock.calls[0][0].cancel).toBeTruthy();
-  });
-
-  it('should use column name for sorting', () => {
-    const onSort = jest.fn();
-    const tree = mount((
-      <GroupPanelItem
-        item={{ column: { name: 'test' } }}
-        onSort={onSort}
-        showSortingControls
-      />
-    ));
-
-    tree.find(Chip).simulate('click');
-
-    expect(onSort.mock.calls[0][0].columnName).toBe('test');
+    expect(onSort.mock.calls[0][0].direction).toBe(null);
   });
 
   it('can render the ungroup button', () => {
@@ -140,7 +125,7 @@ describe('GroupPanelItem', () => {
 
     tree.find(Chip).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
     expect(onSort)
-      .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
+      .toHaveBeenCalledWith({ keepOther: true, direction: null });
   });
 
   it('should pass rest props to the root element', () => {

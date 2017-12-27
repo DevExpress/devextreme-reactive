@@ -88,11 +88,11 @@ describe('SortingState reducers', () => {
         });
     });
 
-    it('should cancel sorting by column if cancel is set to true', () => {
+    it('should cancel sorting by column if directions is set to null', () => {
       const state = {
         sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
       };
-      const payload = { columnName: 'test2', keepOther: true, cancel: true };
+      const payload = { columnName: 'test2', keepOther: true, direction: null };
 
       expect(setColumnSorting(state, payload))
         .toEqual({
@@ -100,11 +100,11 @@ describe('SortingState reducers', () => {
         });
     });
 
-    it('should clear sorting if cancel is true and keepOther is not specified', () => {
+    it('should clear sorting if direction is null and keepOther is not specified', () => {
       const state = {
         sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
       };
-      const payload = { columnName: 'test2', cancel: true };
+      const payload = { columnName: 'test2', direction: null };
 
       expect(setColumnSorting(state, payload))
         .toEqual({

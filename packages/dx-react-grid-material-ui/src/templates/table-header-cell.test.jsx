@@ -66,7 +66,7 @@ describe('TableHeaderCell', () => {
     tree.find(TableSortLabel).simulate('click', { ctrlKey: true });
 
     expect(onSort.mock.calls).toHaveLength(1);
-    expect(onSort.mock.calls[0][0].cancel).toBeTruthy();
+    expect(onSort.mock.calls[0][0].direction).toBe(null);
   });
 
   it('should have correct styles when user interaction disallowed', () => {
@@ -277,7 +277,7 @@ describe('TableHeaderCell', () => {
 
       tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
       expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: true });
+        .toHaveBeenCalledWith({ keepOther: true, direction: null });
     });
   });
 });

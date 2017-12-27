@@ -11,7 +11,7 @@ export const ToggleButton = ({
 }) => (
   <Tooltip
     title={getMessage('hiddenColumns')}
-    placement="bottom-end"
+    placement="bottom"
     enterDelay={300}
     {...restProps}
   >

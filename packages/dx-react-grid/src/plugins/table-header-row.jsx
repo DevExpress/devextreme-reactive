@@ -45,7 +45,7 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting, tableColumns, allowDragging, allowTableColumnResizing,
+                sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
               }, {
                 setColumnSorting, groupByColumn,
                 changeTableColumnWidths, changeDraftTableColumnWidths,
@@ -61,8 +61,8 @@ export class TableHeaderRow extends React.PureComponent {
                     getMessage={getMessage}
                     showSortingControls={showSortingControls && sorting !== undefined}
                     showGroupingControls={showGroupingControls && atLeastOneDataColumn}
-                    allowDragging={allowDragging && atLeastOneDataColumn}
-                    allowResizing={allowTableColumnResizing}
+                    draggingEnabled={draggingEnabled && atLeastOneDataColumn}
+                    resizingEnabled={tableColumnResizingEnabled}
                     sortingDirection={showSortingControls && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     onSort={({ keepOther, cancel }) =>

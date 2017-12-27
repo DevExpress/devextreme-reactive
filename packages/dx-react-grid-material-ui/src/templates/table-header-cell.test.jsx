@@ -97,7 +97,7 @@ describe('TableHeaderCell', () => {
       <DragDropProvider>
         <TableHeaderCell
           {...defaultProps}
-          allowDragging
+          draggingEnabled
         />
       </DragDropProvider>
     ));
@@ -111,7 +111,7 @@ describe('TableHeaderCell', () => {
       <DragDropProvider>
         <TableHeaderCell
           {...defaultProps}
-          allowDragging
+          draggingEnabled
         />
       </DragDropProvider>
     ));
@@ -133,7 +133,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         {...defaultProps}
-        allowResizing
+        resizingEnabled
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
       />

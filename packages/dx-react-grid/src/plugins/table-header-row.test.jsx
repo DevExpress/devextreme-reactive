@@ -151,7 +151,7 @@ describe('TableHeaderRow', () => {
 
       const deps = {
         getter: {
-          allowTableColumnResizing: true,
+          tableColumnResizingEnabled: true,
         },
         plugins: ['TableColumnResizing'],
       };
@@ -166,7 +166,7 @@ describe('TableHeaderRow', () => {
 
       expect(tree.find(defaultProps.cellComponent).props())
         .toMatchObject({
-          allowResizing: true,
+          resizingEnabled: true,
           onWidthChange: expect.any(Function),
           onDraftWidthChange: expect.any(Function),
         });
@@ -178,7 +178,7 @@ describe('TableHeaderRow', () => {
       const deps = {
         plugins: ['TableColumnResizing'],
         getter: {
-          allowTableColumnResizing: true,
+          tableColumnResizingEnabled: true,
         },
         action: {
           changeTableColumnWidths: jest.fn(),
@@ -208,7 +208,7 @@ describe('TableHeaderRow', () => {
           changeDraftTableColumnWidths: jest.fn(),
         },
         getter: {
-          allowTableColumnResizing: true,
+          tableColumnResizingEnabled: true,
         },
       };
       const tree = mount((

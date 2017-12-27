@@ -92,7 +92,7 @@ export class GroupPanelLayout extends React.PureComponent {
       emptyMessageComponent: EmptyMessage,
       containerComponent: Container,
       itemComponent: Item,
-      allowDragging,
+      draggingEnabled,
     } = this.props;
 
     this.itemRefs = [];
@@ -105,7 +105,7 @@ export class GroupPanelLayout extends React.PureComponent {
             ref={element => element && this.itemRefs.push(element)}
             item={item}
             itemComponent={Item}
-            allowDragging={allowDragging}
+            draggingEnabled={draggingEnabled}
             onDragEnd={this.onDragEnd}
           />
         ))}
@@ -114,7 +114,7 @@ export class GroupPanelLayout extends React.PureComponent {
       <EmptyMessage />
     ));
 
-    return allowDragging
+    return draggingEnabled
       ? (
         <DropTarget
           onEnter={this.onEnter}
@@ -138,14 +138,14 @@ GroupPanelLayout.propTypes = {
   itemComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   emptyMessageComponent: PropTypes.func.isRequired,
-  allowDragging: PropTypes.bool,
+  draggingEnabled: PropTypes.bool,
   onDraftGroup: PropTypes.func,
   onCancelDraftGroup: PropTypes.func,
 };
 
 GroupPanelLayout.defaultProps = {
   onGroup: () => {},
-  allowDragging: false,
+  draggingEnabled: false,
   onDraftGroup: () => {},
   onCancelDraftGroup: () => {},
 };

@@ -3,16 +3,14 @@ const UNSET_COLUMN_WIDTH_ERROR = [
   'The TableColumnResizing plugin requires that all columns have the specified width.',
 ].join('\n');
 
-const findCurrentColumn = (array, columnName) =>
-  array.find(elem => elem.columnName === columnName);
-
 export const tableColumnsWithWidths = (tableColumns, columnWidths, draftColumnWidths) =>
   tableColumns
     .reduce((acc, tableColumn) => {
       if (tableColumn.type === 'data') {
         const columnName = tableColumn.column.name;
-        const column = findCurrentColumn(draftColumnWidths, columnName)
-          || findCurrentColumn(columnWidths, columnName);
+        const isCurrentColumn = elem => elem.columnName === columnName;
+        const column = draftColumnWidths.find(isCurrentColumn)
+          || columnWidths.find(isCurrentColumn);
         const width = column && column.width;
         if (width === undefined) {
           throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', columnName));

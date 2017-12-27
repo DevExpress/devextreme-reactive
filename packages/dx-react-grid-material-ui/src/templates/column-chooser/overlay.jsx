@@ -11,7 +11,7 @@ export const Overlay = ({
     open={visible}
     anchorEl={target}
     onClose={onHide}
-    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     {...restProps}
   >

@@ -53,7 +53,7 @@ Components:
 
 Plugins:
 
-- [DragDropContext](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-context/)
+- [DragDropProvider](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/)
 - [GroupingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grouping-panel/)
 - [PagingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/)
 - [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/)

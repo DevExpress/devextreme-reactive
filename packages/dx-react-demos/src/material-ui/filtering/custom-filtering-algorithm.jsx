@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   FilteringState,
-  LocalFiltering,
+  IntegratedFiltering,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -28,14 +28,14 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      localFilteringColumnExtensions: [
+      integratedFilteringColumnExtensions: [
         { columnName: 'city', predicate: cityPredicate },
       ],
       rows: generateRows({ length: 14 }),
     };
   }
   render() {
-    const { rows, columns, localFilteringColumnExtensions } = this.state;
+    const { rows, columns, integratedFilteringColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -44,7 +44,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState defaultFilters={[{ columnName: 'city', value: 'Paris' }]} />
-          <LocalFiltering columnExtensions={localFilteringColumnExtensions} />
+          <IntegratedFiltering columnExtensions={integratedFilteringColumnExtensions} />
           <Table />
           <TableHeaderRow />
           <TableFilterRow />

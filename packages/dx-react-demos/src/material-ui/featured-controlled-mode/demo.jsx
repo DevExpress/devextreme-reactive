@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, EditingState, PagingState,
-  LocalPaging, LocalSorting,
+  IntegratedPaging, IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropContext, TableColumnReordering,
+  PagingPanel, DragDropProvider, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   TableCell,
@@ -200,13 +200,14 @@ class DemoBase extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region', width: 110 },
-        {
-          name: 'amount', title: 'Amount', align: 'right', width: 90,
-        },
-        { name: 'discount', title: 'Discount', width: 110 },
+        { name: 'region', title: 'Region' },
+        { name: 'amount', title: 'Sale Amount' },
+        { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -277,6 +278,7 @@ class DemoBase extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       editingRows,
       addedRows,
@@ -306,8 +308,8 @@ class DemoBase extends React.PureComponent {
             onPageSizeChange={this.changePageSize}
           />
 
-          <LocalSorting />
-          <LocalPaging />
+          <IntegratedSorting />
+          <IntegratedPaging />
 
           <EditingState
             editingRows={editingRows}
@@ -319,9 +321,10 @@ class DemoBase extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
 
-          <DragDropContext />
+          <DragDropProvider />
 
           <Table
+            columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
 
@@ -330,15 +333,15 @@ class DemoBase extends React.PureComponent {
             onOrderChange={this.changeColumnOrder}
           />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableEditRow
             cellComponent={EditCell}
           />
           <TableEditColumn
             width={120}
-            allowAdding={!this.state.addedRows.length}
-            allowEditing
-            allowDeleting
+            showAddCommand={!this.state.addedRows.length}
+            showEditCommand
+            showDeleteCommand
             commandComponent={Command}
           />
           <PagingPanel
@@ -348,7 +351,7 @@ class DemoBase extends React.PureComponent {
 
         <Dialog
           open={!!deletingRows.length}
-          onRequestClose={this.cancelDelete}
+          onClose={this.cancelDelete}
           classes={{ paper: classes.dialog }}
         >
           <DialogTitle>Delete Row</DialogTitle>
@@ -362,6 +365,7 @@ class DemoBase extends React.PureComponent {
                 columns={columns}
               >
                 <Table
+                  columnExtensions={tableColumnExtensions}
                   cellComponent={Cell}
                 />
                 <TableHeaderRow />

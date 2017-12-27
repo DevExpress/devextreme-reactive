@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  TableColumnReordering, GroupingPanel, DragDropContext, Toolbar,
+  TableColumnReordering, GroupingPanel, DragDropProvider, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
@@ -20,6 +20,8 @@ import {
   generateRows,
   globalSalesValues,
 } from '../../demo-data/generator';
+
+const getRowId = row => row.id;
 
 const Cell = (props) => {
   if (props.column.name === 'discount') {
@@ -34,8 +36,6 @@ Cell.propTypes = {
   column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
-const getRowId = row => row.id;
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -44,10 +44,13 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -56,7 +59,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Grid
@@ -64,7 +67,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
         getRowId={getRowId}
       >
-        <DragDropContext />
+        <DragDropProvider />
 
         <FilteringState
           defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
@@ -81,22 +84,23 @@ export default class Demo extends React.PureComponent {
         />
         <SelectionState />
 
-        <LocalFiltering />
-        <LocalSorting />
-        <LocalGrouping />
-        <LocalSelection />
+        <IntegratedFiltering />
+        <IntegratedSorting />
+        <IntegratedGrouping />
+        <IntegratedSelection />
 
         <VirtualTable
+          columnExtensions={tableColumnExtensions}
           cellComponent={Cell}
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableSelection showSelectAll />
         <TableGroupRow />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
       </Grid>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { DragDropContext, DragSource } from '@devexpress/dx-react-core';
+import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
@@ -61,7 +61,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -76,12 +76,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when dragging is allowed', () => {
     const tree = shallow((
-      <DragDropContext>
+      <DragDropProvider>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.dive().find('th').prop('style'))
@@ -95,12 +95,12 @@ describe('TableHeaderCell', () => {
 
   it('should have correct styles when dragging', () => {
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.find('th').prop('style'))
@@ -131,7 +131,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
-        allowResizing
+        resizingEnabled
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
       />
@@ -181,7 +181,7 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when grouping by click is not allowed and column align is right', () => {
     const tree = shallow((
       <TableHeaderCell
-        column={{ align: 'right' }}
+        tableColumn={{ align: 'right' }}
         showGroupingControls={false}
       />
     ));
@@ -197,7 +197,7 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when grouping by click is allowed and column align is right', () => {
     const tree = shallow((
       <TableHeaderCell
-        column={{ align: 'right' }}
+        tableColumn={{ align: 'right' }}
         showGroupingControls
       />
     ));
@@ -232,8 +232,9 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
-          allowSorting
+          column={{ title: 'test' }}
+          tableColumn={{ align: 'right' }}
+          showSortingControls
         />
       ));
 
@@ -258,15 +259,16 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
-          allowSorting
+          column={{ title: 'test' }}
+          tableColumn={{ align: 'right' }}
+          showSortingControls
         />
       ));
 
       const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
       expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
+        .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
     });
 
     it('should handle the "Ctrl" key with sorting', () => {
@@ -274,15 +276,16 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           onSort={onSort}
-          column={{ align: 'right', title: 'test' }}
-          allowSorting
+          column={{ title: 'test' }}
+          tableColumn={{ align: 'right' }}
+          showSortingControls
         />
       ));
 
       const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
       expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: true });
+        .toHaveBeenCalledWith({ keepOther: true, direction: null });
     });
   });
 });

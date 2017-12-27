@@ -6,31 +6,24 @@ import { TableCell } from './table-cell';
 describe('TableCell', () => {
   let classes;
   let shallow;
-  const mountTableCell = column =>
-    shallow((
-      <TableCell
-        column={column}
-        value="text"
-      />
-    ));
   beforeAll(() => {
     classes = getClasses(<TableCell />);
     shallow = createShallow({ dive: true });
   });
 
   it('should have correct text alignment', () => {
-    let tree = mountTableCell({});
+    let tree = shallow(<TableCell />);
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
 
-    tree = mountTableCell({ align: 'left' });
+    tree = shallow(<TableCell tableColumn={{ align: 'left' }} />);
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
 
-    tree = mountTableCell({ align: 'right' });
+    tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeTruthy();
   });
 
   it('should have correct text', () => {
-    const tree = mountTableCell({});
+    const tree = shallow(<TableCell value="text" />);
     expect(tree.childAt(0).text()).toBe('text');
   });
 

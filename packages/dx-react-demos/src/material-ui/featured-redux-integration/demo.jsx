@@ -4,12 +4,12 @@ import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
-  GroupingPanel, PagingPanel, DragDropContext, TableColumnReordering, TableColumnResizing, Toolbar,
+  GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
@@ -135,13 +135,13 @@ const GridContainer = ({
         onSelectionChange={onSelectionChange}
       />
 
-      <LocalFiltering />
-      <LocalSorting />
-      <LocalGrouping />
-      <LocalPaging />
-      <LocalSelection />
+      <IntegratedFiltering />
+      <IntegratedSorting />
+      <IntegratedGrouping />
+      <IntegratedPaging />
+      <IntegratedSelection />
 
-      <DragDropContext />
+      <DragDropProvider />
 
       <Table />
 
@@ -155,7 +155,7 @@ const GridContainer = ({
         onColumnWidthsChange={onColumnWidthsChange}
       />
 
-      <TableHeaderRow allowSorting allowResizing />
+      <TableHeaderRow showSortingControls />
       <TableFilterRow />
       <TableSelection showSelectAll />
       <TableRowDetail
@@ -163,7 +163,7 @@ const GridContainer = ({
       />
       <TableGroupRow />
       <Toolbar />
-      <GroupingPanel allowSorting />
+      <GroupingPanel showSortingControls />
       <PagingPanel
         pageSizes={pageSizes}
       />

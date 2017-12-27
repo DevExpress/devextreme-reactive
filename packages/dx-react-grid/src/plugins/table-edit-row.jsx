@@ -53,7 +53,7 @@ export class TableEditRow extends React.PureComponent {
                 const onValueChange = (newValue) => {
                   const changeArgs = {
                     rowId,
-                    change: createRowChange(changedRow, columnName, newValue),
+                    change: createRowChange(changedRow, newValue, columnName),
                   };
                   if (isNew) {
                     changeAddedRow(changeArgs);

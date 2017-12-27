@@ -7,20 +7,20 @@ export class DragSource extends React.Component {
     return nextProps.children !== this.props.children;
   }
   render() {
-    const { dragDropContext } = this.context;
+    const { dragDropProvider } = this.context;
     const { onStart, onUpdate, onEnd } = this.props;
     return (
       <Draggable
         onStart={({ x, y }) => {
-          dragDropContext.start(this.props.getPayload(), { x, y });
+          dragDropProvider.start(this.props.getPayload(), { x, y });
           onStart({ clientOffset: { x, y } });
         }}
         onUpdate={({ x, y }) => {
-          dragDropContext.update({ x, y });
+          dragDropProvider.update({ x, y });
           onUpdate({ clientOffset: { x, y } });
         }}
         onEnd={({ x, y }) => {
-          dragDropContext.end({ x, y });
+          dragDropProvider.end({ x, y });
           onEnd({ clientOffset: { x, y } });
         }}
       >
@@ -31,7 +31,7 @@ export class DragSource extends React.Component {
 }
 
 DragSource.contextTypes = {
-  dragDropContext: PropTypes.object.isRequired,
+  dragDropProvider: PropTypes.object.isRequired,
 };
 
 DragSource.propTypes = {

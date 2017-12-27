@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  TableColumnReordering, GroupingPanel, DragDropContext, Toolbar,
+  TableColumnReordering, GroupingPanel, DragDropProvider, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
@@ -67,7 +67,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
         getRowId={getRowId}
       >
-        <DragDropContext />
+        <DragDropProvider />
 
         <FilteringState
           defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
@@ -84,10 +84,10 @@ export default class Demo extends React.PureComponent {
         />
         <SelectionState />
 
-        <LocalFiltering />
-        <LocalSorting />
-        <LocalGrouping />
-        <LocalSelection />
+        <IntegratedFiltering />
+        <IntegratedSorting />
+        <IntegratedGrouping />
+        <IntegratedSelection />
 
         <VirtualTable
           columnExtensions={tableColumnExtensions}
@@ -95,12 +95,12 @@ export default class Demo extends React.PureComponent {
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableSelection showSelectAll />
         <TableGroupRow />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
       </Grid>
     );
   }

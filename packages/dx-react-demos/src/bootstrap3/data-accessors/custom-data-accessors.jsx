@@ -30,7 +30,7 @@ const getCellValue = (row, columnName) => {
   return row[columnName];
 };
 
-const createRowChange = (row, columnName, value) => {
+const createRowChange = (row, value, columnName) => {
   if (columnName.indexOf('.') > -1) {
     const { rootField, nestedField } = splitColumnName(columnName);
 
@@ -102,7 +102,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableEditRow />
-        <TableEditColumn allowAdding allowEditing allowDeleting />
+        <TableEditColumn showAddCommand showEditCommand showDeleteCommand />
       </Grid>
     );
   }

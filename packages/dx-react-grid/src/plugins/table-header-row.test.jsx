@@ -133,7 +133,7 @@ describe('TableHeaderRow', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableHeaderRow
           {...defaultProps}
-          allowSorting
+          showSortingControls
           messages={{
             sortingHint: 'test',
           }}
@@ -146,25 +146,13 @@ describe('TableHeaderRow', () => {
   });
 
   describe('resizing', () => {
-    it('should require TableColumnResizing plugin', () => {
-      expect(() => {
-        mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <TableHeaderRow
-              {...defaultProps}
-              allowResizing
-            />
-          </PluginHost>
-        ));
-      })
-        .toThrow();
-    });
-
     it('should pass correct props to cellComponent', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {
+        getter: {
+          tableColumnResizingEnabled: true,
+        },
         plugins: ['TableColumnResizing'],
       };
       const tree = mount((
@@ -172,14 +160,13 @@ describe('TableHeaderRow', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
             {...defaultProps}
-            allowResizing
           />
         </PluginHost>
       ));
 
       expect(tree.find(defaultProps.cellComponent).props())
         .toMatchObject({
-          allowResizing: true,
+          resizingEnabled: true,
           onWidthChange: expect.any(Function),
           onDraftWidthChange: expect.any(Function),
         });
@@ -190,6 +177,9 @@ describe('TableHeaderRow', () => {
 
       const deps = {
         plugins: ['TableColumnResizing'],
+        getter: {
+          tableColumnResizingEnabled: true,
+        },
         action: {
           changeTableColumnWidths: jest.fn(),
         },
@@ -199,7 +189,6 @@ describe('TableHeaderRow', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
             {...defaultProps}
-            allowResizing
           />
         </PluginHost>
       ));
@@ -218,13 +207,15 @@ describe('TableHeaderRow', () => {
         action: {
           changeDraftTableColumnWidths: jest.fn(),
         },
+        getter: {
+          tableColumnResizingEnabled: true,
+        },
       };
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
             {...defaultProps}
-            allowResizing
           />
         </PluginHost>
       ));

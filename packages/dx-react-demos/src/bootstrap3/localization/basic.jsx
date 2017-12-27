@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   FilteringState,
-  LocalFiltering,
+  IntegratedFiltering,
   GroupingState,
-  LocalGrouping,
+  IntegratedGrouping,
   EditingState,
   PagingState,
-  LocalPaging,
+  IntegratedPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -18,7 +18,7 @@ import {
   TableEditRow,
   TableEditColumn,
   PagingPanel,
-  DragDropContext,
+  DragDropProvider,
   Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -70,20 +70,20 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <DragDropContext />
+        <DragDropProvider />
         <FilteringState defaultFilters={[]} />
         <GroupingState defaultGrouping={[]} />
         <EditingState
           onCommitChanges={this.commitChanges}
         />
 
-        <LocalFiltering />
-        <LocalGrouping />
+        <IntegratedFiltering />
+        <IntegratedGrouping />
         <PagingState
           defaultCurrentPage={0}
           defaultPageSize={5}
         />
-        <LocalPaging />
+        <IntegratedPaging />
         <Table
           messages={tableMessages}
         />
@@ -91,9 +91,9 @@ export default class Demo extends React.PureComponent {
 
         <TableEditRow />
         <TableEditColumn
-          allowAdding
-          allowEditing
-          allowDeleting
+          showAddCommand
+          showEditCommand
+          showDeleteCommand
           width={200}
           messages={editColumnMessages}
         />

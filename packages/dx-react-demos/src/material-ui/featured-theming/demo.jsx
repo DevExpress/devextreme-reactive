@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, PagingState,
-  LocalSorting, RowDetailState, GroupingState,
-  LocalSelection, LocalGrouping, LocalPaging,
+  IntegratedSorting, RowDetailState, GroupingState,
+  IntegratedSelection, IntegratedGrouping, IntegratedPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableRowDetail,
+  PagingPanel, GroupingPanel, DragDropProvider, TableRowDetail,
   TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
@@ -207,12 +207,12 @@ export default class Demo extends React.PureComponent {
             defaultSelection={[1, 3, 18]}
           />
 
-          <LocalSorting />
-          <LocalGrouping />
-          <LocalPaging />
-          <LocalSelection />
+          <IntegratedSorting />
+          <IntegratedGrouping />
+          <IntegratedPaging />
+          <IntegratedSelection />
 
-          <DragDropContext />
+          <DragDropProvider />
 
           <Table
             columnExtensions={tableColumnExtensions}
@@ -220,7 +220,7 @@ export default class Demo extends React.PureComponent {
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <PagingPanel
             pageSizes={pageSizes}
           />
@@ -230,7 +230,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableGroupRow />
           <Toolbar />
-          <GroupingPanel allowSorting />
+          <GroupingPanel showSortingControls />
         </Grid>
       </Paper>
     );

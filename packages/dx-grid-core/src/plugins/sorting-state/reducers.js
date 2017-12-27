@@ -1,5 +1,5 @@
 export const setColumnSorting = (state, {
-  columnName, direction, keepOther, cancel, sortIndex,
+  columnName, direction, keepOther, sortIndex,
 }) => {
   const { sorting } = state;
 
@@ -25,7 +25,7 @@ export const setColumnSorting = (state, {
     nextSorting.splice(columnSortingIndex, 1);
   }
 
-  if (!cancel) {
+  if (direction !== null) {
     const newIndexFallback = columnSortingIndex > -1 ? columnSortingIndex : nextSorting.length;
     const newIndex = sortIndex !== undefined ? sortIndex : newIndexFallback;
     nextSorting.splice(newIndex, 0, newColumnSorting);

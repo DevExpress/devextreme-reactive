@@ -17,7 +17,7 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 
 Name | Type | Default | Description
 -----|------|---------|------------
-allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
+showSortingControls | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 showGroupingControls | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 containerComponent | ElementType&lt;[GroupingPanelContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupingPanelItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
@@ -54,11 +54,11 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
-showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by the column.
-allowSorting | boolean | Specifies whether an end-user can sort data by the column while it is in the grouping panel.
+showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by column.
+showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
-onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
-onGroup | () => void | An event that initiates grouping by the column.
+onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing a column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
+onGroup | () => void | An event that initiates grouping by column.
 
 ### GroupingPanelEmptyMessageProps
 
@@ -101,6 +101,7 @@ groupByColumn | Action | ({ columnName: string }) => void | Toggles the column's
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean &#124; Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
 cancelGroupingChange | Action | () => void | Resets the groupingChange state.
+draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
 toolbarContent | Template | Object? | A template that renders the toolbar content.
 
 ### Exports

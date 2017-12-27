@@ -62,7 +62,7 @@ describe('GroupingPanel', () => {
   it('should pass correct parameters to layoutComponent', () => {
     const deps = {
       getter: {
-        allowDragging: true,
+        draggingEnabled: true,
       },
       plugins: ['DragDropProvider'],
     };
@@ -77,7 +77,7 @@ describe('GroupingPanel', () => {
 
     expect(tree.find(defaultProps.layoutComponent).props())
       .toMatchObject({
-        allowDragging: true,
+        draggingEnabled: true,
         onGroup: expect.any(Function),
         onDraftGroup: expect.any(Function),
         onCancelDraftGroup: expect.any(Function),
@@ -115,7 +115,7 @@ describe('GroupingPanel', () => {
           {...defaultProps}
           layoutComponent={({ itemComponent: Item }) =>
             <Item item={{ column: { name: 'a' } }} />}
-          allowSorting
+          showSortingControls
           showGroupingControls
         />
       </PluginHost>
@@ -123,7 +123,7 @@ describe('GroupingPanel', () => {
 
     expect(tree.find(defaultProps.itemComponent).props())
       .toMatchObject({
-        allowSorting: true,
+        showSortingControls: true,
         showGroupingControls: true,
         sortingDirection: getColumnSortingDirection(),
         onGroup: expect.any(Function),

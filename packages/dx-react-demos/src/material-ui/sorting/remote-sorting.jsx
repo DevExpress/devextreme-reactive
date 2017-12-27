@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
             onSortingChange={this.changeSorting}
           />
           <VirtualTable />
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
         </Grid>
         {loading && <Loading />}
       </Paper>

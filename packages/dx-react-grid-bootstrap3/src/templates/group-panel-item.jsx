@@ -11,24 +11,24 @@ const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_K
 export const GroupPanelItem = ({
   item: { column, draft },
   onGroup, showGroupingControls,
-  allowSorting, sortingDirection, onSort, className,
+  showSortingControls, sortingDirection, onSort, className,
   ...restProps
 }) => {
   const handleSortingChange = (e) => {
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
 
-    if (!allowSorting || !(isActionKeyDown || isMouseClick)) return;
+    if (!showSortingControls || !(isActionKeyDown || isMouseClick)) return;
 
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-    const cancel = (isMouseClick && cancelSortingRelatedKey)
-      || (isActionKeyDown && cancelSortingRelatedKey);
+    const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
+      ? null
+      : undefined;
 
     e.preventDefault();
     onSort({
+      direction,
       keepOther: cancelSortingRelatedKey,
-      cancel,
-      columnName: column.name,
     });
   };
   const handleUngroup = (e) => {
@@ -36,7 +36,7 @@ export const GroupPanelItem = ({
     const isMouseClick = e.keyCode === undefined;
 
     if (!isActionKeyDown && !isMouseClick) return;
-    onGroup({ columnName: column.name });
+    onGroup();
   };
   return (
     <div
@@ -52,10 +52,10 @@ export const GroupPanelItem = ({
         className="btn btn-default"
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
-        {...allowSorting ? { tabIndex: 0 } : null}
+        {...showSortingControls ? { tabIndex: 0 } : null}
       >
         {column.title || column.name}
-        {allowSorting && sortingDirection && (
+        {showSortingControls && sortingDirection && (
           <span>
             &nbsp;
             <SortingIndicator
@@ -91,7 +91,7 @@ GroupPanelItem.propTypes = {
     }).isRequired,
     draft: PropTypes.string,
   }).isRequired,
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   className: PropTypes.string,
   onSort: PropTypes.func,
@@ -100,7 +100,7 @@ GroupPanelItem.propTypes = {
 };
 
 GroupPanelItem.defaultProps = {
-  allowSorting: false,
+  showSortingControls: false,
   sortingDirection: undefined,
   className: undefined,
   onSort: undefined,

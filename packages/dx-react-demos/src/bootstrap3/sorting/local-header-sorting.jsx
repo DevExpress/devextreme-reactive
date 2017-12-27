@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
         <SortingState />
         <LocalSorting />
         <Table />
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
       </Grid>
     );
   }

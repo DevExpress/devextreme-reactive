@@ -7,11 +7,11 @@ export class ItemLayout extends React.PureComponent {
     const {
       item,
       itemComponent: Item,
-      allowDragging,
+      draggingEnabled,
       onDragEnd,
     } = this.props;
 
-    return (allowDragging ? (
+    return (draggingEnabled ? (
       <DragSource
         getPayload={() => [{ type: 'column', columnName: item.column.name }]}
         onEnd={onDragEnd}
@@ -30,11 +30,11 @@ ItemLayout.propTypes = {
     draft: PropTypes.string,
   }).isRequired,
   itemComponent: PropTypes.func.isRequired,
-  allowDragging: PropTypes.bool,
+  draggingEnabled: PropTypes.bool,
   onDragEnd: PropTypes.func,
 };
 
 ItemLayout.defaultProps = {
-  allowDragging: false,
+  draggingEnabled: false,
   onDragEnd: () => {},
 };

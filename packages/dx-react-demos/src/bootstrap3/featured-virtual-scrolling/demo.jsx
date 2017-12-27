@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -84,10 +84,10 @@ export default class Demo extends React.PureComponent {
         />
         <SelectionState />
 
-        <LocalFiltering />
-        <LocalSorting />
-        <LocalGrouping />
-        <LocalSelection />
+        <IntegratedFiltering />
+        <IntegratedSorting />
+        <IntegratedGrouping />
+        <IntegratedSelection />
 
         <VirtualTable
           columnExtensions={tableColumnExtensions}
@@ -95,12 +95,12 @@ export default class Demo extends React.PureComponent {
         />
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <TableSelection showSelectAll />
         <TableGroupRow />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
       </Grid>
     );
   }

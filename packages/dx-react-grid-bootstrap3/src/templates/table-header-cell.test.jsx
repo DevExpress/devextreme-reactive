@@ -61,7 +61,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -79,7 +79,7 @@ describe('TableHeaderCell', () => {
       <DragDropProvider>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
       </DragDropProvider>
     ));
@@ -98,7 +98,7 @@ describe('TableHeaderCell', () => {
       <DragDropProvider>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
       </DragDropProvider>
     ));
@@ -131,7 +131,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
-        allowResizing
+        resizingEnabled
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
       />
@@ -234,7 +234,7 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
@@ -261,14 +261,14 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
       const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
       expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
+        .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
     });
 
     it('should handle the "Ctrl" key with sorting', () => {
@@ -278,14 +278,14 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
       const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
       expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: true });
+        .toHaveBeenCalledWith({ keepOther: true, direction: null });
     });
   });
 });

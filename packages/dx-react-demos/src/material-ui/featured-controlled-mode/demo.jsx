@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, EditingState, PagingState,
-  LocalPaging, LocalSorting,
+  IntegratedPaging, IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -308,8 +308,8 @@ class DemoBase extends React.PureComponent {
             onPageSizeChange={this.changePageSize}
           />
 
-          <LocalSorting />
-          <LocalPaging />
+          <IntegratedSorting />
+          <IntegratedPaging />
 
           <EditingState
             editingRows={editingRows}
@@ -333,7 +333,7 @@ class DemoBase extends React.PureComponent {
             onOrderChange={this.changeColumnOrder}
           />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableEditRow
             cellComponent={EditCell}
           />
@@ -351,7 +351,7 @@ class DemoBase extends React.PureComponent {
 
         <Dialog
           open={!!deletingRows.length}
-          onRequestClose={this.cancelDelete}
+          onClose={this.cancelDelete}
           classes={{ paper: classes.dialog }}
         >
           <DialogTitle>Delete Row</DialogTitle>

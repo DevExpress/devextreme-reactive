@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   PagingState,
-  LocalPaging,
+  IntegratedPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -40,7 +40,7 @@ export default class Demo extends React.PureComponent {
           defaultCurrentPage={0}
           defaultPageSize={5}
         />
-        <LocalPaging />
+        <IntegratedPaging />
         <Table />
         <TableHeaderRow />
         <PagingPanel

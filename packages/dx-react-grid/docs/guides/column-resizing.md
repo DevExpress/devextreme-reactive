@@ -12,7 +12,7 @@ The following plugins implement column resizing features:
 
 The [plugin's order](./plugin-overview.md#plugin-order) is important.
 
-## Column Resizing Setup
+## Basic Setup
 
 Import the plugins listed above to set up a simple Grid with column resizing enabled.
 

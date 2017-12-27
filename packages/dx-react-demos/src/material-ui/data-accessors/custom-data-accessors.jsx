@@ -30,7 +30,7 @@ const getCellValue = (row, columnName) => {
   return row[columnName];
 };
 
-const createRowChange = (row, columnName, value) => {
+const createRowChange = (row, value, columnName) => {
   if (columnName.indexOf('.') > -1) {
     const { rootField, nestedField } = splitColumnName(columnName);
 

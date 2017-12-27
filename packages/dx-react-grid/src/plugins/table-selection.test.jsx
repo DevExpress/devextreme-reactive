@@ -36,7 +36,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['SelectionState', 'Table', 'LocalSelection'],
+  plugins: ['SelectionState', 'Table', 'IntegratedSelection'],
 };
 
 const defaultProps = {

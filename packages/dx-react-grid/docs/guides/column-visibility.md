@@ -8,7 +8,7 @@ A Grid component with the [TableColumnVisibility](../reference/table-column-visi
 - [Toolbar](../reference/toolbar.md) - renders the Grid Toolbar.
 - [ColumnChooser](../reference/column-chooser.md) - provides the UI for column visibility management.
 
-## Basic configuration
+## Basic Setup
 
 Import the plugins listed above to enable a user to hide or show columns at runtime.
 

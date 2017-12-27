@@ -6,7 +6,7 @@ import {
   GRID_GROUP_TYPE,
   GRID_GROUP_CHECK,
   GRID_GROUP_LEVEL_KEY,
-} from '../local-grouping/constants';
+} from '../integrated-grouping/constants';
 
 describe('CustomGrouping Plugin computeds', () => {
   const groupRow = ({ groupedBy, ...restParams }) => ({

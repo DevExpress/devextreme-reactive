@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -90,11 +90,11 @@ export default class Demo extends React.PureComponent {
             defaultPageSize={10}
           />
 
-          <LocalGrouping />
-          <LocalFiltering />
-          <LocalSorting />
-          <LocalPaging />
-          <LocalSelection />
+          <IntegratedGrouping />
+          <IntegratedFiltering />
+          <IntegratedSorting />
+          <IntegratedPaging />
+          <IntegratedSelection />
 
           <DragDropProvider />
 
@@ -106,7 +106,7 @@ export default class Demo extends React.PureComponent {
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableFilterRow />
           <PagingPanel
             pageSizes={pageSizes}
@@ -117,7 +117,7 @@ export default class Demo extends React.PureComponent {
             defaultHiddenColumns={['customer']}
           />
           <Toolbar />
-          <GroupingPanel allowSorting />
+          <GroupingPanel showSortingControls />
           <ColumnChooser />
         </Grid>
       </Paper>

@@ -196,7 +196,7 @@ describe('TableEditRow', () => {
       .toBeCalledWith({
         a: undefined,
         b: 'b1',
-      }, 'column', 'test');
+      }, 'test', 'column');
   });
 
   it('can render custom editors', () => {

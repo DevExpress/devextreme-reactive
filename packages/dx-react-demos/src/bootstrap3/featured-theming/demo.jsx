@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, PagingState, GroupingState,
-  LocalGrouping, LocalPaging, LocalSorting, RowDetailState, LocalSelection,
+  IntegratedGrouping, IntegratedPaging, IntegratedSorting, RowDetailState, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -180,10 +180,10 @@ export default class Demo extends React.PureComponent {
           defaultSelection={[1, 3, 18]}
         />
 
-        <LocalSorting />
-        <LocalGrouping />
-        <LocalPaging />
-        <LocalSelection />
+        <IntegratedSorting />
+        <IntegratedGrouping />
+        <IntegratedPaging />
+        <IntegratedSelection />
 
         <DragDropProvider />
 
@@ -193,7 +193,7 @@ export default class Demo extends React.PureComponent {
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <PagingPanel
           pageSizes={pageSizes}
         />
@@ -203,7 +203,7 @@ export default class Demo extends React.PureComponent {
         />
         <TableGroupRow />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
       </Grid>
     );
   }

@@ -33,7 +33,7 @@ export class TableSelection extends React.PureComponent {
         dependencies={[
           { pluginName: 'Table' },
           { pluginName: 'SelectionState' },
-          { pluginName: 'LocalSelection', optional: !showSelectAll },
+          { pluginName: 'IntegratedSelection', optional: !showSelectAll },
         ]}
       >
         {showSelectionColumn && (

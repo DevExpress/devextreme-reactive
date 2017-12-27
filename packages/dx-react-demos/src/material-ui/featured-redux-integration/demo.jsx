@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -135,11 +135,11 @@ const GridContainer = ({
         onSelectionChange={onSelectionChange}
       />
 
-      <LocalFiltering />
-      <LocalSorting />
-      <LocalGrouping />
-      <LocalPaging />
-      <LocalSelection />
+      <IntegratedFiltering />
+      <IntegratedSorting />
+      <IntegratedGrouping />
+      <IntegratedPaging />
+      <IntegratedSelection />
 
       <DragDropProvider />
 
@@ -155,7 +155,7 @@ const GridContainer = ({
         onColumnWidthsChange={onColumnWidthsChange}
       />
 
-      <TableHeaderRow allowSorting />
+      <TableHeaderRow showSortingControls />
       <TableFilterRow />
       <TableSelection showSelectAll />
       <TableRowDetail
@@ -163,7 +163,7 @@ const GridContainer = ({
       />
       <TableGroupRow />
       <Toolbar />
-      <GroupingPanel allowSorting />
+      <GroupingPanel showSortingControls />
       <PagingPanel
         pageSizes={pageSizes}
       />

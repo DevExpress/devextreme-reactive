@@ -79,7 +79,7 @@ describe('GroupPanelItem', () => {
       />
     ));
     expect(tree.find(Chip).props())
-      .toHaveProperty('onRequestDelete');
+      .toHaveProperty('onDelete');
   });
 
   it('should not change sorting if sorting is not allowed', () => {

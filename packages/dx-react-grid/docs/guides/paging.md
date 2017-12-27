@@ -7,6 +7,7 @@ The Grid component supports data paging. You can specify the page size and switc
 The following plugins implement filtering features:
 
 - [PagingState](../reference/paging-state.md) - controls the paging state
+- [CustomPaging](../reference/custom-paging.md) - specifies custom totalCount property
 - [IntegratedPaging](../reference/integrated-paging.md) - performs built-in data paging
 - [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
 
@@ -14,7 +15,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Paging Setup
 
-Import the plugins listed above to set up a Grid with basic paging.
+Use the `PagingState`, `LocalPaging` (or `CustomPaging`) and `PagingPanel` plugins to set up a Grid with paging.
 
 ## Uncontrolled Mode
 
@@ -49,7 +50,7 @@ You can handle the Grid's paging state changes to request a page data from the s
 
 Paging options are updated once an end-user interacts with Paging Panel controls. Handle paging option changes using the `PagingState` plugin's `onCurrentPageChange` and `onPageSizeChange` events and request data from the server using the applied paging options. Once the page data is received from the server, pass it to the `Grid` component's `rows` property.
 
-Note that in the case of remote paging, you do not need to use the `IntegratedPaging` plugin.
+For remote paging, you should use the `CustomPaging` plugin instead of the `IntegratedPaging` plugin.
 
 .embedded-demo(paging/remote-paging)
 

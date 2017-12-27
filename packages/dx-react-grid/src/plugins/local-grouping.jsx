@@ -6,6 +6,7 @@ import {
   groupRowLevelKeyGetter,
   groupedRows,
   expandedGroupRows,
+  getColumnExtension,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -17,10 +18,12 @@ const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
 
 export class LocalGrouping extends React.PureComponent {
   render() {
-    const { getColumnIdentity } = this.props;
+    const { columnExtensions } = this.props;
+    const getColumnCriteria = columnName =>
+      getColumnExtension(columnExtensions, columnName).criteria;
 
     const groupedRowsComputed = ({ rows, grouping, getCellValue }) =>
-      groupedRows(rows, grouping, getCellValue, getColumnIdentity);
+      groupedRows(rows, grouping, getCellValue, getColumnCriteria);
 
     return (
       <PluginContainer
@@ -37,9 +40,9 @@ export class LocalGrouping extends React.PureComponent {
 }
 
 LocalGrouping.propTypes = {
-  getColumnIdentity: PropTypes.func,
+  columnExtensions: PropTypes.array,
 };
 
 LocalGrouping.defaultProps = {
-  getColumnIdentity: undefined,
+  columnExtensions: undefined,
 };

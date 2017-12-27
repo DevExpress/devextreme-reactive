@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Table as TableMUI } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 
-const styles = {
+const styles = theme => ({
   table: {
     tableLayout: 'fixed',
   },
@@ -13,11 +13,12 @@ const styles = {
     top: 0,
     zIndex: 1,
     overflow: 'visible',
+    background: theme.palette.background.paper,
     fallbacks: {
       position: '-webkit-sticky',
     },
   },
-};
+});
 
 const TableBase = ({
   children, classes, use, ...restProps

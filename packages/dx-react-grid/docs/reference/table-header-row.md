@@ -37,7 +37,7 @@ Field | Type | Description
 column | [Column](grid.md#column) | A column object associated with the header cell.
 allowSorting | boolean | Specifies whether a user can change the associated column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
-onSort | ({ direction: 'asc' &#124; 'desc' &#124; null, keepOther: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `directions` is set to null.
+onSort | ({ direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 showGroupingControls | boolean | Specifies whether to render a control that toggles the associated column's grouping state.
 onGroup | () => void | An event that invokes grouping by the associated column.
 allowResizing | boolean | false | Specifies whether table column resizing is enabled.

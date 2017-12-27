@@ -57,7 +57,7 @@ item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
 showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by the column.
 allowSorting | boolean | Specifies whether an end-user can sort data by the column while it is in the grouping panel.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
-onSort | ({ direction: 'asc' &#124; 'desc' &#124; null, keepOther: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `directions` is set to null.
+onSort | ({ direction?: 'asc' &#124; 'desc' &#124; null }) => void | An event that initiates changing column's sorting direction. Cancels sorting by the current column if `direction` is set to null.
 onGroup | () => void | An event that initiates grouping by the column.
 
 ### GroupingPanelEmptyMessageProps

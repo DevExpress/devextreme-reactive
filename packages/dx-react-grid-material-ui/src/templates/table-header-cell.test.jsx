@@ -59,7 +59,7 @@ describe('TableHeaderCell', () => {
         {...defaultProps}
         column={{ name: 'Test' }}
         onSort={onSort}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -85,7 +85,7 @@ describe('TableHeaderCell', () => {
       <TableHeaderCell
         {...defaultProps}
         column={{ name: 'a' }}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -151,7 +151,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <TableHeaderCell
         {...defaultProps}
-        allowSorting
+        showSortingControls
         tableColumn={{ align: 'right' }}
         column={{ title: 'test' }}
       />
@@ -213,7 +213,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           {...defaultProps}
           column={{ title: 'text' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
@@ -228,7 +228,7 @@ describe('TableHeaderCell', () => {
           {...defaultProps}
           onSort={onSort}
           column={{ title: 'text' }}
-          allowSorting
+          showSortingControls
         />
       ));
       const SortLabel = tree.find(TableSortLabel);
@@ -255,7 +255,7 @@ describe('TableHeaderCell', () => {
           {...defaultProps}
           onSort={onSort}
           column={{ title: 'text' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
@@ -271,7 +271,7 @@ describe('TableHeaderCell', () => {
           {...defaultProps}
           onSort={onSort}
           column={{ title: 'text' }}
-          allowSorting
+          showSortingControls
         />
       ));
 

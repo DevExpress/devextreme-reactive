@@ -46,15 +46,15 @@ Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to t
 - Use the corresponding button in a header cell
  Assign true to the `TableHeaderRow` plugin's `showGroupingControls` and the `GroupingPanel` plugin's `showGroupingControls` properties.
 
-You can also set the `GroupingPanel` plugin's `allowSorting` option to true to enable sorting data by a grouped column.
+You can also set the `GroupingPanel` plugin's `showSortingControls` option to true to enable sorting data by a grouped column.
 
-In the following example, the Grid functions are in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls the grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
+In the following example, the Grid functions are in [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls its grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
 
 .embedded-demo(grouping/local-grouping-with-ui)
 
 ## Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grouping state.
+In [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grid grouping state.
 
 .embedded-demo(grouping/local-grouping-controlled)
 

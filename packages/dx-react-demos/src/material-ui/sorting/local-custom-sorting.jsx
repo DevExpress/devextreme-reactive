@@ -68,7 +68,7 @@ export default class Demo extends React.PureComponent {
           <Table
             columnExtensions={tableColumnExtensions}
           />
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
         </Grid>
       </Paper>
     );

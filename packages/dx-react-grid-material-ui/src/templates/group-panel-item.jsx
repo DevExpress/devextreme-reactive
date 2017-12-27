@@ -17,9 +17,9 @@ const styles = theme => ({
   },
 });
 
-const label = (allowSorting, sortingDirection, column) => {
+const label = (showSortingControls, sortingDirection, column) => {
   const title = column.title || column.name;
-  return allowSorting
+  return showSortingControls
     ? (
       <TableSortLabel
         active={!!sortingDirection}
@@ -35,7 +35,7 @@ const label = (allowSorting, sortingDirection, column) => {
 const GroupPanelItemBase = ({
   item: { column, draft },
   onGroup, showGroupingControls,
-  allowSorting, sortingDirection, onSort,
+  showSortingControls, sortingDirection, onSort,
   classes, className,
   ...restProps
 }) => {
@@ -44,7 +44,7 @@ const GroupPanelItemBase = ({
     [classes.draftCell]: draft,
   }, className);
   const onClick = (e) => {
-    if (!allowSorting) return;
+    if (!showSortingControls) return;
     const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
     const isMouseClick = e.keyCode === undefined;
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
@@ -60,7 +60,7 @@ const GroupPanelItemBase = ({
 
   return (
     <Chip
-      label={label(allowSorting, sortingDirection, column)}
+      label={label(showSortingControls, sortingDirection, column)}
       className={chipClassNames}
       {...showGroupingControls
         ? { onDelete: () => onGroup({ columnName: column.name }) }
@@ -78,7 +78,7 @@ GroupPanelItemBase.propTypes = {
     }).isRequired,
     draft: PropTypes.string,
   }).isRequired,
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
@@ -88,7 +88,7 @@ GroupPanelItemBase.propTypes = {
 };
 
 GroupPanelItemBase.defaultProps = {
-  allowSorting: false,
+  showSortingControls: false,
   sortingDirection: undefined,
   onSort: undefined,
   onGroup: undefined,

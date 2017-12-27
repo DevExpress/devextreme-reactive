@@ -17,7 +17,7 @@ const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(ta
 export class TableHeaderRow extends React.PureComponent {
   render() {
     const {
-      allowSorting,
+      showSortingControls,
       showGroupingControls,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
@@ -30,7 +30,7 @@ export class TableHeaderRow extends React.PureComponent {
         pluginName="TableHeaderRow"
         dependencies={[
           { pluginName: 'Table' },
-          { pluginName: 'SortingState', optional: !allowSorting },
+          { pluginName: 'SortingState', optional: !showSortingControls },
           { pluginName: 'GroupingState', optional: !showGroupingControls },
           { pluginName: 'DragDropProvider', optional: true },
           { pluginName: 'TableColumnResizing', optional: true },
@@ -59,11 +59,11 @@ export class TableHeaderRow extends React.PureComponent {
                     {...params}
                     column={params.tableColumn.column}
                     getMessage={getMessage}
-                    allowSorting={allowSorting && sorting !== undefined}
+                    showSortingControls={showSortingControls && sorting !== undefined}
                     showGroupingControls={showGroupingControls && atLeastOneDataColumn}
                     allowDragging={allowDragging && atLeastOneDataColumn}
                     allowResizing={allowTableColumnResizing}
-                    sortingDirection={allowSorting && sorting !== undefined
+                    sortingDirection={showSortingControls && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     onSort={({ keepOther, cancel }) =>
                       setColumnSorting({ columnName, keepOther, cancel })}
@@ -91,7 +91,7 @@ export class TableHeaderRow extends React.PureComponent {
 }
 
 TableHeaderRow.propTypes = {
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
@@ -99,7 +99,7 @@ TableHeaderRow.propTypes = {
 };
 
 TableHeaderRow.defaultProps = {
-  allowSorting: false,
+  showSortingControls: false,
   showGroupingControls: false,
   messages: null,
 };

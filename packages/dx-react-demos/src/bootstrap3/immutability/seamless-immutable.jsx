@@ -130,7 +130,7 @@ export default () => (
       <LocalSorting />
       <LocalSelection />
       <Table />
-      <TableHeaderRow allowSorting />
+      <TableHeaderRow showSortingControls />
       <TableSelection />
     </Grid>
   </Provider>

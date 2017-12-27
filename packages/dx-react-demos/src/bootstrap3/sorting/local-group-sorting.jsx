@@ -52,10 +52,10 @@ export default class Demo extends React.PureComponent {
         <LocalSorting />
         <LocalGrouping />
         <Table />
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <TableGroupRow />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
       </Grid>
     );
   }

@@ -19,7 +19,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Use the `SortingState`, `LocalSorting` and `TableHeaderRow` plugins to set up a Grid with simple static sorting.
 
-Set the `TableHeaderRow` plugin's `allowSorting` property to true to enable changing the sorting criteria in the header row.
+Set the `TableHeaderRow` plugin's `showSortingControls` property to true to enable changing the sorting criteria in the header row.
 
 ## Uncontrolled Mode
 
@@ -35,9 +35,9 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting
 
 ## Using Sorting with Grouping
 
-If you use grouping features, the Grid allows you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `allowSorting` property to true, which enables sorting UI for Group Panel's column headers.
+If you use grouping features, the Grid allows you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
 
-Note that the `LocalGrouping` plugin should follow the `LocalSorting` to provide the correct group row sorting.
+Note that the `LocalGrouping` plugin should follow `LocalSorting` to provide correct group row sorting.
 
 .embedded-demo(sorting/local-group-sorting)
 

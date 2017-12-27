@@ -133,7 +133,7 @@ describe('TableHeaderRow', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableHeaderRow
           {...defaultProps}
-          allowSorting
+          showSortingControls
           messages={{
             sortingHint: 'test',
           }}

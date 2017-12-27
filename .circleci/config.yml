@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.4
+      - image: circleci/node:8
 
     steps:
       - checkout
@@ -19,10 +19,12 @@ jobs:
           key: node-modules-cache-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+            - packages/*/node_modules
       - save_cache:
           key: node-modules-cache
           paths:
             - node_modules
+            - packages/*/node_modules
 
       - run: yarn run build
       - run: yarn run test -- -- -- --maxWorkers=2

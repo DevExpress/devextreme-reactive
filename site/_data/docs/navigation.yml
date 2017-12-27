@@ -60,18 +60,18 @@ react:
           path: /react/grid/docs/reference/row-detail-state
         - title: TableColumnReordering
           path: /react/grid/docs/reference/table-column-reordering
-        - title: LocalFiltering
-          path: /react/grid/docs/reference/local-filtering
-        - title: LocalSelection
-          path: /react/grid/docs/reference/local-selection
-        - title: LocalSorting
-          path: /react/grid/docs/reference/local-sorting
-        - title: LocalGrouping
-          path: /react/grid/docs/reference/local-grouping
+        - title: IntegratedFiltering
+          path: /react/grid/docs/reference/integrated-filtering
+        - title: IntegratedSelection
+          path: /react/grid/docs/reference/integrated-selection
+        - title: IntegratedSorting
+          path: /react/grid/docs/reference/integrated-sorting
+        - title: IntegratedGrouping
+          path: /react/grid/docs/reference/integrated-grouping
         - title: CustomGrouping
           path: /react/grid/docs/reference/custom-grouping
-        - title: LocalPaging
-          path: /react/grid/docs/reference/local-paging
+        - title: IntegratedPaging
+          path: /react/grid/docs/reference/integrated-paging
         - title: Table
           path: /react/grid/docs/reference/table
         - title: VirtualTable

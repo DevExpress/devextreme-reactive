@@ -46,7 +46,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
         onSort={onSort}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -62,7 +62,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
         onSort={onSort}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -79,7 +79,7 @@ describe('GroupPanelItem', () => {
       />
     ));
     expect(tree.find(Chip).props())
-      .toHaveProperty('onRequestDelete');
+      .toHaveProperty('onDelete');
   });
 
   it('should not change sorting if sorting is not allowed', () => {
@@ -103,7 +103,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
-        allowSorting
+        showSortingControls
       />
     ));
     const сhipElem = tree.find(Chip);
@@ -134,7 +134,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
-        allowSorting
+        showSortingControls
       />
     ));
 

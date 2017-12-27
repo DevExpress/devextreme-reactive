@@ -75,7 +75,7 @@ class TableHeaderCellBase extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
-      allowSorting, sortingDirection,
+      showSortingControls, sortingDirection,
       showGroupingControls, onGroup,
       draggingEnabled,
       resizingEnabled, onWidthChange, onDraftWidthChange,
@@ -86,12 +86,11 @@ class TableHeaderCellBase extends React.PureComponent {
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
     const columnTitle = column && (column.title || column.name);
-    const tooltipText = getMessage('sortingHint');
 
     const tableCellClasses = classNames({
       [classes.cell]: true,
       [classes.cellRight]: align === 'right',
-      [classes.cellNoUserSelect]: draggingEnabled || allowSorting,
+      [classes.cellNoUserSelect]: draggingEnabled || showSortingControls,
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
@@ -108,13 +107,13 @@ class TableHeaderCellBase extends React.PureComponent {
             onGroup={onGroup}
           />
         )}
-        {allowSorting ? (
+        {showSortingControls ? (
           <SortingControl
             align={align}
             sortingDirection={sortingDirection}
             columnTitle={columnTitle}
             onClick={this.onClick}
-            text={tooltipText}
+            getMessage={getMessage}
           />
         ) : (
           <div className={classes.plainTitle}>
@@ -148,7 +147,7 @@ TableHeaderCellBase.propTypes = {
   tableRow: PropTypes.object,
   column: PropTypes.object,
   style: PropTypes.object,
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   showGroupingControls: PropTypes.bool,
@@ -167,7 +166,7 @@ TableHeaderCellBase.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   style: null,
-  allowSorting: false,
+  showSortingControls: false,
   sortingDirection: undefined,
   onSort: undefined,
   showGroupingControls: false,

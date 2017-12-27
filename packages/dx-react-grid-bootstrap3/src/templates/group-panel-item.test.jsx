@@ -46,7 +46,7 @@ describe('GroupPanelItem', () => {
     const tree = mount((
       <GroupPanelItem
         onSort={onSort}
-        allowSorting
+        showSortingControls
         item={{ column: { name: 'test' } }}
       />
     ));
@@ -94,7 +94,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
-        allowSorting
+        showSortingControls
       />
     ));
 

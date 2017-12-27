@@ -97,13 +97,13 @@ export default class Demo extends React.PureComponent {
             columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
           <TableFilterRow />
           <TableSelection showSelectAll />
           <TableGroupRow />
           <Toolbar />
-          <GroupingPanel allowSorting />
+          <GroupingPanel showSortingControls />
         </Grid>
       </Paper>
     );

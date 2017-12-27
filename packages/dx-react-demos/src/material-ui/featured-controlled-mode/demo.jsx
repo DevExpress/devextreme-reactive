@@ -333,7 +333,7 @@ class DemoBase extends React.PureComponent {
             onOrderChange={this.changeColumnOrder}
           />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableEditRow
             cellComponent={EditCell}
           />
@@ -351,7 +351,7 @@ class DemoBase extends React.PureComponent {
 
         <Dialog
           open={!!deletingRows.length}
-          onRequestClose={this.cancelDelete}
+          onClose={this.cancelDelete}
           classes={{ paper: classes.dialog }}
         >
           <DialogTitle>Delete Row</DialogTitle>

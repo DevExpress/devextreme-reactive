@@ -4,7 +4,7 @@ import { Input, TableCell, Paper } from 'material-ui';
 import { withStyles } from 'material-ui/styles';
 import {
   FilteringState,
-  LocalFiltering,
+  IntegratedFiltering,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -99,7 +99,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
-          <LocalFiltering />
+          <IntegratedFiltering />
           <Table
             columnExtensions={tableColumnExtensions}
           />

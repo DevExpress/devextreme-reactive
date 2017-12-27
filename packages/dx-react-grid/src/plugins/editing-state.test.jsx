@@ -103,5 +103,32 @@ describe('EditingState', () => {
       expect(addedRowsChange)
         .toHaveBeenCalledTimes(1);
     });
+
+    it('should correctly work with the several editing action calls in the controlled mode', () => {
+      const changeEditingRows = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <EditingState
+            {...defaultProps}
+            editingRows={[]}
+            changedRows={{}}
+            onEditingRowsChange={changeEditingRows}
+          />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, (actions) => {
+        actions.startEditRows({ rowIds: [0] });
+        actions.stopEditRows({ rowIds: [0] });
+        actions.changeRow({ rowIds: [0] });
+      });
+
+      expect(changeEditingRows)
+        .toBeCalledWith([]);
+
+      expect(changeEditingRows)
+        .toHaveBeenCalledTimes(1);
+    });
   });
 });

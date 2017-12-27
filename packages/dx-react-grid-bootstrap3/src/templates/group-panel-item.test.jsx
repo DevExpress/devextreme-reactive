@@ -101,7 +101,7 @@ describe('GroupPanelItem', () => {
     const targetElement = tree.find('span').first();
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
     expect(onSort)
-      .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
+      .toHaveBeenCalledWith({ keepOther: true, direction: null });
   });
 
   it('should pass rest props to the root element', () => {

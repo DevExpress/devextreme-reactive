@@ -13,7 +13,7 @@ The following plugins implement column reordering features:
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
-## Column Reordering Setup
+## Basic Setup
 
 Import the plugins listed above to set up a simple Grid with column reordering enabled.
 

@@ -268,7 +268,7 @@ describe('TableHeaderCell', () => {
       const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
       expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
+        .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
     });
 
     it('should handle the "Ctrl" key with sorting', () => {
@@ -285,7 +285,7 @@ describe('TableHeaderCell', () => {
       const targetElement = tree.find('SortingControl');
       targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
       expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: true });
+        .toHaveBeenCalledWith({ keepOther: true, direction: null });
     });
   });
 });

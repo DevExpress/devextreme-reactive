@@ -25,13 +25,14 @@ export class TableHeaderCell extends React.PureComponent {
       if (!showSortingControls || !(isActionKeyDown || isMouseClick)) return;
 
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      const cancel = (isMouseClick && cancelSortingRelatedKey)
-        || (isActionKeyDown && cancelSortingRelatedKey);
+      const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
+        ? null
+        : undefined;
 
       e.preventDefault();
       onSort({
+        direction,
         keepOther: e.shiftKey || cancelSortingRelatedKey,
-        cancel,
       });
     };
   }

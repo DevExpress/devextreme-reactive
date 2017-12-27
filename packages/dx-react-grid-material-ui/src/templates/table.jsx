@@ -27,7 +27,7 @@ const TableBase = ({
     className={classNames({
       [classes.table]: true,
       [classes.headTable]: use === 'head',
-    })}
+    }, restProps.className)}
     {...restProps}
   >
     {children}

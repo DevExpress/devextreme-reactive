@@ -12,6 +12,10 @@ jest.mock('./table-header-cell/grouping-control', () => ({
   GroupingControl: jest.fn(),
 }));
 
+const defaultProps = {
+  getMessage: key => key,
+};
+
 describe('TableHeaderCell', () => {
   let resetConsole;
   let mount;
@@ -19,7 +23,7 @@ describe('TableHeaderCell', () => {
   let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
-    classes = getClasses(<TableHeaderCell column={{}} getMessage={jest.fn()} />);
+    classes = getClasses(<TableHeaderCell {...defaultProps} />);
     mount = createMount({ context: { table: {} }, childContextTypes: { table: () => null } });
     shallow = createShallow({ dive: true });
   });
@@ -38,7 +42,7 @@ describe('TableHeaderCell', () => {
   it('should use column name if title is not specified', () => {
     const tree = shallow((
       <TableHeaderCell
-        getMessage={jest.fn()}
+        {...defaultProps}
         column={{
           name: 'Test',
         }}
@@ -52,12 +56,10 @@ describe('TableHeaderCell', () => {
     const onSort = jest.fn();
     const tree = mount((
       <TableHeaderCell
-        column={{
-          name: 'Test',
-        }}
+        {...defaultProps}
+        column={{ name: 'Test' }}
         onSort={onSort}
         allowSorting
-        getMessage={jest.fn()}
       />
     ));
 
@@ -70,7 +72,7 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
-        getMessage={jest.fn()}
+        {...defaultProps}
       />
     ));
 
@@ -81,9 +83,9 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when sorting is allowed', () => {
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         column={{ name: 'a' }}
         allowSorting
-        getMessage={jest.fn()}
       />
     ));
 
@@ -94,8 +96,8 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
+          {...defaultProps}
           allowDragging
-          getMessage={jest.fn()}
         />
       </DragDropProvider>
     ));
@@ -108,8 +110,8 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
+          {...defaultProps}
           allowDragging
-          getMessage={jest.fn()}
         />
       </DragDropProvider>
     ));
@@ -130,10 +132,10 @@ describe('TableHeaderCell', () => {
     const onDraftWidthChange = () => {};
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         allowResizing
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
-        getMessage={jest.fn()}
       />
     ));
 
@@ -148,10 +150,10 @@ describe('TableHeaderCell', () => {
   it('should pass correct text to SortingControl', () => {
     const tree = mount((
       <TableHeaderCell
+        {...defaultProps}
         allowSorting
         tableColumn={{ align: 'right' }}
         column={{ title: 'test' }}
-        getMessage={key => key}
       />
     ));
 
@@ -165,9 +167,9 @@ describe('TableHeaderCell', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         className="custom-class"
         column={{ title: 'a' }}
-        getMessage={() => null}
       />
     ));
 
@@ -180,9 +182,9 @@ describe('TableHeaderCell', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         data={{ a: 1 }}
         column={{ title: 'a' }}
-        getMessage={() => null}
       />
     ));
 
@@ -197,8 +199,8 @@ describe('TableHeaderCell', () => {
     it('can not get focus if sorting is not allow', () => {
       const tree = mount((
         <TableHeaderCell
+          {...defaultProps}
           column={{ title: 'text' }}
-          getMessage={jest.fn()}
         />
       ));
 
@@ -209,9 +211,9 @@ describe('TableHeaderCell', () => {
     it('can get focus if sorting is allow', () => {
       const tree = mount((
         <TableHeaderCell
+          {...defaultProps}
           column={{ title: 'text' }}
           allowSorting
-          getMessage={jest.fn()}
         />
       ));
 
@@ -223,10 +225,10 @@ describe('TableHeaderCell', () => {
       const onSort = jest.fn();
       const tree = mount((
         <TableHeaderCell
+          {...defaultProps}
           onSort={onSort}
           column={{ title: 'text' }}
           allowSorting
-          getMessage={jest.fn()}
         />
       ));
       const SortLabel = tree.find(TableSortLabel);
@@ -250,10 +252,10 @@ describe('TableHeaderCell', () => {
       const onSort = jest.fn();
       const tree = mount((
         <TableHeaderCell
+          {...defaultProps}
           onSort={onSort}
           column={{ title: 'text' }}
           allowSorting
-          getMessage={jest.fn()}
         />
       ));
 
@@ -266,10 +268,10 @@ describe('TableHeaderCell', () => {
       const onSort = jest.fn();
       const tree = mount((
         <TableHeaderCell
+          {...defaultProps}
           onSort={onSort}
           column={{ title: 'text' }}
           allowSorting
-          getMessage={jest.fn()}
         />
       ));
 

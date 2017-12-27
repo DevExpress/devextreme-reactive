@@ -34,19 +34,7 @@ describe('EditingState computeds', () => {
       ]);
     });
   });
-  // it('should create a row change', () => {
-  //   const rows = [
-  //     { a: 1, b: 1 },
-  //     { a: 2, b: 2 },
-  //   ];
-  //   const columns = [
-  //     { name: 'a' },
-  //     { name: 'b' },
-  //   ];
-  //   const createRowChange = computedCreateRowChange(columns);
-  //   const change = createRowChange(rows[1], 3, columns[1].name);
 
-  //   expect(change).toEqual({ b: 3 });
   describe('#createRowChangeGetter', () => {
     it('should work with default cell access', () => {
       expect(createRowChangeGetter(undefined)({ a: 1 }, 2, 'a'))

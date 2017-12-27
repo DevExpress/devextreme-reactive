@@ -35,7 +35,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting
 
 ## Using Sorting with Grouping
 
-If you use grouping features, the Grid allows you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for Group Panel's column headers.
+If you use grouping features, the Grid allows you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
 
 Note that the `LocalGrouping` plugin should follow `LocalSorting` to provide correct group row sorting.
 

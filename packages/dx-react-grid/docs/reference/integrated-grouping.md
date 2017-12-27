@@ -25,7 +25,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.
-criteria? | (value: any) => { key: string | number, value?: any } | A grouping criterion function. It returns an object with the **key** field by which data is grouped. If you need to group data by a non-primitive value (for example, a date), assign its string representation to the **key** field and the value to the **value** field.
+criteria? | (value: any) => { key: string &#124; number, value?: any } | A grouping criterion function. It returns an object with the **key** field by which data is grouped. If you need to group data by a non-primitive value (for example, a date), assign its string representation to the **key** field and the value to the **value** field.
 
 ## Plugin Developer Reference
 

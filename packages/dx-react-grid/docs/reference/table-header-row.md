@@ -21,7 +21,7 @@ Name | Type | Default | Description
 cellComponent | ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A component that renders a header cell.
 rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
 showSortingControls | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
-showGroupingControls | boolean | false | Specifies whether to display a button that groups data by the column. Requires the [GroupingState](grouping-state.md) dependency.
+showGroupingControls | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
 allowResizing | boolean | false | Specifies whether a user can resize columns. Requires the [TableColumnResizing](table-column-resizing.md) dependency.
 messages | object | | An object that specifies [localization messages](#localization-messages).
 
@@ -35,11 +35,11 @@ A value with the [TableCellProps](table.md#tablecellprops) shape extended by the
 
 Field | Type | Description
 ------|------|------------
-column | [Column](grid.md#column) | A column object associated with the header cell.
+column | [Column](grid.md#column) | A column object associated with a header cell.
 showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
 onSort | ({ keepOther: boolean, cancel: boolean }) | An event that changes the associated column's sorting state. The `keepOther` and `cancel` arguments specify whether to keep existing sorting and cancel sorting by the associated column.
-showGroupingControls | boolean | Specifies whether to display a button that groups data by the column.
+showGroupingControls | boolean | Specifies whether to display a button that groups data by column.
 onGroup | () => void | An event that invokes grouping by the associated column.
 onWidthChange | ({ shift: number }) => void | An event that initiates the column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative
 onDraftWidthChange | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.

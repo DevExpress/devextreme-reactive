@@ -35,7 +35,7 @@ export class DragDropProvider extends React.PureComponent {
       <PluginContainer
         pluginName="DragDropProvider"
       >
-        <Getter name="allowDragging" value />
+        <Getter name="draggingEnabled" value />
         <Template name="root">
           <DragDropProviderCore
             onChange={this.change}

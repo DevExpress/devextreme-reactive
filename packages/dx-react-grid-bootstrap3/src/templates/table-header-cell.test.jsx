@@ -61,7 +61,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
-        allowSorting
+        showSortingControls
       />
     ));
 
@@ -79,7 +79,7 @@ describe('TableHeaderCell', () => {
       <DragDropProvider>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
       </DragDropProvider>
     ));
@@ -98,7 +98,7 @@ describe('TableHeaderCell', () => {
       <DragDropProvider>
         <TableHeaderCell
           column={{}}
-          allowDragging
+          draggingEnabled
         />
       </DragDropProvider>
     ));
@@ -131,7 +131,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
-        allowResizing
+        resizingEnabled
         onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
       />
@@ -234,7 +234,7 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
@@ -261,7 +261,7 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 
@@ -278,7 +278,7 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
-          allowSorting
+          showSortingControls
         />
       ));
 

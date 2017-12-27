@@ -16,7 +16,7 @@ export class GroupingPanel extends React.PureComponent {
       containerComponent: Container,
       itemComponent: Item,
       emptyMessageComponent: EmptyMessage,
-      allowSorting,
+      showSortingControls,
       showGroupingControls,
       messages,
     } = this.props;
@@ -36,7 +36,7 @@ export class GroupingPanel extends React.PureComponent {
           {({ sorting }, { groupByColumn, setColumnSorting }) => (
             <Item
               item={item}
-              allowSorting={allowSorting && sorting !== undefined}
+              showSortingControls={showSortingControls && sorting !== undefined}
               sortingDirection={sorting !== undefined
                 ? getColumnSortingDirection(sorting, columnName) : undefined}
               showGroupingControls={showGroupingControls}
@@ -55,19 +55,19 @@ export class GroupingPanel extends React.PureComponent {
         dependencies={[
           { pluginName: 'GroupingState' },
           { pluginName: 'Toolbar' },
-          { pluginName: 'SortingState', optional: !allowSorting },
+          { pluginName: 'SortingState', optional: !showSortingControls },
         ]}
       >
         <Template name="toolbarContent">
           <TemplateConnector>
             {({
-              columns, draftGrouping, allowDragging,
+              columns, draftGrouping, draggingEnabled,
             }, {
               groupByColumn, draftGroupingChange, cancelGroupingChange,
             }) => (
               <Layout
                 items={groupingPanelItems(columns, draftGrouping)}
-                allowDragging={allowDragging}
+                draggingEnabled={draggingEnabled}
                 onGroup={groupByColumn}
                 onDraftGroup={groupingChange => draftGroupingChange(groupingChange)}
                 onCancelDraftGroup={() => cancelGroupingChange()}
@@ -85,7 +85,7 @@ export class GroupingPanel extends React.PureComponent {
 }
 
 GroupingPanel.propTypes = {
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   layoutComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
@@ -95,7 +95,7 @@ GroupingPanel.propTypes = {
 };
 
 GroupingPanel.defaultProps = {
-  allowSorting: false,
+  showSortingControls: false,
   showGroupingControls: false,
   messages: {},
 };

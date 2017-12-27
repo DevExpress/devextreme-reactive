@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
+  createRowChangeGetter,
+
   startEditRows,
   stopEditRows,
 
@@ -13,7 +15,6 @@ import {
   changeRow,
   cancelChanges,
   changedRowsByIds,
-  computedCreateRowChange,
 
   deleteRows,
   cancelDeletedRows,
@@ -106,19 +107,19 @@ export class EditingState extends React.PureComponent {
     }
   }
   render() {
+    const { createRowChange, columnExtensions } = this.props;
     const {
       editingRows, changedRows, addedRows, deletedRows,
     } = this.getState();
-
-    const { createRowChange } = this.props;
-    const createRowChangeComputed = ({ columns }) =>
-      createRowChange || computedCreateRowChange(columns);
 
     return (
       <PluginContainer
         pluginName="EditingState"
       >
-        <Getter name="createRowChange" computed={createRowChangeComputed} />
+        <Getter
+          name="createRowChange"
+          value={createRowChangeGetter(createRowChange, columnExtensions)}
+        />
 
         <Getter name="editingRows" value={editingRows} />
         <Action name="startEditRows" action={this.startEditRows} />
@@ -145,6 +146,9 @@ export class EditingState extends React.PureComponent {
 }
 
 EditingState.propTypes = {
+  createRowChange: PropTypes.func,
+  columnExtensions: PropTypes.array,
+
   editingRows: PropTypes.array,
   defaultEditingRows: PropTypes.array,
   onEditingRowsChange: PropTypes.func,
@@ -156,7 +160,6 @@ EditingState.propTypes = {
   changedRows: PropTypes.object,
   defaultChangedRows: PropTypes.object,
   onChangedRowsChange: PropTypes.func,
-  createRowChange: PropTypes.func,
 
   deletedRows: PropTypes.array,
   defaultDeletedRows: PropTypes.array,
@@ -166,9 +169,16 @@ EditingState.propTypes = {
 };
 
 EditingState.defaultProps = {
+  createRowChange: undefined,
+  columnExtensions: undefined,
+
   editingRows: undefined,
   defaultEditingRows: [],
   onEditingRowsChange: undefined,
+
+  changedRows: undefined,
+  defaultChangedRows: {},
+  onChangedRowsChange: undefined,
 
   addedRows: undefined,
   defaultAddedRows: [],
@@ -177,10 +187,4 @@ EditingState.defaultProps = {
   deletedRows: undefined,
   defaultDeletedRows: [],
   onDeletedRowsChange: undefined,
-
-  changedRows: undefined,
-  defaultChangedRows: {},
-  onChangedRowsChange: undefined,
-
-  createRowChange: undefined,
 };

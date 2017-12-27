@@ -1,7 +1,7 @@
 import {
   changedRowsByIds,
   addedRowsByIds,
-  computedCreateRowChange,
+  createRowChangeGetter,
 } from './computeds';
 
 describe('EditingState computeds', () => {
@@ -34,31 +34,33 @@ describe('EditingState computeds', () => {
       ]);
     });
   });
-  describe('#computedCreateRowChange', () => {
-    it('should create a row change', () => {
-      const rows = [
-        { a: 1, b: 1 },
-        { a: 2, b: 2 },
-      ];
-      const columns = [
-        { name: 'a' },
-        { name: 'b' },
-      ];
-      const createRowChange = computedCreateRowChange(columns);
-      const change = createRowChange(rows[1], columns[1].name, 3);
-
-      expect(change).toEqual({ b: 3 });
+  describe('#createRowChangeGetter', () => {
+    it('should work with default cell access', () => {
+      expect(createRowChangeGetter(undefined)({ a: 1 }, 'a', 2))
+        .toEqual({ a: 2 });
+      expect(createRowChangeGetter(undefined)({ b: 2 }, 'a', 1))
+        .toEqual({ a: 1 });
     });
 
-    it('should create a row change by using a custom function within column config', () => {
-      const rows = [{ a: 1 }];
-      const createRowChangeMock = jest.fn();
-      const columns = [{ name: 'a', createRowChange: createRowChangeMock }];
+    it('should work with columnExtension defined cell access', () => {
+      const columnExtensions = [{
+        columnName: 'a',
+        createRowChange: (row, value, columnName) => ({ [`_${columnName}`]: value }),
+      }];
 
-      const createRowChange = computedCreateRowChange(columns);
-      createRowChange(rows[0], columns[0].name, 3);
+      expect(createRowChangeGetter(undefined, columnExtensions)({ a: 1 }, 'a', 2))
+        .toEqual({ _a: 2 });
+      expect(createRowChangeGetter(undefined, columnExtensions)({ b: 2 }, 'a', 1))
+        .toEqual({ _a: 1 });
+    });
 
-      expect(createRowChangeMock).toBeCalledWith(rows[0], 3, columns[0].name);
+    it('should work with defined cell access', () => {
+      const createRowChange = (row, columnName, value) => ({ [`_${columnName}`]: value });
+
+      expect(createRowChangeGetter(createRowChange)({ a: 1 }, 'a', 2))
+        .toEqual({ _a: 2 });
+      expect(createRowChangeGetter(createRowChange)({ b: 2 }, 'a', 1))
+        .toEqual({ _a: 1 });
     });
   });
 });

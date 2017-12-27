@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
-import { sortedRows } from '@devexpress/dx-grid-core';
+import { sortedRows, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'SortingState' },
@@ -9,13 +9,12 @@ const pluginDependencies = [
 
 export class LocalSorting extends React.PureComponent {
   render() {
-    const { getColumnCompare } = this.props;
+    const { columnExtensions } = this.props;
+    const getColumnCompare = columnName =>
+      getColumnExtension(columnExtensions, columnName).compare;
+
     const rowsComputed = ({
-      rows,
-      sorting,
-      getCellValue,
-      isGroupRow,
-      getRowLevelKey,
+      rows, sorting, getCellValue, isGroupRow, getRowLevelKey,
     }) =>
       sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
 
@@ -31,9 +30,9 @@ export class LocalSorting extends React.PureComponent {
 }
 
 LocalSorting.propTypes = {
-  getColumnCompare: PropTypes.func,
+  columnExtensions: PropTypes.array,
 };
 
 LocalSorting.defaultProps = {
-  getColumnCompare: undefined,
+  columnExtensions: undefined,
 };

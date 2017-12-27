@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  TableColumnReordering, GroupingPanel, DragDropContext, Toolbar,
+  TableColumnReordering, GroupingPanel, DragDropProvider, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
@@ -67,7 +67,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
         getRowId={getRowId}
       >
-        <DragDropContext />
+        <DragDropProvider />
 
         <FilteringState
           defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}

@@ -86,7 +86,6 @@ class TableHeaderCellBase extends React.PureComponent {
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
     const columnTitle = column && (column.title || column.name);
-    const tooltipText = getMessage('sortingHint');
 
     const tableCellClasses = classNames({
       [classes.cell]: true,
@@ -114,7 +113,7 @@ class TableHeaderCellBase extends React.PureComponent {
             sortingDirection={sortingDirection}
             columnTitle={columnTitle}
             onClick={this.onClick}
-            text={tooltipText}
+            getMessage={getMessage}
           />
         ) : (
           <div className={classes.plainTitle}>

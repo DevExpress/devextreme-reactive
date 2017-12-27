@@ -104,9 +104,9 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableEditRow />
           <TableEditColumn
-            allowAdding={!addedRows.length}
-            allowEditing
-            allowDeleting
+            showAddCommand={!addedRows.length}
+            showEditCommand
+            showDeleteCommand
           />
         </Grid>
       </Paper>

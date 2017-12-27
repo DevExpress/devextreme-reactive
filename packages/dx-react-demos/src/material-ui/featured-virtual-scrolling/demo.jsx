@@ -8,7 +8,7 @@ import {
 import {
   Grid,
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  GroupingPanel, DragDropContext, TableColumnReordering, Toolbar,
+  GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
@@ -71,7 +71,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={getRowId}
         >
-          <DragDropContext />
+          <DragDropProvider />
 
           <FilteringState
             defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}

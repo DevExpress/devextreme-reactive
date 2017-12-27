@@ -9,7 +9,7 @@ import {
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
-  DragDropContext,
+  DragDropProvider,
   Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -39,7 +39,7 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <DragDropContext />
+        <DragDropProvider />
         <GroupingState defaultGrouping={[{ columnName: 'city' }]} />
         <LocalGrouping />
         <Table />

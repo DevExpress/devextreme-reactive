@@ -40,7 +40,7 @@ export default class Demo extends React.PureComponent {
         { name: 'dueDate', title: 'Due Date' },
         { name: 'priority', title: 'Priority' },
       ],
-      localSortingColumnExtensions: [
+      integratedSortingColumnExtensions: [
         { columnName: 'priority', compare: comparePriority },
       ],
       tableColumnExtensions: [
@@ -54,7 +54,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, localSortingColumnExtensions, tableColumnExtensions,
+      rows, columns, integratedSortingColumnExtensions, tableColumnExtensions,
     } = this.state;
 
     return (
@@ -65,7 +65,7 @@ export default class Demo extends React.PureComponent {
         >
           <SortingState />
           <IntegratedSorting
-            columnExtensions={localSortingColumnExtensions}
+            columnExtensions={integratedSortingColumnExtensions}
           />
           <Table
             columnExtensions={tableColumnExtensions}

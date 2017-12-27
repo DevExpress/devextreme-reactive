@@ -14,22 +14,25 @@ A plugin that renders group rows and enables them to expand and collapse.
 
 Name | Type | Default | Description
 -----|------|---------|------------
+showColumnsWhenGrouped | boolean | false | A Boolean value that specifies whether the grid's table displays a column by which data is grouped.
+columnExtensions | Array&lg;[TableGroupColumnExtension](#tablegroupcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 cellComponent | ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A component that renders a group cell.
 rowComponent | ElementType&lt;[TableGroupRowProps](#tablegrouprowprops)&gt; | | A component that renders a group row.
 indentCellComponent | ElementType&lt;[TableGroupIndentCellProps](#tablegroupindentcellprops)&gt; | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
-showColumnWhenGrouped | (args: columnName) => boolean | null | A function that returns a Boolean value that specifies whether the grid displays the column by which data is grouped.
 
 ## Interfaces
 
-### Column (Extension)
+### TableGroupColumnExtension
 
-A value with the [Column](grid.md#column) shape extended by the following fields:
+Describes additional column properties that the plugin can handle.
+
+A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
+columnName | string | The name of a column to extend.
 showWhenGrouped? | boolean | Specifies whether the grid displays the column by which data is grouped.
-title? | string | Specifies the column title.
 
 ### TableGroupCellProps
 
@@ -89,7 +92,7 @@ Additional properties are added to the component's root element.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column)&gt; | The grid columns.
+columns | Getter | Array&lt;[Column](#column-extension)&gt; | The grid columns.
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Current grouping options.

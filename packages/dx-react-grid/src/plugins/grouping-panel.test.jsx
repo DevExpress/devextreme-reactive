@@ -29,9 +29,9 @@ const defaultDeps = {
     cancelGroupingChange: jest.fn(),
   },
   template: {
-    header: {},
+    toolbarContent: {},
   },
-  plugins: ['GroupingState'],
+  plugins: ['GroupingState', 'Toolbar'],
 };
 
 const defaultProps = {
@@ -61,21 +61,23 @@ describe('GroupingPanel', () => {
 
   it('should pass correct parameters to layoutComponent', () => {
     const deps = {
-      plugins: ['SortingState'],
+      getter: {
+        draggingEnabled: true,
+      },
+      plugins: ['DragDropProvider'],
     };
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, deps)}
         <GroupingPanel
           {...defaultProps}
-          allowDragging
         />
       </PluginHost>
     ));
 
     expect(tree.find(defaultProps.layoutComponent).props())
       .toMatchObject({
-        allowDragging: true,
+        draggingEnabled: true,
         onGroup: expect.any(Function),
         onDraftGroup: expect.any(Function),
         onCancelDraftGroup: expect.any(Function),
@@ -113,16 +115,16 @@ describe('GroupingPanel', () => {
           {...defaultProps}
           layoutComponent={({ itemComponent: Item }) =>
             <Item item={{ column: { name: 'a' } }} />}
-          allowSorting
-          allowUngroupingByClick
+          showSortingControls
+          showGroupingControls
         />
       </PluginHost>
     ));
 
     expect(tree.find(defaultProps.itemComponent).props())
       .toMatchObject({
-        allowSorting: true,
-        allowUngroupingByClick: true,
+        showSortingControls: true,
+        showGroupingControls: true,
         sortingDirection: getColumnSortingDirection(),
         onGroup: expect.any(Function),
       });

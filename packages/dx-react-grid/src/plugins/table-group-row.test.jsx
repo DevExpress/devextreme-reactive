@@ -53,7 +53,6 @@ const defaultProps = {
   indentCellComponent: () => null,
   rowComponent: () => null,
   indentColumnWidth: 100,
-  showColumnWhenGrouped: jest.fn(),
 };
 
 describe('TableGroupRow', () => {
@@ -88,7 +87,7 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableBodyRows)
+      expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithGrouping');
       expect(tableRowsWithGrouping)
         .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.isGroupRow);
@@ -105,7 +104,7 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       expect(tableColumnsWithGrouping)
         .toBeCalledWith(
@@ -114,7 +113,7 @@ describe('TableGroupRow', () => {
           defaultDeps.getter.grouping,
           defaultDeps.getter.draftGrouping,
           defaultProps.indentColumnWidth,
-          defaultProps.showColumnWhenGrouped,
+          expect.any(Function),
         );
     });
   });
@@ -135,74 +134,37 @@ describe('TableGroupRow', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableGroupRow
             {...defaultProps}
-            showColumnWhenGrouped={null}
+            showColumnsWhenGrouped
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
-      expect(showColumnWhenGrouped('A')).toBe(false);
-      expect(showColumnWhenGrouped('B')).toBe(false);
+      expect(showColumnWhenGrouped('A')).toBeTruthy();
+      expect(showColumnWhenGrouped('B')).toBeTruthy();
     });
 
     it('should keep column in table if column value specified', () => {
-      const deps = {
-        getter: {
-          columns: [
-            { name: 'A', showWhenGrouped: true },
-            { name: 'B' },
-          ],
-        },
-      };
-
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
+          {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
             {...defaultProps}
-            showColumnWhenGrouped={null}
+            showColumnsWhenGrouped={false}
+            columnExtensions={[
+              { columnName: 'A', showWhenGrouped: true },
+            ]}
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
       const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
-      expect(showColumnWhenGrouped('A')).toBe(true);
-      expect(showColumnWhenGrouped('B')).toBe(false);
-    });
-
-    it('should keep column in table if custom func specified', () => {
-      const deps = {
-        getter: {
-          columns: [
-            { name: 'A', showWhenGrouped: true },
-            { name: 'B' },
-          ],
-        },
-      };
-
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <TableGroupRow
-            {...defaultProps}
-            showColumnWhenGrouped={(columnName) => {
-              if (columnName === 'B') {
-                return true;
-              } return false;
-            }}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).getters.tableColumns)
-        .toBe('tableColumnsWithGrouping');
-      const showColumnWhenGrouped = tableColumnsWithGrouping.mock.calls[0][5];
-      expect(showColumnWhenGrouped('A')).toBe(false);
-      expect(showColumnWhenGrouped('B')).toBe(true);
+      expect(showColumnWhenGrouped('A')).toBeTruthy();
+      expect(showColumnWhenGrouped('B')).toBeFalsy();
     });
   });
 

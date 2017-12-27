@@ -52,7 +52,7 @@ describe('PagingPanel', () => {
         {pluginDepsToComponents(defaultDeps)}
         <PagingPanel
           containerComponent={DefaultPager}
-          allowedPageSizes={[3, 5, 0]}
+          pageSizes={[3, 5, 0]}
         />
       </PluginHost>
     ));
@@ -64,7 +64,7 @@ describe('PagingPanel', () => {
         pageSize: 2,
         totalCount: 21,
         totalPages: 11,
-        allowedPageSizes: [3, 5, 0],
+        pageSizes: [3, 5, 0],
       });
 
     pager.prop('onCurrentPageChange')(3);

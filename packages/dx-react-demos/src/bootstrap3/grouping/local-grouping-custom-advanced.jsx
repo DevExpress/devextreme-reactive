@@ -15,34 +15,13 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const NameGroupCell = ({
-  style, colSpan, row, expanded, onToggle,
-}) => (
-  <td
-    colSpan={colSpan}
-    style={{
-      cursor: 'pointer',
-      ...style,
-    }}
-    onClick={onToggle}
-  >
-    { expanded ? '- ' : '+ ' }
-    <strong>Names from {row.value.from} to {row.value.to}</strong>
-  </td>
+const NameGroupCell = props => (
+  <TableGroupRow.Cell {...props}>
+    from {props.row.value.from} to {props.row.value.to}
+  </TableGroupRow.Cell>
 );
 NameGroupCell.propTypes = {
-  style: PropTypes.object,
-  colSpan: PropTypes.number,
-  row: PropTypes.object,
-  expanded: PropTypes.bool,
-  onToggle: PropTypes.func,
-};
-NameGroupCell.defaultProps = {
-  style: null,
-  colSpan: 1,
-  row: {},
-  expanded: false,
-  onToggle: () => {},
+  row: PropTypes.object.isRequired,
 };
 
 const GroupCell = (props) => {
@@ -61,10 +40,13 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'name', title: 'Name', showWhenGrouped: true },
+        { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
+      ],
+      tableGroupColumnExtension: [
+        { columnName: 'name', showWhenGrouped: true },
       ],
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'name' }],
@@ -84,7 +66,9 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, grouping } = this.state;
+    const {
+      rows, columns, tableGroupColumnExtension, grouping,
+    } = this.state;
 
     return (
       <Grid
@@ -101,6 +85,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableGroupRow
+          columnExtensions={tableGroupColumnExtension}
           cellComponent={GroupCell}
         />
       </Grid>

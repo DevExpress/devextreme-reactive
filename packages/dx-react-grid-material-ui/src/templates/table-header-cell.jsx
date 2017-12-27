@@ -62,38 +62,38 @@ class TableHeaderCellBase extends React.PureComponent {
       const isMouseClick = e.keyCode === undefined;
 
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      const cancel = (isMouseClick && cancelSortingRelatedKey)
-        || (isActionKeyDown && cancelSortingRelatedKey);
+      const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
+        ? null
+        : undefined;
 
       e.preventDefault();
       onSort({
+        direction,
         keepOther: e.shiftKey || cancelSortingRelatedKey,
-        cancel,
       });
     };
   }
   render() {
     const {
       style, column, tableColumn,
-      allowSorting, sortingDirection,
-      allowGroupingByClick, onGroup,
-      allowDragging, dragPayload,
-      allowResizing, onWidthChange, onDraftWidthChange,
+      showSortingControls, sortingDirection,
+      showGroupingControls, onGroup,
+      draggingEnabled,
+      resizingEnabled, onWidthChange, onDraftWidthChange,
       classes, getMessage, tableRow, className, onSort,
       ...restProps
     } = this.props;
 
     const { dragging } = this.state;
-    const align = column.align || 'left';
-    const columnTitle = column.title || column.name;
-    const tooltipText = getMessage('sortingHint');
+    const align = (tableColumn && tableColumn.align) || 'left';
+    const columnTitle = column && (column.title || column.name);
 
     const tableCellClasses = classNames({
       [classes.cell]: true,
       [classes.cellRight]: align === 'right',
-      [classes.cellNoUserSelect]: allowDragging || allowSorting,
-      [classes.cellDraggable]: allowDragging,
-      [classes.cellDimmed]: dragging || tableColumn.draft,
+      [classes.cellNoUserSelect]: draggingEnabled || showSortingControls,
+      [classes.cellDraggable]: draggingEnabled,
+      [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
     const cellLayout = (
       <TableCell
@@ -102,27 +102,26 @@ class TableHeaderCellBase extends React.PureComponent {
         numeric={align === 'right'}
         {...restProps}
       >
-        {allowGroupingByClick && (
+        {showGroupingControls && (
           <GroupingControl
             align={align}
             onGroup={onGroup}
           />
         )}
-        {allowSorting ? (
+        {showSortingControls ? (
           <SortingControl
             align={align}
             sortingDirection={sortingDirection}
             columnTitle={columnTitle}
             onClick={this.onClick}
-            allowGroupingByClick={allowGroupingByClick}
-            text={tooltipText}
+            getMessage={getMessage}
           />
         ) : (
           <div className={classes.plainTitle}>
             {columnTitle}
           </div>
         )}
-        {allowResizing && (
+        {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
             onDraftWidthChange={onDraftWidthChange}
@@ -131,10 +130,10 @@ class TableHeaderCellBase extends React.PureComponent {
       </TableCell>
     );
 
-    return allowDragging ? (
+    return draggingEnabled ? (
       <DragSource
         ref={(element) => { this.cellRef = element; }}
-        getPayload={() => dragPayload}
+        getPayload={() => [{ type: 'column', columnName: column.name }]}
         onStart={() => this.setState({ dragging: true })}
         onEnd={() => this.cellRef && this.setState({ dragging: false })}
       >
@@ -147,18 +146,15 @@ class TableHeaderCellBase extends React.PureComponent {
 TableHeaderCellBase.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  column: PropTypes.shape({
-    title: PropTypes.string,
-  }).isRequired,
+  column: PropTypes.object,
   style: PropTypes.object,
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
-  allowGroupingByClick: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
   onGroup: PropTypes.func,
-  allowDragging: PropTypes.bool,
-  dragPayload: PropTypes.any,
-  allowResizing: PropTypes.bool,
+  draggingEnabled: PropTypes.bool,
+  resizingEnabled: PropTypes.bool,
   onWidthChange: PropTypes.func,
   onDraftWidthChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
@@ -167,17 +163,17 @@ TableHeaderCellBase.propTypes = {
 };
 
 TableHeaderCellBase.defaultProps = {
-  tableColumn: {},
+  column: undefined,
+  tableColumn: undefined,
   tableRow: undefined,
   style: null,
-  allowSorting: false,
+  showSortingControls: false,
   sortingDirection: undefined,
   onSort: undefined,
-  allowGroupingByClick: false,
+  showGroupingControls: false,
   onGroup: undefined,
-  allowDragging: false,
-  dragPayload: null,
-  allowResizing: false,
+  draggingEnabled: false,
+  resizingEnabled: false,
   onWidthChange: undefined,
   onDraftWidthChange: undefined,
   className: undefined,

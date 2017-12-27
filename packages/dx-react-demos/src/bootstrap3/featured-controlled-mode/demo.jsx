@@ -7,7 +7,7 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropContext, TableColumnReordering,
+  PagingPanel, DragDropProvider, TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   Modal,
@@ -163,10 +163,13 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount', align: 'right' },
+        { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -179,7 +182,7 @@ export default class Demo extends React.PureComponent {
       currentPage: 0,
       deletingRows: [],
       pageSize: 0,
-      allowedPageSizes: [5, 10, 0],
+      pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
     };
 
@@ -234,6 +237,7 @@ export default class Demo extends React.PureComponent {
     const {
       rows,
       columns,
+      tableColumnExtensions,
       sorting,
       editingRows,
       addedRows,
@@ -241,7 +245,7 @@ export default class Demo extends React.PureComponent {
       currentPage,
       deletingRows,
       pageSize,
-      allowedPageSizes,
+      pageSizes,
       columnOrder,
     } = this.state;
 
@@ -276,9 +280,10 @@ export default class Demo extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
 
-          <DragDropContext />
+          <DragDropProvider />
 
           <Table
+            columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
 
@@ -287,19 +292,19 @@ export default class Demo extends React.PureComponent {
             onOrderChange={this.changeColumnOrder}
           />
 
-          <TableHeaderRow allowSorting allowDragging />
+          <TableHeaderRow showSortingControls />
           <TableEditRow
             cellComponent={EditCell}
           />
           <TableEditColumn
             width={100}
-            allowAdding={!this.state.addedRows.length}
-            allowEditing
-            allowDeleting
+            showAddCommand={!this.state.addedRows.length}
+            showEditCommand
+            showDeleteCommand
             commandComponent={Command}
           />
           <PagingPanel
-            allowedPageSizes={allowedPageSizes}
+            pageSizes={pageSizes}
           />
         </Grid>
 
@@ -318,6 +323,7 @@ export default class Demo extends React.PureComponent {
               columns={columns}
             >
               <Table
+                columnExtensions={tableColumnExtensions}
                 cellComponent={Cell}
               />
               <TableHeaderRow />

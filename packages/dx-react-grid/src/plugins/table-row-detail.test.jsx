@@ -83,7 +83,7 @@ describe('TableRowDetail', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableBodyRows)
+      expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithExpandedDetail');
       expect(tableRowsWithExpandedDetail)
         .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.expandedRows, 120);
@@ -100,7 +100,7 @@ describe('TableRowDetail', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithDetail');
       expect(tableColumnsWithDetail)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);

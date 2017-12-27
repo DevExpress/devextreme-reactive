@@ -10,16 +10,16 @@ const SPACE_KEY_CODE = 32;
 const styles = theme => ({
   button: {
     marginRight: theme.spacing.unit,
-    marginBottom: '12px',
+    marginBottom: theme.spacing.unit * 1.5,
   },
   draftCell: {
     opacity: 0.3,
   },
 });
 
-const label = (allowSorting, sortingDirection, column) => {
+const label = (showSortingControls, sortingDirection, column) => {
   const title = column.title || column.name;
-  return allowSorting
+  return showSortingControls
     ? (
       <TableSortLabel
         active={!!sortingDirection}
@@ -34,8 +34,8 @@ const label = (allowSorting, sortingDirection, column) => {
 
 const GroupPanelItemBase = ({
   item: { column, draft },
-  onGroup, allowUngroupingByClick,
-  allowSorting, sortingDirection, onSort,
+  onGroup, showGroupingControls,
+  showSortingControls, sortingDirection, onSort,
   classes, className,
   ...restProps
 }) => {
@@ -44,26 +44,26 @@ const GroupPanelItemBase = ({
     [classes.draftCell]: draft,
   }, className);
   const onClick = (e) => {
-    if (!allowSorting) return;
+    if (!showSortingControls) return;
     const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
     const isMouseClick = e.keyCode === undefined;
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-    const cancel = (isMouseClick && cancelSortingRelatedKey)
-      || (isActionKeyDown && cancelSortingRelatedKey);
+    const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
+      ? null
+      : undefined;
 
     onSort({
+      direction,
       keepOther: cancelSortingRelatedKey,
-      cancel,
-      columnName: column.name,
     });
   };
 
   return (
     <Chip
-      label={label(allowSorting, sortingDirection, column)}
+      label={label(showSortingControls, sortingDirection, column)}
       className={chipClassNames}
-      {...allowUngroupingByClick
-        ? { onRequestDelete: () => onGroup({ columnName: column.name }) }
+      {...showGroupingControls
+        ? { onDelete: onGroup }
         : null}
       onClick={onClick}
       {...restProps}
@@ -78,21 +78,21 @@ GroupPanelItemBase.propTypes = {
     }).isRequired,
     draft: PropTypes.string,
   }).isRequired,
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
-  allowUngroupingByClick: PropTypes.bool,
+  showGroupingControls: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
 GroupPanelItemBase.defaultProps = {
-  allowSorting: false,
+  showSortingControls: false,
   sortingDirection: undefined,
   onSort: undefined,
   onGroup: undefined,
-  allowUngroupingByClick: false,
+  showGroupingControls: false,
   className: undefined,
 };
 

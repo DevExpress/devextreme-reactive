@@ -1,4 +1,4 @@
-# DragDropContext Plugin Reference
+# DragDropProvider Plugin Reference
 
 A plugin that implements the drag-and-drop functionality and visualizes columns that are being dragged.
 
@@ -16,14 +16,6 @@ containerComponent | ElementType&lt;[ContainerProps](#containerprops)&gt; | | A 
 columnComponent | ElementType&lt;[ColumnProps](#columnprops)&gt; | | A component that renders a column being dragged.
 
 ## Interfaces
-
-### <a name="column"></a>Column (Extension)
-
-A value with the [Column](grid.md#column) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-title? | string | Specifies a table column title.
 
 ### ContainerProps
 
@@ -44,14 +36,14 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column) | Specifies a column being dragged.
+column | [Column](grid.md#column) | Specifies a column being dragged.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-DragDropContext.Container | [ContainerProps](#containerprops) | A component that renders a container for columns being dragged.
-DragDropContext.Column | [ColumnProps](#columnprops) | A component that renders a column being dragged.
+DragDropProvider.Container | [ContainerProps](#containerprops) | A component that renders a container for columns being dragged.
+DragDropProvider.Column | [ColumnProps](#columnprops) | A component that renders a column being dragged.
 
 If you specify additional properties, they are added to the component's root element.
 
@@ -61,9 +53,11 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column)&gt; | Columns available for dragging.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging.
 root | Template | Object? | A template that renders the grid's root layout.
 
 ### Exports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.

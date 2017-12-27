@@ -2,11 +2,19 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
-
+import { createRowChangeGetter } from '@devexpress/dx-grid-core';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { EditingState } from './editing-state';
 
+jest.mock('@devexpress/dx-grid-core', () => ({
+  ...require.requireActual('@devexpress/dx-grid-core'),
+  createRowChangeGetter: jest.fn(),
+}));
+
 const defaultDeps = {};
+const defaultProps = {
+  onCommitChanges: () => {},
+};
 
 describe('EditingState', () => {
   let resetConsole;
@@ -17,26 +25,110 @@ describe('EditingState', () => {
     resetConsole();
   });
 
-  describe('editing', () => {
-    it('should create a row change by using a custom function', () => {
-      const createRowChangeMock = jest.fn();
-      const row = { a: 1 };
-      const column = { name: 'a' };
+  beforeEach(() => {
+    createRowChangeGetter.mockImplementation(() => ({ a: 1 }));
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
+  it('should provide createRowChange', () => {
+    const columnExtensions = [];
+    const createRowChange = () => {};
+
+    const tree = mount((
+      <PluginHost>
+        <EditingState
+          {...defaultProps}
+          createRowChange={createRowChange}
+          columnExtensions={columnExtensions}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(createRowChangeGetter)
+      .toBeCalledWith(createRowChange, columnExtensions);
+    expect(getComputedState(tree).createRowChange)
+      .toEqual(createRowChangeGetter());
+  });
+
+  describe('action sequence in batch', () => {
+    it('should correctly work with the several action calls in the uncontrolled mode', () => {
+      const addedRowsChange = jest.fn();
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <EditingState
-            createRowChange={createRowChangeMock}
-            onCommitChanges={() => {}}
+            {...defaultProps}
+            defaultAddedRows={[]}
+            onAddedRowsChange={addedRowsChange}
           />
         </PluginHost>
       ));
 
-      getComputedState(tree).getters.createRowChange(row, column.name, 3);
+      executeComputedAction(tree, (actions) => {
+        actions.addRow();
+        actions.addRow();
+      });
 
-      expect(createRowChangeMock)
-        .toBeCalledWith(row, column.name, 3);
+      expect(addedRowsChange)
+        .toBeCalledWith([{}, {}]);
+
+      expect(addedRowsChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should correctly work with the several action calls in the controlled mode', () => {
+      const addedRowsChange = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <EditingState
+            {...defaultProps}
+            addedRows={[]}
+            onAddedRowsChange={addedRowsChange}
+          />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, (actions) => {
+        actions.addRow();
+        actions.addRow();
+      });
+
+      expect(addedRowsChange)
+        .toBeCalledWith([{}, {}]);
+
+      expect(addedRowsChange)
+        .toHaveBeenCalledTimes(1);
+    });
+
+    it('should correctly work with the several editing action calls in the controlled mode', () => {
+      const changeEditingRows = jest.fn();
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <EditingState
+            {...defaultProps}
+            editingRows={[]}
+            changedRows={{}}
+            onEditingRowsChange={changeEditingRows}
+          />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, (actions) => {
+        actions.startEditRows({ rowIds: [0] });
+        actions.stopEditRows({ rowIds: [0] });
+        actions.changeRow({ rowIds: [0] });
+      });
+
+      expect(changeEditingRows)
+        .toBeCalledWith([]);
+
+      expect(changeEditingRows)
+        .toHaveBeenCalledTimes(1);
     });
   });
 });

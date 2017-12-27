@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
-import { filteredRows } from '@devexpress/dx-grid-core';
+import { filteredRows, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
@@ -9,7 +9,9 @@ const pluginDependencies = [
 
 export class LocalFiltering extends React.PureComponent {
   render() {
-    const { getColumnPredicate } = this.props;
+    const { columnExtensions } = this.props;
+    const getColumnPredicate = columnName =>
+      getColumnExtension(columnExtensions, columnName).predicate;
 
     const rowsComputed = ({
       rows,
@@ -32,10 +34,10 @@ export class LocalFiltering extends React.PureComponent {
 }
 
 LocalFiltering.propTypes = {
-  getColumnPredicate: PropTypes.func,
+  columnExtensions: PropTypes.array,
 };
 
 LocalFiltering.defaultProps = {
-  getColumnPredicate: undefined,
+  columnExtensions: undefined,
 };
 

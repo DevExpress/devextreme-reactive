@@ -71,6 +71,8 @@ export * from './plugins/table-column-visibility/computeds';
 export * from './column-chooser/computeds';
 export * from './column-chooser/reducers';
 
+export { getColumnExtension } from './utils/column';
+
 export {
   getTableRowColumnsWithColSpan,
   getTableColumnGeometries,

@@ -77,7 +77,7 @@ describe('Table Selection', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getters.tableColumns)
+      expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
@@ -117,7 +117,6 @@ describe('Table Selection', () => {
         <TableSelection
           {...defaultProps}
           showSelectAll
-          // selectAllCellTemplate={selectAllCellTemplate}
         />
       </PluginHost>
     ));

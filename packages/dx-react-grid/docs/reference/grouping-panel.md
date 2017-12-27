@@ -9,30 +9,22 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 ### Dependencies
 
 - [SortingState](sorting-state.md) [Optional]
-- [DragDropContext](drag-drop-context.md) [Optional]
+- [DragDropProvider](drag-drop-provider.md) [Optional]
 - [GroupingState](grouping-state.md)
+- [Toolbar](toolbar.md)
 
 ### Properties
 
 Name | Type | Default | Description
 -----|------|---------|------------
-allowSorting | boolean | false | Specifies whether an end-user can sort data by a column. Requires the [SortingState](sorting-state.md) dependency.
-allowDragging | boolean | false | Specifies whether an end-user can change the grouping state by dragging columns between the group panel and the table header. Requires the [DragDropContext](drag-drop-context.md) dependency.
-allowUngroupingByClick | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
+showSortingControls | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
+showGroupingControls | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
 containerComponent | ElementType&lt;[GroupingPanelContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupingPanelItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
 emptyMessageComponent | ElementType&lt;[GroupingPanelEmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders an empty group panel message.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
-
-### Column (Extension)
-
-A value with the [Column](grid.md#column) shape extended by the following fields:
-
-Field | Type | Description
-------|------|------------
-title? | string | Specifies the table column title.
 
 ### GroupingPanelItem
 
@@ -42,7 +34,7 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-column | [Column](#column-extension) | A column associated with the item.
+column | [Column](grid.md#column) | A column associated with the item.
 draft? | string | The item preview mode. Contains the "add", "remove" or "reorder" value.
 
 ### GroupingPanelContainerProps
@@ -62,15 +54,15 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
-allowUngroupingByClick | boolean | Specifies whether to display a button that cancels grouping by the column.
-allowSorting | boolean | Specifies whether an end-user can sort data by the column while it is in the grouping panel.
+showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by column.
+showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
-onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
-onGroup | () => void | An event that initiates grouping by the column.
+onSort | ({ direction?: 'asc' &#124; 'desc' &#124; null }) => void | An event that initiates changing the column sorting direction. Cancels sorting by the current column if `direction` is set to null.
+onGroup | () => void | An event that initiates grouping by column.
 
 ### GroupingPanelEmptyMessageProps
 
-Describes properties passed to a component that renders a group panel empty message.
+Describes properties passed to a component that renders an empty group panel message.
 
 A value with the following shape:
 
@@ -102,13 +94,15 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | Grid columns.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
-groupByColumn | Action | ({ columnName: string }) => void | Toggles the column's grouping state.
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
+groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Toggles the column's grouping state. If `groupIndex` is omitted, the group is added to the end of the group list.
+setColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
 cancelGroupingChange | Action | () => void | Resets the groupingChange state.
+draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
+toolbarContent | Template | Object? | A template that renders the toolbar content.
 
 ### Exports
 

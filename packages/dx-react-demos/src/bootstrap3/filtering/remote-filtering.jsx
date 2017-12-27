@@ -89,7 +89,7 @@ export default class Demo extends React.PureComponent {
           />
           <VirtualTable />
           <TableHeaderRow />
-          <TableFilterRow rowHeight={51} />
+          <TableFilterRow />
         </Grid>
         {loading && <Loading />}
       </div>

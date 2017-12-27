@@ -11,6 +11,7 @@ import {
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
+  Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
 import {
@@ -52,9 +53,10 @@ export default class Demo extends React.PureComponent {
           <LocalSorting />
           <LocalGrouping />
           <Table />
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableGroupRow />
-          <GroupingPanel allowSorting />
+          <Toolbar />
+          <GroupingPanel showSortingControls />
         </Grid>
       </Paper>
     );

@@ -139,6 +139,7 @@ export class TableColumnReordering extends React.PureComponent {
       rowComponent: Row,
       cellComponent: Cell,
     } = this.props;
+
     const columnsComputed = ({ tableColumns }) =>
       orderedColumns(tableColumns, this.getDraftOrder());
 
@@ -175,16 +176,13 @@ export class TableColumnReordering extends React.PureComponent {
           name="tableCell"
           predicate={({ tableRow }) => tableRow.type === TABLE_REORDERING_TYPE}
         >
-          {(params) => {
-            const cellDimensionsGetter = fn =>
-              this.storeCellDimensionsGetter(params.tableColumn, fn);
-            return (
-              <Cell
-                {...params}
-                getCellDimensions={cellDimensionsGetter}
-              />
-            );
-          }}
+          {params => (
+            <Cell
+              {...params}
+              getCellDimensions={fn =>
+                this.storeCellDimensionsGetter(params.tableColumn, fn)}
+            />
+          )}
         </Template>
       </PluginContainer>
     );

@@ -21,7 +21,7 @@ describe('GroupPanelItem', () => {
     const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
-        allowUngroupingByClick
+        showGroupingControls
       />
     ));
 
@@ -46,7 +46,7 @@ describe('GroupPanelItem', () => {
     const tree = mount((
       <GroupPanelItem
         onSort={onSort}
-        allowSorting
+        showSortingControls
         item={{ column: { name: 'test' } }}
       />
     ));
@@ -77,7 +77,7 @@ describe('GroupPanelItem', () => {
     const tree = mount((
       <GroupPanelItem
         onGroup={onGroup}
-        allowUngroupingByClick
+        showGroupingControls
         item={{ column: { name: 'test' } }}
       />
     ));
@@ -94,14 +94,14 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
-        allowSorting
+        showSortingControls
       />
     ));
 
     const targetElement = tree.find('span').first();
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
     expect(onSort)
-      .toHaveBeenCalledWith({ keepOther: true, cancel: true, columnName: 'test' });
+      .toHaveBeenCalledWith({ keepOther: true, direction: null });
   });
 
   it('should pass rest props to the root element', () => {

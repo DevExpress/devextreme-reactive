@@ -11,7 +11,7 @@ export const TableCell = ({
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      textAlign: column.align || 'left',
+      textAlign: (tableColumn && tableColumn.align) || 'left',
       ...style,
     }}
     {...restProps}
@@ -36,7 +36,7 @@ TableCell.propTypes = {
 TableCell.defaultProps = {
   style: null,
   value: undefined,
-  column: {},
+  column: undefined,
   row: undefined,
   children: undefined,
   tableRow: undefined,

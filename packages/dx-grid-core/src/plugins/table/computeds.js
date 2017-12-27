@@ -1,12 +1,18 @@
 import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
+import { getColumnExtension } from '../../utils/column';
 
-export const tableColumnsWithDataRows = columns =>
-  columns.map(column => ({
-    key: `${TABLE_DATA_TYPE}_${column.name}`,
-    type: TABLE_DATA_TYPE,
-    width: column.width,
-    column,
-  }));
+export const tableColumnsWithDataRows = (columns, columnExtensions) =>
+  columns.map((column) => {
+    const { name } = column;
+    const columnExtension = getColumnExtension(columnExtensions, name);
+    return {
+      key: `${TABLE_DATA_TYPE}_${name}`,
+      type: TABLE_DATA_TYPE,
+      width: columnExtension.width,
+      align: columnExtension.align,
+      column,
+    };
+  });
 
 export const tableRowsWithDataRows = (rows, getRowId) => (
   !rows.length

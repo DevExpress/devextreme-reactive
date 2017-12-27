@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Paper } from 'material-ui';
 import {
   GroupingState,
   LocalGrouping,
@@ -11,38 +12,17 @@ import {
   TableGroupRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { TableCell, Paper } from 'material-ui';
 import {
   generateRows,
 } from '../../demo-data/generator';
 
-const NameGroupCell = ({
-  colSpan, row, expanded, onToggle,
-}) => (
-  <TableCell
-    colSpan={colSpan}
-    style={{ cursor: 'pointer' }}
-    onClick={onToggle}
-  >
-    <span>
-      { expanded ? '- ' : '+ ' }
-    </span>
-    <strong>
-      Names from {row.value.from} to {row.value.to}
-    </strong>
-  </TableCell>
+const NameGroupCell = props => (
+  <TableGroupRow.Cell {...props}>
+    from {props.row.value.from} to {props.row.value.to}
+  </TableGroupRow.Cell>
 );
 NameGroupCell.propTypes = {
-  colSpan: PropTypes.number,
-  row: PropTypes.object,
-  expanded: PropTypes.bool,
-  onToggle: PropTypes.func,
-};
-NameGroupCell.defaultProps = {
-  colSpan: 1,
-  row: {},
-  expanded: false,
-  onToggle: () => {},
+  row: PropTypes.object.isRequired,
 };
 
 const GroupCell = (props) => {
@@ -61,10 +41,13 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'name', title: 'Name', showWhenGrouped: true },
+        { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
+      ],
+      tableGroupColumnExtension: [
+        { columnName: 'name', showWhenGrouped: true },
       ],
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'name' }],
@@ -85,7 +68,9 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns, grouping } = this.state;
+    const {
+      rows, columns, tableGroupColumnExtension, grouping,
+    } = this.state;
 
     return (
       <Paper>
@@ -103,6 +88,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableGroupRow
+            columnExtensions={tableGroupColumnExtension}
             cellComponent={GroupCell}
           />
         </Grid>

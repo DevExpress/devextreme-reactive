@@ -64,7 +64,7 @@ Pass a grouping function to the `LocalGrouping` plugin’s [getColumnIdentity](.
 
 .embedded-demo(grouping/local-grouping-custom)
 
-You can also assign a function that returns a Boolean value depending on the `columnName` parameter value to the `TableGroupRow` plugin's `showColumnWhenGrouped` property to define which columns should remain visible when data is grouped by them.
+You can also assign a Boolean value to the `TableGroupRow` plugin's `showColumnsWhenGrouped` property to define what columns should remain visible when data is grouped by them.
 
 ```js
   <Grid>
@@ -73,8 +73,8 @@ You can also assign a function that returns a Boolean value depending on the `co
     />
     <LocalGrouping />
     <Table />
-    <TableHeaderRow showColumnWhenGrouped={columnName => columnName === 'city' || columnName === 'car'}/>
-    <TableGroupRow />
+    <TableHeaderRow />
+    <TableGroupRow showColumnsWhenGrouped />
   </Grid>
 ```
 

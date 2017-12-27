@@ -54,11 +54,11 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
-showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by the column.
+showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by column.
 showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
-onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
-onGroup | () => void | An event that initiates grouping by the column.
+onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing a column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
+onGroup | () => void | An event that initiates grouping by column.
 
 ### GroupingPanelEmptyMessageProps
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { EventEmitter } from '@devexpress/dx-core';
 
-class DragDropContextCore {
+class DragDropProviderCore {
   constructor() {
     this.payload = null;
     this.dragEmitter = new EventEmitter();
@@ -21,13 +21,13 @@ class DragDropContextCore {
   }
 }
 
-export class DragDropContext extends React.Component {
+export class DragDropProvider extends React.Component {
   constructor(props) {
     super(props);
 
-    this.dragDropContext = new DragDropContextCore();
+    this.dragDropProvider = new DragDropProviderCore();
 
-    this.dragDropContext.dragEmitter.subscribe(({ payload, clientOffset, end }) => {
+    this.dragDropProvider.dragEmitter.subscribe(({ payload, clientOffset, end }) => {
       this.props.onChange({
         payload: end ? null : payload,
         clientOffset: end ? null : clientOffset,
@@ -36,7 +36,7 @@ export class DragDropContext extends React.Component {
   }
   getChildContext() {
     return {
-      dragDropContext: this.dragDropContext,
+      dragDropProvider: this.dragDropProvider,
     };
   }
   shouldComponentUpdate(nextProps) {
@@ -47,15 +47,15 @@ export class DragDropContext extends React.Component {
   }
 }
 
-DragDropContext.childContextTypes = {
-  dragDropContext: PropTypes.object.isRequired,
+DragDropProvider.childContextTypes = {
+  dragDropProvider: PropTypes.object.isRequired,
 };
 
-DragDropContext.propTypes = {
+DragDropProvider.propTypes = {
   children: PropTypes.node.isRequired,
   onChange: PropTypes.func,
 };
 
-DragDropContext.defaultProps = {
+DragDropProvider.defaultProps = {
   onChange: () => {},
 };

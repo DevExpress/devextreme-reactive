@@ -2,16 +2,16 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { Draggable } from '../draggable';
-import { DragDropContext } from './context';
+import { DragDropProvider } from './provider';
 import { DragSource } from './source';
 
-describe('DragDropContext', () => {
+describe('DragDropProvider', () => {
   it('should fire the "onStart", "onUpdate", "onEnd" callbacks while dragging a source', () => {
     const onStart = jest.fn();
     const onUpdate = jest.fn();
     const onEnd = jest.fn();
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <div>
           <DragSource
             getPayload={() => 'data'}
@@ -22,7 +22,7 @@ describe('DragDropContext', () => {
             <div className="source" />
           </DragSource>
         </div>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     const draggable = tree.find(Draggable);

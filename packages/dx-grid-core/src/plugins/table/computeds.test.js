@@ -16,11 +16,20 @@ describe('Table Plugin computeds', () => {
         ]);
     });
 
-    it('should copy width', () => {
-      const columns = [{ name: 'a', width: 100 }];
+    it('should set width from columnExtension', () => {
+      const columns = [{ name: 'a' }];
+      const columnExtensions = [{ columnName: 'a', width: 100 }];
 
-      expect(tableColumnsWithDataRows(columns)[0])
+      expect(tableColumnsWithDataRows(columns, columnExtensions)[0])
         .toMatchObject({ width: 100 });
+    });
+
+    it('should set align from columnExtension', () => {
+      const columns = [{ name: 'b' }];
+      const columnExtensions = [{ columnName: 'b', align: 'right' }];
+
+      expect(tableColumnsWithDataRows(columns, columnExtensions)[0])
+        .toMatchObject({ align: 'right' });
     });
   });
 

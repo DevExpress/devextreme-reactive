@@ -38,10 +38,13 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'subject', title: 'Subject', width: 300 },
+        { name: 'subject', title: 'Subject' },
         { name: 'startDate', title: 'Start Date' },
         { name: 'dueDate', title: 'Due Date' },
         { name: 'priority', title: 'Priority' },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'subject', width: 300 },
       ],
       rows: generateRows({
         columnValues: employeeTaskValues,
@@ -50,7 +53,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
       <Paper>
@@ -62,8 +65,10 @@ export default class Demo extends React.PureComponent {
           <LocalSorting
             getColumnCompare={getColumnCompare}
           />
-          <Table />
-          <TableHeaderRow allowSorting />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
+          <TableHeaderRow showSortingControls />
         </Grid>
       </Paper>
     );

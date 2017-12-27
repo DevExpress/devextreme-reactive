@@ -64,7 +64,7 @@ describe('GroupingPanel', () => {
       getter: {
         allowDragging: true,
       },
-      plugins: ['DragDropContext'],
+      plugins: ['DragDropProvider'],
     };
     const tree = mount((
       <PluginHost>
@@ -115,7 +115,7 @@ describe('GroupingPanel', () => {
           {...defaultProps}
           layoutComponent={({ itemComponent: Item }) =>
             <Item item={{ column: { name: 'a' } }} />}
-          allowSorting
+          showSortingControls
           showGroupingControls
         />
       </PluginHost>
@@ -123,7 +123,7 @@ describe('GroupingPanel', () => {
 
     expect(tree.find(defaultProps.itemComponent).props())
       .toMatchObject({
-        allowSorting: true,
+        showSortingControls: true,
         showGroupingControls: true,
         sortingDirection: getColumnSortingDirection(),
         onGroup: expect.any(Function),

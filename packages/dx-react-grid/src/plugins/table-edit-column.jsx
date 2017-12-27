@@ -23,9 +23,9 @@ export class TableEditColumn extends React.PureComponent {
       cellComponent: Cell,
       headerCellComponent: HeaderCell,
       commandComponent: Command,
-      allowAdding,
-      allowEditing,
-      allowDeleting,
+      showAddCommand,
+      showEditCommand,
+      showDeleteCommand,
       width,
       messages,
     } = this.props;
@@ -48,7 +48,7 @@ export class TableEditColumn extends React.PureComponent {
             <TemplateConnector>
               {(getters, actions) => (
                 <HeaderCell {...params}>
-                  {allowAdding && (
+                  {showAddCommand && (
                     <Command
                       id="add"
                       text={getMessage('addCommand')}
@@ -77,14 +77,14 @@ export class TableEditColumn extends React.PureComponent {
                     {...params}
                     row={params.tableRow.row}
                   >
-                    {allowEditing && !isEditing && (
+                    {showEditCommand && !isEditing && (
                       <Command
                         id="edit"
                         text={getMessage('editCommand')}
                         onExecute={() => actions.startEditRows({ rowIds })}
                       />
                     )}
-                    {allowDeleting && !isEditing && (
+                    {showDeleteCommand && !isEditing && (
                       <Command
                         id="delete"
                         text={getMessage('deleteCommand')}
@@ -136,16 +136,16 @@ TableEditColumn.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
   commandComponent: PropTypes.func.isRequired,
-  allowAdding: PropTypes.bool,
-  allowEditing: PropTypes.bool,
-  allowDeleting: PropTypes.bool,
+  showAddCommand: PropTypes.bool,
+  showEditCommand: PropTypes.bool,
+  showDeleteCommand: PropTypes.bool,
   width: PropTypes.number,
   messages: PropTypes.object,
 };
 TableEditColumn.defaultProps = {
-  allowAdding: false,
-  allowEditing: false,
-  allowDeleting: false,
+  showAddCommand: false,
+  showEditCommand: false,
+  showDeleteCommand: false,
   width: 140,
   messages: {},
 };

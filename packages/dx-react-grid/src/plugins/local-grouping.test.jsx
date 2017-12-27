@@ -102,7 +102,7 @@ describe('LocalGrouping', () => {
   });
 
   it('should provide rows getter based on columnExtensions', () => {
-    const columnExtensions = [{ columnName: 'a', identity: () => {} }];
+    const columnExtensions = [{ columnName: 'a', criteria: () => {} }];
 
     mount((
       <PluginHost>

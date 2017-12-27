@@ -14,7 +14,7 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const cityIdentity = value => ({ key: value.substr(0, 1) });
+const cityGroupCriteria = value => ({ key: value.substr(0, 1) });
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       localGroupingColumnExtensions: [
-        { columnName: 'city', identity: cityIdentity },
+        { columnName: 'city', criteria: cityGroupCriteria },
       ],
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'city' }],

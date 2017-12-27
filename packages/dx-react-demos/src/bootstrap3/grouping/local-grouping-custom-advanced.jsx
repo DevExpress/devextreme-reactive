@@ -34,12 +34,14 @@ GroupCell.propTypes = {
   column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
-const nameIdentity = (value) => {
+const nameGroupCriteria = (value) => {
   const firstLetter = String(value).substr(0, 1).toLowerCase();
-  const valueIdentity = firstLetter < 'n' ? { from: 'A', to: 'M' } : { from: 'N', to: 'Z' };
+  const groupValue = firstLetter < 'n'
+    ? { from: 'A', to: 'M' }
+    : { from: 'N', to: 'Z' };
   return {
-    value: valueIdentity,
-    key: `${valueIdentity.from}-${valueIdentity.to}`,
+    value: groupValue,
+    key: `${groupValue.from}-${groupValue.to}`,
   };
 };
 
@@ -55,7 +57,7 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       localGroupingColumnExtensions: [
-        { columnName: 'name', identity: nameIdentity },
+        { columnName: 'name', criteria: nameGroupCriteria },
       ],
       rows: generateRows({ length: 14 }),
       grouping: [{ columnName: 'name' }],

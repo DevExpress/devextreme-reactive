@@ -11,8 +11,8 @@ The following plugins implement grouping features:
 - [CustomGrouping](../reference/custom-grouping.md) - converts custom formatted grouped data to a supported format
 - [TableGroupRow](../reference/table-group-row.md) - renders group rows
 - [TableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging
-- [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
 - [Toolbar](../reference/toolbar.md) - renders the Grid Toolbar
+- [GroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 

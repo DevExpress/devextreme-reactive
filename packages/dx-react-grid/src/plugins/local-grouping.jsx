@@ -19,11 +19,11 @@ const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
 export class LocalGrouping extends React.PureComponent {
   render() {
     const { columnExtensions } = this.props;
-    const getColumnIdentity = columnName =>
-      getColumnExtension(columnExtensions, columnName).identity;
+    const getColumnCriteria = columnName =>
+      getColumnExtension(columnExtensions, columnName).criteria;
 
     const groupedRowsComputed = ({ rows, grouping, getCellValue }) =>
-      groupedRows(rows, grouping, getCellValue, getColumnIdentity);
+      groupedRows(rows, grouping, getCellValue, getColumnCriteria);
 
     return (
       <PluginContainer

@@ -57,12 +57,12 @@ item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
 showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by column.
 showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
-onSort | ({ keepOther: boolean, cancel: boolean }) => void | An event that initiates changing a column's sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `cancel` is set to true.
+onSort | ({ direction?: 'asc' &#124; 'desc' &#124; null }) => void | An event that initiates changing the column sorting direction. Cancels sorting by the current column if `direction` is set to null.
 onGroup | () => void | An event that initiates grouping by column.
 
 ### GroupingPanelEmptyMessageProps
 
-Describes properties passed to a component that renders a group panel empty message.
+Describes properties passed to a component that renders an empty group panel message.
 
 A value with the following shape:
 
@@ -97,8 +97,8 @@ Name | Plugin | Type | Description
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
-groupByColumn | Action | ({ columnName: string }) => void | Toggles the column's grouping state.
-setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean &#124; Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
+groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Toggles the column's grouping state. If `groupIndex` is omitted, the group is added to the end of the group list.
+setColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
 cancelGroupingChange | Action | () => void | Resets the groupingChange state.
 draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.

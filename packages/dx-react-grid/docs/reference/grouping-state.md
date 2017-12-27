@@ -54,18 +54,18 @@ A string value that consists of values by which rows are grouped, separated by t
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The grid columns.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 sorting? | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Applied column sorting.
-setColumnSorting? | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean | Array&lt;String&gt;, cancel: boolean }) => void | Changes a column's sort direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
+setColumnSorting? | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state.
-draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for preview.
+draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for the preview.
 expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups.
-groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
+groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state.
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Updates `dratfGrouping`.
 cancelGroupingChange | Action | () => void | Resets `draftGrouping`.

@@ -21,14 +21,14 @@ export const GroupPanelItem = ({
     if (!showSortingControls || !(isActionKeyDown || isMouseClick)) return;
 
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-    const cancel = (isMouseClick && cancelSortingRelatedKey)
-      || (isActionKeyDown && cancelSortingRelatedKey);
+    const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
+      ? null
+      : undefined;
 
     e.preventDefault();
     onSort({
+      direction,
       keepOther: cancelSortingRelatedKey,
-      cancel,
-      columnName: column.name,
     });
   };
   const handleUngroup = (e) => {
@@ -36,7 +36,7 @@ export const GroupPanelItem = ({
     const isMouseClick = e.keyCode === undefined;
 
     if (!isActionKeyDown && !isMouseClick) return;
-    onGroup({ columnName: column.name });
+    onGroup();
   };
   return (
     <div

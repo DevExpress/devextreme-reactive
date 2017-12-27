@@ -48,13 +48,13 @@ const GroupPanelItemBase = ({
     const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
     const isMouseClick = e.keyCode === undefined;
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-    const cancel = (isMouseClick && cancelSortingRelatedKey)
-      || (isActionKeyDown && cancelSortingRelatedKey);
+    const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
+      ? null
+      : undefined;
 
     onSort({
+      direction,
       keepOther: cancelSortingRelatedKey,
-      cancel,
-      columnName: column.name,
     });
   };
 
@@ -63,7 +63,7 @@ const GroupPanelItemBase = ({
       label={label(showSortingControls, sortingDirection, column)}
       className={chipClassNames}
       {...showGroupingControls
-        ? { onDelete: () => onGroup({ columnName: column.name }) }
+        ? { onDelete: onGroup }
         : null}
       onClick={onClick}
       {...restProps}

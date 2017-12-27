@@ -6,6 +6,7 @@ import {
   groupRowLevelKeyGetter,
   groupedRows,
   expandedGroupRows,
+  getColumnExtension,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { IntegratedGrouping } from './integrated-grouping';
@@ -16,6 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   groupRowLevelKeyGetter: jest.fn(),
   groupedRows: jest.fn(),
   expandedGroupRows: jest.fn(),
+  getColumnExtension: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -42,6 +44,7 @@ describe('IntegratedGrouping', () => {
     groupRowLevelKeyGetter.mockImplementation(() => 'groupRowLevelKeyGetter');
     groupedRows.mockImplementation(() => 'groupedRows');
     expandedGroupRows.mockImplementation(() => 'expandedGroupRows');
+    getColumnExtension.mockImplementation(() => ({}));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -84,7 +87,7 @@ describe('IntegratedGrouping', () => {
         defaultDeps.getter.rows,
         defaultDeps.getter.grouping,
         defaultDeps.getter.getCellValue,
-        undefined,
+        expect.any(Function),
       );
 
     expect(expandedGroupRows)
@@ -98,14 +101,14 @@ describe('IntegratedGrouping', () => {
       .toBe(expandedGroupRows());
   });
 
-  it('should provide rows getter based on getColumnIdentity function', () => {
-    const getColumnIdentity = () => {};
+  it('should provide rows getter based on columnExtensions', () => {
+    const columnExtensions = [{ columnName: 'a', criteria: () => {} }];
 
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <IntegratedGrouping
-          getColumnIdentity={getColumnIdentity}
+          columnExtensions={columnExtensions}
         />
       </PluginHost>
     ));
@@ -115,7 +118,11 @@ describe('IntegratedGrouping', () => {
         defaultDeps.getter.rows,
         defaultDeps.getter.grouping,
         defaultDeps.getter.getCellValue,
-        getColumnIdentity,
+        expect.any(Function),
       );
+
+    groupedRows.mock.calls[0][3]('a');
+    expect(getColumnExtension)
+      .toBeCalledWith(columnExtensions, 'a');
   });
 });

@@ -1,6 +1,6 @@
 # CustomPaging Plugin Reference
 
-A plugin that provide a custom total count of rows.
+A plugin that allows to implement a custom totalCount calculation logic.
 
 ## User Reference
 
@@ -12,7 +12,7 @@ A plugin that provide a custom total count of rows.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-totalCount | number | 0 | Specifies the total row count.
+totalCount | number | 0 | The total row count.
 
 ## Plugin Developer Reference
 

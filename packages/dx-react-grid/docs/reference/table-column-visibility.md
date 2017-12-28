@@ -1,6 +1,6 @@
 # TableColumnVisibility Plugin Reference
 
-A plugin that manages Grid columns' visibility.
+A plugin that manages the Grid columns' visibility.
 
 ## User Reference
 
@@ -12,9 +12,9 @@ A plugin that manages Grid columns' visibility.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-hiddenColumns | Array&lt;string&gt; | [] | Specifies the hidden column names.
-defaultHiddenColumns | Array&lt;string&gt; | [] | Specifies initial hidden column names in the uncontrolled mode.
-onHiddenColumnsChange | (hiddenColumns: Array&lt;string&gt;) => void | | Handles hidden columns changes.
+hiddenColumns | Array&lt;string&gt; | [] | Hidden column names.
+defaultHiddenColumns | Array&lt;string&gt; | [] | The names of initially hidden columns in the uncontrolled mode.
+onHiddenColumnsChange | (hiddenColumns: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
 emptyMessageComponent | ElementType&lt;[EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
 
@@ -22,7 +22,7 @@ messages | object | | An object that specifies the [localization messages](#loca
 
 ### EmptyMessageProps
 
-Describes empty message component's properties.
+Describes the empty message component's properties.
 
 Field | Type | Description
 ------|------|------------
@@ -50,7 +50,7 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | The table columns.
 table | Template | Object? | A template that renders the table.
 
 ### Exports
@@ -59,4 +59,4 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
 hiddenColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Hidden table columns.
-toggleVisibility | Action | ({ columnName: string }) => void | Toggles the column's visibility.
+toggleVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.

@@ -1,6 +1,6 @@
 # CustomPaging Plugin Reference
 
-A plugin that allows to implement a custom totalCount calculation logic.
+A plugin that allows implementing a custom totalCount calculation logic.
 
 ## User Reference
 

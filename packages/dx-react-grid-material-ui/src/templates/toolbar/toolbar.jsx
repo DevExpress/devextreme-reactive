@@ -7,7 +7,6 @@ import { darken, fade, lighten } from 'material-ui/styles/colorManipulator';
 
 const styles = theme => ({
   toolbar: {
-    paddingTop: theme.spacing.unit * 1.5,
     borderBottom: `1px solid ${
       theme.palette.type === 'light'
         ? lighten(fade(theme.palette.text.lightDivider, 1), 0.925)

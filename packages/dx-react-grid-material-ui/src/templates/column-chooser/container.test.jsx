@@ -1,16 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ColumnChooserContainer } from './column-chooser-container';
+import { Container } from './container';
 
-describe('ColumnChooserContainer', () => {
+describe('Container', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <ColumnChooserContainer
+      <Container
         data={{ a: 1 }}
       >
         <div />
         <div />
-      </ColumnChooserContainer>
+      </Container>
     ));
 
     expect(tree.props().data)

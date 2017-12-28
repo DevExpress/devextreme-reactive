@@ -1,5 +1,5 @@
 export { Grid } from './grid';
-export { ColumnChooser } from './column-chooser';
+export { ColumnChooser } from './plugins/column-chooser';
 
 export { FilteringState } from './plugins/filtering-state';
 export { IntegratedFiltering } from './plugins/integrated-filtering';

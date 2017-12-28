@@ -1,15 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ColumnChooserItem } from './column-chooser-item';
+import { Item } from './item';
 
-describe('ColumnChooserItem', () => {
+const defaultProps = {
+  item: {
+    column: { name: 'a', title: 'A' },
+    hidden: false,
+  },
+};
+
+describe('Item', () => {
   it('should set item checkbox value depending on the "hidden" property', () => {
     const tree = shallow((
-      <ColumnChooserItem
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+      <Item
+        {...defaultProps}
       />
     ));
 
@@ -25,11 +29,8 @@ describe('ColumnChooserItem', () => {
   it('should call the "onToggle" on the checkbox "onChange" event', () => {
     const toggleHandler = jest.fn();
     const tree = shallow((
-      <ColumnChooserItem
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+      <Item
+        {...defaultProps}
         onToggle={toggleHandler}
       />
     ));
@@ -45,11 +46,8 @@ describe('ColumnChooserItem', () => {
   it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
     const tree = shallow((
-      <ColumnChooserItem
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+      <Item
+        {...defaultProps}
         onToggle={toggleHandler}
       />
     ));
@@ -64,11 +62,8 @@ describe('ColumnChooserItem', () => {
 
   it('should render column title or name in each item', () => {
     const tree = shallow((
-      <ColumnChooserItem
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+      <Item
+        {...defaultProps}
       />
     ));
 
@@ -83,11 +78,8 @@ describe('ColumnChooserItem', () => {
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <ColumnChooserItem
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+      <Item
+        {...defaultProps}
         className="custom-class"
       />
     ));
@@ -100,11 +92,8 @@ describe('ColumnChooserItem', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <ColumnChooserItem
-        item={{
-          column: { name: 'a', title: 'A' },
-          hidden: false,
-        }}
+      <Item
+        {...defaultProps}
         data={{ a: 1 }}
       />
     ));

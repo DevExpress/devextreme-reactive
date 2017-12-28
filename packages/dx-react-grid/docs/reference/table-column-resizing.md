@@ -26,8 +26,8 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-columnName | string | The column name.
-width | number | The column width.
+columnName | string | A column name.
+width | number | A column width.
 
 ## Plugin Developer Reference
 

@@ -1,3 +1,334 @@
+<a name="1.0.0-beta.3"></a>
+# [1.0.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2017-12-28)
+
+
+### Bug Fixes
+
+* **grid-core:** fix blinks when reordering group items ([#573](https://github.com/DevExpress/devextreme-reactive/issues/573)) ([739c664](https://github.com/DevExpress/devextreme-reactive/commit/739c664))
+* **react-grid:** correct state helper & editing state ([#623](https://github.com/DevExpress/devextreme-reactive/issues/623)) ([3cd07bd](https://github.com/DevExpress/devextreme-reactive/commit/3cd07bd))
+* **react-grid:** fix blinks when reordering header-cell items ([#590](https://github.com/DevExpress/devextreme-reactive/issues/590)) ([e94b824](https://github.com/DevExpress/devextreme-reactive/commit/e94b824))
+* **react-grid:** fix incorrect applying of several actions in a batch ([#560](https://github.com/DevExpress/devextreme-reactive/issues/560)) ([7c3ff9b](https://github.com/DevExpress/devextreme-reactive/commit/7c3ff9b)), closes [#549](https://github.com/DevExpress/devextreme-reactive/issues/549)
+* **react-grid:** remove outline from header cell when mouse click ([#576](https://github.com/DevExpress/devextreme-reactive/issues/576)) ([807597b](https://github.com/DevExpress/devextreme-reactive/commit/807597b))
+* **react-grid-material-ui:** add border beetwin rows and pager panel ([#622](https://github.com/DevExpress/devextreme-reactive/issues/622)) ([d7cb9c7](https://github.com/DevExpress/devextreme-reactive/commit/d7cb9c7))
+* **react-grid-material-ui:** use theme constant in the table header background ([#602](https://github.com/DevExpress/devextreme-reactive/issues/602)) ([797e134](https://github.com/DevExpress/devextreme-reactive/commit/797e134))
+
+
+### Code Refactoring
+
+* **react-grid:** add the toolbar ([#585](https://github.com/DevExpress/devextreme-reactive/issues/585)) ([70fdc25](https://github.com/DevExpress/devextreme-reactive/commit/70fdc25))
+* **react-grid:** cancel column sorting by passing null to the direction argument ([#620](https://github.com/DevExpress/devextreme-reactive/issues/620)) ([3abe8f9](https://github.com/DevExpress/devextreme-reactive/commit/3abe8f9))
+* **react-grid:** extract table column extension ([#586](https://github.com/DevExpress/devextreme-reactive/issues/586)) ([7f57be2](https://github.com/DevExpress/devextreme-reactive/commit/7f57be2))
+* **react-grid:** get rid of explicit column resizing enabling ([#597](https://github.com/DevExpress/devextreme-reactive/issues/597)) ([f215103](https://github.com/DevExpress/devextreme-reactive/commit/f215103))
+* **react-grid:** get rid of explicit dragging enabling ([#583](https://github.com/DevExpress/devextreme-reactive/issues/583)) ([60797c2](https://github.com/DevExpress/devextreme-reactive/commit/60797c2))
+* **react-grid:** give column properties greater precedence ([#617](https://github.com/DevExpress/devextreme-reactive/issues/617)) ([4a2924c](https://github.com/DevExpress/devextreme-reactive/commit/4a2924c))
+* **react-grid:** remove totalCount property from PagingState to CustomPaging ([#555](https://github.com/DevExpress/devextreme-reactive/issues/555)) ([95fe97d](https://github.com/DevExpress/devextreme-reactive/commit/95fe97d))
+* **react-grid:** rename data processing plugins ([#612](https://github.com/DevExpress/devextreme-reactive/issues/612)) ([468dde4](https://github.com/DevExpress/devextreme-reactive/commit/468dde4))
+* **react-grid:** rename DragDropContext to DragDropProvider ([#611](https://github.com/DevExpress/devextreme-reactive/issues/611)) ([26d303e](https://github.com/DevExpress/devextreme-reactive/commit/26d303e))
+* **react-grid:** rename properties from allow* to *Enabled ([#618](https://github.com/DevExpress/devextreme-reactive/issues/618)) ([6c291e8](https://github.com/DevExpress/devextreme-reactive/commit/6c291e8))
+* **react-grid:** rename some group and paging properties ([#581](https://github.com/DevExpress/devextreme-reactive/issues/581)) ([6300249](https://github.com/DevExpress/devextreme-reactive/commit/6300249))
+* **react-grid:** specify typed columns directly in DataTypeProvider ([#591](https://github.com/DevExpress/devextreme-reactive/issues/591)) ([6ed28e4](https://github.com/DevExpress/devextreme-reactive/commit/6ed28e4))
+* **react-grid:** swap args in the createRowChange function ([#619](https://github.com/DevExpress/devextreme-reactive/issues/619)) ([1178ee1](https://github.com/DevExpress/devextreme-reactive/commit/1178ee1))
+* **react-grid:** switch to column extensions in EditingState ([#604](https://github.com/DevExpress/devextreme-reactive/issues/604)) ([d56b3f0](https://github.com/DevExpress/devextreme-reactive/commit/d56b3f0))
+* **react-grid:** switch to column extensions in LocalFiltering ([#594](https://github.com/DevExpress/devextreme-reactive/issues/594)) ([955da48](https://github.com/DevExpress/devextreme-reactive/commit/955da48))
+* **react-grid:** switch to column extensions in LocalGrouping ([#601](https://github.com/DevExpress/devextreme-reactive/issues/601)) ([9efc007](https://github.com/DevExpress/devextreme-reactive/commit/9efc007))
+* **react-grid:** switch to column extensions in LocalSorting ([#603](https://github.com/DevExpress/devextreme-reactive/issues/603)) ([08c96da](https://github.com/DevExpress/devextreme-reactive/commit/08c96da))
+* **react-grid:** switch to column extensions in TableGroupRow ([#609](https://github.com/DevExpress/devextreme-reactive/issues/609)) ([373d4d8](https://github.com/DevExpress/devextreme-reactive/commit/373d4d8))
+
+
+### Features
+
+* **react-grid:** add the ColumnChooser plugin ([#607](https://github.com/DevExpress/devextreme-reactive/issues/607)) ([16eb588](https://github.com/DevExpress/devextreme-reactive/commit/16eb588))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** We have moved the PagingState plugin's `totalCount` property to the CustomPaging plugin to improve API consistency. Now, you can add the CustomPaging plugin to a project and specify its `totalCount` property to implement remote paging.
+
+  Before:
+
+  ```js
+  <Grid>
+    <...>
+    <PagingState totalCount={10} />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  <Grid>
+    <...>
+    <PagingState />
+    <CustomPaging totalCount={10} />
+  </Grid>
+  ```
+* **react-grid:** To simplify working and make consistent API, some plugins properties have been renamed.
+  - The TableHeaderRow plugin's `allowGroupingByClick` property has been renamed to `showGroupingControls`.
+  - The GroupingPanel plugin's `allowUngroupingByClick` property has been renamed to `showGroupingControls`.
+  - The PagingPanel plugin's `allowedPageSizes` property has been renamed to `pageSizes `.
+* **react-grid:** A column's `getCellValue` function has gotten higher priority than that defined in the Grid component.
+* **react-grid:** The `createRowChange` function arguments order has been changed to `(row: any, value: any, columnName: string)` to improve the API consistency. Now, the EditingState plugin's `createRowChange` function has the same signature as the column extension's one.
+* **react-grid:** We have renamed the following plugins that process data to make the Grid API more consistent:
+
+  - LocalFiltering => IntegratedFiltering
+  - LocalGrouping => IntegratedGrouping
+  - LocalPaging => IntegratedPaging
+  - LocalSelection => IntegratedSelection
+  - LocalSorting => IntegratedSorting
+* **react-grid:** We removed the LocalSorting plugin's `getColumnIdentity` property to improve API consistency. Now, use the column extension's `criteria` property to specify an individual column's grouping criteria.
+
+  Before:
+
+  ```js
+  const columns = [{ name: 'field' }, { name: 'field2' }];
+  const fieldGroupCriteria = /* custom group criteria */;
+  const getColumnIdentity = (columnName) => {
+    if (name === 'field') return fieldGroupCriteria;
+  };
+
+  <Grid columns={columns}>
+    <LocalGrouping getColumnIdentity={getColumnIdentity} />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  const columns= [{ name: 'field' }, { name: 'field2' }];
+  const fieldGroupCriteria = /* custom group criteria */;
+  const integratedGroupingColumnExtensions = [
+    { columnName: 'field', criteria: fieldGroupCriteria },
+  ];
+
+  <Grid columns={columns}>
+    <IntegratedGrouping columnExtensions={integratedGroupingColumnExtensions} />
+  </Grid>
+  ```
+* **react-grid:** We removed the `cancel` argument from the SortingState plugin's `setColumnSorting` action and from the `onSort` event of the TableHeaderCellProps and GroupPanelItemProps component properties. Now, you can pass `null` to the `direction` argument to cancel sorting by column.
+* **react-grid:** The TableHeaderCellProps interface's `allowResizing` property has been renamed to `resizingEnabled` to improve the API consistency.
+* **react-grid:** We removed the `getColumnCompare` property from the LocalSorting plugin to improve API consistency. Now, use the `columnExtension` property to specify individual column sorting options.
+
+  Before:
+
+  ```js
+  const columns = [{ name: 'field' }, { name: 'field2' }];
+  const fieldCompare = /* custom sort compare */;
+  const getColumnCompare = (columnName) => {
+    if (name === 'field') return fieldCompare;
+  };
+
+  <Grid columns={columns}>
+    <LocalSorting getColumnCompare={getColumnCompare} />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  const columns= [{ name: 'field' }, { name: 'field2' }];
+  const fieldCompare = /* custom sort compare */;
+  const integratedSortingColumnExtensions = [
+    { columnName: 'field', compare: fieldIdentity },
+  ];
+
+  <Grid columns={columns}>
+    <IntegratedSorting columnExtensions={integratedSortingColumnExtensions} />
+  </Grid>
+  ```
+* **react-grid:** We have integrated the column chooser into the Grid as a plugin to simplify the API. Now, use the column chooser as follows:
+
+  ```js
+  <Grid>
+    {/* ... */}
+    <TableColumnVisibility
+      /* props */
+    />
+    <Toolbar />
+    <ColumnChooser />
+  </Grid>
+  ```
+
+  For details, see [Controlling Column Visibility](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-visibility/).
+* **react-grid:** We extracted the column's `showWhenGrouped` property that the TableGroupRow plugin handles to a column extension to improve the API readability.
+  The TableGroupRow plugin's `showColumnsWhenGrouped` property type has been changed to `boolean` and this property affects all columns. If you need to control specific columns' visibility, use column extensions.
+
+  Before:
+
+  ```js
+  const columns = [{ name: 'field', showWhenGrouped: true }, { name: 'field2' }];
+
+  <Grid columns={columns}>
+    <TableGroupRow />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  const columns= [{ name: 'field' }, { name: 'field2' }];
+  const tableGroupColumnExtensions = [
+    { columnName: 'field', showWhenGrouped: true },
+  ];
+
+  <Grid columns={columns}>
+    <TableGroupRow columnExtensions={tableGroupColumnExtensions} />
+  </Grid>
+  ```
+
+  Note that column extension properties have higher priority than corresponding plugin properties.
+* **react-grid:** We renamed the `DragDropContext` plugin to `DragDropProvider` to improve API consistency.
+* **react-grid:** We removed the `allowResizing` property from the TableHeaderRow plugin to simplify the API. Now, adding the TableColumnResizing plugin enables column resizing.
+* **react-grid:** In order to improve API readability, we extracted the `width` and `align` column properties that the Table and VirtualTable plugins handle into a separate property. Now, the `width` and `align` properties in the Grid `columns` are no longer supported. Use a TableColumnExtension instead:
+
+  Before:
+
+  ```js
+  const columns= [{ name: 'field', width: 100 }, { name: 'field2' }];
+
+  <Grid columns={columns}>
+    <Table />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  const columns= [{ name: 'field1' }, { name: 'field2' }];
+  const tableColumnExtensions = [{ columnName: 'field1', width: 100 }];
+
+  <Grid columns={columns}>
+    <Table columnExtensions={tableColumnExtensions} />
+  </Grid>
+  ```
+* **react-grid:** In order to simplify API, we changed the way the DataTypeProvider plugin detects columns associated with a type. Now, to associate a custom formatter and editor with a column, pass a column array to the DataTypeProvider's `for` field:
+
+  Before:
+
+  ```js
+  const columns= [{ name: 'field', dataType: 'boolean' }, { name: 'field2' }];
+
+  <Grid columns={columns}>
+    <DataTypeProvider type="boolean" />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  const columns= [{ name: 'field1' }, { name: 'field2' }];
+  const booleanColumns = ['field1'];
+
+  <Grid columns={columns}>
+    <DataTypeProvider for={booleanColumns} />
+  </Grid>
+  ```
+* **react-grid:** In order to improve API consistency, we've decided to replace the `getColumnPredicate` function in the LocalFiltering plugin with the LocalFilteringColumnExtension.
+
+  Before:
+
+  ```js
+  const columns = [{ name: 'field' }, { name: 'field2' }];
+  const fieldPredicate = /* custom filtering predicate */;
+  const getColumnPredicate = (columnName) => {
+    if (name === 'field') return fieldPredicate;
+  };
+
+  <Grid columns={columns}>
+    <LocalFiltering getColumnPredicate={getColumnPredicate} />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  const columns= [{ name: 'field' }, { name: 'field2' }];
+  const fieldPredicate = /* custom filtering predicate */;
+  const integratedFilteringColumnExtensions = [
+    { columnName: 'field', predicate: fieldPredicate },
+  ];
+
+  <Grid columns={columns}>
+    <IntegratedFiltering columnExtensions={integratedFilteringColumnExtensions} />
+  </Grid>
+  ```
+* **react-grid:** In order to simplify API, we've decided to remove allowDragging properties in TableHeaderRow and GroupingPanel plugins. Now, to enable dragging it is enough to add the DragDropContext plugin.
+* **react-grid:**  
+To provide a more convenient and flexible way to render elements that are placed within a Grid header we add the Toolbar plugin. For this reason, the GroupingPanel plugin has the Toolbar dependency:
+ 
+  ```js
+  import {
+    // ...
+    Toolbar,
+    GroupingPanel
+  } from '@devexpress/dx-react-grid-material-ui';
+
+  <Grid>
+    {/* ... */}
+    <Toolbar />
+    <GroupingPanel />
+  </Grid>
+  ```
+   
+  To simplify Grid's markup we removed header placeholder and footer placeholder components.
+  If you're customizing Grid appearance using the `headerPlaceholderComponent` and `footerPlaceholderComponent` properties, your code should be updated as follows:
+   
+  Before:
+
+  ```js
+  <Grid
+    headerPlaceholderTemplate={() => (<div />)}
+    footerPlaceholderTemplate={() => (<div />)}
+  >
+  {/* ... */}
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+
+  <Grid>
+    <Template name="header">
+      <TemplatePlaceholder />
+      {/* Custom markup */}
+    </Template>
+    <Template name="footer">
+      <TemplatePlaceholder />
+      {/* Custom markup */}
+    </Template>
+    {/* ... */}
+  </Grid>
+  ```
+* **react-grid:** We extracted the column's `createRowChange` property that the EditingState plugin handles to a column extension to improve API readability.
+
+  Before:
+
+  ```js
+  const columns = [{ name: 'field', createRowChange: (row, value) => { /* logic */ } }, { name: 'field2' }];
+
+  <Grid columns={columns}>
+    <EditingState />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  const columns= [{ name: 'field' }, { name: 'field2' }];
+  const editingColumnExtensions = [
+    { columnName: 'field', createRowChange: (row, value) => { /* logic */ } },
+  ];
+
+  <Grid columns={columns}>
+    <EditingState columnExtensions={editingColumnExtensions} />
+  </Grid>
+  ```
+
+  Note that column extension properties have higher priority than corresponding plugin properties.
+
+
+
 <a name="1.0.0-beta.2"></a>
 # [1.0.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-12-14)
 

@@ -1,6 +1,6 @@
 # ColumnChooser Plugin Reference
 
-The ColumnChooser plugin allows a user to show and hide grid columns at runtime. The column chooser lists columns with checkboxes that control the corresponding column's visibility.
+The ColumnChooser plugin allows a user to show and hide grid columns at runtime. The column chooser lists columns with checkboxes that control a corresponding column's visibility.
 
 ## User reference
 
@@ -17,7 +17,7 @@ overlayComponent | ElementType&lt;[ColumnChooserOverlayProps](#columnchooserover
 toggleButtonComponent | ElementType&lt;[ColumnChooserToggleButtonProps](#columnchoosertogglebuttonprops)&gt; | | A component that renders a button that invokes the column chooser.
 containerComponent | ElementType&lt;[ColumnChooserContainerProps](#columnchoosercontainerprops)&gt; | | A component that renders the column chooser container.
 itemComponent | ElementType&lt;[ColumnChooserItemProps](#columnchooseritemprops)&gt; | | A component that renders a column chooser item.
-messages | object | | An object that specifies the [localization messages](#localization-messages).
+messages | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -36,7 +36,7 @@ children | Array&lt;ReactElement&gt; | React elements used to render overlay con
 
 ### ColumnChooserToggleButtonProps
 
-Describes properties passed to a component that renders a button that invokes the column chooser.
+Describes properties passed to a component that renders the button that invokes the column chooser.
 
 A value with the following shape:
 
@@ -65,7 +65,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 item | [ColumnChooserItem](#columnchooseritem) | A column chooser item.
-onToggle | () => void | Handles the associated column visbility changes.
+onToggle | () => void | Handles an associated column's visbility changes.
 
 ### ColumnChooserItem
 
@@ -95,7 +95,7 @@ ColumnChooser.Overlay | [ColumnChooserOverlayProps](#columnchooseroverlayprops) 
 ColumnChooser.Container | [ColumnChooserContainerProps](#columnchoosercontainerprops) | A component that renders the column chooser container.
 ColumnChooser.Item | [ColumnChooserItemProps](#columnchooseritemprops) | A component that renders a column chooser item.
 
-If you specify additional properties, they are added to the component's root element.
+If you specify additional properties, they are added to a component's root element.
 
 ## Plugin Developer Reference
 
@@ -103,10 +103,10 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The Grid columns.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 hiddenColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be hidden.
-toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles column's visibility.
-toolbarContent | Template | Object? | A template that renders the toolbar content.
+toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.
+toolbarContent | Template | Object? | A template that renders toolbar content.
 
 ### Exports
 

@@ -7,7 +7,7 @@ import { ToggleButton } from '../templates/column-chooser/toggle-button';
 import { Item } from '../templates/column-chooser/item';
 
 const defaultMessages = {
-  hiddenColumns: 'Hidden Columns',
+  showColumnChooser: 'Show Column Chooser',
 };
 export class ColumnChooser extends React.PureComponent {
   render() {

@@ -19,7 +19,7 @@ describe('ToggleButton', () => {
     ));
 
     expect(tree.find(Tooltip).props().title)
-      .toBe('hiddenColumns');
+      .toBe('showColumnChooser');
   });
 
   it('should pass rest props to the root element', () => {

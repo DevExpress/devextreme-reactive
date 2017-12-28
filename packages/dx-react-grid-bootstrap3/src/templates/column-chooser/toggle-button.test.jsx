@@ -1,19 +1,23 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ColumnChooserContainer } from './column-chooser-container';
+import { ToggleButton } from './toggle-button';
 
-describe('ColumnChooserContainer', () => {
+const defaultProps = {
+  onToggle: () => {},
+  getMessage: () => {},
+  buttonRef: () => {},
+};
+
+describe('ToggleButton', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <ColumnChooserContainer
+      <ToggleButton
+        {...defaultProps}
         className="custom-class"
-      >
-        <div />
-        <div />
-      </ColumnChooserContainer>
+      />
     ));
 
-    expect(tree.is('.list-group'))
+    expect(tree.is('.btn-link'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();
@@ -21,12 +25,10 @@ describe('ColumnChooserContainer', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <ColumnChooserContainer
+      <ToggleButton
+        {...defaultProps}
         data={{ a: 1 }}
-      >
-        <div />
-        <div />
-      </ColumnChooserContainer>
+      />
     ));
 
     expect(tree.props().data)

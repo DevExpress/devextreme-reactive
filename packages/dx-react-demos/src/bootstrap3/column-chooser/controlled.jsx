@@ -1,11 +1,11 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
 import {
   Grid,
   Table,
   TableHeaderRow,
   ColumnChooser,
   TableColumnVisibility,
+  Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   generateRows,
@@ -40,32 +40,21 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Row>
-        <Col xs={12} sm={9}>
-          <Grid
-            rows={rows}
-            columns={columns}
-          >
-            <Table
-              columnExtensions={tableColumnExtensions}
-            />
-            <TableHeaderRow />
-            <TableColumnVisibility
-              hiddenColumns={hiddenColumns}
-            />
-          </Grid>
-        </Col>
-        <Col xs={12} sm={3}>
-          <div className="panel panel-default">
-            <div className="panel-heading">Column Chooser</div>
-            <ColumnChooser
-              columns={columns}
-              hiddenColumns={hiddenColumns}
-              onHiddenColumnsChange={this.hiddenColumnsChange}
-            />
-          </div>
-        </Col>
-      </Row>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableColumnVisibility
+          hiddenColumns={hiddenColumns}
+          onHiddenColumnsChange={this.hiddenColumnsChange}
+        />
+        <Toolbar />
+        <ColumnChooser />
+      </Grid>
     );
   }
 }

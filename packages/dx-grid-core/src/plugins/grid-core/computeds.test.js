@@ -35,21 +35,19 @@ describe('GridCore Plugin computeds', () => {
   describe('#cellValueGetter', () => {
     it('should work with default cell access', () => {
       const columns = [{ name: 'a' }, { name: 'b' }];
-      const getCellValue = null;
 
-      expect(cellValueGetter(getCellValue, columns)({ a: 1 }, 'a'))
+      expect(cellValueGetter(undefined, columns)({ a: 1 }, 'a'))
         .toEqual(1);
-      expect(cellValueGetter(getCellValue, columns)({ b: 2 }, 'b'))
+      expect(cellValueGetter(undefined, columns)({ b: 2 }, 'b'))
         .toEqual(2);
     });
 
     it('should work with column defined cell access', () => {
-      const columns = [{ name: 'a', getCellValue: row => row.b }, { name: 'b' }];
-      const getCellValue = null;
+      const columns = [{ name: 'a', getCellValue: row => row.a + 1 }, { name: 'b' }];
 
-      expect(cellValueGetter(getCellValue, columns)({ b: 1 }, 'a'))
-        .toEqual(1);
-      expect(cellValueGetter(getCellValue, columns)({ b: 2 }, 'b'))
+      expect(cellValueGetter(undefined, columns)({ a: 1 }, 'a'))
+        .toEqual(2);
+      expect(cellValueGetter(undefined, columns)({ b: 2 }, 'b'))
         .toEqual(2);
     });
 

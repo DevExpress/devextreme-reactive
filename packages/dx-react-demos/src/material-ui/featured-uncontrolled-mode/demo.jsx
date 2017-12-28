@@ -9,6 +9,7 @@ import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
+  TableColumnVisibility, ColumnChooser,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
@@ -112,8 +113,12 @@ export default class Demo extends React.PureComponent {
           />
 
           <TableGroupRow />
+          <TableColumnVisibility
+            defaultHiddenColumns={['customer']}
+          />
           <Toolbar />
           <GroupingPanel showSortingControls />
+          <ColumnChooser />
         </Grid>
       </Paper>
     );

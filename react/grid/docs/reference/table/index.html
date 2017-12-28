@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -237,6 +237,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a></li>
           
 
@@ -245,7 +253,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
           
 
         
@@ -293,7 +301,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a></li>
           
 
         
@@ -301,7 +309,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-grouping/">LocalGrouping</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-grouping/">IntegratedGrouping</a></li>
           
 
         
@@ -309,7 +317,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-paging/">LocalPaging</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-paging/">IntegratedPaging</a></li>
           
 
         
@@ -317,7 +325,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-selection/">IntegratedSelection</a></li>
           
 
         
@@ -325,7 +333,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-sorting/">IntegratedSorting</a></li>
           
 
         
@@ -461,6 +469,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
@@ -480,7 +496,7 @@
 <h3 id="dependencies">Dependencies</h3>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a> [Optional]</li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> [Optional]</li>
 </ul>
 
@@ -497,10 +513,10 @@
   </thead>
   <tbody>
     <tr>
-      <td>layoutComponent</td>
-      <td>ElementType&lt;<a href="#tablelayoutprops">TableLayoutProps</a>&gt;</td>
+      <td>columnExtensions</td>
+      <td>Array&lt;<a href="#tablecolumnextension">TableColumnExtension</a>&gt;</td>
       <td> </td>
-      <td>A component that renders a table layout.</td>
+      <td>Additional column properties that the plugin can handle.</td>
     </tr>
     <tr>
       <td>cellComponent</td>
@@ -549,9 +565,11 @@
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="column-extension">Column (Extension)</h3>
+<h3 id="tablecolumnextension">TableColumnExtension</h3>
 
-<p>A value with a <a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a> shape extended by the following fields:</p>
+<p>Describes additional column properties that the plugin can handle.</p>
+
+<p>A value with the following shape:</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -563,55 +581,19 @@
   </thead>
   <tbody>
     <tr>
-      <td>align?</td>
-      <td>‘left’ | ‘right’</td>
-      <td>Specifies the table’s column alignment.</td>
+      <td>columnName</td>
+      <td>string</td>
+      <td>The name of the column to extend.</td>
     </tr>
     <tr>
       <td>width?</td>
       <td>number</td>
-      <td>Specifies the table’s column width in pixels.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablelayoutprops">TableLayoutProps</h3>
-
-<p>Describes properties passed to a component that renders a table layout.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>headerRows</td>
-      <td>Array&lt;<a href="#tablerow">TableRow</a>&gt;</td>
-      <td>Specifies the table header rows.</td>
+      <td>The table column width in pixels.</td>
     </tr>
     <tr>
-      <td>bodyRows</td>
-      <td>Array&lt;<a href="#tablerow">TableRow</a>&gt;</td>
-      <td>Specifies the table body rows.</td>
-    </tr>
-    <tr>
-      <td>columns</td>
-      <td>Array&lt;<a href="#tablecolumn">TableColumn</a>&gt;</td>
-      <td>Specifies the table columns.</td>
-    </tr>
-    <tr>
-      <td>rowComponent</td>
-      <td>ElementType&lt;<a href="#tablerowprops">TableRowProps</a>&gt;</td>
-      <td>A component that renders table rows.</td>
-    </tr>
-    <tr>
-      <td>cellComponent</td>
-      <td>ElementType&lt;<a href="#tablecellprops">TableCellArgs</a>&gt;</td>
-      <td>A component that renders table cells.</td>
+      <td>align?</td>
+      <td>‘left’ | ‘right’</td>
+      <td>The table column alignment.</td>
     </tr>
   </tbody>
 </table>
@@ -686,13 +668,18 @@
     </tr>
     <tr>
       <td>column?</td>
-      <td><a href="#column-extension">Column</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
       <td>Specifies the associated user column.</td>
     </tr>
     <tr>
       <td>width?</td>
       <td>number</td>
       <td>Specifies the table column width.</td>
+    </tr>
+    <tr>
+      <td>align?</td>
+      <td>‘left’ | ‘right’</td>
+      <td>Specifies the table’s column alignment.</td>
     </tr>
   </tbody>
 </table>
@@ -762,7 +749,7 @@
     </tr>
     <tr>
       <td>column</td>
-      <td><a href="#column-extension">Column</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
       <td>Specifies the cell’s column.</td>
     </tr>
   </tbody>
@@ -937,7 +924,7 @@
     <tr>
       <td>columns</td>
       <td>Getter</td>
-      <td>Array&lt;<a href="#column-extension">Column</a>&gt;</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
       <td>Columns to be rendered by the table view.</td>
     </tr>
     <tr>
@@ -1010,7 +997,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
 
 
     <footer>
@@ -1048,7 +1035,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
     <script>
         trackingCookie.check();
     </script>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -237,6 +237,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a></li>
           
 
@@ -245,7 +253,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
           
 
         
@@ -293,7 +301,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a></li>
           
 
         
@@ -301,7 +309,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-grouping/">LocalGrouping</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-grouping/">IntegratedGrouping</a></li>
           
 
         
@@ -309,7 +317,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-paging/">LocalPaging</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-paging/">IntegratedPaging</a></li>
           
 
         
@@ -317,7 +325,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-selection/">IntegratedSelection</a></li>
           
 
         
@@ -325,7 +333,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-sorting/">IntegratedSorting</a></li>
           
 
         
@@ -461,6 +469,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
@@ -475,9 +491,7 @@
 
 <p>The Grid component supports custom value formatting and using a custom editor for cell value editing (depending on column’s data type).</p>
 
-<p>The <a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> plugin holds the <code class="highlighter-rouge">type</code>, <code class="highlighter-rouge">formatterComponent</code> and <code class="highlighter-rouge">editorComponent</code> properties that enable you to associate the data type provider with a data type, specify custom formatting and a custom editor.</p>
-
-<p>Associate a column with a data type using the <code class="highlighter-rouge">Column</code> object’s <code class="highlighter-rouge">dataType</code> field.</p>
+<p>The <a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> plugin holds the <code class="highlighter-rouge">for</code>, <code class="highlighter-rouge">formatterComponent</code> and <code class="highlighter-rouge">editorComponent</code> properties that enable you to associate the data type provider with specific columns, specify custom formatting and a custom editor.</p>
 
 <h2 id="related-plugins">Related Plugins</h2>
 
@@ -494,8 +508,9 @@
 <span class="p">];</span>
 <span class="kr">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'amount'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Sale Amount'</span><span class="p">,</span> <span class="na">dataType</span><span class="p">:</span> <span class="s1">'currency'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'amount'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Sale Amount'</span> <span class="p">},</span>
 <span class="p">];</span>
+<span class="kr">const</span> <span class="nx">currencyColumns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'amount'</span><span class="p">];</span>
 
 <span class="kr">const</span> <span class="nx">CurrencyFormatter</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">value</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">$</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span&gt;</span><span class="err">;
 </span>
@@ -504,7 +519,7 @@
   <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
 <span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">DataTypeProvider</span>
-    <span class="nx">type</span><span class="o">=</span><span class="s2">"currency"</span>
+    <span class="k">for</span><span class="o">=</span><span class="p">{</span><span class="nx">currencyColumns</span><span class="p">}</span>
     <span class="nx">formatterComponent</span><span class="o">=</span><span class="p">{</span><span class="nx">CurrencyFormatter</span><span class="p">}</span>
   <span class="sr">/</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
@@ -512,9 +527,9 @@
 </div>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
           &quot;path&quot;: &quot;/demo/data-types/formatters&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163238&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690010&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -523,15 +538,16 @@
 
 <h2 id="custom-editors">Custom Editors</h2>
 
-<p>If the grid supports editing or header row filtering, assign a function rendering the required editor to the <code class="highlighter-rouge">DataTypeProvider</code> plugin’s <code class="highlighter-rouge">editorComponent</code> property. In this case, the Grid uses the specified editor to edit all values of the specified type.</p>
+<p>If the grid supports editing or header row filtering, assign a function rendering the required editor to the <code class="highlighter-rouge">DataTypeProvider</code> plugin’s <code class="highlighter-rouge">editorComponent</code> property. In this case, the Grid uses the specified editor to edit all the specified type values.</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'SolarOne'</span><span class="p">,</span> <span class="na">shipped</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
 <span class="p">];</span>
 <span class="kr">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'shipped'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Shipped'</span><span class="p">,</span> <span class="na">dataType</span><span class="p">:</span> <span class="s1">'boolean'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'shipped'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Shipped'</span> <span class="p">},</span>
 <span class="p">];</span>
+<span class="kr">const</span> <span class="nx">booleanColumns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'shipped'</span><span class="p">];</span>
 
 <span class="kr">const</span> <span class="nx">BooleanEditor</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">onValueChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
   <span class="o">&lt;</span><span class="nx">select</span>
@@ -548,7 +564,7 @@
   <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
 <span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">DataTypeProvider</span>
-    <span class="nx">type</span><span class="o">=</span><span class="s2">"boolean"</span>
+    <span class="k">for</span><span class="o">=</span><span class="p">{</span><span class="nx">booleanColumns</span><span class="p">}</span>
     <span class="nx">editorComponent</span><span class="o">=</span><span class="p">{</span><span class="nx">BooleanEditor</span><span class="p">}</span>
   <span class="sr">/</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
@@ -556,9 +572,9 @@
 </div>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
           &quot;path&quot;: &quot;/demo/data-types/editors&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163238&quot;
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690010&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -569,7 +585,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
 
 
     <footer>
@@ -607,7 +623,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
     <script>
         trackingCookie.check();
     </script>

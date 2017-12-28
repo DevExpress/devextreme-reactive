@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -237,6 +237,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a></li>
           
 
@@ -245,7 +253,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
           
 
         
@@ -293,7 +301,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a></li>
           
 
         
@@ -301,7 +309,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-grouping/">LocalGrouping</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-grouping/">IntegratedGrouping</a></li>
           
 
         
@@ -309,7 +317,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-paging/">LocalPaging</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-paging/">IntegratedPaging</a></li>
           
 
         
@@ -317,7 +325,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-selection/">IntegratedSelection</a></li>
           
 
         
@@ -325,7 +333,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-sorting/">IntegratedSorting</a></li>
           
 
         
@@ -461,6 +469,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
@@ -512,82 +528,6 @@
       <td>(nextOrder: Array&lt;string&gt;) =&gt; void</td>
       <td> </td>
       <td>Handles changes to the column order.</td>
-    </tr>
-    <tr>
-      <td>tableContainerComponent</td>
-      <td>ElementType&lt;<a href="#tablecontainerprops">TableContainerProps</a>&gt;</td>
-      <td> </td>
-      <td>A table container component required for drag-and-drop reordering.</td>
-    </tr>
-    <tr>
-      <td>rowComponent</td>
-      <td>ElementType&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">TableRowProps</a>&gt;</td>
-      <td> </td>
-      <td>A non-visual component that renders an invisible row required for drag-and-drop reordering.</td>
-    </tr>
-    <tr>
-      <td>cellComponent</td>
-      <td>ElementType&lt;<a href="#reorderingcellprops">ReorderingCellProps</a>&gt;</td>
-      <td> </td>
-      <td>A non-visual component that renders an invisible cell required for drag-and-drop reordering.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="tablecontainerprops">TableContainerProps</h3>
-
-<p>Describes the table container component’s properties.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>onOver</td>
-      <td>(args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) =&gt; void</td>
-      <td>Handles the column’s “dragover” event.</td>
-    </tr>
-    <tr>
-      <td>onLeave</td>
-      <td>(args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) =&gt; void</td>
-      <td>Handles the column’s “dragleave” event.</td>
-    </tr>
-    <tr>
-      <td>onDrop</td>
-      <td>(args: { payload: Array&lt;{ columnName: string }&gt;, clientOffset: { x: number } }) =&gt; void</td>
-      <td>Handles the column’s “drop” event.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="reorderingcellprops">ReorderingCellProps</h3>
-
-<p>Describes the reordering row cell component’s properties.</p>
-
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">TableCellProps</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>getCellDimensions</td>
-      <td>(dimensionsGetter: () =&gt; { left: number, right: number }) =&gt; void)</td>
-      <td>Accepts a function that returns the cell’s horizontal boundaries.</td>
     </tr>
   </tbody>
 </table>
@@ -670,7 +610,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
 
 
     <footer>
@@ -708,7 +648,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
     <script>
         trackingCookie.check();
     </script>

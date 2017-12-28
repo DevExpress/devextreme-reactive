@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1513237168">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1513237168">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -237,6 +237,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a></li>
           
 
@@ -245,7 +253,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-context/">DragDropContext</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
           
 
         
@@ -293,7 +301,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-filtering/">LocalFiltering</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a></li>
           
 
         
@@ -301,7 +309,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-grouping/">LocalGrouping</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-grouping/">IntegratedGrouping</a></li>
           
 
         
@@ -309,7 +317,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-paging/">LocalPaging</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-paging/">IntegratedPaging</a></li>
           
 
         
@@ -317,7 +325,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-selection/">LocalSelection</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-selection/">IntegratedSelection</a></li>
           
 
         
@@ -325,7 +333,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/local-sorting/">LocalSorting</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-sorting/">IntegratedSorting</a></li>
           
 
         
@@ -461,6 +469,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a></li>
           
 
@@ -473,41 +489,42 @@
     <div class="col-md-9 docs-content">
         <h1 id="react-grid---controlling-column-visibility">React Grid - Controlling Column Visibility</h1>
 
-<p>A Grid component with the <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> plugin provides the capability to hide existing columns in the table view. You can also use the <a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a> component to allow a user to show or hide columns at runtime.</p>
+<p>The Grid component with the <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> and <a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a> plugins provides the capability to hide or show table columns at runtime.</p>
 
-<h2 id="related-components-and-plugins">Related Components and Plugins</h2>
+<h2 id="related-plugins">Related Plugins</h2>
 
 <ul>
-  <li>The Grid component’s <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> plugin manages column visibility.</li>
-  <li>The <a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a> component provides the UI for column visibility management.</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> - manages column visibility.</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a> - renders the Grid Toolbar.</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a> - implements the column chooser.</li>
 </ul>
 
-<h2 id="basic-configuration">Basic configuration</h2>
+<h2 id="basic-setup">Basic Setup</h2>
 
-<p>Follow the steps below to enable a user to hide or show columns at runtime.</p>
+<p>Import the plugins listed above to enable a user to hide or show columns at runtime.</p>
 
-<h3 id="configuring-hiddentablecolumn-plugin">Configuring HiddenTableColumn plugin</h3>
+<h3 id="uncontrolled-mode">Uncontrolled Mode</h3>
 
-<p>Add the <a href="/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> plugin to the Grid. Assign an application’s state variable storing hidden column names to the plugin’s <code class="highlighter-rouge">hiddenColumns</code> property. In this case, the grid rerenders columns once the <code class="highlighter-rouge">hiddenColumns</code> state changes.</p>
-
-<h3 id="adding-columnchooser">Adding ColumnChooser</h3>
-
-<p>Add the ColumnChooser component to your application. Pass the existing columns’ information to the ColumnChooser by assigning the columns’ configuration array to the ColumnChooser’s <code class="highlighter-rouge">columns</code> property. Finally, assign the application’s <code class="highlighter-rouge">hiddenColumns</code> state variable to the <code class="highlighter-rouge">hiddenColumns</code> property.</p>
-
-<h3 id="handling-column-visibility-changes">Handling Column Visibility Changes</h3>
-
-<p>Assign a function that sends the <code class="highlighter-rouge">hiddenColumns</code> state variable to the ColumnChooser’s <code class="highlighter-rouge">onHiddenColumnsChange</code> property to update the state once a user checks or unchecks a column item.</p>
-
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">hiddenColumnsChangeHandler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">hiddenColumns</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">hiddenColumns</span> <span class="p">});</span>
-<span class="p">};</span>
-</code></pre>
-</div>
+<p>In <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/#uncontrolled-mode">uncontrolled mode</a>, specify initially hidden columns via the <code class="highlighter-rouge">TableColumnVisibility</code> plugin’s <code class="highlighter-rouge">defaultHiddenColumns</code> property.</p>
 
 <div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.2&quot;,
-          &quot;path&quot;: &quot;/demo/column-chooser/basic&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237163235&quot;
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
+          &quot;path&quot;: &quot;/demo/column-chooser/uncontrolled&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690006&quot;
+        }">
+        <div class="loading-shading">
+          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+        </div>
+      </div>
+
+<h3 id="controlled-mode">Controlled Mode</h3>
+
+<p>In <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/#controlled-mode">controlled mode</a>, pass the hidden columns to the <code class="highlighter-rouge">TableColumnVisibility</code> plugin’s <code class="highlighter-rouge">hiddenColumns</code> property and handle the <code class="highlighter-rouge">onHiddenColumnsChange</code> event to control column visibility externally.</p>
+
+<div class="embedded-demo" data-options="{
+          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
+          &quot;path&quot;: &quot;/demo/column-chooser/controlled&quot;,
+          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690006&quot;
         }">
         <div class="loading-shading">
           <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -518,7 +535,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1513237168"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
 
 
     <footer>
@@ -556,7 +573,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1513237168"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
     <script>
         trackingCookie.check();
     </script>

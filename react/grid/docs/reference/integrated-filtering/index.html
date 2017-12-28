@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>PagingState Plugin Reference - DevExtreme Reactive Components</title>
+    <title>IntegratedFiltering Plugin Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -301,7 +301,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a></li>
+          <li>IntegratedFiltering</li>
           
 
         
@@ -349,7 +349,7 @@
           
 
           
-          <li>PagingState</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-state/">PagingState</a></li>
           
 
         
@@ -487,15 +487,17 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="pagingstate-plugin-reference">PagingState Plugin Reference</h1>
+        <h1 id="integratedfiltering-plugin-reference">IntegratedFiltering Plugin Reference</h1>
 
-<p>A plugin that manages the paging state. It controls the total page count depending on the total row count and the specified page size, controls the currently selected page number and changes it in response to the corresponding actions.</p>
+<p>A plugin that performs built-in data filtering.</p>
 
 <h2 id="user-reference">User Reference</h2>
 
 <h3 id="dependencies">Dependencies</h3>
 
-<p>none</p>
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a></li>
+</ul>
 
 <h3 id="properties">Properties</h3>
 
@@ -510,40 +512,40 @@
   </thead>
   <tbody>
     <tr>
-      <td>currentPage</td>
-      <td>number</td>
+      <td>columnExtensions</td>
+      <td>Array&lt;<a href="#integratedfilteringcolumnextension">IntegratedFilteringColumnExtension</a>&gt;</td>
       <td> </td>
-      <td>Specifies the current page number.</td>
+      <td>Additional column properties that the plugin can handle.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="integratedfilteringcolumnextension">IntegratedFilteringColumnExtension</h3>
+
+<p>Describes additional column properties that the plugin can handle.</p>
+
+<p>A value with the following shape:</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>The name of a column to extend.</td>
     </tr>
     <tr>
-      <td>defaultCurrentPage</td>
-      <td>number</td>
-      <td>0</td>
-      <td>Specifies the initial page in uncontrolled mode.</td>
-    </tr>
-    <tr>
-      <td>onCurrentPageChange</td>
-      <td>(currentPage: number) =&gt; void</td>
-      <td> </td>
-      <td>Handles current page changes.</td>
-    </tr>
-    <tr>
-      <td>pageSize</td>
-      <td>number</td>
-      <td> </td>
-      <td>Specifies the page size. Set this property to <code class="highlighter-rouge">0</code> to show all rows on a page.</td>
-    </tr>
-    <tr>
-      <td>defaultPageSize</td>
-      <td>number</td>
-      <td>10</td>
-      <td>Specifies the initial page size in uncontrolled mode.</td>
-    </tr>
-    <tr>
-      <td>onPageSizeChange</td>
-      <td>(pageSize: number) =&gt; void</td>
-      <td> </td>
-      <td>Handles page size changes.</td>
+      <td>predicate?</td>
+      <td>(value: any, filter: Object, row: any) =&gt; boolean</td>
+      <td>A filter predicate. The <code class="highlighter-rouge">filter</code> parameter accepts an object containing the ‘value’ field. Note that you can use the <a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/#tablefiltercellprop">onFilter</a> event to extend this object to the fields your filtering algorithm requires.</td>
     </tr>
   </tbody>
 </table>
@@ -552,7 +554,48 @@
 
 <h3 id="imports">Imports</h3>
 
-<p>none</p>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rows</td>
+      <td>Getter</td>
+      <td>Array&lt;any&gt;</td>
+      <td>Rows to be filtered.</td>
+    </tr>
+    <tr>
+      <td>filters</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/#filter">Filter</a>&gt;</td>
+      <td>Column filters to be applied.</td>
+    </tr>
+    <tr>
+      <td>getCellValue</td>
+      <td>Getter</td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>The function used to get a cell value.</td>
+    </tr>
+    <tr>
+      <td>isGroupRow?</td>
+      <td>Getter</td>
+      <td>(row: any) =&gt; boolean</td>
+      <td>A function used to identify a group row within ordinary rows.</td>
+    </tr>
+    <tr>
+      <td>getRowLevelKey?</td>
+      <td>Getter</td>
+      <td>(row: any) =&gt; string?</td>
+      <td>A function used to get row level key.</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="exports">Exports</h3>
 
@@ -567,28 +610,10 @@
   </thead>
   <tbody>
     <tr>
-      <td>pageSize</td>
+      <td>rows</td>
       <td>Getter</td>
-      <td>number</td>
-      <td>The page size.</td>
-    </tr>
-    <tr>
-      <td>setPageSize</td>
-      <td>Action</td>
-      <td>(size: number) =&gt; void</td>
-      <td>Changes the page size.</td>
-    </tr>
-    <tr>
-      <td>currentPage</td>
-      <td>Getter</td>
-      <td>number</td>
-      <td>The current page number.</td>
-    </tr>
-    <tr>
-      <td>setCurrentPage</td>
-      <td>Action</td>
-      <td>(page: number) =&gt; void</td>
-      <td>Changes the current page number.</td>
+      <td>Array&lt;any&gt;</td>
+      <td>The filtered rows.</td>
     </tr>
   </tbody>
 </table>

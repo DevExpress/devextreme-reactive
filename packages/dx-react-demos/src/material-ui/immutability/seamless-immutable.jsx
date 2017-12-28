@@ -133,7 +133,7 @@ export default () => (
         <IntegratedSelection />
         <Table />
         <TableHeaderRow showSortingControls />
-        <TableSelection />
+        <TableSelection showSelectAll />
       </Grid>
     </Paper>
   </Provider>

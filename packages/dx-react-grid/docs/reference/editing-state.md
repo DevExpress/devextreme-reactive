@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a row changes object depending on row editor values. This function is called each time the row editor's value changes.
-columnExtensions | Array&lg;[EditingColumnExtension](#editingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions | Array&lt;[EditingColumnExtension](#editingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 editingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows being edited.
 defaultEditingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows initially added to the `editingRows` array in uncontrolled mode.
 onEditingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRows` array.

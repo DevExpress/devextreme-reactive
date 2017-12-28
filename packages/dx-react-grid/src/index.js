@@ -8,6 +8,7 @@ export { EditingState } from './plugins/editing-state';
 
 export { PagingState } from './plugins/paging-state';
 export { IntegratedPaging } from './plugins/integrated-paging';
+export { CustomPaging } from './plugins/custom-paging';
 
 export { GroupingState } from './plugins/grouping-state';
 export { IntegratedGrouping } from './plugins/integrated-grouping';

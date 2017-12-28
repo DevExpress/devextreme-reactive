@@ -3,11 +3,9 @@ const MIN_SIZE = 40;
 export const changeTableColumnWidths = (state, { shifts }) => {
   const { columnWidths } = state;
   const nextColumnWidth = columnWidths.slice();
-  let index;
-  const updatedColumn = nextColumnWidth.find((elem, elemIndex) => {
-    index = elemIndex;
-    return !!shifts[elem.columnName];
-  });
+  const currentShift = elem => !!shifts[elem.columnName];
+  const updatedColumn = nextColumnWidth.find(currentShift);
+  const index = nextColumnWidth.findIndex(currentShift);
   const size = Math.max(MIN_SIZE, updatedColumn.width + shifts[updatedColumn.columnName]);
   nextColumnWidth.splice(index, 1, { columnName: updatedColumn.columnName, width: size });
 

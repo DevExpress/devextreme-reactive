@@ -1,6 +1,6 @@
 # TableColumnVisibility Plugin Reference
 
-A plugin that manages the Grid columns' visibility.
+A plugin that manages Grid columns' visibility.
 
 ## User Reference
 
@@ -13,10 +13,10 @@ A plugin that manages the Grid columns' visibility.
 Name | Type | Default | Description
 -----|------|---------|------------
 hiddenColumns | Array&lt;string&gt; | [] | Hidden column names.
-defaultHiddenColumns | Array&lt;string&gt; | [] | The names of initially hidden columns in the uncontrolled mode.
+defaultHiddenColumns | Array&lt;string&gt; | [] | Names of initially hidden columns in uncontrolled mode.
 onHiddenColumnsChange | (hiddenColumns: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
 emptyMessageComponent | ElementType&lt;[EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
-messages | object | | An object that specifies the [localization messages](#localization-messages).
+messages | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
@@ -50,8 +50,8 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | The table columns.
-table | Template | Object? | A template that renders the table.
+tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+table | Template | Object? | A template that renders a table.
 
 ### Exports
 

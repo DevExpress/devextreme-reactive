@@ -7,7 +7,7 @@ The Grid component supports data paging. You can specify the page size and switc
 The following plugins implement filtering features:
 
 - [PagingState](../reference/paging-state.md) - controls the paging state
-- [CustomPaging](../reference/custom-paging.md) - specifies custom totalCount property
+- [CustomPaging](../reference/custom-paging.md) - allows to implement a custom totalCount calculation logic
 - [IntegratedPaging](../reference/integrated-paging.md) - performs built-in data paging
 - [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
 

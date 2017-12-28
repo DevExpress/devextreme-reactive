@@ -1,6 +1,6 @@
 # ColumnChooser Plugin Reference
 
-ColumnChooser is a plugin that allows a user to show and hide grid columns at runtime. The plugin contains a column list with checkboxes that control each column's visibility.
+The ColumnChooser plugin allows a user to show and hide grid columns at runtime. The column chooser lists columns with checkboxes that control the corresponding column's visibility.
 
 ## User reference
 
@@ -14,7 +14,7 @@ ColumnChooser is a plugin that allows a user to show and hide grid columns at ru
 Name | Type | Default | Description
 -----|------|---------|------------
 overlayComponent | ElementType&lt;[ColumnChooserOverlayProps](#columnchooseroverlayprops)&gt; | | A component that renders the column chooser overlay.
-toggleButtonComponent | ElementType&lt;[ColumnChooserToggleButtonProps](#columnchoosertogglebuttonprops)&gt; | | A component that renders the column chooser toggle button.
+toggleButtonComponent | ElementType&lt;[ColumnChooserToggleButtonProps](#columnchoosertogglebuttonprops)&gt; | | A component that renders a button that invokes the column chooser.
 containerComponent | ElementType&lt;[ColumnChooserContainerProps](#columnchoosercontainerprops)&gt; | | A component that renders the column chooser container.
 itemComponent | ElementType&lt;[ColumnChooserItemProps](#columnchooseritemprops)&gt; | | A component that renders a column chooser item.
 messages | object | | An object that specifies the [localization messages](#localization-messages).
@@ -29,22 +29,22 @@ A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
-visible | boolean | Specifies whether an overlay is visible.
-target | ReactComponent | The React component that is used to set the position of the overlay.
+visible | boolean | Specifies whether the overlay is visible.
+target | ReactComponent | A React component that is used for overlay positioning.
 onHide | () => void | An event that initiates overlay hiding.
 children | Array&lt;ReactElement&gt; | React elements used to render overlay content.
 
 ### ColumnChooserToggleButtonProps
 
-Describes properties passed to a component that renders the column chooser toggle button.
+Describes properties passed to a component that renders a button that invokes the column chooser.
 
 A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
 onToggle | () => void | An event that initiates overlay showing or hiding.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns title for the column chooser toggle button. Available in the "@devexpress/dx-react-grid-material-ui" package.
-buttonRef | (ref: ReactElement) => void | A function that take a React element of the root element.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the toggle button's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
+buttonRef | (ref: ReactElement) => void | A function that accepts the button's root React element.
 
 ### ColumnChooserContainerProps
 
@@ -65,7 +65,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 item | [ColumnChooserItem](#columnchooseritem) | A column chooser item.
-onToggle | () => void | Handles the item visbility changes.
+onToggle | () => void | Handles the associated column visbility changes.
 
 ### ColumnChooserItem
 
@@ -84,13 +84,13 @@ An object with the following shape:
 
 Field | Type | Default | Description
 ------|------|---------|------------
-hiddenColumns? | string | 'Hidden Columns' | Specifies title for the column chooser toggle button. Available in the "@devexpress/dx-react-grid-material-ui" package.
+showColumnChooser? | string | 'Show Column Chooser' |The toggle button's tooltip text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-ColumnChooser.ToggleButton | [ColumnChooserToggleButtonProps](#columnchoosertogglebuttonprops) | A component that renders the column chooser toggle button.
+ColumnChooser.ToggleButton | [ColumnChooserToggleButtonProps](#columnchoosertogglebuttonprops) | A component that renders a button that invokes the column chooser.
 ColumnChooser.Overlay | [ColumnChooserOverlayProps](#columnchooseroverlayprops) | A component that renders the column chooser overlay.
 ColumnChooser.Container | [ColumnChooserContainerProps](#columnchoosercontainerprops) | A component that renders the column chooser container.
 ColumnChooser.Item | [ColumnChooserItemProps](#columnchooseritemprops) | A component that renders a column chooser item.
@@ -103,9 +103,9 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | The Grid columns.
 hiddenColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be hidden.
-toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles the column's visibility.
+toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles column's visibility.
 toolbarContent | Template | Object? | A template that renders the toolbar content.
 
 ### Exports

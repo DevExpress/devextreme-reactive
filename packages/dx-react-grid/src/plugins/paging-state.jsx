@@ -25,7 +25,6 @@ export class PagingState extends React.PureComponent {
       ...this.state,
       currentPage: this.props.currentPage || this.state.currentPage,
       pageSize: this.props.pageSize || this.state.pageSize,
-      totalCount: this.props.totalCount,
     };
   }
   notifyStateChange(nextState, state) {
@@ -42,7 +41,7 @@ export class PagingState extends React.PureComponent {
     }
   }
   render() {
-    const { pageSize, currentPage, totalCount } = this.getState();
+    const { pageSize, currentPage } = this.getState();
 
     return (
       <PluginContainer
@@ -50,7 +49,6 @@ export class PagingState extends React.PureComponent {
       >
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
-        <Getter name="totalCount" value={totalCount} />
         <Action name="setCurrentPage" action={this.setCurrentPage} />
         <Action name="setPageSize" action={this.setPageSize} />
       </PluginContainer>
@@ -65,7 +63,6 @@ PagingState.propTypes = {
   currentPage: PropTypes.number,
   defaultCurrentPage: PropTypes.number,
   onCurrentPageChange: PropTypes.func,
-  totalCount: PropTypes.number,
 };
 
 PagingState.defaultProps = {
@@ -75,5 +72,4 @@ PagingState.defaultProps = {
   currentPage: undefined,
   defaultCurrentPage: 0,
   onCurrentPageChange: undefined,
-  totalCount: 0,
 };

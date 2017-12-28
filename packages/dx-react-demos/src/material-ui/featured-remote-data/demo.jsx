@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   PagingState,
   SortingState,
+  CustomPaging,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -161,6 +162,8 @@ export default class Demo extends React.PureComponent {
             onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
             onPageSizeChange={this.changePageSize}
+          />
+          <CustomPaging
             totalCount={totalCount}
           />
           <Table

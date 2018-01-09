@@ -10,7 +10,7 @@ This mode allows you to access the Grid's state from other application parts. Fo
 
 Use the appropriate state management plugin properties to set the Grid's configuration and handle configuration changes a user makes via the Grid's UI. In the example below, sorting configuration is passed to the `SortingState` plugin's `sorting` property, and the function passed to the `onSortingChanged` property handles the sorting configuration changes.
 
-```js
+```jsx
 export class MyApp extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -44,7 +44,7 @@ Note that all the state management plugins use a serializable state. This means 
 
 In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the `default` prefix (for example, the `SortingState` plugin's `defaultSorting` property).
 
-```js
+```jsx
 <Grid rows={[/* ... */]} columns={[/* ... */]}>
   <SortingState defaultSorting={[ columnName: 'date', direction: 'desc' ]} />
   <GroupingState />
@@ -56,7 +56,7 @@ In the uncontrolled state mode, the Grid component manages its state internally.
 
 You can control only certain parts of the Grid's configuration. In this case, apply the [controlled mode](#controlled-mode) only to plugins whose state you want to control externally and the [uncontrolled mode](#uncontrolled-mode) to other plugins.
 
-```js
+```jsx
 <Grid rows={[/* ... */]} columns={[/* ... */]}>
   { /* Filtering is controlled by the parent component */ }
   <FilteringState filters={filters} onFiltersChange={this.changeFilters}/>

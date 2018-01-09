@@ -42,7 +42,7 @@ The Grid renders nothing by default. The root Grid component's nested plugin com
 
 Use the Table plugin to display the data as a simple table:
 
-```js
+```jsx
 import {
   Grid, Table, TableHeaderRow
 } from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;

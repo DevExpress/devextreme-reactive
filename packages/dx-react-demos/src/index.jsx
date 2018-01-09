@@ -15,8 +15,8 @@ import './index.css';
 
 class App extends React.Component {
   getChildContext() {
-    const { scriptPath, repoTag } = this.props;
-    return { embeddedDemoOptions: { scriptPath, repoTag } };
+    const { scriptPath } = this.props;
+    return { embeddedDemoOptions: { scriptPath } };
   }
   render() {
     const { router, path } = this.props;
@@ -44,14 +44,12 @@ App.propTypes = {
   router: PropTypes.string,
   path: PropTypes.string,
   scriptPath: PropTypes.string,
-  repoTag: PropTypes.string,
 };
 
 App.defaultProps = {
   router: 'memory',
   path: undefined,
   scriptPath: '/dist/index.js',
-  repoTag: 'master',
 };
 
 const embeddedDemoPlaceholders = document.getElementsByClassName('embedded-demo');

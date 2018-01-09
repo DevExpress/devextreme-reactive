@@ -65,14 +65,12 @@ var applyInterceptors = function(content, ...interceptors) {
 };
 
 var injectLiveDemos = function(content) {
-  var versionTagString = versionTag ? `"repoTag": "${versionTag}",` : '';
   return content
     .replace(
       /\.embedded\-demo\(([^\(\)]*)\)/g,
       `<div
         class="embedded-demo"
         data-options='{
-          ${versionTagString}
           "path": "/demo/$1",
           "scriptPath": "/devextreme-reactive/react/grid/demos/dist/index.js?v=${new Date().getTime()}"
         }'

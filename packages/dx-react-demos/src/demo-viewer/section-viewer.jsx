@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { demos } from '../demo-registry';
 import { ThemeViewer } from './theme-viewer';
@@ -14,7 +14,11 @@ export const SectionViewerBase = ({ match: { params: { section } } }) => (
           .filter(demo => !demo.startsWith('_'))
           .map(demo => (
             <div key={demo}>
-              <h4>{demo}</h4>
+              <h4>
+                <Link to={`/demo/${section}/${demo}/${theme}`}>
+                  {demo}
+                </Link>
+              </h4>
               <DemoRenderer
                 theme={theme}
                 section={section}

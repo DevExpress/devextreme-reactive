@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { themes, demos } from '../demo-registry';
+import { demos } from '../demo-registry';
+import { themes } from '../theme-registry';
 
 export const DemoRenderer = ({
   section: currentSection,
   demo: currentDemo,
   theme: currentTheme,
 }) => {
-  const Component = demos[currentSection][currentDemo][currentTheme];
+  const Component = demos[currentSection][currentDemo][currentTheme].demo
+    || demos[currentSection][currentDemo][currentTheme];
 
   if (!Component) return <div>&gt; DEMO IS NOT AVAILABLE &lt;</div>;
 

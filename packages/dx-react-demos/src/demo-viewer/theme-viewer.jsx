@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
-import { themes } from '../demo-registry';
+import { themes } from '../theme-registry';
 import { ThemeSelector } from './theme-selector';
 
 const STORAGE_KEY = 'devextreme-reactive/react/theme';
@@ -36,7 +36,7 @@ const ThemeViewerBase = ({
               onThemeSelect={changeTheme}
             />
             <div>
-              {children({ theme: currentTheme })}
+              {children({ theme: currentTheme, changeTheme })}
             </div>
           </div>
         )}

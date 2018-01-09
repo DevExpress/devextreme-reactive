@@ -12,7 +12,7 @@ The [DataTypeProvider](../reference/data-type-provider.md) plugin holds the `for
 
 Assign a function rendering the formatted value to the `DataTypeProvider` plugin's `formatterComponent` property to apply the required formatting to cells of a column associated with the specified type.
 
-```js
+```jsx
 const rows = [
   { product: 'SolarOne', amount: '3039' },
 ];
@@ -41,7 +41,7 @@ const CurrencyFormatter = ({ value }) => <span>${value}</span>;
 
 If the grid supports editing or header row filtering, assign a function rendering the required editor to the `DataTypeProvider` plugin's `editorComponent` property. In this case, the Grid uses the specified editor to edit all the specified type values.
 
-```js
+```jsx
 const rows = [
   { product: 'SolarOne', shipped: true },
 ];

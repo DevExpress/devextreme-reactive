@@ -4,7 +4,7 @@
 
 In a common scenario with a simple data structure, you can associate a column with a row field using the column's `name` field as shown in the following example:
 
-```js
+```jsx
 const rows = [
   { firstName: 'John', lastName: 'Smith' },
   /* ... */
@@ -23,7 +23,7 @@ const columns = [
 
 In the case of nested data structure, use the `getCellValue` function to calculate a column value as demonstrated below:
 
-```js
+```jsx
 const rows = [
   { user: { firstName: 'John', lastName: 'Smith' } },
   /* ... */
@@ -54,7 +54,7 @@ If you use a common value calculation algorithm for all columns, specify the `ge
 
 For example, you can implement dot notation support for columns like `{ name: 'user.firstName' }`. In this case, the function code looks as follows:
 
-```js
+```jsx
 const getCellValue = (row, columnName) => {
   if (columnName.indexOf('.') > -1) {
     const { rootField, nestedField } = this.splitColumnName(columnName);
@@ -80,7 +80,7 @@ The `getCellValue` implementation presented in this demo is not optimized for fr
 
 If editing features are enabled, you can use the editing column extension's `createRowChange` function to create a row changes object:
 
-```js
+```jsx
 const rows = [
   { user: { firstName: 'John', lastName: 'Smith' } },
   /* ... */
@@ -109,7 +109,7 @@ const editingColumnExtensions = [
 
 Specify the `EditingState` plugin's `createRowChange` property if you use a common algorithm for all columns.
 
-```js
+```jsx
 const createRowChange = (row, value, columnName) => {
   /* ... */
 };

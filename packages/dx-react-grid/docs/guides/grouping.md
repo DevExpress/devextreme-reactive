@@ -66,7 +66,7 @@ Pass a grouping criterion function to the `IntegratedGrouping` plugin’s [colum
 
 You can also assign a Boolean value to the `TableGroupRow` plugin's `showColumnsWhenGrouped` property to define what columns should remain visible when data is grouped by them.
 
-```js
+```jsx
   <Grid>
     <GroupingState
       grouping={[{ columnName: 'city' }, { columnName: 'car' }]}

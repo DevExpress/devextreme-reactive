@@ -1,34 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
+import { Nav, NavItem, Tab } from 'react-bootstrap';
 
 import { demos } from '../demo-registry';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
-
-const SourceCode = ({ theme, section, demo }, { embeddedDemoOptions: { repoTag } }) => (
-  <div className="clearfix">
-    <a
-      className="pull-right"
-      style={{
-        marginTop: `${theme === 'bootstrap3' ? -10 : 10}px`,
-      }}
-      href={`https://github.com/DevExpress/devextreme-reactive/tree/${repoTag}/packages/dx-react-demos/src/${theme}/${section}/${demo}.jsx`}
-    >
-      Source Code
-    </a>
-  </div>
-);
-
-SourceCode.propTypes = {
-  section: PropTypes.string.isRequired,
-  demo: PropTypes.string.isRequired,
-  theme: PropTypes.string.isRequired,
-};
-
-SourceCode.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};
+import { SourceCode } from './source-code';
 
 export const DemoViewer = ({
   match: { params: { demo: currentDemo, section: currentSection }, url },
@@ -49,24 +27,45 @@ export const DemoViewer = ({
     <Route
       path={url}
       render={() => (
-        <ThemeViewer
-          avaliableThemes={Object.keys(demos[currentSection][currentDemo])}
-        >
-          {({ theme: currentTheme }) => (
-            <div>
-              <DemoRenderer
-                theme={currentTheme}
-                section={currentSection}
-                demo={currentDemo}
-              />
-              <SourceCode
-                theme={currentTheme}
-                section={currentSection}
-                demo={currentDemo}
-              />
-            </div>
-          )}
-        </ThemeViewer>
+        <div style={{ paddingTop: '8px' }}>
+          <ThemeViewer
+            avaliableThemes={Object.keys(demos[currentSection][currentDemo])}
+          >
+            {({ theme: currentTheme }) => (
+              <Tab.Container
+                id={`${currentSection}-${currentDemo}-demo`}
+                defaultActiveKey="preview"
+              >
+                <div style={{ marginTop: '-38px' }}>
+                  <Nav bsStyle="tabs">
+                    <NavItem eventKey="preview">Preview</NavItem>
+                    <NavItem eventKey="source">Source</NavItem>
+                  </Nav>
+                  <Tab.Content
+                    animation
+                    mountOnEnter
+                    style={{ marginTop: '20px' }}
+                  >
+                    <Tab.Pane eventKey="preview">
+                      <DemoRenderer
+                        theme={currentTheme}
+                        section={currentSection}
+                        demo={currentDemo}
+                      />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="source">
+                      <SourceCode
+                        theme={currentTheme}
+                        section={currentSection}
+                        demo={currentDemo}
+                      />
+                    </Tab.Pane>
+                  </Tab.Content>
+                </div>
+              </Tab.Container>
+            )}
+          </ThemeViewer>
+        </div>
       )}
     />
   </Switch>

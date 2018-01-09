@@ -1,6 +1,6 @@
 import {
   changeTableColumnWidth,
-  changeDraftTableColumnWidths,
+  changeDraftTableColumnWidth,
 } from './reducers';
 
 describe('TableColumnResizing Plugin reducers', () => {
@@ -44,14 +44,14 @@ describe('TableColumnResizing Plugin reducers', () => {
     });
   });
 
-  describe('#changeDraftTableColumnWidths', () => {
+  describe('#changeDraftTableColumnWidth', () => {
     it('should work', () => {
       const state = {
         columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
         draftColumnWidths: [],
       };
 
-      expect(changeDraftTableColumnWidths(state, { shifts: { a: 5 } }))
+      expect(changeDraftTableColumnWidth(state, { columnName: 'a', shift: 5 }))
         .toEqual({
           columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
           draftColumnWidths: [{ columnName: 'a', width: 45 }],
@@ -64,7 +64,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         draftColumnWidths: [],
       };
 
-      expect(changeDraftTableColumnWidths(state, { shifts: { b: -25 } }))
+      expect(changeDraftTableColumnWidth(state, { columnName: 'b', shift: -25 }))
         .toEqual({
           columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
           draftColumnWidths: [{ columnName: 'b', width: 40 }],
@@ -77,7 +77,7 @@ describe('TableColumnResizing Plugin reducers', () => {
         draftColumnWidths: [{ columnName: 'b', width: 45 }],
       };
 
-      expect(changeDraftTableColumnWidths(state, { shifts: { b: null } }))
+      expect(changeDraftTableColumnWidth(state, { columnName: 'b', shift: null }))
         .toEqual({
           columnWidths: [{ columnName: 'a', width: 40 }, { columnName: 'b', width: 60 }],
           draftColumnWidths: [],

@@ -5,7 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
   changeTableColumnWidth,
-  changeDraftTableColumnWidths,
+  changeDraftTableColumnWidth,
 } from '@devexpress/dx-grid-core';
 import { TableColumnResizing } from './table-column-resizing';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
@@ -13,7 +13,7 @@ import { pluginDepsToComponents, getComputedState, executeComputedAction } from 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithWidths: jest.fn(),
   changeTableColumnWidth: jest.fn(),
-  changeDraftTableColumnWidths: jest.fn(),
+  changeDraftTableColumnWidth: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -37,7 +37,7 @@ describe('TableColumnReordering', () => {
   beforeEach(() => {
     tableColumnsWithWidths.mockImplementation(() => 'tableColumnsWithWidths');
     changeTableColumnWidth.mockImplementation(() => ([]));
-    changeDraftTableColumnWidths.mockImplementation(() => ([]));
+    changeDraftTableColumnWidth.mockImplementation(() => ([]));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -135,7 +135,7 @@ describe('TableColumnReordering', () => {
       .toBeCalledWith([{ columnName: 'a', width: 150 }]);
   });
 
-  it('should correctly update column widths after the "changeDraftTableColumnWidths" action is fired', () => {
+  it('should correctly update column widths after the "changeDraftTableColumnWidth" action is fired', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -148,10 +148,10 @@ describe('TableColumnReordering', () => {
 
     const payload = { changes: { a: 50 } };
 
-    changeDraftTableColumnWidths.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
-    executeComputedAction(tree, actions => actions.changeDraftTableColumnWidths(payload));
+    changeDraftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
+    executeComputedAction(tree, actions => actions.changeDraftTableColumnWidth(payload));
 
-    expect(changeDraftTableColumnWidths)
+    expect(changeDraftTableColumnWidth)
       .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
 
     expect(tableColumnsWithWidths)

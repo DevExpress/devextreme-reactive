@@ -216,7 +216,7 @@ describe('TableHeaderRow', () => {
       const deps = {
         plugins: ['TableColumnResizing'],
         action: {
-          changeDraftTableColumnWidths: jest.fn(),
+          changeDraftTableColumnWidth: jest.fn(),
         },
       };
       const tree = mount((
@@ -231,8 +231,8 @@ describe('TableHeaderRow', () => {
 
       const { onDraftWidthChange } = tree.find(defaultProps.cellComponent).props();
       onDraftWidthChange({ shift: 10 });
-      expect(deps.action.changeDraftTableColumnWidths.mock.calls[0][0])
-        .toEqual({ shifts: { a: 10 } });
+      expect(deps.action.changeDraftTableColumnWidth.mock.calls[0][0])
+        .toEqual({ columnName: 'a', shift: 10 });
     });
   });
 });

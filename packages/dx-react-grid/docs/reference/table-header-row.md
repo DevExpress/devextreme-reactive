@@ -74,7 +74,7 @@ sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Columns' s
 setColumnSorting | Action | ({ columnName: string, direction: 'asc' &#124; 'desc', keepOther: boolean &#124; Array&lt;String&gt;, cancel: boolean }) => void | A function used to set column's sorting state. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `cancel` to `true` to cancel sorting by the current column.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes column width. The initial column width increases by the `shift` value or decreases if `shift` is negative.
-changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes column widths used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
+changeDraftTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 

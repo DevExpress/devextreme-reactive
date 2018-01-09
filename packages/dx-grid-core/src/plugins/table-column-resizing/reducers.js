@@ -15,13 +15,13 @@ export const changeTableColumnWidth = (state, { columnName, shift }) => {
   };
 };
 
-export const changeDraftTableColumnWidths = (state, { shifts }) => {
+export const changeDraftTableColumnWidth = (state, { columnName, shift }) => {
   const { columnWidths } = state;
-  const updatedColumn = columnWidths.find(elem => !!shifts[elem.columnName]);
-  if (!updatedColumn) {
+  const updatedColumn = columnWidths.find(elem => elem.columnName === columnName);
+  if (!shift) {
     return { ...state, draftColumnWidths: [] };
   }
-  const size = Math.max(MIN_SIZE, updatedColumn.width + shifts[updatedColumn.columnName]);
+  const size = Math.max(MIN_SIZE, updatedColumn.width + shift);
 
   return {
     ...state,

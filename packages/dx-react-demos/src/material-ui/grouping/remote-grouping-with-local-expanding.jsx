@@ -9,7 +9,7 @@ import {
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
-  DragDropContext,
+  DragDropProvider,
   Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from 'material-ui/Paper';
@@ -108,7 +108,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
           getRowId={getRowId}
         >
-          <DragDropContext />
+          <DragDropProvider />
           <GroupingState
             grouping={grouping}
             onGroupingChange={this.changeGrouping}

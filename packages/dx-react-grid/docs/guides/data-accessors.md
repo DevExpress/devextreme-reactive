@@ -74,13 +74,11 @@ The following demo shows this approach in action:
 
 .embedded-demo(data-accessors/custom-data-accessors)
 
-Note that the Grid's `getCellValue` property has a higher priority than the column's property.
-
 The `getCellValue` implementation presented in this demo is not optimized for frequent invocation. Avoid using it in production apps operating with large amounts of data.
 
 ## Cell Value Editing
 
-If editing features are enabled, you can use the column's `createRowChange` function to create a row changes object:
+If editing features are enabled, you can use the editing column extension's `createRowChange` function to create a row changes object:
 
 ```js
 const rows = [
@@ -89,7 +87,15 @@ const rows = [
 ];
 const columns = [
   {
-    /* ... */
+    name: 'firstName',
+    title: 'First Name',
+    getCellValue: row => (row.user ? row.user.firstName : undefined),
+  },
+  /* ... */
+];
+const editingColumnExtensions = [
+  {
+    columnName: 'firstName',
     createRowChange: (row, value) => ({
       user: {
         ...row.user,
@@ -104,7 +110,7 @@ const columns = [
 Specify the `EditingState` plugin's `createRowChange` property if you use a common algorithm for all columns.
 
 ```js
-const createRowChange = (row, columnName, value) => {
+const createRowChange = (row, value, columnName) => {
   /* ... */
 };
 
@@ -116,5 +122,3 @@ const createRowChange = (row, columnName, value) => {
   />
 />
 ```
-
-Note that the `EditingState` plugin's `createRowChange` property has a higher priority than the column's property.

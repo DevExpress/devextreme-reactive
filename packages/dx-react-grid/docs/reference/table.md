@@ -6,15 +6,14 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 
 ### Dependencies
 
-- [DragDropContext](drag-drop-context.md) [Optional]
+- [DragDropProvider](drag-drop-provider.md) [Optional]
 - [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions | Array&lg;[TableColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
-layoutComponent | ElementType&lt;[TableLayoutProps](#tablelayoutprops)&gt; | | A component that renders a table layout.
+columnExtensions | Array&lt;[TableColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 cellComponent | ElementType&lt;[TableDataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ElementType&lt;[TableDataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ElementType&lt;[TableNoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -37,17 +36,6 @@ columnName | string | The name of the column to extend.
 width? | number | The table column width in pixels.
 align? | 'left' &#124; 'right' | The table column alignment.
 
-### TableLayoutProps
-
-Describes properties passed to a component that renders a table layout.
-
-Field | Type | Description
-------|------|------------
-headerRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies the table header rows.
-bodyRows | Array&lt;[TableRow](#tablerow)&gt; | Specifies the table body rows.
-columns | Array&lt;[TableColumn](#tablecolumn)&gt; | Specifies the table columns.
-rowComponent | ElementType&lt;[TableRowProps](#tablerowprops)&gt; | A component that renders table rows.
-cellComponent | ElementType&lt;[TableCellArgs](#tablecellprops)&gt; | A component that renders table cells.
 
 ### TableRow
 

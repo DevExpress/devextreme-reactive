@@ -14,7 +14,7 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
-  DragDropContext,
+  DragDropProvider,
 } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from './test-utils';
 import { TableColumnReordering } from './table-column-reordering';
@@ -24,17 +24,18 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   TABLE_REORDERING_TYPE: 'r',
   orderedColumns: jest.fn(),
   getTableTargetColumnIndex: jest.fn(),
-  changeColumnOrder: jest.fn(),
+  changeColumnOrder: jest.fn(args => args),
   tableHeaderRowsWithReordering: jest.fn(),
   draftOrder: jest.fn(args => args),
 }));
 
 /* eslint-disable react/prop-types */
+const getBoundingClientRect = jest.fn(node => node.getBoundingClientRect());
 const defaultProps = {
   tableContainerComponent: ({ children }) => <div>{children}</div>,
   rowComponent: () => null,
   cellComponent: ({ getCellDimensions }) =>
-    <div ref={node => getCellDimensions(() => node.getBoundingClientRect())} />,
+    <div ref={node => getCellDimensions(() => getBoundingClientRect(node))} />,
 };
 /* eslint-enable react/prop-types */
 
@@ -68,7 +69,7 @@ describe('TableColumnReordering', () => {
 
   it('should apply the column order specified in the "defaultOrder" property in uncontrolled mode', () => {
     mount((
-      <DragDropContext>
+      <DragDropProvider>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
@@ -76,7 +77,7 @@ describe('TableColumnReordering', () => {
             defaultOrder={['b', 'a']}
           />
         </PluginHost>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(orderedColumns)
@@ -87,7 +88,7 @@ describe('TableColumnReordering', () => {
 
   it('should apply the column order specified in the "order" property in controlled mode', () => {
     mount((
-      <DragDropContext>
+      <DragDropProvider>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
@@ -95,7 +96,7 @@ describe('TableColumnReordering', () => {
             order={['b', 'a']}
           />
         </PluginHost>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(orderedColumns)
@@ -106,7 +107,7 @@ describe('TableColumnReordering', () => {
 
   it('should render the "table" template', () => {
     const tree = mount((
-      <DragDropContext>
+      <DragDropProvider>
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnReordering
@@ -114,7 +115,7 @@ describe('TableColumnReordering', () => {
             order={['b', 'a']}
           />
         </PluginHost>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     expect(tree.find(defaultProps.tableContainerComponent).props())
@@ -130,7 +131,7 @@ describe('TableColumnReordering', () => {
     // eslint-disable-next-line react/prop-types
     const TableMock = ({ children }) => <div>{children}</div>;
     const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount((
-      <DragDropContext>
+      <DragDropProvider>
         <PluginHost>
           <Template name="table">
             <div>
@@ -159,7 +160,7 @@ describe('TableColumnReordering', () => {
             tableContainerComponent={props => <TableMock {...props} />}
           />
         </PluginHost>
-      </DragDropContext>
+      </DragDropProvider>
     ));
 
     beforeEach(() => {
@@ -264,6 +265,32 @@ describe('TableColumnReordering', () => {
       onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       expect(draftOrder)
         .toHaveBeenLastCalledWith(['c', 'a', 'b'], 1, 2);
+    });
+
+    it('should reset cell dimensions after leave and drop events', () => {
+      const onOverArg = { payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset };
+      const { onOver, onLeave, onDrop } = mountWithCellTemplates({ defaultOrder: ['a', 'b'] })
+        .find(TableMock)
+        .props();
+
+      getBoundingClientRect.mockClear();
+
+      onOver(onOverArg);
+      onOver(onOverArg);
+      onOver(onOverArg);
+
+      onLeave();
+      onOver(onOverArg);
+      onOver(onOverArg);
+      onOver(onOverArg);
+
+      onDrop();
+      onOver(onOverArg);
+      onOver(onOverArg);
+      onOver(onOverArg);
+
+      expect(getBoundingClientRect)
+        .toHaveBeenCalledTimes(defaultDeps.getter.tableColumns.length * 3);
     });
   });
 });

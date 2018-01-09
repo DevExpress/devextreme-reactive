@@ -161,34 +161,6 @@ describe('PagingState', () => {
     });
   });
 
-  describe('total count', () => {
-    it('should provide value from the "totalCount" property', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <PagingState
-            totalCount={100}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).totalCount)
-        .toBe(100);
-    });
-
-    it('should provide \'0\' if a value for the "totalCount" property undefined', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <PagingState />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).totalCount)
-        .toBe(0);
-    });
-  });
-
   describe('action sequence in batch', () => {
     it('should correctly work with the several action calls in the uncontrolled mode', () => {
       const currentPageChange = jest.fn();

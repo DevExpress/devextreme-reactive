@@ -6,7 +6,7 @@ A plugin that renders a scrollable table instead of a static one. It contains th
 
 ### Dependencies
 
-- [DragDropContext](drag-drop-context.md) [Optional]
+- [DragDropProvider](drag-drop-provider.md) [Optional]
 - [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
@@ -15,8 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 height | number | 530 | The virtual table's height.
 estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | Estimated row height. Specify the average value for a table whose rows have different heights.
-columnExtensions | Array&lg;[TableColumnExtension](table.md#tablecolumnextension)&gt; | Additional column properties that the plugin can handle.
-layoutComponent | ElementType&lt;[TableLayoutProps](table.md#tablelayoutprops)&gt; | | A component that renders a table layout.
+columnExtensions | Array&lt;[TableColumnExtension](table.md#tablecolumnextension)&gt; | Additional column properties that the plugin can handle.
 cellComponent | ElementType&lt;[TableDataCellProps](table.md#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ElementType&lt;[TableDataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ElementType&lt;[TableNoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.

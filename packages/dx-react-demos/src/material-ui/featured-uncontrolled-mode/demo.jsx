@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering, Toolbar,
+  PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
+  TableColumnVisibility, ColumnChooser,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import {
@@ -89,13 +90,13 @@ export default class Demo extends React.PureComponent {
             defaultPageSize={10}
           />
 
-          <LocalGrouping />
-          <LocalFiltering />
-          <LocalSorting />
-          <LocalPaging />
-          <LocalSelection />
+          <IntegratedGrouping />
+          <IntegratedFiltering />
+          <IntegratedSorting />
+          <IntegratedPaging />
+          <IntegratedSelection />
 
-          <DragDropContext />
+          <DragDropProvider />
 
           <Table
             columnExtensions={tableColumnExtensions}
@@ -105,15 +106,19 @@ export default class Demo extends React.PureComponent {
 
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-          <TableHeaderRow allowSorting />
+          <TableHeaderRow showSortingControls />
           <TableFilterRow />
           <PagingPanel
             pageSizes={pageSizes}
           />
 
           <TableGroupRow />
+          <TableColumnVisibility
+            defaultHiddenColumns={['customer']}
+          />
           <Toolbar />
-          <GroupingPanel allowSorting />
+          <GroupingPanel showSortingControls />
+          <ColumnChooser />
         </Grid>
       </Paper>
     );

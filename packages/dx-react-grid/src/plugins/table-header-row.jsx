@@ -17,9 +17,8 @@ const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(ta
 export class TableHeaderRow extends React.PureComponent {
   render() {
     const {
-      allowSorting,
+      showSortingControls,
       showGroupingControls,
-      allowResizing,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
       messages,
@@ -31,10 +30,10 @@ export class TableHeaderRow extends React.PureComponent {
         pluginName="TableHeaderRow"
         dependencies={[
           { pluginName: 'Table' },
-          { pluginName: 'SortingState', optional: !allowSorting },
+          { pluginName: 'SortingState', optional: !showSortingControls },
           { pluginName: 'GroupingState', optional: !showGroupingControls },
-          { pluginName: 'DragDropContext', optional: true },
-          { pluginName: 'TableColumnResizing', optional: !allowResizing },
+          { pluginName: 'DragDropProvider', optional: true },
+          { pluginName: 'TableColumnResizing', optional: true },
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
@@ -46,7 +45,7 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting, tableColumns, allowDragging,
+                sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
               }, {
                 setColumnSorting, groupByColumn,
                 changeTableColumnWidth, changeDraftTableColumnWidth,
@@ -60,14 +59,14 @@ export class TableHeaderRow extends React.PureComponent {
                     {...params}
                     column={params.tableColumn.column}
                     getMessage={getMessage}
-                    allowSorting={allowSorting && sorting !== undefined}
+                    showSortingControls={showSortingControls && sorting !== undefined}
                     showGroupingControls={showGroupingControls && atLeastOneDataColumn}
-                    allowDragging={allowDragging && atLeastOneDataColumn}
-                    allowResizing={allowResizing}
-                    sortingDirection={allowSorting && sorting !== undefined
+                    draggingEnabled={draggingEnabled && atLeastOneDataColumn}
+                    resizingEnabled={tableColumnResizingEnabled}
+                    sortingDirection={showSortingControls && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
-                    onSort={({ keepOther, cancel }) =>
-                      setColumnSorting({ columnName, keepOther, cancel })}
+                    onSort={({ direction, keepOther }) =>
+                      setColumnSorting({ columnName, direction, keepOther })}
                     onGroup={() =>
                       groupByColumn({ columnName })}
                     onWidthChange={({ shift }) =>
@@ -92,17 +91,15 @@ export class TableHeaderRow extends React.PureComponent {
 }
 
 TableHeaderRow.propTypes = {
-  allowSorting: PropTypes.bool,
+  showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
-  allowResizing: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 
 TableHeaderRow.defaultProps = {
-  allowSorting: false,
+  showSortingControls: false,
   showGroupingControls: false,
-  allowResizing: false,
   messages: null,
 };

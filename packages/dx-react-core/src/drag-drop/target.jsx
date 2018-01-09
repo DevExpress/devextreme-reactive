@@ -14,14 +14,14 @@ export class DropTarget extends React.Component {
     this.handleDrag = this.handleDrag.bind(this);
   }
   componentWillMount() {
-    const { dragDropContext: { dragEmitter } } = this.context;
+    const { dragDropProvider: { dragEmitter } } = this.context;
     dragEmitter.subscribe(this.handleDrag);
   }
   shouldComponentUpdate(nextProps) {
     return nextProps.children !== this.props.children;
   }
   componentWillUnmount() {
-    const { dragDropContext: { dragEmitter } } = this.context;
+    const { dragDropProvider: { dragEmitter } } = this.context;
     dragEmitter.unsubscribe(this.handleDrag);
   }
   handleDrag({ payload, clientOffset, end }) {
@@ -49,7 +49,7 @@ export class DropTarget extends React.Component {
 }
 
 DropTarget.contextTypes = {
-  dragDropContext: PropTypes.object.isRequired,
+  dragDropProvider: PropTypes.object.isRequired,
 };
 
 DropTarget.propTypes = {

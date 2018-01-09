@@ -2,8 +2,8 @@ import React from 'react';
 import {
   SelectionState,
   PagingState,
-  LocalPaging,
-  LocalSelection,
+  IntegratedPaging,
+  IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -53,8 +53,8 @@ export default class Demo extends React.PureComponent {
               selection={selection}
               onSelectionChange={this.changeSelection}
             />
-            <LocalPaging />
-            <LocalSelection />
+            <IntegratedPaging />
+            <IntegratedSelection />
             <Table />
             <TableHeaderRow />
             <TableSelection showSelectAll />

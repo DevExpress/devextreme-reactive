@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-  LocalFiltering, LocalGrouping, LocalPaging, LocalSorting, LocalSelection,
+  IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropContext, TableColumnReordering, Toolbar,
+  PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
+  TableColumnVisibility, ColumnChooser,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   ProgressBarCell,
@@ -85,13 +86,13 @@ export default class Demo extends React.PureComponent {
           defaultSelection={[1, 3, 18]}
         />
 
-        <LocalGrouping />
-        <LocalFiltering />
-        <LocalSorting />
-        <LocalPaging />
-        <LocalSelection />
+        <IntegratedGrouping />
+        <IntegratedFiltering />
+        <IntegratedSorting />
+        <IntegratedPaging />
+        <IntegratedSelection />
 
-        <DragDropContext />
+        <DragDropProvider />
 
         <Table
           columnExtensions={tableColumnExtensions}
@@ -100,15 +101,19 @@ export default class Demo extends React.PureComponent {
 
         <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
-        <TableHeaderRow allowSorting />
+        <TableHeaderRow showSortingControls />
         <TableFilterRow />
         <PagingPanel
           pageSizes={pageSizes}
         />
         <TableSelection showSelectAll />
+        <TableColumnVisibility
+          defaultHiddenColumns={['customer']}
+        />
         <Toolbar />
-        <GroupingPanel allowSorting />
+        <GroupingPanel showSortingControls />
         <TableGroupRow />
+        <ColumnChooser />
       </Grid>
     );
   }

@@ -65,7 +65,7 @@ changeAddedRow | Action | ({ rowId: number, change: any }) => void | Applies a c
 changedRows | Getter | { [key: string]: any } | An associative array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a column value for the specified row.
-createRowChange | Getter | (row: any, columnName: string, value: string &#124; string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor value changes.
+createRowChange | Getter | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor value changes.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 

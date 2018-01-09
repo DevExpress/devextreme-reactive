@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setDetailRowExpanded } from '@devexpress/dx-grid-core';
+import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 export class RowDetailState extends React.PureComponent {
@@ -14,8 +14,8 @@ export class RowDetailState extends React.PureComponent {
 
     const stateHelper = createStateHelper(this);
 
-    this.setDetailRowExpanded = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'expandedRows', setDetailRowExpanded);
+    this.toggleDetailRowExpanded = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'expandedRows', toggleDetailRowExpanded);
   }
   getState() {
     return {
@@ -38,7 +38,7 @@ export class RowDetailState extends React.PureComponent {
         pluginName="RowDetailState"
       >
         <Getter name="expandedRows" value={expandedRows} />
-        <Action name="setDetailRowExpanded" action={this.setDetailRowExpanded} />
+        <Action name="toggleDetailRowExpanded" action={this.toggleDetailRowExpanded} />
       </PluginContainer>
     );
   }

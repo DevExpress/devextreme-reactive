@@ -2,12 +2,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { setDetailRowExpanded } from '@devexpress/dx-grid-core';
+import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { RowDetailState } from './row-detail-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  setDetailRowExpanded: jest.fn(),
+  toggleDetailRowExpanded: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -27,7 +27,7 @@ describe('RowDetailState', () => {
   });
 
   beforeEach(() => {
-    setDetailRowExpanded.mockImplementation(() => []);
+    toggleDetailRowExpanded.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -65,7 +65,7 @@ describe('RowDetailState', () => {
       .toBe(expandedRows);
   });
 
-  it('should fire the "onExpandedRowsChange" callback and should change expandedRows in uncontrolled mode after the "setDetailRowExpanded" action is fired', () => {
+  it('should fire the "onExpandedRowsChange" callback and should change expandedRows in uncontrolled mode after the "toggleDetailRowExpanded" action is fired', () => {
     const defaultExpandedRows = [{ columnName: 'a', value: 'a' }];
     const newExpandedRows = [{ columnName: 'b', value: 'a' }];
 
@@ -81,10 +81,10 @@ describe('RowDetailState', () => {
     ));
 
     const payload = {};
-    setDetailRowExpanded.mockReturnValue(newExpandedRows);
-    executeComputedAction(tree, actions => actions.setDetailRowExpanded(payload));
+    toggleDetailRowExpanded.mockReturnValue(newExpandedRows);
+    executeComputedAction(tree, actions => actions.toggleDetailRowExpanded(payload));
 
-    expect(setDetailRowExpanded)
+    expect(toggleDetailRowExpanded)
       .toBeCalledWith(defaultExpandedRows, payload);
 
     expect(getComputedState(tree).expandedRows)
@@ -94,7 +94,7 @@ describe('RowDetailState', () => {
       .toBeCalledWith(newExpandedRows);
   });
 
-  it('should fire the "onExpandedRowsChange" callback and should change expandedRows in controlled mode after the "setDetailRowExpanded" action is fired', () => {
+  it('should fire the "onExpandedRowsChange" callback and should change expandedRows in controlled mode after the "toggleDetailRowExpanded" action is fired', () => {
     const expandedRows = [{ columnName: 'a', value: 'a' }];
     const newExpandedRows = [{ columnName: 'b', value: 'a' }];
 
@@ -110,10 +110,10 @@ describe('RowDetailState', () => {
     ));
 
     const payload = {};
-    setDetailRowExpanded.mockReturnValue(newExpandedRows);
-    executeComputedAction(tree, actions => actions.setDetailRowExpanded(payload));
+    toggleDetailRowExpanded.mockReturnValue(newExpandedRows);
+    executeComputedAction(tree, actions => actions.toggleDetailRowExpanded(payload));
 
-    expect(setDetailRowExpanded)
+    expect(toggleDetailRowExpanded)
       .toBeCalledWith(expandedRows, payload);
 
     expect(getComputedState(tree).expandedRows)
@@ -141,14 +141,14 @@ describe('RowDetailState', () => {
         </PluginHost>
       ));
 
-      setDetailRowExpanded.mockReturnValueOnce(transitionalExpandedRows);
-      setDetailRowExpanded.mockReturnValueOnce(newExpandedRows);
+      toggleDetailRowExpanded.mockReturnValueOnce(transitionalExpandedRows);
+      toggleDetailRowExpanded.mockReturnValueOnce(newExpandedRows);
       executeComputedAction(tree, (actions) => {
-        actions.setDetailRowExpanded(payload);
-        actions.setDetailRowExpanded(payload);
+        actions.toggleDetailRowExpanded(payload);
+        actions.toggleDetailRowExpanded(payload);
       });
 
-      expect(setDetailRowExpanded)
+      expect(toggleDetailRowExpanded)
         .lastCalledWith(transitionalExpandedRows, payload);
 
       expect(expandedRowsChange)
@@ -172,14 +172,14 @@ describe('RowDetailState', () => {
         </PluginHost>
       ));
 
-      setDetailRowExpanded.mockReturnValueOnce(transitionalExpandedRows);
-      setDetailRowExpanded.mockReturnValueOnce(newExpandedRows);
+      toggleDetailRowExpanded.mockReturnValueOnce(transitionalExpandedRows);
+      toggleDetailRowExpanded.mockReturnValueOnce(newExpandedRows);
       executeComputedAction(tree, (actions) => {
-        actions.setDetailRowExpanded(payload);
-        actions.setDetailRowExpanded(payload);
+        actions.toggleDetailRowExpanded(payload);
+        actions.toggleDetailRowExpanded(payload);
       });
 
-      expect(setDetailRowExpanded)
+      expect(toggleDetailRowExpanded)
         .lastCalledWith(transitionalExpandedRows, payload);
 
       expect(expandedRowsChange)

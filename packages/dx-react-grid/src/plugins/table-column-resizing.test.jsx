@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
-  changeTableColumnWidths,
+  changeTableColumnWidth,
   changeDraftTableColumnWidths,
 } from '@devexpress/dx-grid-core';
 import { TableColumnResizing } from './table-column-resizing';
@@ -12,7 +12,7 @@ import { pluginDepsToComponents, getComputedState, executeComputedAction } from 
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithWidths: jest.fn(),
-  changeTableColumnWidths: jest.fn(),
+  changeTableColumnWidth: jest.fn(),
   changeDraftTableColumnWidths: jest.fn(),
 }));
 
@@ -36,7 +36,7 @@ describe('TableColumnReordering', () => {
 
   beforeEach(() => {
     tableColumnsWithWidths.mockImplementation(() => 'tableColumnsWithWidths');
-    changeTableColumnWidths.mockImplementation(() => ([]));
+    changeTableColumnWidth.mockImplementation(() => ([]));
     changeDraftTableColumnWidths.mockImplementation(() => ([]));
   });
   afterEach(() => {
@@ -79,7 +79,7 @@ describe('TableColumnReordering', () => {
     });
   });
 
-  it('should fire the "onColumnWidthsChange" callback and should change the column widths in uncontrolled mode after the "changeTableColumnWidths" action is fired', () => {
+  it('should fire the "onColumnWidthsChange" callback and should change the column widths in uncontrolled mode after the "changeTableColumnWidth" action is fired', () => {
     const columnWidthsChange = jest.fn();
     const tree = mount((
       <PluginHost>
@@ -94,10 +94,10 @@ describe('TableColumnReordering', () => {
 
     const payload = { changes: { a: 50 } };
 
-    changeTableColumnWidths.mockReturnValue({ columnWidths: [{ columnName: 'a', width: 150 }] });
-    executeComputedAction(tree, actions => actions.changeTableColumnWidths(payload));
+    changeTableColumnWidth.mockReturnValue({ columnWidths: [{ columnName: 'a', width: 150 }] });
+    executeComputedAction(tree, actions => actions.changeTableColumnWidth(payload));
 
-    expect(changeTableColumnWidths)
+    expect(changeTableColumnWidth)
       .toBeCalledWith(expect.objectContaining({ columnWidths: [{ columnName: 'a', width: 100 }] }), payload);
 
     expect(tableColumnsWithWidths)
@@ -107,7 +107,7 @@ describe('TableColumnReordering', () => {
       .toBeCalledWith([{ columnName: 'a', width: 150 }]);
   });
 
-  it('should fire the "onColumnWidthsChange" callback and should change the column widths in controlled mode after the "changeTableColumnWidths" action is fired', () => {
+  it('should fire the "onColumnWidthsChange" callback and should change the column widths in controlled mode after the "changeTableColumnWidth" action is fired', () => {
     const columnWidthsChange = jest.fn();
     const tree = mount((
       <PluginHost>
@@ -122,10 +122,10 @@ describe('TableColumnReordering', () => {
 
     const payload = { changes: { a: 50 } };
 
-    changeTableColumnWidths.mockReturnValue({ columnWidths: [{ columnName: 'a', width: 150 }] });
-    executeComputedAction(tree, actions => actions.changeTableColumnWidths(payload));
+    changeTableColumnWidth.mockReturnValue({ columnWidths: [{ columnName: 'a', width: 150 }] });
+    executeComputedAction(tree, actions => actions.changeTableColumnWidth(payload));
 
-    expect(changeTableColumnWidths)
+    expect(changeTableColumnWidth)
       .toBeCalledWith(expect.objectContaining({ columnWidths: [{ columnName: 'a', width: 100 }] }), payload);
 
     expect(tableColumnsWithWidths)
@@ -176,14 +176,14 @@ describe('TableColumnReordering', () => {
         </PluginHost>
       ));
 
-      changeTableColumnWidths.mockReturnValueOnce({ columnWidths: transitionalColumnWidths });
-      changeTableColumnWidths.mockReturnValueOnce({ columnWidths: newColumnWidths });
+      changeTableColumnWidth.mockReturnValueOnce({ columnWidths: transitionalColumnWidths });
+      changeTableColumnWidth.mockReturnValueOnce({ columnWidths: newColumnWidths });
       executeComputedAction(tree, (actions) => {
-        actions.changeTableColumnWidths(payload);
-        actions.changeTableColumnWidths(payload);
+        actions.changeTableColumnWidth(payload);
+        actions.changeTableColumnWidth(payload);
       });
 
-      expect(changeTableColumnWidths)
+      expect(changeTableColumnWidth)
         .lastCalledWith(
           expect.objectContaining({ columnWidths: transitionalColumnWidths }),
           payload,
@@ -210,14 +210,14 @@ describe('TableColumnReordering', () => {
         </PluginHost>
       ));
 
-      changeTableColumnWidths.mockReturnValueOnce({ columnWidths: transitionalColumnWidths });
-      changeTableColumnWidths.mockReturnValueOnce({ columnWidths: newColumnWidths });
+      changeTableColumnWidth.mockReturnValueOnce({ columnWidths: transitionalColumnWidths });
+      changeTableColumnWidth.mockReturnValueOnce({ columnWidths: newColumnWidths });
       executeComputedAction(tree, (actions) => {
-        actions.changeTableColumnWidths(payload);
-        actions.changeTableColumnWidths(payload);
+        actions.changeTableColumnWidth(payload);
+        actions.changeTableColumnWidth(payload);
       });
 
-      expect(changeTableColumnWidths)
+      expect(changeTableColumnWidth)
         .lastCalledWith(
           expect.objectContaining({ columnWidths: transitionalColumnWidths }),
           payload,

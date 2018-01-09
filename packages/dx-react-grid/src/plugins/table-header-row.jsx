@@ -49,7 +49,7 @@ export class TableHeaderRow extends React.PureComponent {
                 sorting, tableColumns, allowDragging,
               }, {
                 setColumnSorting, groupByColumn,
-                changeTableColumnWidths, changeDraftTableColumnWidths,
+                changeTableColumnWidth, changeDraftTableColumnWidths,
               }) => {
                 const { name: columnName } = params.tableColumn.column;
                 const atLeastOneDataColumn = tableColumns
@@ -71,7 +71,7 @@ export class TableHeaderRow extends React.PureComponent {
                     onGroup={() =>
                       groupByColumn({ columnName })}
                     onWidthChange={({ shift }) =>
-                      changeTableColumnWidths({ shifts: { [columnName]: shift } })}
+                      changeTableColumnWidth({ columnName, shift })}
                     onDraftWidthChange={({ shift }) =>
                       changeDraftTableColumnWidths({ shifts: { [columnName]: shift } })}
                   />

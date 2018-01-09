@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { PluginContainer, Getter, Action } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
-  changeTableColumnWidths,
+  changeTableColumnWidth,
   changeDraftTableColumnWidths,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
@@ -23,8 +23,8 @@ export class TableColumnResizing extends React.PureComponent {
 
     const stateHelper = createStateHelper(this);
 
-    this.changeTableColumnWidthsAction =
-      stateHelper.applyReducer.bind(stateHelper, changeTableColumnWidths);
+    this.changeTableColumnWidthAction =
+      stateHelper.applyReducer.bind(stateHelper, changeTableColumnWidth);
 
     this.changeDraftTableColumnWidthsAction =
       stateHelper.applyReducer.bind(stateHelper, changeDraftTableColumnWidths);
@@ -54,7 +54,7 @@ export class TableColumnResizing extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Action name="changeTableColumnWidths" action={this.changeTableColumnWidthsAction} />
+        <Action name="changeTableColumnWidth" action={this.changeTableColumnWidthAction} />
         <Action
           name="changeDraftTableColumnWidths"
           action={this.changeDraftTableColumnWidthsAction}

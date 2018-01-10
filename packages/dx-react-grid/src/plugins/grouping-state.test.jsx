@@ -365,14 +365,14 @@ describe('GroupingState', () => {
     });
   });
 
-  describe('setColumnSorting action extending', () => {
-    it('should modify setColumnSorting action payload when sorted column is grouped', () => {
+  describe('changeColumnSorting action extending', () => {
+    it('should modify changeColumnSorting action payload when sorted column is grouped', () => {
       const deps = {
         getter: {
           sorting: [],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -385,8 +385,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      executeComputedAction(tree, actions => actions.setColumnSorting({ columnName: 'a', direction: 'asc' }));
-      expect(deps.action.setColumnSorting.mock.calls[0][0])
+      executeComputedAction(tree, actions => actions.changeColumnSorting({ columnName: 'a', direction: 'asc' }));
+      expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'a',
           direction: 'asc',
@@ -395,13 +395,13 @@ describe('GroupingState', () => {
         });
     });
 
-    it('should modify setColumnSorting action payload when several grouped columns is sorted', () => {
+    it('should modify changeColumnSorting action payload when several grouped columns is sorted', () => {
       const deps = {
         getter: {
           sorting: [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'asc' }, { columnName: 'c', direction: 'asc' }],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -414,8 +414,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      executeComputedAction(tree, actions => actions.setColumnSorting({ columnName: 'c' }));
-      expect(deps.action.setColumnSorting.mock.calls[0][0])
+      executeComputedAction(tree, actions => actions.changeColumnSorting({ columnName: 'c' }));
+      expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'c',
           keepOther: true,
@@ -423,13 +423,13 @@ describe('GroupingState', () => {
         });
     });
 
-    it('should correctly set sortIndex for setColumnSorting action when some grouped columns is not sorted', () => {
+    it('should correctly set sortIndex for changeColumnSorting action when some grouped columns is not sorted', () => {
       const deps = {
         getter: {
           sorting: [{ columnName: 'a', direction: 'asc' }, { columnName: 'c', direction: 'asc' }],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -442,8 +442,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      executeComputedAction(tree, actions => actions.setColumnSorting({ columnName: 'c' }));
-      expect(deps.action.setColumnSorting.mock.calls[0][0])
+      executeComputedAction(tree, actions => actions.changeColumnSorting({ columnName: 'c' }));
+      expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'c',
           keepOther: true,
@@ -451,13 +451,13 @@ describe('GroupingState', () => {
         });
     });
 
-    it('should modify setColumnSorting action payload when one grouped column is sorted', () => {
+    it('should modify changeColumnSorting action payload when one grouped column is sorted', () => {
       const deps = {
         getter: {
           sorting: [],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -470,8 +470,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      executeComputedAction(tree, actions => actions.setColumnSorting({ columnName: 'b' }));
-      expect(deps.action.setColumnSorting.mock.calls[0][0])
+      executeComputedAction(tree, actions => actions.changeColumnSorting({ columnName: 'b' }));
+      expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'b',
           keepOther: true,
@@ -479,13 +479,13 @@ describe('GroupingState', () => {
         });
     });
 
-    it('should modify setColumnSorting action payload when sorted column is not grouped', () => {
+    it('should modify changeColumnSorting action payload when sorted column is not grouped', () => {
       const deps = {
         getter: {
           sorting: [],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -498,8 +498,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      executeComputedAction(tree, actions => actions.setColumnSorting({ columnName: 'c', direction: 'asc' }));
-      expect(deps.action.setColumnSorting.mock.calls[0][0])
+      executeComputedAction(tree, actions => actions.changeColumnSorting({ columnName: 'c', direction: 'asc' }));
+      expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'c',
           direction: 'asc',
@@ -508,14 +508,14 @@ describe('GroupingState', () => {
     });
   });
 
-  describe('setColumnSorting action on groupByColumn action', () => {
-    it('should fire setColumnSorting action when grouped by sorted column', () => {
+  describe('changeColumnSorting action on groupByColumn action', () => {
+    it('should fire changeColumnSorting action when grouped by sorted column', () => {
       const deps = {
         getter: {
           sorting: [{ columnName: 'b', direction: 'asc' }, { columnName: 'a', direction: 'asc' }],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -530,7 +530,7 @@ describe('GroupingState', () => {
 
       groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }] });
       executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a' }));
-      expect(deps.action.setColumnSorting.mock.calls[0][0])
+      expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'a',
           direction: 'asc',
@@ -539,13 +539,13 @@ describe('GroupingState', () => {
         });
     });
 
-    it('should fire setColumnSorting action when ungrouped by sorted column', () => {
+    it('should fire changeColumnSorting action when ungrouped by sorted column', () => {
       const deps = {
         getter: {
           sorting: [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'asc' }],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -560,7 +560,7 @@ describe('GroupingState', () => {
 
       groupByColumn.mockReturnValue({ grouping: [{ columnName: 'b' }] });
       executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a' }));
-      expect(deps.action.setColumnSorting.mock.calls[0][0])
+      expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'a',
           direction: 'asc',
@@ -575,7 +575,7 @@ describe('GroupingState', () => {
           sorting: [{ columnName: 'a', direction: 'asc' }, { columnName: 'c', direction: 'asc' }],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -590,17 +590,17 @@ describe('GroupingState', () => {
 
       groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }, { columnName: 'c' }, { columnName: 'b' }] });
       executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a', groupIndex: 1 }));
-      expect(deps.action.setColumnSorting)
+      expect(deps.action.changeColumnSorting)
         .not.toBeCalled();
     });
 
-    it('should not fire setColumnSorting action when ungrouped last sorted column', () => {
+    it('should not fire changeColumnSorting action when ungrouped last sorted column', () => {
       const deps = {
         getter: {
           sorting: [{ columnName: 'a', direction: 'asc' }],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -615,17 +615,17 @@ describe('GroupingState', () => {
 
       groupByColumn.mockReturnValue({ grouping: [] });
       executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a' }));
-      expect(deps.action.setColumnSorting)
+      expect(deps.action.changeColumnSorting)
         .not.toBeCalled();
     });
 
-    it('should not fire setColumnSorting action when grouped column sorting index is correct', () => {
+    it('should not fire changeColumnSorting action when grouped column sorting index is correct', () => {
       const deps = {
         getter: {
           sorting: [{ columnName: 'a', direction: 'asc' }, { columnName: 'b', direction: 'asc' }],
         },
         action: {
-          setColumnSorting: jest.fn(),
+          changeColumnSorting: jest.fn(),
         },
       };
 
@@ -640,7 +640,7 @@ describe('GroupingState', () => {
 
       groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }, { columnName: 'b' }] });
       executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a' }));
-      expect(deps.action.setColumnSorting)
+      expect(deps.action.changeColumnSorting)
         .not.toBeCalled();
     });
   });

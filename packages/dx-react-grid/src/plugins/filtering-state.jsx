@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setColumnFilter } from '@devexpress/dx-grid-core';
+import { changeColumnFilter } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 export class FilteringState extends React.PureComponent {
@@ -13,8 +13,8 @@ export class FilteringState extends React.PureComponent {
     };
     const stateHelper = createStateHelper(this);
 
-    this.setColumnFilter = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'filters', setColumnFilter);
+    this.changeColumnFilter = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'filters', changeColumnFilter);
   }
   getState() {
     return {
@@ -37,7 +37,7 @@ export class FilteringState extends React.PureComponent {
         pluginName="FilteringState"
       >
         <Getter name="filters" value={filters} />
-        <Action name="setColumnFilter" action={this.setColumnFilter} />
+        <Action name="changeColumnFilter" action={this.changeColumnFilter} />
       </PluginContainer>
     );
   }

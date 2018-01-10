@@ -37,7 +37,7 @@ export class SelectionState extends React.PureComponent {
       <PluginContainer
         pluginName="SelectionState"
       >
-        <Getter name="selection" value={new Set(selection)} />
+        <Getter name="selection" value={selection} />
         <Action name="toggleSelection" action={this.toggleSelection} />
       </PluginContainer>
     );

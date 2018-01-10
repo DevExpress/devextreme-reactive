@@ -7,10 +7,10 @@ export const getAvailableToSelect = (rows, getRowId, isGroupRow) => {
 };
 
 export const someSelected = ({ selection, availableToSelect }) =>
-  availableToSelect.length !== 0 && selection.size !== 0
-    && availableToSelect.some(elem => selection.has(elem))
-    && availableToSelect.some(elem => !selection.has(elem));
+  availableToSelect.length !== 0 && selection.length !== 0
+    && availableToSelect.some(elem => selection.indexOf(elem) !== -1)
+    && availableToSelect.some(elem => selection.indexOf(elem) === -1);
 
 export const allSelected = ({ selection, availableToSelect }) =>
-  selection.size !== 0 && availableToSelect.length !== 0
-    && !availableToSelect.some(elem => !selection.has(elem));
+  selection.length !== 0 && availableToSelect.length !== 0
+    && !availableToSelect.some(elem => selection.indexOf(elem) === -1);

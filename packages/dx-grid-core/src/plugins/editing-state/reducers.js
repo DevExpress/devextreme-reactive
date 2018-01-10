@@ -1,9 +1,9 @@
-export const startEditRows = (prevEditingRows, { rowIds }) =>
-  [...prevEditingRows, ...rowIds];
+export const startEditRows = (prevEditingRowIds, { rowIds }) =>
+  [...prevEditingRowIds, ...rowIds];
 
-export const stopEditRows = (prevEditingRows, { rowIds }) => {
+export const stopEditRows = (prevEditingRowIds, { rowIds }) => {
   const rowIdSet = new Set(rowIds);
-  return prevEditingRows.filter(id => !rowIdSet.has(id));
+  return prevEditingRowIds.filter(id => !rowIdSet.has(id));
 };
 
 export const addRow = (addedRows, { row } = { row: {} }) => [...addedRows, row];

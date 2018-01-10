@@ -26,7 +26,7 @@ export class EditingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      editingRows: props.defaultEditingRows || [],
+      editingRowIds: props.defaultEditingRowIds || [],
       addedRows: props.defaultAddedRows || [],
       changedRows: props.defaultChangedRows || {},
       deletedRows: props.defaultDeletedRows || [],
@@ -35,9 +35,9 @@ export class EditingState extends React.PureComponent {
     const stateHelper = createStateHelper(this);
 
     this.startEditRows = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'editingRows', startEditRows);
+      .bind(stateHelper, 'editingRowIds', startEditRows);
     this.stopEditRows = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'editingRows', stopEditRows);
+      .bind(stateHelper, 'editingRowIds', stopEditRows);
 
     this.changeRow = stateHelper.applyFieldReducer
       .bind(stateHelper, 'changedRows', changeRow);
@@ -75,17 +75,17 @@ export class EditingState extends React.PureComponent {
   getState() {
     return {
       ...this.state,
-      editingRows: this.props.editingRows || this.state.editingRows,
+      editingRowIds: this.props.editingRowIds || this.state.editingRowIds,
       changedRows: this.props.changedRows || this.state.changedRows,
       addedRows: this.props.addedRows || this.state.addedRows,
       deletedRows: this.props.deletedRows || this.state.deletedRows,
     };
   }
   notifyStateChange(nextState, state) {
-    const { editingRows } = nextState;
-    const { onEditingRowsChange } = this.props;
-    if (onEditingRowsChange && editingRows !== state.editingRows) {
-      onEditingRowsChange(editingRows);
+    const { editingRowIds } = nextState;
+    const { onEditingRowIdsChange } = this.props;
+    if (onEditingRowIdsChange && editingRowIds !== state.editingRowIds) {
+      onEditingRowIdsChange(editingRowIds);
     }
 
     const { changedRows } = nextState;
@@ -109,7 +109,7 @@ export class EditingState extends React.PureComponent {
   render() {
     const { createRowChange, columnExtensions } = this.props;
     const {
-      editingRows, changedRows, addedRows, deletedRows,
+      editingRowIds, changedRows, addedRows, deletedRows,
     } = this.getState();
 
     return (
@@ -121,7 +121,7 @@ export class EditingState extends React.PureComponent {
           value={createRowChangeGetter(createRowChange, columnExtensions)}
         />
 
-        <Getter name="editingRows" value={editingRows} />
+        <Getter name="editingRowIds" value={editingRowIds} />
         <Action name="startEditRows" action={this.startEditRows} />
         <Action name="stopEditRows" action={this.stopEditRows} />
 
@@ -149,9 +149,9 @@ EditingState.propTypes = {
   createRowChange: PropTypes.func,
   columnExtensions: PropTypes.array,
 
-  editingRows: PropTypes.array,
-  defaultEditingRows: PropTypes.array,
-  onEditingRowsChange: PropTypes.func,
+  editingRowIds: PropTypes.array,
+  defaultEditingRowIds: PropTypes.array,
+  onEditingRowIdsChange: PropTypes.func,
 
   addedRows: PropTypes.array,
   defaultAddedRows: PropTypes.array,
@@ -172,9 +172,9 @@ EditingState.defaultProps = {
   createRowChange: undefined,
   columnExtensions: undefined,
 
-  editingRows: undefined,
-  defaultEditingRows: [],
-  onEditingRowsChange: undefined,
+  editingRowIds: undefined,
+  defaultEditingRowIds: [],
+  onEditingRowIdsChange: undefined,
 
   changedRows: undefined,
   defaultChangedRows: {},

@@ -58,39 +58,39 @@ describe('EditingState reducers', () => {
   });
   describe('#changeRow', () => {
     it('should work on the first change', () => {
-      const changedRows = {
+      const rowChanges = {
         o1: { a: 1 },
       };
       const payload = { rowId: 'o2', change: { a: 2 } };
 
-      const nextChangedRows = changeRow(changedRows, payload);
-      expect(nextChangedRows).toEqual({
+      const nextRowChanges = changeRow(rowChanges, payload);
+      expect(nextRowChanges).toEqual({
         o1: { a: 1 },
         o2: { a: 2 },
       });
     });
     it('should work on the second change', () => {
-      const changedRows = {
+      const rowChanges = {
         o1: { a: 1 },
       };
       const payload = { rowId: 'o1', change: { a: 2 } };
 
-      const nextChangedRows = changeRow(changedRows, payload);
-      expect(nextChangedRows).toEqual({
+      const nextRowChanges = changeRow(rowChanges, payload);
+      expect(nextRowChanges).toEqual({
         o1: { a: 2 },
       });
     });
   });
   describe('#cancelChanges', () => {
     it('should work', () => {
-      const changedRows = {
+      const rowChanges = {
         o1: { a: 1 },
         o2: { a: 2 },
       };
       const payload = { rowIds: ['o2'] };
 
-      const nextChangedRows = cancelChanges(changedRows, payload);
-      expect(nextChangedRows).toEqual({
+      const nextRowChanges = cancelChanges(rowChanges, payload);
+      expect(nextRowChanges).toEqual({
         o1: { a: 1 },
       });
     });

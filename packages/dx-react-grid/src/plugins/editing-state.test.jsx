@@ -112,7 +112,7 @@ describe('EditingState', () => {
           <EditingState
             {...defaultProps}
             editingRows={[]}
-            changedRows={{}}
+            rowChanges={{}}
             onEditingRowsChange={changeEditingRows}
           />
         </PluginHost>

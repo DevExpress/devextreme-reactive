@@ -40,7 +40,7 @@ sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sort
 onSort | ({ direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 showGroupingControls | boolean | Specifies whether to display a button that groups data by column.
 onGroup | () => void | An event that invokes grouping by the associated column.
-resizingEnabled | boolean | false | Specifies whether table column resizing is enabled.
+resizingEnabled | boolean | Specifies whether table column resizing is enabled.
 onWidthChange | ({ shift: number }) => void | An event that initiates column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative.
 onDraftWidthChange | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Setting `shift` to `null` clears the column's draft width.
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.

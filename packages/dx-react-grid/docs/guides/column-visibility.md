@@ -20,6 +20,6 @@ In [uncontrolled mode](controlled-and-uncontrolled-modes.md#uncontrolled-mode), 
 
 ### Controlled Mode
 
-In [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), pass the hidden column names to the `TableColumnVisibility` plugin's `hiddenColumnNames` property and handle the `onHiddenColumnsChange` event to control column visibility externally.
+In [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), pass the hidden column names to the `TableColumnVisibility` plugin's `hiddenColumnNames` property and handle the `onHiddenColumnNamesChange` event to control column visibility externally.
 
 .embedded-demo(column-chooser/controlled)

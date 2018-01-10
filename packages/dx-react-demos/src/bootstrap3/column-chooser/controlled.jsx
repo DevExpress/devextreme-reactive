@@ -29,7 +29,7 @@ export default class Demo extends React.PureComponent {
       hiddenColumnNames: ['sex', 'car'],
     };
 
-    this.hiddenColumnsChange = (hiddenColumnNames) => {
+    this.hiddenColumnNamesChange = (hiddenColumnNames) => {
       this.setState({ hiddenColumnNames });
     };
   }
@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
         <TableHeaderRow />
         <TableColumnVisibility
           hiddenColumnNames={hiddenColumnNames}
-          onHiddenColumnsChange={this.hiddenColumnsChange}
+          onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
         />
         <Toolbar />
         <ColumnChooser />

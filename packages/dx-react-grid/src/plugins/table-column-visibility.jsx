@@ -37,9 +37,9 @@ export class TableColumnVisibility extends React.PureComponent {
   }
   notifyStateChange(nextState, state) {
     const { hiddenColumnNames } = nextState;
-    const { onHiddenColumnsChange } = this.props;
-    if (onHiddenColumnsChange && hiddenColumnNames !== state.hiddenColumnNames) {
-      onHiddenColumnsChange(hiddenColumnNames);
+    const { onHiddenColumnNamesChange } = this.props;
+    if (onHiddenColumnNamesChange && hiddenColumnNames !== state.hiddenColumnNames) {
+      onHiddenColumnNamesChange(hiddenColumnNames);
     }
   }
   render() {
@@ -84,13 +84,13 @@ TableColumnVisibility.propTypes = {
   hiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
   defaultHiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
   emptyMessageComponent: PropTypes.func.isRequired,
-  onHiddenColumnsChange: PropTypes.func,
+  onHiddenColumnNamesChange: PropTypes.func,
   messages: PropTypes.object,
 };
 
 TableColumnVisibility.defaultProps = {
   hiddenColumnNames: undefined,
   defaultHiddenColumnNames: [],
-  onHiddenColumnsChange: undefined,
+  onHiddenColumnNamesChange: undefined,
   messages: {},
 };

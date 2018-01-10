@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 hiddenColumnNames | Array&lt;string&gt; | [] | Hidden column names.
 defaultHiddenColumnNames | Array&lt;string&gt; | [] | Names of initially hidden columns in uncontrolled mode.
-onHiddenColumnsChange | (hiddenColumnNames: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
+onHiddenColumnNamesChange | (hiddenColumnNames: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
 emptyMessageComponent | ElementType&lt;[EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
 messages | object | | An object that specifies [localization messages](#localization-messages).
 

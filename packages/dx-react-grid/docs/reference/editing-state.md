@@ -23,9 +23,9 @@ onAddedRowsChange | (addedRows: Array&lt;any&gt;) => void | | Handles adding or 
 changedRows | { [key: string]: any } | | Specifies changed but not committed rows.
 defaultChangedRows | { [key: string]: any } | | Specifies rows initially added to the `changedRows` array in uncontrolled mode.
 onChangedRowsChange | (changedRows: { [key: string]: any }) => void | | Handles adding or removing a row to/from the `changedRows` array.
-deletedRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows prepared for deletion.
-defaultDeletedRows | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRows` array in uncontrolled mode.
-onDeletedRowsChange | (deletedRows: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRows` array.
+deletedRowIds | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows prepared for deletion.
+defaultDeletedRowIds | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRowIds` array in uncontrolled mode.
+onDeletedRowIdsChange | (deletedRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRowIds` array.
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
 
 ## Interfaces
@@ -75,8 +75,8 @@ changedRows | Getter | { [key: string]: any } | An associated array that stores 
 changeRow | Action | ({ rowId: number &#124; string, change: any }) => void | Adds an item representing changes made to an exsiting row to the `changedRows` array.
 cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows' data from the `changedRows` array.
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `changedRows` array.
-deletedRows | Getter | Array&lt;number &#124; string&gt; | Rows prepared for deletion.
-deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows the ID specifies to the `deletedRows` array.
-cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows from the `deletedRows` array.
-commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `deletedRows` array.
+deletedRowIds | Getter | Array&lt;number &#124; string&gt; | Rows prepared for deletion.
+deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows the ID specifies to the `deletedRowIds` array.
+cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows from the `deletedRowIds` array.
+commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `deletedRowIds` array.
 createRowChange | Getter | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on columns editor values for the current row. This function is called each time the editor's value changes.

@@ -25,7 +25,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 - `defaultEditingRowIds` - the rows being edited
 - `defaultAddedRows` - the rows being added
 - `defaultChangedRows` - the changed rows
-- `defaultDeletedRows` - the rows being deleted
+- `defaultDeletedRowIds` - the rows being deleted
 
 .embedded-demo(editing/edit-row)
 
@@ -36,7 +36,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 - `editingRowIds` and `onEditingRowIdsChange` - the rows being edited
 - `addedRows` and `onAddedRowsChange` - the rows being added
 - `changedRows` and `onChangedRowsChange` - the changed rows
-- `deletedRows` and `onDeletedRowsChange` - the rows being deleted
+- `deletedRowIds` and `onDeletedRowIdsChange` - the rows being deleted
 
 Note, you can also use the `onAddedRowsChange` event to initialize a created row with default property values.
 

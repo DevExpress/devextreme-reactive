@@ -97,20 +97,20 @@ describe('EditingState reducers', () => {
   });
   describe('#deleteRows', () => {
     it('should work', () => {
-      const deletedRows = [1];
+      const deletedRowIds = [1];
       const payload = { rowIds: [2] };
 
-      const nextDeletedRows = deleteRows(deletedRows, payload);
-      expect(nextDeletedRows).toEqual([1, 2]);
+      const nextDeletedRowIds = deleteRows(deletedRowIds, payload);
+      expect(nextDeletedRowIds).toEqual([1, 2]);
     });
   });
   describe('#cancelDeletedRows', () => {
     it('should work', () => {
-      const deletedRows = [1, 2];
+      const deletedRowIds = [1, 2];
       const payload = { rowIds: [2] };
 
-      const nextDeletedRows = cancelDeletedRows(deletedRows, payload);
-      expect(nextDeletedRows).toEqual([1]);
+      const nextDeletedRowIds = cancelDeletedRows(deletedRowIds, payload);
+      expect(nextDeletedRowIds).toEqual([1]);
     });
   });
 });

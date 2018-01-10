@@ -44,9 +44,9 @@ export const cancelChanges = (prevChangedRows, { rowIds }) => {
   return result;
 };
 
-export const deleteRows = (deletedRows, { rowIds }) => [...deletedRows, ...rowIds];
+export const deleteRows = (deletedRowIds, { rowIds }) => [...deletedRowIds, ...rowIds];
 
-export const cancelDeletedRows = (deletedRows, { rowIds }) => {
+export const cancelDeletedRows = (deletedRowIds, { rowIds }) => {
   const rowIdSet = new Set(rowIds);
-  return deletedRows.filter(rowId => !rowIdSet.has(rowId));
+  return deletedRowIds.filter(rowId => !rowIdSet.has(rowId));
 };

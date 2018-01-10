@@ -37,7 +37,7 @@ export class CustomGrouping extends React.PureComponent {
           <Getter name="grouping" value={appliedGrouping} />
         )}
         {appliedExpandedGroups && (
-          <Getter name="expandedGroups" value={new Set(appliedExpandedGroups)} />
+          <Getter name="expandedGroups" value={appliedExpandedGroups} />
         )}
         <Getter name="isGroupRow" value={groupRowChecker} />
         <Getter name="getRowLevelKey" value={groupRowLevelKeyGetter} />

@@ -69,6 +69,7 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
   if (!grouping.length) return rows;
 
   const groupingColumnNames = grouping.map(columnGrouping => columnGrouping.columnName);
+  const expandedGroupsSet = new Set(expandedGroups);
   let currentGroupExpanded = true;
   let currentGroupLevel = 0;
 
@@ -87,7 +88,7 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
       return acc;
     }
 
-    currentGroupExpanded = expandedGroups.has(row.compoundKey);
+    currentGroupExpanded = expandedGroupsSet.has(row.compoundKey);
     currentGroupLevel = groupLevel;
 
     if (currentGroupExpanded) {

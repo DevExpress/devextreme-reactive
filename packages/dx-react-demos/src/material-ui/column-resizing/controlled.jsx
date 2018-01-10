@@ -21,9 +21,12 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      columnWidths: {
-        name: 180, sex: 100, city: 180, car: 240,
-      },
+      columnWidths: [
+        { columnName: 'name', width: 180 },
+        { columnName: 'sex', width: 180 },
+        { columnName: 'city', width: 180 },
+        { columnName: 'car', width: 240 },
+      ],
       rows: generateRows({ length: 6 }),
     };
 

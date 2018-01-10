@@ -6,11 +6,17 @@ export const getAvailableToSelect = (rows, getRowId, isGroupRow) => {
   return dataRows.map(row => getRowId(row));
 };
 
-export const someSelected = ({ selection, availableToSelect }) =>
-  availableToSelect.length !== 0 && selection.length !== 0
-    && availableToSelect.some(elem => selection.indexOf(elem) !== -1)
-    && availableToSelect.some(elem => selection.indexOf(elem) === -1);
+export const someSelected = ({ selection, availableToSelect }) => {
+  const selectionSet = new Set(selection);
 
-export const allSelected = ({ selection, availableToSelect }) =>
-  selection.length !== 0 && availableToSelect.length !== 0
-    && !availableToSelect.some(elem => selection.indexOf(elem) === -1);
+  return availableToSelect.length !== 0 && selectionSet.size !== 0
+    && availableToSelect.some(elem => selectionSet.has(elem))
+    && availableToSelect.some(elem => !selectionSet.has(elem));
+};
+
+export const allSelected = ({ selection, availableToSelect }) => {
+  const selectionSet = new Set(selection);
+
+  return selectionSet.size !== 0 && availableToSelect.length !== 0
+    && !availableToSelect.some(elem => !selectionSet.has(elem));
+};

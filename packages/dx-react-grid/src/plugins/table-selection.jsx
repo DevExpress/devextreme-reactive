@@ -71,7 +71,7 @@ export class TableSelection extends React.PureComponent {
                   <Cell
                     {...params}
                     row={params.tableRow.row}
-                    selected={selection.indexOf(params.tableRow.rowId) !== -1}
+                    selected={new Set(selection).has(params.tableRow.rowId)}
                     onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
                   />
                 )}
@@ -90,7 +90,7 @@ export class TableSelection extends React.PureComponent {
                   <Row
                     {...params}
                     selectByRowClick
-                    selected={highlightRow && selection.indexOf(params.tableRow.rowId) !== -1}
+                    selected={highlightRow && new Set(selection).has(params.tableRow.rowId)}
                     onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
                   />
                 )}

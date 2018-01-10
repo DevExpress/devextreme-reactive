@@ -22,7 +22,7 @@ Handle the `EditingState` plugin's `onCommitChanges` event to commit changes mad
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initial editing state values using the following `EditingState` plugin's properties:
 
-- `defaultEditingRows` - the rows being edited
+- `defaultEditingRowIds` - the rows being edited
 - `defaultAddedRows` - the rows being added
 - `defaultChangedRows` - the changed rows
 - `defaultDeletedRows` - the rows being deleted
@@ -33,7 +33,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the following `EditingState` plugin's property pairs to set a state value and handle its changes:
 
-- `editingRows` and `onEditingRowsChange` - the rows being edited
+- `editingRowIds` and `onEditingRowIdsChange` - the rows being edited
 - `addedRows` and `onAddedRowsChange` - the rows being added
 - `changedRows` and `onChangedRowsChange` - the changed rows
 - `deletedRows` and `onDeletedRowsChange` - the rows being deleted

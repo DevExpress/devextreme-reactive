@@ -14,9 +14,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a row changes object depending on row editor values. This function is called each time the row editor's value changes.
 columnExtensions | Array&lt;[EditingColumnExtension](#editingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
-editingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows being edited.
-defaultEditingRows | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows initially added to the `editingRows` array in uncontrolled mode.
-onEditingRowsChange | (editingRows: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRows` array.
+editingRowIds | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows being edited.
+defaultEditingRowIds | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows initially added to the `editingRowIds` array in uncontrolled mode.
+onEditingRowIdsChange | (editingRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
 addedRows | Array&lt;any&gt; | | Specifies created but not committed rows.
 defaultAddedRows | Array&lt;any&gt; | | Specifies rows initially added to the `addedRows` array in uncontrolled mode.
 onAddedRowsChange | (addedRows: Array&lt;any&gt;) => void | | Handles adding or removing a row to/from the `addedRows` array.
@@ -63,7 +63,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-editingRows | Getter | Array&lt;number &#124; string&gt; | Rows being edited.
+editingRowIds | Getter | Array&lt;number &#124; string&gt; | Rows being edited.
 startEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Enables the edit mode for the rows the ID specifies.
 stopEditRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Disables the edit mode for the rows the ID specifies.
 addedRows | Getter | Array&lt;any&gt; | Created but not committed rows.

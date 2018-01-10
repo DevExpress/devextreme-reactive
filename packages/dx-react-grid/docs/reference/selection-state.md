@@ -12,7 +12,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-selection | Array&lt;number &#124; string&gt; | [] | The selected rows.
+selection | Array&lt;number &#124; string&gt; | | The selected rows.
 defaultSelection | Array&lt;number &#124; string&gt; | [] | The initially selected rows in the uncontrolled mode.
 onSelectionChange | (selection: Array&lt;number &#124; string&gt;) => void | | Handles selection changes.
 

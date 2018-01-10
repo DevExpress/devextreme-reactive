@@ -9,7 +9,7 @@ export class RowDetailState extends React.PureComponent {
     super(props);
 
     this.state = {
-      expandedRows: props.defaultExpandedRows || [],
+      expandedRows: props.defaultExpandedRows,
     };
 
     const stateHelper = createStateHelper(this);
@@ -18,9 +18,12 @@ export class RowDetailState extends React.PureComponent {
       .bind(stateHelper, 'expandedRows', setDetailRowExpanded);
   }
   getState() {
+    const {
+      expandedRows = this.state.expandedRows,
+    } = this.props;
     return {
       ...this.state,
-      expandedRows: this.props.expandedRows || this.state.expandedRows,
+      expandedRows,
     };
   }
   notifyStateChange(nextState, state) {
@@ -52,6 +55,6 @@ RowDetailState.propTypes = {
 
 RowDetailState.defaultProps = {
   expandedRows: undefined,
-  defaultExpandedRows: undefined,
+  defaultExpandedRows: [],
   onExpandedRowsChange: undefined,
 };

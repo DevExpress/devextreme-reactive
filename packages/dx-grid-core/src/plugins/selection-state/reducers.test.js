@@ -28,7 +28,7 @@ describe('SelectionState reducers', () => {
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
-    it('should remove from selection all rows is state', () => {
+    it('should remove from selection all rows is selected', () => {
       const selection = [1, 2, 3, 4];
       const payload = { rowIds: [3, 4] };
 

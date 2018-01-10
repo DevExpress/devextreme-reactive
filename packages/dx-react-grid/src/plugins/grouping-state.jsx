@@ -55,7 +55,11 @@ export class GroupingState extends React.PureComponent {
       expandedGroups: this.props.expandedGroups || this.state.expandedGroups,
     };
   }
-  changeColumnSorting({ columnName, keepOther, ...restParams }, { sorting }, { changeColumnSorting }) {
+  changeColumnSorting(
+    { columnName, keepOther, ...restParams },
+    { sorting },
+    { changeColumnSorting },
+  ) {
     const { grouping } = this.getState();
     const groupingIndex = grouping
       .findIndex(columnGrouping => columnGrouping.columnName === columnName);

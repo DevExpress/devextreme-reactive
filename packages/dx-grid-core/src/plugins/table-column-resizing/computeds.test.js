@@ -3,7 +3,6 @@ import {
   tableColumnsWithWidths,
 } from './computeds';
 
-
 describe('TableColumnResizing Plugin computeds', () => {
   describe('#tableColumnsWithWidths', () => {
     it('should work', () => {
@@ -13,7 +12,15 @@ describe('TableColumnResizing Plugin computeds', () => {
         { type: TABLE_DATA_TYPE, column: { name: 'c' } },
       ];
 
-      expect(tableColumnsWithWidths(tableColumns, { a: 10, b: 20, c: 15 }, { a: 15 }))
+      expect(tableColumnsWithWidths(
+        tableColumns,
+        [
+          { columnName: 'a', width: 10 },
+          { columnName: 'b', width: 20 },
+          { columnName: 'c', width: 15 },
+        ],
+        [{ columnName: 'a', width: 15 }],
+      ))
         .toEqual([
           { type: TABLE_DATA_TYPE, width: 15, column: { name: 'a' } },
           { type: TABLE_DATA_TYPE, width: 20, column: { name: 'b' } },
@@ -28,7 +35,11 @@ describe('TableColumnResizing Plugin computeds', () => {
         { type: TABLE_DATA_TYPE, column: { name: 'c' } },
       ];
 
-      expect(() => tableColumnsWithWidths(tableColumns, { a: 10 }, { a: 15 }))
+      expect(() => tableColumnsWithWidths(
+        tableColumns,
+        [{ columnName: 'a', width: 10 }],
+        [{ columnName: 'a', width: 15 }],
+      ))
         .toThrow(/"b".*width/);
     });
   });

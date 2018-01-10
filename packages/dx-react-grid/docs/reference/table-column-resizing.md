@@ -12,9 +12,22 @@ A plugin that manages table column widths.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnWidths | { [columnName: string]: number } | | Specifies column widths.
-defaultColumnWidths | { [columnName: string]: number } | {} | Specifies initial column widths in the uncontrolled mode.
+columnWidths | Array&lt;[ColumnWidthInfo](#ColumnWidthInfo)&gt; | | Specifies column widths.
+defaultColumnWidths | Array&lt;[ColumnWidthInfo](#ColumnWidthInfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
 onColumnWidthsChange | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles column width changes.
+
+## Interfaces
+
+### ColumnWidthInfo
+
+Describes an object that specifies a column width.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+columnName | string | A column name.
+width | number | A column width.
 
 ## Plugin Developer Reference
 
@@ -30,5 +43,5 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns with new width values applied.
 tableColumnResizingEnabled | Getter | boolean | Specifies whether table column resizing is enabled.
-changeTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes the specified columns' width. Each column width is increased by the corresponding shift value, or decreased if the value is negative.
-changeDraftTableColumnWidths | Action | ({ shifts: { [columnName: string]: number } }) => void | Changes the specified columns' width used for preview. Each column width is increased by the corresponding shift value, or decreased if the value is negative. Setting a shift to `null` clears the corresponding column's draft width.
+changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the specified column width. Column width is increased by the corresponding shift value, or decreased if the value is negative.
+changeDraftTableColumnWidth | Action | ({ columnName: string, shift?: number }) => void | Changes the specified column width used for preview. Column width is increased by the corresponding shift value, or decreased if the value is negative. Set `shift` to `null` to clear draft width by the current column.

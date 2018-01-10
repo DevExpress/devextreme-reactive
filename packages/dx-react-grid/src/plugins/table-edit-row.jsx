@@ -25,8 +25,8 @@ export class TableEditRow extends React.PureComponent {
       rowHeight,
     } = this.props;
 
-    const tableBodyRowsComputed = ({ tableBodyRows, editingRows, addedRows }) =>
-      tableRowsWithEditing(tableBodyRows, editingRows, addedRows, rowHeight);
+    const tableBodyRowsComputed = ({ tableBodyRows, editingRowIds, addedRows }) =>
+      tableRowsWithEditing(tableBodyRows, editingRowIds, addedRows, rowHeight);
 
     return (
       <PluginContainer

@@ -26,18 +26,18 @@ export class EditingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      editingRows: props.defaultEditingRows || [],
+      editingRowIds: props.defaultEditingRowIds || [],
       addedRows: props.defaultAddedRows || [],
       rowChanges: props.defaultRowChanges || {},
-      deletedRows: props.defaultDeletedRows || [],
+      deletedRowIds: props.defaultDeletedRowIds || [],
     };
 
     const stateHelper = createStateHelper(this);
 
     this.startEditRows = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'editingRows', startEditRows);
+      .bind(stateHelper, 'editingRowIds', startEditRows);
     this.stopEditRows = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'editingRows', stopEditRows);
+      .bind(stateHelper, 'editingRowIds', stopEditRows);
 
     this.changeRow = stateHelper.applyFieldReducer
       .bind(stateHelper, 'rowChanges', changeRow);
@@ -64,9 +64,9 @@ export class EditingState extends React.PureComponent {
     };
 
     this.deleteRows = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'deletedRows', deleteRows);
+      .bind(stateHelper, 'deletedRowIds', deleteRows);
     this.cancelDeletedRows = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'deletedRows', cancelDeletedRows);
+      .bind(stateHelper, 'deletedRowIds', cancelDeletedRows);
     this.commitDeletedRows = ({ rowIds }) => {
       this.props.onCommitChanges({ deleted: rowIds });
       this.cancelDeletedRows({ rowIds });
@@ -75,17 +75,17 @@ export class EditingState extends React.PureComponent {
   getState() {
     return {
       ...this.state,
-      editingRows: this.props.editingRows || this.state.editingRows,
+      editingRowIds: this.props.editingRowIds || this.state.editingRowIds,
       rowChanges: this.props.rowChanges || this.state.rowChanges,
       addedRows: this.props.addedRows || this.state.addedRows,
-      deletedRows: this.props.deletedRows || this.state.deletedRows,
+      deletedRowIds: this.props.deletedRowIds || this.state.deletedRowIds,
     };
   }
   notifyStateChange(nextState, state) {
-    const { editingRows } = nextState;
-    const { onEditingRowsChange } = this.props;
-    if (onEditingRowsChange && editingRows !== state.editingRows) {
-      onEditingRowsChange(editingRows);
+    const { editingRowIds } = nextState;
+    const { onEditingRowIdsChange } = this.props;
+    if (onEditingRowIdsChange && editingRowIds !== state.editingRowIds) {
+      onEditingRowIdsChange(editingRowIds);
     }
 
     const { rowChanges } = nextState;
@@ -100,16 +100,16 @@ export class EditingState extends React.PureComponent {
       onAddedRowsChange(addedRows);
     }
 
-    const { deletedRows } = nextState;
-    const { onDeletedRowsChange } = this.props;
-    if (onDeletedRowsChange && deletedRows !== state.deletedRows) {
-      onDeletedRowsChange(deletedRows);
+    const { deletedRowIds } = nextState;
+    const { onDeletedRowIdsChange } = this.props;
+    if (onDeletedRowIdsChange && deletedRowIds !== state.deletedRowIds) {
+      onDeletedRowIdsChange(deletedRowIds);
     }
   }
   render() {
     const { createRowChange, columnExtensions } = this.props;
     const {
-      editingRows, rowChanges, addedRows, deletedRows,
+      editingRowIds, rowChanges, addedRows, deletedRowIds,
     } = this.getState();
 
     return (
@@ -121,7 +121,7 @@ export class EditingState extends React.PureComponent {
           value={createRowChangeGetter(createRowChange, columnExtensions)}
         />
 
-        <Getter name="editingRows" value={editingRows} />
+        <Getter name="editingRowIds" value={editingRowIds} />
         <Action name="startEditRows" action={this.startEditRows} />
         <Action name="stopEditRows" action={this.stopEditRows} />
 
@@ -136,7 +136,7 @@ export class EditingState extends React.PureComponent {
         <Action name="cancelAddedRows" action={this.cancelAddedRows} />
         <Action name="commitAddedRows" action={this.commitAddedRows} />
 
-        <Getter name="deletedRows" value={deletedRows} />
+        <Getter name="deletedRowIds" value={deletedRowIds} />
         <Action name="deleteRows" action={this.deleteRows} />
         <Action name="cancelDeletedRows" action={this.cancelDeletedRows} />
         <Action name="commitDeletedRows" action={this.commitDeletedRows} />
@@ -149,9 +149,9 @@ EditingState.propTypes = {
   createRowChange: PropTypes.func,
   columnExtensions: PropTypes.array,
 
-  editingRows: PropTypes.array,
-  defaultEditingRows: PropTypes.array,
-  onEditingRowsChange: PropTypes.func,
+  editingRowIds: PropTypes.array,
+  defaultEditingRowIds: PropTypes.array,
+  onEditingRowIdsChange: PropTypes.func,
 
   addedRows: PropTypes.array,
   defaultAddedRows: PropTypes.array,
@@ -161,9 +161,9 @@ EditingState.propTypes = {
   defaultRowChanges: PropTypes.object,
   onRowChangesChange: PropTypes.func,
 
-  deletedRows: PropTypes.array,
-  defaultDeletedRows: PropTypes.array,
-  onDeletedRowsChange: PropTypes.func,
+  deletedRowIds: PropTypes.array,
+  defaultDeletedRowIds: PropTypes.array,
+  onDeletedRowIdsChange: PropTypes.func,
 
   onCommitChanges: PropTypes.func.isRequired,
 };
@@ -172,9 +172,9 @@ EditingState.defaultProps = {
   createRowChange: undefined,
   columnExtensions: undefined,
 
-  editingRows: undefined,
-  defaultEditingRows: [],
-  onEditingRowsChange: undefined,
+  editingRowIds: undefined,
+  defaultEditingRowIds: [],
+  onEditingRowIdsChange: undefined,
 
   rowChanges: undefined,
   defaultRowChanges: {},
@@ -184,7 +184,7 @@ EditingState.defaultProps = {
   defaultAddedRows: [],
   onAddedRowsChange: undefined,
 
-  deletedRows: undefined,
-  defaultDeletedRows: [],
-  onDeletedRowsChange: undefined,
+  deletedRowIds: undefined,
+  defaultDeletedRowIds: [],
+  onDeletedRowIdsChange: undefined,
 };

@@ -214,7 +214,7 @@ class DemoBase extends React.PureComponent {
         length: 12,
       }),
       sorting: [],
-      editingRows: [],
+      editingRowIds: [],
       addedRows: [],
       rowChanges: {},
       currentPage: 0,
@@ -225,7 +225,7 @@ class DemoBase extends React.PureComponent {
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
-    this.changeEditingRows = editingRows => this.setState({ editingRows });
+    this.changeEditingRowIds = editingRowIds => this.setState({ editingRowIds });
     this.changeAddedRows = addedRows => this.setState({
       addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
         amount: 0,
@@ -280,7 +280,7 @@ class DemoBase extends React.PureComponent {
       columns,
       tableColumnExtensions,
       sorting,
-      editingRows,
+      editingRowIds,
       addedRows,
       rowChanges,
       currentPage,
@@ -312,8 +312,8 @@ class DemoBase extends React.PureComponent {
           <IntegratedPaging />
 
           <EditingState
-            editingRows={editingRows}
-            onEditingRowsChange={this.changeEditingRows}
+            editingRowIds={editingRowIds}
+            onEditingRowIdsChange={this.changeEditingRowIds}
             rowChanges={rowChanges}
             onRowChangesChange={this.changeRowChanges}
             addedRows={addedRows}

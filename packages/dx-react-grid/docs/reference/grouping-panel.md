@@ -96,7 +96,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
-changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Toggles the column's grouping state. If `groupIndex` is omitted, the group is added to the end of the group list.
+changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
 cancelGroupingChange | Action | () => void | Resets the groupingChange state.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.

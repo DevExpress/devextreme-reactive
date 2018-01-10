@@ -70,13 +70,13 @@ describe('TableColumnVisibility', () => {
         .toBe(hiddenColumnNames);
     });
 
-    it('should extend hiddenColumnNames from defaulthiddenColumnNames property', () => {
+    it('should extend hiddenColumnNames from defaultHiddenColumnNames property', () => {
       const hiddenColumnNames = ['b', 'a'];
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
-            defaulthiddenColumnNames={hiddenColumnNames}
+            defaultHiddenColumnNames={hiddenColumnNames}
             emptyMessageComponent={DefaultEmptyMessage}
           />
         </PluginHost>
@@ -126,7 +126,7 @@ describe('TableColumnVisibility', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
-          defaulthiddenColumnNames={['a', 'b', 'c']}
+          defaultHiddenColumnNames={['a', 'b', 'c']}
           emptyMessageComponent={DefaultEmptyMessage}
           messages={{
             noColumns: 'Nothing to show',

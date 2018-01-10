@@ -23,7 +23,7 @@ export class TableColumnVisibility extends React.PureComponent {
     super(props);
 
     this.state = {
-      hiddenColumnNames: props.defaulthiddenColumnNames || props.hiddenColumnNames,
+      hiddenColumnNames: props.defaultHiddenColumnNames || props.hiddenColumnNames,
     };
     const stateHelper = createStateHelper(this);
 
@@ -82,7 +82,7 @@ export class TableColumnVisibility extends React.PureComponent {
 
 TableColumnVisibility.propTypes = {
   hiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
-  defaulthiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
+  defaultHiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
   emptyMessageComponent: PropTypes.func.isRequired,
   onHiddenColumnsChange: PropTypes.func,
   messages: PropTypes.object,
@@ -90,7 +90,7 @@ TableColumnVisibility.propTypes = {
 
 TableColumnVisibility.defaultProps = {
   hiddenColumnNames: undefined,
-  defaulthiddenColumnNames: [],
+  defaultHiddenColumnNames: [],
   onHiddenColumnsChange: undefined,
   messages: {},
 };

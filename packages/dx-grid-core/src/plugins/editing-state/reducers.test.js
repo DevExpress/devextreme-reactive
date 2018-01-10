@@ -13,20 +13,20 @@ import {
 describe('EditingState reducers', () => {
   describe('#startEditRows', () => {
     it('should work', () => {
-      const editingRows = [1];
+      const editingRowIds = [1];
       const payload = { rowIds: [2, 3] };
 
-      const nextEditingRows = startEditRows(editingRows, payload);
-      expect(nextEditingRows).toEqual([1, 2, 3]);
+      const nextEditingRowIds = startEditRows(editingRowIds, payload);
+      expect(nextEditingRowIds).toEqual([1, 2, 3]);
     });
   });
   describe('#stopEditRows', () => {
     it('should work', () => {
-      const editingRows = [1, 2, 3];
+      const editingRowIds = [1, 2, 3];
       const payload = { rowIds: [2] };
 
-      const nextEditingRows = stopEditRows(editingRows, payload);
-      expect(nextEditingRows).toEqual([1, 3]);
+      const nextEditingRowIds = stopEditRows(editingRowIds, payload);
+      expect(nextEditingRowIds).toEqual([1, 3]);
     });
   });
   describe('#addRow', () => {

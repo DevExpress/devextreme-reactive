@@ -23,12 +23,12 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 6 }),
-      defaultHiddenColumns: ['sex', 'car'],
+      defaulthiddenColumnNames: ['sex', 'car'],
     };
   }
 
   render() {
-    const { columns, rows, defaultHiddenColumns } = this.state;
+    const { columns, rows, defaulthiddenColumnNames } = this.state;
     return (
       <Grid
         rows={rows}
@@ -37,7 +37,7 @@ export default class Demo extends React.PureComponent {
         <Table />
         <TableHeaderRow />
         <TableColumnVisibility
-          defaultHiddenColumns={defaultHiddenColumns}
+          defaulthiddenColumnNames={defaulthiddenColumnNames}
         />
         <Toolbar />
         <ColumnChooser />

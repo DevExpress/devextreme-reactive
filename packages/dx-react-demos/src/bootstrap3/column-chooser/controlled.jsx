@@ -26,17 +26,17 @@ export default class Demo extends React.PureComponent {
         { columnName: 'sex', width: 100 },
       ],
       rows: generateRows({ length: 6 }),
-      hiddenColumns: ['sex', 'car'],
+      hiddenColumnNames: ['sex', 'car'],
     };
 
-    this.hiddenColumnsChange = (hiddenColumns) => {
-      this.setState({ hiddenColumns });
+    this.hiddenColumnsChange = (hiddenColumnNames) => {
+      this.setState({ hiddenColumnNames });
     };
   }
 
   render() {
     const {
-      columns, rows, tableColumnExtensions, hiddenColumns,
+      columns, rows, tableColumnExtensions, hiddenColumnNames,
     } = this.state;
 
     return (
@@ -49,7 +49,7 @@ export default class Demo extends React.PureComponent {
         />
         <TableHeaderRow />
         <TableColumnVisibility
-          hiddenColumns={hiddenColumns}
+          hiddenColumnNames={hiddenColumnNames}
           onHiddenColumnsChange={this.hiddenColumnsChange}
         />
         <Toolbar />

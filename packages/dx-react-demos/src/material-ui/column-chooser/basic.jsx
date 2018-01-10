@@ -29,17 +29,17 @@ export default class Demo extends React.PureComponent {
         { columnName: 'sex', width: 100 },
       ],
       rows: generateRows({ length: 6 }),
-      hiddenColumns: ['sex', 'car'],
+      hiddenColumnNames: ['sex', 'car'],
     };
 
-    this.hiddenColumnsChange = (hiddenColumns) => {
-      this.setState({ hiddenColumns });
+    this.hiddenColumnsChange = (hiddenColumnNames) => {
+      this.setState({ hiddenColumnNames });
     };
   }
 
   render() {
     const {
-      columns, rows, hiddenColumns, tableColumnExtensions,
+      columns, rows, hiddenColumnNames, tableColumnExtensions,
     } = this.state;
     return (
       <MUIGrid container>
@@ -54,7 +54,7 @@ export default class Demo extends React.PureComponent {
               />
               <TableHeaderRow />
               <TableColumnVisibility
-                hiddenColumns={hiddenColumns}
+                hiddenColumnNames={hiddenColumnNames}
               />
             </Grid>
           </Paper>
@@ -68,7 +68,7 @@ export default class Demo extends React.PureComponent {
             </Toolbar>
             <ColumnChooser
               columns={columns}
-              hiddenColumns={hiddenColumns}
+              hiddenColumnNames={hiddenColumnNames}
               onHiddenColumnsChange={this.hiddenColumnsChange}
             />
           </Paper>

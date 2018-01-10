@@ -54,62 +54,62 @@ describe('TableColumnVisibility', () => {
   });
 
   describe('table layout getters extending', () => {
-    it('should extend hiddenColumns from hiddenColumns property', () => {
-      const hiddenColumns = ['b', 'a'];
+    it('should extend hiddenColumnNames from hiddenColumnNames property', () => {
+      const hiddenColumnNames = ['b', 'a'];
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
-            hiddenColumns={hiddenColumns}
+            hiddenColumnNames={hiddenColumnNames}
             emptyMessageComponent={DefaultEmptyMessage}
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).hiddenColumns)
-        .toBe(hiddenColumns);
+      expect(getComputedState(tree).hiddenColumnNames)
+        .toBe(hiddenColumnNames);
     });
 
-    it('should extend hiddenColumns from defaultHiddenColumns property', () => {
-      const hiddenColumns = ['b', 'a'];
+    it('should extend hiddenColumnNames from defaulthiddenColumnNames property', () => {
+      const hiddenColumnNames = ['b', 'a'];
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
-            defaultHiddenColumns={hiddenColumns}
+            defaulthiddenColumnNames={hiddenColumnNames}
             emptyMessageComponent={DefaultEmptyMessage}
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).hiddenColumns)
-        .toBe(hiddenColumns);
+      expect(getComputedState(tree).hiddenColumnNames)
+        .toBe(hiddenColumnNames);
     });
 
     it('should call the visibleTableColumns computed with correct arguments', () => {
-      const hiddenColumns = ['b', 'a'];
+      const hiddenColumnNames = ['b', 'a'];
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
-            hiddenColumns={hiddenColumns}
+            hiddenColumnNames={hiddenColumnNames}
             emptyMessageComponent={DefaultEmptyMessage}
           />
         </PluginHost>
       ));
 
       expect(visibleTableColumns)
-        .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, hiddenColumns);
+        .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, hiddenColumnNames);
     });
   });
 
   it('should remove hidden columns from tableColumns', () => {
-    const hiddenColumns = ['b', 'a'];
+    const hiddenColumnNames = ['b', 'a'];
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
-          hiddenColumns={hiddenColumns}
+          hiddenColumnNames={hiddenColumnNames}
           emptyMessageComponent={DefaultEmptyMessage}
         />
       </PluginHost>
@@ -126,7 +126,7 @@ describe('TableColumnVisibility', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
-          defaultHiddenColumns={['a', 'b', 'c']}
+          defaulthiddenColumnNames={['a', 'b', 'c']}
           emptyMessageComponent={DefaultEmptyMessage}
           messages={{
             noColumns: 'Nothing to show',
@@ -146,7 +146,7 @@ describe('TableColumnVisibility', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
-          hiddenColumns={[]}
+          hiddenColumnNames={[]}
           emptyMessageComponent={DefaultEmptyMessage}
           messages={{
             noColumns: 'Nothing to show',

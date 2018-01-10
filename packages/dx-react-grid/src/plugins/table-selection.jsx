@@ -47,13 +47,16 @@ export class TableSelection extends React.PureComponent {
           >
             {params => (
               <TemplateConnector>
-                {({ selectAllAvailable, allSelected, someSelected }, { toggleSelectAll }) => (
+                {(
+                  { allRowsSelectionAvailable, allSelected, someSelected },
+                  { toggleAllRowsSelection },
+                ) => (
                   <HeaderCell
                     {...params}
-                    disabled={!selectAllAvailable}
+                    disabled={!allRowsSelectionAvailable}
                     allSelected={allSelected}
                     someSelected={someSelected}
-                    onToggle={select => toggleSelectAll(select)}
+                    onToggle={select => toggleAllRowsSelection(select)}
                   />
                 )}
               </TemplateConnector>

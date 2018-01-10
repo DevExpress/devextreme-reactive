@@ -66,7 +66,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
-selection | Getter | Set&lt;number &#124; string&gt; | Selected rows.
+selection | Getter | Array&lt;number &#124; string&gt; | The selected row identifiers.
 toggleSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean  }) => void | A function that selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
 toggleSelectAll | Action | (select?: boolean) => void | A function that selects/deselects all rows. The `select` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
 selectAllAvailable | Getter | boolean | Indicates whether there are rows that are available for selection.

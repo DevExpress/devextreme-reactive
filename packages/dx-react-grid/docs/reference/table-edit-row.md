@@ -50,7 +50,7 @@ Name | Properties | Description
 TableEditRow.Cell | [TableEditCellProps](#tableeditcellprops) | A component that renders an editable cell.
 TableEditRow.Row | [TableEditRowProps](#tableeditrowprops) | A component that renders an editable row.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

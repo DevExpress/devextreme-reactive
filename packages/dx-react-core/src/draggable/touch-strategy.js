@@ -6,6 +6,9 @@ export class TouchStrategy {
     this.touchStartTimeout = null;
     this.dragging = false;
   }
+  isDragging() {
+    return this.dragging;
+  }
   isWaiting() {
     return !!this.touchStartTimeout;
   }

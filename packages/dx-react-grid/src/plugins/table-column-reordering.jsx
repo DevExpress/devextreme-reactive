@@ -204,6 +204,6 @@ TableColumnReordering.propTypes = {
 
 TableColumnReordering.defaultProps = {
   order: undefined,
-  defaultOrder: undefined,
+  defaultOrder: [],
   onOrderChange: undefined,
 };

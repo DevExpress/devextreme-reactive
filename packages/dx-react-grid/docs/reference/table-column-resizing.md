@@ -44,4 +44,5 @@ Name | Plugin | Type | Description
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns with new width values applied.
 tableColumnResizingEnabled | Getter | boolean | Specifies whether table column resizing is enabled.
 changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the specified column width. Column width is increased by the corresponding shift value, or decreased if the value is negative.
-changeDraftTableColumnWidth | Action | ({ columnName: string, shift?: number }) => void | Changes the specified column width used for preview. Column width is increased by the corresponding shift value, or decreased if the value is negative. Set `shift` to `null` to clear draft width by the current column.
+draftTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the specified column width used for preview. Column width is increased by the corresponding shift value, or decreased if the value is negative.
+cancelTableColumnWidthDraft | Action | () => void | Cancels column width changes used for preview.

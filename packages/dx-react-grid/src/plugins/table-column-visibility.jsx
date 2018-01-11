@@ -15,34 +15,34 @@ const pluginDependencies = [
   { pluginName: 'Table' },
 ];
 
-const visibleTableColumnsComputed = ({ tableColumns, hiddenColumns }) =>
-  visibleTableColumns(tableColumns, hiddenColumns);
+const visibleTableColumnsComputed = ({ tableColumns, hiddenColumnNames }) =>
+  visibleTableColumns(tableColumns, hiddenColumnNames);
 
 export class TableColumnVisibility extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      hiddenColumns: props.defaultHiddenColumns,
+      hiddenColumnNames: props.defaultHiddenColumnNames,
     };
     const stateHelper = createStateHelper(this);
 
-    this.toggleColumnVisibility = stateHelper.applyFieldReducer.bind(stateHelper, 'hiddenColumns', toggleColumn);
+    this.toggleColumnVisibility = stateHelper.applyFieldReducer.bind(stateHelper, 'hiddenColumnNames', toggleColumn);
   }
   getState() {
     const {
-      hiddenColumns = this.state.hiddenColumns,
+      hiddenColumnNames = this.state.hiddenColumnNames,
     } = this.props;
     return {
       ...this.state,
-      hiddenColumns,
+      hiddenColumnNames,
     };
   }
   notifyStateChange(nextState, state) {
-    const { hiddenColumns } = nextState;
-    const { onHiddenColumnsChange } = this.props;
-    if (onHiddenColumnsChange && hiddenColumns !== state.hiddenColumns) {
-      onHiddenColumnsChange(hiddenColumns);
+    const { hiddenColumnNames } = nextState;
+    const { onHiddenColumnNamesChange } = this.props;
+    if (onHiddenColumnNamesChange && hiddenColumnNames !== state.hiddenColumnNames) {
+      onHiddenColumnNamesChange(hiddenColumnNames);
     }
   }
   render() {
@@ -51,14 +51,14 @@ export class TableColumnVisibility extends React.PureComponent {
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
-    const { hiddenColumns } = this.getState();
+    const { hiddenColumnNames } = this.getState();
 
     return (
       <PluginContainer
         pluginName="TableColumnVisibility"
         dependencies={pluginDependencies}
       >
-        <Getter name="hiddenColumns" value={hiddenColumns} />
+        <Getter name="hiddenColumnNames" value={hiddenColumnNames} />
         <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
         <Action
           name="toggleColumnVisibility"
@@ -68,7 +68,7 @@ export class TableColumnVisibility extends React.PureComponent {
         <Template name="table">
           {params => (
             <TemplateConnector>
-              {({ columns }) => (columns.length === hiddenColumns.length
+              {({ columns }) => (columns.length === hiddenColumnNames.length
                 ? <EmptyMessage
                   getMessage={getMessage}
                   {...params}
@@ -84,16 +84,16 @@ export class TableColumnVisibility extends React.PureComponent {
 }
 
 TableColumnVisibility.propTypes = {
-  hiddenColumns: PropTypes.arrayOf(PropTypes.string),
-  defaultHiddenColumns: PropTypes.arrayOf(PropTypes.string),
+  hiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
+  defaultHiddenColumnNames: PropTypes.arrayOf(PropTypes.string),
   emptyMessageComponent: PropTypes.func.isRequired,
-  onHiddenColumnsChange: PropTypes.func,
+  onHiddenColumnNamesChange: PropTypes.func,
   messages: PropTypes.object,
 };
 
 TableColumnVisibility.defaultProps = {
-  hiddenColumns: undefined,
-  defaultHiddenColumns: [],
-  onHiddenColumnsChange: undefined,
+  hiddenColumnNames: undefined,
+  defaultHiddenColumnNames: [],
+  onHiddenColumnNamesChange: undefined,
   messages: {},
 };

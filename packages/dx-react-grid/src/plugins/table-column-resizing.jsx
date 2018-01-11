@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { PluginContainer, Getter, Action } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
-  changeTableColumnWidths,
-  changeDraftTableColumnWidths,
+  changeTableColumnWidth,
+  changeDraftTableColumnWidth,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -18,16 +18,16 @@ export class TableColumnResizing extends React.PureComponent {
 
     this.state = {
       columnWidths: props.defaultColumnWidths,
-      draftColumnWidths: {},
+      draftColumnWidths: [],
     };
 
     const stateHelper = createStateHelper(this);
 
-    this.changeTableColumnWidthsAction =
-      stateHelper.applyReducer.bind(stateHelper, changeTableColumnWidths);
+    this.changeTableColumnWidthAction =
+      stateHelper.applyReducer.bind(stateHelper, changeTableColumnWidth);
 
-    this.changeDraftTableColumnWidthsAction =
-      stateHelper.applyReducer.bind(stateHelper, changeDraftTableColumnWidths);
+    this.changeDraftTableColumnWidthAction =
+      stateHelper.applyReducer.bind(stateHelper, changeDraftTableColumnWidth);
   }
   getState() {
     return {
@@ -55,10 +55,10 @@ export class TableColumnResizing extends React.PureComponent {
       >
         <Getter name="tableColumnResizingEnabled" value />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Action name="changeTableColumnWidths" action={this.changeTableColumnWidthsAction} />
+        <Action name="changeTableColumnWidth" action={this.changeTableColumnWidthAction} />
         <Action
-          name="changeDraftTableColumnWidths"
-          action={this.changeDraftTableColumnWidthsAction}
+          name="changeDraftTableColumnWidth"
+          action={this.changeDraftTableColumnWidthAction}
         />
       </PluginContainer>
     );
@@ -66,13 +66,13 @@ export class TableColumnResizing extends React.PureComponent {
 }
 
 TableColumnResizing.propTypes = {
-  defaultColumnWidths: PropTypes.objectOf(PropTypes.number),
-  columnWidths: PropTypes.objectOf(PropTypes.number),
+  defaultColumnWidths: PropTypes.array,
+  columnWidths: PropTypes.array,
   onColumnWidthsChange: PropTypes.func,
 };
 
 TableColumnResizing.defaultProps = {
-  defaultColumnWidths: {},
+  defaultColumnWidths: [],
   columnWidths: undefined,
   onColumnWidthsChange: undefined,
 };

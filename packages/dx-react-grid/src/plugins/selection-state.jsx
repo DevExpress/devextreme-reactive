@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setRowsSelection } from '@devexpress/dx-grid-core';
+import { toggleSelection } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 export class SelectionState extends React.PureComponent {
@@ -15,7 +15,7 @@ export class SelectionState extends React.PureComponent {
     const stateHelper = createStateHelper(this);
 
     this.toggleSelection = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'selection', setRowsSelection);
+      .bind(stateHelper, 'selection', toggleSelection);
   }
   getState() {
     return {

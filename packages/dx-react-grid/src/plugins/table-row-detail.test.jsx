@@ -24,7 +24,7 @@ const defaultDeps = {
   getter: {
     tableColumns: [{ type: 'undefined', column: 'column' }],
     tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
-    expandedRows: { onClick: () => {} },
+    expandedRowIds: { onClick: () => {} },
   },
   action: {
     toggleDetailRowExpanded: jest.fn(),
@@ -86,7 +86,7 @@ describe('TableRowDetail', () => {
       expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithExpandedDetail');
       expect(tableRowsWithExpandedDetail)
-        .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.expandedRows, 120);
+        .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.expandedRowIds, 120);
     });
 
     it('should extend tableColumns', () => {

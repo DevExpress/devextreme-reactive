@@ -28,8 +28,8 @@ export class TableRowDetail extends React.PureComponent {
 
     const tableColumnsComputed = ({ tableColumns }) =>
       tableColumnsWithDetail(tableColumns, toggleColumnWidth);
-    const tableBodyRowsComputed = ({ tableBodyRows, expandedRows }) =>
-      tableRowsWithExpandedDetail(tableBodyRows, expandedRows, rowHeight);
+    const tableBodyRowsComputed = ({ tableBodyRows, expandedRowIds }) =>
+      tableRowsWithExpandedDetail(tableBodyRows, expandedRowIds, rowHeight);
 
     return (
       <PluginContainer
@@ -44,11 +44,11 @@ export class TableRowDetail extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ expandedRows }, { toggleDetailRowExpanded }) => (
+              {({ expandedRowIds }, { toggleDetailRowExpanded }) => (
                 <ToggleCell
                   {...params}
                   row={params.tableRow.row}
-                  expanded={isDetailRowExpanded(expandedRows, params.tableRow.rowId)}
+                  expanded={isDetailRowExpanded(expandedRowIds, params.tableRow.rowId)}
                   onToggle={() => toggleDetailRowExpanded({ rowId: params.tableRow.rowId })}
                 />
               )}

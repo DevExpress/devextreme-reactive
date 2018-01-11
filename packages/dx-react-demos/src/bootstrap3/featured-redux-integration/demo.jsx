@@ -71,8 +71,8 @@ const GridContainer = ({
   onSortingChange,
   selection,
   onSelectionChange,
-  expandedRows,
-  onExpandedRowsChange,
+  expandedRowIds,
+  onExpandedRowIdsChange,
   grouping,
   onGroupingChange,
   expandedGroups,
@@ -114,8 +114,8 @@ const GridContainer = ({
       onPageSizeChange={onPageSizeChange}
     />
     <RowDetailState
-      expandedRows={expandedRows}
-      onExpandedRowsChange={onExpandedRowsChange}
+      expandedRowIds={expandedRowIds}
+      onExpandedRowIdsChange={onExpandedRowIdsChange}
     />
     <SelectionState
       selection={selection}
@@ -164,8 +164,8 @@ GridContainer.propTypes = {
   onSortingChange: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
   onSelectionChange: PropTypes.func.isRequired,
-  expandedRows: PropTypes.array.isRequired,
-  onExpandedRowsChange: PropTypes.func.isRequired,
+  expandedRowIds: PropTypes.array.isRequired,
+  onExpandedRowIdsChange: PropTypes.func.isRequired,
   grouping: PropTypes.array.isRequired,
   onGroupingChange: PropTypes.func.isRequired,
   expandedGroups: PropTypes.array.isRequired,
@@ -199,7 +199,7 @@ const gridInitialState = {
   grouping: [],
   expandedGroups: [],
   selection: [],
-  expandedRows: [1],
+  expandedRowIds: [1],
   filters: [],
   currentPage: 0,
   pageSize: 10,
@@ -240,7 +240,7 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   onSortingChange: sorting => dispatch(createGridAction('sorting', sorting)),
   onSelectionChange: selection => dispatch(createGridAction('selection', selection)),
-  onExpandedRowsChange: expandedRows => dispatch(createGridAction('expandedRows', expandedRows)),
+  onExpandedRowIdsChange: expandedRowIds => dispatch(createGridAction('expandedRowIds', expandedRowIds)),
   onGroupingChange: grouping => dispatch(createGridAction('grouping', grouping)),
   onExpandedGroupsChange: expandedGroups => dispatch(createGridAction('expandedGroups', expandedGroups)),
   onFiltersChange: filters => dispatch(createGridAction('filters', filters)),

@@ -5,41 +5,41 @@ import {
 describe('TableRowDetail Plugin reducers', () => {
   describe('#toggleDetailRowExpanded', () => {
     it('can expand row by toggling', () => {
-      const expandedRows = [];
+      const expandedRowIds = [];
       const payload = { rowId: 1 };
-      const nextExpandedRows = toggleDetailRowExpanded(expandedRows, payload);
+      const nextExpandedRowIds = toggleDetailRowExpanded(expandedRowIds, payload);
 
-      expect(nextExpandedRows).toEqual([1]);
+      expect(nextExpandedRowIds).toEqual([1]);
     });
 
     it('can collapse row by toggling', () => {
-      const expandedRows = [1];
+      const expandedRowIds = [1];
       const payload = { rowId: 1 };
-      const nextExpandedRows = toggleDetailRowExpanded(expandedRows, payload);
+      const nextExpandedRowIds = toggleDetailRowExpanded(expandedRowIds, payload);
 
-      expect(nextExpandedRows).toEqual([]);
+      expect(nextExpandedRowIds).toEqual([]);
     });
 
     it('does not collapse if state is true', () => {
-      const expandedRows = [1];
+      const expandedRowIds = [1];
       const payload = { rowId: 1, state: true };
 
-      let nextExpandedRows = toggleDetailRowExpanded(expandedRows, payload);
-      expect(nextExpandedRows).toEqual([1]);
+      let nextExpandedRowIds = toggleDetailRowExpanded(expandedRowIds, payload);
+      expect(nextExpandedRowIds).toEqual([1]);
 
-      nextExpandedRows = toggleDetailRowExpanded(expandedRows, payload);
-      expect(nextExpandedRows).toEqual([1]);
+      nextExpandedRowIds = toggleDetailRowExpanded(expandedRowIds, payload);
+      expect(nextExpandedRowIds).toEqual([1]);
     });
 
     it('doesn not expand if state is false', () => {
-      const expandedRows = [];
+      const expandedRowIds = [];
       const payload = { rowId: 1, state: false };
 
-      let nextExpandedRows = toggleDetailRowExpanded(expandedRows, payload);
-      expect(nextExpandedRows).toEqual([]);
+      let nextExpandedRowIds = toggleDetailRowExpanded(expandedRowIds, payload);
+      expect(nextExpandedRowIds).toEqual([]);
 
-      nextExpandedRows = toggleDetailRowExpanded(expandedRows, payload);
-      expect(nextExpandedRows).toEqual([]);
+      nextExpandedRowIds = toggleDetailRowExpanded(expandedRowIds, payload);
+      expect(nextExpandedRowIds).toEqual([]);
     });
   });
 });

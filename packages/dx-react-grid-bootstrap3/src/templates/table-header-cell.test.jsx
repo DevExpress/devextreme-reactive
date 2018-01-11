@@ -125,7 +125,7 @@ describe('TableHeaderCell', () => {
       });
   });
 
-  it('should render resize control if resize allowed', () => {
+  it('should render resize control if resizing is allowed', () => {
     const onWidthChange = () => {};
     const onDraftWidthChange = () => {};
     const tree = shallow((

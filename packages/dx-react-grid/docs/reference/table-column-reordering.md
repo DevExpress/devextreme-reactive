@@ -13,7 +13,7 @@ A plugin that manages the displayed columns' order.
 Name | Type | Default | Description
 -----|------|---------|------------
 order | Array&lt;string&gt; | | The column order.
-defaultOrder | Array&lt;string&gt; | | The initial column order in the uncontrolled mode.
+defaultOrder | Array&lt;string&gt; | [] | The initial column order in the uncontrolled mode.
 onOrderChange | (nextOrder: Array&lt;string&gt;) => void | | Handles changes to the column order.
 
 ## Plugin Developer Reference

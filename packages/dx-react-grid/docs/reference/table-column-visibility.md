@@ -12,7 +12,7 @@ A plugin that manages Grid columns' visibility.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-hiddenColumns | Array&lt;string&gt; | [] | Hidden column names.
+hiddenColumns | Array&lt;string&gt; | | Hidden column names.
 defaultHiddenColumns | Array&lt;string&gt; | [] | Names of initially hidden columns in uncontrolled mode.
 onHiddenColumnsChange | (hiddenColumns: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
 emptyMessageComponent | ElementType&lt;[EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.

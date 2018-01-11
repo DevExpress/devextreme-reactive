@@ -59,7 +59,7 @@ If you specify additional properties, they are added to the component's root ele
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
-editingRows | Getter | Array&lt;number &#124; string&gt; | IDs of the rows that are being edited.
+editingRowIds | Getter | Array&lt;number &#124; string&gt; | IDs of the rows that are being edited.
 addedRows | Getter | Array&lt;any&gt; | Created but not committed rows.
 changeAddedRow | Action | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
 changedRows | Getter | { [key: string]: any } | An associative array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.

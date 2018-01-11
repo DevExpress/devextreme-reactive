@@ -59,4 +59,4 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
 hiddenColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Hidden table columns.
-toggleVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.
+toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.

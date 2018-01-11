@@ -104,7 +104,7 @@ export default class Demo extends React.PureComponent {
         />
         <EditingState
           onCommitChanges={this.commitChanges}
-          defaultEditingRows={[0]}
+          defaultEditingRowIds={[0]}
         />
         <Table />
         <TableHeaderRow />

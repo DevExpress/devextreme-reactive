@@ -154,7 +154,7 @@ describe('GroupingState', () => {
       ));
 
       expect(getComputedState(tree).expandedGroups)
-        .toEqual(new Set(defaultExpandedGroups));
+        .toEqual(defaultExpandedGroups);
     });
 
     it('should provide expandedGroups defined in expandedGroups property', () => {
@@ -170,7 +170,7 @@ describe('GroupingState', () => {
       ));
 
       expect(getComputedState(tree).expandedGroups)
-        .toEqual(new Set(expandedGroups));
+        .toEqual(expandedGroups);
     });
 
     it('should fire "onExpandedGroupsChange" and should change expandedGroups in uncontrolled mode "toggleExpandedGroups"', () => {
@@ -199,7 +199,7 @@ describe('GroupingState', () => {
         );
 
       expect(getComputedState(tree).expandedGroups)
-        .toEqual(new Set(newExpandedGroups));
+        .toEqual(newExpandedGroups);
 
       expect(expandedGroupsChange)
         .toBeCalledWith(newExpandedGroups);
@@ -231,7 +231,7 @@ describe('GroupingState', () => {
         );
 
       expect(getComputedState(tree).expandedGroups)
-        .toEqual(new Set(newExpandedGroups));
+        .toEqual(newExpandedGroups);
 
       expect(expandedGroupsChange)
         .toBeCalledWith(newExpandedGroups);
@@ -260,7 +260,7 @@ describe('GroupingState', () => {
         .toBeCalledWith(expect.objectContaining({ expandedGroups }), payload);
 
       expect(getComputedState(tree).expandedGroups)
-        .toEqual(new Set(expandedGroups));
+        .toEqual(expandedGroups);
 
       expect(expandedGroupsChange)
         .toBeCalledWith(newExpandedGroups);
@@ -292,7 +292,7 @@ describe('GroupingState', () => {
         );
 
       expect(getComputedState(tree).expandedGroups)
-        .toEqual(new Set(expandedGroups));
+        .toEqual(expandedGroups);
 
       expect(expandedGroupsChange)
         .toBeCalledWith(newExpandedGroups);

@@ -105,15 +105,15 @@ describe('EditingState', () => {
     });
 
     it('should correctly work with the several editing action calls in the controlled mode', () => {
-      const changeEditingRows = jest.fn();
+      const changeEditingRowIds = jest.fn();
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <EditingState
             {...defaultProps}
-            editingRows={[]}
+            editingRowIds={[]}
             changedRows={{}}
-            onEditingRowsChange={changeEditingRows}
+            onEditingRowIdsChange={changeEditingRowIds}
           />
         </PluginHost>
       ));
@@ -124,10 +124,10 @@ describe('EditingState', () => {
         actions.changeRow({ rowIds: [0] });
       });
 
-      expect(changeEditingRows)
+      expect(changeEditingRowIds)
         .toBeCalledWith([]);
 
-      expect(changeEditingRows)
+      expect(changeEditingRowIds)
         .toHaveBeenCalledTimes(1);
     });
   });

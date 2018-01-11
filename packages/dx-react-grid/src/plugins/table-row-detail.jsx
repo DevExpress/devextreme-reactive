@@ -44,12 +44,12 @@ export class TableRowDetail extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ expandedRowIds }, { setDetailRowExpanded }) => (
+              {({ expandedRowIds }, { toggleDetailRowExpanded }) => (
                 <ToggleCell
                   {...params}
                   row={params.tableRow.row}
                   expanded={isDetailRowExpanded(expandedRowIds, params.tableRow.rowId)}
-                  onToggle={() => setDetailRowExpanded({ rowId: params.tableRow.rowId })}
+                  onToggle={() => toggleDetailRowExpanded({ rowId: params.tableRow.rowId })}
                 />
               )}
             </TemplateConnector>

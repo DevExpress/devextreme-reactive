@@ -27,7 +27,7 @@ const defaultDeps = {
     expandedRowIds: { onClick: () => {} },
   },
   action: {
-    setDetailRowExpanded: jest.fn(),
+    toggleDetailRowExpanded: jest.fn(),
   },
   template: {
     tableCell: {

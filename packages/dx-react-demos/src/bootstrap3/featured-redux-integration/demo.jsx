@@ -179,7 +179,7 @@ GridContainer.propTypes = {
   pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   columnOrder: PropTypes.array.isRequired,
   onColumnOrderChange: PropTypes.func.isRequired,
-  columnWidths: PropTypes.objectOf(PropTypes.number).isRequired,
+  columnWidths: PropTypes.array.isRequired,
   onColumnWidthsChange: PropTypes.func.isRequired,
 };
 
@@ -205,14 +205,14 @@ const gridInitialState = {
   pageSize: 10,
   pageSizes: [5, 10, 15],
   columnOrder: ['prefix', 'firstName', 'lastName', 'position', 'state', 'birthDate'],
-  columnWidths: {
-    prefix: 75,
-    firstName: 130,
-    lastName: 130,
-    position: 170,
-    state: 125,
-    birthDate: 115,
-  },
+  columnWidths: [
+    { columnName: 'prefix', width: 75 },
+    { columnName: 'firstName', width: 130 },
+    { columnName: 'lastName', width: 130 },
+    { columnName: 'position', width: 170 },
+    { columnName: 'state', width: 125 },
+    { columnName: 'birthDate', width: 115 },
+  ],
 };
 
 const gridReducer = (state = gridInitialState, action) => {

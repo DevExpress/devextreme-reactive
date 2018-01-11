@@ -79,7 +79,7 @@ export class TableGroupRow extends React.PureComponent {
                       {...params}
                       row={params.tableRow.row}
                       column={params.tableColumn.column}
-                      expanded={expandedGroups.has(params.tableRow.row.compoundKey)}
+                      expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
                       onToggle={() =>
                         toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })}
                     >

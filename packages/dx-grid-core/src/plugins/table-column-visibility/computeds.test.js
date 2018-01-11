@@ -10,9 +10,9 @@ describe('TableColumnVisibility computeds', () => {
         { type: TABLE_DATA_TYPE, column: { name: 'c' } },
         { type: TABLE_DATA_TYPE, column: { name: 'd' } },
       ];
-      const hiddenColumns = ['a', 'c', 'd'];
+      const hiddenColumnNames = ['a', 'c', 'd'];
 
-      expect(visibleTableColumns(tableColumns, hiddenColumns))
+      expect(visibleTableColumns(tableColumns, hiddenColumnNames))
         .toEqual([{ type: TABLE_DATA_TYPE, column: { name: 'b' } }]);
     });
 
@@ -22,9 +22,9 @@ describe('TableColumnVisibility computeds', () => {
         { type: TABLE_DATA_TYPE, column: { name: 'a' } },
         { type: TABLE_DATA_TYPE, column: { name: 'b' } },
       ];
-      const hiddenColumns = ['a'];
+      const hiddenColumnNames = ['a'];
 
-      expect(visibleTableColumns(tableColumns, hiddenColumns))
+      expect(visibleTableColumns(tableColumns, hiddenColumnNames))
         .toEqual([{ key: 'editCommand' }, { type: TABLE_DATA_TYPE, column: { name: 'b' } }]);
     });
   });

@@ -14,7 +14,7 @@ describe('TableColumnVisibility helpers', () => {
         { columnName: 'a' },
         { columnName: 'b' },
       ];
-      const hiddenColumns = defaultColumns;
+      const hiddenColumns = ['b', 'c', 'd', 'a'];
 
       expect(showEmptyMessage(grouping, hiddenColumns, defaultColumns))
         .toBeTruthy();
@@ -25,13 +25,22 @@ describe('TableColumnVisibility helpers', () => {
         { columnName: 'a' },
         { columnName: 'b' },
       ];
-      const hiddenColumns = [
-        { columnName: 'b' },
-        { columnName: 'a' },
-      ];
+      const hiddenColumns = ['b', 'c', 'd'];
 
       expect(showEmptyMessage(grouping, hiddenColumns, defaultColumns))
         .toBeTruthy();
+    });
+
+    it('should not show empty message while a showed column is not grouped', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'b' },
+        { columnName: 'c' },
+      ];
+      const hiddenColumns = ['a', 'b', 'c'];
+
+      expect(showEmptyMessage(grouping, hiddenColumns, defaultColumns))
+        .toBeFalsy();
     });
   });
 });

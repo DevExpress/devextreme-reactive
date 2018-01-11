@@ -1,20 +1,20 @@
-export const isEmptyMessageShow = (grouping, hiddenColumns, columns) => {
-  if (columns.length === hiddenColumns.length) return true;
+export const isEmptyMessageShow = (grouping, hiddenColumnNames, columns) => {
   if (grouping === undefined) return false;
+  if (columns.length === hiddenColumnNames.length) return true;
 
-  let contain = true;
-  const groupingNames = grouping.map(group => group.columnName);
-  const showedColumnNames = columns.reduce((acc, column) => {
-    if (!hiddenColumns.find(hiddenColumn => hiddenColumn === column.name)) {
-      acc.push(column.name);
+  const groupingColumnNames = grouping.map(group => group.columnName);
+  const showedColumnNames = columns.reduce((acc, showedColumn) => {
+    if (!hiddenColumnNames.find(hiddenColumnName => hiddenColumnName === showedColumn.name)) {
+      acc.push(showedColumn.name);
     }
     return acc;
   }, []);
 
-  showedColumnNames.forEach((element) => {
-    if (groupingNames.indexOf(element) === -1) {
-      contain = false;
+  let showedColumnsGrouped = true;
+  showedColumnNames.forEach((showedColumnName) => {
+    if (groupingColumnNames.indexOf(showedColumnName) === -1) {
+      showedColumnsGrouped = false;
     }
   });
-  return contain;
+  return showedColumnsGrouped;
 };

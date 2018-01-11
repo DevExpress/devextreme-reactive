@@ -12,7 +12,7 @@ export class DragSource extends React.Component {
     return (
       <Draggable
         onStart={({ x, y }) => {
-          dragDropProvider.start(this.props.getPayload(), { x, y });
+          dragDropProvider.start(this.props.payload, { x, y });
           onStart({ clientOffset: { x, y } });
         }}
         onUpdate={({ x, y }) => {
@@ -36,7 +36,7 @@ DragSource.contextTypes = {
 
 DragSource.propTypes = {
   children: PropTypes.node.isRequired,
-  getPayload: PropTypes.func.isRequired,
+  payload: PropTypes.any.isRequired,
   onStart: PropTypes.func,
   onUpdate: PropTypes.func,
   onEnd: PropTypes.func,

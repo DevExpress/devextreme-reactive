@@ -14,7 +14,7 @@ describe('DragDropProvider', () => {
       <DragDropProvider>
         <div>
           <DragSource
-            getPayload={() => 'data'}
+            payload="data"
             onStart={onStart}
             onUpdate={onUpdate}
             onEnd={onEnd}

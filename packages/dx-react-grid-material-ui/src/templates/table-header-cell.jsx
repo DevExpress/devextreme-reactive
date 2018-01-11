@@ -133,7 +133,7 @@ class TableHeaderCellBase extends React.PureComponent {
     return draggingEnabled ? (
       <DragSource
         ref={(element) => { this.cellRef = element; }}
-        getPayload={() => [{ type: 'column', columnName: column.name }]}
+        payload={[{ type: 'column', columnName: column.name }]}
         onStart={() => this.setState({ dragging: true })}
         onEnd={() => this.cellRef && this.setState({ dragging: false })}
       >

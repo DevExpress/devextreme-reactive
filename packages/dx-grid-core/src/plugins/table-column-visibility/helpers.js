@@ -1,4 +1,4 @@
-export const showEmptyMessage = (grouping, hiddenColumns, columns) => {
+export const isEmptyMessageShow = (grouping, hiddenColumns, columns) => {
   if (columns.length === hiddenColumns.length) return true;
   if (grouping === undefined) return false;
 

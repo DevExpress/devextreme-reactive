@@ -1,4 +1,4 @@
-import { showEmptyMessage } from './helpers';
+import { isEmptyMessageShow } from './helpers';
 
 describe('TableColumnVisibility helpers', () => {
   const defaultColumns = [
@@ -8,7 +8,7 @@ describe('TableColumnVisibility helpers', () => {
     { name: 'd' },
   ];
 
-  describe('#showEmptyMessage', () => {
+  describe('#isEmptyMessageShow', () => {
     it('should show empty message when all columns are hidden', () => {
       const grouping = [
         { columnName: 'a' },
@@ -16,7 +16,7 @@ describe('TableColumnVisibility helpers', () => {
       ];
       const hiddenColumns = ['b', 'c', 'd', 'a'];
 
-      expect(showEmptyMessage(grouping, hiddenColumns, defaultColumns))
+      expect(isEmptyMessageShow(grouping, hiddenColumns, defaultColumns))
         .toBeTruthy();
     });
 
@@ -27,7 +27,7 @@ describe('TableColumnVisibility helpers', () => {
       ];
       const hiddenColumns = ['b', 'c', 'd'];
 
-      expect(showEmptyMessage(grouping, hiddenColumns, defaultColumns))
+      expect(isEmptyMessageShow(grouping, hiddenColumns, defaultColumns))
         .toBeTruthy();
     });
 
@@ -39,7 +39,7 @@ describe('TableColumnVisibility helpers', () => {
       ];
       const hiddenColumns = ['a', 'b', 'c'];
 
-      expect(showEmptyMessage(grouping, hiddenColumns, defaultColumns))
+      expect(isEmptyMessageShow(grouping, hiddenColumns, defaultColumns))
         .toBeFalsy();
     });
   });

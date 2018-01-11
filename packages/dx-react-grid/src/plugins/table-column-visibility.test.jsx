@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { visibleTableColumns, getMessagesFormatter, columnChooserItems, toggleColumn } from '@devexpress/dx-grid-core';
+import { visibleTableColumns, getMessagesFormatter, columnChooserItems, toggleColumn, isEmptyMessageShow } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
@@ -11,6 +11,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getMessagesFormatter: jest.fn(),
   columnChooserItems: jest.fn(),
   toggleColumn: jest.fn(),
+  isEmptyMessageShow: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -48,6 +49,7 @@ describe('TableColumnVisibility', () => {
     visibleTableColumns.mockImplementation(() => [{ column: { name: 'c' } }]);
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     columnChooserItems.mockImplementation(args => (args));
+    isEmptyMessageShow.mockImplementation(() => true);
   });
   afterEach(() => {
     jest.resetAllMocks();

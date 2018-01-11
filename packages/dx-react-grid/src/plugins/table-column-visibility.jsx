@@ -8,7 +8,7 @@ import {
   TemplateConnector,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { getMessagesFormatter, toggleColumn, visibleTableColumns, showEmptyMessage } from '@devexpress/dx-grid-core';
+import { getMessagesFormatter, toggleColumn, visibleTableColumns, isEmptyMessageShow } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 const pluginDependencies = [
@@ -66,7 +66,7 @@ export class TableColumnVisibility extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({ columns, grouping }) =>
-                (showEmptyMessage(grouping, hiddenColumns, columns)
+                (isEmptyMessageShow(grouping, hiddenColumns, columns)
                 ? <EmptyMessage
                   getMessage={getMessage}
                   {...params}

@@ -26,7 +26,7 @@ const defaultDeps = {
     filters: [{ columnName: 'a', value: 'b' }],
   },
   action: {
-    setColumnFilter: jest.fn(),
+    changeColumnFilter: jest.fn(),
   },
   template: {
     tableCell: {

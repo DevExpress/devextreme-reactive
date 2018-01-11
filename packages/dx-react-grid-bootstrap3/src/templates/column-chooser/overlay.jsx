@@ -33,6 +33,7 @@ export const Overlay = ({
   <OverlayBS3
     show={visible}
     target={target}
+    container={target ? target.parentElement : undefined}
     onHide={onHide}
     placement="bottom"
     rootClose

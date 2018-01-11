@@ -36,10 +36,7 @@ DragSource.contextTypes = {
 
 DragSource.propTypes = {
   children: PropTypes.node.isRequired,
-  payload: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-    columnName: PropTypes.string,
-  })).isRequired,
+  payload: PropTypes.any.isRequired,
   onStart: PropTypes.func,
   onUpdate: PropTypes.func,
   onEnd: PropTypes.func,

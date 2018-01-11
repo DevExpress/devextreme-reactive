@@ -6,8 +6,6 @@ import { DragDropProvider } from './provider';
 import { DragSource } from './source';
 
 describe('DragDropProvider', () => {
-  const dragSourcePayload = [{ type: 'column', columnName: 'a' }];
-
   it('should fire the "onStart", "onUpdate", "onEnd" callbacks while dragging a source', () => {
     const onStart = jest.fn();
     const onUpdate = jest.fn();
@@ -16,7 +14,7 @@ describe('DragDropProvider', () => {
       <DragDropProvider>
         <div>
           <DragSource
-            payload={dragSourcePayload}
+            payload="data"
             onStart={onStart}
             onUpdate={onUpdate}
             onEnd={onEnd}

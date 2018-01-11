@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Dropdown } from 'react-bootstrap';
 
 export const Container = ({
   children,
@@ -9,13 +8,13 @@ export const Container = ({
   style,
   ...restProps
 }) => (
-  <Dropdown.Menu
-    // className={classNames('list-group', className)}
-    // style={{ marginBottom: 0, ...style }}
-    // {...restProps}
+  <div
+    className={classNames('list-group', className)}
+    style={{ marginBottom: 0, ...style }}
+    {...restProps}
   >
     {children}
-  </Dropdown.Menu>
+  </div>
 );
 
 Container.propTypes = {

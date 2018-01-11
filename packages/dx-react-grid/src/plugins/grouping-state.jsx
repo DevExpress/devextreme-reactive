@@ -49,10 +49,14 @@ export class GroupingState extends React.PureComponent {
     this.changeColumnSorting = this.changeColumnSorting.bind(this);
   }
   getState() {
+    const {
+      grouping = this.state.grouping,
+      expandedGroups = this.state.expandedGroups,
+    } = this.props;
     return {
       ...this.state,
-      grouping: this.props.grouping || this.state.grouping,
-      expandedGroups: this.props.expandedGroups || this.state.expandedGroups,
+      grouping,
+      expandedGroups,
     };
   }
   changeColumnSorting(

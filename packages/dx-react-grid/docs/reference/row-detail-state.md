@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 expandedRowIds | Array&lt;number &#124; string&gt; | | IDs of the rows being expanded.
-defaultExpandedRowIds | Array&lt;number &#124; string&gt; | | IDs of the rows initially expanded in the uncontrolled mode.
+defaultExpandedRowIds | Array&lt;number &#124; string&gt; | [] | IDs of the rows initially expanded in the uncontrolled mode.
 onExpandedRowIdsChange | (expandedRowIds: Array&lt;number &#124; string&gt;) => void | | Handles expanded rows changes.
 
 ## Plugin Developer Reference

@@ -21,10 +21,14 @@ export class PagingState extends React.PureComponent {
       .bind(stateHelper, 'pageSize', setPageSize);
   }
   getState() {
+    const {
+      currentPage = this.state.currentPage,
+      pageSize = this.state.pageSize,
+    } = this.props;
     return {
       ...this.state,
-      currentPage: this.props.currentPage || this.state.currentPage,
-      pageSize: this.props.pageSize || this.state.pageSize,
+      currentPage,
+      pageSize,
     };
   }
   notifyStateChange(nextState, state) {

@@ -28,7 +28,7 @@ export class TableColumnReordering extends React.PureComponent {
     super(props);
 
     this.state = {
-      order: props.defaultOrder || props.order,
+      order: props.defaultOrder,
       sourceColumnIndex: -1,
       targetColumnIndex: -1,
     };
@@ -38,9 +38,13 @@ export class TableColumnReordering extends React.PureComponent {
     this.onDrop = this.handleDrop.bind(this);
   }
   getState() {
-    const { state } = this;
-    const { order = state.order } = this.props;
-    return { ...state, order };
+    const {
+      order = this.state.order,
+    } = this.props;
+    return {
+      ...this.state,
+      order,
+    };
   }
   getDraftOrder() {
     const { order, sourceColumnIndex, targetColumnIndex } = this.getState();
@@ -200,6 +204,6 @@ TableColumnReordering.propTypes = {
 
 TableColumnReordering.defaultProps = {
   order: undefined,
-  defaultOrder: undefined,
+  defaultOrder: [],
   onOrderChange: undefined,
 };

@@ -30,9 +30,12 @@ export class TableColumnResizing extends React.PureComponent {
       stateHelper.applyReducer.bind(stateHelper, changeDraftTableColumnWidth);
   }
   getState() {
+    const {
+      columnWidths = this.state.columnWidths,
+    } = this.props;
     return {
       ...this.state,
-      columnWidths: this.props.columnWidths || this.state.columnWidths,
+      columnWidths,
     };
   }
   notifyStateChange(nextState, state) {

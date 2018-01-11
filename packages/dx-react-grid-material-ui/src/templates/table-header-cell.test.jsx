@@ -97,6 +97,7 @@ describe('TableHeaderCell', () => {
       <DragDropProvider>
         <TableHeaderCell
           {...defaultProps}
+          column={{ name: 'a' }}
           draggingEnabled
         />
       </DragDropProvider>
@@ -111,6 +112,7 @@ describe('TableHeaderCell', () => {
       <DragDropProvider>
         <TableHeaderCell
           {...defaultProps}
+          column={{ name: 'a' }}
           draggingEnabled
         />
       </DragDropProvider>

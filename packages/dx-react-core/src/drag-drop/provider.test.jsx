@@ -6,6 +6,8 @@ import { DragDropProvider } from './provider';
 import { DragSource } from './source';
 
 describe('DragDropProvider', () => {
+  const dragSourcePayload = [{ type: 'column', columnName: 'a' }];
+
   it('should fire the "onChange" callback while dragging a source', () => {
     const onChange = jest.fn();
     const tree = mount((
@@ -14,7 +16,7 @@ describe('DragDropProvider', () => {
       >
         <div>
           <DragSource
-            getPayload={() => 'data'}
+            payload={dragSourcePayload}
           >
             <div className="source" />
           </DragSource>
@@ -27,13 +29,13 @@ describe('DragDropProvider', () => {
     draggable.prop('onStart')({ x: 50, y: 50 });
 
     expect(onChange.mock.calls[0][0])
-      .toEqual({ payload: 'data', clientOffset: { x: 50, y: 50 } });
+      .toEqual({ payload: dragSourcePayload, clientOffset: { x: 50, y: 50 } });
 
     onChange.mockReset();
     draggable.prop('onUpdate')({ x: 100, y: 100 });
 
     expect(onChange.mock.calls[0][0])
-      .toEqual({ payload: 'data', clientOffset: { x: 100, y: 100 } });
+      .toEqual({ payload: dragSourcePayload, clientOffset: { x: 100, y: 100 } });
 
     onChange.mockReset();
     draggable.prop('onEnd')({ x: 100, y: 100 });

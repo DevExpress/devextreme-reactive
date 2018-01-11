@@ -78,7 +78,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <DragDropProvider>
         <TableHeaderCell
-          column={{}}
+          column={{ name: 'a' }}
           draggingEnabled
         />
       </DragDropProvider>
@@ -97,7 +97,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
-          column={{}}
+          column={{ name: 'a' }}
           draggingEnabled
         />
       </DragDropProvider>

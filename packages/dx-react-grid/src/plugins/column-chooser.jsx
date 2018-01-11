@@ -33,6 +33,7 @@ export class ColumnChooser extends React.PureComponent {
   }
   render() {
     const {
+      dropdownComponent: Dropdown,
       overlayComponent: Overlay,
       containerComponent: Container,
       itemComponent: Item,
@@ -52,16 +53,17 @@ export class ColumnChooser extends React.PureComponent {
           <TemplateConnector>
             {({ columns, hiddenColumns }, { toggleColumnVisibility }) => (
               <React.Fragment>
-                <ToggleButton
-                  buttonRef={this.buttonRef}
-                  onToggle={this.handleToggle}
-                  getMessage={getMessage}
-                />
-                <Overlay
-                  visible={visible}
-                  target={this.button}
-                  onHide={this.handleHide}
-                >
+                <Dropdown>
+                  <ToggleButton
+                    buttonRef={this.buttonRef}
+                    onToggle={this.handleToggle}
+                    getMessage={getMessage}
+                  />
+                  {/* <Overlay
+                    visible={visible}
+                    target={this.button}
+                    onHide={this.handleHide}
+                  > */}
                   <Container>
                     {columnChooserItems(columns, hiddenColumns)
                       .map(item => (
@@ -72,7 +74,8 @@ export class ColumnChooser extends React.PureComponent {
                         />
                     ))}
                   </Container>
-                </Overlay>
+                  {/* </Overlay> */}
+                </Dropdown>
               </React.Fragment>
             )}
           </TemplateConnector>
@@ -83,6 +86,7 @@ export class ColumnChooser extends React.PureComponent {
 }
 
 ColumnChooser.propTypes = {
+  dropdownComponent: PropTypes.func.isRequired,
   overlayComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,

@@ -1,4 +1,4 @@
-export const setDetailRowExpanded = (prevExpanded, { rowId, state }) => {
+export const toggleDetailRowExpanded = (prevExpanded, { rowId, state }) => {
   const expandedRowIds = prevExpanded.slice();
   const expandedIndex = expandedRowIds.indexOf(rowId);
   const rowState = state !== undefined ? state : expandedIndex === -1;

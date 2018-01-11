@@ -81,7 +81,7 @@ describe('RowDetailState', () => {
     ));
 
     const payload = {};
-toggleDetailRowExpanded.mockReturnValue(newExpandedRowIds);
+    toggleDetailRowExpanded.mockReturnValue(newExpandedRowIds);
     executeComputedAction(tree, actions => actions.toggleDetailRowExpanded(payload));
 
     expect(toggleDetailRowExpanded)
@@ -110,7 +110,7 @@ toggleDetailRowExpanded.mockReturnValue(newExpandedRowIds);
     ));
 
     const payload = {};
-toggleDetailRowExpanded.mockReturnValue(newExpandedRowIds);
+    toggleDetailRowExpanded.mockReturnValue(newExpandedRowIds);
     executeComputedAction(tree, actions => actions.toggleDetailRowExpanded(payload));
 
     expect(toggleDetailRowExpanded)

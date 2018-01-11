@@ -46,6 +46,21 @@ describe('PagingState', () => {
         .toBe(3);
     });
 
+    it('should provide value from the "currentPage" property in controlled mode when value is 0', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <PagingState
+            defaultCurrentPage={3}
+            currentPage={0}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentPage)
+        .toBe(0);
+    });
+
     it('should fire the "onCurrentPageChange" callback and provide new value in uncontrolled mode after the "setCurrentPage" action is fired', () => {
       const currentPageChangeMock = jest.fn();
 
@@ -116,6 +131,21 @@ describe('PagingState', () => {
 
       expect(getComputedState(tree).pageSize)
         .toBe(2);
+    });
+
+    it('should provide value from the "pageSize" property in controlled mode when value is 0', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <PagingState
+            defaultPageSize={2}
+            pageSize={0}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).pageSize)
+        .toBe(0);
     });
 
     it('should fire the "onPageSizeChange" callback and provide new value in uncontrolled mode after the "setPageSize" action is fired', () => {

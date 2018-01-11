@@ -1,4 +1,4 @@
-export const setColumnSorting = (state, {
+export const changeColumnSorting = (state, {
   columnName, direction, keepOther, sortIndex,
 }) => {
   const { sorting } = state;

@@ -23,7 +23,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     tableBodyRows: [{ type: 'undefined', rowId: 1 }],
-    editingRows: [1, 2],
+    editingRowIds: [1, 2],
     addedRows: [{ a: 'text' }, {}],
     changedRows: [{ 1: { a: 'text' } }],
     getCellValue: jest.fn(),
@@ -89,7 +89,7 @@ describe('TableEditRow', () => {
       expect(tableRowsWithEditing)
         .toBeCalledWith(
           defaultDeps.getter.tableBodyRows,
-          defaultDeps.getter.editingRows,
+          defaultDeps.getter.editingRowIds,
           defaultDeps.getter.addedRows,
           120,
         );

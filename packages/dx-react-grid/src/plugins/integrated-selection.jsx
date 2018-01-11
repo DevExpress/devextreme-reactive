@@ -20,15 +20,9 @@ export class IntegratedSelection extends React.PureComponent {
     this.availableToSelect = this.availableToSelect.bind(this);
   }
 
-  toggleSelectAll(select, { selection }, { toggleSelection }) {
+  toggleSelectAll(state, getters, { toggleSelection }) {
     const { availableToSelect } = this.state;
-    if (select === undefined) {
-      toggleSelection({ rowIds: availableToSelect });
-    } else if (select) {
-      toggleSelection({ rowIds: availableToSelect, selected: true });
-    } else {
-      toggleSelection({ rowIds: selection, selected: false });
-    }
+    toggleSelection({ rowIds: availableToSelect, state });
   }
   availableToSelect({ rows, getRowId, isGroupRow }) {
     this.setState({ availableToSelect: getAvailableToSelect(rows, getRowId, isGroupRow) });

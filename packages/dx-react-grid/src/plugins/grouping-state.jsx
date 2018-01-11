@@ -46,7 +46,7 @@ export class GroupingState extends React.PureComponent {
       .bind(this.stateHelper, draftGroupingChange);
     this.cancelGroupingChange = this.stateHelper.applyReducer
       .bind(this.stateHelper, cancelGroupingChange);
-    this.setColumnSorting = this.setColumnSorting.bind(this);
+    this.changeColumnSorting = this.changeColumnSorting.bind(this);
   }
   getState() {
     const {
@@ -59,12 +59,16 @@ export class GroupingState extends React.PureComponent {
       expandedGroups,
     };
   }
-  setColumnSorting({ columnName, keepOther, ...restParams }, { sorting }, { setColumnSorting }) {
+  changeColumnSorting(
+    { columnName, keepOther, ...restParams },
+    { sorting },
+    { changeColumnSorting },
+  ) {
     const { grouping } = this.getState();
     const groupingIndex = grouping
       .findIndex(columnGrouping => columnGrouping.columnName === columnName);
     if (groupingIndex === -1) {
-      setColumnSorting({
+      changeColumnSorting({
         columnName,
         keepOther: keepOther || grouping.map(columnGrouping => columnGrouping.columnName),
         ...restParams,
@@ -73,7 +77,7 @@ export class GroupingState extends React.PureComponent {
     }
 
     const sortIndex = adjustSortIndex(groupingIndex, grouping, sorting);
-    setColumnSorting({
+    changeColumnSorting({
       columnName,
       keepOther: true,
       sortIndex,
@@ -89,7 +93,7 @@ export class GroupingState extends React.PureComponent {
         const { grouping } = nextState;
         const { grouping: prevGrouping } = state;
         const { sorting } = getters;
-        const { setColumnSorting } = actions;
+        const { changeColumnSorting } = actions;
 
         if (!sorting) return;
 
@@ -111,7 +115,7 @@ export class GroupingState extends React.PureComponent {
 
         if (columnSortingIndex === sortIndex) return;
 
-        setColumnSorting({
+        changeColumnSorting({
           keepOther: true,
           sortIndex,
           ...sorting[columnSortingIndex],
@@ -149,7 +153,7 @@ export class GroupingState extends React.PureComponent {
         <Action name="draftGroupingChange" action={this.draftGroupingChange} />
         <Action name="cancelGroupingChange" action={this.cancelGroupingChange} />
 
-        <Action name="setColumnSorting" action={this.setColumnSorting} />
+        <Action name="changeColumnSorting" action={this.changeColumnSorting} />
       </PluginContainer>
     );
   }

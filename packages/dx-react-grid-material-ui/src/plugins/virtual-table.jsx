@@ -16,7 +16,12 @@ export class VirtualTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.layoutRenderComponent = createRenderComponent();
+    const { height, estimatedRowHeight } = props;
+    this.layoutRenderComponent =
+      createRenderComponent(VirtualTableLayout, { height, estimatedRowHeight });
+  }
+  componentWillReceiveProps({ height, estimatedRowHeight }) {
+    this.layoutRenderComponent.update({ height, estimatedRowHeight });
   }
   render() {
     const {
@@ -28,13 +33,7 @@ export class VirtualTable extends React.PureComponent {
 
     return (
       <TableBase
-        layoutComponent={this.layoutRenderComponent(props => (
-          <VirtualTableLayout
-            {...props}
-            height={height}
-            estimatedRowHeight={estimatedRowHeight}
-          />
-        ))}
+        layoutComponent={this.layoutRenderComponent.component}
         rowComponent={TableRow}
         cellComponent={TableCell}
         noDataRowComponent={TableRow}

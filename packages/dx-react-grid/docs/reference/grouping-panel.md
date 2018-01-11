@@ -95,12 +95,12 @@ If you specify additional properties, they are added to the component's root ele
 Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
-draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
+draftGrouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Grouping options used for the preview.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Toggles the column's grouping state. If `groupIndex` is omitted, the group is added to the end of the group list.
 changeColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
-draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
-cancelGroupingChange | Action | () => void | Resets the groupingChange state.
+draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column or cancels grouping used for preview. If `groupIndex` is omitted, the group is added to the last position.
+cancelColumnGroupingDraft | Action | () => void | Cancels column grouping changes used for preview.
 draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
 toolbarContent | Template | Object? | A template that renders the toolbar content.
 

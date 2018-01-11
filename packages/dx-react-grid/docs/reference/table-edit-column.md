@@ -73,11 +73,11 @@ cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
 
 Name | Properties | Description
 -----|------------|------------
-TableEditColumn.Command | [EditCommandProps](#editcommandprops) | A component that renders command control within a command cell.
+TableEditColumn.Command | [EditCommandProps](#editcommandprops) | A component that renders a command control within a command cell.
 TableEditColumn.Cell | [TableEditColumnCellProps](#tableeditcolumncellprops) | A component that renders a command cell within a data row.
 TableEditColumn.HeaderCell | [TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a command cell within the header row.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

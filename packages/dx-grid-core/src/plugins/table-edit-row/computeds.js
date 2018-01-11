@@ -1,8 +1,8 @@
 import { TABLE_ADDED_TYPE, TABLE_EDIT_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 
-export const tableRowsWithEditing = (tableRows, editingRows, addedRows, rowHeight) => {
-  const rowIds = new Set(editingRows);
+export const tableRowsWithEditing = (tableRows, editingRowIds, addedRows, rowHeight) => {
+  const rowIds = new Set(editingRowIds);
   const editedTableRows = tableRows
     .map(tableRow => (
       tableRow.type === TABLE_DATA_TYPE && rowIds.has(tableRow.rowId)

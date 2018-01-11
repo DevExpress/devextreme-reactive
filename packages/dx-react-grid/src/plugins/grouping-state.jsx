@@ -138,7 +138,7 @@ export class GroupingState extends React.PureComponent {
       >
         <Getter name="grouping" value={grouping} />
         <Getter name="draftGrouping" value={draftGrouping(grouping, groupingChange)} />
-        <Getter name="expandedGroups" value={new Set(expandedGroups)} />
+        <Getter name="expandedGroups" value={expandedGroups} />
 
         <Action name="groupByColumn" action={this.groupByColumn} />
         <Action name="toggleGroupExpanded" action={this.toggleGroupExpanded} />

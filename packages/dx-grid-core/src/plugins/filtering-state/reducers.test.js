@@ -1,14 +1,14 @@
 import {
-  setColumnFilter,
+  changeColumnFilter,
 } from './reducers';
 
-describe('SortingState reducers', () => {
-  describe('#setColumnFilter', () => {
+describe('FilteringState reducers', () => {
+  describe('#changeColumnFilter', () => {
     it('can set column filter', () => {
       const filters = [];
       const payload = { columnName: 'column', config: { value: 'value' } };
 
-      const nextFilters = setColumnFilter(filters, payload);
+      const nextFilters = changeColumnFilter(filters, payload);
       expect(nextFilters).toEqual([{ columnName: 'column', value: 'value' }]);
     });
 
@@ -16,7 +16,7 @@ describe('SortingState reducers', () => {
       const filters = [{ columnName: 'column', value: 'value' }];
       const payload = { columnName: 'column', config: { value: 'new value' } };
 
-      const nextFilters = setColumnFilter(filters, payload);
+      const nextFilters = changeColumnFilter(filters, payload);
       expect(nextFilters).toEqual([{ columnName: 'column', value: 'new value' }]);
     });
 
@@ -24,7 +24,7 @@ describe('SortingState reducers', () => {
       const filters = [{ columnName: 'column1', value: 'value' }];
       const payload = { columnName: 'column2', config: { value: 'new value' } };
 
-      const nextFilters = setColumnFilter(filters, payload);
+      const nextFilters = changeColumnFilter(filters, payload);
       expect(nextFilters).toEqual([
         { columnName: 'column1', value: 'value' },
         { columnName: 'column2', value: 'new value' },
@@ -35,7 +35,7 @@ describe('SortingState reducers', () => {
       const filters = [{ columnName: 'column', value: 'value' }];
       const payload = { columnName: 'column', config: null };
 
-      const nextFilters = setColumnFilter(filters, payload);
+      const nextFilters = changeColumnFilter(filters, payload);
       expect(nextFilters).toEqual([]);
     });
   });

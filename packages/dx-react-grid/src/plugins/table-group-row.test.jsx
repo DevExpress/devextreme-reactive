@@ -28,7 +28,7 @@ const defaultDeps = {
     tableBodyRows: [{ type: 'undefined', id: 1, row: 'row' }],
     grouping: [{ columnName: 'a' }],
     draftGrouping: [{ columnName: 'a' }, { columnName: 'b', draft: GROUP_ADD_MODE }],
-    expandedGroups: new Map(),
+    expandedGroups: [],
     isGroupRow: () => false,
   },
   action: {
@@ -226,7 +226,7 @@ describe('TableGroupRow', () => {
 
       const deps = {
         getter: {
-          expandedGroups: new Set(),
+          expandedGroups: [],
         },
         template: {
           tableCell: {
@@ -235,7 +235,7 @@ describe('TableGroupRow', () => {
           },
         },
       };
-      jest.spyOn(deps.getter.expandedGroups, 'has').mockReturnValue('hasTest');
+      jest.spyOn(deps.getter.expandedGroups, 'indexOf').mockReturnValue(1);
 
       const tree = mount((
         <PluginHost>
@@ -247,10 +247,10 @@ describe('TableGroupRow', () => {
       ));
       expect(tree.find(defaultProps.cellComponent).props())
         .toMatchObject({
-          expanded: 'hasTest',
+          expanded: true,
           onToggle: expect.any(Function),
         });
-      expect(deps.getter.expandedGroups.has)
+      expect(deps.getter.expandedGroups.indexOf)
         .toBeCalledWith('1');
 
       tree.find(defaultProps.cellComponent).props().onToggle();

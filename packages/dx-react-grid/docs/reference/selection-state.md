@@ -12,7 +12,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-selection | Array&lt;number &#124; string&gt; | [] | The selected row IDs.
+selection | Array&lt;number &#124; string&gt; | | The selected row IDs.
 defaultSelection | Array&lt;number &#124; string&gt; | [] | The initially selected rows in the uncontrolled mode.
 onSelectionChange | (selection: Array&lt;number &#124; string&gt;) => void | | Handles selection changes.
 
@@ -29,5 +29,5 @@ getRowId | Getter | (row: any) => number &#124; string | A function used to get 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-toggleSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, selected?: boolean  }) => void | A function that selects/deselects rows. The `selected` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
+toggleSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, state?: boolean  }) => void | A function that selects/deselects rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
 selection | Getter | Array&lt;number &#124; string&gt; | The selected row IDs.

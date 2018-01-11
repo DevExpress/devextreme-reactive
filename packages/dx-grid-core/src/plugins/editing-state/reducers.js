@@ -1,9 +1,9 @@
-export const startEditRows = (prevEditingRows, { rowIds }) =>
-  [...prevEditingRows, ...rowIds];
+export const startEditRows = (prevEditingRowIds, { rowIds }) =>
+  [...prevEditingRowIds, ...rowIds];
 
-export const stopEditRows = (prevEditingRows, { rowIds }) => {
+export const stopEditRows = (prevEditingRowIds, { rowIds }) => {
   const rowIdSet = new Set(rowIds);
-  return prevEditingRows.filter(id => !rowIdSet.has(id));
+  return prevEditingRowIds.filter(id => !rowIdSet.has(id));
 };
 
 export const addRow = (addedRows, { row } = { row: {} }) => [...addedRows, row];
@@ -44,9 +44,9 @@ export const cancelChanges = (prevChangedRows, { rowIds }) => {
   return result;
 };
 
-export const deleteRows = (deletedRows, { rowIds }) => [...deletedRows, ...rowIds];
+export const deleteRows = (deletedRowIds, { rowIds }) => [...deletedRowIds, ...rowIds];
 
-export const cancelDeletedRows = (deletedRows, { rowIds }) => {
+export const cancelDeletedRows = (deletedRowIds, { rowIds }) => {
   const rowIdSet = new Set(rowIds);
-  return deletedRows.filter(rowId => !rowIdSet.has(rowId));
+  return deletedRowIds.filter(rowId => !rowIdSet.has(rowId));
 };

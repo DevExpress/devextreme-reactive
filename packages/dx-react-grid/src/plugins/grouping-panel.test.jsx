@@ -24,7 +24,7 @@ const defaultDeps = {
   },
   action: {
     groupByColumn: jest.fn(),
-    setColumnSorting: jest.fn(),
+    changeColumnSorting: jest.fn(),
     draftGroupingChange: jest.fn(),
     cancelGroupingChange: jest.fn(),
   },

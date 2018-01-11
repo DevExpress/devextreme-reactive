@@ -1,16 +1,16 @@
 import {
-  setColumnSorting,
+  changeColumnSorting,
 } from './reducers';
 
 describe('SortingState reducers', () => {
-  describe('#setColumnSorting', () => {
+  describe('#changeColumnSorting', () => {
     it('can initiate sorting', () => {
       const state = {
         sorting: [],
       };
       const payload = { columnName: 'test' };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [{ columnName: 'test', direction: 'asc' }],
         });
@@ -22,7 +22,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test', direction: 'desc' };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [{ columnName: 'test', direction: 'desc' }],
         });
@@ -34,7 +34,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test' };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [{ columnName: 'test', direction: 'desc' }],
         });
@@ -46,7 +46,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test2' };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [{ columnName: 'test2', direction: 'asc' }],
         });
@@ -58,7 +58,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test2', keepOther: true };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
         });
@@ -70,7 +70,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test2', keepOther: ['test'] };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [{ columnName: 'test', direction: 'asc' }, { columnName: 'test2', direction: 'asc' }],
         });
@@ -82,7 +82,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test', keepOther: true };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [{ columnName: 'test', direction: 'desc' }, { columnName: 'test2', direction: 'asc' }],
         });
@@ -94,7 +94,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test2', keepOther: true, direction: null };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [{ columnName: 'test', direction: 'asc' }],
         });
@@ -106,7 +106,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test2', direction: null };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [],
         });
@@ -118,7 +118,7 @@ describe('SortingState reducers', () => {
       };
       const payload = { columnName: 'test2', keepOther: true, sortIndex: 0 };
 
-      expect(setColumnSorting(state, payload))
+      expect(changeColumnSorting(state, payload))
         .toEqual({
           sorting: [
             { columnName: 'test2', direction: 'asc' },

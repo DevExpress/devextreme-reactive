@@ -2,12 +2,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { setColumnSorting } from '@devexpress/dx-grid-core';
+import { changeColumnSorting } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SortingState } from './sorting-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  setColumnSorting: jest.fn(),
+  changeColumnSorting: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -28,7 +28,7 @@ describe('SortingState', () => {
   });
 
   beforeEach(() => {
-    setColumnSorting.mockImplementation(() => ({}));
+    changeColumnSorting.mockImplementation(() => ({}));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -66,7 +66,7 @@ describe('SortingState', () => {
       .toBe(sorting);
   });
 
-  it('should fire the "onSortingChange" callback and should change sorting in uncontrolled mode after the "setColumnSorting" action is fired', () => {
+  it('should fire the "onSortingChange" callback and should change sorting in uncontrolled mode after the "changeColumnSorting" action is fired', () => {
     const defaultSorting = [{ columnName: 'a', direction: 'asc' }];
     const newSorting = [{ columnName: 'b', direction: 'asc' }];
 
@@ -82,10 +82,10 @@ describe('SortingState', () => {
     ));
 
     const payload = {};
-    setColumnSorting.mockReturnValue({ sorting: newSorting });
-    executeComputedAction(tree, actions => actions.setColumnSorting(payload));
+    changeColumnSorting.mockReturnValue({ sorting: newSorting });
+    executeComputedAction(tree, actions => actions.changeColumnSorting(payload));
 
-    expect(setColumnSorting)
+    expect(changeColumnSorting)
       .toBeCalledWith(expect.objectContaining({ sorting: defaultSorting }), payload);
 
     expect(getComputedState(tree).sorting)
@@ -95,7 +95,7 @@ describe('SortingState', () => {
       .toBeCalledWith(newSorting);
   });
 
-  it('should fire the "onSortingChange" callback and should change sorting in controlled mode after the "setColumnSorting" action is fired', () => {
+  it('should fire the "onSortingChange" callback and should change sorting in controlled mode after the "changeColumnSorting" action is fired', () => {
     const sorting = [{ columnName: 'a', direction: 'asc' }];
     const newSorting = [{ columnName: 'b', direction: 'asc' }];
 
@@ -111,10 +111,10 @@ describe('SortingState', () => {
     ));
 
     const payload = {};
-    setColumnSorting.mockReturnValue({ sorting: newSorting });
-    executeComputedAction(tree, actions => actions.setColumnSorting(payload));
+    changeColumnSorting.mockReturnValue({ sorting: newSorting });
+    executeComputedAction(tree, actions => actions.changeColumnSorting(payload));
 
-    expect(setColumnSorting)
+    expect(changeColumnSorting)
       .toBeCalledWith(expect.objectContaining({ sorting }), payload);
 
     expect(getComputedState(tree).sorting)
@@ -142,14 +142,14 @@ describe('SortingState', () => {
         </PluginHost>
       ));
 
-      setColumnSorting.mockReturnValueOnce({ sorting: transitionalSorting });
-      setColumnSorting.mockReturnValueOnce({ sorting: newSorting });
+      changeColumnSorting.mockReturnValueOnce({ sorting: transitionalSorting });
+      changeColumnSorting.mockReturnValueOnce({ sorting: newSorting });
       executeComputedAction(tree, (actions) => {
-        actions.setColumnSorting(payload);
-        actions.setColumnSorting(payload);
+        actions.changeColumnSorting(payload);
+        actions.changeColumnSorting(payload);
       });
 
-      expect(setColumnSorting)
+      expect(changeColumnSorting)
         .lastCalledWith(
           expect.objectContaining({ sorting: transitionalSorting }),
           payload,
@@ -176,14 +176,14 @@ describe('SortingState', () => {
         </PluginHost>
       ));
 
-      setColumnSorting.mockReturnValueOnce({ sorting: transitionalSorting });
-      setColumnSorting.mockReturnValueOnce({ sorting: newSorting });
+      changeColumnSorting.mockReturnValueOnce({ sorting: transitionalSorting });
+      changeColumnSorting.mockReturnValueOnce({ sorting: newSorting });
       executeComputedAction(tree, (actions) => {
-        actions.setColumnSorting(payload);
-        actions.setColumnSorting(payload);
+        actions.changeColumnSorting(payload);
+        actions.changeColumnSorting(payload);
       });
 
-      expect(setColumnSorting)
+      expect(changeColumnSorting)
         .lastCalledWith(
           expect.objectContaining({ sorting: transitionalSorting }),
           payload,

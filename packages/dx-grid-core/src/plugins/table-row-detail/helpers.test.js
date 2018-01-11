@@ -9,10 +9,10 @@ import {
 describe('TableRowDetail Plugin helpers', () => {
   describe('#isDetailRowExpanded', () => {
     it('should work', () => {
-      const expandedRows = [1];
+      const expandedRowIds = [1];
 
-      expect(isDetailRowExpanded(expandedRows, 1)).toBeTruthy();
-      expect(isDetailRowExpanded(expandedRows, 2)).toBeFalsy();
+      expect(isDetailRowExpanded(expandedRowIds, 1)).toBeTruthy();
+      expect(isDetailRowExpanded(expandedRowIds, 2)).toBeFalsy();
     });
   });
 

@@ -43,10 +43,10 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ filters }, { setColumnFilter }) => {
+              {({ filters }, { changeColumnFilter }) => {
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
-                const onFilter = config => setColumnFilter({ columnName, config });
+                const onFilter = config => changeColumnFilter({ columnName, config });
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"

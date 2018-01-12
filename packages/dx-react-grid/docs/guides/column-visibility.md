@@ -14,12 +14,12 @@ Import the plugins listed above to enable a user to hide or show columns at runt
 
 ### Uncontrolled Mode
 
-In [uncontrolled mode](controlled-and-uncontrolled-modes.md#uncontrolled-mode), specify initially hidden columns via the `TableColumnVisibility` plugin's `defaultHiddenColumns` property.
+In [uncontrolled mode](controlled-and-uncontrolled-modes.md#uncontrolled-mode), specify initially hidden column names via the `TableColumnVisibility` plugin's `defaultHiddenColumnNames` property.
 
 .embedded-demo(column-chooser/uncontrolled)
 
 ### Controlled Mode
 
-In [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), pass the hidden columns to the `TableColumnVisibility` plugin's `hiddenColumns` property and handle the `onHiddenColumnsChange` event to control column visibility externally.
+In [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), pass the hidden column names to the `TableColumnVisibility` plugin's `hiddenColumnNames` property and handle the `onHiddenColumnNamesChange` event to control column visibility externally.
 
 .embedded-demo(column-chooser/controlled)

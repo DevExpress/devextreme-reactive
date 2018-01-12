@@ -45,7 +45,7 @@ describe('SelectionState', () => {
     ));
 
     expect(getComputedState(tree).selection)
-      .toEqual(new Set(defaultSelection));
+      .toEqual(defaultSelection);
   });
 
   it('should provide selection defined in selection', () => {
@@ -61,7 +61,7 @@ describe('SelectionState', () => {
     ));
 
     expect(getComputedState(tree).selection)
-      .toEqual(new Set(selection));
+      .toEqual(selection);
   });
 
   it('should call toggleSelection in action', () => {

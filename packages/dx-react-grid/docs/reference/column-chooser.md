@@ -104,7 +104,7 @@ If you specify additional properties, they are added to a component's root eleme
 Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
-hiddenColumns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be hidden.
+hiddenColumnNames | Getter | Array&lt;string&gt; | Names of columns to be hidden.
 toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.
 toolbarContent | Template | Object? | A template that renders toolbar content.
 

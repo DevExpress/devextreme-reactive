@@ -69,8 +69,8 @@ export * from './plugins/table/computeds';
 export * from './plugins/table-column-visibility/computeds';
 export * from './plugins/table-column-visibility/helpers';
 
-export * from './column-chooser/computeds';
-export * from './column-chooser/reducers';
+export * from './plugins/column-chooser/computeds';
+export * from './plugins/column-chooser/reducers';
 
 export { getColumnExtension } from './utils/column';
 

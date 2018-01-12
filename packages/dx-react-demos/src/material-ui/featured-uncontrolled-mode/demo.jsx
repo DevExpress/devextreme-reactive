@@ -114,7 +114,7 @@ export default class Demo extends React.PureComponent {
 
           <TableGroupRow />
           <TableColumnVisibility
-            defaultHiddenColumns={['customer']}
+            defaultHiddenColumnNames={['customer']}
           />
           <Toolbar />
           <GroupingPanel showSortingControls />

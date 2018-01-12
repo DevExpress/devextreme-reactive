@@ -1,4 +1,4 @@
-import { TABLE_DATA_TYPE, GRID_GROUP_TYPE } from '@devexpress/dx-core';
+import { TABLE_DATA_TYPE } from '../table/constants';
 import { isEmptyMessageShow } from './helpers';
 
 describe('TableColumnVisibility helpers', () => {
@@ -14,29 +14,20 @@ describe('TableColumnVisibility helpers', () => {
     });
 
     it('should show empty message when all showed columns are grouped', () => {
-      const grouping = [
-        { columnName: 'a' },
-        { columnName: 'b' },
-      ];
       const tableColumns = [
-        { type: GRID_GROUP_TYPE, column: { name: 'a' } },
+        { type: 'any', column: { name: 'a' } },
       ];
 
-      expect(isEmptyMessageShow(grouping, tableColumns))
+      expect(isEmptyMessageShow(tableColumns))
         .toBeTruthy();
     });
 
     it('should not show empty message while a showed column is not grouped', () => {
-      const grouping = [
-        { columnName: 'a' },
-        { columnName: 'b' },
-        { columnName: 'c' },
-      ];
       const tableColumns = [
         { type: TABLE_DATA_TYPE, column: { name: 'd' } },
       ];
 
-      expect(isEmptyMessageShow(grouping, tableColumns))
+      expect(isEmptyMessageShow(tableColumns))
         .toBeFalsy();
     });
   });

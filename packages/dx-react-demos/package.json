@@ -73,6 +73,7 @@
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^2.9.7",
+    "write-file-webpack-plugin": "^4.2.0"
   }
 }

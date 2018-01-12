@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = ({ production }) => ({
   context: path.join(__dirname, 'src'),
@@ -36,6 +37,12 @@ module.exports = ({ production }) => ({
     extensions: [".webpack.js", ".web.js", ".js", ".jsx"]
   },
   plugins: [
+    new WriteFilePlugin(),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify(production ? "production" : "development")
+      }
+    }),
     ...(!production ? [] :
       [
         new webpack.optimize.ModuleConcatenationPlugin(),
@@ -44,11 +51,6 @@ module.exports = ({ production }) => ({
         })
       ]
     ),
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify(production ? "production" : "development")
-      }
-    })
   ],
   devtool: production ? 'source-map' : 'eval-source-map',
   devServer: {

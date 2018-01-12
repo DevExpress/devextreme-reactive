@@ -1,6 +1,6 @@
-# PluginContainer Reference
+# PluginContainer Component Reference
 
-React component that contains plugin's primitives such as Action, Getter, Template.
+React component that contains plugin's primitives such as [Action](action.md), Getter, Template.
 
 ## User reference
 

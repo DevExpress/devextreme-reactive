@@ -112,3 +112,5 @@ react:
           path: /react/core/docs/reference/plugin-host
         - title: PluginContainer
           path: /react/core/docs/reference/plugin-container
+        - title: Action
+          path: /react/core/docs/reference/action

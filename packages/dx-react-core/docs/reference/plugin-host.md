@@ -1,1 +1,1 @@
-# PluginHost Reference
+# PluginHost Component Reference

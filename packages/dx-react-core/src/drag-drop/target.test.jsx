@@ -33,7 +33,7 @@ describe('DropTarget', () => {
       <DragDropProvider>
         <div>
           <DragSource
-            getPayload={() => 'data'}
+            payload="data"
           >
             <div className="source" />
           </DragSource>
@@ -69,7 +69,7 @@ describe('DropTarget', () => {
       <DragDropProvider>
         <div>
           <DragSource
-            getPayload={() => 'data'}
+            payload="data"
           >
             <div className="source" />
           </DragSource>
@@ -106,7 +106,7 @@ describe('DropTarget', () => {
       <DragDropProvider>
         <div>
           <DragSource
-            getPayload={() => 'data'}
+            payload="data"
           >
             <div className="source" />
           </DragSource>
@@ -143,7 +143,7 @@ describe('DropTarget', () => {
       <DragDropProvider>
         <div>
           <DragSource
-            getPayload={() => 'data'}
+            payload="data"
           >
             <div className="source" />
           </DragSource>

@@ -10,7 +10,7 @@ const defaultProps = {
 };
 
 describe('ToggleButton', () => {
-  it('should provide a hiddenColumns message text', () => {
+  it('should provide a correct message text', () => {
     const tree = shallow((
       <ToggleButton
         {...defaultProps}

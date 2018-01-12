@@ -32,7 +32,7 @@ ColumnChooser.Overlay = Overlay;
 
 ColumnChooser.propTypes = {
   messages: PropTypes.shape({
-    hiddenColumns: PropTypes.string,
+    hiddenColumnNames: PropTypes.string,
   }),
 };
 

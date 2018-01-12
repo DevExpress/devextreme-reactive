@@ -9,7 +9,7 @@ export class FilteringState extends React.PureComponent {
     super(props);
 
     this.state = {
-      filters: props.defaultFilters || [],
+      filters: props.defaultFilters,
     };
     const stateHelper = createStateHelper(this);
 
@@ -17,9 +17,12 @@ export class FilteringState extends React.PureComponent {
       .bind(stateHelper, 'filters', changeColumnFilter);
   }
   getState() {
+    const {
+      filters = this.state.filters,
+    } = this.props;
     return {
       ...this.state,
-      filters: this.props.filters || this.state.filters,
+      filters,
     };
   }
   notifyStateChange(nextState, state) {
@@ -51,6 +54,6 @@ FilteringState.propTypes = {
 
 FilteringState.defaultProps = {
   filters: undefined,
-  defaultFilters: undefined,
+  defaultFilters: [],
   onFiltersChange: undefined,
 };

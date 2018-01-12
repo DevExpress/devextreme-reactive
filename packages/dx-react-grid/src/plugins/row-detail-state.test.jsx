@@ -33,156 +33,156 @@ describe('RowDetailState', () => {
     jest.resetAllMocks();
   });
 
-  it('should provide expandedRows defined in defaultExpandedRows property', () => {
-    const defaultExpandedRows = [{ columnName: 'a', value: 'a' }];
+  it('should provide expandedRowIds defined in defaultExpandedRowIds property', () => {
+    const defaultExpandedRowIds = [{ columnName: 'a', value: 'a' }];
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <RowDetailState
-          defaultExpandedRows={defaultExpandedRows}
+          defaultExpandedRowIds={defaultExpandedRowIds}
         />
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).expandedRows)
-      .toBe(defaultExpandedRows);
+    expect(getComputedState(tree).expandedRowIds)
+      .toBe(defaultExpandedRowIds);
   });
 
-  it('should provide expandedRows defined in expandedRows property', () => {
-    const expandedRows = [{ columnName: 'a', value: 'a' }];
+  it('should provide expandedRowIds defined in expandedRowIds property', () => {
+    const expandedRowIds = [{ columnName: 'a', value: 'a' }];
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <RowDetailState
-          expandedRows={expandedRows}
+          expandedRowIds={expandedRowIds}
         />
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).expandedRows)
-      .toBe(expandedRows);
+    expect(getComputedState(tree).expandedRowIds)
+      .toBe(expandedRowIds);
   });
 
-  it('should fire the "onExpandedRowsChange" callback and should change expandedRows in uncontrolled mode after the "toggleDetailRowExpanded" action is fired', () => {
-    const defaultExpandedRows = [{ columnName: 'a', value: 'a' }];
-    const newExpandedRows = [{ columnName: 'b', value: 'a' }];
+  it('should fire the "onExpandedRowIdsChange" callback and should change expandedRowIds in uncontrolled mode after the "toggleDetailRowExpanded" action is fired', () => {
+    const defaultExpandedRowIds = [{ columnName: 'a', value: 'a' }];
+    const newExpandedRowIds = [{ columnName: 'b', value: 'a' }];
 
-    const expandedRowsChange = jest.fn();
+    const expandedRowIdsChange = jest.fn();
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <RowDetailState
-          defaultExpandedRows={defaultExpandedRows}
-          onExpandedRowsChange={expandedRowsChange}
+          defaultExpandedRowIds={defaultExpandedRowIds}
+          onExpandedRowIdsChange={expandedRowIdsChange}
         />
       </PluginHost>
     ));
 
     const payload = {};
-    toggleDetailRowExpanded.mockReturnValue(newExpandedRows);
+    toggleDetailRowExpanded.mockReturnValue(newExpandedRowIds);
     executeComputedAction(tree, actions => actions.toggleDetailRowExpanded(payload));
 
     expect(toggleDetailRowExpanded)
-      .toBeCalledWith(defaultExpandedRows, payload);
+      .toBeCalledWith(defaultExpandedRowIds, payload);
 
-    expect(getComputedState(tree).expandedRows)
-      .toBe(newExpandedRows);
+    expect(getComputedState(tree).expandedRowIds)
+      .toBe(newExpandedRowIds);
 
-    expect(expandedRowsChange)
-      .toBeCalledWith(newExpandedRows);
+    expect(expandedRowIdsChange)
+      .toBeCalledWith(newExpandedRowIds);
   });
 
-  it('should fire the "onExpandedRowsChange" callback and should change expandedRows in controlled mode after the "toggleDetailRowExpanded" action is fired', () => {
-    const expandedRows = [{ columnName: 'a', value: 'a' }];
-    const newExpandedRows = [{ columnName: 'b', value: 'a' }];
+  it('should fire the "onExpandedRowIdsChange" callback and should change expandedRowIds in controlled mode after the "toggleDetailRowExpanded" action is fired', () => {
+    const expandedRowIds = [{ columnName: 'a', value: 'a' }];
+    const newExpandedRowIds = [{ columnName: 'b', value: 'a' }];
 
-    const expandedRowsChange = jest.fn();
+    const expandedRowIdsChange = jest.fn();
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <RowDetailState
-          expandedRows={expandedRows}
-          onExpandedRowsChange={expandedRowsChange}
+          expandedRowIds={expandedRowIds}
+          onExpandedRowIdsChange={expandedRowIdsChange}
         />
       </PluginHost>
     ));
 
     const payload = {};
-    toggleDetailRowExpanded.mockReturnValue(newExpandedRows);
+    toggleDetailRowExpanded.mockReturnValue(newExpandedRowIds);
     executeComputedAction(tree, actions => actions.toggleDetailRowExpanded(payload));
 
     expect(toggleDetailRowExpanded)
-      .toBeCalledWith(expandedRows, payload);
+      .toBeCalledWith(expandedRowIds, payload);
 
-    expect(getComputedState(tree).expandedRows)
-      .toBe(expandedRows);
+    expect(getComputedState(tree).expandedRowIds)
+      .toBe(expandedRowIds);
 
-    expect(expandedRowsChange)
-      .toBeCalledWith(newExpandedRows);
+    expect(expandedRowIdsChange)
+      .toBeCalledWith(newExpandedRowIds);
   });
 
   describe('action sequence in batch', () => {
     it('should correctly work with the several action calls in the uncontrolled mode', () => {
-      const defaultExpandedRows = [1];
-      const transitionalExpandedRows = [2];
-      const newExpandedRows = [3];
+      const defaultExpandedRowIds = [1];
+      const transitionalExpandedRowIds = [2];
+      const newExpandedRowIds = [3];
       const payload = {};
 
-      const expandedRowsChange = jest.fn();
+      const expandedRowIdsChange = jest.fn();
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <RowDetailState
-            defaultExpandedRows={defaultExpandedRows}
-            onExpandedRowsChange={expandedRowsChange}
+            defaultExpandedRowIds={defaultExpandedRowIds}
+            onExpandedRowIdsChange={expandedRowIdsChange}
           />
         </PluginHost>
       ));
 
-      toggleDetailRowExpanded.mockReturnValueOnce(transitionalExpandedRows);
-      toggleDetailRowExpanded.mockReturnValueOnce(newExpandedRows);
+      toggleDetailRowExpanded.mockReturnValueOnce(transitionalExpandedRowIds);
+      toggleDetailRowExpanded.mockReturnValueOnce(newExpandedRowIds);
       executeComputedAction(tree, (actions) => {
         actions.toggleDetailRowExpanded(payload);
         actions.toggleDetailRowExpanded(payload);
       });
 
       expect(toggleDetailRowExpanded)
-        .lastCalledWith(transitionalExpandedRows, payload);
+        .lastCalledWith(transitionalExpandedRowIds, payload);
 
-      expect(expandedRowsChange)
+      expect(expandedRowIdsChange)
         .toHaveBeenCalledTimes(1);
     });
 
     it('should correctly work with the several action calls in the controlled mode', () => {
-      const expandedRows = [1];
-      const transitionalExpandedRows = [2];
-      const newExpandedRows = [3];
+      const expandedRowIds = [1];
+      const transitionalExpandedRowIds = [2];
+      const newExpandedRowIds = [3];
       const payload = {};
 
-      const expandedRowsChange = jest.fn();
+      const expandedRowIdsChange = jest.fn();
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <RowDetailState
-            expandedRows={expandedRows}
-            onExpandedRowsChange={expandedRowsChange}
+            expandedRowIds={expandedRowIds}
+            onExpandedRowIdsChange={expandedRowIdsChange}
           />
         </PluginHost>
       ));
 
-      toggleDetailRowExpanded.mockReturnValueOnce(transitionalExpandedRows);
-      toggleDetailRowExpanded.mockReturnValueOnce(newExpandedRows);
+      toggleDetailRowExpanded.mockReturnValueOnce(transitionalExpandedRowIds);
+      toggleDetailRowExpanded.mockReturnValueOnce(newExpandedRowIds);
       executeComputedAction(tree, (actions) => {
         actions.toggleDetailRowExpanded(payload);
         actions.toggleDetailRowExpanded(payload);
       });
 
       expect(toggleDetailRowExpanded)
-        .lastCalledWith(transitionalExpandedRows, payload);
+        .lastCalledWith(transitionalExpandedRowIds, payload);
 
-      expect(expandedRowsChange)
+      expect(expandedRowIdsChange)
         .toHaveBeenCalledTimes(1);
     });
   });

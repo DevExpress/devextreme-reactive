@@ -26,10 +26,10 @@ export class EditingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      editingRowIds: props.defaultEditingRowIds || [],
-      addedRows: props.defaultAddedRows || [],
-      changedRows: props.defaultChangedRows || {},
-      deletedRowIds: props.defaultDeletedRowIds || [],
+      editingRowIds: props.defaultEditingRowIds,
+      addedRows: props.defaultAddedRows,
+      changedRows: props.defaultChangedRows,
+      deletedRowIds: props.defaultDeletedRowIds,
     };
 
     const stateHelper = createStateHelper(this);
@@ -73,12 +73,18 @@ export class EditingState extends React.PureComponent {
     };
   }
   getState() {
+    const {
+      editingRowIds = this.state.editingRowIds,
+      changedRows = this.state.changedRows,
+      addedRows = this.state.addedRows,
+      deletedRowIds = this.state.deletedRowIds,
+    } = this.props;
     return {
       ...this.state,
-      editingRowIds: this.props.editingRowIds || this.state.editingRowIds,
-      changedRows: this.props.changedRows || this.state.changedRows,
-      addedRows: this.props.addedRows || this.state.addedRows,
-      deletedRowIds: this.props.deletedRowIds || this.state.deletedRowIds,
+      editingRowIds,
+      changedRows,
+      addedRows,
+      deletedRowIds,
     };
   }
   notifyStateChange(nextState, state) {

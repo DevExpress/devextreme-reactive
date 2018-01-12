@@ -14,7 +14,7 @@ describe('DragDropProvider', () => {
       >
         <div>
           <DragSource
-            getPayload={() => 'data'}
+            payload="data"
           >
             <div className="source" />
           </DragSource>

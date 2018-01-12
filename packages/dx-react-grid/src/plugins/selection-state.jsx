@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setRowsSelection } from '@devexpress/dx-grid-core';
+import { toggleSelection } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 export class SelectionState extends React.PureComponent {
@@ -9,18 +9,21 @@ export class SelectionState extends React.PureComponent {
     super(props);
 
     this.state = {
-      selection: props.defaultSelection || [],
+      selection: props.defaultSelection,
     };
 
     const stateHelper = createStateHelper(this);
 
     this.toggleSelection = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'selection', setRowsSelection);
+      .bind(stateHelper, 'selection', toggleSelection);
   }
   getState() {
+    const {
+      selection = this.state.selection,
+    } = this.props;
     return {
       ...this.state,
-      selection: this.props.selection || this.state.selection,
+      selection,
     };
   }
   notifyStateChange(nextState, state) {
@@ -37,7 +40,7 @@ export class SelectionState extends React.PureComponent {
       <PluginContainer
         pluginName="SelectionState"
       >
-        <Getter name="selection" value={new Set(selection)} />
+        <Getter name="selection" value={selection} />
         <Action name="toggleSelection" action={this.toggleSelection} />
       </PluginContainer>
     );
@@ -52,6 +55,6 @@ SelectionState.propTypes = {
 
 SelectionState.defaultProps = {
   selection: undefined,
-  defaultSelection: undefined,
+  defaultSelection: [],
   onSelectionChange: undefined,
 };

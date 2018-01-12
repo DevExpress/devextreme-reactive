@@ -13,7 +13,7 @@ export class ItemLayout extends React.PureComponent {
 
     return (draggingEnabled ? (
       <DragSource
-        getPayload={() => [{ type: 'column', columnName: item.column.name }]}
+        payload={[{ type: 'column', columnName: item.column.name }]}
         onEnd={onDragEnd}
       >
         <Item item={item} />

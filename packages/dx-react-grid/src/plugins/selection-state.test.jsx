@@ -3,13 +3,13 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  setRowsSelection,
+  toggleSelection,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SelectionState } from './selection-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  setRowsSelection: jest.fn(),
+  toggleSelection: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -45,7 +45,7 @@ describe('SelectionState', () => {
     ));
 
     expect(getComputedState(tree).selection)
-      .toEqual(new Set(defaultSelection));
+      .toEqual(defaultSelection);
   });
 
   it('should provide selection defined in selection', () => {
@@ -61,12 +61,12 @@ describe('SelectionState', () => {
     ));
 
     expect(getComputedState(tree).selection)
-      .toEqual(new Set(selection));
+      .toEqual(selection);
   });
 
   it('should call toggleSelection in action', () => {
     const selection = [1, 2, 3];
-    const mockSetRowsSelection = setRowsSelection;
+    const mockSetRowsSelection = toggleSelection;
 
     const tree = mount((
       <PluginHost>
@@ -100,14 +100,14 @@ describe('SelectionState', () => {
         </PluginHost>
       ));
 
-      setRowsSelection.mockReturnValueOnce(transitionalSelection);
-      setRowsSelection.mockReturnValueOnce(newSelection);
+      toggleSelection.mockReturnValueOnce(transitionalSelection);
+      toggleSelection.mockReturnValueOnce(newSelection);
       executeComputedAction(tree, (actions) => {
         actions.toggleSelection(payload);
         actions.toggleSelection(payload);
       });
 
-      expect(setRowsSelection)
+      expect(toggleSelection)
         .lastCalledWith(transitionalSelection, payload);
 
       expect(selectionChange)
@@ -131,14 +131,14 @@ describe('SelectionState', () => {
         </PluginHost>
       ));
 
-      setRowsSelection.mockReturnValueOnce(transitionalSelection);
-      setRowsSelection.mockReturnValueOnce(newSelection);
+      toggleSelection.mockReturnValueOnce(transitionalSelection);
+      toggleSelection.mockReturnValueOnce(newSelection);
       executeComputedAction(tree, (actions) => {
         actions.toggleSelection(payload);
         actions.toggleSelection(payload);
       });
 
-      expect(setRowsSelection)
+      expect(toggleSelection)
         .lastCalledWith(transitionalSelection, payload);
 
       expect(selectionChange)

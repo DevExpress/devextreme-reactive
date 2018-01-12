@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <RowDetailState
-          defaultExpandedRows={[2, 5]}
+          defaultExpandedRowIds={[2, 5]}
         />
         <Table />
         <TableHeaderRow />

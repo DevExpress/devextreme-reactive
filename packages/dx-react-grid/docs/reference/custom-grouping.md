@@ -24,7 +24,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows to be grouped.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The current grouping state.
-expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded.
+expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded.
 
 ### Exports
 
@@ -32,6 +32,6 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | Rows with the applied grouping and expanded groups.
 grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The specified data's current grouping state.
-expandedGroups | Getter | Set&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups expanded in the specified data.
+expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups expanded in the specified data.
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.

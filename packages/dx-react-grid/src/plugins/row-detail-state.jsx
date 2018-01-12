@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { setDetailRowExpanded } from '@devexpress/dx-grid-core';
+import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 export class RowDetailState extends React.PureComponent {
@@ -9,49 +9,52 @@ export class RowDetailState extends React.PureComponent {
     super(props);
 
     this.state = {
-      expandedRows: props.defaultExpandedRows || [],
+      expandedRowIds: props.defaultExpandedRowIds,
     };
 
     const stateHelper = createStateHelper(this);
 
-    this.setDetailRowExpanded = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'expandedRows', setDetailRowExpanded);
+    this.toggleDetailRowExpanded = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'expandedRowIds', toggleDetailRowExpanded);
   }
   getState() {
+    const {
+      expandedRowIds = this.state.expandedRowIds,
+    } = this.props;
     return {
       ...this.state,
-      expandedRows: this.props.expandedRows || this.state.expandedRows,
+      expandedRowIds,
     };
   }
   notifyStateChange(nextState, state) {
-    const { expandedRows } = nextState;
-    const { onExpandedRowsChange } = this.props;
-    if (onExpandedRowsChange && expandedRows !== state.expandedRows) {
-      onExpandedRowsChange(expandedRows);
+    const { expandedRowIds } = nextState;
+    const { onExpandedRowIdsChange } = this.props;
+    if (onExpandedRowIdsChange && expandedRowIds !== state.expandedRowIds) {
+      onExpandedRowIdsChange(expandedRowIds);
     }
   }
   render() {
-    const { expandedRows } = this.getState();
+    const { expandedRowIds } = this.getState();
 
     return (
       <PluginContainer
         pluginName="RowDetailState"
       >
-        <Getter name="expandedRows" value={expandedRows} />
-        <Action name="setDetailRowExpanded" action={this.setDetailRowExpanded} />
+        <Getter name="expandedRowIds" value={expandedRowIds} />
+        <Action name="toggleDetailRowExpanded" action={this.toggleDetailRowExpanded} />
       </PluginContainer>
     );
   }
 }
 
 RowDetailState.propTypes = {
-  expandedRows: PropTypes.array,
-  defaultExpandedRows: PropTypes.array,
-  onExpandedRowsChange: PropTypes.func,
+  expandedRowIds: PropTypes.array,
+  defaultExpandedRowIds: PropTypes.array,
+  onExpandedRowIdsChange: PropTypes.func,
 };
 
 RowDetailState.defaultProps = {
-  expandedRows: undefined,
-  defaultExpandedRows: undefined,
-  onExpandedRowsChange: undefined,
+  expandedRowIds: undefined,
+  defaultExpandedRowIds: [],
+  onExpandedRowIdsChange: undefined,
 };

@@ -149,7 +149,7 @@ describe('CustomGrouping', () => {
       expect(getComputedState(tree).grouping)
         .toBe(grouping);
       expect(getComputedState(tree).expandedGroups)
-        .toEqual(new Set(expandedGroups));
+        .toEqual(expandedGroups);
     });
 
     it('should provide rows getter based on grouping and expandedGroups properties', () => {
@@ -178,7 +178,7 @@ describe('CustomGrouping', () => {
         .toBeCalledWith(
           customGroupedRows(),
           grouping,
-          new Set(expandedGroups),
+          expandedGroups,
         );
 
       expect(getComputedState(tree).rows)

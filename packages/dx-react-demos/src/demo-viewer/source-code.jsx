@@ -5,7 +5,6 @@ import 'prismjs/components/prism-jsx';
 
 import { demos } from '../demo-registry';
 
-
 export class SourceCode extends React.PureComponent {
   render() {
     const { theme, section, demo } = this.props;

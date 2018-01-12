@@ -1,20 +1,20 @@
-export const isEmptyMessageShow = (grouping, hiddenColumnNames, columns) => {
+import { TABLE_DATA_TYPE, GRID_GROUP_TYPE } from '@devexpress/dx-core';
+
+export const isEmptyMessageShow = (grouping, tableColumns) => {
   if (grouping === undefined) return false;
-  if (columns.length === hiddenColumnNames.length) return true;
+  const visibleTableColumns = tableColumns.reduce((acc, column) => {
+    if (column.type === TABLE_DATA_TYPE || column.type === GRID_GROUP_TYPE) {
+      acc.push(column.column.name);
+    } return acc;
+  }, []);
+  if (visibleTableColumns.length === 0) return true;
 
   const groupingColumnNames = grouping.map(group => group.columnName);
-  const showedColumnNames = columns.reduce((acc, showedColumn) => {
-    if (!hiddenColumnNames.find(hiddenColumnName => hiddenColumnName === showedColumn.name)) {
-      acc.push(showedColumn.name);
-    }
-    return acc;
-  }, []);
-
-  let showedColumnsGrouped = true;
-  showedColumnNames.forEach((showedColumnName) => {
-    if (groupingColumnNames.indexOf(showedColumnName) === -1) {
-      showedColumnsGrouped = false;
+  let visibleColumnsGrouped = true;
+  visibleTableColumns.forEach((visibleColumnName) => {
+    if (groupingColumnNames.indexOf(visibleColumnName) === -1) {
+      visibleColumnsGrouped = false;
     }
   });
-  return showedColumnsGrouped;
+  return visibleColumnsGrouped;
 };

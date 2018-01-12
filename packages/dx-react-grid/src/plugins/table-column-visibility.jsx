@@ -65,8 +65,8 @@ export class TableColumnVisibility extends React.PureComponent {
         <Template name="table">
           {params => (
             <TemplateConnector>
-              {({ columns, grouping }) =>
-                (isEmptyMessageShow(grouping, hiddenColumns, columns)
+              {({ grouping, tableColumns }) =>
+                (isEmptyMessageShow(grouping, tableColumns)
                 ? <EmptyMessage
                   getMessage={getMessage}
                   {...params}

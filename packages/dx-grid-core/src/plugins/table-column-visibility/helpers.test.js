@@ -1,22 +1,15 @@
+import { TABLE_DATA_TYPE, GRID_GROUP_TYPE } from '@devexpress/dx-core';
 import { isEmptyMessageShow } from './helpers';
 
 describe('TableColumnVisibility helpers', () => {
-  const defaultColumns = [
-    { name: 'a' },
-    { name: 'b' },
-    { name: 'c' },
-    { name: 'd' },
-  ];
-
   describe('#isEmptyMessageShow', () => {
     it('should show empty message when all columns are hidden', () => {
       const grouping = [
         { columnName: 'a' },
         { columnName: 'b' },
       ];
-      const hiddenColumns = ['b', 'c', 'd', 'a'];
 
-      expect(isEmptyMessageShow(grouping, hiddenColumns, defaultColumns))
+      expect(isEmptyMessageShow(grouping, []))
         .toBeTruthy();
     });
 
@@ -25,9 +18,11 @@ describe('TableColumnVisibility helpers', () => {
         { columnName: 'a' },
         { columnName: 'b' },
       ];
-      const hiddenColumns = ['b', 'c', 'd'];
+      const tableColumns = [
+        { type: GRID_GROUP_TYPE, column: { name: 'a' } },
+      ];
 
-      expect(isEmptyMessageShow(grouping, hiddenColumns, defaultColumns))
+      expect(isEmptyMessageShow(grouping, tableColumns))
         .toBeTruthy();
     });
 
@@ -37,9 +32,11 @@ describe('TableColumnVisibility helpers', () => {
         { columnName: 'b' },
         { columnName: 'c' },
       ];
-      const hiddenColumns = ['a', 'b', 'c'];
+      const tableColumns = [
+        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
+      ];
 
-      expect(isEmptyMessageShow(grouping, hiddenColumns, defaultColumns))
+      expect(isEmptyMessageShow(grouping, tableColumns))
         .toBeFalsy();
     });
   });

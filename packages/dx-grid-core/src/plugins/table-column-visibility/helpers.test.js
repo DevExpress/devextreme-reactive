@@ -4,12 +4,9 @@ import { isEmptyMessageShow } from './helpers';
 describe('TableColumnVisibility helpers', () => {
   describe('#isEmptyMessageShow', () => {
     it('should show empty message when all columns are hidden', () => {
-      const grouping = [
-        { columnName: 'a' },
-        { columnName: 'b' },
-      ];
+      const tableColumns = [];
 
-      expect(isEmptyMessageShow(grouping, []))
+      expect(isEmptyMessageShow(tableColumns))
         .toBeTruthy();
     });
 

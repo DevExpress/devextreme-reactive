@@ -108,3 +108,5 @@ react:
           path: /react/grid/docs/reference/toolbar
         - title: CustomPaging
           path: /react/grid/docs/reference/custom-paging
+        - title: PluginHost
+          path: /react/core/docs/reference/plugin-host

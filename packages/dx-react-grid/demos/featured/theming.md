@@ -4,4 +4,4 @@ This demo illustrates the Grid&apos;s theming capabilities. You can view the Gri
 
 Use a Bootstrap 3 or Material UI template to apply a Bootstrap compatible or Material UI theme respectively.
 
-.embedded-demo(featured-theming/demo)
+.embedded-demo({ "path": "featured-theming/demo", "showThemeVariants": true })

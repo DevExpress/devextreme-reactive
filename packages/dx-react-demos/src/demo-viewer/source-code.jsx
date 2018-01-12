@@ -7,7 +7,7 @@ import { demos } from '../demo-registry';
 
 export class SourceCode extends React.PureComponent {
   render() {
-    const { theme, section, demo } = this.props;
+    const { themeName, sectionName, demoName } = this.props;
     return (
       <pre className="highlight language-jsx">
         <code
@@ -15,7 +15,7 @@ export class SourceCode extends React.PureComponent {
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: prism.highlight(
-              demos[section][demo][theme].source,
+              demos[sectionName][demoName][themeName].source,
               prism.languages.jsx,
             ),
           }}
@@ -26,7 +26,7 @@ export class SourceCode extends React.PureComponent {
 }
 
 SourceCode.propTypes = {
-  section: PropTypes.string.isRequired,
-  demo: PropTypes.string.isRequired,
-  theme: PropTypes.string.isRequired,
+  sectionName: PropTypes.string.isRequired,
+  demoName: PropTypes.string.isRequired,
+  themeName: PropTypes.string.isRequired,
 };

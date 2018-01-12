@@ -8,18 +8,20 @@ import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
 import { SourceCode } from './source-code';
 
-export const DemoViewer = ({
-  match: { params: { demo: currentDemo, section: currentSection }, url },
-}) => (
+export const DemoViewer = (
+  { match: { params: { demoName, sectionName }, url } },
+  { embeddedDemoOptions: { defaultTab = 'preview' } },
+) => (
   <Switch>
     <Route
-      path={`${url}/:theme/clean`}
-      render={({ match: { params: { theme: currentTheme } } }) => (
+      path={`${url}/:themeName/:variantName/clean`}
+      render={({ match: { params: { themeName, variantName } } }) => (
         <div>
           <DemoRenderer
-            theme={currentTheme}
-            section={currentSection}
-            demo={currentDemo}
+            themeName={themeName}
+            variantName={variantName}
+            sectionName={sectionName}
+            demoName={demoName}
           />
         </div>
       )}
@@ -29,12 +31,12 @@ export const DemoViewer = ({
       render={() => (
         <div style={{ paddingTop: '8px' }}>
           <ThemeViewer
-            avaliableThemes={Object.keys(demos[currentSection][currentDemo])}
+            avaliableThemes={Object.keys(demos[sectionName][demoName])}
           >
-            {({ theme: currentTheme }) => (
+            {({ themeName, variantName }) => (
               <Tab.Container
-                id={`${currentSection}-${currentDemo}-demo`}
-                defaultActiveKey="preview"
+                id={`${sectionName}-${demoName}-demo`}
+                defaultActiveKey={defaultTab}
               >
                 <div style={{ marginTop: '-38px' }}>
                   <Nav bsStyle="tabs">
@@ -48,16 +50,17 @@ export const DemoViewer = ({
                   >
                     <Tab.Pane eventKey="preview">
                       <DemoRenderer
-                        theme={currentTheme}
-                        section={currentSection}
-                        demo={currentDemo}
+                        themeName={themeName}
+                        variantName={variantName}
+                        sectionName={sectionName}
+                        demoName={demoName}
                       />
                     </Tab.Pane>
                     <Tab.Pane eventKey="source">
                       <SourceCode
-                        theme={currentTheme}
-                        section={currentSection}
-                        demo={currentDemo}
+                        themeName={themeName}
+                        sectionName={sectionName}
+                        demoName={demoName}
                       />
                     </Tab.Pane>
                   </Tab.Content>
@@ -74,9 +77,13 @@ export const DemoViewer = ({
 DemoViewer.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      section: PropTypes.string.isRequired,
-      demo: PropTypes.string.isRequired,
+      sectionName: PropTypes.string.isRequired,
+      demoName: PropTypes.string.isRequired,
     }),
     url: PropTypes.string.isRequired,
   }).isRequired,
+};
+
+DemoViewer.contextTypes = {
+  embeddedDemoOptions: PropTypes.object.isRequired,
 };

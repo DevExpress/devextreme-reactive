@@ -15,8 +15,11 @@ import './index.css';
 
 class App extends React.Component {
   getChildContext() {
-    const { scriptPath } = this.props;
-    return { embeddedDemoOptions: { scriptPath } };
+    const {
+      scriptPath, router, path,
+      ...restProps
+    } = this.props;
+    return { embeddedDemoOptions: { scriptPath, ...restProps } };
   }
   render() {
     const { router, path } = this.props;
@@ -27,7 +30,7 @@ class App extends React.Component {
         initialEntries={path ? [path] : undefined}
       >
         <Switch>
-          <Route path="/demo/:section/:demo" component={DemoViewer} />
+          <Route path="/demo/:sectionName/:demoName" component={DemoViewer} />
           <Route path="/section" component={SectionsViewer} />
           <Redirect from="/" to="/section" />
         </Switch>

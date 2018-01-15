@@ -72,7 +72,7 @@ export default class Demo extends React.PureComponent {
       booleanColumns: ['shipped'],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
-        length: 14,
+        length: 8,
       }),
     };
 

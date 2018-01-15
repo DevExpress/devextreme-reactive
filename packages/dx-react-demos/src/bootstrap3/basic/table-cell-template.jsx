@@ -61,7 +61,7 @@ export default class Demo extends React.PureComponent {
         { name: 'product', title: 'Product' },
         { name: 'amount', title: 'Sale Amount' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
   }
   render() {

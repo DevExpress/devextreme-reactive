@@ -48,7 +48,7 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: employeeTaskValues,
-        length: 15,
+        length: 8,
       }),
     };
   }

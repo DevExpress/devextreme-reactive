@@ -58,7 +58,7 @@ export default class Demo extends React.PureComponent {
       ],
       dateColumns: ['saleDate'],
       currencyColumns: ['amount'],
-      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
   }
   render() {

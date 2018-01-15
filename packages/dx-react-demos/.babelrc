@@ -4,7 +4,6 @@
     "react"
   ],
   "plugins": [
-    "preval",
     "transform-object-rest-spread"
   ]
 }

@@ -18,12 +18,18 @@ module.exports = ({ production }) => ({
     rules: [
       {
         test: /\.js$/,
+        include: /(node_modules\/)/,
         use: ["source-map-loader"],
         enforce: "pre"
       },
       {
+        test: /demo\-registry\.json$/,
+        exclude: /(node_modules\/)/,
+        use: [path.resolve('src/demo-registry-loader.js')]
+      },
+      {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components|public\/)/,
+        exclude: /(node_modules\/)/,
         use: ["babel-loader"]
       },
       {
@@ -34,7 +40,7 @@ module.exports = ({ production }) => ({
   },
   resolve: {
     modules: [path.join(__dirname, "node_modules"), "node_modules"],
-    extensions: [".webpack.js", ".web.js", ".js", ".jsx"]
+    extensions: [".webpack.js", ".web.js", ".js", ".jsx", ".json"]
   },
   plugins: [
     new WriteFilePlugin(),

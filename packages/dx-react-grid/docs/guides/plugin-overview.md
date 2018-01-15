@@ -13,7 +13,7 @@ Refer to the [Reference](../reference/grid.md) to see the complete plugin list.
 
 ## Plugin Order
 
-The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin. Some visualization plugins extend the `Table`'s functionality and should follow it in the code. This rules demonstrated in the following example:
+The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin. Some visualization plugins extend the `Table`'s functionality and should follow it in the code. This rule is demonstrated in the following example:
 
 .embedded-demo(filtering/filter-row)
 

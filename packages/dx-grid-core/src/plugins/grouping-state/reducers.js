@@ -1,6 +1,6 @@
 import { GROUP_KEY_SEPARATOR } from './constants';
 
-export const groupByColumn = (state, { columnName, groupIndex }) => {
+export const changeColumnGrouping = (state, { columnName, groupIndex }) => {
   const grouping = state.grouping.slice();
   const groupingIndex = grouping.findIndex(g => g.columnName === columnName);
   let targetIndex = groupIndex;
@@ -16,7 +16,6 @@ export const groupByColumn = (state, { columnName, groupIndex }) => {
       columnName,
     });
   }
-
 
   const ungroupedColumnIndex = state.grouping.findIndex((group, index) =>
     !grouping[index] || group.columnName !== grouping[index].columnName);

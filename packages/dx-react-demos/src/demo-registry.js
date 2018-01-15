@@ -238,18 +238,6 @@ export const demos = {
       },
     },
   },
-  'featured-theming': {
-    demo: {
-      bootstrap3: {
-        demo: require('./bootstrap3/featured-theming/demo').default,
-        source: preval.require('./demo-source-reader', './bootstrap3/featured-theming/demo'),
-      },
-      'material-ui': {
-        demo: require('./material-ui/featured-theming/demo').default,
-        source: preval.require('./demo-source-reader', './material-ui/featured-theming/demo'),
-      },
-    },
-  },
   filtering: {
     'filter-row': {
       bootstrap3: {

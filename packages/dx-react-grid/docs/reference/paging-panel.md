@@ -61,8 +61,8 @@ Name | Plugin | Type | Description
 currentPage | Getter | number | The current page.
 pageSize | Getter | number | The page size.
 totalCount | Getter | number | The total row count.
-setCurrentPage | Action | (page: number) => void | Changes the current page.
-setPageSize | Action | (size: number) => void | Changes the page size.
+setCurrentPage | [Action](/devextreme-reactive/react/core/docs/reference/action) | (page: number) => void | Changes the current page.
+setPageSize | [Action](/devextreme-reactive/react/core/docs/reference/action) | (size: number) => void | Changes the page size.
 footer | Template | Object? | A template that renders the grid footer.
 
 ### Exports

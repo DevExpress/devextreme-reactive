@@ -30,6 +30,6 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 pageSize | Getter | number | The page size.
-setPageSize | Action | (size: number) => void | Changes the page size.
+setPageSize | [Action](/devextreme-reactive/react/core/docs/reference/action) | (size: number) => void | Changes the page size.
 currentPage | Getter | number | The current page number.
-setCurrentPage | Action | (page: number) => void | Changes the current page number.
+setCurrentPage | [Action](/devextreme-reactive/react/core/docs/reference/action) | (page: number) => void | Changes the current page number.

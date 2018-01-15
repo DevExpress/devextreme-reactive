@@ -99,7 +99,7 @@ grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Curren
 draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview.
 expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
-toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the group's expanded state.
+toggleGroupExpanded | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the group's expanded state.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 

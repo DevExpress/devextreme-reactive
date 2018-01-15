@@ -59,4 +59,4 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
 hiddenColumnNames | Getter | Array&lt;string&gt; | Hidden table column names.
-toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.
+toggleColumnVisibility | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string }) => void | Toggles a column's visibility.

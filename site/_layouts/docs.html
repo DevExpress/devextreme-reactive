@@ -31,8 +31,13 @@ layout: default
 
         {% endfor %}
         </ul>
-
       {% endfor %}
+      <hr />
+      {% if docsPart == 'core' %}
+      <a href="{{site.baseurl}}/react/grid/docs/">Grid Docs</a>
+      {% else %}
+      <a href="{{site.baseurl}}/react/core/docs/">Core Docs</a>
+      {% endif %}
     </div>
 
     <div class="col-md-9 docs-content">

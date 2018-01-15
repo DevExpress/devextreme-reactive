@@ -23,7 +23,7 @@ isGroupRow? | Getter | (row: any) => boolean | A function used to identify a gro
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-toggleSelectAll | Action | (state?: boolean) => void | A function that selects/deselects all rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined).
+toggleSelectAll | [Action](/devextreme-reactive/react/core/docs/reference/action) | (state?: boolean) => void | A function that selects/deselects all rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined).
 selectAllAvailable | Getter | boolean | Returns `true` if there are rows that are available for selection.
 allSelected | Getter | boolean | Indicates whether all the rows available for selection are selected.
 someSelected | Getter | boolean | Indicates whether some rows are selected. False if all/none rows are selected.

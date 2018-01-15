@@ -61,9 +61,9 @@ Name | Plugin | Type | Description
 tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 editingRowIds | Getter | Array&lt;number &#124; string&gt; | IDs of the rows that are being edited.
 addedRows | Getter | Array&lt;any&gt; | Created but not committed rows.
-changeAddedRow | Action | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
+changeAddedRow | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
 changedRows | Getter | { [key: string]: any } | An associative array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
-changeRow | Action | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row.
+changeRow | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a column value for the specified row.
 createRowChange | Getter | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor value changes.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.

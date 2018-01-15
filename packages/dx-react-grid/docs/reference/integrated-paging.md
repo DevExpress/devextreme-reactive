@@ -21,7 +21,7 @@ Name | Plugin | Type | Description
 rows | Getter | Array&lt;any&gt; | Rows to be paged.
 pageSize | Getter | number | Provides the page size.
 currentPage | Getter | number | Provides the current page.
-setCurrentPage | Action | (page: number) => void | Changes the current page.
+setCurrentPage | [Action](/devextreme-reactive/react/core/docs/reference/action) | (page: number) => void | Changes the current page.
 getRowLevelKey? | Getter | (row: any) => string? | A function used to get row level key.
 
 ### Exports

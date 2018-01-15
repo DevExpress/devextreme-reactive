@@ -17,48 +17,47 @@ import {
 
 const getRowId = row => row.id;
 
-const splitColumnName = (columnName) => {
-  const parts = columnName.split('.');
-  return { rootField: parts[0], nestedField: parts[1] };
-};
-
-const getCellValue = (row, columnName) => {
-  if (columnName.indexOf('.') > -1) {
-    const { rootField, nestedField } = splitColumnName(columnName);
-    return row[rootField] ? row[rootField][nestedField] : undefined;
-  }
-  return row[columnName];
-};
-
-const createRowChange = (row, value, columnName) => {
-  if (columnName.indexOf('.') > -1) {
-    const { rootField, nestedField } = splitColumnName(columnName);
-
-    return {
-      [rootField]: {
-        ...row[rootField],
-        [nestedField]: value,
-      },
-    };
-  }
-  return { [columnName]: value };
-};
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       columns: [
-        { name: 'user.firstName', title: 'First Name' },
-        { name: 'user.lastName', title: 'Last Name' },
-        { name: 'car.model', title: 'Car' },
+        {
+          name: 'firstName',
+          title: 'First Name',
+          getCellValue: row => (row.user ? row.user.firstName : undefined),
+        },
+        {
+          name: 'lastName',
+          title: 'Last Name',
+          getCellValue: row => (row.user ? row.user.lastName : undefined),
+        },
+        {
+          name: 'car',
+          title: 'Car',
+          getCellValue: row => (row.car ? row.car.model : undefined),
+        },
         { name: 'position', title: 'Position' },
         { name: 'city', title: 'City' },
       ],
+      editingColumnExtensions: [
+        {
+          columnName: 'firstName',
+          createRowChange: (row, value) => ({ user: { ...row.user, firstName: value } }),
+        },
+        {
+          columnName: 'lastName',
+          createRowChange: (row, value) => ({ user: { ...row.user, lastName: value } }),
+        },
+        {
+          columnName: 'car',
+          createRowChange: (row, value) => ({ car: { model: value } }),
+        },
+      ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
-        length: 14,
+        length: 8,
       }),
     };
 
@@ -86,17 +85,16 @@ export default class Demo extends React.PureComponent {
     this.setState({ rows });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, editingColumnExtensions } = this.state;
 
     return (
       <Grid
         rows={rows}
         columns={columns}
         getRowId={getRowId}
-        getCellValue={getCellValue}
       >
         <EditingState
-          createRowChange={createRowChange}
+          columnExtensions={editingColumnExtensions}
           onCommitChanges={this.commitChanges}
         />
         <Table />

@@ -2,8 +2,7 @@ import React from 'react';
 import {
   Grid,
   Table,
-} from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+} from '@devexpress/dx-react-grid-bootstrap3';
 import {
   generateRows,
   defaultNestedColumnValues,
@@ -32,7 +31,7 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
-        length: 14,
+        length: 8,
       }),
     };
   }
@@ -41,14 +40,12 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Paper>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table />
-        </Grid>
-      </Paper>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table />
+      </Grid>
     );
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
-import { demos } from '../demo-registry';
+import { demos } from '../demo-registry.json';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 
-import { demos } from '../demo-registry';
+import { demos } from '../demo-registry.json';
 
 export class SourceCode extends React.PureComponent {
   render() {

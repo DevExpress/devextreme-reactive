@@ -22,16 +22,16 @@ expandedGroups | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | | Specif
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows to be grouped.
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The current grouping state.
-expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded.
+rows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;any&gt; | Rows to be grouped.
+grouping | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The current grouping state.
+expandedGroups | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows with the applied grouping and expanded groups.
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The specified data's current grouping state.
-expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups expanded in the specified data.
-isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
-getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.
+rows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;any&gt; | Rows with the applied grouping and expanded groups.
+grouping | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The specified data's current grouping state.
+expandedGroups | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups expanded in the specified data.
+isGroupRow | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => boolean | A function used to identify a group row within ordinary rows.
+getRowLevelKey | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => string? | A function used to get a group row level key.

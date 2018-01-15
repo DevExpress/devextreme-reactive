@@ -24,4 +24,4 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-totalCount | Getter | number | The total row count.
+totalCount | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | The total row count.

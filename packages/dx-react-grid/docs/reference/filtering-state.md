@@ -39,5 +39,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filters | Getter | Array&lt;[Filter](#filter)&gt; | The currently applied filters.
+filters | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Filter](#filter)&gt; | The currently applied filters.
 changeColumnFilter | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, config: Object }) => void | Adds, changes or removes a filter. Pass `null` to the `config` argument to remove the filter associated with the specified column.

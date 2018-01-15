@@ -27,4 +27,4 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 toggleDetailRowExpanded | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowId }) => void | Expands/collapses the specified row.
-expandedRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.
+expandedRowIds | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;number &#124; string&gt; | Currently expanded rows.

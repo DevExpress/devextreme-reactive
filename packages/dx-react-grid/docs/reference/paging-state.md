@@ -29,7 +29,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-pageSize | Getter | number | The page size.
+pageSize | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | The page size.
 setPageSize | [Action](/devextreme-reactive/react/core/docs/reference/action) | (size: number) => void | Changes the page size.
-currentPage | Getter | number | The current page number.
+currentPage | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | The current page number.
 setCurrentPage | [Action](/devextreme-reactive/react/core/docs/reference/action) | (page: number) => void | Changes the current page number.

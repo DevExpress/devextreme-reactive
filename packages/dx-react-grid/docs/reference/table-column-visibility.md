@@ -50,13 +50,13 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 table | Template | Object? | A template that renders a table.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
-hiddenColumnNames | Getter | Array&lt;string&gt; | Hidden table column names.
+tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
+hiddenColumnNames | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;string&gt; | Hidden table column names.
 toggleColumnVisibility | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string }) => void | Toggles a column's visibility.

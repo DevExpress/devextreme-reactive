@@ -92,13 +92,13 @@ Additional properties are added to the component's root element.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](#column-extension)&gt; | The grid columns.
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Current grouping options.
-draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview.
-expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
-isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
+columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](#column-extension)&gt; | The grid columns.
+tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableBodyRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
+grouping | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Current grouping options.
+draftGrouping | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for preview.
+expandedGroups | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
+isGroupRow | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the group's expanded state.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
@@ -107,5 +107,5 @@ tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that 
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns, including the ones by which the table is grouped.
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows with modified group rows.
+tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns, including the ones by which the table is grouped.
+tableBodyRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows with modified group rows.

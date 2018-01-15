@@ -8,6 +8,8 @@ react:
           path: /react/core/docs/reference/plugin-container
         - title: Action
           path: /react/core/docs/reference/action
+        - title: Getter
+          path: /react/core/docs/reference/getter
   grid:
     - title: Guides
       items:

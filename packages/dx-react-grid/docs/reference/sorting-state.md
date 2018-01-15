@@ -39,5 +39,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-sorting | Getter | Array&lt;[Sorting](#sorting)&gt; | Applied column sorting.
+sorting | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Sorting](#sorting)&gt; | Applied column sorting.
 changeColumnSorting | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.

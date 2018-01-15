@@ -35,13 +35,13 @@ width | number | A column width.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns whose width the plugin manages.
+tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns whose width the plugin manages.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns with new width values applied.
-tableColumnResizingEnabled | Getter | boolean | Specifies whether table column resizing is enabled.
+tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns with new width values applied.
+tableColumnResizingEnabled | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Specifies whether table column resizing is enabled.
 changeTableColumnWidth | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, shift: number }) => void | Changes the specified column width. Column width is increased by the corresponding shift value, or decreased if the value is negative.
 changeDraftTableColumnWidth | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, shift?: number }) => void | Changes the specified column width used for preview. Column width is increased by the corresponding shift value, or decreased if the value is negative. Set `shift` to `null` to clear draft width by the current column.

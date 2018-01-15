@@ -147,18 +147,18 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows to be rendered by the table view.
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a cell’s value.
+rows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;any&gt; | Rows to be rendered by the table view.
+columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view.
+getRowId | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => number &#124; string | A function used to get a unique row identifier.
+getCellValue | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any, columnName: string) => any | A function used to get a cell’s value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
-tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
-tableColumns | Getter | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
+tableHeaderRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
+tableBodyRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
 table | Template | Object? | A template that renders the table.
 tableCell | Template | [TableCellProps](#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](#tablerowprops) | A template that renders a table row.

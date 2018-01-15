@@ -66,10 +66,10 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Grid rows.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
-columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a given row's column value.
+rows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;any&gt; | Grid rows.
+getRowId | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => number &#124; string | A function used to get a unique row identifier.
+columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](#column)&gt; | Grid columns.
+getCellValue | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any, columnName: string) => any | A function used to get a given row's column value.
 root | Template | Object? | A template that renders the grid root layout.
 header | Template | Object? | A template that renders the grid header.
 body | Template | Object? | A template that renders the grid body.

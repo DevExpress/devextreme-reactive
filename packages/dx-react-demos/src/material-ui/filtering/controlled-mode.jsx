@@ -32,7 +32,7 @@ export default class Demo extends React.PureComponent {
     this.changeFilters = filters => this.setState({ filters });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, filters } = this.state;
 
     return (
       <Paper>
@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState
-            filters={this.state.filters}
+            filters={filters}
             onFiltersChange={this.changeFilters}
           />
           <IntegratedFiltering />

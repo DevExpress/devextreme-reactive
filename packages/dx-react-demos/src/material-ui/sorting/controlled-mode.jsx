@@ -31,7 +31,7 @@ export default class Demo extends React.PureComponent {
     this.changeSorting = sorting => this.setState({ sorting });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, sorting } = this.state;
 
     return (
       <Paper>
@@ -40,7 +40,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <SortingState
-            sorting={this.state.sorting}
+            sorting={sorting}
             onSortingChange={this.changeSorting}
           />
           <IntegratedSorting />

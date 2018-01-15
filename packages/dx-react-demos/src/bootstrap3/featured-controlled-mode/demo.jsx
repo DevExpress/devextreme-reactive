@@ -298,7 +298,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableEditColumn
             width={100}
-            showAddCommand={!this.state.addedRows.length}
+            showAddCommand={!addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}

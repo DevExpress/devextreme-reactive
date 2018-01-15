@@ -35,7 +35,7 @@ export default class Demo extends React.PureComponent {
     this.changeGrouping = grouping => this.setState({ grouping });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, grouping } = this.state;
 
     return (
       <Paper>
@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
         >
           <DragDropProvider />
           <GroupingState
-            grouping={this.state.grouping}
+            grouping={grouping}
             onGroupingChange={this.changeGrouping}
           />
           <IntegratedGrouping />

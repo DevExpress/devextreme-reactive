@@ -339,7 +339,7 @@ class DemoBase extends React.PureComponent {
           />
           <TableEditColumn
             width={120}
-            showAddCommand={!this.state.addedRows.length}
+            showAddCommand={!addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}

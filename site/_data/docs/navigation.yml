@@ -1,4 +1,13 @@
 react:
+  core:
+    - title: API Reference
+      items:
+        - title: PluginHost
+          path: /react/core/docs/reference/plugin-host
+        - title: PluginContainer
+          path: /react/core/docs/reference/plugin-container
+        - title: Action
+          path: /react/core/docs/reference/action
   grid:
     - title: Guides
       items:
@@ -107,10 +116,4 @@ react:
         - title: Toolbar
           path: /react/grid/docs/reference/toolbar
         - title: CustomPaging
-          path: /react/grid/docs/reference/custom-paging
-        - title: PluginHost
-          path: /react/core/docs/reference/plugin-host
-        - title: PluginContainer
-          path: /react/core/docs/reference/plugin-container
-        - title: Action
-          path: /react/core/docs/reference/action
+          path: /react/grid/docs/reference/custom-paging\

@@ -64,7 +64,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state.
 draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for the preview.
-changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
+changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Updates `dratfGrouping`.
 cancelGroupingChange | Action | () => void | Resets `draftGrouping`.
 expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups.

@@ -1,13 +1,13 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
-import { isEmptyMessageShown } from './helpers';
+import { tableDataColumnsExist } from './helpers';
 
 describe('TableColumnVisibility helpers', () => {
-  describe('#isEmptyMessageShown', () => {
+  describe('#tableDataColumnsExist', () => {
     it('should show empty message when all columns are hidden', () => {
       const tableColumns = [];
 
-      expect(isEmptyMessageShown(tableColumns))
-        .toBeTruthy();
+      expect(tableDataColumnsExist(tableColumns))
+        .toBeFalsy();
     });
 
     it('should show empty message when all shown columns are grouped', () => {
@@ -15,8 +15,8 @@ describe('TableColumnVisibility helpers', () => {
         { type: 'any', column: { name: 'a' } },
       ];
 
-      expect(isEmptyMessageShown(tableColumns))
-        .toBeTruthy();
+      expect(tableDataColumnsExist(tableColumns))
+        .toBeFalsy();
     });
 
     it('should not show empty message while a shown column is not grouped', () => {
@@ -24,8 +24,8 @@ describe('TableColumnVisibility helpers', () => {
         { type: TABLE_DATA_TYPE, column: { name: 'd' } },
       ];
 
-      expect(isEmptyMessageShown(tableColumns))
-        .toBeFalsy();
+      expect(tableDataColumnsExist(tableColumns))
+        .toBeTruthy();
     });
   });
 });

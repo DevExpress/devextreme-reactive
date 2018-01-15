@@ -91,24 +91,24 @@ export const demos = {
     },
   },
   'data-accessors': {
-    'custom-data-accessors': {
+    'value-setters': {
       bootstrap3: {
-        demo: require('./bootstrap3/data-accessors/custom-data-accessors').default,
-        source: preval.require('./demo-source-reader', './bootstrap3/data-accessors/custom-data-accessors'),
+        demo: require('./bootstrap3/data-accessors/value-setters').default,
+        source: preval.require('./demo-source-reader', './bootstrap3/data-accessors/value-setters'),
       },
       'material-ui': {
-        demo: require('./material-ui/data-accessors/custom-data-accessors').default,
-        source: preval.require('./demo-source-reader', './material-ui/data-accessors/custom-data-accessors'),
+        demo: require('./material-ui/data-accessors/value-setters').default,
+        source: preval.require('./demo-source-reader', './material-ui/data-accessors/value-setters'),
       },
     },
-    'custom-data-accessors-in-columns': {
+    'value-getters': {
       bootstrap3: {
-        demo: require('./bootstrap3/data-accessors/custom-data-accessors-in-columns').default,
-        source: preval.require('./demo-source-reader', './bootstrap3/data-accessors/custom-data-accessors-in-columns'),
+        demo: require('./bootstrap3/data-accessors/value-getters').default,
+        source: preval.require('./demo-source-reader', './bootstrap3/data-accessors/value-getters'),
       },
       'material-ui': {
-        demo: require('./material-ui/data-accessors/custom-data-accessors-in-columns').default,
-        source: preval.require('./demo-source-reader', './material-ui/data-accessors/custom-data-accessors-in-columns'),
+        demo: require('./material-ui/data-accessors/value-getters').default,
+        source: preval.require('./demo-source-reader', './material-ui/data-accessors/value-getters'),
       },
     },
   },

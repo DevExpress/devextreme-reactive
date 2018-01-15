@@ -12,6 +12,8 @@ react:
           path: /react/core/docs/reference/getter
         - title: Template
           path: /react/core/docs/reference/template
+        - title: TemplatePlaceholder
+          path: /react/core/docs/reference/template-placeholder
   grid:
     - title: Guides
       items:

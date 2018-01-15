@@ -24,16 +24,16 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 6 }),
-      hiddenColumns: ['sex', 'car'],
+      hiddenColumnNames: ['sex', 'car'],
     };
 
-    this.hiddenColumnsChange = (hiddenColumns) => {
-      this.setState({ hiddenColumns });
+    this.hiddenColumnNamesChange = (hiddenColumnNames) => {
+      this.setState({ hiddenColumnNames });
     };
   }
 
   render() {
-    const { columns, rows, hiddenColumns } = this.state;
+    const { columns, rows, hiddenColumnNames } = this.state;
     return (
       <Paper>
         <Grid
@@ -44,8 +44,8 @@ export default class Demo extends React.PureComponent {
           <Toolbar />
           <TableHeaderRow />
           <TableColumnVisibility
-            hiddenColumns={hiddenColumns}
-            onHiddenColumnsChange={this.hiddenColumnsChange}
+            hiddenColumnNames={hiddenColumnNames}
+            onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
           />
           <ColumnChooser />
         </Grid>

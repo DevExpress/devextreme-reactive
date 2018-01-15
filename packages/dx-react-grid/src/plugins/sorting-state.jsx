@@ -18,9 +18,12 @@ export class SortingState extends React.PureComponent {
       .bind(stateHelper, changeColumnSorting);
   }
   getState() {
+    const {
+      sorting = this.state.sorting,
+    } = this.props;
     return {
       ...this.state,
-      sorting: this.props.sorting || this.state.sorting,
+      sorting,
     };
   }
   notifyStateChange(nextState, state) {

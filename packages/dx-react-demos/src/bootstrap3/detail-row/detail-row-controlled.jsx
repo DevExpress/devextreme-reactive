@@ -34,13 +34,13 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 7 }),
-      expandedRows: [2, 5],
+      expandedRowIds: [2, 5],
     };
 
-    this.changeExpandedDetails = expandedRows => this.setState({ expandedRows });
+    this.changeExpandedDetails = expandedRowIds => this.setState({ expandedRowIds });
   }
   render() {
-    const { rows, columns, expandedRows } = this.state;
+    const { rows, columns, expandedRowIds } = this.state;
 
     return (
       <Grid
@@ -48,8 +48,8 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <RowDetailState
-          expandedRows={expandedRows}
-          onExpandedRowsChange={this.changeExpandedDetails}
+          expandedRowIds={expandedRowIds}
+          onExpandedRowIdsChange={this.changeExpandedDetails}
         />
         <Table />
         <TableHeaderRow />

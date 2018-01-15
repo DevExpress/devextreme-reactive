@@ -174,7 +174,7 @@ export default class Demo extends React.PureComponent {
           defaultPageSize={10}
         />
         <RowDetailState
-          defaultExpandedRows={[2]}
+          defaultExpandedRowIds={[2]}
         />
         <SelectionState
           defaultSelection={[1, 3, 18]}

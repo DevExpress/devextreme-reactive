@@ -15,16 +15,16 @@ Name | Type | Default | Description
 createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a row changes object depending on row editor values. This function is called each time the row editor's value changes.
 columnExtensions | Array&lt;[EditingColumnExtension](#editingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 editingRowIds | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows being edited.
-defaultEditingRowIds | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows initially added to the `editingRowIds` array in uncontrolled mode.
+defaultEditingRowIds | Array&lt;number &#124; string&gt; | [] | Specifies IDs of the rows initially added to the `editingRowIds` array in uncontrolled mode.
 onEditingRowIdsChange | (editingRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
 addedRows | Array&lt;any&gt; | | Specifies created but not committed rows.
-defaultAddedRows | Array&lt;any&gt; | | Specifies rows initially added to the `addedRows` array in uncontrolled mode.
+defaultAddedRows | Array&lt;any&gt; | [] | Specifies rows initially added to the `addedRows` array in uncontrolled mode.
 onAddedRowsChange | (addedRows: Array&lt;any&gt;) => void | | Handles adding or removing a row to/from the `addedRows` array.
 changedRows | { [key: string]: any } | | Specifies changed but not committed rows.
-defaultChangedRows | { [key: string]: any } | | Specifies rows initially added to the `changedRows` array in uncontrolled mode.
+defaultChangedRows | { [key: string]: any } | {} | Specifies rows initially added to the `changedRows` array in uncontrolled mode.
 onChangedRowsChange | (changedRows: { [key: string]: any }) => void | | Handles adding or removing a row to/from the `changedRows` array.
 deletedRowIds | Array&lt;number &#124; string&gt; | | Specifies IDs of the rows prepared for deletion.
-defaultDeletedRowIds | Array&lt;number &#124; string&gt; | | Specifies rows initially added to the `deletedRowIds` array in uncontrolled mode.
+defaultDeletedRowIds | Array&lt;number &#124; string&gt; | [] | Specifies rows initially added to the `deletedRowIds` array in uncontrolled mode.
 onDeletedRowIdsChange | (deletedRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRowIds` array.
 onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
 

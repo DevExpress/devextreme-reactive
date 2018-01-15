@@ -4,9 +4,9 @@ describe('ColumnChooser computeds', () => {
   describe('#columnChooserItems', () => {
     it('should return items correctly', () => {
       const columns = [{ name: 'a' }, { name: 'b' }, { name: 'c' }];
-      const hiddenColumns = ['c', 'a'];
+      const hiddenColumnNames = ['c', 'a'];
 
-      expect(columnChooserItems(columns, hiddenColumns))
+      expect(columnChooserItems(columns, hiddenColumnNames))
         .toEqual([
           { column: { name: 'a' }, hidden: true },
           { column: { name: 'b' }, hidden: false },

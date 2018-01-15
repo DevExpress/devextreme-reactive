@@ -18,7 +18,7 @@ module.exports = function DemoRegistryLoader(source) {
         const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
         this.addDependency(fileName);
 
-        return `${themesAcc}\n${indent(`'${themeName}': {\n  demo: require('${fileName}').default,\n  source: ${demoSource},\n},`, 2)}`;
+        return `${themesAcc}\n${indent(`'${themeName}': {\n  demo: require(${JSON.stringify(fileName)}).default,\n  source: ${demoSource},\n},`, 2)}`;
       }, '');
 
       return `${demosAcc}\n${indent(`'${demoName}': {${themesString}\n},`, 2)}`;

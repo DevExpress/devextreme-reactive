@@ -24,12 +24,11 @@ module.exports = ({ production }) => ({
       },
       {
         test: /demo\-registry\.json$/,
-        exclude: /(node_modules\/)/,
         use: [path.resolve('src/demo-registry-loader.js')]
       },
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules\/)/,
+        exclude: /(node_modules|bower_components|public\/)/,
         use: ["babel-loader"]
       },
       {

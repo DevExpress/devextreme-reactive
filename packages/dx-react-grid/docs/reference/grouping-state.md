@@ -56,5 +56,5 @@ draftGrouping | Getter | Array&lt;[Grouping](#grouping)&gt; | Grouping options u
 expandedGroups | Getter | Array&lt;[GroupKey](#group-key)&gt; | Expanded groups.
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state.
-draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column or cancels grouping used for preview. If `groupIndex` is omitted, the group is added to the last position.
-cancelColumnGroupingDraft | Action | () => void | Cancels column grouping changes used for preview.
+draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Sets or clears grouping options used for the preview. If `groupIndex` is omitted, the group is added to the last position.
+cancelColumnGroupingDraft | Action | () => void | Cancels changes of column grouping options used for the preview.

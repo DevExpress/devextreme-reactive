@@ -1,6 +1,6 @@
 # TemplateConnector Component Reference
 
-React component that provides relationship between state-managed components([Getter](getter.md), [Action](action.md)) and [Templates](template.md).
+React component that provides relationship between state-managed components([Getter](getter.md), [Action](action.md)) and [Template](template.md).
 
 ## User reference
 

@@ -35,7 +35,9 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <SortingState />
+        <SortingState
+          defaultSorting={[{ columnName: 'city', direction: 'asc' }]}
+        />
         <IntegratedSorting />
         <Table />
         <TableHeaderRow showSortingControls />

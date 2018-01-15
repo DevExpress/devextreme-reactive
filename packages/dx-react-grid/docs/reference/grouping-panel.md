@@ -102,7 +102,7 @@ changeColumnSorting | [Action](/devextreme-reactive/react/core/docs/reference/ac
 draftGroupingChange | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
 cancelGroupingChange | [Action](/devextreme-reactive/react/core/docs/reference/action) | () => void | Resets the groupingChange state.
 draggingEnabled | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Specifies whether drag-and-drop is enabled.
-toolbarContent | Template | Object? | A template that renders the toolbar content.
+toolbarContent | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the toolbar content.
 
 ### Exports
 

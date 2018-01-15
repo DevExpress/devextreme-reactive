@@ -54,7 +54,7 @@ If you specify additional properties, they are added to the component's root ele
 Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging.
-root | Template | Object? | A template that renders the grid's root layout.
+root | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the grid's root layout.
 
 ### Exports
 

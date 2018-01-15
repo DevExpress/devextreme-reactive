@@ -66,8 +66,8 @@ changedRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | 
 changeRow | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row.
 getCellValue | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any, columnName: string) => any | A function used to get a column value for the specified row.
 createRowChange | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor value changes.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

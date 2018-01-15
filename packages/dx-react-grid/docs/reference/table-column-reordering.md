@@ -24,9 +24,9 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 tableHeaderRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
-table | Template | Object? | A template that renders the table.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+table | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the table.
+tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 

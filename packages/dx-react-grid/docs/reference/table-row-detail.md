@@ -85,8 +85,8 @@ tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) |
 tableBodyRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
 expandedRowIds | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;number &#124; string&gt; | Expanded rows IDs.
 toggleDetailRowExpanded | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowId }) => void | Expands/collapses the specified row.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

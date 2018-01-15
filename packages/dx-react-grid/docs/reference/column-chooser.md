@@ -106,7 +106,7 @@ Name | Plugin | Type | Description
 columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 hiddenColumnNames | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;string&gt; | Names of columns to be hidden.
 toggleColumnVisibility | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string }) => void | Toggles a column's visibility.
-toolbarContent | Template | Object? | A template that renders toolbar content.
+toolbarContent | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders toolbar content.
 
 ### Exports
 

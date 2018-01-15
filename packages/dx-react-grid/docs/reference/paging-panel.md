@@ -63,7 +63,7 @@ pageSize | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | num
 totalCount | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | The total row count.
 setCurrentPage | [Action](/devextreme-reactive/react/core/docs/reference/action) | (page: number) => void | Changes the current page.
 setPageSize | [Action](/devextreme-reactive/react/core/docs/reference/action) | (size: number) => void | Changes the page size.
-footer | Template | Object? | A template that renders the grid footer.
+footer | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the grid footer.
 
 ### Exports
 

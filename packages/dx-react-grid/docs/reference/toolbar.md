@@ -38,10 +38,10 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-header | Template | Object? | A template that renders the grid header.
+header | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the grid header.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-toolbarContent | Template | Object? | A template that renders the toolbar content.
+toolbarContent | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the toolbar content.

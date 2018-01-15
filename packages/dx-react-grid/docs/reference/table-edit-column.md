@@ -95,7 +95,7 @@ cancelChangedRows | [Action](/devextreme-reactive/react/core/docs/reference/acti
 commitChangedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `changedRows` array.
 deleteRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows with the specified ID for deletion by adding them to the `deletedRowIds` array.
 commitDeletedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `deletedRowIds` array.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 

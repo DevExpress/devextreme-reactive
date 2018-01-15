@@ -72,8 +72,8 @@ toggleSelectAll | [Action](/devextreme-reactive/react/core/docs/reference/action
 selectAllAvailable | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Indicates whether there are rows that are available for selection.
 allSelected | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Indicates whether all the rows available for selection are selected.
 someSelected | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

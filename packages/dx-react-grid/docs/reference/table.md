@@ -159,6 +159,6 @@ Name | Plugin | Type | Description
 tableHeaderRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
 tableBodyRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
 tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
-table | Template | Object? | A template that renders the table.
-tableCell | Template | [TableCellProps](#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](#tablerowprops) | A template that renders a table row.
+table | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the table.
+tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](#tablerowprops) | A template that renders a table row.

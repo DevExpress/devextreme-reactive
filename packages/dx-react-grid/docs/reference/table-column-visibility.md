@@ -51,7 +51,7 @@ If you specify additional properties, they are added to the component's root ele
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-table | Template | Object? | A template that renders a table.
+table | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders a table.
 
 ### Exports
 

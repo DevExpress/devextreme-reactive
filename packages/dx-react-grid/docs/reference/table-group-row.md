@@ -100,8 +100,8 @@ draftGrouping | [Getter](/devextreme-reactive/react/core/docs/reference/getter) 
 expandedGroups | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
 isGroupRow | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the group's expanded state.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

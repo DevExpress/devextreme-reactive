@@ -10,6 +10,8 @@ react:
           path: /react/core/docs/reference/action
         - title: Getter
           path: /react/core/docs/reference/getter
+        - title: Template
+          path: /react/core/docs/reference/template
   grid:
     - title: Guides
       items:

@@ -70,7 +70,7 @@ rows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&l
 getRowId | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => number &#124; string | A function used to get a unique row identifier.
 columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](#column)&gt; | Grid columns.
 getCellValue | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any, columnName: string) => any | A function used to get a given row's column value.
-root | Template | Object? | A template that renders the grid root layout.
-header | Template | Object? | A template that renders the grid header.
-body | Template | Object? | A template that renders the grid body.
-footer | Template | Object? | A template that renders the grid footer.
+root | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the grid root layout.
+header | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the grid header.
+body | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the grid body.
+footer | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the grid footer.

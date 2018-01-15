@@ -78,8 +78,8 @@ tableColumnResizingEnabled | [Getter](/devextreme-reactive/react/core/docs/refer
 draggingEnabled | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Specifies whether drag-and-drop is enabled.
 changeTableColumnWidth | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, shift: number }) => void | Changes column width. The initial column width increases by the `shift` value or decreases if `shift` is negative.
 changeDraftTableColumnWidth | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, shift?: number }) => void | Changes column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Set `shift` to `null` to clear draft width by the current column.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

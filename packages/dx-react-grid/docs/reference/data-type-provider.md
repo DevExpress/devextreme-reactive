@@ -53,5 +53,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-valueFormatter | Template | [ValueFormatterProps](#valueformatterprops) | A template that renders the formatted value.
-valueEditor | Template | [ValueEditorProps](#valueeditorprops) | A template that renders the editor.
+valueFormatter | [Template](/devextreme-reactive/react/core/docs/reference/template) | [ValueFormatterProps](#valueformatterprops) | A template that renders the formatted value.
+valueEditor | [Template](/devextreme-reactive/react/core/docs/reference/template) | [ValueEditorProps](#valueeditorprops) | A template that renders the editor.

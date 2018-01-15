@@ -14,6 +14,8 @@ react:
           path: /react/core/docs/reference/template
         - title: TemplatePlaceholder
           path: /react/core/docs/reference/template-placeholder
+        - title: TemplateConnector
+          path: /react/core/docs/reference/template-connector
   grid:
     - title: Guides
       items:

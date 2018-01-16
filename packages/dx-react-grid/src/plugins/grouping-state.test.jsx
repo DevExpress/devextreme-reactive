@@ -5,9 +5,8 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,
-  draftGrouping,
-  draftGroupingChange,
-  cancelGroupingChange,
+  draftColumnGrouping,
+  cancelColumnGroupingDraft,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { GroupingState } from './grouping-state';
@@ -15,9 +14,8 @@ import { GroupingState } from './grouping-state';
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnGrouping: jest.fn(),
   toggleExpandedGroups: jest.fn(),
-  draftGrouping: jest.fn(),
-  draftGroupingChange: jest.fn(),
-  cancelGroupingChange: jest.fn(),
+  draftColumnGrouping: jest.fn(),
+  cancelColumnGroupingDraft: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -39,10 +37,9 @@ describe('GroupingState', () => {
 
   beforeEach(() => {
     changeColumnGrouping.mockImplementation(() => {});
-    draftGrouping.mockImplementation(() => 'draftGrouping');
     toggleExpandedGroups.mockImplementation(() => {});
-    draftGroupingChange.mockImplementation(() => {});
-    cancelGroupingChange.mockImplementation(() => {});
+    draftColumnGrouping.mockImplementation(() => {});
+    cancelColumnGroupingDraft.mockImplementation(() => {});
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -312,13 +309,11 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      expect(draftGrouping)
-        .toBeCalledWith(defaultGrouping, null);
       expect(getComputedState(tree).draftGrouping)
-        .toBe(draftGrouping());
+        .toBe(defaultGrouping);
     });
 
-    it('should provide draftGrouping getter based on the result of draftGroupingChange action', () => {
+    it('should provide draftGrouping getter based on the result of draftColumnGrouping action', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
       const tree = mount((
@@ -331,17 +326,20 @@ describe('GroupingState', () => {
       ));
 
       const payload = { columnName: 'a' };
-      draftGroupingChange.mockImplementation(() => ({ groupingChange: 'change' }));
-      executeComputedAction(tree, actions => actions.draftGroupingChange(payload));
+      draftColumnGrouping.mockImplementation(() => ({ draftGrouping: [{ columnName: 'b' }] }));
+      executeComputedAction(tree, actions => actions.draftColumnGrouping(payload));
 
-      expect(draftGroupingChange)
-        .toBeCalledWith(expect.objectContaining({ groupingChange: null }), payload);
+      expect(draftColumnGrouping)
+        .toBeCalledWith(
+          expect.objectContaining({ grouping: defaultGrouping, draftGrouping: null }),
+          payload,
+        );
 
-      expect(draftGrouping)
-        .toBeCalledWith(defaultGrouping, draftGroupingChange().groupingChange);
+      expect(getComputedState(tree).draftGrouping)
+        .toEqual([{ columnName: 'b' }]);
     });
 
-    it('should provide draftGrouping getter based on the result of cancelGroupingChange result', () => {
+    it('should provide draftGrouping getter based on the result of cancelColumnGroupingDraft result', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
       const tree = mount((
@@ -354,14 +352,14 @@ describe('GroupingState', () => {
       ));
 
       const payload = { columnName: 'a' };
-      cancelGroupingChange.mockImplementation(() => ({ groupingChange: 'change' }));
-      executeComputedAction(tree, actions => actions.cancelGroupingChange(payload));
+      cancelColumnGroupingDraft.mockImplementation(() => ({ groupingChange: 'change' }));
+      executeComputedAction(tree, actions => actions.cancelColumnGroupingDraft(payload));
 
-      expect(cancelGroupingChange)
-        .toBeCalledWith(expect.objectContaining({ groupingChange: null }), payload);
-
-      expect(draftGrouping)
-        .toBeCalledWith(defaultGrouping, cancelGroupingChange().groupingChange);
+      expect(cancelColumnGroupingDraft)
+        .toBeCalledWith(
+          expect.objectContaining({ grouping: defaultGrouping, draftGrouping: null }),
+          payload,
+        );
     });
   });
 

@@ -10,19 +10,57 @@ describe('Plugin helpers', () => {
       { name: 'c' },
       { name: 'd' },
     ];
-    const draftGrouping = [
-      { columnName: 'a' },
-      { columnName: 'c', draft: true },
-    ];
 
-    it('should work', () => {
-      const processedColumns = groupingPanelItems(columns, draftGrouping);
+    it('should work with normal conditions', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'c' },
+      ];
+      const draftGrouping = [
+        { columnName: 'a' },
+        { columnName: 'c' },
+      ];
 
-      expect(processedColumns).toHaveLength(2);
-      expect(processedColumns[0].column).toBe(columns[0]);
-      expect(processedColumns[0].draft).toBeUndefined();
-      expect(processedColumns[1].column).toBe(columns[2]);
-      expect(processedColumns[1].draft).toBeTruthy();
+      expect(groupingPanelItems(columns, grouping, draftGrouping))
+        .toEqual([
+          { column: { name: 'a' }, draft: false },
+          { column: { name: 'c' }, draft: false },
+        ]);
+    });
+
+    it('should work when draft group added', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'c' },
+      ];
+      const draftGrouping = [
+        { columnName: 'a' },
+        { columnName: 'c' },
+        { columnName: 'd' },
+      ];
+
+      expect(groupingPanelItems(columns, grouping, draftGrouping))
+        .toEqual([
+          { column: { name: 'a' }, draft: false },
+          { column: { name: 'c' }, draft: false },
+          { column: { name: 'd' }, draft: true },
+        ]);
+    });
+
+    it('should work when draft group removed', () => {
+      const grouping = [
+        { columnName: 'a' },
+        { columnName: 'c' },
+      ];
+      const draftGrouping = [
+        { columnName: 'a' },
+      ];
+
+      expect(groupingPanelItems(columns, grouping, draftGrouping))
+        .toEqual([
+          { column: { name: 'a' }, draft: false },
+          { column: { name: 'c' }, draft: true },
+        ]);
     });
   });
 });

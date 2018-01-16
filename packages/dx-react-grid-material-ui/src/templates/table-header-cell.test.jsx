@@ -125,22 +125,26 @@ describe('TableHeaderCell', () => {
 
   it('should render resize control if resize allowed', () => {
     const onWidthChange = () => {};
-    const onDraftWidthChange = () => {};
+    const onWidthDraft = () => {};
+    const onWidthDraftCancel = () => {};
     const tree = shallow((
       <TableHeaderCell
         {...defaultProps}
         resizingEnabled
-        onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
+        onWidthDraft={onWidthDraft}
+        onWidthDraftCancel={onWidthDraftCancel}
       />
     ));
 
     expect(tree.find(ResizingControl).exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('onDraftWidthChange'))
-      .toBe(onDraftWidthChange);
     expect(tree.find(ResizingControl).prop('onWidthChange'))
       .toBe(onWidthChange);
+    expect(tree.find(ResizingControl).prop('onWidthDraft'))
+      .toBe(onWidthDraft);
+    expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
+      .toBe(onWidthDraftCancel);
   });
 
   it('should pass correct text to SortingControl', () => {

@@ -25,7 +25,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ length: 8 }),
       currentPage: 0,
       pageSize: 5,
       pageSizes: [5, 10, 15],
@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, pageSize, pageSizes,
+      rows, columns, pageSize, pageSizes, currentPage,
     } = this.state;
 
     return (
@@ -46,7 +46,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <PagingState
-            currentPage={this.state.currentPage}
+            currentPage={currentPage}
             onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
             onPageSizeChange={this.changePageSize}

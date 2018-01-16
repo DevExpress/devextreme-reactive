@@ -31,6 +31,7 @@
     "build:site": "yarn run build:site:demos && yarn run build:site:docs",
     "build:site:demos": "lerna run build --ignore @devexpress/dx-react-demos && lerna run build:prod --scope @devexpress/dx-react-demos",
     "build:site:docs": "gulp site",
+    "build:site:watch": "npx nodemon --exec \"yarn run build:site:docs\" --watch \"packages/dx-react-demos/dist/\" --watch \"packages/*/docs/\" --watch \"packages/*/demos/\" --watch \"gulpfile.js\" --ext md,js",
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test",

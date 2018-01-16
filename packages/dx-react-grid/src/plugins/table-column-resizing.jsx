@@ -4,7 +4,8 @@ import { PluginContainer, Getter, Action } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
   changeTableColumnWidth,
-  changeDraftTableColumnWidth,
+  draftTableColumnWidth,
+  cancelTableColumnWidthDraft,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -23,11 +24,12 @@ export class TableColumnResizing extends React.PureComponent {
 
     const stateHelper = createStateHelper(this);
 
-    this.changeTableColumnWidthAction =
+    this.changeTableColumnWidth =
       stateHelper.applyReducer.bind(stateHelper, changeTableColumnWidth);
-
-    this.changeDraftTableColumnWidthAction =
-      stateHelper.applyReducer.bind(stateHelper, changeDraftTableColumnWidth);
+    this.draftTableColumnWidth =
+      stateHelper.applyReducer.bind(stateHelper, draftTableColumnWidth);
+    this.cancelTableColumnWidthDraft =
+      stateHelper.applyReducer.bind(stateHelper, cancelTableColumnWidthDraft);
   }
   getState() {
     const {
@@ -58,11 +60,9 @@ export class TableColumnResizing extends React.PureComponent {
       >
         <Getter name="tableColumnResizingEnabled" value />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Action name="changeTableColumnWidth" action={this.changeTableColumnWidthAction} />
-        <Action
-          name="changeDraftTableColumnWidth"
-          action={this.changeDraftTableColumnWidthAction}
-        />
+        <Action name="changeTableColumnWidth" action={this.changeTableColumnWidth} />
+        <Action name="draftTableColumnWidth" action={this.draftTableColumnWidth} />
+        <Action name="cancelTableColumnWidthDraft" action={this.cancelTableColumnWidthDraft} />
       </PluginContainer>
     );
   }

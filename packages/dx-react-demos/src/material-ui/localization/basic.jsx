@@ -60,7 +60,7 @@ export default class Demo extends React.PureComponent {
         { name: 'channel', title: 'Kanal' },
         { name: 'customer', title: 'Kunde' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
 
     // eslint-disable-next-line no-alert

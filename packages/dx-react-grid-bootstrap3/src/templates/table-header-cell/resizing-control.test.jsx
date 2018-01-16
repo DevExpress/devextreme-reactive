@@ -1,8 +1,14 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Draggable } from '@devexpress/dx-react-core';
 import { ResizingControl } from './resizing-control';
+
+const defaultProps = {
+  onWidthChange: () => {},
+  onWidthDraft: () => {},
+  onWidthDraftCancel: () => {},
+};
 
 describe('ResizingControl', () => {
   let resetConsole;
@@ -15,33 +21,37 @@ describe('ResizingControl', () => {
 
   it('should trigger onWidthChange with correct change on resize end', () => {
     const onWidthChange = jest.fn();
-    const tree = mount((
+    const onWidthDraftCancel = jest.fn();
+    const tree = shallow((
       <ResizingControl
-        onDraftWidthChange={() => {}}
+        {...defaultProps}
         onWidthChange={onWidthChange}
+        onWidthDraftCancel={onWidthDraftCancel}
       />
     ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
 
     tree.find(Draggable).prop('onEnd')({ x: 10 });
+    expect(onWidthDraftCancel)
+      .toBeCalled();
     expect(onWidthChange)
       .toBeCalledWith({ shift: 10 });
   });
 
-  it('should trigger onDraftWidthChange with correct change on resize update', () => {
-    const onDraftWidthChange = jest.fn();
-    const tree = mount((
+  it('should trigger onWidthDraft with correct change on resize update', () => {
+    const onWidthDraft = jest.fn();
+    const tree = shallow((
       <ResizingControl
-        onDraftWidthChange={onDraftWidthChange}
-        onWidthChange={() => {}}
+        {...defaultProps}
+        onWidthDraft={onWidthDraft}
       />
     ));
 
     tree.find(Draggable).prop('onStart')({ x: 0 });
 
     tree.find(Draggable).prop('onUpdate')({ x: 10 });
-    expect(onDraftWidthChange)
+    expect(onWidthDraft)
       .toBeCalledWith({ shift: 10 });
   });
 });

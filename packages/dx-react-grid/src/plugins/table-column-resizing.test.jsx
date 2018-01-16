@@ -5,7 +5,8 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
   changeTableColumnWidth,
-  changeDraftTableColumnWidth,
+  draftTableColumnWidth,
+  cancelTableColumnWidthDraft,
 } from '@devexpress/dx-grid-core';
 import { TableColumnResizing } from './table-column-resizing';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
@@ -13,7 +14,8 @@ import { pluginDepsToComponents, getComputedState, executeComputedAction } from 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithWidths: jest.fn(),
   changeTableColumnWidth: jest.fn(),
-  changeDraftTableColumnWidth: jest.fn(),
+  draftTableColumnWidth: jest.fn(),
+  cancelTableColumnWidthDraft: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -37,7 +39,8 @@ describe('TableColumnReordering', () => {
   beforeEach(() => {
     tableColumnsWithWidths.mockImplementation(() => 'tableColumnsWithWidths');
     changeTableColumnWidth.mockImplementation(() => ([]));
-    changeDraftTableColumnWidth.mockImplementation(() => ([]));
+    draftTableColumnWidth.mockImplementation(() => ([]));
+    cancelTableColumnWidthDraft.mockImplementation(() => ([]));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -135,7 +138,7 @@ describe('TableColumnReordering', () => {
       .toBeCalledWith([{ columnName: 'a', width: 150 }]);
   });
 
-  it('should correctly update column widths after the "changeDraftTableColumnWidth" action is fired', () => {
+  it('should correctly update column widths after the "draftTableColumnWidth" action is fired', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -148,10 +151,33 @@ describe('TableColumnReordering', () => {
 
     const payload = { changes: { a: 50 } };
 
-    changeDraftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
-    executeComputedAction(tree, actions => actions.changeDraftTableColumnWidth(payload));
+    draftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
+    executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));
 
-    expect(changeDraftTableColumnWidth)
+    expect(draftTableColumnWidth)
+      .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
+
+    expect(tableColumnsWithWidths)
+      .toBeCalledWith(defaultDeps.getter.tableColumns, [{ columnName: 'a', width: 100 }], [{ columnName: 'a', width: 150 }]);
+  });
+
+  it('should correctly update column widths after the "cancelTableColumnWidthDraft" action is fired', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableColumnResizing
+          {...defaultProps}
+          defaultColumnWidths={[{ columnName: 'a', width: 100 }]}
+        />
+      </PluginHost>
+    ));
+
+    const payload = { changes: { a: 50 } };
+
+    cancelTableColumnWidthDraft.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
+    executeComputedAction(tree, actions => actions.cancelTableColumnWidthDraft(payload));
+
+    expect(cancelTableColumnWidthDraft)
       .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
 
     expect(tableColumnsWithWidths)

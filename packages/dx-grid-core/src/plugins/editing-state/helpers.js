@@ -1,1 +1,1 @@
-export const getRowChange = (changedRows, rowId) => changedRows[rowId] || {};
+export const getRowChange = (rowChanges, rowId) => rowChanges[rowId] || {};

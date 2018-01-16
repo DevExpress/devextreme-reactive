@@ -30,7 +30,7 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
-        length: 14,
+        length: 8,
       }),
     };
 

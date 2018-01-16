@@ -12,7 +12,7 @@ npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid @devexpress/dx-
 
 Add the required modules to your project:
 
-```js
+```jsx
 import {
   Grid, Table, TableHeaderRow
 } from '@devexpress/dx-react-grid-bootstrap3';

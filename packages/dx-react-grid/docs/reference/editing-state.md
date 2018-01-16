@@ -63,20 +63,20 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-editingRowIds | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;number &#124; string&gt; | Rows being edited.
-startEditRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Enables the edit mode for the rows the ID specifies.
-stopEditRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Disables the edit mode for the rows the ID specifies.
-addedRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;any&gt; | Created but not committed rows.
-addRow | [Action](/devextreme-reactive/react/core/docs/reference/action) | () => void | Adds an item to the `addedRows` array.
-changeAddedRow | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
-cancelAddedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number&gt; }) => void | Removes specified rows from the `addedRows` array.
-commitAddedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `addedRows` array.
-changedRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | { [key: string]: any } | An associated array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
-changeRow | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowId: number &#124; string, change: any }) => void | Adds an item representing changes made to an exsiting row to the `changedRows` array.
-cancelChangedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows' data from the `changedRows` array.
-commitChangedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `changedRows` array.
-deletedRowIds | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;number &#124; string&gt; | Rows prepared for deletion.
-deleteRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows the ID specifies to the `deletedRowIds` array.
-cancelDeletedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows from the `deletedRowIds` array.
-commitDeletedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `deletedRowIds` array.
-createRowChange | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on columns editor values for the current row. This function is called each time the editor's value changes.
+editingRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Rows being edited.
+startEditRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Enables the edit mode for the rows the ID specifies.
+stopEditRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Disables the edit mode for the rows the ID specifies.
+addedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Created but not committed rows.
+addRow | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Adds an item to the `addedRows` array.
+changeAddedRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
+cancelAddedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number&gt; }) => void | Removes specified rows from the `addedRows` array.
+commitAddedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `addedRows` array.
+changedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: string]: any } | An associated array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
+changeRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number &#124; string, change: any }) => void | Adds an item representing changes made to an exsiting row to the `changedRows` array.
+cancelChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows' data from the `changedRows` array.
+commitChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `changedRows` array.
+deletedRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Rows prepared for deletion.
+deleteRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows the ID specifies to the `deletedRowIds` array.
+cancelDeletedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows from the `deletedRowIds` array.
+commitDeletedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `deletedRowIds` array.
+createRowChange | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on columns editor values for the current row. This function is called each time the editor's value changes.

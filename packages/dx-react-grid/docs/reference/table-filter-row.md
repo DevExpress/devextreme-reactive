@@ -57,14 +57,14 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
-filters | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Filter](filtering-state.md#filter)&gt; | The filtering options.
-changeColumnFilter | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, config: Object }) => void | Changes a column filter or clears it if config is null.
-tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+filters | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Filter](filtering-state.md#filter)&gt; | The filtering options.
+changeColumnFilter | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, config: Object }) => void | Changes a column filter or clears it if config is null.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.

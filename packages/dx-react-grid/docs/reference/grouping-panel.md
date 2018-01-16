@@ -94,15 +94,15 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
-draftGrouping | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
-sorting | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
-groupByColumn | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, groupIndex?: number }) => void | Toggles the column's grouping state. If `groupIndex` is omitted, the group is added to the end of the group list.
-changeColumnSorting | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
-draftGroupingChange | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
-cancelGroupingChange | [Action](/devextreme-reactive/react/core/docs/reference/action) | () => void | Resets the groupingChange state.
-draggingEnabled | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Specifies whether drag-and-drop is enabled.
-toolbarContent | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the toolbar content.
+columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
+draftGrouping | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
+sorting | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
+groupByColumn | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Toggles the column's grouping state. If `groupIndex` is omitted, the group is added to the end of the group list.
+changeColumnSorting | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
+draftGroupingChange | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Sets the groupingChange state to the specified value.
+cancelGroupingChange | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Resets the groupingChange state.
+draggingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Specifies whether drag-and-drop is enabled.
+toolbarContent | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the toolbar content.
 
 ### Exports
 

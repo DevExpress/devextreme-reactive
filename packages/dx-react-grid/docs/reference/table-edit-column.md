@@ -85,20 +85,20 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-addRow | [Action](/devextreme-reactive/react/core/docs/reference/action) | () => void | Creates a row.
-cancelAddedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array.
-commitAddedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `addedRows` array.
-startEditRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches rows with the specified ID to the edit mode.
-stopEditRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches rows with the specified ID to the read-only mode.
-cancelChangedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in rows with the specified ID.
-commitChangedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `changedRows` array.
-deleteRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows with the specified ID for deletion by adding them to the `deletedRowIds` array.
-commitDeletedRows | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `deletedRowIds` array.
-tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+addRow | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Creates a row.
+cancelAddedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array.
+commitAddedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `addedRows` array.
+startEditRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches rows with the specified ID to the edit mode.
+stopEditRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Switches rows with the specified ID to the read-only mode.
+cancelChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in rows with the specified ID.
+commitChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `changedRows` array.
+deleteRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows with the specified ID for deletion by adding them to the `deletedRowIds` array.
+commitDeletedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `deletedRowIds` array.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the edit column.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the edit column.

@@ -64,20 +64,20 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-tableBodyRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
-selection | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;number &#124; string&gt; | The selected row's IDs.
-toggleSelection | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ rowIds: Array&lt;number &#124; string&gt;, state?: boolean  }) => void | A function that selects/deselects rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
-toggleSelectAll | [Action](/devextreme-reactive/react/core/docs/reference/action) | (state?: boolean) => void | A function that selects/deselects all rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
-selectAllAvailable | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Indicates whether there are rows that are available for selection.
-allSelected | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Indicates whether all the rows available for selection are selected.
-someSelected | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
-tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+selection | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | The selected row's IDs.
+toggleSelection | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt;, state?: boolean  }) => void | A function that selects/deselects rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
+toggleSelectAll | [Action](../../../dx-react-core/docs/reference/action.md) | (state?: boolean) => void | A function that selects/deselects all rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
+selectAllAvailable | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether there are rows that are available for selection.
+allSelected | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether all the rows available for selection are selected.
+someSelected | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the selection column.
-tableBodyRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered including the selected rows.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the selection column.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered including the selected rows.

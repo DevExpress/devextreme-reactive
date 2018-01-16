@@ -69,20 +69,20 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
-tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-sorting | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Columns' sorting state.
-changeColumnSorting | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.
-groupByColumn | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
-tableColumnResizingEnabled | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Specifies whether table column resizing is enabled.
-draggingEnabled | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | boolean | Specifies whether drag-and-drop is enabled.
-changeTableColumnWidth | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, shift: number }) => void | Changes column width. The initial column width increases by the `shift` value or decreases if `shift` is negative.
-changeDraftTableColumnWidth | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string, shift?: number }) => void | Changes column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Set `shift` to `null` to clear draft width by the current column.
-tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+sorting | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Columns' sorting state.
+changeColumnSorting | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.
+groupByColumn | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
+tableColumnResizingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Specifies whether table column resizing is enabled.
+draggingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Specifies whether drag-and-drop is enabled.
+changeTableColumnWidth | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, shift: number }) => void | Changes column width. The initial column width increases by the `shift` value or decreases if `shift` is negative.
+changeDraftTableColumnWidth | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, shift?: number }) => void | Changes column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is negative. Set `shift` to `null` to clear draft width by the current column.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table header rows.
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table header rows.

@@ -18,15 +18,15 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;any&gt; | Rows to be paged.
-pageSize | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | Provides the page size.
-currentPage | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | Provides the current page.
-setCurrentPage | [Action](/devextreme-reactive/react/core/docs/reference/action) | (page: number) => void | Changes the current page.
-getRowLevelKey? | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => string? | A function used to get row level key.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be paged.
+pageSize | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | Provides the page size.
+currentPage | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | Provides the current page.
+setCurrentPage | [Action](../../../dx-react-core/docs/reference/action.md) | (page: number) => void | Changes the current page.
+getRowLevelKey? | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get row level key.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;any&gt; | Rows with the applied paging.
-totalCount | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | The total row count.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows with the applied paging.
+totalCount | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The total row count.

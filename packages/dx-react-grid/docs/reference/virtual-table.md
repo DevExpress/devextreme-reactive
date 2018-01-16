@@ -51,18 +51,18 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;any&gt; | Rows to be rendered by the virtual table view.
-columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](grid.md#column)&gt; | Columns the virtual table view should render.
-getRowId | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any) => number &#124; string | A function used to get a unique row identifier.
-getCellValue | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | (row: any, columnName: string) => any | A function used to get a cell’s value.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be rendered by the virtual table view.
+columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Columns the virtual table view should render.
+getRowId | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number &#124; string | A function used to get a unique row identifier.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get a cell’s value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
-tableBodyRows | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
-tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Columns to be rendered.
-table | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders the virtual table.
-tableCell | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableCellProps](table.md#tablecellprops) | A template that renders a virtual table cell.
-tableRow | [Template](/devextreme-reactive/react/core/docs/reference/template) | [TableRowProps](table.md#tablerowprops) | A template that renders a virtual table row.
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Columns to be rendered.
+table | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the virtual table.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [TableCellProps](table.md#tablecellprops) | A template that renders a virtual table cell.
+tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [TableRowProps](table.md#tablerowprops) | A template that renders a virtual table row.

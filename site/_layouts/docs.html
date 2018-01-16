@@ -4,7 +4,11 @@ layout: default
 
 <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        {{ content }}
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
       {% if page.path contains '/core/docs/' %}
       {% assign docsPart = 'core' %}
       {% else %}
@@ -33,15 +37,15 @@ layout: default
         </ul>
       {% endfor %}
       <hr />
-      {% if docsPart == 'core' %}
-      <a href="{{site.baseurl}}/react/grid/docs/">Grid Docs</a>
-      {% else %}
-      <a href="{{site.baseurl}}/react/core/docs/">Core Docs</a>
-      {% endif %}
-    </div>
-
-    <div class="col-md-9 docs-content">
-        {{ content }}
+      <ul class="list-unstyled">
+        <li>
+          {% if docsPart == 'core' %}
+          <a href="{{site.baseurl}}/react/grid/docs/">React Grid Docs</a>
+          {% else %}
+          <a href="{{site.baseurl}}/react/core/docs/">React Core Docs</a>
+          {% endif %}
+        </li>
+      </ul>
     </div>
   </div>
 </div>

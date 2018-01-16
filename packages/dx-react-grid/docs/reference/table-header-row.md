@@ -77,9 +77,9 @@ changeColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; '
 groupByColumn | Action | ({ columnName: string, groupIndex?: number }) => void | Groups a table by the specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 tableColumnResizingEnabled | Getter | boolean | Specifies whether table column resizing is enabled.
 draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
-changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes column width. The initial column width increases by the `shift` value or decreases if `shift` is negative.
-draftTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
-cancelTableColumnWidthDraft | Action | () => void | Cancels changes of column width used for preview.
+changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the column width. The initial column width increases by the `shift` value or decreases if `shift` is negative.
+draftTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
+cancelTableColumnWidthDraft | Action | () => void | Cancels changes to the column width used for preview.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 

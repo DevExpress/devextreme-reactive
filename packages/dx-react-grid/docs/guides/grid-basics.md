@@ -1,4 +1,4 @@
-# Grid Basics
+# React Grid - Fundamentals
 
 The Grid component displays data specified via the `rows` property. You should also specify the `columns` property to define for which row fields the grid creates columns.
 

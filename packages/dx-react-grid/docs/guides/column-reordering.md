@@ -1,4 +1,4 @@
-# React Grid Column Reordering
+# React Grid - Column Reordering
 
 The Grid component allows reordering grid columns programmatically or using the drag-and-drop feature.
 

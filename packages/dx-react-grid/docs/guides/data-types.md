@@ -1,4 +1,4 @@
-# Data Types
+# React Grid - Data Formatting
 
 The Grid component supports custom value formatting and using a custom editor for cell value editing (depending on column's data type).
 

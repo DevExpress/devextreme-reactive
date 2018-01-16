@@ -1,4 +1,4 @@
-# React Grid Detail Row
+# React Grid - Detail Row
 
 The "Detail Row" feature displays data row details on an expandable pane. The pane can be expanded and collapsed either programmatically or via the Grid's UI.
 

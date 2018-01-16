@@ -1,12 +1,10 @@
-# DevExtreme React Grid
+# React Grid - Getting Started
 
 ## Overview
 
 DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material UI rendering and theming out of the box.
 
-## Getting Started
-
-### Installation
+## Installation
 
 Install the dx-react-grid package and its dependencies using the following command:
 
@@ -32,17 +30,17 @@ This package does not contain visual components. In the examples below, visual c
 
   Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
 
-### Supported Browsers
+## Supported Browsers
 
 React Grid supports the latest stable releases of all major browsers: Google Chrome, Mozilla Firefox, Safari, Opera, and Microsoft Edge.
 
 React Grid can work in other browsers if they use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform's web view API. Some of these browsers may require adding [polyfills](#polyfills). However, such browsers, including Internet Explorer, may not work correctly.
 
-### Polyfills
+## Polyfills
 
 React Grid uses the latest web platform standards, and cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
-### Using Grid component
+## Using Grid component
 
 The Grid renders nothing by default. The root Grid component's nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid data.
 
@@ -70,7 +68,7 @@ const App = () => (
 );
 ```
 
-### Try Out The React Grid
+## Try Out The React Grid
 
 Follow the links below to try out the React Grid:
 

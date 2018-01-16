@@ -1,4 +1,4 @@
-# React Grid Column Resizing
+# React Grid - Column Resizing
 
 Table columns in the Grid component can be resized programmatically or via the Grid's UI.
 

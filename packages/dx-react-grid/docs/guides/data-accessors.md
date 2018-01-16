@@ -1,4 +1,4 @@
-# Data Accessors
+# React Grid - Data Accessors
 
 ## Cell Value Access
 

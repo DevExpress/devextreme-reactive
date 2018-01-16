@@ -1,4 +1,4 @@
-# React Grid Virtual Scrolling
+# React Grid - Virtual Scrolling
 
 Virtual scrolling allows the Grid component to display thousands of records on a single page. You can use this feature as an alternative to paging.
 

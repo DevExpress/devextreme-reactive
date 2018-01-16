@@ -65,22 +65,29 @@ var applyInterceptors = function(content, ...interceptors) {
 };
 
 var injectLiveDemos = function(content) {
-  var versionTagString = versionTag ? `"repoTag": "${versionTag}",` : '';
   return content
     .replace(
       /\.embedded\-demo\(([^\(\)]*)\)/g,
-      `<div
-        class="embedded-demo"
-        data-options='{
-          ${versionTagString}
-          "path": "/demo/$1",
-          "scriptPath": "/devextreme-reactive/react/grid/demos/dist/index.js?v=${new Date().getTime()}"
-        }'
-      >
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
-        </div>
-      </div>`);
+      function(match, p1) {
+        var data = { path: p1 };
+        try {
+          data = JSON.parse(p1);
+        } catch (e) {}
+
+        const options = {
+          ...data,
+          path: `/demo/${data.path}`,
+          scriptPath: `/devextreme-reactive/react/grid/demos/dist/index.js?v=${new Date().getTime()}`,
+        };
+        return `<div
+          class="embedded-demo"
+          data-options='${JSON.stringify(options)}'
+        >
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>`
+      });
 };
 
 gulp.task('site:clean', function() {

@@ -20,7 +20,7 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const rows = generateRows({ length: 14 });
+const rows = generateRows({ length: 8 });
 const columns = [
   { name: 'name', title: 'Name' },
   { name: 'sex', title: 'Sex' },

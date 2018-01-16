@@ -11,46 +11,11 @@ Note that the plugins are composable and can be nested into each other.
 
 Refer to the [Reference](../reference/grid.md) to see the complete plugin list.
 
-## <a name="plugin-order">Plugin Order
+## Plugin Order
 
-The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin:
+The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin. Some visualization plugins extend the `Table`'s functionality and should follow it in the code. This rule is demonstrated in the following example:
 
-```js
-import {
-  FilteringState, IntegratedFiltering
-} from '@devexpress/dx-react-grid'
-import {
-  Grid, Table
-} from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
-
-const App = () => (
-  <Grid rows={[/* ... */]} columns={[/* ... */]}>
-    <FilteringState defaultFilters={[/* ... */]}/>
-    <IntegratedFiltering/>
-    <Table/>
-  </Grid>
-);
-```
-
-Some visualization plugins extend the `Table`'s functionality, and should follow it in the code as demonstrated in the following example:
-
-```js
-import {
-  FilteringState, IntegratedFiltering
-} from '@devexpress/dx-react-grid'
-import {
-  Grid, Table, TableFilterRow
-} from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
-
-const App = () => (
-  <Grid rows={[/* ... */]} columns={[/* ... */]}>
-    <FilteringState defaultFilters={[/* ... */]}/>
-    <IntegratedFiltering/>
-    <Table/>
-    <TableFilterRow/>
-  </Grid>
-);
-```
+.embedded-demo(filtering/filter-row)
 
 NOTE: Refer to the plugin's reference for information on its dependencies.
 

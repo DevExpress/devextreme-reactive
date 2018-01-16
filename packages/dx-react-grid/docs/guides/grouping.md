@@ -66,18 +66,6 @@ Pass a grouping criterion function to the `IntegratedGrouping` plugin’s [colum
 
 You can also assign a Boolean value to the `TableGroupRow` plugin's `showColumnsWhenGrouped` property to define what columns should remain visible when data is grouped by them.
 
-```js
-  <Grid>
-    <GroupingState
-      grouping={[{ columnName: 'city' }, { columnName: 'car' }]}
-    />
-    <IntegratedGrouping />
-    <Table />
-    <TableHeaderRow />
-    <TableGroupRow showColumnsWhenGrouped />
-  </Grid>
-```
-
 Note that if the grouping criterion function returns a non-primitive value, you should also specify a custom group cell template using the `TableGroupRow` plugin's `cellComponent` property as demonstrated in the following example:
 
 .embedded-demo(grouping/custom-advanced)

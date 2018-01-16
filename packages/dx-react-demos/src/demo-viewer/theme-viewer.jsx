@@ -2,46 +2,63 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
-import { themes } from '../demo-registry';
+import { themes } from '../theme-registry';
 import { ThemeSelector } from './theme-selector';
 
-const STORAGE_KEY = 'devextreme-reactive/react/theme';
+const THEME_STORAGE_KEY = 'devextreme-reactive/react/theme';
+const VARIANT_STORAGE_KEY = 'devextreme-reactive/react/theme-variant';
 
 let storage = { getItem: () => undefined, setItem: () => undefined };
 try {
   storage = window.localStorage;
 } catch (e) {} // eslint-disable-line no-empty
 
-const ThemeViewerBase = ({
-  avaliableThemes, match: { url }, history, children,
-}) => {
-  const preferredTheme = storage.getItem(STORAGE_KEY) || themes[0].name;
-  const preferredThemeAvaliable = avaliableThemes.indexOf(preferredTheme) > -1;
-  const defaultTheme = preferredThemeAvaliable ? preferredTheme : avaliableThemes[0];
+const ThemeViewerBase = (
+  {
+    avaliableThemes, match: { url }, history, children,
+  },
+  { embeddedDemoOptions: { showThemeVariants = false } },
+) => {
+  const preferredThemeName = storage.getItem(THEME_STORAGE_KEY) || themes[0].name;
+  const preferredThemeAvaliable = avaliableThemes.indexOf(preferredThemeName) > -1;
+  const fallbackThemeName = preferredThemeAvaliable ? preferredThemeName : avaliableThemes[0];
 
-  const changeTheme = (theme) => {
-    storage.setItem(STORAGE_KEY, theme);
-    history.push(`${url}/${theme}`);
+  const fallbackTheme = themes.find(({ name }) => name === fallbackThemeName);
+
+  const preferredVariantName = showThemeVariants
+    ? storage.getItem(VARIANT_STORAGE_KEY)
+    : fallbackTheme.variants[0].name;
+  const preferredVariantAvaliable = fallbackTheme.variants
+    .some(({ name }) => name === preferredVariantName);
+  const fallbackVariantName = preferredVariantAvaliable
+    ? preferredVariantName
+    : fallbackTheme.variants[0].name;
+
+  const changeTheme = (theme, variant) => {
+    storage.setItem(THEME_STORAGE_KEY, theme);
+    storage.setItem(VARIANT_STORAGE_KEY, variant);
+    history.push(`${url}/${theme}/${variant}`);
   };
 
   return (
     <Switch>
       <Route
-        path={`${url}/:theme`}
-        render={({ match: { params: { theme: currentTheme } } }) => (
+        path={`${url}/:themeName/:variantName`}
+        render={({ match: { params: { themeName, variantName } } }) => (
           <div>
             <ThemeSelector
-              selectedTheme={currentTheme}
+              selectedThemeName={themeName}
               avaliableThemes={avaliableThemes}
-              onThemeSelect={changeTheme}
+              selectedVariantName={variantName}
+              onChange={changeTheme}
             />
             <div>
-              {children({ theme: currentTheme })}
+              {children({ themeName, variantName })}
             </div>
           </div>
         )}
       />
-      <Redirect from={`${url}`} to={`${url}/${defaultTheme}`} />
+      <Redirect from={`${url}`} to={`${url}/${fallbackThemeName}/${fallbackVariantName}`} />
     </Switch>
   );
 };
@@ -57,6 +74,10 @@ ThemeViewerBase.propTypes = {
 
 ThemeViewerBase.defaultProps = {
   avaliableThemes: themes.map(theme => theme.name),
+};
+
+ThemeViewerBase.contextTypes = {
+  embeddedDemoOptions: PropTypes.object.isRequired,
 };
 
 export const ThemeViewer = withRouter(ThemeViewerBase);

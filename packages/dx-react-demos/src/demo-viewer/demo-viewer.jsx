@@ -1,47 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
+import { Nav, NavItem, Tab } from 'react-bootstrap';
 
-import { demos } from '../demo-registry';
+import { demos } from '../demo-registry.json';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
+import { SourceCode } from './source-code';
 
-const SourceCode = ({ theme, section, demo }, { embeddedDemoOptions: { repoTag } }) => (
-  <div className="clearfix">
-    <a
-      className="pull-right"
-      style={{
-        marginTop: `${theme === 'bootstrap3' ? -10 : 10}px`,
-      }}
-      href={`https://github.com/DevExpress/devextreme-reactive/tree/${repoTag}/packages/dx-react-demos/src/${theme}/${section}/${demo}.jsx`}
-    >
-      Source Code
-    </a>
-  </div>
-);
-
-SourceCode.propTypes = {
-  section: PropTypes.string.isRequired,
-  demo: PropTypes.string.isRequired,
-  theme: PropTypes.string.isRequired,
-};
-
-SourceCode.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};
-
-export const DemoViewer = ({
-  match: { params: { demo: currentDemo, section: currentSection }, url },
-}) => (
+export const DemoViewer = (
+  { match: { params: { demoName, sectionName }, url } },
+  { embeddedDemoOptions: { defaultTab = 'preview' } },
+) => (
   <Switch>
     <Route
-      path={`${url}/:theme/clean`}
-      render={({ match: { params: { theme: currentTheme } } }) => (
+      path={`${url}/:themeName/:variantName/clean`}
+      render={({ match: { params: { themeName, variantName } } }) => (
         <div>
           <DemoRenderer
-            theme={currentTheme}
-            section={currentSection}
-            demo={currentDemo}
+            themeName={themeName}
+            variantName={variantName}
+            sectionName={sectionName}
+            demoName={demoName}
           />
         </div>
       )}
@@ -49,24 +29,46 @@ export const DemoViewer = ({
     <Route
       path={url}
       render={() => (
-        <ThemeViewer
-          avaliableThemes={Object.keys(demos[currentSection][currentDemo])}
-        >
-          {({ theme: currentTheme }) => (
-            <div>
-              <DemoRenderer
-                theme={currentTheme}
-                section={currentSection}
-                demo={currentDemo}
-              />
-              <SourceCode
-                theme={currentTheme}
-                section={currentSection}
-                demo={currentDemo}
-              />
-            </div>
-          )}
-        </ThemeViewer>
+        <div style={{ paddingTop: '8px' }}>
+          <ThemeViewer
+            avaliableThemes={Object.keys(demos[sectionName][demoName])}
+          >
+            {({ themeName, variantName }) => (
+              <Tab.Container
+                id={`${sectionName}-${demoName}-demo`}
+                defaultActiveKey={defaultTab}
+              >
+                <div style={{ marginTop: '-38px' }}>
+                  <Nav bsStyle="tabs">
+                    <NavItem eventKey="preview">Preview</NavItem>
+                    <NavItem eventKey="source">Source</NavItem>
+                  </Nav>
+                  <Tab.Content
+                    animation
+                    mountOnEnter
+                    style={{ marginTop: '20px' }}
+                  >
+                    <Tab.Pane eventKey="preview">
+                      <DemoRenderer
+                        themeName={themeName}
+                        variantName={variantName}
+                        sectionName={sectionName}
+                        demoName={demoName}
+                      />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="source">
+                      <SourceCode
+                        themeName={themeName}
+                        sectionName={sectionName}
+                        demoName={demoName}
+                      />
+                    </Tab.Pane>
+                  </Tab.Content>
+                </div>
+              </Tab.Container>
+            )}
+          </ThemeViewer>
+        </div>
       )}
     />
   </Switch>
@@ -75,9 +77,13 @@ export const DemoViewer = ({
 DemoViewer.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      section: PropTypes.string.isRequired,
-      demo: PropTypes.string.isRequired,
+      sectionName: PropTypes.string.isRequired,
+      demoName: PropTypes.string.isRequired,
     }),
     url: PropTypes.string.isRequired,
   }).isRequired,
+};
+
+DemoViewer.contextTypes = {
+  embeddedDemoOptions: PropTypes.object.isRequired,
 };

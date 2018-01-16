@@ -1,10 +1,11 @@
+/* globals document:true window:true */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
-let stickyProp;
+let globalStickyProp;
 const testCSSProp = (property, value, noPrefixes) => {
   const prop = `${property}:`;
-  // eslint-disable-next-line no-undef
   const el = document.createElement('test');
   const mStyle = el.style;
 
@@ -17,13 +18,37 @@ const testCSSProp = (property, value, noPrefixes) => {
 };
 
 export class Table extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      stickyProp: globalStickyProp,
+      backgroundColor: 'white',
+    };
+  }
   componentDidMount() {
-    stickyProp = testCSSProp('position', 'sticky');
+    this.checkStyles();
+  }
+  checkStyles() {
+    globalStickyProp = testCSSProp('position', 'sticky');
+
+    let panel = this.node.parentElement;
+    while (!panel.classList.contains('panel')) {
+      panel = panel.parentElement;
+    }
+    const { backgroundColor } = window.getComputedStyle(panel);
+
+    if (this.state.backgroundColor !== backgroundColor
+      || this.state.stickyProp !== globalStickyProp) {
+      this.setState({ stickyProp: globalStickyProp, backgroundColor });
+    }
   }
   render() {
     const { children, use, ...restProps } = this.props;
+    const { stickyProp, backgroundColor } = this.state;
     return (
       <table
+        ref={(node) => { this.node = node; }}
         className="table"
         {...restProps}
         style={{
@@ -34,7 +59,7 @@ export class Table extends React.Component {
             position: stickyProp,
             top: 0,
             zIndex: 1,
-            background: 'white',
+            background: backgroundColor,
           } : null,
         }}
       >

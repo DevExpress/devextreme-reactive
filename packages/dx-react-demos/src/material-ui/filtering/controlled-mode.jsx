@@ -25,14 +25,14 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ length: 8 }),
       filters: [{ columnName: 'car', value: 'cruze' }],
     };
 
     this.changeFilters = filters => this.setState({ filters });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, filters } = this.state;
 
     return (
       <Paper>
@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState
-            filters={this.state.filters}
+            filters={filters}
             onFiltersChange={this.changeFilters}
           />
           <IntegratedFiltering />

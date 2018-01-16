@@ -23,7 +23,7 @@ const defaultDeps = {
     sorting: [],
   },
   action: {
-    groupByColumn: jest.fn(),
+    changeColumnGrouping: jest.fn(),
     changeColumnSorting: jest.fn(),
     draftColumnGrouping: jest.fn(),
     cancelColumnGroupingDraft: jest.fn(),

@@ -20,7 +20,7 @@ const applyColumnGrouping = (grouping, { columnName, groupIndex }) => {
   return nextGrouping;
 };
 
-export const groupByColumn = ({ grouping, expandedGroups }, { columnName, groupIndex }) => {
+export const changeColumnGrouping = ({ grouping, expandedGroups }, { columnName, groupIndex }) => {
   const nextGrouping = applyColumnGrouping(grouping, { columnName, groupIndex });
 
   const ungroupedColumnIndex = grouping.findIndex((group, index) =>

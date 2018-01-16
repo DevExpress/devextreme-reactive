@@ -168,7 +168,7 @@ describe('TableHeaderRow', () => {
         .toMatchObject({
           resizingEnabled: true,
           onWidthChange: expect.any(Function),
-          onDraftWidthChange: expect.any(Function),
+          onWidthDraft: expect.any(Function),
         });
     });
 
@@ -199,13 +199,13 @@ describe('TableHeaderRow', () => {
         .toEqual({ columnName: 'a', shift: 10 });
     });
 
-    it('should call correct action when on onDraftWidthChange', () => {
+    it('should call correct action when on onWidthDraft', () => {
       isHeadingTableCell.mockImplementation(() => true);
 
       const deps = {
         plugins: ['TableColumnResizing'],
         action: {
-          changeDraftTableColumnWidth: jest.fn(),
+          draftTableColumnWidth: jest.fn(),
         },
         getter: {
           tableColumnResizingEnabled: true,
@@ -220,10 +220,37 @@ describe('TableHeaderRow', () => {
         </PluginHost>
       ));
 
-      const { onDraftWidthChange } = tree.find(defaultProps.cellComponent).props();
-      onDraftWidthChange({ shift: 10 });
-      expect(deps.action.changeDraftTableColumnWidth.mock.calls[0][0])
+      const { onWidthDraft } = tree.find(defaultProps.cellComponent).props();
+      onWidthDraft({ shift: 10 });
+      expect(deps.action.draftTableColumnWidth.mock.calls[0][0])
         .toEqual({ columnName: 'a', shift: 10 });
+    });
+
+    it('should call correct action when on onWidthDraftCancel', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+
+      const deps = {
+        plugins: ['TableColumnResizing'],
+        action: {
+          cancelTableColumnWidthDraft: jest.fn(),
+        },
+        getter: {
+          tableColumnResizingEnabled: true,
+        },
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const { onWidthDraftCancel } = tree.find(defaultProps.cellComponent).props();
+      onWidthDraftCancel();
+      expect(deps.action.cancelTableColumnWidthDraft.mock.calls[0][0])
+        .toEqual();
     });
   });
 });

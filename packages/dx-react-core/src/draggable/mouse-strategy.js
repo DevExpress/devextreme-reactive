@@ -14,6 +14,9 @@ export class MouseStrategy {
     this.mouseInitialOffset = null;
     this.dragging = false;
   }
+  isDragging() {
+    return this.dragging;
+  }
   start(e) {
     const { clientX: x, clientY: y } = e;
     this.e = e;

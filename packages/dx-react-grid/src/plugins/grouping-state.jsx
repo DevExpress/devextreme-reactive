@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import {
-  groupByColumn,
+  changeColumnGrouping,
   toggleExpandedGroups,
   draftColumnGrouping,
   cancelColumnGroupingDraft,
@@ -38,7 +38,7 @@ export class GroupingState extends React.PureComponent {
 
     this.stateHelper = createStateHelper(this);
 
-    this.groupByColumn = this.groupByColumn.bind(this);
+    this.changeColumnGrouping = this.changeColumnGrouping.bind(this);
     this.toggleGroupExpanded = this.stateHelper.applyReducer
       .bind(this.stateHelper, toggleExpandedGroups);
     this.draftColumnGrouping = this.stateHelper.applyReducer
@@ -84,9 +84,9 @@ export class GroupingState extends React.PureComponent {
     });
     return false;
   }
-  groupByColumn({ columnName, groupIndex }, getters, actions) {
+  changeColumnGrouping({ columnName, groupIndex }, getters, actions) {
     this.stateHelper.applyReducer(
-      groupByColumn,
+      changeColumnGrouping,
       { columnName, groupIndex },
       (nextState, state) => {
         const { grouping } = nextState;
@@ -145,7 +145,7 @@ export class GroupingState extends React.PureComponent {
       >
         <Getter name="grouping" value={grouping} />
         <Getter name="draftGrouping" value={draftGrouping || grouping} />
-        <Action name="groupByColumn" action={this.groupByColumn} />
+        <Action name="groupByColumn" action={this.changeColumnGrouping} />
         <Action name="draftColumnGrouping" action={this.draftColumnGrouping} />
         <Action name="cancelColumnGroupingDraft" action={this.cancelColumnGroupingDraft} />
 

@@ -24,7 +24,7 @@ export class ItemLayout extends React.PureComponent {
 
     return (draggingEnabled ? (
       <DragSource
-        getPayload={() => [{ type: 'column', columnName: item.column.name }]}
+        payload={[{ type: 'column', columnName: item.column.name }]}
         onStart={() => {
           this.setState({ dragging: true });
           onDragStart();

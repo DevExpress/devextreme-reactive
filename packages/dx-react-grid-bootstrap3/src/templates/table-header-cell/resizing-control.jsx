@@ -50,11 +50,12 @@ export class ResizingControl extends React.PureComponent {
       this.setState({ resizing: true });
     };
     this.onResizeUpdate = ({ x }) => {
-      const { onDraftWidthChange } = this.props;
-      onDraftWidthChange({ shift: x - this.resizeStartingX });
+      const { onWidthDraft } = this.props;
+      onWidthDraft({ shift: x - this.resizeStartingX });
     };
     this.onResizeEnd = ({ x }) => {
-      const { onWidthChange } = this.props;
+      const { onWidthChange, onWidthDraftCancel } = this.props;
+      onWidthDraftCancel();
       onWidthChange({ shift: x - this.resizeStartingX });
       this.setState({ resizing: false });
     };
@@ -92,5 +93,6 @@ export class ResizingControl extends React.PureComponent {
 
 ResizingControl.propTypes = {
   onWidthChange: PropTypes.func.isRequired,
-  onDraftWidthChange: PropTypes.func.isRequired,
+  onWidthDraft: PropTypes.func.isRequired,
+  onWidthDraftCancel: PropTypes.func.isRequired,
 };

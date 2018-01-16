@@ -50,13 +50,13 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-table | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders a table.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+table | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders a table.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
-hiddenColumnNames | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;string&gt; | Hidden table column names.
-toggleColumnVisibility | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string }) => void | Toggles a column's visibility.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
+hiddenColumnNames | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;string&gt; | Hidden table column names.
+toggleColumnVisibility | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string }) => void | Toggles a column's visibility.

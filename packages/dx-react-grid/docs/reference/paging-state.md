@@ -29,7 +29,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-pageSize | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | The page size.
-setPageSize | [Action](/devextreme-reactive/react/core/docs/reference/action) | (size: number) => void | Changes the page size.
-currentPage | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | number | The current page number.
-setCurrentPage | [Action](/devextreme-reactive/react/core/docs/reference/action) | (page: number) => void | Changes the current page number.
+pageSize | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The page size.
+setPageSize | [Action](../../../dx-react-core/docs/reference/action.md) | (size: number) => void | Changes the page size.
+currentPage | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The current page number.
+setCurrentPage | [Action](../../../dx-react-core/docs/reference/action.md) | (page: number) => void | Changes the current page number.

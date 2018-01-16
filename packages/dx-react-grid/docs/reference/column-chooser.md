@@ -103,10 +103,10 @@ If you specify additional properties, they are added to a component's root eleme
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
-hiddenColumnNames | [Getter](/devextreme-reactive/react/core/docs/reference/getter) | Array&lt;string&gt; | Names of columns to be hidden.
-toggleColumnVisibility | [Action](/devextreme-reactive/react/core/docs/reference/action) | ({ columnName: string }) => void | Toggles a column's visibility.
-toolbarContent | [Template](/devextreme-reactive/react/core/docs/reference/template) | Object? | A template that renders toolbar content.
+columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
+hiddenColumnNames | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;string&gt; | Names of columns to be hidden.
+toggleColumnVisibility | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string }) => void | Toggles a column's visibility.
+toolbarContent | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders toolbar content.
 
 ### Exports
 

@@ -64,7 +64,7 @@ export default class Demo extends React.PureComponent {
       booleanColumns: ['shipped'],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
-        length: 14,
+        length: 8,
       }),
     };
 
@@ -104,7 +104,7 @@ export default class Demo extends React.PureComponent {
         />
         <EditingState
           onCommitChanges={this.commitChanges}
-          defaultEditingRows={[0]}
+          defaultEditingRowIds={[0]}
         />
         <Table />
         <TableHeaderRow />

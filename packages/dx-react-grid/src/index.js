@@ -1,5 +1,5 @@
 export { Grid } from './grid';
-export { ColumnChooser } from './column-chooser';
+export { ColumnChooser } from './plugins/column-chooser';
 
 export { FilteringState } from './plugins/filtering-state';
 export { IntegratedFiltering } from './plugins/integrated-filtering';
@@ -8,6 +8,7 @@ export { EditingState } from './plugins/editing-state';
 
 export { PagingState } from './plugins/paging-state';
 export { IntegratedPaging } from './plugins/integrated-paging';
+export { CustomPaging } from './plugins/custom-paging';
 
 export { GroupingState } from './plugins/grouping-state';
 export { IntegratedGrouping } from './plugins/integrated-grouping';

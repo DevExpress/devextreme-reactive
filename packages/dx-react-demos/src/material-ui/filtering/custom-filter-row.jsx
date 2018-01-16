@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
       tableColumnExtensions: [
         { columnName: 'units', align: 'right' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 14 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
   }
   render() {

@@ -10,7 +10,6 @@ export * from './plugins/integrated-filtering/computeds';
 
 export * from './plugins/grouping-state/constants';
 export * from './plugins/grouping-state/reducers';
-export * from './plugins/grouping-state/computeds';
 export * from './plugins/integrated-grouping/computeds';
 export * from './plugins/custom-grouping/computeds';
 export * from './plugins/grouping-panel/helpers';
@@ -68,8 +67,8 @@ export * from './plugins/table/computeds';
 
 export * from './plugins/table-column-visibility/computeds';
 
-export * from './column-chooser/computeds';
-export * from './column-chooser/reducers';
+export * from './plugins/column-chooser/computeds';
+export * from './plugins/column-chooser/reducers';
 
 export { getColumnExtension } from './utils/column';
 

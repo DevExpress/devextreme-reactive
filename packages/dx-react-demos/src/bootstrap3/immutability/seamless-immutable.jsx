@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   SortingState, SelectionState,
-  IntegratedSorting, IntegratedSelection,
+  IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -19,7 +19,7 @@ import {
   generateRows,
 } from '../../demo-data/generator';
 
-const rows = generateRows({ length: 14 });
+const rows = generateRows({ length: 8 });
 const columns = [
   { name: 'name', title: 'Name' },
   { name: 'sex', title: 'Sex' },
@@ -128,7 +128,6 @@ export default () => (
       <SortingStateContainer />
       <SelectionStateContainer />
       <IntegratedSorting />
-      <IntegratedSelection />
       <Table />
       <TableHeaderRow showSortingControls />
       <TableSelection />

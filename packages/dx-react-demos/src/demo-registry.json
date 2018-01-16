@@ -1,0 +1,96 @@
+{
+  "basic": [
+    "basic",
+    "table-cell-template",
+    "table-row-template"
+  ],
+  "localization": [
+    "basic"
+  ],
+  "column-resizing": [
+    "uncontrolled",
+    "controlled"
+  ],
+  "column-reordering": [
+    "uncontrolled",
+    "controlled"
+  ],
+  "data-accessors": [
+    "value-setters",
+    "value-getters"
+  ],
+  "data-types": [
+    "formatters",
+    "editors"
+  ],
+  "detail-row": [
+    "simple-detail-row",
+    "detail-row-controlled"
+  ],
+  "editing": [
+    "edit-row",
+    "edit-row-controlled"
+  ],
+  "featured-uncontrolled-mode": [
+    "demo"
+  ],
+  "featured-controlled-mode": [
+    "demo"
+  ],
+  "featured-redux-integration": [
+    "demo"
+  ],
+  "featured-virtual-scrolling": [
+    "demo"
+  ],
+  "featured-remote-data": [
+    "demo"
+  ],
+  "filtering": [
+    "filter-row",
+    "controlled-mode",
+    "custom-filter-row",
+    "custom-filtering-algorithm",
+    "remote-filtering"
+  ],
+  "grouping": [
+    "static",
+    "custom-grouping-static",
+    "grouping-with-ui",
+    "controlled-mode",
+    "custom",
+    "custom-advanced",
+    "remote-grouping-with-local-expanding"
+  ],
+  "immutability": [
+    "seamless-immutable"
+  ],
+  "paging": [
+    "uncontrolled-mode",
+    "page-size-selector",
+    "controlled-mode",
+    "remote-paging"
+  ],
+  "selection": [
+    "basic",
+    "select-by-row-click",
+    "hidden-checkboxes",
+    "select-all-virtual",
+    "select-all-by-page",
+    "select-all-by-all-pages"
+  ],
+  "sorting": [
+    "header-sorting",
+    "group-sorting",
+    "controlled-mode",
+    "custom-sorting",
+    "remote-sorting"
+  ],
+  "virtual-scrolling": [
+    "basic"
+  ],
+  "column-chooser": [
+    "controlled",
+    "uncontrolled"
+  ]
+}

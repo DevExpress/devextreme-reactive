@@ -34,27 +34,27 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
-        length: 14,
+        length: 8,
       }),
-      editingRows: [],
+      editingRowIds: [],
       addedRows: [],
-      changedRows: {},
+      rowChanges: {},
     };
 
     this.changeAddedRows = this.changeAddedRows.bind(this);
-    this.changeEditingRows = this.changeEditingRows.bind(this);
-    this.changeChangedRows = this.changeChangedRows.bind(this);
+    this.changeEditingRowIds = this.changeEditingRowIds.bind(this);
+    this.changeRowChanges = this.changeRowChanges.bind(this);
     this.commitChanges = this.commitChanges.bind(this);
   }
   changeAddedRows(addedRows) {
     const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
     this.setState({ addedRows: initialized });
   }
-  changeEditingRows(editingRows) {
-    this.setState({ editingRows });
+  changeEditingRowIds(editingRowIds) {
+    this.setState({ editingRowIds });
   }
-  changeChangedRows(changedRows) {
-    this.setState({ changedRows });
+  changeRowChanges(rowChanges) {
+    this.setState({ rowChanges });
   }
   commitChanges({ added, changed, deleted }) {
     let { rows } = this.state;
@@ -79,7 +79,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, tableColumnExtensions, editingRows, changedRows, addedRows,
+      rows, columns, tableColumnExtensions, editingRowIds, rowChanges, addedRows,
     } = this.state;
 
     return (
@@ -90,10 +90,10 @@ export default class Demo extends React.PureComponent {
           getRowId={getRowId}
         >
           <EditingState
-            editingRows={editingRows}
-            onEditingRowsChange={this.changeEditingRows}
-            changedRows={changedRows}
-            onChangedRowsChange={this.changeChangedRows}
+            editingRowIds={editingRowIds}
+            onEditingRowIdsChange={this.changeEditingRowIds}
+            rowChanges={rowChanges}
+            onRowChangesChange={this.changeRowChanges}
             addedRows={addedRows}
             onAddedRowsChange={this.changeAddedRows}
             onCommitChanges={this.commitChanges}

@@ -2,12 +2,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { setColumnFilter } from '@devexpress/dx-grid-core';
+import { changeColumnFilter } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { FilteringState } from './filtering-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  setColumnFilter: jest.fn(),
+  changeColumnFilter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -27,7 +27,7 @@ describe('FilteringState', () => {
   });
 
   beforeEach(() => {
-    setColumnFilter.mockImplementation(() => []);
+    changeColumnFilter.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -65,7 +65,7 @@ describe('FilteringState', () => {
       .toBe(filters);
   });
 
-  it('should fire the "onFiltersChange" callback and should change filters in uncontrolled mode after the "setColumnFilter" action is fired', () => {
+  it('should fire the "onFiltersChange" callback and should change filters in uncontrolled mode after the "changeColumnFilter" action is fired', () => {
     const defaultFilters = [{ columnName: 'a', value: 'a' }];
     const newFilters = [{ columnName: 'b', value: 'a' }];
 
@@ -81,10 +81,10 @@ describe('FilteringState', () => {
     ));
 
     const payload = {};
-    setColumnFilter.mockReturnValue(newFilters);
-    executeComputedAction(tree, actions => actions.setColumnFilter(payload));
+    changeColumnFilter.mockReturnValue(newFilters);
+    executeComputedAction(tree, actions => actions.changeColumnFilter(payload));
 
-    expect(setColumnFilter)
+    expect(changeColumnFilter)
       .toBeCalledWith(defaultFilters, payload);
 
     expect(getComputedState(tree).filters)
@@ -94,7 +94,7 @@ describe('FilteringState', () => {
       .toBeCalledWith(newFilters);
   });
 
-  it('should fire the "onFiltersChange" callback and should change filters in controlled mode after the "setColumnFilter" action is fired', () => {
+  it('should fire the "onFiltersChange" callback and should change filters in controlled mode after the "changeColumnFilter" action is fired', () => {
     const filters = [{ columnName: 'a', value: 'a' }];
     const newFilters = [{ columnName: 'b', value: 'a' }];
 
@@ -110,10 +110,10 @@ describe('FilteringState', () => {
     ));
 
     const payload = {};
-    setColumnFilter.mockReturnValue(newFilters);
-    executeComputedAction(tree, actions => actions.setColumnFilter(payload));
+    changeColumnFilter.mockReturnValue(newFilters);
+    executeComputedAction(tree, actions => actions.changeColumnFilter(payload));
 
-    expect(setColumnFilter)
+    expect(changeColumnFilter)
       .toBeCalledWith(filters, payload);
 
     expect(getComputedState(tree).filters)
@@ -141,14 +141,14 @@ describe('FilteringState', () => {
         </PluginHost>
       ));
 
-      setColumnFilter.mockReturnValueOnce(transitionalFilters);
-      setColumnFilter.mockReturnValueOnce(newFilters);
+      changeColumnFilter.mockReturnValueOnce(transitionalFilters);
+      changeColumnFilter.mockReturnValueOnce(newFilters);
       executeComputedAction(tree, (actions) => {
-        actions.setColumnFilter(payload);
-        actions.setColumnFilter(payload);
+        actions.changeColumnFilter(payload);
+        actions.changeColumnFilter(payload);
       });
 
-      expect(setColumnFilter)
+      expect(changeColumnFilter)
         .lastCalledWith(transitionalFilters, payload);
 
       expect(filtersChange)
@@ -172,14 +172,14 @@ describe('FilteringState', () => {
         </PluginHost>
       ));
 
-      setColumnFilter.mockReturnValueOnce(transitionalFilters);
-      setColumnFilter.mockReturnValueOnce(newFilters);
+      changeColumnFilter.mockReturnValueOnce(transitionalFilters);
+      changeColumnFilter.mockReturnValueOnce(newFilters);
       executeComputedAction(tree, (actions) => {
-        actions.setColumnFilter(payload);
-        actions.setColumnFilter(payload);
+        actions.changeColumnFilter(payload);
+        actions.changeColumnFilter(payload);
       });
 
-      expect(setColumnFilter)
+      expect(changeColumnFilter)
         .lastCalledWith(transitionalFilters, payload);
 
       expect(filtersChange)

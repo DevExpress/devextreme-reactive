@@ -47,8 +47,8 @@ export class TableHeaderRow extends React.PureComponent {
               {({
                 sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
               }, {
-                setColumnSorting, groupByColumn,
-                changeTableColumnWidths, changeDraftTableColumnWidths,
+                changeColumnSorting, changeColumnGrouping,
+                changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
               }) => {
                 const { name: columnName } = params.tableColumn.column;
                 const atLeastOneDataColumn = tableColumns
@@ -66,13 +66,11 @@ export class TableHeaderRow extends React.PureComponent {
                     sortingDirection={showSortingControls && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     onSort={({ direction, keepOther }) =>
-                      setColumnSorting({ columnName, direction, keepOther })}
-                    onGroup={() =>
-                      groupByColumn({ columnName })}
-                    onWidthChange={({ shift }) =>
-                      changeTableColumnWidths({ shifts: { [columnName]: shift } })}
-                    onDraftWidthChange={({ shift }) =>
-                      changeDraftTableColumnWidths({ shifts: { [columnName]: shift } })}
+                      changeColumnSorting({ columnName, direction, keepOther })}
+                    onGroup={() => changeColumnGrouping({ columnName })}
+                    onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
+                    onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
+                    onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
                   />
                 );
               }}

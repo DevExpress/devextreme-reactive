@@ -34,7 +34,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 7 }),
+      rows: generateRows({ length: 8 }),
     };
   }
   render() {
@@ -47,7 +47,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <RowDetailState
-            defaultExpandedRows={[2, 5]}
+            defaultExpandedRowIds={[2, 5]}
           />
           <Table />
           <TableHeaderRow />

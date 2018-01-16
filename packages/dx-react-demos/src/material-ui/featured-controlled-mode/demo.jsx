@@ -214,9 +214,9 @@ class DemoBase extends React.PureComponent {
         length: 12,
       }),
       sorting: [],
-      editingRows: [],
+      editingRowIds: [],
       addedRows: [],
-      changedRows: {},
+      rowChanges: {},
       currentPage: 0,
       deletingRows: [],
       pageSize: 0,
@@ -225,7 +225,7 @@ class DemoBase extends React.PureComponent {
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
-    this.changeEditingRows = editingRows => this.setState({ editingRows });
+    this.changeEditingRowIds = editingRowIds => this.setState({ editingRowIds });
     this.changeAddedRows = addedRows => this.setState({
       addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
         amount: 0,
@@ -236,7 +236,7 @@ class DemoBase extends React.PureComponent {
         customer: availableValues.customer[0],
       })),
     });
-    this.changeChangedRows = changedRows => this.setState({ changedRows });
+    this.changeRowChanges = rowChanges => this.setState({ rowChanges });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
@@ -280,9 +280,9 @@ class DemoBase extends React.PureComponent {
       columns,
       tableColumnExtensions,
       sorting,
-      editingRows,
+      editingRowIds,
       addedRows,
-      changedRows,
+      rowChanges,
       currentPage,
       deletingRows,
       pageSize,
@@ -312,10 +312,10 @@ class DemoBase extends React.PureComponent {
           <IntegratedPaging />
 
           <EditingState
-            editingRows={editingRows}
-            onEditingRowsChange={this.changeEditingRows}
-            changedRows={changedRows}
-            onChangedRowsChange={this.changeChangedRows}
+            editingRowIds={editingRowIds}
+            onEditingRowIdsChange={this.changeEditingRowIds}
+            rowChanges={rowChanges}
+            onRowChangesChange={this.changeRowChanges}
             addedRows={addedRows}
             onAddedRowsChange={this.changeAddedRows}
             onCommitChanges={this.commitChanges}
@@ -339,7 +339,7 @@ class DemoBase extends React.PureComponent {
           />
           <TableEditColumn
             width={120}
-            showAddCommand={!this.state.addedRows.length}
+            showAddCommand={!addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}

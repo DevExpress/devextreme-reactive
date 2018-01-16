@@ -13,20 +13,20 @@ import {
 describe('EditingState reducers', () => {
   describe('#startEditRows', () => {
     it('should work', () => {
-      const editingRows = [1];
+      const editingRowIds = [1];
       const payload = { rowIds: [2, 3] };
 
-      const nextEditingRows = startEditRows(editingRows, payload);
-      expect(nextEditingRows).toEqual([1, 2, 3]);
+      const nextEditingRowIds = startEditRows(editingRowIds, payload);
+      expect(nextEditingRowIds).toEqual([1, 2, 3]);
     });
   });
   describe('#stopEditRows', () => {
     it('should work', () => {
-      const editingRows = [1, 2, 3];
+      const editingRowIds = [1, 2, 3];
       const payload = { rowIds: [2] };
 
-      const nextEditingRows = stopEditRows(editingRows, payload);
-      expect(nextEditingRows).toEqual([1, 3]);
+      const nextEditingRowIds = stopEditRows(editingRowIds, payload);
+      expect(nextEditingRowIds).toEqual([1, 3]);
     });
   });
   describe('#addRow', () => {
@@ -58,59 +58,59 @@ describe('EditingState reducers', () => {
   });
   describe('#changeRow', () => {
     it('should work on the first change', () => {
-      const changedRows = {
+      const rowChanges = {
         o1: { a: 1 },
       };
       const payload = { rowId: 'o2', change: { a: 2 } };
 
-      const nextChangedRows = changeRow(changedRows, payload);
-      expect(nextChangedRows).toEqual({
+      const nextRowChanges = changeRow(rowChanges, payload);
+      expect(nextRowChanges).toEqual({
         o1: { a: 1 },
         o2: { a: 2 },
       });
     });
     it('should work on the second change', () => {
-      const changedRows = {
+      const rowChanges = {
         o1: { a: 1 },
       };
       const payload = { rowId: 'o1', change: { a: 2 } };
 
-      const nextChangedRows = changeRow(changedRows, payload);
-      expect(nextChangedRows).toEqual({
+      const nextRowChanges = changeRow(rowChanges, payload);
+      expect(nextRowChanges).toEqual({
         o1: { a: 2 },
       });
     });
   });
   describe('#cancelChanges', () => {
     it('should work', () => {
-      const changedRows = {
+      const rowChanges = {
         o1: { a: 1 },
         o2: { a: 2 },
       };
       const payload = { rowIds: ['o2'] };
 
-      const nextChangedRows = cancelChanges(changedRows, payload);
-      expect(nextChangedRows).toEqual({
+      const nextRowChanges = cancelChanges(rowChanges, payload);
+      expect(nextRowChanges).toEqual({
         o1: { a: 1 },
       });
     });
   });
   describe('#deleteRows', () => {
     it('should work', () => {
-      const deletedRows = [1];
+      const deletedRowIds = [1];
       const payload = { rowIds: [2] };
 
-      const nextDeletedRows = deleteRows(deletedRows, payload);
-      expect(nextDeletedRows).toEqual([1, 2]);
+      const nextDeletedRowIds = deleteRows(deletedRowIds, payload);
+      expect(nextDeletedRowIds).toEqual([1, 2]);
     });
   });
   describe('#cancelDeletedRows', () => {
     it('should work', () => {
-      const deletedRows = [1, 2];
+      const deletedRowIds = [1, 2];
       const payload = { rowIds: [2] };
 
-      const nextDeletedRows = cancelDeletedRows(deletedRows, payload);
-      expect(nextDeletedRows).toEqual([1]);
+      const nextDeletedRowIds = cancelDeletedRows(deletedRowIds, payload);
+      expect(nextDeletedRowIds).toEqual([1]);
     });
   });
 });

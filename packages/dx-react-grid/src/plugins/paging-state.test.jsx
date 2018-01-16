@@ -46,6 +46,21 @@ describe('PagingState', () => {
         .toBe(3);
     });
 
+    it('should provide value from the "currentPage" property in controlled mode when value is 0', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <PagingState
+            defaultCurrentPage={3}
+            currentPage={0}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentPage)
+        .toBe(0);
+    });
+
     it('should fire the "onCurrentPageChange" callback and provide new value in uncontrolled mode after the "setCurrentPage" action is fired', () => {
       const currentPageChangeMock = jest.fn();
 
@@ -118,6 +133,21 @@ describe('PagingState', () => {
         .toBe(2);
     });
 
+    it('should provide value from the "pageSize" property in controlled mode when value is 0', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <PagingState
+            defaultPageSize={2}
+            pageSize={0}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).pageSize)
+        .toBe(0);
+    });
+
     it('should fire the "onPageSizeChange" callback and provide new value in uncontrolled mode after the "setPageSize" action is fired', () => {
       const pageSizeChangeMock = jest.fn();
 
@@ -158,34 +188,6 @@ describe('PagingState', () => {
         .toEqual(2);
       expect(pageSizeChangeMock)
         .toBeCalledWith(3);
-    });
-  });
-
-  describe('total count', () => {
-    it('should provide value from the "totalCount" property', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <PagingState
-            totalCount={100}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).totalCount)
-        .toBe(100);
-    });
-
-    it('should provide \'0\' if a value for the "totalCount" property undefined', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <PagingState />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).totalCount)
-        .toBe(0);
     });
   });
 

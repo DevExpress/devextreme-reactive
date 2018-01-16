@@ -1,4 +1,4 @@
-export const setColumnFilter = (filters, { columnName, config }) => {
+export const changeColumnFilter = (filters, { columnName, config }) => {
   const filterIndex = filters.findIndex(f => f.columnName === columnName);
   const nextState = filters.slice();
 

@@ -1,14 +1,14 @@
 import {
-  setRowsSelection,
+  toggleSelection,
 } from './reducers';
 
 describe('SelectionState reducers', () => {
-  describe('#setRowsSelection', () => {
+  describe('#toggleSelection', () => {
     it('can select all', () => {
       const selection = [];
       const payload = { rowIds: [1, 2] };
 
-      const nextSelection = setRowsSelection(selection, payload);
+      const nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2]);
     });
 
@@ -16,7 +16,7 @@ describe('SelectionState reducers', () => {
       const selection = [1, 2];
       const payload = { rowIds: [3, 4] };
 
-      const nextSelection = setRowsSelection(selection, payload);
+      const nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
@@ -24,7 +24,7 @@ describe('SelectionState reducers', () => {
       const selection = [1, 2, 3];
       const payload = { rowIds: [3, 4] };
 
-      const nextSelection = setRowsSelection(selection, payload);
+      const nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
@@ -32,23 +32,23 @@ describe('SelectionState reducers', () => {
       const selection = [1, 2, 3, 4];
       const payload = { rowIds: [3, 4] };
 
-      const nextSelection = setRowsSelection(selection, payload);
+      const nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2]);
     });
 
-    it('should add to selection if selected is true', () => {
+    it('should add to selection if state is true', () => {
       const selection = [1, 2, 3, 4];
-      const payload = { rowIds: [3, 4], selected: true };
+      const payload = { rowIds: [3, 4], state: true };
 
-      const nextSelection = setRowsSelection(selection, payload);
+      const nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2, 3, 4]);
     });
 
-    it('should remove from selection if selected is false', () => {
+    it('should remove from selection if state is false', () => {
       const selection = [1, 2, 3];
-      const payload = { rowIds: [3, 4], selected: false };
+      const payload = { rowIds: [3, 4], state: false };
 
-      const nextSelection = setRowsSelection(selection, payload);
+      const nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1, 2]);
     });
 
@@ -56,7 +56,7 @@ describe('SelectionState reducers', () => {
       const selection = [];
       const payload = { rowIds: [1] };
 
-      const nextSelection = setRowsSelection(selection, payload);
+      const nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1]);
     });
 
@@ -64,29 +64,29 @@ describe('SelectionState reducers', () => {
       const selection = [1];
       const payload = { rowIds: [1] };
 
-      const nextSelection = setRowsSelection(selection, payload);
+      const nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([]);
     });
 
-    it('does not deselect a single row if selected is true', () => {
+    it('does not deselect a single row if state is true', () => {
       const selection = [1];
-      const payload = { rowIds: [1], selected: true };
+      const payload = { rowIds: [1], state: true };
 
-      let nextSelection = setRowsSelection(selection, payload);
+      let nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1]);
 
-      nextSelection = setRowsSelection(selection, payload);
+      nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([1]);
     });
 
-    it('does not select a single row if selected is false', () => {
+    it('does not select a single row if state is false', () => {
       const selection = [];
-      const payload = { rowIds: [1], selected: false };
+      const payload = { rowIds: [1], state: false };
 
-      let nextSelection = setRowsSelection(selection, payload);
+      let nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([]);
 
-      nextSelection = setRowsSelection(selection, payload);
+      nextSelection = toggleSelection(selection, payload);
       expect(nextSelection).toEqual([]);
     });
   });

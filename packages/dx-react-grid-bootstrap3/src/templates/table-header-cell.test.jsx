@@ -78,7 +78,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <DragDropProvider>
         <TableHeaderCell
-          column={{}}
+          column={{ name: 'a' }}
           draggingEnabled
         />
       </DragDropProvider>
@@ -97,7 +97,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
-          column={{}}
+          column={{ name: 'a' }}
           draggingEnabled
         />
       </DragDropProvider>
@@ -125,24 +125,29 @@ describe('TableHeaderCell', () => {
       });
   });
 
-  it('should render resize control if resize allowed', () => {
+  it('should render resize control if resizing is allowed', () => {
     const onWidthChange = () => {};
-    const onDraftWidthChange = () => {};
+    const onWidthDraft = () => {};
+    const onWidthDraftCancel = () => {};
+
     const tree = shallow((
       <TableHeaderCell
         column={{}}
         resizingEnabled
-        onDraftWidthChange={onDraftWidthChange}
         onWidthChange={onWidthChange}
+        onWidthDraft={onWidthDraft}
+        onWidthDraftCancel={onWidthDraftCancel}
       />
     ));
 
     expect(tree.find(ResizingControl).exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('onDraftWidthChange'))
-      .toBe(onDraftWidthChange);
     expect(tree.find(ResizingControl).prop('onWidthChange'))
       .toBe(onWidthChange);
+    expect(tree.find(ResizingControl).prop('onWidthDraft'))
+      .toBe(onWidthDraft);
+    expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
+      .toBe(onWidthDraftCancel);
   });
 
   it('should have correct styles when grouping by click is not allowed and column align is left', () => {

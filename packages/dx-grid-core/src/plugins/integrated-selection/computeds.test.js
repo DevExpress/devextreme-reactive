@@ -5,10 +5,10 @@ import {
 } from './computeds';
 
 describe('IntegratedSelection computeds', () => {
-  const selectionNone = new Set([]);
-  const selectionOne = new Set([1]);
-  const selectionTwo = new Set([1, 2]);
-  const selectionThree = new Set([1, 2, 3]);
+  const selectionNone = [];
+  const selectionOne = [1];
+  const selectionTwo = [1, 2];
+  const selectionThree = [1, 2, 3];
   describe('#getAvailableToSelect', () => {
     it('should work', () => {
       const rows = [

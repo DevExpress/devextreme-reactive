@@ -50,7 +50,7 @@ export class ColumnChooser extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ columns, hiddenColumns }, { toggleColumnVisibility }) => (
+            {({ columns, hiddenColumnNames }, { toggleColumnVisibility }) => (
               <React.Fragment>
                 <ToggleButton
                   buttonRef={this.buttonRef}
@@ -63,7 +63,7 @@ export class ColumnChooser extends React.PureComponent {
                   onHide={this.handleHide}
                 >
                   <Container>
-                    {columnChooserItems(columns, hiddenColumns)
+                    {columnChooserItems(columns, hiddenColumnNames)
                       .map(item => (
                         <Item
                           key={item.column.name}

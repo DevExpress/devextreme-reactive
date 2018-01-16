@@ -25,10 +25,10 @@ export const cancelAddedRows = (addedRows, { rowIds }) => {
   return result;
 };
 
-export const changeRow = (prevChangedRows, { rowId, change }) => {
-  const prevChange = prevChangedRows[rowId] || {};
+export const changeRow = (prevRowChanges, { rowId, change }) => {
+  const prevChange = prevRowChanges[rowId] || {};
   return {
-    ...prevChangedRows,
+    ...prevRowChanges,
     [rowId]: {
       ...prevChange,
       ...change,
@@ -36,8 +36,8 @@ export const changeRow = (prevChangedRows, { rowId, change }) => {
   };
 };
 
-export const cancelChanges = (prevChangedRows, { rowIds }) => {
-  const result = { ...prevChangedRows };
+export const cancelChanges = (prevRowChanges, { rowIds }) => {
+  const result = { ...prevRowChanges };
   rowIds.forEach((rowId) => {
     delete result[rowId];
   });

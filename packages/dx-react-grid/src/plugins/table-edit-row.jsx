@@ -40,14 +40,14 @@ export class TableEditRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ getCellValue, createRowChange, changedRows }, { changeAddedRow, changeRow }) => {
+              {({ getCellValue, createRowChange, rowChanges }, { changeAddedRow, changeRow }) => {
                 const { rowId, row } = params.tableRow;
                 const { name: columnName } = params.tableColumn.column;
 
                 const isNew = isAddedTableRow(params.tableRow);
                 const changedRow = isNew
                   ? row
-                  : { ...row, ...getRowChange(changedRows, rowId) };
+                  : { ...row, ...getRowChange(rowChanges, rowId) };
 
                 const value = getCellValue(changedRow, columnName);
                 const onValueChange = (newValue) => {

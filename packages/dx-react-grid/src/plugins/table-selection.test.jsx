@@ -20,7 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {
   getter: {
-    selection: new Set([1, 2]),
+    selection: [1, 2],
   },
   action: {
     toggleSelection: jest.fn(),

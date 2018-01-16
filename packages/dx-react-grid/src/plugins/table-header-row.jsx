@@ -47,7 +47,7 @@ export class TableHeaderRow extends React.PureComponent {
               {({
                 sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
               }, {
-                changeColumnSorting, groupByColumn,
+                changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
               }) => {
                 const { name: columnName } = params.tableColumn.column;
@@ -67,7 +67,7 @@ export class TableHeaderRow extends React.PureComponent {
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     onSort={({ direction, keepOther }) =>
                       changeColumnSorting({ columnName, direction, keepOther })}
-                    onGroup={() => groupByColumn({ columnName })}
+                    onGroup={() => changeColumnGrouping({ columnName })}
                     onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
                     onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
                     onWidthDraftCancel={() => cancelTableColumnWidthDraft()}

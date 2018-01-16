@@ -14,6 +14,7 @@ jest.mock('./table-header-cell/grouping-control', () => ({
 
 const defaultProps = {
   getMessage: key => key,
+  column: { name: 'Test' },
 };
 
 describe('TableHeaderCell', () => {
@@ -43,9 +44,6 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         {...defaultProps}
-        column={{
-          name: 'Test',
-        }}
       />
     ));
 
@@ -57,7 +55,6 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <TableHeaderCell
         {...defaultProps}
-        column={{ name: 'Test' }}
         onSort={onSort}
         showSortingControls
       />
@@ -84,7 +81,6 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         {...defaultProps}
-        column={{ name: 'a' }}
         showSortingControls
       />
     ));
@@ -157,7 +153,6 @@ describe('TableHeaderCell', () => {
         {...defaultProps}
         showSortingControls
         tableColumn={{ align: 'right' }}
-        column={{ title: 'test' }}
       />
     ));
 
@@ -173,7 +168,6 @@ describe('TableHeaderCell', () => {
       <TableHeaderCell
         {...defaultProps}
         className="custom-class"
-        column={{ title: 'a' }}
       />
     ));
 
@@ -188,7 +182,6 @@ describe('TableHeaderCell', () => {
       <TableHeaderCell
         {...defaultProps}
         data={{ a: 1 }}
-        column={{ title: 'a' }}
       />
     ));
 
@@ -200,11 +193,10 @@ describe('TableHeaderCell', () => {
     const ENTER_KEY_CODE = 13;
     const SPACE_KEY_CODE = 32;
 
-    it('can not get focus if sorting is not allow', () => {
+    it('can not get focus if sorting is not allowed', () => {
       const tree = mount((
         <TableHeaderCell
           {...defaultProps}
-          column={{ title: 'text' }}
         />
       ));
 
@@ -212,11 +204,10 @@ describe('TableHeaderCell', () => {
         .not.toBeTruthy();
     });
 
-    it('can get focus if sorting is allow', () => {
+    it('can get focus if sorting is allowed', () => {
       const tree = mount((
         <TableHeaderCell
           {...defaultProps}
-          column={{ title: 'text' }}
           showSortingControls
         />
       ));
@@ -231,7 +222,6 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           {...defaultProps}
           onSort={onSort}
-          column={{ title: 'text' }}
           showSortingControls
         />
       ));
@@ -258,7 +248,6 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           {...defaultProps}
           onSort={onSort}
-          column={{ title: 'text' }}
           showSortingControls
         />
       ));
@@ -274,7 +263,6 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           {...defaultProps}
           onSort={onSort}
-          column={{ title: 'text' }}
           showSortingControls
         />
       ));

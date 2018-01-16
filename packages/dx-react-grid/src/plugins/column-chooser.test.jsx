@@ -17,7 +17,7 @@ const defaultDeps = {
       { name: 'b' },
       { name: 'c' },
     ],
-    hiddenColumns: ['a'],
+    hiddenColumnNames: ['a'],
   },
   action: {
     toggleVisibility: () => { },
@@ -117,6 +117,6 @@ describe('ColumnChooser', () => {
     expect(columnChooserItems)
       .toHaveBeenCalledTimes(1);
     expect(columnChooserItems)
-      .toHaveBeenCalledWith(defaultDeps.getter.columns, defaultDeps.getter.hiddenColumns);
+      .toHaveBeenCalledWith(defaultDeps.getter.columns, defaultDeps.getter.hiddenColumnNames);
   });
 });

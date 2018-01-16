@@ -3,21 +3,19 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  groupByColumn,
+  changeColumnGrouping,
   toggleExpandedGroups,
-  draftGrouping,
-  draftGroupingChange,
-  cancelGroupingChange,
+  draftColumnGrouping,
+  cancelColumnGroupingDraft,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { GroupingState } from './grouping-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  groupByColumn: jest.fn(),
+  changeColumnGrouping: jest.fn(),
   toggleExpandedGroups: jest.fn(),
-  draftGrouping: jest.fn(),
-  draftGroupingChange: jest.fn(),
-  cancelGroupingChange: jest.fn(),
+  draftColumnGrouping: jest.fn(),
+  cancelColumnGroupingDraft: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -38,11 +36,10 @@ describe('GroupingState', () => {
   });
 
   beforeEach(() => {
-    groupByColumn.mockImplementation(() => {});
-    draftGrouping.mockImplementation(() => 'draftGrouping');
+    changeColumnGrouping.mockImplementation(() => {});
     toggleExpandedGroups.mockImplementation(() => {});
-    draftGroupingChange.mockImplementation(() => {});
-    cancelGroupingChange.mockImplementation(() => {});
+    draftColumnGrouping.mockImplementation(() => {});
+    cancelColumnGroupingDraft.mockImplementation(() => {});
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -81,7 +78,7 @@ describe('GroupingState', () => {
         .toBe(grouping);
     });
 
-    it('should fire "onGroupingChange" callback and should change grouping in uncontrolled mode "groupByColumn"', () => {
+    it('should fire "onGroupingChange" callback and should change grouping in uncontrolled mode "changeColumnGrouping"', () => {
       const defaultGrouping = [{ columnName: 'a' }];
       const newGrouping = [{ columnName: 'b' }];
 
@@ -97,10 +94,10 @@ describe('GroupingState', () => {
       ));
 
       const payload = {};
-      groupByColumn.mockReturnValue({ grouping: newGrouping });
-      executeComputedAction(tree, actions => actions.groupByColumn(payload));
+      changeColumnGrouping.mockReturnValue({ grouping: newGrouping });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping(payload));
 
-      expect(groupByColumn)
+      expect(changeColumnGrouping)
         .toBeCalledWith(expect.objectContaining({ grouping: defaultGrouping }), payload);
 
       expect(getComputedState(tree).grouping)
@@ -110,7 +107,7 @@ describe('GroupingState', () => {
         .toBeCalledWith(newGrouping);
     });
 
-    it('should fire "onGroupingChange" callback and should not change grouping in controlled mode "groupByColumn"', () => {
+    it('should fire "onGroupingChange" callback and should not change grouping in controlled mode "changeColumnGrouping"', () => {
       const grouping = [{ columnName: 'a' }];
       const newGrouping = [{ columnName: 'b' }];
 
@@ -126,10 +123,10 @@ describe('GroupingState', () => {
       ));
 
       const payload = {};
-      groupByColumn.mockReturnValue({ grouping: newGrouping });
-      executeComputedAction(tree, actions => actions.groupByColumn(payload));
+      changeColumnGrouping.mockReturnValue({ grouping: newGrouping });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping(payload));
 
-      expect(groupByColumn)
+      expect(changeColumnGrouping)
         .toBeCalledWith(expect.objectContaining({ grouping }), payload);
 
       expect(getComputedState(tree).grouping)
@@ -205,7 +202,7 @@ describe('GroupingState', () => {
         .toBeCalledWith(newExpandedGroups);
     });
 
-    it('should fire "onExpandedGroupsChange" and should change expandedGroups in uncontrolled mode on "groupByColumn" action', () => {
+    it('should fire "onExpandedGroupsChange" and should change expandedGroups in uncontrolled mode on "changeColumnGrouping" action', () => {
       const defaultExpandedGroups = [1];
       const newExpandedGroups = [2];
 
@@ -221,10 +218,10 @@ describe('GroupingState', () => {
       ));
 
       const payload = {};
-      groupByColumn.mockReturnValue({ expandedGroups: newExpandedGroups });
-      executeComputedAction(tree, actions => actions.groupByColumn(payload));
+      changeColumnGrouping.mockReturnValue({ expandedGroups: newExpandedGroups });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping(payload));
 
-      expect(groupByColumn)
+      expect(changeColumnGrouping)
         .toBeCalledWith(
           expect.objectContaining({ expandedGroups: defaultExpandedGroups }),
           payload,
@@ -266,7 +263,7 @@ describe('GroupingState', () => {
         .toBeCalledWith(newExpandedGroups);
     });
 
-    it('should fire "onExpandedGroupsChange" and should not change expandedGroups in controlled mode on "groupByColumn" action', () => {
+    it('should fire "onExpandedGroupsChange" and should not change expandedGroups in controlled mode on "changeColumnGrouping" action', () => {
       const expandedGroups = [1];
       const newExpandedGroups = [2];
 
@@ -282,10 +279,10 @@ describe('GroupingState', () => {
       ));
 
       const payload = {};
-      groupByColumn.mockReturnValue({ expandedGroups: newExpandedGroups });
-      executeComputedAction(tree, actions => actions.groupByColumn(payload));
+      changeColumnGrouping.mockReturnValue({ expandedGroups: newExpandedGroups });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping(payload));
 
-      expect(groupByColumn)
+      expect(changeColumnGrouping)
         .toBeCalledWith(
           expect.objectContaining({ expandedGroups }),
           payload,
@@ -312,13 +309,11 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      expect(draftGrouping)
-        .toBeCalledWith(defaultGrouping, null);
       expect(getComputedState(tree).draftGrouping)
-        .toBe(draftGrouping());
+        .toBe(defaultGrouping);
     });
 
-    it('should provide draftGrouping getter based on the result of draftGroupingChange action', () => {
+    it('should provide draftGrouping getter based on the result of draftColumnGrouping action', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
       const tree = mount((
@@ -331,17 +326,20 @@ describe('GroupingState', () => {
       ));
 
       const payload = { columnName: 'a' };
-      draftGroupingChange.mockImplementation(() => ({ groupingChange: 'change' }));
-      executeComputedAction(tree, actions => actions.draftGroupingChange(payload));
+      draftColumnGrouping.mockImplementation(() => ({ draftGrouping: [{ columnName: 'b' }] }));
+      executeComputedAction(tree, actions => actions.draftColumnGrouping(payload));
 
-      expect(draftGroupingChange)
-        .toBeCalledWith(expect.objectContaining({ groupingChange: null }), payload);
+      expect(draftColumnGrouping)
+        .toBeCalledWith(
+          expect.objectContaining({ grouping: defaultGrouping, draftGrouping: null }),
+          payload,
+        );
 
-      expect(draftGrouping)
-        .toBeCalledWith(defaultGrouping, draftGroupingChange().groupingChange);
+      expect(getComputedState(tree).draftGrouping)
+        .toEqual([{ columnName: 'b' }]);
     });
 
-    it('should provide draftGrouping getter based on the result of cancelGroupingChange result', () => {
+    it('should provide draftGrouping getter based on the result of cancelColumnGroupingDraft result', () => {
       const defaultGrouping = [{ columnName: 'a' }];
 
       const tree = mount((
@@ -354,14 +352,14 @@ describe('GroupingState', () => {
       ));
 
       const payload = { columnName: 'a' };
-      cancelGroupingChange.mockImplementation(() => ({ groupingChange: 'change' }));
-      executeComputedAction(tree, actions => actions.cancelGroupingChange(payload));
+      cancelColumnGroupingDraft.mockImplementation(() => ({ groupingChange: 'change' }));
+      executeComputedAction(tree, actions => actions.cancelColumnGroupingDraft(payload));
 
-      expect(cancelGroupingChange)
-        .toBeCalledWith(expect.objectContaining({ groupingChange: null }), payload);
-
-      expect(draftGrouping)
-        .toBeCalledWith(defaultGrouping, cancelGroupingChange().groupingChange);
+      expect(cancelColumnGroupingDraft)
+        .toBeCalledWith(
+          expect.objectContaining({ grouping: defaultGrouping, draftGrouping: null }),
+          payload,
+        );
     });
   });
 
@@ -508,7 +506,7 @@ describe('GroupingState', () => {
     });
   });
 
-  describe('changeColumnSorting action on groupByColumn action', () => {
+  describe('changeColumnSorting action on changeColumnGrouping action', () => {
     it('should fire changeColumnSorting action when grouped by sorted column', () => {
       const deps = {
         getter: {
@@ -528,8 +526,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }] });
-      executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a' }));
+      changeColumnGrouping.mockReturnValue({ grouping: [{ columnName: 'a' }] });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping({ columnName: 'a' }));
       expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'a',
@@ -558,8 +556,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      groupByColumn.mockReturnValue({ grouping: [{ columnName: 'b' }] });
-      executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a' }));
+      changeColumnGrouping.mockReturnValue({ grouping: [{ columnName: 'b' }] });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping({ columnName: 'a' }));
       expect(deps.action.changeColumnSorting.mock.calls[0][0])
         .toEqual({
           columnName: 'a',
@@ -588,8 +586,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }, { columnName: 'c' }, { columnName: 'b' }] });
-      executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a', groupIndex: 1 }));
+      changeColumnGrouping.mockReturnValue({ grouping: [{ columnName: 'a' }, { columnName: 'c' }, { columnName: 'b' }] });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping({ columnName: 'a', groupIndex: 1 }));
       expect(deps.action.changeColumnSorting)
         .not.toBeCalled();
     });
@@ -613,8 +611,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      groupByColumn.mockReturnValue({ grouping: [] });
-      executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a' }));
+      changeColumnGrouping.mockReturnValue({ grouping: [] });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping({ columnName: 'a' }));
       expect(deps.action.changeColumnSorting)
         .not.toBeCalled();
     });
@@ -638,8 +636,8 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      groupByColumn.mockReturnValue({ grouping: [{ columnName: 'a' }, { columnName: 'b' }] });
-      executeComputedAction(tree, actions => actions.groupByColumn({ columnName: 'a' }));
+      changeColumnGrouping.mockReturnValue({ grouping: [{ columnName: 'a' }, { columnName: 'b' }] });
+      executeComputedAction(tree, actions => actions.changeColumnGrouping({ columnName: 'a' }));
       expect(deps.action.changeColumnSorting)
         .not.toBeCalled();
     });
@@ -663,14 +661,14 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      groupByColumn.mockReturnValueOnce({ grouping: transitionalGrouping });
-      groupByColumn.mockReturnValueOnce({ grouping: newGrouping });
+      changeColumnGrouping.mockReturnValueOnce({ grouping: transitionalGrouping });
+      changeColumnGrouping.mockReturnValueOnce({ grouping: newGrouping });
       executeComputedAction(tree, (actions) => {
-        actions.groupByColumn(payload);
-        actions.groupByColumn(payload);
+        actions.changeColumnGrouping(payload);
+        actions.changeColumnGrouping(payload);
       });
 
-      expect(groupByColumn)
+      expect(changeColumnGrouping)
         .lastCalledWith(
           expect.objectContaining({ grouping: transitionalGrouping }),
           payload,
@@ -697,14 +695,14 @@ describe('GroupingState', () => {
         </PluginHost>
       ));
 
-      groupByColumn.mockReturnValueOnce({ grouping: transitionalGrouping });
-      groupByColumn.mockReturnValueOnce({ grouping: newGrouping });
+      changeColumnGrouping.mockReturnValueOnce({ grouping: transitionalGrouping });
+      changeColumnGrouping.mockReturnValueOnce({ grouping: newGrouping });
       executeComputedAction(tree, (actions) => {
-        actions.groupByColumn(payload);
-        actions.groupByColumn(payload);
+        actions.changeColumnGrouping(payload);
+        actions.changeColumnGrouping(payload);
       });
 
-      expect(groupByColumn)
+      expect(changeColumnGrouping)
         .lastCalledWith(
           expect.objectContaining({ grouping: transitionalGrouping }),
           payload,

@@ -1,28 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { themes, demos } from '../demo-registry';
+import { demos } from '../demo-registry.json';
+import { themes } from '../theme-registry';
 
 export const DemoRenderer = ({
-  section: currentSection,
-  demo: currentDemo,
-  theme: currentTheme,
+  sectionName,
+  demoName,
+  themeName,
+  variantName,
 }) => {
-  const Component = demos[currentSection][currentDemo][currentTheme];
+  const Demo = demos[sectionName][demoName][themeName].demo;
 
-  if (!Component) return <div>&gt; DEMO IS NOT AVAILABLE &lt;</div>;
+  if (!Demo) return <div>&gt; DEMO IS NOT AVAILABLE &lt;</div>;
 
   const { DemoContainer } = themes
-    .find(({ name: theme }) => theme === currentTheme);
+    .find(({ name }) => name === themeName).variants
+    .find(({ name }) => name === variantName);
+
+  const url = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
 
   return (
-    <DemoContainer>
-      <Component />
+    <DemoContainer
+      url={url}
+    >
+      <Demo />
     </DemoContainer>
   );
 };
 
 DemoRenderer.propTypes = {
-  section: PropTypes.string.isRequired,
-  demo: PropTypes.string.isRequired,
-  theme: PropTypes.string.isRequired,
+  sectionName: PropTypes.string.isRequired,
+  demoName: PropTypes.string.isRequired,
+  themeName: PropTypes.string.isRequired,
+  variantName: PropTypes.string.isRequired,
 };

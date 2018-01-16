@@ -34,13 +34,13 @@ export default class Demo extends React.PureComponent {
         key: 'Male',
         items: generateRows({
           columnValues: { ...defaultColumnValues, sex: ['Male'] },
-          length: 7,
+          length: 5,
         }),
       }, {
         key: 'Female',
         items: generateRows({
           columnValues: { ...defaultColumnValues, sex: ['Female'] },
-          length: 7,
+          length: 5,
         }),
       }],
     };

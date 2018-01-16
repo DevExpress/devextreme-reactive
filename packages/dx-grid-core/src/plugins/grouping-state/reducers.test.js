@@ -1,19 +1,19 @@
 import {
-  groupByColumn,
-  draftGroupingChange,
-  cancelGroupingChange,
+  changeColumnGrouping,
+  draftColumnGrouping,
+  cancelColumnGroupingDraft,
   toggleExpandedGroups,
 } from './reducers';
 
 describe('GroupingState reducers', () => {
-  describe('#groupByColumn', () => {
+  describe('#changeColumnGrouping', () => {
     it('can group by column', () => {
       const state = {
         grouping: [],
       };
       const payload = { columnName: 'test' };
 
-      expect(groupByColumn(state, payload))
+      expect(changeColumnGrouping(state, payload))
         .toEqual({
           grouping: [{ columnName: 'test' }],
         });
@@ -26,7 +26,7 @@ describe('GroupingState reducers', () => {
       };
       const payload = { columnName: 'test' };
 
-      expect(groupByColumn(state, payload))
+      expect(changeColumnGrouping(state, payload))
         .toEqual({
           grouping: [],
           expandedGroups: [],
@@ -39,7 +39,7 @@ describe('GroupingState reducers', () => {
       };
       const payload = { columnName: 'column2' };
 
-      expect(groupByColumn(state, payload))
+      expect(changeColumnGrouping(state, payload))
         .toEqual({
           grouping: [
             { columnName: 'column1' },
@@ -55,7 +55,7 @@ describe('GroupingState reducers', () => {
       };
       const payload = { columnName: 'column2', groupIndex: 0 };
 
-      expect(groupByColumn(state, payload))
+      expect(changeColumnGrouping(state, payload))
         .toEqual({
           grouping: [
             { columnName: 'column2' },
@@ -92,30 +92,31 @@ describe('GroupingState reducers', () => {
     });
   });
 
-  describe('#draftGroupingChange', () => {
+  describe('#draftColumnGrouping', () => {
     it('can start grouping change', () => {
       const state = {
-        groupingChange: null,
+        grouping: [{ columnName: 'column1' }],
+        draftGrouping: null,
       };
-      const payload = { columnName: 'test', groupIndex: 2 };
+      const payload = { columnName: 'test', groupIndex: 0 };
 
-      expect(draftGroupingChange(state, payload))
+      expect(draftColumnGrouping(state, payload))
         .toEqual({
-          groupingChange: { columnName: 'test', groupIndex: 2 },
+          draftGrouping: [{ columnName: 'test' }, { columnName: 'column1' }],
         });
     });
   });
 
-  describe('#cancelGroupingChange', () => {
+  describe('#cancelColumnGroupingDraft', () => {
     it('can cancel grouping change', () => {
       const state = {
-        groupingChange: { columnName: 'test', groupIndex: 2 },
+        draftGrouping: { columnName: 'test', groupIndex: 2 },
       };
       const payload = null;
 
-      expect(cancelGroupingChange(state, payload))
+      expect(cancelColumnGroupingDraft(state, payload))
         .toEqual({
-          groupingChange: null,
+          draftGrouping: null,
         });
     });
   });

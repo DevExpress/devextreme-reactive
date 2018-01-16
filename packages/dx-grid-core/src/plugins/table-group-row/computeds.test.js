@@ -1,11 +1,6 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_GROUP_TYPE } from './constants';
 import {
-  GROUP_ADD_MODE,
-  GROUP_REMOVE_MODE,
-  GROUP_REORDER_MODE,
-} from '../grouping-state/constants';
-import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
 } from './computeds';
@@ -48,7 +43,6 @@ describe('TableGroupRow Plugin computeds', () => {
     it('should not remove column when grouping', () => {
       const draftGrouping = [
         { columnName: 'a' },
-        { columnName: 'c', draft: GROUP_ADD_MODE },
       ];
       expect(tableColumnsWithGrouping(
         columns, tableColumns, grouping,
@@ -70,7 +64,8 @@ describe('TableGroupRow Plugin computeds', () => {
     it('should add a draft column when ungrouping', () => {
       const draftGrouping = [
         { columnName: 'a' },
-        { columnName: 'c', draft: GROUP_REMOVE_MODE },
+        { columnName: 'b' },
+        { columnName: 'c' },
       ];
       expect(tableColumnsWithGrouping(
         columns, tableColumns, grouping,
@@ -83,16 +78,15 @@ describe('TableGroupRow Plugin computeds', () => {
           key: `${TABLE_GROUP_TYPE}_c`, type: TABLE_GROUP_TYPE, column: { name: 'c' }, width: 123,
         },
         { type: 'undefined', column: { name: 'a' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
-        { type: TABLE_DATA_TYPE, column: { name: 'c' }, draft: true },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' }, draft: true },
         { type: TABLE_DATA_TYPE, column: { name: 'd' } },
       ]);
     });
 
-    it('should add a draft column when reordering groups', () => {
+    it('should not add a draft column when reordering groups', () => {
       const draftGrouping = [
+        { columnName: 'c' },
         { columnName: 'a' },
-        { columnName: 'c', draft: GROUP_REORDER_MODE },
       ];
       expect(tableColumnsWithGrouping(
         columns, tableColumns, grouping,

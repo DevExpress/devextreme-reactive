@@ -5,6 +5,7 @@ import { unstable_batchedUpdates, findDOMNode } from 'react-dom';
 import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
 import { getSharedEventEmitter } from './draggable/shared-events';
+import { clear } from './draggable/selection-utils';
 
 const draggingHandled = Symbol('draggingHandled');
 
@@ -94,6 +95,9 @@ export class Draggable extends React.Component {
       }
       default:
         break;
+    }
+    if (this.mouseStrategy.isDragging() || this.touchStrategy.isDragging()) {
+      clear();
     }
   }
   render() {

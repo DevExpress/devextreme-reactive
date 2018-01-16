@@ -28,14 +28,14 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ length: 8 }),
       grouping: [{ columnName: 'city' }],
     };
 
     this.changeGrouping = grouping => this.setState({ grouping });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, grouping } = this.state;
 
     return (
       <Paper>
@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
         >
           <DragDropProvider />
           <GroupingState
-            grouping={this.state.grouping}
+            grouping={grouping}
             onGroupingChange={this.changeGrouping}
           />
           <IntegratedGrouping />

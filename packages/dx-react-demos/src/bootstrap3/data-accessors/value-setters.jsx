@@ -44,34 +44,20 @@ export default class Demo extends React.PureComponent {
       editingColumnExtensions: [
         {
           columnName: 'firstName',
-          createRowChange: (row, value) => ({
-            user: {
-              ...row.user,
-              firstName: value,
-            },
-          }),
+          createRowChange: (row, value) => ({ user: { ...row.user, firstName: value } }),
         },
         {
           columnName: 'lastName',
-          createRowChange: (row, value) => ({
-            user: {
-              ...row.user,
-              lastName: value,
-            },
-          }),
+          createRowChange: (row, value) => ({ user: { ...row.user, lastName: value } }),
         },
         {
           columnName: 'car',
-          createRowChange: (row, value) => ({
-            car: {
-              model: value,
-            },
-          }),
+          createRowChange: (row, value) => ({ car: { model: value } }),
         },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
-        length: 14,
+        length: 8,
       }),
     };
 

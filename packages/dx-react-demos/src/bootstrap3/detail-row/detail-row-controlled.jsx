@@ -33,7 +33,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 7 }),
+      rows: generateRows({ length: 8 }),
       expandedRowIds: [2, 5],
     };
 

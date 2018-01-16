@@ -1,6 +1,6 @@
 # PluginHost Component Reference
 
-Root React component that keeps plugins.
+A React component that setups infrastructure used to create extendable plugin-based component.
 
 ## User reference
 

@@ -1,6 +1,6 @@
 # Getter Component Reference
 
-React component that defines a part of plugin's state. Provides relationship between plugins.
+A React component that exposes a value that can be used or modified outside of the plugin containing it.
 
 ## User reference
 
@@ -8,6 +8,6 @@ React component that defines a part of plugin's state. Provides relationship bet
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name | string | | A getter's name.
-value | any | | A getter's static value.
-computed | () => any | | A getter's calculated value.
+name | string | | A name used to identify a value.
+value | any | | A value.
+computed | ({ [getterName: string]: any }) => any | | A function used to calculate a value depending on values exposed by other getters. A value will be recomputed each time a dependency changes. Used when the `value` property is not defined.

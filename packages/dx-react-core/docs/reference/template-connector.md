@@ -1,6 +1,6 @@
 # TemplateConnector Component Reference
 
-React component that provides relationship between state-managed components([Getter](getter.md), [Action](action.md)) and [Template](template.md).
+A React component that allows to connect values defined by [Getter](getter.md) and actions defined by [Action](action.md).
 
 ## User reference
 
@@ -8,4 +8,4 @@ React component that provides relationship between state-managed components([Get
 
 Name | Type | Default | Description
 -----|------|---------|------------
-children | Array&lt;ReactElement&gt; | | React elements that represent UI element.
+children | ({ [getterName: string]: any }, { [actionName: string]: (payload?: any) => void }) => ReactElement | | A function used to connect getters and actions to a markup.

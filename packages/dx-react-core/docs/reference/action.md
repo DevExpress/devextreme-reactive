@@ -1,6 +1,6 @@
 # Action Component Reference
 
-React component that changes plugin's state.
+A React component that exposes a function that can be executed outside of the plugin containing it.
 
 ## User reference
 
@@ -8,5 +8,5 @@ React component that changes plugin's state.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name | string | | An action name.
-action | () => void | | A function that changes plugin state.
+name | string | | A name used to identify an action.
+action | (payload?: any) => void | | A function that will be called on an action execution.

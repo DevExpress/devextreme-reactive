@@ -76,7 +76,7 @@ GroupPanelItemBase.propTypes = {
     column: PropTypes.shape({
       title: PropTypes.string,
     }).isRequired,
-    draft: PropTypes.string,
+    draft: PropTypes.bool,
   }).isRequired,
   showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),

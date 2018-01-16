@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import { findDOMNode } from 'react-dom';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragSource, DropTarget } from '@devexpress/dx-react-core';
-import { GROUP_ADD_MODE, GROUP_REMOVE_MODE } from '@devexpress/dx-grid-core';
 import { GroupPanelLayout } from './group-panel-layout';
 
 jest.mock('react-dom', () => ({
@@ -100,15 +99,15 @@ describe('GroupPanelLayout', () => {
         .toBe(items.length);
     });
 
-    it('should call onDraftGroup when dragging a column over the group panel', () => {
-      const onDraftGroup = jest.fn();
+    it('should call onGroupDraft when dragging a column over the group panel', () => {
+      const onGroupDraft = jest.fn();
       const column = { name: 'a' };
 
       const tree = mount((
         <GroupPanelLayout
           {...defaultProps}
           items={[]}
-          onDraftGroup={onDraftGroup}
+          onGroupDraft={onGroupDraft}
           draggingEnabled
         />
       ));
@@ -123,27 +122,57 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 20 },
       });
 
-      expect(onDraftGroup)
+      expect(onGroupDraft)
         .toHaveBeenCalledWith({
           columnName: column.name,
           groupIndex: 0,
         });
     });
 
-    it('should call onDraftGroup on drag leave from Group panel', () => {
-      const onDraftGroup = jest.fn();
-      const onCancelDraftGroup = jest.fn();
+    it('should set draft when dragging', () => {
+      const onGroupDraft = jest.fn();
+      const onGroupDraftCancel = jest.fn();
       const column = { name: 'a' };
 
       const tree = mount((
         <GroupPanelLayout
           {...defaultProps}
-          items={[{ column, draft: GROUP_REMOVE_MODE }]}
-          onDraftGroup={onDraftGroup}
-          onCancelDraftGroup={onCancelDraftGroup}
+          items={[{ column, draft: false }]}
+          onGroupDraft={onGroupDraft}
+          onGroupDraftCancel={onGroupDraftCancel}
           draggingEnabled
         />
       ));
+
+      const dragSource = tree.find(DragSource);
+      dragSource.prop('onStart')();
+      tree.update();
+      expect(tree.find(defaultProps.itemComponent).prop('item').draft)
+        .toBeTruthy();
+
+      dragSource.prop('onEnd')();
+      tree.update();
+      expect(tree.find(defaultProps.itemComponent).prop('item').draft)
+        .toBeFalsy();
+    });
+
+    it('should call onGroupDraft on drag leave from Group panel', () => {
+      const onGroupDraft = jest.fn();
+      const onGroupDraftCancel = jest.fn();
+      const column = { name: 'a' };
+
+      const tree = mount((
+        <GroupPanelLayout
+          {...defaultProps}
+          items={[{ column, draft: true }]}
+          onGroupDraft={onGroupDraft}
+          onGroupDraftCancel={onGroupDraftCancel}
+          draggingEnabled
+        />
+      ));
+
+      const dragSource = tree.find(DragSource);
+      dragSource.prop('onStart')();
 
       const dropTarget = tree.find(DropTarget);
       dropTarget.prop('onEnter')({
@@ -155,19 +184,19 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 60 },
       });
 
-      expect(onDraftGroup)
+      expect(onGroupDraft)
         .toHaveBeenCalledWith({
           columnName: column.name,
           groupIndex: -1,
         });
-      expect(onCancelDraftGroup)
+      expect(onGroupDraftCancel)
         .toHaveBeenCalledTimes(0);
     });
 
     it('should apply grouping and reset grouping change on drop', () => {
       const column = { name: 'a' };
       const onGroup = jest.fn();
-      const onCancelDraftGroup = jest.fn();
+      const onGroupDraftCancel = jest.fn();
 
       const tree = mount((
         <GroupPanelLayout
@@ -175,7 +204,7 @@ describe('GroupPanelLayout', () => {
           items={[]}
           columns={[column]}
           onGroup={onGroup}
-          onCancelDraftGroup={onCancelDraftGroup}
+          onGroupDraftCancel={onGroupDraftCancel}
           draggingEnabled
         />
       ));
@@ -199,7 +228,7 @@ describe('GroupPanelLayout', () => {
       expect(onGroup)
         .toHaveBeenCalledWith({ columnName: column.name, groupIndex: 0 });
 
-      expect(onCancelDraftGroup)
+      expect(onGroupDraftCancel)
         .toHaveBeenCalledTimes(1);
     });
 
@@ -209,17 +238,20 @@ describe('GroupPanelLayout', () => {
       }));
       const column = { name: 'a' };
       const onGroup = jest.fn();
-      const onCancelDraftGroup = jest.fn();
+      const onGroupDraftCancel = jest.fn();
 
       const tree = mount((
         <GroupPanelLayout
           {...defaultProps}
           items={[{ column }]}
           onGroup={onGroup}
-          onCancelDraftGroup={onCancelDraftGroup}
+          onGroupDraftCancel={onGroupDraftCancel}
           draggingEnabled
         />
       ));
+
+      const dragSource = tree.find(DragSource);
+      dragSource.prop('onStart')();
 
       const dropTarget = tree.find(DropTarget);
       dropTarget.prop('onEnter')({
@@ -235,7 +267,6 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 20 },
       });
 
-      const dragSource = tree.find(DragSource);
       dragSource.prop('onEnd')();
 
       expect(onGroup)
@@ -243,20 +274,20 @@ describe('GroupPanelLayout', () => {
       expect(onGroup)
         .toHaveBeenCalledWith({ columnName: column.name });
 
-      expect(onCancelDraftGroup)
+      expect(onGroupDraftCancel)
         .toHaveBeenCalledTimes(1);
     });
 
-    it('should call onCancelDraftGroup on drag leave when the draft is "add"', () => {
+    it('should call onGroupDraftCancel on drag leave when drag is started outside', () => {
       const column = { name: 'a' };
-      const onCancelDraftGroup = jest.fn();
-      const onDraftGroup = jest.fn();
+      const onGroupDraftCancel = jest.fn();
+      const onGroupDraft = jest.fn();
       const tree = mount((
         <GroupPanelLayout
           {...defaultProps}
-          items={[{ column, draft: GROUP_ADD_MODE }]}
-          onCancelDraftGroup={onCancelDraftGroup}
-          onDraftGroup={onDraftGroup}
+          items={[{ column, draft: true }]}
+          onGroupDraftCancel={onGroupDraftCancel}
+          onGroupDraft={onGroupDraft}
           draggingEnabled
         />
       ));
@@ -272,9 +303,9 @@ describe('GroupPanelLayout', () => {
         clientOffset: { x: 175, y: 20 },
       });
 
-      expect(onCancelDraftGroup)
+      expect(onGroupDraftCancel)
         .toHaveBeenCalledTimes(1);
-      expect(onDraftGroup)
+      expect(onGroupDraft)
         .toHaveBeenCalledTimes(0);
     });
   });

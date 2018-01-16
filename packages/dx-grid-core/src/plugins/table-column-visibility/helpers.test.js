@@ -3,14 +3,14 @@ import { tableDataColumnsExist } from './helpers';
 
 describe('TableColumnVisibility helpers', () => {
   describe('#tableDataColumnsExist', () => {
-    it('should show empty message when all columns are hidden', () => {
+    it('should not show data rows when all columns are hidden', () => {
       const tableColumns = [];
 
       expect(tableDataColumnsExist(tableColumns))
         .toBeFalsy();
     });
 
-    it('should show empty message when all shown columns are grouped', () => {
+    it('should not show data rows when all shown columns are grouped', () => {
       const tableColumns = [
         { type: 'any', column: { name: 'a' } },
       ];
@@ -19,7 +19,7 @@ describe('TableColumnVisibility helpers', () => {
         .toBeFalsy();
     });
 
-    it('should not show empty message while a shown column is not grouped', () => {
+    it('should show data rows while a shown column is not grouped', () => {
       const tableColumns = [
         { type: TABLE_DATA_TYPE, column: { name: 'd' } },
       ];

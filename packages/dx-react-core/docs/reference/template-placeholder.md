@@ -1,6 +1,6 @@
 # TemplatePlaceholder Component Reference
 
-React component that renders a corresponding [Template](template.md).
+A React component that renders a corresponding [Template](template.md).
 
 ## User reference
 
@@ -8,6 +8,5 @@ React component that renders a corresponding [Template](template.md).
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name | string | | A template placeholder name.
-params | object | | Params that will be passed to a related [Template](template.md).
-children | Array&lt;ReactElement&gt; | | React elements that represent UI element.
+name | string | | A name of a template to be rendered.
+params | object | | An object that will be passed to a template.

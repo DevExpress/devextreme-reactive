@@ -64,8 +64,8 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Grouping](#grouping)&gt; | The current grouping state.
 draftGrouping | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for the preview.
-expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupKey](#group-key)&gt; | Expanded groups.
-groupByColumn | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Groups by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
-toggleGroupExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state.
+changeColumnGrouping | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 draftGroupingChange | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Updates `dratfGrouping`.
 cancelGroupingChange | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Resets `draftGrouping`.
+expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups.
+toggleGroupExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state.

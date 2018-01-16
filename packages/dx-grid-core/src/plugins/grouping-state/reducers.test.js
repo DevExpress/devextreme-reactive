@@ -1,19 +1,19 @@
 import {
-  groupByColumn,
+  changeColumnGrouping,
   draftGroupingChange,
   cancelGroupingChange,
   toggleExpandedGroups,
 } from './reducers';
 
 describe('GroupingState reducers', () => {
-  describe('#groupByColumn', () => {
+  describe('#changeColumnGrouping', () => {
     it('can group by column', () => {
       const state = {
         grouping: [],
       };
       const payload = { columnName: 'test' };
 
-      expect(groupByColumn(state, payload))
+      expect(changeColumnGrouping(state, payload))
         .toEqual({
           grouping: [{ columnName: 'test' }],
         });
@@ -26,7 +26,7 @@ describe('GroupingState reducers', () => {
       };
       const payload = { columnName: 'test' };
 
-      expect(groupByColumn(state, payload))
+      expect(changeColumnGrouping(state, payload))
         .toEqual({
           grouping: [],
           expandedGroups: [],
@@ -39,7 +39,7 @@ describe('GroupingState reducers', () => {
       };
       const payload = { columnName: 'column2' };
 
-      expect(groupByColumn(state, payload))
+      expect(changeColumnGrouping(state, payload))
         .toEqual({
           grouping: [
             { columnName: 'column1' },
@@ -55,7 +55,7 @@ describe('GroupingState reducers', () => {
       };
       const payload = { columnName: 'column2', groupIndex: 0 };
 
-      expect(groupByColumn(state, payload))
+      expect(changeColumnGrouping(state, payload))
         .toEqual({
           grouping: [
             { columnName: 'column2' },

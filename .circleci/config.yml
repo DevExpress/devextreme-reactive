@@ -10,22 +10,7 @@ jobs:
 
       - run: sudo npm i -g yarn
 
-      - restore_cache:
-          keys:
-            - node-modules-cache-v1-{{ checksum "yarn.lock" }}
-            - node-modules-cache-v1
       - run: yarn --no-progress
-      - save_cache:
-          key: node-modules-cache-v1-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
-            - packages/*/node_modules
-      - save_cache:
-          key: node-modules-cache-v1
-          paths:
-            - node_modules
-            - packages/*/node_modules
-
       - run: yarn run build
       - run: yarn run test -- -- -- --maxWorkers=2
       - run: yarn run lint

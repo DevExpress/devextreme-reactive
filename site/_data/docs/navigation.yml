@@ -1,5 +1,17 @@
 react:
   core:
+    - title: Guides
+      items:
+        - title: PluginHost
+          path: /react/core/docs/guides/plugin-host
+        - title: PluginContainer
+          path: /react/core/docs/guides/plugin-container
+        - title: Getter
+          path: /react/core/docs/guides/getter
+        - title: Action
+          path: /react/core/docs/guides/action
+        - title: Template
+          path: /react/core/docs/guides/template
     - title: API Reference
       items:
         - title: PluginHost

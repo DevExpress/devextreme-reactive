@@ -145,7 +145,7 @@ export class GroupingState extends React.PureComponent {
       >
         <Getter name="grouping" value={grouping} />
         <Getter name="draftGrouping" value={draftGrouping || grouping} />
-        <Action name="groupByColumn" action={this.changeColumnGrouping} />
+        <Action name="changeColumnGrouping" action={this.changeColumnGrouping} />
         <Action name="draftColumnGrouping" action={this.draftColumnGrouping} />
         <Action name="cancelColumnGroupingDraft" action={this.cancelColumnGroupingDraft} />
 

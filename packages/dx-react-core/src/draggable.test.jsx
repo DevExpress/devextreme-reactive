@@ -3,6 +3,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Draggable } from './draggable';
+import { clear } from './draggable/selection-utils';
+
+jest.mock('./draggable/selection-utils', () => ({
+  clear: jest.fn(),
+}));
 
 describe('Draggable', () => {
   let rootNode = null;
@@ -80,6 +85,26 @@ describe('Draggable', () => {
       const event = dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
       expect(event.defaultPrevented)
         .toBeTruthy();
+    });
+
+    it('should clear text selection on dragging', () => {
+      const onStart = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onStart={onStart}
+        >
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+
+      expect(clear)
+        .toHaveBeenCalled();
     });
 
     it('should fire the "onUpdate" callback on mousemove', () => {
@@ -246,6 +271,27 @@ describe('Draggable', () => {
       const event = dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
       expect(event.defaultPrevented)
         .toBeTruthy();
+    });
+
+    it('should clear text selection on dragging', () => {
+      const onStart = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onStart={onStart}
+        >
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('div').getDOMNode();
+      dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
+      jest.runAllTimers();
+      dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
+
+      expect(clear)
+        .toHaveBeenCalled();
     });
 
     it('should fire the "onUpdate" callback on touchmove', () => {

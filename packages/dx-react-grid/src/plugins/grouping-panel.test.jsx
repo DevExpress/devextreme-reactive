@@ -25,8 +25,8 @@ const defaultDeps = {
   action: {
     changeColumnGrouping: jest.fn(),
     changeColumnSorting: jest.fn(),
-    draftGroupingChange: jest.fn(),
-    cancelGroupingChange: jest.fn(),
+    draftColumnGrouping: jest.fn(),
+    cancelColumnGroupingDraft: jest.fn(),
   },
   template: {
     toolbarContent: {},
@@ -79,8 +79,8 @@ describe('GroupingPanel', () => {
       .toMatchObject({
         draggingEnabled: true,
         onGroup: expect.any(Function),
-        onDraftGroup: expect.any(Function),
-        onCancelDraftGroup: expect.any(Function),
+        onGroupDraft: expect.any(Function),
+        onGroupDraftCancel: expect.any(Function),
       });
   });
 

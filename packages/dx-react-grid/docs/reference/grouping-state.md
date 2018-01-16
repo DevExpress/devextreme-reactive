@@ -31,17 +31,6 @@ Field | Type | Description
 ------|------|------------
 columnName | string | Specifies the name of the column by which the data is grouped.
 
-### <a name="draft-grouping"></a>DraftGrouping
-
-Describes grouping options used for preview.
-
-A value with the following shape:
-
-Field | Type | Description
-------|------|------------
-columnName | string | Specifies the name of the column by which the data is grouped.
-draft? | boolean | Indicates that the column should be displayed as grouped.
-
 ### <a name="group-key"></a>GroupKey
 
 Describes a group that can be nested in another one.
@@ -63,9 +52,9 @@ changeColumnSorting? | Action | ({ columnName: string, direction?: 'asc' &#124; 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state.
-draftGrouping | Getter | Array&lt;[DraftGrouping](#draft-grouping)&gt; | Grouping options used for the preview.
+draftGrouping | Getter | Array&lt;[Grouping](#grouping)&gt; | Grouping options used for the preview.
 changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
-draftGroupingChange | Action | ({ columnName: string, groupIndex?: number }) => void | Updates `dratfGrouping`.
-cancelGroupingChange | Action | () => void | Resets `draftGrouping`.
-expandedGroups | Getter | Set&lt;[GroupKey](#group-key)&gt; | Expanded groups.
+draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Sets or clears grouping options used for the preview. If `groupIndex` is omitted, the group is added to the last position.
+cancelColumnGroupingDraft | Action | () => void | Cancels changes to the column grouping options used for the preview.
+expandedGroups | Getter | Array&lt;[GroupKey](#group-key)&gt; | Expanded groups.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state.

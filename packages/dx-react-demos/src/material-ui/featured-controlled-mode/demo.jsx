@@ -216,7 +216,7 @@ class DemoBase extends React.PureComponent {
       sorting: [],
       editingRowIds: [],
       addedRows: [],
-      changedRows: {},
+      rowChanges: {},
       currentPage: 0,
       deletingRows: [],
       pageSize: 0,
@@ -236,7 +236,7 @@ class DemoBase extends React.PureComponent {
         customer: availableValues.customer[0],
       })),
     });
-    this.changeChangedRows = changedRows => this.setState({ changedRows });
+    this.changeRowChanges = rowChanges => this.setState({ rowChanges });
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
     this.commitChanges = ({ added, changed, deleted }) => {
@@ -282,7 +282,7 @@ class DemoBase extends React.PureComponent {
       sorting,
       editingRowIds,
       addedRows,
-      changedRows,
+      rowChanges,
       currentPage,
       deletingRows,
       pageSize,
@@ -314,8 +314,8 @@ class DemoBase extends React.PureComponent {
           <EditingState
             editingRowIds={editingRowIds}
             onEditingRowIdsChange={this.changeEditingRowIds}
-            changedRows={changedRows}
-            onChangedRowsChange={this.changeChangedRows}
+            rowChanges={rowChanges}
+            onRowChangesChange={this.changeRowChanges}
             addedRows={addedRows}
             onAddedRowsChange={this.changeAddedRows}
             onCommitChanges={this.commitChanges}

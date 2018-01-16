@@ -38,12 +38,12 @@ export default class Demo extends React.PureComponent {
       }),
       editingRowIds: [],
       addedRows: [],
-      changedRows: {},
+      rowChanges: {},
     };
 
     this.changeAddedRows = this.changeAddedRows.bind(this);
     this.changeEditingRowIds = this.changeEditingRowIds.bind(this);
-    this.changeChangedRows = this.changeChangedRows.bind(this);
+    this.changeRowChanges = this.changeRowChanges.bind(this);
     this.commitChanges = this.commitChanges.bind(this);
   }
   changeAddedRows(addedRows) {
@@ -53,8 +53,8 @@ export default class Demo extends React.PureComponent {
   changeEditingRowIds(editingRowIds) {
     this.setState({ editingRowIds });
   }
-  changeChangedRows(changedRows) {
-    this.setState({ changedRows });
+  changeRowChanges(rowChanges) {
+    this.setState({ rowChanges });
   }
   commitChanges({ added, changed, deleted }) {
     let { rows } = this.state;
@@ -79,7 +79,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, tableColumnExtensions, editingRowIds, changedRows, addedRows,
+      rows, columns, tableColumnExtensions, editingRowIds, rowChanges, addedRows,
     } = this.state;
 
     return (
@@ -91,8 +91,8 @@ export default class Demo extends React.PureComponent {
         <EditingState
           editingRowIds={editingRowIds}
           onEditingRowIdsChange={this.changeEditingRowIds}
-          changedRows={changedRows}
-          onChangedRowsChange={this.changeChangedRows}
+          rowChanges={rowChanges}
+          onRowChangesChange={this.changeRowChanges}
           addedRows={addedRows}
           onAddedRowsChange={this.changeAddedRows}
           onCommitChanges={this.commitChanges}

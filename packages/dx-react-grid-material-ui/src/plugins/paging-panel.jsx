@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PagingPanel as PagingPanelBase } from '@devexpress/dx-react-grid';
-import { Pager } from '../templates/pager';
+import { Pager } from '../templates/paging-panel/pager';
 
 const defaultMessages = {
   showAll: 'All',

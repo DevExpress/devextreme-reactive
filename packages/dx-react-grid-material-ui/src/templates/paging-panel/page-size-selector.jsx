@@ -29,9 +29,6 @@ export const styles = theme => ({
     fontSize: theme.spacing.unit * 1.75,
     textAlign: 'right',
   },
-  select: {
-    padding: `0 ${theme.spacing.unit * 3.25}px 0 0`,
-  },
   selectIcon: {
     top: 2,
   },
@@ -62,7 +59,6 @@ const PageSizeSelectorBase = ({
         value={pageSize}
         onChange={event => onPageSizeChange(event.target.value)}
         classes={{
-          select: classes.select,
           icon: classes.selectIcon,
         }}
         input={

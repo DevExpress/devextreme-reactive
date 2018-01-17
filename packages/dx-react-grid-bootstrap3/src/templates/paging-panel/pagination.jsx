@@ -3,31 +3,6 @@ import PropTypes from 'prop-types';
 import { Pagination as PaginationBS3, Pager as PagerBS3 } from 'react-bootstrap';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 
-const PageButton = ({
-  text, isActive, isDisabled, onClick,
-}) => (
-  <PaginationBS3.Item
-    active={isActive}
-    disabled={isDisabled}
-    onClick={onClick}
-  >
-    {text}
-  </PaginationBS3.Item>
-);
-
-PageButton.propTypes = {
-  text: PropTypes.string.isRequired,
-  isActive: PropTypes.bool,
-  isDisabled: PropTypes.bool,
-  onClick: PropTypes.func,
-};
-
-PageButton.defaultProps = {
-  onClick: () => {},
-  isDisabled: false,
-  isActive: false,
-};
-
 const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math.max(
   Math.min(
     currentPage - Math.floor(maxButtonCount / 2, 10),
@@ -52,11 +27,12 @@ const renderPageButtons = (
   }
   if (startPage > 1) {
     pageButtons.push((
-      <PageButton
+      <PaginationBS3.Item
         key={1}
-        text={String(1)}
         onClick={() => onCurrentPageChange(0)}
-      />
+      >
+        {String(1)}
+      </PaginationBS3.Item>
     ));
 
     if (startPage > 2) {
@@ -68,13 +44,14 @@ const renderPageButtons = (
 
   for (let page = startPage; page <= endPage; page += 1) {
     pageButtons.push((
-      <PageButton
+      <PaginationBS3.Item
         key={page}
-        text={String(page)}
-        isActive={page === currentPage + 1}
         onClick={() => onCurrentPageChange(page - 1)}
-        isDisabled={startPage === endPage}
-      />
+        active={page === currentPage + 1}
+        disabled={startPage === endPage}
+      >
+        {String(page)}
+      </PaginationBS3.Item>
     ));
   }
 
@@ -86,11 +63,12 @@ const renderPageButtons = (
     }
 
     pageButtons.push((
-      <PageButton
+      <PaginationBS3.Item
         key={totalPageCount}
-        text={String(totalPageCount)}
         onClick={() => onCurrentPageChange(totalPageCount - 1)}
-      />
+      >
+        {String(totalPageCount)}
+      </PaginationBS3.Item>
     ));
   }
 

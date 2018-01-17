@@ -6,12 +6,12 @@ react:
           path: /react/core/docs/guides/plugin-host
         - title: PluginContainer
           path: /react/core/docs/guides/plugin-container
+        - title: Rendering Markup
+          path: /react/core/docs/guides/rendering-markup
         - title: Getter
           path: /react/core/docs/guides/getter
         - title: Action
           path: /react/core/docs/guides/action
-        - title: Template
-          path: /react/core/docs/guides/template
     - title: API Reference
       items:
         - title: PluginHost

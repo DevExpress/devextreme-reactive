@@ -1,6 +1,6 @@
-# React Core - Template and TemplatePlaceholder
+# React Core - Rendering Markup
 
-Template and TemplatePlaceholder are components that defines and renders markup.
+The main purpose of pluggable React component is to render markup of plugins into React component tree. The result tree may have many sub-components with complex structure. Pluggable React component gives an ability to define such relations in simple and efficient way.
 
 ## Template
 

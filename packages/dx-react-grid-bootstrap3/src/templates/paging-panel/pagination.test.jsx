@@ -48,7 +48,7 @@ describe('Pagination', () => {
     expect(onCurrentPageChange.mock.calls).toHaveLength(2);
   });
 
-  it('disables the prev arrow if current page is 1', () => {
+  it('disables the prev arrow if the first page is active', () => {
     const onCurrentPageChange = jest.fn();
     const arrows = mount((
       <Pagination

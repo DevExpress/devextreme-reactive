@@ -2,6 +2,8 @@ react:
   core:
     - title: Guides
       items:
+        - title: Fundamentals
+          path: /react/core/docs/guides/fundamentals
         - title: PluginHost
           path: /react/core/docs/guides/plugin-host
         - title: PluginContainer

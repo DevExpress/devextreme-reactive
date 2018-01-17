@@ -407,7 +407,7 @@ To provide a more convenient and flexible way to render elements that are placed
     />
   </Grid>
   ```
-  The related [guide](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/immutability/) is updated as well.
+  The related [guide](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/immutable-data/) is updated as well.
 * **react-grid-material-ui:** To make Grid for Material UI more flexible we've stopped using the [Paper](https://material-ui-1dab0.firebaseapp.com/demos/paper/) component inside the Grid's layout.
  
 It allows placing our Grid to an existing Paper with other components. For example:

@@ -7,13 +7,13 @@ react:
         - title: Plugin Overview
           path: /react/grid/docs/guides/plugin-overview
         - title: Fundamentals
-          path: /react/grid/docs/guides/grid-basics
+          path: /react/grid/docs/guides/fundamentals
         - title: Controlled and Uncontrolled Modes
           path: /react/grid/docs/guides/controlled-and-uncontrolled-modes
         - title: Data Accessors
           path: /react/grid/docs/guides/data-accessors
         - title: Data Formatting
-          path: /react/grid/docs/guides/data-types
+          path: /react/grid/docs/guides/data-formatting
         - title: Sorting
           path: /react/grid/docs/guides/sorting
         - title: Paging
@@ -39,7 +39,7 @@ react:
         - title: Localization
           path: /react/grid/docs/guides/localization
         - title: Immutable Data
-          path: /react/grid/docs/guides/immutability
+          path: /react/grid/docs/guides/immutable-data
     - title: API Reference
       items:
         - title: Grid

@@ -106,7 +106,7 @@ export const Pagination = ({
         >
           &laquo;
         </PagerBS3.Item>
-        {' '}
+        &nbsp;
         <PagerBS3.Item
           disabled={currentPage === totalPages - 1 || totalCount === 0}
           onClick={() => onCurrentPageChange(currentPage + 1)}

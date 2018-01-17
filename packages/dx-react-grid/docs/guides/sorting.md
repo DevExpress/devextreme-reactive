@@ -1,4 +1,4 @@
-# React Grid Data Sorting
+# React Grid - Sorting
 
 The Grid component supports sorting data by one or several column values. Use the corresponding plugins to manage the sorting state and sort data programmatically or via the UI (column headers and Group Panel).
 

@@ -1,4 +1,4 @@
-# React Grid Data Grouping
+# React Grid - Grouping
 
 The Grid component supports grouping data by one or several column values. Use the corresponding plugins to manage the grouping state and group data programmatically or via the UI (Group Panel and column headers).
 

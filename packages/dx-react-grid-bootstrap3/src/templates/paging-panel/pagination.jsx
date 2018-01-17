@@ -37,7 +37,7 @@ const renderPageButtons = (
 
     if (startPage > 2) {
       pageButtons.push((
-        <PaginationBS3.Ellipsis key="ellipsisStart" />
+        <PaginationBS3.Ellipsis key="ellipsisStart" disabled />
       ));
     }
   }
@@ -58,7 +58,7 @@ const renderPageButtons = (
   if (endPage < totalPageCount) {
     if (endPage < totalPageCount - 1) {
       pageButtons.push((
-        <PaginationBS3.Ellipsis key="ellipsisEnd" />
+        <PaginationBS3.Ellipsis key="ellipsisEnd" disabled />
       ));
     }
 

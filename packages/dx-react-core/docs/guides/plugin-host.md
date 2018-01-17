@@ -33,7 +33,7 @@ Plugin can render UI or implement some logic without visualization. As pointed a
 
 ## PluginHost
 
-PluginHost is React Component that allows to organize nested components and use them together.
+[PluginHost](../reference/plugin-host.md) is React Component that allows to organize nested components and use them together.
 If PluginHost renresents the root element of React component, this component can be called as Pluggable React Component.
 
 Actually, PluginHost implements the [Inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control) design principle.

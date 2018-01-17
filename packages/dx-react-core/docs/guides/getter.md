@@ -4,7 +4,7 @@ One of the key part of pluggable React component is a possibility to share data 
 
 ## Getter
 
-Getter is a plugin primitive that defines a value that can be used or modified outside of the plugin containing it. It is an invisible component. It uses the `name` property to identify the value.
+[Getter](../reference/getter.md) is a plugin primitive that defines a value that can be used or modified outside of the plugin containing it. It is an invisible component. It uses the `name` property to identify the value.
 
 In other words, Getter defines one field of pluggable React component state. Typically, Getter holds [normalized data](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html).
 
@@ -22,6 +22,6 @@ As you may see, Getter's value can be extended not only by previously defined Ge
 
 ## Getters in Markup
 
-The main feature of Getter is an ability to connect a result valeu to markup. TemplateConnector is a visialisation primitive that serves this need.
+The main application of Getter is a possibility to connect a result value to markup. [TemplateConnector](../reference/template-connector.md) is a visialisation primitive that serves this need.
 
 // demo with connected getter

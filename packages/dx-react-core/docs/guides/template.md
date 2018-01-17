@@ -4,7 +4,7 @@ Template and TemplatePlaceholder are components that defines and renders markup.
 
 ## Template
 
-Template is a plugin primitive that defines markup. It is an invisible component. It uses the `name` property to identify markup.
+[Template](../reference/template.md) is a plugin primitive that defines markup. It is an invisible component. It uses the `name` property to identify markup.
 
 ## Root Template
 
@@ -14,7 +14,7 @@ In any pluggable component there is reserved `root` Template name. It is a start
 
 ## TemplatePlaceholder
 
-TemplatePlceholder is a visialisation primitive that renders markup. It uses the `name` property to identify markup to be rendered.
+[TemplatePlaceholder](../reference/template-placeholder.md) is a visialisation primitive that renders markup. It uses the `name` property to identify markup to be rendered.
 
 // demo with placeholder
 

@@ -31,7 +31,7 @@ const renderPageButtons = (
         key={1}
         onClick={() => onCurrentPageChange(0)}
       >
-        {String(1)}
+        {1}
       </PaginationBS3.Item>
     ));
 
@@ -50,7 +50,7 @@ const renderPageButtons = (
         active={page === currentPage + 1}
         disabled={startPage === endPage}
       >
-        {String(page)}
+        {page}
       </PaginationBS3.Item>
     ));
   }
@@ -67,7 +67,7 @@ const renderPageButtons = (
         key={totalPageCount}
         onClick={() => onCurrentPageChange(totalPageCount - 1)}
       >
-        {String(totalPageCount)}
+        {totalPageCount}
       </PaginationBS3.Item>
     ));
   }

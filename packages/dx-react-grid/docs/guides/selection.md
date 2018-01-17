@@ -1,4 +1,4 @@
-# React Grid Row Selection
+# React Grid - Selection
 
 The Grid component supports selecting/deselecting rows programmatically or via the UI. It seamlessly integrates with paging, sorting, filtering, and grouping.
 

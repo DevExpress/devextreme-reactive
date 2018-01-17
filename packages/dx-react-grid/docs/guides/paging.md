@@ -1,4 +1,4 @@
-# React Grid - Data Paging
+# React Grid - Paging
 
 The Grid component supports data paging. You can specify the page size and switch pages programmatically or via the Paging Panel's UI controls. The paging state management, Paging Panel rendering, and built-in paging logic are implemented in the corresponding plugins. You can also configure the Grid to use server-side paging if your data service supports it.
 

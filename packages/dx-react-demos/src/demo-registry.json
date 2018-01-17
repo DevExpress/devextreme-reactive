@@ -1,4 +1,8 @@
 {
+  "core-basic": [
+    "pluggable-component",
+    "plugin-component"
+  ],
   "core-template": [
     "root-template",
     "template-placeholder",

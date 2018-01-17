@@ -9,6 +9,10 @@
     "value-getter",
     "computed-getter"
   ],
+  "core-action": [
+    "simple-action",
+    "parameterized-action"
+  ],
   "basic": [
     "basic",
     "table-cell-template",

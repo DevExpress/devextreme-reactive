@@ -59,7 +59,7 @@ export class Table extends React.Component {
             position: stickyProp,
             top: 0,
             zIndex: 1,
-            background: backgroundColor,
+            backgroundColor,
           } : null,
         }}
       >

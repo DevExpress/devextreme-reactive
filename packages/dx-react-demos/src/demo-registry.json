@@ -5,6 +5,10 @@
     "template-parameters",
     "template-overriding"
   ],
+  "core-getter": [
+    "value-getter",
+    "computed-getter"
+  ],
   "basic": [
     "basic",
     "table-cell-template",

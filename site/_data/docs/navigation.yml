@@ -8,8 +8,8 @@ react:
           path: /react/core/docs/guides/plugin-container
         - title: Rendering Markup
           path: /react/core/docs/guides/rendering-markup
-        - title: Getter
-          path: /react/core/docs/guides/getter
+        - title: Providing Values
+          path: /react/core/docs/guides/providing-values
         - title: Action
           path: /react/core/docs/guides/action
     - title: API Reference

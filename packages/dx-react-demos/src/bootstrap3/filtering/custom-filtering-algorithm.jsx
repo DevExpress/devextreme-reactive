@@ -31,7 +31,7 @@ export default class Demo extends React.PureComponent {
       integratedFilteringColumnExtensions: [
         { columnName: 'city', predicate: cityPredicate },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ length: 8 }),
     };
   }
   render() {

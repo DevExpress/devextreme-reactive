@@ -63,7 +63,7 @@ export default class Demo extends React.PureComponent {
       tableGroupColumnExtension: [
         { columnName: 'name', showWhenGrouped: true },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ length: 8 }),
       grouping: [{ columnName: 'name' }],
     };
 

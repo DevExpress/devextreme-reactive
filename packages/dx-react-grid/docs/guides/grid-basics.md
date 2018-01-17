@@ -2,39 +2,13 @@
 
 The Grid component displays data specified via the `rows` property. You should also specify the `columns` property to define for which row fields the grid creates columns.
 
-```js
-<Grid
-  rows={[
-    { region: 'South America', sector: 'Banking' },
-    { region: 'Africa', sector: 'Manufacturing' },
-    /* ... */
-  ]}
-  columns={[
-    { name: 'region', title: 'Region' },
-    { name: 'sector', title: 'Sector' },
-    /* ... */
-  ]}
->
-</Grid>
-```
-
-The grid requires the following plugins for basic data visualization:
+The Grid requires the following plugins for basic data visualization:
 
 - [Table](../reference/table.md)
- Renders a data table.
+  Renders a data table.
 
 - [TableHeaderRow](../reference/table-header-row.md)
- Renders the table's header row.
-
-```js
-<Grid
-  rows={rows}
-  columns={columns}
->
-  <Table />
-  <TableHeaderRow />
-</Grid>
-```
+  Renders the table's header row.
 
 The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
 

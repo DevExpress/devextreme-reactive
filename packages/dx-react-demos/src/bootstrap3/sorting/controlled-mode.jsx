@@ -24,14 +24,14 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ length: 8 }),
       sorting: [{ columnName: 'city', direction: 'asc' }],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
   }
   render() {
-    const { rows, columns } = this.state;
+    const { rows, columns, sorting } = this.state;
 
     return (
       <Grid
@@ -39,7 +39,7 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <SortingState
-          sorting={this.state.sorting}
+          sorting={sorting}
           onSortingChange={this.changeSorting}
         />
         <IntegratedSorting />

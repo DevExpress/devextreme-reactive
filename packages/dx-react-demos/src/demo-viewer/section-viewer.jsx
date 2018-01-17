@@ -1,28 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-import { demos } from '../demo-registry';
+import { demos } from '../demo-registry.json';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
 
-export const SectionViewerBase = ({ match: { params: { section } } }) => (
+export const SectionViewerBase = ({ match: { params: { sectionName } } }) => (
   <ThemeViewer>
-    {({ theme }) => (
-      <div>
-        {Object.keys(demos[section])
-          .filter(demo => !demo.startsWith('_'))
-          .map(demo => (
-            <div key={demo}>
-              <h4>{demo}</h4>
-              <DemoRenderer
-                theme={theme}
-                section={section}
-                demo={demo}
-              />
-            </div>
-          ))}
-      </div>
+    {({ themeName, variantName }) => (
+      Object.keys(demos[sectionName])
+        .map(demoName => (
+          <div key={demoName}>
+            <h4>
+              <Link to={`/demo/${sectionName}/${demoName}/${themeName}/${variantName}`}>
+                {demoName}
+              </Link>
+            </h4>
+            <DemoRenderer
+              themeName={themeName}
+              variantName={variantName}
+              sectionName={sectionName}
+              demoName={demoName}
+            />
+          </div>
+        ))
     )}
   </ThemeViewer>
 );
@@ -30,7 +32,7 @@ export const SectionViewerBase = ({ match: { params: { section } } }) => (
 SectionViewerBase.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      section: PropTypes.string.isRequired,
+      sectionName: PropTypes.string.isRequired,
     }),
   }).isRequired,
 };

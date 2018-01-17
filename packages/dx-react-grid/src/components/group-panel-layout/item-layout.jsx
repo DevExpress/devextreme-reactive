@@ -3,23 +3,41 @@ import PropTypes from 'prop-types';
 import { DragSource } from '@devexpress/dx-react-core';
 
 export class ItemLayout extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dragging: false,
+    };
+  }
   render() {
     const {
       item,
       itemComponent: Item,
       draggingEnabled,
+      onDragStart,
       onDragEnd,
     } = this.props;
+    const { dragging } = this.state;
+
+    const itemElement = <Item item={{ ...item, draft: dragging || item.draft }} />;
 
     return (draggingEnabled ? (
       <DragSource
         payload={[{ type: 'column', columnName: item.column.name }]}
-        onEnd={onDragEnd}
+        onStart={() => {
+          this.setState({ dragging: true });
+          onDragStart();
+        }}
+        onEnd={() => {
+          this.setState({ dragging: false });
+          onDragEnd();
+        }}
       >
-        <Item item={item} />
+        {itemElement}
       </DragSource>
     ) : (
-      <Item item={item} />
+      itemElement
     ));
   }
 }
@@ -27,14 +45,16 @@ export class ItemLayout extends React.PureComponent {
 ItemLayout.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.object,
-    draft: PropTypes.string,
+    draft: PropTypes.bool,
   }).isRequired,
   itemComponent: PropTypes.func.isRequired,
   draggingEnabled: PropTypes.bool,
+  onDragStart: PropTypes.func,
   onDragEnd: PropTypes.func,
 };
 
 ItemLayout.defaultProps = {
   draggingEnabled: false,
+  onDragStart: () => {},
   onDragEnd: () => {},
 };

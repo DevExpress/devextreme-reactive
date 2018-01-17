@@ -61,16 +61,16 @@ export class GroupingPanel extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplateConnector>
             {({
-              columns, draftGrouping, draggingEnabled,
+              columns, grouping, draftGrouping, draggingEnabled,
             }, {
-              changeColumnGrouping, draftGroupingChange, cancelGroupingChange,
+              changeColumnGrouping, draftColumnGrouping, cancelColumnGroupingDraft,
             }) => (
               <Layout
-                items={groupingPanelItems(columns, draftGrouping)}
+                items={groupingPanelItems(columns, grouping, draftGrouping)}
                 draggingEnabled={draggingEnabled}
                 onGroup={changeColumnGrouping}
-                onDraftGroup={groupingChange => draftGroupingChange(groupingChange)}
-                onCancelDraftGroup={() => cancelGroupingChange()}
+                onGroupDraft={draftColumnGrouping}
+                onGroupDraftCancel={cancelColumnGroupingDraft}
                 itemComponent={ItemPlaceholder}
                 emptyMessageComponent={EmptyMessagePlaceholder}
                 containerComponent={Container}

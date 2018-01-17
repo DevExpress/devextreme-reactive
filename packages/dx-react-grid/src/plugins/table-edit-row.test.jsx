@@ -25,7 +25,7 @@ const defaultDeps = {
     tableBodyRows: [{ type: 'undefined', rowId: 1 }],
     editingRowIds: [1, 2],
     addedRows: [{ a: 'text' }, {}],
-    changedRows: [{ 1: { a: 'text' } }],
+    rowChanges: [{ 1: { a: 'text' } }],
     getCellValue: jest.fn(),
     createRowChange: jest.fn(),
   },

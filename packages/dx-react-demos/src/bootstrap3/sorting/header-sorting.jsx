@@ -24,7 +24,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 14 }),
+      rows: generateRows({ length: 8 }),
     };
   }
   render() {
@@ -35,7 +35,9 @@ export default class Demo extends React.PureComponent {
         rows={rows}
         columns={columns}
       >
-        <SortingState />
+        <SortingState
+          defaultSorting={[{ columnName: 'city', direction: 'asc' }]}
+        />
         <IntegratedSorting />
         <Table />
         <TableHeaderRow showSortingControls />

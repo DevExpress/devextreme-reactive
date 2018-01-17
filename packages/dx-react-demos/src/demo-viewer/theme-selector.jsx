@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 
 import './theme-selector.css';
-import { themes } from '../demo-registry';
+import { themes } from '../theme-registry';
 
 class Toggle extends React.PureComponent {
   render() {
@@ -34,36 +34,74 @@ Toggle.defaultProps = {
   onClick: () => {},
 };
 
-export const ThemeSelector = ({ selectedTheme, avaliableThemes, onThemeSelect }) => (
-  <Dropdown
-    id="theme-toggle"
-    className="template-chooser"
-    onSelect={(theme) => {
-      if (selectedTheme !== theme) onThemeSelect(theme);
-    }}
-  >
-    <Toggle bsRole="toggle">{themes.find(({ name }) => name === selectedTheme).title}</Toggle>
-    <Dropdown.Menu>
-      {themes.map(({ name, title }) => {
-        const active = name === selectedTheme;
-        const avaliable = avaliableThemes.indexOf(name) > -1;
-        return (
-          <MenuItem
-            key={name}
-            eventKey={name}
-            disabled={!avaliable}
-            active={active}
-          >
-            {title}{!avaliable && ' (coming soon)'}
-          </MenuItem>
-        );
-      })}
-    </Dropdown.Menu>
-  </Dropdown>
-);
+export const ThemeSelector = (
+  {
+    selectedThemeName, selectedVariantName, avaliableThemes, onChange,
+  },
+  { embeddedDemoOptions: { showThemeVariants = false } },
+) => {
+  const selectedTheme = themes.find(({ name }) => name === selectedThemeName);
+
+  return (
+    <Dropdown
+      id="theme-toggle"
+      className="template-chooser"
+      onSelect={(eventKey) => {
+        const [theme, variant] = eventKey.split('|');
+        if (selectedThemeName !== theme || selectedVariantName !== variant) {
+          onChange(theme, variant);
+        }
+      }}
+    >
+      <Toggle bsRole="toggle">
+        {showThemeVariants
+          ? selectedTheme.variants.find(({ name }) => name === selectedVariantName).title
+          : selectedTheme.title}
+      </Toggle>
+      <Dropdown.Menu>
+        {themes.map(({ name: themeName, title: themeTitle, variants }) => {
+          const avaliable = avaliableThemes.indexOf(themeName) > -1;
+          const activeTheme = themeName === selectedThemeName;
+
+          if (!showThemeVariants) {
+            return (
+              <MenuItem
+                key={themeName}
+                eventKey={`${themeName}|${variants[0].name}`}
+                disabled={!avaliable}
+                active={activeTheme}
+              >
+                {themeTitle}{!avaliable && ' (coming soon)'}
+              </MenuItem>
+            );
+          }
+          return variants.map(({ name: variantName, title: variantTitle }) => {
+            const activeVariant = variantName === selectedVariantName;
+
+            return (
+              <MenuItem
+                key={`${themeName}|${variantName}`}
+                eventKey={`${themeName}|${variantName}`}
+                disabled={!avaliable}
+                active={activeTheme && activeVariant}
+              >
+                {variantTitle}{!avaliable && ' (coming soon)'}
+              </MenuItem>
+            );
+          });
+        })}
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
 
 ThemeSelector.propTypes = {
-  selectedTheme: PropTypes.string.isRequired,
+  selectedThemeName: PropTypes.string.isRequired,
+  selectedVariantName: PropTypes.string.isRequired,
   avaliableThemes: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onThemeSelect: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+ThemeSelector.contextTypes = {
+  embeddedDemoOptions: PropTypes.object.isRequired,
 };

@@ -1,40 +1,46 @@
 import { GROUP_KEY_SEPARATOR } from './constants';
 
-export const changeColumnGrouping = (state, { columnName, groupIndex }) => {
-  const grouping = state.grouping.slice();
-  const groupingIndex = grouping.findIndex(g => g.columnName === columnName);
+const applyColumnGrouping = (grouping, { columnName, groupIndex }) => {
+  const nextGrouping = grouping.slice();
+  const groupingIndex = nextGrouping.findIndex(g => g.columnName === columnName);
   let targetIndex = groupIndex;
 
   if (groupingIndex > -1) {
-    grouping.splice(groupingIndex, 1);
+    nextGrouping.splice(groupingIndex, 1);
   } else if (groupIndex === undefined) {
-    targetIndex = grouping.length;
+    targetIndex = nextGrouping.length;
   }
 
   if (targetIndex > -1) {
-    grouping.splice(targetIndex, 0, {
+    nextGrouping.splice(targetIndex, 0, {
       columnName,
     });
   }
 
-  const ungroupedColumnIndex = state.grouping.findIndex((group, index) =>
-    !grouping[index] || group.columnName !== grouping[index].columnName);
+  return nextGrouping;
+};
+
+export const changeColumnGrouping = ({ grouping, expandedGroups }, { columnName, groupIndex }) => {
+  const nextGrouping = applyColumnGrouping(grouping, { columnName, groupIndex });
+
+  const ungroupedColumnIndex = grouping.findIndex((group, index) =>
+    !nextGrouping[index] || group.columnName !== nextGrouping[index].columnName);
   if (ungroupedColumnIndex === -1) {
     return {
-      grouping,
+      grouping: nextGrouping,
     };
   }
 
-  const filteredExpandedGroups = state.expandedGroups.filter(group =>
+  const filteredExpandedGroups = expandedGroups.filter(group =>
     group.split(GROUP_KEY_SEPARATOR).length <= ungroupedColumnIndex);
-  if (filteredExpandedGroups.length === state.expandedGroups.length) {
+  if (filteredExpandedGroups.length === expandedGroups.length) {
     return {
-      grouping,
+      grouping: nextGrouping,
     };
   }
 
   return {
-    grouping,
+    grouping: nextGrouping,
     expandedGroups: filteredExpandedGroups,
   };
 };
@@ -54,7 +60,10 @@ export const toggleExpandedGroups = (state, { groupKey }) => {
   };
 };
 
-export const draftGroupingChange = (state, { columnName, groupIndex }) =>
-  ({ groupingChange: { columnName, groupIndex } });
+export const draftColumnGrouping = ({ grouping, draftGrouping }, { columnName, groupIndex }) => ({
+  draftGrouping: applyColumnGrouping(draftGrouping || grouping, { columnName, groupIndex }),
+});
 
-export const cancelGroupingChange = () => ({ groupingChange: null });
+export const cancelColumnGroupingDraft = () => ({
+  draftGrouping: null,
+});

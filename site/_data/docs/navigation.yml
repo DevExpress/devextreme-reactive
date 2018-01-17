@@ -4,10 +4,6 @@ react:
       items:
         - title: Fundamentals
           path: /react/core/docs/guides/fundamentals
-        - title: PluginHost
-          path: /react/core/docs/guides/plugin-host
-        - title: PluginContainer
-          path: /react/core/docs/guides/plugin-container
         - title: Rendering Markup
           path: /react/core/docs/guides/rendering-markup
         - title: Providing Values

@@ -14,7 +14,7 @@ In any pluggable component there is reserved `root` Template name. It is a start
 
 ## TemplatePlaceholder
 
-[TemplatePlaceholder](../reference/template-placeholder.md) is a visialisation primitive that renders markup. It uses the `name` property to identify markup to be rendered.
+[TemplatePlaceholder](../reference/template-placeholder.md) is a vizualization primitive that renders markup. It uses the `name` property to identify markup to be rendered.
 
 .embedded-demo({ "path": "core-template/template-placeholder" })
 

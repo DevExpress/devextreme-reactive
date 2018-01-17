@@ -8,7 +8,7 @@ One of the key part of pluggable React component is a possibility to share data 
 
 In other words, Getter defines one field of pluggable React component state. Typically, Getter holds [normalized data](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html).
 
-The main application of Getter is a possibility to connect a result value to markup. [TemplateConnector](../reference/template-connector.md) is a visialisation primitive that serves this need.
+The main application of Getter is a possibility to connect a result value to markup. [TemplateConnector](../reference/template-connector.md) is a vizualization primitive that serves this need.
 
 .embedded-demo({ "path": "core-getter/value-getter" })
 

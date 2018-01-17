@@ -36,4 +36,12 @@ export const themes = [{
     title: 'Bootstrap 3 (Custom)',
     DemoContainer: require('./bootstrap3/demo-container').Custom,
   }],
+}, {
+  name: 'bootstrap4',
+  title: 'Bootstrap 4',
+  variants: [{
+    name: 'default',
+    title: 'Bootstrap 4',
+    DemoContainer: require('./bootstrap4/demo-container').default,
+  }],
 }];

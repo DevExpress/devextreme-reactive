@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const themeNames = ['bootstrap3', 'material-ui'];
+const themeNames = ['bootstrap3', 'bootstrap4', 'material-ui'];
 
 const indent = (string, count) => string.split('\n').map(substring => `${' '.repeat(count)}${substring}`).join('\n');
 

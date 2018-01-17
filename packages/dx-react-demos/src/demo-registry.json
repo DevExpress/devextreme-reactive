@@ -1,4 +1,10 @@
 {
+  "core-template": [
+    "root-template",
+    "template-placeholder",
+    "template-parameters",
+    "template-overriding"
+  ],
   "basic": [
     "basic",
     "table-cell-template",

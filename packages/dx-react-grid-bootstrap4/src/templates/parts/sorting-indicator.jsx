@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const SortingIndicator = ({ direction, style }) => (
-  <i
-    className={`glyphicon glyphicon-arrow-${direction === 'desc' ? 'down' : 'up'}`}
+  <span
+    className={`oi oi-arrow-thick-${direction === 'desc' ? 'bottom' : 'top'}`}
     style={{
       top: '0',
-      fontSize: '9px',
+      fontSize: '11px',
       ...style,
     }}
   />

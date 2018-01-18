@@ -36,12 +36,14 @@ class DemoFrame extends React.PureComponent {
       frameHeight: 600,
     };
 
-    const { url } = this.props;
+    const { themeName, url } = this.props;
     const { scriptPath } = this.context.embeddedDemoOptions;
+    const themeLink = themeName !== 'custom' && THEMES.find(({ name }) => name === themeName).link;
     this.markup = `
       <!DOCTYPE html>
       <html>
       <head>
+        <link rel="stylesheet" href="${themeLink}">
         <style>
           .panel { margin: 0 !important; }
         </style>
@@ -69,7 +71,6 @@ class DemoFrame extends React.PureComponent {
   }
   render() {
     const { themeName, children } = this.props;
-    const themeLink = themeName !== 'custom' && THEMES.find(({ name }) => name === themeName).link;
     const { embeddedDemoOptions: { frame } } = this.context;
     const { customThemeLink, frameHeight } = this.state;
 
@@ -114,10 +115,9 @@ class DemoFrame extends React.PureComponent {
               initialContent={this.markup}
               mountTarget="#mountPoint"
             >
-              <link
-                rel="stylesheet"
-                href={themeLink || customThemeLink}
-              />
+              {themeName === 'custom' && (
+                <link rel="stylesheet" href={customThemeLink} />
+              )}
               <div ref={(node) => { this.node = node; }} />
             </Frame>
         )}

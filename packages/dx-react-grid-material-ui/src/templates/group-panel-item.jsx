@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableSortLabel, Chip } from 'material-ui';
+import { TableSortLabel } from 'material-ui/Table';
+import Chip from 'material-ui/Chip';
 import { withStyles } from 'material-ui/styles';
 
 const ENTER_KEY_CODE = 13;

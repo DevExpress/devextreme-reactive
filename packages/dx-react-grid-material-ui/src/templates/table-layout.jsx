@@ -4,10 +4,7 @@ import {
   TableLayout as TableLayoutCore,
   StaticTableLayout,
 } from '@devexpress/dx-react-grid';
-import {
-  TableBody,
-  TableHead,
-} from 'material-ui';
+import { TableBody, TableHead } from 'material-ui/Table';
 import { TableContainer } from './table-container';
 import { Table } from './table';
 

@@ -9,20 +9,19 @@ import {
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropProvider, TableColumnReordering,
 } from '@devexpress/dx-react-grid-material-ui';
-import {
-  TableCell,
-  Button,
-  IconButton,
-  Input,
-  Dialog,
+import Paper from 'material-ui/Paper';
+import Dialog, {
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  MenuItem,
-  Select,
-  Paper,
-} from 'material-ui';
+} from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import Input from 'material-ui/Input';
+import Select from 'material-ui/Select';
+import { MenuItem } from 'material-ui/Menu';
+import { TableCell } from 'material-ui/Table';
 
 import DeleteIcon from 'material-ui-icons/Delete';
 import EditIcon from 'material-ui-icons/Edit';

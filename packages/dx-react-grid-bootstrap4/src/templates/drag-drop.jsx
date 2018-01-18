@@ -1,0 +1,62 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+export const Container = ({
+  clientOffset, style, className, children,
+  ...restProps
+}) => (
+  <ul
+    className={classNames('list-group', className)}
+    style={{
+      cursor: 'move',
+      position: 'fixed',
+      zIndex: 1000,
+      left: 0,
+      top: 0,
+      display: 'inline-block',
+      transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
+      ...style,
+    }}
+    {...restProps}
+  >
+    {children}
+  </ul>
+);
+
+Container.propTypes = {
+  clientOffset: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }).isRequired,
+  style: PropTypes.object,
+  className: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+};
+
+Container.defaultProps = {
+  style: {},
+  className: undefined,
+  children: undefined,
+};
+
+export const Column = ({ column, className, ...restProps }) => (
+  <li
+    className={classNames('list-group-item', className)}
+    {...restProps}
+  >
+    {column.title}
+  </li>
+);
+
+Column.propTypes = {
+  column: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+Column.defaultProps = {
+  className: undefined,
+};

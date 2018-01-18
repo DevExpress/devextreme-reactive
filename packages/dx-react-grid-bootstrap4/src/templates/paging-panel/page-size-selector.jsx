@@ -11,7 +11,7 @@ export const PageSizeSelector = ({
   return (
     <div style={{ display: 'inline-block' }}>
       <select
-        className="form-control visible-xs-inline-block"
+        className="form-control"
         style={{ width: 'auto' }}
         value={pageSize}
         onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
@@ -23,7 +23,7 @@ export const PageSizeSelector = ({
         ))}
       </select>
       <ul
-        className="pagination hidden-xs"
+        className="pagination d-sm-none"
         style={{
           margin: 0,
           verticalAlign: 'bottom',

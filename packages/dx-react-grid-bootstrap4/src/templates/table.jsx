@@ -60,8 +60,8 @@ export class Table extends React.Component {
             top: 0,
             zIndex: 1,
             backgroundColor,
-            marginBottom: 0,
           } : null,
+          marginBottom: 0,
         }}
       >
         {children}

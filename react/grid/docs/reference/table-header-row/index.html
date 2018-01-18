@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1516277604">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1516277604">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -77,23 +77,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-types/">Data Types</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using Immutable Data</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fundamentals/">Fundamentals</a></li>
           
 
         
@@ -109,7 +93,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/grid-basics/">Grid Basics</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-formatting/">Data Formatting</a></li>
           
 
         
@@ -173,14 +165,6 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
-          
-
-        
-          
-          
-
-          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
@@ -205,7 +189,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
           
 
         
@@ -564,7 +564,6 @@
       <th>Field</th>
       <th>Type</th>
       <th>Description</th>
-      <th> </th>
     </tr>
   </thead>
   <tbody>
@@ -572,67 +571,61 @@
       <td>column</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
       <td>A column object associated with a header cell.</td>
-      <td> </td>
     </tr>
     <tr>
       <td>showSortingControls</td>
       <td>boolean</td>
       <td>Specifies whether to render controls that toggle the column’s sorting state.</td>
-      <td> </td>
     </tr>
     <tr>
       <td>sortingDirection?</td>
       <td>‘asc’ | ‘desc’</td>
       <td>Specifies the associated column’s sorting direction.</td>
-      <td> </td>
     </tr>
     <tr>
       <td>onSort</td>
       <td>({ direction?: ‘asc’ | ‘desc’ | null, keepOther?: boolean }) =&gt; void</td>
       <td>An event that initiates changing the column sorting direction. Keeps the current sorting state if <code class="highlighter-rouge">keepOther</code> is set to true. Cancels sorting by the current column if <code class="highlighter-rouge">direction</code> is set to null.</td>
-      <td> </td>
     </tr>
     <tr>
       <td>showGroupingControls</td>
       <td>boolean</td>
       <td>Specifies whether to display a button that groups data by column.</td>
-      <td> </td>
     </tr>
     <tr>
       <td>onGroup</td>
       <td>() =&gt; void</td>
       <td>An event that invokes grouping by the associated column.</td>
-      <td> </td>
     </tr>
     <tr>
       <td>resizingEnabled</td>
       <td>boolean</td>
-      <td>false</td>
       <td>Specifies whether table column resizing is enabled.</td>
     </tr>
     <tr>
       <td>onWidthChange</td>
       <td>({ shift: number }) =&gt; void</td>
       <td>An event that initiates column width changing. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is negative.</td>
-      <td> </td>
     </tr>
     <tr>
-      <td>onDraftWidthChange</td>
+      <td>onWidthDraft</td>
       <td>({ shift: number }) =&gt; void</td>
-      <td>An event that changes the column width used for preview. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is negative. Setting <code class="highlighter-rouge">shift</code> to <code class="highlighter-rouge">null</code> clears the column’s draft width.</td>
-      <td> </td>
+      <td>An event that changes the column width used for preview. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is less than zero.</td>
+    </tr>
+    <tr>
+      <td>onWidthDraftCancel</td>
+      <td>() =&gt; void</td>
+      <td>An event that cancels changes of column width used for preview.</td>
     </tr>
     <tr>
       <td>draggingEnabled</td>
       <td>boolean</td>
       <td>Specifies whether drag-and-drop is enabled.</td>
-      <td> </td>
     </tr>
     <tr>
       <td>getMessage</td>
       <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
       <td>Returns the text displayed in a sorting control within the header cell.</td>
-      <td> </td>
     </tr>
   </tbody>
 </table>
@@ -719,16 +712,16 @@
       <td>Columns’ sorting state.</td>
     </tr>
     <tr>
-      <td>setColumnSorting</td>
+      <td>changeColumnSorting</td>
       <td>Action</td>
       <td>({ columnName: string, direction?: ‘asc’ | ‘desc’ | null, keepOther?: boolean | Array&lt;String&gt;, sortIndex?: number }) =&gt; void</td>
       <td>Changes the column sorting direction. <code class="highlighter-rouge">keepOther</code> accepts <code class="highlighter-rouge">true</code> (keeps existing sorting), a column name array (keeps sorting by specified columns) and <code class="highlighter-rouge">false</code> (resets sorting). Set <code class="highlighter-rouge">direction</code> to <code class="highlighter-rouge">null</code> to cancel sorting by the current column. If <code class="highlighter-rouge">sortIndex</code> is omitted, the sorting is added to the end of the sorting list.</td>
     </tr>
     <tr>
-      <td>groupByColumn</td>
+      <td>changeColumnGrouping</td>
       <td>Action</td>
       <td>({ columnName: string, groupIndex?: number }) =&gt; void</td>
-      <td>Groups a table by the specified column or cancels grouping. If <code class="highlighter-rouge">groupIndex</code> is omitted, the group is added to the end of the group list.</td>
+      <td>Groups data by a specified column or cancels grouping. If <code class="highlighter-rouge">groupIndex</code> is omitted, the group is added to the end of the group list.</td>
     </tr>
     <tr>
       <td>tableColumnResizingEnabled</td>
@@ -737,16 +730,22 @@
       <td>Specifies whether table column resizing is enabled.</td>
     </tr>
     <tr>
-      <td>changeTableColumnWidths</td>
+      <td>changeTableColumnWidth</td>
       <td>Action</td>
-      <td>({ shifts: { [columnName: string]: number } }) =&gt; void</td>
-      <td>Changes column widths. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is negative.</td>
+      <td>({ columnName: string, shift: number }) =&gt; void</td>
+      <td>Changes the column width. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is negative.</td>
     </tr>
     <tr>
-      <td>changeDraftTableColumnWidths</td>
+      <td>draftTableColumnWidth</td>
       <td>Action</td>
-      <td>({ shifts: { [columnName: string]: number } }) =&gt; void</td>
-      <td>Changes column widths used for preview. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is negative. Setting <code class="highlighter-rouge">shift</code> to <code class="highlighter-rouge">null</code> clears the column’s draft width.</td>
+      <td>({ columnName: string, shift: number }) =&gt; void</td>
+      <td>Changes the column width used for preview. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is less than zero.</td>
+    </tr>
+    <tr>
+      <td>cancelTableColumnWidthDraft</td>
+      <td>Action</td>
+      <td>() =&gt; void</td>
+      <td>Cancels changes to the column width used for preview.</td>
     </tr>
     <tr>
       <td>draggingEnabled</td>
@@ -794,7 +793,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277604"></script>
 
 
     <footer>
@@ -809,7 +808,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -832,7 +831,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1516277604"></script>
     <script>
         trackingCookie.check();
     </script>

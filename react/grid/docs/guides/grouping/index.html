@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React Grid Data Grouping - DevExtreme Reactive Components</title>
+    <title>React Grid - Grouping - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1516277604">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1516277604">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -77,23 +77,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-types/">Data Types</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using Immutable Data</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fundamentals/">Fundamentals</a></li>
           
 
         
@@ -109,7 +93,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/grid-basics/">Grid Basics</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-formatting/">Data Formatting</a></li>
           
 
         
@@ -173,14 +165,6 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
-          
-
-        
-          
-          
-
-          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
@@ -205,7 +189,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
           
 
         
@@ -487,7 +487,7 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="react-grid-data-grouping">React Grid Data Grouping</h1>
+        <h1 id="react-grid---grouping">React Grid - Grouping</h1>
 
 <p>The Grid component supports grouping data by one or several column values. Use the corresponding plugins to manage the grouping state and group data programmatically or via the UI (Group Panel and column headers).</p>
 
@@ -517,15 +517,11 @@
 
 <p>In the following example, the data is specified as plain rows. In this case, the data should be grouped using the <code class="highlighter-rouge">IntegratedGrouping</code> plugin.</p>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/grouping/static&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690020&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grouping/static&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596711&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
 
 <h3 id="custom-grouping">Custom Grouping</h3>
 
@@ -533,15 +529,11 @@
 
 <p>In the following example, the data is specified as an array of groups. Specify the <code class="highlighter-rouge">CustomGrouping</code> plugin’s <code class="highlighter-rouge">getChildGroups</code> property to parse a custom group structure.</p>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/grouping/custom-grouping-static&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690020&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grouping/custom-grouping-static&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596711&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
 
 <h2 id="configure-the-grouping-ui">Configure the Grouping UI</h2>
 
@@ -562,69 +554,41 @@
 
 <p>In the following example, the Grid functions are in <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>. This means that the Grid controls its grouping state internally. The initial grouping options are specified in the <code class="highlighter-rouge">GroupingState</code> plugin’s <code class="highlighter-rouge">defaultGrouping</code> property.</p>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/grouping/grouping-with-ui&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690020&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grouping/grouping-with-ui&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596711&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
 
 <h2 id="controlled-mode">Controlled Mode</h2>
 
 <p>In <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, pass a grouping options array to the <code class="highlighter-rouge">GroupingState</code> plugin’s <code class="highlighter-rouge">grouping</code> property and handle the <code class="highlighter-rouge">onGroupingChange</code> event to control the grid grouping state.</p>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/grouping/controlled-mode&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690020&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grouping/controlled-mode&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596711&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
 
 <h2 id="built-in-grouping-with-custom-values">Built-in Grouping with Custom Values</h2>
 
 <p>Pass a grouping criterion function to the <code class="highlighter-rouge">IntegratedGrouping</code> plugin’s <a href="/devextreme-reactive/react/grid/docs/reference/integrated-grouping/#properties">columnExtensions</a> property to group data by a custom key based on the specified column’s value. Set the <code class="highlighter-rouge">showWhenGrouped</code> field of the columns configuration to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the “city” column’s values while still displaying the column.</p>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/grouping/custom&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690020&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grouping/custom&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596711&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
 
 <p>You can also assign a Boolean value to the <code class="highlighter-rouge">TableGroupRow</code> plugin’s <code class="highlighter-rouge">showColumnsWhenGrouped</code> property to define what columns should remain visible when data is grouped by them.</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code>  <span class="o">&lt;</span><span class="nx">Grid</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">GroupingState</span>
-      <span class="nx">grouping</span><span class="o">=</span><span class="p">{[{</span> <span class="na">columnName</span><span class="p">:</span> <span class="s1">'city'</span> <span class="p">},</span> <span class="p">{</span> <span class="na">columnName</span><span class="p">:</span> <span class="s1">'car'</span> <span class="p">}]}</span>
-    <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">IntegratedGrouping</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Table</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">TableHeaderRow</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">TableGroupRow</span> <span class="nx">showColumnsWhenGrouped</span> <span class="o">/&gt;</span>
-  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span></code></pre>
-</div>
-
 <p>Note that if the grouping criterion function returns a non-primitive value, you should also specify a custom group cell template using the <code class="highlighter-rouge">TableGroupRow</code> plugin’s <code class="highlighter-rouge">cellComponent</code> property as demonstrated in the following example:</p>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/grouping/custom-advanced&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690020&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grouping/custom-advanced&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596711&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
 
 <h2 id="remote-grouping">Remote Grouping</h2>
 
@@ -638,21 +602,17 @@
 
 <p>The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach outlined in the previous paragraph:</p>
 
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/grouping/remote-grouping-with-local-expanding&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690020&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grouping/remote-grouping-with-local-expanding&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596711&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
 
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277604"></script>
 
 
     <footer>
@@ -667,7 +627,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -690,7 +650,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1516277604"></script>
     <script>
         trackingCookie.check();
     </script>

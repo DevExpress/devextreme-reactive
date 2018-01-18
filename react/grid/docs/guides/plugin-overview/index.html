@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1516277604">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1516277604">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -77,23 +77,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-types/">Data Types</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using Immutable Data</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fundamentals/">Fundamentals</a></li>
           
 
         
@@ -109,7 +93,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/grid-basics/">Grid Basics</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-formatting/">Data Formatting</a></li>
           
 
         
@@ -173,14 +165,6 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
-          
-
-        
-          
-          
-
-          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
@@ -205,7 +189,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
           
 
         
@@ -502,46 +502,15 @@
 
 <p>Refer to the <a href="/devextreme-reactive/react/grid/docs/reference/grid/">Reference</a> to see the complete plugin list.</p>
 
-<h2 id="plugin-order"><a name="plugin-order">Plugin Order</a></h2>
+<h2 id="plugin-order">Plugin Order</h2>
 
-<p>The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin:</p>
+<p>The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin. Some visualization plugins extend the <code class="highlighter-rouge">Table</code>’s functionality and should follow it in the code. This rule is demonstrated in the following example:</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">FilteringState</span><span class="p">,</span> <span class="nx">IntegratedFiltering</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid'</span>
-<span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">Table</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
-
-<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
-  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">defaultFilters</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">IntegratedFiltering</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Table</span><span class="o">/&gt;</span>
-  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span><span class="p">);</span>
-</code></pre>
-</div>
-
-<p>Some visualization plugins extend the <code class="highlighter-rouge">Table</code>’s functionality, and should follow it in the code as demonstrated in the following example:</p>
-
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">FilteringState</span><span class="p">,</span> <span class="nx">IntegratedFiltering</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid'</span>
-<span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">Table</span><span class="p">,</span> <span class="nx">TableFilterRow</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
-
-<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
-  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span> <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">FilteringState</span> <span class="nx">defaultFilters</span><span class="o">=</span><span class="p">{[</span><span class="cm">/* ... */</span><span class="p">]}</span><span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">IntegratedFiltering</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Table</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">TableFilterRow</span><span class="o">/&gt;</span>
-  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span><span class="p">);</span>
-</code></pre>
-</div>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/filtering/filter-row&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596711&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
 
 <p>NOTE: Refer to the plugin’s reference for information on its dependencies.</p>
 
@@ -560,7 +529,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277604"></script>
 
 
     <footer>
@@ -575,7 +544,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -598,7 +567,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1516277604"></script>
     <script>
         trackingCookie.check();
     </script>

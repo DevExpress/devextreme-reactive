@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1516277604">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1516277604">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -62,27 +62,26 @@
 
 <p>Add the required modules to your project:</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">Table</span><span class="p">,</span> <span class="nx">TableHeaderRow</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="p">;</span>
+<pre><code class="language-jsx">import {
+  Grid, Table, TableHeaderRow
+} from '@devexpress/dx-react-grid-bootstrap3';
 
-<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
-  <span class="o">&lt;</span><span class="nx">Grid</span>
-    <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span>
-      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
-      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme Reactive'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
-    <span class="p">]}</span>
-    <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span>
-      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'ID'</span> <span class="p">},</span>
-      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
-      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'owner'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Owner'</span> <span class="p">},</span>
-    <span class="p">]}</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Table</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">TableHeaderRow</span> <span class="o">/&gt;</span>
-  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span><span class="p">);</span>
+const App = () =&gt; (
+  &lt;Grid
+    rows={[
+      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+    ]}
+    columns={[
+      { name: 'id', title: 'ID' },
+      { name: 'product', title: 'Product' },
+      { name: 'owner', title: 'Owner' },
+    ]}&gt;
+    &lt;Table /&gt;
+    &lt;TableHeaderRow /&gt;
+  &lt;/Grid&gt;
+);
 </code></pre>
-</div>
 
 <p>Make sure that <a href="https://react-bootstrap.github.io">React-Boostrap</a> dependencies are installed and properly configured. Check the React-Bootstrap’s <a href="https://react-bootstrap.github.io/getting-started.html">Getting Started</a> article for configuration details.</p>
 
@@ -141,7 +140,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -164,7 +163,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1516277604"></script>
     <script>
         trackingCookie.check();
     </script>

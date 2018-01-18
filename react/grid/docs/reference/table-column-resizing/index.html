@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1516277604">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1516277604">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -77,23 +77,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-types/">Data Types</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using Immutable Data</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fundamentals/">Fundamentals</a></li>
           
 
         
@@ -109,7 +93,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/grid-basics/">Grid Basics</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-formatting/">Data Formatting</a></li>
           
 
         
@@ -173,14 +165,6 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
-          
-
-        
-          
-          
-
-          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
@@ -205,7 +189,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
           
 
         
@@ -513,21 +513,51 @@
   <tbody>
     <tr>
       <td>columnWidths</td>
-      <td>{ [columnName: string]: number }</td>
+      <td>Array&lt;<a href="#ColumnWidthInfo">ColumnWidthInfo</a>&gt;</td>
       <td> </td>
       <td>Specifies column widths.</td>
     </tr>
     <tr>
       <td>defaultColumnWidths</td>
-      <td>{ [columnName: string]: number }</td>
-      <td>{}</td>
-      <td>Specifies initial column widths in the uncontrolled mode.</td>
+      <td>Array&lt;<a href="#ColumnWidthInfo">ColumnWidthInfo</a>&gt;</td>
+      <td>[]</td>
+      <td>Specifies initial column widths in uncontrolled mode.</td>
     </tr>
     <tr>
       <td>onColumnWidthsChange</td>
       <td>(nextColumnWidths: { [columnName: string]: number }) =&gt; void</td>
       <td> </td>
       <td>Handles column width changes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="columnwidthinfo">ColumnWidthInfo</h3>
+
+<p>Describes an object that specifies a column width.</p>
+
+<p>A value with the following shape:</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>A column name.</td>
+    </tr>
+    <tr>
+      <td>width</td>
+      <td>number</td>
+      <td>A column width.</td>
     </tr>
   </tbody>
 </table>
@@ -580,16 +610,22 @@
       <td>Specifies whether table column resizing is enabled.</td>
     </tr>
     <tr>
-      <td>changeTableColumnWidths</td>
+      <td>changeTableColumnWidth</td>
       <td>Action</td>
-      <td>({ shifts: { [columnName: string]: number } }) =&gt; void</td>
-      <td>Changes the specified columns’ width. Each column width is increased by the corresponding shift value, or decreased if the value is negative.</td>
+      <td>({ columnName: string, shift: number }) =&gt; void</td>
+      <td>Changes the specified column width. The column width is increased by the corresponding shift value, or decreased if the value is negative.</td>
     </tr>
     <tr>
-      <td>changeDraftTableColumnWidths</td>
+      <td>draftTableColumnWidth</td>
       <td>Action</td>
-      <td>({ shifts: { [columnName: string]: number } }) =&gt; void</td>
-      <td>Changes the specified columns’ width used for preview. Each column width is increased by the corresponding shift value, or decreased if the value is negative. Setting a shift to <code class="highlighter-rouge">null</code> clears the corresponding column’s draft width.</td>
+      <td>({ columnName: string, shift: number }) =&gt; void</td>
+      <td>Changes the specified column width used for preview. The column width is increased by the corresponding shift value, or decreased if the value is less than zero.</td>
+    </tr>
+    <tr>
+      <td>cancelTableColumnWidthDraft</td>
+      <td>Action</td>
+      <td>() =&gt; void</td>
+      <td>Cancels changes to the column width used for preview.</td>
     </tr>
   </tbody>
 </table>
@@ -598,7 +634,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277604"></script>
 
 
     <footer>
@@ -613,7 +649,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -636,7 +672,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1516277604"></script>
     <script>
         trackingCookie.check();
     </script>

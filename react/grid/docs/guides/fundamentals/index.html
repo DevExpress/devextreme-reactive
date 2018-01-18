@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Data Types - DevExtreme Reactive Components</title>
+    <title>React Grid - Fundamentals - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1516277604">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1516277604">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -77,23 +77,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
-          
-
-        
-          
-          
-
-          
-          <li>Data Types</li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using Immutable Data</a></li>
+          <li>Fundamentals</li>
           
 
         
@@ -109,7 +93,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/grid-basics/">Grid Basics</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-formatting/">Data Formatting</a></li>
           
 
         
@@ -173,14 +165,6 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
-          
-
-        
-          
-          
-
-          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
@@ -205,7 +189,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
           
 
         
@@ -487,105 +487,60 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="data-types">Data Types</h1>
+        <h1 id="react-grid---fundamentals">React Grid - Fundamentals</h1>
 
-<p>The Grid component supports custom value formatting and using a custom editor for cell value editing (depending on column’s data type).</p>
+<p>The Grid component displays data specified via the <code class="highlighter-rouge">rows</code> property. You should also specify the <code class="highlighter-rouge">columns</code> property to define for which row fields the grid creates columns.</p>
 
-<p>The <a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> plugin holds the <code class="highlighter-rouge">for</code>, <code class="highlighter-rouge">formatterComponent</code> and <code class="highlighter-rouge">editorComponent</code> properties that enable you to associate the data type provider with specific columns, specify custom formatting and a custom editor.</p>
-
-<h2 id="related-plugins">Related Plugins</h2>
+<p>The Grid requires the following plugins for basic data visualization:</p>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> - provides the capability to customize formatting and editors depending on the data type</li>
+  <li>
+    <p><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a>
+Renders a data table.</p>
+  </li>
+  <li>
+    <p><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a>
+Renders the table’s header row.</p>
+  </li>
 </ul>
 
-<h2 id="value-formatting">Value Formatting</h2>
+<p>The <code class="highlighter-rouge">TableHeaderRow</code> plugin should follow the <code class="highlighter-rouge">Table</code> plugin. See the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">Plugin Order</a> article for more details.</p>
 
-<p>Assign a function rendering the formatted value to the <code class="highlighter-rouge">DataTypeProvider</code> plugin’s <code class="highlighter-rouge">formatterComponent</code> property to apply the required formatting to cells of a column associated with the specified type.</p>
-
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'SolarOne'</span><span class="p">,</span> <span class="na">amount</span><span class="p">:</span> <span class="s1">'3039'</span> <span class="p">},</span>
-<span class="p">];</span>
-<span class="kr">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'amount'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Sale Amount'</span> <span class="p">},</span>
-<span class="p">];</span>
-<span class="kr">const</span> <span class="nx">currencyColumns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'amount'</span><span class="p">];</span>
-
-<span class="kr">const</span> <span class="nx">CurrencyFormatter</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">value</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">$</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span&gt;</span><span class="err">;
-</span>
-<span class="o">&lt;</span><span class="nx">Grid</span>
-  <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">}</span>
-  <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
-<span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">DataTypeProvider</span>
-    <span class="k">for</span><span class="o">=</span><span class="p">{</span><span class="nx">currencyColumns</span><span class="p">}</span>
-    <span class="nx">formatterComponent</span><span class="o">=</span><span class="p">{</span><span class="nx">CurrencyFormatter</span><span class="p">}</span>
-  <span class="sr">/</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span></code></pre>
-</div>
-
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/data-types/formatters&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690010&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/basic/basic&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596696&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
 
-<h2 id="custom-editors">Custom Editors</h2>
+<h2 id="appearance-customization">Appearance Customization</h2>
 
-<p>If the grid supports editing or header row filtering, assign a function rendering the required editor to the <code class="highlighter-rouge">DataTypeProvider</code> plugin’s <code class="highlighter-rouge">editorComponent</code> property. In this case, the Grid uses the specified editor to edit all the specified type values.</p>
+<p>The Grid’s visualization plugins provide a rich API to customize grid elements’ appearance. Examples of the most popular customization tasks are described below.</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">rows</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'SolarOne'</span><span class="p">,</span> <span class="na">shipped</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
-<span class="p">];</span>
-<span class="kr">const</span> <span class="nx">columns</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'shipped'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Shipped'</span> <span class="p">},</span>
-<span class="p">];</span>
-<span class="kr">const</span> <span class="nx">booleanColumns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'shipped'</span><span class="p">];</span>
+<p>The <code class="highlighter-rouge">Table</code> plugin allows you to customize table cell appearance using the <code class="highlighter-rouge">cellComponent</code> property. For instance, you can implement conditional cell formatting as demonstrated in the following example:</p>
 
-<span class="kr">const</span> <span class="nx">BooleanEditor</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">onValueChange</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
-  <span class="o">&lt;</span><span class="nx">select</span>
-    <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span>
-    <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">e</span> <span class="o">=&gt;</span> <span class="nx">onValueChange</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="o">===</span> <span class="s1">'true'</span><span class="p">)}</span>
-  <span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">No</span><span class="o">&lt;</span><span class="sr">/options</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">&gt;</span><span class="nx">Yes</span><span class="o">&lt;</span><span class="sr">/option</span><span class="err">&gt;
-</span>  <span class="o">&lt;</span><span class="sr">/select</span><span class="err">&gt;
-</span><span class="p">);</span>
-
-<span class="o">&lt;</span><span class="nx">Grid</span>
-  <span class="nx">rows</span><span class="o">=</span><span class="p">{</span><span class="nx">rows</span><span class="p">}</span>
-  <span class="nx">columns</span><span class="o">=</span><span class="p">{</span><span class="nx">columns</span><span class="p">}</span>
-<span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">DataTypeProvider</span>
-    <span class="k">for</span><span class="o">=</span><span class="p">{</span><span class="nx">booleanColumns</span><span class="p">}</span>
-    <span class="nx">editorComponent</span><span class="o">=</span><span class="p">{</span><span class="nx">BooleanEditor</span><span class="p">}</span>
-  <span class="sr">/</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span></code></pre>
-</div>
-
-<div class="embedded-demo" data-options="{
-          &quot;repoTag&quot;: &quot;v1.0.0-beta.3&quot;,
-          &quot;path&quot;: &quot;/demo/data-types/editors&quot;,
-          &quot;scriptPath&quot;: &quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469690010&quot;
-        }">
-        <div class="loading-shading">
-          <span class="glyphicon glyphicon-refresh loading-icon"></span>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/basic/table-cell-template&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596696&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
         </div>
-      </div>
+
+<p>The <code class="highlighter-rouge">Table</code> plugin’s <code class="highlighter-rouge">rowComponent</code> property enables you to handle row events like <code class="highlighter-rouge">onClick</code>, <code class="highlighter-rouge">onContextMenu</code>, etc., as demonstrated in the following demo:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/basic/table-row-template&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277596696&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<p>You can create a custom appearance from scratch or modify the default appearance settings the grid’s <code class="highlighter-rouge">Table.Row</code> component provides. Read <a href="/devextreme-reactive/react/grid/docs/reference/table/#plugin-components">Plugin Components</a> for details.</p>
+
+<p>Other plugins (<a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a> and <a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a>) have a similar API for appearance customization.</p>
 
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277604"></script>
 
 
     <footer>
@@ -600,7 +555,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -623,7 +578,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1516277604"></script>
     <script>
         trackingCookie.check();
     </script>

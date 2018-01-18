@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>DevExtreme React Grid - DevExtreme Reactive Components</title>
+    <title>React Grid - Getting Started - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1514469693">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1514469693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1516277604">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1516277604">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -77,23 +77,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-types/">Data Types</a></li>
-          
-
-        
-          
-          
-
-          
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutability/">Using Immutable Data</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fundamentals/">Fundamentals</a></li>
           
 
         
@@ -109,7 +93,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/grid-basics/">Grid Basics</a></li>
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/data-formatting/">Data Formatting</a></li>
           
 
         
@@ -173,14 +165,6 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
-          
-
-        
-          
-          
-
-          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/column-reordering/">Column Reordering</a></li>
           
 
@@ -205,7 +189,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/immutable-data/">Immutable Data</a></li>
           
 
         
@@ -487,15 +487,13 @@
     </div>
 
     <div class="col-md-9 docs-content">
-        <h1 id="devextreme-react-grid">DevExtreme React Grid</h1>
+        <h1 id="react-grid---getting-started">React Grid - Getting Started</h1>
 
 <h2 id="overview">Overview</h2>
 
 <p>DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material UI rendering and theming out of the box.</p>
 
-<h2 id="getting-started">Getting Started</h2>
-
-<h3 id="installation">Installation</h3>
+<h2 id="installation">Installation</h2>
 
 <p>Install the dx-react-grid package and its dependencies using the following command:</p>
 
@@ -526,45 +524,44 @@
   </li>
 </ul>
 
-<h3 id="supported-browsers">Supported Browsers</h3>
+<h2 id="supported-browsers">Supported Browsers</h2>
 
 <p>React Grid supports the latest stable releases of all major browsers: Google Chrome, Mozilla Firefox, Safari, Opera, and Microsoft Edge.</p>
 
 <p>React Grid can work in other browsers if they use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform’s web view API. Some of these browsers may require adding <a href="#polyfills">polyfills</a>. However, such browsers, including Internet Explorer, may not work correctly.</p>
 
-<h3 id="polyfills">Polyfills</h3>
+<h2 id="polyfills">Polyfills</h2>
 
 <p>React Grid uses the latest web platform standards, and cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend <a href="https://babeljs.io/docs/usage/polyfill/">BABEL Polyfill</a>, but you can use an alternative.</p>
 
-<h3 id="using-grid-component">Using Grid component</h3>
+<h2 id="using-grid-component">Using Grid component</h2>
 
 <p>The Grid renders nothing by default. The root Grid component’s nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid data.</p>
 
 <p>Use the Table plugin to display the data as a simple table:</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Grid</span><span class="p">,</span> <span class="nx">Table</span><span class="p">,</span> <span class="nx">TableHeaderRow</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap3'</span><span class="cm">/* or '@devexpress/dx-react-grid-material-ui' */</span><span class="p">;</span>
+<pre><code class="language-jsx">import {
+  Grid, Table, TableHeaderRow
+} from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
 
-<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
-  <span class="o">&lt;</span><span class="nx">Grid</span>
-    <span class="nx">rows</span><span class="o">=</span><span class="p">{[</span>
-      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
-      <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">product</span><span class="p">:</span> <span class="s1">'DevExtreme Reactive'</span><span class="p">,</span> <span class="na">owner</span><span class="p">:</span> <span class="s1">'DevExpress'</span> <span class="p">},</span>
-    <span class="p">]}</span>
-    <span class="nx">columns</span><span class="o">=</span><span class="p">{[</span>
-      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'id'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'ID'</span> <span class="p">},</span>
-      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'product'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Product'</span> <span class="p">},</span>
-      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'owner'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Owner'</span> <span class="p">},</span>
-    <span class="p">]}</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Table</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">TableHeaderRow</span> <span class="o">/&gt;</span>
-  <span class="o">&lt;</span><span class="sr">/Grid</span><span class="err">&gt;
-</span><span class="p">);</span>
+const App = () =&gt; (
+  &lt;Grid
+    rows={[
+      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+    ]}
+    columns={[
+      { name: 'id', title: 'ID' },
+      { name: 'product', title: 'Product' },
+      { name: 'owner', title: 'Owner' },
+    ]}&gt;
+    &lt;Table /&gt;
+    &lt;TableHeaderRow /&gt;
+  &lt;/Grid&gt;
+);
 </code></pre>
-</div>
 
-<h3 id="try-out-the-react-grid">Try Out The React Grid</h3>
+<h2 id="try-out-the-react-grid">Try Out The React Grid</h2>
 
 <p>Follow the links below to try out the React Grid:</p>
 
@@ -581,7 +578,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1514469693"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1516277604"></script>
 
 
     <footer>
@@ -596,7 +593,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2017 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -619,7 +616,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1514469693"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1516277604"></script>
     <script>
         trackingCookie.check();
     </script>

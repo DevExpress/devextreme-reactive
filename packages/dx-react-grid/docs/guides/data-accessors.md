@@ -1,4 +1,4 @@
-# Data Accessors
+# React Grid - Data Accessors
 
 The Grid component supports custom data structures. In a common scenario with a simple data structure, you can associate a column with a row field using the column’s `name` field.
 

@@ -6,16 +6,14 @@ react:
           path: /react/grid/docs/guides/getting-started
         - title: Plugin Overview
           path: /react/grid/docs/guides/plugin-overview
-        - title: Data Accessors
-          path: /react/grid/docs/guides/data-accessors
-        - title: Data Types
-          path: /react/grid/docs/guides/data-types
-        - title: Using Immutable Data
-          path: /react/grid/docs/guides/immutability
+        - title: Fundamentals
+          path: /react/grid/docs/guides/fundamentals
         - title: Controlled and Uncontrolled Modes
           path: /react/grid/docs/guides/controlled-and-uncontrolled-modes
-        - title: Grid Basics
-          path: /react/grid/docs/guides/grid-basics
+        - title: Data Accessors
+          path: /react/grid/docs/guides/data-accessors
+        - title: Data Formatting
+          path: /react/grid/docs/guides/data-formatting
         - title: Sorting
           path: /react/grid/docs/guides/sorting
         - title: Paging
@@ -30,16 +28,18 @@ react:
           path: /react/grid/docs/guides/editing
         - title: Detail Row
           path: /react/grid/docs/guides/detail-row
-        - title: Virtual Scrolling
-          path: /react/grid/docs/guides/virtual-scrolling
         - title: Column Reordering
           path: /react/grid/docs/guides/column-reordering
         - title: Column Resizing
           path: /react/grid/docs/guides/column-resizing
         - title: Column Visibility
           path: /react/grid/docs/guides/column-visibility
+        - title: Virtual Scrolling
+          path: /react/grid/docs/guides/virtual-scrolling
         - title: Localization
           path: /react/grid/docs/guides/localization
+        - title: Immutable Data
+          path: /react/grid/docs/guides/immutable-data
     - title: API Reference
       items:
         - title: Grid

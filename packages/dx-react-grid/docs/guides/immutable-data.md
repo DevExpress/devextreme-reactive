@@ -1,4 +1,4 @@
-# Using Immutable Data
+# React Grid - Immutable Data
 
 DevExpress Data Grid for React conforms to the React [optimization principles](https://reactjs.org/docs/optimizing-performance.html). According to these principles, the Grid does not change data passed through a state and uses memoization and [React.PureComponents](https://reactjs.org/docs/react-api.html#reactpurecomponent). A `React.PureComponent` compares old and new state values using a simple comparison. In this case, if you update a state object field, React does not update the component because it compares two references to the same object. Immutable data structures [help](https://reactjs.org/docs/optimizing-performance.html#the-power-of-not-mutating-data) to solve this problem.
 

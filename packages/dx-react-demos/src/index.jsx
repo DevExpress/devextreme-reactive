@@ -16,10 +16,11 @@ import './index.css';
 class App extends React.Component {
   getChildContext() {
     const {
-      scriptPath, router, path,
+      scriptPath, showThemeSelector, router, path,
       ...restProps
     } = this.props;
-    return { embeddedDemoOptions: { scriptPath, ...restProps } };
+
+    return { embeddedDemoOptions: { scriptPath, showThemeSelector, ...restProps } };
   }
   render() {
     const { router, path } = this.props;
@@ -47,12 +48,14 @@ App.propTypes = {
   router: PropTypes.string,
   path: PropTypes.string,
   scriptPath: PropTypes.string,
+  showThemeSelector: PropTypes.bool,
 };
 
 App.defaultProps = {
   router: 'memory',
   path: undefined,
   scriptPath: '/dist/index.js',
+  showThemeSelector: true,
 };
 
 const embeddedDemoPlaceholders = document.getElementsByClassName('embedded-demo');

@@ -37,7 +37,7 @@ class DemoFrame extends React.PureComponent {
     };
 
     const { themeName, url } = this.props;
-    const { scriptPath } = this.context.embeddedDemoOptions;
+    const { scriptPath, showThemeSelector } = this.context.embeddedDemoOptions;
     const themeLink = themeName !== 'custom' && THEMES.find(({ name }) => name === themeName).link;
     this.markup = `
       <!DOCTYPE html>
@@ -50,7 +50,7 @@ class DemoFrame extends React.PureComponent {
       </head>
       <body>
       <div id="mountPoint"></div>
-      <div class="embedded-demo" data-options='{ "path": "${url}/clean", "frame": true }'>
+      <div class="embedded-demo" data-options='{ "path": "${url}/clean", "frame": true, "showThemeSelector": "${showThemeSelector}" }'>
         <div style="min-height: 500px;">Loading...</div>
       </div>
       <script src="${scriptPath}"></script>

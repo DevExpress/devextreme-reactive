@@ -13,7 +13,7 @@ Pluggable React component aggregates two core principles:
 
 [PluginHost](../reference/plugin-host.md) is a React component that provides mechanisms that enables all of the listed abilities. If PluginHost renresents the root element of React component, the component can be called as pluggable React component.
 
-.embedded-demo({ "path": "core-basic/pluggable-component" })
+.embedded-demo({ "path": "core-basic/pluggable-component", "showThemeSelector": false  })
 
 It renders nothing. It should contain only plugin primitives and plugin React components within. **Plugin primitives** are a subset of React Core components that should be placed inside PluginHost and plugins. They also renders nothing. The content of PluginHost component is called **plugin root**.
 

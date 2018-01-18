@@ -23,6 +23,7 @@ const styles = theme => ({
   },
   activeButton: {
     fontWeight: 'bold',
+    cursor: 'default',
   },
   arrowButton: {
     width: theme.spacing.unit * 4,
@@ -65,6 +66,7 @@ const PageButton = ({
       className={buttonClasses}
       disabled={isDisabled}
       onClick={onClick}
+      disableRipple={isActive}
     >
       {text}
     </Button>

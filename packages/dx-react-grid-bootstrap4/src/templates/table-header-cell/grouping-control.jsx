@@ -17,10 +17,10 @@ export const GroupingControl = ({ align, onGroup }) => {
       }}
     >
       <i
-        className="glyphicon glyphicon-th-list"
+        className="oi oi-list"
         style={{
           top: '0',
-          fontSize: '9px',
+          fontSize: '12px',
           margin: '-5px',
           padding: '5px',
           cursor: 'pointer',

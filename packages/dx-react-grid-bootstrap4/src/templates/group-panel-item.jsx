@@ -49,7 +49,7 @@ export const GroupPanelItem = ({
       {...restProps}
     >
       <span
-        className="btn btn-default"
+        className="btn btn-secondary"
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
         {...showSortingControls ? { tabIndex: 0 } : null}
@@ -67,16 +67,16 @@ export const GroupPanelItem = ({
 
       {showGroupingControls && (
         <span
-          className="btn btn-default"
+          className="btn btn-secondary"
           onClick={handleUngroup}
         >
           &nbsp;
           <i
-            className="glyphicon glyphicon-remove"
+            className="oi oi-x"
             style={{
-              top: 0,
-              fontSize: '9px',
-              marginLeft: '-5px',
+              top: -1,
+              fontSize: '11px',
+              marginLeft: '-4px',
             }}
           />
         </span>)}

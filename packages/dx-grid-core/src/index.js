@@ -66,6 +66,7 @@ export * from './plugins/table/helpers';
 export * from './plugins/table/computeds';
 
 export * from './plugins/table-column-visibility/computeds';
+export * from './plugins/table-column-visibility/helpers';
 
 export * from './plugins/column-chooser/computeds';
 export * from './plugins/column-chooser/reducers';

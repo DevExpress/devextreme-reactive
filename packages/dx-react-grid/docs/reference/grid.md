@@ -36,22 +36,6 @@ Field | Type | Description
 ------|------|------------
 children? | ReactElement | A React element to be placed in the root layout.
 
-### GridHeaderPlaceholderProps
-
-Describes properties passed to a component that renders the grid header placeholder.
-
-Field | Type | Description
-------|------|------------
-children? | ReactElement | A React element to be placed in the header.
-
-### GridFooterPlaceholderProps
-
-Describes properties passed to a component that renders the grid footer placeholder.
-
-Field | Type | Description
-------|------|------------
-children? | ReactElement | A React element to be placed in the footer.
-
 ## Plugin Components
 
 Name | Properties | Description

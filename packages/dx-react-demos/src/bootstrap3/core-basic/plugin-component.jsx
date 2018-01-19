@@ -19,14 +19,9 @@ const Pluggable = ({ children }) => (
     {children}
   </PluginHost>
 );
-
 Pluggable.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
 };
-
 Pluggable.defaultProps = {
   children: null,
 };

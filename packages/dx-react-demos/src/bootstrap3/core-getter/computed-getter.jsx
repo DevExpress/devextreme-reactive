@@ -9,11 +9,11 @@ import {
 
 const Plugin1 = () => (
   <PluginContainer>
-    <Getter name="count" value={11} />
+    <Getter name="userName" value="john" />
     <Template name="root">
       <TemplateConnector>
-        {({ count }) => (
-          <span>(total count): {count}</span>
+        {({ userName }) => (
+          <span>User Name: {userName}</span>
         )}
       </TemplateConnector>
     </Template>
@@ -22,7 +22,7 @@ const Plugin1 = () => (
 
 const Plugin2 = () => (
   <PluginContainer>
-    <Getter name="count" computed={({ count }) => count - 1} />
+    <Getter name="userName" computed={({ userName }) => userName.toUpperCase()} />
   </PluginContainer>
 );
 

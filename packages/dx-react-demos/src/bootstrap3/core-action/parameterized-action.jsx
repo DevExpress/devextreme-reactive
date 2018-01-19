@@ -38,8 +38,8 @@ const Plugin2 = () => (
       <TemplateConnector>
         {(getters, { changeCount }) => (
           <React.Fragment>
-            <button onClick={() => changeCount(1)}>Increment</button>
             <button onClick={() => changeCount(-1)}>Decrement</button>
+            <button onClick={() => changeCount(1)}>Increment</button>
           </React.Fragment>
         )}
       </TemplateConnector>

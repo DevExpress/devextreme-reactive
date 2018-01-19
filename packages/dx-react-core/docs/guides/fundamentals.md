@@ -15,7 +15,7 @@ Pluggable React component aggregates two core principles:
 
 .embedded-demo({ "path": "core-basic/pluggable-component", "showThemeSelector": false  })
 
-It renders nothing. It should contain only plugin primitives and plugin React components within. **Plugin primitives** are a subset of React Core components that should be placed inside PluginHost and plugins. They also renders nothing. The content of PluginHost component is called **plugin root**.
+It should contain only plugin primitives and plugin React components within. **Plugin primitives** are a subset of React Core components that should be placed inside PluginHost and plugins. They also renders nothing. The content of PluginHost component is called **plugin root**.
 
 Here the list of plugin primitives:
 
@@ -38,4 +38,4 @@ Plugin React component is a component that holds part of the pluggable React com
 
 .embedded-demo({ "path": "core-basic/plugin-component", "showThemeSelector": false })
 
-It renders nothing. It should contain only plugin primitives and plugin React components within.
+It should contain only plugin primitives and plugin React components within.

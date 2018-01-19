@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input, TableCell } from 'material-ui';
+import Input from 'material-ui/Input';
+import { TableCell } from 'material-ui/Table';
 import { createShallow, getClasses } from 'material-ui/test-utils';
 import { EditCell } from './table-edit-cell';
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Button, IconButton } from 'material-ui';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import { withStyles } from 'material-ui/styles';
 import ChevronLeft from 'material-ui-icons/ChevronLeft';
 import ChevronRight from 'material-ui-icons/ChevronRight';
@@ -23,6 +24,7 @@ const styles = theme => ({
   },
   activeButton: {
     fontWeight: 'bold',
+    cursor: 'default',
   },
   arrowButton: {
     width: theme.spacing.unit * 4,
@@ -65,6 +67,7 @@ const PageButton = ({
       className={buttonClasses}
       disabled={isDisabled}
       onClick={onClick}
+      disableRipple={isActive}
     >
       {text}
     </Button>

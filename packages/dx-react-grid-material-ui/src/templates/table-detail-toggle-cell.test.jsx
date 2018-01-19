@@ -1,6 +1,6 @@
 import React from 'react';
 import { createShallow, getClasses } from 'material-ui/test-utils';
-import { IconButton } from 'material-ui';
+import IconButton from 'material-ui/IconButton';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
 describe('TableDetailToggleCell', () => {

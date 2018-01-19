@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
-import { TableCell } from 'material-ui';
+import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 
 import { GroupingControl } from './table-header-cell/grouping-control';

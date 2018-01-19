@@ -1,3 +1,100 @@
+<a name="1.0.0-rc.1"></a>
+# [1.0.0-rc.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-beta.3...v1.0.0-rc.1) (2018-01-18)
+
+### Bug Fixes
+
+* **react-core:** clear text selection when dragging ([#669](https://github.com/DevExpress/devextreme-reactive/issues/669)) ([b7c2eac](https://github.com/DevExpress/devextreme-reactive/commit/b7c2eac))
+* **react-grid:** display empty message when all data columns are hidden ([#670](https://github.com/DevExpress/devextreme-reactive/issues/670)) ([44d7622](https://github.com/DevExpress/devextreme-reactive/commit/44d7622))
+* **react-grid:** set higher precedence to props in state plugins ([#663](https://github.com/DevExpress/devextreme-reactive/issues/663)) ([bb5ef97](https://github.com/DevExpress/devextreme-reactive/commit/bb5ef97)), closes [#662](https://github.com/DevExpress/devextreme-reactive/issues/662)
+* **react-grid:** update render component in correct lifecycle hook ([#655](https://github.com/DevExpress/devextreme-reactive/issues/655)) ([c56ff88](https://github.com/DevExpress/devextreme-reactive/commit/c56ff88)), closes [#649](https://github.com/DevExpress/devextreme-reactive/issues/649)
+* **react-grid-bootstrap3:** repair keyboard navigation in column chooser ([#666](https://github.com/DevExpress/devextreme-reactive/issues/666)) ([7f2b461](https://github.com/DevExpress/devextreme-reactive/commit/7f2b461))
+* **react-grid-material-ui:** disable ripple on active page button ([#682](https://github.com/DevExpress/devextreme-reactive/issues/682)) ([c75078d](https://github.com/DevExpress/devextreme-reactive/commit/c75078d))
+* **react-grid-material-ui:** import 'VisibilityOff' icon from separate file ([#640](https://github.com/DevExpress/devextreme-reactive/issues/640)) ([7b71ebc](https://github.com/DevExpress/devextreme-reactive/commit/7b71ebc))
+
+
+### Code Refactoring
+
+* **react-grid:** change columnWidth type from object to array ([#613](https://github.com/DevExpress/devextreme-reactive/issues/613)) ([6f4d19f](https://github.com/DevExpress/devextreme-reactive/commit/6f4d19f))
+* **react-grid:** change the 'expandedGroups' Getter data type ([#661](https://github.com/DevExpress/devextreme-reactive/issues/661)) ([f078d3a](https://github.com/DevExpress/devextreme-reactive/commit/f078d3a))
+* **react-grid:** change the 'selection' Getter data type ([#656](https://github.com/DevExpress/devextreme-reactive/issues/656)) ([262d169](https://github.com/DevExpress/devextreme-reactive/commit/262d169))
+* **react-grid:** rename the *hiddenColumns getters and props ([#651](https://github.com/DevExpress/devextreme-reactive/issues/651)) ([068604d](https://github.com/DevExpress/devextreme-reactive/commit/068604d))
+* **react-grid:** rename the changedRows Getter and dependent properties ([#657](https://github.com/DevExpress/devextreme-reactive/issues/657)) ([26735c7](https://github.com/DevExpress/devextreme-reactive/commit/26735c7))
+* **react-grid:** rename the deletedRows Getter and dependent properties ([#652](https://github.com/DevExpress/devextreme-reactive/issues/652)) ([ae78d23](https://github.com/DevExpress/devextreme-reactive/commit/ae78d23))
+* **react-grid:** rename the expandedRows Getter and dependent properties ([#653](https://github.com/DevExpress/devextreme-reactive/issues/653)) ([db56cad](https://github.com/DevExpress/devextreme-reactive/commit/db56cad))
+* **react-grid:** rename the groupByColumn action to changeColumnGrouping ([#660](https://github.com/DevExpress/devextreme-reactive/issues/660)) ([a3974bd](https://github.com/DevExpress/devextreme-reactive/commit/a3974bd))
+* **react-grid:** rename the setColumnFilter action to changeColumnFilter ([#659](https://github.com/DevExpress/devextreme-reactive/issues/659)) ([eec6c41](https://github.com/DevExpress/devextreme-reactive/commit/eec6c41))
+* **react-grid:** rename the setColumnSorting action to changeColumnSorting ([#658](https://github.com/DevExpress/devextreme-reactive/issues/658)) ([e4f9c12](https://github.com/DevExpress/devextreme-reactive/commit/e4f9c12))
+* **react-grid:** rename the setDetailRowExpanded action ([#648](https://github.com/DevExpress/devextreme-reactive/issues/648)) ([1285a14](https://github.com/DevExpress/devextreme-reactive/commit/1285a14))
+* **react-grid:** standardize draft change actions in GroupingState ([#668](https://github.com/DevExpress/devextreme-reactive/issues/668)) ([43593eb](https://github.com/DevExpress/devextreme-reactive/commit/43593eb))
+* **react-grid:** standardize draft change actions in TableColumnResizing ([#665](https://github.com/DevExpress/devextreme-reactive/issues/665)) ([3fec37a](https://github.com/DevExpress/devextreme-reactive/commit/3fec37a))
+* **react-grid:** use the 'state' name as a parameter in toggle actions ([#645](https://github.com/DevExpress/devextreme-reactive/issues/645)) ([6c3f15d](https://github.com/DevExpress/devextreme-reactive/commit/6c3f15d))
+* **react-grid:** rename the EditingState plugin properties ([#650](https://github.com/DevExpress/devextreme-reactive/issues/650)) ([4d7fe82](https://github.com/DevExpress/devextreme-reactive/commit/4d7fe82))
+
+### BREAKING CHANGES
+
+* **react-grid:** The `draftGrouping` getter does not contain information about draft mode anymore. The `draftGroupingChange`, and `cancelGroupingChange` actions have been renamed to `draftColumnGrouping`, and `cancelColumnGroupingDraft`.
+* **react-grid:** The type of the TableColumnResizing plugin's `columnWidths` and `defaultColumnWidths` properties has been changed from object to array to improve API consistency.
+
+  Before:
+
+  ```js
+  <Grid>
+    <TableColumnResizing columnWidths={{ a: 120 }} />
+  </Grid>
+  ```
+
+  After:
+
+  ```js
+  <Grid>
+    <TableColumnResizing columnWidths={[{ columnName: a, width: 120 }]} />
+  </Grid>
+  ```
+* **react-grid:** The `changeDraftTableColumnWidth` action has been renamed to `draftTableColumnWidth`. The functionality that resets draft column width has been moved from from the `draftTableColumnWidth` action into the separate `cancelTableColumnWidthDraft` action.
+
+  The `onDraftWidthChange` event of the TableHeaderRow's cellComponent has been renamed to `onWidthDraft`. The functionality that cancels draft width changes has been extracted to the `onWidthDraftCancel` event.
+* **react-grid:** The the GroupingState plugin's `groupByColumn` action has been renamed to `changeColumnGrouping`.
+* **react-grid:** We changed the `selection` getter's data type from `Set` to `Array` to improve the API consistency.
+* **react-grid:** We renamed the following TableColumnVisibility plugin's properties to improve the API consistency:
+
+  * `hiddenColumns` => `hiddenColumnNames`
+  * `defaultHiddenColumns` => `defaultHiddenColumnNames`
+  * `onHiddenColumnsChange` => `onHiddenColumnNamesChange`
+
+  The `hiddenColumns` getter has been renamed to `hiddenColumnNames`.
+* **react-grid:** The following RowDetailState plugin's properties have been renamed to improve the API consistency:
+
+  * `expandedRows` => `expandedRowIds`
+  * `defaultExpandedRows` => `defaultExpandedRowIds`
+  * `onExpandedRowsChange` => `onExpandedRowIdsChange`
+
+  The `expandedRows` getter has been renamed to `expandedRowIds`.
+* **react-grid:** The following EditingState plugin's properties have been renamed to improve the API consistency:
+
+  * `changedRows` => `rowChanges`
+  * `defaultChangedRows` => `defaultRowChanges`
+  * `onChangedRowsChange` => `onRowChangesChange`
+
+  The `changedRows` getter has been renamed to `rowChanges`.
+* **react-grid:** The FilteringState plugin's `setColumnFilter` action has been renamed to `changeColumnFilter`.
+* **react-grid:** The RowDetailState plugin's `setDetailRowExpanded` action has been renamed to `toggleDetailRowExpanded`.
+* **react-grid:** The `toggleSelection` action's `selected` parameter has been renamed to `state`.
+* **react-grid:** We changed the `expandedGroups` getter's data type from `Set` to `Array` to improve the API consistency.
+* **react-grid:** The following EditingState plugin's properties have been renamed to improve the API consistency:
+
+  * `deletedRows` => `deletedRowIds`
+  * `defaultDeletedRows` => `defaultDeletedRowIds`
+  * `onDeletedRowsChange` => `onDeletedRowIdsChange`
+  * `editingRows` => `editingRowIds`
+  * `defaultEditingRows` => `defaultEditingRowIds`
+  * `onEditingRowsChange` => `onEditingRowIdsChange`
+
+  The `deletedRows` getter has been renamed to `deletedRowIds`.
+  The `editingRows` getter has been renamed to `editingRowIds`.
+* **react-grid:** The SortingState plugin's `setColumnSorting` action has been renamed to `changeColumnSorting`.
+
+
+
 <a name="1.0.0-beta.3"></a>
 # [1.0.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2017-12-28)
 

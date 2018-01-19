@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
 
-const DEFAULT_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css';
+const DEFAULT_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
 const ICONS = 'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css';
 
 export default class DemoContainer extends React.PureComponent {

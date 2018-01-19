@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 export const PageSizeSelector = ({
   pageSize,
@@ -11,7 +12,7 @@ export const PageSizeSelector = ({
   return (
     <div style={{ display: 'inline-block' }}>
       <select
-        className="form-control"
+        className="form-control d-sm-none"
         style={{ width: 'auto' }}
         value={pageSize}
         onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
@@ -22,16 +23,13 @@ export const PageSizeSelector = ({
           </option>
         ))}
       </select>
-      <ul
-        className="pagination d-sm-none"
-        style={{
-          margin: 0,
-          verticalAlign: 'bottom',
-        }}
+      <Pagination
+        className="d-none d-sm-flex"
+        style={{ margin: 0 }}
       >
         {pageSizes.map(item => (
-          <li key={item} className={item === pageSize ? 'active' : ''}>
-            <a
+          <PaginationItem key={item} active={item === pageSize && true}>
+            <PaginationLink
               href="#"
               onClick={(e) => {
                 e.preventDefault();
@@ -39,10 +37,10 @@ export const PageSizeSelector = ({
               }}
             >
               {item || showAll}
-            </a>
-          </li>
+            </PaginationLink>
+          </PaginationItem>
         ))}
-      </ul>
+      </Pagination>
     </div>
   );
 };

@@ -11,7 +11,7 @@ module.exports = function DemoRegistryLoader(source) {
     const demosString = sectionedDemoNames[sectionName].reduce((demosAcc, demoName) => {
       const themesString = themeNames.reduce((themesAcc, themeName) => {
         try {
-          const fileName = require.resolve(`./${themeName}/${sectionName}/${demoName}.jsx`);
+          const fileName = require.resolve(`./demo-sources/${sectionName}/${themeName}/${demoName}.jsx`);
           const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
           this.addDependency(fileName);
           return `${themesAcc}\n${indent(`'${themeName}': {\n  demo: require(${JSON.stringify(fileName)}).default,\n  source: ${demoSource},\n},`, 2)}`;

@@ -68,11 +68,7 @@ var injectLiveDemos = function(content) {
     .replace(
       /\.embedded\-demo\(([^\(\)]*)\)/g,
       function(match, p1) {
-        var data = { path: p1 };
-        try {
-          data = JSON.parse(p1);
-        } catch (e) {}
-
+        const data = JSON.parse(p1);
         const options = {
           ...data,
           path: `/demo/${data.path}`,

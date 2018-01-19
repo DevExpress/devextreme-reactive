@@ -17,7 +17,7 @@ const ThemeViewerBase = (
   {
     avaliableThemes, match: { url }, history, children,
   },
-  { embeddedDemoOptions: { showThemeVariants = false, showThemeSelector = true } },
+  { embeddedDemoOptions: { showThemeVariants, showThemeSelector } },
 ) => {
   const preferredThemeName = storage.getItem(THEME_STORAGE_KEY) || themes[0].name;
   const preferredThemeAvaliable = avaliableThemes.indexOf(preferredThemeName) > -1;

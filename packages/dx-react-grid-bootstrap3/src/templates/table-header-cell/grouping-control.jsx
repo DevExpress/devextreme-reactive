@@ -19,7 +19,7 @@ export const GroupingControl = ({ align, onGroup }) => {
       <i
         className="glyphicon glyphicon-th-list"
         style={{
-          top: '0',
+          top: '2px',
           fontSize: '9px',
           margin: '-5px',
           padding: '5px',

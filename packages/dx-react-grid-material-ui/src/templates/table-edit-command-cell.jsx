@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Button from 'material-ui/Button';
+import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-
-import {
-  Button,
-  TableCell,
-} from 'material-ui';
 
 const styles = theme => ({
   button: {

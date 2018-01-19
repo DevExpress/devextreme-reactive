@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Paper, Typography } from 'material-ui';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({

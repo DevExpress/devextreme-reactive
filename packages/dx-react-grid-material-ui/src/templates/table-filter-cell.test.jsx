@@ -1,6 +1,6 @@
 import React from 'react';
 import { createShallow, getClasses } from 'material-ui/test-utils';
-import { Input } from 'material-ui';
+import Input from 'material-ui/Input';
 import { TableFilterCell } from './table-filter-cell';
 
 describe('TableFilterCell', () => {

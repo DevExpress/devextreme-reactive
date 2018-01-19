@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper } from 'material-ui';
+import Paper from 'material-ui/Paper';
 import { createShallow, getClasses } from 'material-ui/test-utils';
 import { Container, Column } from './drag-drop';
 

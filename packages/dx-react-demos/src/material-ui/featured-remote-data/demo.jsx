@@ -11,7 +11,8 @@ import {
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui';
-import { TableCell, Paper } from 'material-ui';
+import Paper from 'material-ui/Paper';
+import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 import { Loading } from '../components/loading';
 

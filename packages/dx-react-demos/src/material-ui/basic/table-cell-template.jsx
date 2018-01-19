@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableCell, Paper } from 'material-ui';
+import Paper from 'material-ui/Paper';
+import { TableCell } from 'material-ui/Table';
 import {
   Grid,
   Table,

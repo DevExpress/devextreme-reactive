@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-  Checkbox,
-  TableCell,
-} from 'material-ui';
+import Checkbox from 'material-ui/Checkbox';
+import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({

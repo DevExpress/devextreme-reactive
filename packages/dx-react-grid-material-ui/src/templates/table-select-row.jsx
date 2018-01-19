@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableRow } from 'material-ui';
+import { TableRow } from 'material-ui/Table';
 
 export const TableSelectRow = ({
   selected,

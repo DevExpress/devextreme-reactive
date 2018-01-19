@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Toolbar as ToolbarMUI } from 'material-ui';
+import ToolbarMUI from 'material-ui/Toolbar';
 import { withStyles } from 'material-ui/styles';
 import { darken, fade, lighten } from 'material-ui/styles/colorManipulator';
 

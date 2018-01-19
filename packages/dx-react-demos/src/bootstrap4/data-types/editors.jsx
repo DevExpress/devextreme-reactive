@@ -20,7 +20,7 @@ import {
 const getRowId = row => row.id;
 
 const BooleanFormatter = ({ value }) =>
-  <span className="label label-default">{value ? 'Yes' : 'No'}</span>;
+  <span className="badge badge-secondary">{value ? 'Yes' : 'No'}</span>;
 
 BooleanFormatter.propTypes = {
   value: PropTypes.bool.isRequired,

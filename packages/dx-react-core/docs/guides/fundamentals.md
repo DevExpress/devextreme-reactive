@@ -36,6 +36,6 @@ Plugin React component is a component that holds part of the pluggable React com
 
 [PluginContainer](../reference/plugin-container.md) is an auxilary React component created to hold several plugin primitives or plugins within. If PluginContainer renresents the root element of React component, the component can be called as plugin React component.
 
-.embedded-demo({ "path": "core-basic/plugin-component" })
+.embedded-demo({ "path": "core-basic/plugin-component", "showThemeSelector": false })
 
 It renders nothing. It should contain only plugin primitives and plugin React components within.

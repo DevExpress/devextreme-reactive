@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export const EmptyMessage = ({ getMessage, className, ...restProps }) => (
   <div
-    className={classNames('panel-body', className)}
+    className={classNames('card-body', className)}
     {...restProps}
   >
     {getMessage('noColumns')}

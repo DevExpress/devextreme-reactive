@@ -33,8 +33,8 @@ export const TableDetailToggleCell = ({
       }}
       {...restProps}
     >
-      <i
-        className={`glyphicon glyphicon-triangle-${expanded ? 'bottom' : 'right'}`}
+      <span
+        className={`oi oi-chevron-${expanded ? 'bottom' : 'right'}`}
         style={{
           fontSize: '9px',
           top: '0',

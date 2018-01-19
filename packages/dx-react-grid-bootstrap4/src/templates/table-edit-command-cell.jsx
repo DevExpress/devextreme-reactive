@@ -10,6 +10,7 @@ export const CommandButton = ({
 }) => (
   <button
     className={classNames('btn', 'btn-link', className)}
+    style={{ padding: 11 }}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();

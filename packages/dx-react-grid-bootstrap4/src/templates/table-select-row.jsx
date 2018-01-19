@@ -10,7 +10,7 @@ export const TableSelectRow = ({
 }) => (
   <tr
     style={style}
-    className={selected ? 'active' : ''}
+    className={selected ? 'table-active' : ''}
     onClick={(e) => {
       if (!selectByRowClick) return;
       e.stopPropagation();

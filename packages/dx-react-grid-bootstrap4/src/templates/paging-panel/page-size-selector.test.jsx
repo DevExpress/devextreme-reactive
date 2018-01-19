@@ -37,9 +37,9 @@ describe('PageSizeSelector', () => {
 
       expect(desktopSelector).toHaveLength(1);
       expect(desktopSelectorItems).toHaveLength(2);
-      expect(desktopSelectorItems.at(0).prop('className')).toBe('');
+      expect(desktopSelectorItems.at(0).prop('active')).toBe(false);
       expect(desktopSelectorItems.at(0).text()).toBe('5');
-      expect(desktopSelectorItems.at(1).prop('className')).toBe('active');
+      expect(desktopSelectorItems.at(1).prop('active')).toBe(true);
       expect(desktopSelectorItems.at(1).text()).toBe('10');
     });
 

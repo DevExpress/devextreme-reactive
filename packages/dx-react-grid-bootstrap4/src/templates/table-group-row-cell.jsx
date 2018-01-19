@@ -32,12 +32,15 @@ export const TableGroupCell = ({
       onClick={handleClick}
       {...restProps}
     >
-      <i
+      <span
         className={`oi oi-chevron-${expanded ? 'bottom' : 'right'}`}
         style={{
           fontSize: '9px',
           top: 0,
           marginRight: '10px',
+          ...expanded ? {
+            marginRight: '8px',
+          } : null,
         }}
         tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
         onMouseDown={handleMouseDown}

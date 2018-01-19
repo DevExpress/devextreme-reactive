@@ -8,7 +8,7 @@ export const EditCell = ({
   <td
     style={{
       verticalAlign: 'middle',
-      padding: '1px',
+      padding: '5px',
       ...style,
     }}
     {...restProps}

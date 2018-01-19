@@ -13,7 +13,7 @@ export const TableDetailCell = ({
   <td
     style={style}
     colSpan={colSpan}
-    className={classNames('active', className)}
+    className={classNames('table-active', className)}
     {...restProps}
   >
     {children}

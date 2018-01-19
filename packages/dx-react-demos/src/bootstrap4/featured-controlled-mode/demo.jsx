@@ -9,10 +9,7 @@ import {
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropProvider, TableColumnReordering,
 } from './../../../../dx-react-grid-bootstrap4/src';
-import {
-  Modal,
-  Button,
-} from 'react-bootstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import {
   ProgressBarCell,
 } from '../templates/progress-bar-cell';
@@ -30,6 +27,7 @@ const CommandButton = ({
 }) => (
   <button
     className="btn btn-link"
+    style={{ padding: 11 }}
     onClick={(e) => {
       onExecute();
       e.stopPropagation();
@@ -37,7 +35,7 @@ const CommandButton = ({
     title={hint}
   >
     <span className={isDanger ? 'text-danger' : undefined}>
-      {icon ? <i className={`glyphicon glyphicon-${icon}`} style={{ marginRight: text ? 5 : 0 }} /> : null}
+      {icon ? <i className={`oi oi-${icon}`} style={{ marginRight: text ? 5 : 0 }} /> : null}
       {text}
     </span>
   </button>
@@ -76,7 +74,7 @@ const commandComponentProps = {
     hint: 'Save changes',
   },
   cancel: {
-    icon: 'remove',
+    icon: 'x',
     hint: 'Cancel changes',
     isDanger: true,
   },
@@ -309,14 +307,14 @@ export default class Demo extends React.PureComponent {
         </Grid>
 
         <Modal
-          bsSize="large"
-          show={!!deletingRows.length}
-          onHide={this.cancelDelete}
+          size="large"
+          isOpen={!!deletingRows.length}
+          onClosed={this.cancelDelete}
         >
-          <Modal.Header closeButton>
-            <Modal.Title>Delete Row</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+          <ModalHeader>
+            Delete Row
+          </ModalHeader>
+          <ModalBody>
             <p>Are you sure to delete the following row?</p>
             <Grid
               rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
@@ -328,11 +326,11 @@ export default class Demo extends React.PureComponent {
               />
               <TableHeaderRow />
             </Grid>
-          </Modal.Body>
-          <Modal.Footer>
+          </ModalBody>
+          <ModalFooter>
             <Button onClick={this.cancelDelete}>Cancel</Button>
             <Button className="btn-danger" onClick={this.deleteRows}>Delete</Button>
-          </Modal.Footer>
+          </ModalFooter>
         </Modal>
       </div>
     );

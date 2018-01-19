@@ -19,6 +19,7 @@ export const Toolbar = ({
       marginBottom: 0,
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,
+      flexWrap: 'nowrap',
       ...style,
     }}
     {...restProps}

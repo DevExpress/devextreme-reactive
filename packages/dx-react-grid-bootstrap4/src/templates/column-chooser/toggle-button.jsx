@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { TOGGLE_BUTTON_ID } from './constants';
 
 export const ToggleButton = ({
   onToggle, className,
@@ -8,12 +9,13 @@ export const ToggleButton = ({
   ...restProps
 }) => (
   <button
-    className={classNames('btn btn-link', className)}
+    id={TOGGLE_BUTTON_ID}
+    className={classNames('btn btn-outline-secondary', className)}
     onClick={onToggle}
-    ref={buttonRef}
+    tabIndex={0}
     {...restProps}
   >
-    <i className="glyphicon glyphicon-eye-close" />
+    <span className="oi oi-eye" />
   </button>
 );
 

@@ -6,24 +6,24 @@ export const Item = ({
   item: { column, hidden },
   onToggle,
   className,
+  style,
   ...restProps
 }) => (
   <button
-    className={classNames('list-group-item', className)}
-    style={{ outline: 'none' }}
+    className={classNames('list-group-item list-group-item-action', className)}
+    style={{ outline: 'none', cursor: 'pointer', ...style }}
     type="button"
     onClick={onToggle}
     {...restProps}
   >
     <input
       type="checkbox"
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', marginRight: 10 }}
       tabIndex={-1}
       checked={!hidden}
       onChange={onToggle}
       onClick={e => e.stopPropagation()}
     />
-    &nbsp;
     {column.title || column.name}
   </button>
 );
@@ -37,9 +37,11 @@ Item.propTypes = {
   }).isRequired,
   onToggle: PropTypes.func,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 Item.defaultProps = {
   onToggle: () => {},
   className: undefined,
+  style: undefined,
 };

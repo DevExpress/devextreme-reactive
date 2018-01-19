@@ -5,12 +5,10 @@ import classNames from 'classnames';
 export const Container = ({
   children,
   className,
-  style,
   ...restProps
 }) => (
   <div
-    className={classNames('list-group', className)}
-    style={{ marginBottom: 0, ...style }}
+    className={classNames('list-group-flush', className)}
     {...restProps}
   >
     {children}
@@ -20,10 +18,8 @@ export const Container = ({
 Container.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
   className: PropTypes.string,
-  style: PropTypes.object,
 };
 
 Container.defaultProps = {
   className: undefined,
-  style: undefined,
 };

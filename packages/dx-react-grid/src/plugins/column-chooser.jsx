@@ -61,6 +61,7 @@ export class ColumnChooser extends React.PureComponent {
                   visible={visible}
                   target={this.button}
                   onHide={this.handleHide}
+                  toggle={this.handleToggle}
                 >
                   <Container>
                     {columnChooserItems(columns, hiddenColumnNames)

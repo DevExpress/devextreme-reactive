@@ -9,7 +9,7 @@ export const Toolbar = ({
   ...restProps
 }) => (
   <div
-    className={classNames('breadcrumb', className)}
+    className={classNames(className)}
     style={{
       display: 'flex',
       alignItems: 'center',

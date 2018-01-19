@@ -49,7 +49,7 @@ export const GroupPanelItem = ({
       {...restProps}
     >
       <span
-        className="btn btn-secondary"
+        className="btn btn-outline-secondary"
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
         {...showSortingControls ? { tabIndex: 0 } : null}
@@ -67,7 +67,7 @@ export const GroupPanelItem = ({
 
       {showGroupingControls && (
         <span
-          className="btn btn-secondary"
+          className="btn btn-outline-secondary"
           onClick={handleUngroup}
         >
           &nbsp;

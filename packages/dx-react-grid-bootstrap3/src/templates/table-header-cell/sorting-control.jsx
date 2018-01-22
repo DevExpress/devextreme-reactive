@@ -16,9 +16,6 @@ export const SortingControl = ({
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
       onKeyDown={onClick}
-      style={{
-        margin: '2px',
-      }}
     >
       <SortingIndicator
         direction={sortingDirection}
@@ -34,9 +31,6 @@ export const SortingControl = ({
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
       onKeyDown={onClick}
-      style={{
-        margin: '2px',
-      }}
     >
       {columnTitle}
       &nbsp;

@@ -4,9 +4,15 @@ import { Popover, PopoverBody } from 'reactstrap';
 import { TOGGLE_BUTTON_ID } from './constants';
 
 export const Overlay = ({
-  visible, children, toggle,
+  visible, children, toggle, target,
 }) => (
-  <Popover placement="bottom" isOpen={visible} target={TOGGLE_BUTTON_ID} toggle={toggle} >
+  <Popover
+    placement="bottom"
+    isOpen={visible}
+    target={TOGGLE_BUTTON_ID}
+    toggle={toggle}
+    container={target ? target.parentElement : undefined}
+  >
     <PopoverBody>
       {children}
     </PopoverBody>
@@ -17,8 +23,10 @@ Overlay.propTypes = {
   children: PropTypes.node.isRequired,
   toggle: PropTypes.func.isRequired,
   visible: PropTypes.bool,
+  target: PropTypes.object,
 };
 
 Overlay.defaultProps = {
   visible: false,
+  target: undefined,
 };

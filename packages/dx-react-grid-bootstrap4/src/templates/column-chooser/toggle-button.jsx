@@ -12,7 +12,7 @@ export const ToggleButton = ({
     id={TOGGLE_BUTTON_ID}
     className={classNames('btn btn-outline-secondary', className)}
     onClick={onToggle}
-    tabIndex={0}
+    ref={buttonRef}
     {...restProps}
   >
     <span className="oi oi-eye" />

@@ -7,6 +7,7 @@ import {
   groupingPanelItems,
   getColumnSortingDirection,
   getMessagesFormatter,
+  getColumnExtension,
 } from '@devexpress/dx-grid-core';
 
 export class GroupingPanel extends React.PureComponent {
@@ -18,6 +19,7 @@ export class GroupingPanel extends React.PureComponent {
       emptyMessageComponent: EmptyMessage,
       showSortingControls,
       showGroupingControls,
+      columnExtensions,
       messages,
     } = this.props;
 
@@ -31,12 +33,15 @@ export class GroupingPanel extends React.PureComponent {
 
     const ItemPlaceholder = ({ item }) => {
       const { name: columnName } = item.column;
+      const { showSortingControl } = getColumnExtension(columnExtensions, columnName);
       return (
         <TemplateConnector>
           {({ sorting }, { changeColumnGrouping, changeColumnSorting }) => (
             <Item
               item={item}
-              showSortingControls={showSortingControls && sorting !== undefined}
+              showSortingControls={
+                showSortingControls && sorting !== undefined && showSortingControl !== false
+              }
               sortingDirection={sorting !== undefined
                 ? getColumnSortingDirection(sorting, columnName) : undefined}
               showGroupingControls={showGroupingControls}
@@ -92,10 +97,12 @@ GroupingPanel.propTypes = {
   itemComponent: PropTypes.func.isRequired,
   emptyMessageComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
+  columnExtensions: PropTypes.array,
 };
 
 GroupingPanel.defaultProps = {
   showSortingControls: false,
   showGroupingControls: false,
   messages: {},
+  columnExtensions: undefined,
 };

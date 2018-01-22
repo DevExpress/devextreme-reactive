@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Root = ({ children, className, ...restProps }) => (
-  <div className={classNames('panel panel-default', className)}{...restProps}>
+  <div className={classNames('card', className)}{...restProps}>
     {children}
   </div>
 );

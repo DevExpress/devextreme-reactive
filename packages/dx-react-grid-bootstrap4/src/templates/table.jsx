@@ -32,11 +32,11 @@ export class Table extends React.Component {
   checkStyles() {
     globalStickyProp = testCSSProp('position', 'sticky');
 
-    let panel = this.node.parentElement;
-    while (!panel.classList.contains('panel')) {
-      panel = panel.parentElement;
+    let card = this.node.parentElement;
+    while (!card.classList.contains('card')) {
+      card = card.parentElement;
     }
-    const { backgroundColor } = window.getComputedStyle(panel);
+    const { backgroundColor } = window.getComputedStyle(card);
 
     if (this.state.backgroundColor !== backgroundColor
       || this.state.stickyProp !== globalStickyProp) {

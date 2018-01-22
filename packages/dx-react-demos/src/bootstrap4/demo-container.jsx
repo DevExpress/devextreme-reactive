@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
 
-const DEFAULT_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
+const BOOTSTRAP4_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
 const ICONS = 'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css';
 
 export default class DemoContainer extends React.PureComponent {
@@ -10,7 +10,6 @@ export default class DemoContainer extends React.PureComponent {
     super(props, context);
 
     this.state = {
-      defaultThemeLink: DEFAULT_THEME,
       frameHeight: 600,
     };
 
@@ -20,6 +19,8 @@ export default class DemoContainer extends React.PureComponent {
       <!DOCTYPE html>
       <html>
       <head>
+        <link rel="stylesheet" href="${BOOTSTRAP4_THEME}" />
+        <link rel="stylesheet" href="${ICONS}" />
         <style>
           .panel { margin: 0 !important; }
         </style>
@@ -48,7 +49,7 @@ export default class DemoContainer extends React.PureComponent {
   render() {
     const { children } = this.props;
     const { embeddedDemoOptions: { frame } } = this.context;
-    const { defaultThemeLink, frameHeight } = this.state;
+    const { frameHeight } = this.state;
 
     return (
       <div>
@@ -65,14 +66,6 @@ export default class DemoContainer extends React.PureComponent {
               initialContent={this.markup}
               mountTarget="#mountPoint"
             >
-              <link
-                rel="stylesheet"
-                href={defaultThemeLink}
-              />
-              <link
-                rel="stylesheet"
-                href={ICONS}
-              />
               <div ref={(node) => { this.node = node; }} />
             </Frame>
         )}

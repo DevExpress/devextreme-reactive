@@ -17,11 +17,9 @@ export const Pager = ({
   ...restProps
 }) => (
   <div
-    className={classNames('breadcrumb', 'clearfix', 'd-block', className)}
+    className={classNames('card-footer', 'clearfix', className)}
     style={{
       marginBottom: 0,
-      borderTopLeftRadius: 0,
-      borderTopRightRadius: 0,
     }}
     {...restProps}
   >

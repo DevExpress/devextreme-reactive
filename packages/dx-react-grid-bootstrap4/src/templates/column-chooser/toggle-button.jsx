@@ -6,11 +6,12 @@ import { TOGGLE_BUTTON_ID } from './constants';
 export const ToggleButton = ({
   onToggle, className,
   getMessage, buttonRef,
-  ...restProps
+  style, ...restProps
 }) => (
   <button
     id={TOGGLE_BUTTON_ID}
     className={classNames('btn btn-outline-secondary', className)}
+    style={{ borderColor: 'transparent', ...style }}
     onClick={onToggle}
     ref={buttonRef}
     {...restProps}
@@ -24,8 +25,10 @@ ToggleButton.propTypes = {
   getMessage: PropTypes.func.isRequired,
   buttonRef: PropTypes.func.isRequired,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 ToggleButton.defaultProps = {
   className: undefined,
+  style: undefined,
 };

@@ -31,7 +31,7 @@ const renderPageButtons = (
         key={1}
         onClick={() => onCurrentPageChange(0)}
       >
-        <PaginationLink tabIndex={0}>
+        <PaginationLink tabIndex={0} href="#">
           {1}
         </PaginationLink>
       </PaginationItem>
@@ -56,7 +56,7 @@ const renderPageButtons = (
         active={page === currentPage + 1}
         disabled={startPage === endPage}
       >
-        <PaginationLink tabIndex={0}>
+        <PaginationLink tabIndex={0} href="#">
           {page}
         </PaginationLink>
       </PaginationItem>
@@ -79,7 +79,7 @@ const renderPageButtons = (
         key={totalPageCount}
         onClick={() => onCurrentPageChange(totalPageCount - 1)}
       >
-        <PaginationLink tabIndex={0}>
+        <PaginationLink tabIndex={0} href="#">
           {totalPageCount}
         </PaginationLink>
       </PaginationItem>

@@ -41,9 +41,7 @@ export default class Demo extends React.PureComponent {
           />
           <IntegratedSorting />
           <Table />
-          <TableHeaderRow
-            showSortingControls
-          />
+          <TableHeaderRow showSortingControls />
         </Grid>
       </Paper>
     );

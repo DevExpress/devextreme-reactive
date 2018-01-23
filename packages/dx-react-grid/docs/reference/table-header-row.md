@@ -80,6 +80,7 @@ changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => voi
 draftTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
 cancelTableColumnWidthDraft | Action | () => void | Cancels changes to the column width used for preview.
 draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
+columnSortingEnabled | Getter | (columnName: string) => boolean | A function used to define if sorting by column is enabled.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
 

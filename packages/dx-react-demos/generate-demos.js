@@ -18,6 +18,7 @@ fs.readdirSync(THEMES_FOLDER).forEach((themeName) => {
   }
 });
 
+const filesToRemove = [];
 const demos = [];
 fs.readdirSync(DEMOS_FOLDER).forEach((sectionName) => {
   if (!sectionName.startsWith('.') && fs.lstatSync(path.join(DEMOS_FOLDER, sectionName)).isDirectory()) {
@@ -28,7 +29,7 @@ fs.readdirSync(DEMOS_FOLDER).forEach((sectionName) => {
       if (fs.lstatSync(path.join(DEMOS_FOLDER, sectionName, file)).isDirectory()) {
         fs.readdirSync(path.join(DEMOS_FOLDER, sectionName, file)).forEach((nestedFile) => {
           if (nestedFile.indexOf(GENERATED_SUFFIX) > -1) {
-            fs.unlinkSync(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
+            filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
             return;
           }
           const demoName = nestedFile.replace(`.${JSX_EXT}`, '');
@@ -60,7 +61,19 @@ const createFromTemplate = (sourceFilename, outputFilename, data) => {
   const source = fs.readFileSync(sourceFilename, 'utf-8');
   mustache.parse(source, ['<%', '%>']);
   const output = mustache.render(source, data);
-  fs.writeFileSync(outputFilename, output, 'utf-8');
+
+  let existingOutput;
+  if (fs.existsSync(outputFilename)) {
+    existingOutput = fs.readFileSync(outputFilename, 'utf-8');
+  }
+  if (existingOutput !== output) {
+    fs.writeFileSync(outputFilename, output, 'utf-8');
+  }
+
+  const removeIndex = filesToRemove.indexOf(outputFilename);
+  if (removeIndex > -1) {
+    filesToRemove.splice(removeIndex, 1);
+  }
 };
 
 demos.forEach(({
@@ -103,3 +116,5 @@ demos.forEach(({
     }
   });
 });
+
+filesToRemove.forEach(file => fs.unlinkSync(file));

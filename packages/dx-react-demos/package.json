@@ -37,7 +37,6 @@
     "core-js": "^2.5.3",
     "material-ui": "1.0.0-beta.29",
     "material-ui-icons": "1.0.0-beta.17",
-    "mustache": "^2.3.0",
     "prismjs": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",

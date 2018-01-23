@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TOGGLE_BUTTON_ID } from './constants';
 
 export const ToggleButton = ({
   onToggle, className,
@@ -9,7 +8,6 @@ export const ToggleButton = ({
   style, ...restProps
 }) => (
   <button
-    id={TOGGLE_BUTTON_ID}
     className={classNames('btn btn-outline-secondary', className)}
     style={{ borderColor: 'transparent', ...style }}
     onClick={onToggle}

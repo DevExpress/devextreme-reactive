@@ -10,6 +10,7 @@ describe('Overlay', () => {
         className="custom-class"
         onHide={() => {}}
         toggle={toggle}
+        target={{}}
       >
         <div />
       </Overlay>
@@ -25,6 +26,7 @@ describe('Overlay', () => {
         data={{ a: 1 }}
         onHide={() => {}}
         toggle={toggle}
+        target={{}}
       >
         <div />
       </Overlay>

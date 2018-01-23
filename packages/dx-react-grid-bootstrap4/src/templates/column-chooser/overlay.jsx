@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Popover, PopoverBody } from 'reactstrap';
-import { TOGGLE_BUTTON_ID } from './constants';
 
 export const Overlay = ({
-  visible, children, toggle, target, ...restProps
+  visible, children, toggle, target, onHide, ...restProps
 }) => (
-  <Popover
-    placement="bottom"
-    isOpen={visible}
-    target={TOGGLE_BUTTON_ID}
-    toggle={toggle}
-    container={target ? target.parentElement : undefined}
-    {...restProps}
-  >
-    <PopoverBody>
-      {children}
-    </PopoverBody>
-  </Popover>
+  target ? (
+    <Popover
+      placement="bottom"
+      isOpen={visible}
+      target={target}
+      toggle={toggle}
+      container={target ? target.parentElement : undefined}
+      {...restProps}
+    >
+      <PopoverBody>
+        {children}
+      </PopoverBody>
+    </Popover>
+  ) : null
 );
 
 Overlay.propTypes = {
@@ -25,9 +26,11 @@ Overlay.propTypes = {
   toggle: PropTypes.func.isRequired,
   visible: PropTypes.bool,
   target: PropTypes.object,
+  onHide: PropTypes.func,
 };
 
 Overlay.defaultProps = {
   visible: false,
   target: undefined,
+  onHide: undefined,
 };

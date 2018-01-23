@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';<%&additionalImports%>
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
@@ -10,7 +10,7 @@ import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
   generateRows,
@@ -42,23 +42,24 @@ const tableDetailColumnExtensions = [
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-const GridDetailContainer = ({ row }) => (
-  <div style={{ margin: '20px' }}>
+const GridDetailContainer = ({ row, classes }) => (
+  <div style={{ margin: 20 }}>
     <div>
       <h5>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
     </div>
-    <Grid
-      rows={row.tasks}
-      columns={detailColumns}
-    >
-      <Table
-        columnExtensions={tableDetailColumnExtensions}
-      />
-      <TableHeaderRow />
-    </Grid>
+    <<%&wrapperTag%>>
+      <Grid
+        rows={row.tasks}
+        columns={detailColumns}
+      >
+        <Table
+          columnExtensions={tableDetailColumnExtensions}
+        />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
   </div>
 );
-
 GridDetailContainer.propTypes = {
   row: PropTypes.object.isRequired,
 };
@@ -89,73 +90,74 @@ const GridContainer = ({
   columnWidths,
   onColumnWidthsChange,
 }) => (
-  <Grid
-    rows={rows}
-    columns={columns}
-  >
-    <FilteringState
-      filters={filters}
-      onFiltersChange={onFiltersChange}
-    />
-    <SortingState
-      sorting={sorting}
-      onSortingChange={onSortingChange}
-    />
-    <GroupingState
-      grouping={grouping}
-      onGroupingChange={onGroupingChange}
-      expandedGroups={expandedGroups}
-      onExpandedGroupsChange={onExpandedGroupsChange}
-    />
-    <PagingState
-      currentPage={currentPage}
-      onCurrentPageChange={onCurrentPageChange}
-      pageSize={pageSize}
-      onPageSizeChange={onPageSizeChange}
-    />
-    <RowDetailState
-      expandedRowIds={expandedRowIds}
-      onExpandedRowIdsChange={onExpandedRowIdsChange}
-    />
-    <SelectionState
-      selection={selection}
-      onSelectionChange={onSelectionChange}
-    />
+  <<%&wrapperTag%>>
+    <Grid
+      rows={rows}
+      columns={columns}
+    >
+      <FilteringState
+        filters={filters}
+        onFiltersChange={onFiltersChange}
+      />
+      <SortingState
+        sorting={sorting}
+        onSortingChange={onSortingChange}
+      />
+      <GroupingState
+        grouping={grouping}
+        onGroupingChange={onGroupingChange}
+        expandedGroups={expandedGroups}
+        onExpandedGroupsChange={onExpandedGroupsChange}
+      />
+      <PagingState
+        currentPage={currentPage}
+        onCurrentPageChange={onCurrentPageChange}
+        pageSize={pageSize}
+        onPageSizeChange={onPageSizeChange}
+      />
+      <RowDetailState
+        expandedRowIds={expandedRowIds}
+        onExpandedRowIdsChange={onExpandedRowIdsChange}
+      />
+      <SelectionState
+        selection={selection}
+        onSelectionChange={onSelectionChange}
+      />
 
-    <IntegratedFiltering />
-    <IntegratedSorting />
-    <IntegratedGrouping />
-    <IntegratedPaging />
-    <IntegratedSelection />
+      <IntegratedFiltering />
+      <IntegratedSorting />
+      <IntegratedGrouping />
+      <IntegratedPaging />
+      <IntegratedSelection />
 
-    <DragDropProvider />
+      <DragDropProvider />
 
-    <Table />
+      <Table />
 
-    <TableColumnReordering
-      order={columnOrder}
-      onOrderChange={onColumnOrderChange}
-    />
+      <TableColumnReordering
+        order={columnOrder}
+        onOrderChange={onColumnOrderChange}
+      />
 
-    <TableColumnResizing
-      columnWidths={columnWidths}
-      onColumnWidthsChange={onColumnWidthsChange}
-    />
+      <TableColumnResizing
+        columnWidths={columnWidths}
+        onColumnWidthsChange={onColumnWidthsChange}
+      />
 
-    <TableHeaderRow showSortingControls />
-    <TableFilterRow />
-    <TableSelection showSelectAll />
-    <TableRowDetail
-      contentComponent={ReduxGridDetailContainer}
-    />
-    <Toolbar />
-    <GroupingPanel showSortingControls />
-    <TableGroupRow />
-    <PagingPanel
-      pageSizes={pageSizes}
-    />
-
-  </Grid>
+      <TableHeaderRow showSortingControls />
+      <TableFilterRow />
+      <TableSelection showSelectAll />
+      <TableRowDetail
+        contentComponent={ReduxGridDetailContainer}
+      />
+      <TableGroupRow />
+      <Toolbar />
+      <GroupingPanel showSortingControls />
+      <PagingPanel
+        pageSizes={pageSizes}
+      />
+    </Grid>
+  </<%&wrapperTag%>>
 );
 
 GridContainer.propTypes = {

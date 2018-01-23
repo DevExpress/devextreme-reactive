@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';<%&additionalImports%>
 import {
   PagingState,
   SortingState,
@@ -10,17 +10,18 @@ import {
   Table,
   TableHeaderRow,
   PagingPanel,
-} from '@devexpress/dx-react-grid-bootstrap3';
-import { Loading } from '../../../theme-sources/bootstrap3/components/loading';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
 
 const SaleAmountCell = ({ value }) => (
-  <td
+  <Table.Cell
     style={{ textAlign: 'right' }}
   >
     ${value}
-  </td>
+  </Table.Cell>
 );
 SaleAmountCell.propTypes = {
   value: PropTypes.any.isRequired,
@@ -138,7 +139,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <div style={{ position: 'relative' }}>
+      <<%&wrapperTag%> style={{ position: 'relative' }}>
         <Grid
           rows={rows}
           columns={columns}
@@ -166,7 +167,7 @@ export default class Demo extends React.PureComponent {
           />
         </Grid>
         {loading && <Loading />}
-      </div>
+      </<%&wrapperTag%>>
     );
   }
 }

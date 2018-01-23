@@ -1,23 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
+import PropTypes from 'prop-types';<%&additionalImports%>
 import {
-  SortingState, SelectionState, FilteringState, PagingState, GroupingState,
-  IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
+  SortingState, SelectionState, FilteringState, GroupingState,
+  IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
-  TableColumnVisibility, ColumnChooser,
-} from '@devexpress/dx-react-grid-material-ui';
+  VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
+  GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
   ProgressBarCell,
-} from '../../../theme-sources/material-ui/components/progress-bar-cell';
+} from '../../../theme-sources/<%&themeName%>/components/progress-bar-cell';
 import {
   HighlightedCell,
-} from '../../../theme-sources/material-ui/components/highlighted-cell';
+} from '../../../theme-sources/<%&themeName%>/components/highlighted-cell';
 
 import {
   generateRows,
@@ -31,11 +29,13 @@ const Cell = (props) => {
   if (props.column.name === 'amount') {
     return <HighlightedCell {...props} />;
   }
-  return <Table.Cell {...props} />;
+  return <VirtualTable.Cell {...props} />;
 };
 Cell.propTypes = {
   column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
+
+const getRowId = row => row.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -52,24 +52,27 @@ export default class Demo extends React.PureComponent {
       ],
       tableColumnExtensions: [
         { columnName: 'amount', align: 'right' },
+        { columnName: 'discount' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
-      pageSizes: [5, 10, 15],
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...globalSalesValues },
+        length: 200000,
+      }),
     };
   }
   render() {
-    const {
-      rows, columns, tableColumnExtensions, pageSizes,
-    } = this.state;
+    const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
+          getRowId={getRowId}
         >
-          <FilteringState
+          <DragDropProvider />
 
+          <FilteringState
             defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
           />
           <SortingState
@@ -78,49 +81,30 @@ export default class Demo extends React.PureComponent {
               { columnName: 'saleDate', direction: 'asc' },
             ]}
           />
-
-          <SelectionState />
-
           <GroupingState
             defaultGrouping={[{ columnName: 'product' }]}
             defaultExpandedGroups={['EnviroCare Max']}
           />
-          <PagingState
-            defaultCurrentPage={0}
-            defaultPageSize={10}
-          />
+          <SelectionState />
 
-          <IntegratedGrouping />
           <IntegratedFiltering />
           <IntegratedSorting />
-          <IntegratedPaging />
+          <IntegratedGrouping />
           <IntegratedSelection />
 
-          <DragDropProvider />
-
-          <Table
+          <VirtualTable
             columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
-          <TableSelection showSelectAll />
-
-          <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
-
           <TableHeaderRow showSortingControls />
+          <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
           <TableFilterRow />
-          <PagingPanel
-            pageSizes={pageSizes}
-          />
-
+          <TableSelection showSelectAll />
           <TableGroupRow />
-          <TableColumnVisibility
-            defaultHiddenColumnNames={['customer']}
-          />
           <Toolbar />
           <GroupingPanel showSortingControls />
-          <ColumnChooser />
         </Grid>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

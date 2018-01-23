@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react';{{&additionalImports}}
 import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-{{&themeName}}';
 
 import {
   generateRows,
@@ -30,13 +30,15 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <Table />
-        <TableHeaderRow />
-      </Grid>
+      <{{&wrapperTag}}>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <Table />
+          <TableHeaderRow />
+        </Grid>
+      </{{&wrapperTag}}>
     );
   }
 }

@@ -230,14 +230,10 @@ const gridInitialState = {
 
 const gridReducer = (state = gridInitialState, action) => {
   if (action.type === GRID_STATE_CHANGE_ACTION) {
-    const nextState = Object.assign(
-      {},
-      state,
-      {
-        [action.partialStateName]: action.partialStateValue,
-      },
-    );
-    return nextState;
+    return {
+      ...state,
+      [action.partialStateName]: action.partialStateValue,
+    };
   }
   return state;
 };
@@ -269,7 +265,7 @@ const store = createStore(
   gridReducer,
   // Enabling Redux DevTools Extension (https://github.com/zalmoxisus/redux-devtools-extension)
   // eslint-disable-next-line no-underscore-dangle
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  typeof window !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : undefined,
 );
 
 export default () => (

@@ -16,3 +16,6 @@
 /site/core
 /site/grid
 /site/react
+
+# Demos
+/packages/**/*.g*

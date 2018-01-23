@@ -24,7 +24,7 @@ module.exports = ({ production }) => ({
       },
       {
         test: /demo\-registry\.json$/,
-        use: [path.resolve('src/demo-registry-loader.js')]
+        use: [path.resolve('demo-registry-loader.js')]
       },
       {
         test: /\.jsx?$/,

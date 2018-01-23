@@ -9,7 +9,6 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   getMessagesFormatter,
-  getColumnExtension,
   TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
@@ -23,7 +22,6 @@ export class TableHeaderRow extends React.PureComponent {
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
       messages,
-      columnExtensions,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
 
@@ -47,7 +45,11 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
+                sorting,
+                columnSortingEnabled,
+                tableColumns,
+                draggingEnabled,
+                tableColumnResizingEnabled,
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
@@ -56,14 +58,15 @@ export class TableHeaderRow extends React.PureComponent {
                 const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
 
-                const { showSortingControl } = getColumnExtension(columnExtensions, columnName);
                 return (
                   <HeaderCell
                     {...params}
                     column={params.tableColumn.column}
                     getMessage={getMessage}
                     showSortingControls={
-                      showSortingControls && sorting !== undefined && showSortingControl !== false
+                      showSortingControls &&
+                      sorting !== undefined &&
+                      columnSortingEnabled(columnName)
                     }
                     showGroupingControls={showGroupingControls && atLeastOneDataColumn}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
@@ -99,12 +102,10 @@ TableHeaderRow.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
-  columnExtensions: PropTypes.array,
 };
 
 TableHeaderRow.defaultProps = {
   showSortingControls: false,
   showGroupingControls: false,
   messages: null,
-  columnExtensions: undefined,
 };

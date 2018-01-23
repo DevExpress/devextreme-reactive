@@ -36,6 +36,9 @@ export default class Demo extends React.PureComponent {
         columns={columns}
       >
         <SortingState
+          columnExtensions={[
+            { columnName: 'car', sortable: false },
+          ]}
           defaultSorting={[{ columnName: 'city', direction: 'asc' }]}
         />
         <IntegratedSorting />

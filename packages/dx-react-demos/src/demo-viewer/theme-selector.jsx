@@ -38,7 +38,7 @@ export const ThemeSelector = (
   {
     selectedThemeName, selectedVariantName, avaliableThemes, onChange,
   },
-  { embeddedDemoOptions: { showThemeVariants = false } },
+  { embeddedDemoOptions: { showThemeVariants } },
 ) => {
   const selectedTheme = themes.find(({ name }) => name === selectedThemeName);
 

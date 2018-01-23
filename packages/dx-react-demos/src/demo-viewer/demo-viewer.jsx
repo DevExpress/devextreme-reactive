@@ -10,7 +10,7 @@ import { SourceCode } from './source-code';
 
 export const DemoViewer = (
   { match: { params: { demoName, sectionName }, url } },
-  { embeddedDemoOptions: { defaultTab = 'preview' } },
+  { embeddedDemoOptions: { defaultTab = 'preview', showThemeSelector = true } },
 ) => (
   <Switch>
     <Route
@@ -38,7 +38,7 @@ export const DemoViewer = (
                 id={`${sectionName}-${demoName}-demo`}
                 defaultActiveKey={defaultTab}
               >
-                <div style={{ marginTop: '-38px' }}>
+                <div style={{ marginTop: showThemeSelector ? '-38px' : 0 }}>
                   <Nav bsStyle="tabs">
                     <NavItem eventKey="preview">Preview</NavItem>
                     <NavItem eventKey="source">Source</NavItem>

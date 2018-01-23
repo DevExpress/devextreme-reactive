@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Paper from 'material-ui/Paper';
 import {
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
@@ -8,7 +9,7 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+
 import {
   generateRows,
   globalSalesValues,

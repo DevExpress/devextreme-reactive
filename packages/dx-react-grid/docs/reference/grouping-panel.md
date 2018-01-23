@@ -101,6 +101,7 @@ draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => 
 cancelColumnGroupingDraft | Action | () => void | Cancels changes to the column grouping options used for the preview.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
 changeColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
+columnSortingEnabled | Getter | (columnName: string) => boolean | A function used to define if sorting by column is enabled.
 draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
 toolbarContent | Template | Object? | A template that renders the toolbar content.
 

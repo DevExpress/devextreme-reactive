@@ -33,11 +33,11 @@ export class GroupingPanel extends React.PureComponent {
       const { name: columnName } = item.column;
       return (
         <TemplateConnector>
-          {({ sorting }, { changeColumnGrouping, changeColumnSorting }) => (
+          {({ sorting, columnSortingEnabled }, { changeColumnGrouping, changeColumnSorting }) => (
             <Item
               item={item}
               showSortingControls={
-                showSortingControls && sorting !== undefined
+                showSortingControls && sorting !== undefined && columnSortingEnabled(columnName)
               }
               sortingDirection={sorting !== undefined
                 ? getColumnSortingDirection(sorting, columnName) : undefined}

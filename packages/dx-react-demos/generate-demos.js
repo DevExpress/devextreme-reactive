@@ -11,75 +11,90 @@ const TEST_FILE = 'demo.test.jsxt';
 const SSR_TEST_FILE = 'demo.ssr.test.jsxt';
 const GENERATED_SUFFIX = '.g';
 
-const themes = [];
-fs.readdirSync(THEMES_FOLDER).forEach((themeName) => {
-  if (!themeName.startsWith('.') && fs.lstatSync(path.join(THEMES_FOLDER, themeName)).isDirectory()) {
-    themes.push({ name: themeName });
-  }
-});
+const themeNames = [];
+const loadThemeNames = () => {
+  fs.readdirSync(THEMES_FOLDER).forEach((themeName) => {
+    if (!themeName.startsWith('.') && fs.lstatSync(path.join(THEMES_FOLDER, themeName)).isDirectory()) {
+      themeNames.push(themeName);
+    }
+  });
+};
 
 const filesToRemove = [];
-const demos = [];
-fs.readdirSync(DEMOS_FOLDER).forEach((sectionName) => {
-  if (!sectionName.startsWith('.') && fs.lstatSync(path.join(DEMOS_FOLDER, sectionName)).isDirectory()) {
-    const generateSsrTest = sectionName.indexOf('featured') > -1;
-
-    fs.readdirSync(path.join(DEMOS_FOLDER, sectionName)).forEach((file) => {
-      if (file.startsWith('.')) return;
-      if (fs.lstatSync(path.join(DEMOS_FOLDER, sectionName, file)).isDirectory()) {
-        fs.readdirSync(path.join(DEMOS_FOLDER, sectionName, file)).forEach((nestedFile) => {
-          if (nestedFile.indexOf(GENERATED_SUFFIX) > -1) {
-            filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
-            return;
-          }
-          const demoName = nestedFile.replace(`.${JSX_EXT}`, '');
-          demos.push({
-            sectionName,
-            demoName,
-            themes: [{ name: file }],
-            generateTest: true,
-            generateSsrTest,
-          });
-        });
-      }
-      if (file.endsWith(`.${JSX_EXT}${TEMPLATE_EXT_POSTFIX}`)) {
-        const demoName = file.replace(`.${JSX_EXT}${TEMPLATE_EXT_POSTFIX}`, '');
-        demos.push({
-          sectionName,
-          demoName,
-          themes,
-          generateDemo: true,
-          generateTest: true,
-          generateSsrTest,
-        });
-      }
-    });
-  }
-});
-
-const createFromTemplate = (sourceFilename, outputFilename, data) => {
-  const source = fs.readFileSync(sourceFilename, 'utf-8');
-  mustache.parse(source, ['<%', '%>']);
-  const output = mustache.render(source, data);
-
-  let existingOutput;
-  if (fs.existsSync(outputFilename)) {
-    existingOutput = fs.readFileSync(outputFilename, 'utf-8');
-  }
-  if (existingOutput !== output) {
-    fs.writeFileSync(outputFilename, output, 'utf-8');
-  }
-
-  const removeIndex = filesToRemove.indexOf(outputFilename);
+const cancelFileRemoving = (filename) => {
+  const removeIndex = filesToRemove.indexOf(filename);
   if (removeIndex > -1) {
     filesToRemove.splice(removeIndex, 1);
   }
 };
+const removePendingFiles = () => {
+  filesToRemove.forEach(file => fs.unlinkSync(file));
+};
 
-demos.forEach(({
-  sectionName, demoName, themes: demoThemes, generateDemo, generateTest, generateSsrTest,
-}) => {
-  demoThemes.forEach(({ name: themeName }) => {
+const demos = [];
+const loadDemosToGenerate = () => {
+  fs.readdirSync(DEMOS_FOLDER).forEach((sectionName) => {
+    if (!sectionName.startsWith('.') && fs.lstatSync(path.join(DEMOS_FOLDER, sectionName)).isDirectory()) {
+      const generateSsrTest = sectionName.indexOf('featured') > -1;
+
+      fs.readdirSync(path.join(DEMOS_FOLDER, sectionName)).forEach((file) => {
+        if (file.startsWith('.')) return;
+        if (fs.lstatSync(path.join(DEMOS_FOLDER, sectionName, file)).isDirectory()) {
+          fs.readdirSync(path.join(DEMOS_FOLDER, sectionName, file)).forEach((nestedFile) => {
+            if (nestedFile.indexOf(GENERATED_SUFFIX) > -1) {
+              filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
+              return;
+            }
+            const demoName = nestedFile.replace(`.${JSX_EXT}`, '');
+            demos.push({
+              sectionName,
+              demoName,
+              themeName: file,
+              generateTest: true,
+              generateSsrTest,
+            });
+          });
+        }
+        if (file.endsWith(`.${JSX_EXT}${TEMPLATE_EXT_POSTFIX}`)) {
+          const demoName = file.replace(`.${JSX_EXT}${TEMPLATE_EXT_POSTFIX}`, '');
+          themeNames.forEach((themeName) => {
+            if (fs.existsSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.jsx`))) {
+              return;
+            }
+            demos.push({
+              sectionName,
+              demoName,
+              themeName,
+              generateDemo: true,
+              generateTest: true,
+              generateSsrTest,
+            });
+          });
+        }
+      });
+    }
+  });
+};
+const overrideFileIfChanged = (filename, data) => {
+  let existingData;
+  if (fs.existsSync(filename)) {
+    existingData = fs.readFileSync(filename, 'utf-8');
+  }
+  if (existingData !== data) {
+    fs.writeFileSync(filename, data, 'utf-8');
+  }
+};
+const createFromTemplate = (sourceFilename, outputFilename, data) => {
+  const source = fs.readFileSync(sourceFilename, 'utf-8');
+  mustache.parse(source, ['<%', '%>']);
+  const output = mustache.render(source, data);
+  overrideFileIfChanged(outputFilename, output);
+  cancelFileRemoving(outputFilename);
+};
+const generateDemos = () => {
+  demos.forEach(({
+    sectionName, demoName, themeName, generateDemo, generateTest, generateSsrTest,
+  }) => {
     const demoSourceData = {
       themeName,
       sectionName,
@@ -115,6 +130,9 @@ demos.forEach(({
       );
     }
   });
-});
+};
 
-filesToRemove.forEach(file => fs.unlinkSync(file));
+loadThemeNames();
+loadDemosToGenerate();
+generateDemos();
+removePendingFiles();

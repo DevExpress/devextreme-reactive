@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';<%&additionalImports%>
 import {
   SortingState,
   IntegratedSorting,
@@ -7,7 +7,7 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
   generateRows,
@@ -40,7 +40,7 @@ export default class Demo extends React.PureComponent {
         { name: 'dueDate', title: 'Due Date' },
         { name: 'priority', title: 'Priority' },
       ],
-      intergatedSortingColumnExtensions: [
+      integratedSortingColumnExtensions: [
         { columnName: 'priority', compare: comparePriority },
       ],
       tableColumnExtensions: [
@@ -54,23 +54,25 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, intergatedSortingColumnExtensions, tableColumnExtensions,
+      rows, columns, integratedSortingColumnExtensions, tableColumnExtensions,
     } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <SortingState />
-        <IntegratedSorting
-          columnExtensions={intergatedSortingColumnExtensions}
-        />
-        <Table
-          columnExtensions={tableColumnExtensions}
-        />
-        <TableHeaderRow showSortingControls />
-      </Grid>
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <SortingState />
+          <IntegratedSorting
+            columnExtensions={integratedSortingColumnExtensions}
+          />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
+          <TableHeaderRow showSortingControls />
+        </Grid>
+      </<%&wrapperTag%>>
     );
   }
 }

@@ -1,14 +1,19 @@
-import React from 'react';
+import React from 'react';<%&additionalImports%>
 import {
   SortingState,
+  GroupingState,
   IntegratedSorting,
+  IntegratedGrouping,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+  TableGroupRow,
+  GroupingPanel,
+  Toolbar,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
 import {
   generateRows,
 } from '../../../demo-data/generator';
@@ -31,19 +36,29 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
         >
           <SortingState
-            defaultSorting={[{ columnName: 'city', direction: 'asc' }]}
+            defaultSorting={[
+              { columnName: 'city', direction: 'asc' },
+              { columnName: 'name', direction: 'desc' },
+            ]}
+          />
+          <GroupingState
+            defaultGrouping={[{ columnName: 'city' }]}
           />
           <IntegratedSorting />
+          <IntegratedGrouping />
           <Table />
           <TableHeaderRow showSortingControls />
+          <TableGroupRow />
+          <Toolbar />
+          <GroupingPanel showSortingControls />
         </Grid>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';<%&additionalImports%>
 import {
   SortingState,
   IntegratedSorting,
@@ -7,7 +7,7 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
   generateRows,
@@ -34,18 +34,20 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, sorting } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <SortingState
-          sorting={sorting}
-          onSortingChange={this.changeSorting}
-        />
-        <IntegratedSorting />
-        <Table />
-        <TableHeaderRow showSortingControls />
-      </Grid>
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <SortingState
+            sorting={sorting}
+            onSortingChange={this.changeSorting}
+          />
+          <IntegratedSorting />
+          <Table />
+          <TableHeaderRow showSortingControls />
+        </Grid>
+      </<%&wrapperTag%>>
     );
   }
 }

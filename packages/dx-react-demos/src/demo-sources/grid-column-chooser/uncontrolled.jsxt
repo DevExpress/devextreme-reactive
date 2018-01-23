@@ -1,4 +1,4 @@
-import React from 'react';{{&additionalImports}}
+import React from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -6,7 +6,7 @@ import {
   ColumnChooser,
   TableColumnVisibility,
   Toolbar,
-} from '@devexpress/dx-react-grid-{{&themeName}}';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 import {
   generateRows,
 } from '../../../demo-data/generator';
@@ -30,7 +30,7 @@ export default class Demo extends React.PureComponent {
   render() {
     const { columns, rows, defaultHiddenColumnNames } = this.state;
     return (
-      <{{&wrapperTag}}>
+      <<%&wrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
           <Toolbar />
           <ColumnChooser />
         </Grid>
-      </{{&wrapperTag}}>
+      </<%&wrapperTag%>>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';<%&additionalImports%>
 import {
   SortingState,
 } from '@devexpress/dx-react-grid';
@@ -6,9 +6,9 @@ import {
   Grid,
   VirtualTable,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
-import { Loading } from '../../../theme-sources/material-ui/components/loading';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
 
@@ -76,7 +76,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Paper style={{ position: 'relative' }}>
+      <<%&wrapperTag%> style={{ position: 'relative' }}>
         <Grid
           rows={rows}
           columns={columns}
@@ -89,7 +89,7 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow showSortingControls />
         </Grid>
         {loading && <Loading />}
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

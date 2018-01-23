@@ -58,6 +58,7 @@ fs.readdirSync(DEMOS_FOLDER).forEach((sectionName) => {
 
 const createFromTemplate = (sourceFilename, outputFilename, data) => {
   const source = fs.readFileSync(sourceFilename, 'utf-8');
+  mustache.parse(source, ['<%', '%>']);
   const output = mustache.render(source, data);
   fs.writeFileSync(outputFilename, output, 'utf-8');
 };

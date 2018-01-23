@@ -11,4 +11,16 @@ describe('TableSelectCell', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
+
+  it('should pass style to the root element', () => {
+    const tree = shallow((
+      <TableSelectCell style={{ width: '40px' }} />
+    ));
+    expect(tree.find('td').prop('style'))
+      .toEqual({
+        cursor: 'pointer',
+        verticalAlign: 'middle',
+        width: '40px',
+      });
+  });
 });

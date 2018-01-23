@@ -16,7 +16,7 @@ export const GroupingControl = ({ align, onGroup }) => {
         width: '14px',
       }}
     >
-      <i
+      <span
         className="oi oi-list"
         style={{
           top: '0',

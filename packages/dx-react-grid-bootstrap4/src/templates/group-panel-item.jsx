@@ -10,8 +10,8 @@ const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_K
 
 export const GroupPanelItem = ({
   item: { column, draft },
-  onGroup, showGroupingControls,
-  showSortingControls, sortingDirection, onSort, className,
+  onGroup, showGroupingControls, showSortingControls,
+  sortingDirection, onSort, className, style,
   ...restProps
 }) => {
   const handleSortingChange = (e) => {
@@ -45,6 +45,7 @@ export const GroupPanelItem = ({
         marginRight: '5px',
         marginBottom: '5px',
         ...draft ? { opacity: 0.3 } : null,
+        ...style,
       }}
       {...restProps}
     >
@@ -97,6 +98,7 @@ GroupPanelItem.propTypes = {
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
   showGroupingControls: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 GroupPanelItem.defaultProps = {
@@ -106,4 +108,5 @@ GroupPanelItem.defaultProps = {
   onSort: undefined,
   onGroup: undefined,
   showGroupingControls: false,
+  style: null,
 };

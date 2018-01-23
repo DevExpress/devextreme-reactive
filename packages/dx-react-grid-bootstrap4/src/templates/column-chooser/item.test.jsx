@@ -101,4 +101,19 @@ describe('Item', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should pass style to the root element', () => {
+    const tree = shallow((
+      <Item
+        {...defaultProps}
+        style={{ width: '40px' }}
+      />
+    ));
+    expect(tree.find('button').prop('style'))
+      .toEqual({
+        outline: 'none',
+        cursor: 'pointer',
+        width: '40px',
+      });
+  });
 });

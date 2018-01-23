@@ -28,7 +28,7 @@ describe('TableSelectAllCell', () => {
 
   it('should not fire the `onToggle` event on cell click if selection is not available', () => {
     const onToggle = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <TableSelectAllCell
         column={{
           name: 'Test',
@@ -45,7 +45,7 @@ describe('TableSelectAllCell', () => {
 
   it('should fire the `onToggle` event on cell click if selection is available', () => {
     const onToggle = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <TableSelectAllCell
         column={{
           name: 'Test',
@@ -53,7 +53,7 @@ describe('TableSelectAllCell', () => {
         onToggle={onToggle}
       />
     ));
-    tree.find('input').simulate('change');
+    tree.find('input').simulate('change', { stopPropagation: jest.fn() });
 
     expect(onToggle)
       .toHaveBeenCalledTimes(1);
@@ -66,5 +66,17 @@ describe('TableSelectAllCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+  });
+
+  it('should pass style to the root element', () => {
+    const tree = shallow((
+      <TableSelectAllCell style={{ width: '40px' }} />
+    ));
+    expect(tree.find('th').prop('style'))
+      .toEqual({
+        cursor: 'pointer',
+        verticalAlign: 'middle',
+        width: '40px',
+      });
   });
 });

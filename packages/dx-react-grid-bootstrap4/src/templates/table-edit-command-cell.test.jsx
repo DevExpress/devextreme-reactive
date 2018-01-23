@@ -12,6 +12,19 @@ describe('EditCommandCells', () => {
       expect(tree.is('.custom-class'))
         .toBeTruthy();
     });
+
+    it('should pass style to the root element', () => {
+      const tree = shallow((
+        <EditCommandCell style={{ width: '40px' }} />
+      ));
+      expect(tree.find('td').prop('style'))
+        .toEqual({
+          whiteSpace: 'nowrap',
+          textAlign: 'center',
+          padding: 0,
+          width: '40px',
+        });
+    });
   });
 
   describe('EditCommandHeadingCell', () => {
@@ -22,6 +35,19 @@ describe('EditCommandCells', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
+    });
+
+    it('should pass style to the root element', () => {
+      const tree = shallow((
+        <EditCommandHeadingCell style={{ width: '40px' }} />
+      ));
+      expect(tree.find('th').prop('style'))
+        .toEqual({
+          whiteSpace: 'nowrap',
+          textAlign: 'center',
+          padding: 0,
+          width: '40px',
+        });
     });
   });
 
@@ -54,6 +80,21 @@ describe('EditCommandCells', () => {
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
+    });
+
+    it('should pass style to the root element', () => {
+      const tree = shallow((
+        <CommandButton
+          onExecute={() => {}}
+          text=""
+          style={{ width: '40px' }}
+        />
+      ));
+      expect(tree.find('button').prop('style'))
+        .toEqual({
+          padding: 11,
+          width: '40px',
+        });
     });
   });
 });

@@ -18,9 +18,6 @@ export const Pager = ({
 }) => (
   <div
     className={classNames('card-footer', 'clearfix', className)}
-    style={{
-      marginBottom: 0,
-    }}
     {...restProps}
   >
     {!!pageSizes.length && <PageSizeSelector

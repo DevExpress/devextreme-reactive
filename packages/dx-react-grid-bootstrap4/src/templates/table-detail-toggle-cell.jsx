@@ -8,9 +8,7 @@ const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableDetailToggleCell = ({
-  style,
-  expanded,
-  onToggle,
+  style, expanded, onToggle,
   tableColumn, tableRow, row,
   ...restProps
 }) => {

@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const CommandButton = ({
-  onExecute,
-  text,
-  className,
+  onExecute, text,
+  className, style,
   ...restProps
 }) => (
   <button
     className={classNames('btn', 'btn-link', className)}
-    style={{ padding: 11 }}
+    style={{ padding: 11, ...style }}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();
@@ -25,10 +24,12 @@ CommandButton.propTypes = {
   text: PropTypes.string.isRequired,
   onExecute: PropTypes.func.isRequired,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 CommandButton.defaultProps = {
   className: undefined,
+  style: {},
 };
 
 export const EditCommandHeadingCell = ({

@@ -3,15 +3,11 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 export const TableDetailCell = ({
-  colSpan,
-  style,
-  children,
-  className,
+  colSpan, children, className,
   tableColumn, tableRow, row,
   ...restProps
 }) => (
   <td
-    style={style}
     colSpan={colSpan}
     className={classNames('table-active', className)}
     {...restProps}

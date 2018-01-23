@@ -4,9 +4,7 @@ import classNames from 'classnames';
 
 export const Item = ({
   item: { column, hidden },
-  onToggle,
-  className,
-  style,
+  onToggle, className, style,
   ...restProps
 }) => (
   <button

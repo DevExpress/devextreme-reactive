@@ -43,7 +43,7 @@ describe('GroupPanelItem', () => {
 
   it('should handle the "Enter" and "Space" keys down and "Mouse click" for sorting change', () => {
     const onSort = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
         onSort={onSort}
         showSortingControls
@@ -52,17 +52,17 @@ describe('GroupPanelItem', () => {
     ));
 
     const targetElement = tree.find('span').first();
-    targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: ENTER_KEY_CODE });
     expect(onSort)
       .toHaveBeenCalled();
 
     onSort.mockClear();
-    targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: SPACE_KEY_CODE });
     expect(onSort)
       .toHaveBeenCalled();
 
     onSort.mockClear();
-    targetElement.simulate('click');
+    targetElement.simulate('click', { preventDefault: jest.fn() });
     expect(onSort)
       .toHaveBeenCalled();
 
@@ -90,7 +90,7 @@ describe('GroupPanelItem', () => {
 
   it('should cancel sorting on sorting direction change when the "Ctrl" key is pressed', () => {
     const onSort = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
@@ -99,7 +99,7 @@ describe('GroupPanelItem', () => {
     ));
 
     const targetElement = tree.find('span').first();
-    targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
+    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: ENTER_KEY_CODE, ctrlKey: true });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: null });
   });
@@ -128,5 +128,24 @@ describe('GroupPanelItem', () => {
       .toBeTruthy();
     expect(tree.hasClass('btn-group'))
       .toBeTruthy();
+  });
+
+  it('should pass style to the root element', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        style={{
+          width: '40px',
+          height: '10px',
+        }}
+      />
+    ));
+    expect(tree.find('.btn-group').prop('style'))
+      .toEqual({
+        marginRight: '5px',
+        marginBottom: '5px',
+        width: '40px',
+        height: '10px',
+      });
   });
 });

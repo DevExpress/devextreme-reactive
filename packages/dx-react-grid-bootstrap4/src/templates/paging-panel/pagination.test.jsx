@@ -51,7 +51,7 @@ describe('Pagination', () => {
   });
 
   it('disables the prev arrow if the first page is active', () => {
-    const paginations = mount((
+    const paginations = shallow((
       <Pagination
         {...defaultProps}
         currentPage={0}
@@ -67,7 +67,7 @@ describe('Pagination', () => {
   });
 
   it('disables the next arrow if current page equals to total page count', () => {
-    const paginations = mount((
+    const paginations = shallow((
       <Pagination
         {...defaultProps}
         currentPage={9}

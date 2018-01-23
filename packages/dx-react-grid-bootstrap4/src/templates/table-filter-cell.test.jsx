@@ -38,4 +38,15 @@ describe('TableFilterCell', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
+
+  it('should pass style to the root element', () => {
+    const tree = shallow((
+      <TableFilterCell style={{ width: '40px' }} />
+    ));
+    expect(tree.find('th').prop('style'))
+      .toEqual({
+        fontWeight: 'normal',
+        width: '40px',
+      });
+  });
 });

@@ -43,9 +43,6 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow
             showSortingControls
-            columnExtensions={[
-              { columnName: 'city', showSortingControl: false },
-            ]}
           />
         </Grid>
       </Paper>

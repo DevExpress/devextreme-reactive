@@ -40,11 +40,9 @@ export class SortingState extends React.PureComponent {
 
     if (columnExtensions) {
       const columnExtension = getColumnExtension(columnExtensions, columnName);
-
-      if (columnExtension.sortable !== undefined) {
-        return columnExtension.sortable;
-      }
-      return sortable;
+      return columnExtension.sortable !== undefined
+        ? columnExtension.sortable
+        : sortable;
     }
     return sortable;
   }

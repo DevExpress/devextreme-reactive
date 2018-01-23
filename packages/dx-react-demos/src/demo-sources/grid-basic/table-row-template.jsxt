@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';<%&additionalImports%>
 import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
   generateRows,
@@ -16,16 +16,16 @@ const styles = {
     backgroundColor: '#f5f5f5',
   },
   health: {
-    backgroundColor: '#dff0d8',
+    backgroundColor: '#c8e6c9',
   },
   telecom: {
-    backgroundColor: '#d9edf7',
+    backgroundColor: '#b3e5fc',
   },
   energy: {
-    backgroundColor: '#f2dede',
+    backgroundColor: '#ffcdd2',
   },
   insurance: {
-    backgroundColor: '#fcf8e3',
+    backgroundColor: '#f0f4c3',
   },
 };
 
@@ -65,15 +65,15 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <Table
-          rowComponent={TableRow}
-        />
-        <TableHeaderRow />
-      </Grid>
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <Table rowComponent={TableRow} />
+          <TableHeaderRow />
+        </Grid>
+      </<%&wrapperTag%>>
     );
   }
 }

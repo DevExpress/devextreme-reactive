@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';<%&additionalImports%>
 import {
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
@@ -7,7 +7,7 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
   generateRows,
@@ -15,7 +15,7 @@ import {
 } from '../../../demo-data/generator';
 
 const CurrencyFormatter = ({ value }) =>
-  <b className="text-primary">${value}</b>;
+  <b style={{ color: 'darkblue' }}>${value}</b>;
 
 CurrencyFormatter.propTypes = {
   value: PropTypes.number.isRequired,
@@ -67,21 +67,23 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <CurrencyTypeProvider
-          for={currencyColumns}
-        />
-        <DateTypeProvider
-          for={dateColumns}
-        />
-        <Table
-          columnExtensions={tableColumnExtensions}
-        />
-        <TableHeaderRow />
-      </Grid>
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <CurrencyTypeProvider
+            for={currencyColumns}
+          />
+          <DateTypeProvider
+            for={dateColumns}
+          />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
+          <TableHeaderRow />
+        </Grid>
+      </<%&wrapperTag%>>
     );
   }
 }

@@ -23,16 +23,19 @@ module.exports = function DemoRegistryLoader(source) {
     const demosString = sectionedDemoNames[sectionName].reduce((demosAcc, demoName) => {
       const themesString = themeNames.reduce((themesAcc, themeName) => {
         let fileName;
-        try {
-          fileName = require.resolve(`${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}.g.jsx`);
-        } catch (e) {} // eslint-disable-line no-empty
-        try {
-          fileName = require.resolve(`${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}.jsx`);
-        } catch (e) {} // eslint-disable-line no-empty
+        const generatedFileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}.g.jsx`;
+        if (fs.existsSync(generatedFileName)) {
+          fileName = generatedFileName;
+        }
+        const manualFileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}.jsx`;
+        if (fs.existsSync(manualFileName)) {
+          fileName = manualFileName;
+        }
+
         if (!fileName) return themesAcc;
         const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
         this.addDependency(fileName);
-        return `${themesAcc}\n${indent(`'${themeName}': {\n  demo: require(${JSON.stringify(fileName)}).default,\n  source: ${demoSource},\n},`, 2)}`;
+        return `${themesAcc}\n${indent(`'${themeName}': {\n  demo: require(${JSON.stringify(path.join(__dirname, fileName))}).default,\n  source: ${demoSource},\n},`, 2)}`;
       }, '');
 
       return `${demosAcc}\n${indent(`'${demoName}': {${themesString}\n},`, 2)}`;

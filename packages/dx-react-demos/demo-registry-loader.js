@@ -14,6 +14,9 @@ fs.readdirSync(THEMES_FOLDER).forEach((themeName) => {
 const indent = (string, count) => string.split('\n').map(substring => `${' '.repeat(count)}${substring}`).join('\n');
 
 module.exports = function DemoRegistryLoader(source) {
+  this.cacheable(false);
+  this.clearDependencies();
+
   const sectionedDemoNames = JSON.parse(source);
 
   const sectionsString = Object.keys(sectionedDemoNames).reduce((sectionsAcc, sectionName) => {

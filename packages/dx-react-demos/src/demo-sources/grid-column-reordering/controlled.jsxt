@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react';{{&additionalImports}}
 import {
   Grid,
   DragDropProvider,
   Table,
   TableHeaderRow,
   TableColumnReordering,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-{{&themeName}}';
 
 import {
   generateRows,
@@ -40,20 +40,22 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <DragDropProvider />
-        <Table
-          columnExtensions={tableColumnExtensions}
-        />
-        <TableColumnReordering
-          order={columnOrder}
-          onOrderChange={this.changeColumnOrder}
-        />
-        <TableHeaderRow />
-      </Grid>
+      <{{&wrapperTag}}>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <DragDropProvider />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
+          <TableColumnReordering
+            order={columnOrder}
+            onOrderChange={this.changeColumnOrder}
+          />
+          <TableHeaderRow />
+        </Grid>
+      </{{&wrapperTag}}>
     );
   }
 }

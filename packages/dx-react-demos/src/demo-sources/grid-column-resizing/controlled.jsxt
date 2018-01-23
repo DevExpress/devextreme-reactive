@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react';{{&additionalImports}}
 import {
   Grid,
   Table,
   TableHeaderRow,
   TableColumnResizing,
-} from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
+} from '@devexpress/dx-react-grid-{{&themeName}}';
+
 import {
   generateRows,
 } from '../../../demo-data/generator';
@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, columnWidths } = this.state;
 
     return (
-      <Paper>
+      <{{&wrapperTag}}>
         <Grid
           rows={rows}
           columns={columns}
@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableHeaderRow />
         </Grid>
-      </Paper>
+      </{{&wrapperTag}}>
     );
   }
 }

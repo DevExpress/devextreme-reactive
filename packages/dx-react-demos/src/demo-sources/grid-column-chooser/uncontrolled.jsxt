@@ -1,5 +1,4 @@
-import React from 'react';
-import Paper from 'material-ui/Paper';
+import React from 'react';{{&additionalImports}}
 import {
   Grid,
   Table,
@@ -7,7 +6,7 @@ import {
   ColumnChooser,
   TableColumnVisibility,
   Toolbar,
-} from '@devexpress/dx-react-grid-material-ui';
+} from '@devexpress/dx-react-grid-{{&themeName}}';
 import {
   generateRows,
 } from '../../../demo-data/generator';
@@ -31,20 +30,20 @@ export default class Demo extends React.PureComponent {
   render() {
     const { columns, rows, defaultHiddenColumnNames } = this.state;
     return (
-      <Paper>
+      <{{&wrapperTag}}>
         <Grid
           rows={rows}
           columns={columns}
         >
           <Table />
-          <Toolbar />
           <TableHeaderRow />
           <TableColumnVisibility
             defaultHiddenColumnNames={defaultHiddenColumnNames}
           />
+          <Toolbar />
           <ColumnChooser />
         </Grid>
-      </Paper>
+      </{{&wrapperTag}}>
     );
   }
 }

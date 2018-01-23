@@ -4,16 +4,17 @@ import {
   SortingState, SelectionState,
   IntegratedSorting,
 } from '@devexpress/dx-react-grid';
+
+import { createStore, combineReducers } from 'redux';
+import { connect, Provider } from 'react-redux';
+import Immutable from 'seamless-immutable';
+
 import {
   Grid,
   Table,
   TableHeaderRow,
   TableSelection,
 } from './../../../../dx-react-grid-bootstrap4/src';
-
-import { createStore, combineReducers } from 'redux';
-import { connect, Provider } from 'react-redux';
-import Immutable from 'seamless-immutable';
 
 import {
   generateRows,

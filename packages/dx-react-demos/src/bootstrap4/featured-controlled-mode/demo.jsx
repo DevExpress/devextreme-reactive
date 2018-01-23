@@ -4,12 +4,12 @@ import {
   SortingState, EditingState, PagingState,
   IntegratedPaging, IntegratedSorting,
 } from '@devexpress/dx-react-grid';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropProvider, TableColumnReordering,
 } from './../../../../dx-react-grid-bootstrap4/src';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import {
   ProgressBarCell,
 } from '../templates/progress-bar-cell';

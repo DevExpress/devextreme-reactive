@@ -11,7 +11,7 @@ describe('TableDetailCell', () => {
       />
     ));
 
-    expect(tree.is('.active'))
+    expect(tree.is('.table-active'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();

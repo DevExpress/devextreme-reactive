@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectRow } from './table-select-row';
 
@@ -20,27 +20,28 @@ describe('Table Select Row', () => {
   });
 
   it('should have correct className', () => {
-    let tree = mount(<TableSelectRow
+    let tree = shallow(<TableSelectRow
       {...defaultProps}
     />);
-    expect(tree.find('tr').hasClass('active')).toBeFalsy();
+    expect(tree.find('tr').hasClass('table-active')).toBeFalsy();
 
-    tree = mount(<TableSelectRow
+    tree = shallow(<TableSelectRow
       {...defaultProps}
       selected
     />);
-    expect(tree.find('tr').hasClass('active')).toBeTruthy();
+    expect(tree.find('tr').hasClass('table-active')).toBeTruthy();
   });
 
   it('should handle row click', () => {
     const onToggleMock = jest.fn();
-    const tree = mount(<TableSelectRow
+    const event = { stopPropagation: jest.fn() };
+    const tree = shallow(<TableSelectRow
       {...defaultProps}
       onToggle={onToggleMock}
       selectByRowClick
     />);
 
-    tree.find('tr').simulate('click');
+    tree.find('tr').simulate('click', event);
     expect(onToggleMock).toBeCalled();
   });
 });

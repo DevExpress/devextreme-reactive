@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import { Pagination as PaginationBS3, PaginationItem, PaginationLink } from 'reactstrap';
 import { Pagination } from './pagination';
 
 const defaultProps = {
@@ -29,65 +30,56 @@ describe('Pagination', () => {
 
   it('can render pagination arrows', () => {
     const onCurrentPageChange = jest.fn();
-    const arrows = mount((
+    const paginations = mount((
       <Pagination
         {...defaultProps}
         onCurrentPageChange={onCurrentPageChange}
       />
-    )).find('.pager li');
+    )).find(PaginationBS3);
 
+    const arrows = paginations.at(1).find(PaginationItem);
     const prew = arrows.at(0);
     const next = arrows.at(1);
 
-    prew.find('a').simulate('click');
-    next.find('a').simulate('click');
+    prew.find(PaginationLink).simulate('click');
+    next.find(PaginationLink).simulate('click');
 
     expect(arrows).toHaveLength(2);
-    expect(prew.hasClass('disabled')).toBeFalsy();
-    expect(next.hasClass('disabled')).toBeFalsy();
+    expect(prew.props('previews')).toBeTruthy();
+    expect(next.props('next')).toBeTruthy();
     expect(onCurrentPageChange.mock.calls).toHaveLength(2);
   });
 
   it('disables the prev arrow if the first page is active', () => {
-    const onCurrentPageChange = jest.fn();
-    const arrows = mount((
+    const paginations = mount((
       <Pagination
         {...defaultProps}
         currentPage={0}
-        onCurrentPageChange={onCurrentPageChange}
       />
-    )).find('.pager li');
+    )).find(PaginationBS3);
 
+    const arrows = paginations.at(1).find(PaginationItem);
     const prew = arrows.at(0);
     const next = arrows.at(1);
 
-    prew.find('a').simulate('click');
-    next.find('a').simulate('click');
-
-    expect(prew.hasClass('disabled')).toBeTruthy();
-    expect(next.hasClass('disabled')).toBeFalsy();
-    expect(onCurrentPageChange.mock.calls).toHaveLength(1);
+    expect(prew.props().disabled).toBeTruthy();
+    expect(next.props().disabled).toBeFalsy();
   });
 
   it('disables the next arrow if current page equals to total page count', () => {
-    const onCurrentPageChange = jest.fn();
-    const arrows = mount((
+    const paginations = mount((
       <Pagination
         {...defaultProps}
         currentPage={9}
         pageSize={5}
-        onCurrentPageChange={onCurrentPageChange}
       />
-    )).find('.pager li');
+    )).find(PaginationBS3);
 
+    const arrows = paginations.at(1).find(PaginationItem);
     const prew = arrows.at(0);
     const next = arrows.at(1);
 
-    prew.find('a').simulate('click');
-    next.find('a').simulate('click');
-
-    expect(prew.hasClass('disabled')).toBeFalsy();
-    expect(next.hasClass('disabled')).toBeTruthy();
-    expect(onCurrentPageChange.mock.calls).toHaveLength(1);
+    expect(prew.props().disabled).toBeFalsy();
+    expect(next.props().disabled).toBeTruthy();
   });
 });

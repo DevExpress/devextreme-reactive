@@ -14,7 +14,7 @@ describe('Toolbar', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
-    expect(tree.is('.panel-heading'))
+    expect(tree.is('.card-header'))
       .toBeTruthy();
   });
 

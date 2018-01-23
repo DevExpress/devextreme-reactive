@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
@@ -40,30 +40,30 @@ describe('TableDetailToggleCell', () => {
       <TableDetailToggleCell />
     ));
 
-    expect(tree.find('i').prop('tabIndex'))
+    expect(tree.find('span').prop('tabIndex'))
       .toBe(0);
   });
 
   it('should handle the "Enter" and "Space" keys down', () => {
     const onToggle = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <TableDetailToggleCell
         onToggle={onToggle}
       />
     ));
 
-    const targetElement = tree.find('i');
-    targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+    const targetElement = tree.find('span');
+    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: ENTER_KEY_CODE });
     expect(onToggle)
       .toHaveBeenCalled();
 
     onToggle.mockClear();
-    targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: SPACE_KEY_CODE });
     expect(onToggle)
       .toHaveBeenCalled();
 
     onToggle.mockClear();
-    targetElement.simulate('keydown', { keyCode: 51 });
+    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: 55 });
     expect(onToggle)
       .not.toHaveBeenCalled();
   });

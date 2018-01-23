@@ -25,7 +25,7 @@ describe('GroupPanelItem', () => {
       />
     ));
 
-    expect(tree.find('i.glyphicon-remove').exists())
+    expect(tree.find('span.oi-x').exists())
       .toBeTruthy();
   });
 

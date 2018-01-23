@@ -11,7 +11,7 @@ describe('Layout', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is('.panel-default'))
+      expect(tree.is('.card'))
         .toBeTruthy();
     });
 

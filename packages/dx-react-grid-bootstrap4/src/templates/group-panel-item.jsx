@@ -71,7 +71,7 @@ export const GroupPanelItem = ({
           onClick={handleUngroup}
         >
           &nbsp;
-          <i
+          <span
             className="oi oi-x"
             style={{
               top: -1,

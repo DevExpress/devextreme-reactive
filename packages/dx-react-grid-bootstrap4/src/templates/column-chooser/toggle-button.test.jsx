@@ -17,7 +17,7 @@ describe('ToggleButton', () => {
       />
     ));
 
-    expect(tree.is('.btn-link'))
+    expect(tree.is('.btn-outline-secondary'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();

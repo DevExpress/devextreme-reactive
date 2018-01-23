@@ -8,7 +8,7 @@ describe('EmptyMessage', () => {
       <EmptyMessage getMessage={key => key} />
     ));
 
-    expect(tree.find('.panel-body').text()).toBe('noColumns');
+    expect(tree.find('.card-body').text()).toBe('noColumns');
   });
 
   it('should pass the className prop to the root element', () => {
@@ -19,7 +19,7 @@ describe('EmptyMessage', () => {
       />
     ));
 
-    expect(tree.is('.panel-body'))
+    expect(tree.is('.card-body'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();

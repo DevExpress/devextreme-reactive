@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { PageSizeSelector } from './page-size-selector';
 
 describe('PageSizeSelector', () => {
@@ -23,9 +24,9 @@ describe('PageSizeSelector', () => {
       });
 
       const mobileSelector = tree.find('select');
-      const desktopSelector = tree.find('ul.pagination');
+      const desktopSelector = tree.find(Pagination);
       const mobileSelectorItems = mobileSelector.find('option');
-      const desktopSelectorItems = desktopSelector.find('li');
+      const desktopSelectorItems = desktopSelector.find(PaginationItem);
 
       expect(mobileSelector).toHaveLength(1);
       expect(mobileSelector.prop('value')).toBe(10);
@@ -71,10 +72,10 @@ describe('PageSizeSelector', () => {
       });
 
       const mobileSelector = tree.find('select');
-      const desktopSelector = tree.find('ul.pagination');
+      const desktopSelector = tree.find(Pagination);
 
       mobileSelector.simulate('change', { target: { value: 10 } });
-      desktopSelector.find('li > a').at(0).simulate('click');
+      desktopSelector.find(PaginationLink).at(0).simulate('click');
 
       expect(onPageSizeChange.mock.calls[0][0]).toBe(10);
       expect(onPageSizeChange.mock.calls[1][0]).toBe(5);

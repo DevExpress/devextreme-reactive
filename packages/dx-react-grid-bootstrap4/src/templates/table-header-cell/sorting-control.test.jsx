@@ -1,13 +1,13 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { SortingControl } from './sorting-control';
 
-describe('with keyboard navigation', () => {
+describe('TableHeaderCell with keyboard navigation', () => {
   it('can get focus', () => {
-    const tree = mount((
+    const tree = shallow((
       <SortingControl
-        align="Right"
+        align="right"
         columnTitle="Test"
         onClick={() => {}}
       />

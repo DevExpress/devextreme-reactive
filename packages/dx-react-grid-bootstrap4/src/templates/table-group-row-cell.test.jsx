@@ -1,12 +1,12 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableGroupCell } from './table-group-row-cell';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
-describe('TableCell', () => {
+describe('TableGroupRowCell', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -17,7 +17,7 @@ describe('TableCell', () => {
   });
 
   it('should render column title and value', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableGroupCell
         column={{ title: 'Title' }}
         row={{ value: 'Value' }}
@@ -29,7 +29,7 @@ describe('TableCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableGroupCell>
         <span className="test" />
       </TableGroupCell>
@@ -40,29 +40,29 @@ describe('TableCell', () => {
   });
 
   it('can get focus', () => {
-    const tree = mount((
+    const tree = shallow((
       <TableGroupCell />
     ));
 
-    expect(tree.find('i').prop('tabIndex'))
+    expect(tree.find('span').prop('tabIndex'))
       .toBe(0);
   });
 
   it('should handle the "Enter" and "Space" keys down', () => {
     const onToggle = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <TableGroupCell
         onToggle={onToggle}
       />
     ));
-    const targetElement = tree.find('i');
+    const targetElement = tree.find('span');
 
-    targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: ENTER_KEY_CODE });
     expect(onToggle)
       .toHaveBeenCalled();
 
     onToggle.mockClear();
-    targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: SPACE_KEY_CODE });
     expect(onToggle)
       .toHaveBeenCalled();
 

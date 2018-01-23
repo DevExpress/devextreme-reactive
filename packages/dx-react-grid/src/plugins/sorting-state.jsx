@@ -4,6 +4,16 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { changeColumnSorting, getColumnExtension } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
+const getColumnSortingEnabled = (columnExtensions, sortable) => (columnName) => {
+  if (columnExtensions) {
+    const columnExtension = getColumnExtension(columnExtensions, columnName);
+    return columnExtension.sortable !== undefined
+      ? columnExtension.sortable
+      : sortable;
+  }
+  return sortable;
+};
+
 export class SortingState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -16,8 +26,6 @@ export class SortingState extends React.PureComponent {
 
     this.changeColumnSorting = stateHelper.applyReducer
       .bind(stateHelper, changeColumnSorting);
-
-    this.columnSortingEnabled = this.columnSortingEnabled.bind(this);
   }
   getState() {
     const {
@@ -35,20 +43,9 @@ export class SortingState extends React.PureComponent {
       onSortingChange(sorting);
     }
   }
-  columnSortingEnabled(columnName) {
-    const { columnExtensions, sortable } = this.props;
-
-    if (columnExtensions) {
-      const columnExtension = getColumnExtension(columnExtensions, columnName);
-      return columnExtension.sortable !== undefined
-        ? columnExtension.sortable
-        : sortable;
-    }
-    return sortable;
-  }
   render() {
     const { sorting } = this.getState();
-
+    const { columnExtensions, sortable } = this.props;
     return (
       <PluginContainer
         pluginName="SortingState"
@@ -56,7 +53,7 @@ export class SortingState extends React.PureComponent {
         <Getter name="sorting" value={sorting} />
         <Getter
           name="columnSortingEnabled"
-          value={this.columnSortingEnabled}
+          value={getColumnSortingEnabled(columnExtensions, sortable)}
         />
         <Action name="changeColumnSorting" action={this.changeColumnSorting} />
       </PluginContainer>

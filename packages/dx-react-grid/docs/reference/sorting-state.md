@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 sorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting.
 defaultSorting | Array&lt;[Sorting](#sorting)&gt; | [] | Specifies initial sorting in the uncontrolled mode.
-sortable | boolean | true | Specifies whether sorting is enabled for all columns.
+sortingEnabled | boolean | true | Specifies whether sorting is enabled for all columns.
 columnExtensions | Array&lt;[SortingColumnExtension](#sortingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 onSortingChange | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes.
 
@@ -40,7 +40,7 @@ A value with the following shape:
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.
-sortable | boolean | Specifies whether sorting is enabled for a column.
+sortingEnabled | boolean | Specifies whether sorting is enabled for a column.
 
 ## Plugin Developer Reference
 

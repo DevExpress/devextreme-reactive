@@ -4,14 +4,14 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { changeColumnSorting, getColumnExtension } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
-const getColumnSortingEnabled = (columnExtensions, sortable) => (columnName) => {
+const getColumnSortingEnabled = (columnExtensions, sortingEnabled) => (columnName) => {
   if (columnExtensions) {
     const columnExtension = getColumnExtension(columnExtensions, columnName);
-    return columnExtension.sortable !== undefined
-      ? columnExtension.sortable
-      : sortable;
+    return columnExtension.sortingEnabled !== undefined
+      ? columnExtension.sortingEnabled
+      : sortingEnabled;
   }
-  return sortable;
+  return sortingEnabled;
 };
 
 export class SortingState extends React.PureComponent {
@@ -45,7 +45,7 @@ export class SortingState extends React.PureComponent {
   }
   render() {
     const { sorting } = this.getState();
-    const { columnExtensions, sortable } = this.props;
+    const { columnExtensions, sortingEnabled } = this.props;
     return (
       <PluginContainer
         pluginName="SortingState"
@@ -53,7 +53,7 @@ export class SortingState extends React.PureComponent {
         <Getter name="sorting" value={sorting} />
         <Getter
           name="columnSortingEnabled"
-          value={getColumnSortingEnabled(columnExtensions, sortable)}
+          value={getColumnSortingEnabled(columnExtensions, sortingEnabled)}
         />
         <Action name="changeColumnSorting" action={this.changeColumnSorting} />
       </PluginContainer>
@@ -66,7 +66,7 @@ SortingState.propTypes = {
   defaultSorting: PropTypes.array,
   onSortingChange: PropTypes.func,
   columnExtensions: PropTypes.array,
-  sortable: PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
 };
 
 SortingState.defaultProps = {
@@ -74,5 +74,5 @@ SortingState.defaultProps = {
   defaultSorting: [],
   onSortingChange: undefined,
   columnExtensions: undefined,
-  sortable: true,
+  sortingEnabled: true,
 };

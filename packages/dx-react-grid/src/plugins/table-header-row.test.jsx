@@ -22,6 +22,7 @@ const defaultDeps = {
   getter: {
     columns: [{ name: 'a' }],
     tableHeaderRows: [{ type: 'undefined', rowId: 1 }],
+    columnSortingEnabled: () => false,
     tableColumns: [],
   },
   template: {

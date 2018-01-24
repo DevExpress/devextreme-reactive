@@ -57,21 +57,18 @@ export class TableHeaderRow extends React.PureComponent {
                 const { name: columnName } = params.tableColumn.column;
                 const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
+                const sortingEnabled = showSortingControls && columnSortingEnabled(columnName);
 
                 return (
                   <HeaderCell
                     {...params}
                     column={params.tableColumn.column}
                     getMessage={getMessage}
-                    showSortingControls={
-                      showSortingControls &&
-                      sorting !== undefined &&
-                      columnSortingEnabled(columnName)
-                    }
+                    showSortingControls={sortingEnabled}
                     showGroupingControls={showGroupingControls && atLeastOneDataColumn}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={tableColumnResizingEnabled}
-                    sortingDirection={showSortingControls && sorting !== undefined
+                    sortingDirection={sortingEnabled
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     onSort={({ direction, keepOther }) =>
                       changeColumnSorting({ columnName, direction, keepOther })}

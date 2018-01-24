@@ -31,22 +31,25 @@ export class GroupingPanel extends React.PureComponent {
 
     const ItemPlaceholder = ({ item }) => {
       const { name: columnName } = item.column;
+
       return (
         <TemplateConnector>
-          {({ sorting, columnSortingEnabled }, { changeColumnGrouping, changeColumnSorting }) => (
-            <Item
-              item={item}
-              showSortingControls={
-                showSortingControls && sorting !== undefined && columnSortingEnabled(columnName)
-              }
-              sortingDirection={sorting !== undefined
-                ? getColumnSortingDirection(sorting, columnName) : undefined}
-              showGroupingControls={showGroupingControls}
-              onGroup={() => changeColumnGrouping({ columnName })}
-              onSort={({ direction, keepOther }) =>
-                changeColumnSorting({ columnName, direction, keepOther })}
-            />
-          )}
+          {({ sorting, columnSortingEnabled }, { changeColumnGrouping, changeColumnSorting }) => {
+            const sortingEnabled = showSortingControls && columnSortingEnabled(columnName);
+
+            return (
+              <Item
+                item={item}
+                showSortingControls={showSortingControls && sortingEnabled}
+                sortingDirection={sortingEnabled
+                  ? getColumnSortingDirection(sorting, columnName) : undefined}
+                showGroupingControls={showGroupingControls}
+                onGroup={() => changeColumnGrouping({ columnName })}
+                onSort={({ direction, keepOther }) =>
+                  changeColumnSorting({ columnName, direction, keepOther })}
+              />
+            );
+          }}
         </TemplateConnector>
       );
     };

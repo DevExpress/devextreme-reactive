@@ -47,6 +47,7 @@ export class TableHeaderRow extends React.PureComponent {
               {({
                 sorting,
                 columnSortingEnabled,
+                columnGroupingEnabled,
                 tableColumns,
                 draggingEnabled,
                 tableColumnResizingEnabled,
@@ -58,6 +59,9 @@ export class TableHeaderRow extends React.PureComponent {
                 const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
                 const sortingEnabled = showSortingControls && columnSortingEnabled(columnName);
+                const groupingEnabled = showGroupingControls
+                  && columnGroupingEnabled(columnName)
+                  && atLeastOneDataColumn;
 
                 return (
                   <HeaderCell
@@ -65,7 +69,7 @@ export class TableHeaderRow extends React.PureComponent {
                     column={params.tableColumn.column}
                     getMessage={getMessage}
                     showSortingControls={sortingEnabled}
-                    showGroupingControls={showGroupingControls && atLeastOneDataColumn}
+                    showGroupingControls={groupingEnabled}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={tableColumnResizingEnabled}
                     sortingDirection={sortingEnabled

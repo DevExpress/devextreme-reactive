@@ -46,6 +46,7 @@ export class SortingState extends React.PureComponent {
   render() {
     const { sorting } = this.getState();
     const { columnExtensions, sortingEnabled } = this.props;
+
     return (
       <PluginContainer
         pluginName="SortingState"

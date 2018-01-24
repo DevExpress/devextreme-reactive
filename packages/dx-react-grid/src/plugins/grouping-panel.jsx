@@ -34,16 +34,20 @@ export class GroupingPanel extends React.PureComponent {
 
       return (
         <TemplateConnector>
-          {({ sorting, columnSortingEnabled }, { changeColumnGrouping, changeColumnSorting }) => {
+          {(
+            { sorting, columnSortingEnabled, columnGroupingEnabled },
+            { changeColumnGrouping, changeColumnSorting },
+          ) => {
             const sortingEnabled = showSortingControls && columnSortingEnabled(columnName);
+            const groupingEnabled = showGroupingControls && columnGroupingEnabled(columnName);
 
             return (
               <Item
                 item={item}
-                showSortingControls={showSortingControls && sortingEnabled}
+                showSortingControls={sortingEnabled}
                 sortingDirection={sortingEnabled
                   ? getColumnSortingDirection(sorting, columnName) : undefined}
-                showGroupingControls={showGroupingControls}
+                showGroupingControls={groupingEnabled}
                 onGroup={() => changeColumnGrouping({ columnName })}
                 onSort={({ direction, keepOther }) =>
                   changeColumnSorting({ columnName, direction, keepOther })}
@@ -66,12 +70,13 @@ export class GroupingPanel extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplateConnector>
             {({
-              columns, grouping, draftGrouping, draggingEnabled,
+              columns, grouping, draftGrouping, draggingEnabled, columnGroupingEnabled,
             }, {
               changeColumnGrouping, draftColumnGrouping, cancelColumnGroupingDraft,
             }) => (
               <Layout
                 items={groupingPanelItems(columns, grouping, draftGrouping)}
+                columnGroupingEnabled={columnGroupingEnabled}
                 draggingEnabled={draggingEnabled}
                 onGroup={changeColumnGrouping}
                 onGroupDraft={draftColumnGrouping}

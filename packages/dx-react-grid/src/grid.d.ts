@@ -15,7 +15,7 @@ export interface GridRootProps {
 
 export interface GridProps {
   /** An array containing custom data. A user defines the access to this data. Refer to Data Accessors for details. */
-  row: Array<any>;
+  rows: Array<any>;
   /** Specifies for which row fields columns are created. */
   columns: Array<Column>;
   /** Specifies the function used to get a unique row identifier. */

@@ -42,6 +42,7 @@ export const EditCommandHeadingCell = ({
     style={{
       whiteSpace: 'nowrap',
       textAlign: 'center',
+      borderTop: 0,
       padding: 0,
       ...style,
     }}

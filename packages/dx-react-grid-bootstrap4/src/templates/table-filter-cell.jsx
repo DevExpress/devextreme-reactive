@@ -9,6 +9,7 @@ export const TableFilterCell = ({
   <th
     style={{
       fontWeight: 'normal',
+      borderTop: 0,
       ...style,
     }}
     {...restProps}

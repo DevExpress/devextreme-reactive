@@ -46,6 +46,7 @@ describe('EditCommandCells', () => {
           whiteSpace: 'nowrap',
           textAlign: 'center',
           padding: 0,
+          borderTop: 0,
           width: '40px',
         });
     });

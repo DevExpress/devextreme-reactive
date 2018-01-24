@@ -76,6 +76,7 @@ describe('TableSelectAllCell', () => {
       .toEqual({
         cursor: 'pointer',
         verticalAlign: 'middle',
+        borderTop: 0,
         width: '40px',
       });
   });

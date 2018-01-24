@@ -46,6 +46,7 @@ describe('TableFilterCell', () => {
     expect(tree.find('th').prop('style'))
       .toEqual({
         fontWeight: 'normal',
+        borderTop: 0,
         width: '40px',
       });
   });

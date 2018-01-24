@@ -17,61 +17,61 @@
     "simple-action",
     "parameterized-action"
   ],
-  "basic": [
+  "grid-basic": [
     "basic",
     "table-cell-template",
     "table-row-template"
   ],
-  "localization": [
+  "grid-localization": [
     "basic"
   ],
-  "column-resizing": [
+  "grid-column-resizing": [
     "uncontrolled",
     "controlled"
   ],
-  "column-reordering": [
+  "grid-column-reordering": [
     "uncontrolled",
     "controlled"
   ],
-  "data-accessors": [
-    "value-setters",
-    "value-getters"
+  "grid-data-accessors": [
+    "value-getters",
+    "value-setters"
   ],
-  "data-types": [
+  "grid-data-types": [
     "formatters",
     "editors"
   ],
-  "detail-row": [
+  "grid-detail-row": [
     "simple-detail-row",
     "detail-row-controlled"
   ],
-  "editing": [
+  "grid-editing": [
     "edit-row",
     "edit-row-controlled"
   ],
-  "featured-uncontrolled-mode": [
+  "grid-featured-uncontrolled-mode": [
     "demo"
   ],
-  "featured-controlled-mode": [
+  "grid-featured-controlled-mode": [
     "demo"
   ],
-  "featured-redux-integration": [
+  "grid-featured-redux-integration": [
     "demo"
   ],
-  "featured-virtual-scrolling": [
+  "grid-featured-virtual-scrolling": [
     "demo"
   ],
-  "featured-remote-data": [
+  "grid-featured-remote-data": [
     "demo"
   ],
-  "filtering": [
+  "grid-filtering": [
     "filter-row",
     "controlled-mode",
     "custom-filter-row",
     "custom-filtering-algorithm",
     "remote-filtering"
   ],
-  "grouping": [
+  "grid-grouping": [
     "static",
     "custom-grouping-static",
     "grouping-with-ui",
@@ -80,16 +80,16 @@
     "custom-advanced",
     "remote-grouping-with-local-expanding"
   ],
-  "immutability": [
+  "grid-immutability": [
     "seamless-immutable"
   ],
-  "paging": [
+  "grid-paging": [
     "uncontrolled-mode",
     "page-size-selector",
     "controlled-mode",
     "remote-paging"
   ],
-  "selection": [
+  "grid-selection": [
     "basic",
     "select-by-row-click",
     "hidden-checkboxes",
@@ -97,17 +97,17 @@
     "select-all-by-page",
     "select-all-by-all-pages"
   ],
-  "sorting": [
+  "grid-sorting": [
     "header-sorting",
     "group-sorting",
     "controlled-mode",
     "custom-sorting",
     "remote-sorting"
   ],
-  "virtual-scrolling": [
+  "grid-virtual-scrolling": [
     "basic"
   ],
-  "column-chooser": [
+  "grid-column-chooser": [
     "controlled",
     "uncontrolled"
   ]

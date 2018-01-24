@@ -8,10 +8,10 @@ Pluggable React component allows to share actions between plugins.
 
 The main application of Action is a possibility to connect a result value to markup. [TemplateConnector](../reference/template-connector.md) is a vizualization primitive that serves this need.
 
-.embedded-demo({ "path": "core-action/simple-action", "showThemeSelector": false })
+.embedded-demo({ "path": "core-action/simple-action" })
 
 ## Passing Action parameters
 
 Action can consume payload that will be passed to the underlying function.
 
-.embedded-demo({ "path": "core-action/parameterized-action", "showThemeSelector": false })
+.embedded-demo({ "path": "core-action/parameterized-action" })

@@ -10,4 +10,4 @@ Name | Type | Default | Description
 -----|------|---------|------------
 name | string | | A name used to identify a template. The `root` template name is a reserved name used as a root markup to be rendered within plugged component.
 predicate | (params: object) => boolean | | A predicate function specifies whether a template should be rendered or not.
-children | (params: object) => ReactElement &#124; ReactElement | | A function used to render markup based on specified parameters or a markup without bindings.
+children | ReactElement &#124; (params: object) => ReactElement | | A function used to render markup based on specified parameters or a markup without bindings.

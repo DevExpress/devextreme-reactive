@@ -32,6 +32,8 @@
     "@devexpress/dx-react-grid": "1.0.0-rc.1",
     "@devexpress/dx-react-grid-bootstrap3": "1.0.0-rc.1",
     "@devexpress/dx-react-grid-material-ui": "1.0.0-rc.1",
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
     "core-js": "^2.5.3",
     "material-ui": "1.0.0-beta.29",
     "material-ui-icons": "1.0.0-beta.17",
@@ -48,6 +50,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-loader": "^7.1.2",
@@ -71,6 +74,7 @@
     "react-test-renderer": "^16.2.0",
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.19.1",
+    "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.0",
     "write-file-webpack-plugin": "^4.2.0"

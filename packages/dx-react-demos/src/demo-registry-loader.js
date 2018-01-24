@@ -10,7 +10,8 @@ module.exports = function DemoRegistryLoader(source) {
   const sectionsString = Object.keys(sectionedDemoNames).reduce((sectionsAcc, sectionName) => {
     const demosString = sectionedDemoNames[sectionName].reduce((demosAcc, demoName) => {
       const themesString = themeNames.reduce((themesAcc, themeName) => {
-        const fileName = require.resolve(`./${themeName}/${sectionName}/${demoName}.jsx`);
+        const fileExtension = sectionName.indexOf('typescript') !== -1 ? 'tsx' : 'jsx';
+        const fileName = require.resolve(`./${themeName}/${sectionName}/${demoName}.${fileExtension}`);
 
         const demoExists = fs.existsSync(fileName);
         if (!demoExists) return themesAcc;

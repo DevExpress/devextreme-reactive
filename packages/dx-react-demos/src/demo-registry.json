@@ -92,5 +92,8 @@
   "column-chooser": [
     "controlled",
     "uncontrolled"
+  ],
+  "typescript": [
+    "demo"
   ]
 }

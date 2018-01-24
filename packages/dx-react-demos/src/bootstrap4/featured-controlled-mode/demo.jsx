@@ -23,7 +23,7 @@ import {
 } from '../../demo-data/generator';
 
 const CommandButton = ({
-  onExecute, icon, text, hint, isDanger,
+  onExecute, icon, text, hint, color,
 }) => (
   <button
     className="btn btn-link"
@@ -34,7 +34,7 @@ const CommandButton = ({
     }}
     title={hint}
   >
-    <span className={isDanger ? 'text-danger' : undefined}>
+    <span className={color || 'undefined'}>
       {icon ? <i className={`oi oi-${icon}`} style={{ marginRight: text ? 5 : 0 }} /> : null}
       {text}
     </span>
@@ -45,38 +45,39 @@ CommandButton.propTypes = {
   icon: PropTypes.string,
   text: PropTypes.string,
   hint: PropTypes.string,
-  isDanger: PropTypes.bool,
+  color: PropTypes.string,
 };
 CommandButton.defaultProps = {
   icon: undefined,
   text: undefined,
   hint: undefined,
-  isDanger: false,
+  color: undefined,
 };
 
 const commandComponentProps = {
   add: {
     icon: 'plus',
-    text: 'New',
     hint: 'Create new row',
   },
   edit: {
-    text: 'Edit',
+    icon: 'pencil',
     hint: 'Edit row',
+    color: 'text-warning',
   },
   delete: {
     icon: 'trash',
     hint: 'Delete row',
-    isDanger: true,
+    color: 'text-danger',
   },
   commit: {
-    text: 'Save',
+    icon: 'check',
     hint: 'Save changes',
+    color: 'text-success',
   },
   cancel: {
     icon: 'x',
     hint: 'Cancel changes',
-    isDanger: true,
+    color: 'text-danger',
   },
 };
 

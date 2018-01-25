@@ -17,7 +17,7 @@ const ThemeViewerBase = (
   {
     avaliableThemes, match: { url }, history, children,
   },
-  { embeddedDemoOptions: { showThemeVariants = false } },
+  { embeddedDemoOptions: { showThemeVariants, showThemeSelector } },
 ) => {
   const preferredThemeName = storage.getItem(THEME_STORAGE_KEY) || themes[0].name;
   const preferredThemeAvaliable = avaliableThemes.indexOf(preferredThemeName) > -1;
@@ -46,12 +46,12 @@ const ThemeViewerBase = (
         path={`${url}/:themeName/:variantName`}
         render={({ match: { params: { themeName, variantName } } }) => (
           <div>
-            <ThemeSelector
+            {(showThemeSelector && <ThemeSelector
               selectedThemeName={themeName}
               avaliableThemes={avaliableThemes}
               selectedVariantName={variantName}
               onChange={changeTheme}
-            />
+            />)}
             <div>
               {children({ themeName, variantName })}
             </div>

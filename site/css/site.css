@@ -96,6 +96,28 @@ h5 {
     background: transparent;
 }
 
+.logo-container {
+  float: right;
+  padding-left: 8px;
+}
+
+.logo-team {
+  margin: 0;
+  font-size: 0.9em;
+  color: #bababa;
+  line-height: 14px;
+  letter-spacing: -0.5px;
+}
+
+.logo-product {
+  margin: 0;
+  font-size: 1.58em;
+  color: #f05b41;
+  letter-spacing: -1px;
+  line-height: 28px;
+  margin-left: -1px;
+}
+
 .demos-container .main-menu,
 .docs-container,
 section {

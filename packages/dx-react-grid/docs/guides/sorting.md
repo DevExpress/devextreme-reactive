@@ -37,7 +37,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting
 
 The [SortingState](../reference/sorting-state.md) plugin's `columnExtensions` property allows you to prevent sorting by a specific column.
 
-.embedded-demo(sorting/disable-column-sorting)
+.embedded-demo(grid-sorting/disable-column-sorting)
 
 ## Using Sorting with Grouping
 

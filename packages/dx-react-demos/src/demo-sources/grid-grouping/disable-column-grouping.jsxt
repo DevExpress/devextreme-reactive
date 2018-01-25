@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';<%&additionalImports%>
 import {
   GroupingState,
   IntegratedGrouping,
@@ -11,11 +11,11 @@ import {
   GroupingPanel,
   DragDropProvider,
   Toolbar,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
   generateRows,
-} from '../../demo-data/generator';
+} from '../../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -36,24 +36,26 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, grouping } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <DragDropProvider />
-        <GroupingState
-          defaultGrouping={grouping}
-          columnExtensions={[
-            { columnName: 'name', groupingEnabled: false },
-          ]}
-        />
-        <IntegratedGrouping />
-        <Table />
-        <TableHeaderRow showGroupingControls />
-        <TableGroupRow />
-        <Toolbar />
-        <GroupingPanel showGroupingControls />
-      </Grid>
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <DragDropProvider />
+          <GroupingState
+            defaultGrouping={grouping}
+            columnExtensions={[
+              { columnName: 'name', groupingEnabled: false },
+            ]}
+          />
+          <IntegratedGrouping />
+          <Table />
+          <TableHeaderRow showGroupingControls />
+          <TableGroupRow />
+          <Toolbar />
+          <GroupingPanel showGroupingControls />
+        </Grid>
+      </<%&wrapperTag%>>
     );
   }
 }

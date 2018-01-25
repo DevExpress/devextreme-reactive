@@ -62,7 +62,7 @@ In [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping opti
 
 The [GroupingState](../reference/grouping-state.md) plugin's `columnExtensions` property allows you to prevent grouping by a specific column.
 
-.embedded-demo(grouping/disable-column-grouping)
+.embedded-demo(grid-grouping/disable-column-grouping)
 
 ## Built-in Grouping with Custom Values
 

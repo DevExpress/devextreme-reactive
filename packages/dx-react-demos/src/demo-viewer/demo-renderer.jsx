@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { demos } from '../demo-registry.json';
+import { demos } from '../demo-registry';
 import { themes } from '../theme-registry';
 
 export const DemoRenderer = ({

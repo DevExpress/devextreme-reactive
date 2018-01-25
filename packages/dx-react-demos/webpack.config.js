@@ -23,10 +23,6 @@ module.exports = ({ production }) => ({
         enforce: "pre"
       },
       {
-        test: /demo\-registry\.json$/,
-        use: [path.resolve('demo-registry-loader.js')]
-      },
-      {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components|public\/)/,
         use: ["babel-loader"]

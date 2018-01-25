@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { Nav, NavItem, Tab } from 'react-bootstrap';
 
-import { demos } from '../demo-registry.json';
+import { demos } from '../demo-registry';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
 import { SourceCode } from './source-code';

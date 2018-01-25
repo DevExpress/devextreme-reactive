@@ -16,3 +16,7 @@
 /site/core
 /site/grid
 /site/react
+
+# Demos
+/packages/dx-react-demos/src/demo-registry.js
+/packages/dx-react-demos/src/**/*.g*

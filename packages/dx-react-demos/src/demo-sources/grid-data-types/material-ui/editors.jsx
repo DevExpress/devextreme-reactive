@@ -1,5 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Paper from 'material-ui/Paper';
+import Chip from 'material-ui/Chip';
+import Input from 'material-ui/Input';
+import Select from 'material-ui/Select';
+import { MenuItem } from 'material-ui/Menu';
 import {
   DataTypeProvider,
   EditingState,
@@ -11,11 +16,6 @@ import {
   TableEditRow,
   TableEditColumn,
 } from '@devexpress/dx-react-grid-material-ui';
-import Paper from 'material-ui/Paper';
-import Chip from 'material-ui/Chip';
-import Input from 'material-ui/Input';
-import Select from 'material-ui/Select';
-import { MenuItem } from 'material-ui/Menu';
 
 import {
   generateRows,

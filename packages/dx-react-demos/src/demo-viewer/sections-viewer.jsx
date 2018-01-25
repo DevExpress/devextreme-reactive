@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Route, Switch, Redirect } from 'react-router-dom';
 
-import { demos } from '../demo-registry.json';
+import { demos } from '../demo-registry';
 import { SectionViewer } from './section-viewer';
 
 export const SectionsViewer = ({ match: { url } }) => {

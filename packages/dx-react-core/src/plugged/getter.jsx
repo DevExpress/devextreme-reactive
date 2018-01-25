@@ -19,7 +19,7 @@ export class Getter extends React.PureComponent {
     let lastResult;
 
     this.plugin = {
-      position: () => this.props.position ? this.props.position() : 0,
+      position: () => this.props.position(),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this.props;
         if (value !== undefined) return value;

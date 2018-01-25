@@ -16,7 +16,7 @@ export class Template extends React.PureComponent {
     const { name } = this.props;
 
     this.plugin = {
-      position: () => this.props.position ? this.props.position() : 0,
+      position: () => this.props.position(),
       [`${name}Template`]: {
         id: this.id,
         predicate: params => (this.props.predicate ? this.props.predicate(params) : true),

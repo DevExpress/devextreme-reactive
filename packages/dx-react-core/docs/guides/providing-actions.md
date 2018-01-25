@@ -1,6 +1,6 @@
 # React Core - Providing Actions
 
-Pluggable React component allows to share actions between plugins.
+Plugin host component allows to share actions between plugins.
 
 ## Action
 

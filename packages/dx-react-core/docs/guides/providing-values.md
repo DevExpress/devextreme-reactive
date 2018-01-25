@@ -1,12 +1,12 @@
 # React Core - Providing Values
 
-One of the key part of pluggable React component is a possibility to share data between plugins.
+One of the key part of plugin based component is a possibility to share data between plugins.
 
 ## Getter
 
 [Getter](../reference/getter.md) is a plugin primitive that defines a value that can be used or modified outside of the plugin containing it. It is an invisible component. It uses the `name` property to identify the value.
 
-In other words, Getter defines one field of pluggable React component state. Typically, Getter holds [normalized data](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html).
+In other words, Getter defines one field of plugin based component state.
 
 The main application of Getter is a possibility to connect a result value to markup. [TemplateConnector](../reference/template-connector.md) is a vizualization primitive that serves this need.
 

@@ -1,6 +1,6 @@
 # React Core - Rendering Markup
 
-The main purpose of pluggable React component is to render markup of plugins into React component tree. The result tree may have many sub-components with complex structure. Pluggable React component gives an ability to define such relations in simple and efficient way.
+The main purpose of plugin based component is to render markup of plugins into React component tree. The result tree may have many sub-components with complex structure. Pluggin based component gives an ability to define such relations in simple and efficient way.
 
 ## Template
 
@@ -8,7 +8,7 @@ The main purpose of pluggable React component is to render markup of plugins int
 
 ## Root Template
 
-In any pluggable component there is reserved `root` Template name. It is a starting point that renders content.
+In any plugin based component there is reserved `root` Template name. It is a starting point that renders content.
 
 .embedded-demo({ "path": "core-template/root-template" })
 

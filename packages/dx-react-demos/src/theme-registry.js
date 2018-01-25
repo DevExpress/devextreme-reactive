@@ -6,11 +6,11 @@ export const themes = [{
   variants: [{
     name: 'light',
     title: 'Material UI Light',
-    DemoContainer: require('./material-ui/demo-container').default,
+    DemoContainer: require('./theme-sources/material-ui/demo-container').default,
   }, {
     name: 'dark',
     title: 'Material UI Dark',
-    DemoContainer: require('./material-ui/demo-container').Dark,
+    DemoContainer: require('./theme-sources/material-ui/demo-container').Dark,
   }],
 }, {
   name: 'bootstrap3',
@@ -18,22 +18,22 @@ export const themes = [{
   variants: [{
     name: 'default',
     title: 'Bootstrap 3',
-    DemoContainer: require('./bootstrap3/demo-container').default,
+    DemoContainer: require('./theme-sources/bootstrap3/demo-container').default,
   }, {
     name: 'journal',
     title: 'Bootstrap 3 (Bootswatch Journal)',
-    DemoContainer: require('./bootstrap3/demo-container').Journal,
+    DemoContainer: require('./theme-sources/bootstrap3/demo-container').Journal,
   }, {
     name: 'darkly',
     title: 'Bootstrap 3 (Bootswatch Darkly)',
-    DemoContainer: require('./bootstrap3/demo-container').Darkly,
+    DemoContainer: require('./theme-sources/bootstrap3/demo-container').Darkly,
   }, {
     name: 'united',
     title: 'Bootstrap 3 (Bootswatch United)',
-    DemoContainer: require('./bootstrap3/demo-container').United,
+    DemoContainer: require('./theme-sources/bootstrap3/demo-container').United,
   }, {
     name: 'custom',
     title: 'Bootstrap 3 (Custom)',
-    DemoContainer: require('./bootstrap3/demo-container').Custom,
+    DemoContainer: require('./theme-sources/bootstrap3/demo-container').Custom,
   }],
 }];

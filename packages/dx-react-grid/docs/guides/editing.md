@@ -27,7 +27,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 - `defaultRowChanges` - the row changes
 - `defaultDeletedRowIds` - the rows being deleted
 
-.embedded-demo(editing/edit-row)
+.embedded-demo(grid-editing/edit-row)
 
 ## Controlled Mode
 
@@ -40,4 +40,4 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 
 Note, you can also use the `onAddedRowsChange` event to initialize a created row with default property values.
 
-.embedded-demo(editing/edit-row-controlled)
+.embedded-demo(grid-editing/edit-row-controlled)

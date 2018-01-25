@@ -17,6 +17,7 @@ defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | [] | Specifies initial gr
 onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping option changes.
 expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups.
 defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
+columnExtensions | Array&lt;[GroupingColumnExtension](#groupingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) => void | | Handles expanded group changes.
 
 ## Interfaces
@@ -37,6 +38,17 @@ Describes a group that can be nested in another one.
 
 A string value that consists of values by which rows are grouped, separated by the `|` character. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male|Audi` and so on.
 
+### GroupingColumnExtension
+
+Describes additional column properties that the plugin can handle.
+
+A value with the following shape:
+
+Field | Type | Description
+------|------|------------
+columnName | string | The name of a column to extend.
+groupingEnabled | boolean | Specifies whether grouping is enabled for a column.
+
 ## Plugin Developer Reference
 
 ### Imports
@@ -53,6 +65,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state.
 draftGrouping | Getter | Array&lt;[Grouping](#grouping)&gt; | Grouping options used for the preview.
+columnGroupingEnabled | Getter | (columnName: string) => boolean | A function used to define if grouping by column is enabled.
 changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Sets or clears grouping options used for the preview. If `groupIndex` is omitted, the group is added to the last position.
 cancelColumnGroupingDraft | Action | () => void | Cancels changes to the column grouping options used for the preview.

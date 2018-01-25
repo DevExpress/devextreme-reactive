@@ -5,16 +5,8 @@ import { setupConsole } from '@devexpress/dx-testing';
 
 import { PluginIndexer, indexableComponent } from './plugin-indexer';
 
-const Test1 = () =>
-  null;
-const Test2 = () =>
-  null;
-const Test3 = () =>
-  null;
-
-Test1[indexableComponent] = true;
-Test2[indexableComponent] = true;
-Test3[indexableComponent] = true;
+const Test = () => null;
+Test[indexableComponent] = true;
 
 describe('PluginIndexer', () => {
   let resetConsole;
@@ -28,30 +20,31 @@ describe('PluginIndexer', () => {
   it('should correctly determine plugin position', () => {
     const tree = mount((
       <PluginIndexer>
-        <Test1 />
+        <Test />
       </PluginIndexer>
     ));
 
-    expect(tree.find(Test1)
+    expect(tree.find(Test)
       .map(wrapper => wrapper.prop('position')()))
       .toEqual([[0]]);
   });
 
   it('should correctly determine plugin position after children change', () => {
-    const Test = ({ enableGetter }) => (
+    const Test1 = ({ enableGetter }) => (
       <PluginIndexer>
-        {enableGetter && <Test1 />}
-        <Test2 />
+        {enableGetter && <Test />}
+        <Test />
       </PluginIndexer>
     );
-    Test.propTypes = {
+    Test1.propTypes = {
       enableGetter: PropTypes.bool.isRequired,
     };
 
-    const tree = mount(<Test enableGetter={false} />);
+    const tree = mount(<Test1 enableGetter={false} />);
 
     tree.setProps({ enableGetter: true });
-    expect([tree.find(Test1), tree.find(Test2)]
+    const tests = tree.find(Test);
+    expect([tests.at(0), tests.at(1)]
       .map(wrapper => wrapper.prop('position')()))
       .toEqual([[0], [1]]);
   });
@@ -61,15 +54,16 @@ describe('PluginIndexer', () => {
       <PluginIndexer>
         <div>
           <PluginIndexer>
-            <Test1 />
-            <Test2 />
+            <Test />
+            <Test />
           </PluginIndexer>
         </div>
-        <Test3 />
+        <Test />
       </PluginIndexer>
     ));
 
-    expect([tree.find(Test1), tree.find(Test2), tree.find(Test3)]
+    const tests = tree.find(Test);
+    expect([tests.at(0), tests.at(1), tests.at(2)]
       .map(wrapper => wrapper.prop('position')()))
       .toEqual([[0, 0], [0, 1], [1]]);
   });

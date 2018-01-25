@@ -11,12 +11,19 @@ const columns: Array<Column> = [
   { name: 'car', title: 'Car' },
 ];
 
+const rootComponent = props => (
+  <div style={{ border: '3px solid brown' }}>
+    <Grid.Root {...props} />
+  </div>
+);
+
 export default class Demo extends React.Component {
   render() {
     return (
       <Grid
         rows={rows}
         columns={columns}
+        rootComponent={rootComponent}
       >
         <Table />
         <TableHeaderRow />

@@ -8,7 +8,7 @@ import {
   TableNoDataCellProps,
 } from '@devexpress/dx-react-grid';
 
-interface TableProps {
+export interface TableProps {
   /** Additional column properties that the plugin can handle. */
   columnExtensions?: Array<TableColumnExtension>;
   /** A component that renders a table cell. */

@@ -23,7 +23,7 @@ In [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initia
 
 In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property, which is usual for the controlled mode. However, the `onPageSizeChange` event handler is not specified because the page size is not supposed to be changed internally as the Page Size Selector is not available.
 
-.embedded-demo(paging/uncontrolled-mode)
+.embedded-demo(grid-paging/uncontrolled-mode)
 
 ## Page Size Selection
 
@@ -31,7 +31,7 @@ Assign an array of available page sizes to the `PagingPanel` plugin's `pageSizes
 
 The example below demonstrates a basic configuration for the uncontrolled mode. The `PagingState` plugin's `defaultPageSize` property defines the initial page size.
 
-.embedded-demo(paging/page-size-selector)
+.embedded-demo(grid-paging/page-size-selector)
 
 ## Controlled Mode
 
@@ -42,7 +42,7 @@ In [controlled mode](controlled-and-uncontrolled-modes.md), specify the followin
 
 Note that the `onPageSizeChange` handler makes sense only if the `pageSizes` option is specified. Otherwise, a user is not able to change the page size.
 
-.embedded-demo(paging/controlled-mode)
+.embedded-demo(grid-paging/controlled-mode)
 
 ## Remote Paging
 
@@ -52,7 +52,7 @@ Paging options are updated once an end-user interacts with Paging Panel controls
 
 For remote paging, use the `CustomPaging` plugin instead of the `IntegratedPaging` plugin.
 
-.embedded-demo(paging/remote-paging)
+.embedded-demo(grid-paging/remote-paging)
 
 ## Using Paging with Other Data Processing Plugins
 

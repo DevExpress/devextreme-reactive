@@ -7,6 +7,7 @@ import {
   toggleExpandedGroups,
   draftColumnGrouping,
   cancelColumnGroupingDraft,
+  getColumnExtension,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { GroupingState } from './grouping-state';
@@ -16,6 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   toggleExpandedGroups: jest.fn(),
   draftColumnGrouping: jest.fn(),
   cancelColumnGroupingDraft: jest.fn(),
+  getColumnExtension: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -710,6 +712,74 @@ describe('GroupingState', () => {
 
       expect(groupingChange)
         .toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('column extensions', () => {
+    beforeEach(() => {
+      getColumnExtension.mockImplementation(() => ({}));
+    });
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
+
+    it('should allow grouping by default', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <GroupingState />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).columnGroupingEnabled('a'))
+        .toBeTruthy();
+    });
+
+    it('should not allow grouping if groupingEnabled prop is false', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <GroupingState
+            groupingEnabled={false}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).columnGroupingEnabled('a'))
+        .toBeFalsy();
+    });
+
+    it('should allow grouping if groupingEnabled prop is false and groupingEnabled extension is true', () => {
+      const columnExtension = { columnName: 'a', groupingEnabled: true };
+      getColumnExtension.mockReturnValue(columnExtension);
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <GroupingState
+            sortingEnabled={false}
+            columnExtensions={[columnExtension]}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).columnGroupingEnabled('a'))
+        .toBeTruthy();
+    });
+
+    it('should not allow grrouping if groupingEnabled extension is false', () => {
+      const columnExtension = { columnName: 'a', groupingEnabled: false };
+      getColumnExtension.mockReturnValue(columnExtension);
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <GroupingState
+            columnExtensions={[columnExtension]}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).columnGroupingEnabled('a'))
+        .toBeFalsy();
     });
   });
 });

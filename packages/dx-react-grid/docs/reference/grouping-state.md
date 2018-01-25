@@ -17,6 +17,7 @@ defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | [] | Specifies initial gr
 onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping option changes.
 expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups.
 defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
+groupingEnabled | boolean | true | Specifies whether grouping is enabled for all columns.
 columnExtensions | Array&lt;[GroupingColumnExtension](#groupingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) => void | | Handles expanded group changes.
 

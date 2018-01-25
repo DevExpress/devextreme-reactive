@@ -58,6 +58,12 @@ In [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping opti
 
 .embedded-demo(grouping/controlled-mode)
 
+## Disable Grouping by a Column
+
+The [GroupingState](../reference/grouping-state.md) plugin's `columnExtensions` property allows you to prevent grouping by a specific column.
+
+.embedded-demo(grouping/disable-column-grouping)
+
 ## Built-in Grouping with Custom Values
 
 Pass a grouping criterion function to the `IntegratedGrouping` plugin’s [columnExtensions](../reference/integrated-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column's values while still displaying the column.

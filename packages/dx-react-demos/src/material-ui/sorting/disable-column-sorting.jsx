@@ -7,8 +7,8 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-bootstrap3';
-
+} from '@devexpress/dx-react-grid-material-ui';
+import Paper from 'material-ui/Paper';
 import {
   generateRows,
 } from '../../demo-data/generator';
@@ -31,17 +31,21 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <SortingState
-          defaultSorting={[{ columnName: 'city', direction: 'asc' }]}
-        />
-        <IntegratedSorting />
-        <Table />
-        <TableHeaderRow showSortingControls />
-      </Grid>
+      <Paper>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <SortingState
+            columnExtensions={[
+              { columnName: 'name', sortingEnabled: false },
+            ]}
+          />
+          <IntegratedSorting />
+          <Table />
+          <TableHeaderRow showSortingControls />
+        </Grid>
+      </Paper>
     );
   }
 }

@@ -33,6 +33,12 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting
 
 .embedded-demo(sorting/controlled-mode)
 
+## Disable Sorting by a Column
+
+The [SortingState](../reference/sorting-state.md) plugin's `columnExtensions` property allows you to prevent sorting by a specific column.
+
+.embedded-demo(sorting/disable-column-sorting)
+
 ## Using Sorting with Grouping
 
 If you use grouping features, the Grid allows you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.

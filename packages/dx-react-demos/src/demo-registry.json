@@ -57,6 +57,7 @@
     "static",
     "custom-grouping-static",
     "grouping-with-ui",
+    "disable-column-grouping",
     "controlled-mode",
     "custom",
     "custom-advanced",
@@ -82,6 +83,7 @@
   "sorting": [
     "header-sorting",
     "group-sorting",
+    "disable-column-sorting",
     "controlled-mode",
     "custom-sorting",
     "remote-sorting"

@@ -42,9 +42,6 @@ export default class Demo extends React.PureComponent {
         <DragDropProvider />
         <GroupingState
           defaultGrouping={[{ columnName: 'city' }]}
-          columnExtensions={[
-            { columnName: 'car', groupingEnabled: false },
-          ]}
         />
         <IntegratedGrouping />
         <Table />

@@ -46,9 +46,6 @@ export default class Demo extends React.PureComponent {
         <GroupingState
           grouping={grouping}
           onGroupingChange={this.changeGrouping}
-          columnExtensions={[
-            { columnName: 'car', groupingEnabled: false },
-          ]}
         />
         <IntegratedGrouping />
         <Table />

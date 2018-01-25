@@ -3,15 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ToolbarMUI from 'material-ui/Toolbar';
 import { withStyles } from 'material-ui/styles';
-import { darken, fade, lighten } from 'material-ui/styles/colorManipulator';
+import { getBorderColor } from '../utils';
 
 const styles = theme => ({
   toolbar: {
-    borderBottom: `1px solid ${
-      theme.palette.type === 'light'
-        ? lighten(fade(theme.palette.divider, 1), 0.88)
-        : darken(fade(theme.palette.divider, 1), 0.8)
-    }`,
+    borderBottom: getBorderColor(theme),
   },
 });
 

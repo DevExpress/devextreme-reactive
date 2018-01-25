@@ -43,6 +43,10 @@ export default class Demo extends React.PureComponent {
           <FilteringState
             filters={filters}
             onFiltersChange={this.changeFilters}
+            columnExtensions={[
+              { columnName: 'name', filteringEnabled: false },
+              { columnName: 'car', filteringEnabled: false },
+            ]}
           />
           <IntegratedFiltering />
           <Table />

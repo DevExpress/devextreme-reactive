@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { changeColumnFilter } from '@devexpress/dx-grid-core';
+import { changeColumnFilter, getColumnExtension } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
+const getColumnFilteringEnabled = (columnExtensions, filteringEnabled) => (columnName) => {
+  if (columnExtensions) {
+    const columnExtension = getColumnExtension(columnExtensions, columnName);
+    return columnExtension.filteringEnabled !== undefined
+      ? columnExtension.filteringEnabled
+      : filteringEnabled;
+  }
+  return filteringEnabled;
+};
 export class FilteringState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -34,12 +43,17 @@ export class FilteringState extends React.PureComponent {
   }
   render() {
     const { filters } = this.getState();
+    const { columnExtensions, filteringEnabled } = this.props;
 
     return (
       <PluginContainer
         pluginName="FilteringState"
       >
         <Getter name="filters" value={filters} />
+        <Getter
+          name="columnFilteringEnabled"
+          value={getColumnFilteringEnabled(columnExtensions, filteringEnabled)}
+        />
         <Action name="changeColumnFilter" action={this.changeColumnFilter} />
       </PluginContainer>
     );
@@ -50,10 +64,14 @@ FilteringState.propTypes = {
   filters: PropTypes.array,
   defaultFilters: PropTypes.array,
   onFiltersChange: PropTypes.func,
+  columnExtensions: PropTypes.array,
+  filteringEnabled: PropTypes.bool,
 };
 
 FilteringState.defaultProps = {
   filters: undefined,
   defaultFilters: [],
   onFiltersChange: undefined,
+  columnExtensions: undefined,
+  filteringEnabled: true,
 };

@@ -5,25 +5,47 @@ import Input from 'material-ui/Input';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 
-const styles = theme => ({
-  cell: {
-    verticalAlign: 'top',
-    paddingTop: theme.spacing.unit + 4,
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
-    '&:first-child': {
-      paddingLeft: theme.spacing.unit * 3,
+const styles = (theme) => {
+  const { palette, spacing, typography } = theme;
+  const light = palette.type === 'light';
+  return {
+    cell: {
+      verticalAlign: 'middle',
+      paddingRight: spacing.unit,
+      paddingLeft: spacing.unit,
+      '&:first-child': {
+        paddingLeft: spacing.unit * 3,
+      },
     },
-  },
-  input: {
-    width: '100%',
-  },
-});
+    input: {
+      width: '100%',
+    },
+    staticContent: {
+      fontFamily: typography.fontFamily,
+      color: light ? 'rgba(0, 0, 0, 0.87)' : palette.common.white,
+      fontSize: typography.pxToRem(16),
+    },
+  };
+};
+
+const StaticFilterCellContentBase = ({ children, classes }) => (
+  <div className={classes.staticContent}>{children}</div>
+);
+
+StaticFilterCellContentBase.propTypes = {
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
+};
+
+const StaticFilterCellContent = withStyles(styles, { name: 'StaticFilterCellContent' })(StaticFilterCellContentBase);
 
 const TableFilterCellBase = ({
   style, filter, getMessage, onFilter,
   classes, children, className,
-  tableRow, tableColumn, column,
+  tableRow, tableColumn, column, filteringEnabled,
   ...restProps
 }) => (
   <TableCell
@@ -31,14 +53,14 @@ const TableFilterCellBase = ({
     style={style}
     {...restProps}
   >
-    {children || (
+    {filteringEnabled ? (children || (
       <Input
         className={classes.input}
         value={filter ? filter.value : ''}
         placeholder={getMessage('filterPlaceholder')}
         onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
       />
-    )}
+    )) : <StaticFilterCellContent>{children}</StaticFilterCellContent>}
   </TableCell>
 );
 
@@ -56,6 +78,7 @@ TableFilterCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   column: PropTypes.object,
+  filteringEnabled: PropTypes.bool,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -67,6 +90,7 @@ TableFilterCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   column: undefined,
+  filteringEnabled: true,
 };
 
 export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

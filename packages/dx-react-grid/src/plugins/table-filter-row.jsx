@@ -43,7 +43,7 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ filters }, { changeColumnFilter }) => {
+              {({ filters, columnFilteringEnabled }, { changeColumnFilter }) => {
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
@@ -56,17 +56,26 @@ export class TableFilterRow extends React.PureComponent {
                       onValueChange: newValue => onFilter(newValue ? { value: newValue } : null),
                     }}
                   >
-                    {content => (
-                      <FilterCell
-                        {...params}
-                        getMessage={getMessage}
-                        column={params.tableColumn.column}
-                        filter={filter}
-                        onFilter={onFilter}
-                      >
-                        {content}
-                      </FilterCell>
-                    )}
+                    {(content) => {
+                      let cellContent = content;
+                      const filteringEnabled = columnFilteringEnabled(columnName);
+
+                      if (!filteringEnabled) {
+                        cellContent = filter ? filter.value : ' ';
+                      }
+                      return (
+                        <FilterCell
+                          {...params}
+                          getMessage={getMessage}
+                          column={params.tableColumn.column}
+                          filter={filter}
+                          filteringEnabled={filteringEnabled}
+                          onFilter={onFilter}
+                        >
+                          {cellContent}
+                        </FilterCell>
+                      );
+                    }}
                   </TemplatePlaceholder>
                 );
               }}

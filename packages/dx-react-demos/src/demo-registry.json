@@ -1,6 +1,6 @@
 {
   "core-basic": [
-    "pluggable-component",
+    "plugin-host-component",
     "plugin-component"
   ],
   "core-template": [

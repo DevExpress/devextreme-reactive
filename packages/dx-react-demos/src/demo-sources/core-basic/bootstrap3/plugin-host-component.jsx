@@ -4,7 +4,7 @@ import {
   Template,
 } from '@devexpress/dx-react-core';
 
-const Pluggable = () => (
+const PluginBased = () => (
   <PluginHost>
     {/* Plugin root */}
     <Template name="root">
@@ -14,5 +14,5 @@ const Pluggable = () => (
 );
 
 export default () => (
-  <Pluggable />
+  <PluginBased />
 );

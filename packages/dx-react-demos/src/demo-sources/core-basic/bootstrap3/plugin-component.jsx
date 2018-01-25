@@ -14,20 +14,20 @@ const Plugin = () => (
   </PluginContainer>
 );
 
-const Pluggable = ({ children }) => (
+const PluginBased = ({ children }) => (
   <PluginHost>
     {children}
   </PluginHost>
 );
-Pluggable.propTypes = {
+PluginBased.propTypes = {
   children: PropTypes.node,
 };
-Pluggable.defaultProps = {
+PluginBased.defaultProps = {
   children: null,
 };
 
 export default () => (
-  <Pluggable>
+  <PluginBased>
     <Plugin />
-  </Pluggable>
+  </PluginBased>
 );

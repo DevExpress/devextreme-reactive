@@ -20,7 +20,7 @@ const styles = theme => ({
   highlightedCell: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
-    borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
 });
 

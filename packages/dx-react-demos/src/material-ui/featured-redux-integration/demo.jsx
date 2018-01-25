@@ -42,18 +42,21 @@ const tableDetailColumnExtensions = [
   { columnName: 'status', width: 125 },
 ];
 
-const styles = {
+const styles = theme => ({
   detailContainer: {
     margin: 20,
   },
-};
+  title: {
+    color: theme.palette.text.primary,
+  },
+});
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
 const GridDetailContainerBase = ({ row, classes }) => (
   <div className={classes.detailContainer}>
     <div>
-      <h5>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
+      <h5 className={classes.title}>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
     </div>
     <Paper>
       <Grid

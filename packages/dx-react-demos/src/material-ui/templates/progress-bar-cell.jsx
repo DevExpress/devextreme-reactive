@@ -7,7 +7,7 @@ const styles = theme => ({
   progressBarCell: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
-    borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
   progressBar: {
     backgroundColor: theme.palette.primary[300],

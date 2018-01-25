@@ -99,7 +99,7 @@ CommitButton.propTypes = {
 };
 
 const CancelButton = ({ onExecute }) => (
-  <IconButton color="accent" onClick={onExecute} title="Cancel changes">
+  <IconButton color="secondary" onClick={onExecute} title="Cancel changes">
     <CancelIcon />
   </IconButton>
 );
@@ -373,7 +373,7 @@ class DemoBase extends React.PureComponent {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.cancelDelete} color="primary">Cancel</Button>
-            <Button onClick={this.deleteRows} color="accent">Delete</Button>
+            <Button onClick={this.deleteRows} color="secondary">Delete</Button>
           </DialogActions>
         </Dialog>
       </Paper>

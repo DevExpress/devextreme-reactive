@@ -3,20 +3,18 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginIndexer } from './plugin-indexer';
-import { Getter } from './getter';
-import { Template } from './template';
-import { Action } from './action';
+import { PluginIndexer, indexableComponent } from './plugin-indexer';
 
-jest.mock('./getter', () => ({
-  Getter: () => null,
-}));
-jest.mock('./action', () => ({
-  Action: () => null,
-}));
-jest.mock('./template', () => ({
-  Template: () => null,
-}));
+const Test1 = () =>
+  null;
+const Test2 = () =>
+  null;
+const Test3 = () =>
+  null;
+
+Test1[indexableComponent] = true;
+Test2[indexableComponent] = true;
+Test3[indexableComponent] = true;
 
 describe('PluginIndexer', () => {
   let resetConsole;
@@ -30,23 +28,20 @@ describe('PluginIndexer', () => {
   it('should correctly determine plugin position', () => {
     const tree = mount((
       <PluginIndexer>
-        <Getter />
-        <Action />
-        <Template />
+        <Test1 />
       </PluginIndexer>
     ));
 
-    expect([tree.find(Getter), tree.find(Action), tree.find(Template)]
+    expect(tree.find(Test1)
       .map(wrapper => wrapper.prop('position')()))
-      .toEqual([[0], [1], [2]]);
+      .toEqual([[0]]);
   });
 
   it('should correctly determine plugin position after children change', () => {
     const Test = ({ enableGetter }) => (
       <PluginIndexer>
-        {enableGetter && <Getter />}
-        <Action />
-        <Template />
+        {enableGetter && <Test1 />}
+        <Test2 />
       </PluginIndexer>
     );
     Test.propTypes = {
@@ -56,9 +51,9 @@ describe('PluginIndexer', () => {
     const tree = mount(<Test enableGetter={false} />);
 
     tree.setProps({ enableGetter: true });
-    expect([tree.find(Getter), tree.find(Action), tree.find(Template)]
+    expect([tree.find(Test1), tree.find(Test2)]
       .map(wrapper => wrapper.prop('position')()))
-      .toEqual([[0], [1], [2]]);
+      .toEqual([[0], [1]]);
   });
 
   it('should correctly determine plugin position within another component', () => {
@@ -66,15 +61,15 @@ describe('PluginIndexer', () => {
       <PluginIndexer>
         <div>
           <PluginIndexer>
-            <Getter />
-            <Action />
+            <Test1 />
+            <Test2 />
           </PluginIndexer>
         </div>
-        <Template />
+        <Test3 />
       </PluginIndexer>
     ));
 
-    expect([tree.find(Getter), tree.find(Action), tree.find(Template)]
+    expect([tree.find(Test1), tree.find(Test2), tree.find(Test3)]
       .map(wrapper => wrapper.prop('position')()))
       .toEqual([[0, 0], [0, 1], [1]]);
   });

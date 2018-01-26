@@ -69,7 +69,7 @@ export class TableFilterRow extends React.PureComponent {
                           getMessage={getMessage}
                           column={params.tableColumn.column}
                           filter={filter}
-                          filteringEnabled={filteringEnabled}
+                          columnFilteringEnabled={filteringEnabled}
                           onFilter={onFilter}
                         >
                           {cellContent}

@@ -32,6 +32,7 @@ Field | Type | Description
 filter | [Filter](filtering-state.md#filter) | Filtering options that are applied to a column.
 onFilter | (filter: [Filter](filtering-state.md#filter)) => void | An event that initiates applying a new filter to a column.
 column | [Column](grid.md#column) | A column.
+columnFilteringEnabled | boolean | Specifies whether filtering by a column is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Localization Messages
@@ -68,3 +69,4 @@ tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+columnFilteringEnabled | Getter | (columnName: string) => boolean | A function used to define if filtering by a column is enabled.

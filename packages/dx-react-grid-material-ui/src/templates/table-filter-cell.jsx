@@ -45,7 +45,7 @@ const StaticFilterCellContent = withStyles(styles, { name: 'StaticFilterCellCont
 const TableFilterCellBase = ({
   style, filter, getMessage, onFilter,
   classes, children, className,
-  tableRow, tableColumn, column, filteringEnabled,
+  tableRow, tableColumn, column, columnFilteringEnabled,
   ...restProps
 }) => (
   <TableCell
@@ -53,7 +53,7 @@ const TableFilterCellBase = ({
     style={style}
     {...restProps}
   >
-    {filteringEnabled ? (children || (
+    {columnFilteringEnabled ? (children || (
       <Input
         className={classes.input}
         value={filter ? filter.value : ''}
@@ -78,7 +78,7 @@ TableFilterCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   column: PropTypes.object,
-  filteringEnabled: PropTypes.bool,
+  columnFilteringEnabled: PropTypes.bool,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -90,7 +90,7 @@ TableFilterCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   column: undefined,
-  filteringEnabled: true,
+  columnFilteringEnabled: true,
 };
 
 export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

@@ -2,12 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { changeColumnFilter } from '@devexpress/dx-grid-core';
+import { changeColumnFilter, getColumnExtensionValue } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { FilteringState } from './filtering-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnFilter: jest.fn(),
+  getColumnExtensionValue: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -28,6 +29,7 @@ describe('FilteringState', () => {
 
   beforeEach(() => {
     changeColumnFilter.mockImplementation(() => []);
+    getColumnExtensionValue.mockImplementation(() => ((() => {})));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -184,6 +186,49 @@ describe('FilteringState', () => {
 
       expect(filtersChange)
         .toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('column extensions', () => {
+    it('should correctly call getColumnExtensionValue by default', () => {
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <FilteringState />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(undefined, 'filteringEnabled', true);
+    });
+
+    it('should correctly call getColumnExtensionValue if columnFilteringEnabled prop is false', () => {
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <FilteringState
+            columnFilteringEnabled={false}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(undefined, 'filteringEnabled', false);
+    });
+
+    it('should correctly call getColumnExtensionValue if columnExtensions prop is defined', () => {
+      const columnExtensions = [{ columnName: 'a', filteringEnabled: true }];
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <FilteringState
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(columnExtensions, 'filteringEnabled', true);
     });
   });
 });

@@ -1,18 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
-import { changeColumnFilter, getColumnExtension } from '@devexpress/dx-grid-core';
+import { changeColumnFilter, getColumnExtensionValue } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
-const getColumnFilteringEnabled = (columnExtensions, filteringEnabled) => (columnName) => {
-  if (columnExtensions) {
-    const columnExtension = getColumnExtension(columnExtensions, columnName);
-    return columnExtension.filteringEnabled !== undefined
-      ? columnExtension.filteringEnabled
-      : filteringEnabled;
-  }
-  return filteringEnabled;
-};
+const getColumnFilteringEnabled = (columnExtensions, defaultValue) =>
+  getColumnExtensionValue(columnExtensions, 'filteringEnabled', defaultValue);
+
 export class FilteringState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -43,7 +37,7 @@ export class FilteringState extends React.PureComponent {
   }
   render() {
     const { filters } = this.getState();
-    const { columnExtensions, filteringEnabled } = this.props;
+    const { columnExtensions, columnFilteringEnabled } = this.props;
 
     return (
       <PluginContainer
@@ -52,7 +46,7 @@ export class FilteringState extends React.PureComponent {
         <Getter name="filters" value={filters} />
         <Getter
           name="columnFilteringEnabled"
-          value={getColumnFilteringEnabled(columnExtensions, filteringEnabled)}
+          value={getColumnFilteringEnabled(columnExtensions, columnFilteringEnabled)}
         />
         <Action name="changeColumnFilter" action={this.changeColumnFilter} />
       </PluginContainer>
@@ -65,7 +59,7 @@ FilteringState.propTypes = {
   defaultFilters: PropTypes.array,
   onFiltersChange: PropTypes.func,
   columnExtensions: PropTypes.array,
-  filteringEnabled: PropTypes.bool,
+  columnFilteringEnabled: PropTypes.bool,
 };
 
 FilteringState.defaultProps = {
@@ -73,5 +67,5 @@ FilteringState.defaultProps = {
   defaultFilters: [],
   onFiltersChange: undefined,
   columnExtensions: undefined,
-  filteringEnabled: true,
+  columnFilteringEnabled: true,
 };

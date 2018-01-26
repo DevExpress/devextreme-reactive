@@ -109,17 +109,20 @@ export class GroupPanelLayout extends React.PureComponent {
 
     const groupPanel = (items.length ? (
       <Container>
-        {items.map(item => (
-          <ItemLayout
-            key={item.column.name}
-            ref={element => element && this.itemRefs.push(element)}
-            item={item}
-            itemComponent={Item}
-            draggingEnabled={draggingEnabled && columnGroupingEnabled(item.column.name)}
-            onDragStart={() => this.onDragStart(item.column.name)}
-            onDragEnd={this.onDragEnd}
-          />
-        ))}
+        {items.map((item) => {
+          const { name: columnName } = item.column;
+          return (
+            <ItemLayout
+              key={columnName}
+              ref={element => element && this.itemRefs.push(element)}
+              item={item}
+              itemComponent={Item}
+              draggingEnabled={draggingEnabled && columnGroupingEnabled(columnName)}
+              onDragStart={() => this.onDragStart(columnName)}
+              onDragEnd={this.onDragEnd}
+            />
+          );
+        })}
       </Container>
     ) : (
       <EmptyMessage />

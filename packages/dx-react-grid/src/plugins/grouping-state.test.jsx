@@ -729,7 +729,7 @@ describe('GroupingState', () => {
         .toBeCalledWith(undefined, 'groupingEnabled', true);
     });
 
-    it('should correctly call getColumnExtensionValue call if columnGroupingEnabled prop is false', () => {
+    it('should correctly call getColumnExtensionValue if columnGroupingEnabled prop is false', () => {
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}

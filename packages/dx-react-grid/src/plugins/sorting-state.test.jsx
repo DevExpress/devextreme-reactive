@@ -209,7 +209,7 @@ describe('SortingState', () => {
         .toBeCalledWith(undefined, 'sortingEnabled', true);
     });
 
-    it('should correctly call getColumnExtensionValue call if columnSortingEnabled prop is false', () => {
+    it('should correctly call getColumnExtensionValue if columnSortingEnabled prop is false', () => {
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}

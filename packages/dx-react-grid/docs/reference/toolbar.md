@@ -12,11 +12,11 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rootComponent | ElementType&lt;[ToolbarRootProps](#toolbarrootprops)&gt; | | A component that renders the toolbar root element.
+rootComponent | ElementType&lt;[Toolbar.RootProps](#toolbarrootprops)&gt; | | A component that renders the toolbar root element.
 
 ## Interfaces
 
-### ToolbarRootProps
+### Toolbar.RootProps
 
 Describes properties passed to a component that renders the toolbar root element.
 
@@ -28,7 +28,7 @@ children? | ReactElement | A React element to be placed in the toolbar.
 
 Name | Properties | Description
 -----|------------|------------
-Toolbar.Root | [ToolbarRootProps](#toolbarrootprops) | A component that renders the toolbar root element.
+Toolbar.Root | [Toolbar.RootProps](#toolbarrootprops) | A component that renders the toolbar root element.
 
 If you specify additional properties, they are added to the component's root element.
 

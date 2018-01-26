@@ -13,7 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a row change object depending on row editor values. This function is called each time the row editor's value changes.
-columnExtensions | Array&lt;[EditingColumnExtension](#editingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[EditingColumnExtension](#editingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 editingRowIds | Array&lt;number &#124; string&gt; | | IDs of the rows being edited.
 defaultEditingRowIds | Array&lt;number &#124; string&gt; | [] | IDs of the rows initially added to the `editingRowIds` array in uncontrolled mode.
 onEditingRowIdsChange | (editingRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
@@ -26,15 +26,13 @@ onRowChangesChange | (rowChanges: { [key: string]: any }) => void | | Handles ad
 deletedRowIds | Array&lt;number &#124; string&gt; | | IDs of the rows prepared for deletion.
 defaultDeletedRowIds | Array&lt;number &#124; string&gt; | [] | Rows initially added to the `deletedRowIds` array in uncontrolled mode.
 onDeletedRowIdsChange | (deletedRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRowIds` array.
-onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
+onCommitChanges | (changes: Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
 
 ## Interfaces
 
 ### EditingColumnExtension
 
 Describes additional column properties that the plugin can handle.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -45,12 +43,10 @@ createRowChange? | (row: any, value: any, columnName: string) => any | A functio
 
 Describes uncommitted changes made to the grid data.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 added? | Array&lt;any&gt; | An array of rows to be created.
-changed? | { [key: number &#124; string]: any } | An associated array that stores changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
+changed? | { [string]: any } | An associated array that stores changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing rows to be deleted.
 
 ## Plugin Developer Reference

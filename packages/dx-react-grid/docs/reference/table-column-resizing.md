@@ -22,8 +22,6 @@ onColumnWidthsChange | (nextColumnWidths: { [columnName: string]: number }) => v
 
 Describes an object that specifies a column width.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 columnName | string | A column name.

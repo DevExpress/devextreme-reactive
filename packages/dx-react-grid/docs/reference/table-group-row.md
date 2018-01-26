@@ -15,10 +15,10 @@ A plugin that renders group rows and enables them to expand and collapse.
 Name | Type | Default | Description
 -----|------|---------|------------
 showColumnsWhenGrouped | boolean | false | A Boolean value that specifies whether the grid's table displays a column by which data is grouped.
-columnExtensions | Array&lt;[TableGroupColumnExtension](#tablegroupcolumnextension)&gt; | | Additional column properties that the plugin can handle.
-cellComponent | ElementType&lt;[TableGroupCellProps](#tablegroupcellprops)&gt; | | A component that renders a group cell.
-rowComponent | ElementType&lt;[TableGroupRowProps](#tablegrouprowprops)&gt; | | A component that renders a group row.
-indentCellComponent | ElementType&lt;[TableGroupIndentCellProps](#tablegroupindentcellprops)&gt; | null | A component that renders a group indent cell.
+columnExtensions? | Array&lt;[TableGroupColumnExtension](#tablegroupcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+cellComponent | ElementType&lt;[TableGroupRow.CellProps](#tablegrouprowcellprops)&gt; | | A component that renders a group cell.
+rowComponent | ElementType&lt;[TableGroupRow.RowProps](#tablegrouprowrowprops)&gt; | | A component that renders a group row.
+indentCellComponent | ElementType&lt;[TableGroupRow.IndentCellProps](#tablegrouprowindentcellprops)&gt; | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
 
 ## Interfaces
@@ -34,34 +34,34 @@ Field | Type | Description
 columnName | string | The name of a column to extend.
 showWhenGrouped? | boolean | Specifies whether the grid displays the column by which data is grouped.
 
-### TableGroupCellProps
+### TableGroupRow.CellProps
 
 Describes properties passed to a component that renders a group cell.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
-column | [Column](#column-extension) | The column associated with the group.
+column | [Column](grid.md#column) | The column associated with the group.
 expanded | boolean | Specifies whether the row is expanded.
 onToggle | () => void | An event that initiates group row's expanding or collapsing.
 
-### TableGroupRowProps
+### TableGroupRow.RowProps
 
 Describes properties passed to a component that renders a group row.
 
-A value with the [TableRowProps](table.md#tablerowprops) shape extended by the following fields:
+A value with the [Table.RowProps](table.md#tablerowprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
 
-### TableGroupIndentCellProps
+### TableGroupRow.IndentCellProps
 
 Describes properties passed to a component that renders a group indent cell.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -81,8 +81,8 @@ value | any | The current group value.
 
 Name | Properties | Description
 -----|------------|------------
-TableGroupRow.Row | [TableGroupRowProps](#tablegrouprowprops) | A component that renders a group row.
-TableGroupRow.Cell | [TableGroupCellProps](#tablegroupcellprops) | A component that renders a group cell.
+TableGroupRow.Row | [TableGroupRow.RowProps](#tablegrouprowrowprops) | A component that renders a group row.
+TableGroupRow.Cell | [TableGroupRow.CellProps](#tablegrouprowcellprops) | A component that renders a group cell.
 
 Additional properties are added to the component's root element.
 
@@ -100,8 +100,8 @@ draftGrouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | G
 expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the group's expanded state.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

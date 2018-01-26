@@ -22,8 +22,6 @@ editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops)&gt; | | A
 
 Describes properties passed to a component that renders the formatted value.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column object.
@@ -33,8 +31,6 @@ value | any | The value to be formatted.
 ### ValueEditorProps
 
 Describes properties passed to a component that renders the value editor.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

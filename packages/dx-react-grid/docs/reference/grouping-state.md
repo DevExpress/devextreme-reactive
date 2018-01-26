@@ -25,13 +25,11 @@ onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) =
 
 Describes grouping options.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 columnName | string | Specifies the name of the column by which the data is grouped.
 
-### <a name="group-key"></a>GroupKey
+### GroupKey
 
 Describes a group that can be nested in another one.
 

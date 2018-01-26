@@ -15,12 +15,12 @@ Name | Type | Default | Description
 hiddenColumnNames | Array&lt;string&gt; | | Hidden column names.
 defaultHiddenColumnNames | Array&lt;string&gt; | [] | Names of initially hidden columns in uncontrolled mode.
 onHiddenColumnNamesChange | (hiddenColumnNames: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
-emptyMessageComponent | ElementType&lt;[EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
+emptyMessageComponent | ElementType&lt;[TableColumnVisibility.EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
 messages | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
-### EmptyMessageProps
+### TableColumnVisibility.EmptyMessageProps
 
 Describes the empty message component's properties.
 
@@ -40,7 +40,7 @@ noColumns? | string | 'Nothing to show' | Specifies the text that is displayed w
 
 Name | Properties | Description
 -----|------------|------------
-TableColumnVisibility.EmptyMessage | [EmptyMessageProps](#emptymessageprops) | A component that renders a message displayed when all columns are hidden.
+TableColumnVisibility.EmptyMessage | [TableColumnVisibility.EmptyMessageProps](#emptymessageprops) | A component that renders a message displayed when all columns are hidden.
 
 If you specify additional properties, they are added to the component's root element.
 

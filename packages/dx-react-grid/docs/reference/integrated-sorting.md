@@ -12,15 +12,13 @@ A plugin that performs built-in data sorting.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions | Array&lt;[IntegratedSortingColumnExtension](#integratedsortingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[IntegratedSortingColumnExtension](#integratedsortingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 
 ### IntegratedSortingColumnExtension
 
 Describes additional column properties that the plugin can handle.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

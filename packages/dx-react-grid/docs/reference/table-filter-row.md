@@ -14,18 +14,18 @@ A plugin that renders a filter row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | ElementType&lt;[TableFilterCellProps](#tablefiltercellprops)&gt; | | A component that renders a filter cell.
-rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
+cellComponent | ElementType&lt;[TableFilterRow.CellProps](#tablefilterrowcellprops)&gt; | | A component that renders a filter cell.
+rowComponent | ElementType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
 rowHeight | number | | The filter row's height.
 messages | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 
-### TableFilterCellProps
+### TableFilterRow.CellProps
 
 Describes properties passed to a component that renders a filter cell.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
 
 Field | Type | Description
 ------|------|------------
@@ -46,8 +46,8 @@ filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text. 
 
 Name | Properties | Description
 -----|------------|------------
-TableFilterRow.Cell | [TableFilterCellProps](#tablefiltercellprops) | A component that renders a filter row cell.
-TableFilterRow.Row | [TableRowProps](table.md#tablerowprops) | A component that renders a filter row.
+TableFilterRow.Cell | [TableFilterRow.CellProps](#tablefilterrowcellprops) | A component that renders a filter row cell.
+TableFilterRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a filter row.
 
 If you specify additional properties, they are added to the component's root element.
 
@@ -60,8 +60,8 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | The filtering options.
 changeColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter or clears it if config is null.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

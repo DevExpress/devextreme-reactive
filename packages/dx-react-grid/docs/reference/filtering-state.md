@@ -22,8 +22,6 @@ onFiltersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles 
 
 Describes a filter.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 columnName | string | Specifies the name of a column whose value is used for filtering.

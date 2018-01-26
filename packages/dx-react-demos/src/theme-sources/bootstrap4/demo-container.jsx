@@ -1,25 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
+import { FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
 
-const BOOTSTRAP4_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
+const CUSTOM_THEME = 'https://bootswatch.com/4/sketchy/bootstrap.min.css';
 const ICONS = 'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css';
+const THEMES = [{
+  name: 'default',
+  link: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+}, {
+  name: 'cyborg',
+  link: 'https://bootswatch.com/4/cyborg/bootstrap.min.css',
+}];
 
-export default class DemoContainer extends React.PureComponent {
+class DemoFrame extends React.PureComponent {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
+      customThemeLink: CUSTOM_THEME,
       frameHeight: 600,
     };
 
-    const { url } = this.props;
+    const { themeName, url } = this.props;
     const { scriptPath } = this.context.embeddedDemoOptions;
+    const themeLink = themeName !== 'custom' && THEMES.find(({ name }) => name === themeName).link;
     this.markup = `
       <!DOCTYPE html>
       <html>
       <head>
-        <link rel="stylesheet" href="${BOOTSTRAP4_THEME}" />
+        <link rel="stylesheet" href="${themeLink}" />
         <link rel="stylesheet" href="${ICONS}" />
         <style>
           .panel { margin: 0 !important; }
@@ -47,12 +57,38 @@ export default class DemoContainer extends React.PureComponent {
     }
   }
   render() {
-    const { children } = this.props;
+    const { themeName, children } = this.props;
     const { embeddedDemoOptions: { frame } } = this.context;
-    const { frameHeight } = this.state;
+    const { customThemeLink, frameHeight } = this.state;
 
     return (
       <div>
+        {!frame && themeName === 'custom' && (
+          <form
+            style={{ marginBottom: '20px' }}
+          >
+            <FormGroup controlId="customThemeLink">
+              <ControlLabel>Custom theme link</ControlLabel>
+              <InputGroup>
+                <FormControl
+                  type="text"
+                  inputRef={(node) => { this.customThemeLinkNode = node; }}
+                  defaultValue={customThemeLink}
+                />
+                <InputGroup.Button>
+                  <Button
+                    onClick={() =>
+                      this.setState({ customThemeLink: this.customThemeLinkNode.value })
+                    }
+                  >
+                    Apply
+                  </Button>
+                </InputGroup.Button>
+              </InputGroup>
+            </FormGroup>
+          </form>
+        )}
+
         {frame
           ? children
           : (
@@ -66,6 +102,9 @@ export default class DemoContainer extends React.PureComponent {
               initialContent={this.markup}
               mountTarget="#mountPoint"
             >
+              {themeName === 'custom' ? (
+                <link rel="stylesheet" href={customThemeLink} />
+              ) : null}
               <div ref={(node) => { this.node = node; }} />
             </Frame>
         )}
@@ -74,11 +113,16 @@ export default class DemoContainer extends React.PureComponent {
   }
 }
 
-DemoContainer.propTypes = {
+DemoFrame.propTypes = {
+  themeName: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
 
-DemoContainer.contextTypes = {
+DemoFrame.contextTypes = {
   embeddedDemoOptions: PropTypes.object.isRequired,
 };
+
+export default props => <DemoFrame {...props} themeName="default" />;
+export const Cyborg = props => <DemoFrame {...props} themeName="cyborg" />;
+export const Custom = props => <DemoFrame {...props} themeName="custom" />;

@@ -43,5 +43,13 @@ export const themes = [{
     name: 'default',
     title: 'Bootstrap 4',
     DemoContainer: require('./theme-sources/bootstrap4/demo-container').default,
+  }, {
+    name: 'cyborg',
+    title: 'Bootstrap 4 (Bootswatch Cyborg)',
+    DemoContainer: require('./theme-sources/bootstrap4/demo-container').Cyborg,
+  }, {
+    name: 'custom',
+    title: 'Bootstrap 4 (Custom)',
+    DemoContainer: require('./theme-sources/bootstrap4/demo-container').Custom,
   }],
 }];

@@ -115,9 +115,9 @@ class DemoFrame extends React.PureComponent {
               initialContent={this.markup}
               mountTarget="#mountPoint"
             >
-              {themeName === 'custom' && (
+              {themeName === 'custom' ? (
                 <link rel="stylesheet" href={customThemeLink} />
-              )}
+              ) : null}
               <div ref={(node) => { this.node = node; }} />
             </Frame>
         )}

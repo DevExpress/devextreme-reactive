@@ -11,6 +11,7 @@ import {
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+import { withStyles } from 'material-ui/styles';
 
 import {
   generateRows,
@@ -40,12 +41,18 @@ const tableDetailColumnExtensions = [
   { columnName: 'status', width: 125 },
 ];
 
+const styles = theme => ({
+  title: {
+    color: theme.palette.text.primary,
+  },
+});
+
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-const GridDetailContainer = ({ row }) => (
+const GridDetailContainerBase = ({ row, classes }) => (
   <div style={{ margin: 20 }}>
     <div>
-      <h5>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
+      <h5 className={classes.title}>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
     </div>
     <<%&wrapperTag%>>
       <Grid
@@ -60,9 +67,12 @@ const GridDetailContainer = ({ row }) => (
     </<%&wrapperTag%>>
   </div>
 );
-GridDetailContainer.propTypes = {
+GridDetailContainerBase.propTypes = {
   row: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+const GridDetailContainer = withStyles(styles, { name: 'ReduxIntegrationDemo' })(GridDetailContainerBase);
 
 const ReduxGridDetailContainer = connect(state => state)(GridDetailContainer);
 

@@ -16,7 +16,7 @@ const styles = {
     backgroundColor: '#f5f5f5',
   },
   health: {
-    backgroundColor: '#c8e6c9',
+    backgroundColor: '#a2e2a4',
   },
   telecom: {
     backgroundColor: '#b3e5fc',

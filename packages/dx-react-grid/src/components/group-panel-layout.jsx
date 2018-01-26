@@ -15,12 +15,12 @@ export class GroupPanelLayout extends React.PureComponent {
       sourceColumnName: null,
       targetItemIndex: -1,
     };
-    this.handleDragEvent = (eventName, { payload, ...restArgs }) => {
+    this.handleDragEvent = (eventHandler, { payload, ...restArgs }) => {
       const { columnGroupingEnabled } = this.props;
       const { columnName } = payload[0];
 
       if (columnGroupingEnabled(columnName)) {
-        this[eventName]({ payload, ...restArgs });
+        eventHandler({ payload, ...restArgs });
       }
     };
     this.onEnter = ({ payload }) => {
@@ -128,10 +128,10 @@ export class GroupPanelLayout extends React.PureComponent {
     return draggingEnabled
       ? (
         <DropTarget
-          onEnter={args => this.handleDragEvent('onEnter', args)}
-          onOver={args => this.handleDragEvent('onOver', args)}
-          onLeave={args => this.handleDragEvent('onLeave', args)}
-          onDrop={args => this.handleDragEvent('onDrop', args)}
+          onEnter={args => this.handleDragEvent(this.onEnter, args)}
+          onOver={args => this.handleDragEvent(this.onOver, args)}
+          onLeave={args => this.handleDragEvent(this.onLeave, args)}
+          onDrop={args => this.handleDragEvent(this.onDrop, args)}
         >
           {groupPanel}
         </DropTarget>

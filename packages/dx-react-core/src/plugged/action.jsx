@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { indexableComponent } from './plugin-indexer';
+import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export class Action extends React.PureComponent {
   componentWillMount() {
@@ -27,7 +27,7 @@ export class Action extends React.PureComponent {
   }
 }
 
-Action[indexableComponent] = true;
+Action[INDEXABLE_COMPONENT] = true;
 
 Action.propTypes = {
   position: PropTypes.func,

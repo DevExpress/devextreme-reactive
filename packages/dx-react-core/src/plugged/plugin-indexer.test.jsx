@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginIndexer, indexableComponent } from './plugin-indexer';
+import { PluginIndexer, INDEXABLE_COMPONENT } from './plugin-indexer';
 
 const Test = () => null;
-Test[indexableComponent] = true;
+Test[INDEXABLE_COMPONENT] = true;
 
 describe('PluginIndexer', () => {
   let resetConsole;

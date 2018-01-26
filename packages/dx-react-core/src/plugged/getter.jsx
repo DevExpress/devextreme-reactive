@@ -5,7 +5,7 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from '../utils/plugin-helpers';
-import { indexableComponent } from './plugin-indexer';
+import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export const UPDATE_CONNECTION = 'updateConnection';
 
@@ -60,7 +60,7 @@ export class Getter extends React.PureComponent {
   }
 }
 
-Getter[indexableComponent] = true;
+Getter[INDEXABLE_COMPONENT] = true;
 
 Getter.propTypes = {
   position: PropTypes.func,

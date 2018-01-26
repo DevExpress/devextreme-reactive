@@ -17,6 +17,10 @@ import {
   generateRows,
 } from '../../../demo-data/generator';
 
+const groupingStateColumnExtensions = [
+  { columnName: 'name', groupingEnabled: false },
+];
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -44,9 +48,7 @@ export default class Demo extends React.PureComponent {
           <DragDropProvider />
           <GroupingState
             defaultGrouping={grouping}
-            columnExtensions={[
-              { columnName: 'name', groupingEnabled: false },
-            ]}
+            columnExtensions={groupingStateColumnExtensions}
           />
           <IntegratedGrouping />
           <Table />

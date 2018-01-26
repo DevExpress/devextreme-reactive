@@ -7,7 +7,7 @@ import {
   toggleExpandedGroups,
   draftColumnGrouping,
   cancelColumnGroupingDraft,
-  getColumnExtension,
+  getColumnExtensionValue,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { GroupingState } from './grouping-state';
@@ -17,7 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   toggleExpandedGroups: jest.fn(),
   draftColumnGrouping: jest.fn(),
   cancelColumnGroupingDraft: jest.fn(),
-  getColumnExtension: jest.fn(),
+  getColumnExtensionValue: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -42,6 +42,7 @@ describe('GroupingState', () => {
     toggleExpandedGroups.mockImplementation(() => {});
     draftColumnGrouping.mockImplementation(() => {});
     cancelColumnGroupingDraft.mockImplementation(() => {});
+    getColumnExtensionValue.mockImplementation(() => ((() => {})));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -712,74 +713,6 @@ describe('GroupingState', () => {
 
       expect(groupingChange)
         .toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('column extensions', () => {
-    beforeEach(() => {
-      getColumnExtension.mockImplementation(() => ({}));
-    });
-    afterEach(() => {
-      jest.resetAllMocks();
-    });
-
-    it('should allow grouping by default', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <GroupingState />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).columnGroupingEnabled('a'))
-        .toBeTruthy();
-    });
-
-    it('should not allow grouping if columnGroupingEnabled prop is false', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <GroupingState
-            columnGroupingEnabled={false}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).columnGroupingEnabled('a'))
-        .toBeFalsy();
-    });
-
-    it('should allow grouping if columnGroupingEnabled prop is false and groupingEnabled extension is true', () => {
-      const columnExtension = { columnName: 'a', groupingEnabled: true };
-      getColumnExtension.mockReturnValue(columnExtension);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <GroupingState
-            columnGroupingEnabled={false}
-            columnExtensions={[columnExtension]}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).columnGroupingEnabled('a'))
-        .toBeTruthy();
-    });
-
-    it('should not allow grouping if groupingEnabled extension is false', () => {
-      const columnExtension = { columnName: 'a', groupingEnabled: false };
-      getColumnExtension.mockReturnValue(columnExtension);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <GroupingState
-            columnExtensions={[columnExtension]}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).columnGroupingEnabled('a'))
-        .toBeFalsy();
     });
   });
 });

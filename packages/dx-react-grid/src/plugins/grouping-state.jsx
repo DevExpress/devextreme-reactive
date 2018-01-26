@@ -6,7 +6,7 @@ import {
   toggleExpandedGroups,
   draftColumnGrouping,
   cancelColumnGroupingDraft,
-  getColumnExtension,
+  getColumnExtensionValue,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -27,15 +27,8 @@ const adjustSortIndex = (sortIndex, grouping, sorting) =>
     0,
   );
 
-const getColumnGroupingEnabled = (columnExtensions, columnGroupingEnabled) => (columnName) => {
-  if (columnExtensions) {
-    const columnExtension = getColumnExtension(columnExtensions, columnName);
-    return columnExtension.groupingEnabled !== undefined
-      ? columnExtension.groupingEnabled
-      : columnGroupingEnabled;
-  }
-  return columnGroupingEnabled;
-};
+const getColumnGroupingEnabled = (columnExtensions, defaultValue) =>
+  getColumnExtensionValue(columnExtensions, 'groupingEnabled', defaultValue);
 
 export class GroupingState extends React.PureComponent {
   constructor(props) {

@@ -2,13 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { changeColumnSorting, getColumnExtension } from '@devexpress/dx-grid-core';
+import { changeColumnSorting, getColumnExtensionValue } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SortingState } from './sorting-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnSorting: jest.fn(),
-  getColumnExtension: jest.fn(),
+  getColumnExtensionValue: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -30,6 +30,7 @@ describe('SortingState', () => {
 
   beforeEach(() => {
     changeColumnSorting.mockImplementation(() => ({}));
+    getColumnExtensionValue.mockImplementation(() => ((() => {})));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -192,74 +193,6 @@ describe('SortingState', () => {
 
       expect(sortingChange)
         .toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('column extensions', () => {
-    beforeEach(() => {
-      getColumnExtension.mockImplementation(() => ({}));
-    });
-    afterEach(() => {
-      jest.resetAllMocks();
-    });
-
-    it('should allow sorting by default', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <SortingState />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).columnSortingEnabled('a'))
-        .toBeTruthy();
-    });
-
-    it('should not allow sorting if columnSortingEnabled prop is false', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <SortingState
-            columnSortingEnabled={false}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).columnSortingEnabled('a'))
-        .toBeFalsy();
-    });
-
-    it('should allow sorting if columnSortingEnabled prop is false and sortingEnabled extension is true', () => {
-      const columnExtension = { columnName: 'a', sortingEnabled: true };
-      getColumnExtension.mockReturnValue(columnExtension);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <SortingState
-            columnSortingEnabled={false}
-            columnExtensions={[columnExtension]}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).columnSortingEnabled('a'))
-        .toBeTruthy();
-    });
-
-    it('should not allow sorting if sortingEnabled extension is false', () => {
-      const columnExtension = { columnName: 'a', sortingEnabled: false };
-      getColumnExtension.mockReturnValue(columnExtension);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <SortingState
-            columnExtensions={[columnExtension]}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).columnSortingEnabled('a'))
-        .toBeFalsy();
     });
   });
 });

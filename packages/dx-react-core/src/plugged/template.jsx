@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export const RERENDER_TEMPLATE = 'rerenderTemplate';
-
 let globalTemplateId = 0;
 export class Template extends React.PureComponent {
   constructor(props, context) {
@@ -37,6 +37,8 @@ export class Template extends React.PureComponent {
     return null;
   }
 }
+
+Template[INDEXABLE_COMPONENT] = true;
 
 Template.propTypes = {
   position: PropTypes.func,

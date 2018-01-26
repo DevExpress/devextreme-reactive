@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   PluginHost,
-  PluginContainer,
+  Plugin,
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-const Plugin = () => (
-  <PluginContainer>
+const Plugin1 = () => (
+  <Plugin>
     <Template name="root">
       List of cities:
       <ul>
@@ -21,11 +21,11 @@ const Plugin = () => (
         <li>{title}</li>
       )}
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 export default () => (
   <PluginHost>
-    <Plugin />
+    <Plugin1 />
   </PluginHost>
 );

@@ -1,14 +1,14 @@
 import React from 'react';
 import {
   PluginHost,
-  PluginContainer,
+  Plugin,
   Template,
   Getter,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 
 const Plugin1 = () => (
-  <PluginContainer>
+  <Plugin>
     <Getter name="userName" value="john" />
     <Template name="root">
       <TemplateConnector>
@@ -17,13 +17,13 @@ const Plugin1 = () => (
         )}
       </TemplateConnector>
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 const Plugin2 = () => (
-  <PluginContainer>
+  <Plugin>
     <Getter name="userName" computed={({ userName }) => userName.toUpperCase()} />
-  </PluginContainer>
+  </Plugin>
 );
 
 export default () => (

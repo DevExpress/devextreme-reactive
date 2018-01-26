@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, TemplatePlaceholder, TemplateConnector, PluginContainer,
+  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
 } from '@devexpress/dx-react-core';
 import {
   getRowChange,
@@ -12,9 +12,9 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'EditingState' },
-  { pluginName: 'Table' },
-  { pluginName: 'DataTypeProvider', optional: true },
+  { name: 'EditingState' },
+  { name: 'Table' },
+  { name: 'DataTypeProvider', optional: true },
 ];
 
 export class TableEditRow extends React.PureComponent {
@@ -29,8 +29,8 @@ export class TableEditRow extends React.PureComponent {
       tableRowsWithEditing(tableBodyRows, editingRowIds, addedRows, rowHeight);
 
     return (
-      <PluginContainer
-        pluginName="TableEditRow"
+      <Plugin
+        name="TableEditRow"
         dependencies={pluginDependencies}
       >
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
@@ -99,7 +99,7 @@ export class TableEditRow extends React.PureComponent {
             />
           )}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

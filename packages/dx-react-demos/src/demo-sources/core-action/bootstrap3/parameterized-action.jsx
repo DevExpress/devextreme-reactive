@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   PluginHost,
-  PluginContainer,
+  Plugin,
   Template,
   TemplatePlaceholder,
   Action,
@@ -20,18 +20,18 @@ class Plugin1 extends React.Component {
   render() {
     const { count } = this.state;
     return (
-      <PluginContainer>
+      <Plugin>
         <Action name="changeCount" action={this.changeCount} />
         <Template name="root">
           <span>(total count): {count}</span>
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }
 
 const Plugin2 = () => (
-  <PluginContainer>
+  <Plugin>
     <Template name="root">
       <TemplatePlaceholder />
       <br />
@@ -44,7 +44,7 @@ const Plugin2 = () => (
         )}
       </TemplateConnector>
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 export default () => (

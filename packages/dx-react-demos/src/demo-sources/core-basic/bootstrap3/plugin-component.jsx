@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   PluginHost,
-  PluginContainer,
+  Plugin,
   Template,
 } from '@devexpress/dx-react-core';
 
-const Plugin = () => (
-  <PluginContainer>
+const Plugin1 = () => (
+  <Plugin>
     <Template name="root">
       Plugin content
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 const PluginBased = ({ children }) => (
@@ -28,6 +28,6 @@ PluginBased.defaultProps = {
 
 export default () => (
   <PluginBased>
-    <Plugin />
+    <Plugin1 />
   </PluginBased>
 );

@@ -1,20 +1,20 @@
 import React from 'react';
 import {
   PluginHost,
-  PluginContainer,
+  Plugin,
   Template,
 } from '@devexpress/dx-react-core';
 
-const Plugin = () => (
-  <PluginContainer>
+const Plugin1 = () => (
+  <Plugin>
     <Template name="root">
       Root content
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 export default () => (
   <PluginHost>
-    <Plugin />
+    <Plugin1 />
   </PluginHost>
 );

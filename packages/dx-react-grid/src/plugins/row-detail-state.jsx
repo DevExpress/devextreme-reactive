@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -37,12 +37,12 @@ export class RowDetailState extends React.PureComponent {
     const { expandedRowIds } = this.getState();
 
     return (
-      <PluginContainer
-        pluginName="RowDetailState"
+      <Plugin
+        name="RowDetailState"
       >
         <Getter name="expandedRowIds" value={expandedRowIds} />
         <Action name="toggleDetailRowExpanded" action={this.toggleDetailRowExpanded} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

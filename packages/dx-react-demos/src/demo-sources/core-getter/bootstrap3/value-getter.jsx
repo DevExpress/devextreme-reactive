@@ -1,20 +1,20 @@
 import React from 'react';
 import {
   PluginHost,
-  PluginContainer,
+  Plugin,
   Template,
   Getter,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 
 const Plugin1 = () => (
-  <PluginContainer>
+  <Plugin>
     <Getter name="userName" value="john" />
-  </PluginContainer>
+  </Plugin>
 );
 
 const Plugin2 = () => (
-  <PluginContainer>
+  <Plugin>
     <Template name="root">
       <TemplateConnector>
         {({ userName }) => (
@@ -22,7 +22,7 @@ const Plugin2 = () => (
         )}
       </TemplateConnector>
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 export default () => (

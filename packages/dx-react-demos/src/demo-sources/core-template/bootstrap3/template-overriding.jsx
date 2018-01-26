@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   PluginHost,
-  PluginContainer,
+  Plugin,
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
 const Plugin1 = () => (
-  <PluginContainer>
+  <Plugin>
     <Template name="root">
       List of cities:
       <ul>
@@ -21,11 +21,11 @@ const Plugin1 = () => (
         <li>{title}</li>
       )}
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 const Plugin2 = () => (
-  <PluginContainer>
+  <Plugin>
     <Template name="city">
       {({ title }) => (title === 'Paris' ? (
         <li><b>{title}</b></li>
@@ -33,7 +33,7 @@ const Plugin2 = () => (
         <TemplatePlaceholder />
       ))}
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 export default () => (

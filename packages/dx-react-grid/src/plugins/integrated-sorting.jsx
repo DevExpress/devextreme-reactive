@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Plugin } from '@devexpress/dx-react-core';
 import { sortedRows, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'SortingState' },
+  { name: 'SortingState' },
 ];
 
 export class IntegratedSorting extends React.PureComponent {
@@ -19,12 +19,12 @@ export class IntegratedSorting extends React.PureComponent {
       sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
 
     return (
-      <PluginContainer
-        pluginName="IntegratedSorting"
+      <Plugin
+        name="IntegratedSorting"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

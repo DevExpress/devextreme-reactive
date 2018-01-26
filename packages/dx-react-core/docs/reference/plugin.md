@@ -1,4 +1,4 @@
-# PluginContainer Component Reference
+# Plugin Component Reference
 
 A React component used as a container of several instances of [Action](action.md), [Getter](getter.md) and [Template](template.md).
 

@@ -42,7 +42,7 @@ Here the list of vizualization primitives:
 
 ## Plugin Component
 
-[PluginContainer](../reference/plugin-container.md) is an auxilary React component created to hold several plugin primitives or plugins within. If PluginContainer represents the root element of React component, the component can be called as plugin component.
+[Plugin](../reference/plugin.md) is an auxilary React component created to hold several plugin primitives or plugins within. If Plugin represents the root element of React component, the component can be called as plugin component.
 
 .embedded-demo({ "path": "core-basic/plugin-component" })
 

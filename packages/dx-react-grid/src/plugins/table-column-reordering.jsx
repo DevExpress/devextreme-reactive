@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Getter,
-  PluginContainer,
+  Plugin,
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
@@ -17,7 +17,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'Table' },
+  { name: 'Table' },
 ];
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
@@ -150,8 +150,8 @@ export class TableColumnReordering extends React.PureComponent {
     this.cellDimensionGetters = {};
 
     return (
-      <PluginContainer
-        pluginName="TableColumnReordering"
+      <Plugin
+        name="TableColumnReordering"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={columnsComputed} />
@@ -188,7 +188,7 @@ export class TableColumnReordering extends React.PureComponent {
             />
           )}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

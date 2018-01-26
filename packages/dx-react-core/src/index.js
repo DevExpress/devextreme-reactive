@@ -1,5 +1,5 @@
 export { PluginHost } from './plugged/plugin-host';
-export { PluginContainer } from './plugged/plugin-container';
+export { Plugin } from './plugged/plugin';
 export { Action } from './plugged/action';
 export { Getter } from './plugged/getter';
 export { Template } from './plugged/template';

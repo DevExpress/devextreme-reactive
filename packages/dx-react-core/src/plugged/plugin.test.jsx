@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginContainer } from './plugin-container';
+import { Plugin } from './plugin';
 
-describe('PluginContainer', () => {
+describe('Plugin', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole();
@@ -23,15 +23,15 @@ describe('PluginContainer', () => {
 
   it('should register itself in the plugin host', () => {
     mount(
-      <PluginContainer
-        pluginName="TestPlugin"
+      <Plugin
+        name="TestPlugin"
         dependencies={[{
-          pluginName: 'Dep1',
+          name: 'Dep1',
           optional: true,
         }]}
       >
         <div />
-      </PluginContainer>,
+      </Plugin>,
       {
         context: {
           pluginHost,
@@ -45,23 +45,23 @@ describe('PluginContainer', () => {
     expect(pluginHost.registerPlugin.mock.calls[0][0])
       .toMatchObject({
         position: expect.any(Function),
-        pluginName: 'TestPlugin',
-        dependencies: [{ pluginName: 'Dep1', optional: true }],
+        name: 'TestPlugin',
+        dependencies: [{ name: 'Dep1', optional: true }],
         container: true,
       });
   });
 
   it('should unregister itself from the plugin host', () => {
     const tree = mount(
-      <PluginContainer
-        pluginName="TestPlugin"
+      <Plugin
+        name="TestPlugin"
         dependencies={[{
-          pluginName: 'Dep1',
+          name: 'Dep1',
           optional: true,
         }]}
       >
         <div />
-      </PluginContainer>,
+      </Plugin>,
       {
         context: {
           pluginHost,
@@ -77,23 +77,23 @@ describe('PluginContainer', () => {
     expect(pluginHost.unregisterPlugin.mock.calls[0][0])
       .toMatchObject({
         position: expect.any(Function),
-        pluginName: 'TestPlugin',
-        dependencies: [{ pluginName: 'Dep1', optional: true }],
+        name: 'TestPlugin',
+        dependencies: [{ name: 'Dep1', optional: true }],
         container: true,
       });
   });
 
   it('should enforce dependencies check after optional is changed', () => {
     const pluginContainer = mount(
-      <PluginContainer
-        pluginName="TestPlugin"
+      <Plugin
+        name="TestPlugin"
         dependencies={[{
-          pluginName: 'Dep1',
+          name: 'Dep1',
           optional: true,
         }]}
       >
         <div />
-      </PluginContainer>,
+      </Plugin>,
       {
         context: {
           pluginHost,
@@ -103,7 +103,7 @@ describe('PluginContainer', () => {
     );
     pluginContainer.setProps({
       dependencies: [{
-        pluginName: 'Dep1',
+        name: 'Dep1',
         optional: false,
       }],
     });
@@ -114,16 +114,16 @@ describe('PluginContainer', () => {
 
   it('should not enforce dependencies check if the "dependencies" prop is not changed', () => {
     const dependencies = [{
-      pluginName: 'Dep1',
+      name: 'Dep1',
       optional: true,
     }];
     const pluginContainer = mount(
-      <PluginContainer
-        pluginName="TestPlugin"
+      <Plugin
+        name="TestPlugin"
         dependencies={dependencies}
       >
         <div />
-      </PluginContainer>,
+      </Plugin>,
       {
         context: {
           pluginHost,

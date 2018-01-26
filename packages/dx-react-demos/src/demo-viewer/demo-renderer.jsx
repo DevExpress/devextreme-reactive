@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { demos } from '../demo-registry.json';
+import { demos } from '../demo-registry';
 import { themes } from '../theme-registry';
 
 export const DemoRenderer = ({
@@ -9,7 +9,10 @@ export const DemoRenderer = ({
   themeName,
   variantName,
 }) => {
-  const Demo = demos[sectionName][demoName][themeName].demo;
+  let Demo;
+  try {
+    Demo = demos[sectionName][demoName][themeName].demo;
+  } catch (e) {} // eslint-disable-line no-empty
 
   if (!Demo) return <div>&gt; DEMO IS NOT AVAILABLE &lt;</div>;
 

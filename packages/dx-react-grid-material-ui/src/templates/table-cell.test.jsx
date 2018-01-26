@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableCell as TableCellMUI } from 'material-ui';
+import { TableCell as TableCellMUI } from 'material-ui/Table';
 import { createShallow, getClasses } from 'material-ui/test-utils';
 import { TableCell } from './table-cell';
 

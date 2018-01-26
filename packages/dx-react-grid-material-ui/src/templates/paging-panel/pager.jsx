@@ -4,12 +4,13 @@ import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
+import { getBorderColor } from '../utils';
 
 const styles = theme => ({
   pager: {
     overflow: 'hidden',
     padding: theme.spacing.unit * 1.5,
-    borderTop: `1px solid ${theme.palette.text.lightDivider}`,
+    borderTop: getBorderColor(theme),
   },
 });
 

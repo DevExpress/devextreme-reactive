@@ -20,19 +20,19 @@ Import the plugins listed above to set up a Grid with basic filtering.
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial filtering conditions in the `FilteringState` plugin's `defaultFilters` property.
 
-.embedded-demo(filtering/filter-row)
+.embedded-demo(grid-filtering/filter-row)
 
 ### Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filtering options to the `FilteringState` plugin's `filters` property and handle the `onFiltersChange` event to control the filtering state externally.
 
-.embedded-demo(filtering/controlled-mode)
+.embedded-demo(grid-filtering/controlled-mode)
 
 ### <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
 
 You can also specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
-.embedded-demo(filtering/custom-filtering-algorithm)
+.embedded-demo(grid-filtering/custom-filtering-algorithm)
 
 ## Remote Filtering
 
@@ -42,13 +42,13 @@ Filtering options are updated once an end-user modifies a text within a Filter R
 
 Note that in the case of remote filtering, you do not need to use the `IntegratedFiltering` plugin.
 
-.embedded-demo(filtering/remote-filtering)
+.embedded-demo(grid-filtering/remote-filtering)
 
 ## Customizing Filter Row Appearance
 
 Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, you should also delegate the component's state management to the `TableFilterRow` plugin assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
 
-.embedded-demo(filtering/custom-filter-row)
+.embedded-demo(grid-filtering/custom-filter-row)
 
 ## Using Filtering with Other Data Processing Plugins
 

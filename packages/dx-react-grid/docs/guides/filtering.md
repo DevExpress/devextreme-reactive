@@ -34,6 +34,12 @@ You can also specify a filtering predicate using the `IntegratedFiltering` plugi
 
 .embedded-demo(grid-filtering/custom-filtering-algorithm)
 
+### Disable Filtering by a Column
+
+The [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property allows you to prevent filtering by a specific column.
+
+.embedded-demo(grid-filtering/disable-column-filtering)
+
 ## Remote Filtering
 
 It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.

@@ -1,55 +1,117 @@
 import React from 'react';
-import {
-  PluginHost,
-  Plugin,
-  Template,
-  TemplatePlaceholder,
-  Action,
-  TemplateConnector,
-} from '@devexpress/dx-react-core';
+import PropTypes from 'prop-types';
+import { PluginHost, Plugin, Getter, Action, Template, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
 
-class Plugin1 extends React.Component {
-  constructor() {
-    super();
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
     this.state = {
-      count: 11,
+      tasks: [
+        { title: 'call mom', done: false },
+        { title: 'send letters to partners', done: false },
+        { title: 'buy milk', done: true },
+        { title: 'rent a car', done: false },
+      ],
     };
-    this.changeCount = diff => this.setState(({ count }) => ({ count: count + diff }));
   }
   render() {
-    const { count } = this.state;
+    const { tasks } = this.state;
+
     return (
-      <Plugin>
-        <Action name="changeCount" action={this.changeCount} />
-        <Template name="root">
-          <span>(total count): {count}</span>
-        </Template>
-      </Plugin>
+      <TasksList tasks={tasks}>
+        <TasksFilter defaultDone={false} />
+        <FilterPanel />
+      </TasksList>
     );
   }
 }
 
-const Plugin2 = () => (
+const TasksList = ({ children, ...restProps }) => (
+  <PluginHost>
+    <TasksListCore {...restProps} />
+    {children}
+  </PluginHost>
+);
+TasksList.propTypes = {
+  children: PropTypes.node,
+};
+TasksList.defaultProps = {
+  children: null,
+};
+
+const TasksListCore = ({ tasks }) => (
   <Plugin>
+    <Getter name="tasks" value={tasks} />
     <Template name="root">
-      <TemplatePlaceholder />
-      <br />
+      <TemplatePlaceholder name="header" />
+      <ul>
+        <TemplateConnector>
+          {({ tasks: processedTasks }) => (processedTasks.map(({ title, done }, index) => (
+            <li
+              key={index} // eslint-disable-line react/no-array-index-key
+              style={{ textDecoration: done ? 'line-through' : '' }}
+            >
+              {title}
+            </li>
+          )))}
+        </TemplateConnector>
+      </ul>
+    </Template>
+  </Plugin>
+);
+TasksListCore.propTypes = {
+  tasks: PropTypes.array.isRequired,
+};
+
+// eslint-disable-next-line react/no-multi-comp
+class TasksFilter extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      done: props.defaultDone,
+    };
+
+    this.changeFilter = done => this.setState({
+      done: done === undefined ? !this.state.done : done,
+    });
+  }
+  render() {
+    const { done } = this.state;
+    return (
+      <Plugin>
+        <Getter
+          name="tasks"
+          computed={({ tasks }) => tasks.filter(task => done === null || task.done === done)}
+        />
+        <Getter name="filter" value={done} />
+        <Action name="changeFilter" action={this.changeFilter} />
+      </Plugin>
+    );
+  }
+}
+TasksFilter.propTypes = {
+  defaultDone: PropTypes.bool,
+};
+TasksFilter.defaultProps = {
+  defaultDone: null,
+};
+
+const FilterPanel = () => (
+  <Plugin>
+    <Template name="header">
       <TemplateConnector>
-        {(getters, { changeCount }) => (
-          <React.Fragment>
-            <button onClick={() => changeCount(-1)}>Decrement</button>
-            <button onClick={() => changeCount(1)}>Increment</button>
-          </React.Fragment>
+        {({ filter }, { changeFilter }) => (
+          <div>
+            Filter: ({JSON.stringify(filter)})
+            {' '}
+            <button onClick={() => changeFilter()}>Change</button>
+            {' '}
+            <button onClick={() => changeFilter(null)}>Clear</button>
+          </div>
         )}
       </TemplateConnector>
     </Template>
   </Plugin>
-);
-
-export default () => (
-  <PluginHost>
-    <Plugin1 />
-    <Plugin2 />
-  </PluginHost>
 );

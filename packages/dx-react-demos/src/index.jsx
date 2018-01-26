@@ -49,6 +49,7 @@ App.propTypes = {
   scriptPath: PropTypes.string,
   showThemeSelector: PropTypes.bool,
   showThemeVariants: PropTypes.bool,
+  defaultTab: PropTypes.string,
 };
 
 App.defaultProps = {
@@ -57,6 +58,7 @@ App.defaultProps = {
   scriptPath: '/dist/index.js',
   showThemeSelector: false,
   showThemeVariants: false,
+  defaultTab: 'preview',
 };
 
 const embeddedDemoPlaceholders = document.getElementsByClassName('embedded-demo');

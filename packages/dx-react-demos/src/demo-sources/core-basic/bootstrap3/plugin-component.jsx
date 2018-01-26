@@ -1,33 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  PluginHost,
-  Plugin,
-  Template,
-} from '@devexpress/dx-react-core';
+import { PluginHost, Plugin, Template } from '@devexpress/dx-react-core';
 
-const Plugin1 = () => (
-  <Plugin>
-    <Template name="root">
-      Plugin content
-    </Template>
-  </Plugin>
-);
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-const PluginBased = ({ children }) => (
+    this.state = {
+      tasks: [
+        { title: 'call mom', done: false },
+        { title: 'send letters to partners', done: false },
+        { title: 'buy milk', done: true },
+        { title: 'rent a car', done: false },
+      ],
+    };
+  }
+  render() {
+    const { tasks } = this.state;
+
+    return (
+      <TasksList
+        tasks={tasks}
+      >
+        {/* Here we may add another plugins */}
+      </TasksList>
+    );
+  }
+}
+
+const TasksList = ({ children, ...restProps }) => (
   <PluginHost>
+    <TasksListCore {...restProps} />
     {children}
   </PluginHost>
 );
-PluginBased.propTypes = {
+TasksList.propTypes = {
   children: PropTypes.node,
 };
-PluginBased.defaultProps = {
+TasksList.defaultProps = {
   children: null,
 };
 
-export default () => (
-  <PluginBased>
-    <Plugin1 />
-  </PluginBased>
+const TasksListCore = ({ tasks }) => (
+  <Plugin>
+    <Template name="root">
+      <ul>
+        {tasks.map(({ title, done }, index) => (
+          <li
+            key={index} // eslint-disable-line react/no-array-index-key
+            style={{ textDecoration: done ? 'line-through' : '' }}
+          >
+            {title}
+          </li>
+        ))}
+      </ul>
+    </Template>
+  </Plugin>
 );
+TasksListCore.propTypes = {
+  tasks: PropTypes.array.isRequired,
+};

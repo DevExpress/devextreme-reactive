@@ -10,7 +10,7 @@ import { SourceCode } from './source-code';
 
 export const DemoViewer = (
   { match: { params: { demoName, sectionName }, url } },
-  { embeddedDemoOptions: { defaultTab = 'preview', showThemeSelector = true } },
+  { embeddedDemoOptions: { defaultTab, showThemeSelector } },
 ) => (
   <Switch>
     <Route

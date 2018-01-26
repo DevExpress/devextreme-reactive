@@ -23,7 +23,7 @@ The state of plugin based component is constructed by the state parts defined by
 
 [PluginHost](../reference/plugin-host.md) is an auxilary React component that provides mechanisms that enables all the listed abilities. It hosts plugins as child React components in order to provide a single communication point for them. If PluginHost represents the root element of React component, the component can be called as plugin host component.
 
-.embedded-demo({ "path": "core-basic/plugin-host-component" })
+.embedded-demo({ "path": "core-basic/plugin-host-component", "defaultTab": "source" })
 
 The children of PluginHost component is called **plugin root**. It should contain only plugin primitives and plugin components within. **Plugin primitives** are a subset of React Core components that should be placed inside PluginHost and plugins.
 
@@ -44,6 +44,6 @@ Here the list of vizualization primitives:
 
 [Plugin](../reference/plugin.md) is an auxilary React component created to hold several plugin primitives or plugins within. If Plugin represents the root element of React component, the component can be called as plugin component.
 
-.embedded-demo({ "path": "core-basic/plugin-component" })
+.embedded-demo({ "path": "core-basic/plugin-component", "defaultTab": "source" })
 
 It should contain only plugin primitives and plugin components within.

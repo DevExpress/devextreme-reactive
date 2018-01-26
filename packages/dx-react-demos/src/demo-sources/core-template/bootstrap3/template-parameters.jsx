@@ -1,31 +1,68 @@
 import React from 'react';
-import {
-  PluginHost,
-  Plugin,
-  Template,
-  TemplatePlaceholder,
-} from '@devexpress/dx-react-core';
+import PropTypes from 'prop-types';
+import { PluginHost, Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
-const Plugin1 = () => (
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tasks: [
+        { title: 'call mom', done: false },
+        { title: 'send letters to partners', done: false },
+        { title: 'buy milk', done: true },
+        { title: 'rent a car', done: false },
+      ],
+    };
+  }
+  render() {
+    const { tasks } = this.state;
+
+    return (
+      <TasksList tasks={tasks}>
+        {/* Here we may add another plugins */}
+      </TasksList>
+    );
+  }
+}
+
+const TasksList = ({ children, ...restProps }) => (
+  <PluginHost>
+    <TasksListCore {...restProps} />
+    {children}
+  </PluginHost>
+);
+TasksList.propTypes = {
+  children: PropTypes.node,
+};
+TasksList.defaultProps = {
+  children: null,
+};
+
+const TasksListCore = ({ tasks }) => (
   <Plugin>
     <Template name="root">
-      List of cities:
       <ul>
-        <TemplatePlaceholder name="city" params={{ title: 'New York' }} />
-        <TemplatePlaceholder name="city" params={{ title: 'Paris' }} />
-        <TemplatePlaceholder name="city" params={{ title: 'Tokyo' }} />
+        {tasks.map((task, index) => (
+          <TemplatePlaceholder
+            key={index} // eslint-disable-line react/no-array-index-key
+            name="task"
+            params={{ index, ...task }}
+          />
+        ))}
       </ul>
     </Template>
-    <Template name="city">
-      {({ title }) => (
-        <li>{title}</li>
+    <Template name="task">
+      {({ title, done }) => (
+        <li
+          style={{ textDecoration: done ? 'line-through' : '' }}
+        >
+          {title}
+        </li>
       )}
     </Template>
   </Plugin>
 );
-
-export default () => (
-  <PluginHost>
-    <Plugin1 />
-  </PluginHost>
-);
+TasksListCore.propTypes = {
+  tasks: PropTypes.array.isRequired,
+};

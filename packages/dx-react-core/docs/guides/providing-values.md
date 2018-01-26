@@ -10,7 +10,7 @@ In other words, Getter defines one field of plugin based component state.
 
 The main application of Getter is a possibility to connect a result value to markup. [TemplateConnector](../reference/template-connector.md) is a vizualization primitive that serves this need.
 
-.embedded-demo({ "path": "core-getter/value-getter" })
+.embedded-demo({ "path": "core-getter/value-getter", "defaultTab": "source" })
 
 Getter's value is not restricted to any type, so it may hold an array or a function to share with another plugins.
 
@@ -18,6 +18,6 @@ Getter's value is not restricted to any type, so it may hold an array or a funct
 
 A value defined by Getter is a part of plugin's public API. So, this value can be used and even changed by other plugins.
 
-.embedded-demo({ "path": "core-getter/computed-getter" })
+.embedded-demo({ "path": "core-getter/computed-getter", "defaultTab": "source" })
 
 As you may see, Getter's value can be extended not only by previously defined Getter but and with other Getters or local variables.

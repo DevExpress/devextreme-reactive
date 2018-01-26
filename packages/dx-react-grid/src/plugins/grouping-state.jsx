@@ -27,14 +27,14 @@ const adjustSortIndex = (sortIndex, grouping, sorting) =>
     0,
   );
 
-const getColumnGroupingEnabled = (columnExtensions, groupingEnabled) => (columnName) => {
+const getColumnGroupingEnabled = (columnExtensions, columnGroupingEnabled) => (columnName) => {
   if (columnExtensions) {
     const columnExtension = getColumnExtension(columnExtensions, columnName);
     return columnExtension.groupingEnabled !== undefined
       ? columnExtension.groupingEnabled
-      : groupingEnabled;
+      : columnGroupingEnabled;
   }
-  return groupingEnabled;
+  return columnGroupingEnabled;
 };
 
 export class GroupingState extends React.PureComponent {
@@ -148,7 +148,7 @@ export class GroupingState extends React.PureComponent {
   }
   render() {
     const { grouping, draftGrouping, expandedGroups } = this.getState();
-    const { columnExtensions, groupingEnabled } = this.props;
+    const { columnExtensions, columnGroupingEnabled } = this.props;
 
     return (
       <PluginContainer
@@ -159,7 +159,7 @@ export class GroupingState extends React.PureComponent {
         <Getter name="draftGrouping" value={draftGrouping || grouping} />
         <Getter
           name="columnGroupingEnabled"
-          value={getColumnGroupingEnabled(columnExtensions, groupingEnabled)}
+          value={getColumnGroupingEnabled(columnExtensions, columnGroupingEnabled)}
         />
         <Action name="changeColumnGrouping" action={this.changeColumnGrouping} />
         <Action name="draftColumnGrouping" action={this.draftColumnGrouping} />
@@ -182,7 +182,7 @@ GroupingState.propTypes = {
   defaultExpandedGroups: PropTypes.array,
   onExpandedGroupsChange: PropTypes.func,
   columnExtensions: PropTypes.array,
-  groupingEnabled: PropTypes.bool,
+  columnGroupingEnabled: PropTypes.bool,
 };
 
 GroupingState.defaultProps = {
@@ -193,5 +193,5 @@ GroupingState.defaultProps = {
   defaultExpandedGroups: [],
   onExpandedGroupsChange: undefined,
   columnExtensions: undefined,
-  groupingEnabled: true,
+  columnGroupingEnabled: true,
 };

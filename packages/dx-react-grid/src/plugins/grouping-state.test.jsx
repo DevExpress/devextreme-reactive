@@ -735,12 +735,12 @@ describe('GroupingState', () => {
         .toBeTruthy();
     });
 
-    it('should not allow grouping if groupingEnabled prop is false', () => {
+    it('should not allow grouping if columnGroupingEnabled prop is false', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
-            groupingEnabled={false}
+            columnGroupingEnabled={false}
           />
         </PluginHost>
       ));
@@ -749,14 +749,14 @@ describe('GroupingState', () => {
         .toBeFalsy();
     });
 
-    it('should allow grouping if groupingEnabled prop is false and groupingEnabled extension is true', () => {
+    it('should allow grouping if columnGroupingEnabled prop is false and groupingEnabled extension is true', () => {
       const columnExtension = { columnName: 'a', groupingEnabled: true };
       getColumnExtension.mockReturnValue(columnExtension);
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
-            sortingEnabled={false}
+            columnGroupingEnabled={false}
             columnExtensions={[columnExtension]}
           />
         </PluginHost>
@@ -766,7 +766,7 @@ describe('GroupingState', () => {
         .toBeTruthy();
     });
 
-    it('should not allow grrouping if groupingEnabled extension is false', () => {
+    it('should not allow grouping if groupingEnabled extension is false', () => {
       const columnExtension = { columnName: 'a', groupingEnabled: false };
       getColumnExtension.mockReturnValue(columnExtension);
       const tree = mount((

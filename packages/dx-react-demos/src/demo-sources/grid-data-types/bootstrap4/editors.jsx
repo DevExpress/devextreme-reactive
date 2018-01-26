@@ -10,12 +10,12 @@ import {
   TableHeaderRow,
   TableEditRow,
   TableEditColumn,
-} from './../../../../dx-react-grid-bootstrap4/src';
+} from '@devexpress/dx-react-grid-bootstrap4';
 
 import {
   generateRows,
   globalSalesValues,
-} from '../../demo-data/generator';
+} from '../../../demo-data/generator';
 
 const getRowId = row => row.id;
 

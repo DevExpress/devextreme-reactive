@@ -42,6 +42,6 @@ export const themes = [{
   variants: [{
     name: 'default',
     title: 'Bootstrap 4',
-    DemoContainer: require('./bootstrap4/demo-container').default,
+    DemoContainer: require('./theme-sources/bootstrap4/demo-container').default,
   }],
 }];

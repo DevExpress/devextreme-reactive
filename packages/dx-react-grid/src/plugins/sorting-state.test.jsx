@@ -195,4 +195,47 @@ describe('SortingState', () => {
         .toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('column extensions', () => {
+    it('should correctly call getColumnExtensionValue by default', () => {
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SortingState />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(undefined, 'sortingEnabled', true);
+    });
+
+    it('should correctly call getColumnExtensionValue call if columnSortingEnabled prop is false', () => {
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SortingState
+            columnSortingEnabled={false}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(undefined, 'sortingEnabled', false);
+    });
+
+    it('should correctly call getColumnExtensionValue if columnExtensions prop is defined', () => {
+      const columnExtensions = [{ columnName: 'a', sortingEnabled: true }];
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <SortingState
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(columnExtensions, 'sortingEnabled', true);
+    });
+  });
 });

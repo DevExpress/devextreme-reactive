@@ -715,4 +715,47 @@ describe('GroupingState', () => {
         .toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('column extensions', () => {
+    it('should correctly call getColumnExtensionValue by default', () => {
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <GroupingState />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(undefined, 'groupingEnabled', true);
+    });
+
+    it('should correctly call getColumnExtensionValue call if columnGroupingEnabled prop is false', () => {
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <GroupingState
+            columnGroupingEnabled={false}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(undefined, 'groupingEnabled', false);
+    });
+
+    it('should correctly call getColumnExtensionValue if columnExtensions prop is defined', () => {
+      const columnExtensions = [{ columnName: 'a', groupingEnabled: true }];
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <GroupingState
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValue)
+        .toBeCalledWith(columnExtensions, 'groupingEnabled', true);
+    });
+  });
 });

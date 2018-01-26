@@ -4,14 +4,14 @@ import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
 import { changeColumnSorting, getColumnExtension } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
-const getColumnSortingEnabled = (columnExtensions, sortingEnabled) => (columnName) => {
+const getColumnSortingEnabled = (columnExtensions, columnSortingEnabled) => (columnName) => {
   if (columnExtensions) {
     const columnExtension = getColumnExtension(columnExtensions, columnName);
     return columnExtension.sortingEnabled !== undefined
       ? columnExtension.sortingEnabled
-      : sortingEnabled;
+      : columnSortingEnabled;
   }
-  return sortingEnabled;
+  return columnSortingEnabled;
 };
 
 export class SortingState extends React.PureComponent {
@@ -45,7 +45,7 @@ export class SortingState extends React.PureComponent {
   }
   render() {
     const { sorting } = this.getState();
-    const { columnExtensions, sortingEnabled } = this.props;
+    const { columnExtensions, columnSortingEnabled } = this.props;
 
     return (
       <PluginContainer
@@ -54,7 +54,7 @@ export class SortingState extends React.PureComponent {
         <Getter name="sorting" value={sorting} />
         <Getter
           name="columnSortingEnabled"
-          value={getColumnSortingEnabled(columnExtensions, sortingEnabled)}
+          value={getColumnSortingEnabled(columnExtensions, columnSortingEnabled)}
         />
         <Action name="changeColumnSorting" action={this.changeColumnSorting} />
       </PluginContainer>
@@ -67,7 +67,7 @@ SortingState.propTypes = {
   defaultSorting: PropTypes.array,
   onSortingChange: PropTypes.func,
   columnExtensions: PropTypes.array,
-  sortingEnabled: PropTypes.bool,
+  columnSortingEnabled: PropTypes.bool,
 };
 
 SortingState.defaultProps = {
@@ -75,5 +75,5 @@ SortingState.defaultProps = {
   defaultSorting: [],
   onSortingChange: undefined,
   columnExtensions: undefined,
-  sortingEnabled: true,
+  columnSortingEnabled: true,
 };

@@ -215,12 +215,12 @@ describe('SortingState', () => {
         .toBeTruthy();
     });
 
-    it('should not allow sorting if sortingEnabled prop is false', () => {
+    it('should not allow sorting if columnSortingEnabled prop is false', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <SortingState
-            sortingEnabled={false}
+            columnSortingEnabled={false}
           />
         </PluginHost>
       ));
@@ -229,14 +229,14 @@ describe('SortingState', () => {
         .toBeFalsy();
     });
 
-    it('should allow sorting if sortingEnabled prop is false and sortingEnabled extension is true', () => {
+    it('should allow sorting if columnSortingEnabled prop is false and sortingEnabled extension is true', () => {
       const columnExtension = { columnName: 'a', sortingEnabled: true };
       getColumnExtension.mockReturnValue(columnExtension);
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <SortingState
-            sortingEnabled={false}
+            columnSortingEnabled={false}
             columnExtensions={[columnExtension]}
           />
         </PluginHost>

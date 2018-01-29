@@ -1,3 +1,16 @@
+<a name="1.0.0-rc.2"></a>
+# [1.0.0-rc.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2018-01-26)
+
+
+### Bug Fixes
+
+* **react-core:** fix crash when using with webpack-dev-server and Hot Module Reloading ([#694](https://github.com/DevExpress/devextreme-reactive/issues/694)) ([bdc944b](https://github.com/DevExpress/devextreme-reactive/commit/bdc944b))
+* **react-grid-bootstrap3:** align header and data cell texts ([#687](https://github.com/DevExpress/devextreme-reactive/issues/687)) ([b34f142](https://github.com/DevExpress/devextreme-reactive/commit/b34f142))
+* **react-grid-bootstrap3:** correct grouping icon alignment ([#686](https://github.com/DevExpress/devextreme-reactive/issues/686)) ([fb30cc3](https://github.com/DevExpress/devextreme-reactive/commit/fb30cc3))
+* **react-grid-material-ui:** use long paths for modules ([#684](https://github.com/DevExpress/devextreme-reactive/issues/684)) ([b32f79c](https://github.com/DevExpress/devextreme-reactive/commit/b32f79c))
+
+
+
 <a name="1.0.0-rc.1"></a>
 # [1.0.0-rc.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-beta.3...v1.0.0-rc.1) (2018-01-18)
 

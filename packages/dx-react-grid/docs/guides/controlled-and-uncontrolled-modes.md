@@ -10,7 +10,7 @@ This mode allows you to access the Grid's state from other application parts. Fo
 
 Use the appropriate state management plugin properties to set the Grid's configuration and handle configuration changes a user makes via the Grid's UI. In the example below, sorting configuration is passed to the `SortingState` plugin's `sorting` property, and the function passed to the `onSortingChanged` property handles the sorting configuration changes.
 
-.embedded-demo(sorting/controlled-mode)
+.embedded-demo(grid-sorting/controlled-mode)
 
 If you need to apply a new configuration to the Grid, update the parent component state using the `setState` method.
 
@@ -20,12 +20,12 @@ Note that all the state management plugins use a serializable state. This means 
 
 In the uncontrolled state mode, the Grid component manages its state internally. In this case, you should only add the required state management plugins and optionally define the initial configuration using properties with the `default` prefix (for example, the `SortingState` plugin's `defaultSorting` property).
 
-.embedded-demo(sorting/header-sorting)
+.embedded-demo(grid-sorting/header-sorting)
 
 ## Partially Controlled mode
 
 You can control only certain parts of the Grid's configuration. In this case, apply the [controlled mode](#controlled-mode) only to plugins whose state you want to control externally and the [uncontrolled mode](#uncontrolled-mode) to other plugins.
 
-.embedded-demo(selection/select-all-by-all-pages)
+.embedded-demo(grid-selection/select-all-by-all-pages)
 
 Note: We recommend avoiding the partially controlled mode due to the side-effects it can cause when using Redux and performing time traveling.

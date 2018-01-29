@@ -15,7 +15,7 @@ Refer to the [Reference](../reference/grid.md) to see the complete plugin list.
 
 The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin. Some visualization plugins extend the `Table`'s functionality and should follow it in the code. This rule is demonstrated in the following example:
 
-.embedded-demo(filtering/filter-row)
+.embedded-demo(grid-filtering/filter-row)
 
 NOTE: Refer to the plugin's reference for information on its dependencies.
 

@@ -8,4 +8,4 @@ In this case, you can use a state management library like [Redux](https://redux.
 
 The following demo shows how to work with immutable data using Redux, [react-redux](https://github.com/reactjs/react-redux) and [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) libraries:
 
-.embedded-demo(immutability/seamless-immutable)
+.embedded-demo(grid-immutability/seamless-immutable)

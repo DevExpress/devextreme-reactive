@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter } from './getter';
-import { Action } from './action';
-import { Template } from './template';
+
+export const INDEXABLE_COMPONENT = Symbol('indexableComponent');
 
 export const PluginIndexer = (
   { children },
@@ -19,9 +18,7 @@ export const PluginIndexer = (
           return [...calculatedPosition, index];
         };
 
-        if (child.type === Getter ||
-            child.type === Action ||
-            child.type === Template) {
+        if (child.type[INDEXABLE_COMPONENT] === true) {
           return React.cloneElement(child, { position: childPosition });
         }
 

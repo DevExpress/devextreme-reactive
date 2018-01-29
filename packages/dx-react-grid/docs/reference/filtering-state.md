@@ -46,13 +46,12 @@ filteringEnabled | boolean | Specifies whether filtering is enabled for a column
 
 ### Imports
 
-Name | Plugin | Type | Description
------|--------|------|------------
-columnFilteringEnabled | Getter | (columnName: string) => boolean | A function used to define if filtering by a column is enabled.
+none
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 filters | Getter | Array&lt;[Filter](#filter)&gt; | The currently applied filters.
+columnFilteringEnabled | Getter | (columnName: string) => boolean | A function used to define if filtering by a column is enabled.
 changeColumnFilter | Action | ({ columnName: string, config: Object }) => void | Adds, changes or removes a filter. Pass `null` to the `config` argument to remove the filter associated with the specified column.

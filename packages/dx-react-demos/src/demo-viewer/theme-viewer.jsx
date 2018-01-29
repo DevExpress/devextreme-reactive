@@ -1,4 +1,3 @@
-/* eslint react/prop-types: "error" */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';

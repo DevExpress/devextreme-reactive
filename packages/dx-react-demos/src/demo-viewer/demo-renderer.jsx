@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { demos } from '../demo-registry';
 import { themes } from '../theme-registry';
 
@@ -28,4 +29,11 @@ export const DemoRenderer = ({
       <Demo />
     </DemoContainer>
   );
+};
+
+DemoRenderer.propTypes = {
+  sectionName: PropTypes.string.isRequired,
+  demoName: PropTypes.string.isRequired,
+  themeName: PropTypes.string.isRequired,
+  variantName: PropTypes.string.isRequired,
 };

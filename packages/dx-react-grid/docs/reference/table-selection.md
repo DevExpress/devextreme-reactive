@@ -16,10 +16,10 @@ Name | Type | Default | Description
 -----|------|---------|------------
 highlightRow | boolean | false | Specifies whether to highlight the selected rows. Note that `Table` plugin's `rowComponent` is ignored in this case.
 selectByRowClick | boolean | false | Specifies whether a user can select/deselect a row by clicking it. Note that `Table` plugin's `rowComponent` is ignored in this case.
-showSelectAll | boolean | true | Specifies whether to render the 'select all' checkbox in the header row.
+showSelectAll | boolean | true | Specifies whether to render the Select All checkbox in the header row.
 showSelectionColumn | boolean | true | Specifies whether to render the selection column that displays selection checkboxes.
 cellComponent | ElementType&lt;[TableSelectCellProps](#tableselectcellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
-headerCellComponent | ElementType&lt;[TableSelectHeaderCellProps](#tableselectcellprops)&gt; | | A component that renders a cell containing the 'Select All' checkbox.
+headerCellComponent | ElementType&lt;[TableSelectHeaderCellProps](#tableselectcellprops)&gt; | | A component that renders a cell containing the Select All checkbox.
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces
@@ -35,7 +35,7 @@ Field | Type | Description
 disabled | boolean | Indicates if there are no rows that can be selected.
 allSelected | boolean | Indicates whether all the rows available for selection are selected.
 someSelected | boolean | Indicates whether at least one but not all rows available for selection are selected.
-onToggle | (select?: boolean) => void | Toggles the "Select All" checkbox state.
+onToggle | (select?: boolean) => void | Toggles the Select All checkbox state.
 
 ### TableSelectCellProps
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 
@@ -36,5 +37,16 @@ const HighlightedCellBase = ({
     ${value}
   </TableCell>
 );
+
+HighlightedCellBase.propTypes = {
+  value: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired,
+  style: PropTypes.object,
+  tableColumn: PropTypes.object,
+};
+HighlightedCellBase.defaultProps = {
+  style: {},
+  tableColumn: {},
+};
 
 export const HighlightedCell = withStyles(styles, { name: 'HighlightedCell' })(HighlightedCellBase);

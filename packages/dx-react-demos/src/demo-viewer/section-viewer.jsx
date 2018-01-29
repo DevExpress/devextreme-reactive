@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
 import { demos } from '../demo-registry';
@@ -28,13 +27,5 @@ export const SectionViewerBase = ({ match: { params: { sectionName } } }) => (
     )}
   </ThemeViewer>
 );
-
-SectionViewerBase.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      sectionName: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
-};
 
 export const SectionViewer = withRouter(SectionViewerBase);

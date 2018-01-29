@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
@@ -67,10 +66,6 @@ const GridDetailContainerBase = ({ row, classes }) => (
     </<%&wrapperTag%>>
   </div>
 );
-GridDetailContainerBase.propTypes = {
-  row: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
-};
 
 const GridDetailContainer = withStyles(styles, { name: 'ReduxIntegrationDemo' })(GridDetailContainerBase);
 
@@ -169,31 +164,6 @@ const GridContainer = ({
     </Grid>
   </<%&wrapperTag%>>
 );
-
-GridContainer.propTypes = {
-  rows: PropTypes.array.isRequired,
-  sorting: PropTypes.array.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
-  selection: PropTypes.array.isRequired,
-  onSelectionChange: PropTypes.func.isRequired,
-  expandedRowIds: PropTypes.array.isRequired,
-  onExpandedRowIdsChange: PropTypes.func.isRequired,
-  grouping: PropTypes.array.isRequired,
-  onGroupingChange: PropTypes.func.isRequired,
-  expandedGroups: PropTypes.array.isRequired,
-  onExpandedGroupsChange: PropTypes.func.isRequired,
-  filters: PropTypes.array.isRequired,
-  onFiltersChange: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  onCurrentPageChange: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  onPageSizeChange: PropTypes.func.isRequired,
-  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  columnOrder: PropTypes.array.isRequired,
-  onColumnOrderChange: PropTypes.func.isRequired,
-  columnWidths: PropTypes.array.isRequired,
-  onColumnWidthsChange: PropTypes.func.isRequired,
-};
 
 const gridInitialState = {
   rows: generateRows({

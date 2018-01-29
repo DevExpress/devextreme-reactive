@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -40,10 +39,6 @@ const TableRow = ({ row, ...restProps }) => (
     }}
   />
 );
-
-TableRow.propTypes = {
-  row: PropTypes.any.isRequired,
-};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

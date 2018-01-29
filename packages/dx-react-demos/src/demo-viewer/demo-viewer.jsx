@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { Nav, NavItem, Tab } from 'react-bootstrap';
 
@@ -73,17 +72,3 @@ export const DemoViewer = (
     />
   </Switch>
 );
-
-DemoViewer.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      sectionName: PropTypes.string.isRequired,
-      demoName: PropTypes.string.isRequired,
-    }),
-    url: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
-DemoViewer.contextTypes = {
-  embeddedDemoOptions: PropTypes.object.isRequired,
-};

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 import { TableCell } from 'material-ui/Table';
@@ -49,19 +48,6 @@ const UnitsFilterCellBase = ({ filter, onFilter, classes }) => (
     />
   </TableCell>
 );
-UnitsFilterCellBase.propTypes = {
-  filter: PropTypes.shape({
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
-  }),
-  onFilter: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-};
-UnitsFilterCellBase.defaultProps = {
-  filter: null,
-};
 const UnitsFilterCell = withStyles(styles, { name: 'SexFilterCell' })(UnitsFilterCellBase);
 
 const FilterCell = (props) => {
@@ -69,9 +55,6 @@ const FilterCell = (props) => {
     return <UnitsFilterCell {...props} />;
   }
   return <TableFilterRow.Cell {...props} />;
-};
-FilterCell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {

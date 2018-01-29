@@ -1,3 +1,4 @@
+/* eslint react/prop-types: "error" */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';

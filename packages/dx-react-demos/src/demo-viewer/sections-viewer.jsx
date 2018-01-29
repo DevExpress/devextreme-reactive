@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, Route, Switch, Redirect } from 'react-router-dom';
 
 import { demos } from '../demo-registry';
@@ -38,10 +37,4 @@ export const SectionsViewer = ({ match: { url } }) => {
       />
     </Switch>
   );
-};
-
-SectionsViewer.propTypes = {
-  match: PropTypes.shape({
-    url: PropTypes.string.isRequired,
-  }).isRequired,
 };

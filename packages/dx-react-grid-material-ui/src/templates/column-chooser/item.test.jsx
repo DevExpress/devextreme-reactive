@@ -72,4 +72,17 @@ describe('Item', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should process the disabled prop', () => {
+    const tree = shallow((
+      <Item
+        {...defaultProps}
+        disabled
+      />
+    ));
+    expect(tree.find(ListItem).props().button)
+      .toBeFalsy();
+    expect(tree.find(Checkbox).props().disabled)
+      .toBeTruthy();
+  });
 });

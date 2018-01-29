@@ -18,6 +18,7 @@ const defaultDeps = {
       { name: 'c' },
     ],
     hiddenColumnNames: ['a'],
+    columnTogglingEnabled: () => true,
   },
   action: {
     toggleVisibility: () => { },
@@ -80,11 +81,37 @@ describe('ColumnChooser', () => {
 
     expect(tree.find(ItemComponent).props())
       .toEqual({
+        disabled: false,
         item: {
           column: { name: 'a' },
           hidden: true,
         },
         onToggle: expect.any(Function),
+      });
+  });
+
+  it('should pass correct parameters to the ItemComponent if columnTogglingEnabled is false', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, {
+          getter: {
+            columnTogglingEnabled: () => false,
+          },
+        })}
+        <ColumnChooser
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(ItemComponent).props())
+      .toEqual({
+        disabled: true,
+        item: {
+          column: { name: 'a' },
+          hidden: true,
+        },
+        onToggle: undefined,
       });
   });
 

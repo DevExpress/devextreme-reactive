@@ -4,10 +4,10 @@ import classNames from 'classnames';
 import Input from 'material-ui/Input';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
+import { StaticFilterCellContent } from './static-filter-cell-content';
 
 const styles = (theme) => {
-  const { palette, spacing, typography } = theme;
-  const light = palette.type === 'light';
+  const { spacing } = theme;
   return {
     cell: {
       verticalAlign: 'middle',
@@ -20,27 +20,8 @@ const styles = (theme) => {
     input: {
       width: '100%',
     },
-    staticContent: {
-      fontFamily: typography.fontFamily,
-      color: light ? 'rgba(0, 0, 0, 0.87)' : palette.common.white,
-      fontSize: typography.pxToRem(16),
-    },
   };
 };
-
-const StaticFilterCellContentBase = ({ children, classes }) => (
-  <div className={classes.staticContent}>{children}</div>
-);
-
-StaticFilterCellContentBase.propTypes = {
-  classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]).isRequired,
-};
-
-const StaticFilterCellContent = withStyles(styles, { name: 'StaticFilterCellContent' })(StaticFilterCellContentBase);
 
 const TableFilterCellBase = ({
   style, filter, getMessage, onFilter,

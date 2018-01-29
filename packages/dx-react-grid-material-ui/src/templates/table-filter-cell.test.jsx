@@ -2,6 +2,7 @@ import React from 'react';
 import { createShallow, getClasses } from 'material-ui/test-utils';
 import Input from 'material-ui/Input';
 import { TableFilterCell } from './table-filter-cell';
+import { StaticFilterCellContent } from './static-filter-cell-content';
 
 describe('TableFilterCell', () => {
   let shallow;
@@ -70,5 +71,14 @@ describe('TableFilterCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should render static content if filtering is not allowed', () => {
+    const tree = shallow((
+      <TableFilterCell columnFilteringEnabled={false} getMessage={key => key} />
+    ));
+
+    expect(tree.find(StaticFilterCellContent))
+      .toHaveLength(1);
   });
 });

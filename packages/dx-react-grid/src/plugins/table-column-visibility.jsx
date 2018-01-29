@@ -26,6 +26,7 @@ const visibleTableColumnsComputed = ({ tableColumns, hiddenColumnNames }) =>
 
 const getColumnTogglingEnabled = (columnExtensions, defaultValue) =>
   getColumnExtensionValue(columnExtensions, 'togglingEnabled', defaultValue);
+
 export class TableColumnVisibility extends React.PureComponent {
   constructor(props) {
     super(props);

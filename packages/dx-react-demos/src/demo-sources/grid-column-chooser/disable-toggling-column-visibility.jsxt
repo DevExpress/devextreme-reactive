@@ -11,7 +11,7 @@ import {
   generateRows,
 } from '../../../demo-data/generator';
 
-const tableColumnVisibilityStateColumnExtensions = [
+const tableColumnVisibilityColumnExtensions = [
   { columnName: 'city', togglingEnabled: false },
 ];
 
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableColumnVisibility
             defaultHiddenColumnNames={defaultHiddenColumnNames}
-            columnExtensions={tableColumnVisibilityStateColumnExtensions}
+            columnExtensions={tableColumnVisibilityColumnExtensions}
           />
           <Toolbar />
           <ColumnChooser />

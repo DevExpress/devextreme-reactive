@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { visibleTableColumns,
+import {
+  visibleTableColumns,
   getMessagesFormatter,
   columnChooserItems,
   toggleColumn,

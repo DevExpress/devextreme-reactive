@@ -71,6 +71,8 @@ export * from './plugins/table-column-visibility/helpers';
 export * from './plugins/column-chooser/computeds';
 export * from './plugins/column-chooser/reducers';
 
+export * from './plugins/searching-state/reducers';
+
 export { getColumnExtension } from './utils/column';
 
 export {

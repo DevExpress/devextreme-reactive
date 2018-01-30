@@ -25,6 +25,7 @@ export const HighlightedCell = ({ tableColumn, value, style }) => (
     ${value}
   </td>
 );
+
 HighlightedCell.propTypes = {
   value: PropTypes.number.isRequired,
   tableColumn: PropTypes.object,

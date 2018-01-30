@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
@@ -31,9 +30,6 @@ const Cell = (props) => {
     return <HighlightedCell {...props} />;
   }
   return <Table.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {
@@ -68,7 +64,6 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <FilteringState
-
             defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
           />
           <SortingState

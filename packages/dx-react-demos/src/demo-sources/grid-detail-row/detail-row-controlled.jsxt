@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   RowDetailState,
 } from '@devexpress/dx-react-grid';
@@ -17,10 +16,6 @@ import {
 const RowDetail = ({ row }) => (
   <div>Details for {row.name} from {row.city}</div>
 );
-
-RowDetail.propTypes = {
-  row: PropTypes.any.isRequired,
-};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

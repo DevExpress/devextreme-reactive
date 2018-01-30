@@ -115,61 +115,135 @@ describe('IntegratedSorting computeds', () => {
       const getRowLevelKey = row => row.levelKey;
 
       it('should sort grouped rows', () => {
+        /* eslint-disable indent */
         const groupedRows = [
           groupRow({
             groupedBy: 'a',
             value: 1,
           }),
-          groupRow({
-            groupedBy: 'b',
-            value: 1,
-          }),
-          groupRow({
-            groupedBy: 'b',
-            value: 2,
-          }),
-          { c: 1 },
-          { c: 2 },
+            groupRow({
+              groupedBy: 'b',
+              value: 1,
+            }),
+            groupRow({
+              groupedBy: 'b',
+              value: 2,
+            }),
+              { c: 1 },
+              { c: 2 },
           groupRow({
             groupedBy: 'a',
             value: 2,
           }),
         ];
+        /* eslint-enable indent */
         const sorting = [
           { columnName: 'a', direction: 'desc' },
           { columnName: 'b', direction: 'desc' },
           { columnName: 'c', direction: 'desc' },
         ];
+        /* eslint-disable indent */
+        const sortedGroupedRows = [
+          groupRow({
+            groupedBy: 'a',
+            value: 2,
+          }),
+          groupRow({
+            groupedBy: 'a',
+            value: 1,
+          }),
+            groupRow({
+              groupedBy: 'b',
+              value: 2,
+            }),
+              { c: 2 },
+              { c: 1 },
+            groupRow({
+              groupedBy: 'b',
+              value: 1,
+            }),
+        ];
+        /* eslint-enable indent */
 
-        const sorted = sortedRows(
+        expect(sortedRows(
           groupedRows,
           sorting,
           getCellValue,
           () => undefined,
           isGroupRow,
           getRowLevelKey,
-        );
-        expect(sorted)
-          .toEqual([
-            groupRow({
-              groupedBy: 'a',
-              value: 2,
+        ))
+          .toEqual(sortedGroupedRows);
+      });
+    });
+
+    describe('hierarchical rows', () => {
+      const rowNode = ({ level, ...restParams }) => ({
+        ...restParams,
+        levelKey: `tree_${level}`,
+      });
+      const getRowLevelKey = row => row.levelKey;
+
+      it('should sort grouped rows', () => {
+        /* eslint-disable indent */
+        const groupedRows = [
+          rowNode({
+            level: 0,
+            a: 1,
+          }),
+            rowNode({
+              level: 1,
+              b: 1,
             }),
-            groupRow({
-              groupedBy: 'a',
-              value: 1,
+            rowNode({
+              level: 1,
+              b: 2,
             }),
-            groupRow({
-              groupedBy: 'b',
-              value: 2,
-            }),
-            { c: 2 },
             { c: 1 },
-            groupRow({
-              groupedBy: 'b',
-              value: 1,
+            { c: 2 },
+          rowNode({
+            level: 0,
+            a: 2,
+          }),
+        ];
+        /* eslint-enabke indent */
+        const sorting = [
+          { columnName: 'a', direction: 'desc' },
+          { columnName: 'b', direction: 'desc' },
+          { columnName: 'c', direction: 'desc' },
+        ];
+        /* eslint-disable indent */
+        const sortedGroupedRows = [
+          rowNode({
+            level: 0,
+            a: 2,
+          }),
+          rowNode({
+            level: 0,
+            a: 1,
+          }),
+            rowNode({
+              level: 1,
+              b: 2,
             }),
-          ]);
+              { c: 2 },
+              { c: 1 },
+            rowNode({
+              level: 1,
+              b: 1,
+            }),
+        ];
+        /* eslint-enable indent */
+
+        expect(sortedRows(
+          groupedRows,
+          sorting,
+          getCellValue,
+          () => undefined,
+          undefined,
+          getRowLevelKey,
+        ))
+          .toEqual(sortedGroupedRows);
       });
     });
   });

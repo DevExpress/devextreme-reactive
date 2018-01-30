@@ -57,22 +57,17 @@ export class TableFilterRow extends React.PureComponent {
                     }}
                   >
                     {(content) => {
-                      let cellContent = content;
                       const filteringEnabled = columnFilteringEnabled(columnName);
-
-                      if (!filteringEnabled) {
-                        cellContent = filter ? filter.value : ' ';
-                      }
                       return (
                         <FilterCell
                           {...params}
                           getMessage={getMessage}
                           column={params.tableColumn.column}
                           filter={filter}
-                          columnFilteringEnabled={filteringEnabled}
+                          filteringEnabled={filteringEnabled}
                           onFilter={onFilter}
                         >
-                          {cellContent}
+                          {content}
                         </FilterCell>
                       );
                     }}

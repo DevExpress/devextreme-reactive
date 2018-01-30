@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Input from 'material-ui/Input';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-import { StaticFilterCellContent } from './static-filter-cell-content';
 
 const styles = (theme) => {
   const { spacing } = theme;
@@ -26,7 +25,7 @@ const styles = (theme) => {
 const TableFilterCellBase = ({
   style, filter, getMessage, onFilter,
   classes, children, className,
-  tableRow, tableColumn, column, columnFilteringEnabled,
+  tableRow, tableColumn, column, filteringEnabled,
   ...restProps
 }) => (
   <TableCell
@@ -34,14 +33,15 @@ const TableFilterCellBase = ({
     style={style}
     {...restProps}
   >
-    {columnFilteringEnabled ? (children || (
+    {(children || (
       <Input
         className={classes.input}
         value={filter ? filter.value : ''}
         placeholder={getMessage('filterPlaceholder')}
+        disabled={!filteringEnabled}
         onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
       />
-    )) : <StaticFilterCellContent>{children}</StaticFilterCellContent>}
+    ))}
   </TableCell>
 );
 
@@ -59,7 +59,7 @@ TableFilterCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   column: PropTypes.object,
-  columnFilteringEnabled: PropTypes.bool,
+  filteringEnabled: PropTypes.bool,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -71,7 +71,7 @@ TableFilterCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   column: undefined,
-  columnFilteringEnabled: true,
+  filteringEnabled: true,
 };
 
 export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

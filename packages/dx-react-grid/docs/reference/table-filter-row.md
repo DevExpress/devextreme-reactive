@@ -32,7 +32,7 @@ Field | Type | Description
 filter | [Filter](filtering-state.md#filter) | Filtering options that are applied to a column.
 onFilter | (filter: [Filter](filtering-state.md#filter)) => void | An event that initiates applying a new filter to a column.
 column | [Column](grid.md#column) | A column.
-columnFilteringEnabled | boolean | Specifies whether filtering by a column is enabled.
+filteringEnabled | boolean | Specifies whether filtering by a column is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Localization Messages

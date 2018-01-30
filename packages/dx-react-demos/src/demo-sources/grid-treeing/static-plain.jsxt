@@ -16,9 +16,9 @@ import {
 } from '../../../demo-data/generator';
 
 const getChildRows = (rows, rootRows) => ((rootRows === rows)
-  ? rootRows.filter(row => row.id === 0)
+  ? rootRows.filter(row => row.parentId === null)
   : rows)
-    .map(row => ({ row, childRows: row.id === null ? [] : rootRows.filter(r => r.parentId === row.id) }));
+    .map(row => ({ row, childRows: rootRows.filter(r => r.parentId === row.id) }));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -34,7 +34,7 @@ export default class Demo extends React.PureComponent {
       data: generateRows({
         columnValues: {
           id: ({ index }) => index,
-          parentId: ({ index, random }) => index > 0 ? Math.trunc(random() * index) : null,
+          parentId: ({ index, random }) => index > 0 ? Math.trunc(random() * index / 2) : null,
           ...defaultColumnValues,
         },
         length: 20,

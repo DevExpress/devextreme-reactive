@@ -20,9 +20,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ElementType&lt;[TableHeaderRow.CellProps](#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
 rowComponent | ElementType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
-showSortingControls | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
-showGroupingControls | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
-messages | object | | An object that specifies [localization messages](#localization-messages).
+showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
+showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
+messages? | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 

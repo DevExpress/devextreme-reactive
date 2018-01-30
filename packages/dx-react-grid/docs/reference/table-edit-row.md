@@ -16,7 +16,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ElementType&lt;[TableEditRow.CellProps](#tableeditrowcellprops)&gt; | | A component that renders an editable cell.
 rowComponent | ElementType&lt;[TableEditRow.RowProps](#tableeditrowrowprops)&gt; | | A component that renders an editable row.
-rowHeight | number | | Specifies the editable row's height.
+rowHeight? | number | | Specifies the editable row's height.
 
 ## Interfaces
 

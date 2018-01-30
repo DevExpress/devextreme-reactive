@@ -13,8 +13,8 @@ A plugin that renders the paging panel used for navigation through data pages.
 Name | Type | Default | Description
 -----|------|---------|------------
 containerComponent | ElementType&lt;[PagingPanel.ContainerProps](#containerprops)&gt; | | A component that renders the paging panel.
-pageSizes | Array&lt;number&gt; | [] | The page sizes that a user can select.
-messages | object | | An object that specifies the [localization messages](#localization-messages).
+pageSizes? | Array&lt;number&gt; | [] | The page sizes that a user can select.
+messages? | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 

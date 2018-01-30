@@ -13,12 +13,12 @@ A plugin that renders detail rows.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-contentComponent | ElementType&lt;[TableRowDetail.ContentProps](#tablerowdetailcontentprops)&gt; | | A component that renders the detail row's content within the detail cell.
+contentComponent? | ElementType&lt;[TableRowDetail.ContentProps](#tablerowdetailcontentprops)&gt; | | A component that renders the detail row's content within the detail cell.
 cellComponent | ElementType&lt;[TableRowDetail.CellProps](#tablerowdetailcellprops)&gt; | | A component that renders a detail cell.
 rowComponent | ElementType&lt;[TableRowDetail.RowProps](#tablerowdetailrowprops)&gt; | | A component that renders a detail row.
 toggleCellComponent | ElementType&lt;[TableRowDetail.ToggleCellProps](#tablerowdetailtogglecellprops)&gt; | | A component that renders a cell containing the expand/collapse control.
 toggleColumnWidth | number | | Specifies the width of the column containing expand/collapse controls.
-rowHeight | number | | Specifies the detail row height.
+rowHeight? | number | | Specifies the detail row height.
 
 ## Interfaces
 

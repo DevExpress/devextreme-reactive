@@ -17,7 +17,7 @@ overlayComponent | ElementType&lt;[ColumnChooser.OverlayProps](#columnchooserove
 toggleButtonComponent | ElementType&lt;[ColumnChooser.ToggleButtonProps](#columnchoosertogglebuttonprops)&gt; | | A component that renders a button that invokes the column chooser.
 containerComponent | ElementType&lt;[ColumnChooser.ContainerProps](#columnchoosercontainerprops)&gt; | | A component that renders the column chooser container.
 itemComponent | ElementType&lt;[ColumnChooser.ItemProps](#columnchooseritemprops)&gt; | | A component that renders a column chooser item.
-messages | object | | An object that specifies [localization messages](#localization-messages).
+messages? | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 

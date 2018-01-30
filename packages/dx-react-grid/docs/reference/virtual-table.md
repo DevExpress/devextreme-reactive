@@ -22,7 +22,7 @@ noDataCellComponent | ElementType&lt;[Table.NoDataCellProps](table.md#tablenodat
 noDataRowComponent | ElementType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
 stubCellComponent | ElementType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ElementType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
-messages | object | | An object that specifies the [localization messages](#localization-messages).
+messages? | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Localization Messages
 

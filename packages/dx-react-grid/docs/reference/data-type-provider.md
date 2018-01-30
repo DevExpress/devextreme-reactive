@@ -13,8 +13,8 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 for | Array&lt;string&gt; | | The names of columns associated with the specified formatter and editor.
-formatterComponent | ElementType&lt;[ValueFormatterProps](#valueformatterprops)&gt; | | A component that renders the formatted value.
-editorComponent | ElementType&lt;[ValueEditorProps](#valueeditorprops)&gt; | | A component that renders a custom editor.
+formatterComponent? | ElementType&lt;[ValueFormatterProps](#valueformatterprops)&gt; | | A component that renders the formatted value.
+editorComponent? | ElementType&lt;[ValueEditorProps](#valueeditorprops)&gt; | | A component that renders a custom editor.
 
 ## Interfaces
 

@@ -16,8 +16,8 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ElementType&lt;[TableFilterRow.CellProps](#tablefilterrowcellprops)&gt; | | A component that renders a filter cell.
 rowComponent | ElementType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
-rowHeight | number | | The filter row's height.
-messages | object | | An object that specifies [localization messages](#localization-messages).
+rowHeight? | number | | The filter row's height.
+messages? | object | | An object that specifies [localization messages](#localization-messages).
 
 ## Interfaces
 

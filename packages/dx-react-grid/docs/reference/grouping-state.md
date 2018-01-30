@@ -12,12 +12,12 @@ A plugin that manages the grouping state. It lists columns currently used for gr
 
 Name | Type | Default | Description
 -----|------|---------|------------
-grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by.
-defaultGrouping | Array&lt;[Grouping](#grouping)&gt; | [] | Specifies initial grouping options in the uncontrolled mode.
-onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping option changes.
-expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups.
-defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
-onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) => void | | Handles expanded group changes.
+grouping? | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by.
+defaultGrouping? | Array&lt;[Grouping](#grouping)&gt; | [] | Specifies initial grouping options in the uncontrolled mode.
+onGroupingChange? | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping option changes.
+expandedGroups? | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups.
+defaultExpandedGroups? | Array&lt;[GroupKey](#group-key)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
+onExpandedGroupsChange? | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) => void | | Handles expanded group changes.
 
 ## Interfaces
 

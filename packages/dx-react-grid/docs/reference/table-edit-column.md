@@ -16,11 +16,11 @@ Name | Type | Default | Description
 cellComponent | ElementType&lt;[TableEditColumn.CellProps](#tableeditcolumncellprops)&gt; | | A component that renders a command cell within a data row.
 headerCellComponent | ElementType&lt;[TableEditColumn.HeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a command cell within the header row.
 commandComponent | ElementType&lt;[TableEditColumn.CommandProps](#tableeditcolumncommandprops)&gt; | | A component that renders command control within a command cell.
-showAddCommand | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
-showEditCommand | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
-showDeleteCommand | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
-width | number &#124; string | | Specifies the command column's width.
-messages | object | | An object that specifies the [localization messages](#localization-messages).
+showAddCommand? | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
+showEditCommand? | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
+showDeleteCommand? | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
+width? | number &#124; string | | Specifies the command column's width.
+messages? | object | | An object that specifies the [localization messages](#localization-messages).
 
 ## Interfaces
 

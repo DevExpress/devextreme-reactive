@@ -1,5 +1,6 @@
 *.log
 **/dist
+**/*.d.ts
 
 # IDE
 .vscode
@@ -8,7 +9,7 @@
 **/node_modules
 /packages/*/*.tgz
 
-# Tesing
+# Testing
 **/coverage
 
 # Site

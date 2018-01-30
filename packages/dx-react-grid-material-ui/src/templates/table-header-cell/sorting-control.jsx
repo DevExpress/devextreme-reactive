@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 const SortingControlBase = ({
-  align, sortingDirection, columnTitle, onClick, classes, getMessage,
+  align, sortingDirection, columnTitle, onClick, classes, getMessage, sortingEnabled,
 }) => (
   <Tooltip
     title={getMessage('sortingHint')}
@@ -34,6 +34,7 @@ const SortingControlBase = ({
       active={!!sortingDirection}
       direction={sortingDirection}
       onClick={onClick}
+      disabled={!sortingEnabled}
       classes={{
         root: classes.sortLabelRoot,
         active: classes.sortLabelActive,
@@ -51,10 +52,12 @@ SortingControlBase.propTypes = {
   classes: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
+  sortingEnabled: PropTypes.bool,
 };
 
 SortingControlBase.defaultProps = {
   sortingDirection: null,
+  sortingEnabled: true,
 };
 
 export const SortingControl = withStyles(styles, { name: 'SortingControl' })(SortingControlBase);

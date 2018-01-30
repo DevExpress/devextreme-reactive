@@ -2,13 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { changeColumnSorting, getColumnExtensionValue } from '@devexpress/dx-grid-core';
+import { changeColumnSorting, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SortingState } from './sorting-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnSorting: jest.fn(),
-  getColumnExtensionValue: jest.fn(),
+  getColumnExtensionValueGetter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -30,7 +30,7 @@ describe('SortingState', () => {
 
   beforeEach(() => {
     changeColumnSorting.mockImplementation(() => ({}));
-    getColumnExtensionValue.mockImplementation(() => ((() => {})));
+    getColumnExtensionValueGetter.mockImplementation(() => ((() => {})));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -197,45 +197,20 @@ describe('SortingState', () => {
   });
 
   describe('column extensions', () => {
-    it('should correctly call getColumnExtensionValue by default', () => {
-      mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <SortingState />
-        </PluginHost>
-      ));
-
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(undefined, 'sortingEnabled', true);
-    });
-
-    it('should correctly call getColumnExtensionValue if columnSortingEnabled prop is false', () => {
-      mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <SortingState
-            columnSortingEnabled={false}
-          />
-        </PluginHost>
-      ));
-
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(undefined, 'sortingEnabled', false);
-    });
-
-    it('should correctly call getColumnExtensionValue if columnExtensions prop is defined', () => {
+    it('should correctly call getColumnExtensionValueGetter', () => {
       const columnExtensions = [{ columnName: 'a', sortingEnabled: true }];
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <SortingState
+            columnSortingEnabled={false}
             columnExtensions={columnExtensions}
           />
         </PluginHost>
       ));
 
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(columnExtensions, 'sortingEnabled', true);
+      expect(getColumnExtensionValueGetter)
+        .toBeCalledWith(columnExtensions, 'sortingEnabled', false);
     });
   });
 });

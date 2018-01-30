@@ -11,6 +11,7 @@ const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_K
 export const GroupPanelItem = ({
   item: { column, draft },
   onGroup, showGroupingControls,
+  sortingEnabled,
   showSortingControls, sortingDirection, onSort, className,
   ...restProps
 }) => {
@@ -18,7 +19,7 @@ export const GroupPanelItem = ({
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
 
-    if (!showSortingControls || !(isActionKeyDown || isMouseClick)) return;
+    if (!sortingEnabled || !(isActionKeyDown || isMouseClick)) return;
 
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
     const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
@@ -52,7 +53,7 @@ export const GroupPanelItem = ({
         className="btn btn-default"
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
-        {...showSortingControls ? { tabIndex: 0 } : null}
+        {...sortingEnabled ? { tabIndex: 0 } : null}
       >
         {column.title || column.name}
         {showSortingControls && sortingDirection && (
@@ -97,6 +98,7 @@ GroupPanelItem.propTypes = {
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
   showGroupingControls: PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
 };
 
 GroupPanelItem.defaultProps = {
@@ -106,4 +108,5 @@ GroupPanelItem.defaultProps = {
   onSort: undefined,
   onGroup: undefined,
   showGroupingControls: false,
+  sortingEnabled: false,
 };

@@ -13,10 +13,6 @@ import {
   generateRows,
 } from '../../../demo-data/generator';
 
-const sortingStateColumnExtensions = [
-  { columnName: 'name', sortingEnabled: false },
-];
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -29,10 +25,21 @@ export default class Demo extends React.PureComponent {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 8 }),
+      defaultSorting: [
+        { columnName: 'name', direction: 'desc' },
+      ],
+      sortingStateColumnExtensions: [
+        { columnName: 'name', sortingEnabled: false },
+      ],
     };
   }
   render() {
-    const { rows, columns } = this.state;
+    const {
+      rows,
+      columns,
+      defaultSorting,
+      sortingStateColumnExtensions
+    } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -40,7 +47,10 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <SortingState columnExtensions={sortingStateColumnExtensions} />
+          <SortingState
+            defaultSorting={defaultSorting}
+            columnExtensions={sortingStateColumnExtensions}
+          />
           <IntegratedSorting />
           <Table />
           <TableHeaderRow showSortingControls />

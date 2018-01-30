@@ -7,7 +7,7 @@ import {
   toggleExpandedGroups,
   draftColumnGrouping,
   cancelColumnGroupingDraft,
-  getColumnExtensionValue,
+  getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { GroupingState } from './grouping-state';
@@ -17,7 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   toggleExpandedGroups: jest.fn(),
   draftColumnGrouping: jest.fn(),
   cancelColumnGroupingDraft: jest.fn(),
-  getColumnExtensionValue: jest.fn(),
+  getColumnExtensionValueGetter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -42,7 +42,7 @@ describe('GroupingState', () => {
     toggleExpandedGroups.mockImplementation(() => {});
     draftColumnGrouping.mockImplementation(() => {});
     cancelColumnGroupingDraft.mockImplementation(() => {});
-    getColumnExtensionValue.mockImplementation(() => ((() => {})));
+    getColumnExtensionValueGetter.mockImplementation(() => ((() => {})));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -717,45 +717,20 @@ describe('GroupingState', () => {
   });
 
   describe('column extensions', () => {
-    it('should correctly call getColumnExtensionValue by default', () => {
-      mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <GroupingState />
-        </PluginHost>
-      ));
-
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(undefined, 'groupingEnabled', true);
-    });
-
-    it('should correctly call getColumnExtensionValue if columnGroupingEnabled prop is false', () => {
-      mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <GroupingState
-            columnGroupingEnabled={false}
-          />
-        </PluginHost>
-      ));
-
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(undefined, 'groupingEnabled', false);
-    });
-
-    it('should correctly call getColumnExtensionValue if columnExtensions prop is defined', () => {
+    it('should call getColumnExtensionValueGetter correctly', () => {
       const columnExtensions = [{ columnName: 'a', groupingEnabled: true }];
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
+            columnGroupingEnabled={false}
             columnExtensions={columnExtensions}
           />
         </PluginHost>
       ));
 
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(columnExtensions, 'groupingEnabled', true);
+      expect(getColumnExtensionValueGetter)
+        .toBeCalledWith(columnExtensions, 'groupingEnabled', false);
     });
   });
 });

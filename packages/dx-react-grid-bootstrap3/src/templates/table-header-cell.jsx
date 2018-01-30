@@ -18,11 +18,11 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
     this.onClick = (e) => {
-      const { showSortingControls, onSort } = this.props;
+      const { sortingEnabled, onSort } = this.props;
       const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
       const isMouseClick = e.keyCode === undefined;
 
-      if (!showSortingControls || !(isActionKeyDown || isMouseClick)) return;
+      if (!sortingEnabled || !(isActionKeyDown || isMouseClick)) return;
 
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
       const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
@@ -40,6 +40,7 @@ export class TableHeaderCell extends React.PureComponent {
     const {
       style, column, tableColumn,
       showSortingControls, sortingDirection,
+      sortingEnabled,
       showGroupingControls, onGroup,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
@@ -54,12 +55,12 @@ export class TableHeaderCell extends React.PureComponent {
       <th
         style={{
           position: 'relative',
-          ...(showSortingControls || draggingEnabled ? {
+          ...(sortingEnabled || draggingEnabled ? {
             userSelect: 'none',
             MozUserSelect: 'none',
             WebkitUserSelect: 'none',
           } : {}),
-          ...(showSortingControls || draggingEnabled ? { cursor: 'pointer' } : null),
+          ...(sortingEnabled || draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           padding: '5px',
           ...style,
@@ -125,6 +126,7 @@ TableHeaderCell.propTypes = {
   column: PropTypes.object,
   style: PropTypes.object,
   showSortingControls: PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   showGroupingControls: PropTypes.bool,
@@ -146,6 +148,7 @@ TableHeaderCell.defaultProps = {
   sortingDirection: undefined,
   onSort: undefined,
   showGroupingControls: false,
+  sortingEnabled: false,
   onGroup: undefined,
   draggingEnabled: false,
   resizingEnabled: false,

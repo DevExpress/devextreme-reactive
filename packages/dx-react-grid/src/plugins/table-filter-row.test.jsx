@@ -24,7 +24,7 @@ const defaultDeps = {
   getter: {
     tableHeaderRows: [{ type: 'undefined', rowId: 1 }],
     filters: [{ columnName: 'a', value: 'b' }],
-    columnFilteringEnabled: () => true,
+    isColumnFilteringEnabled: () => true,
   },
   action: {
     changeColumnFilter: jest.fn(),

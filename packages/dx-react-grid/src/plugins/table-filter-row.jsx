@@ -43,7 +43,7 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ filters, columnFilteringEnabled }, { changeColumnFilter }) => {
+              {({ filters, isColumnFilteringEnabled }, { changeColumnFilter }) => {
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
@@ -57,7 +57,7 @@ export class TableFilterRow extends React.PureComponent {
                     }}
                   >
                     {(content) => {
-                      const filteringEnabled = columnFilteringEnabled(columnName);
+                      const filteringEnabled = isColumnFilteringEnabled(columnName);
                       return (
                         <FilterCell
                           {...params}

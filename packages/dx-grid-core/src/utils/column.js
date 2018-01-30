@@ -9,7 +9,7 @@ export const getColumnExtension = (columnExtensions, columnName) => {
   return columnExtension;
 };
 
-export const getColumnExtensionValue = (columnExtensions, extensionName, defaultValue) =>
+export const getColumnExtensionValueGetter = (columnExtensions, extensionName, defaultValue) =>
   (columnName) => {
     if (columnExtensions) {
       const columnExtension = getColumnExtension(columnExtensions, columnName);

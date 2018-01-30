@@ -14,11 +14,6 @@ import {
   generateRows,
 } from '../../../demo-data/generator';
 
-const filteringStateColumnExtensions = [
-  { columnName: 'name', filteringEnabled: false },
-  { columnName: 'car', filteringEnabled: false },
-];
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -32,10 +27,19 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ length: 8 }),
       defaultFilters: [{ columnName: 'car', value: 'cruze' }],
+      filteringStateColumnExtensions: [
+        { columnName: 'name', filteringEnabled: false },
+        { columnName: 'car', filteringEnabled: false },
+      ],
     };
   }
   render() {
-    const { rows, columns, defaultFilters } = this.state;
+    const {
+      rows,
+      columns,
+      defaultFilters,
+      filteringStateColumnExtensions,
+    } = this.state;
 
     return (
       <<%&wrapperTag%>>

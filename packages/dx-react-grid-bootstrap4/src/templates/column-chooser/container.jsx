@@ -9,6 +9,7 @@ export const Container = ({
 }) => (
   <div
     className={classNames('list-group', className)}
+    style={{ padding: '10px 0px' }}
     {...restProps}
   >
     {children}

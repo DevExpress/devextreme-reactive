@@ -114,6 +114,7 @@ describe('Item', () => {
         outline: 'none',
         cursor: 'pointer',
         border: 0,
+        padding: '10px 24px',
         width: '40px',
       });
   });

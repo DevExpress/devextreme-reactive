@@ -9,14 +9,14 @@ export const Item = ({
 }) => (
   <button
     className={classNames('list-group-item list-group-item-action', className)}
-    style={{ outline: 'none', cursor: 'pointer', border: 0, ...style }}
+    style={{ outline: 'none', cursor: 'pointer', border: 0, padding: '10px 24px', ...style }}
     type="button"
     onClick={onToggle}
     {...restProps}
   >
     <input
       type="checkbox"
-      style={{ cursor: 'pointer', marginRight: 20 }}
+      style={{ cursor: 'pointer', marginRight: 10 }}
       tabIndex={-1}
       checked={!hidden}
       onChange={onToggle}

@@ -30,7 +30,7 @@ messages? | object | | An object that specifies [localization messages](#localiz
 
 Describes properties used to render a table header cell.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------

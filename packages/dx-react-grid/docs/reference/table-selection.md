@@ -28,7 +28,7 @@ selectionColumnWidth | number | | The selection column's width.
 
 Describes properties passed to a component that renders a cell containing the Select All checkbox.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -41,7 +41,7 @@ onToggle | (select?: boolean) => void | Toggles the Select All checkbox state.
 
 Describes properties passed to a component that renders a cell containing a selection checkbox.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------

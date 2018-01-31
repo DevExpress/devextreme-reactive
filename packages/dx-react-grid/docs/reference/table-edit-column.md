@@ -28,7 +28,7 @@ messages? | object | | An object that specifies the [localization messages](#loc
 
 Describes properties passed to a data row's command cell component.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -39,7 +39,7 @@ children? | ReactElement | A React element to be placed in the command cell.
 
 Describes properties passed to a component that renders a command cell within the header row.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------

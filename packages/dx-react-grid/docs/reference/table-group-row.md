@@ -27,8 +27,6 @@ indentColumnWidth | number | | The group indent column's width.
 
 Describes additional column properties that the plugin can handle.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.
@@ -38,7 +36,7 @@ showWhenGrouped? | boolean | Specifies whether the grid displays the column by w
 
 Describes properties passed to a component that renders a group cell.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -51,7 +49,7 @@ onToggle | () => void | An event that initiates group row's expanding or collaps
 
 Describes properties passed to a component that renders a group row.
 
-A value with the [Table.RowProps](table.md#tablerowprops) shape extended by the following fields:
+Extends [Table.RowProps](table.md#tablerowprops)
 
 Field | Type | Description
 ------|------|------------
@@ -61,7 +59,7 @@ row | [GroupRow](#grouprow) | The group row.
 
 Describes properties passed to a component that renders a group indent cell.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------

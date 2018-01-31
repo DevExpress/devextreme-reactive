@@ -24,7 +24,7 @@ rowHeight? | number | | Specifies the editable row's height.
 
 Describes properties passed to a component that renders an editable cell.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -37,7 +37,7 @@ onValueChange | (newValue: any) => void | Handles value changes.
 
 Describes properties passed to a component that renders an editable row.
 
-A value with the [Table.RowProps](table.md#tablerowprops) shape extended by the following fields:
+Extends [Table.RowProps](table.md#tablerowprops)
 
 Field | Type | Description
 ------|------|------------

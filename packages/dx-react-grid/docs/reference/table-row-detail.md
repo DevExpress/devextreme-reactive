@@ -34,7 +34,7 @@ row | any | A row.
 
 Describes properties passed to a component that renders a detail cell.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -45,7 +45,7 @@ children? | ReactElement | A detail cell's child React element.
 
 Describes properties passed to a component that renders a detail row.
 
-A value with the [Table.RowProps](table.md#tablerowprops) shape extended by the following fields:
+Extends [Table.RowProps](table.md#tablerowprops)
 
 Field | Type | Description
 ------|------|------------
@@ -55,7 +55,7 @@ row | any | A row.
 
 Describes properties passed to a component that renders a cell containing the expand/collapse control.
 
-A value with the [Table.CellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------

@@ -73,7 +73,7 @@ colSpan? | number | The count of columns that the root cell element spans.
 
 Describes properties passed to a component that renders a table cell.
 
-A value with the [Table.CellProps](#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -103,7 +103,7 @@ style? | Object | Styles that should be applied to the root row element.
 
 Describes properties passed to a component that renders a table row.
 
-A value with the [Table.RowProps](#tablerowprops) shape extended by the following fields:
+Extends [Table.RowProps](#tablerowprops)
 
 Field | Type | Description
 ------|------|------------

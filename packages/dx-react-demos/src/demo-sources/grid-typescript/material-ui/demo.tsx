@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Column } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap3';
-import { generateRows } from '../../demo-data/generator';
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import { generateRows } from '../../../demo-data/generator';
 
 const rows = generateRows({ length: 5 });
 const columns: Array<Column> = [

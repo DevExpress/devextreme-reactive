@@ -5,6 +5,7 @@ const mustache = require('mustache');
 const THEMES_FOLDER = './src/theme-sources';
 const DEMOS_FOLDER = './src/demo-sources';
 const JSX_EXT = 'jsx';
+const TSX_EXT = 'tsx';
 const TEMPLATE_EXT_POSTFIX = 't';
 const THEME_DEMO_DATA_FILE = 'demo-source-data.json';
 const TEST_FILE = 'demo.test.jsxt';
@@ -46,13 +47,16 @@ const loadDemosToGenerate = () => {
               filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
               return;
             }
-            const demoName = nestedFile.replace(`.${JSX_EXT}`, '');
+            const nameReplaceRegex = new RegExp(`\\.(${JSX_EXT}|${TSX_EXT})`);
+            const demoExtension = nameReplaceRegex.exec(nestedFile)[1];
+            const demoName = nestedFile.replace(nameReplaceRegex, '');
             demos.push({
               sectionName,
               demoName,
               themeName: file,
-              generateTest: true,
+              generateTest: demoExtension === JSX_EXT,
               generateSsrTest,
+              demoExtension,
             });
           });
         }
@@ -153,8 +157,8 @@ const generateDemoRegistry = () => {
   const sectionsString = Object.keys(structuredDemos).reduce((sectionsAcc, sectionName) => {
     const demosString = Object.keys(structuredDemos[sectionName]).reduce((demosAcc, demoName) => {
       const themesString = structuredDemos[sectionName][demoName]
-        .reduce((themesAcc, { themeName, generateDemo }) => {
-          const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.jsx`;
+        .reduce((themesAcc, { themeName, generateDemo, demoExtension }) => {
+          const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.${demoExtension}`;
           const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
           return `${themesAcc}\n${indent(`'${themeName}': {\n` +
           `  demo: require('.${fileName}').default,\n` +

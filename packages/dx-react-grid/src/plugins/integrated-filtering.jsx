@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Getter, PluginContainer } from '@devexpress/dx-react-core';
-import { filteredRows, getColumnExtension } from '@devexpress/dx-grid-core';
+import { filteredRows, filteredCollapsedRowsGetter, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { pluginName: 'FilteringState' },
@@ -17,10 +17,29 @@ export class IntegratedFiltering extends React.PureComponent {
       rows,
       filters,
       getCellValue,
-      isGroupRow,
       getRowLevelKey,
+      getCollapsedRows,
     }) =>
-      filteredRows(rows, filters, getCellValue, getColumnPredicate, isGroupRow, getRowLevelKey);
+      filteredRows(
+        rows,
+        filters,
+        getCellValue,
+        getColumnPredicate,
+        getRowLevelKey,
+        getCollapsedRows,
+      );
+
+    const getCollapsedRowsComputed = ({
+      getCollapsedRows,
+      filters,
+      getCellValue,
+    }) =>
+      filteredCollapsedRowsGetter(
+        getCollapsedRows,
+        filters,
+        getCellValue,
+        getColumnPredicate,
+      );
 
     return (
       <PluginContainer
@@ -28,6 +47,7 @@ export class IntegratedFiltering extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />
+        <Getter name="getCollapsedRows" computed={getCollapsedRowsComputed} />
       </PluginContainer>
     );
   }

@@ -32,15 +32,12 @@ const filterTree = (tree, predicate) =>
     [],
   );
 
-const filterHierarchicalRows = (rows, predicate, getRowLevelKey, isGroupRow) => {
+const filterHierarchicalRows = (rows, predicate, getRowLevelKey, getCollapsedRows) => {
   const tree = rowsToTree(rows, getRowLevelKey);
 
   const filteredTree = filterTree(tree, (row) => {
-    if (isGroupRow(row)) {
-      if (row.collapsedRows) {
-        return row.collapsedRows.findIndex(predicate) > -1;
-      }
-      return false;
+    if (getCollapsedRows && getCollapsedRows(row)) {
+      return getCollapsedRows(row).findIndex(predicate) > -1 || predicate(row);
     }
     return predicate(row);
   });
@@ -53,8 +50,8 @@ export const filteredRows = (
   filters,
   getCellValue,
   getColumnPredicate,
-  isGroupRow,
   getRowLevelKey,
+  getCollapsedRows,
 ) => {
   if (!filters.length || !rows.length) return rows;
 
@@ -76,5 +73,19 @@ export const filteredRows = (
     return rows.filter(predicate);
   }
 
-  return filterHierarchicalRows(rows, predicate, getRowLevelKey, isGroupRow);
+  return filterHierarchicalRows(rows, predicate, getRowLevelKey, getCollapsedRows);
 };
+
+export const filteredCollapsedRowsGetter =
+  (getCollapsedRows, filters, getCellValue, getColumnPredicate) =>
+    (row) => {
+      if (!getCollapsedRows) return undefined;
+      const collapsedRows = getCollapsedRows(row);
+      if (!collapsedRows || !collapsedRows.length) return collapsedRows;
+      return filteredRows(
+        collapsedRows,
+        filters,
+        getCellValue,
+        getColumnPredicate,
+      );
+    };

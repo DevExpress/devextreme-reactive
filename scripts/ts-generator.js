@@ -84,9 +84,12 @@ const getInterfaceExport = ({
 }, level = 0) => {
   const indent = ' '.repeat(2 * level);
   const extensionText = extension ? ` extends ${extension}` : '';
+  const propertiesText = properties
+    .reduce((acc, propLine) => acc + getFormattedLine(propLine, level + 1), '')
+    .replace(': { [key: number | string]: any };', ': { [key: string]: any };');
   return `${indent}/** ${description} */\n`
     + `${indent}export interface ${name}${extensionText} {\n`
-    + `${properties.reduce((acc, propLine) => acc + getFormattedLine(propLine, level + 1), '')}`
+    + `${propertiesText}`
     + `${indent}}\n`;
 };
 
@@ -100,7 +103,6 @@ const generateTypeScript = (data, componentName) => {
         + `${getInterfaceExport({ ...currentInterface, name: interfaceName }, 1)}`
         + '}\n\n';
     }
-
     return `${acc}${getInterfaceExport(currentInterface)}\n`;
   }, '');
   const properties = data.properties.reduce((acc, line) => acc + getFormattedLine(line), '');

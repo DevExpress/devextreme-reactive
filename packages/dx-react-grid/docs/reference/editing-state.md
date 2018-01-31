@@ -46,7 +46,7 @@ Describes uncommitted changes made to the grid data.
 Field | Type | Description
 ------|------|------------
 added? | Array&lt;any&gt; | An array of rows to be created.
-changed? | { [string]: any } | An associated array that stores changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
+changed? | { [key: number &#124; string]: any } | An associated array that stores changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing rows to be deleted.
 
 ## Plugin Developer Reference

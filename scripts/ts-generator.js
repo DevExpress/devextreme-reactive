@@ -3,6 +3,7 @@ const {
   writeFileSync,
   readdirSync,
   existsSync,
+  mkdirSync,
 } = require('fs');
 const { join } = require('path');
 
@@ -193,12 +194,23 @@ themesIndexContent = 'import * as React from \'react\';\n'
   + '\n} from \'@devexpress/dx-react-grid\';\n'
   + `${themesIndexContent}`;
 
+const ensureDirectory = (dir) => {
+  if (!existsSync(dir)) {
+    mkdirSync(dir);
+  }
+};
+
 console.log('Building TypeScript definitions for \'dx-react-grid\'.');
-writeFileSync(join(PACKAGE_PATH, TARGET_FOLDER, 'index.d.ts'), indexContent);
+const distFolder = join(PACKAGE_PATH, TARGET_FOLDER);
+ensureDirectory(distFolder);
+writeFileSync(join(distFolder, 'index.d.ts'), indexContent);
+
 themes.forEach((theme) => {
   console.log(`Building TypeScript definitions for 'dx-react-grid-${theme}'.`);
+  const themeDistFolder = join(ROOT_PATH, `dx-react-grid-${theme}`, TARGET_FOLDER);
+  ensureDirectory(themeDistFolder);
   writeFileSync(
-    join(ROOT_PATH, `dx-react-grid-${theme}`, TARGET_FOLDER, 'index.d.ts'),
+    join(themeDistFolder, 'index.d.ts'),
     themesIndexContent,
   );
 });

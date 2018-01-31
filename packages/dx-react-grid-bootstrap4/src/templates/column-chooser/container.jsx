@@ -8,7 +8,7 @@ export const Container = ({
   ...restProps
 }) => (
   <div
-    className={classNames('list-group-flush', className)}
+    className={classNames('list-group', className)}
     {...restProps}
   >
     {children}

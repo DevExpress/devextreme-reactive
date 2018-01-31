@@ -9,7 +9,7 @@ export const Item = ({
 }) => (
   <button
     className={classNames('list-group-item list-group-item-action', className)}
-    style={{ outline: 'none', cursor: 'pointer', ...style }}
+    style={{ outline: 'none', cursor: 'pointer', border: 0, ...style }}
     type="button"
     onClick={onToggle}
     {...restProps}

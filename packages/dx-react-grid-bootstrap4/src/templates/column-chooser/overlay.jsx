@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Popover, PopoverBody } from 'reactstrap';
+import { Popover } from 'reactstrap';
 
 export const Overlay = ({
   visible, children, toggle, target, onHide, ...restProps
@@ -14,9 +14,7 @@ export const Overlay = ({
       container={target ? target.parentElement : undefined}
       {...restProps}
     >
-      <PopoverBody>
-        {children}
-      </PopoverBody>
+      {children}
     </Popover>
   ) : null
 );

@@ -113,6 +113,7 @@ describe('Item', () => {
       .toEqual({
         outline: 'none',
         cursor: 'pointer',
+        border: 0,
         width: '40px',
       });
   });

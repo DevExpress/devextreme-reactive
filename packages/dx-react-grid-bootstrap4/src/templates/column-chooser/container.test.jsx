@@ -13,7 +13,7 @@ describe('Container', () => {
       </Container>
     ));
 
-    expect(tree.is('.list-group-flush'))
+    expect(tree.is('.list-group'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();

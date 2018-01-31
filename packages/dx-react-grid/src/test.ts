@@ -1,1 +1,1 @@
-import * as All from '../dist/index';
+import * as All from '../dist/index'; // eslint-disable-line

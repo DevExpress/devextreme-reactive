@@ -4,10 +4,13 @@ const {
   readdirSync,
   existsSync,
 } = require('fs');
+const { join } = require('path');
 
-const SOURCE_FOLDER = 'docs/reference/';
-const TARGET_FOLDER = 'src/';
-const PLUGINS_FOLDER = 'plugins/';
+const ROOT_PATH = join(process.cwd(), 'packages');
+const PACKAGE_PATH = join(ROOT_PATH, 'dx-react-grid');
+const SOURCE_PATH = join(PACKAGE_PATH, 'docs/reference');
+const TARGET_FOLDER = 'dist';
+const PLUGINS_FOLDER = 'plugins';
 
 const getComponentName = fileName => fileName
   .replace('.md', '')
@@ -34,32 +37,11 @@ const getFormattedLine = (line, level = 1) => {
   return `${indent}/** ${elements[descriptionIndex]} */\n${indent}${elements[0]}: ${elements[1]};\n`;
 };
 
-const getImport = (line) => {
-  const regex = /\[([.\w]+)\]\((?:([-\w]+)\.md#.+\).*\|.*)/g;
-  const matches = regex.exec(line);
-
-  if (!matches) return null;
-
-  let propertyName = matches[1];
-  if (propertyName.indexOf('.') !== -1) [propertyName] = propertyName.split('.');
-  return { property: propertyName, from: matches[2] };
-};
-
-const addImport = (imports, newElement) => {
-  if (!newElement || imports.find(({ property }) => property === newElement.property)) {
-    return imports;
-  }
-  return [...imports, newElement];
-};
-
 const parseFile = (source) => {
-  let imports = [];
-
   let propertiesBlock = source.slice(source.indexOf('### Properties') + 1);
   propertiesBlock = propertiesBlock
     .slice(0, propertiesBlock.findIndex(el => el.indexOf('## ') === 0 || el.indexOf('# ') === 0))
     .filter(element => element !== 'none');
-  propertiesBlock.forEach((line) => { imports = addImport(imports, getImport(line)); });
 
   let interfacesBlock = source.slice(source.indexOf('## Interfaces') + 1);
   interfacesBlock = interfacesBlock
@@ -73,16 +55,11 @@ const parseFile = (source) => {
       if (acc[acc.length - 1].name === 'GroupKey' || !line.match(/.+\|.+\|.+/)) {
         if (line.indexOf('shape extended by') !== -1) {
           acc[acc.length - 1].extension = cleanElement(line.match(/\[[.\w]+\]/)[0]);
-          const matches = /\[(\w+).\w+\]\((\w+).md.*\)/.exec(line);
-          if (matches !== null) {
-            imports = addImport(imports, { property: matches[1], from: matches[2] });
-          }
         } else {
           acc[acc.length - 1].description += cleanElement(line);
         }
         return acc;
       }
-      imports = addImport(imports, getImport(line));
       acc[acc.length - 1].properties.push(line);
       return acc;
     }, []);
@@ -95,7 +72,6 @@ const parseFile = (source) => {
     properties: propertiesBlock,
     interfaces: interfacesBlock,
     pluginComponents: componentsBlock,
-    imports,
   };
 };
 
@@ -114,10 +90,6 @@ const getInterfaceExport = ({
 };
 
 const generateTypeScript = (data, componentName) => {
-  const imports = data.imports.reduce((acc, { property, from }) => {
-    const path = from.indexOf('grid') === 0 ? '../' : './';
-    return `${acc}import { ${property} } from '${path}${from}';\n`;
-  }, '');
   const interfaces = data.interfaces.reduce((acc, currentInterface) => {
     const { name } = currentInterface;
     if (name === 'GroupKey') return `${acc}export type ${name} = string;\n\n`;
@@ -132,10 +104,7 @@ const generateTypeScript = (data, componentName) => {
   }, '');
   const properties = data.properties.reduce((acc, line) => acc + getFormattedLine(line), '');
 
-  return 'import * as React from \'react\';\n'
-    + `${imports}`
-    + '\n'
-    + `${interfaces}`
+  return `${interfaces}`
     + `export interface ${componentName}Props {\n`
     + `${properties}`
     + '}\n\n'
@@ -143,22 +112,16 @@ const generateTypeScript = (data, componentName) => {
 };
 
 const getThemesTypeScript = (data, componentName) => {
-  const imports = [];
   const properties = data.properties
     .reduce((acc, line) => {
-      const matches = /\[(\w+)(?:\.\w+)?\]\(.*#.+\|/.exec(line);
-      if (matches !== null
-          && imports.indexOf(matches[1]) === -1
-          && matches[1] !== componentName) {
-        imports.push(matches[1]);
-      }
       let result = acc
-      // return acc
         + getFormattedLine(line)
-          .replace(`${componentName}.`, `${componentName}Base.`);
-        // .replace(/(\w+Component):/g, '$1?:');
+          .replace(`${componentName}.`, `${componentName}Base.`)
+          .replace('Table.', 'TableBase.');
       if (componentName !== 'Grid') {
         result = result.replace(/(\s\s\w+):/g, '$1?:');
+      } else {
+        result = result.replace(/(\s\s\w+Component):/g, '$1?:');
       }
       return result;
     }, '');
@@ -167,12 +130,11 @@ const getThemesTypeScript = (data, componentName) => {
     .reduce((acc, line) => acc
       + getFormattedLine(line)
         .replace(/\w+\.(\w+:\s)(.+);/, '$1React.ComponentType<$2>;')
-        .replace(`${componentName}.`, `${componentName}Base.`), '');
+        .replace(`${componentName}.`, `${componentName}Base.`)
+        .replace('Table.', 'TableBase.'), '');
 
-  return 'import * as React from \'react\';\n'
-    + 'import {\n'
+  return 'import {\n'
     + `  ${componentName} as ${componentName}Base,\n`
-    + `${imports.reduce((acc, element) => `${acc}  ${element},\n`, '')}`
     + '} from \'@devexpress/dx-react-grid\';\n'
     + `\nexport interface ${componentName}Props {\n`
     + `${properties}`
@@ -181,48 +143,62 @@ const getThemesTypeScript = (data, componentName) => {
     + `${pluginComponents.length ? ` & {\n${pluginComponents}}` : ''};\n`;
 };
 
-let indexContent = '';
-const themesIndexContent = [];
-const themes = readdirSync('../')
+let indexContent = 'import * as React from \'react\';\n';
+let themesIndexContent = '';
+const themesImports = [];
+const themes = readdirSync(ROOT_PATH)
   .filter(folder => folder.indexOf('dx-react-grid-') !== -1)
   .map((folder) => {
     const matches = /dx-react-grid-([\w-]+)/.exec(folder);
     return matches[1];
   });
 
-readdirSync(SOURCE_FOLDER).forEach((file) => {
+readdirSync(SOURCE_PATH).forEach((file) => {
   const targetFileName = file.split('.')[0];
-  const targetFile = TARGET_FOLDER
-    + (file.indexOf('grid') === -1 ? PLUGINS_FOLDER : '')
-    + file.replace('.md', '.d.ts');
-
-  // if (file.indexOf('grid') === -1) return;
-  // if (file.indexOf('column-chooser') === -1) return;
-
   const componentName = getComponentName(file);
-
-  const fileContent = String(readFileSync(SOURCE_FOLDER + file))
+  const fileContent = String(readFileSync(join(SOURCE_PATH, file)))
     .split('\n')
     .filter(line => !!line && !/^(-+|Name|Field)\s?\|/.test(line));
   const fileData = parseFile(fileContent);
 
-  writeFileSync(targetFile, generateTypeScript(fileData, componentName));
-  indexContent += `export * from '.${targetFile.replace('src', '').split('.')[0]}';\n`;
+  indexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
+  indexContent += generateTypeScript(fileData, componentName);
 
-  themes.forEach((theme) => {
-    const themeFile = `${(file.indexOf('grid') === -1 ? PLUGINS_FOLDER : '')}${targetFileName}`;
-    const exportLine = `export * from './${themeFile}';\n`;
-    if (existsSync(`../dx-react-grid-${theme}/src/${themeFile}.jsx`)) {
-      writeFileSync(`../dx-react-grid-${theme}/src/${themeFile}.d.ts`, getThemesTypeScript(fileData, componentName));
+  const themeFile = join((file.indexOf('grid') === -1 ? PLUGINS_FOLDER : ''), targetFileName);
+  const targetThemeFolder = join(ROOT_PATH, `dx-react-grid-${themes[0]}`, 'src');
+  if (existsSync(join(targetThemeFolder, `${themeFile}.jsx`))) {
+    fileData.properties
+      .reduce((acc, line) => {
+        const matches = /\[(\w+)(?:\.\w+)?\]\(.*#.*\)/.exec(line);
+        if (matches !== null && matches[1] !== componentName
+          && matches[1] !== 'Table' && acc.indexOf(matches[1]) === -1) {
+          acc.push(matches[1]);
+        }
+        return acc;
+      }, [])
+      .forEach((element) => {
+        if (themesImports.indexOf(element) === -1) {
+          themesImports.push(element);
+        }
+      });
 
-      if (themesIndexContent[themesIndexContent.length - 1] !== exportLine) {
-        themesIndexContent.push(exportLine);
-      }
-    }
-  });
+    themesIndexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
+    themesIndexContent += getThemesTypeScript(fileData, componentName);
+  }
 });
 
-writeFileSync('src/index.d.ts', indexContent);
+themesIndexContent = 'import * as React from \'react\';\n'
+  + 'import {\n'
+  + `  ${themesImports.join(',\n  ')}`
+  + '\n} from \'@devexpress/dx-react-grid\';\n'
+  + `${themesIndexContent}`;
+
+console.log('Building TypeScript definitions for \'dx-react-grid\'.');
+writeFileSync(join(PACKAGE_PATH, TARGET_FOLDER, 'index.d.ts'), indexContent);
 themes.forEach((theme) => {
-  writeFileSync(`../dx-react-grid-${theme}/src/index.d.ts`, themesIndexContent.join(''));
+  console.log(`Building TypeScript definitions for 'dx-react-grid-${theme}'.`);
+  writeFileSync(
+    join(ROOT_PATH, `dx-react-grid-${theme}`, TARGET_FOLDER, 'index.d.ts'),
+    themesIndexContent,
+  );
 });

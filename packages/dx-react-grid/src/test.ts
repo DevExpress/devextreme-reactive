@@ -1,1 +1,1 @@
-import * as All from './index';
+import * as All from '../dist/index';

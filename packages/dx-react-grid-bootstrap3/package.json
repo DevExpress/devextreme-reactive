@@ -32,7 +32,7 @@
   "files": [
     "dist"
   ],
-  "types": "src/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

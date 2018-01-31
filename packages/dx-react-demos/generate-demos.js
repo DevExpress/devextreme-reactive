@@ -73,6 +73,7 @@ const loadDemosToGenerate = () => {
               generateDemo: true,
               generateTest: true,
               generateSsrTest,
+              demoExtension: JSX_EXT,
             });
           });
         }

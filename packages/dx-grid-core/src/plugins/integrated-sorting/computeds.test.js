@@ -117,24 +117,12 @@ describe('IntegratedSorting computeds', () => {
       it('should sort grouped rows', () => {
         /* eslint-disable indent */
         const groupedRows = [
-          groupRow({
-            groupedBy: 'a',
-            value: 1,
-          }),
-            groupRow({
-              groupedBy: 'b',
-              value: 1,
-            }),
-            groupRow({
-              groupedBy: 'b',
-              value: 2,
-            }),
+          groupRow({ groupedBy: 'a', value: 1 }),
+            groupRow({ groupedBy: 'b', value: 1 }),
+            groupRow({ groupedBy: 'b', value: 2 }),
               { c: 1 },
               { c: 2 },
-          groupRow({
-            groupedBy: 'a',
-            value: 2,
-          }),
+          groupRow({ groupedBy: 'a', value: 2 }),
         ];
         /* eslint-enable indent */
         const sorting = [
@@ -144,24 +132,12 @@ describe('IntegratedSorting computeds', () => {
         ];
         /* eslint-disable indent */
         const sortedGroupedRows = [
-          groupRow({
-            groupedBy: 'a',
-            value: 2,
-          }),
-          groupRow({
-            groupedBy: 'a',
-            value: 1,
-          }),
-            groupRow({
-              groupedBy: 'b',
-              value: 2,
-            }),
+          groupRow({ groupedBy: 'a', value: 2 }),
+          groupRow({ groupedBy: 'a', value: 1 }),
+            groupRow({ groupedBy: 'b', value: 2 }),
               { c: 2 },
               { c: 1 },
-            groupRow({
-              groupedBy: 'b',
-              value: 1,
-            }),
+            groupRow({ groupedBy: 'b', value: 1 }),
         ];
         /* eslint-enable indent */
 
@@ -186,25 +162,13 @@ describe('IntegratedSorting computeds', () => {
 
       it('should sort grouped rows', () => {
         /* eslint-disable indent */
-        const groupedRows = [
-          rowNode({
-            level: 0,
-            a: 1,
-          }),
-            rowNode({
-              level: 1,
-              b: 1,
-            }),
-            rowNode({
-              level: 1,
-              b: 2,
-            }),
-            { c: 1 },
-            { c: 2 },
-          rowNode({
-            level: 0,
-            a: 2,
-          }),
+        const hierarchicalRows = [
+          rowNode({ level: 0, a: 1 }),
+            rowNode({ level: 1, b: 1 }),
+            rowNode({ level: 1, b: 2 }),
+              { c: 1 },
+              { c: 2 },
+          rowNode({ level: 0, a: 2 }),
         ];
         /* eslint-enabke indent */
         const sorting = [
@@ -213,37 +177,25 @@ describe('IntegratedSorting computeds', () => {
           { columnName: 'c', direction: 'desc' },
         ];
         /* eslint-disable indent */
-        const sortedGroupedRows = [
-          rowNode({
-            level: 0,
-            a: 2,
-          }),
-          rowNode({
-            level: 0,
-            a: 1,
-          }),
-            rowNode({
-              level: 1,
-              b: 2,
-            }),
+        const sortedHierarchicalRows = [
+          rowNode({ level: 0, a: 2 }),
+          rowNode({ level: 0, a: 1 }),
+            rowNode({ level: 1, b: 2 }),
               { c: 2 },
               { c: 1 },
-            rowNode({
-              level: 1,
-              b: 1,
-            }),
+            rowNode({ level: 1, b: 1 }),
         ];
         /* eslint-enable indent */
 
         expect(sortedRows(
-          groupedRows,
+          hierarchicalRows,
           sorting,
           getCellValue,
           () => undefined,
           undefined,
           getRowLevelKey,
         ))
-          .toEqual(sortedGroupedRows);
+          .toEqual(sortedHierarchicalRows);
       });
     });
   });

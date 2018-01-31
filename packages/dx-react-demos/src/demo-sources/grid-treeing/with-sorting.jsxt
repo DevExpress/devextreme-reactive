@@ -33,6 +33,7 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
+      defaultSorting: [{ columnName: 'sex', direction: 'asc' }],
       data: generateRows({
         columnValues: {
           id: ({ index }) => index,
@@ -44,7 +45,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { data, columns } = this.state;
+    const { data, columns, defaultSorting } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -52,7 +53,9 @@ export default class Demo extends React.PureComponent {
           rows={data}
           columns={columns}
         >
-          <SortingState />
+          <SortingState
+            defaultSorting={defaultSorting}
+          />
           <TreeingState />
           <CustomTreeing
             getChildRows={getChildRows}

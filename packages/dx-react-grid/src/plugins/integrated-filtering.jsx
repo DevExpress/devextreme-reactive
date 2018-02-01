@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Plugin } from '@devexpress/dx-react-core';
 import { filteredRows, filteredCollapsedRowsGetter, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'FilteringState' },
+  { name: 'FilteringState' },
 ];
 
 export class IntegratedFiltering extends React.PureComponent {
@@ -42,13 +42,13 @@ export class IntegratedFiltering extends React.PureComponent {
       );
 
     return (
-      <PluginContainer
-        pluginName="IntegratedFiltering"
+      <Plugin
+        name="IntegratedFiltering"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />
         <Getter name="getCollapsedRows" computed={getCollapsedRowsComputed} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

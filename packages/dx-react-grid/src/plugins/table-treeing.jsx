@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer, TemplateConnector,
+  Getter, Template, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {} from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'TreeingState' },
-  { pluginName: 'Table' },
+  { name: 'TreeingState' },
+  { name: 'Table' },
 ];
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class TableTreeing extends React.PureComponent {
   render() {
     return (
-      <PluginContainer
-        pluginName="TableTreeing"
+      <Plugin
+        name="TableTreeing"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={({ tableColumns }) => [{ key: 'adfadsf', type: 'ololo' }, ...tableColumns]} />
@@ -39,7 +39,7 @@ export class TableTreeing extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

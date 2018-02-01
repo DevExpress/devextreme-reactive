@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip';
 import Input from 'material-ui/Input';
@@ -27,10 +26,6 @@ const getRowId = row => row.id;
 const BooleanFormatter = ({ value }) =>
   <Chip label={value ? 'Yes' : 'No'} />;
 
-BooleanFormatter.propTypes = {
-  value: PropTypes.bool.isRequired,
-};
-
 const BooleanEditor = ({ value, onValueChange }) => (
   <Select
     input={<Input />}
@@ -42,11 +37,6 @@ const BooleanEditor = ({ value, onValueChange }) => (
     <MenuItem value="No">No</MenuItem>
   </Select>
 );
-
-BooleanEditor.propTypes = {
-  value: PropTypes.bool.isRequired,
-  onValueChange: PropTypes.func.isRequired,
-};
 
 const BooleanTypeProvider = props => (
   <DataTypeProvider

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer, TemplatePlaceholder, TemplateConnector,
+  Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
@@ -12,9 +12,9 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'GroupingState' },
-  { pluginName: 'Table' },
-  { pluginName: 'DataTypeProvider', optional: true },
+  { name: 'GroupingState' },
+  { name: 'Table' },
+  { name: 'DataTypeProvider', optional: true },
 ];
 
 const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
@@ -53,8 +53,8 @@ export class TableGroupRow extends React.PureComponent {
       );
 
     return (
-      <PluginContainer
-        pluginName="TableGroupRow"
+      <Plugin
+        name="TableGroupRow"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
@@ -116,7 +116,7 @@ export class TableGroupRow extends React.PureComponent {
             />
           )}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

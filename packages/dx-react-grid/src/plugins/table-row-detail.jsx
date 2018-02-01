@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer, TemplateConnector,
+  Getter, Template, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
@@ -12,8 +12,8 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'RowDetailState' },
-  { pluginName: 'Table' },
+  { name: 'RowDetailState' },
+  { name: 'Table' },
 ];
 
 export class TableRowDetail extends React.PureComponent {
@@ -29,12 +29,12 @@ export class TableRowDetail extends React.PureComponent {
 
     const tableColumnsComputed = ({ tableColumns }) =>
       tableColumnsWithDetail(tableColumns, toggleColumnWidth);
-    const tableBodyRowsComputed = ({ tableBodyRows, expandedRowIds }) =>
-      tableRowsWithExpandedDetail(tableBodyRows, expandedRowIds, rowHeight);
+    const tableBodyRowsComputed = ({ tableBodyRows, expandedDetailRowIds }) =>
+      tableRowsWithExpandedDetail(tableBodyRows, expandedDetailRowIds, rowHeight);
 
     return (
-      <PluginContainer
-        pluginName="TableRowDetail"
+      <Plugin
+        name="TableRowDetail"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
@@ -45,11 +45,11 @@ export class TableRowDetail extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ expandedRowIds }, { toggleDetailRowExpanded }) => (
+              {({ expandedDetailRowIds }, { toggleDetailRowExpanded }) => (
                 <ToggleCell
                   {...params}
                   row={params.tableRow.row}
-                  expanded={isDetailRowExpanded(expandedRowIds, params.tableRow.rowId)}
+                  expanded={isDetailRowExpanded(expandedDetailRowIds, params.tableRow.rowId)}
                   onToggle={() => toggleDetailRowExpanded({ rowId: params.tableRow.rowId })}
                 />
               )}
@@ -80,7 +80,7 @@ export class TableRowDetail extends React.PureComponent {
             />
           )}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

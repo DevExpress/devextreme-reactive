@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
-import { PluginContainer } from './plugin-container';
+import { Plugin } from './plugin';
 import { Template } from './template';
 import { TemplateConnector } from './template-connector';
 import { TemplatePlaceholder } from './template-placeholder';
@@ -90,13 +90,13 @@ describe('TemplatePlaceholder', () => {
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (
-          <PluginContainer>
+          <Plugin>
             <Template name="test">
               {({ text }) => (
                 <h1>{text}</h1>
               )}
             </Template>
-          </PluginContainer>
+          </Plugin>
         );
       }
     }
@@ -197,13 +197,13 @@ describe('TemplatePlaceholder', () => {
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (
-          <PluginContainer>
+          <Plugin>
             <Template name="test">
               {({ text }) => (
                 <h1>{text}</h1>
               )}
             </Template>
-          </PluginContainer>
+          </Plugin>
         );
       }
     }

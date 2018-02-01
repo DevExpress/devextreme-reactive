@@ -30,6 +30,7 @@ export const ProgressBarCellBase = ({ value, classes, style }) => {
     </TableCell>
   );
 };
+
 ProgressBarCellBase.propTypes = {
   value: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,

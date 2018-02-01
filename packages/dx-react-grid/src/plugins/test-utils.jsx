@@ -5,7 +5,7 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
-  PluginContainer,
+  Plugin,
 } from '@devexpress/dx-react-core';
 
 // remove when switch to node 8
@@ -29,14 +29,14 @@ export const pluginDepsToComponents = (
   deps,
   depsOverrides = {},
 ) => (
-  <PluginContainer>
+  <Plugin>
     {[...(deps.plugins || []), ...(depsOverrides.plugins || [])].map(plugin => (
-      <PluginContainer
-        pluginName={plugin}
+      <Plugin
+        name={plugin}
         key={plugin}
       >
         <div />
-      </PluginContainer>
+      </Plugin>
     ))}
     {entries({ ...deps.getter, ...depsOverrides.getter })
       .map(([name, value]) => <Getter key={`getter_${name}`} name={name} value={value} />)}
@@ -62,7 +62,7 @@ export const pluginDepsToComponents = (
       </TemplateConnector>
       <TemplatePlaceholder />
     </Template>
-  </PluginContainer>
+  </Plugin>
 );
 
 export const getComputedState = tree => tree.find(ComputedStateContainer).props().getters;

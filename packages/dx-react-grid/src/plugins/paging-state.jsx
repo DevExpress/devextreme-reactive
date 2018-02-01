@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -48,14 +48,14 @@ export class PagingState extends React.PureComponent {
     const { pageSize, currentPage } = this.getState();
 
     return (
-      <PluginContainer
-        pluginName="PagingState"
+      <Plugin
+        name="PagingState"
       >
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
         <Action name="setCurrentPage" action={this.setCurrentPage} />
         <Action name="setPageSize" action={this.setPageSize} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

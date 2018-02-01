@@ -1,9 +1,9 @@
 import { TABLE_DETAIL_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 
-export const tableRowsWithExpandedDetail = (tableRows, expandedRowIds, rowHeight) => {
+export const tableRowsWithExpandedDetail = (tableRows, expandedDetailRowIds, rowHeight) => {
   let result = tableRows;
-  expandedRowIds
+  expandedDetailRowIds
     .forEach((expandedRowId) => {
       const rowIndex = result.findIndex(tableRow =>
         tableRow.type === TABLE_DATA_TYPE && tableRow.rowId === expandedRowId);

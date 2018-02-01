@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Plugin } from '@devexpress/dx-react-core';
 import {
   customTreeRowLevelKeyGetter,
   customTreeingRowIdGetter,
@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'TreeingState' },
+  { name: 'TreeingState' },
 ];
 
 const expandedTreeRowsComputed = ({ rows, getRowId, expandedRowIds }) =>
@@ -31,8 +31,8 @@ export class CustomTreeing extends React.PureComponent {
       customTreeedRowsWithMeta(rows, getChildRows);
 
     return (
-      <PluginContainer
-        pluginName="CustomTreeing"
+      <Plugin
+        name="CustomTreeing"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={groupedRowsComputed} />
@@ -41,7 +41,7 @@ export class CustomTreeing extends React.PureComponent {
         <Getter name="rows" computed={expandedTreeRowsComputed} />
         <Getter name="getCollapsedRows" computed={collapsedTreeRowsGetterComputed} />
         <Getter name="rows" computed={({ rows }) => rows.rows} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

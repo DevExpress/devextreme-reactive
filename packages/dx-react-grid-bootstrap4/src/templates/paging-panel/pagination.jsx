@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pagination as PaginationBS3, PaginationItem, PaginationLink } from 'reactstrap';
+import { Pagination as PaginationBS4, PaginationItem, PaginationLink } from 'reactstrap';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 
 const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math.max(
@@ -101,16 +101,29 @@ export const Pagination = ({
   const to = lastRowOnPage(currentPage, pageSize, totalCount);
   return (
     <React.Fragment>
-      <PaginationBS3
+      <PaginationBS4
         style={{
           margin: 0,
           verticalAlign: 'bottom',
         }}
         className="float-right d-none d-sm-flex"
       >
+        <PaginationItem
+          disabled={currentPage === 0}
+          onClick={() => onCurrentPageChange(currentPage - 1)}
+        >
+          <PaginationLink previous href="#" />
+        </PaginationItem>
         {renderPageButtons(currentPage, totalPages, onCurrentPageChange)}
-      </PaginationBS3>
-      <PaginationBS3
+        <PaginationItem
+          disabled={currentPage === totalPages - 1 || totalCount === 0}
+          onClick={() => onCurrentPageChange(currentPage + 1)}
+        >
+          <PaginationLink next href="#" />
+        </PaginationItem>
+      </PaginationBS4>
+
+      <PaginationBS4
         className="float-right d-sm-none"
         style={{ margin: 0 }}
       >
@@ -118,16 +131,16 @@ export const Pagination = ({
           disabled={currentPage === 0}
           onClick={() => onCurrentPageChange(currentPage - 1)}
         >
-          <PaginationLink previous />
+          <PaginationLink previous href="#" />
         </PaginationItem>
         &nbsp;
         <PaginationItem
           disabled={currentPage === totalPages - 1 || totalCount === 0}
           onClick={() => onCurrentPageChange(currentPage + 1)}
         >
-          <PaginationLink next />
+          <PaginationLink next href="#" />
         </PaginationItem>
-      </PaginationBS3>
+      </PaginationBS4>
       <span className="float-right d-sm-none" style={{ marginRight: '20px' }}>
         <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
           {getMessage('info', { from, to, count: totalCount })}

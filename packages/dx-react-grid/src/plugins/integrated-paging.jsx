@@ -1,9 +1,9 @@
 import React from 'react';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Plugin } from '@devexpress/dx-react-core';
 import { paginatedRows, rowsWithPageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'PagingState' },
+  { name: 'PagingState' },
 ];
 
 const clamp = (value, max) => Math.max(Math.min(value, max), 0);
@@ -26,15 +26,15 @@ const currentPageComputed = ({ currentPage, totalCount, pageSize }, { setCurrent
 export class IntegratedPaging extends React.PureComponent {
   render() {
     return (
-      <PluginContainer
-        pluginName="IntegratedPaging"
+      <Plugin
+        name="IntegratedPaging"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsWithHeadersComputed} />
         <Getter name="totalCount" computed={totalCountComputed} />
         <Getter name="currentPage" computed={currentPageComputed} />
         <Getter name="rows" computed={paginatedRowsComputed} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

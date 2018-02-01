@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Plugin } from '@devexpress/dx-react-core';
 import {
   groupRowChecker,
   groupRowLevelKeyGetter,
@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'GroupingState' },
+  { name: 'GroupingState' },
 ];
 
 const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
@@ -29,8 +29,8 @@ export class CustomGrouping extends React.PureComponent {
       customGroupedRows(rows, grouping, getChildGroups);
 
     return (
-      <PluginContainer
-        pluginName="CustomGrouping"
+      <Plugin
+        name="CustomGrouping"
         dependencies={pluginDependencies}
       >
         {appliedGrouping && (
@@ -44,7 +44,7 @@ export class CustomGrouping extends React.PureComponent {
         <Getter name="rows" computed={groupedRowsComputed} />
         <Getter name="getRowId" computed={getRowIdComputed} />
         <Getter name="rows" computed={expandedGroupedRowsComputed} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

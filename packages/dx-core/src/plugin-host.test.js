@@ -84,17 +84,17 @@ describe('PluginHost', () => {
     it('should validate dependencies after a pluginContainer was registered', () => {
       const plugin1 = {
         position: () => [0],
-        pluginName: 'Plugin1',
+        name: 'Plugin1',
         dependencies: [],
         container: true,
       };
       const plugin2 = {
         position: () => [2],
-        pluginName: 'Plugin2',
+        name: 'Plugin2',
         dependencies: [
-          { pluginName: 'Plugin1' },
-          { pluginName: 'Plugin3' },
-          { pluginName: 'Plugin4', optional: true },
+          { name: 'Plugin1' },
+          { name: 'Plugin3' },
+          { name: 'Plugin4', optional: true },
         ],
         container: true,
       };
@@ -112,23 +112,23 @@ describe('PluginHost', () => {
     it('should validate optional dependencies after a pluginContainer was registered', () => {
       const plugin1 = {
         position: () => [1],
-        pluginName: 'Plugin1',
+        name: 'Plugin1',
         dependencies: [
-          { pluginName: 'Plugin3', optional: true },
+          { name: 'Plugin3', optional: true },
         ],
         container: true,
       };
       const plugin2 = {
         position: () => [2],
-        pluginName: 'Plugin2',
+        name: 'Plugin2',
         dependencies: [
-          { pluginName: 'Plugin3', optional: true },
+          { name: 'Plugin3', optional: true },
         ],
         container: true,
       };
       const plugin3 = {
         position: () => [3],
-        pluginName: 'Plugin3',
+        name: 'Plugin3',
         dependencies: [],
         container: true,
       };
@@ -145,14 +145,14 @@ describe('PluginHost', () => {
     it('should validate dependencies after a pluginContainer was unregistered', () => {
       const plugin1 = {
         position: () => [0],
-        pluginName: 'Plugin1',
+        name: 'Plugin1',
         dependencies: [],
         container: true,
       };
       const plugin2 = {
         position: () => [1],
-        pluginName: 'Plugin2',
-        dependencies: [{ pluginName: 'Plugin1' }],
+        name: 'Plugin2',
+        dependencies: [{ name: 'Plugin1' }],
         container: true,
       };
 

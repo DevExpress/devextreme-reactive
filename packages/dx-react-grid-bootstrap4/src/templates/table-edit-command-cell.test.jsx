@@ -18,9 +18,7 @@ describe('EditCommandCells', () => {
         <EditCommandCell style={{ width: '40px' }} />
       ));
       expect(tree.find('td').prop('style'))
-        .toEqual({
-          whiteSpace: 'nowrap',
-          textAlign: 'center',
+        .toMatchObject({
           padding: 0,
           width: '40px',
         });
@@ -42,11 +40,8 @@ describe('EditCommandCells', () => {
         <EditCommandHeadingCell style={{ width: '40px' }} />
       ));
       expect(tree.find('th').prop('style'))
-        .toEqual({
-          whiteSpace: 'nowrap',
-          textAlign: 'center',
+        .toMatchObject({
           padding: 0,
-          borderTop: 0,
           width: '40px',
         });
     });
@@ -92,7 +87,7 @@ describe('EditCommandCells', () => {
         />
       ));
       expect(tree.find('button').prop('style'))
-        .toEqual({
+        .toMatchObject({
           padding: 11,
           width: '40px',
         });

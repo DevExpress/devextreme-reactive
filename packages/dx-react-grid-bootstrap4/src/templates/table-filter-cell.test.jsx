@@ -44,9 +44,8 @@ describe('TableFilterCell', () => {
       <TableFilterCell style={{ width: '40px' }} />
     ));
     expect(tree.find('th').prop('style'))
-      .toEqual({
+      .toMatchObject({
         fontWeight: 'normal',
-        borderTop: 0,
         width: '40px',
       });
   });

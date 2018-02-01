@@ -62,7 +62,6 @@ export class TableHeaderCell extends React.PureComponent {
           ...(showSortingControls || draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           position: 'relative',
-          borderTop: 0,
           ...style,
         }}
         onClick={this.onClick}

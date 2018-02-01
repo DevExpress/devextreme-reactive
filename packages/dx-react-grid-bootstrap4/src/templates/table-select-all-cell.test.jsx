@@ -73,11 +73,9 @@ describe('TableSelectAllCell', () => {
       <TableSelectAllCell style={{ width: '40px' }} />
     ));
     expect(tree.find('th').prop('style'))
-      .toEqual({
-        cursor: 'pointer',
-        verticalAlign: 'middle',
-        borderTop: 0,
+      .toMatchObject({
         width: '40px',
+        verticalAlign: 'middle',
       });
   });
 });

@@ -36,7 +36,7 @@ describe('IntegratedSearching', () => {
       defaultDeps.getter.rows,
       defaultDeps.getter.columns,
       defaultDeps.getter.getCellValue,
-      "",
+      '',
       expect.any(Function),
       defaultDeps.getter.isGroupRow,
       defaultDeps.getter.getRowLevelKey,
